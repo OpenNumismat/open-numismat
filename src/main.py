@@ -3,6 +3,8 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtSql import *
 
+from EditCoinDialog import EditCoinDialog
+
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -49,15 +51,15 @@ class MainWindow(QtGui.QMainWindow):
              reverse BLOB \
             )")
 
-        model = QSqlTableModel(None, db)
-        model.setTable("coins")
+        self.model = QSqlTableModel(None, db)
+        self.model.setTable("coins")
         
-        model.select()
+        self.model.select()
         
-        model.setHeaderData(0, QtCore.Qt.Horizontal, "Name")
+        self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Name")
         
         view = QtGui.QTableView()
-        view.setModel(model)
+        view.setModel(self.model)
         view.resizeRowsToContents()
         
         view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
@@ -76,7 +78,22 @@ class MainWindow(QtGui.QMainWindow):
         file = menubar.addMenu('&File')
         file.addAction(exit)
 
+        add_coin = QtGui.QAction(QtGui.QIcon('icons/add_coin.png'), 'Add', self)
+        add_coin.setShortcut('Shift+Ins')
+        add_coin.setStatusTip('Add new coin')
+        add_coin.triggered.connect(self.addCoin)
+
+        coin = menubar.addMenu('Coin')
+        coin.addAction(add_coin)
+
         self.setCentralWidget(view)
+        
+    def addCoin(self):
+        record = self.model.record()
+        dialog = EditCoinDialog(record, self)
+        dialog.exec_()
+        rec = dialog.getRecord()
+        self.model.insertRecord(-1, rec)
 
 if __name__ == '__main__':
     import sys
