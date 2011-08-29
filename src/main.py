@@ -52,6 +52,7 @@ class MainWindow(QtGui.QMainWindow):
             )")
 
         self.model = QSqlTableModel(None, db)
+        self.model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         self.model.setTable("coins")
         
         self.model.select()
@@ -65,6 +66,7 @@ class MainWindow(QtGui.QMainWindow):
         view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         view.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        view.doubleClicked.connect(self.itemDClicked)
         
         self.resize(350, 250)
         self.setWindowTitle('Num')
@@ -94,7 +96,16 @@ class MainWindow(QtGui.QMainWindow):
         dialog.exec_()
         rec = dialog.getRecord()
         self.model.insertRecord(-1, rec)
-
+        self.model.submitAll()
+        
+    def itemDClicked(self, index):
+        record = self.model.record(index.row())
+        dialog = EditCoinDialog(record, self)
+        dialog.exec_()
+        rec = dialog.getRecord()
+        self.model.setRecord(index.row(), rec)
+        self.model.submitAll()
+        
 if __name__ == '__main__':
     import sys
     app = QtGui.QApplication(sys.argv)
