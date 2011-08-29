@@ -1,4 +1,4 @@
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui, QtCore, QtNetwork
 from PyQt4.QtCore import Qt
 
 MAX_IMAGE_WIDTH = 1024
@@ -71,8 +71,35 @@ class ImageLabel(QtGui.QLabel):
             self.image.save(fileName)
     
     def pasteImage(self):
-        raise
+        mime = QtGui.QApplication.clipboard().mimeData()
+        if mime.hasUrls():
+            self.image.load(mime.urls()[0])
+        elif mime.hasImage():
+            self.image = mime.imageData()
+        elif mime.hasText():
+            # http://blog.mrcongwang.com/2009/07/21/applying-system-proxy-settings-to-qt-application/
+            # http://www.erata.net/qt-boost/synchronous-http-request/
+            url = QtCore.QUrl("http://www.stockmusic.com/uploads/wmm01-p.jpg");
+            self.bytes = QtCore.QByteArray()
+            buffer = QtCore.QBuffer(self.bytes)
+            buffer.open(QtCore.QIODevice.WriteOnly);
+            http = QtNetwork.QHttp(self)
+            http.requestFinished.connect(self.requestFinished)
+            http.setHost(url.host());
+            self.Request=http.get(url.path(),buffer);
+        else:
+            return
+
+        self.__setImage()
     
+    def requestFinished(self, requestId, error):
+        print(requestId, self.Request, error)
+        if self.Request == requestId:
+            self.image = QtGui.QImage()
+            print(self.bytes)
+            self.image.loadFromData(self.bytes);
+            self.__setImage()
+
     def editImage(self):
         raise
     
