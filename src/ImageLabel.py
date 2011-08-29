@@ -8,14 +8,83 @@ class ImageLabel(QtGui.QLabel):
     def __init__(self, parent=None):
         super(ImageLabel, self).__init__(parent)
         
-        self.image = QtGui.QImage()
+        self.__clearImage()
+        
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.contextMenu)
 
         self.setBackgroundRole(QtGui.QPalette.Base)
         self.setSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Ignored)
         self.setFrameStyle(QtGui.QFrame.Panel | QtGui.QFrame.Plain)
         self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
 
+    def contextMenu(self, pos):
+        style = QtGui.QApplication.style()
+
+        icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
+        open = QtGui.QAction(icon, 'Open...', self)
+        open.triggered.connect(self.openImage)
+
+        paste = QtGui.QAction('Paste', self)
+        paste.triggered.connect(self.pasteImage)
+
+        icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
+        delete = QtGui.QAction(icon, 'Delete', self)
+        delete.triggered.connect(self.deleteImage)
+
+        icon = style.standardIcon(QtGui.QStyle.SP_DriveFDIcon)
+        save = QtGui.QAction(icon, 'Save as...', self)
+        save.triggered.connect(self.saveImage)
+
+        edit = QtGui.QAction('Edit...', self)
+        edit.triggered.connect(self.editImage)
+
+        menu = QtGui.QMenu()
+        menu.addAction(open)
+        menu.addAction(paste)
+        menu.addAction(delete)
+        if self.image.isNull():
+            delete.setEnabled(False)
+        menu.addAction(save)
+        if self.image.isNull():
+            save.setEnabled(False)
+        menu.addAction(edit)
+        if self.image.isNull():
+            edit.setEnabled(False)
+        menu.exec_(self.mapToGlobal(pos))
+        
+    def openImage(self):
+        fileName = QtGui.QFileDialog.getOpenFileName(self,
+                "Open File", QtCore.QDir.currentPath(),
+                "Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)")
+        if fileName:
+            self.loadFromFile(fileName)
+
+    def deleteImage(self):
+        self.__clearImage()
+    
+    def saveImage(self):
+        fileName = QtGui.QFileDialog.getSaveFileName(self,
+                "Save File", QtCore.QDir.currentPath(),
+                "Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)")
+        if fileName:
+            self.image.save(fileName)
+    
+    def pasteImage(self):
+        raise
+    
+    def editImage(self):
+        raise
+    
+    def __clearImage(self):
+        self.image = QtGui.QImage()
+        self.setPixmap(QtGui.QPixmap.fromImage(self.image))
+        self.setText("No image available\n(right-click to add an image)")
+
     def __setImage(self):
+        if self.image.isNull():
+            return
+        
         # Label not shown => can't get size for resizing image
         if not self.isVisible():
             return

@@ -21,13 +21,6 @@ class EditCoinDialog(QtGui.QDialog):
         layout.addWidget(labels[1],1,0)
         layout.addWidget(self.edit2,1,1)
         
-        btn = QtGui.QPushButton(self)
-        style = QtGui.QApplication.style()
-        icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
-        btn.setIcon(icon)
-        btn.clicked.connect(self.addImage)
-        layout.addWidget(btn,2,0)
-        
 #http://doc.qt.nokia.com/latest/widgets-imageviewer.html
         self.imageLabel = ImageLabel()
         layout.setRowMinimumHeight(2, 100) 
@@ -47,12 +40,6 @@ class EditCoinDialog(QtGui.QDialog):
             
             if not self.record.isNull('obverse'):
                 self.imageLabel.loadFromData(self.record.value('obverse'))
-    
-    def addImage(self):
-        fileName = QtGui.QFileDialog.getOpenFileName(self,
-                                     "Open File", QtCore.QDir.currentPath())
-        if fileName:
-            self.imageLabel.loadFromFile(fileName)
     
     def save(self):
         self.record.setValue('title', self.edit1.text())
