@@ -85,6 +85,12 @@ class MainWindow(QtGui.QMainWindow):
 
         self.setCentralWidget(view)
         
+        settings = QtCore.QSettings()
+        if settings.value('mainwindow/maximized') == 'true':
+            self.setWindowState(self.windowState() | QtCore.Qt.WindowMaximized)
+        else:
+            self.resize(settings.value('mainwindow/size'))
+
     def addCoin(self):
         record = self.model.record()
         dialog = EditCoinDialog(record, self)
@@ -92,11 +98,22 @@ class MainWindow(QtGui.QMainWindow):
         rec = dialog.getRecord()
         self.model.insertRecord(-1, rec)
         self.model.submitAll()
-
+    
+    def closeEvent(self, e):
+        settings = QtCore.QSettings()
+        settings.setValue('mainwindow/size', self.size());
+        settings.setValue('mainwindow/maximized', self.isMaximized());
+    
 def run():
     import sys
 
     app = QtGui.QApplication(sys.argv)
+
+    # TODO: Fill application fields
+    QtCore.QCoreApplication.setOrganizationName("MySoft");
+    QtCore.QCoreApplication.setOrganizationDomain("mysoft.com");
+    QtCore.QCoreApplication.setApplicationName("Star Runner");
+
     translator = QtCore.QTranslator()
     translator.load('lang_'+QtCore.QLocale.system().name());
     app.installTranslator(translator);
@@ -104,6 +121,6 @@ def run():
     main = MainWindow()
     main.show()
     sys.exit(app.exec_())
-            
+
 if __name__ == '__main__':
     run()
