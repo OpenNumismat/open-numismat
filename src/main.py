@@ -44,12 +44,22 @@ class MainWindow(QtGui.QMainWindow):
              catalognum CHAR,\
              paydate CHAR, \
              payprice NUMERIC(10,2), \
+             saller CHAR, \
+             payplace CHAR, \
+             payinfo TEXT, \
              saledate CHAR, \
              saleprice NUMERIC(10,2), \
+             buyer CHAR, \
+             saleplace CHAR, \
+             saleinfo TEXT, \
              note TEXT, \
              hang TEXT, \
-             obverse BLOB, \
-             reverse BLOB \
+             obverseimg BLOB, \
+             reverseimg BLOB, \
+             edgeimg BLOB, \
+             photo1 BLOB, \
+             photo2 BLOB, \
+             photo3 BLOB \
             )")
 
         self.model = QSqlTableModel(None, db)
