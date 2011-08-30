@@ -101,10 +101,11 @@ class MainWindow(QtGui.QMainWindow):
     def itemDClicked(self, index):
         record = self.model.record(index.row())
         dialog = EditCoinDialog(record, self)
-        dialog.exec_()
-        rec = dialog.getRecord()
-        self.model.setRecord(index.row(), rec)
-        self.model.submitAll()
+        result = dialog.exec_()
+        if result == QtGui.QDialog.Accepted:
+            updatedRecord = dialog.getRecord()
+            self.model.setRecord(index.row(), updatedRecord)
+            self.model.submitAll()
         
 if __name__ == '__main__':
     import sys

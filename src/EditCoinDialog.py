@@ -21,7 +21,6 @@ class EditCoinDialog(QtGui.QDialog):
         layout.addWidget(labels[1],1,0)
         layout.addWidget(self.edit2,1,1)
         
-#http://doc.qt.nokia.com/latest/widgets-imageviewer.html
         self.imageLabel = ImageLabel()
         layout.setRowMinimumHeight(2, 100) 
         layout.addWidget(self.imageLabel,2,1)
@@ -30,7 +29,7 @@ class EditCoinDialog(QtGui.QDialog):
         buttonBox.addButton(QtGui.QDialogButtonBox.Save);
         buttonBox.addButton(QtGui.QDialogButtonBox.Cancel);
         buttonBox.accepted.connect(self.save);
-        buttonBox.rejected.connect(self.close);
+        buttonBox.rejected.connect(self.reject);
         layout.addWidget(buttonBox,3,1)
 
         self.setLayout(layout)
@@ -44,7 +43,8 @@ class EditCoinDialog(QtGui.QDialog):
     def save(self):
         self.record.setValue('title', self.edit1.text())
         self.record.setValue('obverse', self.imageLabel.data())
-        self.close()
+
+        self.accept()
 
     def getRecord(self):
         return self.record
