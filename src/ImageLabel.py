@@ -27,22 +27,22 @@ class ImageLabel(QtGui.QLabel):
         style = QtGui.QApplication.style()
 
         icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
-        load = QtGui.QAction(icon, 'Load...', self)
+        load = QtGui.QAction(icon, self.tr("Load..."), self)
         load.triggered.connect(self.openImage)
 
-        paste = QtGui.QAction('Paste', self)
+        paste = QtGui.QAction(self.tr("Paste"), self)
         paste.triggered.connect(self.pasteImage)
 
-        copy = QtGui.QAction('Copy', self)
+        copy = QtGui.QAction(self.tr("Copy"), self)
         copy.triggered.connect(self.copyImage)
         copy.setDisabled(self.image.isNull())
 
         icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
-        delete = QtGui.QAction(icon, 'Delete', self)
+        delete = QtGui.QAction(icon, self.tr("Delete"), self)
         delete.triggered.connect(self.deleteImage)
         delete.setDisabled(self.image.isNull())
 
-        save = QtGui.QAction('Save as...', self)
+        save = QtGui.QAction(self.tr("Save as..."), self)
         save.triggered.connect(self.saveImage)
         save.setDisabled(self.image.isNull())
 
@@ -64,8 +64,8 @@ class ImageLabel(QtGui.QLabel):
         
     def openImage(self):
         fileName = QtGui.QFileDialog.getOpenFileName(self,
-                "Open File", ImageLabel.latestDir,
-                "Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)")
+                self.tr("Open File"), ImageLabel.latestDir,
+                self.tr("Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)"))
         if fileName:
             ImageLabel.latestDir = QtCore.QDir(fileName).absolutePath()
             self.loadFromFile(fileName)
@@ -76,8 +76,8 @@ class ImageLabel(QtGui.QLabel):
     def saveImage(self):
         # TODO: Change latestDir to user's pictures dir
         fileName = QtGui.QFileDialog.getSaveFileName(self,
-                "Save File", ImageLabel.latestDir,
-                "Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)")
+                self.tr("Save File"), ImageLabel.latestDir,
+                self.tr("Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)"))
         if fileName:
             ImageLabel.latestDir = QtCore.QDir(fileName).absolutePath()
             self.image.save(fileName)
@@ -111,7 +111,7 @@ class ImageLabel(QtGui.QLabel):
     def __clearImage(self):
         self.image = QtGui.QImage()
         self.setPixmap(QtGui.QPixmap.fromImage(self.image))
-        self.setText("No image available\n(right-click to add an image)")
+        self.setText(self.tr("No image available\n(right-click to add an image)"))
 
     def __setImage(self):
         if self.image.isNull():
@@ -154,9 +154,5 @@ class ImageLabel(QtGui.QLabel):
         return ba
 
 if __name__ == '__main__':
-    import sys
-    from main import MainWindow
-    app = QtGui.QApplication(sys.argv)
-    main = MainWindow()
-    main.show()
-    sys.exit(app.exec_())
+    from main import run
+    run()

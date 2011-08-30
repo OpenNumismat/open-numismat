@@ -10,7 +10,7 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         
-        db = QSqlDatabase.addDatabase("QSQLITE")
+        db = QSqlDatabase.addDatabase('QSQLITE')
         
         db.setDatabaseName("../db/COLLECTION.DB")
         if not db.open():
@@ -54,33 +54,33 @@ class MainWindow(QtGui.QMainWindow):
 
         self.model = QSqlTableModel(None, db)
         self.model.setEditStrategy(QSqlTableModel.OnManualSubmit)
-        self.model.setTable("coins")
+        self.model.setTable('coins')
         
         self.model.select()
         
-        self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Name")
+        self.model.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Name"))
         
         view = TableView()
         view.setModel(self.model)
         
         self.resize(350, 250)
-        self.setWindowTitle('Num')
+        self.setWindowTitle(self.tr("Num"))
 
-        exit = QtGui.QAction(QtGui.QIcon('icons/exit.png'), 'Exit', self)
+        exit = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
         exit.setShortcut('Ctrl+Q')
-        exit.setStatusTip('Exit application')
-        self.connect(exit, QtCore.SIGNAL('triggered()'), QtCore.SLOT('close()'))
+        exit.setStatusTip(self.tr("Exit application"))
+        exit.triggered.connect(self.close)
 
         menubar = self.menuBar()
-        file = menubar.addMenu('&File')
+        file = menubar.addMenu(self.tr("&File"))
         file.addAction(exit)
 
-        add_coin = QtGui.QAction(QtGui.QIcon('icons/add_coin.png'), 'Add', self)
+        add_coin = QtGui.QAction(QtGui.QIcon('icons/add_coin.png'), self.tr("Add"), self)
         add_coin.setShortcut('Shift+Ins')
-        add_coin.setStatusTip('Add new coin')
+        add_coin.setStatusTip(self.tr("Add new coin"))
         add_coin.triggered.connect(self.addCoin)
 
-        coin = menubar.addMenu('Coin')
+        coin = menubar.addMenu(self.tr("Coin"))
         coin.addAction(add_coin)
 
         self.setCentralWidget(view)
@@ -92,10 +92,18 @@ class MainWindow(QtGui.QMainWindow):
         rec = dialog.getRecord()
         self.model.insertRecord(-1, rec)
         self.model.submitAll()
-        
-if __name__ == '__main__':
+
+def run():
     import sys
+
     app = QtGui.QApplication(sys.argv)
+    translator = QtCore.QTranslator()
+    translator.load('lang_'+QtCore.QLocale.system().name());
+    app.installTranslator(translator);
+
     main = MainWindow()
     main.show()
     sys.exit(app.exec_())
+            
+if __name__ == '__main__':
+    run()

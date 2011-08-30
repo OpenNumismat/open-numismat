@@ -23,9 +23,5 @@ class TableView(QtGui.QTableView):
             self.model().submitAll()
     
 if __name__ == '__main__':
-    import sys
-    from main import MainWindow
-    app = QtGui.QApplication(sys.argv)
-    main = MainWindow()
-    main.show()
-    sys.exit(app.exec_())
+    from main import run
+    run()

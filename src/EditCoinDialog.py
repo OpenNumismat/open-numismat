@@ -10,7 +10,7 @@ class EditCoinDialog(QtGui.QDialog):
         self.record = record
         
         labels = []
-        for column in ['Name', 'par']:
+        for column in [self.tr("Name"), self.tr("par")]:
             labels.append(QtGui.QLabel(column, self))
         self.edit1 = QtGui.QLineEdit()
         self.edit2 = QtGui.QLineEdit()
@@ -50,9 +50,5 @@ class EditCoinDialog(QtGui.QDialog):
         return self.record
 
 if __name__ == '__main__':
-    import sys
-    from main import MainWindow
-    app = QtGui.QApplication(sys.argv)
-    main = MainWindow()
-    main.show()
-    sys.exit(app.exec_())
+    from main import run
+    run()
