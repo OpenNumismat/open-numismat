@@ -32,23 +32,30 @@ class ImageLabel(QtGui.QLabel):
         paste = QtGui.QAction('Paste', self)
         paste.triggered.connect(self.pasteImage)
 
+        copy = QtGui.QAction('Copy', self)
+        copy.triggered.connect(self.copyImage)
+        copy.setDisabled(self.image.isNull())
+
         icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
         delete = QtGui.QAction(icon, 'Delete', self)
         delete.triggered.connect(self.deleteImage)
+        delete.setDisabled(self.image.isNull())
 
         save = QtGui.QAction('Save as...', self)
         save.triggered.connect(self.saveImage)
+        save.setDisabled(self.image.isNull())
+
+        separator = QtGui.QAction(self)
+        separator.setSeparator(True)
 
         menu = QtGui.QMenu()
         menu.addAction(open)
         menu.setDefaultAction(open)
-        menu.addAction(paste)
-        menu.addAction(delete)
-        if self.image.isNull():
-            delete.setEnabled(False)
         menu.addAction(save)
-        if self.image.isNull():
-            save.setEnabled(False)
+        menu.addAction(separator)
+        menu.addAction(paste)
+        menu.addAction(copy)
+        menu.addAction(delete)
         menu.exec_(self.mapToGlobal(pos))
     
     def mouseDoubleClickEvent(self, e):
@@ -95,9 +102,11 @@ class ImageLabel(QtGui.QLabel):
 
         self.__setImage()
 
-    def editImage(self):
-        raise
-    
+    def copyImage(self):
+        if not self.image.isNull():
+            clipboard = QtGui.QApplication.clipboard()
+            clipboard.setImage(self.image)
+
     def __clearImage(self):
         self.image = QtGui.QImage()
         self.setPixmap(QtGui.QPixmap.fromImage(self.image))
