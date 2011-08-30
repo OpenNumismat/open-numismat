@@ -4,6 +4,7 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtSql import *
 
 from EditCoinDialog import EditCoinDialog
+from TableView import TableView
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -59,14 +60,8 @@ class MainWindow(QtGui.QMainWindow):
         
         self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Name")
         
-        view = QtGui.QTableView()
+        view = TableView()
         view.setModel(self.model)
-        view.resizeRowsToContents()
-        
-        view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
-        view.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
-        view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-        view.doubleClicked.connect(self.itemDClicked)
         
         self.resize(350, 250)
         self.setWindowTitle('Num')
@@ -97,15 +92,6 @@ class MainWindow(QtGui.QMainWindow):
         rec = dialog.getRecord()
         self.model.insertRecord(-1, rec)
         self.model.submitAll()
-        
-    def itemDClicked(self, index):
-        record = self.model.record(index.row())
-        dialog = EditCoinDialog(record, self)
-        result = dialog.exec_()
-        if result == QtGui.QDialog.Accepted:
-            updatedRecord = dialog.getRecord()
-            self.model.setRecord(index.row(), updatedRecord)
-            self.model.submitAll()
         
 if __name__ == '__main__':
     import sys
