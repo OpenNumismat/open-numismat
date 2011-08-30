@@ -3,6 +3,7 @@ from PyQt4.QtCore import Qt
 
 MAX_IMAGE_WIDTH = 1024
 MAX_IMAGE_HEIGHT = 1024
+IMAGE_FORMAT = 'jpg'
 
 class ImageLabel(QtGui.QLabel):
     latestDir = QtCore.QDir.currentPath()
@@ -26,8 +27,8 @@ class ImageLabel(QtGui.QLabel):
         style = QtGui.QApplication.style()
 
         icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
-        open = QtGui.QAction(icon, 'Open...', self)
-        open.triggered.connect(self.openImage)
+        load = QtGui.QAction(icon, 'Load...', self)
+        load.triggered.connect(self.openImage)
 
         paste = QtGui.QAction('Paste', self)
         paste.triggered.connect(self.pasteImage)
@@ -49,8 +50,8 @@ class ImageLabel(QtGui.QLabel):
         separator.setSeparator(True)
 
         menu = QtGui.QMenu()
-        menu.addAction(open)
-        menu.setDefaultAction(open)
+        menu.addAction(load)
+        menu.setDefaultAction(load)
         menu.addAction(save)
         menu.addAction(separator)
         menu.addAction(paste)
@@ -149,7 +150,7 @@ class ImageLabel(QtGui.QLabel):
             scaledImage = self.image.scaled(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         else:
             scaledImage = self.image
-        scaledImage.save(buffer, "PNG")
+        scaledImage.save(buffer, IMAGE_FORMAT)
         return ba
 
 if __name__ == '__main__':
