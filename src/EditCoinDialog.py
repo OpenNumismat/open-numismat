@@ -38,17 +38,29 @@ class EditCoinDialog(QtGui.QDialog):
         for column in columns.keys():
             self.images[column] = ImageLabel(self)
 
-        layout.addWidget(QtGui.QLabel(columns['obverseimg'], self),0,0)
+        imageLabel = QtGui.QLabel(columns['obverseimg'], self)
+        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        layout.addWidget(imageLabel,0,0)
         layout.addWidget(self.images['obverseimg'],1,0)
-        layout.addWidget(QtGui.QLabel(columns['reverseimg'], self),0,1)
+        imageLabel = QtGui.QLabel(columns['reverseimg'], self)
+        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        layout.addWidget(imageLabel,0,1)
         layout.addWidget(self.images['reverseimg'],1,1)
-        layout.addWidget(QtGui.QLabel(columns['edgeimg'], self),0,2)
+        imageLabel = QtGui.QLabel(columns['edgeimg'], self)
+        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        layout.addWidget(imageLabel,0,2)
         layout.addWidget(self.images['edgeimg'],1,2)
-        layout.addWidget(QtGui.QLabel(columns['photo1'], self),2,0)
+        imageLabel = QtGui.QLabel(columns['photo1'], self)
+        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        layout.addWidget(imageLabel,2,0)
         layout.addWidget(self.images['photo1'],3,0)
-        layout.addWidget(QtGui.QLabel(columns['photo2'], self),2,1)
+        imageLabel = QtGui.QLabel(columns['photo2'], self)
+        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        layout.addWidget(imageLabel,2,1)
         layout.addWidget(self.images['photo2'],3,1)
-        layout.addWidget(QtGui.QLabel(columns['photo3'], self),2,2)
+        imageLabel = QtGui.QLabel(columns['photo3'], self)
+        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        layout.addWidget(imageLabel,2,2)
         layout.addWidget(self.images['photo3'],3,2)
         layout.setRowMinimumHeight(1, 120)
         layout.setRowMinimumHeight(3, 120)
@@ -72,6 +84,11 @@ class EditCoinDialog(QtGui.QDialog):
 
         self.setLayout(layout)
 
+        settings = QtCore.QSettings()
+        size = settings.value('editcoinwindow/size')
+        if size:
+            self.resize(size)
+
         if not record.isEmpty():
             for column in self.edits.keys():
                 if not self.record.isNull(column):
@@ -93,6 +110,11 @@ class EditCoinDialog(QtGui.QDialog):
 
     def getRecord(self):
         return self.record
+    
+    def done(self, r):
+        settings = QtCore.QSettings()
+        settings.setValue('editcoinwindow/size', self.size());
+        super(EditCoinDialog, self).done(r)
 
 if __name__ == '__main__':
     from main import run
