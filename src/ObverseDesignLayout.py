@@ -15,17 +15,18 @@ class ObverseDesignLayout(BaseFormLayout):
 
         item = self.items[0]
         item.setWidget(ImageLabel(parent))
-        self.addRow(item)
-        self.setRowMinimumHeight(0, 120)
-        self.setColumnMinimumWidth(1, 160)
+        self.setColumnMinimumWidth(2, 160)
+        self.addWidget(item.widget(), 0, 2, 2, 1)
         
         item = self.items[1]
         item.setWidget(QtGui.QTextEdit(parent))
-        self.addRow(item)
+        self.addWidget(item.label(), 0, 0)
+        self.addWidget(item.widget(), 0, 1)
 
         item = self.items[2]
         item.setWidget(QtGui.QLineEdit(parent))
-        self.addRow(item)
+        self.addWidget(item.label(), 1, 0)
+        self.addWidget(item.widget(), 1, 1)
 
         if not record.isEmpty():
             for item in self.items:
