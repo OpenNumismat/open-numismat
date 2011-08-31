@@ -1,5 +1,4 @@
 from PyQt4 import QtGui
-from PyQt4.QtCore import Qt
 
 from BaseFormLayout import BaseFormLayout
 from BaseFormLayout import FormItem as Item

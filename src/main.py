@@ -25,11 +25,12 @@ class MainWindow(QtGui.QMainWindow):
              year NUMERIC(4), \
              period CHAR, \
              mint CHAR, \
-             mintmark CHAR(10), \
+             mintmark CHAR, \
+             issuedate CHAR, \
              type CHAR, \
              series CHAR, \
              metal CHAR, \
-             probe NUMERIC(3,3), \
+             fineness NUMERIC(3), \
              form CHAR, \
              diameter NUMERIC(10,3), \
              thick NUMERIC(10,3), \
@@ -41,7 +42,9 @@ class MainWindow(QtGui.QMainWindow):
              state CHAR,\
              mintage INTEGER, \
              dateemis CHAR, \
-             catalognum CHAR,\
+             catalognum1 CHAR,\
+             catalognum2 CHAR,\
+             catalognum3 CHAR,\
              paydate CHAR, \
              payprice NUMERIC(10,2), \
              saller CHAR, \
@@ -55,7 +58,11 @@ class MainWindow(QtGui.QMainWindow):
              note TEXT, \
              hang TEXT, \
              obverseimg BLOB, \
+             obversedesign TEXT, \
+             obversedesigner CHAR, \
              reverseimg BLOB, \
+             reversedesign TEXT, \
+             reversedesigner CHAR, \
              edgeimg BLOB, \
              photo1 BLOB, \
              photo2 BLOB, \
