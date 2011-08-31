@@ -19,7 +19,7 @@ class MainWindow(QtGui.QMainWindow):
         QSqlQuery("CREATE TABLE IF NOT EXISTS coins \
             (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
              title CHAR NOT NULL, \
-             par NUMERIC(10,2), \
+             value NUMERIC(10,2), \
              unit CHAR, \
              country CHAR, \
              year NUMERIC(4), \
@@ -31,7 +31,7 @@ class MainWindow(QtGui.QMainWindow):
              metal CHAR, \
              probe NUMERIC(3,3), \
              form CHAR, \
-             diametr NUMERIC(10,3), \
+             diameter NUMERIC(10,3), \
              thick NUMERIC(10,3), \
              mass NUMERIC(10,3), \
              grade CHAR, \

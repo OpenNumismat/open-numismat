@@ -1,7 +1,9 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 
-from ImageLabel import ImageLabel
+from MainDetailsLayout import MainDetailsLayout
+from ParametersLayout import ParametersLayout
+from ImagesLayout import ImagesLayout
 
 class EditCoinDialog(QtGui.QDialog):
     def __init__(self, record, parent=None):
@@ -9,67 +11,33 @@ class EditCoinDialog(QtGui.QDialog):
         
         self.record = record
         
-        columns = {'title': "Name", 'par': 'par'}
-        
-        labels = {}
-        self.edits = {}
-        for column in columns.keys():
-            self.edits[column] = QtGui.QLineEdit(self)
-            labels[column] = QtGui.QLabel(columns[column], self)
-        
-        row = 0
-        layout = QtGui.QGridLayout(self)
-        for column in columns.keys():
-            layout.addWidget(labels[column], row, 0)
-            layout.addWidget(self.edits[column], row, 1)
-            row = row + 1
-        
         tab = QtGui.QTabWidget(self)
 
-        w = QtGui.QWidget(self)
-        w.setLayout(layout)
+        # Create Coin page
+        pageLayout = QtGui.QVBoxLayout(self)
+
+        groupBox = QtGui.QGroupBox(self.tr("Main details"))
+        groupBox.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.main = MainDetailsLayout(record, groupBox)
+        groupBox.setLayout(self.main)
+        pageLayout.addWidget(groupBox)
+        
+        groupBox = QtGui.QGroupBox(self.tr("Parameters"))
+        groupBox.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.parameters = ParametersLayout(record, groupBox)
+        groupBox.setLayout(self.parameters)
+        pageLayout.addWidget(groupBox)
+
+        # Convert layout to widget and add to tab page
+        w = QtGui.QWidget(tab)
+        w.setLayout(pageLayout)
         tab.addTab(w, self.tr("Coin"))
 
-        columns = {'obverseimg': "Obverse", 'reverseimg': "Reverse", 'edgeimg': "Edge", \
-                   'photo1': "Photo 1", 'photo2': "Photo 2", 'photo3': "Photo 3"}
-
-        layout = QtGui.QGridLayout(self)
-        self.images = {}
-        for column in columns.keys():
-            self.images[column] = ImageLabel(self)
-
-        imageLabel = QtGui.QLabel(columns['obverseimg'], self)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        layout.addWidget(imageLabel,0,0)
-        layout.addWidget(self.images['obverseimg'],1,0)
-        imageLabel = QtGui.QLabel(columns['reverseimg'], self)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        layout.addWidget(imageLabel,0,1)
-        layout.addWidget(self.images['reverseimg'],1,1)
-        imageLabel = QtGui.QLabel(columns['edgeimg'], self)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        layout.addWidget(imageLabel,0,2)
-        layout.addWidget(self.images['edgeimg'],1,2)
-        imageLabel = QtGui.QLabel(columns['photo1'], self)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        layout.addWidget(imageLabel,2,0)
-        layout.addWidget(self.images['photo1'],3,0)
-        imageLabel = QtGui.QLabel(columns['photo2'], self)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        layout.addWidget(imageLabel,2,1)
-        layout.addWidget(self.images['photo2'],3,1)
-        imageLabel = QtGui.QLabel(columns['photo3'], self)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        layout.addWidget(imageLabel,2,2)
-        layout.addWidget(self.images['photo3'],3,2)
-        layout.setRowMinimumHeight(1, 120)
-        layout.setRowMinimumHeight(3, 120)
-        layout.setColumnMinimumWidth(0, 160)
-        layout.setColumnMinimumWidth(1, 160)
-        layout.setColumnMinimumWidth(2, 160)
-        
-        w = QtGui.QWidget(self)
-        w.setLayout(layout)
+        # Create Images page
+        self.images = ImagesLayout(record, self)
+        # Convert layout to widget and add to tab page
+        w = QtGui.QWidget(tab)
+        w.setLayout(self.images)
         tab.addTab(w, self.tr("Images"))
 
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal);
@@ -89,22 +57,18 @@ class EditCoinDialog(QtGui.QDialog):
         if size:
             self.resize(size)
 
-        if not record.isEmpty():
-            for column in self.edits.keys():
-                if not self.record.isNull(column):
-                    value = self.record.value(column)
-                    self.edits[column].setText(str(value))
-            
-            for column in columns.keys():
-                if not self.record.isNull(column):
-                    self.images[column].loadFromData(self.record.value(column))
-    
     def save(self):
-        for column in self.edits.keys():
-            self.record.setValue(column, self.edits[column].text())
+        val = self.main.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
 
-        for column in self.images.keys():
-            self.record.setValue(column, self.images[column].data())
+        val = self.parameters.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
+        
+        val = self.images.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
 
         self.accept()
 
