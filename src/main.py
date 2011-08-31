@@ -99,7 +99,9 @@ class MainWindow(QtGui.QMainWindow):
         if settings.value('mainwindow/maximized') == 'true':
             self.setWindowState(self.windowState() | QtCore.Qt.WindowMaximized)
         else:
-            self.resize(settings.value('mainwindow/size'))
+            size = settings.value('mainwindow/size')
+            if size:
+                self.resize(size)
 
     def addCoin(self):
         record = self.model.record()
