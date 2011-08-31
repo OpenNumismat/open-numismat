@@ -3,6 +3,8 @@ from PyQt4.QtCore import Qt
 
 from MainDetailsLayout import MainDetailsLayout
 from ParametersLayout import ParametersLayout
+from ObverseDesignLayout import ObverseDesignLayout
+from ReverseDesignLayout import ReverseDesignLayout
 from ImagesLayout import ImagesLayout
 
 class EditCoinDialog(QtGui.QDialog):
@@ -32,6 +34,24 @@ class EditCoinDialog(QtGui.QDialog):
         w = QtGui.QWidget(tab)
         w.setLayout(pageLayout)
         tab.addTab(w, self.tr("Coin"))
+
+        # Create Design page
+        pageLayout = QtGui.QVBoxLayout(self)
+
+        groupBox = QtGui.QGroupBox(self.tr("Obverse"))
+        self.obverse = ObverseDesignLayout(record, groupBox)
+        groupBox.setLayout(self.obverse)
+        pageLayout.addWidget(groupBox)
+        
+        groupBox = QtGui.QGroupBox(self.tr("Reverse"))
+        self.reverse = ReverseDesignLayout(record, groupBox)
+        groupBox.setLayout(self.reverse)
+        pageLayout.addWidget(groupBox)
+
+        # Convert layout to widget and add to tab page
+        w = QtGui.QWidget(tab)
+        w.setLayout(pageLayout)
+        tab.addTab(w, self.tr("Design"))
 
         # Create Images page
         self.images = ImagesLayout(record, self)
@@ -66,6 +86,14 @@ class EditCoinDialog(QtGui.QDialog):
         for column in val.keys():
             self.record.setValue(column, val[column])
         
+        val = self.obverse.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
+
+        val = self.reverse.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
+
         val = self.images.values()
         for column in val.keys():
             self.record.setValue(column, val[column])

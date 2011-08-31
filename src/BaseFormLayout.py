@@ -1,5 +1,7 @@
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
+
+from ImageLabel import ImageLabel
 
 class FormItem(object):
     def __init__(self, field, title, parent=None):
@@ -28,17 +30,24 @@ class FormItem(object):
         return self._widget.text()
 
     def setValue(self, value):
-        return self._widget.setText(value)
+        if isinstance(self._widget, ImageLabel):
+            self._widget.loadFromData(value)
+        else: 
+            self._widget.setText(str(value))
 
 class BaseFormLayout(QtGui.QGridLayout):
     def __init__(self, record, parent=None):
         super(BaseFormLayout, self).__init__(parent)
         self.row = 0
+        self.columnCount = 4
 
     def addRow(self, item1, item2=None):
         if not item2:
             self.addWidget(item1.label(), self.row, 0)
-            self.addWidget(item1.widget(), self.row, 1, 1, 3)
+            if self.columnCount == 4:
+                self.addWidget(item1.widget(), self.row, 1, 1, 3)
+            else:
+                self.addWidget(item1.widget(), self.row, 1)
         else:
             self.addWidget(item1.label(), self.row, 0)
             self.addWidget(item1.widget(), self.row, 1)
