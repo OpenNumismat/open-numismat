@@ -45,6 +45,13 @@ class MainWindow(QtGui.QMainWindow):
              catalognum1 CHAR,\
              catalognum2 CHAR,\
              catalognum3 CHAR,\
+             rarity CHAR, \
+             price1 NUMERIC(10,3), \
+             price2 NUMERIC(10,3), \
+             price3 NUMERIC(10,3), \
+             price4 NUMERIC(10,3), \
+             price5 NUMERIC(10,3), \
+             price6 NUMERIC(10,3), \
              paydate CHAR, \
              payprice NUMERIC(10,2), \
              saller CHAR, \
