@@ -3,28 +3,17 @@ from PyQt4 import QtGui
 from BaseFormLayout import BaseFormLayout
 from BaseFormLayout import FormItem as Item
 
-class ParametersLayout(BaseFormLayout):
+class PayLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
-        super(ParametersLayout, self).__init__(parent)
+        super(PayLayout, self).__init__(parent)
         
-        self.items = [ Item('metal', "Metal", parent), 
-            Item('fineness', "Fineness", parent), Item('form', "Form", parent),
-            Item('diameter', "Diameter", parent), Item('thick', "Thick", parent),
-            Item('mass', "Mass", parent), Item('obvrev', "ObvRev", parent) ]
+        self.items = [ Item('paydate', "Date", parent), 
+            Item('payprice', "Price", parent), Item('saller', "Saller", parent),
+            Item('payplace', "Place", parent), Item('payinfo', "Info", parent) ]
         
-        item = self.items[0]
-        item.setWidget(QtGui.QLineEdit(parent))
-        self.addRow(item)
-
-        item1 = self.items[1]
+        item1 = self.items[0]
         item1.setWidget(QtGui.QLineEdit(parent))
-        item2 = self.items[5]
-        item2.setWidget(QtGui.QLineEdit(parent))
-        self.addRow(item1, item2)
-
-        item1 = self.items[3]
-        item1.setWidget(QtGui.QLineEdit(parent))
-        item2 = self.items[4]
+        item2 = self.items[1]
         item2.setWidget(QtGui.QLineEdit(parent))
         self.addRow(item1, item2)
 
@@ -32,8 +21,12 @@ class ParametersLayout(BaseFormLayout):
         item.setWidget(QtGui.QLineEdit(parent))
         self.addRow(item)
 
-        item = self.items[6]
+        item = self.items[3]
         item.setWidget(QtGui.QLineEdit(parent))
+        self.addRow(item)
+
+        item = self.items[4]
+        item.setWidget(QtGui.QTextEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

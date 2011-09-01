@@ -6,6 +6,11 @@ from ParametersLayout import ParametersLayout
 from ObverseDesignLayout import ObverseDesignLayout
 from ReverseDesignLayout import ReverseDesignLayout
 from EdgeDesignLayout import EdgeDesignLayout
+from ClassificationLayout import ClassificationLayout
+from MintingLayout import MintingLayout
+from StateLayout import StateLayout
+from PayLayout import PayLayout
+from SaleLayout import SaleLayout
 from ImagesLayout import ImagesLayout
 
 class EditCoinDialog(QtGui.QDialog):
@@ -31,10 +36,39 @@ class EditCoinDialog(QtGui.QDialog):
         groupBox.setLayout(self.parameters)
         pageLayout.addWidget(groupBox)
 
+        groupBox = QtGui.QGroupBox(self.tr("Minting"))
+        groupBox.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.minting = MintingLayout(record, self)
+        groupBox.setLayout(self.minting)
+        pageLayout.addWidget(groupBox)
+
         # Convert layout to widget and add to tab page
         w = QtGui.QWidget(tab)
         w.setLayout(pageLayout)
         tab.addTab(w, self.tr("Coin"))
+
+        # Create State page
+        pageLayout = QtGui.QVBoxLayout(self)
+
+        groupBox = QtGui.QGroupBox(self.tr("State"))
+        self.state = StateLayout(record, groupBox)
+        groupBox.setLayout(self.state)
+        pageLayout.addWidget(groupBox)
+        
+        groupBox = QtGui.QGroupBox(self.tr("Pay"))
+        self.pay = PayLayout(record, groupBox)
+        groupBox.setLayout(self.pay)
+        pageLayout.addWidget(groupBox)
+        
+        groupBox = QtGui.QGroupBox(self.tr("Sale"))
+        self.sale = SaleLayout(record, groupBox)
+        groupBox.setLayout(self.sale)
+        pageLayout.addWidget(groupBox)
+        
+        # Convert layout to widget and add to tab page
+        w = QtGui.QWidget(tab)
+        w.setLayout(pageLayout)
+        tab.addTab(w, self.tr("State"))
 
         # Create Design page
         pageLayout = QtGui.QVBoxLayout(self)
@@ -58,6 +92,13 @@ class EditCoinDialog(QtGui.QDialog):
         w = QtGui.QWidget(tab)
         w.setLayout(pageLayout)
         tab.addTab(w, self.tr("Design"))
+
+        # Create Classification page
+        self.classification = ClassificationLayout(record, self)
+        # Convert layout to widget and add to tab page
+        w = QtGui.QWidget(tab)
+        w.setLayout(self.classification)
+        tab.addTab(w, self.tr("Classification"))
 
         # Create Images page
         self.images = ImagesLayout(record, self)
@@ -92,6 +133,18 @@ class EditCoinDialog(QtGui.QDialog):
         for column in val.keys():
             self.record.setValue(column, val[column])
         
+        val = self.state.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
+        
+        val = self.pay.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
+        
+        val = self.sale.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
+        
         val = self.obverse.values()
         for column in val.keys():
             self.record.setValue(column, val[column])
@@ -101,6 +154,14 @@ class EditCoinDialog(QtGui.QDialog):
             self.record.setValue(column, val[column])
 
         val = self.edge.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
+
+        val = self.classification.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
+
+        val = self.minting.values()
         for column in val.keys():
             self.record.setValue(column, val[column])
 

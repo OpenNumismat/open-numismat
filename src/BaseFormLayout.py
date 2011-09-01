@@ -1,4 +1,4 @@
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
 from ImageLabel import ImageLabel
@@ -27,7 +27,12 @@ class FormItem(object):
         self._widget = widget
         
     def value(self):
-        return self._widget.text()
+        if isinstance(self._widget, QtGui.QTextEdit):
+            return self._widget.toPlainText()
+        if isinstance(self._widget, ImageLabel):
+            return self._widget.data()
+        else:
+            return self._widget.text()
 
     def setValue(self, value):
         if isinstance(self._widget, ImageLabel):

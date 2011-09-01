@@ -63,7 +63,6 @@ class MainWindow(QtGui.QMainWindow):
              saleplace CHAR, \
              saleinfo TEXT, \
              note TEXT, \
-             hang TEXT, \
              obverseimg BLOB, \
              obversedesign TEXT, \
              obversedesigner CHAR, \
@@ -73,7 +72,8 @@ class MainWindow(QtGui.QMainWindow):
              edgeimg BLOB, \
              photo1 BLOB, \
              photo2 BLOB, \
-             photo3 BLOB \
+             photo3 BLOB, \
+             photo4 BLOB \
             )")
 
         self.model = QSqlTableModel(None, db)
