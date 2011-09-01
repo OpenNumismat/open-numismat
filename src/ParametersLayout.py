@@ -10,8 +10,7 @@ class ParametersLayout(BaseFormLayout):
         self.items = [ Item('metal', "Metal", parent), 
             Item('probe', "Probe", parent), Item('form', "Form", parent),
             Item('diameter', "Diameter", parent), Item('thick', "Thick", parent),
-            Item('mass', "Mass", parent), Item('edge', "Edge", parent),
-            Item('edgelabel', "Edge label", parent), Item('obvrev', "ObvRev", parent) ]
+            Item('mass', "Mass", parent), Item('obvrev', "ObvRev", parent) ]
         
         item = self.items[0]
         item.setWidget(QtGui.QLineEdit(parent))
@@ -33,15 +32,7 @@ class ParametersLayout(BaseFormLayout):
         item.setWidget(QtGui.QLineEdit(parent))
         self.addRow(item)
 
-        item = self.items[8]
-        item.setWidget(QtGui.QLineEdit(parent))
-        self.addRow(item)
-
         item = self.items[6]
-        item.setWidget(QtGui.QLineEdit(parent))
-        self.addRow(item)
-
-        item = self.items[7]
         item.setWidget(QtGui.QLineEdit(parent))
         self.addRow(item)
 

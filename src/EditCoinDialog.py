@@ -5,6 +5,7 @@ from MainDetailsLayout import MainDetailsLayout
 from ParametersLayout import ParametersLayout
 from ObverseDesignLayout import ObverseDesignLayout
 from ReverseDesignLayout import ReverseDesignLayout
+from EdgeDesignLayout import EdgeDesignLayout
 from ImagesLayout import ImagesLayout
 
 class EditCoinDialog(QtGui.QDialog):
@@ -46,6 +47,11 @@ class EditCoinDialog(QtGui.QDialog):
         groupBox = QtGui.QGroupBox(self.tr("Reverse"))
         self.reverse = ReverseDesignLayout(record, groupBox)
         groupBox.setLayout(self.reverse)
+        pageLayout.addWidget(groupBox)
+
+        groupBox = QtGui.QGroupBox(self.tr("Edge"))
+        self.edge = EdgeDesignLayout(record, groupBox)
+        groupBox.setLayout(self.edge)
         pageLayout.addWidget(groupBox)
 
         # Convert layout to widget and add to tab page
@@ -91,6 +97,10 @@ class EditCoinDialog(QtGui.QDialog):
             self.record.setValue(column, val[column])
 
         val = self.reverse.values()
+        for column in val.keys():
+            self.record.setValue(column, val[column])
+
+        val = self.edge.values()
         for column in val.keys():
             self.record.setValue(column, val[column])
 
