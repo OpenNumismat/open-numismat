@@ -6,6 +6,7 @@ from ParametersLayout import ParametersLayout
 from ObverseDesignLayout import ObverseDesignLayout
 from ReverseDesignLayout import ReverseDesignLayout
 from EdgeDesignLayout import EdgeDesignLayout
+from SubjectLayout import SubjectLayout
 from ClassificationLayout import ClassificationLayout
 from MintingLayout import MintingLayout
 from StateLayout import StateLayout
@@ -19,93 +20,72 @@ class EditCoinDialog(QtGui.QDialog):
         
         self.record = record
         
-        tab = QtGui.QTabWidget(self)
+        self.tab = QtGui.QTabWidget(self)
+        
+        self.parts = []
 
         # Create Coin page
-        pageLayout = QtGui.QVBoxLayout(self)
-
-        groupBox = QtGui.QGroupBox(self.tr("Main details"))
-        groupBox.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        self.main = MainDetailsLayout(record, groupBox)
-        groupBox.setLayout(self.main)
-        pageLayout.addWidget(groupBox)
+        main = MainDetailsLayout(record)
+        groupBox1 = self.__layoutToGroupBox(main, self.tr("Main details"))
+        groupBox1.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.parts.append(main)
         
-        groupBox = QtGui.QGroupBox(self.tr("Parameters"))
-        groupBox.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        self.parameters = ParametersLayout(record, groupBox)
-        groupBox.setLayout(self.parameters)
-        pageLayout.addWidget(groupBox)
-
-        groupBox = QtGui.QGroupBox(self.tr("Minting"))
-        groupBox.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        self.minting = MintingLayout(record, self)
-        groupBox.setLayout(self.minting)
-        pageLayout.addWidget(groupBox)
-
-        # Convert layout to widget and add to tab page
-        w = QtGui.QWidget(tab)
-        w.setLayout(pageLayout)
-        tab.addTab(w, self.tr("Coin"))
+        state = StateLayout(record)
+        groupBox2 = self.__layoutToGroupBox(state, self.tr("State"))
+        self.parts.append(state)
+        
+        self.addTabPage(self.tr("Coin"), [groupBox1, groupBox2])
 
         # Create State page
-        pageLayout = QtGui.QVBoxLayout(self)
+        pay = PayLayout(record)
+        groupBox1 = self.__layoutToGroupBox(pay, self.tr("Pay"))
+        self.parts.append(pay)
+        
+        sale = SaleLayout(record)
+        groupBox2 = self.__layoutToGroupBox(sale, self.tr("Sale"))
+        self.parts.append(sale)
+        
+        self.addTabPage(self.tr("Traffic"), [groupBox1, groupBox2])
 
-        groupBox = QtGui.QGroupBox(self.tr("State"))
-        self.state = StateLayout(record, groupBox)
-        groupBox.setLayout(self.state)
-        pageLayout.addWidget(groupBox)
-        
-        groupBox = QtGui.QGroupBox(self.tr("Pay"))
-        self.pay = PayLayout(record, groupBox)
-        groupBox.setLayout(self.pay)
-        pageLayout.addWidget(groupBox)
-        
-        groupBox = QtGui.QGroupBox(self.tr("Sale"))
-        self.sale = SaleLayout(record, groupBox)
-        groupBox.setLayout(self.sale)
-        pageLayout.addWidget(groupBox)
-        
-        # Convert layout to widget and add to tab page
-        w = QtGui.QWidget(tab)
-        w.setLayout(pageLayout)
-        tab.addTab(w, self.tr("State"))
+        # Create Parameters page
+        parameters = ParametersLayout(record)
+        groupBox1 = self.__layoutToGroupBox(parameters, self.tr("Parameters"))
+        groupBox1.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.parts.append(parameters)
+
+        minting = MintingLayout(record)
+        groupBox2 = self.__layoutToGroupBox(minting, self.tr("Minting"))
+        groupBox2.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.parts.append(minting)
+
+        self.addTabPage(self.tr("Parameters"), [groupBox1, groupBox2])
 
         # Create Design page
-        pageLayout = QtGui.QVBoxLayout(self)
-
-        groupBox = QtGui.QGroupBox(self.tr("Obverse"))
-        self.obverse = ObverseDesignLayout(record, groupBox)
-        groupBox.setLayout(self.obverse)
-        pageLayout.addWidget(groupBox)
+        obverse = ObverseDesignLayout(record)
+        groupBox1 = self.__layoutToGroupBox(obverse, self.tr("Obverse"))
+        self.parts.append(obverse)
         
-        groupBox = QtGui.QGroupBox(self.tr("Reverse"))
-        self.reverse = ReverseDesignLayout(record, groupBox)
-        groupBox.setLayout(self.reverse)
-        pageLayout.addWidget(groupBox)
+        reverse = ReverseDesignLayout(record)
+        groupBox2 = self.__layoutToGroupBox(reverse, self.tr("Reverse"))
+        self.parts.append(reverse)
 
-        groupBox = QtGui.QGroupBox(self.tr("Edge"))
-        self.edge = EdgeDesignLayout(record, groupBox)
-        groupBox.setLayout(self.edge)
-        pageLayout.addWidget(groupBox)
+        edge = EdgeDesignLayout(record)
+        groupBox3 = self.__layoutToGroupBox(edge, self.tr("Edge"))
+        self.parts.append(edge)
 
-        # Convert layout to widget and add to tab page
-        w = QtGui.QWidget(tab)
-        w.setLayout(pageLayout)
-        tab.addTab(w, self.tr("Design"))
+        self.subject = SubjectLayout(record, self)
+
+        self.addTabPage(self.tr("Design"), [groupBox1, groupBox2, groupBox3, self.subject])
 
         # Create Classification page
-        self.classification = ClassificationLayout(record, self)
-        # Convert layout to widget and add to tab page
-        w = QtGui.QWidget(tab)
-        w.setLayout(self.classification)
-        tab.addTab(w, self.tr("Classification"))
+        classification = ClassificationLayout(record, self)
+        self.addTabPage(self.tr("Classification"), classification)
+        self.parts.append(classification)
 
         # Create Images page
-        self.images = ImagesLayout(record, self)
-        # Convert layout to widget and add to tab page
-        w = QtGui.QWidget(tab)
-        w.setLayout(self.images)
-        tab.addTab(w, self.tr("Images"))
+        images = ImagesLayout(record, self)
+        self.addTabPage(self.tr("Images"), images)
+        self.parts.append(images)
 
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal);
         buttonBox.addButton(QtGui.QDialogButtonBox.Save);
@@ -114,7 +94,7 @@ class EditCoinDialog(QtGui.QDialog):
         buttonBox.rejected.connect(self.reject);
 
         layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(tab)
+        layout.addWidget(self.tab)
         layout.addWidget(buttonBox)
 
         self.setLayout(layout)
@@ -123,51 +103,38 @@ class EditCoinDialog(QtGui.QDialog):
         size = settings.value('editcoinwindow/size')
         if size:
             self.resize(size)
+    
+    def __layoutToWidget(self, layout):
+        widget = QtGui.QWidget(self.tab)
+        widget.setLayout(layout)
+        return widget
+    
+    def __layoutToGroupBox(self, layout, title):
+        groupBox = QtGui.QGroupBox(title)
+        groupBox.setLayout(layout)
+        return groupBox
+    
+    def addTabPage(self, title, parts):
+        if isinstance(parts, list):
+            pageLayout = QtGui.QVBoxLayout(self)
+            # Fill layout with it's parts
+            for part in parts:
+                if isinstance(part, QtGui.QWidget):
+                    pageLayout.addWidget(part)
+                else:
+                    pageLayout.addLayout(part)
+
+            # Convert layout to widget and add to tab page
+            self.tab.addTab(self.__layoutToWidget(pageLayout), title)
+        else:
+            # Convert layout to widget and add to tab page
+            self.tab.addTab(self.__layoutToWidget(parts), title)
 
     def save(self):
-        val = self.main.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-
-        val = self.parameters.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-        
-        val = self.state.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-        
-        val = self.pay.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-        
-        val = self.sale.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-        
-        val = self.obverse.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-
-        val = self.reverse.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-
-        val = self.edge.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-
-        val = self.classification.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-
-        val = self.minting.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
-
-        val = self.images.values()
-        for column in val.keys():
-            self.record.setValue(column, val[column])
+        for part in self.parts:
+            val = part.values()
+            for column in val.keys():
+                self.record.setValue(column, val[column])
 
         self.accept()
 

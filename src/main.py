@@ -70,6 +70,7 @@ class MainWindow(QtGui.QMainWindow):
              reversedesign TEXT, \
              reversedesigner CHAR, \
              edgeimg BLOB, \
+             subject TEXT, \
              photo1 BLOB, \
              photo2 BLOB, \
              photo3 BLOB, \
@@ -132,7 +133,7 @@ class MainWindow(QtGui.QMainWindow):
     
 def run():
     import sys
-
+    
     app = QtGui.QApplication(sys.argv)
 
     # TODO: Fill application fields
