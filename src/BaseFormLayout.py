@@ -67,14 +67,14 @@ class ShortLineEdit(QtGui.QLineEdit):
     def sizeHint(self):
         return self.minimumSizeHint()
 
-class NumberEdit(QtGui.QSpinBox):
+class NumberEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(NumberEdit, self).__init__(parent)
-        self.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
-        self.setMinimum(0)
-        self.setMaximum(9999)
-        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        validator = QtGui.QIntValidator(0, 9999, parent)
+        self.setValidator(validator)
+        self.setMaxLength(15)
         self.setMinimumWidth(50)
+        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
 
 class ValueEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
@@ -130,21 +130,24 @@ class BaseFormLayout(QtGui.QGridLayout):
         if not item2:
             self.addWidget(item1.label(), self.row, 0)
             # NOTE: columnSpan parameter in addWidget don't work with value -1
+            # for 2-columns grid
             # self.addWidget(item1.widget(), self.row, 1, 1, -1)
-            if self.columnCount == 4:
-                self.addWidget(item1.widget(), self.row, 1, 1, 3)
-            else:
-                self.addWidget(item1.widget(), self.row, 1)
+            self.addWidget(item1.widget(), self.row, 1, 1, self.columnCount-1)
         else:
             if item1.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
                 item1.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
             self.addWidget(item1.label(), self.row, 0)
-            self.addWidget(item1.widget(), self.row, 1)
-    
-            if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
-                item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
-            self.addWidget(item2.label(), self.row, 2)
-            self.addWidget(item2.widget(), self.row, 3)
+
+            if isinstance(item2, QtGui.QAbstractButton):
+                self.addWidget(item1.widget(), self.row, 1, 1, 3)
+                self.addWidget(item2, self.row, 4)
+            else:
+                self.addWidget(item1.widget(), self.row, 1)
+        
+                if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
+                    item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+                self.addWidget(item2.label(), self.row, 2)
+                self.addWidget(item2.widget(), self.row, 3, 1, -1)
 
         self.row = self.row + 1
 
