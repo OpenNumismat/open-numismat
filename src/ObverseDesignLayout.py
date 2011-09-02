@@ -1,6 +1,7 @@
 from PyQt4 import QtGui
 
 from BaseFormLayout import BaseFormLayout
+from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, TextEdit
 from BaseFormLayout import FormItem as Item
 from ImageLabel import ImageLabel
 
@@ -19,12 +20,12 @@ class ObverseDesignLayout(BaseFormLayout):
         self.addWidget(item.widget(), 0, 2, 2, 1)
         
         item = self.items[1]
-        item.setWidget(QtGui.QTextEdit(parent))
+        item.setWidget(TextEdit(parent))
         self.addWidget(item.label(), 0, 0)
         self.addWidget(item.widget(), 0, 1)
 
         item = self.items[2]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addWidget(item.label(), 1, 0)
         self.addWidget(item.widget(), 1, 1)
 

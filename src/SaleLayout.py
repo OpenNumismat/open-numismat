@@ -1,6 +1,5 @@
-from PyQt4 import QtGui
-
 from BaseFormLayout import BaseFormLayout
+from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit, TextEdit
 from BaseFormLayout import FormItem as Item
 
 class SaleLayout(BaseFormLayout):
@@ -12,21 +11,21 @@ class SaleLayout(BaseFormLayout):
             Item('saleplace', "Place", parent), Item('saleinfo', "Info", parent) ]
         
         item1 = self.items[0]
-        item1.setWidget(QtGui.QLineEdit(parent))
+        item1.setWidget(LineEdit(parent))
         item2 = self.items[1]
-        item2.setWidget(QtGui.QLineEdit(parent))
+        item2.setWidget(ValueEdit(parent))
         self.addRow(item1, item2)
 
         item = self.items[2]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[3]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[4]
-        item.setWidget(QtGui.QTextEdit(parent))
+        item.setWidget(TextEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

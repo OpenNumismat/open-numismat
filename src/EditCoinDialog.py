@@ -63,14 +63,17 @@ class EditCoinDialog(QtGui.QDialog):
         # Create Design page
         obverse = ObverseDesignLayout(record)
         groupBox1 = self.__layoutToGroupBox(obverse, self.tr("Obverse"))
+        groupBox1.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         self.parts.append(obverse)
         
         reverse = ReverseDesignLayout(record)
         groupBox2 = self.__layoutToGroupBox(reverse, self.tr("Reverse"))
+        groupBox1.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         self.parts.append(reverse)
 
         edge = EdgeDesignLayout(record)
         groupBox3 = self.__layoutToGroupBox(edge, self.tr("Edge"))
+        groupBox1.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         self.parts.append(edge)
 
         self.subject = SubjectLayout(record, self)

@@ -1,6 +1,5 @@
-from PyQt4 import QtGui
-
 from BaseFormLayout import BaseFormLayout
+from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit
 from BaseFormLayout import FormItem as Item
 
 class ParametersLayout(BaseFormLayout):
@@ -13,27 +12,27 @@ class ParametersLayout(BaseFormLayout):
             Item('mass', "Mass", parent), Item('obvrev', "ObvRev", parent) ]
         
         item = self.items[0]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item1 = self.items[1]
-        item1.setWidget(QtGui.QLineEdit(parent))
+        item1.setWidget(LineEdit(parent))
         item2 = self.items[5]
-        item2.setWidget(QtGui.QLineEdit(parent))
+        item2.setWidget(ValueEdit(parent))
         self.addRow(item1, item2)
 
         item1 = self.items[3]
-        item1.setWidget(QtGui.QLineEdit(parent))
+        item1.setWidget(ValueEdit(parent))
         item2 = self.items[4]
-        item2.setWidget(QtGui.QLineEdit(parent))
+        item2.setWidget(ValueEdit(parent))
         self.addRow(item1, item2)
 
         item = self.items[2]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[6]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

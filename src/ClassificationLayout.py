@@ -1,6 +1,5 @@
-from PyQt4 import QtGui
-
 from BaseFormLayout import BaseFormLayout
+from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit
 from BaseFormLayout import FormItem as Item
 
 class ClassificationLayout(BaseFormLayout):
@@ -15,37 +14,37 @@ class ClassificationLayout(BaseFormLayout):
             Item('price6', "Proof", parent) ]
         
         item = self.items[0]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[1]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[2]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[3]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(ShortLineEdit(parent))
         self.addRow(item)
 
         item1 = self.items[4]
-        item1.setWidget(QtGui.QLineEdit(parent))
+        item1.setWidget(LineEdit(parent))
         item2 = self.items[5]
-        item2.setWidget(QtGui.QLineEdit(parent))
+        item2.setWidget(LineEdit(parent))
         self.addRow(item1, item2)
 
         item1 = self.items[6]
-        item1.setWidget(QtGui.QLineEdit(parent))
+        item1.setWidget(LineEdit(parent))
         item2 = self.items[7]
-        item2.setWidget(QtGui.QLineEdit(parent))
+        item2.setWidget(LineEdit(parent))
         self.addRow(item1, item2)
 
         item1 = self.items[8]
-        item1.setWidget(QtGui.QLineEdit(parent))
+        item1.setWidget(LineEdit(parent))
         item2 = self.items[9]
-        item2.setWidget(QtGui.QLineEdit(parent))
+        item2.setWidget(LineEdit(parent))
         self.addRow(item1, item2)
 
         if not record.isEmpty():

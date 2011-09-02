@@ -1,6 +1,5 @@
-from PyQt4 import QtGui
-
 from BaseFormLayout import BaseFormLayout
+from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit, TextEdit
 from BaseFormLayout import FormItem as Item
 
 class SubjectLayout(BaseFormLayout):
@@ -11,7 +10,7 @@ class SubjectLayout(BaseFormLayout):
         self.items = [ Item('subject', "Subject", parent) ]
         
         item = self.items[0]
-        item.setWidget(QtGui.QTextEdit(parent))
+        item.setWidget(TextEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

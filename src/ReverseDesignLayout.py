@@ -1,6 +1,7 @@
 from PyQt4 import QtGui
 
 from BaseFormLayout import FormItem as Item
+from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit, TextEdit
 from ImageLabel import ImageLabel
 
 class ReverseDesignLayout(QtGui.QGridLayout):
@@ -18,12 +19,12 @@ class ReverseDesignLayout(QtGui.QGridLayout):
         self.addWidget(item.widget(), 0, 2, 2, 1)
         
         item = self.items[1]
-        item.setWidget(QtGui.QTextEdit(parent))
+        item.setWidget(TextEdit(parent))
         self.addWidget(item.label(), 0, 0)
         self.addWidget(item.widget(), 0, 1)
 
         item = self.items[2]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addWidget(item.label(), 1, 0)
         self.addWidget(item.widget(), 1, 1)
 
