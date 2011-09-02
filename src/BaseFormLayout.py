@@ -76,6 +76,16 @@ class NumberEdit(QtGui.QLineEdit):
         self.setMinimumWidth(50)
         self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
 
+class BigIntEdit(QtGui.QLineEdit):
+    def __init__(self, parent=None):
+        super(BigIntEdit, self).__init__(parent)
+        validator = QtGui.QDoubleValidator(0, 999999999999999, 0, parent)
+        validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
+        self.setValidator(validator)
+        self.setMaxLength(15)
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+
 class ValueEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(ValueEdit, self).__init__(parent)

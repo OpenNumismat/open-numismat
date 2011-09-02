@@ -1,5 +1,5 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, MoneyEdit, DateEdit, TextEdit
+from BaseFormLayout import LineEdit, ShortLineEdit, MoneyEdit, DateEdit, BigIntEdit
 from BaseFormLayout import FormItem as Item
 
 class MintingLayout(BaseFormLayout):
@@ -12,7 +12,7 @@ class MintingLayout(BaseFormLayout):
         item1 = self.items[0]
         item1.setWidget(DateEdit(parent))
         item2 = self.items[2]
-        item2.setWidget(ShortLineEdit(parent))
+        item2.setWidget(BigIntEdit(parent))
         self.addRow(item1, item2)
 
         item = self.items[1]
