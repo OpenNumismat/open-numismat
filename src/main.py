@@ -25,7 +25,7 @@ class MainWindow(QtGui.QMainWindow):
              year NUMERIC(4), \
              period CHAR, \
              mint CHAR, \
-             mintmark CHAR, \
+             mintmark CHAR(10), \
              issuedate CHAR, \
              type CHAR, \
              series CHAR, \
@@ -45,13 +45,16 @@ class MainWindow(QtGui.QMainWindow):
              catalognum1 CHAR,\
              catalognum2 CHAR,\
              catalognum3 CHAR,\
-             rarity CHAR, \
-             price1 NUMERIC(10,3), \
-             price2 NUMERIC(10,3), \
-             price3 NUMERIC(10,3), \
-             price4 NUMERIC(10,3), \
-             price5 NUMERIC(10,3), \
-             price6 NUMERIC(10,3), \
+             rarity CHAR(10), \
+             price1 NUMERIC(10,2), \
+             price2 NUMERIC(10,2), \
+             price3 NUMERIC(10,2), \
+             price4 NUMERIC(10,2), \
+             price5 NUMERIC(10,2), \
+             price6 NUMERIC(10,2), \
+             obversevar TEXT, \
+             reversevar TEXT, \
+             edgevar TEXT, \
              paydate CHAR, \
              payprice NUMERIC(10,2), \
              saller CHAR, \

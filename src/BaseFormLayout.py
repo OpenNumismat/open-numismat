@@ -60,7 +60,7 @@ class LineEdit(QtGui.QLineEdit):
 class ShortLineEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(ShortLineEdit, self).__init__(parent)
-        self.setMaxLength(50)
+        self.setMaxLength(10)
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
     
