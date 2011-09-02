@@ -1,5 +1,5 @@
 from PyQt4 import QtGui
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, QDate
 
 from ImageLabel import ImageLabel
 
@@ -9,7 +9,8 @@ class FormItem(object):
         self._title = title
         self._widget = None
         self._label = QtGui.QLabel(title, parent)
-        self._label.setAlignment(Qt.AlignRight)
+        self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
+        self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
     
     def field(self):
         return self._field
@@ -29,6 +30,8 @@ class FormItem(object):
     def value(self):
         if isinstance(self._widget, QtGui.QTextEdit):
             return self._widget.toPlainText()
+        elif isinstance(self._widget, QtGui.QDateTimeEdit):
+            return self._widget.date().toString()
         elif isinstance(self._widget, QtGui.QAbstractSpinBox):
             return self._widget.value()
         elif isinstance(self._widget, ImageLabel):
@@ -44,6 +47,8 @@ class FormItem(object):
             self._widget.setValue(int(value))
         elif isinstance(self._widget, QtGui.QDoubleSpinBox):
             self._widget.setValue(float(value))
+        elif isinstance(self._widget, QtGui.QDateTimeEdit):
+            self._widget.setDate(QDate.fromString(str(value)))
         else: 
             self._widget.setText(str(value))
 
@@ -74,10 +79,23 @@ class NumberEdit(QtGui.QSpinBox):
 class ValueEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(ValueEdit, self).__init__(parent)
+        validator = QtGui.QDoubleValidator(0, 9999999999, 3, parent)
+        validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
+        self.setValidator(validator)
+        self.setMaxLength(15)
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+    
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+class MoneyEdit(QtGui.QLineEdit):
+    def __init__(self, parent=None):
+        super(MoneyEdit, self).__init__(parent)
         validator = QtGui.QDoubleValidator(0, 9999999999, 2, parent)
         validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
         self.setValidator(validator)
-        self.setMaxLength(50)
+        self.setMaxLength(15)
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
     
@@ -87,6 +105,17 @@ class ValueEdit(QtGui.QLineEdit):
 class TextEdit(QtGui.QTextEdit):
     def __init__(self, parent=None):
         super(TextEdit, self).__init__(parent)
+
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+class DateEdit(QtGui.QDateEdit):
+    def __init__(self, parent=None):
+        super(DateEdit, self).__init__(parent)
+        calendar = QtGui.QCalendarWidget()
+        calendar.setGridVisible(True)
+        self.setCalendarPopup(True)
+        self.setCalendarWidget(calendar)
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -107,9 +136,13 @@ class BaseFormLayout(QtGui.QGridLayout):
             else:
                 self.addWidget(item1.widget(), self.row, 1)
         else:
+            if item1.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
+                item1.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
             self.addWidget(item1.label(), self.row, 0)
             self.addWidget(item1.widget(), self.row, 1)
     
+            if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
+                item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
             self.addWidget(item2.label(), self.row, 2)
             self.addWidget(item2.widget(), self.row, 3)
 

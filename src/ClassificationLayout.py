@@ -1,5 +1,5 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit
+from BaseFormLayout import LineEdit, ShortLineEdit, MoneyEdit, ValueEdit
 from BaseFormLayout import FormItem as Item
 
 class ClassificationLayout(BaseFormLayout):
@@ -30,21 +30,21 @@ class ClassificationLayout(BaseFormLayout):
         self.addRow(item)
 
         item1 = self.items[4]
-        item1.setWidget(LineEdit(parent))
+        item1.setWidget(MoneyEdit(parent))
         item2 = self.items[5]
-        item2.setWidget(LineEdit(parent))
+        item2.setWidget(MoneyEdit(parent))
         self.addRow(item1, item2)
 
         item1 = self.items[6]
-        item1.setWidget(LineEdit(parent))
+        item1.setWidget(MoneyEdit(parent))
         item2 = self.items[7]
-        item2.setWidget(LineEdit(parent))
+        item2.setWidget(MoneyEdit(parent))
         self.addRow(item1, item2)
 
         item1 = self.items[8]
-        item1.setWidget(LineEdit(parent))
+        item1.setWidget(MoneyEdit(parent))
         item2 = self.items[9]
-        item2.setWidget(LineEdit(parent))
+        item2.setWidget(MoneyEdit(parent))
         self.addRow(item1, item2)
 
         if not record.isEmpty():

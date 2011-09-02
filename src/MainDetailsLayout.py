@@ -1,5 +1,5 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit
+from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit, MoneyEdit
 from BaseFormLayout import FormItem as Item
 
 class MainDetailsLayout(BaseFormLayout):
@@ -26,7 +26,7 @@ class MainDetailsLayout(BaseFormLayout):
         self.addRow(item)
 
         item1 = self.items[1]
-        item1.setWidget(ValueEdit(parent))
+        item1.setWidget(MoneyEdit(parent))
         item2 = self.items[2]
         item2.setWidget(LineEdit(parent))
         self.addRow(item1, item2)

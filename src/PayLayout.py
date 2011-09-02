@@ -1,5 +1,5 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit, TextEdit
+from BaseFormLayout import LineEdit, ShortLineEdit, MoneyEdit, DateEdit, TextEdit
 from BaseFormLayout import FormItem as Item
 
 class PayLayout(BaseFormLayout):
@@ -11,9 +11,9 @@ class PayLayout(BaseFormLayout):
             Item('payplace', "Place", parent), Item('payinfo', "Info", parent) ]
         
         item1 = self.items[0]
-        item1.setWidget(LineEdit(parent))
+        item1.setWidget(DateEdit(parent))
         item2 = self.items[1]
-        item2.setWidget(ValueEdit(parent))
+        item2.setWidget(MoneyEdit(parent))
         self.addRow(item1, item2)
 
         item = self.items[2]

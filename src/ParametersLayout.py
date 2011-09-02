@@ -16,7 +16,7 @@ class ParametersLayout(BaseFormLayout):
         self.addRow(item)
 
         item1 = self.items[1]
-        item1.setWidget(LineEdit(parent))
+        item1.setWidget(NumberEdit(parent))
         item2 = self.items[5]
         item2.setWidget(ValueEdit(parent))
         self.addRow(item1, item2)

@@ -1,6 +1,5 @@
-from PyQt4 import QtGui
-
 from BaseFormLayout import BaseFormLayout
+from BaseFormLayout import LineEdit, ShortLineEdit, MoneyEdit, DateEdit, TextEdit
 from BaseFormLayout import FormItem as Item
 
 class MintingLayout(BaseFormLayout):
@@ -10,14 +9,14 @@ class MintingLayout(BaseFormLayout):
         self.items = [ Item('issuedate', "Date of issue", parent), 
             Item('dateemis', "Emission period", parent), Item('mintage', "Mintage", parent) ]
         
-        item1 = self.items[2]
-        item1.setWidget(QtGui.QLineEdit(parent))
-        item2 = self.items[0]
-        item2.setWidget(QtGui.QLineEdit(parent))
+        item1 = self.items[0]
+        item1.setWidget(DateEdit(parent))
+        item2 = self.items[2]
+        item2.setWidget(ShortLineEdit(parent))
         self.addRow(item1, item2)
 
         item = self.items[1]
-        item.setWidget(QtGui.QLineEdit(parent))
+        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():
