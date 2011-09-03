@@ -1,33 +1,18 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItem as Item
 from BaseFormLayout import FormItemTypes as Type
 
 class StateLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
         super(StateLayout, self).__init__(parent)
         
-        self.items = [ Item('state', "State", Type.String, parent), 
-            Item('grade', "Grade", Type.String, parent),
-            Item('note', "Note", Type.Text, parent) ]
+        self.addItem('state', "State", Type.String) 
+        self.addItem('grade', "Grade", Type.String)
+        self.addItem('note', "Note", Type.Text)
         
-        item1 = self.items[0]
-        item2 = self.items[1]
-        self.addRow(item1, item2)
+        self.addRow(self.item('state'), self.item('grade'))
+        self.addRow(self.item('note'))
 
-        item = self.items[2]
-        self.addRow(item)
-
-        if not record.isEmpty():
-            for item in self.items:
-                if not record.isNull(item.field()):
-                    value = record.value(item.field())
-                    item.setValue(str(value))
-
-    def values(self):
-        val = {}
-        for item in self.items:
-            val[item.field()] = item.value()
-        return val
+        self.fillItems(record)
 
 if __name__ == '__main__':
     from main import run

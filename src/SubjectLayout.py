@@ -1,5 +1,4 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItem as Item
 from BaseFormLayout import FormItemTypes as Type
 
 class SubjectLayout(BaseFormLayout):
@@ -7,22 +6,11 @@ class SubjectLayout(BaseFormLayout):
         super(SubjectLayout, self).__init__(parent)
         self.columnCount = 2
         
-        self.items = [ Item('subject', "Subject", Type.Text, parent) ]
+        self.addItem('subject', "Subject", Type.Text)
         
-        item = self.items[0]
-        self.addRow(item)
+        self.addRow(self.item('subject'))
 
-        if not record.isEmpty():
-            for item in self.items:
-                if not record.isNull(item.field()):
-                    value = record.value(item.field())
-                    item.setValue(str(value))
-
-    def values(self):
-        val = {}
-        for item in self.items:
-            val[item.field()] = item.value()
-        return val
+        self.fillItems(record)
 
 if __name__ == '__main__':
     from main import run

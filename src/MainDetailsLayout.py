@@ -1,7 +1,6 @@
 from PyQt4 import QtGui
 
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItem as Item
 from BaseFormLayout import FormItemTypes as Type
 
 class MainDetailsLayout(BaseFormLayout):
@@ -9,70 +8,44 @@ class MainDetailsLayout(BaseFormLayout):
         super(MainDetailsLayout, self).__init__(parent)
         self.columnCount = 5
         
-        self.items = [ Item('title', "Name", Type.String, parent), 
-            Item('value', "Value", Type.Money, parent),
-            Item('unit', "Unit", Type.String, parent),
-            Item('country', "Country", Type.String, parent),
-            Item('year', "Year", Type.Number, parent),
-            Item('period', "Period", Type.String, parent),
-            Item('mint', "Mint", Type.String, parent),
-            Item('mintmark', "Mint mark", Type.ShortString, parent),
-            Item('type', "Type", Type.String, parent),
-            Item('series', "Series", Type.String, parent) ]
+        self.addItem('title', "Name", Type.String) 
+        self.addItem('value', "Value", Type.Money)
+        self.addItem('unit', "Unit", Type.String)
+        self.addItem('country', "Country", Type.String)
+        self.addItem('year', "Year", Type.Number)
+        self.addItem('period', "Period", Type.String)
+        self.addItem('mint', "Mint", Type.String)
+        self.addItem('mintmark', "Mint mark", Type.ShortString)
+        self.addItem('type', "Type", Type.String)
+        self.addItem('series', "Series", Type.String)
 
-        item = self.items[0]
         btn = QtGui.QPushButton(self.tr("Generate"), parent)
         btn.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         btn.clicked.connect(self.clickGenerate)
-        self.addRow(item, btn)
+        self.addRow(self.item('title'), btn)
 
-        item = self.items[3]
-        self.addRow(item)
+        self.addRow(self.item('country'))
+        self.addRow(self.item('period'))
+        self.addRow(self.item('value'), self.item('unit'))
+        self.addRow(self.item('year'))
+        self.addRow(self.item('mintmark'), self.item('mint'))
+        self.addRow(self.item('type'))
+        self.addRow(self.item('series'))
 
-        item = self.items[5]
-        self.addRow(item)
-
-        item1 = self.items[1]
-        item2 = self.items[2]
-        self.addRow(item1, item2)
-
-        item = self.items[4]
-        self.addRow(item)
-
-        item1 = self.items[7]
-        item2 = self.items[6]
-        self.addRow(item1, item2)
-
-        item = self.items[8]
-        self.addRow(item)
-
-        item = self.items[9]
-        self.addRow(item)
-
-        if not record.isEmpty():
-            for item in self.items:
-                if not record.isNull(item.field()):
-                    value = record.value(item.field())
-                    item.setValue(value)
-
-    def values(self):
-        val = {}
-        for item in self.items:
-            val[item.field()] = item.value()
-        return val
+        self.fillItems(record)
     
     def clickGenerate(self):
         titleParts = []
-        value = str(self.items[1].value())
+        value = str(self.item('value').value())
         if value:
             titleParts.append(value) 
-        value = str(self.items[2].value())
+        value = str(self.item('unit').value())
         if value:
             titleParts.append(value)
-        value = str(self.items[4].value())
+        value = str(self.item('year').value())
         if value:
             titleParts.append(value)
-        value = str(self.items[7].value())
+        value = str(self.item('mintmark').value())
         if value:
             titleParts.append(value)
 

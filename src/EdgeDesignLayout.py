@@ -1,5 +1,4 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItem as Item
 from BaseFormLayout import FormItemTypes as Type
 
 class EdgeDesignLayout(BaseFormLayout):
@@ -7,31 +6,18 @@ class EdgeDesignLayout(BaseFormLayout):
         super(EdgeDesignLayout, self).__init__(parent)
         self.columnCount = 2
         
-        self.items = [ Item('edgeimg', "", Type.Image, parent),
-            Item('edge', "Type", Type.String, parent), 
-            Item('edgelabel', "Label", Type.String, parent) ]
+        self.addItem('edgeimg', "", Type.Image),
+        self.addItem('edge', "Type", Type.String) 
+        self.addItem('edgelabel', "Label", Type.String)
 
-        item = self.items[0]
+        item = self.item('edgeimg')
         self.setColumnMinimumWidth(2, 160)
         self.addWidget(item.widget(), 0, 2, 2, 1)
         
-        item = self.items[1]
-        self.addRow(item)
+        self.addRow(self.item('edge'))
+        self.addRow(self.item('edgelabel'))
 
-        item = self.items[2]
-        self.addRow(item)
-
-        if not record.isEmpty():
-            for item in self.items:
-                if not record.isNull(item.field()):
-                    value = record.value(item.field())
-                    item.setValue(value)
-
-    def values(self):
-        val = {}
-        for item in self.items:
-            val[item.field()] = item.value()
-        return val
+        self.fillItems(record)
 
 if __name__ == '__main__':
     from main import run
