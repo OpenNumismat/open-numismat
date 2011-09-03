@@ -1,22 +1,20 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit, TextEdit
 from BaseFormLayout import FormItem as Item
+from BaseFormLayout import FormItemTypes as Type
 
 class StateLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
         super(StateLayout, self).__init__(parent)
         
-        self.items = [ Item('state', "State", parent), 
-            Item('grade', "Grade", parent), Item('note', "Note", parent) ]
+        self.items = [ Item('state', "State", Type.String, parent), 
+            Item('grade', "Grade", Type.String, parent),
+            Item('note', "Note", Type.Text, parent) ]
         
         item1 = self.items[0]
-        item1.setWidget(LineEdit(parent))
         item2 = self.items[1]
-        item2.setWidget(LineEdit(parent))
         self.addRow(item1, item2)
 
         item = self.items[2]
-        item.setWidget(TextEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

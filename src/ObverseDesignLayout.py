@@ -1,30 +1,24 @@
-from PyQt4 import QtGui
-
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, TextEdit
 from BaseFormLayout import FormItem as Item
-from ImageLabel import ImageLabel
+from BaseFormLayout import FormItemTypes as Type
 
 class ObverseDesignLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
         super(ObverseDesignLayout, self).__init__(parent)
         self.columnCount = 2
         
-        self.items = [ Item('obverseimg', "", parent),
-            Item('obversedesign', "Design", parent), 
-            Item('obversedesigner', "Designer", parent) ]
+        self.items = [ Item('obverseimg', "", Type.Image, parent),
+            Item('obversedesign', "Design", Type.Text, parent), 
+            Item('obversedesigner', "Designer", Type.String, parent) ]
 
         item = self.items[0]
-        item.setWidget(ImageLabel(parent))
         self.setColumnMinimumWidth(2, 160)
         self.addWidget(item.widget(), 0, 2, 2, 1)
         
         item = self.items[1]
-        item.setWidget(TextEdit(parent))
         self.addRow(item)
 
         item = self.items[2]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

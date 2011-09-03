@@ -3,54 +3,17 @@ from PyQt4.QtCore import Qt, QDate
 
 from ImageLabel import ImageLabel
 
-class FormItem(object):
-    def __init__(self, field, title, parent=None):
-        self._field = field
-        self._title = title
-        self._widget = None
-        self._label = QtGui.QLabel(title, parent)
-        self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
-        self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
-    
-    def field(self):
-        return self._field
-
-    def title(self):
-        return self._title
-
-    def label(self):
-        return self._label
-
-    def widget(self):
-        return self._widget
-    
-    def setWidget(self, widget):
-        self._widget = widget
-        
-    def value(self):
-        if isinstance(self._widget, QtGui.QTextEdit):
-            return self._widget.toPlainText()
-        elif isinstance(self._widget, QtGui.QDateTimeEdit):
-            return self._widget.date().toString()
-        elif isinstance(self._widget, QtGui.QAbstractSpinBox):
-            return self._widget.value()
-        elif isinstance(self._widget, ImageLabel):
-            return self._widget.data()
-        else:
-            return self._widget.text()
-
-    def setValue(self, value):
-        type(self._widget)
-        if isinstance(self._widget, ImageLabel):
-            self._widget.loadFromData(value)
-        elif isinstance(self._widget, QtGui.QSpinBox):
-            self._widget.setValue(int(value))
-        elif isinstance(self._widget, QtGui.QDoubleSpinBox):
-            self._widget.setValue(float(value))
-        elif isinstance(self._widget, QtGui.QDateTimeEdit):
-            self._widget.setDate(QDate.fromString(str(value)))
-        else: 
-            self._widget.setText(str(value))
+class FormItemTypes():
+    String = 1
+    ShortString = 2
+    Number = 3
+    Text = 4
+    Money = 5
+    Date = 6
+    BigInt = 7
+    Image = 8
+    Money = 9
+    Value = 10
 
 class LineEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
@@ -130,6 +93,75 @@ class DateEdit(QtGui.QDateEdit):
         self.setCalendarPopup(True)
         self.setCalendarWidget(calendar)
         self.setMinimumWidth(85)
+
+class FormItem(object):
+    def __init__(self, field, title, itemType, parent=None):
+        self._field = field
+        self._title = title
+        self._label = QtGui.QLabel(title, parent)
+        self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
+        self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
+
+        if itemType == FormItemTypes.String:
+            self._widget = LineEdit(parent)
+        elif itemType == FormItemTypes.ShortString:
+            self._widget = ShortLineEdit(parent)
+        elif itemType == FormItemTypes.Number:
+            self._widget = NumberEdit(parent)
+        elif itemType == FormItemTypes.BigInt:
+            self._widget = BigIntEdit(parent)
+        elif itemType == FormItemTypes.Value:
+            self._widget = ValueEdit(parent)
+        elif itemType == FormItemTypes.Money:
+            self._widget = MoneyEdit(parent)
+        elif itemType == FormItemTypes.Text:
+            self._widget = TextEdit(parent)
+        elif itemType == FormItemTypes.Image:
+            self._widget = ImageLabel(parent)
+        elif itemType == FormItemTypes.Date:
+            self._widget = DateEdit(parent)
+        else:
+            raise
+    
+    def field(self):
+        return self._field
+
+    def title(self):
+        return self._title
+
+    def label(self):
+        return self._label
+
+    def widget(self):
+        return self._widget
+    
+    def setWidget(self, widget):
+        self._widget = widget
+        
+    def value(self):
+        if isinstance(self._widget, QtGui.QTextEdit):
+            return self._widget.toPlainText()
+        elif isinstance(self._widget, QtGui.QDateTimeEdit):
+            return self._widget.date().toString()
+        elif isinstance(self._widget, QtGui.QAbstractSpinBox):
+            return self._widget.value()
+        elif isinstance(self._widget, ImageLabel):
+            return self._widget.data()
+        else:
+            return self._widget.text()
+
+    def setValue(self, value):
+        type(self._widget)
+        if isinstance(self._widget, ImageLabel):
+            self._widget.loadFromData(value)
+        elif isinstance(self._widget, QtGui.QSpinBox):
+            self._widget.setValue(int(value))
+        elif isinstance(self._widget, QtGui.QDoubleSpinBox):
+            self._widget.setValue(float(value))
+        elif isinstance(self._widget, QtGui.QDateTimeEdit):
+            self._widget.setDate(QDate.fromString(str(value)))
+        else: 
+            self._widget.setText(str(value))
 
 class BaseFormLayout(QtGui.QGridLayout):
     def __init__(self, record, parent=None):

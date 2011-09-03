@@ -1,16 +1,15 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit, TextEdit
 from BaseFormLayout import FormItem as Item
+from BaseFormLayout import FormItemTypes as Type
 
 class SubjectLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
         super(SubjectLayout, self).__init__(parent)
         self.columnCount = 2
         
-        self.items = [ Item('subject', "Subject", parent) ]
+        self.items = [ Item('subject', "Subject", Type.Text, parent) ]
         
         item = self.items[0]
-        item.setWidget(TextEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

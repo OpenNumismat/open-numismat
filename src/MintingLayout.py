@@ -1,22 +1,20 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, MoneyEdit, DateEdit, BigIntEdit
 from BaseFormLayout import FormItem as Item
+from BaseFormLayout import FormItemTypes as Type
 
 class MintingLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
         super(MintingLayout, self).__init__(parent)
         
-        self.items = [ Item('issuedate', "Date of issue", parent), 
-            Item('dateemis', "Emission period", parent), Item('mintage', "Mintage", parent) ]
+        self.items = [ Item('issuedate', "Date of issue", Type.Date, parent), 
+            Item('dateemis', "Emission period", Type.String, parent),
+            Item('mintage', "Mintage", Type.BigInt, parent) ]
         
         item1 = self.items[0]
-        item1.setWidget(DateEdit(parent))
         item2 = self.items[2]
-        item2.setWidget(BigIntEdit(parent))
         self.addRow(item1, item2)
 
         item = self.items[1]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

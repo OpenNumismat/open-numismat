@@ -1,50 +1,44 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, MoneyEdit, ValueEdit
 from BaseFormLayout import FormItem as Item
+from BaseFormLayout import FormItemTypes as Type
 
 class ClassificationLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
         super(ClassificationLayout, self).__init__(parent)
         
-        self.items = [ Item('catalognum1', "#", parent), 
-            Item('catalognum2', "#", parent), Item('catalognum3', "#", parent),
-            Item('rarity', "Rarity", parent), Item('price1', "Fine", parent),
-            Item('price2', "VF", parent), Item('price3', "XF", parent),
-            Item('price4', "AU", parent), Item('price5', "Unc", parent),
-            Item('price6', "Proof", parent) ]
+        self.items = [ Item('catalognum1', "#", Type.String, parent), 
+            Item('catalognum2', "#", Type.String, parent),
+            Item('catalognum3', "#", Type.String, parent),
+            Item('rarity', "Rarity", Type.ShortString, parent),
+            Item('price1', "Fine", Type.Money, parent),
+            Item('price2', "VF", Type.Money, parent),
+            Item('price3', "XF", Type.Money, parent),
+            Item('price4', "AU", Type.Money, parent),
+            Item('price5', "Unc", Type.Money, parent),
+            Item('price6', "Proof", Type.Money, parent) ]
         
         item = self.items[0]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[1]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[2]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[3]
-        item.setWidget(ShortLineEdit(parent))
         self.addRow(item)
 
         item1 = self.items[4]
-        item1.setWidget(MoneyEdit(parent))
         item2 = self.items[5]
-        item2.setWidget(MoneyEdit(parent))
         self.addRow(item1, item2)
 
         item1 = self.items[6]
-        item1.setWidget(MoneyEdit(parent))
         item2 = self.items[7]
-        item2.setWidget(MoneyEdit(parent))
         self.addRow(item1, item2)
 
         item1 = self.items[8]
-        item1.setWidget(MoneyEdit(parent))
         item2 = self.items[9]
-        item2.setWidget(MoneyEdit(parent))
         self.addRow(item1, item2)
 
         if not record.isEmpty():

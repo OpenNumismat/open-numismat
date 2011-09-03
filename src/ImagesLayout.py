@@ -1,3 +1,6 @@
+from BaseFormLayout import BaseFormLayout
+from BaseFormLayout import FormItem as Item
+from BaseFormLayout import FormItemTypes as Type
 from PyQt4 import QtGui
 
 from ImageLabel import ImageLabel
@@ -6,42 +9,42 @@ class ImagesLayout(QtGui.QGridLayout):
     def __init__(self, record, parent=None):
         super(ImagesLayout, self).__init__(parent)
 
-        columns = {'photo1': "Photo 1", 'photo2': "Photo 2", 'photo3': "Photo 3", 'photo4': "Photo 4"}
-
-        self.images = {}
-        for column in columns.keys():
-            self.images[column] = ImageLabel(parent)
-
-        imageLabel = QtGui.QLabel(columns['photo1'], parent)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        self.addWidget(imageLabel,0,0)
-        self.addWidget(self.images['photo1'],1,0)
-        imageLabel = QtGui.QLabel(columns['photo2'], parent)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        self.addWidget(imageLabel,0,1)
-        self.addWidget(self.images['photo2'],1,1)
-        imageLabel = QtGui.QLabel(columns['photo3'], parent)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        self.addWidget(imageLabel,2,0)
-        self.addWidget(self.images['photo3'],3,0)
-        imageLabel = QtGui.QLabel(columns['photo4'], parent)
-        imageLabel.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        self.addWidget(imageLabel,2,1)
-        self.addWidget(self.images['photo4'],3,1)
+        self.items = [ Item('photo1', "Photo 1", Type.Image, parent),
+            Item('photo2', "Photo 2", Type.Image, parent),
+            Item('photo3', "Photo 3", Type.Image, parent),
+            Item('photo4', "Photo 4", Type.Image, parent) ]
+        
+        item = self.items[0]
+        item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.addWidget(item.label(), 0, 0)
+        self.addWidget(item.widget(), 1, 0)
+        item = self.items[1]
+        item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.addWidget(item.label(),0,1)
+        self.addWidget(item.widget(),1,1)
+        item = self.items[2]
+        item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.addWidget(item.label(),2,0)
+        self.addWidget(item.widget(),3,0)
+        item = self.items[3]
+        item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.addWidget(item.label(),2,1)
+        self.addWidget(item.widget(),3,1)
         self.setRowMinimumHeight(1, 120)
         self.setRowMinimumHeight(3, 120)
         self.setColumnMinimumWidth(0, 160)
         self.setColumnMinimumWidth(1, 160)
 
         if not record.isEmpty():
-            for column in columns.keys():
-                if not record.isNull(column):
-                    self.images[column].loadFromData(record.value(column))
+            for item in self.items:
+                if not record.isNull(item.field()):
+                    value = record.value(item.field())
+                    item.setValue(value)
     
     def values(self):
         val = {}
-        for column in self.images.keys():
-            val[column] = self.images[column].data()
+        for item in self.items:
+            val[item.field()] = item.value()
         return val
 
 if __name__ == '__main__':

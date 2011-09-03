@@ -1,28 +1,24 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit
 from BaseFormLayout import FormItem as Item
-from ImageLabel import ImageLabel
+from BaseFormLayout import FormItemTypes as Type
 
 class EdgeDesignLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
         super(EdgeDesignLayout, self).__init__(parent)
         self.columnCount = 2
         
-        self.items = [ Item('edgeimg', "", parent),
-            Item('edge', "Type", parent), 
-            Item('edgelabel', "Label", parent) ]
+        self.items = [ Item('edgeimg', "", Type.Image, parent),
+            Item('edge', "Type", Type.String, parent), 
+            Item('edgelabel', "Label", Type.String, parent) ]
 
         item = self.items[0]
-        item.setWidget(ImageLabel(parent))
         self.setColumnMinimumWidth(2, 160)
         self.addWidget(item.widget(), 0, 2, 2, 1)
         
         item = self.items[1]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[2]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

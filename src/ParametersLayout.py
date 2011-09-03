@@ -1,38 +1,34 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, NumberEdit, ValueEdit
 from BaseFormLayout import FormItem as Item
+from BaseFormLayout import FormItemTypes as Type
 
 class ParametersLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
         super(ParametersLayout, self).__init__(parent)
         
-        self.items = [ Item('metal', "Metal", parent), 
-            Item('fineness', "Fineness", parent), Item('form', "Form", parent),
-            Item('diameter', "Diameter", parent), Item('thick', "Thick", parent),
-            Item('mass', "Mass", parent), Item('obvrev', "ObvRev", parent) ]
+        self.items = [ Item('metal', "Metal", Type.String, parent), 
+            Item('fineness', "Fineness", Type.Number, parent),
+            Item('form', "Form", Type.String, parent),
+            Item('diameter', "Diameter", Type.Value, parent),
+            Item('thick', "Thick", Type.Value, parent),
+            Item('mass', "Mass", Type.Value, parent),
+            Item('obvrev', "ObvRev", Type.String, parent) ]
         
         item = self.items[0]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item1 = self.items[1]
-        item1.setWidget(NumberEdit(parent))
         item2 = self.items[5]
-        item2.setWidget(ValueEdit(parent))
         self.addRow(item1, item2)
 
         item1 = self.items[3]
-        item1.setWidget(ValueEdit(parent))
         item2 = self.items[4]
-        item2.setWidget(ValueEdit(parent))
         self.addRow(item1, item2)
 
         item = self.items[2]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[6]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():

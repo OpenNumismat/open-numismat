@@ -1,31 +1,28 @@
 from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import LineEdit, ShortLineEdit, MoneyEdit, DateEdit, TextEdit
 from BaseFormLayout import FormItem as Item
+from BaseFormLayout import FormItemTypes as Type
 
 class SaleLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
         super(SaleLayout, self).__init__(parent)
         
-        self.items = [ Item('saledate', "Date", parent), 
-            Item('saleprice', "Price", parent), Item('buyer', "Buyer", parent),
-            Item('saleplace', "Place", parent), Item('saleinfo', "Info", parent) ]
+        self.items = [ Item('saledate', "Date", Type.Date, parent), 
+            Item('saleprice', "Price", Type.Money, parent),
+            Item('buyer', "Buyer", Type.String, parent),
+            Item('saleplace', "Place", Type.String, parent),
+            Item('saleinfo', "Info", Type.Text, parent) ]
         
         item1 = self.items[0]
-        item1.setWidget(DateEdit(parent))
         item2 = self.items[1]
-        item2.setWidget(MoneyEdit(parent))
         self.addRow(item1, item2)
 
         item = self.items[2]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[3]
-        item.setWidget(LineEdit(parent))
         self.addRow(item)
 
         item = self.items[4]
-        item.setWidget(TextEdit(parent))
         self.addRow(item)
 
         if not record.isEmpty():
