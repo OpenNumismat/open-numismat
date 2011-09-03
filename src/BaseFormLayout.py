@@ -200,8 +200,6 @@ class BaseFormLayout(QtGui.QGridLayout):
             # self.addWidget(item1.widget(), self.row, 1, 1, -1)
             self.addWidget(item1.widget(), self.row, 1, 1, self.columnCount-1)
         else:
-            if item1.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
-                item1.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
             self.addWidget(item1.label(), self.row, 0)
 
             if isinstance(item2, QtGui.QAbstractButton):
@@ -213,7 +211,7 @@ class BaseFormLayout(QtGui.QGridLayout):
                 if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
                     item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
                 self.addWidget(item2.label(), self.row, 2)
-                self.addWidget(item2.widget(), self.row, 3, 1, -1)
+                self.addWidget(item2.widget(), self.row, 3, 1, self.columnCount-3)
 
         self.row = self.row + 1
 

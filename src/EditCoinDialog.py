@@ -8,6 +8,8 @@ from ReverseDesignLayout import ReverseDesignLayout
 from EdgeDesignLayout import EdgeDesignLayout
 from SubjectLayout import SubjectLayout
 from ClassificationLayout import ClassificationLayout
+from PriceLayout import PriceLayout
+from VariationLayout import VariationLayout
 from MintingLayout import MintingLayout
 from StateLayout import StateLayout
 from PayLayout import PayLayout
@@ -79,8 +81,18 @@ class EditCoinDialog(QtGui.QDialog):
 
         # Create Classification page
         classification = ClassificationLayout(record, self)
-        self.addTabPage(self.tr("Classification"), classification)
         self.parts.append(classification)
+
+        price = PriceLayout(record, self)
+        groupBox1 = self.__layoutToGroupBox(price, self.tr("Price"))
+        groupBox1.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.parts.append(price)
+
+        variation = VariationLayout(record, self)
+        groupBox2 = self.__layoutToGroupBox(variation, self.tr("Variation"))
+        self.parts.append(variation)
+
+        self.addTabPage(self.tr("Classification"), [classification, groupBox1, groupBox2])
 
         # Create Images page
         images = ImagesLayout(record, self)

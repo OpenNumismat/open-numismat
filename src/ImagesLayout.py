@@ -1,6 +1,8 @@
+from PyQt4 import QtGui
+from PyQt4.QtCore import Qt
+
 from BaseFormLayout import BaseFormLayout
 from BaseFormLayout import FormItemTypes as Type
-from PyQt4 import QtGui
 
 class ImagesLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
@@ -13,18 +15,22 @@ class ImagesLayout(BaseFormLayout):
         
         item = self.item('photo1')
         item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        item.label().setAlignment(Qt.AlignLeft)
         self.addWidget(item.label(), 0, 0)
         self.addWidget(item.widget(), 1, 0)
         item = self.item('photo2')
         item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        item.label().setAlignment(Qt.AlignLeft)
         self.addWidget(item.label(),0,1)
         self.addWidget(item.widget(),1,1)
         item = self.item('photo3')
         item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        item.label().setAlignment(Qt.AlignLeft)
         self.addWidget(item.label(),2,0)
         self.addWidget(item.widget(),3,0)
         item = self.item('photo4')
         item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        item.label().setAlignment(Qt.AlignLeft)
         self.addWidget(item.label(),2,1)
         self.addWidget(item.widget(),3,1)
 
