@@ -126,9 +126,7 @@ class DateEdit(QtGui.QDateEdit):
         calendar.setGridVisible(True)
         self.setCalendarPopup(True)
         self.setCalendarWidget(calendar)
-
-    def sizeHint(self):
-        return self.minimumSizeHint()
+        self.setMinimumWidth(85)
 
 class BaseFormLayout(QtGui.QGridLayout):
     def __init__(self, record, parent=None):
