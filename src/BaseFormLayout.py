@@ -73,8 +73,11 @@ class NumberEdit(QtGui.QLineEdit):
         validator = QtGui.QIntValidator(0, 9999, parent)
         self.setValidator(validator)
         self.setMaxLength(15)
-        self.setMinimumWidth(50)
+        self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+
+    def sizeHint(self):
+        return self.minimumSizeHint()
 
 class BigIntEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
