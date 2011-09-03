@@ -21,13 +21,11 @@ class ObverseDesignLayout(BaseFormLayout):
         
         item = self.items[1]
         item.setWidget(TextEdit(parent))
-        self.addWidget(item.label(), 0, 0)
-        self.addWidget(item.widget(), 0, 1)
+        self.addRow(item)
 
         item = self.items[2]
         item.setWidget(LineEdit(parent))
-        self.addWidget(item.label(), 1, 0)
-        self.addWidget(item.widget(), 1, 1)
+        self.addRow(item)
 
         if not record.isEmpty():
             for item in self.items:
