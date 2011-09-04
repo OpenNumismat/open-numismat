@@ -1,6 +1,5 @@
-from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItemTypes as Type
-from PyQt4 import QtGui
+from .BaseFormLayout import BaseFormLayout
+from .BaseFormLayout import FormItemTypes as Type
 
 class PriceLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
@@ -18,7 +17,3 @@ class PriceLayout(BaseFormLayout):
         self.addRow(self.item('price5'), self.item('price6'))
 
         self.fillItems(record)
-
-if __name__ == '__main__':
-    from main import run
-    run()

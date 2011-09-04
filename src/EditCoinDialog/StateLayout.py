@@ -1,5 +1,5 @@
-from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItemTypes as Type
+from .BaseFormLayout import BaseFormLayout
+from .BaseFormLayout import FormItemTypes as Type
 
 class StateLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
@@ -13,7 +13,3 @@ class StateLayout(BaseFormLayout):
         self.addRow(self.item('note'))
 
         self.fillItems(record)
-
-if __name__ == '__main__':
-    from main import run
-    run()

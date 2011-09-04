@@ -1,7 +1,7 @@
 from PyQt4 import QtGui
 
-from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItemTypes as Type
+from .BaseFormLayout import BaseFormLayout
+from .BaseFormLayout import FormItemTypes as Type
 
 class MainDetailsLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
@@ -51,7 +51,3 @@ class MainDetailsLayout(BaseFormLayout):
 
         title = ' '.join(titleParts)
         self.items[0].widget().setText(title)
-
-if __name__ == '__main__':
-    from main import run
-    run()

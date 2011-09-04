@@ -1,5 +1,5 @@
-from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItemTypes as Type
+from .BaseFormLayout import BaseFormLayout
+from .BaseFormLayout import FormItemTypes as Type
 
 class SaleLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
@@ -17,7 +17,3 @@ class SaleLayout(BaseFormLayout):
         self.addRow(self.item('saleinfo'))
 
         self.fillItems(record)
-
-if __name__ == '__main__':
-    from main import run
-    run()

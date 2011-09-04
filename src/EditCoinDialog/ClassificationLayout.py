@@ -1,5 +1,5 @@
-from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItemTypes as Type
+from .BaseFormLayout import BaseFormLayout
+from .BaseFormLayout import FormItemTypes as Type
 
 class ClassificationLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
@@ -16,7 +16,3 @@ class ClassificationLayout(BaseFormLayout):
         self.addRow(self.item('rarity'))
 
         self.fillItems(record)
-
-if __name__ == '__main__':
-    from main import run
-    run()

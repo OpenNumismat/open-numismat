@@ -3,7 +3,7 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtSql import *
 
-from EditCoinDialog import EditCoinDialog
+from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from TableView import TableView
 
 class MainWindow(QtGui.QMainWindow):

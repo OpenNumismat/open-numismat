@@ -1,7 +1,7 @@
 from PyQt4.QtCore import Qt, QDate
 
-from FormItems import *
-from ImageLabel import ImageLabel
+from .FormItems import *
+from .ImageLabel import ImageLabel
 
 class FormItemTypes():
     String = 1
@@ -134,7 +134,3 @@ class BaseFormLayout(QtGui.QGridLayout):
                 self.addWidget(item2.widget(), self.row, 3, 1, self.columnCount-3)
 
         self.row = self.row + 1
-
-if __name__ == '__main__':
-    from main import run
-    run()

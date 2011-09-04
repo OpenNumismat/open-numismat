@@ -1,20 +1,20 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 
-from MainDetailsLayout import MainDetailsLayout
-from ParametersLayout import ParametersLayout
-from ObverseDesignLayout import ObverseDesignLayout
-from ReverseDesignLayout import ReverseDesignLayout
-from EdgeDesignLayout import EdgeDesignLayout
-from SubjectLayout import SubjectLayout
-from ClassificationLayout import ClassificationLayout
-from PriceLayout import PriceLayout
-from VariationLayout import VariationLayout
-from MintingLayout import MintingLayout
-from StateLayout import StateLayout
-from PayLayout import PayLayout
-from SaleLayout import SaleLayout
-from ImagesLayout import ImagesLayout
+from .MainDetailsLayout import MainDetailsLayout
+from .ParametersLayout import ParametersLayout
+from .ObverseDesignLayout import ObverseDesignLayout
+from .ReverseDesignLayout import ReverseDesignLayout
+from .EdgeDesignLayout import EdgeDesignLayout
+from .SubjectLayout import SubjectLayout
+from .ClassificationLayout import ClassificationLayout
+from .PriceLayout import PriceLayout
+from .VariationLayout import VariationLayout
+from .MintingLayout import MintingLayout
+from .StateLayout import StateLayout
+from .PayLayout import PayLayout
+from .SaleLayout import SaleLayout
+from .ImagesLayout import ImagesLayout
 
 class EditCoinDialog(QtGui.QDialog):
     def __init__(self, record, parent=None):
@@ -157,7 +157,3 @@ class EditCoinDialog(QtGui.QDialog):
         settings = QtCore.QSettings()
         settings.setValue('editcoinwindow/size', self.size());
         super(EditCoinDialog, self).done(r)
-
-if __name__ == '__main__':
-    from main import run
-    run()

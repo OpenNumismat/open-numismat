@@ -153,7 +153,3 @@ class ImageLabel(QtGui.QLabel):
             scaledImage = self.image
         scaledImage.save(buffer, IMAGE_FORMAT)
         return ba
-
-if __name__ == '__main__':
-    from main import run
-    run()

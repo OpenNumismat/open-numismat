@@ -2,7 +2,7 @@
 
 from PyQt4 import QtGui
 
-from EditCoinDialog import EditCoinDialog
+from EditCoinDialog.EditCoinDialog import EditCoinDialog
 
 class TableView(QtGui.QTableView):
     def __init__(self, parent=None):

@@ -1,5 +1,5 @@
-from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItemTypes as Type
+from .BaseFormLayout import BaseFormLayout
+from .BaseFormLayout import FormItemTypes as Type
 
 class ParametersLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
@@ -20,7 +20,3 @@ class ParametersLayout(BaseFormLayout):
         self.addRow(self.item('obvrev'))
 
         self.fillItems(record)
-
-if __name__ == '__main__':
-    from main import run
-    run()

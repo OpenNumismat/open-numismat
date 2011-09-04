@@ -1,8 +1,8 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
-from BaseFormLayout import BaseFormLayout
-from BaseFormLayout import FormItemTypes as Type
+from .BaseFormLayout import BaseFormLayout
+from .BaseFormLayout import FormItemTypes as Type
 
 class ImagesLayout(BaseFormLayout):
     def __init__(self, record, parent=None):
@@ -40,7 +40,3 @@ class ImagesLayout(BaseFormLayout):
         self.setColumnMinimumWidth(1, 160)
 
         self.fillItems(record)
-
-if __name__ == '__main__':
-    from main import run
-    run()
