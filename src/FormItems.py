@@ -1,5 +1,4 @@
 from PyQt4 import QtGui
-from PyQt4.QtCore import Qt, QDate
 
 class LineEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):

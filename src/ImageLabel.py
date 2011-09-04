@@ -22,6 +22,7 @@ class ImageLabel(QtGui.QLabel):
         self.setSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Ignored)
         self.setFrameStyle(QtGui.QFrame.Panel | QtGui.QFrame.Plain)
         self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        self.setFocusPolicy(Qt.StrongFocus)
 
     def contextMenu(self, pos):
         style = QtGui.QApplication.style()

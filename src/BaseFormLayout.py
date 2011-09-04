@@ -1,4 +1,3 @@
-from PyQt4 import QtGui
 from PyQt4.QtCore import Qt, QDate
 
 from FormItems import *
@@ -73,7 +72,6 @@ class FormItem(object):
             return self._widget.text()
 
     def setValue(self, value):
-        type(self._widget)
         if isinstance(self._widget, ImageLabel):
             self._widget.loadFromData(value)
         elif isinstance(self._widget, QtGui.QSpinBox):
@@ -86,8 +84,8 @@ class FormItem(object):
             self._widget.setText(str(value))
 
 class BaseFormLayout(QtGui.QGridLayout):
-    def __init__(self, record, parent=None):
-        super(BaseFormLayout, self).__init__(parent)
+    def __init__(self, parent=None):
+        super(BaseFormLayout, self).__init__()
         self.row = 0
         self.columnCount = 4
         self.items = []
