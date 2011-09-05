@@ -100,7 +100,15 @@ class Collection(QtCore.QObject):
     def getFileName(self):
         return self.fileName
     
+    def getCollectionName(self):
+        return Collection.fileNameToCollectionName(self.fileName)
+    
     def model(self):
         model = QSqlTableModel(None, self.db)
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         return model
+    
+    @staticmethod
+    def fileNameToCollectionName(fileName):
+        file = QtCore.QFileInfo(fileName)
+        return file.baseName()

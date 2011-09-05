@@ -5,23 +5,11 @@ from PyQt4 import QtGui, QtCore
 from Collection import Collection
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from TableView import TableView
+from LatestCollections import LatestCollections
 
 class MainWindow(QtGui.QMainWindow):
-    DefaultCollectionName = "../db/demo.db"
-    
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
-        
-        self.view = TableView()
-
-        settings = QtCore.QSettings()
-        fileName = settings.value('collection/latest')
-        if not fileName:
-            fileName = MainWindow.DefaultCollectionName
-
-        self.collection = Collection(self)
-        self.collection.open(fileName)
-        self.setCollection(self.collection)
         
         exit = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
         exit.setShortcut('Ctrl+Q')
@@ -50,14 +38,31 @@ class MainWindow(QtGui.QMainWindow):
         openCollectionAct.setShortcut('Ctrl+O')
         openCollectionAct.triggered.connect(self.openCollection)
 
-        collection = menubar.addMenu(self.tr("Collection"))
-        collection.addAction(newCollectionAct)
-        collection.addAction(openCollectionAct)
+        separator = QtGui.QAction(self)
+        separator.setSeparator(True)
 
-        self.setCentralWidget(self.view)
-        
+        collectionMenu = menubar.addMenu(self.tr("Collection"))
+        collectionMenu.addAction(newCollectionAct)
+        collectionMenu.addAction(openCollectionAct)
+        collectionMenu.addAction(separator)
+
+        # TODO: Update menu on the fly
+        latest = LatestCollections(self)
+        for act in latest.actions():
+            act.latestTriggered.connect(self.openLatest)
+            collectionMenu.addAction(act)
+
         self.setWindowTitle(self.tr("Num"))
 
+        self.view = TableView()
+
+        latest = LatestCollections(self)
+        self.collection = Collection(self)
+        if self.collection.open(latest.latest()):
+            self.setCollection(self.collection)
+        
+        self.setCentralWidget(self.view)
+        
         settings = QtCore.QSettings()
         if settings.value('mainwindow/maximized') == 'true':
             self.setWindowState(self.windowState() | QtCore.Qt.WindowMaximized)
@@ -78,26 +83,37 @@ class MainWindow(QtGui.QMainWindow):
             self.model.submitAll()
 
     def openCollection(self):
+        dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
         fileName = QtGui.QFileDialog.getOpenFileName(self,
-                self.tr("Open collection"), MainWindow.DefaultCollectionName,
+                self.tr("Open collection"), dir_,
                 self.tr("Collections (*.db)"))
         if fileName:
             self.collection = Collection(self)
             if self.collection.open(fileName):
                 self.setCollection(self.collection)
+            # TODO: Remove collection from latest collections list
     
     def newCollection(self):
+        dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
         fileName = QtGui.QFileDialog.getSaveFileName(self,
-                self.tr("New collection"), MainWindow.DefaultCollectionName,
+                self.tr("New collection"), dir_,
                 self.tr("Collections (*.db)"))
         if fileName:
             self.collection = Collection(self)
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
     
+    def openLatest(self, fileName):
+        if fileName:
+            self.collection = Collection(self)
+            if self.collection.open(fileName):
+                self.setCollection(self.collection)
+    
     def setCollection(self, collection):
-        settings = QtCore.QSettings()
-        settings.setValue('collection/latest', self.collection.getFileName());
+        self.setWindowTitle(collection.getCollectionName() + ' - ' + self.tr("Num"))
+
+        latest = LatestCollections(self)
+        latest.setLatest(collection.getFileName())
 
         self.model = self.collection.model()
         self.model.setTable('coins')
