@@ -1,99 +1,23 @@
 #!/usr/bin/python
 
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtSql import *
 
+from Collection import Collection
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from TableView import TableView
 
 class MainWindow(QtGui.QMainWindow):
+    DefaultCollectionName = "../db/demo.db"
+    
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         
-        db = QSqlDatabase.addDatabase('QSQLITE')
-        
-        db.setDatabaseName("../db/COLLECTION.DB")
-        if not db.open():
-            print(db.lastError().text()) 
+        self.view = TableView()
 
-        QSqlQuery("CREATE TABLE IF NOT EXISTS coins \
-            (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-             title CHAR NOT NULL, \
-             value NUMERIC(10,2), \
-             unit CHAR, \
-             country CHAR, \
-             year NUMERIC(4), \
-             period CHAR, \
-             mint CHAR, \
-             mintmark CHAR(10), \
-             issuedate CHAR, \
-             type CHAR, \
-             series CHAR, \
-             metal CHAR, \
-             fineness NUMERIC(3), \
-             form CHAR, \
-             diameter NUMERIC(10,3), \
-             thick NUMERIC(10,3), \
-             mass NUMERIC(10,3), \
-             grade CHAR, \
-             edge CHAR, \
-             edgelabel CHAR, \
-             obvrev CHAR, \
-             state CHAR,\
-             mintage INTEGER, \
-             dateemis CHAR, \
-             catalognum1 CHAR,\
-             catalognum2 CHAR,\
-             catalognum3 CHAR,\
-             rarity CHAR(10), \
-             price1 NUMERIC(10,2), \
-             price2 NUMERIC(10,2), \
-             price3 NUMERIC(10,2), \
-             price4 NUMERIC(10,2), \
-             price5 NUMERIC(10,2), \
-             price6 NUMERIC(10,2), \
-             obversevar TEXT, \
-             reversevar TEXT, \
-             edgevar TEXT, \
-             paydate CHAR, \
-             payprice NUMERIC(10,2), \
-             saller CHAR, \
-             payplace CHAR, \
-             payinfo TEXT, \
-             saledate CHAR, \
-             saleprice NUMERIC(10,2), \
-             buyer CHAR, \
-             saleplace CHAR, \
-             saleinfo TEXT, \
-             note TEXT, \
-             obverseimg BLOB, \
-             obversedesign TEXT, \
-             obversedesigner CHAR, \
-             reverseimg BLOB, \
-             reversedesign TEXT, \
-             reversedesigner CHAR, \
-             edgeimg BLOB, \
-             subject TEXT, \
-             photo1 BLOB, \
-             photo2 BLOB, \
-             photo3 BLOB, \
-             photo4 BLOB \
-            )")
-
-        self.model = QSqlTableModel(None, db)
-        self.model.setEditStrategy(QSqlTableModel.OnManualSubmit)
-        self.model.setTable('coins')
+        self.collection = Collection(self)
+        self.collection.open(MainWindow.DefaultCollectionName)
+        self.setCollection(self.collection)
         
-        self.model.select()
-        
-        self.model.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Name"))
-        
-        view = TableView()
-        view.setModel(self.model)
-        
-        self.resize(350, 250)
-        self.setWindowTitle(self.tr("Num"))
-
         exit = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
         exit.setShortcut('Ctrl+Q')
         exit.setStatusTip(self.tr("Exit application"))
@@ -111,8 +35,24 @@ class MainWindow(QtGui.QMainWindow):
         coin = menubar.addMenu(self.tr("Coin"))
         coin.addAction(add_coin)
 
-        self.setCentralWidget(view)
+        newCollectionAct = QtGui.QAction(self.tr("&New..."), self)
+        newCollectionAct.setShortcut('Ctrl+N')
+        newCollectionAct.triggered.connect(self.newCollection)
+
+        style = QtGui.QApplication.style()
+        icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
+        openCollectionAct = QtGui.QAction(icon, self.tr("&Open..."), self)
+        openCollectionAct.setShortcut('Ctrl+O')
+        openCollectionAct.triggered.connect(self.openCollection)
+
+        collection = menubar.addMenu(self.tr("Collection"))
+        collection.addAction(newCollectionAct)
+        collection.addAction(openCollectionAct)
+
+        self.setCentralWidget(self.view)
         
+        self.setWindowTitle(self.tr("Num"))
+
         settings = QtCore.QSettings()
         if settings.value('mainwindow/maximized') == 'true':
             self.setWindowState(self.windowState() | QtCore.Qt.WindowMaximized)
@@ -120,6 +60,8 @@ class MainWindow(QtGui.QMainWindow):
             size = settings.value('mainwindow/size')
             if size:
                 self.resize(size)
+            else:
+                self.resize(350, 250)
 
     def addCoin(self):
         record = self.model.record()
@@ -128,6 +70,34 @@ class MainWindow(QtGui.QMainWindow):
         rec = dialog.getRecord()
         self.model.insertRecord(-1, rec)
         self.model.submitAll()
+
+    def openCollection(self):
+        fileName = QtGui.QFileDialog.getOpenFileName(self,
+                self.tr("Open collection"), MainWindow.DefaultCollectionName,
+                self.tr("Collections (*.db)"))
+        if fileName:
+            self.collection = Collection(self)
+            self.collection.open(fileName)
+            self.setCollection(self.collection)
+    
+    def newCollection(self):
+        fileName = QtGui.QFileDialog.getSaveFileName(self,
+                self.tr("New collection"), MainWindow.DefaultCollectionName,
+                self.tr("Collections (*.db)"))
+        if fileName:
+            self.collection = Collection(self)
+            self.collection.create(fileName)
+            self.setCollection(self.collection)
+    
+    def setCollection(self, collection):
+        self.model = self.collection.model()
+        self.model.setTable('coins')
+        
+        self.model.select()
+        
+        self.model.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Name"))
+        
+        self.view.setModel(self.model)
     
     def closeEvent(self, e):
         settings = QtCore.QSettings()
