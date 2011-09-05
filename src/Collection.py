@@ -14,14 +14,22 @@ class Collection(QtCore.QObject):
             if not self.db.open():
                 print(self.db.lastError().text())
                 QtGui.QMessageBox.critical(self.parent(), self.tr("Open collection"), self.tr("Can't open collection"))
+                return False
         else:
             QtGui.QMessageBox.critical(self.parent(), self.tr("Open collection"), self.tr("Collection not exists"))
+            return False
+            
+        self.fileName = fileName
+        return True
     
     def create(self, fileName):
         self.db.setDatabaseName(fileName)
         if not self.db.open():
             print(self.db.lastError().text())
             QtGui.QMessageBox.critical(self.parent(), self.tr("Create collection"), self.tr("Can't open collection"))
+            return False
+        
+        self.fileName = fileName
 
         QSqlQuery("CREATE TABLE IF NOT EXISTS coins \
             (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
@@ -86,6 +94,11 @@ class Collection(QtCore.QObject):
              photo3 BLOB, \
              photo4 BLOB \
             )", self.db)
+        
+        return True
+
+    def getFileName(self):
+        return self.fileName
     
     def model(self):
         model = QSqlTableModel(None, self.db)

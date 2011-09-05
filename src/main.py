@@ -14,8 +14,13 @@ class MainWindow(QtGui.QMainWindow):
         
         self.view = TableView()
 
+        settings = QtCore.QSettings()
+        fileName = settings.value('collection/latest')
+        if not fileName:
+            fileName = MainWindow.DefaultCollectionName
+
         self.collection = Collection(self)
-        self.collection.open(MainWindow.DefaultCollectionName)
+        self.collection.open(fileName)
         self.setCollection(self.collection)
         
         exit = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
@@ -78,8 +83,8 @@ class MainWindow(QtGui.QMainWindow):
                 self.tr("Collections (*.db)"))
         if fileName:
             self.collection = Collection(self)
-            self.collection.open(fileName)
-            self.setCollection(self.collection)
+            if self.collection.open(fileName):
+                self.setCollection(self.collection)
     
     def newCollection(self):
         fileName = QtGui.QFileDialog.getSaveFileName(self,
@@ -87,10 +92,13 @@ class MainWindow(QtGui.QMainWindow):
                 self.tr("Collections (*.db)"))
         if fileName:
             self.collection = Collection(self)
-            self.collection.create(fileName)
-            self.setCollection(self.collection)
+            if self.collection.create(fileName):
+                self.setCollection(self.collection)
     
     def setCollection(self, collection):
+        settings = QtCore.QSettings()
+        settings.setValue('collection/latest', self.collection.getFileName());
+
         self.model = self.collection.model()
         self.model.setTable('coins')
         
