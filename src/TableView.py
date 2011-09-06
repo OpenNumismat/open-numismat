@@ -32,6 +32,8 @@ class TableView(QtGui.QTableView):
         self.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.doubleClicked.connect(self.itemDClicked)
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.contextMenuEvent)
     
     def setModel(self, model):
         super(TableView, self).setModel(model)
@@ -51,7 +53,33 @@ class TableView(QtGui.QTableView):
             self._paste()
         elif event.matches(QtGui.QKeySequence.Delete):
             self._delete(self.currentIndex())
-                
+
+    def contextMenuEvent(self, pos):
+        cloneAct = QtGui.QAction(self.tr("Clone"), self)
+        cloneAct.triggered.connect(self._clone)
+
+        copyAct = QtGui.QAction(self.tr("Copy"), self)
+        copyAct.triggered.connect(self._copy)
+
+        pasteAct = QtGui.QAction(self.tr("Paste"), self)
+        pasteAct.triggered.connect(self._paste)
+
+        separator = QtGui.QAction(self)
+        separator.setSeparator(True)
+
+        style = QtGui.QApplication.style()
+        icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
+        deleteAct = QtGui.QAction(icon, self.tr("Delete"), self)
+        deleteAct.triggered.connect(self._delete)
+
+        menu = QtGui.QMenu(self)
+        menu.addAction(cloneAct)
+        menu.addAction(copyAct)
+        menu.addAction(pasteAct)
+        menu.addAction(separator)
+        menu.addAction(deleteAct)
+        menu.exec_(self.mapToGlobal(pos))
+
     def _edit(self, index):
         record = self.model().record(index.row())
         dialog = EditCoinDialog(record, self)
@@ -62,6 +90,9 @@ class TableView(QtGui.QTableView):
             self.model().submitAll()
     
     def _copy(self, index):
+        if not index:
+            index = self.currentIndex()
+
         record = self.model().record(index.row())
         if not record.isEmpty():
             mime = QtCore.QMimeData()
@@ -106,16 +137,33 @@ class TableView(QtGui.QTableView):
         dialog = EditCoinDialog(record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            rec = dialog.getRecord()
-            self.model().insertRecord(-1, rec)
+            newRecord = dialog.getRecord()
+            newRecord.setNull('id')  # remove ID value from record
+            self.model().insertRecord(-1, newRecord)
             self.model().submitAll()
     
-    def _delete(self, index):
+    def _delete(self, index=None):
+        if not index:
+            index = self.currentIndex()
+
         result = QtGui.QMessageBox.information(self, self.tr("Delete"),
                                       self.tr("Are you sure to remove a coin?"),
                                       QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel, QtGui.QMessageBox.Cancel)
         if result == QtGui.QMessageBox.Yes:
             self.model().removeRow(index.row())
+            self.model().submitAll()
+    
+    def _clone(self, index):
+        if not index:
+            index = self.currentIndex()
+
+        record = self.model().record(index.row())
+        dialog = EditCoinDialog(record, self)
+        result = dialog.exec_()
+        if result == QtGui.QDialog.Accepted:
+            newRecord = dialog.getRecord()
+            newRecord.setNull('id')  # remove ID value from record
+            self.model().insertRecord(-1, newRecord)
             self.model().submitAll()
     
 if __name__ == '__main__':
