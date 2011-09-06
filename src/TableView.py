@@ -1,11 +1,30 @@
 #!/usr/bin/python
 
-from PyQt4 import QtGui, QtCore
+import pickle
+
+from PyQt4 import QtGui, QtCore, QtSql
 from PyQt4.QtCore import Qt
 
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 
+def textToClipboard(text):
+    for c in '\t\n\r':
+        if c in text:
+            return '"' + text.replace('"', '""') + '"'
+
+    return text
+
+def clipboardToText(text):
+    for c in '\t\n\r':
+        if c in text:
+            return text[1:-1].replace('""', '"')
+
+    return text
+
 class TableView(QtGui.QTableView):
+    # TODO: Changes mime type
+    MimeType = 'num/data'
+    
     def __init__(self, parent=None):
         super(TableView, self).__init__(parent)
         
@@ -43,27 +62,44 @@ class TableView(QtGui.QTableView):
     def _copy(self, index):
         record = self.model().record(index.row())
         if not record.isEmpty():
-            data = []
+            mime = QtCore.QMimeData()
+
+            textData = []
+            pickleData = []
             for i in range(self.model().columnCount()):
                 if record.isNull(i):
-                    data.append('')
+                    textData.append('')
+                    pickleData.append(None)
                 elif isinstance(record.value(i), QtCore.QByteArray):
-                    data.append('')
+                    textData.append('')
+                    pickleData.append(record.value(i).data())
                 else:
-                    data.append(str(record.value(i)))
-                
+                    textData.append(textToClipboard(str(record.value(i))))
+                    pickleData.append(record.value(i))
+            
+            mime.setText('\t'.join(textData))
+            mime.setData(TableView.MimeType, pickle.dumps(pickleData))
+
             clipboard = QtGui.QApplication.clipboard()
-            clipboard.setText('\t'.join(data))
+            clipboard.setMimeData(mime)
 
     def _paste(self):
         clipboard = QtGui.QApplication.clipboard()
-        data = clipboard.text().split('\t')
-        if len(data) != self.model().columnCount():
-            return
-        
+        mime = clipboard.mimeData()
         record = self.model().record()
-        for i in range(self.model().columnCount()):
-            record.setValue(i, data[i])
+        if mime.hasFormat(TableView.MimeType):
+            # Load data stored by application
+            pickleData = pickle.loads(mime.data(TableView.MimeType))
+            for i in range(self.model().columnCount()):
+                record.setValue(i, pickleData[i])
+        else:
+            # Load data stored by another application (Excel)
+            textData = clipboard.text().split('\t')
+            if len(textData) != self.model().columnCount():
+                return
+        
+            for i in range(self.model().columnCount()):
+                record.setValue(i, clipboardToText(textData[i]))
 
         dialog = EditCoinDialog(record, self)
         result = dialog.exec_()
@@ -71,7 +107,7 @@ class TableView(QtGui.QTableView):
             rec = dialog.getRecord()
             self.model().insertRecord(-1, rec)
             self.model().submitAll()
-
+    
 if __name__ == '__main__':
     from main import run
     run()
