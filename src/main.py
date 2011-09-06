@@ -21,7 +21,6 @@ class MainWindow(QtGui.QMainWindow):
         file.addAction(exit)
 
         add_coin = QtGui.QAction(QtGui.QIcon('icons/add_coin.png'), self.tr("Add"), self)
-        add_coin.setShortcut('Shift+Ins')
         add_coin.setStatusTip(self.tr("Add new coin"))
         add_coin.triggered.connect(self.addCoin)
 
@@ -29,7 +28,6 @@ class MainWindow(QtGui.QMainWindow):
         coin.addAction(add_coin)
 
         newCollectionAct = QtGui.QAction(self.tr("&New..."), self)
-        newCollectionAct.setShortcut('Ctrl+N')
         newCollectionAct.triggered.connect(self.newCollection)
 
         style = QtGui.QApplication.style()
