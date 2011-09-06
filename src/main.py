@@ -46,11 +46,8 @@ class MainWindow(QtGui.QMainWindow):
         collectionMenu.addAction(openCollectionAct)
         collectionMenu.addAction(separator)
 
-        # TODO: Update menu on the fly
-        latest = LatestCollections(self)
-        for act in latest.actions():
-            act.latestTriggered.connect(self.openLatest)
-            collectionMenu.addAction(act)
+        self.latestActions = []
+        self.__updateLatest(collectionMenu)
 
         self.setWindowTitle(self.tr("Num"))
 
@@ -72,6 +69,19 @@ class MainWindow(QtGui.QMainWindow):
                 self.resize(size)
             else:
                 self.resize(350, 250)
+    
+    def __updateLatest(self, menu=None):
+        if menu:
+            self.__menu = menu
+        for act in self.latestActions:
+            self.__menu.removeAction(act)
+
+        self.latestActions = []
+        latest = LatestCollections(self)
+        for act in latest.actions():
+            self.latestActions.append(act)
+            act.latestTriggered.connect(self.openLatest)
+            self.__menu.addAction(act)
 
     def addCoin(self):
         record = self.model.record()
@@ -111,6 +121,7 @@ class MainWindow(QtGui.QMainWindow):
 
         latest = LatestCollections(self)
         latest.setLatest(collection.getFileName())
+        self.__updateLatest()
 
         self.model = self.collection.model()
         self.model.setTable('coins')
