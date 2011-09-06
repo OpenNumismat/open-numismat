@@ -55,29 +55,18 @@ class TableView(QtGui.QTableView):
             self._delete(self.currentIndex())
 
     def contextMenuEvent(self, pos):
-        cloneAct = QtGui.QAction(self.tr("Clone"), self)
-        cloneAct.triggered.connect(self._clone)
-
-        copyAct = QtGui.QAction(self.tr("Copy"), self)
-        copyAct.triggered.connect(self._copy)
-
-        pasteAct = QtGui.QAction(self.tr("Paste"), self)
-        pasteAct.triggered.connect(self._paste)
-
         separator = QtGui.QAction(self)
         separator.setSeparator(True)
 
         style = QtGui.QApplication.style()
         icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
-        deleteAct = QtGui.QAction(icon, self.tr("Delete"), self)
-        deleteAct.triggered.connect(self._delete)
 
         menu = QtGui.QMenu(self)
-        menu.addAction(cloneAct)
-        menu.addAction(copyAct)
-        menu.addAction(pasteAct)
+        menu.addAction(self.tr("Clone"), self._clone)
+        menu.addAction(self.tr("Copy"), self._copy)
+        menu.addAction(self.tr("Paste"), self._paste)
         menu.addAction(separator)
-        menu.addAction(deleteAct)
+        menu.addAction(icon, self.tr("Delete"), self._delete)
         menu.exec_(self.mapToGlobal(pos))
 
     def _edit(self, index):
@@ -89,7 +78,7 @@ class TableView(QtGui.QTableView):
             self.model().setRecord(index.row(), updatedRecord)
             self.model().submitAll()
     
-    def _copy(self, index):
+    def _copy(self, index=None):
         if not index:
             index = self.currentIndex()
 
@@ -153,7 +142,7 @@ class TableView(QtGui.QTableView):
             self.model().removeRow(index.row())
             self.model().submitAll()
     
-    def _clone(self, index):
+    def _clone(self, index=None):
         if not index:
             index = self.currentIndex()
 
