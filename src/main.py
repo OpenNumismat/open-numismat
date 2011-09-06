@@ -88,7 +88,6 @@ class MainWindow(QtGui.QMainWindow):
                 self.tr("Open collection"), dir_,
                 self.tr("Collections (*.db)"))
         if fileName:
-            self.collection = Collection(self)
             if self.collection.open(fileName):
                 self.setCollection(self.collection)
             # TODO: Remove collection from latest collections list
@@ -97,15 +96,13 @@ class MainWindow(QtGui.QMainWindow):
         dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
         fileName = QtGui.QFileDialog.getSaveFileName(self,
                 self.tr("New collection"), dir_,
-                self.tr("Collections (*.db)"))
+                self.tr("Collections (*.db)"), QtGui.QFileDialog.DontConfirmOverwrite)
         if fileName:
-            self.collection = Collection(self)
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
     
     def openLatest(self, fileName):
         if fileName:
-            self.collection = Collection(self)
             if self.collection.open(fileName):
                 self.setCollection(self.collection)
     

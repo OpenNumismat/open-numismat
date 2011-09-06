@@ -23,6 +23,10 @@ class Collection(QtCore.QObject):
         return True
     
     def create(self, fileName):
+        if QtCore.QFileInfo(fileName).exists():
+            QtGui.QMessageBox.critical(self.parent(), self.tr("Create collection"), self.tr("Specified file already exists"))
+            return False
+        
         self.db.setDatabaseName(fileName)
         if not self.db.open():
             print(self.db.lastError().text())
