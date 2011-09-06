@@ -49,6 +49,8 @@ class TableView(QtGui.QTableView):
             self._copy(self.currentIndex())
         elif event.matches(QtGui.QKeySequence.Paste):
             self._paste()
+        elif event.matches(QtGui.QKeySequence.Delete):
+            self._delete(self.currentIndex())
                 
     def _edit(self, index):
         record = self.model().record(index.row())
@@ -106,6 +108,14 @@ class TableView(QtGui.QTableView):
         if result == QtGui.QDialog.Accepted:
             rec = dialog.getRecord()
             self.model().insertRecord(-1, rec)
+            self.model().submitAll()
+    
+    def _delete(self, index):
+        result = QtGui.QMessageBox.information(self, self.tr("Delete"),
+                                      self.tr("Are you sure to remove a coin?"),
+                                      QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel, QtGui.QMessageBox.Cancel)
+        if result == QtGui.QMessageBox.Yes:
+            self.model().removeRow(index.row())
             self.model().submitAll()
     
 if __name__ == '__main__':
