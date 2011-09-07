@@ -29,7 +29,7 @@ class TableView(QtGui.QTableView):
         super(TableView, self).__init__(parent)
         
         self.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
-        self.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
+        self.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.doubleClicked.connect(self.itemDClicked)
         self.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -48,11 +48,11 @@ class TableView(QtGui.QTableView):
         if (key == Qt.Key_Return) or (key == Qt.Key_Enter):
             self._edit(self.currentIndex())
         elif event.matches(QtGui.QKeySequence.Copy):
-            self._copy(self.currentIndex())
+            self._copy(self.selectedRows())
         elif event.matches(QtGui.QKeySequence.Paste):
             self._paste()
         elif event.matches(QtGui.QKeySequence.Delete):
-            self._delete(self.currentIndex())
+            self._delete(self.selectedRows())
 
     def contextMenuEvent(self, pos):
         separator = QtGui.QAction(self)
@@ -68,6 +68,18 @@ class TableView(QtGui.QTableView):
         menu.addAction(separator)
         menu.addAction(icon, self.tr("Delete"), self._delete)
         menu.exec_(self.mapToGlobal(pos))
+    
+    def selectedRows(self):
+        indexes = self.selectedIndexes()
+        if len(indexes) == 0:
+            indexes.append(self.currentIndex())
+        else:
+            a = {}
+            for index in indexes:
+                a[index.row()] = index
+            indexes = a.values()
+        
+        return indexes
 
     def _edit(self, index):
         record = self.model().record(index.row())
@@ -78,68 +90,91 @@ class TableView(QtGui.QTableView):
             self.model().setRecord(index.row(), updatedRecord)
             self.model().submitAll()
     
-    def _copy(self, index=None):
-        if not index:
-            index = self.currentIndex()
+    def _copy(self, indexes=None):
+        if not indexes:
+            indexes = self.selectedRows()
 
-        record = self.model().record(index.row())
-        if not record.isEmpty():
-            mime = QtCore.QMimeData()
-
-            textData = []
-            pickleData = []
+        textData = []
+        pickleData = []
+        for index in indexes:
+            record = self.model().record(index.row())
+            if record.isEmpty():
+                continue
+            
+            textRecordData = []
+            pickleRecordData = []
             for i in range(self.model().columnCount()):
                 if record.isNull(i):
-                    textData.append('')
-                    pickleData.append(None)
+                    textRecordData.append('')
+                    pickleRecordData.append(None)
                 elif isinstance(record.value(i), QtCore.QByteArray):
-                    textData.append('')
-                    pickleData.append(record.value(i).data())
+                    textRecordData.append('')
+                    pickleRecordData.append(record.value(i).data())
                 else:
-                    textData.append(textToClipboard(str(record.value(i))))
-                    pickleData.append(record.value(i))
+                    textRecordData.append(textToClipboard(str(record.value(i))))
+                    pickleRecordData.append(record.value(i))
             
-            mime.setText('\t'.join(textData))
-            mime.setData(TableView.MimeType, pickle.dumps(pickleData))
+            textData.append('\t'.join(textRecordData))
+            pickleData.append(pickleRecordData)
 
-            clipboard = QtGui.QApplication.clipboard()
-            clipboard.setMimeData(mime)
+        mime = QtCore.QMimeData()
+        mime.setText('\n'.join(textData))
+        mime.setData(TableView.MimeType, pickle.dumps(pickleData))
+
+        clipboard = QtGui.QApplication.clipboard()
+        clipboard.setMimeData(mime)
 
     def _paste(self):
         clipboard = QtGui.QApplication.clipboard()
         mime = clipboard.mimeData()
-        record = self.model().record()
+        
         if mime.hasFormat(TableView.MimeType):
             # Load data stored by application
             pickleData = pickle.loads(mime.data(TableView.MimeType))
-            for i in range(self.model().columnCount()):
-                record.setValue(i, pickleData[i])
-        else:
-            # Load data stored by another application (Excel)
-            textData = clipboard.text().split('\t')
-            if len(textData) != self.model().columnCount():
-                return
+            for recordData in pickleData:
+                record = self.model().record()
+                for i in range(self.model().columnCount()):
+                    record.setValue(i, recordData[i])
         
-            for i in range(self.model().columnCount()):
-                record.setValue(i, clipboardToText(textData[i]))
-
-        dialog = EditCoinDialog(record, self)
-        result = dialog.exec_()
-        if result == QtGui.QDialog.Accepted:
-            newRecord = dialog.getRecord()
-            newRecord.setNull('id')  # remove ID value from record
-            self.model().insertRecord(-1, newRecord)
-            self.model().submitAll()
+                dialog = EditCoinDialog(record, self)
+                result = dialog.exec_()
+                if result == QtGui.QDialog.Accepted:
+                    newRecord = dialog.getRecord()
+                    newRecord.setNull('id')  # remove ID value from record
+                    self.model().insertRecord(-1, newRecord)
+                    self.model().submitAll()
+        elif mime.hasText():
+            # Load data stored by another application (Excel)
+            # TODO: Process fields with \n and \t
+            textData = clipboard.text().split('\n')
+            for recordData in textData:
+                data = recordData.split('\t')
+                # Skip very short (must contain ID and NAME) and too large data
+                if len(data) < 2 or len(data) > self.model().columnCount():
+                    return
+                
+                record = self.model().record()
+                for i in range(len(data)):
+                    record.setValue(i, clipboardToText(data[i]))
+            
+                dialog = EditCoinDialog(record, self)
+                result = dialog.exec_()
+                if result == QtGui.QDialog.Accepted:
+                    newRecord = dialog.getRecord()
+                    newRecord.setNull('id')  # remove ID value from record
+                    self.model().insertRecord(-1, newRecord)
+                    self.model().submitAll()
     
-    def _delete(self, index=None):
-        if not index:
-            index = self.currentIndex()
+    def _delete(self, indexes=None):
+        if not indexes:
+            indexes = self.selectedRows()
 
         result = QtGui.QMessageBox.information(self, self.tr("Delete"),
-                                      self.tr("Are you sure to remove a coin?"),
+                                      self.tr("Are you sure to remove a %d coin(s)?") % len(indexes),
                                       QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel, QtGui.QMessageBox.Cancel)
         if result == QtGui.QMessageBox.Yes:
-            self.model().removeRow(index.row())
+            for index in indexes:
+                self.model().removeRow(index.row())
             self.model().submitAll()
     
     def _clone(self, index=None):
