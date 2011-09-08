@@ -88,29 +88,6 @@ class BaseFormLayout(QtGui.QGridLayout):
         super(BaseFormLayout, self).__init__()
         self.row = 0
         self.columnCount = 4
-        self.items = []
-
-    def addItem(self, field, title, itemType):
-        item = FormItem(field, title, itemType, self.parent())
-        self.items.append(item)
-    
-    def item(self, field):
-        for item in self.items:
-            if item.field() == field:
-                return item
-
-    def fillItems(self, record):
-        if not record.isEmpty():
-            for item in self.items:
-                if not record.isNull(item.field()):
-                    value = record.value(item.field())
-                    item.setValue(value)
-
-    def values(self):
-        val = {}
-        for item in self.items:
-            val[item.field()] = item.value()
-        return val
 
     def addRow(self, item1, item2=None):
         if not item2:
