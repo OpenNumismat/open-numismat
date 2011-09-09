@@ -66,6 +66,8 @@ class TableView(QtGui.QTableView):
         menu.addAction(self.tr("Copy"), self._copy)
         menu.addAction(self.tr("Paste"), self._paste)
         menu.addAction(separator)
+        # TODO: Disable Multi edit when only one record selected
+        menu.addAction(self.tr("Multi edit..."), self._multiEdit)
         menu.addAction(icon, self.tr("Delete"), self._delete)
         menu.exec_(self.mapToGlobal(pos))
     
@@ -74,10 +76,10 @@ class TableView(QtGui.QTableView):
         if len(indexes) == 0:
             indexes.append(self.currentIndex())
         else:
-            a = {}
+            rowsIndexes = {}
             for index in indexes:
-                a[index.row()] = index
-            indexes = a.values()
+                rowsIndexes[index.row()] = index
+            indexes = list(rowsIndexes.values())
         
         return indexes
 
@@ -88,6 +90,35 @@ class TableView(QtGui.QTableView):
         if result == QtGui.QDialog.Accepted:
             updatedRecord = dialog.getRecord()
             self.model().setRecord(index.row(), updatedRecord)
+            self.model().submitAll()
+    
+    def _multiEdit(self, indexes=None):
+        if not indexes:
+            indexes = self.selectedRows()
+
+        # Fill multi record for editing
+        multiRecord = self.model().record(indexes[0].row())
+        usedFields = [Qt.Checked] * multiRecord.count()
+        for index in indexes:
+            record = self.model().record(index.row())
+            for i in range(multiRecord.count()):
+                if multiRecord.value(i) != record.value(i):
+                    multiRecord.setNull(i)
+                    usedFields[i] = Qt.Unchecked
+
+        dialog = EditCoinDialog(multiRecord, self, usedFields)
+        result = dialog.exec_()
+        if result == QtGui.QDialog.Accepted:
+            # Fill records by used fields in multi record
+            multiRecord = dialog.getRecord()
+            usedFields = dialog.getUsedFields()
+            for index in indexes:
+                record = self.model().record(index.row())
+                for i in range(multiRecord.count()):
+                    if usedFields[i] == Qt.Checked:
+                        record.setValue(i, multiRecord.value(i))
+                self.model().setRecord(index.row(), record)
+            
             self.model().submitAll()
     
     def _copy(self, indexes=None):

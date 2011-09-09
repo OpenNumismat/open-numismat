@@ -5,8 +5,10 @@ from .BaseFormLayout import BaseFormLayout, FormItem
 from .BaseFormLayout import FormItemTypes as Type
 
 class EditCoinDialog(QtGui.QDialog):
-    def __init__(self, record, parent=None):
+    def __init__(self, record, parent=None, usedFields=None):
         super(EditCoinDialog, self).__init__(parent)
+        
+        self.usedFields = usedFields
         
         self.record = record
         
@@ -24,7 +26,7 @@ class EditCoinDialog(QtGui.QDialog):
         
         self.addTabPage(self.tr("Coin"), [groupBox1, groupBox2])
 
-        # Create State page
+        # Create Traffic page
         pay = self.payLayout()
         groupBox1 = self.__layoutToGroupBox(pay, self.tr("Pay"))
         
@@ -124,6 +126,11 @@ class EditCoinDialog(QtGui.QDialog):
             self.record.setValue(item.field(), item.value())
 
         self.accept()
+    
+    def getUsedFields(self):
+        for item in self.items.values():
+            self.usedFields[self.record.indexOf(item.field())] = item.label().checkState()
+        return self.usedFields
 
     def getRecord(self):
         return self.record
@@ -134,85 +141,89 @@ class EditCoinDialog(QtGui.QDialog):
         super(EditCoinDialog, self).done(r)
     
     def addItem(self, field, title, itemType):
-        item = FormItem(field, title, itemType, self)
+        item = FormItem(field, title, itemType)
         self.items[field] = item
     
     def createItems(self):
         self.items = {}
+        
+        checkable = 0
+        if self.usedFields:
+            checkable = Type.Checkable
 
-        self.addItem('title', "Name", Type.String) 
-        self.addItem('value', "Value", Type.Money)
-        self.addItem('unit', "Unit", Type.String)
-        self.addItem('country', "Country", Type.String)
-        self.addItem('year', "Year", Type.Number)
-        self.addItem('period', "Period", Type.String)
-        self.addItem('mint', "Mint", Type.String)
-        self.addItem('mintmark', "Mint mark", Type.ShortString)
-        self.addItem('type', "Type", Type.String)
-        self.addItem('series', "Series", Type.String)
+        self.addItem('title', "Name", Type.String | checkable) 
+        self.addItem('value', "Value", Type.Money | checkable)
+        self.addItem('unit', "Unit", Type.String | checkable)
+        self.addItem('country', "Country", Type.String | checkable)
+        self.addItem('year', "Year", Type.Number | checkable)
+        self.addItem('period', "Period", Type.String | checkable)
+        self.addItem('mint', "Mint", Type.String | checkable)
+        self.addItem('mintmark', "Mint mark", Type.ShortString | checkable)
+        self.addItem('type', "Type", Type.String | checkable)
+        self.addItem('series', "Series", Type.String | checkable)
 
-        self.addItem('state', "State", Type.String)
-        self.addItem('grade', "Grade", Type.String)
-        self.addItem('note', "Note", Type.Text)
+        self.addItem('state', "State", Type.String | checkable)
+        self.addItem('grade', "Grade", Type.String | checkable)
+        self.addItem('note', "Note", Type.Text | checkable)
 
-        self.addItem('paydate', "Date", Type.Date) 
-        self.addItem('payprice', "Price", Type.Money)
-        self.addItem('saller', "Saller", Type.String)
-        self.addItem('payplace', "Place", Type.String)
-        self.addItem('payinfo', "Info", Type.Text)
+        self.addItem('paydate', "Date", Type.Date | checkable)
+        self.addItem('payprice', "Price", Type.Money | checkable)
+        self.addItem('saller', "Saller", Type.String | checkable)
+        self.addItem('payplace', "Place", Type.String | checkable)
+        self.addItem('payinfo', "Info", Type.Text | checkable)
         
-        self.addItem('saledate', "Date", Type.Date) 
-        self.addItem('saleprice', "Price", Type.Money)
-        self.addItem('buyer', "Buyer", Type.String)
-        self.addItem('saleplace', "Place", Type.String)
-        self.addItem('saleinfo', "Info", Type.Text)
+        self.addItem('saledate', "Date", Type.Date | checkable)
+        self.addItem('saleprice', "Price", Type.Money | checkable)
+        self.addItem('buyer', "Buyer", Type.String | checkable)
+        self.addItem('saleplace', "Place", Type.String | checkable)
+        self.addItem('saleinfo', "Info", Type.Text | checkable)
         
-        self.addItem('metal', "Metal", Type.String) 
-        self.addItem('fineness', "Fineness", Type.Number)
-        self.addItem('form', "Form", Type.String)
-        self.addItem('diameter', "Diameter", Type.Value)
-        self.addItem('thick', "Thick", Type.Value)
-        self.addItem('mass', "Mass", Type.Value)
-        self.addItem('obvrev', "ObvRev", Type.String)
+        self.addItem('metal', "Metal", Type.String | checkable)
+        self.addItem('fineness', "Fineness", Type.Number | checkable)
+        self.addItem('form', "Form", Type.String | checkable)
+        self.addItem('diameter', "Diameter", Type.Value | checkable)
+        self.addItem('thick', "Thick", Type.Value | checkable)
+        self.addItem('mass', "Mass", Type.Value | checkable)
+        self.addItem('obvrev', "ObvRev", Type.String | checkable)
         
-        self.addItem('issuedate', "Date of issue", Type.Date) 
-        self.addItem('dateemis', "Emission period", Type.String)
-        self.addItem('mintage', "Mintage", Type.BigInt)
+        self.addItem('issuedate', "Date of issue", Type.Date | checkable)
+        self.addItem('dateemis', "Emission period", Type.String | checkable)
+        self.addItem('mintage', "Mintage", Type.BigInt | checkable)
         
-        self.addItem('obverseimg', "", Type.Image)
-        self.addItem('obversedesign', "Design", Type.Text) 
-        self.addItem('obversedesigner', "Designer", Type.String)
+        self.addItem('obverseimg', "", Type.Image | checkable)
+        self.addItem('obversedesign', "Design", Type.Text | checkable)
+        self.addItem('obversedesigner', "Designer", Type.String | checkable)
 
-        self.addItem('reverseimg', "", Type.Image)
-        self.addItem('reversedesign', "Design", Type.Text)
-        self.addItem('reversedesigner', "Designer", Type.String)
+        self.addItem('reverseimg', "", Type.Image | checkable)
+        self.addItem('reversedesign', "Design", Type.Text | checkable)
+        self.addItem('reversedesigner', "Designer", Type.String | checkable)
 
-        self.addItem('edgeimg', "", Type.Image),
-        self.addItem('edge', "Type", Type.String) 
-        self.addItem('edgelabel', "Label", Type.String)
+        self.addItem('edgeimg', "", Type.Image | checkable)
+        self.addItem('edge', "Type", Type.String | checkable)
+        self.addItem('edgelabel', "Label", Type.String | checkable)
 
-        self.addItem('subject', "Subject", Type.Text)
+        self.addItem('subject', "Subject", Type.Text | checkable)
         
-        self.addItem('catalognum1', "#", Type.String) 
-        self.addItem('catalognum2', "#", Type.String)
-        self.addItem('catalognum3', "#", Type.String)
-        self.addItem('rarity', "Rarity", Type.ShortString)
+        self.addItem('catalognum1', "#", Type.String | checkable)
+        self.addItem('catalognum2', "#", Type.String | checkable)
+        self.addItem('catalognum3', "#", Type.String | checkable)
+        self.addItem('rarity', "Rarity", Type.ShortString | checkable)
         
-        self.addItem('price1', "Fine", Type.Money)
-        self.addItem('price2', "VF", Type.Money)
-        self.addItem('price3', "XF", Type.Money)
-        self.addItem('price4', "AU", Type.Money)
-        self.addItem('price5', "Unc", Type.Money)
-        self.addItem('price6', "Proof", Type.Money)
+        self.addItem('price1', "Fine", Type.Money | checkable)
+        self.addItem('price2', "VF", Type.Money | checkable)
+        self.addItem('price3', "XF", Type.Money | checkable)
+        self.addItem('price4', "AU", Type.Money | checkable)
+        self.addItem('price5', "Unc", Type.Money | checkable)
+        self.addItem('price6', "Proof", Type.Money | checkable)
         
-        self.addItem('obversevar', "Obverse", Type.Text)
-        self.addItem('reversevar', "Reverse", Type.Text)
-        self.addItem('edgevar', "Edge", Type.Text)
+        self.addItem('obversevar', "Obverse", Type.Text | checkable)
+        self.addItem('reversevar', "Reverse", Type.Text | checkable)
+        self.addItem('edgevar', "Edge", Type.Text | checkable)
         
-        self.addItem('photo1', "Photo 1", Type.Image)
-        self.addItem('photo2', "Photo 2", Type.Image)
-        self.addItem('photo3', "Photo 3", Type.Image)
-        self.addItem('photo4', "Photo 4", Type.Image)
+        self.addItem('photo1', "Photo 1", Type.Image | checkable)
+        self.addItem('photo2', "Photo 2", Type.Image | checkable)
+        self.addItem('photo3', "Photo 3", Type.Image | checkable)
+        self.addItem('photo4', "Photo 4", Type.Image | checkable)
         
     def fillItems(self, record):
         if not record.isEmpty():
@@ -220,6 +231,10 @@ class EditCoinDialog(QtGui.QDialog):
                 if not record.isNull(item.field()):
                     value = record.value(item.field())
                     item.setValue(value)
+            if self.usedFields:
+                for item in self.items.values():
+                    if self.usedFields[record.indexOf(item.field())]:
+                        item.label().setCheckState(Qt.Checked)
 
     def mainDetailsLayout(self, parent=None):
         layout = BaseFormLayout(parent)
@@ -367,22 +382,22 @@ class EditCoinDialog(QtGui.QDialog):
 
         item = self.items['photo1']
         item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        item.label().setAlignment(Qt.AlignLeft)
+#        item.label().setAlignment(Qt.AlignLeft)
         layout.addWidget(item.label(), 0, 0)
         layout.addWidget(item.widget(), 1, 0)
         item = self.items['photo2']
         item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        item.label().setAlignment(Qt.AlignLeft)
+#        item.label().setAlignment(Qt.AlignLeft)
         layout.addWidget(item.label(),0,1)
         layout.addWidget(item.widget(),1,1)
         item = self.items['photo3']
         item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        item.label().setAlignment(Qt.AlignLeft)
+#        item.label().setAlignment(Qt.AlignLeft)
         layout.addWidget(item.label(),2,0)
         layout.addWidget(item.widget(),3,0)
         item = self.items['photo4']
         item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        item.label().setAlignment(Qt.AlignLeft)
+#        item.label().setAlignment(Qt.AlignLeft)
         layout.addWidget(item.label(),2,1)
         layout.addWidget(item.widget(),3,1)
 
