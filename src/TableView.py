@@ -2,7 +2,7 @@
 
 import pickle
 
-from PyQt4 import QtGui, QtCore, QtSql
+from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 
 from EditCoinDialog.EditCoinDialog import EditCoinDialog

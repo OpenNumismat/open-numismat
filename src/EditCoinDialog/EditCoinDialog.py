@@ -243,6 +243,7 @@ class EditCoinDialog(QtGui.QDialog):
         btn = QtGui.QPushButton(self.tr("Generate"), parent)
         btn.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         btn.clicked.connect(self.clickGenerateTitle)
+        self.items['title'].widget().textChanged.connect(self.textChangedTitle)
         layout.addRow(self.items['title'], btn)
 
         layout.addRow(self.items['country'])
@@ -417,3 +418,9 @@ class EditCoinDialog(QtGui.QDialog):
 
         title = ' '.join(titleParts)
         self.items['title'].setValue(title)
+
+    def textChangedTitle(self, text):
+        title = [self.tr("Edit"),]
+        if text:
+            title.insert(0, text)
+        self.setWindowTitle(' - '.join(title))
