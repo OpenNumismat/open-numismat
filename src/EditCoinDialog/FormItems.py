@@ -1,9 +1,33 @@
 from PyQt4 import QtGui
+from PyQt4.QtCore import QT_TR_NOOP
 
 class LineEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(LineEdit, self).__init__(parent)
         self.setMaxLength(1024)
+
+class StateEdit(QtGui.QComboBox):
+    items = [('demo', QT_TR_NOOP("Demo")), ('pass', QT_TR_NOOP("Pass")),
+             ('in', QT_TR_NOOP("in")), ('out', QT_TR_NOOP("out")),
+             ('exchange', QT_TR_NOOP("exchange"))]
+    
+    def __init__(self, parent=None):
+        super(StateEdit, self).__init__(parent)
+        
+        for item in StateEdit.items:
+            self.addItem(item[1])
+    
+    def data(self):
+        return StateEdit.items[self.currentIndex()][0]
+    
+    def setCurrentValue(self, value):
+        index = -1
+        for item in StateEdit.items:
+            if item[0] == value:
+                index = self.findText(item[1])
+        
+        if index >= 0:
+            self.setCurrentIndex(index)
 
 class ShortLineEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):

@@ -14,6 +14,7 @@ class FormItemTypes():
     Image = 8
     Money = 9
     Value = 10
+    State = 11
     
     Mask = int('FF', 16)  # 0xFF
     Checkable = int('100', 16)  # 0x100
@@ -30,25 +31,27 @@ class FormItem(object):
             self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
             self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
         
-        type = itemType & FormItemTypes.Mask
-        if type == FormItemTypes.String:
+        self._type = itemType & FormItemTypes.Mask
+        if self._type == FormItemTypes.String:
             self._widget = LineEdit(parent)
-        elif type == FormItemTypes.ShortString:
+        elif self._type == FormItemTypes.ShortString:
             self._widget = ShortLineEdit(parent)
-        elif type == FormItemTypes.Number:
+        elif self._type == FormItemTypes.Number:
             self._widget = NumberEdit(parent)
-        elif type == FormItemTypes.BigInt:
+        elif self._type == FormItemTypes.BigInt:
             self._widget = BigIntEdit(parent)
-        elif type == FormItemTypes.Value:
+        elif self._type == FormItemTypes.Value:
             self._widget = ValueEdit(parent)
-        elif type == FormItemTypes.Money:
+        elif self._type == FormItemTypes.Money:
             self._widget = MoneyEdit(parent)
-        elif type == FormItemTypes.Text:
+        elif self._type == FormItemTypes.Text:
             self._widget = TextEdit(parent)
-        elif type == FormItemTypes.Image:
+        elif self._type == FormItemTypes.Image:
             self._widget = ImageLabel(parent)
-        elif type == FormItemTypes.Date:
+        elif self._type == FormItemTypes.Date:
             self._widget = DateEdit(parent)
+        elif self._type == FormItemTypes.State:
+            self._widget = StateEdit(parent)
         else:
             raise
     
@@ -76,6 +79,8 @@ class FormItem(object):
             return self._widget.value()
         elif isinstance(self._widget, ImageLabel):
             return self._widget.data()
+        elif isinstance(self._widget, StateEdit):
+            return self._widget.data()
         else:
             return self._widget.text()
 
@@ -88,6 +93,8 @@ class FormItem(object):
             self._widget.setValue(float(value))
         elif isinstance(self._widget, QtGui.QDateTimeEdit):
             self._widget.setDate(QDate.fromString(str(value)))
+        elif isinstance(self._widget, StateEdit):
+            self._widget.setCurrentValue(value)
         else: 
             self._widget.setText(str(value))
 
