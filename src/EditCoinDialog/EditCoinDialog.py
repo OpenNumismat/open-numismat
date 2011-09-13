@@ -119,9 +119,16 @@ class EditCoinDialog(QtGui.QDialog):
             self.tab.addTab(self.__layoutToWidget(parts), title)
 
     def save(self):
+        if not self.items['title'].value():
+            result = QtGui.QMessageBox.warning(self.parent(), self.tr("Save"),
+                             self.tr("Coin title not set. Save without title?"),
+                             QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+            if result != QtGui.QMessageBox.Save:
+                return
+
         for item in self.items.values():
             self.record.setValue(item.field(), item.value())
-
+    
         self.accept()
     
     def getUsedFields(self):
