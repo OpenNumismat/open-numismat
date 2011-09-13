@@ -31,26 +31,26 @@ class FormItem(object):
             self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
             self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
         
-        self._type = itemType & FormItemTypes.Mask
-        if self._type == FormItemTypes.String:
+        type_ = itemType & FormItemTypes.Mask
+        if type_ == FormItemTypes.String:
             self._widget = LineEdit(parent)
-        elif self._type == FormItemTypes.ShortString:
+        elif type_ == FormItemTypes.ShortString:
             self._widget = ShortLineEdit(parent)
-        elif self._type == FormItemTypes.Number:
+        elif type_ == FormItemTypes.Number:
             self._widget = NumberEdit(parent)
-        elif self._type == FormItemTypes.BigInt:
+        elif type_ == FormItemTypes.BigInt:
             self._widget = BigIntEdit(parent)
-        elif self._type == FormItemTypes.Value:
+        elif type_ == FormItemTypes.Value:
             self._widget = ValueEdit(parent)
-        elif self._type == FormItemTypes.Money:
+        elif type_ == FormItemTypes.Money:
             self._widget = MoneyEdit(parent)
-        elif self._type == FormItemTypes.Text:
+        elif type_ == FormItemTypes.Text:
             self._widget = TextEdit(parent)
-        elif self._type == FormItemTypes.Image:
+        elif type_ == FormItemTypes.Image:
             self._widget = ImageLabel(parent)
-        elif self._type == FormItemTypes.Date:
+        elif type_ == FormItemTypes.Date:
             self._widget = DateEdit(parent)
-        elif self._type == FormItemTypes.State:
+        elif type_ == FormItemTypes.State:
             self._widget = StateEdit(parent)
         else:
             raise

@@ -33,7 +33,10 @@ class EditCoinDialog(QtGui.QDialog):
         sale = self.saleLayout()
         groupBox2 = self.__layoutToGroupBox(sale, self.tr("Sale"))
         
-        self.addTabPage(self.tr("Traffic"), [groupBox1, groupBox2])
+        pass_ = self.passLayout()
+        groupBox3 = self.__layoutToGroupBox(pass_, self.tr("Pass"))
+        
+        self.addTabPage(self.tr("Traffic"), [groupBox1, groupBox2, groupBox3])
 
         # Create Parameters page
         parameters = self.parametersLayout()
@@ -162,7 +165,7 @@ class EditCoinDialog(QtGui.QDialog):
         self.addItem('type', "Type", Type.String | checkable)
         self.addItem('series', "Series", Type.String | checkable)
 
-        self.addItem('state', "State", Type.String | checkable)
+        self.addItem('state', "State", Type.State | checkable)
         self.addItem('grade', "Grade", Type.String | checkable)
         self.addItem('note', "Note", Type.Text | checkable)
 
@@ -259,6 +262,7 @@ class EditCoinDialog(QtGui.QDialog):
     def stateLayout(self, parent=None):
         layout = BaseFormLayout(parent)
         
+        self.items['state'].widget().currentIndexChanged.connect(self.indexChangedState)
         layout.addRow(self.items['state'], self.items['grade'])
         layout.addRow(self.items['note'])
 
@@ -278,6 +282,17 @@ class EditCoinDialog(QtGui.QDialog):
         layout = BaseFormLayout(parent)
         
         layout.addRow(self.items['saledate'], self.items['saleprice'])
+        layout.addRow(self.items['buyer'])
+        layout.addRow(self.items['saleplace'])
+        layout.addRow(self.items['saleinfo'])
+
+        return layout
+
+    def passLayout(self, parent=None):
+        layout = BaseFormLayout(parent)
+        
+        layout.addRow(self.items['saledate'], self.items['saleprice'])
+        layout.addRow(self.items['saller'])
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
         layout.addRow(self.items['saleinfo'])
@@ -424,3 +439,39 @@ class EditCoinDialog(QtGui.QDialog):
         if text:
             title.insert(0, text)
         self.setWindowTitle(' - '.join(title))
+
+    def indexChangedState(self, index):
+        self.tab.removeTab(1)
+        pageParts = []
+        if index == 0:
+            pass
+        elif index == 1:
+            pass_ = self.passLayout()
+            groupBox = self.__layoutToGroupBox(pass_, self.tr("Pass"))
+            pageParts.append(groupBox)
+        elif index == 2:
+            pay = self.payLayout()
+            groupBox = self.__layoutToGroupBox(pay, self.tr("Buy"))
+            pageParts.append(groupBox)
+        elif index == 3:
+            pay = self.payLayout()
+            groupBox1 = self.__layoutToGroupBox(pay, self.tr("Buy"))
+            pageParts.append(groupBox1)
+            
+            sale = self.saleLayout()
+            groupBox2 = self.__layoutToGroupBox(sale, self.tr("Sale"))
+            pageParts.append(groupBox2)
+        elif index == 4:
+            pay = self.payLayout()
+            groupBox = self.__layoutToGroupBox(pay, self.tr("Buy"))
+            pageParts.append(groupBox)
+
+        pageLayout = QtGui.QVBoxLayout()
+        # Fill layout with it's parts
+        for part in pageParts:
+            pageLayout.addWidget(part)
+
+        # Convert layout to widget and add to tab page
+        self.tab.insertTab(1, self.__layoutToWidget(pageLayout), self.tr("Traffic"))
+        if len(pageParts) == 0:
+            self.tab.setTabEnabled(1, False)
