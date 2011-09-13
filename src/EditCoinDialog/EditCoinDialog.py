@@ -27,16 +27,8 @@ class EditCoinDialog(QtGui.QDialog):
         self.addTabPage(self.tr("Coin"), [groupBox1, groupBox2])
 
         # Create Traffic page
-        pay = self.payLayout()
-        groupBox1 = self.__layoutToGroupBox(pay, self.tr("Pay"))
-        
-        sale = self.saleLayout()
-        groupBox2 = self.__layoutToGroupBox(sale, self.tr("Sale"))
-        
-        pass_ = self.passLayout()
-        groupBox3 = self.__layoutToGroupBox(pass_, self.tr("Pass"))
-        
-        self.addTabPage(self.tr("Traffic"), [groupBox1, groupBox2, groupBox3])
+        parts = self.__createTrafficParts()
+        self.addTabPage(self.tr("Traffic"), parts)
 
         # Create Parameters page
         parameters = self.parametersLayout()
@@ -120,6 +112,8 @@ class EditCoinDialog(QtGui.QDialog):
 
             # Convert layout to widget and add to tab page
             self.tab.addTab(self.__layoutToWidget(pageLayout), title)
+            if len(parts) == 0:
+                self.tab.setTabEnabled(1, False)
         else:
             # Convert layout to widget and add to tab page
             self.tab.addTab(self.__layoutToWidget(parts), title)
@@ -439,9 +433,8 @@ class EditCoinDialog(QtGui.QDialog):
         if text:
             title.insert(0, text)
         self.setWindowTitle(' - '.join(title))
-
-    def indexChangedState(self, index):
-        self.tab.removeTab(1)
+    
+    def __createTrafficParts(self, index=0):
         pageParts = []
         if index == 0:
             pass
@@ -465,6 +458,12 @@ class EditCoinDialog(QtGui.QDialog):
             pay = self.payLayout()
             groupBox = self.__layoutToGroupBox(pay, self.tr("Buy"))
             pageParts.append(groupBox)
+        
+        return pageParts
+
+    def indexChangedState(self, index):
+        self.tab.removeTab(1)
+        pageParts = self.__createTrafficParts(index)
 
         pageLayout = QtGui.QVBoxLayout()
         # Fill layout with it's parts
