@@ -35,6 +35,7 @@ class TableView(QtGui.QTableView):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenuEvent)
         self.setSortingEnabled(True)
+        self.horizontalHeader().setMovable(True)
     
     def setModel(self, model):
         super(TableView, self).setModel(model)
