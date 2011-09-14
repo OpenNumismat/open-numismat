@@ -119,12 +119,13 @@ class EditCoinDialog(QtGui.QDialog):
             self.tab.addTab(self.__layoutToWidget(parts), title)
 
     def save(self):
-        if not self.items['title'].value():
-            result = QtGui.QMessageBox.warning(self.parent(), self.tr("Save"),
-                             self.tr("Coin title not set. Save without title?"),
-                             QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
-            if result != QtGui.QMessageBox.Save:
-                return
+        if not self.usedFields:
+            if not self.items['title'].value():
+                result = QtGui.QMessageBox.warning(self.parent(), self.tr("Save"),
+                                 self.tr("Coin title not set. Save without title?"),
+                                 QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                if result != QtGui.QMessageBox.Save:
+                    return
 
         for item in self.items.values():
             self.record.setValue(item.field(), item.value())
@@ -436,10 +437,13 @@ class EditCoinDialog(QtGui.QDialog):
         self.items['title'].setValue(title)
 
     def textChangedTitle(self, text):
-        title = [self.tr("Edit"),]
-        if text:
-            title.insert(0, text)
-        self.setWindowTitle(' - '.join(title))
+        if self.usedFields:
+            self.setWindowTitle(self.tr("Multi edit"))
+        else:
+            title = [self.tr("Edit"),]
+            if text:
+                title.insert(0, text)
+            self.setWindowTitle(' - '.join(title))
     
     def __createTrafficParts(self, index=0):
         pageParts = []
