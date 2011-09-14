@@ -55,16 +55,12 @@ class TableView(QtGui.QTableView):
         self.horizontalHeader().setMovable(True)
         self.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
         
-        self.setItemDelegateForColumn(49, ImageDelegate(self))
-        self.setItemDelegateForColumn(52, ImageDelegate(self))
-        self.setItemDelegateForColumn(55, ImageDelegate(self))
-        self.setItemDelegateForColumn(57, ImageDelegate(self))
-        self.setItemDelegateForColumn(58, ImageDelegate(self))
-        self.setItemDelegateForColumn(59, ImageDelegate(self))
-        self.setItemDelegateForColumn(60, ImageDelegate(self))
+        # Show image data as images
+        for i in [49, 52, 55, 57, 58, 59, 60]:
+            self.setItemDelegateForColumn(i, ImageDelegate(self))
     
     def sectionDoubleClicked(self, index):
-        # NOTE: When section double-clicked it also clicked => sorting is work
+        # NOTE: When section double-clicked it also clicked => sorting is activated
         self.resizeColumnToContents(index)
     
     def setModel(self, model):

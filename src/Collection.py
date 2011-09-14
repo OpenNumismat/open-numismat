@@ -1,5 +1,5 @@
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtSql import *
+from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery
 
 class CollectionModel(QSqlTableModel):
     def __init__(self, parent=None, db=QSqlDatabase()):
@@ -122,6 +122,9 @@ class Collection(QtCore.QObject):
     def model(self):
         model = CollectionModel(None, self.db)
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
+        model.setTable('coins')
+        model.select()
+        model.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Name"))
         return model
     
     @staticmethod

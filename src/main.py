@@ -11,14 +11,14 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         
-        exit = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
-        exit.setShortcut('Ctrl+Q')
-        exit.setStatusTip(self.tr("Exit application"))
-        exit.triggered.connect(self.close)
+        exitAct = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
+        exitAct.setShortcut('Ctrl+Q')
+        exitAct.setStatusTip(self.tr("Exit application"))
+        exitAct.triggered.connect(self.close)
 
         menubar = self.menuBar()
         file = menubar.addMenu(self.tr("&File"))
-        file.addAction(exit)
+        file.addAction(exitAct)
 
         add_coin = QtGui.QAction(QtGui.QIcon('icons/add_coin.png'), self.tr("Add"), self)
         add_coin.setStatusTip(self.tr("Add new coin"))
@@ -122,12 +122,6 @@ class MainWindow(QtGui.QMainWindow):
         self.__updateLatest()
 
         self.model = self.collection.model()
-        self.model.setTable('coins')
-        
-        self.model.select()
-        
-        self.model.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Name"))
-        
         self.view.setModel(self.model)
     
     def closeEvent(self, e):
