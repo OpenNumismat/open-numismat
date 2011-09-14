@@ -21,6 +21,23 @@ def clipboardToText(text):
 
     return text
 
+class ImageDelegate(QtGui.QStyledItemDelegate):
+
+    def __init__(self, parent):
+        QtGui.QStyledItemDelegate.__init__(self, parent)
+
+    def paint(self, painter, option, index):
+        if not index.data().isNull():
+            image = QtGui.QImage()
+            image.loadFromData(index.data())
+            scaledImage = image.scaled(option.rect.width(), option.rect.height(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            pixmap = QtGui.QPixmap.fromImage(scaledImage)
+            rect = option.rect
+            rect.setWidth(pixmap.rect().width())
+            rect.setHeight(pixmap.rect().height())
+            # TODO: Set rect at center of item
+            painter.drawPixmap(rect, pixmap)
+
 class TableView(QtGui.QTableView):
     # TODO: Changes mime type
     MimeType = 'num/data'
@@ -36,6 +53,14 @@ class TableView(QtGui.QTableView):
         self.customContextMenuRequested.connect(self.contextMenuEvent)
         self.setSortingEnabled(True)
         self.horizontalHeader().setMovable(True)
+        
+        self.setItemDelegateForColumn(49, ImageDelegate(self))
+        self.setItemDelegateForColumn(52, ImageDelegate(self))
+        self.setItemDelegateForColumn(55, ImageDelegate(self))
+        self.setItemDelegateForColumn(57, ImageDelegate(self))
+        self.setItemDelegateForColumn(58, ImageDelegate(self))
+        self.setItemDelegateForColumn(59, ImageDelegate(self))
+        self.setItemDelegateForColumn(60, ImageDelegate(self))
     
     def setModel(self, model):
         super(TableView, self).setModel(model)
