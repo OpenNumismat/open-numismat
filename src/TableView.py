@@ -53,6 +53,7 @@ class TableView(QtGui.QTableView):
         self.customContextMenuRequested.connect(self.contextMenuEvent)
         self.setSortingEnabled(True)
         self.horizontalHeader().setMovable(True)
+        self.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
         
         self.setItemDelegateForColumn(49, ImageDelegate(self))
         self.setItemDelegateForColumn(52, ImageDelegate(self))
@@ -61,6 +62,10 @@ class TableView(QtGui.QTableView):
         self.setItemDelegateForColumn(58, ImageDelegate(self))
         self.setItemDelegateForColumn(59, ImageDelegate(self))
         self.setItemDelegateForColumn(60, ImageDelegate(self))
+    
+    def sectionDoubleClicked(self, index):
+        # NOTE: When section double-clicked it also clicked => sorting is work
+        self.resizeColumnToContents(index)
     
     def setModel(self, model):
         super(TableView, self).setModel(model)
