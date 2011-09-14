@@ -1,6 +1,18 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtSql import *
 
+class CollectionModel(QSqlTableModel):
+    def __init__(self, parent=None, db=QSqlDatabase()):
+        super(CollectionModel, self).__init__(parent, db)
+    
+    def data(self, index, role):
+        ret = super(CollectionModel, self).data(index, role)
+        if index.column() in [9, 38, 43]:
+            if role == QtCore.Qt.DisplayRole:
+                date = QtCore.QDate.fromString(ret)
+                return date.toString(QtCore.Qt.SystemLocaleShortDate)
+        return ret
+
 class Collection(QtCore.QObject):
     def __init__(self, parent=None):
         super(Collection, self).__init__(parent)
@@ -108,7 +120,7 @@ class Collection(QtCore.QObject):
         return Collection.fileNameToCollectionName(self.fileName)
     
     def model(self):
-        model = QSqlTableModel(None, self.db)
+        model = CollectionModel(None, self.db)
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         return model
     
