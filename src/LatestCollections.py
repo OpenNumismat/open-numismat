@@ -1,7 +1,7 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import pyqtSignal
 
-from Collection import Collection
+from Collection.Collection import Collection
 
 class LatestCollectionAction(QtGui.QAction):
     latestTriggered = pyqtSignal(str)

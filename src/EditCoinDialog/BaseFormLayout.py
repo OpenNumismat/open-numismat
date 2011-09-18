@@ -2,28 +2,13 @@ from PyQt4.QtCore import Qt, QDate
 
 from .FormItems import *
 from .ImageLabel import ImageLabel
-
-class FormItemTypes():
-    String = 1
-    ShortString = 2
-    Number = 3
-    Text = 4
-    Money = 5
-    Date = 6
-    BigInt = 7
-    Image = 8
-    Money = 9
-    Value = 10
-    State = 11
-    
-    Mask = int('FF', 16)  # 0xFF
-    Checkable = int('100', 16)  # 0x100
+from Collection.CollectionFields import FieldTypes as Type
 
 class FormItem(object):
     def __init__(self, field, title, itemType, parent=None):
         self._field = field
         self._title = title
-        if itemType & FormItemTypes.Checkable:
+        if itemType & Type.Checkable:
             self._label = QtGui.QCheckBox(title, parent)
             self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
         else:
@@ -31,26 +16,26 @@ class FormItem(object):
             self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
             self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
         
-        type_ = itemType & FormItemTypes.Mask
-        if type_ == FormItemTypes.String:
+        type_ = itemType & Type.Mask
+        if type_ == Type.String:
             self._widget = LineEdit(parent)
-        elif type_ == FormItemTypes.ShortString:
+        elif type_ == Type.ShortString:
             self._widget = ShortLineEdit(parent)
-        elif type_ == FormItemTypes.Number:
+        elif type_ == Type.Number:
             self._widget = NumberEdit(parent)
-        elif type_ == FormItemTypes.BigInt:
+        elif type_ == Type.BigInt:
             self._widget = BigIntEdit(parent)
-        elif type_ == FormItemTypes.Value:
+        elif type_ == Type.Value:
             self._widget = ValueEdit(parent)
-        elif type_ == FormItemTypes.Money:
+        elif type_ == Type.Money:
             self._widget = MoneyEdit(parent)
-        elif type_ == FormItemTypes.Text:
+        elif type_ == Type.Text:
             self._widget = TextEdit(parent)
-        elif type_ == FormItemTypes.Image:
+        elif type_ == Type.Image:
             self._widget = ImageLabel(parent)
-        elif type_ == FormItemTypes.Date:
+        elif type_ == Type.Date:
             self._widget = DateEdit(parent)
-        elif type_ == FormItemTypes.State:
+        elif type_ == Type.State:
             self._widget = StateEdit(parent)
         else:
             raise

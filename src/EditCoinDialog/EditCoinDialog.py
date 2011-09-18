@@ -2,7 +2,7 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 
 from .BaseFormLayout import BaseFormLayout, FormItem
-from .BaseFormLayout import FormItemTypes as Type
+from Collection.CollectionFields import FieldTypes as Type
 
 class EditCoinDialog(QtGui.QDialog):
     def __init__(self, record, parent=None, usedFields=None):

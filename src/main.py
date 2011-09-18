@@ -2,7 +2,7 @@
 
 from PyQt4 import QtGui, QtCore
 
-from Collection import Collection
+from Collection.Collection import Collection
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from TableView import TableView
 from LatestCollections import LatestCollections
@@ -121,8 +121,7 @@ class MainWindow(QtGui.QMainWindow):
         latest.setLatest(collection.getFileName())
         self.__updateLatest()
 
-        self.model = self.collection.model()
-        self.view.setModel(self.model)
+        self.view.setModel(self.collection.model())
     
     def closeEvent(self, e):
         settings = QtCore.QSettings()
