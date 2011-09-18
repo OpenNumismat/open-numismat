@@ -2,6 +2,7 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 
 from .BaseFormLayout import BaseFormLayout, FormItem
+from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
 
 class EditCoinDialog(QtGui.QDialog):
@@ -145,91 +146,24 @@ class EditCoinDialog(QtGui.QDialog):
         settings.setValue('editcoinwindow/size', self.size());
         super(EditCoinDialog, self).done(r)
     
-    def addItem(self, field, title, itemType):
-        item = FormItem(field, title, itemType)
-        self.items[field] = item
-    
-    def createItems(self):
-        self.items = {}
-        
+    def addItem(self, field):
         checkable = 0
         if self.usedFields:
             checkable = Type.Checkable
 
-        self.addItem('title', "Name", Type.String | checkable) 
-        self.addItem('value', "Value", Type.Money | checkable)
-        self.addItem('unit', "Unit", Type.String | checkable)
-        self.addItem('country', "Country", Type.String | checkable)
-        self.addItem('year', "Year", Type.Number | checkable)
-        self.addItem('period', "Period", Type.String | checkable)
-        self.addItem('mint', "Mint", Type.String | checkable)
-        self.addItem('mintmark', "Mint mark", Type.ShortString | checkable)
-        self.addItem('type', "Type", Type.String | checkable)
-        self.addItem('series', "Series", Type.String | checkable)
-
-        self.addItem('state', "State", Type.State | checkable)
-        self.addItem('grade', "Grade", Type.String | checkable)
-        self.addItem('note', "Note", Type.Text | checkable)
-
-        self.addItem('paydate', "Date", Type.Date | checkable)
-        self.addItem('payprice', "Price", Type.Money | checkable)
-        self.addItem('saller', "Saller", Type.String | checkable)
-        self.addItem('payplace', "Place", Type.String | checkable)
-        self.addItem('payinfo', "Info", Type.Text | checkable)
+        item = FormItem(field.name, field.title, field.type | checkable)
+        self.items[field.name] = item
+    
+    def createItems(self):
+        self.items = {}
         
-        self.addItem('saledate', "Date", Type.Date | checkable)
-        self.addItem('saleprice', "Price", Type.Money | checkable)
-        self.addItem('buyer', "Buyer", Type.String | checkable)
-        self.addItem('saleplace', "Place", Type.String | checkable)
-        self.addItem('saleinfo', "Info", Type.Text | checkable)
-        
-        self.addItem('metal', "Metal", Type.String | checkable)
-        self.addItem('fineness', "Fineness", Type.Number | checkable)
-        self.addItem('form', "Form", Type.String | checkable)
-        self.addItem('diameter', "Diameter", Type.Value | checkable)
-        self.addItem('thick', "Thick", Type.Value | checkable)
-        self.addItem('mass', "Mass", Type.Value | checkable)
-        self.addItem('obvrev', "ObvRev", Type.String | checkable)
-        
-        self.addItem('issuedate', "Date of issue", Type.Date | checkable)
-        self.addItem('dateemis', "Emission period", Type.String | checkable)
-        self.addItem('mintage', "Mintage", Type.BigInt | checkable)
-        
-        self.addItem('obverseimg', "", Type.Image | checkable)
-        self.addItem('obversedesign', "Design", Type.Text | checkable)
-        self.addItem('obversedesigner', "Designer", Type.String | checkable)
-
-        self.addItem('reverseimg', "", Type.Image | checkable)
-        self.addItem('reversedesign', "Design", Type.Text | checkable)
-        self.addItem('reversedesigner', "Designer", Type.String | checkable)
-
-        self.addItem('edgeimg', "", Type.Image | checkable)
-        self.addItem('edge', "Type", Type.String | checkable)
-        self.addItem('edgelabel', "Label", Type.String | checkable)
-
-        self.addItem('subject', "Subject", Type.Text | checkable)
-        
-        self.addItem('catalognum1', "#", Type.String | checkable)
-        self.addItem('catalognum2', "#", Type.String | checkable)
-        self.addItem('catalognum3', "#", Type.String | checkable)
-        self.addItem('rarity', "Rarity", Type.ShortString | checkable)
-        
-        self.addItem('price1', "Fine", Type.Money | checkable)
-        self.addItem('price2', "VF", Type.Money | checkable)
-        self.addItem('price3', "XF", Type.Money | checkable)
-        self.addItem('price4', "AU", Type.Money | checkable)
-        self.addItem('price5', "Unc", Type.Money | checkable)
-        self.addItem('price6', "Proof", Type.Money | checkable)
-        
-        self.addItem('obversevar', "Obverse", Type.Text | checkable)
-        self.addItem('reversevar', "Reverse", Type.Text | checkable)
-        self.addItem('edgevar', "Edge", Type.Text | checkable)
-        
-        self.addItem('photo1', "Photo 1", Type.Image | checkable)
-        self.addItem('photo2', "Photo 2", Type.Image | checkable)
-        self.addItem('photo3', "Photo 3", Type.Image | checkable)
-        self.addItem('photo4', "Photo 4", Type.Image | checkable)
-        
+        fields = CollectionFields()
+        skippedFields = [fields.id,]
+        for field in fields:
+            if field in skippedFields:
+                continue
+            self.addItem(field)
+    
     def fillItems(self, record):
         if not record.isEmpty():
             for item in self.items.values():

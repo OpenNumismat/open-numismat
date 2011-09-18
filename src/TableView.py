@@ -6,6 +6,8 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
+from Collection.CollectionFields import CollectionFields
+from Collection.CollectionFields import FieldTypes as Type
 
 def textToClipboard(text):
     for c in '\t\n\r':
@@ -56,8 +58,9 @@ class TableView(QtGui.QTableView):
         self.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
         
         # Show image data as images
-        for i in [49, 52, 55, 57, 58, 59, 60]:
-            self.setItemDelegateForColumn(i, ImageDelegate(self))
+        for field in CollectionFields():
+            if field.type == Type.Image:
+                self.setItemDelegateForColumn(field.id, ImageDelegate(self))
     
     def sectionDoubleClicked(self, index):
         # NOTE: When section double-clicked it also clicked => sorting is activated
