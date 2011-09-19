@@ -4,7 +4,7 @@ from PyQt4 import QtGui, QtCore
 
 from Collection.Collection import Collection
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
-from ListView import ListView
+from TabView import TabView
 from LatestCollections import LatestCollections
 
 class MainWindow(QtGui.QMainWindow):
@@ -47,26 +47,23 @@ class MainWindow(QtGui.QMainWindow):
         self.latestActions = []
         self.__updateLatest(collectionMenu)
 
+        self.viewTab = TabView(self)
+        
         listMenu = menubar.addMenu(self.tr("List"))
         newListAct = QtGui.QAction(self.tr("New..."), self)
-        newListAct.triggered.connect(self.newList)
+        newListAct.triggered.connect(self.viewTab.newList)
         listMenu.addAction(newListAct)
         renameListAct = QtGui.QAction(self.tr("Rename..."), self)
-        renameListAct.triggered.connect(self.renamePage)
+        renameListAct.triggered.connect(self.viewTab.renamePage)
         listMenu.addAction(renameListAct)
         closeListAct = QtGui.QAction(self.tr("Close"), self)
-        closeListAct.triggered.connect(self.closePage)
+        closeListAct.triggered.connect(self.viewTab.closePage)
         listMenu.addAction(closeListAct)
         removeListAct = QtGui.QAction(self.tr("Remove"), self)
-        removeListAct.triggered.connect(self.removePage)
+        removeListAct.triggered.connect(self.viewTab.removePage)
         listMenu.addAction(removeListAct)
 
         self.setWindowTitle(self.tr("Num"))
-        
-        self.viewTab = QtGui.QTabWidget(self)
-        self.viewTab.setMovable(True)
-        self.viewTab.setTabsClosable(True)
-        self.viewTab.tabCloseRequested.connect(self.closePage)
         
         latest = LatestCollections(self)
         self.collection = Collection(self)
@@ -138,51 +135,10 @@ class MainWindow(QtGui.QMainWindow):
         latest.setLatest(collection.getFileName())
         self.__updateLatest()
         
-        for page in collection.pages().pages():
-            if page[2]:
-                listView = ListView()
-                listView.setModel(self.collection.model())
-                listView.id = page[0]
-                self.viewTab.addTab(listView, page[1])
-
-    def newList(self):
-        label, ok = QtGui.QInputDialog.getText(self, self.tr("New list"), self.tr("Enter list title"))
-        if ok and label:
-            listView = ListView()
-            listView.setModel(self.collection.model())
-            self.viewTab.addTab(listView, label)
-            self.viewTab.setCurrentWidget(listView)
-            
-            self.collection.pages().addPage(listView, label)
-
-    def renamePage(self):
-        index = self.viewTab.currentIndex()
-        oldLabel = self.viewTab.tabText(index)
-        label, ok = QtGui.QInputDialog.getText(self, self.tr("Rename list"), self.tr("Enter new list title"), text=oldLabel)
-        if ok and label:
-            self.viewTab.setTabText(index, label)
-            page = self.viewTab.widget(index)
-            self.collection.pages().renamePage(page, label)
-
-    def closePage(self, index=None):
-        if not index:
-            index = self.viewTab.currentIndex()
-        page = self.viewTab.widget(index)
-        self.viewTab.removeTab(index)
-        self.collection.pages().closePage(page)
-
-    def removePage(self):
-        index = self.viewTab.currentIndex()
-        page = self.viewTab.widget(index)
-        self.viewTab.removeTab(index)
-        self.collection.pages().removePage(page)
+        self.viewTab.setCollection(collection)
 
     def closeEvent(self, e):
-        # Save page positions
-        pages = []
-        for i in range(self.viewTab.count()):
-            pages.append(self.viewTab.widget(i))
-        self.collection.pages().savePositions(pages)
+        self.viewTab.savePagePositions()
         
         # Save main window size
         settings = QtCore.QSettings()

@@ -4,6 +4,12 @@ from PyQt4.QtSql import QSqlQuery
 class CollectionPageTypes:
     List = 0
 
+class CollectionPageParam:
+    def __init__(self, record):
+        for name in ['id', 'title', 'isopen', 'type']:
+            index = record.indexOf(name)
+            setattr(self, name, record.value(index))
+
 class CollectionPages(QtCore.QObject):
     def __init__(self, db, parent=None):
         super(CollectionPages, self).__init__(parent)
@@ -17,17 +23,12 @@ class CollectionPages(QtCore.QObject):
             type INTEGER)"
         QSqlQuery(sql, self.db)
         
-        # TODO: Add default page if no one exists
-    
-    def pages(self):
+    def pagesParam(self):
         query = QSqlQuery("SELECT * FROM pages ORDER BY position")
-        idNo = query.record().indexOf('id')
-        titleNo = query.record().indexOf('title')
-        isOpenNo = query.record().indexOf('isopen')
-        pages = []
+        pagesParam = []
         while query.next():
-            pages.append((query.value(idNo), query.value(titleNo), query.value(isOpenNo)))
-        return pages
+            pagesParam.append(CollectionPageParam(query.record()))
+        return pagesParam
 
     def addPage(self, page, title):
         query = QSqlQuery(self.db)
