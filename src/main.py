@@ -36,13 +36,10 @@ class MainWindow(QtGui.QMainWindow):
         openCollectionAct.setShortcut('Ctrl+O')
         openCollectionAct.triggered.connect(self.openCollection)
 
-        separator = QtGui.QAction(self)
-        separator.setSeparator(True)
-
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
         collectionMenu.addAction(openCollectionAct)
-        collectionMenu.addAction(separator)
+        collectionMenu.addSeparator()
 
         self.latestActions = []
         self.__updateLatest(collectionMenu)
@@ -59,7 +56,7 @@ class MainWindow(QtGui.QMainWindow):
         renameListAct = QtGui.QAction(self.tr("Rename..."), self)
         renameListAct.triggered.connect(self.viewTab.renamePage)
         listMenu.addAction(renameListAct)
-        listMenu.addAction(separator)
+        listMenu.addSeparator()
         closeListAct = QtGui.QAction(self.tr("Close"), self)
         closeListAct.triggered.connect(self.viewTab.closePage)
         listMenu.addAction(closeListAct)

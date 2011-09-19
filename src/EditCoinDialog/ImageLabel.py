@@ -47,14 +47,11 @@ class ImageLabel(QtGui.QLabel):
         save.triggered.connect(self.saveImage)
         save.setDisabled(self.image.isNull())
 
-        separator = QtGui.QAction(self)
-        separator.setSeparator(True)
-
         menu = QtGui.QMenu()
         menu.addAction(load)
         menu.setDefaultAction(load)
         menu.addAction(save)
-        menu.addAction(separator)
+        menu.addSeparator()
         menu.addAction(paste)
         menu.addAction(copy)
         menu.addAction(delete)

@@ -88,9 +88,6 @@ class ListView(QtGui.QTableView):
             self._delete(self.selectedRows())
 
     def contextMenuEvent(self, pos):
-        separator = QtGui.QAction(self)
-        separator.setSeparator(True)
-
         style = QtGui.QApplication.style()
         icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
 
@@ -98,7 +95,7 @@ class ListView(QtGui.QTableView):
         menu.addAction(self.tr("Clone"), self._clone)
         menu.addAction(self.tr("Copy"), self._copy)
         menu.addAction(self.tr("Paste"), self._paste)
-        menu.addAction(separator)
+        menu.addSeparator()
         # TODO: Disable Multi edit when only one record selected
         menu.addAction(self.tr("Multi edit..."), self._multiEdit)
         menu.addAction(icon, self.tr("Delete"), self._delete)
