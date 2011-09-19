@@ -40,12 +40,12 @@ class ImageDelegate(QtGui.QStyledItemDelegate):
             # TODO: Set rect at center of item
             painter.drawPixmap(rect, pixmap)
 
-class TableView(QtGui.QTableView):
+class ListView(QtGui.QTableView):
     # TODO: Changes mime type
     MimeType = 'num/data'
     
     def __init__(self, parent=None):
-        super(TableView, self).__init__(parent)
+        super(ListView, self).__init__(parent)
         
         self.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
@@ -56,6 +56,8 @@ class TableView(QtGui.QTableView):
         self.setSortingEnabled(True)
         self.horizontalHeader().setMovable(True)
         self.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
+        # TODO: Configure header visible in settings
+        #self.verticalHeader().setVisible(False)
         
         # Show image data as images
         for field in CollectionFields():
@@ -67,7 +69,7 @@ class TableView(QtGui.QTableView):
         self.resizeColumnToContents(index)
     
     def setModel(self, model):
-        super(TableView, self).setModel(model)
+        super(ListView, self).setModel(model)
         
         self.hideColumn(0)
         
@@ -181,7 +183,7 @@ class TableView(QtGui.QTableView):
 
         mime = QtCore.QMimeData()
         mime.setText('\n'.join(textData))
-        mime.setData(TableView.MimeType, pickle.dumps(pickleData))
+        mime.setData(ListView.MimeType, pickle.dumps(pickleData))
 
         clipboard = QtGui.QApplication.clipboard()
         clipboard.setMimeData(mime)
@@ -190,9 +192,9 @@ class TableView(QtGui.QTableView):
         clipboard = QtGui.QApplication.clipboard()
         mime = clipboard.mimeData()
         
-        if mime.hasFormat(TableView.MimeType):
+        if mime.hasFormat(ListView.MimeType):
             # Load data stored by application
-            pickleData = pickle.loads(mime.data(TableView.MimeType))
+            pickleData = pickle.loads(mime.data(ListView.MimeType))
             for recordData in pickleData:
                 record = self.model().record()
                 for i in range(self.model().columnCount()):

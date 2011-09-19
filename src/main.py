@@ -4,7 +4,7 @@ from PyQt4 import QtGui, QtCore
 
 from Collection.Collection import Collection
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
-from TableView import TableView
+from ListView import ListView
 from LatestCollections import LatestCollections
 
 class MainWindow(QtGui.QMainWindow):
@@ -47,16 +47,32 @@ class MainWindow(QtGui.QMainWindow):
         self.latestActions = []
         self.__updateLatest(collectionMenu)
 
-        self.setWindowTitle(self.tr("Num"))
+        listMenu = menubar.addMenu(self.tr("List"))
+        newListAct = QtGui.QAction(self.tr("New..."), self)
+        newListAct.triggered.connect(self.newList)
+        listMenu.addAction(newListAct)
+        renameListAct = QtGui.QAction(self.tr("Rename..."), self)
+        renameListAct.triggered.connect(self.renamePage)
+        listMenu.addAction(renameListAct)
+        closeListAct = QtGui.QAction(self.tr("Close"), self)
+        closeListAct.triggered.connect(self.closePage)
+        listMenu.addAction(closeListAct)
 
-        self.view = TableView()
+        self.setWindowTitle(self.tr("Num"))
+        
+        self.viewTab = QtGui.QTabWidget(self)
+        self.viewTab.setMovable(True)
+        self.viewTab.setTabsClosable(True)
+        self.viewTab.tabCloseRequested.connect(self.closePage)
+        
+        self.viewTab.addTab(ListView(), 'Coins')
 
         latest = LatestCollections(self)
         self.collection = Collection(self)
         if self.collection.open(latest.latest()):
             self.setCollection(self.collection)
         
-        self.setCentralWidget(self.view)
+        self.setCentralWidget(self.viewTab)
         
         settings = QtCore.QSettings()
         if settings.value('mainwindow/maximized') == 'true':
@@ -120,9 +136,30 @@ class MainWindow(QtGui.QMainWindow):
         latest = LatestCollections(self)
         latest.setLatest(collection.getFileName())
         self.__updateLatest()
+        
+        for i in range(self.viewTab.count()):
+            self.viewTab.widget(i).setModel(self.collection.model())
 
-        self.view.setModel(self.collection.model())
-    
+    def newList(self):
+        label, ok = QtGui.QInputDialog.getText(self, self.tr("New list"), self.tr("Enter list title"))
+        if ok and label:
+            listView = ListView()
+            listView.setModel(self.collection.model())
+            self.viewTab.addTab(listView, label)
+            self.viewTab.setCurrentWidget(listView)
+
+    def renamePage(self):
+        index = self.viewTab.currentIndex()
+        oldLabel = self.viewTab.tabText(index)
+        label, ok = QtGui.QInputDialog.getText(self, self.tr("Rename list"), self.tr("Enter new list title"), text=oldLabel)
+        if ok and label:
+            self.viewTab.setTabText(index, label)
+
+    def closePage(self, index=None):
+        if not index:
+            index = self.viewTab.currentIndex()
+        self.viewTab.removeTab(index)
+
     def closeEvent(self, e):
         settings = QtCore.QSettings()
         settings.setValue('mainwindow/size', self.size());
