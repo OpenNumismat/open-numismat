@@ -14,10 +14,12 @@ class CollectionModel(QSqlTableModel):
     def data(self, index, role):
         ret = super(CollectionModel, self).data(index, role)
         
-        if index.column() in [self.fields.issuedate.id, self.fields.paydate.id, self.fields.saledate.id]:
+        fieldType = self.fields.fields[index.column()].type
+        if fieldType == Type.Date:
             if role == QtCore.Qt.DisplayRole:
                 date = QtCore.QDate.fromString(ret)
                 return date.toString(QtCore.Qt.SystemLocaleShortDate)
+
         return ret
 
 class Collection(QtCore.QObject):
