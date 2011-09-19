@@ -3,6 +3,7 @@ from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery
 
 from .CollectionFields import FieldTypes as Type
 from .CollectionFields import CollectionFields
+from .CollectionPages import CollectionPages
 
 class CollectionModel(QSqlTableModel):
     def __init__(self, parent=None, db=QSqlDatabase(), fields=CollectionFields()):
@@ -24,6 +25,7 @@ class Collection(QtCore.QObject):
         super(Collection, self).__init__(parent)
 
         self.db = QSqlDatabase.addDatabase('QSQLITE')
+        self._pages = None
         self._model = None
         
         self.fields = CollectionFields()
@@ -42,6 +44,7 @@ class Collection(QtCore.QObject):
             
         self.fileName = fileName
         self.__createModel()
+        self._pages = CollectionPages(self.db)
         
         return True
     
@@ -69,6 +72,7 @@ class Collection(QtCore.QObject):
         QSqlQuery(sql, self.db)
         
         self.__createModel()
+        self._pages = CollectionPages(self.db)
         
         return True
 
@@ -106,6 +110,9 @@ class Collection(QtCore.QObject):
     
     def model(self):
         return self._model
+    
+    def pages(self):
+        return self._pages
     
     def __createModel(self):
         self._model = CollectionModel(None, self.db, self.fields)

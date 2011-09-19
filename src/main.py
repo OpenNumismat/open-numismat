@@ -57,6 +57,9 @@ class MainWindow(QtGui.QMainWindow):
         closeListAct = QtGui.QAction(self.tr("Close"), self)
         closeListAct.triggered.connect(self.closePage)
         listMenu.addAction(closeListAct)
+        removeListAct = QtGui.QAction(self.tr("Remove"), self)
+        removeListAct.triggered.connect(self.removePage)
+        listMenu.addAction(removeListAct)
 
         self.setWindowTitle(self.tr("Num"))
         
@@ -65,8 +68,6 @@ class MainWindow(QtGui.QMainWindow):
         self.viewTab.setTabsClosable(True)
         self.viewTab.tabCloseRequested.connect(self.closePage)
         
-        self.viewTab.addTab(ListView(), 'Coins')
-
         latest = LatestCollections(self)
         self.collection = Collection(self)
         if self.collection.open(latest.latest()):
@@ -98,13 +99,13 @@ class MainWindow(QtGui.QMainWindow):
             self.__menu.addAction(act)
 
     def addCoin(self):
-        record = self.model.record()
+        record = self.collection.model().record()
         dialog = EditCoinDialog(record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             rec = dialog.getRecord()
-            self.model.insertRecord(-1, rec)
-            self.model.submitAll()
+            self.collection.model().insertRecord(-1, rec)
+            self.collection.model().submitAll()
 
     def openCollection(self):
         dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
@@ -137,8 +138,12 @@ class MainWindow(QtGui.QMainWindow):
         latest.setLatest(collection.getFileName())
         self.__updateLatest()
         
-        for i in range(self.viewTab.count()):
-            self.viewTab.widget(i).setModel(self.collection.model())
+        for page in collection.pages().pages():
+            if page[2]:
+                listView = ListView()
+                listView.setModel(self.collection.model())
+                listView.id = page[0]
+                self.viewTab.addTab(listView, page[1])
 
     def newList(self):
         label, ok = QtGui.QInputDialog.getText(self, self.tr("New list"), self.tr("Enter list title"))
@@ -147,6 +152,8 @@ class MainWindow(QtGui.QMainWindow):
             listView.setModel(self.collection.model())
             self.viewTab.addTab(listView, label)
             self.viewTab.setCurrentWidget(listView)
+            
+            self.collection.pages().addPage(listView, label)
 
     def renamePage(self):
         index = self.viewTab.currentIndex()
@@ -154,13 +161,30 @@ class MainWindow(QtGui.QMainWindow):
         label, ok = QtGui.QInputDialog.getText(self, self.tr("Rename list"), self.tr("Enter new list title"), text=oldLabel)
         if ok and label:
             self.viewTab.setTabText(index, label)
+            page = self.viewTab.widget(index)
+            self.collection.pages().renamePage(page, label)
 
     def closePage(self, index=None):
         if not index:
             index = self.viewTab.currentIndex()
+        page = self.viewTab.widget(index)
         self.viewTab.removeTab(index)
+        self.collection.pages().closePage(page)
+
+    def removePage(self):
+        index = self.viewTab.currentIndex()
+        page = self.viewTab.widget(index)
+        self.viewTab.removeTab(index)
+        self.collection.pages().removePage(page)
 
     def closeEvent(self, e):
+        # Save page positions
+        pages = []
+        for i in range(self.viewTab.count()):
+            pages.append(self.viewTab.widget(i))
+        self.collection.pages().savePositions(pages)
+        
+        # Save main window size
         settings = QtCore.QSettings()
         settings.setValue('mainwindow/size', self.size());
         settings.setValue('mainwindow/maximized', self.isMaximized());
