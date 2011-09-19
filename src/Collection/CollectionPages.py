@@ -57,6 +57,13 @@ class CollectionPages(QtCore.QObject):
         query.addBindValue(page.id)
         query.exec_()
 
+    def openPage(self, page):
+        query = QSqlQuery(self.db)
+        query.prepare("UPDATE pages SET isopen=? WHERE id=?")
+        query.addBindValue(int(True))
+        query.addBindValue(page.id)
+        query.exec_()
+
     def removePage(self, page):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM pages WHERE id=?")
@@ -70,3 +77,13 @@ class CollectionPages(QtCore.QObject):
             query.addBindValue(position)
             query.addBindValue(page.id)
             query.exec_()
+
+    def closedPages(self):
+        query = QSqlQuery(self.db)
+        query.prepare("SELECT * FROM pages WHERE isopen=? ORDER BY title")
+        query.addBindValue(int(False))
+        query.exec_()
+        pagesParam = []
+        while query.next():
+            pagesParam.append(CollectionPageParam(query.record()))
+        return pagesParam
