@@ -92,12 +92,15 @@ class ListView(QtGui.QTableView):
         icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
 
         menu = QtGui.QMenu(self)
-        menu.addAction(self.tr("Clone"), self._clone)
+        act = menu.addAction(self.tr("Clone"), self._clone)
+        # Disable Clone when more then one record selected
+        act.setEnabled(len(self.selectedRows()) == 1)
         menu.addAction(self.tr("Copy"), self._copy)
         menu.addAction(self.tr("Paste"), self._paste)
         menu.addSeparator()
-        # TODO: Disable Multi edit when only one record selected
-        menu.addAction(self.tr("Multi edit..."), self._multiEdit)
+        act = menu.addAction(self.tr("Multi edit..."), self._multiEdit)
+        # Disable Multi edit when only one record selected
+        act.setEnabled(len(self.selectedRows()) > 1)
         menu.addAction(icon, self.tr("Delete"), self._delete)
         menu.exec_(self.mapToGlobal(pos))
     
