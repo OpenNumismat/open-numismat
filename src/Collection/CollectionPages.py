@@ -1,14 +1,15 @@
 from PyQt4 import QtCore
 from PyQt4.QtSql import QSqlQuery
 
+from .ListPageParam import ListPageParam
+
 class CollectionPageTypes:
     List = 0
 
 class CollectionPageParam:
     def __init__(self, record):
         for name in ['id', 'title', 'isopen', 'type']:
-            index = record.indexOf(name)
-            setattr(self, name, record.value(index))
+            setattr(self, name, record.value(name))
 
 class CollectionPages(QtCore.QObject):
     def __init__(self, db, parent=None):
@@ -25,12 +26,9 @@ class CollectionPages(QtCore.QObject):
         
     def pagesParam(self):
         query = QSqlQuery("SELECT * FROM pages ORDER BY position")
-        pagesParam = []
-        while query.next():
-            pagesParam.append(CollectionPageParam(query.record()))
-        return pagesParam
+        return self.__queryToParam(query)
 
-    def addPage(self, page, title):
+    def addPage(self, title):
         query = QSqlQuery(self.db)
         query.prepare("INSERT INTO pages (title, isopen, type) "
                       "VALUES (?, ?, ?)")
@@ -39,9 +37,8 @@ class CollectionPages(QtCore.QObject):
         query.addBindValue(CollectionPageTypes.List)
         query.exec_()
 
-        query = QSqlQuery("SELECT last_insert_rowid() FROM pages", self.db)
-        query.next()
-        page.id = query.value(0)
+        query = QSqlQuery("SELECT * FROM pages WHERE id=last_insert_rowid()", self.db)
+        return self.__queryToParam(query)[0]    # get only one item
     
     def renamePage(self, page, title):
         query = QSqlQuery(self.db)
@@ -65,6 +62,8 @@ class CollectionPages(QtCore.QObject):
         query.exec_()
 
     def removePage(self, page):
+        page.listParam.remove()
+
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM pages WHERE id=?")
         query.addBindValue(page.id)
@@ -83,7 +82,14 @@ class CollectionPages(QtCore.QObject):
         query.prepare("SELECT * FROM pages WHERE isopen=? ORDER BY title")
         query.addBindValue(int(False))
         query.exec_()
+        return self.__queryToParam(query)
+    
+    def __queryToParam(self, query):
         pagesParam = []
         while query.next():
-            pagesParam.append(CollectionPageParam(query.record()))
+            param = CollectionPageParam(query.record())
+            if param.type == CollectionPageTypes.List:
+                param.listParam = ListPageParam(param.id, self.db, self)
+            pagesParam.append(param)
+
         return pagesParam

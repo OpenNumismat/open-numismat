@@ -8,6 +8,7 @@ from PyQt4.QtCore import Qt
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
+from SelectColumnsDialog import SelectColumnsDialog
 
 def textToClipboard(text):
     for c in '\t\n\r':
@@ -24,7 +25,6 @@ def clipboardToText(text):
     return text
 
 class ImageDelegate(QtGui.QStyledItemDelegate):
-
     def __init__(self, parent):
         QtGui.QStyledItemDelegate.__init__(self, parent)
 
@@ -44,8 +44,10 @@ class ListView(QtGui.QTableView):
     # TODO: Changes mime type
     MimeType = 'num/data'
     
-    def __init__(self, parent=None):
+    def __init__(self, listParam, parent=None):
         super(ListView, self).__init__(parent)
+        
+        self.listParam = listParam
         
         self.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
@@ -56,13 +58,32 @@ class ListView(QtGui.QTableView):
         self.setSortingEnabled(True)
         self.horizontalHeader().setMovable(True)
         self.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
+        
+        self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
+        self.horizontalHeader().customContextMenuRequested.connect(self.headerContextMenuEvent)
+        
         # TODO: Configure header visible in settings
         #self.verticalHeader().setVisible(False)
+        
+        # TODO: Process column moving (self.horizontalHeader().sectionMoved)
         
         # Show image data as images
         for field in CollectionFields():
             if field.type == Type.Image:
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
+    
+    def headerContextMenuEvent(self, pos):
+        menu = QtGui.QMenu(self)
+        menu.addAction(self.tr("Select columns..."), self._selectColumns)
+        menu.exec_(self.mapToGlobal(pos))
+    
+    def _selectColumns(self):
+        dialog = SelectColumnsDialog(self.listParam, self)
+        result = dialog.exec_()
+        if result == QtGui.QDialog.Accepted:
+            self.listParam.save()
+            for param in self.listParam.columns:
+                self.setColumnHidden(param[0], not param[1])
     
     def sectionDoubleClicked(self, index):
         # NOTE: When section double-clicked it also clicked => sorting is activated
@@ -71,8 +92,13 @@ class ListView(QtGui.QTableView):
     def setModel(self, model):
         super(ListView, self).setModel(model)
         
-        self.hideColumn(0)
+        for i in range(model.columnCount()):
+            self.hideColumn(i)
         
+        for param in self.listParam.columns:
+            if param[1]:
+                self.showColumn(param[0])
+    
     def itemDClicked(self, index):
         self._edit(index)
         

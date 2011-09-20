@@ -19,27 +19,22 @@ class TabView(QtGui.QTabWidget):
 
         for pageParam in collection.pages().pagesParam():
             if pageParam.isopen:
-                listView = ListView()
+                listView = ListView(pageParam.listParam)
                 listView.setModel(self.collection.model())
                 listView.id = pageParam.id
                 self.addTab(listView, pageParam.title)
         
         # If no pages exists => create default page
         if self.count() == 0:
-            self.__createDefaultPage()
+            self.__createListPage(self.tr("Coins"))
         
         self.__updateOpenPageMenu()
 
     def newList(self):
         label, ok = QtGui.QInputDialog.getText(self, self.tr("New list"), self.tr("Enter list title"))
         if ok and label:
-            listView = ListView()
-            listView.setModel(self.collection.model())
-            self.addTab(listView, label)
-            self.setCurrentWidget(listView)
-            
-            self.collection.pages().addPage(listView, label)
-
+            self.__createListPage(label)
+    
     def renamePage(self):
         index = self.currentIndex()
         oldLabel = self.tabText(index)
@@ -75,7 +70,7 @@ class TabView(QtGui.QTabWidget):
         self.collection.pages().savePositions(pages)
     
     def openPage(self, pageParam):
-        listView = ListView()
+        listView = ListView(pageParam.listParam)
         listView.id = pageParam.id
         listView.setModel(self.collection.model())
         self.addTab(listView, pageParam.title)
@@ -98,14 +93,14 @@ class TabView(QtGui.QTabWidget):
                 act.openPageTriggered.connect(self.openPage)
                 self.openPageMenu.addAction(act)
 
-    def __createDefaultPage(self):
-        label = self.tr("Coins")
-        listView = ListView()
+    def __createListPage(self, title):
+        pageParam = self.collection.pages().addPage(title)
+
+        listView = ListView(pageParam.listParam)
         listView.setModel(self.collection.model())
-        self.addTab(listView, label)
+        listView.id = pageParam.id
+        self.addTab(listView, title)
         self.setCurrentWidget(listView)
-        
-        self.collection.pages().addPage(listView, label)
 
 class OpenPageAction(QtGui.QAction):
     openPageTriggered = pyqtSignal(object)
