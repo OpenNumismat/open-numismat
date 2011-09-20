@@ -1,6 +1,15 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import QT_TR_NOOP
 
+# Reimplementing QDoubleValidator for replace coma with dot
+class DoubleValidator(QtGui.QDoubleValidator):
+    def __init__(self, bottom, top, decimals, parent=None):
+        super(DoubleValidator, self).__init__(bottom, top, decimals, parent)
+    
+    def validate(self, input, pos):
+        input = input.replace(',', '.')
+        return super(DoubleValidator, self).validate(input, pos)
+
 class LineEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(LineEdit, self).__init__(parent)
@@ -64,7 +73,7 @@ class BigIntEdit(QtGui.QLineEdit):
 class ValueEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(ValueEdit, self).__init__(parent)
-        validator = QtGui.QDoubleValidator(0, 9999999999, 3, parent)
+        validator = DoubleValidator(0, 9999999999, 3, parent)
         validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
         self.setValidator(validator)
         self.setMaxLength(15)
@@ -77,7 +86,7 @@ class ValueEdit(QtGui.QLineEdit):
 class MoneyEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(MoneyEdit, self).__init__(parent)
-        validator = QtGui.QDoubleValidator(0, 9999999999, 2, parent)
+        validator = DoubleValidator(0, 9999999999, 2, parent)
         validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
         self.setValidator(validator)
         self.setMaxLength(15)
