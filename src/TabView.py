@@ -63,6 +63,17 @@ class TabView(QtGui.QTabWidget):
             self.removeTab(index)
             self.collection.pages().removePage(page)
 
+    def removeClosedPages(self):
+        result = QtGui.QMessageBox.question(self, self.tr("Remove pages"),
+                        self.tr("Remove all closed pages permanently?"),
+                        QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+        if result == QtGui.QMessageBox.Yes:
+            closedPages = self.collection.pages().closedPages()
+            for pageParam in closedPages:
+                self.collection.pages().removePage(pageParam)
+            
+            self.__updateOpenPageMenu()
+
     def savePagePositions(self):
         pages = []
         for i in range(self.count()):
@@ -92,6 +103,10 @@ class TabView(QtGui.QTabWidget):
                 act = OpenPageAction(param, self)
                 act.openPageTriggered.connect(self.openPage)
                 self.openPageMenu.addAction(act)
+            self.openPageMenu.addSeparator()
+            act = QtGui.QAction(self.tr("Remove all"), self)
+            act.triggered.connect(self.removeClosedPages)
+            self.openPageMenu.addAction(act)
 
     def __createListPage(self, title):
         pageParam = self.collection.pages().addPage(title)
