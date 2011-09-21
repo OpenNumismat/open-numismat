@@ -27,8 +27,19 @@ class SelectColumnsDialog(QtGui.QDialog):
                 checked = Qt.Checked
             item.setCheckState(checked)
             self.listWidget.addItem(item)
+            
+            collectionFields[param[0]] = None   # mark field as processed
 
-        # TODO: Process missed columns
+        # Process missed columns
+        for field in collectionFields:
+            if not field:   # skip already processed filed
+                continue
+            if field.name == 'id':  # skip ID field
+                continue
+            item = QtGui.QListWidgetItem(field.title, self.listWidget)
+            item.setData(SelectColumnsDialog.DataRole, field.id)
+            item.setCheckState(Qt.Unchecked)
+            self.listWidget.addItem(item)
 
         # TODO: Add buttons SelectAll, ClearAll, EnabledToTop
         
