@@ -58,19 +58,23 @@ class ListView(QtGui.QTableView):
         self.setSortingEnabled(True)
         self.horizontalHeader().setMovable(True)
         self.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
-        
+        self.horizontalHeader().sectionMoved.connect(self.columnMoved)
         self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.horizontalHeader().customContextMenuRequested.connect(self.headerContextMenuEvent)
         
         # TODO: Configure header visible in settings
         #self.verticalHeader().setVisible(False)
         
-        # TODO: Process column moving (self.horizontalHeader().sectionMoved)
-        
         # Show image data as images
         for field in CollectionFields():
             if field.type == Type.Image:
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
+    
+    def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
+        column = self.listParam.columns[oldVisualIndex]
+        self.listParam.columns.remove(column)
+        self.listParam.columns.insert(newVisualIndex, column)
+        self.listParam.save()
     
     def headerContextMenuEvent(self, pos):
         menu = QtGui.QMenu(self)
@@ -105,7 +109,7 @@ class ListView(QtGui.QTableView):
                 self.showColumn(param[0])
     
     def _moveColumns(self):
-        self.horizontalHeader().sectionMoved.disconnect()
+        self.horizontalHeader().sectionMoved.disconnect(self.columnMoved)
 
         # Revert to base state
         for pos in range(self.model().columnCount()):
