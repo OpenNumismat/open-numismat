@@ -31,7 +31,7 @@ class TabView(QtGui.QTabWidget):
         self.__updateOpenPageMenu()
 
     def newList(self):
-        label, ok = QtGui.QInputDialog.getText(self, self.tr("New list"), self.tr("Enter list title"))
+        label, ok = QtGui.QInputDialog.getText(self, self.tr("New list"), self.tr("Enter list title"), text=self.tr("New list"))
         if ok and label:
             self.__createListPage(label)
     
