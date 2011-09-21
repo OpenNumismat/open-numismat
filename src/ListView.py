@@ -82,6 +82,9 @@ class ListView(QtGui.QTableView):
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             self.listParam.save()
+
+            self._moveColumns()
+            
             for param in self.listParam.columns:
                 self.setColumnHidden(param[0], not param[1])
     
@@ -91,13 +94,38 @@ class ListView(QtGui.QTableView):
     
     def setModel(self, model):
         super(ListView, self).setModel(model)
-        
+
+        self._moveColumns()
+
         for i in range(model.columnCount()):
             self.hideColumn(i)
         
         for param in self.listParam.columns:
             if param[1]:
                 self.showColumn(param[0])
+    
+    def _moveColumns(self):
+        self.horizontalHeader().sectionMoved.disconnect()
+
+        # Revert to base state
+        for pos in range(self.model().columnCount()):
+            index = self.horizontalHeader().visualIndex(pos)
+            self.horizontalHeader().moveSection(index, pos)
+
+        col = []
+        for i in range(self.model().columnCount()):
+            col.append(i)
+        
+        # Move columns
+        for pos, param in enumerate(self.listParam.columns):
+            if not param[1]:
+                continue
+            index = col.index(param[0])
+            col.remove(param[0])
+            col.insert(pos, param[0])
+            self.horizontalHeader().moveSection(index, pos)
+
+        self.horizontalHeader().sectionMoved.connect(self.columnMoved)
     
     def itemDClicked(self, index):
         self._edit(index)
