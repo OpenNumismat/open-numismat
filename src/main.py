@@ -74,6 +74,10 @@ class MainWindow(QtGui.QMainWindow):
         self.setCentralWidget(self.viewTab)
         
         settings = QtCore.QSettings()
+        pageIndex = settings.value('tabwindow/page')
+        if pageIndex:
+            self.viewTab.setCurrentIndex(pageIndex)
+
         if settings.value('mainwindow/maximized') == 'true':
             self.setWindowState(self.windowState() | QtCore.Qt.WindowMaximized)
         else:
@@ -139,10 +143,13 @@ class MainWindow(QtGui.QMainWindow):
         self.viewTab.setCollection(collection)
 
     def closeEvent(self, e):
+        settings = QtCore.QSettings()
+
         self.viewTab.savePagePositions()
+        # Save latest opened page
+        settings.setValue('tabwindow/page', self.viewTab.currentIndex());
         
         # Save main window size
-        settings = QtCore.QSettings()
         settings.setValue('mainwindow/size', self.size());
         settings.setValue('mainwindow/maximized', self.isMaximized());
     
