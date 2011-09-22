@@ -76,6 +76,8 @@ class ListView(QtGui.QTableView):
         self.listParam.columns.remove(column)
         self.listParam.columns.insert(newVisualIndex, column)
         self.listParam.save()
+
+        self._updateHeaderButtons()
     
     def headerContextMenuEvent(self, pos):
         menu = QtGui.QMenu(self)
@@ -102,9 +104,20 @@ class ListView(QtGui.QTableView):
         self.listParam.columns[column].width = newSize
         # TODO: Saving columns parameters in this slot make resizing too slow
         # self.listParam.save()
+
+        self._updateHeaderButtons()
     
     def setModel(self, model):
         super(ListView, self).setModel(model)
+        
+        self.headerButtons = []
+        for i in range(model.columnCount()):
+            menu = QtGui.QMenu()
+            btn = QtGui.QPushButton(self.horizontalHeader())
+            btn.setFixedHeight(self.horizontalHeader().height()-2)
+            btn.setFixedWidth(btn.height())
+            btn.setMenu(menu)
+            self.headerButtons.append(btn)
 
         self.horizontalHeader().sectionResized.disconnect(self.columnResized)
 
@@ -122,6 +135,13 @@ class ListView(QtGui.QTableView):
                 self.horizontalHeader().resizeSection(param.fieldid, param.width)
 
         self.horizontalHeader().sectionResized.connect(self.columnResized)
+
+        self._updateHeaderButtons()
+    
+    def _updateHeaderButtons(self):
+        for i in range(self.model().columnCount()):
+            btn = self.headerButtons[i]
+            btn.move(self.columnViewportPosition(i)+self.columnWidth(i)-btn.width()-1, 0)
     
     def _moveColumns(self):
         self.horizontalHeader().sectionMoved.disconnect(self.columnMoved)
@@ -145,6 +165,8 @@ class ListView(QtGui.QTableView):
             self.horizontalHeader().moveSection(index, pos)
 
         self.horizontalHeader().sectionMoved.connect(self.columnMoved)
+
+        self._updateHeaderButtons()
     
     def itemDClicked(self, index):
         self._edit(index)
