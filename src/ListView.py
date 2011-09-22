@@ -90,7 +90,7 @@ class ListView(QtGui.QTableView):
             self._moveColumns()
             
             for param in self.listParam.columns:
-                self.setColumnHidden(param[0], not param[1])
+                self.setColumnHidden(param.fieldid, not param.enabled)
     
     def sectionDoubleClicked(self, index):
         # NOTE: When section double-clicked it also clicked => sorting is activated
@@ -105,8 +105,8 @@ class ListView(QtGui.QTableView):
             self.hideColumn(i)
         
         for param in self.listParam.columns:
-            if param[1]:
-                self.showColumn(param[0])
+            if param.enabled:
+                self.showColumn(param.fieldid)
     
     def _moveColumns(self):
         self.horizontalHeader().sectionMoved.disconnect(self.columnMoved)
@@ -122,11 +122,11 @@ class ListView(QtGui.QTableView):
         
         # Move columns
         for pos, param in enumerate(self.listParam.columns):
-            if not param[1]:
+            if not param.enabled:
                 continue
-            index = col.index(param[0])
-            col.remove(param[0])
-            col.insert(pos, param[0])
+            index = col.index(param.fieldid)
+            col.remove(param.fieldid)
+            col.insert(pos, param.fieldid)
             self.horizontalHeader().moveSection(index, pos)
 
         self.horizontalHeader().sectionMoved.connect(self.columnMoved)

@@ -2,6 +2,7 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
 from Collection.CollectionFields import CollectionFields
+from Collection.ListPageParam import ColumnListParam
 
 class SelectColumnsDialog(QtGui.QDialog):
     DataRole = 16
@@ -19,16 +20,16 @@ class SelectColumnsDialog(QtGui.QDialog):
         
         collectionFields = CollectionFields().fields
         for param in listParam.columns:
-            field = collectionFields[param[0]]
+            field = collectionFields[param.fieldid]
             item = QtGui.QListWidgetItem(field.title, self.listWidget)
             item.setData(SelectColumnsDialog.DataRole, field.id)
             checked = Qt.Unchecked
-            if param[1]:
+            if param.enabled:
                 checked = Qt.Checked
             item.setCheckState(checked)
             self.listWidget.addItem(item)
             
-            collectionFields[param[0]] = None   # mark field as processed
+            collectionFields[param.fieldid] = None   # mark field as processed
 
         # Process missed columns
         for field in collectionFields:
@@ -61,6 +62,7 @@ class SelectColumnsDialog(QtGui.QDialog):
             item = self.listWidget.item(i)
             filedId = item.data(SelectColumnsDialog.DataRole)
             enabled = (item.checkState() == Qt.Checked)
-            self.listParam.columns.append((filedId, enabled))
+            param = ColumnListParam(filedId, enabled)
+            self.listParam.columns.append(param)
         
         self.accept()
