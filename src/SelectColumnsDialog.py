@@ -44,11 +44,11 @@ class SelectColumnsDialog(QtGui.QDialog):
 
         # TODO: Add buttons SelectAll, ClearAll, EnabledToTop
         
-        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal);
-        buttonBox.addButton(QtGui.QDialogButtonBox.Ok);
-        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel);
-        buttonBox.accepted.connect(self.save);
-        buttonBox.rejected.connect(self.reject);
+        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
+        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        buttonBox.accepted.connect(self.save)
+        buttonBox.rejected.connect(self.reject)
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.listWidget)

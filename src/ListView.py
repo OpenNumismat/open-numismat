@@ -9,6 +9,7 @@ from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
 from SelectColumnsDialog import SelectColumnsDialog
+from HeaderFilterMenu import FilterMenuButton
 
 def textToClipboard(text):
     for c in '\t\n\r':
@@ -62,6 +63,7 @@ class ListView(QtGui.QTableView):
         self.horizontalHeader().sectionMoved.connect(self.columnMoved)
         self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.horizontalHeader().customContextMenuRequested.connect(self.headerContextMenuEvent)
+        self.horizontalScrollBar().valueChanged.connect(self.scrolled)
         
         # TODO: Configure header visible in settings
         #self.verticalHeader().setVisible(False)
@@ -112,11 +114,7 @@ class ListView(QtGui.QTableView):
         
         self.headerButtons = []
         for i in range(model.columnCount()):
-            menu = QtGui.QMenu()
-            btn = QtGui.QPushButton(self.horizontalHeader())
-            btn.setFixedHeight(self.horizontalHeader().height()-2)
-            btn.setFixedWidth(btn.height())
-            btn.setMenu(menu)
+            btn = FilterMenuButton(i, self.model().database(), self.horizontalHeader())
             self.headerButtons.append(btn)
 
         self.horizontalHeader().sectionResized.disconnect(self.columnResized)
@@ -138,10 +136,17 @@ class ListView(QtGui.QTableView):
 
         self._updateHeaderButtons()
     
+    def scrolled(self, value):
+        self._updateHeaderButtons()
+    
     def _updateHeaderButtons(self):
         for i in range(self.model().columnCount()):
             btn = self.headerButtons[i]
-            btn.move(self.columnViewportPosition(i)+self.columnWidth(i)-btn.width()-1, 0)
+            if self.isColumnHidden(i):
+                btn.hide()
+            else:
+                btn.move(self.columnViewportPosition(i)+self.columnWidth(i)-btn.width()-1, 0)
+                btn.show()
     
     def _moveColumns(self):
         self.horizontalHeader().sectionMoved.disconnect(self.columnMoved)

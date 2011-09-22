@@ -11,7 +11,7 @@ class CollectionModel(QSqlTableModel):
         
         self.fields = fields
     
-    def data(self, index, role):
+    def data(self, index, role=QtCore.Qt.DisplayRole):
         ret = super(CollectionModel, self).data(index, role)
         
         fieldType = self.fields.fields[index.column()].type
