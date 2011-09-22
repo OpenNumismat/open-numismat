@@ -22,7 +22,7 @@ class SelectColumnsDialog(QtGui.QDialog):
         for param in listParam.columns:
             field = collectionFields[param.fieldid]
             item = QtGui.QListWidgetItem(field.title, self.listWidget)
-            item.setData(SelectColumnsDialog.DataRole, field.id)
+            item.setData(SelectColumnsDialog.DataRole, param)
             checked = Qt.Unchecked
             if param.enabled:
                 checked = Qt.Checked
@@ -38,7 +38,7 @@ class SelectColumnsDialog(QtGui.QDialog):
             if field.name == 'id':  # skip ID field
                 continue
             item = QtGui.QListWidgetItem(field.title, self.listWidget)
-            item.setData(SelectColumnsDialog.DataRole, field.id)
+            item.setData(SelectColumnsDialog.DataRole, ColumnListParam(field.id, False))
             item.setCheckState(Qt.Unchecked)
             self.listWidget.addItem(item)
 
@@ -60,9 +60,8 @@ class SelectColumnsDialog(QtGui.QDialog):
         self.listParam.columns = []
         for i in range(self.listWidget.count()):
             item = self.listWidget.item(i)
-            filedId = item.data(SelectColumnsDialog.DataRole)
-            enabled = (item.checkState() == Qt.Checked)
-            param = ColumnListParam(filedId, enabled)
+            param = item.data(SelectColumnsDialog.DataRole)
+            param.enabled = (item.checkState() == Qt.Checked)
             self.listParam.columns.append(param)
         
         self.accept()

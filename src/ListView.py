@@ -58,6 +58,7 @@ class ListView(QtGui.QTableView):
         self.setSortingEnabled(True)
         self.horizontalHeader().setMovable(True)
         self.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
+        self.horizontalHeader().sectionResized.connect(self.columnResized)
         self.horizontalHeader().sectionMoved.connect(self.columnMoved)
         self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.horizontalHeader().customContextMenuRequested.connect(self.headerContextMenuEvent)
@@ -95,9 +96,17 @@ class ListView(QtGui.QTableView):
     def sectionDoubleClicked(self, index):
         # NOTE: When section double-clicked it also clicked => sorting is activated
         self.resizeColumnToContents(index)
+
+    def columnResized(self, index, oldSize, newSize):
+        column = self.horizontalHeader().visualIndex(index)
+        self.listParam.columns[column].width = newSize
+        # TODO: Saving columns parameters in this slot make resizing too slow
+        # self.listParam.save()
     
     def setModel(self, model):
         super(ListView, self).setModel(model)
+
+        self.horizontalHeader().sectionResized.disconnect(self.columnResized)
 
         self._moveColumns()
 
@@ -107,6 +116,12 @@ class ListView(QtGui.QTableView):
         for param in self.listParam.columns:
             if param.enabled:
                 self.showColumn(param.fieldid)
+        
+        for param in self.listParam.columns:
+            if param.width:
+                self.horizontalHeader().resizeSection(param.fieldid, param.width)
+
+        self.horizontalHeader().sectionResized.connect(self.columnResized)
     
     def _moveColumns(self):
         self.horizontalHeader().sectionMoved.disconnect(self.columnMoved)

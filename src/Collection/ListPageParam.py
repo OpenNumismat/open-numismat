@@ -8,7 +8,11 @@ class ColumnListParam:
         if isinstance(arg1, QSqlRecord):
             record = arg1
             for name in ['fieldid', 'enabled', 'width']:
-                setattr(self, name, record.value(name))
+                if record.isNull(name):
+                    value = None
+                else:
+                    value = record.value(name)
+                setattr(self, name, value)
         else:
             fieldId, enabled, width = arg1, arg2, arg3
             self.fieldid = fieldId
@@ -70,6 +74,8 @@ class ListPageParam(QtCore.QObject):
             query.addBindValue(param.fieldid)
             query.addBindValue(position)
             query.addBindValue(int(param.enabled))
+            if not param.enabled:
+                param.width = None
             query.addBindValue(param.width)
             query.exec_()
         
