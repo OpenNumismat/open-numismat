@@ -33,12 +33,16 @@ class FilterMenuButton(QtGui.QPushButton):
         self.listWidget.addItem(item)
 
         filters = self.model.filters.copy()
+        appliedValues = []
+        appliedFilters = None
         if self.columnName in filters.keys():
-            filters.pop(self.columnName)
+            appliedFilters = filters.pop(self.columnName)
+            for filter in appliedFilters:
+                appliedValues.append(filter.value)
 
         hasBlanks = False
         if not self.model.columnType(self.columnName) in [Type.Image, Type.Text]:
-            filtersSql = ' AND '.join(filters.values())
+            filtersSql = self.__filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql 
             sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
@@ -50,13 +54,16 @@ class FilterMenuButton(QtGui.QPushButton):
                     hasBlanks = True
                     continue
                 item = QtGui.QListWidgetItem(label, self.listWidget)
-                item.setCheckState(Qt.Checked)
+                if label in appliedValues:
+                    item.setCheckState(Qt.Unchecked)
+                else:
+                    item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
         else:
-            dataFilter = "%s<>'' AND %s IS NOT NULL" % (self.columnName, self.columnName)
-            blanksFilter = "ifnull(%s,'')=''" % self.columnName
+            dataFilter = Filter(self.columnName, blank=True).toSql()
+            blanksFilter = Filter(self.columnName, data=True).toSql()
 
-            filtersSql = ' AND '.join(filters.values())
+            filtersSql = self.__filtersToSql(filters.values())
             sql = "SELECT count(*) FROM coins WHERE " + filtersSql
             if filtersSql:
                 sql = sql + ' AND '
@@ -80,6 +87,10 @@ class FilterMenuButton(QtGui.QPushButton):
                     label = self.tr("(Data)")
                 item = QtGui.QListWidgetItem(label, self.listWidget, FilterMenuButton.DataType)
                 item.setCheckState(Qt.Checked)
+                if appliedFilters:
+                    filter = appliedFilters[-1]   # data filter always is last element
+                    if filter.data:
+                        item.setCheckState(Qt.Unchecked)
                 self.listWidget.addItem(item)
 
             if blanksCount > 0:
@@ -88,6 +99,10 @@ class FilterMenuButton(QtGui.QPushButton):
         if hasBlanks:
             item = QtGui.QListWidgetItem(self.tr("(Blanks)"), self.listWidget, FilterMenuButton.BlanksType)
             item.setCheckState(Qt.Checked)
+            if appliedFilters:
+                filter = appliedFilters[-1]   # blank filter always is last element
+                if filter.blank:
+                    item.setCheckState(Qt.Unchecked)
             self.listWidget.addItem(item)
         
         self.listWidget.itemChanged.connect(self.itemChanged)
@@ -148,22 +163,45 @@ class FilterMenuButton(QtGui.QPushButton):
             item = self.listWidget.item(i)
             if item.checkState() == Qt.Unchecked:
                 if item.type() == FilterMenuButton.BlanksType:
-                    # Filter out empty and null values
-                    filters.append("%s<>'' AND %s IS NOT NULL" % (self.columnName, self.columnName))
+                    filters.append(Filter(self.columnName, blank=True))
                 elif item.type() == FilterMenuButton.DataType:
-                    # Filter out not null and not empty values
-                    filters.append("ifnull(%s,'')=''" % self.columnName)
+                    filters.append(Filter(self.columnName, data=True))
                 else:
-                    filters.append("%s<>'%s'" % (self.columnName, item.text()))
+                    filters.append(Filter(self.columnName, item.text()))
 
         if filters:
-            filterSql = ' AND '.join(filters)
-            self.model.filters[self.columnName] = filterSql
+            self.model.filters[self.columnName] = filters
         else:
             if self.columnName in self.model.filters.keys():
                 self.model.filters.pop(self.columnName)
 
-        filtersSql = ' AND '.join(self.model.filters.values())
+        filtersSql = self.__filtersToSql(self.model.filters.values())
         self.model.setFilter(filtersSql)
         
         self.menu().hide()
+    
+    def __filtersToSql(self, filters):
+        sqlFilters = []
+        for columnFilters in filters:
+            for filter in columnFilters:
+                sqlFilters.append(filter.toSql())
+        
+        return ' AND '.join(sqlFilters)
+
+class Filter:
+    def __init__(self, name, value=None, data=None, blank=None):
+        self.name = name
+        self.value = value
+        self.data = data
+        self.blank = blank
+
+    def toSql(self):
+        name = self.name
+        if self.blank:
+            # Filter out blank values
+            return "%s<>'' AND %s IS NOT NULL" % (name, name)
+        elif self.data:
+            # Filter out not null and not empty values
+            return "ifnull(%s,'')=''" % name
+        else:
+            return "%s<>'%s'" % (name, self.value)
