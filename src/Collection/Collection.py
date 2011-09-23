@@ -10,6 +10,7 @@ class CollectionModel(QSqlTableModel):
         super(CollectionModel, self).__init__(parent, db)
         
         self.fields = fields
+        self.filters = {}
     
     def data(self, index, role=QtCore.Qt.DisplayRole):
         ret = super(CollectionModel, self).data(index, role)
