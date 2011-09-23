@@ -52,8 +52,14 @@ class FilterMenuButton(QtGui.QPushButton):
                 item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
         else:
-            # TODO: Check that values present or not 
-            item = QtGui.QListWidgetItem(self.tr("(Data)"), self.listWidget, FilterMenuButton.DataType)
+            # TODO: Check that values present or not
+            if self.model.columnType(self.columnName) == Type.Image:
+                label = self.tr("(Images)")
+            elif self.model.columnType(self.columnName) == Type.Text:
+                label = self.tr("(Text)")
+            else:
+                label = self.tr("(Data)")
+            item = QtGui.QListWidgetItem(label, self.listWidget, FilterMenuButton.DataType)
             item.setCheckState(Qt.Checked)
             self.listWidget.addItem(item)
 
