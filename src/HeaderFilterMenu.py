@@ -34,7 +34,7 @@ class FilterMenuButton(QtGui.QPushButton):
 
         hasBlanks = False
         if not self.model.columnType(self.columnName) in [Type.Image, Type.Text]:
-            filters = self.model.filters
+            filters = self.model.filters.copy()
             if self.columnName in filters.keys():
                 filters.pop(self.columnName)
             filtersSql = ' AND '.join(filters.values())
