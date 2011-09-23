@@ -121,6 +121,9 @@ class FilterMenuButton(QtGui.QPushButton):
         if item.type() == FilterMenuButton.SelectAllType:
             for i in range(1, self.listWidget.count()):
                 self.listWidget.item(i).setCheckState(item.checkState())
+
+            # Disable applying filter when nothing to show 
+            self.buttonBox.button(QtGui.QDialogButtonBox.Ok).setDisabled(item.checkState() == Qt.Unchecked)
         else:
             checkedCount = 0
             for i in range(1, self.listWidget.count()):
@@ -129,13 +132,15 @@ class FilterMenuButton(QtGui.QPushButton):
                     checkedCount = checkedCount + 1
 
             if checkedCount == 0:
-                # TODO: Disable applying filter when nothing to show 
                 state = Qt.Unchecked
             elif checkedCount == self.listWidget.count()-1:
                 state = Qt.Checked
             else:
                 state = Qt.PartiallyChecked
             self.listWidget.item(0).setCheckState(state)
+
+            # Disable applying filter when nothing to show 
+            self.buttonBox.button(QtGui.QDialogButtonBox.Ok).setDisabled(checkedCount == 0)
 
         self.listWidget.itemChanged.connect(self.itemChanged)
 
