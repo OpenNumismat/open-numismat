@@ -22,6 +22,16 @@ class CollectionModel(QSqlTableModel):
                 return date.toString(QtCore.Qt.SystemLocaleShortDate)
 
         return ret
+    
+    def columnType(self, column):
+        if isinstance(column, QtCore.QModelIndex):
+            column = column.column()
+        elif isinstance(column, str):
+            for field in self.fields:
+                if field.name == column:
+                    column = field.id
+                    break
+        return self.fields.fields[column].type
 
 class Collection(QtCore.QObject):
     def __init__(self, parent=None):
