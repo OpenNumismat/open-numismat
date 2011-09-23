@@ -113,8 +113,8 @@ class ListView(QtGui.QTableView):
         super(ListView, self).setModel(model)
         
         self.headerButtons = []
-        for i in range(model.columnCount()):
-            btn = FilterMenuButton(i, self.model().database(), self.horizontalHeader())
+        for field in CollectionFields():
+            btn = FilterMenuButton(field.name, self.model(), self.horizontalHeader())
             self.headerButtons.append(btn)
 
         self.horizontalHeader().sectionResized.disconnect(self.columnResized)

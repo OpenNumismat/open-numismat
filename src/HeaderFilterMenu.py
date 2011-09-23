@@ -1,15 +1,16 @@
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 from PyQt4.QtSql import QSqlQuery
 
 from Collection.CollectionFields import CollectionFields
 
 class FilterMenuButton(QtGui.QPushButton):
-    def __init__(self, column, db, parent):
+    def __init__(self, columnName, model, parent):
         super(FilterMenuButton, self).__init__(parent)
         
-        self.db = db
-        self.column = column
+        self.db = model.database()
+        self.model = model
+        self.columnName = columnName
         
         menu = QtGui.QMenu()
 
@@ -20,23 +21,22 @@ class FilterMenuButton(QtGui.QPushButton):
         menu.aboutToShow.connect(self.prepareMenu)
 
     def prepareMenu(self):
-        listWidget = QtGui.QListWidget(self)
-        collectionFields = CollectionFields().fields
-        sql = "SELECT DISTINCT %s FROM coins" % collectionFields[self.column].name
+        self.listWidget = QtGui.QListWidget(self)
+        sql = "SELECT DISTINCT %s FROM coins" % self.columnName
         query = QSqlQuery(sql, self.db)
         while query.next():
-            item = QtGui.QListWidgetItem(str(query.record().value(0)), listWidget)
+            item = QtGui.QListWidgetItem(str(query.record().value(0)), self.listWidget)
             item.setCheckState(Qt.Checked)
-            listWidget.addItem(item)
+            self.listWidget.addItem(item)
         
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
         buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
-#            buttonBox.accepted.connect(self.save)
-#            buttonBox.rejected.connect(self.reject)
+        buttonBox.accepted.connect(self.apply)
+        buttonBox.rejected.connect(self.menu().hide)
 
         layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(listWidget)
+        layout.addWidget(self.listWidget)
         layout.addWidget(buttonBox)
 
         widget = QtGui.QWidget(self)
@@ -46,3 +46,15 @@ class FilterMenuButton(QtGui.QPushButton):
         widgetAction.setDefaultWidget(widget)
         self.menu().clear()
         self.menu().addAction(widgetAction)
+
+    def apply(self):
+        filters = []
+        for i in range(self.listWidget.count()):
+            item = self.listWidget.item(i)
+            if item.checkState() == Qt.Unchecked:
+                filters.append("%s<>'%s'" % (self.columnName, item.text()))
+
+        sql = ' AND '.join(filters)
+        self.model.setFilter(sql)
+                
+        self.menu().hide()
