@@ -52,18 +52,40 @@ class FilterMenuButton(QtGui.QPushButton):
                 item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
         else:
-            # TODO: Check that values present or not
-            if self.model.columnType(self.columnName) == Type.Image:
-                label = self.tr("(Images)")
-            elif self.model.columnType(self.columnName) == Type.Text:
-                label = self.tr("(Text)")
-            else:
-                label = self.tr("(Data)")
-            item = QtGui.QListWidgetItem(label, self.listWidget, FilterMenuButton.DataType)
-            item.setCheckState(Qt.Checked)
-            self.listWidget.addItem(item)
+            dataFilter = "%s<>'' AND %s IS NOT NULL" % (self.columnName, self.columnName)
+            blanksFilter = "ifnull(%s,'')=''" % self.columnName
 
-            hasBlanks = True
+            filters = self.model.filters
+            if self.columnName in filters.keys():
+                filters.pop(self.columnName)
+            filtersSql = ' AND '.join(filters.values())
+            sql = "SELECT count(*) FROM coins WHERE " + filtersSql
+            if filtersSql:
+                sql = sql + ' AND '
+
+            # Get blank row count
+            query = QSqlQuery(sql + blanksFilter, self.db)
+            query.first()
+            blanksCount = query.record().value(0)
+
+            # Get not blank row count
+            query = QSqlQuery(sql + dataFilter, self.db)
+            query.first()
+            dataCount = query.record().value(0)
+            
+            if dataCount > 0:
+                if self.model.columnType(self.columnName) == Type.Image:
+                    label = self.tr("(Images)")
+                elif self.model.columnType(self.columnName) == Type.Text:
+                    label = self.tr("(Text)")
+                else:
+                    label = self.tr("(Data)")
+                item = QtGui.QListWidgetItem(label, self.listWidget, FilterMenuButton.DataType)
+                item.setCheckState(Qt.Checked)
+                self.listWidget.addItem(item)
+
+            if blanksCount > 0:
+                hasBlanks = True
         
         if hasBlanks:
             item = QtGui.QListWidgetItem(self.tr("(Blanks)"), self.listWidget, FilterMenuButton.BlanksType)
@@ -72,17 +94,15 @@ class FilterMenuButton(QtGui.QPushButton):
         
         self.listWidget.itemChanged.connect(self.itemChanged)
         
-        self.itemChanged(item)
-        
-        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
-        buttonBox.accepted.connect(self.apply)
-        buttonBox.rejected.connect(self.menu().hide)
+        self.buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
+        self.buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
+        self.buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        self.buttonBox.accepted.connect(self.apply)
+        self.buttonBox.rejected.connect(self.menu().hide)
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.listWidget)
-        layout.addWidget(buttonBox)
+        layout.addWidget(self.buttonBox)
 
         widget = QtGui.QWidget(self)
         widget.setLayout(layout)
@@ -92,6 +112,9 @@ class FilterMenuButton(QtGui.QPushButton):
         self.menu().clear()
         self.menu().addAction(widgetAction)
     
+        # Fill items
+        self.itemChanged(item)
+        
     def itemChanged(self, item):
         self.listWidget.itemChanged.disconnect(self.itemChanged)
 
