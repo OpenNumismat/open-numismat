@@ -9,7 +9,7 @@ from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
 from SelectColumnsDialog import SelectColumnsDialog
-from HeaderFilterMenu import FilterMenuButton
+from Collection.HeaderFilterMenu import FilterMenuButton
 
 def textToClipboard(text):
     for c in '\t\n\r':
@@ -113,9 +113,12 @@ class ListView(QtGui.QTableView):
         super(ListView, self).setModel(model)
         
         self.headerButtons = []
-        for field in self.model().fields:
-            btn = FilterMenuButton(field.name, self.model(), self.horizontalHeader())
+        for param in self.listParam.columns:
+            btn = FilterMenuButton(param, self.listParam, self.model(), self.horizontalHeader())
             self.headerButtons.append(btn)
+        
+        filtersSql = FilterMenuButton.filtersToSql(self.listParam.filters.values())
+        self.model().setFilter(filtersSql)
 
         self.horizontalHeader().sectionResized.disconnect(self.columnResized)
 
@@ -140,12 +143,12 @@ class ListView(QtGui.QTableView):
         self._updateHeaderButtons()
     
     def _updateHeaderButtons(self):
-        for i in range(self.model().columnCount()):
-            btn = self.headerButtons[i]
-            if self.isColumnHidden(i):
+        for btn in self.headerButtons:
+            index = btn.fieldid
+            if self.isColumnHidden(index):
                 btn.hide()
             else:
-                btn.move(self.columnViewportPosition(i)+self.columnWidth(i)-btn.width()-1, 0)
+                btn.move(self.columnViewportPosition(index)+self.columnWidth(index)-btn.width()-1, 0)
                 btn.show()
     
     def _moveColumns(self):

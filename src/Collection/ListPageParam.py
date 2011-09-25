@@ -2,6 +2,7 @@ from PyQt4 import QtCore
 from PyQt4.QtSql import QSqlQuery, QSqlRecord
 
 from .CollectionFields import CollectionFields
+from .HeaderFilterMenu import Filter
 
 class ColumnListParam:
     def __init__(self, arg1, arg2=None, arg3=None):
@@ -55,15 +56,46 @@ class ListPageParam(QtCore.QObject):
                     enabled = True
                 param = ColumnListParam(field.id, enabled)
                 self.columns.append(param)
+        
+        sql = "CREATE TABLE IF NOT EXISTS filters (\
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+            pageid INTEGER,\
+            fieldid INTEGER,\
+            value INTEGER,\
+            blank INTEGER,\
+            data INTEGER)"
+        QSqlQuery(sql, self.db)
+        
+        query = QSqlQuery(self.db)
+        query.prepare("SELECT * FROM filters WHERE pageid=?")
+        query.addBindValue(pageId)
+        query.exec_()
+        self.filters = {}
+        while query.next():
+            fieldId = query.record().value('fieldid')
+            if query.record().isNull('value'):
+                value = None
+            else:
+                value = str(query.record().value('value'))
+            if query.record().isNull('data'):
+                data = None
+            else:
+                data = query.record().value('data')
+            if query.record().isNull('blank'):
+                blank = None
+            else:
+                blank = query.record().value('blank')
+            filter = Filter(CollectionFields().fields[fieldId].name, value, data, blank)
+            if fieldId in self.filters.keys():
+                self.filters[fieldId].append(filter)
+            else:
+                self.filters[fieldId] = [filter,]
 
     def save(self):
         self.db.transaction()
         
         # Remove old values
-        query = QSqlQuery(self.db)
-        query.prepare("DELETE FROM lists WHERE pageid=?")
-        query.addBindValue(self.pageId)
-        query.exec_()
+        self.remove()
         
         # Save new all
         for position, param in enumerate(self.columns):
@@ -78,11 +110,36 @@ class ListPageParam(QtCore.QObject):
                 param.width = None
             query.addBindValue(param.width)
             query.exec_()
+
+        for fieldId, columnFilters in self.filters.items():
+            for filter in columnFilters:
+                query = QSqlQuery(self.db)
+                query.prepare("INSERT INTO filters (pageid, fieldid, value, blank, data) "
+                              "VALUES (?, ?, ?, ?, ?)")
+                query.addBindValue(self.pageId)
+                query.addBindValue(fieldId)
+                query.addBindValue(filter.value)
+                if filter.blank:
+                    blank = int(True)
+                else:
+                    blank = None
+                query.addBindValue(blank)
+                if filter.data:
+                    data = int(True)
+                else:
+                    data = None
+                query.addBindValue(data)
+                query.exec_()
         
         self.db.commit()
 
     def remove(self):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM lists WHERE pageid=?")
+        query.addBindValue(self.pageId)
+        query.exec_()
+
+        query = QSqlQuery(self.db)
+        query.prepare("DELETE FROM filters WHERE pageid=?")
         query.addBindValue(self.pageId)
         query.exec_()

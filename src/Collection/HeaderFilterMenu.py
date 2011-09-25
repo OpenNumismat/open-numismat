@@ -2,7 +2,7 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 from PyQt4.QtSql import QSqlQuery
 
-from Collection.CollectionFields import FieldTypes as Type
+from .CollectionFields import FieldTypes as Type
 
 class FilterMenuButton(QtGui.QPushButton):
     DefaultType = 0
@@ -10,12 +10,15 @@ class FilterMenuButton(QtGui.QPushButton):
     BlanksType = 2
     DataType = 3
     
-    def __init__(self, columnName, model, parent):
+    def __init__(self, columnParam, listParam, model, parent):
         super(FilterMenuButton, self).__init__(parent)
         
         self.db = model.database()
         self.model = model
-        self.columnName = columnName
+        self.columnName = self.model.fields.fields[columnParam.fieldid].name
+        self.fieldid = columnParam.fieldid
+        self.filters = listParam.filters
+        self.listParam = listParam
         
         menu = QtGui.QMenu()
 
@@ -32,17 +35,17 @@ class FilterMenuButton(QtGui.QPushButton):
         item.setCheckState(Qt.PartiallyChecked)
         self.listWidget.addItem(item)
 
-        filters = self.model.filters.copy()
+        filters = self.filters.copy()
         appliedValues = []
         appliedFilters = None
-        if self.columnName in filters.keys():
-            appliedFilters = filters.pop(self.columnName)
+        if self.fieldid in filters.keys():
+            appliedFilters = filters.pop(self.fieldid)
             for filter in appliedFilters:
                 appliedValues.append(filter.value)
 
         hasBlanks = False
-        if not self.model.columnType(self.columnName) in [Type.Image, Type.Text]:
-            filtersSql = self.__filtersToSql(filters.values())
+        if not self.model.columnType(self.fieldid) in [Type.Image, Type.Text]:
+            filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql 
             sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
@@ -63,7 +66,7 @@ class FilterMenuButton(QtGui.QPushButton):
             dataFilter = Filter(self.columnName, blank=True).toSql()
             blanksFilter = Filter(self.columnName, data=True).toSql()
 
-            filtersSql = self.__filtersToSql(filters.values())
+            filtersSql = self.filtersToSql(filters.values())
             sql = "SELECT count(*) FROM coins WHERE " + filtersSql
             if filtersSql:
                 sql = sql + ' AND '
@@ -79,9 +82,9 @@ class FilterMenuButton(QtGui.QPushButton):
             dataCount = query.record().value(0)
             
             if dataCount > 0:
-                if self.model.columnType(self.columnName) == Type.Image:
+                if self.model.columnType(self.fieldid) == Type.Image:
                     label = self.tr("(Images)")
-                elif self.model.columnType(self.columnName) == Type.Text:
+                elif self.model.columnType(self.fieldid) == Type.Text:
                     label = self.tr("(Text)")
                 else:
                     label = self.tr("(Data)")
@@ -158,29 +161,32 @@ class FilterMenuButton(QtGui.QPushButton):
         self.listWidget.itemChanged.connect(self.itemChanged)
 
     def apply(self):
-        filters = []
+        filters = ColumnFilters(self.columnName)
         for i in range(1, self.listWidget.count()):
             item = self.listWidget.item(i)
             if item.checkState() == Qt.Unchecked:
                 if item.type() == FilterMenuButton.BlanksType:
-                    filters.append(Filter(self.columnName, blank=True))
+                    filters.addFilter(blank=True)
                 elif item.type() == FilterMenuButton.DataType:
-                    filters.append(Filter(self.columnName, data=True))
+                    filters.addFilter(data=True)
                 else:
-                    filters.append(Filter(self.columnName, item.text()))
+                    filters.addFilter(item.text())
 
-        if filters:
-            self.model.filters[self.columnName] = filters
+        if filters.filters():
+            self.filters[self.fieldid] = filters.filters()
         else:
-            if self.columnName in self.model.filters.keys():
-                self.model.filters.pop(self.columnName)
+            if self.columnName in self.filters.keys():
+                self.filters.pop(self.fieldid)
 
-        filtersSql = self.__filtersToSql(self.model.filters.values())
+        filtersSql = self.filtersToSql(self.filters.values())
         self.model.setFilter(filtersSql)
         
         self.menu().hide()
+        
+        self.listParam.save()
     
-    def __filtersToSql(self, filters):
+    @staticmethod
+    def filtersToSql(filters):
         sqlFilters = []
         for columnFilters in filters:
             for filter in columnFilters:
@@ -205,3 +211,14 @@ class Filter:
             return "ifnull(%s,'')=''" % name
         else:
             return "%s<>'%s'" % (name, self.value)
+
+class ColumnFilters:
+    def __init__(self, name):
+        self.name = name
+        self._filters = []
+
+    def addFilter(self, value=None, data=None, blank=None):
+        self._filters.append(Filter(self.name, value, data, blank))
+    
+    def filters(self):
+        return self._filters

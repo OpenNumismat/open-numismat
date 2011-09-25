@@ -10,7 +10,6 @@ class CollectionModel(QSqlTableModel):
         super(CollectionModel, self).__init__(parent, db)
         
         self.fields = fields
-        self.filters = {}
     
     def data(self, index, role=QtCore.Qt.DisplayRole):
         ret = super(CollectionModel, self).data(index, role)
@@ -26,11 +25,7 @@ class CollectionModel(QSqlTableModel):
     def columnType(self, column):
         if isinstance(column, QtCore.QModelIndex):
             column = column.column()
-        elif isinstance(column, str):
-            for field in self.fields:
-                if field.name == column:
-                    column = field.id
-                    break
+
         return self.fields.fields[column].type
 
 class Collection(QtCore.QObject):
