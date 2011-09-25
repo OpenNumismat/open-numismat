@@ -129,7 +129,10 @@ class EditCoinDialog(QtGui.QDialog):
                     return
 
         for item in self.items.values():
-            self.record.setValue(item.field(), item.value())
+            value = item.value()
+            if isinstance(value, str):
+                value = value.strip()
+            self.record.setValue(item.field(), value)
     
         self.accept()
     
