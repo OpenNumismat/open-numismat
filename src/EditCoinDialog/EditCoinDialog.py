@@ -28,7 +28,8 @@ class EditCoinDialog(QtGui.QDialog):
         self.addTabPage(self.tr("Coin"), [groupBox1, groupBox2])
 
         # Create Traffic page
-        parts = self.__createTrafficParts()
+        self.oldTrafficIndex = 0
+        parts = self.__createTrafficParts(self.oldTrafficIndex)
         self.addTabPage(self.tr("Traffic"), parts)
 
         # Create Parameters page
@@ -170,10 +171,16 @@ class EditCoinDialog(QtGui.QDialog):
     
     def fillItems(self, record):
         if not record.isEmpty():
-            for item in self.items.values():
+            fields = CollectionFields()
+            skippedFields = [fields.id,]
+            for field in fields:
+                if field in skippedFields:
+                    continue
+                item = self.items[field.name]
                 if not record.isNull(item.field()):
                     value = record.value(item.field())
                     item.setValue(value)
+
             if self.usedFields:
                 for item in self.items.values():
                     if self.usedFields[record.indexOf(item.field())]:
@@ -214,14 +221,7 @@ class EditCoinDialog(QtGui.QDialog):
         layout.addRow(self.items['paydate'], self.items['payprice'])
 
         # Add auxiliary field
-        item = FormItem('', self.tr("Comission"), Type.Money)
-        self.edit = item.widget()
-        validator = ComissionValidator(0, 9999999999, 2, self)
-        validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
-        self.edit.setValidator(validator)
-        self.items['payprice'].widget().textChanged.connect(self.payComissionChanged)
-        self.edit.textChanged.connect(self.payComissionChanged)
-        self.items['totalpayprice'].widget().textChanged.connect(self.payTotalPriceChanged)
+        item = self.addPayCommission()
 
         layout.addRow(self.items['totalpayprice'], item)
         layout.addRow(self.items['saller'])
@@ -234,6 +234,11 @@ class EditCoinDialog(QtGui.QDialog):
         layout = BaseFormLayout(parent)
         
         layout.addRow(self.items['saledate'], self.items['saleprice'])
+
+        # Add auxiliary field
+        item = self.addSaleCommission()
+        layout.addRow(self.items['totalsaleprice'], item)
+
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
         layout.addRow(self.items['saleinfo'])
@@ -244,6 +249,16 @@ class EditCoinDialog(QtGui.QDialog):
         layout = BaseFormLayout(parent)
         
         layout.addRow(self.items['saledate'], self.items['saleprice'])
+
+        # Add auxiliary field
+        item = self.addPayCommission()
+        layout.addRow(self.items['totalpayprice'], item)
+        self.items['saleprice'].widget().textChanged.connect(self.items['payprice'].widget().setText)
+
+        # Add auxiliary field
+        item = self.addSaleCommission()
+        layout.addRow(self.items['totalsaleprice'], item)
+
         layout.addRow(self.items['saller'])
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
@@ -396,6 +411,26 @@ class EditCoinDialog(QtGui.QDialog):
             self.setWindowTitle(' - '.join(title))
     
     def __createTrafficParts(self, index=0):
+        if self.oldTrafficIndex == 0:
+            pass
+        elif self.oldTrafficIndex == 1:
+            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
+            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+            self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
+            self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
+            self.items['saleprice'].widget().textChanged.disconnect(self.items['payprice'].widget().setText)
+        elif self.oldTrafficIndex == 2:
+            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
+            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+        elif self.oldTrafficIndex == 3:
+            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
+            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+            self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
+            self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
+        elif self.oldTrafficIndex == 4:
+            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
+            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+
         pageParts = []
         if index == 0:
             pass
@@ -420,6 +455,8 @@ class EditCoinDialog(QtGui.QDialog):
             groupBox = self.__layoutToGroupBox(pay, self.tr("Buy"))
             pageParts.append(groupBox)
         
+        self.oldTrafficIndex = index
+        
         return pageParts
 
     def indexChangedState(self, index):
@@ -436,27 +473,83 @@ class EditCoinDialog(QtGui.QDialog):
         if len(pageParts) == 0:
             self.tab.setTabEnabled(1, False)
     
-    def payComissionChanged(self, text):
+    def addPayCommission(self):
+        item = FormItem(None, self.tr("Commission"), Type.Money)
+        self.payCommission = item.widget()
+        validator = CommissionValidator(0, 9999999999, 2, self)
+        validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
+        self.payCommission.setValidator(validator)
+        
+        price = textToFloat(self.items['payprice'].value())
+        totalPrice = textToFloat(self.items['totalpayprice'].value())
+        self.payCommission.setText(floatToText(totalPrice - price))
+
+        self.items['payprice'].widget().textChanged.connect(self.payCommissionChanged)
+        self.payCommission.textChanged.connect(self.payCommissionChanged)
+        self.items['totalpayprice'].widget().textChanged.connect(self.payTotalPriceChanged)
+        
+        return item
+    
+    def addSaleCommission(self):
+        item = FormItem('', self.tr("Commission"), Type.Money)
+        self.saleCommission = item.widget()
+        validator = CommissionValidator(0, 9999999999, 2, self)
+        validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
+        self.saleCommission.setValidator(validator)
+        
+        price = textToFloat(self.items['saleprice'].value())
+        totalPrice = textToFloat(self.items['totalsaleprice'].value())
+        self.saleCommission.setText(floatToText(price - totalPrice))
+
+        self.items['saleprice'].widget().textChanged.connect(self.saleCommissionChanged)
+        self.saleCommission.textChanged.connect(self.saleCommissionChanged)
+        self.items['totalsaleprice'].widget().textChanged.connect(self.saleTotalPriceChanged)
+        
+        return item
+    
+    def payCommissionChanged(self, text):
         self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
         
         price = textToFloat(self.items['payprice'].value())
-        text = self.edit.text().strip()
+        text = self.payCommission.text().strip()
         if len(text) > 0 and text[-1] == '%':
-            comission = price * textToFloat(text[0:-1]) / 100
+            commission = price * textToFloat(text[0:-1]) / 100
         else:
-            comission = textToFloat(text)
-        self.items['totalpayprice'].widget().setText(floatToText(price + comission))
+            commission = textToFloat(text)
+        self.items['totalpayprice'].widget().setText(floatToText(price + commission))
 
         self.items['totalpayprice'].widget().textChanged.connect(self.payTotalPriceChanged)
 
     def payTotalPriceChanged(self, text):
-        self.edit.textChanged.disconnect(self.payComissionChanged)
+        self.payCommission.textChanged.disconnect(self.payCommissionChanged)
 
         price = textToFloat(self.items['payprice'].value())
         totalPrice = textToFloat(self.items['totalpayprice'].value())
-        self.edit.setText(floatToText(totalPrice - price))
+        self.payCommission.setText(floatToText(totalPrice - price))
 
-        self.edit.textChanged.connect(self.payComissionChanged)
+        self.payCommission.textChanged.connect(self.payCommissionChanged)
+    
+    def saleCommissionChanged(self, text):
+        self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
+        
+        price = textToFloat(self.items['saleprice'].value())
+        text = self.saleCommission.text().strip()
+        if len(text) > 0 and text[-1] == '%':
+            commission = price * textToFloat(text[0:-1]) / 100
+        else:
+            commission = textToFloat(text)
+        self.items['totalsaleprice'].widget().setText(floatToText(price - commission))
+
+        self.items['totalsaleprice'].widget().textChanged.connect(self.saleTotalPriceChanged)
+
+    def saleTotalPriceChanged(self, text):
+        self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
+
+        price = textToFloat(self.items['saleprice'].value())
+        totalPrice = textToFloat(self.items['totalsaleprice'].value())
+        self.saleCommission.setText(floatToText(price - totalPrice))
+
+        self.saleCommission.textChanged.connect(self.saleCommissionChanged)
     
 def textToFloat(text):
     return float(text.replace(' ', '') or 0)
@@ -465,14 +558,14 @@ def floatToText(value):
     return str(int((value)*100 + 0.5)/100)
 
 # Reimplementing QDoubleValidator for replace comma with dot and accept %
-class ComissionValidator(QtGui.QDoubleValidator):
+class CommissionValidator(QtGui.QDoubleValidator):
     def __init__(self, bottom, top, decimals, parent=None):
-        super(ComissionValidator, self).__init__(bottom, top, decimals, parent)
+        super(CommissionValidator, self).__init__(bottom, top, decimals, parent)
     
     def validate(self, input, pos):
         numericValue = input.strip()
         if len(numericValue) > 0 and numericValue[-1] == '%':
             numericValue = numericValue[0:-1]
         numericValue = numericValue.replace(',', '.')
-        state, numericValue, pos = super(ComissionValidator, self).validate(numericValue, pos)
+        state, numericValue, pos = super(CommissionValidator, self).validate(numericValue, pos)
         return state, input, pos
