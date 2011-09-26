@@ -1,7 +1,7 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import QT_TR_NOOP
 
-# Reimplementing QDoubleValidator for replace coma with dot
+# Reimplementing QDoubleValidator for replace comma with dot
 class DoubleValidator(QtGui.QDoubleValidator):
     def __init__(self, bottom, top, decimals, parent=None):
         super(DoubleValidator, self).__init__(bottom, top, decimals, parent)

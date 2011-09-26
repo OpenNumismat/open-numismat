@@ -89,7 +89,9 @@ class CollectionFields(QObject):
                 ('photo1', self.tr("Photo 1"), Type.Image),
                 ('photo2', self.tr("Photo 2"), Type.Image),
                 ('photo3', self.tr("Photo 3"), Type.Image),
-                ('photo4', self.tr("Photo 4"), Type.Image)
+                ('photo4', self.tr("Photo 4"), Type.Image),
+                ('totalpayprice', self.tr("Total price"), Type.Money),
+                ('totalsaleprice', self.tr("Total price"), Type.Money)
             ]
 
         self.fields = []

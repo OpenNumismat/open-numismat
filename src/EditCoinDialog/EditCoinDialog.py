@@ -127,6 +127,7 @@ class EditCoinDialog(QtGui.QDialog):
                                  QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                 if result != QtGui.QMessageBox.Save:
                     return
+            # TODO: Add checking that TotalPrice not less than Price
 
         for item in self.items.values():
             value = item.value()
@@ -211,6 +212,18 @@ class EditCoinDialog(QtGui.QDialog):
         layout = BaseFormLayout(parent)
         
         layout.addRow(self.items['paydate'], self.items['payprice'])
+
+        # Add auxiliary field
+        item = FormItem('', self.tr("Comission"), Type.Money)
+        self.edit = item.widget()
+        validator = ComissionValidator(0, 9999999999, 2, self)
+        validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
+        self.edit.setValidator(validator)
+        self.items['payprice'].widget().textChanged.connect(self.payComissionChanged)
+        self.edit.textChanged.connect(self.payComissionChanged)
+        self.items['totalpayprice'].widget().textChanged.connect(self.payTotalPriceChanged)
+
+        layout.addRow(self.items['totalpayprice'], item)
         layout.addRow(self.items['saller'])
         layout.addRow(self.items['payplace'])
         layout.addRow(self.items['payinfo'])
@@ -422,3 +435,44 @@ class EditCoinDialog(QtGui.QDialog):
         self.tab.insertTab(1, self.__layoutToWidget(pageLayout), self.tr("Traffic"))
         if len(pageParts) == 0:
             self.tab.setTabEnabled(1, False)
+    
+    def payComissionChanged(self, text):
+        self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
+        
+        price = textToFloat(self.items['payprice'].value())
+        text = self.edit.text().strip()
+        if len(text) > 0 and text[-1] == '%':
+            comission = price * textToFloat(text[0:-1]) / 100
+        else:
+            comission = textToFloat(text)
+        self.items['totalpayprice'].widget().setText(floatToText(price + comission))
+
+        self.items['totalpayprice'].widget().textChanged.connect(self.payTotalPriceChanged)
+
+    def payTotalPriceChanged(self, text):
+        self.edit.textChanged.disconnect(self.payComissionChanged)
+
+        price = textToFloat(self.items['payprice'].value())
+        totalPrice = textToFloat(self.items['totalpayprice'].value())
+        self.edit.setText(floatToText(totalPrice - price))
+
+        self.edit.textChanged.connect(self.payComissionChanged)
+    
+def textToFloat(text):
+    return float(text.replace(' ', '') or 0)
+
+def floatToText(value):
+    return str(int((value)*100 + 0.5)/100)
+
+# Reimplementing QDoubleValidator for replace comma with dot and accept %
+class ComissionValidator(QtGui.QDoubleValidator):
+    def __init__(self, bottom, top, decimals, parent=None):
+        super(ComissionValidator, self).__init__(bottom, top, decimals, parent)
+    
+    def validate(self, input, pos):
+        numericValue = input.strip()
+        if len(numericValue) > 0 and numericValue[-1] == '%':
+            numericValue = numericValue[0:-1]
+        numericValue = numericValue.replace(',', '.')
+        state, numericValue, pos = super(ComissionValidator, self).validate(numericValue, pos)
+        return state, input, pos
