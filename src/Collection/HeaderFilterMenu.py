@@ -175,7 +175,7 @@ class FilterMenuButton(QtGui.QPushButton):
         if filters.filters():
             self.filters[self.fieldid] = filters.filters()
         else:
-            if self.columnName in self.filters.keys():
+            if self.fieldid in self.filters.keys():
                 self.filters.pop(self.fieldid)
 
         filtersSql = self.filtersToSql(self.filters.values())
