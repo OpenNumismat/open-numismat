@@ -43,6 +43,11 @@ class MolotokParser(AuctionParser):
                         self.tr("Auction not done yet"),
                         QtGui.QMessageBox.Ok)
             return
+        if not self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('span a'):
+            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction item"),
+                        self.tr("Auction canceled"),
+                        QtGui.QMessageBox.Ok)
+            return
         
         auctionItem = AuctionItem('Молоток.Ру')
         
