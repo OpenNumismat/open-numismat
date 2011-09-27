@@ -94,37 +94,38 @@ class EditCoinDialog(QtGui.QDialog):
             self.resize(size)
     
     def keyPressEvent(self, event):
-        # TODO: check state
-        if event.matches(QtGui.QKeySequence.Paste):
-            mime = QtGui.QApplication.clipboard().mimeData()
-            if mime.hasText():
-                parser = MolotokParser(mime.text(), self)
-                lot = parser.parse()
-                if lot:
-                    for key in ['saledate', 'saleprice', 'totalpayprice', 'payprice',
-                                'totalsaleprice', 'saller', 'buyer', 'saleplace',
-                                'saleinfo', 'obverseimg', 'reverseimg', 'edgeimg',
-                                'photo1', 'photo2', 'photo3', 'photo4']:
-                        self.items[key].clear()
-                    self.items['saleprice'].setValue(lot.price)
-                    self.items['totalpayprice'].setValue(lot.totalPayPrice)
-                    self.items['totalsaleprice'].setValue(lot.totalSalePrice)
-                    self.items['saller'].setValue(lot.saller)
-                    self.items['buyer'].setValue(lot.buyer)
-                    self.items['saleinfo'].setValue(lot.info)
-                    self.items['saledate'].setValue(lot.date)
-                    
-                    # Add images
-                    imageFields = ['reverseimg', 'obverseimg',
-                                'photo1', 'photo2', 'photo3', 'photo4']
-                    for i, imageUrl in enumerate(lot.images):
-                        if i < len(imageFields):
-                            self.items[imageFields[i]].widget().loadFromUrl(imageUrl)
-                        else:
-                            QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction item"),
-                                        self.tr("Too many images"),
-                                        QtGui.QMessageBox.Ok)
-                            break
+        if self.items['state'].widget().data() == 'pass':
+            if event.matches(QtGui.QKeySequence.Paste):
+                mime = QtGui.QApplication.clipboard().mimeData()
+                if mime.hasText():
+                    parser = MolotokParser(mime.text(), self)
+                    lot = parser.parse()
+                    if lot:
+                        for key in ['saledate', 'saleprice', 'totalpayprice', 'payprice',
+                                    'totalsaleprice', 'saller', 'buyer', 'saleplace',
+                                    'saleinfo', 'obverseimg', 'reverseimg', 'edgeimg',
+                                    'photo1', 'photo2', 'photo3', 'photo4']:
+                            self.items[key].clear()
+                        self.items['saleplace'].setValue(lot.place)
+                        self.items['saleprice'].setValue(lot.price)
+                        self.items['totalpayprice'].setValue(lot.totalPayPrice)
+                        self.items['totalsaleprice'].setValue(lot.totalSalePrice)
+                        self.items['saller'].setValue(lot.saller)
+                        self.items['buyer'].setValue(lot.buyer)
+                        self.items['saleinfo'].setValue(lot.info)
+                        self.items['saledate'].setValue(lot.date)
+                        
+                        # Add images
+                        imageFields = ['reverseimg', 'obverseimg',
+                                    'photo1', 'photo2', 'photo3', 'photo4']
+                        for i, imageUrl in enumerate(lot.images):
+                            if i < len(imageFields):
+                                self.items[imageFields[i]].widget().loadFromUrl(imageUrl)
+                            else:
+                                QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction item"),
+                                            self.tr("Too many images"),
+                                            QtGui.QMessageBox.Ok)
+                                break
     
     def __layoutToWidget(self, layout):
         widget = QtGui.QWidget(self.tab)

@@ -51,12 +51,16 @@ class MolotokParser(AuctionParser):
         date = ' '.join(parts[1:4]) # convert '(Чтв 15 Сен 2011 22:33:47)' to '15 Сен 2011'
         auctionItem.date = QtCore.QDate.fromString(date, 'dd MMM yyyy').toString()
         
-        auctionItem.saller = self.html.get_element_by_id('itemBidInfo').find_class('sellerInfo')[0].text_content()
-        auctionItem.buyer = self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('span a')[0].text_content()
-        # Skip style block
-        auctionItem.info = ''
-        for part in self.html.get_element_by_id('user_field').cssselect('p'):
-            auctionItem.info = auctionItem.info + part.text_content() + '\n'
+        saller = self.html.get_element_by_id('itemBidInfo').find_class('sellerInfo')[0].text_content()
+        auctionItem.saller = saller.strip()
+        buyer = self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('span a')[0].text_content()
+        auctionItem.buyer = buyer.strip()
+
+        # Remove STYLE element
+        for element in self.html.get_element_by_id('user_field').cssselect('style'):
+            element.getparent().remove(element)
+        info = self.html.get_element_by_id('user_field').text_content()
+        auctionItem.info = info.strip()
 
         index = self.doc.find("$j('#galleryWrap').newGallery")
         bIndex = self.doc[index:].find("large:")+index
