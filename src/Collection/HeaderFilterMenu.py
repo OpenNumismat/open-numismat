@@ -25,6 +25,8 @@ class FilterMenuButton(QtGui.QPushButton):
         self.setFixedHeight(self.parent().height()-2)
         self.setFixedWidth(self.height())
         self.setMenu(menu)
+        if self.fieldid in self.filters.keys():
+            self.setIcon(QtGui.QIcon('icons/filters.ico'))
         
         menu.aboutToShow.connect(self.prepareMenu)
 
@@ -173,8 +175,10 @@ class FilterMenuButton(QtGui.QPushButton):
                     filters.addFilter(item.text())
 
         if filters.filters():
+            self.setIcon(QtGui.QIcon('icons/filters.ico'))
             self.filters[self.fieldid] = filters.filters()
         else:
+            self.setIcon(QtGui.QIcon())
             if self.fieldid in self.filters.keys():
                 self.filters.pop(self.fieldid)
 
