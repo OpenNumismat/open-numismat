@@ -156,6 +156,17 @@ class EditCoinDialog(QtGui.QDialog):
             self.tab.addTab(self.__layoutToWidget(parts), title)
 
     def save(self):
+        # Clear unused fields
+        if self.items['state'].widget().data() == 'demo':
+            for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
+                        'payplace', 'payinfo', 'saledate', 'saleprice',
+                        'totalsaleprice', 'buyer', 'saleplace', 'saleinfo', 'grade']:
+                self.items[key].clear()
+        elif self.items['state'].widget().data() in ['in', 'exchange']:
+            for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
+                        'payplace', 'payinfo']:
+                self.items[key].clear()
+        
         if not self.usedFields:
             if not self.items['title'].value():
                 result = QtGui.QMessageBox.warning(self.parent(), self.tr("Save"),
@@ -220,6 +231,8 @@ class EditCoinDialog(QtGui.QDialog):
                 for item in self.items.values():
                     if self.usedFields[record.indexOf(item.field())]:
                         item.label().setCheckState(Qt.Checked)
+            
+        self.indexChangedState(self.oldTrafficIndex)
 
     def mainDetailsLayout(self, parent=None):
         layout = BaseFormLayout(parent)
@@ -449,20 +462,26 @@ class EditCoinDialog(QtGui.QDialog):
         if self.oldTrafficIndex == 0:
             pass
         elif self.oldTrafficIndex == 1:
+            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+            self.items['saleprice'].widget().textChanged.disconnect(self.saleCommissionChanged)
             self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
             self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
             self.items['saleprice'].widget().textChanged.disconnect(self.items['payprice'].widget().setText)
         elif self.oldTrafficIndex == 2:
+            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
         elif self.oldTrafficIndex == 3:
+            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+            self.items['saleprice'].widget().textChanged.disconnect(self.saleCommissionChanged)
             self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
             self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
         elif self.oldTrafficIndex == 4:
+            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
 
@@ -507,6 +526,9 @@ class EditCoinDialog(QtGui.QDialog):
         self.tab.insertTab(1, self.__layoutToWidget(pageLayout), self.tr("Traffic"))
         if len(pageParts) == 0:
             self.tab.setTabEnabled(1, False)
+            self.items['grade'].widget().setEnabled(False)
+        else:
+            self.items['grade'].widget().setEnabled(True)
     
     def addPayCommission(self):
         item = FormItem(None, self.tr("Commission"), Type.Money)
