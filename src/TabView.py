@@ -21,9 +21,10 @@ class TabView(QtGui.QTabWidget):
         for pageParam in collection.pages().pagesParam():
             if pageParam.isopen:
                 listView = ListView(pageParam.listParam)
-                listView.setModel(self.collection.model())
                 listView.id = pageParam.id
                 self.addTab(listView, pageParam.title)
+        
+        self.setCurrentIndex(0)
         
         # If no pages exists => create default page
         if self.count() == 0:
@@ -56,7 +57,8 @@ class TabView(QtGui.QTabWidget):
     
     def activatePage(self, index):
         page = self.widget(index)
-        page.setModel(self.collection.model())
+        if page:
+            page.setModel(self.collection.model())
     
     def setCurrentIndex(self, index):
         super(TabView, self).setCurrentIndex(index)
@@ -93,6 +95,7 @@ class TabView(QtGui.QTabWidget):
     def openPage(self, pageParam):
         listView = ListView(pageParam.listParam)
         listView.id = pageParam.id
+        listView.setModel(self.collection.model())
         self.addTab(listView, pageParam.title)
         self.setCurrentWidget(listView)
         
