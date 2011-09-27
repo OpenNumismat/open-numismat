@@ -122,7 +122,7 @@ class EditCoinDialog(QtGui.QDialog):
                             if i < len(imageFields):
                                 self.items[imageFields[i]].widget().loadFromUrl(imageUrl)
                             else:
-                                QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction item"),
+                                QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
                                             self.tr("Too many images"),
                                             QtGui.QMessageBox.Ok)
                                 break

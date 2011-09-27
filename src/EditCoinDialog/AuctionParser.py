@@ -39,12 +39,12 @@ class MolotokParser(AuctionParser):
             return
         
         if self.html.get_element_by_id('itemBidInfo').cssselect('form.siBidFormOnce'):
-            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction item"),
+            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
                         self.tr("Auction not done yet"),
                         QtGui.QMessageBox.Ok)
             return
         if not self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('span a'):
-            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction item"),
+            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
                         self.tr("Auction canceled"),
                         QtGui.QMessageBox.Ok)
             return
@@ -66,6 +66,11 @@ class MolotokParser(AuctionParser):
             element.getparent().remove(element)
         info = self.html.get_element_by_id('user_field').text_content()
         auctionItem.info = info.strip()
+        
+        if len(self.html.find_class('bidHistoryList')[0].cssselect('tr')) - 1 < 2: 
+            QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
+                                self.tr("Only 1 bid"),
+                                QtGui.QMessageBox.Ok)
 
         index = self.doc.find("$j('#galleryWrap').newGallery")
         bIndex = self.doc[index:].find("large:")+index
