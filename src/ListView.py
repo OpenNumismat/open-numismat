@@ -64,6 +64,11 @@ class ListView(QtGui.QTableView):
         self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.horizontalHeader().customContextMenuRequested.connect(self.headerContextMenuEvent)
         self.horizontalScrollBar().valueChanged.connect(self.scrolled)
+        self.horizontalHeader().setDefaultAlignment(Qt.AlignLeft)
+        # Make header font always bold
+        font = self.horizontalHeader().font()
+        font.setBold(True)
+        self.horizontalHeader().setFont(font)
         
         # TODO: Configure header visible in settings
         #self.verticalHeader().setVisible(False)
