@@ -83,8 +83,8 @@ class ImageLabel(QtGui.QLabel):
     def pasteImage(self):
         mime = QtGui.QApplication.clipboard().mimeData()
         if mime.hasUrls():
-            fileName = mime.urls()[0]
-            self.image.load(fileName)
+            url = mime.urls()[0]
+            self.image.load(url.toLocalFile())
         elif mime.hasImage():
             self.image = mime.imageData()
         elif mime.hasText():
