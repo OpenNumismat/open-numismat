@@ -10,6 +10,7 @@ class TabView(QtGui.QTabWidget):
         self.setMovable(True)
         self.setTabsClosable(True)
         self.tabCloseRequested.connect(self.closePage)
+        self.currentChanged.connect(self.activatePage)
     
     def setCollection(self, collection):
         self.collection = collection
@@ -52,6 +53,15 @@ class TabView(QtGui.QTabWidget):
         self.collection.pages().closePage(page)
         
         self.__updateOpenPageMenu()
+    
+    def activatePage(self, index):
+        page = self.widget(index)
+        page.setModel(self.collection.model())
+    
+    def setCurrentIndex(self, index):
+        super(TabView, self).setCurrentIndex(index)
+        page = self.widget(index)
+        page.setModel(self.collection.model())
 
     def removePage(self):
         index = self.currentIndex()
@@ -83,12 +93,11 @@ class TabView(QtGui.QTabWidget):
     def openPage(self, pageParam):
         listView = ListView(pageParam.listParam)
         listView.id = pageParam.id
-        listView.setModel(self.collection.model())
         self.addTab(listView, pageParam.title)
         self.setCurrentWidget(listView)
         
         self.collection.pages().openPage(listView)
-            
+        
         self.__updateOpenPageMenu()
 
     def setOpenPageMenu(self, menu):
