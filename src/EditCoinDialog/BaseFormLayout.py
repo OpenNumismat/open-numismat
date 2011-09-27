@@ -82,6 +82,14 @@ class FormItem(object):
             self._widget.setCurrentValue(value)
         else: 
             self._widget.setText(str(value))
+    
+    def clear(self):
+        if isinstance(self._widget, ImageLabel):
+            self._widget.deleteImage()
+        elif isinstance(self._widget, StateEdit):
+            self._widget.setCurrentValue('demo')
+        else: 
+            self._widget.clear()
 
 class BaseFormLayout(QtGui.QGridLayout):
     def __init__(self, parent=None):

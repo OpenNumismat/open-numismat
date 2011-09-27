@@ -89,13 +89,8 @@ class ImageLabel(QtGui.QLabel):
             self.image = mime.imageData()
         elif mime.hasText():
             # Load image by URL
-            import urllib.request
-            url = mime.text()
-            try:
-                data = urllib.request.urlopen(url).read()
-                self.image.loadFromData(data)
-            except:
-                return
+            self.loadFromUrl(mime.text())
+            return
         else:
             return
 
@@ -136,6 +131,15 @@ class ImageLabel(QtGui.QLabel):
     
     def loadFromData(self, data):
         self.image.loadFromData(data)
+        self.__setImage()
+        
+    def loadFromUrl(self, url):
+        import urllib.request
+        try:
+            data = urllib.request.urlopen(url).read()
+            self.image.loadFromData(data)
+        except:
+            return
         self.__setImage()
         
     def data(self):
