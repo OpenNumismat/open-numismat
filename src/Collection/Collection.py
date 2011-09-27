@@ -34,7 +34,6 @@ class Collection(QtCore.QObject):
 
         self.db = QSqlDatabase.addDatabase('QSQLITE')
         self._pages = None
-        self._model = None
         
         self.fields = CollectionFields()
     
@@ -51,7 +50,6 @@ class Collection(QtCore.QObject):
             return False
             
         self.fileName = fileName
-        self.__createModel()
         self._pages = CollectionPages(self.db)
         
         return True
@@ -79,7 +77,6 @@ class Collection(QtCore.QObject):
         sql = "CREATE TABLE IF NOT EXISTS coins (" + ", ".join(sqlFields) + ")"
         QSqlQuery(sql, self.db)
         
-        self.__createModel()
         self._pages = CollectionPages(self.db)
         
         return True
@@ -117,18 +114,19 @@ class Collection(QtCore.QObject):
         return Collection.fileNameToCollectionName(self.fileName)
     
     def model(self):
-        return self._model
+        return self.createModel()
     
     def pages(self):
         return self._pages
     
-    def __createModel(self):
-        self._model = CollectionModel(None, self.db, self.fields)
-        self._model.setEditStrategy(QSqlTableModel.OnManualSubmit)
-        self._model.setTable('coins')
-        self._model.select()
+    def createModel(self):
+        model = CollectionModel(None, self.db, self.fields)
+        model.setEditStrategy(QSqlTableModel.OnManualSubmit)
+        model.setTable('coins')
+        model.select()
         for field in self.fields:
-            self._model.setHeaderData(field.id, QtCore.Qt.Horizontal, field.title)
+            model.setHeaderData(field.id, QtCore.Qt.Horizontal, field.title)
+        return model
     
     @staticmethod
     def fileNameToCollectionName(fileName):

@@ -10,7 +10,6 @@ class TabView(QtGui.QTabWidget):
         self.setMovable(True)
         self.setTabsClosable(True)
         self.tabCloseRequested.connect(self.closePage)
-        self.currentChanged.connect(self.activatePage)
     
     def setCollection(self, collection):
         self.collection = collection
@@ -22,9 +21,8 @@ class TabView(QtGui.QTabWidget):
             if pageParam.isopen:
                 listView = ListView(pageParam.listParam)
                 listView.id = pageParam.id
+                listView.setModel(self.collection.model())
                 self.addTab(listView, pageParam.title)
-        
-        self.setCurrentIndex(0)
         
         # If no pages exists => create default page
         if self.count() == 0:
@@ -55,16 +53,6 @@ class TabView(QtGui.QTabWidget):
         
         self.__updateOpenPageMenu()
     
-    def activatePage(self, index):
-        page = self.widget(index)
-        if page:
-            page.setModel(self.collection.model())
-    
-    def setCurrentIndex(self, index):
-        super(TabView, self).setCurrentIndex(index)
-        page = self.widget(index)
-        page.setModel(self.collection.model())
-
     def removePage(self):
         index = self.currentIndex()
         result = QtGui.QMessageBox.question(self, self.tr("Remove page"),
