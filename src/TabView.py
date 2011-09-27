@@ -10,6 +10,11 @@ class TabView(QtGui.QTabWidget):
         self.setMovable(True)
         self.setTabsClosable(True)
         self.tabCloseRequested.connect(self.closePage)
+        self.currentChanged.connect(self.activatedPage)
+    
+    def activatedPage(self, index):
+        page = self.widget(index)
+        page.model().select()
     
     def setCollection(self, collection):
         self.collection = collection
@@ -29,6 +34,11 @@ class TabView(QtGui.QTabWidget):
             self.__createListPage(self.tr("Coins"))
         
         self.__updateOpenPageMenu()
+
+    def currentModel(self):
+        index = self.currentIndex()
+        page = self.widget(index)
+        return page.model()
 
     def newList(self):
         label, ok = QtGui.QInputDialog.getText(self, self.tr("New list"), self.tr("Enter list title"), text=self.tr("New list"))

@@ -106,8 +106,9 @@ class MainWindow(QtGui.QMainWindow):
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             rec = dialog.getRecord()
-            self.collection.model().insertRecord(-1, rec)
-            self.collection.model().submitAll()
+            model = self.viewTab.currentModel()
+            model.insertRecord(-1, rec)
+            model.submitAll()
 
     def openCollection(self):
         dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
