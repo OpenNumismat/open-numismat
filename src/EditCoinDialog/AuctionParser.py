@@ -23,6 +23,7 @@ class AuctionParser(QtCore.QObject):
 
             self.doc = str(data, encoding)
             self.html = lxml.html.fromstring(self.doc)
+            self.html.url = url
         except (ValueError, urllib.error.URLError):
             return False
         
@@ -32,6 +33,7 @@ class MolotokParser(AuctionParser):
     def __init__(self, url, parent=None):
         super(MolotokParser, self).__init__(parent)
         
+        # TODO: Verify URL domain
         self.readHtmlPage(url)
     
     def parse(self):
@@ -65,7 +67,7 @@ class MolotokParser(AuctionParser):
         for element in self.html.get_element_by_id('user_field').cssselect('style'):
             element.getparent().remove(element)
         info = self.html.get_element_by_id('user_field').text_content()
-        auctionItem.info = info.strip()
+        auctionItem.info = info.strip() + '\n' + self.html.url
         
         if len(self.html.find_class('bidHistoryList')[0].cssselect('tr')) - 1 < 2: 
             QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
