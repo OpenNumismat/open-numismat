@@ -1,6 +1,6 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, pyqtSignal
 
 class ReferenceDialog(QtGui.QDialog):
     def __init__(self, refSection, parent=None):
@@ -58,8 +58,12 @@ class ReferenceDialog(QtGui.QDialog):
 
         self.accept()
 
-class ReferenceSection:
-    def __init__(self, name, letter=''):
+class ReferenceSection(QtCore.QObject):
+    changed = pyqtSignal(object)
+
+    def __init__(self, name, letter='', parent=None):
+        super(ReferenceSection, self).__init__(parent)
+
         if isinstance(name, QSqlRecord):
             record = name
             self.id = record.value('id')
@@ -104,6 +108,7 @@ class ReferenceSection:
     def button(self, parent=None):
         self.parent = parent
         button = QtGui.QPushButton(self.letter, parent)
+        button.setFixedWidth(25)
         button.clicked.connect(self.clickedButton)
         return button
     
@@ -112,6 +117,7 @@ class ReferenceSection:
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             self.save()
+            self.changed.emit(dialog.listWidget.currentItem().text())
 
 class Reference(QtCore.QObject):
     def __init__(self, parent=None):
@@ -130,7 +136,13 @@ class Reference(QtCore.QObject):
         sections = [
                 ReferenceSection('country', self.tr("C")),
                 ReferenceSection('type', self.tr("T")),
-                ReferenceSection('grade', self.tr("G"))
+                ReferenceSection('grade', self.tr("G")),
+                ReferenceSection('payplace'),
+                ReferenceSection('saleplace'),
+                ReferenceSection('metal', self.tr("M")),
+                ReferenceSection('form', self.tr("F")),
+                ReferenceSection('obvrev'),
+                ReferenceSection('edge', self.tr("E"))
             ]
         for section in sections:
             query = QSqlQuery(self.db)
@@ -172,6 +184,3 @@ class Reference(QtCore.QObject):
             section.load(self.db)
         
         return section
-    
-    def getTypes(self):
-        return ['a', 'b']
