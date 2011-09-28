@@ -8,6 +8,7 @@ class FormItem(object):
     def __init__(self, field, title, itemType, reference=None, parent=None):
         self._field = field
         self._title = title
+        self.refButton = None
         if itemType & Type.Checkable:
             self._label = QtGui.QCheckBox(title, parent)
             self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
@@ -19,7 +20,9 @@ class FormItem(object):
         type_ = itemType & Type.Mask
         if type_ == Type.String:
             if reference:
+                self.reference = reference  # store for signal handling
                 self._widget = LineEditRef(reference, parent)
+                self.refButton = reference.button()
             else:
                 self._widget = LineEdit(parent)
         elif type_ == Type.ShortString:
@@ -103,10 +106,14 @@ class BaseFormLayout(QtGui.QGridLayout):
     def addRow(self, item1, item2=None):
         if not item2:
             self.addWidget(item1.label(), self.row, 0)
-            # NOTE: columnSpan parameter in addWidget don't work with value -1
-            # for 2-columns grid
-            # self.addWidget(item1.widget(), self.row, 1, 1, -1)
-            self.addWidget(item1.widget(), self.row, 1, 1, self.columnCount-1)
+            if item1.refButton:
+                self.addWidget(item1.widget(), self.row, 1, 1, 3)
+                self.addWidget(item1.refButton, self.row, 4)
+            else:
+                # NOTE: columnSpan parameter in addWidget don't work with value -1
+                # for 2-columns grid
+                # self.addWidget(item1.widget(), self.row, 1, 1, -1)
+                self.addWidget(item1.widget(), self.row, 1, 1, self.columnCount-1)
         else:
             self.addWidget(item1.label(), self.row, 0)
 

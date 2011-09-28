@@ -1,5 +1,62 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord
+from PyQt4.QtCore import Qt
+
+class ReferenceDialog(QtGui.QDialog):
+    def __init__(self, refSection, parent=None):
+        super(ReferenceDialog, self).__init__(parent)
+        
+        self.refSection = refSection
+
+        self.listWidget = QtGui.QListWidget(self)
+        self.listWidget.setDragDropMode(QtGui.QAbstractItemView.InternalMove)
+        self.listWidget.setDropIndicatorShown(True) 
+        for val in self.refSection.values:
+            item = QtGui.QListWidgetItem(val, self.listWidget)
+            item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled)
+            self.listWidget.addItem(item)
+
+        # TODO: Customize edit buttons
+        editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
+        self.addButton = QtGui.QPushButton(self.tr("Add"))
+        editButtonBox.addButton(self.addButton, QtGui.QDialogButtonBox.ActionRole)
+        self.delButton = QtGui.QPushButton(self.tr("Del"))
+        editButtonBox.addButton(self.delButton, QtGui.QDialogButtonBox.ActionRole)
+        editButtonBox.clicked.connect(self.clicked)
+
+        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
+        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        buttonBox.accepted.connect(self.save)
+        buttonBox.rejected.connect(self.reject)
+
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(self.listWidget)
+        layout.addWidget(editButtonBox)
+        layout.addWidget(buttonBox)
+
+        self.setLayout(layout)
+    
+    def clicked(self, button):
+        if button == self.addButton:
+            item = QtGui.QListWidgetItem(self.tr("Enter value"), self.listWidget)
+            item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled)
+            row = self.listWidget.currentRow()
+            self.listWidget.insertItem(row, item)
+            self.listWidget.editItem(item)
+        elif button == self.delButton:
+            item = self.listWidget.currentItem()
+            self.listWidget.removeItemWidget(item)
+    
+    def save(self):
+        self.refSection.values = []
+        for i in range(self.listWidget.count()):
+            item = self.listWidget.item(i)
+            val = item.text().strip()
+            if val:
+                self.refSection.values.append(val)
+
+        self.accept()
 
 class ReferenceSection:
     def __init__(self, name, letter=''):
@@ -13,18 +70,48 @@ class ReferenceSection:
             self.letter = letter
     
     def load(self, db):
+        self.db = db
+        
         sql = "CREATE TABLE IF NOT EXISTS %s (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
             value CHAR)" % self.name
-        QSqlQuery(sql, db)
+        QSqlQuery(sql, self.db)
 
         sql = "SELECT * FROM %s" % self.name
-        query = QSqlQuery(sql, db)
+        query = QSqlQuery(sql, self.db)
 
         self.values = []
         while query.next():
             val = query.record().value('value')
             self.values.append(val)
+    
+    def save(self):
+        self.db.transaction()
+
+        query = QSqlQuery(self.db)
+        query.prepare("DELETE FROM %s" % self.name)
+        query.exec_()
+
+        for val in self.values:
+            query = QSqlQuery(self.db)
+            query.prepare("INSERT INTO %s (value) "
+                          "VALUES (?)" % self.name)
+            query.addBindValue(val)
+            query.exec_()
+
+        self.db.commit()
+    
+    def button(self, parent=None):
+        self.parent = parent
+        button = QtGui.QPushButton(self.letter, parent)
+        button.clicked.connect(self.clickedButton)
+        return button
+    
+    def clickedButton(self):
+        dialog = ReferenceDialog(self, self.parent)
+        result = dialog.exec_()
+        if result == QtGui.QDialog.Accepted:
+            self.save()
 
 class Reference(QtCore.QObject):
     def __init__(self, parent=None):
