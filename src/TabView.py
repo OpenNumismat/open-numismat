@@ -14,7 +14,8 @@ class TabView(QtGui.QTabWidget):
     
     def activatedPage(self, index):
         page = self.widget(index)
-        page.model().select()
+        if page:
+            page.model().select()
     
     def setCollection(self, collection):
         self.collection = collection

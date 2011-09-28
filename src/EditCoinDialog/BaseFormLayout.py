@@ -5,7 +5,7 @@ from .ImageLabel import ImageLabel
 from Collection.CollectionFields import FieldTypes as Type
 
 class FormItem(object):
-    def __init__(self, field, title, itemType, parent=None):
+    def __init__(self, field, title, itemType, reference=None, parent=None):
         self._field = field
         self._title = title
         if itemType & Type.Checkable:
@@ -18,7 +18,10 @@ class FormItem(object):
         
         type_ = itemType & Type.Mask
         if type_ == Type.String:
-            self._widget = LineEdit(parent)
+            if reference:
+                self._widget = LineEditRef(reference, parent)
+            else:
+                self._widget = LineEdit(parent)
         elif type_ == Type.ShortString:
             self._widget = ShortLineEdit(parent)
         elif type_ == Type.Number:

@@ -7,11 +7,11 @@ from Collection.CollectionFields import FieldTypes as Type
 from .AuctionParser import MolotokParser
 
 class EditCoinDialog(QtGui.QDialog):
-    def __init__(self, record, parent=None, usedFields=None):
+    def __init__(self, reference, record, parent=None, usedFields=None):
         super(EditCoinDialog, self).__init__(parent)
         
         self.usedFields = usedFields
-        
+        self.reference = reference
         self.record = record
         
         self.tab = QtGui.QTabWidget(self)
@@ -201,8 +201,9 @@ class EditCoinDialog(QtGui.QDialog):
         checkable = 0
         if self.usedFields:
             checkable = Type.Checkable
+        reference = self.reference.section(field.name)
 
-        item = FormItem(field.name, field.title, field.type | checkable)
+        item = FormItem(field.name, field.title, field.type | checkable, reference)
         self.items[field.name] = item
     
     def createItems(self):

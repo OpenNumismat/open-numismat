@@ -3,6 +3,7 @@
 from PyQt4 import QtGui, QtCore
 
 from Collection.Collection import Collection
+from Reference.Reference import Reference
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from TabView import TabView
 from LatestCollections import LatestCollections
@@ -66,8 +67,12 @@ class MainWindow(QtGui.QMainWindow):
 
         self.setWindowTitle(self.tr("Num"))
         
+        self.reference = Reference(self)
+        # TODO: Fix default reference name
+        self.reference.open("../db/reference.db")
+        
         latest = LatestCollections(self)
-        self.collection = Collection(self)
+        self.collection = Collection(self.reference, self)
         if self.collection.open(latest.latest()):
             self.setCollection(self.collection)
         
@@ -102,7 +107,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addCoin(self):
         record = self.collection.model().record()
-        dialog = EditCoinDialog(record, self)
+        dialog = EditCoinDialog(self.collection.model().refrence, record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             rec = dialog.getRecord()

@@ -6,9 +6,10 @@ from .CollectionFields import CollectionFields
 from .CollectionPages import CollectionPages
 
 class CollectionModel(QSqlTableModel):
-    def __init__(self, parent=None, db=QSqlDatabase(), fields=CollectionFields()):
+    def __init__(self, reference, parent=None, db=QSqlDatabase(), fields=CollectionFields()):
         super(CollectionModel, self).__init__(parent, db)
         
+        self.reference = reference
         self.fields = fields
     
     def data(self, index, role=QtCore.Qt.DisplayRole):
@@ -29,9 +30,10 @@ class CollectionModel(QSqlTableModel):
         return self.fields.fields[column].type
 
 class Collection(QtCore.QObject):
-    def __init__(self, parent=None):
+    def __init__(self, reference, parent=None):
         super(Collection, self).__init__(parent)
 
+        self.reference = reference
         self.db = QSqlDatabase.addDatabase('QSQLITE')
         self._pages = None
         
@@ -120,7 +122,7 @@ class Collection(QtCore.QObject):
         return self._pages
     
     def createModel(self):
-        model = CollectionModel(None, self.db, self.fields)
+        model = CollectionModel(self.reference, None, self.db, self.fields)
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         model.setTable('coins')
         model.select()

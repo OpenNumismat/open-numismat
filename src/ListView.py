@@ -226,7 +226,7 @@ class ListView(QtGui.QTableView):
 
     def _edit(self, index):
         record = self.model().record(index.row())
-        dialog = EditCoinDialog(record, self)
+        dialog = EditCoinDialog(self.model().reference, record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             updatedRecord = dialog.getRecord()
@@ -247,7 +247,7 @@ class ListView(QtGui.QTableView):
                     multiRecord.setNull(i)
                     usedFields[i] = Qt.Unchecked
 
-        dialog = EditCoinDialog(multiRecord, self, usedFields)
+        dialog = EditCoinDialog(self.model().reference, multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             # Fill records by used fields in multi record
