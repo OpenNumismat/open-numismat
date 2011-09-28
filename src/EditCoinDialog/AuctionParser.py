@@ -97,15 +97,17 @@ class MolotokParser(AuctionParser):
         for c in content:
             if c in '0123456789':
                 price = price + c
+            elif c in '.,':
+                price = price + '.'
             elif c in ' \t\n\r':
                 continue
             else:
                 break
 
-        return int(price)
+        return float(price)
     
     def totalSalePrice(self, lot):
-        price = int(lot.price)
+        price = float(lot.price)
         if price > 50000:
             excess = price - 50000
             commission = 1552.5 + (excess*2.5/100)
