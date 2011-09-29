@@ -117,7 +117,9 @@ class ReferenceSection(QtCore.QObject):
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             self.save()
-            self.changed.emit(dialog.listWidget.currentItem().text())
+            item = dialog.listWidget.currentItem()
+            if item and item.isSelected():
+                self.changed.emit(item.text())
 
 class Reference(QtCore.QObject):
     def __init__(self, parent=None):
@@ -137,8 +139,7 @@ class Reference(QtCore.QObject):
                 ReferenceSection('country', self.tr("C")),
                 ReferenceSection('type', self.tr("T")),
                 ReferenceSection('grade', self.tr("G")),
-                ReferenceSection('payplace'),
-                ReferenceSection('saleplace'),
+                ReferenceSection('place'),
                 ReferenceSection('metal', self.tr("M")),
                 ReferenceSection('form', self.tr("F")),
                 ReferenceSection('obvrev'),
@@ -173,6 +174,9 @@ class Reference(QtCore.QObject):
     
     def section(self, name):
         section = None
+        
+        if name in ['payplace', 'saleplace']:
+            name = 'place'
         
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM sections WHERE name=?")
