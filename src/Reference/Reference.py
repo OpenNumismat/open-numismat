@@ -1,20 +1,26 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord
 from PyQt4.QtCore import Qt, pyqtSignal
+from PyQt4 import QtSql
 
 class ReferenceDialog(QtGui.QDialog):
-    def __init__(self, refSection, parent=None):
+    def __init__(self, model, parent=None):
         super(ReferenceDialog, self).__init__(parent)
         
-        self.refSection = refSection
+        self.model = model
 
-        self.listWidget = QtGui.QListWidget(self)
+        self.listWidget = QtGui.QListView(self)
+        self.listWidget.setModel(self.model)
+        self.listWidget.setModelColumn(1)
+
+        # XXX: Drag-n-drop don't working
+        self.model.setSupportedDragActions(Qt.MoveAction)
+        self.listWidget.setMovement(QtGui.QListView.Free)
         self.listWidget.setDragDropMode(QtGui.QAbstractItemView.InternalMove)
-        self.listWidget.setDropIndicatorShown(True) 
-        for val in self.refSection.values:
-            item = QtGui.QListWidgetItem(val, self.listWidget)
-            item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled)
-            self.listWidget.addItem(item)
+        self.listWidget.setDragEnabled(True)
+        self.listWidget.setAcceptDrops(True)
+        self.listWidget.viewport().setAcceptDrops(True)
+        self.listWidget.setDropIndicatorShown(True)
 
         # TODO: Customize edit buttons
         editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
@@ -27,7 +33,7 @@ class ReferenceDialog(QtGui.QDialog):
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
         buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
-        buttonBox.accepted.connect(self.save)
+        buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
         layout = QtGui.QVBoxLayout(self)
@@ -38,25 +44,20 @@ class ReferenceDialog(QtGui.QDialog):
         self.setLayout(layout)
     
     def clicked(self, button):
+        index = self.listWidget.currentIndex()
         if button == self.addButton:
-            item = QtGui.QListWidgetItem(self.tr("Enter value"), self.listWidget)
-            item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled)
-            row = self.listWidget.currentRow()
-            self.listWidget.insertItem(row, item)
-            self.listWidget.editItem(item)
+            if index.isValid():
+                row = index.row()
+            else:
+                row = 0
+            self.model.insertRow(row)
+            if not index.isValid():
+                index = self.model.index(0, 1)
+            self.model.setData(index, self.tr("Enter value"))
+            self.listWidget.edit(index)
         elif button == self.delButton:
-            item = self.listWidget.currentItem()
-            self.listWidget.removeItemWidget(item)
-    
-    def save(self):
-        self.refSection.values = []
-        for i in range(self.listWidget.count()):
-            item = self.listWidget.item(i)
-            val = item.text().strip()
-            if val:
-                self.refSection.values.append(val)
-
-        self.accept()
+            if index.isValid():
+                self.model.removeRow(index.row())
 
 class ReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
@@ -72,38 +73,17 @@ class ReferenceSection(QtCore.QObject):
         else:
             self.name = name
             self.letter = letter
+        self.parentName = None
     
     def load(self, db):
-        self.db = db
-        
         sql = "CREATE TABLE IF NOT EXISTS %s (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
             value CHAR)" % self.name
-        QSqlQuery(sql, self.db)
+        QSqlQuery(sql, db)
 
-        sql = "SELECT * FROM %s" % self.name
-        query = QSqlQuery(sql, self.db)
-
-        self.values = []
-        while query.next():
-            val = query.record().value('value')
-            self.values.append(val)
-    
-    def save(self):
-        self.db.transaction()
-
-        query = QSqlQuery(self.db)
-        query.prepare("DELETE FROM %s" % self.name)
-        query.exec_()
-
-        for val in self.values:
-            query = QSqlQuery(self.db)
-            query.prepare("INSERT INTO %s (value) "
-                          "VALUES (?)" % self.name)
-            query.addBindValue(val)
-            query.exec_()
-
-        self.db.commit()
+        self.model = QtSql.QSqlRelationalTableModel(None, db)
+        self.model.setTable(self.name)
+        self.model.select()
     
     def button(self, parent=None):
         self.parent = parent
@@ -113,13 +93,12 @@ class ReferenceSection(QtCore.QObject):
         return button
     
     def clickedButton(self):
-        dialog = ReferenceDialog(self, self.parent)
+        dialog = ReferenceDialog(self.model, self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            self.save()
-            item = dialog.listWidget.currentItem()
-            if item and item.isSelected():
-                self.changed.emit(item.text())
+            index = dialog.listWidget.currentIndex()
+            if index in dialog.listWidget.selectedIndexes():
+                self.changed.emit(index.data())
 
 class Reference(QtCore.QObject):
     def __init__(self, parent=None):
@@ -132,7 +111,8 @@ class Reference(QtCore.QObject):
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
             name CHAR,\
             icon BLOB,\
-            letter CHAR(1))"
+            letter CHAR(1),\
+            parent CHAR)"
         QSqlQuery(sql, self.db)
 
         sections = [

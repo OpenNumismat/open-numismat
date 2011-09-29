@@ -16,27 +16,21 @@ class LineEdit(QtGui.QLineEdit):
         self.setMaxLength(1024)
 
 class LineEditRef(QtGui.QComboBox):
-    def __init__(self, reference=None, parent=None):
+    def __init__(self, reference, parent=None):
         super(LineEditRef, self).__init__(parent)
 
         self.reference = reference
-        self.reference.changed.connect(self.setValues)
+        self.reference.changed.connect(self.setText)
 
         self.setEditable(True)
         self.lineEdit().setMaxLength(1024)
         
-        self.setValues()
-    
-    def setValues(self, value=None):
-        self.clear()
-        for val in self.reference.values:
-            self.addItem(val)
-        
-        if value:
-            self.lineEdit().setText(value)
+        self.setModel(reference.model)
+        self.setModelColumn(1)
     
     def setText(self, text):
-        self.lineEdit().setText(text)
+        if text:
+            self.lineEdit().setText(text)
     
     def text(self):
         return self.currentText()
