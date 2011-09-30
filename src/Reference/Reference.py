@@ -10,17 +10,9 @@ class ReferenceDialog(QtGui.QDialog):
         self.model = model
 
         self.listWidget = QtGui.QListView(self)
+        self.listWidget.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.listWidget.setModel(self.model)
         self.listWidget.setModelColumn(1)
-
-        # XXX: Drag-n-drop don't working
-        self.model.setSupportedDragActions(Qt.MoveAction)
-        self.listWidget.setMovement(QtGui.QListView.Free)
-        self.listWidget.setDragDropMode(QtGui.QAbstractItemView.InternalMove)
-        self.listWidget.setDragEnabled(True)
-        self.listWidget.setAcceptDrops(True)
-        self.listWidget.viewport().setAcceptDrops(True)
-        self.listWidget.setDropIndicatorShown(True)
 
         # TODO: Customize edit buttons
         editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
@@ -34,7 +26,9 @@ class ReferenceDialog(QtGui.QDialog):
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
         buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
         buttonBox.accepted.connect(self.accept)
+        buttonBox.accepted.connect(self.model.submitAll)
         buttonBox.rejected.connect(self.reject)
+        buttonBox.rejected.connect(self.model.revertAll)
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.listWidget)
@@ -46,18 +40,15 @@ class ReferenceDialog(QtGui.QDialog):
     def clicked(self, button):
         index = self.listWidget.currentIndex()
         if button == self.addButton:
-            if index.isValid():
-                row = index.row()
-            else:
-                row = 0
+            row = self.model.rowCount()
             self.model.insertRow(row)
-            if not index.isValid():
-                index = self.model.index(0, 1)
+            index = self.model.index(row, 1)
             self.model.setData(index, self.tr("Enter value"))
             self.listWidget.edit(index)
         elif button == self.delButton:
-            if index.isValid():
+            if index.isValid() and index in self.listWidget.selectedIndexes():
                 self.model.removeRow(index.row())
+                self.listWidget.setRowHidden(index.row(), True)
 
 class ReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
@@ -82,6 +73,7 @@ class ReferenceSection(QtCore.QObject):
         QSqlQuery(sql, db)
 
         self.model = QtSql.QSqlRelationalTableModel(None, db)
+        self.model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
         self.model.setTable(self.name)
         self.model.select()
     
