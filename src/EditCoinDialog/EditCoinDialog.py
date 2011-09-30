@@ -217,6 +217,8 @@ class EditCoinDialog(QtGui.QDialog):
             self.addItem(field)
         
         self.items['country'].widget().addDependent(self.items['period'].widget().reference)
+        self.items['country'].widget().addDependent(self.items['unit'].widget().reference)
+        self.items['country'].widget().addDependent(self.items['mint'].widget().reference)
     
     def fillItems(self, record):
         if not record.isEmpty():

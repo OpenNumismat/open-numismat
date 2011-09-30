@@ -238,6 +238,7 @@ class Reference(QtCore.QObject):
                 ReferenceSection('obvrev'),
                 ReferenceSection('edge', self.tr("E")),
                 CrossReferenceSection('unit', 'country', self.tr("U")),
+                CrossReferenceSection('mint', 'country'),
                 CrossReferenceSection('period', 'country', self.tr("P"))
             ]
         for section in sections:

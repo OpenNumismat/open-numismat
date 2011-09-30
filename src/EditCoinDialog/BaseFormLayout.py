@@ -105,19 +105,11 @@ class BaseFormLayout(QtGui.QGridLayout):
     def addRow(self, item1, item2=None):
         if not item2:
             self.addWidget(item1.label(), self.row, 0)
-            if item1.refButton:
-                layout = QtGui.QHBoxLayout()
-                layout.addWidget(item1.widget())
-                layout.addWidget(item1.refButton)
-                layout.setContentsMargins(QMargins())
-                widget = QtGui.QWidget()
-                widget.setLayout(layout)
-                self.addWidget(widget, self.row, 1, 1, self.columnCount-1)
-            else:
-                # NOTE: columnSpan parameter in addWidget don't work with value -1
-                # for 2-columns grid
-                # self.addWidget(item1.widget(), self.row, 1, 1, -1)
-                self.addWidget(item1.widget(), self.row, 1, 1, self.columnCount-1)
+            widget = self.__getWidget(item1)
+            # NOTE: columnSpan parameter in addWidget don't work with value -1
+            # for 2-columns grid
+            # self.addWidget(widget, self.row, 1, 1, -1)
+            self.addWidget(widget, self.row, 1, 1, self.columnCount-1)
         else:
             self.addWidget(item1.label(), self.row, 0)
 
@@ -125,11 +117,25 @@ class BaseFormLayout(QtGui.QGridLayout):
                 self.addWidget(item1.widget(), self.row, 1, 1, 3)
                 self.addWidget(item2, self.row, 4)
             else:
-                self.addWidget(item1.widget(), self.row, 1)
+                widget = self.__getWidget(item1)
+                self.addWidget(widget, self.row, 1)
         
                 if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
                     item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
                 self.addWidget(item2.label(), self.row, 2)
-                self.addWidget(item2.widget(), self.row, 3, 1, self.columnCount-3)
+                widget = self.__getWidget(item2)
+                self.addWidget(widget, self.row, 3, 1, self.columnCount-3)
 
         self.row = self.row + 1
+    
+    def __getWidget(self, item):
+        if item.refButton:
+            layout = QtGui.QHBoxLayout()
+            layout.addWidget(item.widget())
+            layout.addWidget(item.refButton)
+            layout.setContentsMargins(QMargins())
+            widget = QtGui.QWidget()
+            widget.setLayout(layout)
+            return widget
+        else:
+            return item.widget()
