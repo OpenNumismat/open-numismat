@@ -215,6 +215,8 @@ class EditCoinDialog(QtGui.QDialog):
             if field in skippedFields:
                 continue
             self.addItem(field)
+        
+        self.items['country'].widget().addDependent(self.items['period'].widget().reference)
     
     def fillItems(self, record):
         if not record.isEmpty():

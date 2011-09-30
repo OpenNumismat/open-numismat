@@ -26,15 +26,32 @@ class LineEditRef(QtGui.QComboBox):
         self.lineEdit().setMaxLength(1024)
         
         self.setModel(reference.model)
-        self.setModelColumn(1)
+        self.setModelColumn(reference.model.fieldIndex('value'))
+        
+        self.dependents = []
     
     def setText(self, text):
         if text:
             self.lineEdit().setText(text)
+            index = self.findText(text)
+            if index >= 0:
+                self.updateDependents(index)
+                self.setCurrentIndex(index)
     
     def text(self):
         return self.currentText()
-
+    
+    def addDependent(self, reference):
+        self.currentIndexChanged.connect(self.updateDependents)
+        self.dependents.append(reference)
+    
+    def updateDependents(self, index):
+        for dependent in self.dependents:
+            idIndex = self.model().fieldIndex('id')
+            parentIndex = self.model().index(index, idIndex)
+            dependent.model.setFilter('parentid=%d' % self.model().data(parentIndex))
+            dependent.parentIndex = parentIndex
+    
 class StateEdit(QtGui.QComboBox):
     items = [('demo', QT_TR_NOOP("Demo")), ('pass', QT_TR_NOOP("Pass")),
              ('in', QT_TR_NOOP("in")), ('out', QT_TR_NOOP("out")),
