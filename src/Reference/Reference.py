@@ -45,6 +45,7 @@ class ReferenceDialog(QtGui.QDialog):
             index = self.model.index(row, 1)
             self.model.setData(index, self.tr("Enter value"))
             self.listWidget.edit(index)
+            self.listWidget.selectionModel().setCurrentIndex(index, QtGui.QItemSelectionModel.ClearAndSelect)
         elif button == self.delButton:
             if index.isValid() and index in self.listWidget.selectedIndexes():
                 self.model.removeRow(index.row())
