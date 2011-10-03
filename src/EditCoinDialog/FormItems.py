@@ -30,21 +30,22 @@ class LineEditRef(QtGui.QComboBox):
         self.setModel(reference.model)
         self.setModelColumn(reference.model.fieldIndex('value'))
         
+        self.lineEdit().setText('')
         self.dependents = []
     
     def setText(self, text):
-        if text:
-            self.lineEdit().setText(text)
-            index = self.findText(text)
-            if index >= 0:
-                self.updateDependents(index)
-                self.setCurrentIndex(index)
+        self.lineEdit().setText(text)
+        index = self.findText(text)
+        if index >= 0:
+            self.updateDependents(index)
+            self.setCurrentIndex(index)
     
     def text(self):
         return self.currentText()
     
     def addDependent(self, reference):
-        self.currentIndexChanged.connect(self.updateDependents)
+        if not self.dependents:
+            self.currentIndexChanged.connect(self.updateDependents)
         self.dependents.append(reference)
     
     def updateDependents(self, index):

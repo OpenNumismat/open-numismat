@@ -308,7 +308,7 @@ class ListView(QtGui.QTableView):
                 for i in range(self.model().columnCount()):
                     record.setValue(i, recordData[i])
         
-                dialog = EditCoinDialog(record, self)
+                dialog = EditCoinDialog(self.model().reference, record, self)
                 result = dialog.exec_()
                 if result == QtGui.QDialog.Accepted:
                     newRecord = dialog.getRecord()
@@ -329,7 +329,7 @@ class ListView(QtGui.QTableView):
                 for i in range(len(data)):
                     record.setValue(i, clipboardToText(data[i]))
             
-                dialog = EditCoinDialog(record, self)
+                dialog = EditCoinDialog(self.model().reference, record, self)
                 result = dialog.exec_()
                 if result == QtGui.QDialog.Accepted:
                     newRecord = dialog.getRecord()
@@ -354,7 +354,7 @@ class ListView(QtGui.QTableView):
             index = self.currentIndex()
 
         record = self.model().record(index.row())
-        dialog = EditCoinDialog(record, self)
+        dialog = EditCoinDialog(self.model().reference, record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             newRecord = dialog.getRecord()

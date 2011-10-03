@@ -160,8 +160,8 @@ class ReferenceSection(QtCore.QObject):
         dialog = ReferenceDialog(self.model, self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            index = dialog.listWidget.currentIndex()
-            if index in dialog.listWidget.selectedIndexes():
+            if dialog.listWidget.selectedIndexes():
+                index = dialog.listWidget.selectedIndexes()[0]
                 self.changed.emit(index.data())
 
 class CrossReferenceSection(QtCore.QObject):

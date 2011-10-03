@@ -106,12 +106,11 @@ class MainWindow(QtGui.QMainWindow):
             self.__menu.addAction(act)
 
     def addCoin(self):
-        record = self.collection.model().record()
-        dialog = EditCoinDialog(self.collection.model().refrence, record, self)
+        model = self.viewTab.currentModel()
+        dialog = EditCoinDialog(model.reference, model.record(), self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             rec = dialog.getRecord()
-            model = self.viewTab.currentModel()
             model.insertRecord(-1, rec)
             model.submitAll()
 
