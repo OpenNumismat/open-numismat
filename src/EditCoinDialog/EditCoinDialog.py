@@ -241,7 +241,7 @@ class EditCoinDialog(QtGui.QDialog):
 
     def mainDetailsLayout(self, parent=None):
         layout = BaseFormLayout(parent)
-        layout.columnCount = 5
+        layout.columnCount = 6
        
         btn = QtGui.QPushButton(self.tr("Generate"), parent)
         btn.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)

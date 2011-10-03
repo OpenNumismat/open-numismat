@@ -100,7 +100,7 @@ class BaseFormLayout(QtGui.QGridLayout):
     def __init__(self, parent=None):
         super(BaseFormLayout, self).__init__()
         self.row = 0
-        self.columnCount = 4
+        self.columnCount = 5
 
     def addRow(self, item1, item2=None):
         if not item2:
@@ -114,17 +114,22 @@ class BaseFormLayout(QtGui.QGridLayout):
             self.addWidget(item1.label(), self.row, 0)
 
             if isinstance(item2, QtGui.QAbstractButton):
-                self.addWidget(item1.widget(), self.row, 1, 1, 3)
-                self.addWidget(item2, self.row, 4)
+                self.addWidget(item1.widget(), self.row, 1, 1, 4)
+                self.addWidget(item2, self.row, 5)
             else:
                 widget = self.__getWidget(item1)
                 self.addWidget(widget, self.row, 1)
+                widget = QtGui.QWidget()
+                widget.setMinimumWidth(0)
+                if self.columnCount == 6:
+                    widget.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+                self.addWidget(widget, self.row, 2)
         
                 if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
                     item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
-                self.addWidget(item2.label(), self.row, 2)
+                self.addWidget(item2.label(), self.row, 3)
                 widget = self.__getWidget(item2)
-                self.addWidget(widget, self.row, 3, 1, self.columnCount-3)
+                self.addWidget(widget, self.row, 4, 1, self.columnCount-4)
 
         self.row = self.row + 1
     

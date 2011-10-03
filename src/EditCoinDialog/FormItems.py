@@ -14,6 +14,7 @@ class LineEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(LineEdit, self).__init__(parent)
         self.setMaxLength(1024)
+        self.setMinimumWidth(100)
 
 class LineEditRef(QtGui.QComboBox):
     def __init__(self, reference, parent=None):
@@ -24,6 +25,7 @@ class LineEditRef(QtGui.QComboBox):
 
         self.setEditable(True)
         self.lineEdit().setMaxLength(1024)
+        self.setMinimumWidth(120)
         
         self.setModel(reference.model)
         self.setModelColumn(reference.model.fieldIndex('value'))
@@ -92,7 +94,7 @@ class NumberEdit(QtGui.QLineEdit):
         self.setValidator(validator)
         self.setMaxLength(15)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -105,7 +107,7 @@ class BigIntEdit(QtGui.QLineEdit):
         self.setValidator(validator)
         self.setMaxLength(15)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
 
 class ValueEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
@@ -115,7 +117,7 @@ class ValueEdit(QtGui.QLineEdit):
         self.setValidator(validator)
         self.setMaxLength(15)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
     
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -128,7 +130,7 @@ class MoneyEdit(QtGui.QLineEdit):
         self.setValidator(validator)
         self.setMaxLength(15)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
     
     def sizeHint(self):
         return self.minimumSizeHint()
