@@ -12,6 +12,7 @@ class FormItem(object):
         if itemType & Type.Checkable:
             self._label = QtGui.QCheckBox(title, parent)
             self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
+            self._label.stateChanged.connect(self.checkBoxChanged)
         else:
             self._label = QtGui.QLabel(title, parent)
             self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
@@ -44,6 +45,13 @@ class FormItem(object):
             self._widget = StateEdit(parent)
         else:
             raise
+
+        if itemType & Type.Checkable:
+            # Disable fields with unchecked labels
+            self._widget.setDisabled(True)
+    
+    def checkBoxChanged(self, state):
+        self._widget.setDisabled(state == Qt.Unchecked)
     
     def field(self):
         return self._field

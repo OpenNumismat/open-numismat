@@ -243,7 +243,7 @@ class ListView(QtGui.QTableView):
         for index in indexes:
             record = self.model().record(index.row())
             for i in range(multiRecord.count()):
-                if multiRecord.value(i) != record.value(i):
+                if multiRecord.value(i) != record.value(i) or not record.value(i):
                     multiRecord.setNull(i)
                     usedFields[i] = Qt.Unchecked
 
