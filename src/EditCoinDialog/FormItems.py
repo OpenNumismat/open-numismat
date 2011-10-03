@@ -30,14 +30,13 @@ class LineEditRef(QtGui.QComboBox):
         self.setModel(reference.model)
         self.setModelColumn(reference.model.fieldIndex('value'))
         
-        self.lineEdit().setText('')
         self.dependents = []
     
     def setText(self, text):
         self.lineEdit().setText(text)
         index = self.findText(text)
+        self.updateDependents(index)
         if index >= 0:
-            self.updateDependents(index)
             self.setCurrentIndex(index)
     
     def text(self):
@@ -46,14 +45,23 @@ class LineEditRef(QtGui.QComboBox):
     def addDependent(self, reference):
         if not self.dependents:
             self.currentIndexChanged.connect(self.updateDependents)
+            self.editTextChanged.connect(self.updateDependents)
         self.dependents.append(reference)
     
     def updateDependents(self, index):
-        for dependent in self.dependents:
+        if isinstance(index, str):
+            index = self.findText(index)
+
+        if index >= 0:
             idIndex = self.model().fieldIndex('id')
             parentIndex = self.model().index(index, idIndex)
-            dependent.model.setFilter('parentid=%d' % self.model().data(parentIndex))
-            dependent.parentIndex = parentIndex
+            for dependent in self.dependents:
+                dependent.model.setFilter('parentid=%d' % self.model().data(parentIndex))
+                dependent.parentIndex = parentIndex
+        else:
+            for dependent in self.dependents:
+                dependent.model.setFilter('parentid IS NULL')
+                dependent.parentIndex = None
     
 class StateEdit(QtGui.QComboBox):
     items = [('demo', QT_TR_NOOP("Demo")), ('pass', QT_TR_NOOP("Pass")),

@@ -26,9 +26,7 @@ class ReferenceDialog(QtGui.QDialog):
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
         buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
         buttonBox.accepted.connect(self.accept)
-        self.accepted.connect(self.model.submitAll)
         buttonBox.rejected.connect(self.reject)
-        self.rejected.connect(self.model.revertAll)
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.listWidget)
@@ -38,7 +36,6 @@ class ReferenceDialog(QtGui.QDialog):
         self.setLayout(layout)
     
     def clicked(self, button):
-        index = self.listWidget.currentIndex()
         if button == self.addButton:
             row = self.model.rowCount()
             self.model.insertRow(row)
@@ -47,6 +44,7 @@ class ReferenceDialog(QtGui.QDialog):
             self.listWidget.edit(index)
             self.listWidget.selectionModel().setCurrentIndex(index, QtGui.QItemSelectionModel.ClearAndSelect)
         elif button == self.delButton:
+            index = self.listWidget.currentIndex()
             if index.isValid() and index in self.listWidget.selectedIndexes():
                 self.model.removeRow(index.row())
                 self.listWidget.setRowHidden(index.row(), True)
@@ -87,9 +85,7 @@ class CrossReferenceDialog(QtGui.QDialog):
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
         buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
         buttonBox.accepted.connect(self.accept)
-        self.accepted.connect(self.model.submitAll)
         buttonBox.rejected.connect(self.reject)
-        self.rejected.connect(self.model.revertAll)
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.comboBox)
@@ -104,7 +100,6 @@ class CrossReferenceDialog(QtGui.QDialog):
         self.model.setFilter('parentid=%d' % self.rel.data(self.rel.index(index, idIndex)))
     
     def clicked(self, button):
-        index = self.listWidget.currentIndex()
         if button == self.addButton:
             idIndex = self.rel.fieldIndex('id')
             parentId = self.rel.data(self.rel.index(self.comboBox.currentIndex(), idIndex))
@@ -118,6 +113,7 @@ class CrossReferenceDialog(QtGui.QDialog):
             self.listWidget.edit(index)
             self.listWidget.selectionModel().setCurrentIndex(index, QtGui.QItemSelectionModel.ClearAndSelect)
         elif button == self.delButton:
+            index = self.listWidget.currentIndex()
             if index.isValid() and index in self.listWidget.selectedIndexes():
                 self.model.removeRow(index.row())
                 self.listWidget.setRowHidden(index.row(), True)
@@ -160,9 +156,14 @@ class ReferenceSection(QtCore.QObject):
         dialog = ReferenceDialog(self.model, self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            if dialog.listWidget.selectedIndexes():
-                index = dialog.listWidget.selectedIndexes()[0]
+            index = dialog.listWidget.currentIndex()
+            if index in dialog.listWidget.selectedIndexes():
+                self.model.submitAll()
                 self.changed.emit(index.data())
+            else:
+                self.model.submitAll()
+        else:
+            self.model.revertAll()
 
 class CrossReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
@@ -211,7 +212,12 @@ class CrossReferenceSection(QtCore.QObject):
         if result == QtGui.QDialog.Accepted:
             index = dialog.listWidget.currentIndex()
             if index in dialog.listWidget.selectedIndexes():
+                self.model.submitAll()
                 self.changed.emit(index.data())
+            else:
+                self.model.submitAll()
+        else:
+            self.model.revertAll()
 
 class Reference(QtCore.QObject):
     def __init__(self, parent=None):
