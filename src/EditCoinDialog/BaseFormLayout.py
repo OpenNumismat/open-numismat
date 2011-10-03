@@ -118,6 +118,8 @@ class BaseFormLayout(QtGui.QGridLayout):
             # for 2-columns grid
             # self.addWidget(widget, self.row, 1, 1, -1)
             self.addWidget(widget, self.row, 1, 1, self.columnCount-1)
+            if isinstance(widget, NumberEdit):
+                widget.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         else:
             self.addWidget(item1.label(), self.row, 0)
 
