@@ -65,6 +65,8 @@ class MainWindow(QtGui.QMainWindow):
         removeListAct.triggered.connect(self.viewTab.removePage)
         listMenu.addAction(removeListAct)
 
+        self.referenceMenu = menubar.addMenu(self.tr("Reference"))
+
         self.setWindowTitle(self.tr("Num"))
         
         self.reference = Reference(self)
@@ -146,7 +148,10 @@ class MainWindow(QtGui.QMainWindow):
         self.__updateLatest()
         
         self.viewTab.setCollection(collection)
-
+        
+        self.referenceMenu.clear()
+        self.referenceMenu.addAction(self.collection.referenceMenu(self))
+        
     def closeEvent(self, e):
         settings = QtCore.QSettings()
 

@@ -135,6 +135,7 @@ class ReferenceSection(QtCore.QObject):
         self.parentName = None
     
     def load(self, db):
+        self.db = db
         sql = "CREATE TABLE IF NOT EXISTS %s (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
             value CHAR)" % self.name
@@ -164,6 +165,17 @@ class ReferenceSection(QtCore.QObject):
                 self.model.submitAll()
         else:
             self.model.revertAll()
+    
+    def fillFromQuery(self, query):
+        while query.next():
+            value = query.record().value(0)
+            fillQuery = QSqlQuery(self.db)
+            fillQuery.prepare("INSERT INTO %s (value) "
+                          "SELECT ? "
+                          "WHERE NOT EXISTS (SELECT 1 FROM %s WHERE value=?)" % (self.name, self.name))
+            fillQuery.addBindValue(value)
+            fillQuery.addBindValue(value)
+            fillQuery.exec_()
 
 class CrossReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
@@ -185,6 +197,7 @@ class CrossReferenceSection(QtCore.QObject):
             self.parentName = parentName
     
     def load(self, db):
+        self.db = db
         sql = "CREATE TABLE IF NOT EXISTS %s (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
             parentid INTEGER NOT NULL,\
@@ -219,6 +232,19 @@ class CrossReferenceSection(QtCore.QObject):
         else:
             self.model.revertAll()
 
+    def fillFromQuery(self, parentId, query):
+        while query.next():
+            value = query.record().value(0)
+            fillQuery = QSqlQuery(self.db)
+            fillQuery.prepare("INSERT INTO %s (value, parentid) "
+                          "SELECT ?, ? "
+                          "WHERE NOT EXISTS (SELECT 1 FROM %s WHERE value=? AND parentid=?)" % (self.name, self.name))
+            fillQuery.addBindValue(value)
+            fillQuery.addBindValue(parentId)
+            fillQuery.addBindValue(value)
+            fillQuery.addBindValue(parentId)
+            fillQuery.exec_()
+
 class Reference(QtCore.QObject):
     def __init__(self, parent=None):
         super(Reference, self).__init__(parent)
@@ -245,7 +271,8 @@ class Reference(QtCore.QObject):
                 ReferenceSection('edge', self.tr("E")),
                 CrossReferenceSection('unit', 'country', self.tr("U")),
                 CrossReferenceSection('mint', 'country'),
-                CrossReferenceSection('period', 'country', self.tr("P"))
+                CrossReferenceSection('period', 'country', self.tr("P")),
+                CrossReferenceSection('series', 'country', self.tr("S"))
             ]
         for section in sections:
             query = QSqlQuery(self.db)
@@ -300,3 +327,14 @@ class Reference(QtCore.QObject):
             section.load(self.db)
         
         return section
+    
+    def allSections(self):
+        query = QSqlQuery(self.db)
+        query.prepare("SELECT * FROM sections")
+        query.exec_()
+        
+        sections = []
+        while query.next():
+            sections.append(query.record().value('name'))
+        
+        return sections

@@ -4,6 +4,7 @@ from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery
 from .CollectionFields import FieldTypes as Type
 from .CollectionFields import CollectionFields
 from .CollectionPages import CollectionPages
+from Reference.Reference import CrossReferenceSection
 
 class CollectionModel(QSqlTableModel):
     def __init__(self, reference, parent=None, db=QSqlDatabase(), fields=CollectionFields()):
@@ -129,6 +130,31 @@ class Collection(QtCore.QObject):
         for field in self.fields:
             model.setHeaderData(field.id, QtCore.Qt.Horizontal, field.title)
         return model
+    
+    def createReference(self):
+        for columnName in self.reference.allSections():
+            refSection = self.reference.section(columnName)
+            if isinstance(refSection, CrossReferenceSection):
+                rel = refSection.model.relationModel(1)
+                for i in range(rel.rowCount()):
+                    data = rel.data(rel.index(i, rel.fieldIndex('value')))
+                    parentId = rel.data(rel.index(i, rel.fieldIndex('id')))
+                    query = QSqlQuery(self.db)
+                    sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL AND %s=?" % (columnName, columnName, columnName, refSection.parentName)
+                    query.prepare(sql)
+                    query.addBindValue(data)
+                    query.exec_()
+                    refSection.fillFromQuery(parentId, query)
+            else:
+                sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL" % (columnName, columnName, columnName)
+                query = QSqlQuery(sql, self.db)
+                refSection.fillFromQuery(query)
+    
+    def referenceMenu(self, parent=None):
+        createReferenceAct = QtGui.QAction(self.tr("Create from collection"), parent)
+        createReferenceAct.triggered.connect(self.createReference)
+        
+        return createReferenceAct
     
     @staticmethod
     def fileNameToCollectionName(fileName):
