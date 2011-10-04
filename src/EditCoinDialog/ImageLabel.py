@@ -6,23 +6,55 @@ MAX_IMAGE_HEIGHT = 1024
 IMAGE_FORMAT = 'jpg'
 
 class ImageLabel(QtGui.QLabel):
+    def __init__(self, parent=None):
+        super(ImageLabel, self).__init__(parent)
+        
+        self.clear()
+        
+        self.setBackgroundRole(QtGui.QPalette.Base)
+        self.setSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Ignored)
+        self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        self.setFocusPolicy(Qt.StrongFocus)
+
+    def clear(self):
+        self.image = QtGui.QImage()
+        self.setPixmap(QtGui.QPixmap.fromImage(self.image))
+
+    def __setImage(self):
+        if self.image.isNull():
+            return
+        
+        # Label not shown => can't get size for resizing image
+        if not self.isVisible():
+            return
+        
+        if self.image.width() > self.width() or self.image.height() > self.height():
+            scaledImage = self.image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        else:
+            scaledImage = self.image
+    
+        pixmap = QtGui.QPixmap.fromImage(scaledImage)
+        self.setPixmap(pixmap)
+    
+    def showEvent(self, e):
+        self.__setImage()
+    
+    def loadFromData(self, data):
+        self.image.loadFromData(data)
+        self.__setImage()
+
+class ImageEdit(ImageLabel):
     latestDir = QtCore.QDir.currentPath()
     # TODO: Uncomment default location in release 
     # latestDir = QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.PicturesLocation)
     
     def __init__(self, parent=None):
-        super(ImageLabel, self).__init__(parent)
+        super(ImageEdit, self).__init__(parent)
         
-        self.__clearImage()
-        
+        self.setFrameStyle(QtGui.QFrame.Panel | QtGui.QFrame.Plain)
+
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenu)
-
-        self.setBackgroundRole(QtGui.QPalette.Base)
-        self.setSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Ignored)
-        self.setFrameStyle(QtGui.QFrame.Panel | QtGui.QFrame.Plain)
-        self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-        self.setFocusPolicy(Qt.StrongFocus)
 
     def contextMenu(self, pos):
         style = QtGui.QApplication.style()
@@ -69,7 +101,7 @@ class ImageLabel(QtGui.QLabel):
             self.loadFromFile(fileName)
 
     def deleteImage(self):
-        self.__clearImage()
+        self.clear()
     
     def saveImage(self):
         # TODO: Change latestDir to user's pictures dir
@@ -101,46 +133,21 @@ class ImageLabel(QtGui.QLabel):
             clipboard = QtGui.QApplication.clipboard()
             clipboard.setImage(self.image)
 
-    def __clearImage(self):
-        self.image = QtGui.QImage()
-        self.setPixmap(QtGui.QPixmap.fromImage(self.image))
+    def clear(self):
+        super(ImageEdit, self).clear()
         self.setText(self.tr("No image available\n(right-click to add an image)"))
 
-    def __setImage(self):
-        if self.image.isNull():
-            return
-        
-        # Label not shown => can't get size for resizing image
-        if not self.isVisible():
-            return
-            
-        if self.image.width() > self.width() or self.image.height() > self.height():
-            scaledImage = self.image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        else:
-            scaledImage = self.image
-    
-        pixmap = QtGui.QPixmap.fromImage(scaledImage)
-        self.setPixmap(pixmap)
-    
-    def showEvent(self, e):
-        self.__setImage()
-    
     def loadFromFile(self, fileName):
         self.image.load(fileName)
         self.__setImage()
     
-    def loadFromData(self, data):
-        self.image.loadFromData(data)
-        self.__setImage()
-        
     def loadFromUrl(self, url):
         import urllib.request
         try:
             data = urllib.request.urlopen(url).read()
-            self.image.loadFromData(data)
+            self.loadFromData(data)
         except:
             return
-        self.__setImage()
         
     def data(self):
         ba = QtCore.QByteArray() 

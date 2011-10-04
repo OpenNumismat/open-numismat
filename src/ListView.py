@@ -3,7 +3,7 @@
 import pickle
 
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, pyqtSignal
 
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import CollectionFields
@@ -42,6 +42,7 @@ class ImageDelegate(QtGui.QStyledItemDelegate):
             painter.drawPixmap(rect, pixmap)
 
 class ListView(QtGui.QTableView):
+    rowChanged = pyqtSignal(object)
     # TODO: Changes mime type
     MimeType = 'num/data'
     
@@ -212,6 +213,12 @@ class ListView(QtGui.QTableView):
         menu.addAction(icon, self.tr("Delete"), self._delete)
         menu.exec_(self.mapToGlobal(pos))
     
+    def currentChanged(self, current, previous):
+        if current.row() != previous.row():
+            self.rowChanged.emit(current)
+
+        return super(ListView, self).currentChanged(current, previous)
+
     def selectedRows(self):
         indexes = self.selectedIndexes()
         if len(indexes) == 0:

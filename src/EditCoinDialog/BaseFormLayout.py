@@ -1,7 +1,7 @@
-from PyQt4.QtCore import Qt, QDate, QMargins
+from PyQt4.QtCore import Qt, QDate
 
 from .FormItems import *
-from .ImageLabel import ImageLabel
+from .ImageLabel import ImageEdit
 from Collection.CollectionFields import FieldTypes as Type
 
 class FormItem(object):
@@ -36,7 +36,7 @@ class FormItem(object):
         elif type_ == Type.Text:
             self._widget = TextEdit(parent)
         elif type_ == Type.Image:
-            self._widget = ImageLabel(parent)
+            self._widget = ImageEdit(parent)
         elif type_ == Type.Date:
             self._widget = DateEdit(parent)
         elif type_ == Type.State:
@@ -73,7 +73,7 @@ class FormItem(object):
             return self._widget.date().toString()
         elif isinstance(self._widget, QtGui.QAbstractSpinBox):
             return self._widget.value()
-        elif isinstance(self._widget, ImageLabel):
+        elif isinstance(self._widget, ImageEdit):
             return self._widget.data()
         elif isinstance(self._widget, StateEdit):
             return self._widget.data()
@@ -81,7 +81,7 @@ class FormItem(object):
             return self._widget.text()
 
     def setValue(self, value):
-        if isinstance(self._widget, ImageLabel):
+        if isinstance(self._widget, ImageEdit):
             self._widget.loadFromData(value)
         elif isinstance(self._widget, QtGui.QSpinBox):
             self._widget.setValue(int(value))
@@ -95,9 +95,7 @@ class FormItem(object):
             self._widget.setText(str(value))
     
     def clear(self):
-        if isinstance(self._widget, ImageLabel):
-            self._widget.deleteImage()
-        elif isinstance(self._widget, StateEdit):
+        if isinstance(self._widget, StateEdit):
             self._widget.setCurrentValue('demo')
         else: 
             self._widget.clear()
