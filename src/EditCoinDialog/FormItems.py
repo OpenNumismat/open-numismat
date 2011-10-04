@@ -1,5 +1,5 @@
 from PyQt4 import QtGui
-from PyQt4.QtCore import QT_TR_NOOP
+from PyQt4.QtCore import QT_TR_NOOP, QMargins
 
 # Reimplementing QDoubleValidator for replace comma with dot
 class DoubleValidator(QtGui.QDoubleValidator):
@@ -16,49 +16,58 @@ class LineEdit(QtGui.QLineEdit):
         self.setMaxLength(1024)
         self.setMinimumWidth(100)
 
-class LineEditRef(QtGui.QComboBox):
+class LineEditRef(QtGui.QWidget):
     def __init__(self, reference, parent=None):
         super(LineEditRef, self).__init__(parent)
 
         self.reference = reference
         self.reference.changed.connect(self.setText)
 
-        self.setEditable(True)
-        self.lineEdit().setMaxLength(1024)
-        self.setMinimumWidth(120)
+        self.comboBox = QtGui.QComboBox(self)
+        self.comboBox.setEditable(True)
+        self.comboBox.lineEdit().setMaxLength(1024)
+        self.comboBox.setMinimumWidth(120)
         
-        self.setModel(reference.model)
-        self.setModelColumn(reference.model.fieldIndex('value'))
+        self.comboBox.setModel(reference.model)
+        self.comboBox.setModelColumn(reference.model.fieldIndex('value'))
+        
+        layout = QtGui.QHBoxLayout()
+        layout.addWidget(self.comboBox)
+        layout.addWidget(reference.button(self))
+        layout.setContentsMargins(QMargins())
+
+        self.setLayout(layout)
         
         self.dependents = []
     
     def setText(self, text):
-        self.lineEdit().setText(text)
-        index = self.findText(text)
+        self.comboBox.lineEdit().setText(text)
+        index = self.comboBox.findText(text)
         self.updateDependents(index)
         if index >= 0:
-            self.setCurrentIndex(index)
+            self.comboBox.setCurrentIndex(index)
     
     def text(self):
-        return self.currentText()
+        return self.comboBox.currentText()
     
     def addDependent(self, reference):
         if not self.dependents:
-            self.currentIndexChanged.connect(self.updateDependents)
-            self.editTextChanged.connect(self.updateDependents)
+            self.comboBox.currentIndexChanged.connect(self.updateDependents)
+            self.comboBox.editTextChanged.connect(self.updateDependents)
         self.dependents.append(reference)
     
     def updateDependents(self, index):
         if isinstance(index, str):
-            index = self.findText(index)
+            index = self.comboBox.findText(index)
 
         if index >= 0:
-            idIndex = self.model().fieldIndex('id')
-            parentIndex = self.model().index(index, idIndex)
+            model = self.comboBox.model()
+            idIndex = model.fieldIndex('id')
+            parentIndex = model.index(index, idIndex)
             for dependent in self.dependents:
                 text = dependent.text()
                 reference = dependent.reference
-                reference.model.setFilter('parentid=%d' % self.model().data(parentIndex))
+                reference.model.setFilter('parentid=%d' % model.data(parentIndex))
                 reference.parentIndex = parentIndex
                 dependent.setText(text)
         else:

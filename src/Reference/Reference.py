@@ -1,10 +1,9 @@
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui, QtCore, QtSql
 from PyQt4.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord
 from PyQt4.QtCore import Qt, pyqtSignal
-from PyQt4 import QtSql
 
 class ReferenceDialog(QtGui.QDialog):
-    def __init__(self, model, parent=None):
+    def __init__(self, model, text='', parent=None):
         super(ReferenceDialog, self).__init__(parent)
         
         self.model = model
@@ -13,6 +12,11 @@ class ReferenceDialog(QtGui.QDialog):
         self.listWidget.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.listWidget.setModel(self.model)
         self.listWidget.setModelColumn(self.model.fieldIndex('value'))
+        
+        startIndex = self.model.index(0, self.model.fieldIndex('value'))
+        indexes = self.model.match(startIndex, 0, text, flags=Qt.MatchFixedString)
+        if indexes:
+            self.listWidget.selectionModel().setCurrentIndex(indexes[0], QtGui.QItemSelectionModel.ClearAndSelect)
 
         # TODO: Customize edit buttons
         editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
@@ -50,8 +54,8 @@ class ReferenceDialog(QtGui.QDialog):
                 self.listWidget.setRowHidden(index.row(), True)
 
 class CrossReferenceDialog(ReferenceDialog):
-    def __init__(self, model, parentIndex, parent=None):
-        super(CrossReferenceDialog, self).__init__(model, parent)
+    def __init__(self, model, parentIndex, text='', parent=None):
+        super(CrossReferenceDialog, self).__init__(model, text, parent)
         
         self.rel = self.model.relationModel(1)
 
@@ -125,7 +129,7 @@ class ReferenceSection(QtCore.QObject):
         return button
     
     def clickedButton(self):
-        dialog = ReferenceDialog(self.model, self.parent)
+        dialog = ReferenceDialog(self.model, self.parent.text(), self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             index = dialog.listWidget.currentIndex()
@@ -191,7 +195,7 @@ class CrossReferenceSection(QtCore.QObject):
         return button
     
     def clickedButton(self):
-        dialog = CrossReferenceDialog(self.model, self.parentIndex, self.parent)
+        dialog = CrossReferenceDialog(self.model, self.parentIndex, self.parent.text(), self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             index = dialog.listWidget.currentIndex()

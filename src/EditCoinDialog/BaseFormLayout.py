@@ -8,7 +8,6 @@ class FormItem(object):
     def __init__(self, field, title, itemType, reference=None, parent=None):
         self._field = field
         self._title = title
-        self.refButton = None
         if itemType & Type.Checkable:
             self._label = QtGui.QCheckBox(title, parent)
             self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
@@ -22,7 +21,6 @@ class FormItem(object):
         if type_ == Type.String:
             if reference:
                 self._widget = LineEditRef(reference, parent)
-                self.refButton = reference.button(parent)
             else:
                 self._widget = LineEdit(parent)
         elif type_ == Type.ShortString:
@@ -113,7 +111,7 @@ class BaseFormLayout(QtGui.QGridLayout):
     def addRow(self, item1, item2=None):
         if not item2:
             self.addWidget(item1.label(), self.row, 0)
-            widget = self.__getWidget(item1)
+            widget = item1.widget()
             # NOTE: columnSpan parameter in addWidget don't work with value -1
             # for 2-columns grid
             # self.addWidget(widget, self.row, 1, 1, -1)
@@ -127,7 +125,7 @@ class BaseFormLayout(QtGui.QGridLayout):
                 self.addWidget(item1.widget(), self.row, 1, 1, 4)
                 self.addWidget(item2, self.row, 5)
             else:
-                widget = self.__getWidget(item1)
+                widget = item1.widget()
                 self.addWidget(widget, self.row, 1)
                 widget = QtGui.QWidget()
                 widget.setMinimumWidth(0)
@@ -138,19 +136,6 @@ class BaseFormLayout(QtGui.QGridLayout):
                 if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
                     item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
                 self.addWidget(item2.label(), self.row, 3)
-                widget = self.__getWidget(item2)
-                self.addWidget(widget, self.row, 4, 1, self.columnCount-4)
+                self.addWidget(item2.widget(), self.row, 4, 1, self.columnCount-4)
 
         self.row = self.row + 1
-    
-    def __getWidget(self, item):
-        if item.refButton:
-            layout = QtGui.QHBoxLayout()
-            layout.addWidget(item.widget())
-            layout.addWidget(item.refButton)
-            layout.setContentsMargins(QMargins())
-            widget = QtGui.QWidget()
-            widget.setLayout(layout)
-            return widget
-        else:
-            return item.widget()
