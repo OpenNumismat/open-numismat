@@ -49,12 +49,10 @@ class ReferenceDialog(QtGui.QDialog):
                 self.model.removeRow(index.row())
                 self.listWidget.setRowHidden(index.row(), True)
 
-class CrossReferenceDialog(QtGui.QDialog):
+class CrossReferenceDialog(ReferenceDialog):
     def __init__(self, model, parentIndex, parent=None):
-        super(CrossReferenceDialog, self).__init__(parent)
+        super(CrossReferenceDialog, self).__init__(model, parent)
         
-        self.model = model
-
         self.rel = self.model.relationModel(1)
 
         self.comboBox = QtGui.QComboBox(self)
@@ -68,32 +66,8 @@ class CrossReferenceDialog(QtGui.QDialog):
         self.comboBox.setDisabled(True)
         self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
 
-        self.listWidget = QtGui.QListView(self)
-        self.listWidget.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
-        self.listWidget.setModel(self.model)
-        self.listWidget.setModelColumn(self.model.fieldIndex('value'))
-
-        # TODO: Customize edit buttons
-        editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        self.addButton = QtGui.QPushButton(self.tr("Add"))
-        editButtonBox.addButton(self.addButton, QtGui.QDialogButtonBox.ActionRole)
-        self.delButton = QtGui.QPushButton(self.tr("Del"))
-        editButtonBox.addButton(self.delButton, QtGui.QDialogButtonBox.ActionRole)
-        editButtonBox.clicked.connect(self.clicked)
-
-        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
-        buttonBox.accepted.connect(self.accept)
-        buttonBox.rejected.connect(self.reject)
-
-        layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(self.comboBox)
-        layout.addWidget(self.listWidget)
-        layout.addWidget(editButtonBox)
-        layout.addWidget(buttonBox)
-
-        self.setLayout(layout)
+        layout = self.layout()
+        layout.insertWidget(0, self.comboBox)
     
     def currentIndexChanged(self, index):
         idIndex = self.rel.fieldIndex('id')
@@ -113,10 +87,7 @@ class CrossReferenceDialog(QtGui.QDialog):
             self.listWidget.edit(index)
             self.listWidget.selectionModel().setCurrentIndex(index, QtGui.QItemSelectionModel.ClearAndSelect)
         elif button == self.delButton:
-            index = self.listWidget.currentIndex()
-            if index.isValid() and index in self.listWidget.selectedIndexes():
-                self.model.removeRow(index.row())
-                self.listWidget.setRowHidden(index.row(), True)
+            super(CrossReferenceDialog, self).clicked(button)
 
 class ReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
