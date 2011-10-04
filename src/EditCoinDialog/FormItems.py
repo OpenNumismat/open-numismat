@@ -56,12 +56,18 @@ class LineEditRef(QtGui.QComboBox):
             idIndex = self.model().fieldIndex('id')
             parentIndex = self.model().index(index, idIndex)
             for dependent in self.dependents:
-                dependent.model.setFilter('parentid=%d' % self.model().data(parentIndex))
-                dependent.parentIndex = parentIndex
+                text = dependent.text()
+                reference = dependent.reference
+                reference.model.setFilter('parentid=%d' % self.model().data(parentIndex))
+                reference.parentIndex = parentIndex
+                dependent.setText(text)
         else:
             for dependent in self.dependents:
-                dependent.model.setFilter('parentid IS NULL')
-                dependent.parentIndex = None
+                text = dependent.text()
+                reference = dependent.reference
+                reference.model.setFilter('parentid IS NULL')
+                reference.parentIndex = None
+                dependent.setText(text)
     
 class StateEdit(QtGui.QComboBox):
     items = [('demo', QT_TR_NOOP("Demo")), ('pass', QT_TR_NOOP("Pass")),
