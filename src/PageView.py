@@ -1,4 +1,4 @@
-from PyQt4 import QtGui
+from PyQt4 import QtCore, QtGui
 
 from ListView import ListView
 from EditCoinDialog.ImageLabel import ImageLabel
@@ -11,7 +11,9 @@ class PageView(QtGui.QSplitter):
         self.tableView.rowChanged.connect(self.rowChanged)
         
         self.layout = QtGui.QVBoxLayout()
+        self.layout.setContentsMargins(QtCore.QMargins())
         widget = QtGui.QWidget(self)
+        widget.resize(120, 0)
         widget.setLayout(self.layout)
         
         self.addWidget(self.tableView)
@@ -37,5 +39,6 @@ class PageView(QtGui.QSplitter):
 
         for imageData in images:
             image = ImageLabel(self)
+            image.setFixedHeight(self.widget(1).height()/len(images)-self.layout.spacing())
             image.loadFromData(imageData)
             self.layout.addWidget(image)
