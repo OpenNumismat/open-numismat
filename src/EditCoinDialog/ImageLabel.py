@@ -36,6 +36,9 @@ class ImageLabel(QtGui.QLabel):
         pixmap = QtGui.QPixmap.fromImage(scaledImage)
         self.setPixmap(pixmap)
     
+    def resizeEvent(self, e):
+        self._setImage()
+    
     def showEvent(self, e):
         self._setImage()
     

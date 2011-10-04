@@ -34,11 +34,10 @@ class PageView(QtGui.QSplitter):
         images = []
         for field in ['obverseimg', 'reverseimg']:
             index = self.model().index(current.row(), self.model().fieldIndex(field))
-            if not index.data().isNull():
+            if not index.data() or not index.data().isNull():
                 images.append(index.data())
 
         for imageData in images:
             image = ImageLabel(self)
-            image.setFixedHeight(self.widget(1).height()/len(images)-self.layout.spacing())
             image.loadFromData(imageData)
             self.layout.addWidget(image)
