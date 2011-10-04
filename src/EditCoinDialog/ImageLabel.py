@@ -20,7 +20,7 @@ class ImageLabel(QtGui.QLabel):
         self.image = QtGui.QImage()
         self.setPixmap(QtGui.QPixmap.fromImage(self.image))
 
-    def __setImage(self):
+    def _setImage(self):
         if self.image.isNull():
             return
         
@@ -37,11 +37,11 @@ class ImageLabel(QtGui.QLabel):
         self.setPixmap(pixmap)
     
     def showEvent(self, e):
-        self.__setImage()
+        self._setImage()
     
     def loadFromData(self, data):
         self.image.loadFromData(data)
-        self.__setImage()
+        self._setImage()
 
 class ImageEdit(ImageLabel):
     latestDir = QtCore.QDir.currentPath()
@@ -126,7 +126,7 @@ class ImageEdit(ImageLabel):
         else:
             return
 
-        self.__setImage()
+        self._setImage()
 
     def copyImage(self):
         if not self.image.isNull():
@@ -139,7 +139,7 @@ class ImageEdit(ImageLabel):
 
     def loadFromFile(self, fileName):
         self.image.load(fileName)
-        self.__setImage()
+        self._setImage()
     
     def loadFromUrl(self, url):
         import urllib.request
