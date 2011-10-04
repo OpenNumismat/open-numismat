@@ -281,7 +281,9 @@ class Reference(QtCore.QObject):
     
     def section(self, name):
         section = None
-        
+
+        # NOTE: payplace and saleplace fields has one reference section => 
+        # editing one of it should change another 
         if name in ['payplace', 'saleplace']:
             name = 'place'
         
@@ -307,5 +309,9 @@ class Reference(QtCore.QObject):
         sections = []
         while query.next():
             sections.append(query.record().value('name'))
+        
+        if 'place' in sections:
+            sections.remove('place')
+            sections.extend(['payplace', 'saleplace'])
         
         return sections
