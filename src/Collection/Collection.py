@@ -132,7 +132,16 @@ class Collection(QtCore.QObject):
         return model
     
     def createReference(self):
-        for columnName in self.reference.allSections():
+        sections = self.reference.allSections()
+        progressDlg = QtGui.QProgressDialog(self.tr("Updating reference"), self.tr("Cancel"), 0, len(sections), self.parent())
+        progressDlg.setWindowModality(QtCore.Qt.WindowModal)
+        progressDlg.setMinimumDuration(250)
+
+        for progress, columnName in enumerate(sections):
+            progressDlg.setValue(progress)
+            if progressDlg.wasCanceled():
+                break
+
             refSection = self.reference.section(columnName)
             if isinstance(refSection, CrossReferenceSection):
                 rel = refSection.model.relationModel(1)
@@ -150,6 +159,8 @@ class Collection(QtCore.QObject):
                 query = QSqlQuery(sql, self.db)
                 refSection.fillFromQuery(query)
     
+        progressDlg.setValue(len(sections))
+
     def referenceMenu(self, parent=None):
         createReferenceAct = QtGui.QAction(self.tr("Create from collection"), parent)
         createReferenceAct.triggered.connect(self.createReference)
