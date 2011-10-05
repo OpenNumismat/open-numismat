@@ -18,12 +18,29 @@ class PageView(QtGui.QSplitter):
         
         self.addWidget(self.tableView)
         self.addWidget(widget)
+        
+        self.splitterMoved.connect(self.splitterPosChanged)
 
     def setModel(self, model):
         self.tableView.setModel(model)
     
     def model(self):
         return self.tableView.model()
+    
+    def splitterPosChanged(self, pos, index):
+        settings = QtCore.QSettings()
+        settings.setValue('pageview/splittersizes', self.sizes())
+
+    def showEvent(self, e):
+        settings = QtCore.QSettings()
+        sizes = settings.value('pageview/splittersizes')
+        if sizes:
+            for i in range(len(sizes)):
+                sizes[i] = int(sizes[i])
+
+            self.splitterMoved.disconnect(self.splitterPosChanged)
+            self.setSizes(sizes)
+            self.splitterMoved.connect(self.splitterPosChanged)
     
     def rowChanged(self, current):
         for _ in range(self.layout.count()):
