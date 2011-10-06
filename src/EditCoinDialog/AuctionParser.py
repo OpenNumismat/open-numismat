@@ -167,6 +167,7 @@ class AuctionSpbParser(AuctionParser):
         content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('strong')[1].text_content()
         grade = content.split()[1]
         grade = grade.replace('.', '')  # remove end dot
+        # TODO: Parse VF-XF and XF/AU 
         auctionItem.grade = grade
 
         auctionItem.info = self.html.url
@@ -226,8 +227,95 @@ class AuctionSpbParser(AuctionParser):
         
         return str(totalPrice)
 
+class ConrosParser(AuctionParser):
+    HostName = 'auction.conros.ru'
+    
+    @staticmethod
+    def verifyDomain(url):
+        return (urllib.parse.urlparse(url).hostname == ConrosParser.HostName)
+    
+    def __init__(self, url, parent=None):
+        super(ConrosParser, self).__init__(parent)
+        
+        self.readHtmlPage(url, 'windows-1251')
+    
+    def parse(self):
+        if len(self.doc) == 0:
+            return
+        
+        if self.html.cssselect('form center')[1].text_content().find("Торги по этому лоту завершены") < 0:
+            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
+                        self.tr("Auction not done yet"),
+                        QtGui.QMessageBox.Ok)
+            return
+        
+        auctionItem = AuctionItem('Конрос')
+        
+        content = self.html.cssselect('form center')[1].text_content()
+        date = content.split()[5] # extract date
+        auctionItem.date = QtCore.QDate.fromString(date, 'dd.MM.yyyy').toString()
+        
+        content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
+        content = content.split('\n')[1]
+        auctionItem.buyer = content.split()[-1]
+
+        content = self.html.cssselect('form table tr')[1].cssselect('table tr')[2].text_content()
+        grade = content.split()[1]
+        # TODO: Parse VF-XF and XF/AU 
+        auctionItem.grade = grade
+
+        # TODO: Move Особенности from info to Note
+        index = content.find("Особенности")
+        bIndex = content[index:].find(":")+index
+        content = content[bIndex+1:].strip()
+        auctionItem.info = content + '\n' + self.html.url
+        
+        content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
+        content = content.split('\n')[2]
+        if int(content.split()[-1]) < 2:
+            QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
+                                self.tr("Only 1 bid"),
+                                QtGui.QMessageBox.Ok)
+
+        content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
+        content = content.split('\n')[0]
+        auctionItem.price = self.contentToPrice(content)
+
+        price = float(auctionItem.price)
+        auctionItem.totalPayPrice = str(price + price*10/100)
+        
+        price = float(auctionItem.price)
+        auctionItem.totalSalePrice = str(price - price*15/100)
+        
+        auctionItem.images = []
+        for tag in self.html.cssselect('form table tr')[1].cssselect('table tr')[1].cssselect('a'):
+            href = tag.attrib['href']
+            href = urllib.parse.urljoin(self.html.url, href)
+            auctionItem.images.append(href)
+
+        return auctionItem
+    
+    def contentToPrice(self, content):
+        valueBegan = False
+        price = ''
+        for c in content:
+            if c in '0123456789':
+                price = price + c
+                valueBegan = True
+            elif c in '.,':
+                price = price + '.'
+            elif c in ' \t\n\r':
+                continue
+            else:
+                if valueBegan:
+                    break
+
+        return float(price)
+
 def getParser(url, parent=None):
     if MolotokParser.verifyDomain(url):
         return MolotokParser(url, parent)
     elif AuctionSpbParser.verifyDomain(url):
         return AuctionSpbParser(url, parent)
+    elif ConrosParser.verifyDomain(url):
+        return ConrosParser(url, parent)
