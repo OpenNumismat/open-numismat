@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import urllib.request, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import lxml.html
 
 from PyQt4 import QtGui, QtCore
@@ -8,6 +8,9 @@ from PyQt4 import QtGui, QtCore
 class AuctionItem:
     def __init__(self, place):
         self.place = place
+        self.saller = ''
+        self.info = ''
+        self.grade = ''
 
 class AuctionParser(QtCore.QObject):
     def __init__(self, parent=None):
@@ -30,14 +33,19 @@ class AuctionParser(QtCore.QObject):
         return True
 
 class MolotokParser(AuctionParser):
+    HostName = 'molotok.ru'
+    
+    @staticmethod
+    def verifyDomain(url):
+        return (urllib.parse.urlparse(url).hostname == MolotokParser.HostName)
+    
     def __init__(self, url, parent=None):
         super(MolotokParser, self).__init__(parent)
         
-        # TODO: Verify URL domain
         self.readHtmlPage(url)
     
     def parse(self):
-        if len(self.html) == 0:
+        if len(self.doc) == 0:
             return
         
         if self.html.get_element_by_id('itemBidInfo').cssselect('form.siBidFormOnce'):
@@ -121,3 +129,105 @@ class MolotokParser(AuctionParser):
             commission = price*4/100
         
         return str(price - commission)
+
+class AuctionSpbParser(AuctionParser):
+    HostName = 'www.auction.spb.ru'
+    
+    @staticmethod
+    def verifyDomain(url):
+        return (urllib.parse.urlparse(url).hostname == AuctionSpbParser.HostName)
+    
+    def __init__(self, url, parent=None):
+        super(AuctionSpbParser, self).__init__(parent)
+        
+        self.readHtmlPage(url, 'windows-1251')
+    
+    def parse(self):
+        if len(self.doc) == 0:
+            return
+        
+        if self.html.cssselect('table tr')[4].cssselect('table td')[0].text_content().find("Торги по лоту завершились") < 0:
+            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
+                        self.tr("Auction not done yet"),
+                        QtGui.QMessageBox.Ok)
+            return
+        
+        auctionItem = AuctionItem('АукционЪ.СПб')
+        
+        content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('b')[0].text_content()
+        date = content.split()[1] # convert '12:00:00 05-12-07' to '05-12-07'
+        date = QtCore.QDate.fromString(date, 'dd-MM-yy')
+        if date.year() < 1960:
+            date = date.addYears(100)
+        auctionItem.date = date.toString()
+        
+        content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('strong')[2].text_content()
+        auctionItem.buyer = content.split()[-1]
+
+        content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('strong')[1].text_content()
+        grade = content.split()[1]
+        grade = grade.replace('.', '')  # remove end dot
+        auctionItem.grade = grade
+
+        auctionItem.info = self.html.url
+        
+        if len(self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('table tr')) - 1 < 2:
+            QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
+                                self.tr("Only 1 bid"),
+                                QtGui.QMessageBox.Ok)
+
+        content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('strong')[2].text_content()
+        auctionItem.price = self.contentToPrice(content)
+
+        price = float(auctionItem.price)
+        auctionItem.totalPayPrice = str(price + price*10/100)
+        
+        auctionItem.totalSalePrice = self.totalSalePrice(auctionItem)
+        
+        auctionItem.images = []
+        content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('a')[0]
+        href = content.attrib['href']
+        href = urllib.parse.urljoin(self.html.url, href)
+        auctionItem.images.append(href)
+
+        content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('a')[1]
+        href = content.attrib['href']
+        href = urllib.parse.urljoin(self.html.url, href)
+        auctionItem.images.append(href)
+
+        return auctionItem
+    
+    def contentToPrice(self, content):
+        valueBegan = False
+        price = ''
+        for c in content:
+            if c in '0123456789':
+                price = price + c
+                valueBegan = True
+            elif c in '.,':
+                price = price + '.'
+            elif c in ' \t\n\r':
+                continue
+            else:
+                if valueBegan:
+                    break
+
+        return float(price)
+
+    def totalSalePrice(self, lot):
+        price = float(lot.price)
+        commission = price*15/100
+        if commission < 25:
+            commission = 25
+        
+        totalPrice = price - commission
+        if totalPrice < 0:
+            totalPrice = 0
+        
+        return str(totalPrice)
+
+def getParser(url, parent=None):
+    if MolotokParser.verifyDomain(url):
+        return MolotokParser(url, parent)
+    elif AuctionSpbParser.verifyDomain(url):
+        return AuctionSpbParser(url, parent)

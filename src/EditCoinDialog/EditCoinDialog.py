@@ -4,7 +4,7 @@ from PyQt4.QtCore import Qt
 from .BaseFormLayout import BaseFormLayout, FormItem
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
-from .AuctionParser import MolotokParser
+from .AuctionParser import getParser
 
 class EditCoinDialog(QtGui.QDialog):
     def __init__(self, reference, record, parent=None, usedFields=None):
@@ -98,12 +98,10 @@ class EditCoinDialog(QtGui.QDialog):
             if event.matches(QtGui.QKeySequence.Paste):
                 mime = QtGui.QApplication.clipboard().mimeData()
                 if mime.hasText():
-                    parser = MolotokParser(mime.text(), self)
+                    parser = getParser(mime.text(), self)
                     lot = parser.parse()
                     if lot:
-                        for key in ['saledate', 'saleprice', 'totalpayprice', 'payprice',
-                                    'totalsaleprice', 'saller', 'buyer', 'saleplace',
-                                    'saleinfo', 'obverseimg', 'reverseimg', 'edgeimg',
+                        for key in ['payprice', 'obverseimg', 'reverseimg', 'edgeimg',
                                     'photo1', 'photo2', 'photo3', 'photo4']:
                             self.items[key].clear()
                         self.items['saleplace'].setValue(lot.place)
@@ -114,6 +112,7 @@ class EditCoinDialog(QtGui.QDialog):
                         self.items['buyer'].setValue(lot.buyer)
                         self.items['saleinfo'].setValue(lot.info)
                         self.items['saledate'].setValue(lot.date)
+                        self.items['grade'].setValue(lot.grade)
                         
                         # Add images
                         imageFields = ['reverseimg', 'obverseimg',
