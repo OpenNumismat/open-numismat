@@ -26,7 +26,7 @@ class AuctionParser(QtCore.QObject):
 
             self.doc = str(data, encoding)
             self.html = lxml.html.fromstring(self.doc)
-            self.html.url = url
+            self.url = url
         except (ValueError, urllib.error.URLError):
             return False
         
@@ -75,7 +75,7 @@ class MolotokParser(AuctionParser):
         for element in self.html.get_element_by_id('user_field').cssselect('style'):
             element.getparent().remove(element)
         info = self.html.get_element_by_id('user_field').text_content()
-        auctionItem.info = info.strip() + '\n' + self.html.url
+        auctionItem.info = info.strip() + '\n' + self.url
         
         if len(self.html.find_class('bidHistoryList')[0].cssselect('tr')) - 1 < 2: 
             QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
@@ -169,7 +169,7 @@ class AuctionSpbParser(AuctionParser):
         grade = grade.replace('.', '')  # remove end dot
         auctionItem.grade = self.contentToGrade(grade)
 
-        auctionItem.info = self.html.url
+        auctionItem.info = self.url
         
         if len(self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('table tr')) - 1 < 2:
             QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
@@ -192,7 +192,7 @@ class AuctionSpbParser(AuctionParser):
 
         content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('a')[1]
         href = content.attrib['href']
-        href = urllib.parse.urljoin(self.html.url, href)
+        href = urllib.parse.urljoin(self.url, href)
         auctionItem.images.append(href)
 
         return auctionItem
@@ -274,7 +274,7 @@ class ConrosParser(AuctionParser):
         auctionItem.grade = self.contentToGrade(grade)
 
         index = content.find("Особенности")
-        auctionItem.info = '\n'.join([content[:index], content[index:], self.html.url])
+        auctionItem.info = '\n'.join([content[:index], content[index:], self.url])
         
         content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
         content = content.split('\n')[2]
@@ -296,9 +296,123 @@ class ConrosParser(AuctionParser):
         auctionItem.images = []
         for tag in self.html.cssselect('form table tr')[1].cssselect('table tr')[1].cssselect('a'):
             href = tag.attrib['href']
-            href = urllib.parse.urljoin(self.html.url, href)
+            href = urllib.parse.urljoin(self.url, href)
             auctionItem.images.append(href)
 
+        return auctionItem
+    
+    def contentToPrice(self, content):
+        valueBegan = False
+        price = ''
+        for c in content:
+            if c in '0123456789':
+                price = price + c
+                valueBegan = True
+            elif c in '.,':
+                price = price + '.'
+            elif c in ' \t\n\r':
+                continue
+            else:
+                if valueBegan:
+                    break
+
+        return float(price)
+    
+    def contentToGrade(self, content):
+        # Parse VF-XF and XF/AU
+        grade = ''
+        for c in content:
+            if c in '-+/':
+                break
+            else:
+                grade = grade + c
+            
+        return grade
+
+class WolmarParser(AuctionParser):
+    HostName = 'www.wolmar.ru'
+    
+    @staticmethod
+    def verifyDomain(url):
+        return (urllib.parse.urlparse(url).hostname == WolmarParser.HostName)
+    
+    def __init__(self, url, parent=None):
+        super(WolmarParser, self).__init__(parent)
+        
+        self.readHtmlPage(url, 'windows-1251')
+    
+    def parse(self):
+        if len(self.doc) == 0:
+            return
+        
+        if self.html.find_class('item')[0].text_content().find("Лот закрыт") < 0:
+            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
+                        self.tr("Auction not done yet"),
+                        QtGui.QMessageBox.Ok)
+            return
+        
+        auctionItem = AuctionItem('Волмар')
+        
+        content = self.html.find_class('item')[0].find_class('values')[1].text_content()
+        bIndex = content.find("Лидер")
+        bIndex = content[bIndex:].find(":")+bIndex
+        eIndex = content[bIndex:].find("Количество ставок")+bIndex
+        auctionItem.buyer = content[bIndex+1:eIndex].strip()
+
+        content = self.html.find_class('item')[0].find_class('values')[0].text_content()
+        bIndex = content.find("Состояние")
+        bIndex = content[bIndex:].find(":")+bIndex
+        grade = content[bIndex+1:].strip()
+        auctionItem.grade = self.contentToGrade(grade)
+
+        auctionItem.info = self.url
+        
+        content = self.html.find_class('item')[0].find_class('values')[1].text_content()
+        bIndex = content.find("Количество ставок")
+        bIndex = content[bIndex:].find(":")+bIndex
+        eIndex = content[bIndex:].find("Лот закрыт")+bIndex
+        content = content[bIndex+1:eIndex].strip()
+        if int(content) < 2:
+            QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
+                                self.tr("Only 1 bid"),
+                                QtGui.QMessageBox.Ok)
+
+        content = self.html.find_class('item')[0].find_class('values')[1].text_content()
+        bIndex = content.find("Ставка")
+        bIndex = content[bIndex:].find(":")+bIndex
+        eIndex = content[bIndex:].find("Лидер")+bIndex
+        content = content[bIndex+1:eIndex].strip()
+        auctionItem.price = self.contentToPrice(content)
+
+        price = float(auctionItem.price)
+        auctionItem.totalPayPrice = str(price + price*10/100)
+        
+        price = float(auctionItem.price)
+        auctionItem.totalSalePrice = str(price - price*10/100)
+        
+        storedUrl = self.url
+        
+        auctionItem.images = []
+        for tag in self.html.find_class('item')[0].cssselect('a'):
+            href = tag.attrib['href']
+            url = urllib.parse.urljoin(storedUrl, href)
+            self.readHtmlPage(url, 'windows-1251')
+            content = self.html.cssselect('div')[0]
+            for tag in content.cssselect('div'):
+                tag.drop_tree()
+            content = content.cssselect('img')[0]
+            src = content.attrib['src']
+            href = urllib.parse.urljoin(self.url, src)
+            auctionItem.images.append(href)
+
+        # Extract date from parent page
+        url = urllib.parse.urljoin(storedUrl, '.')[:-1]
+        self.readHtmlPage(url, 'windows-1251')
+        content = self.html.find_class('content')[0]
+        content = self.html.find_class('content')[0].cssselect('h1 span')[0].text_content()
+        date = content.split()[1] # convert '(Закрыт 29.09.2011 12:30)' to '29.09.2011'
+        auctionItem.date = QtCore.QDate.fromString(date, 'dd.MM.yyyy').toString()
+        
         return auctionItem
     
     def contentToPrice(self, content):
@@ -336,3 +450,6 @@ def getParser(url, parent=None):
         return AuctionSpbParser(url, parent)
     elif ConrosParser.verifyDomain(url):
         return ConrosParser(url, parent)
+    elif WolmarParser.verifyDomain(url):
+        return WolmarParser(url, parent)
+    return WolmarParser('http://www.wolmar.ru/auction/466/369651?category=9', parent)
