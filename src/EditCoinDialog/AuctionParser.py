@@ -167,8 +167,7 @@ class AuctionSpbParser(AuctionParser):
         content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('strong')[1].text_content()
         grade = content.split()[1]
         grade = grade.replace('.', '')  # remove end dot
-        # TODO: Parse VF-XF and XF/AU 
-        auctionItem.grade = grade
+        auctionItem.grade = self.contentToGrade(grade)
 
         auctionItem.info = self.html.url
         
@@ -227,6 +226,17 @@ class AuctionSpbParser(AuctionParser):
         
         return str(totalPrice)
 
+    def contentToGrade(self, content):
+        # Parse VF-XF and XF/AU
+        grade = ''
+        for c in content:
+            if c in '-+/':
+                break
+            else:
+                grade = grade + c
+            
+        return grade
+
 class ConrosParser(AuctionParser):
     HostName = 'auction.conros.ru'
     
@@ -261,14 +271,10 @@ class ConrosParser(AuctionParser):
 
         content = self.html.cssselect('form table tr')[1].cssselect('table tr')[2].text_content()
         grade = content.split()[1]
-        # TODO: Parse VF-XF and XF/AU 
-        auctionItem.grade = grade
+        auctionItem.grade = self.contentToGrade(grade)
 
-        # TODO: Move Особенности from info to Note
         index = content.find("Особенности")
-        bIndex = content[index:].find(":")+index
-        content = content[bIndex+1:].strip()
-        auctionItem.info = content + '\n' + self.html.url
+        auctionItem.info = '\n'.join([content[:index], content[index:], self.html.url])
         
         content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
         content = content.split('\n')[2]
@@ -311,6 +317,17 @@ class ConrosParser(AuctionParser):
                     break
 
         return float(price)
+    
+    def contentToGrade(self, content):
+        # Parse VF-XF and XF/AU
+        grade = ''
+        for c in content:
+            if c in '-+/':
+                break
+            else:
+                grade = grade + c
+            
+        return grade
 
 def getParser(url, parent=None):
     if MolotokParser.verifyDomain(url):
