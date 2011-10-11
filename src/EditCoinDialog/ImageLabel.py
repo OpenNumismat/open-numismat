@@ -58,9 +58,7 @@ class ImageLabel(QtGui.QLabel):
         self._setImage()
 
 class ImageEdit(ImageLabel):
-    latestDir = QtCore.QDir.currentPath()
-    # TODO: Uncomment default location in release 
-    # latestDir = QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.PicturesLocation)
+    latestDir = QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.PicturesLocation)
     
     def __init__(self, parent=None):
         super(ImageEdit, self).__init__(parent)
@@ -114,19 +112,25 @@ class ImageEdit(ImageLabel):
                 self.tr("Open File"), ImageEdit.latestDir,
                 self.tr("Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)"))
         if fileName:
-            ImageEdit.latestDir = QtCore.QDir(fileName).absolutePath()
+            dir = QtCore.QDir(fileName)
+            dir.cdUp()
+            ImageEdit.latestDir = dir.absolutePath()
+
             self.loadFromFile(fileName)
 
     def deleteImage(self):
         self.clear()
     
     def saveImage(self):
-        # TODO: Change latestDir to user's pictures dir
+        # TODO: Set default name to coin title + field name 
         fileName = QtGui.QFileDialog.getSaveFileName(self,
-                self.tr("Save File"), ImageEdit.latestDir,
+                self.tr("Save File"), ImageEdit.latestDir + '/photo.' + IMAGE_FORMAT,
                 self.tr("Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)"))
         if fileName:
-            ImageEdit.latestDir = QtCore.QDir(fileName).absolutePath()
+            dir = QtCore.QDir(fileName)
+            dir.cdUp()
+            ImageEdit.latestDir = dir.absolutePath()
+
             self.image.save(fileName)
     
     def pasteImage(self):
