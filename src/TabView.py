@@ -1,4 +1,4 @@
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import pyqtSignal
 
 from PageView import PageView
@@ -11,6 +11,32 @@ class TabView(QtGui.QTabWidget):
         self.setTabsClosable(True)
         self.tabCloseRequested.connect(self.closePage)
         self.currentChanged.connect(self.activatedPage)
+        self.tabBar().setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.tabBar().customContextMenuRequested.connect(self.tabBarContextMenuEvent)
+
+    def tabBarContextMenuEvent(self, pos):
+        self.pos = pos  # store pos for action
+        menu = QtGui.QMenu(self)
+        menu.addAction(self.tr("Clone"), self._clone)
+        menu.exec_(self.mapToGlobal(pos))
+    
+    def _clone(self):
+        index = self.tabBar().tabAt(self.pos)
+        oldLabel = self.tabText(index)
+        oldWidget = self.widget(index)
+
+        pageParam = self.collection.pages().addPage(oldLabel + self.tr(" (clone)"))
+        pageParam.listParam = oldWidget.listView.listParam
+        pageParam.listParam.pageId = pageParam.id
+        pageParam.listParam.save()
+
+        pageView = PageView(pageParam.listParam)
+        pageView.id = pageParam.id
+        pageView.setModel(self.collection.model())
+        self.addTab(pageView, pageParam.title)
+        self.setCurrentWidget(pageView)
+        
+        self.collection.pages().openPage(pageView)
     
     def activatedPage(self, index):
         page = self.widget(index)
