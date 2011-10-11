@@ -47,14 +47,14 @@ class SortFilterProxyModel(QtGui.QSortFilterProxyModel):
     
     def lessThan(self, left, right):
         if self.sortOrder() == Qt.AscendingOrder:
-            if left.data() == '':
+            if left.data() == '' or isinstance(left.data(), QtCore.QPyNullVariant):
                 return False
-            elif right.data() == '':
+            elif right.data() == '' or isinstance(right.data(), QtCore.QPyNullVariant):
                 return True
         else:
-            if right.data() == '':
+            if right.data() == '' or isinstance(right.data(), QtCore.QPyNullVariant):
                 return False
-            elif left.data() == '':
+            elif left.data() == '' or isinstance(left.data(), QtCore.QPyNullVariant):
                 return True
 
         return left.data() < right.data()
