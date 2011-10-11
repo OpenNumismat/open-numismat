@@ -41,6 +41,24 @@ class ImageDelegate(QtGui.QStyledItemDelegate):
             rect.setSize(pixmap.size())
             painter.drawPixmap(rect, pixmap)
 
+class SortFilterProxyModel(QtGui.QSortFilterProxyModel):
+    def __init__(self, parent=None):
+        super(SortFilterProxyModel, self).__init__(parent)
+    
+    def lessThan(self, left, right):
+        if self.sortOrder() == Qt.AscendingOrder:
+            if left.data() == '':
+                return False
+            elif right.data() == '':
+                return True
+        else:
+            if right.data() == '':
+                return False
+            elif left.data() == '':
+                return True
+
+        return left.data() < right.data()
+
 class ListView(QtGui.QTableView):
     rowChanged = pyqtSignal(object)
     # TODO: Changes mime type
@@ -115,8 +133,14 @@ class ListView(QtGui.QTableView):
 
         self._updateHeaderButtons()
     
+    def model(self):
+        return super(ListView, self).model().sourceModel()
+    
     def setModel(self, model):
-        super(ListView, self).setModel(model)
+        proxyModel = SortFilterProxyModel(self)
+        proxyModel.setDynamicSortFilter(True)
+        proxyModel.setSourceModel(model)
+        super(ListView, self).setModel(proxyModel)
         
         self.headerButtons = []
         for param in self.listParam.columns:
