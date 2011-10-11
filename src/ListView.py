@@ -36,9 +36,9 @@ class ImageDelegate(QtGui.QStyledItemDelegate):
             scaledImage = image.scaled(option.rect.width(), option.rect.height(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
             pixmap = QtGui.QPixmap.fromImage(scaledImage)
             rect = option.rect
-            rect.setWidth(pixmap.rect().width())
-            rect.setHeight(pixmap.rect().height())
-            # TODO: Set rect at center of item
+            # Set rect at center of item
+            rect.translate((rect.width()-pixmap.width())/2, (rect.height()-pixmap.height())/2)
+            rect.setSize(pixmap.size())
             painter.drawPixmap(rect, pixmap)
 
 class ListView(QtGui.QTableView):
