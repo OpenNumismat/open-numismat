@@ -207,8 +207,8 @@ class ListView(QtGui.QTableView):
         self._updateHeaderButtons()
     
     def itemDClicked(self, index):
-        self._edit(index)
-        
+        self._edit(self.currentIndex())
+    
     def keyPressEvent(self, event):
         key = event.key()
         if (key == Qt.Key_Return) or (key == Qt.Key_Enter):
@@ -239,10 +239,17 @@ class ListView(QtGui.QTableView):
     
     def currentChanged(self, current, previous):
         if current.row() != previous.row():
-            self.rowChanged.emit(current)
+            self.rowChanged.emit(self.currentIndex())
 
         return super(ListView, self).currentChanged(current, previous)
 
+    def __mapToSource(self, index):
+        return super(ListView, self).model().mapToSource(index)
+
+    def currentIndex(self):
+        index = super(ListView, self).currentIndex()
+        return self.__mapToSource(index)
+    
     def selectedRows(self):
         indexes = self.selectedIndexes()
         if len(indexes) == 0:
@@ -250,7 +257,7 @@ class ListView(QtGui.QTableView):
         else:
             rowsIndexes = {}
             for index in indexes:
-                rowsIndexes[index.row()] = index
+                rowsIndexes[index.row()] = self.__mapToSource(index)
             indexes = list(rowsIndexes.values())
         
         return indexes
