@@ -9,9 +9,9 @@ class PageView(QtGui.QSplitter):
     def __init__(self, listParam, parent=None):
         super(PageView, self).__init__(parent)
         
-        self.tableView = ListView(listParam, self)
-        self.tableView.rowChanged.connect(self.rowChanged)
-        self.addWidget(self.tableView)
+        self.listView = ListView(listParam, self)
+        self.listView.rowChanged.connect(self.rowChanged)
+        self.addWidget(self.listView)
         
         layout = QtGui.QVBoxLayout(self)
         
@@ -32,7 +32,7 @@ class PageView(QtGui.QSplitter):
         self.splitterMoved.connect(self.splitterPosChanged)
 
     def setModel(self, model):
-        self.tableView.setModel(model)
+        self.listView.setModel(model)
         
         self.imageButtons = []
         self.imageFields = []
@@ -47,7 +47,7 @@ class PageView(QtGui.QSplitter):
                 self.buttonLayout.addWidget(button)
     
     def model(self):
-        return self.tableView.model()
+        return self.listView.model()
     
     def splitterPosChanged(self, pos, index):
         settings = QtCore.QSettings()
@@ -67,7 +67,7 @@ class PageView(QtGui.QSplitter):
     def buttonClicked(self, state):
         self.clear()
 
-        current = self.tableView.currentIndex()
+        current = self.listView.currentIndex()
         for i, field in enumerate(self.imageFields):
             if self.imageButtons[i].checkState() == Qt.Checked:
                 image = ImageLabel(self)
