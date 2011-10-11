@@ -16,10 +16,21 @@ class ImageLabel(QtGui.QLabel):
         self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.setFocusPolicy(Qt.StrongFocus)
 
+    def mouseDoubleClickEvent(self, e):
+        file = QtCore.QTemporaryFile(QtCore.QDir.tempPath()+"/img_XXXXXX.jpg")
+        file.setAutoRemove(False)
+        file.open()
+
+        fileName = QtCore.QFileInfo(file).absoluteFilePath()
+        self.image.save(fileName)
+
+        executor = QtGui.QDesktopServices()
+        executor.openUrl(QtCore.QUrl.fromLocalFile(fileName)) 
+
     def clear(self):
         self.image = QtGui.QImage()
         self.setPixmap(QtGui.QPixmap.fromImage(self.image))
-
+    
     def _setImage(self):
         if self.image.isNull():
             return
@@ -93,14 +104,17 @@ class ImageEdit(ImageLabel):
         menu.exec_(self.mapToGlobal(pos))
     
     def mouseDoubleClickEvent(self, e):
-        self.openImage()
+        if self.image.isNull():
+            self.openImage()
+        else:
+            super(ImageEdit, self).mouseDoubleClickEvent(e)
         
     def openImage(self):
         fileName = QtGui.QFileDialog.getOpenFileName(self,
-                self.tr("Open File"), ImageLabel.latestDir,
+                self.tr("Open File"), ImageEdit.latestDir,
                 self.tr("Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)"))
         if fileName:
-            ImageLabel.latestDir = QtCore.QDir(fileName).absolutePath()
+            ImageEdit.latestDir = QtCore.QDir(fileName).absolutePath()
             self.loadFromFile(fileName)
 
     def deleteImage(self):
@@ -109,10 +123,10 @@ class ImageEdit(ImageLabel):
     def saveImage(self):
         # TODO: Change latestDir to user's pictures dir
         fileName = QtGui.QFileDialog.getSaveFileName(self,
-                self.tr("Save File"), ImageLabel.latestDir,
+                self.tr("Save File"), ImageEdit.latestDir,
                 self.tr("Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)"))
         if fileName:
-            ImageLabel.latestDir = QtCore.QDir(fileName).absolutePath()
+            ImageEdit.latestDir = QtCore.QDir(fileName).absolutePath()
             self.image.save(fileName)
     
     def pasteImage(self):
