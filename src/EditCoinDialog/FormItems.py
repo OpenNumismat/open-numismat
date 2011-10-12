@@ -31,6 +31,8 @@ class LineEditRef(QtGui.QWidget):
         self.comboBox.setModel(reference.model)
         self.comboBox.setModelColumn(reference.model.fieldIndex('value'))
         
+        self.comboBox.lineEdit().setText('')
+
         layout = QtGui.QHBoxLayout()
         layout.addWidget(self.comboBox)
         layout.addWidget(reference.button(self))
