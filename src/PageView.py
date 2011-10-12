@@ -41,7 +41,7 @@ class PageView(QtGui.QSplitter):
                 self.imageFields.append(field.name)
                 button = QtGui.QCheckBox(self)
                 button.setToolTip(field.title)
-                button.setDisabled(False)
+                button.setDisabled(True)
                 button.stateChanged.connect(self.buttonClicked)
                 self.imageButtons.append(button)
                 self.buttonLayout.addWidget(button)
