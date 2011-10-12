@@ -98,6 +98,7 @@ class TreeView(QtGui.QTreeWidget):
         self.resize(100, 0)
         
         self.setHeaderHidden(True)
+        self.currentItemChanged.connect(self.itemActivatedEvent)
         
     def setModel(self, model):
         self.db = model.database()
@@ -130,7 +131,7 @@ class TreeView(QtGui.QTreeWidget):
             filterSql.append("%s<>'' AND %s IS NOT NULL" % (field, field))
         filtersSql = " AND ".join(filterSql)
         if filters:
-            filtersSql = filtersSql + filters
+            filtersSql = filtersSql + " AND " + filters
         sql = "SELECT DISTINCT %s FROM coins WHERE %s" % (','.join(fields), filtersSql)
         query = QtSql.QSqlQuery(sql, self.db)
 
@@ -140,13 +141,20 @@ class TreeView(QtGui.QTreeWidget):
             for i in range(len(fields)):
                 label.append(str(query.record().value(i)))
             subItem = QtGui.QTreeWidgetItem([' '.join(label),])
+            filterSql = []
             for i, field in enumerate(fields):
-                newFilters = filters+" AND %s='%s'"%(field, label[i])
+                filterSql.append("%s='%s'"%(field, label[i]))
+            newFilters = " AND ".join(filterSql)
+            if filters:
+                newFilters = filters + " AND " + newFilters
             subItem.setData(0, self.DataRole, newFilters)
             items.append(subItem)
             parentItem.addChild(subItem)
         
         return items
+    
+    def itemActivatedEvent(self, current, previous):
+        self.model.setFilter(current.data(0, self.DataRole))
 
 class PageView(QtGui.QSplitter):
     def __init__(self, listParam, parent=None):
