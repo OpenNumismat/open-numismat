@@ -154,7 +154,8 @@ class TreeView(QtGui.QTreeWidget):
         return items
     
     def itemActivatedEvent(self, current, previous):
-        self.model.setFilter(current.data(0, self.DataRole))
+        filter_ = current.data(0, self.DataRole) or ''
+        self.model.setAdditionalFilter(filter_)
 
 class PageView(QtGui.QSplitter):
     def __init__(self, listParam, parent=None):

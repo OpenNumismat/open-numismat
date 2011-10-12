@@ -10,6 +10,9 @@ class CollectionModel(QSqlTableModel):
     def __init__(self, reference, parent=None, db=QSqlDatabase(), fields=CollectionFields()):
         super(CollectionModel, self).__init__(parent, db)
         
+        self.intFilter = ''
+        self.extFilter = ''
+        
         self.reference = reference
         self.fields = fields
     
@@ -29,6 +32,21 @@ class CollectionModel(QSqlTableModel):
             column = column.column()
 
         return self.fields.fields[column].type
+    
+    def setFilter(self, filter_):
+        self.intFilter = filter_
+        self.__upplyFilter()
+
+    def setAdditionalFilter(self, filter_):
+        self.extFilter = filter_
+        self.__upplyFilter()
+    
+    def __upplyFilter(self):
+        if self.intFilter and self.extFilter:
+            combinedFilter = self.intFilter + " AND " + self.extFilter
+        else:
+            combinedFilter = self.intFilter + self.extFilter
+        super(CollectionModel, self).setFilter(combinedFilter)
 
 class Collection(QtCore.QObject):
     def __init__(self, reference, parent=None):
