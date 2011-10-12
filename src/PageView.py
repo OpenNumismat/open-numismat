@@ -4,6 +4,7 @@ from PyQt4.QtCore import Qt
 from ListView import ListView
 from EditCoinDialog.ImageLabel import ImageLabel
 from Collection.CollectionFields import FieldTypes as Type
+from EditCoinDialog.EditCoinDialog import EditCoinDialog
 
 class ImageView(QtGui.QWidget):
     def __init__(self, parent=None):
@@ -98,6 +99,10 @@ class TreeView(QtGui.QTreeWidget):
         self.resize(100, 0)
         
         self.setHeaderHidden(True)
+
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.contextMenuEvent)
+
         self.currentItemChanged.connect(self.itemActivatedEvent)
         
     def setModel(self, model):
@@ -109,8 +114,7 @@ class TreeView(QtGui.QTreeWidget):
         item.setData(0, self.DataRole, '')
         self.addTopLevelItem(item)
         
-        items = self.fillChilds(item, 'type')
-        for item in items:
+        for item in self.processChilds(item, 'type'):
             for item in self.processChilds(item, 'country'):
                 for item in self.processChilds(item, 'period'):
                     for item in self.processChilds(item, ['value', 'unit']):
@@ -157,6 +161,31 @@ class TreeView(QtGui.QTreeWidget):
     def itemActivatedEvent(self, current, previous):
         filter_ = current.data(0, self.DataRole)
         self.model.setAdditionalFilter(filter_)
+    
+    def contextMenuEvent(self, pos):
+        menu = QtGui.QMenu(self)
+        act = menu.addAction(self.tr("Add new coin"), self._addCoin)
+        act.setEnabled(self.model.rowCount())
+        menu.exec_(self.mapToGlobal(pos))
+    
+    def _addCoin(self):
+        newRecord = self.model.record()
+        # Fill new record with values of first record
+        for j in range(newRecord.count()):
+            newRecord.setValue(j, self.model.record(0).value(j))
+
+        # TODO: Get rows with disabled ListView filter
+        for i in range(self.model.rowCount()):
+            record = self.model.record(i)
+            for j in range(newRecord.count()):
+                if newRecord.value(j) != record.value(j) or not record.value(j):
+                    newRecord.setNull(j)
+        
+        dialog = EditCoinDialog(self.model.reference, newRecord, self)
+        result = dialog.exec_()
+        if result == QtGui.QDialog.Accepted:
+            self.model.insertRecord(-1, newRecord)
+            self.model.submitAll()
 
 class PageView(QtGui.QSplitter):
     def __init__(self, listParam, parent=None):
