@@ -164,17 +164,21 @@ class TreeView(QtGui.QTreeWidget):
     
     def contextMenuEvent(self, pos):
         menu = QtGui.QMenu(self)
-        act = menu.addAction(self.tr("Add new coin"), self._addCoin)
+        act = menu.addAction(self.tr("Add new coin..."), self._addCoin)
+        act.setEnabled(self.model.rowCount())
+        act = menu.addAction(self.tr("Edit coins..."), self._multiEdit)
         act.setEnabled(self.model.rowCount())
         menu.exec_(self.mapToGlobal(pos))
     
     def _addCoin(self):
+        storedFilter = self.model.intFilter
+        self.model.setFilter('')
+
         newRecord = self.model.record()
         # Fill new record with values of first record
         for j in range(newRecord.count()):
             newRecord.setValue(j, self.model.record(0).value(j))
 
-        # TODO: Get rows with disabled ListView filter
         for i in range(self.model.rowCount()):
             record = self.model.record(i)
             for j in range(newRecord.count()):
@@ -186,6 +190,39 @@ class TreeView(QtGui.QTreeWidget):
         if result == QtGui.QDialog.Accepted:
             self.model.insertRecord(-1, newRecord)
             self.model.submitAll()
+        
+        self.model.setFilter(storedFilter)
+
+    def _multiEdit(self):
+        storedFilter = self.model.intFilter
+        self.model.setFilter('')
+
+        # Fill multi record for editing
+        multiRecord = self.model.record(0)
+        usedFields = [Qt.Checked] * multiRecord.count()
+        for i in range(self.model.rowCount()):
+            record = self.model.record(i)
+            for j in range(multiRecord.count()):
+                if multiRecord.value(j) != record.value(j) or not record.value(j):
+                    multiRecord.setNull(j)
+                    usedFields[j] = Qt.Unchecked
+
+        dialog = EditCoinDialog(self.model.reference, multiRecord, self, usedFields)
+        result = dialog.exec_()
+        if result == QtGui.QDialog.Accepted:
+            # Fill records by used fields in multi record
+            multiRecord = dialog.getRecord()
+            usedFields = dialog.getUsedFields()
+            for i in range(self.model.rowCount()):
+                record = self.model.record(i)
+                for j in range(multiRecord.count()):
+                    if usedFields[j] == Qt.Checked:
+                        record.setValue(j, multiRecord.value(j))
+                self.model.setRecord(i, record)
+            
+            self.model.submitAll()
+        
+        self.model.setFilter(storedFilter)
 
 class PageView(QtGui.QSplitter):
     def __init__(self, listParam, parent=None):
