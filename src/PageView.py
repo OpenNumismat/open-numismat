@@ -111,12 +111,10 @@ class TreeView(QtGui.QTreeWidget):
         for item in items:
             for item in self.processChilds(item, 'country'):
                 for item in self.processChilds(item, 'period'):
-                    # TODO: Combine Unit and Value fields
-                    for item in self.processChilds(item, 'unit'):
-                        for item in self.processChilds(item, 'value'):
-                            for item in self.processChilds(item, 'series'):
-                                for item in self.processChilds(item, 'year'):
-                                    self.processChilds(item, 'mintmark')
+                    for item in self.processChilds(item, ['value', 'unit']):
+                        for item in self.processChilds(item, 'series'):
+                            for item in self.processChilds(item, 'year'):
+                                self.processChilds(item, 'mintmark')
     
     def processChilds(self, parentItem, field):
         items = self.fillChilds(parentItem, field, parentItem.data(0, self.DataRole))
@@ -124,18 +122,27 @@ class TreeView(QtGui.QTreeWidget):
             items = [parentItem,]
         return items
     
-    def fillChilds(self, parentItem, field, filters=''):
-        filtersSql = "%s<>'' AND %s IS NOT NULL" % (field, field)
+    def fillChilds(self, parentItem, fields, filters=''):
+        if not isinstance(fields, list):
+            fields = [fields,]
+        filterSql = []
+        for field in fields:
+            filterSql.append("%s<>'' AND %s IS NOT NULL" % (field, field))
+        filtersSql = " AND ".join(filterSql)
         if filters:
             filtersSql = filtersSql + filters
-        sql = "SELECT DISTINCT %s FROM coins WHERE %s" % (field, filtersSql)
+        sql = "SELECT DISTINCT %s FROM coins WHERE %s" % (','.join(fields), filtersSql)
         query = QtSql.QSqlQuery(sql, self.db)
 
         items = []
         while query.next():
-            label = str(query.record().value(0))
-            subItem = QtGui.QTreeWidgetItem([label,])
-            subItem.setData(0, self.DataRole, filters+" AND %s='%s'"%(field, label))
+            label = []
+            for i in range(len(fields)):
+                label.append(str(query.record().value(i)))
+            subItem = QtGui.QTreeWidgetItem([' '.join(label),])
+            for i, field in enumerate(fields):
+                newFilters = filters+" AND %s='%s'"%(field, label[i])
+            subItem.setData(0, self.DataRole, newFilters)
             items.append(subItem)
             parentItem.addChild(subItem)
         
