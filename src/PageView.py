@@ -87,9 +87,66 @@ class ImageView(QtGui.QWidget):
         widget.setLayout(layout)
         return widget
 
+from PyQt4 import QtSql
+
+class TreeView(QtGui.QTreeWidget):
+    DataRole = 16
+    
+    def __init__(self, parent=None):
+        super(TreeView, self).__init__(parent)
+
+        self.resize(100, 0)
+        
+        self.setHeaderHidden(True)
+        
+    def setModel(self, model):
+        self.db = model.database()
+        self.model = model
+
+        # TODO: Root element should contain collection name
+        item = QtGui.QTreeWidgetItem(self, [self.tr("Collection"),])
+        self.addTopLevelItem(item)
+        
+        items = self.fillChilds(item, 'type')
+        for item in items:
+            for item in self.processChilds(item, 'country'):
+                for item in self.processChilds(item, 'period'):
+                    # TODO: Combine Unit and Value fields
+                    for item in self.processChilds(item, 'unit'):
+                        for item in self.processChilds(item, 'value'):
+                            for item in self.processChilds(item, 'series'):
+                                for item in self.processChilds(item, 'year'):
+                                    self.processChilds(item, 'mintmark')
+    
+    def processChilds(self, parentItem, field):
+        items = self.fillChilds(parentItem, field, parentItem.data(0, self.DataRole))
+        if not items:
+            items = [parentItem,]
+        return items
+    
+    def fillChilds(self, parentItem, field, filters=''):
+        filtersSql = "%s<>'' AND %s IS NOT NULL" % (field, field)
+        if filters:
+            filtersSql = filtersSql + filters
+        sql = "SELECT DISTINCT %s FROM coins WHERE %s" % (field, filtersSql)
+        query = QtSql.QSqlQuery(sql, self.db)
+
+        items = []
+        while query.next():
+            label = str(query.record().value(0))
+            subItem = QtGui.QTreeWidgetItem([label,])
+            subItem.setData(0, self.DataRole, filters+" AND %s='%s'"%(field, label))
+            items.append(subItem)
+            parentItem.addChild(subItem)
+        
+        return items
+
 class PageView(QtGui.QSplitter):
     def __init__(self, listParam, parent=None):
         super(PageView, self).__init__(parent)
+        
+        self.treeView = TreeView(self)
+        self.addWidget(self.treeView)
         
         self.listView = ListView(listParam, self)
         self.addWidget(self.listView)
@@ -103,6 +160,7 @@ class PageView(QtGui.QSplitter):
     def setModel(self, model):
         self.listView.setModel(model)
         self.imageView.setModel(model)
+        self.treeView.setModel(model)
     
     def model(self):
         return self.listView.model()
