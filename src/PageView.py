@@ -106,6 +106,7 @@ class TreeView(QtGui.QTreeWidget):
 
         # TODO: Root element should contain collection name
         item = QtGui.QTreeWidgetItem(self, [self.tr("Collection"),])
+        item.setData(0, self.DataRole, '')
         self.addTopLevelItem(item)
         
         items = self.fillChilds(item, 'type')
@@ -154,7 +155,7 @@ class TreeView(QtGui.QTreeWidget):
         return items
     
     def itemActivatedEvent(self, current, previous):
-        filter_ = current.data(0, self.DataRole) or ''
+        filter_ = current.data(0, self.DataRole)
         self.model.setAdditionalFilter(filter_)
 
 class PageView(QtGui.QSplitter):
