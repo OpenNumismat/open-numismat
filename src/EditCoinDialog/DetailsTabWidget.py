@@ -1,7 +1,7 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
-from .BaseFormLayout import BaseFormLayout, FormItem
+from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, FormItem
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
 
@@ -16,13 +16,9 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
         # Create Coin page
         main = self.mainDetailsLayout()
-        groupBox1 = self.__layoutToGroupBox(main, self.tr("Main details"))
-        groupBox1.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        
+        main.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         state = self.stateLayout()
-        groupBox2 = self.__layoutToGroupBox(state, self.tr("State"))
-        
-        self.addTabPage(self.tr("Coin"), [groupBox1, groupBox2])
+        self.addTabPage(self.tr("Coin"), [main, state])
 
         # Create Traffic page
         self.oldTrafficIndex = 0
@@ -31,40 +27,30 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
         # Create Parameters page
         parameters = self.parametersLayout()
-        groupBox1 = self.__layoutToGroupBox(parameters, self.tr("Parameters"))
-        groupBox1.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        parameters.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
 
         minting = self.mintingLayout()
-        groupBox2 = self.__layoutToGroupBox(minting, self.tr("Minting"))
-        groupBox2.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        minting.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
 
-        self.addTabPage(self.tr("Parameters"), [groupBox1, groupBox2])
+        self.addTabPage(self.tr("Parameters"), [parameters, minting])
 
         # Create Design page
         obverse = self.obverseDesignLayout()
-        groupBox1 = self.__layoutToGroupBox(obverse, self.tr("Obverse"))
-        
         reverse = self.reverseDesignLayout()
-        groupBox2 = self.__layoutToGroupBox(reverse, self.tr("Reverse"))
-
         edge = self.edgeDesignLayout()
-        groupBox3 = self.__layoutToGroupBox(edge, self.tr("Edge"))
-
         subject = self.subjectLayout()
 
-        self.addTabPage(self.tr("Design"), [groupBox1, groupBox2, groupBox3, subject])
+        self.addTabPage(self.tr("Design"), [obverse, reverse, edge, subject])
 
         # Create Classification page
         classification = self.classificationLayout()
 
         price = self.priceLayout()
-        groupBox1 = self.__layoutToGroupBox(price, self.tr("Price"))
-        groupBox1.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        price.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
 
         variation = self.variationLayout()
-        groupBox2 = self.__layoutToGroupBox(variation, self.tr("Variation"))
 
-        self.addTabPage(self.tr("Classification"), [classification, groupBox1, groupBox2])
+        self.addTabPage(self.tr("Classification"), [classification, price, variation])
 
         # Create Images page
         images = self.imagesLayout()
@@ -74,11 +60,6 @@ class DetailsTabWidget(QtGui.QTabWidget):
         widget = QtGui.QWidget(self)
         widget.setLayout(layout)
         return widget
-    
-    def __layoutToGroupBox(self, layout, title):
-        groupBox = QtGui.QGroupBox(title)
-        groupBox.setLayout(layout)
-        return groupBox
     
     def addTabPage(self, title, parts):
         if isinstance(parts, list):
@@ -120,7 +101,10 @@ class DetailsTabWidget(QtGui.QTabWidget):
                 continue
             self.addItem(field)
         
-        if self.reference:
+        self.connectReference(self.reference)
+        
+    def connectReference(self, reference):
+        if reference:
             self.items['country'].widget().addDependent(self.items['period'].widget())
             self.items['country'].widget().addDependent(self.items['unit'].widget())
             self.items['country'].widget().addDependent(self.items['mint'].widget())
@@ -146,8 +130,8 @@ class DetailsTabWidget(QtGui.QTabWidget):
         self.indexChangedState(self.oldTrafficIndex)
 
     def mainDetailsLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
-        layout.columnCount = 6
+        layout = BaseFormGroupBox(self.tr("Main details"), parent)
+        layout.layout.columnCount = 6
        
         btn = QtGui.QPushButton(self.tr("Generate"), parent)
         btn.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
@@ -166,7 +150,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def stateLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+        layout = BaseFormGroupBox(self.tr("State"), parent)
         
         self.items['state'].widget().currentIndexChanged.connect(self.indexChangedState)
         layout.addRow(self.items['state'], self.items['grade'])
@@ -175,7 +159,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def payLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+        layout = BaseFormGroupBox(self.tr("Buy"), parent)
         
         layout.addRow(self.items['paydate'], self.items['payprice'])
 
@@ -190,7 +174,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def saleLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+        layout = BaseFormGroupBox(self.tr("Sale"), parent)
         
         layout.addRow(self.items['saledate'], self.items['saleprice'])
 
@@ -205,7 +189,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def passLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+        layout = BaseFormGroupBox(self.tr("Pass"), parent)
         
         layout.addRow(self.items['saledate'], self.items['saleprice'])
 
@@ -226,7 +210,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def parametersLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+        layout = BaseFormGroupBox(self.tr("Parameters"), parent)
         
         layout.addRow(self.items['metal'])
         layout.addRow(self.items['fineness'], self.items['mass'])
@@ -237,7 +221,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def mintingLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+        layout = BaseFormGroupBox(self.tr("Minting"), parent)
         
         layout.addRow(self.items['issuedate'], self.items['mintage'])
         layout.addRow(self.items['dateemis'])
@@ -245,12 +229,12 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def obverseDesignLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
-        layout.columnCount = 2
+        layout = BaseFormGroupBox(self.tr("Obverse"), parent)
+        layout.layout.columnCount = 2
         
         item = self.items['obverseimg']
-        layout.setColumnMinimumWidth(2, 160)
-        layout.addWidget(item.widget(), 0, 2, 2, 1)
+        layout.layout.setColumnMinimumWidth(2, 160)
+        layout.layout.addWidget(item.widget(), 0, 2, 2, 1)
         
         layout.addRow(self.items['obversedesign'])
         layout.addRow(self.items['obversedesigner'])
@@ -258,12 +242,12 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def reverseDesignLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
-        layout.columnCount = 2
+        layout = BaseFormGroupBox(self.tr("Reverse"), parent)
+        layout.layout.columnCount = 2
         
         item = self.items['reverseimg']
-        layout.setColumnMinimumWidth(2, 160)
-        layout.addWidget(item.widget(), 0, 2, 2, 1)
+        layout.layout.setColumnMinimumWidth(2, 160)
+        layout.layout.addWidget(item.widget(), 0, 2, 2, 1)
         
         layout.addRow(self.items['reversedesign'])
         layout.addRow(self.items['reversedesigner'])
@@ -271,12 +255,12 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def edgeDesignLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
-        layout.columnCount = 2
+        layout = BaseFormGroupBox(self.tr("Edge"), parent)
+        layout.layout.columnCount = 2
         
         item = self.items['edgeimg']
-        layout.setColumnMinimumWidth(2, 160)
-        layout.addWidget(item.widget(), 0, 2, 2, 1)
+        layout.layout.setColumnMinimumWidth(2, 160)
+        layout.layout.addWidget(item.widget(), 0, 2, 2, 1)
         
         layout.addRow(self.items['edge'])
         layout.addRow(self.items['edgelabel'])
@@ -302,7 +286,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def priceLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+        layout = BaseFormGroupBox(self.tr("Price"), parent)
         
         layout.addRow(self.items['price1'], self.items['price2'])
         layout.addRow(self.items['price3'], self.items['price4'])
@@ -311,7 +295,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return layout
 
     def variationLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+        layout = BaseFormGroupBox(self.tr("Variation"), parent)
         
         layout.addRow(self.items['obversevar'])
         layout.addRow(self.items['reversevar'])
@@ -401,24 +385,18 @@ class DetailsTabWidget(QtGui.QTabWidget):
             pass
         elif index == 1:
             pass_ = self.passLayout()
-            groupBox = self.__layoutToGroupBox(pass_, self.tr("Pass"))
-            pageParts.append(groupBox)
+            pageParts.append(pass_)
         elif index == 2:
             pay = self.payLayout()
-            groupBox = self.__layoutToGroupBox(pay, self.tr("Buy"))
-            pageParts.append(groupBox)
+            pageParts.append(pay)
         elif index == 3:
             pay = self.payLayout()
-            groupBox1 = self.__layoutToGroupBox(pay, self.tr("Buy"))
-            pageParts.append(groupBox1)
-            
+            pageParts.append(pay)
             sale = self.saleLayout()
-            groupBox2 = self.__layoutToGroupBox(sale, self.tr("Sale"))
-            pageParts.append(groupBox2)
+            pageParts.append(sale)
         elif index == 4:
             pay = self.payLayout()
-            groupBox = self.__layoutToGroupBox(pay, self.tr("Buy"))
-            pageParts.append(groupBox)
+            pageParts.append(pay)
         
         self.oldTrafficIndex = index
         

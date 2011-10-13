@@ -137,3 +137,13 @@ class BaseFormLayout(QtGui.QGridLayout):
                 self.addWidget(item2.widget(), self.row, 4, 1, self.columnCount-4)
 
         self.row = self.row + 1
+
+class BaseFormGroupBox(QtGui.QGroupBox):
+    def __init__(self, title, parent=None):
+        super(BaseFormGroupBox, self).__init__(title, parent)
+        
+        self.layout = BaseFormLayout(self)
+        self.setLayout(self.layout)
+    
+    def addRow(self, item1, item2=None):
+        self.layout.addRow(item1, item2)
