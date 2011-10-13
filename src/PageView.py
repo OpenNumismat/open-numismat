@@ -246,21 +246,63 @@ class TreeView(QtGui.QTreeWidget):
         
         self.model.setFilter(storedFilter)
 
-class PageView(QtGui.QSplitter):
+from EditCoinDialog.DetailsTabWidget import DetailsTabWidget
+
+class DetailsView(DetailsTabWidget):
+    def __init__(self, parent=None):
+        super(DetailsView, self).__init__(None, parent)
+
+        self.resize(0, 120)
+
+    def rowChangedEvent(self, current):
+        if current.isValid():
+            model = current.model()
+            record = model.record(current.row())
+            self.fillItems(record)
+
+class Splitter(QtGui.QSplitter):
+    def __init__(self, title, orientation=Qt.Horizontal, parent=None):
+        super(Splitter, self).__init__(orientation, parent)
+
+        self.title = title
+        self.splitterMoved.connect(self.splitterPosChanged)
+
+    def splitterPosChanged(self, pos, index):
+        settings = QtCore.QSettings()
+        settings.setValue('pageview/splittersizes'+self.title, self.sizes())
+
+    def showEvent(self, e):
+        settings = QtCore.QSettings()
+        sizes = settings.value('pageview/splittersizes'+self.title)
+        if sizes:
+            for i in range(len(sizes)):
+                sizes[i] = int(sizes[i])
+
+            self.splitterMoved.disconnect(self.splitterPosChanged)
+            self.setSizes(sizes)
+            self.splitterMoved.connect(self.splitterPosChanged)
+
+class PageView(Splitter):
     def __init__(self, listParam, parent=None):
-        super(PageView, self).__init__(parent)
+        super(PageView, self).__init__('0', parent=parent)
         
         self.treeView = TreeView(self)
-        self.addWidget(self.treeView)
-        
         self.listView = ListView(listParam, self)
-        self.addWidget(self.listView)
-        
         self.imageView = ImageView(self)
+        self.detailsView = DetailsView(self)
+
+        splitter1 = Splitter('1', Qt.Vertical, self)
+        splitter2 = Splitter('2', parent=splitter1)
+        splitter2.addWidget(self.treeView)
+        splitter2.addWidget(self.listView)
+        splitter1.addWidget(splitter2)
+        splitter1.addWidget(self.detailsView)
+        self.addWidget(splitter1)
         self.addWidget(self.imageView)
         
         self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
         self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
+        self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
         self.splitterMoved.connect(self.splitterPosChanged)
 
     def setModel(self, model):
@@ -270,18 +312,3 @@ class PageView(QtGui.QSplitter):
     
     def model(self):
         return self.listView.model()
-    
-    def splitterPosChanged(self, pos, index):
-        settings = QtCore.QSettings()
-        settings.setValue('pageview/splittersizes', self.sizes())
-
-    def showEvent(self, e):
-        settings = QtCore.QSettings()
-        sizes = settings.value('pageview/splittersizes')
-        if sizes:
-            for i in range(len(sizes)):
-                sizes[i] = int(sizes[i])
-
-            self.splitterMoved.disconnect(self.splitterPosChanged)
-            self.setSizes(sizes)
-            self.splitterMoved.connect(self.splitterPosChanged)
