@@ -250,7 +250,7 @@ from EditCoinDialog.DetailsTabWidget import DetailsTabWidget
 
 class DetailsView(DetailsTabWidget):
     def __init__(self, parent=None):
-        super(DetailsView, self).__init__(None, parent)
+        super(DetailsView, self).__init__(parent)
 
         self.resize(0, 120)
 

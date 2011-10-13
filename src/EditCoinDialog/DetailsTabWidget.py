@@ -6,26 +6,33 @@ from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
 
 class DetailsTabWidget(QtGui.QTabWidget):
-    def __init__(self, reference, parent=None, usedFields=None):
+    Direction = QtGui.QBoxLayout.LeftToRight
+    
+    def __init__(self, parent=None):
         super(DetailsTabWidget, self).__init__(parent)
         
-        self.usedFields = usedFields
-        self.reference = reference
-        
         self.createItems()
+        self.createPages()
 
-        # Create Coin page
+    def createPages(self):
+        self.createCoinPage()
+        self.createTrafficPage()
+        self.createParametersPage()
+        self.createDesignPage()
+        self.createClassificationPage()
+
+    def createCoinPage(self):
         main = self.mainDetailsLayout()
         main.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         state = self.stateLayout()
         self.addTabPage(self.tr("Coin"), [main, state])
 
-        # Create Traffic page
+    def createTrafficPage(self):
         self.oldTrafficIndex = 0
-        parts = self.__createTrafficParts(self.oldTrafficIndex)
+        parts = self._createTrafficParts(self.oldTrafficIndex)
         self.addTabPage(self.tr("Traffic"), parts)
 
-        # Create Parameters page
+    def createParametersPage(self):
         parameters = self.parametersLayout()
         parameters.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
 
@@ -34,15 +41,21 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
         self.addTabPage(self.tr("Parameters"), [parameters, minting])
 
-        # Create Design page
+    def createDesignPage(self):
         obverse = self.obverseDesignLayout()
         reverse = self.reverseDesignLayout()
         edge = self.edgeDesignLayout()
         subject = self.subjectLayout()
 
-        self.addTabPage(self.tr("Design"), [obverse, reverse, edge, subject])
+        layout1 = QtGui.QVBoxLayout()
+        layout1.addWidget(obverse)
+        layout1.addWidget(reverse)
+        layout2 = QtGui.QVBoxLayout()
+        layout2.addWidget(edge)
+        layout2.addWidget(self._layoutToWidget(subject))
+        self.addTabPage(self.tr("Design"), [layout1, layout2])
 
-        # Create Classification page
+    def createClassificationPage(self):
         classification = self.classificationLayout()
 
         price = self.priceLayout()
@@ -50,20 +63,22 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
         variation = self.variationLayout()
 
-        self.addTabPage(self.tr("Classification"), [classification, price, variation])
+        layout1 = QtGui.QVBoxLayout()
+        layout1.addLayout(classification)
+        layout1.addWidget(price)
+        layout2 = QtGui.QVBoxLayout()
+        layout2.addWidget(variation)
 
-        # Create Images page
-        images = self.imagesLayout()
-        self.addTabPage(self.tr("Images"), images)
-    
-    def __layoutToWidget(self, layout):
+        self.addTabPage(self.tr("Classification"), [layout1, layout2])
+
+    def _layoutToWidget(self, layout):
         widget = QtGui.QWidget(self)
         widget.setLayout(layout)
         return widget
     
     def addTabPage(self, title, parts):
         if isinstance(parts, list):
-            pageLayout = QtGui.QVBoxLayout(self)
+            pageLayout = QtGui.QBoxLayout(self.Direction, self)
             # Fill layout with it's parts
             for part in parts:
                 if isinstance(part, QtGui.QWidget):
@@ -72,23 +87,15 @@ class DetailsTabWidget(QtGui.QTabWidget):
                     pageLayout.addLayout(part)
 
             # Convert layout to widget and add to tab page
-            self.addTab(self.__layoutToWidget(pageLayout), title)
+            self.addTab(self._layoutToWidget(pageLayout), title)
             if len(parts) == 0:
                 self.setTabEnabled(1, False)
         else:
             # Convert layout to widget and add to tab page
-            self.addTab(self.__layoutToWidget(parts), title)
+            self.addTab(self._layoutToWidget(parts), title)
     
     def addItem(self, field):
-        checkable = 0
-        if self.usedFields:
-            checkable = Type.Checkable
-
-        refSection = None
-        if self.reference:
-            refSection = self.reference.section(field.name)
-
-        item = FormItem(field.name, field.title, field.type | checkable, refSection)
+        item = FormItem(field.name, field.title, field.type)
         self.items[field.name] = item
     
     def createItems(self):
@@ -101,15 +108,6 @@ class DetailsTabWidget(QtGui.QTabWidget):
                 continue
             self.addItem(field)
         
-        self.connectReference(self.reference)
-        
-    def connectReference(self, reference):
-        if reference:
-            self.items['country'].widget().addDependent(self.items['period'].widget())
-            self.items['country'].widget().addDependent(self.items['unit'].widget())
-            self.items['country'].widget().addDependent(self.items['mint'].widget())
-            self.items['country'].widget().addDependent(self.items['series'].widget())
-    
     def fillItems(self, record):
         if not record.isEmpty():
             fields = CollectionFields()
@@ -122,23 +120,12 @@ class DetailsTabWidget(QtGui.QTabWidget):
                     value = record.value(item.field())
                     item.setValue(value)
 
-            if self.usedFields:
-                for item in self.items.values():
-                    if self.usedFields[record.indexOf(item.field())]:
-                        item.label().setCheckState(Qt.Checked)
-            
         self.indexChangedState(self.oldTrafficIndex)
 
     def mainDetailsLayout(self, parent=None):
         layout = BaseFormGroupBox(self.tr("Main details"), parent)
-        layout.layout.columnCount = 6
-       
-        btn = QtGui.QPushButton(self.tr("Generate"), parent)
-        btn.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        btn.clicked.connect(self.clickGenerateTitle)
-        self.items['title'].widget().textChanged.connect(self.textChangedTitle)
-        layout.addRow(self.items['title'], btn)
 
+        layout.addRow(self.items['title'])
         layout.addRow(self.items['country'])
         layout.addRow(self.items['period'])
         layout.addRow(self.items['value'], self.items['unit'])
@@ -152,8 +139,8 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def stateLayout(self, parent=None):
         layout = BaseFormGroupBox(self.tr("State"), parent)
         
-        self.items['state'].widget().currentIndexChanged.connect(self.indexChangedState)
         layout.addRow(self.items['state'], self.items['grade'])
+        self.items['state'].widget().currentIndexChanged.connect(self.indexChangedState)
         layout.addRow(self.items['note'])
 
         return layout
@@ -230,6 +217,201 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
     def obverseDesignLayout(self, parent=None):
         layout = BaseFormGroupBox(self.tr("Obverse"), parent)
+        
+        layout.addRow(self.items['obversedesign'])
+        layout.addRow(self.items['obversedesigner'])
+
+        return layout
+
+    def reverseDesignLayout(self, parent=None):
+        layout = BaseFormGroupBox(self.tr("Reverse"), parent)
+        
+        layout.addRow(self.items['reversedesign'])
+        layout.addRow(self.items['reversedesigner'])
+
+        return layout
+
+    def edgeDesignLayout(self, parent=None):
+        layout = BaseFormGroupBox(self.tr("Edge"), parent)
+        
+        layout.addRow(self.items['edge'])
+        layout.addRow(self.items['edgelabel'])
+
+        return layout
+
+    def subjectLayout(self, parent=None):
+        layout = BaseFormLayout(parent)
+        
+        layout.addRow(self.items['subject'])
+
+        return layout
+
+    def classificationLayout(self, parent=None):
+        layout = BaseFormLayout(parent)
+        
+        layout.addRow(self.items['catalognum1'])
+        layout.addRow(self.items['catalognum2'])
+        layout.addRow(self.items['catalognum3'])
+        layout.addRow(self.items['rarity'])
+
+        return layout
+
+    def priceLayout(self, parent=None):
+        layout = BaseFormGroupBox(self.tr("Price"), parent)
+        
+        layout.addRow(self.items['price1'], self.items['price2'])
+        layout.addRow(self.items['price3'], self.items['price4'])
+        layout.addRow(self.items['price5'], self.items['price6'])
+
+        return layout
+
+    def variationLayout(self, parent=None):
+        layout = BaseFormGroupBox(self.tr("Variation"), parent)
+        
+        layout.addRow(self.items['obversevar'])
+        layout.addRow(self.items['reversevar'])
+        layout.addRow(self.items['edgevar'])
+
+        return layout
+
+    def _createTrafficParts(self, index=0):
+        pageParts = []
+        if index == 0:
+            pass
+        elif index == 1:
+            pass_ = self.passLayout()
+            pageParts.append(pass_)
+        elif index == 2:
+            pay = self.payLayout()
+            pageParts.append(pay)
+        elif index == 3:
+            pay = self.payLayout()
+            pageParts.append(pay)
+            sale = self.saleLayout()
+            pageParts.append(sale)
+        elif index == 4:
+            pay = self.payLayout()
+            pageParts.append(pay)
+        
+        self.oldTrafficIndex = index
+        
+        return pageParts
+
+    def indexChangedState(self, index):
+        self.removeTab(1)
+        pageParts = self._createTrafficParts(index)
+
+        pageLayout = QtGui.QBoxLayout(self.Direction, self)
+        # Fill layout with it's parts
+        for part in pageParts:
+            pageLayout.addWidget(part)
+
+        # Convert layout to widget and add to tab page
+        self.insertTab(1, self._layoutToWidget(pageLayout), self.tr("Traffic"))
+        if len(pageParts) == 0:
+            self.setTabEnabled(1, False)
+            self.items['grade'].widget().setEnabled(False)
+        else:
+            self.items['grade'].widget().setEnabled(True)
+    
+    def addPayCommission(self):
+        item = FormItem(None, self.tr("Commission"), Type.Money)
+        
+        price = textToFloat(self.items['payprice'].value())
+        totalPrice = textToFloat(self.items['totalpayprice'].value())
+        item.widget().setText(floatToText(totalPrice - price))
+
+        return item
+    
+    def addSaleCommission(self):
+        item = FormItem('', self.tr("Commission"), Type.Money)
+        
+        price = textToFloat(self.items['saleprice'].value())
+        totalPrice = textToFloat(self.items['totalsaleprice'].value())
+        item.widget().setText(floatToText(price - totalPrice))
+
+        return item
+
+class FormDetailsTabWidget(DetailsTabWidget):
+    Direction = QtGui.QBoxLayout.TopToBottom
+
+    def __init__(self, reference, parent=None, usedFields=None):
+        self.usedFields = usedFields
+        self.reference = reference
+
+        super(FormDetailsTabWidget, self).__init__(parent)
+
+    def createPages(self):
+        self.createCoinPage()
+        self.createTrafficPage()
+        self.createParametersPage()
+        self.createDesignPage()
+        self.createClassificationPage()
+        self.createImagePage()
+
+    def createDesignPage(self):
+        obverse = self.obverseDesignLayout()
+        reverse = self.reverseDesignLayout()
+        edge = self.edgeDesignLayout()
+        subject = self.subjectLayout()
+
+        self.addTabPage(self.tr("Design"), [obverse, reverse, edge, subject])
+
+    def createImagePage(self):
+        images = self.imagesLayout()
+        self.addTabPage(self.tr("Images"), images)
+    
+    def addItem(self, field):
+        checkable = 0
+        if self.usedFields:
+            checkable = Type.Checkable
+
+        refSection = None
+        if self.reference:
+            refSection = self.reference.section(field.name)
+
+        item = FormItem(field.name, field.title, field.type | checkable, refSection)
+        self.items[field.name] = item
+    
+    def createItems(self):
+        super(FormDetailsTabWidget, self).createItems()
+
+        if self.reference:
+            self.items['country'].widget().addDependent(self.items['period'].widget())
+            self.items['country'].widget().addDependent(self.items['unit'].widget())
+            self.items['country'].widget().addDependent(self.items['mint'].widget())
+            self.items['country'].widget().addDependent(self.items['series'].widget())
+    
+    def fillItems(self, record):
+        super(FormDetailsTabWidget, self).fillItems(record)
+        
+        if self.usedFields:
+            for item in self.items.values():
+                if self.usedFields[record.indexOf(item.field())]:
+                    item.label().setCheckState(Qt.Checked)
+    
+    def mainDetailsLayout(self, parent=None):
+        layout = BaseFormGroupBox(self.tr("Main details"), parent)
+        layout.layout.columnCount = 6
+       
+        btn = QtGui.QPushButton(self.tr("Generate"), parent)
+        btn.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        btn.clicked.connect(self.clickGenerateTitle)
+        self.items['title'].widget().textChanged.connect(self.textChangedTitle)
+        layout.addRow(self.items['title'], btn)
+
+        layout.addRow(self.items['country'])
+        layout.addRow(self.items['period'])
+        layout.addRow(self.items['value'], self.items['unit'])
+        layout.addRow(self.items['year'])
+        layout.addRow(self.items['mintmark'], self.items['mint'])
+        layout.addRow(self.items['type'])
+        layout.addRow(self.items['series'])
+
+        return layout
+
+    def obverseDesignLayout(self, parent=None):
+        layout = BaseFormGroupBox(self.tr("Obverse"), parent)
         layout.layout.columnCount = 2
         
         item = self.items['obverseimg']
@@ -264,42 +446,6 @@ class DetailsTabWidget(QtGui.QTabWidget):
         
         layout.addRow(self.items['edge'])
         layout.addRow(self.items['edgelabel'])
-
-        return layout
-
-    def subjectLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
-        layout.columnCount = 2
-        
-        layout.addRow(self.items['subject'])
-
-        return layout
-
-    def classificationLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
-        
-        layout.addRow(self.items['catalognum1'])
-        layout.addRow(self.items['catalognum2'])
-        layout.addRow(self.items['catalognum3'])
-        layout.addRow(self.items['rarity'])
-
-        return layout
-
-    def priceLayout(self, parent=None):
-        layout = BaseFormGroupBox(self.tr("Price"), parent)
-        
-        layout.addRow(self.items['price1'], self.items['price2'])
-        layout.addRow(self.items['price3'], self.items['price4'])
-        layout.addRow(self.items['price5'], self.items['price6'])
-
-        return layout
-
-    def variationLayout(self, parent=None):
-        layout = BaseFormGroupBox(self.tr("Variation"), parent)
-        
-        layout.addRow(self.items['obversevar'])
-        layout.addRow(self.items['reversevar'])
-        layout.addRow(self.items['edgevar'])
 
         return layout
 
@@ -353,7 +499,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
                 title.insert(0, text)
             self.parent().setWindowTitle(' - '.join(title))
     
-    def __createTrafficParts(self, index=0):
+    def _createTrafficParts(self, index=0):
         if self.oldTrafficIndex == 0:
             pass
         elif self.oldTrafficIndex == 1:
@@ -380,56 +526,20 @@ class DetailsTabWidget(QtGui.QTabWidget):
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
 
-        pageParts = []
-        if index == 0:
-            pass
-        elif index == 1:
-            pass_ = self.passLayout()
-            pageParts.append(pass_)
-        elif index == 2:
-            pay = self.payLayout()
-            pageParts.append(pay)
-        elif index == 3:
-            pay = self.payLayout()
-            pageParts.append(pay)
-            sale = self.saleLayout()
-            pageParts.append(sale)
-        elif index == 4:
-            pay = self.payLayout()
-            pageParts.append(pay)
+        pageParts = super(FormDetailsTabWidget, self)._createTrafficParts(index)
         
         self.oldTrafficIndex = index
         
         return pageParts
 
-    def indexChangedState(self, index):
-        self.removeTab(1)
-        pageParts = self.__createTrafficParts(index)
-
-        pageLayout = QtGui.QVBoxLayout()
-        # Fill layout with it's parts
-        for part in pageParts:
-            pageLayout.addWidget(part)
-
-        # Convert layout to widget and add to tab page
-        self.insertTab(1, self.__layoutToWidget(pageLayout), self.tr("Traffic"))
-        if len(pageParts) == 0:
-            self.setTabEnabled(1, False)
-            self.items['grade'].widget().setEnabled(False)
-        else:
-            self.items['grade'].widget().setEnabled(True)
-    
     def addPayCommission(self):
-        item = FormItem(None, self.tr("Commission"), Type.Money)
+        item = super(FormDetailsTabWidget, self).addPayCommission()
         self.payCommission = item.widget()
+
         validator = CommissionValidator(0, 9999999999, 2, self)
         validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
         self.payCommission.setValidator(validator)
         
-        price = textToFloat(self.items['payprice'].value())
-        totalPrice = textToFloat(self.items['totalpayprice'].value())
-        self.payCommission.setText(floatToText(totalPrice - price))
-
         self.items['payprice'].widget().textChanged.connect(self.payCommissionChanged)
         self.payCommission.textChanged.connect(self.payCommissionChanged)
         self.items['totalpayprice'].widget().textChanged.connect(self.payTotalPriceChanged)
@@ -439,14 +549,11 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def addSaleCommission(self):
         item = FormItem('', self.tr("Commission"), Type.Money)
         self.saleCommission = item.widget()
+
         validator = CommissionValidator(0, 9999999999, 2, self)
         validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
         self.saleCommission.setValidator(validator)
         
-        price = textToFloat(self.items['saleprice'].value())
-        totalPrice = textToFloat(self.items['totalsaleprice'].value())
-        self.saleCommission.setText(floatToText(price - totalPrice))
-
         self.items['saleprice'].widget().textChanged.connect(self.saleCommissionChanged)
         self.saleCommission.textChanged.connect(self.saleCommissionChanged)
         self.items['totalsaleprice'].widget().textChanged.connect(self.saleTotalPriceChanged)

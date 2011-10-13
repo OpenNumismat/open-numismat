@@ -2,7 +2,7 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 
 from .AuctionParser import getParser
-from .DetailsTabWidget import DetailsTabWidget
+from .DetailsTabWidget import FormDetailsTabWidget
 
 class EditCoinDialog(QtGui.QDialog):
     def __init__(self, reference, record, parent=None, usedFields=None):
@@ -11,7 +11,7 @@ class EditCoinDialog(QtGui.QDialog):
         self.usedFields = usedFields
         self.record = record
         
-        self.tab = DetailsTabWidget(reference, self, usedFields)
+        self.tab = FormDetailsTabWidget(reference, self, usedFields)
         self.items = self.tab.items
 
         self.tab.fillItems(record)
