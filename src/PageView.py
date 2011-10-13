@@ -58,7 +58,7 @@ class ImageView(QtGui.QWidget):
                 image.loadFromData(index.data())
                 self.imageLayout.addWidget(image)
     
-    def rowChanged(self, current):
+    def rowChangedEvent(self, current):
         self.currentIndex = current
         self.clear()
         
@@ -153,11 +153,33 @@ class TreeView(QtGui.QTreeWidget):
             if filters:
                 newFilters = filters + " AND " + newFilters
             subItem.setData(0, self.DataRole, newFilters)
+            subItem.setData(0, self.DataRole+1, fields)
             items.append(subItem)
             parentItem.addChild(subItem)
         
         return items
     
+    def rowChangedEvent(self, current):
+        if current.isValid():
+            self.collapseAll()
+            item = self.topLevelItem(0)
+            self.findSubitem(current, item)
+    
+    def findSubitem(self, index, item):
+        for i in range(item.childCount()):
+            subItem = item.child(i)
+            fields = subItem.data(0, self.DataRole+1)
+            text1 = subItem.text(0)
+            textPart = []
+            for field in fields:
+                index = self.model.index(index.row(), self.model.fieldIndex(field))
+                textPart.append(str(index.data()))
+            text2 = ' '.join(textPart)
+            if text1 == text2:
+                self.expandItem(item)
+                self.findSubitem(index, subItem)
+                return
+
     def itemActivatedEvent(self, current, previous):
         filter_ = current.data(0, self.DataRole)
         self.model.setAdditionalFilter(filter_)
@@ -237,7 +259,8 @@ class PageView(QtGui.QSplitter):
         self.imageView = ImageView(self)
         self.addWidget(self.imageView)
         
-        self.listView.rowChanged.connect(self.imageView.rowChanged)
+        self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
+        self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
         self.splitterMoved.connect(self.splitterPosChanged)
 
     def setModel(self, model):
