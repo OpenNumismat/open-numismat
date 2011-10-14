@@ -38,8 +38,14 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
         minting = self.mintingLayout()
         minting.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        
+        note = self.noteLayout()
+        
+        layout = QtGui.QVBoxLayout()
+        layout.addWidget(minting)
+        layout.addWidget(self._layoutToWidget(note))
 
-        self.addTabPage(self.tr("Parameters"), [parameters, minting])
+        self.addTabPage(self.tr("Parameters"), [parameters, layout])
 
     def createDesignPage(self):
         obverse = self.obverseDesignLayout()
@@ -145,7 +151,9 @@ class DetailsTabWidget(QtGui.QTabWidget):
         
         layout.addRow(self.items['status'], self.items['grade'])
         self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
-        layout.addRow(self.items['note'])
+        layout.addRow(self.items['storage'])
+        layout.addRow(self.items['defect'])
+        layout.addRow(self.items['features'])
 
         return layout
 
@@ -216,6 +224,13 @@ class DetailsTabWidget(QtGui.QTabWidget):
         
         layout.addRow(self.items['issuedate'], self.items['mintage'])
         layout.addRow(self.items['dateemis'])
+
+        return layout
+
+    def noteLayout(self, parent=None):
+        layout = BaseFormLayout(parent)
+        
+        layout.addRow(self.items['note'])
 
         return layout
 
