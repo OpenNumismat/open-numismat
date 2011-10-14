@@ -296,6 +296,8 @@ class DetailsTabWidget(QtGui.QTabWidget):
         elif index == 4:
             pay = self.payLayout()
             pageParts.append(pay)
+        elif index == 5:
+            pass
         
         self.oldTrafficIndex = index
         
@@ -529,6 +531,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
             self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+        elif self.oldTrafficIndex == 5:
+            pass
 
         pageParts = super(FormDetailsTabWidget, self)._createTrafficParts(index)
         

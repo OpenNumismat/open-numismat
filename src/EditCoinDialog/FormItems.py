@@ -85,8 +85,8 @@ class LineEditRef(QtGui.QWidget):
     
 class StatusEdit(QtGui.QComboBox):
     items = [('demo', QT_TR_NOOP("Demo")), ('pass', QT_TR_NOOP("Pass")),
-             ('in', QT_TR_NOOP("in")), ('out', QT_TR_NOOP("out")),
-             ('exchange', QT_TR_NOOP("exchange"))]
+             ('owned', QT_TR_NOOP("owned")), ('sold', QT_TR_NOOP("Sold")),
+             ('sale', QT_TR_NOOP("sale")), ('wish', QT_TR_NOOP("Wish"))]
     
     def __init__(self, parent=None):
         super(StatusEdit, self).__init__(parent)
