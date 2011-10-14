@@ -83,26 +83,26 @@ class LineEditRef(QtGui.QWidget):
                 reference.parentIndex = None
                 dependent.setText(text)
     
-class StateEdit(QtGui.QComboBox):
+class StatusEdit(QtGui.QComboBox):
     items = [('demo', QT_TR_NOOP("Demo")), ('pass', QT_TR_NOOP("Pass")),
              ('in', QT_TR_NOOP("in")), ('out', QT_TR_NOOP("out")),
              ('exchange', QT_TR_NOOP("exchange"))]
     
     def __init__(self, parent=None):
-        super(StateEdit, self).__init__(parent)
+        super(StatusEdit, self).__init__(parent)
         
-        for item in StateEdit.items:
+        for item in StatusEdit.items:
             self.addItem(item[1])
     
     def data(self):
-        return StateEdit.items[self.currentIndex()][0]
+        return StatusEdit.items[self.currentIndex()][0]
     
     def clear(self):
         self.setCurrentIndex(-1)
     
     def setCurrentValue(self, value):
         index = -1
-        for item in StateEdit.items:
+        for item in StatusEdit.items:
             if item[0] == value:
                 index = self.findText(item[1])
         

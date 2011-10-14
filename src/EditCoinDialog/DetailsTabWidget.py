@@ -143,8 +143,8 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def stateLayout(self, parent=None):
         layout = BaseFormGroupBox(self.tr("State"), parent)
         
-        layout.addRow(self.items['state'], self.items['grade'])
-        self.items['state'].widget().currentIndexChanged.connect(self.indexChangedState)
+        layout.addRow(self.items['status'], self.items['grade'])
+        self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
         layout.addRow(self.items['note'])
 
         return layout

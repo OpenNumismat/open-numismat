@@ -121,7 +121,7 @@ class Collection(QtCore.QObject):
             type_ = 'BLOB'
         elif field.type == Type.Value:
             type_ = 'NUMERIC(10,3)'
-        elif field.type == Type.State:
+        elif field.type == Type.Status:
             type_ = 'CHAR'
         else:
             raise

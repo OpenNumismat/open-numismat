@@ -39,13 +39,13 @@ class FormItem(object):
             self._widget = ImageEdit(parent)
         elif type_ == Type.Date:
             self._widget = DateEdit(parent)
-        elif type_ == Type.State:
-            self._widget = StateEdit(parent)
+        elif type_ == Type.Status:
+            self._widget = StatusEdit(parent)
         else:
             raise
         
         if itemType & Type.Disabled:
-            if type_ == Type.State or type_ == Type.Image:
+            if type_ == Type.Status or type_ == Type.Image:
                 self._widget.setDisabled(True)
             else:
                 self._widget.setReadOnly(True)
@@ -81,7 +81,7 @@ class FormItem(object):
             return self._widget.value()
         elif isinstance(self._widget, ImageEdit):
             return self._widget.data()
-        elif isinstance(self._widget, StateEdit):
+        elif isinstance(self._widget, StatusEdit):
             return self._widget.data()
         else:
             return self._widget.text()
@@ -95,13 +95,13 @@ class FormItem(object):
             self._widget.setValue(float(value))
         elif isinstance(self._widget, QtGui.QDateTimeEdit):
             self._widget.setDate(QDate.fromString(str(value)))
-        elif isinstance(self._widget, StateEdit):
+        elif isinstance(self._widget, StatusEdit):
             self._widget.setCurrentValue(value)
         else: 
             self._widget.setText(str(value))
     
     def clear(self):
-        if isinstance(self._widget, StateEdit):
+        if isinstance(self._widget, StatusEdit):
             self._widget.setCurrentValue('demo')
         else: 
             self._widget.clear()

@@ -10,7 +10,7 @@ class FieldTypes():
     BigInt = 7
     Image = 8
     Value = 9
-    State = 10
+    Status = 10
     
     Mask = int('FF', 16)  # 0xFF
     Checkable = int('100', 16)  # 0x100
@@ -42,6 +42,7 @@ class CollectionFields(QObject):
                 ('issuedate', self.tr("Date of issue"), Type.Date),
                 ('type', self.tr("Type"), Type.String),
                 ('series', self.tr("Series"), Type.String),
+                ('status', self.tr("Status"), Type.Status),
                 ('metal', self.tr("Metal"), Type.String),
                 ('fineness', self.tr("Fineness"), Type.Number),
                 ('form', self.tr("Form"), Type.String),
@@ -52,7 +53,6 @@ class CollectionFields(QObject):
                 ('edge', self.tr("Type"), Type.String),
                 ('edgelabel', self.tr("Label"), Type.String),
                 ('obvrev', self.tr("ObvRev"), Type.String),
-                ('state', self.tr("State"), Type.State),
                 ('mintage', self.tr("Mintage"), Type.BigInt),
                 ('dateemis', self.tr("Emission period"), Type.String),
                 ('catalognum1', self.tr("1#"), Type.String),
@@ -70,11 +70,13 @@ class CollectionFields(QObject):
                 ('edgevar', self.tr("Edge"), Type.Text),
                 ('paydate', self.tr("Date"), Type.Date),
                 ('payprice', self.tr("Price"), Type.Money),
+                ('totalpayprice', self.tr("Paid"), Type.Money),
                 ('saller', self.tr("Saller"), Type.String),
                 ('payplace', self.tr("Place"), Type.String),
                 ('payinfo', self.tr("Info"), Type.Text),
                 ('saledate', self.tr("Date"), Type.Date),
                 ('saleprice', self.tr("Price"), Type.Money),
+                ('totalsaleprice', self.tr("Bailed"), Type.Money),
                 ('buyer', self.tr("Buyer"), Type.String),
                 ('saleplace', self.tr("Place"), Type.String),
                 ('saleinfo', self.tr("Info"), Type.Text),
@@ -90,9 +92,7 @@ class CollectionFields(QObject):
                 ('photo1', self.tr("Photo 1"), Type.Image),
                 ('photo2', self.tr("Photo 2"), Type.Image),
                 ('photo3', self.tr("Photo 3"), Type.Image),
-                ('photo4', self.tr("Photo 4"), Type.Image),
-                ('totalsaleprice', self.tr("Bailed"), Type.Money),
-                ('totalpayprice', self.tr("Paid"), Type.Money)
+                ('photo4', self.tr("Photo 4"), Type.Image)
             ]
 
         self.fields = []

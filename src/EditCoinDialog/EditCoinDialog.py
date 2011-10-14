@@ -34,7 +34,7 @@ class EditCoinDialog(QtGui.QDialog):
             self.resize(size)
     
     def keyPressEvent(self, event):
-        if self.items['state'].widget().data() == 'pass':
+        if self.items['status'].widget().data() == 'pass':
             if event.matches(QtGui.QKeySequence.Paste):
                 mime = QtGui.QApplication.clipboard().mimeData()
                 if mime.hasText():
@@ -68,12 +68,12 @@ class EditCoinDialog(QtGui.QDialog):
     
     def save(self):
         # Clear unused fields
-        if self.items['state'].widget().data() == 'demo':
+        if self.items['status'].widget().data() == 'demo':
             for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
                         'payplace', 'payinfo', 'saledate', 'saleprice',
                         'totalsaleprice', 'buyer', 'saleplace', 'saleinfo', 'grade']:
                 self.items[key].clear()
-        elif self.items['state'].widget().data() in ['in', 'exchange']:
+        elif self.items['status'].widget().data() in ['in', 'exchange']:
             for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
                         'payplace', 'payinfo']:
                 self.items[key].clear()
