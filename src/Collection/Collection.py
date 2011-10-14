@@ -35,13 +35,13 @@ class CollectionModel(QSqlTableModel):
     
     def setFilter(self, filter_):
         self.intFilter = filter_
-        self.__upplyFilter()
+        self.__applyFilter()
 
     def setAdditionalFilter(self, filter_):
         self.extFilter = filter_
-        self.__upplyFilter()
+        self.__applyFilter()
     
-    def __upplyFilter(self):
+    def __applyFilter(self):
         if self.intFilter and self.extFilter:
             combinedFilter = self.intFilter + " AND " + self.extFilter
         else:
