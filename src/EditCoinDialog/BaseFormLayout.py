@@ -41,6 +41,8 @@ class FormItem(object):
             self._widget = DateEdit(parent)
         elif type_ == Type.Status:
             self._widget = StatusEdit(parent)
+        elif type_ == Type.DateTime:
+            self._widget = DateEdit(parent)
         else:
             raise
         

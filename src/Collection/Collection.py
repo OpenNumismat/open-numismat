@@ -123,6 +123,8 @@ class Collection(QtCore.QObject):
             type_ = 'NUMERIC(10,3)'
         elif field.type == Type.Status:
             type_ = 'CHAR'
+        elif field.type == Type.DateTime:
+            type_ = 'CHAR'
         else:
             raise
         

@@ -11,6 +11,7 @@ class FieldTypes():
     Image = 8
     Value = 9
     Status = 10
+    DateTime = 11
     
     Mask = int('FF', 16)  # 0xFF
     Checkable = int('100', 16)  # 0x100
@@ -92,7 +93,12 @@ class CollectionFields(QObject):
                 ('photo1', self.tr("Photo 1"), Type.Image),
                 ('photo2', self.tr("Photo 2"), Type.Image),
                 ('photo3', self.tr("Photo 3"), Type.Image),
-                ('photo4', self.tr("Photo 4"), Type.Image)
+                ('photo4', self.tr("Photo 4"), Type.Image),
+                ('defect', self.tr("Defect"), Type.String),
+                ('storage', self.tr("Storage"), Type.String),
+                ('features', self.tr("Features"), Type.Text),
+                ('createdat', self.tr("Created at"), Type.DateTime),
+                ('updatedat', self.tr("Updated at"), Type.DateTime)
             ]
 
         self.fields = []
