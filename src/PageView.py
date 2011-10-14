@@ -110,7 +110,7 @@ class TreeView(QtGui.QTreeWidget):
         self.model = model
 
         # TODO: Root element should contain collection name
-        item = QtGui.QTreeWidgetItem(self, [self.tr("Collection"),])
+        item = QtGui.QTreeWidgetItem(self, [model.title,])
         item.setData(0, self.DataRole, '')
         self.addTopLevelItem(item)
         

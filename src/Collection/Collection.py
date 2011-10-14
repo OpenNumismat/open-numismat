@@ -142,6 +142,7 @@ class Collection(QtCore.QObject):
     
     def createModel(self):
         model = CollectionModel(self.reference, None, self.db, self.fields)
+        model.title = self.getCollectionName()
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         model.setTable('coins')
         model.select()
