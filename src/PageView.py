@@ -206,6 +206,7 @@ class TreeView(QtGui.QTreeWidget):
                 if newRecord.value(j) != record.value(j) or not record.value(j):
                     newRecord.setNull(j)
         
+        newRecord.setNull('id')  # remove ID value from record
         dialog = EditCoinDialog(self.model.reference, newRecord, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
