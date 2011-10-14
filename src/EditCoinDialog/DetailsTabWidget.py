@@ -121,6 +121,10 @@ class DetailsTabWidget(QtGui.QTabWidget):
                     item.setValue(value)
 
         self.indexChangedState(self.oldTrafficIndex)
+    
+    def clear(self):
+        for item in self.items.values():
+            item.widget().clear()
 
     def mainDetailsLayout(self, parent=None):
         layout = BaseFormGroupBox(self.tr("Main details"), parent)

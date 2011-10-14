@@ -97,6 +97,9 @@ class StateEdit(QtGui.QComboBox):
     def data(self):
         return StateEdit.items[self.currentIndex()][0]
     
+    def clear(self):
+        self.setCurrentIndex(-1)
+    
     def setCurrentValue(self, value):
         index = -1
         for item in StateEdit.items:

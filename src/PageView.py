@@ -259,6 +259,8 @@ class DetailsView(DetailsTabWidget):
             model = current.model()
             record = model.record(current.row())
             self.fillItems(record)
+        else:
+            self.clear()
 
 class Splitter(QtGui.QSplitter):
     def __init__(self, title, orientation=Qt.Horizontal, parent=None):
