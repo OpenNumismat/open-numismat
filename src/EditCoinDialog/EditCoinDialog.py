@@ -85,7 +85,26 @@ class EditCoinDialog(QtGui.QDialog):
                                  QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                 if result != QtGui.QMessageBox.Save:
                     return
-            # TODO: Add checking that TotalPrice not less than Price
+
+            # Checking that TotalPrice not less than Price
+            payprice = self.items['payprice'].value()
+            totalpayprice = self.items['totalpayprice'].value()
+            if payprice and totalpayprice:
+                if float(totalpayprice) < float(payprice):
+                    result = QtGui.QMessageBox.warning(self.parent(), self.tr("Save"),
+                                     self.tr("Pay price is great than total paid price. Save?"),
+                                     QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                    if result != QtGui.QMessageBox.Save:
+                        return
+            saleprice = self.items['saleprice'].value()
+            totalsaleprice = self.items['totalsaleprice'].value()
+            if saleprice and totalsaleprice:
+                if float(saleprice) < float(totalsaleprice):
+                    result = QtGui.QMessageBox.warning(self.parent(), self.tr("Save"),
+                                     self.tr("Sale price is less than total bailed price. Save?"),
+                                     QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                    if result != QtGui.QMessageBox.Save:
+                        return
 
         for item in self.items.values():
             value = item.value()
