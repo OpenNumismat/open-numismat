@@ -14,6 +14,7 @@ class FieldTypes():
     
     Mask = int('FF', 16)  # 0xFF
     Checkable = int('100', 16)  # 0x100
+    Disabled = int('200', 16)  # 0x200
 
 class CollectionField():
     def __init__(self, id, name, title, type):

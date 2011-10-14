@@ -43,6 +43,12 @@ class FormItem(object):
             self._widget = StateEdit(parent)
         else:
             raise
+        
+        if itemType & Type.Disabled:
+            if type_ == Type.State or type_ == Type.Image:
+                self._widget.setDisabled(True)
+            else:
+                self._widget.setReadOnly(True)
 
         if itemType & Type.Checkable:
             # Disable fields with unchecked labels

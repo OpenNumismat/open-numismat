@@ -95,7 +95,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
             self.addTab(self._layoutToWidget(parts), title)
     
     def addItem(self, field):
-        item = FormItem(field.name, field.title, field.type)
+        item = FormItem(field.name, field.title, field.type | Type.Disabled)
         self.items[field.name] = item
     
     def createItems(self):
