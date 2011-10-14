@@ -29,13 +29,13 @@ class MainWindow(QtGui.QMainWindow):
         coin.addAction(add_coin)
 
         newCollectionAct = QtGui.QAction(self.tr("&New..."), self)
-        newCollectionAct.triggered.connect(self.newCollection)
+        newCollectionAct.triggered.connect(self.newCollectionEvent)
 
         style = QtGui.QApplication.style()
         icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
         openCollectionAct = QtGui.QAction(icon, self.tr("&Open..."), self)
         openCollectionAct.setShortcut('Ctrl+O')
-        openCollectionAct.triggered.connect(self.openCollection)
+        openCollectionAct.triggered.connect(self.openCollectionEvent)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
@@ -104,7 +104,7 @@ class MainWindow(QtGui.QMainWindow):
         latest = LatestCollections(self)
         for act in latest.actions():
             self.latestActions.append(act)
-            act.latestTriggered.connect(self.openLatest)
+            act.latestTriggered.connect(self.openCollection)
             self.__menu.addAction(act)
 
     def addCoin(self):
@@ -116,17 +116,15 @@ class MainWindow(QtGui.QMainWindow):
             model.insertRecord(-1, rec)
             model.submitAll()
 
-    def openCollection(self):
+    def openCollectionEvent(self):
         dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
         fileName = QtGui.QFileDialog.getOpenFileName(self,
                 self.tr("Open collection"), dir_,
                 self.tr("Collections (*.db)"))
         if fileName:
-            if self.collection.open(fileName):
-                self.setCollection(self.collection)
-            # TODO: Remove collection from latest collections list
-    
-    def newCollection(self):
+            self.openCollection(fileName)
+
+    def newCollectionEvent(self):
         dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
         fileName = QtGui.QFileDialog.getSaveFileName(self,
                 self.tr("New collection"), dir_,
@@ -135,16 +133,20 @@ class MainWindow(QtGui.QMainWindow):
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
     
-    def openLatest(self, fileName):
-        if fileName:
-            if self.collection.open(fileName):
-                self.setCollection(self.collection)
+    def openCollection(self, fileName):
+        if self.collection.open(fileName):
+            self.setCollection(self.collection)
+        else:
+            # Remove wrong collection from latest collections list
+            latest = LatestCollections(self)
+            latest.delete(fileName)
+            self.__updateLatest()
     
     def setCollection(self, collection):
         self.setWindowTitle(collection.getCollectionName() + ' - ' + self.tr("Num"))
 
         latest = LatestCollections(self)
-        latest.setLatest(collection.getFileName())
+        latest.add(collection.getFileName())
         self.__updateLatest()
         
         self.viewTab.setCollection(collection)

@@ -27,6 +27,7 @@ class LatestCollections(QtCore.QObject):
 
         self.settings = QtCore.QSettings()
     
+    # Create menu actions
     def actions(self):
         actions = []
         for i in range(LatestCollections.LatestCount):
@@ -36,14 +37,15 @@ class LatestCollections(QtCore.QObject):
         
         return actions
 
+    # Return latest opened collection file name
     def latest(self):
-        fileName = self.settings.value('collection/latest')
+        fileName = self.settings.value(self.SettingsKey)
         if not fileName:
             fileName = LatestCollections.DefaultCollectionName
         
         return fileName
     
-    def setLatest(self, fileName):
+    def add(self, fileName):
         # Get stored latest collections
         values = []
         for i in range(LatestCollections.LatestCount):
@@ -68,7 +70,13 @@ class LatestCollections(QtCore.QObject):
             self.settings.remove(self.__key(i))
         
         # Store latest collection for auto opening
-        self.settings.setValue(LatestCollections.SettingsKey, fileName)
+        self.settings.setValue(self.SettingsKey, fileName)
+    
+    def delete(self, fileName):
+        for i in range(LatestCollections.LatestCount):
+            value = self.settings.value(self.__key(i))
+            if value == fileName:
+                self.settings.remove(self.__key(i))
     
     def __key(self, i):
-        return LatestCollections.SettingsKey + str(i+1)
+        return self.SettingsKey + str(i+1)
