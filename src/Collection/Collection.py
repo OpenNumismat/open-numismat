@@ -25,7 +25,7 @@ class CollectionModel(QSqlTableModel):
                 date = QtCore.QDate.fromString(ret)
                 return date.toString(QtCore.Qt.SystemLocaleShortDate)
             elif fieldType == Type.DateTime:
-                date = QtCore.QDateTime.fromString(ret)
+                date = QtCore.QDateTime.fromString(ret, QtCore.Qt.ISODate)
                 return date.toString(QtCore.Qt.SystemLocaleShortDate)
 
         return ret

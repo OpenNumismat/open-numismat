@@ -184,4 +184,9 @@ def run():
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
+    currentTime = QtCore.QDateTime.currentDateTime()
+    s1 = currentTime.toString(QtCore.Qt.SystemLocaleShortDate)
+    print(s1)
+    d = QtCore.QDateTime.fromString(s1, QtCore.Qt.SystemLocaleShortDate)
+    print(d, d.isValid())
     run()
