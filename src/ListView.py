@@ -350,7 +350,6 @@ class ListView(QtGui.QTableView):
                 result = dialog.exec_()
                 if result == QtGui.QDialog.Accepted:
                     newRecord = dialog.getRecord()
-                    newRecord.setNull('id')  # remove ID value from record
                     self.model().insertRecord(-1, newRecord)
                     self.model().submitAll()
         elif mime.hasText():
@@ -371,7 +370,6 @@ class ListView(QtGui.QTableView):
                 result = dialog.exec_()
                 if result == QtGui.QDialog.Accepted:
                     newRecord = dialog.getRecord()
-                    newRecord.setNull('id')  # remove ID value from record
                     self.model().insertRecord(-1, newRecord)
                     self.model().submitAll()
     
@@ -396,7 +394,6 @@ class ListView(QtGui.QTableView):
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             newRecord = dialog.getRecord()
-            newRecord.setNull('id')  # remove ID value from record
             self.model().insertRecord(-1, newRecord)
             self.model().submitAll()
     

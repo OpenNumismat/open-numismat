@@ -20,12 +20,27 @@ class CollectionModel(QSqlTableModel):
         ret = super(CollectionModel, self).data(index, role)
         
         fieldType = self.fields.fields[index.column()].type
-        if fieldType == Type.Date:
-            if role == QtCore.Qt.DisplayRole:
+        if role == QtCore.Qt.DisplayRole:
+            if fieldType == Type.Date:
                 date = QtCore.QDate.fromString(ret)
+                return date.toString(QtCore.Qt.SystemLocaleShortDate)
+            elif fieldType == Type.DateTime:
+                date = QtCore.QDateTime.fromString(ret)
                 return date.toString(QtCore.Qt.SystemLocaleShortDate)
 
         return ret
+    
+    def insertRecord(self, row, record):
+        record.setNull('id')  # remove ID value from record
+        currentTime = QtCore.QDateTime.currentDateTime()
+        record.setValue('createdat', currentTime.toString(QtCore.Qt.ISODate))
+        record.setValue('updatedat', currentTime.toString(QtCore.Qt.ISODate))
+        super(CollectionModel, self).insertRecord(row, record)
+    
+    def setRecord(self, row, record):
+        currentTime = QtCore.QDateTime.currentDateTime()
+        record.setValue('updatedat', currentTime.toString(QtCore.Qt.ISODate))
+        super(CollectionModel, self).setRecord(row, record)
     
     def columnType(self, column):
         if isinstance(column, QtCore.QModelIndex):
