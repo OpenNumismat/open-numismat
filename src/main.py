@@ -37,9 +37,13 @@ class MainWindow(QtGui.QMainWindow):
         openCollectionAct.setShortcut('Ctrl+O')
         openCollectionAct.triggered.connect(self.openCollectionEvent)
 
+        backupCollectionAct = QtGui.QAction(self.tr("Backup"), self)
+        backupCollectionAct.triggered.connect(self.backupCollectionEvent)
+
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
         collectionMenu.addAction(openCollectionAct)
+        collectionMenu.addAction(backupCollectionAct)
         collectionMenu.addSeparator()
 
         self.latestActions = []
@@ -133,6 +137,14 @@ class MainWindow(QtGui.QMainWindow):
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
     
+    def backupCollectionEvent(self):
+        file = QtCore.QFile(self.collection.fileName)
+        # TODO: Change backup location
+        backup = QtCore.QFileInfo('../db/backup/'+self.collection.getCollectionName()+'_'+QtCore.QDateTime.currentDateTime().toString('yyMMddhhmm')+'.db')
+        backupName = backup.absoluteFilePath()
+        if not file.copy(backupName):
+            QtGui.QMessageBox.critical(self, self.tr("Backup collection"), self.tr("Can't make a collection backup at %s") % backupName)
+
     def openCollection(self, fileName):
         if self.collection.open(fileName):
             self.setCollection(self.collection)
