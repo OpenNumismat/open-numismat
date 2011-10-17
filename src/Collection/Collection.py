@@ -18,18 +18,19 @@ class CollectionModel(QSqlTableModel):
         self.fields = fields
     
     def data(self, index, role=Qt.DisplayRole):
-        ret = super(CollectionModel, self).data(index, role)
-        
-        fieldType = self.fields.fields[index.column()].type
         if role == Qt.DisplayRole:
+            data = super(CollectionModel, self).data(index, role)
+            fieldType = self.fields.fields[index.column()].type
             if fieldType == Type.Date:
-                date = QtCore.QDate.fromString(ret, Qt.ISODate)
+                date = QtCore.QDate.fromString(data, Qt.ISODate)
                 return date.toString(Qt.SystemLocaleShortDate)
             elif fieldType == Type.DateTime:
-                date = QtCore.QDateTime.fromString(ret, Qt.ISODate)
+                date = QtCore.QDateTime.fromString(data, Qt.ISODate)
                 return date.toString(Qt.SystemLocaleShortDate)
+        elif role == Qt.UserRole:
+            return super(CollectionModel, self).data(index, Qt.DisplayRole)
 
-        return ret
+        return super(CollectionModel, self).data(index, role)
     
     def insertRecord(self, row, record):
         record.setNull('id')  # remove ID value from record

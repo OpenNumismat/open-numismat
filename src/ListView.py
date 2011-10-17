@@ -46,18 +46,23 @@ class SortFilterProxyModel(QtGui.QSortFilterProxyModel):
         super(SortFilterProxyModel, self).__init__(parent)
     
     def lessThan(self, left, right):
+        role = Qt.DisplayRole
+        if self.sourceModel().columnType(left.column()) in [Type.Date, Type.DateTime]:
+            # For date columns use ISO format for sorting
+            role = Qt.UserRole
+
         if self.sortOrder() == Qt.AscendingOrder:
-            if left.data() == '' or isinstance(left.data(), QtCore.QPyNullVariant):
+            if left.data(role) == '' or isinstance(left.data(role), QtCore.QPyNullVariant):
                 return False
-            elif right.data() == '' or isinstance(right.data(), QtCore.QPyNullVariant):
+            elif right.data(role) == '' or isinstance(right.data(role), QtCore.QPyNullVariant):
                 return True
         else:
-            if right.data() == '' or isinstance(right.data(), QtCore.QPyNullVariant):
+            if right.data(role) == '' or isinstance(right.data(role), QtCore.QPyNullVariant):
                 return False
-            elif left.data() == '' or isinstance(left.data(), QtCore.QPyNullVariant):
+            elif left.data(role) == '' or isinstance(left.data(role), QtCore.QPyNullVariant):
                 return True
 
-        return left.data() < right.data()
+        return left.data(role) < right.data(role)
 
 class ListView(QtGui.QTableView):
     rowChanged = pyqtSignal(object)
