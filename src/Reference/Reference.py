@@ -249,7 +249,8 @@ class Reference(QtCore.QObject):
                 CrossReferenceSection('period', 'country', self.tr("P")),
                 CrossReferenceSection('series', 'country', self.tr("S")),
                 ReferenceSection('quality', self.tr("Q")),
-                ReferenceSection('defect', self.tr("D"))
+                ReferenceSection('defect', self.tr("D")),
+                ReferenceSection('rarity', self.tr("R"))
             ]
         for section in sections:
             query = QSqlQuery(self.db)

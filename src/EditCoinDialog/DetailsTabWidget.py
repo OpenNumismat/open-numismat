@@ -270,7 +270,11 @@ class DetailsTabWidget(QtGui.QTabWidget):
         layout.addRow(self.items['catalognum1'])
         layout.addRow(self.items['catalognum2'])
         layout.addRow(self.items['catalognum3'])
-        layout.addRow(self.items['rarity'])
+
+        item = self.items['rarity']
+        layout.addWidget(item.label(), 3, 0)
+        layout.addWidget(item.widget(), 3, 1)
+        item.widget().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
 
         return layout
 
