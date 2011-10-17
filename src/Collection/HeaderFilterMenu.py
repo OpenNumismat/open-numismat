@@ -54,7 +54,10 @@ class FilterMenuButton(QtGui.QPushButton):
             query = QSqlQuery(sql, self.db)
 
             while query.next():
-                label = str(query.record().value(0))
+                if query.record().isNull(0):
+                    label = None
+                else:
+                    label = str(query.record().value(0))
                 if not label:
                     hasBlanks = True
                     continue
