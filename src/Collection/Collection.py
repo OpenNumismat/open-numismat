@@ -1,4 +1,5 @@
 from PyQt4 import QtGui, QtCore
+from PyQt4.QtCore import Qt
 from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery
 
 from .CollectionFields import FieldTypes as Type
@@ -16,30 +17,30 @@ class CollectionModel(QSqlTableModel):
         self.reference = reference
         self.fields = fields
     
-    def data(self, index, role=QtCore.Qt.DisplayRole):
+    def data(self, index, role=Qt.DisplayRole):
         ret = super(CollectionModel, self).data(index, role)
         
         fieldType = self.fields.fields[index.column()].type
-        if role == QtCore.Qt.DisplayRole:
+        if role == Qt.DisplayRole:
             if fieldType == Type.Date:
-                date = QtCore.QDate.fromString(ret)
-                return date.toString(QtCore.Qt.SystemLocaleShortDate)
+                date = QtCore.QDate.fromString(ret, Qt.ISODate)
+                return date.toString(Qt.SystemLocaleShortDate)
             elif fieldType == Type.DateTime:
-                date = QtCore.QDateTime.fromString(ret, QtCore.Qt.ISODate)
-                return date.toString(QtCore.Qt.SystemLocaleShortDate)
+                date = QtCore.QDateTime.fromString(ret, Qt.ISODate)
+                return date.toString(Qt.SystemLocaleShortDate)
 
         return ret
     
     def insertRecord(self, row, record):
         record.setNull('id')  # remove ID value from record
         currentTime = QtCore.QDateTime.currentDateTime()
-        record.setValue('createdat', currentTime.toString(QtCore.Qt.ISODate))
-        record.setValue('updatedat', currentTime.toString(QtCore.Qt.ISODate))
+        record.setValue('createdat', currentTime.toString(Qt.ISODate))
+        record.setValue('updatedat', currentTime.toString(Qt.ISODate))
         super(CollectionModel, self).insertRecord(row, record)
     
     def setRecord(self, row, record):
         currentTime = QtCore.QDateTime.currentDateTime()
-        record.setValue('updatedat', currentTime.toString(QtCore.Qt.ISODate))
+        record.setValue('updatedat', currentTime.toString(Qt.ISODate))
         super(CollectionModel, self).setRecord(row, record)
     
     def columnType(self, column):
@@ -165,6 +166,7 @@ class Collection(QtCore.QObject):
         model.select()
         for field in self.fields:
             model.setHeaderData(field.id, QtCore.Qt.Horizontal, field.title)
+        
         return model
     
     def createReference(self):

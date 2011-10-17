@@ -78,7 +78,7 @@ class FormItem(object):
         if isinstance(self._widget, QtGui.QTextEdit):
             return self._widget.toPlainText()
         elif isinstance(self._widget, QtGui.QDateTimeEdit):
-            return self._widget.date().toString()
+            return self._widget.date().toString(Qt.ISODate)
         elif isinstance(self._widget, QtGui.QAbstractSpinBox):
             return self._widget.value()
         elif isinstance(self._widget, ImageEdit):
@@ -96,7 +96,7 @@ class FormItem(object):
         elif isinstance(self._widget, QtGui.QDoubleSpinBox):
             self._widget.setValue(float(value))
         elif isinstance(self._widget, QtGui.QDateTimeEdit):
-            self._widget.setDate(QDate.fromString(str(value)))
+            self._widget.setDate(QDate.fromString(str(value), Qt.ISODate))
         elif isinstance(self._widget, StatusEdit):
             self._widget.setCurrentValue(value)
         else: 
