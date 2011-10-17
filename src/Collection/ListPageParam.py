@@ -46,10 +46,7 @@ class ListPageParam(QtCore.QObject):
         
         # Create default parameters
         if not self.columns:
-            for field in CollectionFields().fields:
-                if field.name == 'id':  # skip ID field
-                    continue
-
+            for field in CollectionFields().userFields:
                 enabled = False
                 # TODO: Customize default fields
                 if field.name in ['title', 'value', 'unit', 'country', 'year']:

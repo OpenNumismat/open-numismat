@@ -107,20 +107,14 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def createItems(self):
         self.items = {}
         
-        fields = CollectionFields()
-        skippedFields = [fields.id,]
+        fields = CollectionFields().userFields
         for field in fields:
-            if field in skippedFields:
-                continue
             self.addItem(field)
         
     def fillItems(self, record):
         if not record.isEmpty():
-            fields = CollectionFields()
-            skippedFields = [fields.id,]
+            fields = CollectionFields().userFields
             for field in fields:
-                if field in skippedFields:
-                    continue
                 item = self.items[field.name]
                 if not record.isNull(item.field()):
                     value = record.value(item.field())

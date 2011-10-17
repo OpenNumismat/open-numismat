@@ -105,6 +105,14 @@ class CollectionFields(QObject):
         for id, field in enumerate(fields):
             self.fields.append(CollectionField(id, field[0], field[1], field[2]))
             setattr(self, self.fields[id].name, self.fields[id])
+        
+        self.disabledFields = [self.id, self.createdat, self.updatedat]
+        self.userFields = list(self.fields)
+        for item in self.disabledFields:
+            self.userFields.remove(item)
+    
+    def field(self, id):
+        return self.fields[id]
 
     def __iter__(self):
         self.index = 0

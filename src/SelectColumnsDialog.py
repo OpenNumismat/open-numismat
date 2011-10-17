@@ -18,9 +18,12 @@ class SelectColumnsDialog(QtGui.QDialog):
         self.listWidget.setDropIndicatorShown(True) 
         self.listWidget.setWrapping(True)
         
-        collectionFields = CollectionFields().fields
+        allFields = CollectionFields()
+        collectionFields = allFields.userFields
         for param in listParam.columns:
-            field = collectionFields[param.fieldid]
+            field = allFields.field(param.fieldid)
+            if field in allFields.disabledFields:
+                continue
             item = QtGui.QListWidgetItem(field.title, self.listWidget)
             item.setData(SelectColumnsDialog.DataRole, param)
             checked = Qt.Unchecked
@@ -29,14 +32,10 @@ class SelectColumnsDialog(QtGui.QDialog):
             item.setCheckState(checked)
             self.listWidget.addItem(item)
             
-            collectionFields[param.fieldid] = None   # mark field as processed
+            collectionFields.remove(field)   # mark field as processed
 
         # Process missed columns
         for field in collectionFields:
-            if not field:   # skip already processed filed
-                continue
-            if field.name == 'id':  # skip ID field
-                continue
             item = QtGui.QListWidgetItem(field.title, self.listWidget)
             item.setData(SelectColumnsDialog.DataRole, ColumnListParam(field.id, False))
             item.setCheckState(Qt.Unchecked)
