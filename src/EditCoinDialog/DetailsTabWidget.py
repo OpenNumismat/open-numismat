@@ -219,6 +219,11 @@ class DetailsTabWidget(QtGui.QTabWidget):
         layout.addRow(self.items['issuedate'], self.items['mintage'])
         layout.addRow(self.items['dateemis'])
 
+        item = self.items['quality']
+        layout.layout.addWidget(item.label(), 2, 0)
+        layout.layout.addWidget(item.widget(), 2, 1)
+        item.widget().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+
         return layout
 
     def noteLayout(self, parent=None):
