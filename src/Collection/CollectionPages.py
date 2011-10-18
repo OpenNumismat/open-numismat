@@ -62,7 +62,7 @@ class CollectionPages(QtCore.QObject):
         query.exec_()
 
     def removePage(self, page):
-        page.listParam.remove()
+        page.listView.listParam.remove()
 
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM pages WHERE id=?")

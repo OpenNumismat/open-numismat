@@ -18,7 +18,11 @@ class TabView(QtGui.QTabWidget):
         self.pos = pos  # store pos for action
         menu = QtGui.QMenu(self)
         menu.addAction(self.tr("Clone"), self._clone)
+        menu.addAction(self.tr("Rename..."), self.renamePage)
+        menu.addSeparator()
+        menu.addAction(self.tr("Remove"), self.removePage)
         menu.exec_(self.mapToGlobal(pos))
+        self.pos = None
     
     def _clone(self):
         index = self.tabBar().tabAt(self.pos)
@@ -73,13 +77,17 @@ class TabView(QtGui.QTabWidget):
             self.__createListPage(label)
     
     def renamePage(self):
-        index = self.currentIndex()
+        if self.pos:
+            index = self.tabBar().tabAt(self.pos)
+        else:
+            index = self.currentIndex()
         oldLabel = self.tabText(index)
         label, ok = QtGui.QInputDialog.getText(self, self.tr("Rename list"), self.tr("Enter new list title"), text=oldLabel)
         if ok and label:
             self.setTabText(index, label)
             page = self.widget(index)
             self.collection.pages().renamePage(page, label)
+            self.setCurrentIndex(index)
 
     def closePage(self, index=None):
         if not index:
@@ -91,7 +99,10 @@ class TabView(QtGui.QTabWidget):
         self.__updateOpenPageMenu()
     
     def removePage(self):
-        index = self.currentIndex()
+        if self.pos:
+            index = self.tabBar().tabAt(self.pos)
+        else:
+            index = self.currentIndex()
         result = QtGui.QMessageBox.question(self, self.tr("Remove page"),
                         self.tr("Remove the page '%s' permanently?") % self.tabText(index),
                         QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
