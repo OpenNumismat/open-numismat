@@ -94,8 +94,8 @@ class ListView(QtGui.QTableView):
         font.setBold(True)
         self.horizontalHeader().setFont(font)
         
-        # TODO: Configure header visible in settings
-        #self.verticalHeader().setVisible(False)
+        self.verticalHeader().setVisible(False)
+        self.defaultHeight = self.verticalHeader().defaultSectionSize()
         
         # Show image data as images
         for field in CollectionFields():
@@ -206,6 +206,7 @@ class ListView(QtGui.QTableView):
             col.append(i)
         
         # Move columns
+        self.verticalHeader().setDefaultSectionSize(self.defaultHeight)
         for pos, param in enumerate(self.listParam.columns):
             if not param.enabled:
                 continue
@@ -213,6 +214,9 @@ class ListView(QtGui.QTableView):
             col.remove(param.fieldid)
             col.insert(pos, param.fieldid)
             self.horizontalHeader().moveSection(index, pos)
+            
+            if self.model().fields.field(param.fieldid).type == Type.Image:
+                self.verticalHeader().setDefaultSectionSize(self.defaultHeight*1.4)
 
         self.horizontalHeader().sectionMoved.connect(self.columnMoved)
 
