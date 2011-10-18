@@ -119,8 +119,6 @@ class DetailsTabWidget(QtGui.QTabWidget):
                 if not record.isNull(item.field()):
                     value = record.value(item.field())
                     item.setValue(value)
-
-        self.indexChangedState(self.oldTrafficIndex)
     
     def clear(self):
         for item in self.items.values():
@@ -322,6 +320,8 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return pageParts
 
     def indexChangedState(self, index):
+        pageIndex = self.currentIndex()
+        
         self.removeTab(1)
         pageParts = self._createTrafficParts(index)
 
@@ -335,8 +335,12 @@ class DetailsTabWidget(QtGui.QTabWidget):
         if len(pageParts) == 0:
             self.setTabEnabled(1, False)
             self.items['grade'].widget().setEnabled(False)
+            if pageIndex == 1:
+                self.setCurrentIndex(pageIndex-1)
         else:
             self.items['grade'].widget().setEnabled(True)
+            if pageIndex == 1:
+                self.setCurrentIndex(pageIndex)
     
     def addPayCommission(self):
         item = FormItem(None, self.tr("Commission"), Type.Money)
