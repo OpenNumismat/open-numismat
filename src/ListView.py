@@ -141,7 +141,13 @@ class ListView(QtGui.QTableView):
     def model(self):
         return super(ListView, self).model().sourceModel()
     
+    def rowsInserted(self, parent, start, end):
+        index = self.model().index(end, 0)
+        self.insertedRowIndex = super(ListView, self).model().mapFromSource(index)
+    
     def setModel(self, model):
+        model.rowsInserted.connect(self.rowsInserted)
+        
         proxyModel = SortFilterProxyModel(self)
         proxyModel.setDynamicSortFilter(True)
         proxyModel.setSourceModel(model)
@@ -272,9 +278,15 @@ class ListView(QtGui.QTableView):
         dialog = EditCoinDialog(self.model().reference, record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
+            rowCount = self.model().rowCount()
+
             updatedRecord = dialog.getRecord()
             self.model().setRecord(index.row(), updatedRecord)
             self.model().submitAll()
+            
+            if rowCount == self.model().rowCount():  # inserted row visible in current model
+                updatedRowIndex = super(ListView, self).model().mapFromSource(index)
+                self.selectRow(updatedRowIndex.row())
     
     def _multiEdit(self, indexes=None):
         if not indexes:
@@ -350,13 +362,8 @@ class ListView(QtGui.QTableView):
                 record = self.model().record()
                 for i in range(self.model().columnCount()):
                     record.setValue(i, recordData[i])
-        
-                dialog = EditCoinDialog(self.model().reference, record, self)
-                result = dialog.exec_()
-                if result == QtGui.QDialog.Accepted:
-                    newRecord = dialog.getRecord()
-                    self.model().insertRecord(-1, newRecord)
-                    self.model().submitAll()
+                
+                self.__addCoin(record)
         elif mime.hasText():
             # Load data stored by another application (Excel)
             # TODO: Process fields with \n and \t
@@ -370,13 +377,8 @@ class ListView(QtGui.QTableView):
                 record = self.model().record()
                 for i in range(len(data)):
                     record.setValue(i, clipboardToText(data[i]))
-            
-                dialog = EditCoinDialog(self.model().reference, record, self)
-                result = dialog.exec_()
-                if result == QtGui.QDialog.Accepted:
-                    newRecord = dialog.getRecord()
-                    self.model().insertRecord(-1, newRecord)
-                    self.model().submitAll()
+                
+                self.__addCoin(record)
     
     def _delete(self, indexes=None):
         if not indexes:
@@ -395,13 +397,18 @@ class ListView(QtGui.QTableView):
             index = self.currentIndex()
 
         record = self.model().record(index.row())
+        self.__addCoin(record)
+    
+    def __addCoin(self, record):
         dialog = EditCoinDialog(self.model().reference, record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
+            rowCount = self.model().rowCount()
+            
             newRecord = dialog.getRecord()
             self.model().insertRecord(-1, newRecord)
             self.model().submitAll()
-    
-if __name__ == '__main__':
-    from main import run
-    run()
+
+            if rowCount < self.model().rowCount():  # inserted row visible in current model
+                if self.insertedRowIndex.isValid():
+                    self.selectRow(self.insertedRowIndex.row())
