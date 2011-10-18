@@ -144,6 +144,7 @@ class ListView(QtGui.QTableView):
     def rowInserted(self, index):
         insertedRowIndex = super(ListView, self).model().mapFromSource(index)
         self.selectRow(insertedRowIndex.row())
+        self.scrollTo(insertedRowIndex)
     
     def setModel(self, model):
         model.rowInserted.connect(self.rowInserted)
