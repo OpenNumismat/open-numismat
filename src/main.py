@@ -4,7 +4,6 @@ from PyQt4 import QtGui, QtCore
 
 from Collection.Collection import Collection
 from Reference.Reference import Reference
-from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from TabView import TabView
 from LatestCollections import LatestCollections
 
@@ -12,9 +11,11 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         
+        self.collectionFileLabel = QtGui.QLabel()
+        self.statusBar().addWidget(self.collectionFileLabel)
+        
         exitAct = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
         exitAct.setShortcut('Ctrl+Q')
-        exitAct.setStatusTip(self.tr("Exit application"))
         exitAct.triggered.connect(self.close)
 
         menubar = self.menuBar()
@@ -22,7 +23,6 @@ class MainWindow(QtGui.QMainWindow):
         file.addAction(exitAct)
 
         add_coin = QtGui.QAction(QtGui.QIcon('icons/add_coin.png'), self.tr("Add"), self)
-        add_coin.setStatusTip(self.tr("Add new coin"))
         add_coin.triggered.connect(self.addCoin)
 
         coin = menubar.addMenu(self.tr("Coin"))
@@ -150,6 +150,7 @@ class MainWindow(QtGui.QMainWindow):
             self.__updateLatest()
     
     def setCollection(self, collection):
+        self.collectionFileLabel.setText(collection.getFileName())
         self.setWindowTitle(collection.getCollectionName() + ' - ' + self.tr("Num"))
 
         latest = LatestCollections(self)
