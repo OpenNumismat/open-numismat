@@ -111,9 +111,17 @@ class ListView(QtGui.QTableView):
         self._updateHeaderButtons()
     
     def headerContextMenuEvent(self, pos):
+        self.pos = pos  # store pos for action
         menu = QtGui.QMenu(self)
         menu.addAction(self.tr("Select columns..."), self._selectColumns)
+        menu.addSeparator()
+        menu.addAction(self.tr("Adjust size"), self._adjustColumn)
         menu.exec_(self.mapToGlobal(pos))
+        self.pos = None
+    
+    def _adjustColumn(self):
+        index = self.horizontalHeader().logicalIndexAt(self.pos)
+        self.resizeColumnToContents(index)
     
     def _selectColumns(self):
         dialog = SelectColumnsDialog(self.listParam, self)
