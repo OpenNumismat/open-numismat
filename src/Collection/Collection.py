@@ -1,13 +1,16 @@
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, pyqtSignal
 from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery
 
 from .CollectionFields import FieldTypes as Type
 from .CollectionFields import CollectionFields
 from .CollectionPages import CollectionPages
 from Reference.Reference import CrossReferenceSection
+from EditCoinDialog.EditCoinDialog import EditCoinDialog
 
 class CollectionModel(QSqlTableModel):
+    rowInserted = pyqtSignal(object)
+
     def __init__(self, reference, parent=None, db=QSqlDatabase(), fields=CollectionFields()):
         super(CollectionModel, self).__init__(parent, db)
         
@@ -16,7 +19,12 @@ class CollectionModel(QSqlTableModel):
         
         self.reference = reference
         self.fields = fields
+
+        self.rowsInserted.connect(self.rowsInsertedEvent)
     
+    def rowsInsertedEvent(self, parent, start, end):
+        self.insertedRowIndex = self.index(end, 0)
+
     def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DisplayRole:
             data = super(CollectionModel, self).data(index, role)
@@ -31,6 +39,19 @@ class CollectionModel(QSqlTableModel):
             return super(CollectionModel, self).data(index, Qt.DisplayRole)
 
         return super(CollectionModel, self).data(index, role)
+    
+    def addCoin(self, record, parent=None):
+        dialog = EditCoinDialog(self.reference, record, parent)
+        result = dialog.exec_()
+        if result == QtGui.QDialog.Accepted:
+            rowCount = self.rowCount()
+            
+            self.insertRecord(-1, record)
+            self.submitAll()
+
+            if rowCount < self.rowCount():  # inserted row visible in current model
+                if self.insertedRowIndex.isValid():
+                    self.rowInserted.emit(self.insertedRowIndex)
     
     def insertRecord(self, row, record):
         record.setNull('id')  # remove ID value from record

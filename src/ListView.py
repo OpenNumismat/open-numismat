@@ -141,12 +141,12 @@ class ListView(QtGui.QTableView):
     def model(self):
         return super(ListView, self).model().sourceModel()
     
-    def rowsInserted(self, parent, start, end):
-        index = self.model().index(end, 0)
-        self.insertedRowIndex = super(ListView, self).model().mapFromSource(index)
+    def rowInserted(self, index):
+        insertedRowIndex = super(ListView, self).model().mapFromSource(index)
+        self.selectRow(insertedRowIndex.row())
     
     def setModel(self, model):
-        model.rowsInserted.connect(self.rowsInserted)
+        model.rowInserted.connect(self.rowInserted)
         
         proxyModel = SortFilterProxyModel(self)
         proxyModel.setDynamicSortFilter(True)
@@ -363,7 +363,7 @@ class ListView(QtGui.QTableView):
                 for i in range(self.model().columnCount()):
                     record.setValue(i, recordData[i])
                 
-                self.__addCoin(record)
+                self.model().addCoin(record, self)
         elif mime.hasText():
             # Load data stored by another application (Excel)
             # TODO: Process fields with \n and \t
@@ -378,7 +378,7 @@ class ListView(QtGui.QTableView):
                 for i in range(len(data)):
                     record.setValue(i, clipboardToText(data[i]))
                 
-                self.__addCoin(record)
+                self.model().addCoin(record, self)
     
     def _delete(self, indexes=None):
         if not indexes:
@@ -397,18 +397,4 @@ class ListView(QtGui.QTableView):
             index = self.currentIndex()
 
         record = self.model().record(index.row())
-        self.__addCoin(record)
-    
-    def __addCoin(self, record):
-        dialog = EditCoinDialog(self.model().reference, record, self)
-        result = dialog.exec_()
-        if result == QtGui.QDialog.Accepted:
-            rowCount = self.model().rowCount()
-            
-            newRecord = dialog.getRecord()
-            self.model().insertRecord(-1, newRecord)
-            self.model().submitAll()
-
-            if rowCount < self.model().rowCount():  # inserted row visible in current model
-                if self.insertedRowIndex.isValid():
-                    self.selectRow(self.insertedRowIndex.row())
+        self.model().addCoin(record, self)

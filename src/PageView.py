@@ -207,11 +207,7 @@ class TreeView(QtGui.QTreeWidget):
                     newRecord.setNull(j)
         
         newRecord.setNull('id')  # remove ID value from record
-        dialog = EditCoinDialog(self.model.reference, newRecord, self)
-        result = dialog.exec_()
-        if result == QtGui.QDialog.Accepted:
-            self.model.insertRecord(-1, newRecord)
-            self.model.submitAll()
+        self.model.addCoin(newRecord, self)
         
         self.model.setFilter(storedFilter)
 

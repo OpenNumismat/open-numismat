@@ -113,12 +113,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addCoin(self):
         model = self.viewTab.currentModel()
-        dialog = EditCoinDialog(model.reference, model.record(), self)
-        result = dialog.exec_()
-        if result == QtGui.QDialog.Accepted:
-            rec = dialog.getRecord()
-            model.insertRecord(-1, rec)
-            model.submitAll()
+        model.addCoin(model.record(), self)
 
     def openCollectionEvent(self):
         dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
