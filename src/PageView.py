@@ -96,14 +96,13 @@ class TreeView(QtGui.QTreeWidget):
     def __init__(self, parent=None):
         super(TreeView, self).__init__(parent)
 
-        self.resize(100, 0)
-        
         self.setHeaderHidden(True)
 
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenuEvent)
 
         self.currentItemChanged.connect(self.itemActivatedEvent)
+        self.expanded.connect(self.expandedEvent)
         
     def setModel(self, model):
         self.db = model.database()
@@ -180,8 +179,12 @@ class TreeView(QtGui.QTreeWidget):
                 return
 
     def itemActivatedEvent(self, current, previous):
+        self.resizeColumnToContents(0)
         filter_ = current.data(0, self.DataRole)
         self.model.setAdditionalFilter(filter_)
+
+    def expandedEvent(self, index):
+        self.resizeColumnToContents(0)
     
     def contextMenuEvent(self, pos):
         menu = QtGui.QMenu(self)
