@@ -13,6 +13,7 @@ class TabView(QtGui.QTabWidget):
         self.currentChanged.connect(self.activatedPage)
         self.tabBar().setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tabBar().customContextMenuRequested.connect(self.tabBarContextMenuEvent)
+        self.oldPage = None
 
     def tabBarContextMenuEvent(self, pos):
         self.pos = pos  # store pos for action
@@ -43,9 +44,16 @@ class TabView(QtGui.QTabWidget):
         self.collection.pages().openPage(pageView)
     
     def activatedPage(self, index):
+        if self.oldPage:
+            self.parent().statusBar().removeWidget(self.oldPage.listView.listCountLabel)
+
         page = self.widget(index)
         if page:
             page.model().select()
+
+            self.parent().statusBar().addPermanentWidget(page.listView.listCountLabel)
+            page.listView.listCountLabel.show()
+            self.oldPage = page
     
     def setCollection(self, collection):
         self.collection = collection

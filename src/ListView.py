@@ -4,6 +4,7 @@ import pickle
 
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt, pyqtSignal
+from PyQt4.QtSql import QSqlQuery
 
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import CollectionFields
@@ -95,12 +96,24 @@ class ListView(QtGui.QTableView):
         self.horizontalHeader().setFont(font)
         
         self.verticalHeader().setVisible(False)
+        self.verticalHeader().sectionCountChanged.connect(self.rowCountChanged)
         self.defaultHeight = self.verticalHeader().defaultSectionSize()
+        
+        self.listCountLabel = QtGui.QLabel()
         
         # Show image data as images
         for field in CollectionFields():
             if field.type == Type.Image:
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
+    
+    def rowCountChanged(self, oldCount, newCount):
+        if self.model():
+            sql = "SELECT count(*) FROM coins"
+            query = QSqlQuery(sql, self.model().database())
+            query.first()
+            totalCount = query.record().value(0)
+            
+            self.listCountLabel.setText(self.tr("%d/%d coins") % (newCount, totalCount))
     
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
         column = self.listParam.columns[oldVisualIndex]
@@ -147,6 +160,8 @@ class ListView(QtGui.QTableView):
         self._updateHeaderButtons()
     
     def model(self):
+        if not super(ListView, self).model():
+            return None
         return super(ListView, self).model().sourceModel()
     
     def rowInserted(self, index):
