@@ -93,6 +93,23 @@ class CrossReferenceDialog(ReferenceDialog):
         elif button == self.delButton:
             super(CrossReferenceDialog, self).clicked(button)
 
+class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
+    def __init__(self, parent, db):
+        super(SqlRelationalTableModel, self).__init__(parent, db)
+    
+    def data(self, index, role=Qt.DisplayRole):
+        if role == Qt.DecorationRole:
+            if index.row() < 0:
+                return None
+            iconIndex = self.index(index.row(), self.fieldIndex('icon'))
+            if self.data(iconIndex).isNull():
+                return None
+            icon = QtGui.QPixmap()
+            icon.loadFromData(self.data(iconIndex))
+            return icon
+
+        return super(SqlRelationalTableModel, self).data(index, role)
+
 class ReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
@@ -113,10 +130,10 @@ class ReferenceSection(QtCore.QObject):
         self.db = db
         sql = "CREATE TABLE IF NOT EXISTS %s (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-            value CHAR)" % self.name
+            value CHAR, icon BLOB)" % self.name
         QSqlQuery(sql, db)
 
-        self.model = QtSql.QSqlRelationalTableModel(None, db)
+        self.model = SqlRelationalTableModel(None, db)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
         self.model.setTable(self.name)
         self.model.select()

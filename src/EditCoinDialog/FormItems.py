@@ -46,6 +46,7 @@ class LineEditRef(QtGui.QWidget):
         self.comboBox.clear()
     
     def setText(self, text):
+        self.comboBox.setCurrentIndex(-1)
         self.comboBox.lineEdit().setText(text)
         index = self.comboBox.findText(text)
         self.updateDependents(index)
