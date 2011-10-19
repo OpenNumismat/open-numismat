@@ -46,6 +46,7 @@ class TabView(QtGui.QTabWidget):
     def activatedPage(self, index):
         if self.oldPage:
             self.parent().statusBar().removeWidget(self.oldPage.listView.listCountLabel)
+            self.parent().statusBar().removeWidget(self.oldPage.listView.listSelectedLabel)
 
         page = self.widget(index)
         if page:
@@ -53,6 +54,9 @@ class TabView(QtGui.QTabWidget):
 
             self.parent().statusBar().addPermanentWidget(page.listView.listCountLabel)
             page.listView.listCountLabel.show()
+            self.parent().statusBar().addPermanentWidget(page.listView.listSelectedLabel)
+            page.listView.listSelectedLabel.show()
+
             self.oldPage = page
     
     def setCollection(self, collection):

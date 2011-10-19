@@ -100,6 +100,7 @@ class ListView(QtGui.QTableView):
         self.defaultHeight = self.verticalHeader().defaultSectionSize()
         
         self.listCountLabel = QtGui.QLabel()
+        self.listSelectedLabel = QtGui.QLabel(self.tr("0 coin(s) selected"))
         
         # Show image data as images
         for field in CollectionFields():
@@ -281,6 +282,10 @@ class ListView(QtGui.QTableView):
             self.rowChanged.emit(self.currentIndex())
 
         return super(ListView, self).currentChanged(current, previous)
+    
+    def selectionChanged(self, selected, deselected):
+        self.listSelectedLabel.setText(self.tr("%d coin(s) selected") % len(self.selectedRows()))
+        return super(ListView, self).selectionChanged(selected, deselected)
 
     def __mapToSource(self, index):
         return super(ListView, self).model().mapToSource(index)
@@ -292,7 +297,9 @@ class ListView(QtGui.QTableView):
     def selectedRows(self):
         indexes = self.selectedIndexes()
         if len(indexes) == 0:
-            indexes.append(self.currentIndex())
+            if self.currentIndex().row() >= 0:
+                indexes.append(self.currentIndex())
+                self.selectRow(self.currentIndex().row())
         else:
             rowsIndexes = {}
             for index in indexes:
