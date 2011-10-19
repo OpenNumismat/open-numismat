@@ -32,7 +32,7 @@ record.setValue('icon', convertImage('icons/molotok.ico'))
 place.model.insertRecord(-1, record)
 
 record = place.model.record()
-record.setValue('value', 'Conros')
+record.setValue('value', 'Конрос')
 record.setValue('icon', convertImage('icons/conros.ico'))
 place.model.insertRecord(-1, record)
 
