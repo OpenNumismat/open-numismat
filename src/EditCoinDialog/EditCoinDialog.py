@@ -65,6 +65,8 @@ class EditCoinDialog(QtGui.QDialog):
                                             self.tr("Too many images"),
                                             QtGui.QMessageBox.Ok)
                                 break
+                        
+                        self.tab.setCurrentIndex(1)
     
     def save(self):
         # Clear unused fields

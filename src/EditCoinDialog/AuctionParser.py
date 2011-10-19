@@ -187,7 +187,7 @@ class AuctionSpbParser(AuctionParser):
         auctionItem.images = []
         content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('a')[0]
         href = content.attrib['href']
-        href = urllib.parse.urljoin(self.html.url, href)
+        href = urllib.parse.urljoin(self.url, href)
         auctionItem.images.append(href)
 
         content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('a')[1]
