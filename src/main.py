@@ -5,6 +5,7 @@ from PyQt4 import QtGui, QtCore
 from Collection.Collection import Collection
 from Reference.Reference import Reference
 from TabView import TabView
+from Settings import SettingsDialog
 from LatestCollections import LatestCollections
 
 class MainWindow(QtGui.QMainWindow):
@@ -14,12 +15,17 @@ class MainWindow(QtGui.QMainWindow):
         self.collectionFileLabel = QtGui.QLabel()
         self.statusBar().addWidget(self.collectionFileLabel)
         
+        settingsAct = QtGui.QAction(self.tr("Settings..."), self)
+        settingsAct.triggered.connect(self.settingsEvent)
+
         exitAct = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
         exitAct.setShortcut('Ctrl+Q')
         exitAct.triggered.connect(self.close)
 
         menubar = self.menuBar()
         file = menubar.addMenu(self.tr("&File"))
+        file.addAction(settingsAct)
+        file.addSeparator()
         file.addAction(exitAct)
 
         add_coin = QtGui.QAction(QtGui.QIcon('icons/add_coin.png'), self.tr("Add"), self)
@@ -110,6 +116,10 @@ class MainWindow(QtGui.QMainWindow):
             self.latestActions.append(act)
             act.latestTriggered.connect(self.openCollection)
             self.__menu.addAction(act)
+    
+    def settingsEvent(self):
+        dialog = SettingsDialog(self)
+        dialog.exec_()
 
     def addCoin(self):
         model = self.viewTab.currentModel()
@@ -183,9 +193,13 @@ def run():
     QtCore.QCoreApplication.setOrganizationDomain("mysoft.com");
     QtCore.QCoreApplication.setApplicationName("Star Runner");
 
+    settings = QtCore.QSettings()
+    locale = settings.value('mainwindow/locale')
+    if not locale:
+        locale = QtCore.QLocale.system().name()
     translator = QtCore.QTranslator()
-    translator.load('lang_'+QtCore.QLocale.system().name());
-    app.installTranslator(translator);
+    translator.load('lang_'+locale)
+    app.installTranslator(translator)
 
     main = MainWindow()
     main.show()
