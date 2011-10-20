@@ -19,6 +19,7 @@ class CollectionModel(QSqlTableModel):
         
         self.reference = reference
         self.fields = fields
+        self.proxy = None
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
     
@@ -54,6 +55,9 @@ class CollectionModel(QSqlTableModel):
                     self.rowInserted.emit(self.insertedRowIndex)
     
     def insertRecord(self, row, record):
+        if self.proxy:
+            self.proxy.setDynamicSortFilter(False)
+        
         record.setNull('id')  # remove ID value from record
         currentTime = QtCore.QDateTime.currentDateTime()
         record.setValue('createdat', currentTime.toString(Qt.ISODate))
@@ -61,9 +65,18 @@ class CollectionModel(QSqlTableModel):
         super(CollectionModel, self).insertRecord(row, record)
     
     def setRecord(self, row, record):
+        if self.proxy:
+            self.proxy.setDynamicSortFilter(False)
+        
         currentTime = QtCore.QDateTime.currentDateTime()
         record.setValue('updatedat', currentTime.toString(Qt.ISODate))
         super(CollectionModel, self).setRecord(row, record)
+    
+    def submitAll(self):
+        super(CollectionModel, self).submitAll()
+        
+        if self.proxy:
+            self.proxy.setDynamicSortFilter(True)
     
     def columnType(self, column):
         if isinstance(column, QtCore.QModelIndex):

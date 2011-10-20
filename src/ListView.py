@@ -45,6 +45,7 @@ class ImageDelegate(QtGui.QStyledItemDelegate):
 class SortFilterProxyModel(QtGui.QSortFilterProxyModel):
     def __init__(self, parent=None):
         super(SortFilterProxyModel, self).__init__(parent)
+        self.setDynamicSortFilter(True)
     
     def lessThan(self, left, right):
         role = Qt.DisplayRole
@@ -163,20 +164,20 @@ class ListView(QtGui.QTableView):
     def model(self):
         if not super(ListView, self).model():
             return None
-        return super(ListView, self).model().sourceModel()
+        return self.proxyModel.sourceModel()
     
     def rowInserted(self, index):
-        insertedRowIndex = super(ListView, self).model().mapFromSource(index)
+        insertedRowIndex = self.proxyModel.mapFromSource(index)
         self.selectRow(insertedRowIndex.row())
         self.scrollTo(insertedRowIndex)
     
     def setModel(self, model):
         model.rowInserted.connect(self.rowInserted)
         
-        proxyModel = SortFilterProxyModel(self)
-        proxyModel.setDynamicSortFilter(True)
-        proxyModel.setSourceModel(model)
-        super(ListView, self).setModel(proxyModel)
+        self.proxyModel = SortFilterProxyModel(self)
+        self.proxyModel.setSourceModel(model)
+        super(ListView, self).setModel(self.proxyModel)
+        model.proxy = self.proxyModel
         
         self.headerButtons = []
         for param in self.listParam.columns:
@@ -288,7 +289,7 @@ class ListView(QtGui.QTableView):
         return super(ListView, self).selectionChanged(selected, deselected)
 
     def __mapToSource(self, index):
-        return super(ListView, self).model().mapToSource(index)
+        return self.proxyModel.mapToSource(index)
 
     def currentIndex(self):
         index = super(ListView, self).currentIndex()
@@ -320,7 +321,7 @@ class ListView(QtGui.QTableView):
             self.model().submitAll()
             
             if rowCount == self.model().rowCount():  # inserted row visible in current model
-                updatedRowIndex = super(ListView, self).model().mapFromSource(index)
+                updatedRowIndex = self.proxyModel.mapFromSource(index)
                 self.selectRow(updatedRowIndex.row())
     
     def _multiEdit(self, indexes=None):
