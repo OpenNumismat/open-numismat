@@ -102,7 +102,7 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
             if index.row() < 0:
                 return None
             iconIndex = self.index(index.row(), self.fieldIndex('icon'))
-            if self.data(iconIndex).isNull():
+            if not self.data(iconIndex) or self.data(iconIndex).isNull():
                 return None
             icon = QtGui.QPixmap()
             icon.loadFromData(self.data(iconIndex))

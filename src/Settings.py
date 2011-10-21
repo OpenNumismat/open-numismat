@@ -5,17 +5,21 @@ from PyQt4.QtCore import Qt
 
 class Settings(QtCore.QObject):
     # TODO: Change backup location
-    BackupFolder = '../db/backup/'
+    BackupFolder = "../db/backup/"
+    # TODO: Fix default reference name
+    Reference = "../db/reference.db"
     
     def __init__(self, parent=None):
         super(Settings, self).__init__(parent)
         self.settings = QtCore.QSettings()
         self.language = self.__language()
         self.backupFolder = self.__backupFolder()
+        self.reference = self.__reference()
     
     def save(self):
         self.settings.setValue('mainwindow/locale', self.language)
         self.settings.setValue('mainwindow/backup', self.backupFolder)
+        self.settings.setValue('mainwindow/reference', self.reference)
     
     def __language(self):
         locale = self.settings.value('mainwindow/locale')
@@ -30,6 +34,13 @@ class Settings(QtCore.QObject):
             folder = QtCore.QDir(self.BackupFolder).absolutePath()
         
         return folder
+
+    def __reference(self):
+        file = self.settings.value('mainwindow/reference')
+        if not file:
+            file = QtCore.QDir(self.Reference).absolutePath()
+        
+        return file
 
 class SettingsDialog(QtGui.QDialog):
     Languages = [("English", 'en_UK'), ("Русский", 'ru_RU')]
@@ -63,6 +74,15 @@ class SettingsDialog(QtGui.QDialog):
         mainLayout.addWidget(self.backupFolder, 1, 1)
         mainLayout.addWidget(self.backupFolderButton, 1, 2)
         
+        self.reference = QtGui.QLineEdit(self)
+        self.reference.setText(settings.reference)
+        self.referenceButton = QtGui.QPushButton(icon, '', self)
+        self.referenceButton.clicked.connect(self.referenceButtonClicked)
+        
+        mainLayout.addWidget(QtGui.QLabel(self.tr("Reference")), 2, 0)
+        mainLayout.addWidget(self.reference, 2, 1)
+        mainLayout.addWidget(self.referenceButton, 2, 2)
+        
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
         buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
@@ -80,13 +100,18 @@ class SettingsDialog(QtGui.QDialog):
         if folder:
             self.backupFolder.setText(folder)
 
+    def referenceButtonClicked(self):
+        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Select reference"), self.reference.text(), "*.db")
+        if file:
+            self.reference.setText(file)
+
     def save(self):
         settings = Settings()
 
         current = self.languageSelector.currentIndex()
         settings.language = self.languageSelector.itemData(current)
-
         settings.backupFolder = self.backupFolder.text()
+        settings.reference = self.reference.text()
 
         settings.save()
 

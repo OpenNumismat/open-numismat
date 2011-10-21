@@ -80,8 +80,7 @@ class MainWindow(QtGui.QMainWindow):
         self.setWindowTitle(self.tr("Num"))
         
         self.reference = Reference(self)
-        # TODO: Fix default reference name
-        self.reference.open("../db/reference.db")
+        self.reference.open(Settings().reference)
         
         latest = LatestCollections(self)
         self.collection = Collection(self.reference, self)
@@ -119,7 +118,8 @@ class MainWindow(QtGui.QMainWindow):
     
     def settingsEvent(self):
         dialog = SettingsDialog(self)
-        dialog.exec_()
+        if dialog.exec_() == QtGui.QDialog.Accepted:
+            self.reference.open(Settings().reference)
 
     def addCoin(self):
         model = self.viewTab.currentModel()
