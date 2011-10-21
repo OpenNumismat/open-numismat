@@ -18,6 +18,11 @@ class MainWindow(QtGui.QMainWindow):
         
         settingsAct = QtGui.QAction(self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
+        
+        toolBar = QtGui.QToolBar(self)
+        toolBar.setMovable(False)
+        toolBar.addAction(settingsAct)
+        self.addToolBar(toolBar)
 
         exitAct = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
         exitAct.setShortcut('Ctrl+Q')
@@ -78,7 +83,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
 
-        self.setWindowTitle(self.tr("Num"))
+        self.setWindowTitle(version.AppName)
         
         self.reference = Reference(self)
         self.reference.open(Settings().reference)
@@ -215,7 +220,7 @@ def exceptHook(type_, value, tback):
     msgBox.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
     if msgBox.exec_() == QtGui.QMessageBox.Yes:
         line = traceback.extract_tb(tback, 1)[0]
-        subject = "[%s] %s - %s:%d" % (version.Version, type_.__name__, line[0], line[1])
+        subject = "[v%s] %s - %s:%d" % (version.Version, type_.__name__, line[0], line[1])
         
         errorMessage = []
         errorMessage.append("%s: %s" % (version.AppName, version.Version))
