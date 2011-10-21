@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import urllib.request, urllib.error, urllib.parse
-import lxml.html
+try:
+    import lxml.html
+except ImportError:
+    pass
 
 from PyQt4 import QtGui, QtCore
 
@@ -452,4 +455,3 @@ def getParser(url, parent=None):
         return ConrosParser(url, parent)
     elif WolmarParser.verifyDomain(url):
         return WolmarParser(url, parent)
-    return WolmarParser('http://www.wolmar.ru/auction/466/369651?category=9', parent)
