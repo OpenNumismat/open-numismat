@@ -5,7 +5,7 @@ from PyQt4 import QtGui, QtCore
 from Collection.Collection import Collection
 from Reference.Reference import Reference
 from TabView import TabView
-from Settings import SettingsDialog
+from Settings import Settings, SettingsDialog
 from LatestCollections import LatestCollections
 
 class MainWindow(QtGui.QMainWindow):
@@ -144,8 +144,8 @@ class MainWindow(QtGui.QMainWindow):
     
     def backupCollectionEvent(self):
         file = QtCore.QFile(self.collection.fileName)
-        # TODO: Change backup location
-        backup = QtCore.QFileInfo('../db/backup/'+self.collection.getCollectionName()+'_'+QtCore.QDateTime.currentDateTime().toString('yyMMddhhmm')+'.db')
+        folder = Settings().backupFolder
+        backup = QtCore.QFileInfo(folder+'/'+self.collection.getCollectionName()+'_'+QtCore.QDateTime.currentDateTime().toString('yyMMddhhmm')+'.db')
         backupName = backup.absoluteFilePath()
         if not file.copy(backupName):
             QtGui.QMessageBox.critical(self, self.tr("Backup collection"), self.tr("Can't make a collection backup at %s") % backupName)
@@ -193,10 +193,7 @@ def run():
     QtCore.QCoreApplication.setOrganizationDomain("mysoft.com");
     QtCore.QCoreApplication.setApplicationName("Star Runner");
 
-    settings = QtCore.QSettings()
-    locale = settings.value('mainwindow/locale')
-    if not locale:
-        locale = QtCore.QLocale.system().name()
+    locale = Settings().language
     translator = QtCore.QTranslator()
     translator.load('lang_'+locale)
     app.installTranslator(translator)
