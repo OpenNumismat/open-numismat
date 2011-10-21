@@ -189,14 +189,14 @@ def run():
     
     app = QtGui.QApplication(sys.argv)
 
-    sys.excepthook = exceptHook
-    
-    # TODO: Fill application fields
-    QtCore.QCoreApplication.setOrganizationName("MySoft")
-    QtCore.QCoreApplication.setOrganizationDomain("mysoft.com")
+    QtCore.QCoreApplication.setOrganizationName(version.Company)
     QtCore.QCoreApplication.setApplicationName(version.AppName)
 
-    locale = Settings().language
+    settings = Settings()
+    if settings.sendError:
+        sys.excepthook = exceptHook
+    
+    locale = settings.language
     translator = QtCore.QTranslator()
     translator.load('lang_'+locale)
     app.installTranslator(translator)
@@ -218,7 +218,7 @@ def exceptHook(type_, value, tback):
         subject = "[%s] %s - %s:%d" % (version.Version, type_.__name__, line[0], line[1])
         
         errorMessage = []
-        errorMessage.append("App: %s" % version.Version)
+        errorMessage.append("%s: %s" % (version.AppName, version.Version))
         errorMessage.append("OS: %s %s %s (%s)" % (platform.system(), platform.release(), platform.architecture()[0], platform.version()))
         errorMessage.append("Python: %s" % platform.python_version())
         errorMessage.append("Qt: %s" % QtCore.PYQT_VERSION_STR)

@@ -15,11 +15,13 @@ class Settings(QtCore.QObject):
         self.language = self.__language()
         self.backupFolder = self.__backupFolder()
         self.reference = self.__reference()
+        self.sendError = self.__sendError()
     
     def save(self):
         self.settings.setValue('mainwindow/locale', self.language)
         self.settings.setValue('mainwindow/backup', self.backupFolder)
         self.settings.setValue('mainwindow/reference', self.reference)
+        self.settings.setValue('mainwindow/error', self.sendError)
     
     def __language(self):
         locale = self.settings.value('mainwindow/locale')
@@ -41,6 +43,13 @@ class Settings(QtCore.QObject):
             file = QtCore.QDir(self.Reference).absolutePath()
         
         return file
+
+    def __sendError(self):
+        error = self.settings.value('mainwindow/error')
+        if not error:
+            return False
+        
+        return error == 'true'
 
 class SettingsDialog(QtGui.QDialog):
     Languages = [("English", 'en_UK'), ("Русский", 'ru_RU')]
@@ -83,6 +92,10 @@ class SettingsDialog(QtGui.QDialog):
         mainLayout.addWidget(self.reference, 2, 1)
         mainLayout.addWidget(self.referenceButton, 2, 2)
         
+        self.errorSending = QtGui.QCheckBox(self.tr("Send error info to author"), self)
+        self.errorSending.setChecked(settings.sendError)
+        mainLayout.addWidget(self.errorSending, 3, 0, 1, 2)
+        
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
         buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
@@ -112,6 +125,7 @@ class SettingsDialog(QtGui.QDialog):
         settings.language = self.languageSelector.itemData(current)
         settings.backupFolder = self.backupFolder.text()
         settings.reference = self.reference.text()
+        settings.sendError = self.errorSending.isChecked()
 
         settings.save()
 
