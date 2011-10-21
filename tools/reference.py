@@ -25,24 +25,17 @@ for sec in ref.allSections():
     ref.section(sec)
 
 place = ref.section('payplace')
-
-record = place.model.record()
-record.setValue('value', 'Молоток.Ру')
-record.setValue('icon', convertImage('icons/molotok.ico'))
-place.model.insertRecord(-1, record)
-
-record = place.model.record()
-record.setValue('value', 'Конрос')
-record.setValue('icon', convertImage('icons/conros.ico'))
-place.model.insertRecord(-1, record)
-
-record = place.model.record()
-record.setValue('value', 'Wolmar')
-record.setValue('icon', convertImage('icons/wolmar.ico'))
-place.model.insertRecord(-1, record)
-
-record = place.model.record()
-record.setValue('value', 'АукционЪ.СПб')
-place.model.insertRecord(-1, record)
-
+place.addItem('Молоток.Ру', convertImage('icons/molotok.ico'))
+place.addItem('Конрос', convertImage('icons/conros.ico'))
+place.addItem('Wolmar', convertImage('icons/wolmar.ico'))
+place.addItem('АукционЪ.СПб')
 place.model.submitAll()
+
+rarity = ref.section('rarity')
+rarity.addItem('Рядовая')
+rarity.addItem('Нечастая')
+rarity.addItem('Редкая')
+rarity.addItem('Очень редкая')
+rarity.addItem('Уникальная')
+rarity.addItem('Только в наборах')
+rarity.model.submitAll()

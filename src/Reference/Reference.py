@@ -158,6 +158,13 @@ class ReferenceSection(QtCore.QObject):
         else:
             self.model.revertAll()
     
+    def addItem(self, value, icon=None):
+        record = self.model.record()
+        record.setValue('value', value)
+        if icon:
+            record.setValue('icon', icon)
+        self.model.insertRecord(-1, record)
+    
     def fillFromQuery(self, query):
         while query.next():
             value = query.record().value(0)
