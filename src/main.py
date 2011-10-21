@@ -39,7 +39,7 @@ class MainWindow(QtGui.QMainWindow):
         newCollectionAct.triggered.connect(self.newCollectionEvent)
 
         style = QtGui.QApplication.style()
-        icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
+        icon = style.standardIcon(QtGui.QStyle.SP_DialogOpenButton)
         openCollectionAct = QtGui.QAction(icon, self.tr("&Open..."), self)
         openCollectionAct.setShortcut('Ctrl+O')
         openCollectionAct.triggered.connect(self.openCollectionEvent)

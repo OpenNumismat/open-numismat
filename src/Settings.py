@@ -85,6 +85,7 @@ class SettingsDialog(QtGui.QDialog):
         
         self.reference = QtGui.QLineEdit(self)
         self.reference.setText(settings.reference)
+        icon = style.standardIcon(QtGui.QStyle.SP_DialogOpenButton)
         self.referenceButton = QtGui.QPushButton(icon, '', self)
         self.referenceButton.clicked.connect(self.referenceButtonClicked)
         
