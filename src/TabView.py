@@ -14,19 +14,48 @@ class TabView(QtGui.QTabWidget):
         self.tabBar().setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tabBar().customContextMenuRequested.connect(self.tabBarContextMenuEvent)
         self.oldPage = None
+        
+        self.__createActions()
+        self._pos = None
+    
+    def actions(self):
+        return self.__actions
+    
+    def __createActions(self):
+        self.__actions = {}
+        
+        newListAct = QtGui.QAction(self.tr("New..."), self)
+        newListAct.triggered.connect(self.newList)
+        self.__actions['new'] = newListAct
+        
+        openPageMenu = QtGui.QMenu(self.tr("Open"), self)
+        self.setOpenPageMenu(openPageMenu)
+        self.__actions['open'] = openPageMenu
+        
+        renameListAct = QtGui.QAction(self.tr("Rename..."), self)
+        renameListAct.triggered.connect(self.renamePage)
+        self.__actions['rename'] = renameListAct
+        
+        closeListAct = QtGui.QAction(self.tr("Close"), self)
+        closeListAct.triggered.connect(self.closePage)
+        self.__actions['close'] = closeListAct
+        
+        removeListAct = QtGui.QAction(self.tr("Remove"), self)
+        removeListAct.triggered.connect(self.removePage)
+        self.__actions['remove'] = removeListAct
 
     def tabBarContextMenuEvent(self, pos):
-        self.pos = pos  # store pos for action
+        self._pos = pos  # store pos for action
         menu = QtGui.QMenu(self)
         menu.addAction(self.tr("Clone"), self._clone)
-        menu.addAction(self.tr("Rename..."), self.renamePage)
+        menu.addAction(self.__actions['rename'])
         menu.addSeparator()
-        menu.addAction(self.tr("Remove"), self.removePage)
+        menu.addAction(self.__actions['remove'])
         menu.exec_(self.mapToGlobal(pos))
-        self.pos = None
+        self._pos = None
     
     def _clone(self):
-        index = self.tabBar().tabAt(self.pos)
+        index = self.tabBar().tabAt(self._pos)
         oldLabel = self.tabText(index)
         oldWidget = self.widget(index)
 
@@ -89,8 +118,8 @@ class TabView(QtGui.QTabWidget):
             self.__createListPage(label)
     
     def renamePage(self):
-        if self.pos:
-            index = self.tabBar().tabAt(self.pos)
+        if self._pos:
+            index = self.tabBar().tabAt(self._pos)
         else:
             index = self.currentIndex()
         oldLabel = self.tabText(index)
@@ -111,8 +140,8 @@ class TabView(QtGui.QTabWidget):
         self.__updateOpenPageMenu()
     
     def removePage(self):
-        if self.pos:
-            index = self.tabBar().tabAt(self.pos)
+        if self._pos:
+            index = self.tabBar().tabAt(self._pos)
         else:
             index = self.currentIndex()
         result = QtGui.QMessageBox.question(self, self.tr("Remove page"),
