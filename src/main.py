@@ -7,6 +7,7 @@ from Reference.Reference import Reference
 from TabView import TabView
 from Settings import Settings, SettingsDialog
 from LatestCollections import LatestCollections
+import version
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -161,7 +162,7 @@ class MainWindow(QtGui.QMainWindow):
     
     def setCollection(self, collection):
         self.collectionFileLabel.setText(collection.getFileName())
-        self.setWindowTitle(collection.getCollectionName() + ' - ' + self.tr("Num"))
+        self.setWindowTitle(collection.getCollectionName() + ' - ' + version.AppName)
 
         latest = LatestCollections(self)
         latest.add(collection.getFileName())
@@ -188,10 +189,12 @@ def run():
     
     app = QtGui.QApplication(sys.argv)
 
+    sys.excepthook = exceptHook
+    
     # TODO: Fill application fields
-    QtCore.QCoreApplication.setOrganizationName("MySoft");
-    QtCore.QCoreApplication.setOrganizationDomain("mysoft.com");
-    QtCore.QCoreApplication.setApplicationName("Star Runner");
+    QtCore.QCoreApplication.setOrganizationName("MySoft")
+    QtCore.QCoreApplication.setOrganizationDomain("mysoft.com")
+    QtCore.QCoreApplication.setApplicationName(version.AppName)
 
     locale = Settings().language
     translator = QtCore.QTranslator()
@@ -201,6 +204,35 @@ def run():
     main = MainWindow()
     main.show()
     sys.exit(app.exec_())
+
+def exceptHook(type_, value, tback):
+    import platform, sys, traceback
+    
+    stack = ''.join(traceback.format_exception(type_, value, tback))
+
+    msgBox = QtGui.QMessageBox(QtGui.QMessageBox.Information, "System error", "A system error occurred.\nDo you want to send an error message to the author?")
+    msgBox.setDetailedText(stack)
+    msgBox.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+    if msgBox.exec_() == QtGui.QMessageBox.Yes:
+        line = traceback.extract_tb(tback, 1)[0]
+        subject = "[%s] %s - %s:%d" % (version.Version, type_.__name__, line[0], line[1])
+        
+        errorMessage = []
+        errorMessage.append("App: %s" % version.Version)
+        errorMessage.append("OS: %s %s %s (%s)" % (platform.system(), platform.release(), platform.architecture()[0], platform.version()))
+        errorMessage.append("Python: %s" % platform.python_version())
+        errorMessage.append("Qt: %s" % QtCore.PYQT_VERSION_STR)
+        errorMessage.append('')
+        errorMessage.append(stack)
+
+        url = QtCore.QUrl(version.Web + '/issues/entry')
+        url.setQueryItems([('summary', subject), ('comment', '\n'.join(errorMessage))])
+
+        executor = QtGui.QDesktopServices()
+        executor.openUrl(url)
+    
+    # Call the default handler
+    sys.__excepthook__(type, value, tback) 
 
 if __name__ == '__main__':
     run()
