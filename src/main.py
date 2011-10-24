@@ -44,7 +44,7 @@ class MainWindow(QtGui.QMainWindow):
         openCollectionAct.setShortcut('Ctrl+O')
         openCollectionAct.triggered.connect(self.openCollectionEvent)
 
-        backupCollectionAct = QtGui.QAction(self.tr("Backup"), self)
+        backupCollectionAct = QtGui.QAction(QtGui.QIcon('icons/database_backup.png'), self.tr("Backup"), self)
         backupCollectionAct.triggered.connect(self.backupCollectionEvent)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
