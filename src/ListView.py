@@ -267,15 +267,15 @@ class ListView(QtGui.QTableView):
 
         menu = QtGui.QMenu(self)
         act = menu.addAction(self.tr("Clone"), self._clone)
-        # Disable Clone when more then one record selected
+        # Disable Clone when more than one record selected
         act.setEnabled(len(self.selectedRows()) == 1)
-        menu.addAction(QtGui.QIcon('icons/page_copy.png'), self.tr("Copy"), self._copy)
-        menu.addAction(QtGui.QIcon('icons/page_paste.png'), self.tr("Paste"), self._paste)
+        menu.addAction(QtGui.QIcon('icons/page_copy.png'), self.tr("Copy"), self._copy, QtGui.QKeySequence.Copy)
+        menu.addAction(QtGui.QIcon('icons/page_paste.png'), self.tr("Paste"), self._paste, QtGui.QKeySequence.Paste)
         menu.addSeparator()
         act = menu.addAction(self.tr("Multi edit..."), self._multiEdit)
         # Disable Multi edit when only one record selected
         act.setEnabled(len(self.selectedRows()) > 1)
-        menu.addAction(icon, self.tr("Delete"), self._delete)
+        menu.addAction(icon, self.tr("Delete"), self._delete, QtGui.QKeySequence.Delete)
         menu.exec_(self.mapToGlobal(pos))
     
     def currentChanged(self, current, previous):
