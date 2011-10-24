@@ -16,7 +16,7 @@ class MainWindow(QtGui.QMainWindow):
         self.collectionFileLabel = QtGui.QLabel()
         self.statusBar().addWidget(self.collectionFileLabel)
         
-        settingsAct = QtGui.QAction(self.tr("Settings..."), self)
+        settingsAct = QtGui.QAction(QtGui.QIcon('icons/cog.png'), self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
         
         toolBar = QtGui.QToolBar(self)
@@ -24,7 +24,7 @@ class MainWindow(QtGui.QMainWindow):
         toolBar.addAction(settingsAct)
         self.addToolBar(toolBar)
 
-        exitAct = QtGui.QAction(QtGui.QIcon('icons/exit.png'), self.tr("Exit"), self)
+        exitAct = QtGui.QAction(QtGui.QIcon('icons/door_in.png'), self.tr("Exit"), self)
         exitAct.setShortcut('Ctrl+Q')
         exitAct.triggered.connect(self.close)
 
@@ -34,7 +34,7 @@ class MainWindow(QtGui.QMainWindow):
         file.addSeparator()
         file.addAction(exitAct)
 
-        add_coin = QtGui.QAction(QtGui.QIcon('icons/add_coin.png'), self.tr("Add"), self)
+        add_coin = QtGui.QAction(QtGui.QIcon('icons/add.png'), self.tr("Add"), self)
         add_coin.triggered.connect(self.addCoin)
 
         coin = menubar.addMenu(self.tr("Coin"))

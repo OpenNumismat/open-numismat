@@ -29,7 +29,6 @@ class TabView(QtGui.QTabWidget):
         self.__actions['new'] = newListAct
         
         openPageMenu = QtGui.QMenu(self.tr("Open"), self)
-        self.setOpenPageMenu(openPageMenu)
         self.__actions['open'] = openPageMenu
         
         renameListAct = QtGui.QAction(self.tr("Rename..."), self)
@@ -40,7 +39,7 @@ class TabView(QtGui.QTabWidget):
         closeListAct.triggered.connect(self.closePage)
         self.__actions['close'] = closeListAct
         
-        removeListAct = QtGui.QAction(self.tr("Remove"), self)
+        removeListAct = QtGui.QAction(QtGui.QIcon('icons/cross.png'), self.tr("Remove"), self)
         removeListAct.triggered.connect(self.removePage)
         self.__actions['remove'] = removeListAct
 
@@ -185,22 +184,19 @@ class TabView(QtGui.QTabWidget):
         
         self.__updateOpenPageMenu()
 
-    def setOpenPageMenu(self, menu):
-        self.openPageMenu = menu
-    
     def __updateOpenPageMenu(self):
-        if hasattr(self, 'openPageMenu'):
-            closedPages = self.collection.pages().closedPages()
-            self.openPageMenu.clear()
-            self.openPageMenu.setEnabled(len(closedPages) > 0)
-            for param in closedPages:
-                act = OpenPageAction(param, self)
-                act.openPageTriggered.connect(self.openPage)
-                self.openPageMenu.addAction(act)
-            self.openPageMenu.addSeparator()
-            act = QtGui.QAction(self.tr("Remove all"), self)
-            act.triggered.connect(self.removeClosedPages)
-            self.openPageMenu.addAction(act)
+        menu = self.__actions['open']
+        closedPages = self.collection.pages().closedPages()
+        menu.clear()
+        menu.setEnabled(len(closedPages) > 0)
+        for param in closedPages:
+            act = OpenPageAction(param, self)
+            act.openPageTriggered.connect(self.openPage)
+            menu.addAction(act)
+        menu.addSeparator()
+        act = QtGui.QAction(QtGui.QIcon('icons/cross.png'), self.tr("Remove all"), self)
+        act.triggered.connect(self.removeClosedPages)
+        menu.addAction(act)
 
     def __createListPage(self, title):
         pageParam = self.collection.pages().addPage(title)
