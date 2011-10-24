@@ -19,11 +19,6 @@ class MainWindow(QtGui.QMainWindow):
         settingsAct = QtGui.QAction(QtGui.QIcon('icons/cog.png'), self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
         
-        toolBar = QtGui.QToolBar(self)
-        toolBar.setMovable(False)
-        toolBar.addAction(settingsAct)
-        self.addToolBar(toolBar)
-
         exitAct = QtGui.QAction(QtGui.QIcon('icons/door_in.png'), self.tr("Exit"), self)
         exitAct.setShortcut('Ctrl+Q')
         exitAct.triggered.connect(self.close)
@@ -34,11 +29,11 @@ class MainWindow(QtGui.QMainWindow):
         file.addSeparator()
         file.addAction(exitAct)
 
-        add_coin = QtGui.QAction(QtGui.QIcon('icons/add.png'), self.tr("Add"), self)
-        add_coin.triggered.connect(self.addCoin)
+        addCoinAct = QtGui.QAction(QtGui.QIcon('icons/add.png'), self.tr("Add"), self)
+        addCoinAct.triggered.connect(self.addCoin)
 
         coin = menubar.addMenu(self.tr("Coin"))
-        coin.addAction(add_coin)
+        coin.addAction(addCoinAct)
 
         newCollectionAct = QtGui.QAction(self.tr("&New..."), self)
         newCollectionAct.triggered.connect(self.newCollectionEvent)
@@ -73,6 +68,13 @@ class MainWindow(QtGui.QMainWindow):
         listMenu.addAction(actions['remove'])
 
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
+
+        toolBar = QtGui.QToolBar(self)
+        toolBar.setMovable(False)
+        toolBar.addAction(addCoinAct)
+        toolBar.addSeparator()
+        toolBar.addAction(settingsAct)
+        self.addToolBar(toolBar)
 
         self.setWindowTitle(version.AppName)
         
