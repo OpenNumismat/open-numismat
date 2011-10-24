@@ -73,12 +73,17 @@ class TabView(QtGui.QTabWidget):
         self.collection.pages().openPage(pageView)
     
     def activatedPage(self, index):
+        enabled = (index >= 0)
+        self.__actions['rename'].setEnabled(enabled)
+        self.__actions['close'].setEnabled(enabled)
+        self.__actions['remove'].setEnabled(enabled)
+
         if self.oldPage:
             self.parent().statusBar().removeWidget(self.oldPage.listView.listCountLabel)
             self.parent().statusBar().removeWidget(self.oldPage.listView.listSelectedLabel)
 
-        page = self.widget(index)
-        if page:
+        if index >= 0:
+            page = self.widget(index)
             page.model().select()
 
             self.parent().statusBar().addPermanentWidget(page.listView.listCountLabel)
