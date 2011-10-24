@@ -30,6 +30,7 @@ class MainWindow(QtGui.QMainWindow):
         file.addAction(exitAct)
 
         addCoinAct = QtGui.QAction(QtGui.QIcon('icons/add.png'), self.tr("Add"), self)
+        addCoinAct.setShortcut('Insert')
         addCoinAct.triggered.connect(self.addCoin)
 
         coin = menubar.addMenu(self.tr("Coin"))
