@@ -182,7 +182,7 @@ class Collection(QtCore.QObject):
         return field.name + ' ' + type_
 
     def getFileName(self):
-        return self.fileName
+        return QtCore.QDir(self.fileName).absolutePath()
     
     def getCollectionName(self):
         return Collection.fileNameToCollectionName(self.fileName)
