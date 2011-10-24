@@ -100,8 +100,6 @@ class MainWindow(QtGui.QMainWindow):
             size = settings.value('mainwindow/size')
             if size:
                 self.resize(size)
-            else:
-                self.resize(350, 250)
     
     def __updateLatest(self, menu=None):
         if menu:
