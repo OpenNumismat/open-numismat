@@ -70,6 +70,12 @@ class MainWindow(QtGui.QMainWindow):
 
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
 
+        aboutAct = QtGui.QAction(self.tr("About"), self)
+        aboutAct.triggered.connect(self.about)
+
+        file = menubar.addMenu(self.tr("&Help"))
+        file.addAction(aboutAct)
+
         toolBar = QtGui.QToolBar(self)
         toolBar.setMovable(False)
         toolBar.addAction(addCoinAct)
@@ -181,6 +187,9 @@ class MainWindow(QtGui.QMainWindow):
         settings.setValue('mainwindow/size', self.size());
         settings.setValue('mainwindow/maximized', self.isMaximized());
     
+    def about(self):
+        QtGui.QMessageBox.about(self, self.tr("About"), self.tr("%s %s\n\nCopyright 2011 by Ignatov Vitaly\n\n%s is freeware licensened under an LGPL.") % (version.AppName, version.Version, version.AppName))
+
 def run():
     import sys
     
