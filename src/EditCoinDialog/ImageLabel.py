@@ -165,7 +165,9 @@ class ImageEdit(ImageLabel):
     def loadFromUrl(self, url):
         import urllib.request
         try:
-            data = urllib.request.urlopen(url).read()
+            # Wikipedia require any header 
+            req = urllib.request.Request(url, headers={'User-Agent' : "OpenNumismat"})
+            data = urllib.request.urlopen(req).read()
             self.loadFromData(data)
         except:
             return
