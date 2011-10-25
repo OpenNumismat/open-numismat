@@ -67,7 +67,7 @@ class MolotokParser(AuctionParser):
         content = self.html.get_element_by_id('itemBidInfo').find_class('sellerItemPadding')[0].text_content()
         parts = content.split()
         date = ' '.join(parts[1:4]) # convert '(Чтв 15 Сен 2011 22:33:47)' to '15 Сен 2011'
-        auctionItem.date = QtCore.QDate.fromString(date, 'dd MMM yyyy').toString()
+        auctionItem.date = QtCore.QDate.fromString(date, 'dd MMM yyyy').toString(QtCore.Qt.ISODate)
         
         saller = self.html.get_element_by_id('itemBidInfo').find_class('sellerInfo')[0].text_content()
         auctionItem.saller = saller.strip()
@@ -162,7 +162,7 @@ class AuctionSpbParser(AuctionParser):
         date = QtCore.QDate.fromString(date, 'dd-MM-yy')
         if date.year() < 1960:
             date = date.addYears(100)
-        auctionItem.date = date.toString()
+        auctionItem.date = date.toString(QtCore.Qt.ISODate)
         
         content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('strong')[2].text_content()
         auctionItem.buyer = content.split()[-1]
@@ -266,7 +266,7 @@ class ConrosParser(AuctionParser):
         
         content = self.html.cssselect('form center')[1].text_content()
         date = content.split()[5] # extract date
-        auctionItem.date = QtCore.QDate.fromString(date, 'dd.MM.yyyy').toString()
+        auctionItem.date = QtCore.QDate.fromString(date, 'dd.MM.yyyy').toString(QtCore.Qt.ISODate)
         
         content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
         content = content.split('\n')[1]
@@ -354,7 +354,7 @@ class WolmarParser(AuctionParser):
                         QtGui.QMessageBox.Ok)
             return
         
-        auctionItem = AuctionItem('Волмар')
+        auctionItem = AuctionItem('Wolmar')
         
         content = self.html.find_class('item')[0].find_class('values')[1].text_content()
         bIndex = content.find("Лидер")
@@ -411,10 +411,9 @@ class WolmarParser(AuctionParser):
         # Extract date from parent page
         url = urllib.parse.urljoin(storedUrl, '.')[:-1]
         self.readHtmlPage(url, 'windows-1251')
-        content = self.html.find_class('content')[0]
         content = self.html.find_class('content')[0].cssselect('h1 span')[0].text_content()
         date = content.split()[1] # convert '(Закрыт 29.09.2011 12:30)' to '29.09.2011'
-        auctionItem.date = QtCore.QDate.fromString(date, 'dd.MM.yyyy').toString()
+        auctionItem.date = QtCore.QDate.fromString(date, 'dd.MM.yyyy').toString(QtCore.Qt.ISODate)
         
         return auctionItem
     
