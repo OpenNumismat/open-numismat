@@ -2,13 +2,28 @@ from PyQt4 import QtGui, QtCore, QtSql
 from PyQt4.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord
 from PyQt4.QtCore import Qt, pyqtSignal
 
+class ListView(QtGui.QListView):
+    def __init__(self, parent=None):
+        super(ListView, self).__init__(parent)
+    
+    def closeEditor(self, editor, hint):
+        super(ListView, self).closeEditor(editor, hint)
+
+        if len(editor.text()) == 0:
+            self.setRowHidden(self.currentIndex().row(), True)
+            self.model().removeRow(self.currentIndex().row())
+        elif editor.text() == self.tr("Enter value"):
+            if hint == QtGui.QAbstractItemDelegate.RevertModelCache:
+                self.setRowHidden(self.currentIndex().row(), True)
+                self.model().removeRow(self.currentIndex().row())
+
 class ReferenceDialog(QtGui.QDialog):
     def __init__(self, model, text='', parent=None):
         super(ReferenceDialog, self).__init__(parent)
         
         self.model = model
 
-        self.listWidget = QtGui.QListView(self)
+        self.listWidget = ListView(self)
         self.listWidget.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.listWidget.setModel(self.model)
         self.listWidget.setModelColumn(self.model.fieldIndex('value'))
@@ -16,7 +31,7 @@ class ReferenceDialog(QtGui.QDialog):
         startIndex = self.model.index(0, self.model.fieldIndex('value'))
         indexes = self.model.match(startIndex, 0, text, flags=Qt.MatchFixedString)
         if indexes:
-            self.listWidget.selectionModel().setCurrentIndex(indexes[0], QtGui.QItemSelectionModel.ClearAndSelect)
+            self.listWidget.setCurrentIndex(indexes[0])
 
         # TODO: Customize edit buttons
         editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
@@ -45,8 +60,8 @@ class ReferenceDialog(QtGui.QDialog):
             self.model.insertRow(row)
             index = self.model.index(row, self.model.fieldIndex('value'))
             self.model.setData(index, self.tr("Enter value"))
+            self.listWidget.setCurrentIndex(index)
             self.listWidget.edit(index)
-            self.listWidget.selectionModel().setCurrentIndex(index, QtGui.QItemSelectionModel.ClearAndSelect)
         elif button == self.delButton:
             index = self.listWidget.currentIndex()
             if index.isValid() and index in self.listWidget.selectedIndexes():
@@ -88,8 +103,8 @@ class CrossReferenceDialog(ReferenceDialog):
             self.model.setData(index, parentId)
             index = self.model.index(row, self.model.fieldIndex('value'))
             self.model.setData(index, self.tr("Enter value"))
+            self.listWidget.setCurrentIndex(index)
             self.listWidget.edit(index)
-            self.listWidget.selectionModel().setCurrentIndex(index, QtGui.QItemSelectionModel.ClearAndSelect)
         elif button == self.delButton:
             super(CrossReferenceDialog, self).clicked(button)
 
