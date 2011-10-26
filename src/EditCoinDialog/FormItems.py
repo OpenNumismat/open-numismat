@@ -32,7 +32,7 @@ class LineEditRef(QtGui.QWidget):
         self.comboBox.setModel(reference.model)
         self.comboBox.setModelColumn(reference.model.fieldIndex('value'))
         
-        self.comboBox.lineEdit().setText('')
+        self.comboBox.setCurrentIndex(-1)
 
         layout = QtGui.QHBoxLayout()
         layout.addWidget(self.comboBox)
