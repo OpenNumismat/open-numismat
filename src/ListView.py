@@ -260,7 +260,9 @@ class ListView(QtGui.QTableView):
             self._paste()
         elif event.matches(QtGui.QKeySequence.Delete):
             self._delete(self.selectedRows())
-
+        else:
+            return super(ListView, self).keyPressEvent(event)
+    
     def contextMenuEvent(self, pos):
         style = QtGui.QApplication.style()
         icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
