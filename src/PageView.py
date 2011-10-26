@@ -10,7 +10,6 @@ class ImageView(QtGui.QWidget):
     def __init__(self, parent=None):
         super(ImageView, self).__init__(parent)
 
-        self.resize(120, 0)
         self.currentIndex = None
 
         layout = QtGui.QVBoxLayout(self)
