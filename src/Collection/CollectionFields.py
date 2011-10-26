@@ -12,6 +12,7 @@ class FieldTypes():
     Value = 9
     Status = 10
     DateTime = 11
+    EdgeImage = 12
     
     Mask = int('FF', 16)  # 0xFF
     Checkable = int('100', 16)  # 0x100
@@ -88,7 +89,7 @@ class CollectionFields(QObject):
                 ('reverseimg', self.tr("Reverse"), Type.Image),
                 ('reversedesign', self.tr("Design"), Type.Text),
                 ('reversedesigner', self.tr("Designer"), Type.String),
-                ('edgeimg', self.tr("Edge"), Type.Image),
+                ('edgeimg', self.tr("Edge"), Type.EdgeImage),
                 ('subject', self.tr("Subject"), Type.Text),
                 ('photo1', self.tr("Photo 1"), Type.Image),
                 ('photo2', self.tr("Photo 2"), Type.Image),

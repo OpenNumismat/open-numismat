@@ -177,6 +177,8 @@ class Collection(QtCore.QObject):
             type_ = 'CHAR'
         elif field.type == Type.DateTime:
             type_ = 'CHAR'
+        elif field.type == Type.EdgeImage:
+            type_ = 'BLOB'
         else:
             raise
         

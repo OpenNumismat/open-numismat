@@ -184,3 +184,18 @@ class ImageEdit(ImageLabel):
             scaledImage = self.image
         scaledImage.save(buffer, IMAGE_FORMAT)
         return ba
+
+class EdgeImageEdit(ImageEdit):
+    def __init__(self, parent=None):
+        super(EdgeImageEdit, self).__init__(parent)
+
+    def _setImage(self):
+        if self.image.isNull():
+            return
+        
+        if self.image.width() < self.image.height():
+            matrix = QtGui.QMatrix()
+            matrix.rotate(90)
+            self.image = self.image.transformed(matrix, Qt.SmoothTransformation)
+
+        super(EdgeImageEdit, self)._setImage()

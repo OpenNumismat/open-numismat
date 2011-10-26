@@ -105,7 +105,7 @@ class ListView(QtGui.QTableView):
         
         # Show image data as images
         for field in CollectionFields():
-            if field.type == Type.Image:
+            if field.type == Type.Image or field.type == Type.EdgeImage:
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
     
     def rowCountChanged(self, oldCount, newCount):
@@ -240,7 +240,7 @@ class ListView(QtGui.QTableView):
             col.insert(pos, param.fieldid)
             self.horizontalHeader().moveSection(index, pos)
             
-            if self.model().fields.field(param.fieldid).type == Type.Image:
+            if self.model().fields.field(param.fieldid).type in [Type.Image, Type.EdgeImage]:
                 self.verticalHeader().setDefaultSectionSize(self.defaultHeight*1.5)
 
         self.horizontalHeader().sectionMoved.connect(self.columnMoved)

@@ -1,7 +1,7 @@
 from PyQt4.QtCore import Qt, QDate
 
 from .FormItems import *
-from .ImageLabel import ImageEdit
+from .ImageLabel import ImageEdit, EdgeImageEdit
 from Collection.CollectionFields import FieldTypes as Type
 
 class FormItem(object):
@@ -37,17 +37,21 @@ class FormItem(object):
             self._widget = TextEdit(parent)
         elif type_ == Type.Image:
             self._widget = ImageEdit(parent)
+        elif type_ == Type.EdgeImage:
+            self._widget = EdgeImageEdit(parent)
         elif type_ == Type.Date:
             self._widget = DateEdit(parent)
         elif type_ == Type.Status:
             self._widget = StatusEdit(parent)
         elif type_ == Type.DateTime:
             self._widget = DateEdit(parent)
+        elif type_ == Type.EdgeImage:
+            self._widget = EdgeImageEdit(parent)
         else:
             raise
         
         if itemType & Type.Disabled:
-            if type_ == Type.Status or type_ == Type.Image:
+            if type_ == Type.Status or type_ == Type.Image or type_ == Type.EdgeImage:
                 self._widget.setDisabled(True)
             else:
                 self._widget.setReadOnly(True)

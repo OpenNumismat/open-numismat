@@ -31,7 +31,7 @@ class ImageView(QtGui.QWidget):
         self.imageButtons = []
         self.imageFields = []
         for field in model.fields:
-            if field.type == Type.Image:
+            if field.type in [Type.Image, Type.EdgeImage]:
                 self.imageFields.append(field.name)
                 button = QtGui.QCheckBox(self)
                 button.setToolTip(field.title)
