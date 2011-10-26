@@ -3,11 +3,11 @@
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 
+import version
+
 class Settings(QtCore.QObject):
-    # TODO: Change backup location
-    BackupFolder = "../db/backup/"
-    # TODO: Fix default reference name
-    Reference = "../db/reference.db"
+    BackupFolder = version.AppDir + "/backup/"
+    Reference = version.AppDir + "/reference.db"
     
     def __init__(self, parent=None):
         super(Settings, self).__init__(parent)

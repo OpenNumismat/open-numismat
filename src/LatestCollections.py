@@ -2,6 +2,7 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import pyqtSignal
 
 from Collection.Collection import Collection
+import version
 
 class LatestCollectionAction(QtGui.QAction):
     latestTriggered = pyqtSignal(str)
@@ -18,7 +19,7 @@ class LatestCollectionAction(QtGui.QAction):
         self.latestTriggered.emit(self.fileName)
 
 class LatestCollections(QtCore.QObject):
-    DefaultCollectionName = "../db/demo.db"
+    DefaultCollectionName = version.AppDir + "/demo.db"
     SettingsKey = 'collection/latest'
     LatestCount = 5
 

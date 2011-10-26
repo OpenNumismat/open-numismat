@@ -196,7 +196,10 @@ class MainWindow(QtGui.QMainWindow):
         QtGui.QMessageBox.about(self, self.tr("About"), self.tr("%s %s\n\nCopyright 2011 by Ignatov Vitaly\n\n%s is freeware licensened under an LGPL.") % (version.AppName, version.Version, version.AppName))
 
 def run():
-    import sys
+    import os, sys
+    
+    if not os.path.exists(version.AppDir):
+        os.mkdir(version.AppDir)
     
     app = QtGui.QApplication(sys.argv)
 
