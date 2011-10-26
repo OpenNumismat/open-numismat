@@ -22,6 +22,8 @@ class FilterMenuButton(QtGui.QPushButton):
         
         menu = QtGui.QMenu()
 
+        self.setToolTip(self.tr("Filter items"))
+
         self.setFixedHeight(self.parent().height()-2)
         self.setFixedWidth(self.height())
         self.setMenu(menu)
