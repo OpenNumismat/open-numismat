@@ -111,6 +111,7 @@ class TreeView(QtGui.QTreeWidget):
         item = QtGui.QTreeWidgetItem(self, [model.title,])
         item.setData(0, self.DataRole, '')
         self.addTopLevelItem(item)
+        self.expandItem(item)
         
         for item in self.processChilds(item, 'type'):
             for item in self.processChilds(item, 'country'):
