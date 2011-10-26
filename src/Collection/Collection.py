@@ -106,6 +106,7 @@ class Collection(QtCore.QObject):
         self.reference = reference
         self.db = QSqlDatabase.addDatabase('QSQLITE')
         self._pages = None
+        self.fileName = None
         
         self.fields = CollectionFields()
     

@@ -91,8 +91,7 @@ class MainWindow(QtGui.QMainWindow):
         
         latest = LatestCollections(self)
         self.collection = Collection(self.reference, self)
-        if self.collection.open(latest.latest()):
-            self.setCollection(self.collection)
+        self.openCollection(latest.latest())
         
         self.setCentralWidget(self.viewTab)
         
@@ -129,19 +128,23 @@ class MainWindow(QtGui.QMainWindow):
     def addCoin(self):
         model = self.viewTab.currentModel()
         model.addCoin(model.record(), self)
+    
+    def __workingDir(self):
+        fileName = self.collection.fileName
+        if not fileName:
+            fileName = LatestCollections.DefaultCollectionName
+        return QtCore.QFileInfo(fileName).absolutePath()
 
     def openCollectionEvent(self):
-        dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
         fileName = QtGui.QFileDialog.getOpenFileName(self,
-                self.tr("Open collection"), dir_,
+                self.tr("Open collection"), self.__workingDir(),
                 self.tr("Collections (*.db)"))
         if fileName:
             self.openCollection(fileName)
 
     def newCollectionEvent(self):
-        dir_ = QtCore.QFileInfo(self.collection.fileName).absolutePath()
         fileName = QtGui.QFileDialog.getSaveFileName(self,
-                self.tr("New collection"), dir_,
+                self.tr("New collection"), self.__workingDir(),
                 self.tr("Collections (*.db)"), QtGui.QFileDialog.DontConfirmOverwrite)
         if fileName:
             if self.collection.create(fileName):
@@ -180,9 +183,10 @@ class MainWindow(QtGui.QMainWindow):
     def closeEvent(self, e):
         settings = QtCore.QSettings()
 
-        self.viewTab.savePagePositions()
-        # Save latest opened page
-        settings.setValue('tabwindow/page', self.viewTab.currentIndex());
+        if self.collection.fileName:
+            self.viewTab.savePagePositions()
+            # Save latest opened page
+            settings.setValue('tabwindow/page', self.viewTab.currentIndex());
         
         # Save main window size
         settings.setValue('mainwindow/size', self.size());
