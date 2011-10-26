@@ -27,6 +27,7 @@ class LineEditRef(QtGui.QWidget):
         self.comboBox.setEditable(True)
         self.comboBox.lineEdit().setMaxLength(1024)
         self.comboBox.setMinimumWidth(120)
+        self.comboBox.setInsertPolicy(QtGui.QComboBox.NoInsert)
         
         self.comboBox.setModel(reference.model)
         self.comboBox.setModelColumn(reference.model.fieldIndex('value'))
