@@ -30,5 +30,14 @@ Source: "../db/demo.db"; DestDir: "{userdocs}/OpenNumismat"; Flags: confirmoverw
 [Dirs]
 Name: "{userdocs}/OpenNumismat/backup"
 
+[Registry]
+Root: HKCU; Subkey: "Software\Janis"; Flags: uninsdeletekeyifempty
+Root: HKCU; Subkey: "Software\Janis\OpenNumismat"; Flags: uninsdeletekey
+
+[Icons]
+Name: "{commondesktop}\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"; WorkingDir: "{app}"
+Name: "{group}\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"; WorkingDir: "{app}"
+Name: "{group}\Uninstall OpenNumismat"; Filename: "{uninstallexe}"
+
 [Run]
-Filename: "{app}/OpenNumismat.exe"; Flags: postinstall nowait skipifsilent
+Filename: "{app}\OpenNumismat.exe"; Flags: postinstall nowait skipifsilent
