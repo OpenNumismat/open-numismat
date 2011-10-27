@@ -37,9 +37,18 @@ Root: HKCU; Subkey: "Software\Janis"; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: "Software\Janis\OpenNumismat"; Flags: uninsdeletekey
 
 [Icons]
-Name: "{commondesktop}\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"; WorkingDir: "{app}"
-Name: "{group}\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"; WorkingDir: "{app}"
+Name: "{group}\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"
 Name: "{group}\Uninstall OpenNumismat"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"; Tasks: desktopicon
+Name: "{commondesktop}\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"; Tasks: desktopicon
+Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"; Tasks: quicklaunchicon
 
 [Run]
 Filename: "{app}\OpenNumismat.exe"; Flags: postinstall nowait skipifsilent
+
+[Tasks]
+Name: desktopicon; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"
+Name: desktopicon\common; Description: "For all users"; GroupDescription: "Additional icons:"; Flags: exclusive
+Name: desktopicon\user; Description: "For the current user only"; GroupDescription: "Additional icons:"; Flags: exclusive
+Name: quicklaunchicon; Description: "Create a &Quick Launch icon"; GroupDescription: "Additional icons:"; Flags: unchecked
+
