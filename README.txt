@@ -7,8 +7,3 @@ Requirement:
 
 Deploying:
 Run `python setup.py`
-Copy:
- * <project>/src/icons to build/<platform>/icons
- * <project>/src/lang_ru.qm to build/<platform>/lang_ru.qm
- * <>/Python32/Lib/site-packages/PyQt4/plugins/imageformats to build/<platform>/imageformats
- * <>/Python32/Lib/site-packages/PyQt4/plugins/sqldrivers/qsqlite4.dll to build/<platform>/sqldrivers/qsqlite4.dll
