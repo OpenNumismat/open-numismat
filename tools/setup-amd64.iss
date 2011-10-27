@@ -19,16 +19,18 @@ en.BeveledLabel=English
 ru.BeveledLabel=Russian
 
 [Files]
-Source: "dist/*"; DestDir: "{app}"
-Source: "dist/icons/*"; DestDir: "{app}/icons"
-Source: "dist/imageformats/*"; DestDir: "{app}/imageformats"
-Source: "dist/sqldrivers/*"; DestDir: "{app}/sqldrivers"
-Source: "../db/reference_en.db"; DestDir: "{app}"
-Source: "../db/reference_ru.db"; DestDir: "{app}"
-Source: "../db/demo.db"; DestDir: "{userdocs}/OpenNumismat"; Flags: confirmoverwrite
+Source: "dist\*"; DestDir: "{app}"
+Source: "dist\icons\*"; DestDir: "{app}\icons"
+Source: "dist\imageformats\*"; DestDir: "{app}\imageformats"
+Source: "dist\sqldrivers/*"; DestDir: "{app}/sqldrivers"
+Source: "..\db\demo.db"; DestDir: "{userdocs}\OpenNumismat"; Flags: confirmoverwrite
+Source: "..\db\reference_en.db"; DestDir: "{app}"
+Source: "..\db\reference_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.db"; Languages: en
+Source: "..\db\reference_ru.db"; DestDir: "{app}"
+Source: "..\db\reference_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.db"; Languages: ru
 
 [Dirs]
-Name: "{userdocs}/OpenNumismat/backup"
+Name: "{userdocs}\OpenNumismat\backup"
 
 [Registry]
 Root: HKCU; Subkey: "Software\Janis"; Flags: uninsdeletekeyifempty
