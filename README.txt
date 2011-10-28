@@ -7,5 +7,6 @@ Requirement:
  * Inno Setup 5.4.2 (for deploy)
 
 Deploying:
+Run `python i18n.py` and fill translations
 Run `python setup.py`
 Compile setup*.iss with Inno Setup

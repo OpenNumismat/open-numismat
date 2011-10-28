@@ -22,8 +22,8 @@ freezer = Freezer(executables,
 freezer.Freeze()
 
 shutil.copytree("../src/icons", "dist/icons")
-shutil.copy("../src/lang_ru.qm", "dist")
 shutil.copy("../COPYING", "dist")
+shutil.copy("lang_ru.qm", "dist")
 import PyQt4
 shutil.copytree(PyQt4.__path__[0]+"/plugins/imageformats", "dist/imageformats")
 os.mkdir("dist/sqldrivers")
