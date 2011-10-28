@@ -26,11 +26,12 @@ ru.sendReport=Посылать отчет разработчику при возникновении ошибки
 
 [Files]
 Source: "dist\*"; DestDir: "{app}"; Flags: recursesubdirs
-Source: "..\db\demo.db"; DestDir: "{userdocs}\OpenNumismat"; Flags: confirmoverwrite
-Source: "..\db\reference_en.db"; DestDir: "{app}"
-Source: "..\db\reference_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.db"; Languages: en
-Source: "..\db\reference_ru.db"; DestDir: "{app}"
-Source: "..\db\reference_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.db"; Languages: ru
+Source: "..\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: en; Flags: confirmoverwrite
+Source: "..\db\demo_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: ru; Flags: confirmoverwrite
+Source: "reference_en.db"; DestDir: "{app}"
+Source: "reference_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.db"; Languages: en
+Source: "reference_ru.db"; DestDir: "{app}"
+Source: "reference_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.db"; Languages: ru
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat\backup"
