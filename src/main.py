@@ -14,6 +14,8 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         
+        self.setWindowIcon(QtGui.QIcon('icons/main.ico'))
+        
         self.collectionFileLabel = QtGui.QLabel()
         self.statusBar().addWidget(self.collectionFileLabel)
         
@@ -193,7 +195,7 @@ class MainWindow(QtGui.QMainWindow):
         settings.setValue('mainwindow/maximized', self.isMaximized());
     
     def about(self):
-        QtGui.QMessageBox.about(self, self.tr("About %s") % version.AppName, self.tr("%s %s\n\nCopyright 2011 by Ignatov Vitaly\n\n%s is freeware licensened under an LGPL.") % (version.AppName, version.Version, version.AppName))
+        QtGui.QMessageBox.about(self, self.tr("About %s") % version.AppName, self.tr("%s %s\n\nCopyright 2011 by Vitaly Ignatov\n\n%s is freeware licensened under an LGPL.") % (version.AppName, version.Version, version.AppName))
 
 def run():
     import os, sys

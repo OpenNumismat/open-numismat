@@ -17,6 +17,7 @@ freezer = Freezer(executables,
     excludes = ["win32api", "win32pipe", "win32con"],
     compress = True,
     replacePaths = [('..\\src\\', '')],
+    icon = '../src/icons/main.ico',
     base = base)
 freezer.Freeze()
 
