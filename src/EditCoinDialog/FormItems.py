@@ -1,5 +1,5 @@
 from PyQt4 import QtGui
-from PyQt4.QtCore import QT_TR_NOOP, QMargins
+from PyQt4.QtCore import QT_TRANSLATE_NOOP, QMargins
 
 # Reimplementing QDoubleValidator for replace comma with dot
 class DoubleValidator(QtGui.QDoubleValidator):
@@ -84,17 +84,17 @@ class LineEditRef(QtGui.QWidget):
                 reference.model.setFilter('parentid IS NULL')
                 reference.parentIndex = None
                 dependent.setText(text)
-    
+
 class StatusEdit(QtGui.QComboBox):
-    items = [('demo', QT_TR_NOOP("Demo")), ('pass', QT_TR_NOOP("Pass")),
-             ('owned', QT_TR_NOOP("owned")), ('sold', QT_TR_NOOP("Sold")),
-             ('sale', QT_TR_NOOP("sale")), ('wish', QT_TR_NOOP("Wish"))]
+    items = [('demo', QT_TRANSLATE_NOOP("Status", "Demo")), ('pass', QT_TRANSLATE_NOOP("Status", "Pass")),
+             ('owned', QT_TRANSLATE_NOOP("Status", "Owned")), ('sold', QT_TRANSLATE_NOOP("Status", "Sold")),
+             ('sale', QT_TRANSLATE_NOOP("Status", "Sale")), ('wish', QT_TRANSLATE_NOOP("Status", "Wish"))]
     
     def __init__(self, parent=None):
         super(StatusEdit, self).__init__(parent)
         
-        for item in StatusEdit.items:
-            self.addItem(item[1])
+        for item in self.items:
+            self.addItem(QtGui.QApplication.translate("Status", item[1]))
     
     def data(self):
         return StatusEdit.items[self.currentIndex()][0]
@@ -104,9 +104,9 @@ class StatusEdit(QtGui.QComboBox):
     
     def setCurrentValue(self, value):
         index = -1
-        for item in StatusEdit.items:
+        for item in self.items:
             if item[0] == value:
-                index = self.findText(item[1])
+                index = self.findText(QtGui.QApplication.translate("Status", item[1]))
         
         if index >= 0:
             self.setCurrentIndex(index)

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import QT_TR_NOOP
+from PyQt4.QtCore import QT_TRANSLATE_NOOP
 
 from Collection.Collection import Collection
 from Reference.Reference import Reference
@@ -226,7 +226,9 @@ def exceptHook(type_, value, tback):
     
     stack = ''.join(traceback.format_exception(type_, value, tback))
 
-    msgBox = QtGui.QMessageBox(QtGui.QMessageBox.Information, QT_TR_NOOP("System error"), QT_TR_NOOP("A system error occurred.\nDo you want to send an error message to the author?"))
+    title = QtGui.QApplication.translate("ExcpHook", QT_TRANSLATE_NOOP("ExcpHook", "System error"))
+    text = QtGui.QApplication.translate("ExcpHook", QT_TRANSLATE_NOOP("ExcpHook", "A system error occurred.\nDo you want to send an error message to the author?"))
+    msgBox = QtGui.QMessageBox(QtGui.QMessageBox.Information, title, text)
     msgBox.setDetailedText(stack)
     msgBox.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
     if msgBox.exec_() == QtGui.QMessageBox.Yes:
