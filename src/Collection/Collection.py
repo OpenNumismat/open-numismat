@@ -238,7 +238,7 @@ class Collection(QtCore.QObject):
         progressDlg.setValue(len(sections))
 
     def referenceMenu(self, parent=None):
-        createReferenceAct = QtGui.QAction(self.tr("Create from collection"), parent)
+        createReferenceAct = QtGui.QAction(self.tr("Fill from collection"), parent)
         createReferenceAct.triggered.connect(self.createReference)
         
         return createReferenceAct

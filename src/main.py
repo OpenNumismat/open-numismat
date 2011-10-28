@@ -213,10 +213,14 @@ def run():
         sys.excepthook = exceptHook
     
     locale = settings.language
+
     translator = QtCore.QTranslator()
     translator.load('lang_'+locale)
-    translator.load('qt_'+locale)
     app.installTranslator(translator)
+
+    translatorQt = QtCore.QTranslator()
+    translatorQt.load('qt_'+locale)
+    app.installTranslator(translatorQt)
 
     main = MainWindow()
     main.show()
