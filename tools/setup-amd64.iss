@@ -9,7 +9,6 @@ OutputDir="."
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 OutputBaseFilename="OpenNumismat-0.9-amd64"
-InfoBeforeFile=..\COPYING
 AllowNoIcons=yes
 AppCopyright=Copyright 2011 by Vitaly Ignatov
 
@@ -26,10 +25,7 @@ en.sendReport=Send a reports to author's web-site if any error occured
 ru.sendReport=Посылать отчет разработчику при возникновении ошибки
 
 [Files]
-Source: "dist\*"; DestDir: "{app}"
-Source: "dist\icons\*"; DestDir: "{app}\icons"
-Source: "dist\imageformats\*"; DestDir: "{app}\imageformats"
-Source: "dist\sqldrivers\*"; DestDir: "{app}\sqldrivers"
+Source: "dist\*"; DestDir: "{app}"; Flags: recursesubdirs
 Source: "..\db\demo.db"; DestDir: "{userdocs}\OpenNumismat"; Flags: confirmoverwrite
 Source: "..\db\reference_en.db"; DestDir: "{app}"
 Source: "..\db\reference_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.db"; Languages: en
