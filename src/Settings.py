@@ -52,7 +52,7 @@ class Settings(QtCore.QObject):
         return error == 'true'
 
 class SettingsDialog(QtGui.QDialog):
-    Languages = [("English", 'en_UK'), ("Русский", 'ru_RU')]
+    Languages = [("English", 'en_GB'), ("Русский", 'ru_RU')]
     
     def __init__(self, parent=None):
         super(SettingsDialog, self).__init__(parent)
