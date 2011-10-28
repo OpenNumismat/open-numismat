@@ -28,3 +28,4 @@ import PyQt4
 shutil.copytree(PyQt4.__path__[0]+"/plugins/imageformats", "dist/imageformats")
 os.mkdir("dist/sqldrivers")
 shutil.copy(PyQt4.__path__[0]+"/plugins/sqldrivers/qsqlite4.dll", "dist/sqldrivers")
+shutil.copy(PyQt4.__path__[0]+"/translations/qt_ru.qm", "dist")

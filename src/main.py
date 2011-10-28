@@ -215,6 +215,7 @@ def run():
     locale = settings.language
     translator = QtCore.QTranslator()
     translator.load('lang_'+locale)
+    translator.load('qt_'+locale)
     app.installTranslator(translator)
 
     main = MainWindow()
