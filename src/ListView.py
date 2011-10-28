@@ -343,17 +343,27 @@ class ListView(QtGui.QTableView):
         dialog = EditCoinDialog(self.model().reference, multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
+            progressDlg = QtGui.QProgressDialog(self.tr("Updating records"), self.tr("Cancel"), 0, len(indexes), self)
+            progressDlg.setWindowModality(QtCore.Qt.WindowModal)
+            progressDlg.setMinimumDuration(250)
+            
             # Fill records by used fields in multi record
             multiRecord = dialog.getRecord()
             usedFields = dialog.getUsedFields()
-            for index in indexes:
+            for progress, index in enumerate(indexes):
+                progressDlg.setValue(progress)
+                if progressDlg.wasCanceled():
+                    break
+
                 record = self.model().record(index.row())
                 for i in range(multiRecord.count()):
                     if usedFields[i] == Qt.Checked:
                         record.setValue(i, multiRecord.value(i))
                 self.model().setRecord(index.row(), record)
             
-            self.model().submitAll()
+                self.model().submitAll()
+
+            progressDlg.setValue(len(indexes))
     
     def _copy(self, indexes=None):
         if not indexes:
