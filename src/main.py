@@ -248,7 +248,7 @@ def exceptHook(type_, value, tback):
         errorMessage.append('')
         errorMessage.append(stack)
 
-        url = QtCore.QUrl(version.Web + '/issues/entry')
+        url = QtCore.QUrl(version.Web + 'issues/entry')
         url.setQueryItems([('summary', subject), ('comment', '\n'.join(errorMessage))])
 
         executor = QtGui.QDesktopServices()
