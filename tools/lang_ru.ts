@@ -682,47 +682,47 @@ Do you want to send an error message to the author?</source>
         <translation>Подогнать размер</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="271"/>
+        <location filename="ListView.py" line="272"/>
         <source>Clone</source>
         <translation>Дублировать</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="274"/>
+        <location filename="ListView.py" line="275"/>
         <source>Copy</source>
         <translation>Копировать</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="275"/>
+        <location filename="ListView.py" line="276"/>
         <source>Paste</source>
         <translation>Вставить</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="277"/>
+        <location filename="ListView.py" line="278"/>
         <source>Multi edit...</source>
         <translation>Редактировать все...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="290"/>
+        <location filename="ListView.py" line="291"/>
         <source>%d coin(s) selected</source>
         <translation>%d монет выбрано</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="346"/>
+        <location filename="ListView.py" line="347"/>
         <source>Updating records</source>
         <translation>Обновление записей</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="346"/>
+        <location filename="ListView.py" line="347"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Are you sure to remove a %d coin(s)?</source>
         <translation>Удалить %d монет?</translation>
     </message>
@@ -844,11 +844,24 @@ Copyright 2011 Игнатов Виталий
 Copyright (C) 2011 Vitaly Ignatov
 
 %s is freeware licensened under a GPL.</source>
-        <translation>%s %s
+        <translation type="obsolete">%s %s
 
 Copyright (C) 2011 Игнатов Виталий
 
 %s свободное приложение лицензированное под GPL.</translation>
+    </message>
+    <message>
+        <location filename="main.py" line="198"/>
+        <source>%s %s
+
+Copyright (C) 2011 Vitaly Ignatov
+
+%s is freeware licensed under a GPLv3.</source>
+        <translation type="unfinished">%s %s
+
+Copyright (C) 2011 Игнатов Виталий
+
+%s свободное приложение лицензированное под GPLv3.</translation>
     </message>
 </context>
 <context>
