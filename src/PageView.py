@@ -102,6 +102,7 @@ class TreeView(QtGui.QTreeWidget):
 
         self.currentItemChanged.connect(self.itemActivatedEvent)
         self.expanded.connect(self.expandedEvent)
+        self.collapsed.connect(self.expandedEvent)
         
     def setModel(self, model):
         self.db = model.database()
@@ -119,6 +120,8 @@ class TreeView(QtGui.QTreeWidget):
                         for item in self.processChilds(item, 'series'):
                             for item in self.processChilds(item, 'year'):
                                 self.processChilds(item, 'mintmark')
+
+        self.resizeColumnToContents(0)
     
     def processChilds(self, parentItem, field):
         items = self.fillChilds(parentItem, field, parentItem.data(0, self.DataRole))
@@ -174,7 +177,7 @@ class TreeView(QtGui.QTreeWidget):
                 textPart.append(str(index.data()))
             text2 = ' '.join(textPart)
             if text1 == text2:
-                self.expandItem(item)
+                self.scrollToItem(subItem)
                 self.findSubitem(index, subItem)
                 return
 
