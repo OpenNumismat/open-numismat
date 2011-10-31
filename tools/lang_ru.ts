@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="ru_RU" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.0" language="ru_RU">
 <context>
     <name>AuctionSpbParser</name>
     <message>
@@ -734,57 +735,57 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main_ru.py" line="19"/>
+        <location filename="main.py" line="22"/>
         <source>Settings...</source>
         <translation>Настройки...</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="22"/>
+        <location filename="main.py" line="25"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="27"/>
+        <location filename="main.py" line="30"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="32"/>
+        <location filename="main.py" line="35"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="36"/>
+        <location filename="main.py" line="39"/>
         <source>Coin</source>
         <translation>Монета</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="39"/>
+        <location filename="main.py" line="42"/>
         <source>&amp;New...</source>
         <translation>&amp;Новая...</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="44"/>
+        <location filename="main.py" line="47"/>
         <source>&amp;Open...</source>
         <translation>&amp;Открыть...</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="48"/>
+        <location filename="main.py" line="51"/>
         <source>Backup</source>
         <translation>Резервное копирование</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="51"/>
+        <location filename="main.py" line="54"/>
         <source>Collection</source>
         <translation>Коллекция</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="63"/>
+        <location filename="main.py" line="66"/>
         <source>List</source>
         <translation>Список</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="71"/>
+        <location filename="main.py" line="74"/>
         <source>Reference</source>
         <translation>Справочник</translation>
     </message>
@@ -799,27 +800,27 @@ Do you want to send an error message to the author?</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="128"/>
+        <location filename="main.py" line="141"/>
         <source>Open collection</source>
         <translation>Открыть коллекцию</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="136"/>
+        <location filename="main.py" line="148"/>
         <source>Collections (*.db)</source>
         <translation>Коллекции (*.db)</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="136"/>
+        <location filename="main.py" line="148"/>
         <source>New collection</source>
         <translation>Новая коллекция</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="149"/>
+        <location filename="main.py" line="161"/>
         <source>Backup collection</source>
         <translation>Резервное копирование коллекции</translation>
     </message>
     <message>
-        <location filename="main_ru.py" line="149"/>
+        <location filename="main.py" line="161"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation>Не удается создать резервную копию коллекции в %s</translation>
     </message>
@@ -830,11 +831,24 @@ Do you want to send an error message to the author?</source>
 Copyright 2011 by Vitaly Ignatov
 
 %s is freeware licensened under an LGPL.</source>
-        <translation>%s %s
+        <translation type="obsolete">%s %s
 
 Copyright 2011 Игнатов Виталий
 
 %s свободное приложение лицензированное под LGPL.</translation>
+    </message>
+    <message>
+        <location filename="main.py" line="198"/>
+        <source>%s %s
+
+Copyright (C) 2011 Vitaly Ignatov
+
+%s is freeware licensened under a GPL.</source>
+        <translation>%s %s
+
+Copyright (C) 2011 Игнатов Виталий
+
+%s свободное приложение лицензированное под GPL.</translation>
     </message>
 </context>
 <context>

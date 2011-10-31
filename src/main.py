@@ -195,7 +195,7 @@ class MainWindow(QtGui.QMainWindow):
         settings.setValue('mainwindow/maximized', self.isMaximized());
     
     def about(self):
-        QtGui.QMessageBox.about(self, self.tr("About %s") % version.AppName, self.tr("%s %s\n\nCopyright 2011 by Vitaly Ignatov\n\n%s is freeware licensened under an LGPL.") % (version.AppName, version.Version, version.AppName))
+        QtGui.QMessageBox.about(self, self.tr("About %s") % version.AppName, self.tr("%s %s\n\nCopyright (C) 2011 Vitaly Ignatov\n\n%s is freeware licensened under a GPL.") % (version.AppName, version.Version, version.AppName))
 
 def run():
     import os, sys
