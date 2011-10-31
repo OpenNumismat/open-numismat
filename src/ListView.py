@@ -154,10 +154,11 @@ class ListView(QtGui.QTableView):
         self.resizeColumnToContents(index)
 
     def columnResized(self, index, oldSize, newSize):
-        column = self.horizontalHeader().visualIndex(index)
-        self.listParam.columns[column].width = newSize
-        # TODO: Saving columns parameters in this slot make resizing too slow
-        # self.listParam.save()
+        if newSize > 0:
+            column = self.horizontalHeader().visualIndex(index)
+            self.listParam.columns[column].width = newSize
+            # TODO: Saving columns parameters in this slot make resizing too slow
+            # self.listParam.save()
 
         self._updateHeaderButtons()
     
