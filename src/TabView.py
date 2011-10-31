@@ -24,7 +24,7 @@ class TabView(QtGui.QTabWidget):
     def __createActions(self):
         self.__actions = {}
         
-        newListAct = QtGui.QAction(self.tr("New..."), self)
+        newListAct = QtGui.QAction(self.tr("&New..."), self)
         newListAct.triggered.connect(self.newList)
         self.__actions['new'] = newListAct
         

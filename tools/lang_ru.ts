@@ -1031,7 +1031,7 @@ Copyright (C) 2011 Игнатов Виталий
     <message>
         <location filename="TabView.py" line="27"/>
         <source>New...</source>
-        <translation>Новая...</translation>
+        <translation type="obsolete">Новая...</translation>
     </message>
     <message>
         <location filename="TabView.py" line="31"/>
@@ -1112,6 +1112,11 @@ Copyright (C) 2011 Игнатов Виталий
         <location filename="TabView.py" line="197"/>
         <source>Remove all</source>
         <translation>Удалить все</translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="27"/>
+        <source>&amp;New...</source>
+        <translation>&amp;Новый...</translation>
     </message>
 </context>
 <context>
