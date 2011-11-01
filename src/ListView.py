@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import pickle
+import operator, pickle
 
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt, pyqtSignal
@@ -351,7 +351,11 @@ class ListView(QtGui.QTableView):
             # Fill records by used fields in multi record
             multiRecord = dialog.getRecord()
             usedFields = dialog.getUsedFields()
-            for progress, index in enumerate(indexes):
+
+            # Sort and reverse indexes for updating records that out
+            # filtered after updating
+            rindexes = sorted(indexes, key=operator.methodcaller('row'), reverse=True)
+            for progress, index in enumerate(rindexes):
                 progressDlg.setValue(progress)
                 if progressDlg.wasCanceled():
                     break

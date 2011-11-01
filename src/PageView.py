@@ -231,6 +231,7 @@ class TreeView(QtGui.QTreeWidget):
                     multiRecord.setNull(j)
                     usedFields[j] = Qt.Unchecked
 
+        # TODO: Make identical with ListView._multiEdit
         dialog = EditCoinDialog(self.model.reference, multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
