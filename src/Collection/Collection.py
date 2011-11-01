@@ -62,7 +62,7 @@ class CollectionModel(QSqlTableModel):
         currentTime = QtCore.QDateTime.currentDateTime()
         record.setValue('createdat', currentTime.toString(Qt.ISODate))
         record.setValue('updatedat', currentTime.toString(Qt.ISODate))
-        super(CollectionModel, self).insertRecord(row, record)
+        return super(CollectionModel, self).insertRecord(row, record)
     
     def setRecord(self, row, record):
         if self.proxy:
@@ -70,13 +70,15 @@ class CollectionModel(QSqlTableModel):
         
         currentTime = QtCore.QDateTime.currentDateTime()
         record.setValue('updatedat', currentTime.toString(Qt.ISODate))
-        super(CollectionModel, self).setRecord(row, record)
+        return super(CollectionModel, self).setRecord(row, record)
     
     def submitAll(self):
-        super(CollectionModel, self).submitAll()
+        ret = super(CollectionModel, self).submitAll()
         
         if self.proxy:
             self.proxy.setDynamicSortFilter(True)
+        
+        return ret
     
     def columnType(self, column):
         if isinstance(column, QtCore.QModelIndex):
