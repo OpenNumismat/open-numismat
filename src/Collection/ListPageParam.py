@@ -2,7 +2,7 @@ from PyQt4 import QtCore
 from PyQt4.QtSql import QSqlQuery, QSqlRecord
 
 from .CollectionFields import CollectionFields
-from .HeaderFilterMenu import Filter
+from .HeaderFilterMenu import ColumnFilters
 
 class ColumnListParam:
     def __init__(self, arg1, arg2=None, arg3=None):
@@ -70,23 +70,19 @@ class ListPageParam(QtCore.QObject):
         self.filters = {}
         while query.next():
             fieldId = query.record().value('fieldid')
-            if query.record().isNull('value'):
-                value = None
-            else:
+            value = None
+            if not query.record().isNull('value'):
                 value = str(query.record().value('value'))
-            if query.record().isNull('data'):
-                data = None
-            else:
+            data = None
+            if not query.record().isNull('data'):
                 data = query.record().value('data')
-            if query.record().isNull('blank'):
-                blank = None
-            else:
+            blank = None
+            if not query.record().isNull('blank'):
                 blank = query.record().value('blank')
-            filter = Filter(CollectionFields().fields[fieldId].name, value, data, blank)
-            if fieldId in self.filters.keys():
-                self.filters[fieldId].append(filter)
-            else:
-                self.filters[fieldId] = [filter,]
+
+            if fieldId not in self.filters.keys():
+                self.filters[fieldId] = ColumnFilters(CollectionFields().fields[fieldId].name)
+            self.filters[fieldId].addFilter(value, data, blank)
 
     def save(self):
         self.db.transaction()
@@ -109,19 +105,19 @@ class ListPageParam(QtCore.QObject):
             query.exec_()
 
         for fieldId, columnFilters in self.filters.items():
-            for filter in columnFilters:
+            for filter_ in columnFilters.filters():
                 query = QSqlQuery(self.db)
                 query.prepare("INSERT INTO filters (pageid, fieldid, value, blank, data) "
                               "VALUES (?, ?, ?, ?, ?)")
                 query.addBindValue(self.pageId)
                 query.addBindValue(fieldId)
-                query.addBindValue(filter.value)
-                if filter.blank:
+                query.addBindValue(filter_.value)
+                if filter_.blank:
                     blank = int(True)
                 else:
                     blank = None
                 query.addBindValue(blank)
-                if filter.data:
+                if filter_.data:
                     data = int(True)
                 else:
                     data = None

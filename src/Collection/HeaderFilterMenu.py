@@ -41,11 +41,11 @@ class FilterMenuButton(QtGui.QPushButton):
 
         filters = self.filters.copy()
         appliedValues = []
-        appliedFilters = None
+        columnFilters = None
         if self.fieldid in filters.keys():
-            appliedFilters = filters.pop(self.fieldid)
-            for filter in appliedFilters:
-                appliedValues.append(filter.value)
+            columnFilters = filters.pop(self.fieldid)
+            for filter_ in columnFilters.filters():
+                appliedValues.append(filter_.value)
 
         hasBlanks = False
         if not self.model.columnType(self.fieldid) in [Type.Image, Type.EdgeImage, Type.Text]:
@@ -89,9 +89,7 @@ class FilterMenuButton(QtGui.QPushButton):
             dataCount = query.record().value(0)
             
             if dataCount > 0:
-                if self.model.columnType(self.fieldid) == Type.Image:
-                    label = self.tr("(Images)")
-                elif self.model.columnType(self.fieldid) == Type.EdgeImage:
+                if self.model.columnType(self.fieldid) in [Type.Image, Type.EdgeImage]:
                     label = self.tr("(Images)")
                 elif self.model.columnType(self.fieldid) == Type.Text:
                     label = self.tr("(Text)")
@@ -99,10 +97,8 @@ class FilterMenuButton(QtGui.QPushButton):
                     label = self.tr("(Data)")
                 item = QtGui.QListWidgetItem(label, self.listWidget, FilterMenuButton.DataType)
                 item.setCheckState(Qt.Checked)
-                if appliedFilters:
-                    filter = appliedFilters[-1]   # data filter always is last element
-                    if filter.data:
-                        item.setCheckState(Qt.Unchecked)
+                if columnFilters and columnFilters.hasData():
+                    item.setCheckState(Qt.Unchecked)
                 self.listWidget.addItem(item)
 
             if blanksCount > 0:
@@ -111,10 +107,8 @@ class FilterMenuButton(QtGui.QPushButton):
         if hasBlanks:
             item = QtGui.QListWidgetItem(self.tr("(Blanks)"), self.listWidget, FilterMenuButton.BlanksType)
             item.setCheckState(Qt.Checked)
-            if appliedFilters:
-                filter = appliedFilters[-1]   # blank filter always is last element
-                if filter.blank:
-                    item.setCheckState(Qt.Unchecked)
+            if columnFilters and columnFilters.hasBlank():
+                item.setCheckState(Qt.Unchecked)
             self.listWidget.addItem(item)
         
         self.listWidget.itemChanged.connect(self.itemChanged)
@@ -183,7 +177,7 @@ class FilterMenuButton(QtGui.QPushButton):
 
         if filters.filters():
             self.setIcon(QtGui.QIcon('icons/filters.ico'))
-            self.filters[self.fieldid] = filters.filters()
+            self.filters[self.fieldid] = filters
         else:
             self.setIcon(QtGui.QIcon())
             if self.fieldid in self.filters.keys():
@@ -200,8 +194,7 @@ class FilterMenuButton(QtGui.QPushButton):
     def filtersToSql(filters):
         sqlFilters = []
         for columnFilters in filters:
-            for filter in columnFilters:
-                sqlFilters.append(filter.toSql())
+            sqlFilters.append(columnFilters.toSql())
         
         return ' AND '.join(sqlFilters)
 
@@ -227,9 +220,31 @@ class ColumnFilters:
     def __init__(self, name):
         self.name = name
         self._filters = []
+        self._blank = False   # blank out filter present
+        self._data = False    # data out filter present
 
     def addFilter(self, value=None, data=None, blank=None):
+        self._blank = self._blank or blank
+        self._data = self._data or data
         self._filters.append(Filter(self.name, value, data, blank))
     
     def filters(self):
         return self._filters
+    
+    def hasBlank(self):
+        return self._blank
+    
+    def hasData(self):
+        return self._data
+    
+    def toSql(self):
+        sqlFilters = []
+        for filter_ in self._filters:
+            sqlFilters.append(filter_.toSql())
+
+        combinedFilters = ' AND '.join(sqlFilters)
+        # Note: In SQLite SELECT * FROM coins WHERE title<>'value' also filter
+        # out a NULL values. Work around this problem
+        if not self.hasBlank() and not self.hasData():
+            combinedFilters = combinedFilters + (' OR %s IS NULL' % self.name)
+        return '('+combinedFilters+')'
