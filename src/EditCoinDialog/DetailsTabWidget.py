@@ -77,8 +77,10 @@ class DetailsTabWidget(QtGui.QTabWidget):
         layout1.addWidget(catalogue)
         layout1.addLayout(rarity)
         layout1.addWidget(price)
+        layout1.insertStretch(-1)
         layout2 = QtGui.QVBoxLayout()
         layout2.addWidget(variation)
+        layout2.insertStretch(-1)
 
         self.addTabPage(self.tr("Classification"), [layout1, layout2])
 
