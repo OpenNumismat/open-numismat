@@ -31,6 +31,7 @@ class CollectionFields(QObject):
         super(CollectionFields, self).__init__()
         
         fields = [
+                ('image', self.tr("Image"), Type.Image),
                 ('variety', self.tr("Variety"), Type.String),
                 ('subjectshort', self.tr("Subject"), Type.String),
                 ('catalognum4', self.tr("#4"), Type.String),

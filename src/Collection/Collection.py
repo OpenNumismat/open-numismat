@@ -55,22 +55,57 @@ class CollectionModel(QSqlTableModel):
                     self.rowInserted.emit(self.insertedRowIndex)
     
     def insertRecord(self, row, record):
-        if self.proxy:
-            self.proxy.setDynamicSortFilter(False)
-        
+        self._updateRecord(record)
         record.setNull('id')  # remove ID value from record
-        currentTime = QtCore.QDateTime.currentDateTime()
-        record.setValue('createdat', currentTime.toString(Qt.ISODate))
-        record.setValue('updatedat', currentTime.toString(Qt.ISODate))
+        record.setValue('createdat', record.value('updatedat'))
         return super(CollectionModel, self).insertRecord(row, record)
     
     def setRecord(self, row, record):
+        self._updateRecord(record)
+        return super(CollectionModel, self).setRecord(row, record)
+    
+    def _updateRecord(self, record):
         if self.proxy:
             self.proxy.setDynamicSortFilter(False)
         
+        # Creating preview image for list
+        if record.isNull('obverseimg') and record.isNull('reverseimg'):
+            record.setNull('image')
+        else:
+            # Get height of list view for resizing images        
+            tmp = QtGui.QTableView()
+            height = int(tmp.verticalHeader().defaultSectionSize() * 1.5 - 1)
+    
+            obverseImage = QtGui.QImage()
+            if not record.isNull('obverseimg'):
+                obverseImage.loadFromData(record.value('obverseimg'))
+                obverseImage = obverseImage.scaledToHeight(height, Qt.SmoothTransformation)
+            reverseImage = QtGui.QImage()
+            if not record.isNull('reverseimg'):
+                reverseImage.loadFromData(record.value('reverseimg'))
+                reverseImage = reverseImage.scaledToHeight(height, Qt.SmoothTransformation)
+            
+            image = QtGui.QImage(obverseImage.width()+reverseImage.width(), height, QtGui.QImage.Format_RGB32)
+    
+            paint = QtGui.QPainter(image)
+            if not record.isNull('obverseimg'):
+                paint.drawImage(QtCore.QRectF(0,0,obverseImage.width(), height), obverseImage,
+                                QtCore.QRectF(0,0,obverseImage.width(), height))
+            if not record.isNull('reverseimg'):
+                paint.drawImage(QtCore.QRectF(obverseImage.width(),0,reverseImage.width(), height), reverseImage,
+                                QtCore.QRectF(0,0,reverseImage.width(), height))
+            paint.end()
+    
+            ba = QtCore.QByteArray() 
+            buffer = QtCore.QBuffer(ba)
+            buffer.open(QtCore.QIODevice.WriteOnly)
+    
+            # Store as PNG for better view
+            image.save(buffer, 'png')
+            record.setValue('image', ba)
+
         currentTime = QtCore.QDateTime.currentDateTime()
         record.setValue('updatedat', currentTime.toString(Qt.ISODate))
-        return super(CollectionModel, self).setRecord(row, record)
     
     def submitAll(self):
         ret = super(CollectionModel, self).submitAll()
