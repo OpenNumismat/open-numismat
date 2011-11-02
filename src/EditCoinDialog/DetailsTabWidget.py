@@ -281,7 +281,6 @@ class DetailsTabWidget(QtGui.QTabWidget):
         
         layout.addRow(self.items['price1'], self.items['price2'])
         layout.addRow(self.items['price3'], self.items['price4'])
-        layout.addRow(self.items['price5'], self.items['price6'])
 
         return layout
 
