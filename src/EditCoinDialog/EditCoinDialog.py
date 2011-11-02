@@ -74,12 +74,12 @@ class EditCoinDialog(QtGui.QDialog):
     
     def save(self):
         # Clear unused fields
-        if self.items['status'].widget().data() == 'demo':
+        if self.items['status'].widget().data() in ['demo', 'wish']:
             for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
                         'payplace', 'payinfo', 'saledate', 'saleprice',
                         'totalsaleprice', 'buyer', 'saleplace', 'saleinfo', 'grade']:
                 self.items[key].clear()
-        elif self.items['status'].widget().data() in ['in', 'exchange']:
+        elif self.items['status'].widget().data() in ['owned', 'sale']:
             for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
                         'payplace', 'payinfo']:
                 self.items[key].clear()
