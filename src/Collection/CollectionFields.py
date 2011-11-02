@@ -31,6 +31,10 @@ class CollectionFields(QObject):
         super(CollectionFields, self).__init__()
         
         fields = [
+                ('variety', self.tr("Variety"), Type.String),
+                ('subjectshort', self.tr("Subject"), Type.String),
+                ('catalognum4', self.tr("#4"), Type.String),
+
                 ('id', self.tr("ID"), Type.BigInt),
 
                 ('title', self.tr("Name"), Type.String),
@@ -65,9 +69,9 @@ class CollectionFields(QObject):
                 ('price2', self.tr("VF"), Type.Money),
                 ('price3', self.tr("XF"), Type.Money),
                 ('price4', self.tr("Unc"), Type.Money),
-                ('obversevar', self.tr("Obverse"), Type.Text),
-                ('reversevar', self.tr("Reverse"), Type.Text),
-                ('edgevar', self.tr("Edge"), Type.Text),
+                ('obversevar', self.tr("Obverse"), Type.String),
+                ('reversevar', self.tr("Reverse"), Type.String),
+                ('edgevar', self.tr("Edge"), Type.String),
                 ('paydate', self.tr("Date"), Type.Date),
                 ('payprice', self.tr("Price"), Type.Money),
                 ('totalpayprice', self.tr("Paid"), Type.Money),

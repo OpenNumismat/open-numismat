@@ -62,15 +62,20 @@ class DetailsTabWidget(QtGui.QTabWidget):
         self.addTabPage(self.tr("Design"), [layout1, layout2])
 
     def createClassificationPage(self):
-        classification = self.classificationLayout()
+        catalogue = self.catalogueLayout()
+        catalogue.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+
+        rarity = self.rarityLayout()
 
         price = self.priceLayout()
         price.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
 
         variation = self.variationLayout()
+        variation.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
 
         layout1 = QtGui.QVBoxLayout()
-        layout1.addLayout(classification)
+        layout1.addWidget(catalogue)
+        layout1.addLayout(rarity)
         layout1.addWidget(price)
         layout2 = QtGui.QVBoxLayout()
         layout2.addWidget(variation)
@@ -135,6 +140,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         layout.addRow(self.items['mintmark'], self.items['mint'])
         layout.addRow(self.items['type'])
         layout.addRow(self.items['series'])
+        layout.addRow(self.items['subjectshort'])
 
         return layout
 
@@ -262,17 +268,22 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
         return layout
 
-    def classificationLayout(self, parent=None):
+    def rarityLayout(self, parent=None):
         layout = BaseFormLayout(parent)
         
-        layout.addRow(self.items['catalognum1'])
-        layout.addRow(self.items['catalognum2'])
-        layout.addRow(self.items['catalognum3'])
-
         item = self.items['rarity']
-        layout.addWidget(item.label(), 3, 0)
-        layout.addWidget(item.widget(), 3, 1)
+        layout.addWidget(item.label(), 1, 0)
+        layout.addWidget(item.widget(), 1, 1)
+        layout.addWidget(QtGui.QWidget(), 1, 2)
         item.widget().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+
+        return layout
+
+    def catalogueLayout(self, parent=None):
+        layout = BaseFormGroupBox(self.tr("Catalogue"), parent)
+        
+        layout.addRow(self.items['catalognum1'], self.items['catalognum2'])
+        layout.addRow(self.items['catalognum3'], self.items['catalognum4'])
 
         return layout
 
@@ -287,9 +298,11 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def variationLayout(self, parent=None):
         layout = BaseFormGroupBox(self.tr("Variation"), parent)
         
-        layout.addRow(self.items['obversevar'])
-        layout.addRow(self.items['reversevar'])
-        layout.addRow(self.items['edgevar'])
+        layout.addRow(self.items['variety'])
+        layout.addRow(self.items['obversevar'], self.items['reversevar'])
+        item = self.items['edgevar']
+        layout.layout.addWidget(item.label(), 3, 0)
+        layout.layout.addWidget(item.widget(), 3, 1)
 
         return layout
 
@@ -434,6 +447,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['mintmark'], self.items['mint'])
         layout.addRow(self.items['type'])
         layout.addRow(self.items['series'])
+        layout.addRow(self.items['subjectshort'])
 
         return layout
 
