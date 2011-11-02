@@ -31,11 +31,6 @@ class CollectionFields(QObject):
         super(CollectionFields, self).__init__()
         
         fields = [
-                ('image', self.tr("Image"), Type.Image),
-                ('variety', self.tr("Variety"), Type.String),
-                ('subjectshort', self.tr("Subject"), Type.String),
-                ('catalognum4', self.tr("#4"), Type.String),
-
                 ('id', self.tr("ID"), Type.BigInt),
 
                 ('title', self.tr("Name"), Type.String),
@@ -49,6 +44,7 @@ class CollectionFields(QObject):
                 ('issuedate', self.tr("Date of issue"), Type.Date),
                 ('type', self.tr("Type"), Type.String),
                 ('series', self.tr("Series"), Type.String),
+                ('subjectshort', self.tr("Subject"), Type.String),
                 ('status', self.tr("Status"), Type.Status),
                 ('metal', self.tr("Metal"), Type.String),
                 ('fineness', self.tr("Fineness"), Type.Number),
@@ -60,16 +56,19 @@ class CollectionFields(QObject):
                 ('edge', self.tr("Type"), Type.String),
                 ('edgelabel', self.tr("Label"), Type.String),
                 ('obvrev', self.tr("ObvRev"), Type.String),
+                ('quality', self.tr("Quality"), Type.String),
                 ('mintage', self.tr("Mintage"), Type.BigInt),
                 ('dateemis', self.tr("Emission period"), Type.String),
                 ('catalognum1', self.tr("1#"), Type.String),
                 ('catalognum2', self.tr("2#"), Type.String),
                 ('catalognum3', self.tr("3#"), Type.String),
+                ('catalognum4', self.tr("#4"), Type.String),
                 ('rarity', self.tr("Rarity"), Type.String),
                 ('price1', self.tr("Fine"), Type.Money),
                 ('price2', self.tr("VF"), Type.Money),
                 ('price3', self.tr("XF"), Type.Money),
                 ('price4', self.tr("Unc"), Type.Money),
+                ('variety', self.tr("Variety"), Type.String),
                 ('obversevar', self.tr("Obverse"), Type.String),
                 ('reversevar', self.tr("Reverse"), Type.String),
                 ('edgevar', self.tr("Edge"), Type.String),
@@ -86,6 +85,7 @@ class CollectionFields(QObject):
                 ('saleplace', self.tr("Place"), Type.String),
                 ('saleinfo', self.tr("Info"), Type.Text),
                 ('note', self.tr("Note"), Type.Text),
+                ('image', self.tr("Image"), Type.Image),
                 ('obverseimg', self.tr("Obverse"), Type.Image),
                 ('obversedesign', self.tr("Design"), Type.Text),
                 ('obversedesigner', self.tr("Designer"), Type.String),
@@ -102,8 +102,7 @@ class CollectionFields(QObject):
                 ('storage', self.tr("Storage"), Type.String),
                 ('features', self.tr("Features"), Type.Text),
                 ('createdat', self.tr("Created at"), Type.DateTime),
-                ('updatedat', self.tr("Updated at"), Type.DateTime),
-                ('quality', self.tr("Quality"), Type.String)
+                ('updatedat', self.tr("Updated at"), Type.DateTime)
             ]
 
         self.fields = []
