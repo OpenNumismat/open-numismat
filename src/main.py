@@ -73,10 +73,14 @@ class MainWindow(QtGui.QMainWindow):
 
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
 
+        helpAct = QtGui.QAction(QtGui.QIcon('icons/help.png'), self.tr("Online help"), self)
+        helpAct.triggered.connect(self.help)
         aboutAct = QtGui.QAction(self.tr("About %s") % version.AppName, self)
         aboutAct.triggered.connect(self.about)
 
         file = menubar.addMenu(self.tr("&Help"))
+        file.addAction(helpAct)
+        listMenu.addSeparator()
         file.addAction(aboutAct)
 
         toolBar = QtGui.QToolBar(self)
@@ -196,6 +200,13 @@ class MainWindow(QtGui.QMainWindow):
     
     def about(self):
         QtGui.QMessageBox.about(self, self.tr("About %s") % version.AppName, self.tr("%s %s\n\nCopyright (C) 2011 Vitaly Ignatov\n\n%s is freeware licensed under a GPLv3.") % (version.AppName, version.Version, version.AppName))
+
+    def help(self):
+        url = QtCore.QUrl(version.Web + 'wiki/MainPage')
+        url.setQueryItems([('wl', Settings().language)])
+
+        executor = QtGui.QDesktopServices()
+        executor.openUrl(url)
 
 def run():
     import os, sys
