@@ -13,8 +13,8 @@ AllowNoIcons=yes
 AppCopyright=Copyright 2011 by Vitaly Ignatov
 
 [Languages]
-Name: en; MessagesFile: "compiler:Default.isl"
-Name: ru; MessagesFile: "compiler:Languages\Russian.isl"
+Name: en; MessagesFile: "compiler:Default.isl"; InfoBeforeFile: license_en.txt
+Name: ru; MessagesFile: "compiler:Languages\Russian.isl"; InfoBeforeFile: license_ru.txt
 
 [Messages]
 en.BeveledLabel=English
