@@ -26,13 +26,13 @@ class ListPageParam(QtCore.QObject):
         
         self.pageId = pageId
         self.db = db
-        sql = "CREATE TABLE IF NOT EXISTS lists (\
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-            pageid INTEGER,\
-            fieldid INTEGER,\
-            position INTEGER,\
-            enabled INTEGER,\
-            width INTEGER)"
+        sql = """CREATE TABLE IF NOT EXISTS lists (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            pageid INTEGER,
+            fieldid INTEGER,
+            position INTEGER,
+            enabled INTEGER,
+            width INTEGER)"""
         QSqlQuery(sql, self.db)
 
         query = QSqlQuery(self.db)
@@ -56,13 +56,13 @@ class ListPageParam(QtCore.QObject):
                 param = ColumnListParam(field.id, enabled)
                 self.columns.append(param)
         
-        sql = "CREATE TABLE IF NOT EXISTS filters (\
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-            pageid INTEGER,\
-            fieldid INTEGER,\
-            value INTEGER,\
-            blank INTEGER,\
-            data INTEGER)"
+        sql = """CREATE TABLE IF NOT EXISTS filters (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            pageid INTEGER,
+            fieldid INTEGER,
+            value INTEGER,
+            blank INTEGER,
+            data INTEGER)"""
         QSqlQuery(sql, self.db)
         
         query = QSqlQuery(self.db)

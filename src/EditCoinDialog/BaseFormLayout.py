@@ -51,7 +51,7 @@ class FormItem(object):
             raise
         
         if itemType & Type.Disabled:
-            if type_ == Type.Status or type_ == Type.Image or type_ == Type.EdgeImage:
+            if type_ in [Type.Status, Type.Image, Type.EdgeImage]:
                 self._widget.setDisabled(True)
             else:
                 self._widget.setReadOnly(True)
