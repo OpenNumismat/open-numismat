@@ -148,6 +148,19 @@ class CollectionFields(CollectionFieldsBase):
             else:
                 self.disabledFields.append(field)
     
+    def save(self):
+        self.db.transaction()
+
+        for field in self.fields:
+            query = QSqlQuery(self.db)
+            query.prepare("UPDATE fields SET title=?, enabled=? WHERE id=?")
+            query.addBindValue(field.title)
+            query.addBindValue(int(field.enabled))
+            query.addBindValue(field.id)
+            query.exec_()
+
+        self.db.commit()
+    
     @staticmethod
     def create(db=QSqlDatabase()):
         sql = """CREATE TABLE IF NOT EXISTS fields (

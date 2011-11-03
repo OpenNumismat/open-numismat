@@ -3,6 +3,7 @@
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 
+from Collection.CollectionFields import CollectionFields
 import version
 
 class Settings(QtCore.QObject):
@@ -51,15 +52,15 @@ class Settings(QtCore.QObject):
         
         return error == 'true'
 
-class SettingsDialog(QtGui.QDialog):
+class MainSettingsPage(QtGui.QWidget):
     Languages = [("English", 'en_GB'), ("Русский", 'ru_RU')]
     
     def __init__(self, parent=None):
-        super(SettingsDialog, self).__init__(parent)
-        
+        super(MainSettingsPage, self).__init__(parent)
+
         settings = Settings()
         
-        mainLayout = QtGui.QGridLayout()
+        layout = QtGui.QGridLayout()
         
         current = 0
         self.languageSelector = QtGui.QComboBox(self)
@@ -69,8 +70,8 @@ class SettingsDialog(QtGui.QDialog):
                 current = i
         self.languageSelector.setCurrentIndex(current)
         
-        mainLayout.addWidget(QtGui.QLabel(self.tr("Language")), 0, 0)
-        mainLayout.addWidget(self.languageSelector, 0, 1, 1, 2)
+        layout.addWidget(QtGui.QLabel(self.tr("Language")), 0, 0)
+        layout.addWidget(self.languageSelector, 0, 1, 1, 2)
         
         self.backupFolder = QtGui.QLineEdit(self)
         self.backupFolder.setText(settings.backupFolder)
@@ -79,9 +80,9 @@ class SettingsDialog(QtGui.QDialog):
         self.backupFolderButton = QtGui.QPushButton(icon, '', self)
         self.backupFolderButton.clicked.connect(self.backupButtonClicked)
         
-        mainLayout.addWidget(QtGui.QLabel(self.tr("Backup folder")), 1, 0)
-        mainLayout.addWidget(self.backupFolder, 1, 1)
-        mainLayout.addWidget(self.backupFolderButton, 1, 2)
+        layout.addWidget(QtGui.QLabel(self.tr("Backup folder")), 1, 0)
+        layout.addWidget(self.backupFolder, 1, 1)
+        layout.addWidget(self.backupFolderButton, 1, 2)
         
         self.reference = QtGui.QLineEdit(self)
         self.reference.setText(settings.reference)
@@ -89,26 +90,16 @@ class SettingsDialog(QtGui.QDialog):
         self.referenceButton = QtGui.QPushButton(icon, '', self)
         self.referenceButton.clicked.connect(self.referenceButtonClicked)
         
-        mainLayout.addWidget(QtGui.QLabel(self.tr("Reference")), 2, 0)
-        mainLayout.addWidget(self.reference, 2, 1)
-        mainLayout.addWidget(self.referenceButton, 2, 2)
+        layout.addWidget(QtGui.QLabel(self.tr("Reference")), 2, 0)
+        layout.addWidget(self.reference, 2, 1)
+        layout.addWidget(self.referenceButton, 2, 2)
         
         self.errorSending = QtGui.QCheckBox(self.tr("Send error info to author"), self)
         self.errorSending.setChecked(settings.sendError)
-        mainLayout.addWidget(self.errorSending, 3, 0, 1, 2)
+        layout.addWidget(self.errorSending, 3, 0, 1, 2)
         
-        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
-        buttonBox.accepted.connect(self.save)
-        buttonBox.rejected.connect(self.reject)
-
-        layout = QtGui.QVBoxLayout(self)
-        layout.addLayout(mainLayout)
-        layout.addWidget(buttonBox)
-
         self.setLayout(layout)
-    
+
     def backupButtonClicked(self):
         folder = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Backup folder"), self.backupFolder.text())
         if folder:
@@ -129,5 +120,66 @@ class SettingsDialog(QtGui.QDialog):
         settings.sendError = self.errorSending.isChecked()
 
         settings.save()
+
+class FieldsSettingsPage(QtGui.QWidget):
+    DataRole = 16
+
+    def __init__(self, db, parent=None):
+        super(FieldsSettingsPage, self).__init__(parent)
+
+        self.listWidget = QtGui.QListWidget(self)
+        self.listWidget.setWrapping(True)
+
+        self.fields = CollectionFields(db)
+        for field in self.fields:
+            item = QtGui.QListWidgetItem(field.title, self.listWidget)
+            item.setData(self.DataRole, field)
+            checked = Qt.Unchecked
+            if field.enabled:
+                checked = Qt.Checked
+            item.setCheckState(checked)
+            self.listWidget.addItem(item)
+
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(QtGui.QLabel(self.tr("Global enabled fields:"), self))
+        layout.addWidget(self.listWidget)
+
+        self.setLayout(layout)
+
+    def save(self):
+        for i in range(self.listWidget.count()):
+            item = self.listWidget.item(i)
+            field = item.data(self.DataRole)
+            field.enabled = (item.checkState() == Qt.Checked)
+        
+        self.fields.save()
+
+class SettingsDialog(QtGui.QDialog):
+    def __init__(self, db, parent=None):
+        super(SettingsDialog, self).__init__(parent)
+        
+        mainPage = MainSettingsPage(self)
+        fieldsPage = FieldsSettingsPage(db, self)
+
+        self.tab = QtGui.QTabWidget(self)
+        self.tab.addTab(mainPage, self.tr("Main"))
+        self.tab.addTab(fieldsPage, self.tr("Fields"))
+        
+        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
+        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        buttonBox.accepted.connect(self.save)
+        buttonBox.rejected.connect(self.reject)
+
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(self.tab)
+        layout.addWidget(buttonBox)
+
+        self.setLayout(layout)
+        
+    def save(self):
+        for i in range(self.tab.count()):
+            page = self.tab.widget(i)
+            page.save()
 
         self.accept()
