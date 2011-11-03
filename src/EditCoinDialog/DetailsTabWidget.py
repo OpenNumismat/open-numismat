@@ -109,18 +109,20 @@ class DetailsTabWidget(QtGui.QTabWidget):
     
     def addItem(self, field):
         item = FormItem(field.name, field.title, field.type | Type.Disabled)
+        if not field.enabled:
+            item.setHidden()
         self.items[field.name] = item
     
     def createItems(self):
         self.items = {}
         
-        fields = CollectionFields().userFields
+        fields = CollectionFields()
         for field in fields:
             self.addItem(field)
         
     def fillItems(self, record):
         if not record.isEmpty():
-            fields = CollectionFields().userFields
+            fields = CollectionFields()
             for field in fields:
                 item = self.items[field.name]
                 if not record.isNull(item.field()):
@@ -413,6 +415,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
             refSection = self.reference.section(field.name)
 
         item = FormItem(field.name, field.title, field.type | checkable, refSection)
+        if not field.enabled:
+            item.setHidden()
         self.items[field.name] = item
     
     def createItems(self):

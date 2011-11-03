@@ -1,4 +1,5 @@
 from PyQt4.QtCore import QObject
+from PyQt4.QtSql import QSqlDatabase, QSqlQuery
 
 class FieldTypes():
     String = 1
@@ -25,10 +26,10 @@ class CollectionField():
         self.title = title
         self.type = type
 
-class CollectionFields(QObject):
-    def __init__(self):
+class CollectionFieldsBase(QObject):
+    def __init__(self, parent=None):
         from Collection.CollectionFields import FieldTypes as Type
-        super(CollectionFields, self).__init__()
+        super(CollectionFieldsBase, self).__init__(parent)
         
         fields = [
                 ('id', self.tr("ID"), Type.BigInt),
@@ -110,9 +111,8 @@ class CollectionFields(QObject):
             self.fields.append(CollectionField(id, field[0], field[1], field[2]))
             setattr(self, self.fields[id].name, self.fields[id])
         
-        self.disabledFields = [self.id, self.createdat, self.updatedat]
         self.userFields = list(self.fields)
-        for item in self.disabledFields:
+        for item in [self.id, self.createdat, self.updatedat]:
             self.userFields.remove(item)
     
     def field(self, id):
@@ -127,3 +127,45 @@ class CollectionFields(QObject):
             raise StopIteration
         self.index = self.index + 1
         return self.fields[self.index-1]
+
+class CollectionFields(CollectionFieldsBase):
+    def __init__(self, db=QSqlDatabase(), parent=None):
+        super(CollectionFields, self).__init__(parent)
+        self.db = db
+        
+        query = QSqlQuery(self.db)
+        query.prepare("SELECT * FROM fields")
+        query.exec_()
+        self.userFields = []
+        self.disabledFields = []
+        while query.next():
+            record = query.record()
+            fieldId = record.value('id')
+            field = self.field(fieldId)
+            field.enabled = bool(record.value('enabled'))
+            if field.enabled:
+                self.userFields.append(field)
+            else:
+                self.disabledFields.append(field)
+    
+    @staticmethod
+    def create(db=QSqlDatabase()):
+        sql = """CREATE TABLE IF NOT EXISTS fields (
+            id INTEGER NOT NULL PRIMARY KEY,
+            title CHAR,
+            enabled INTEGER)"""
+        QSqlQuery(sql, db)
+        
+        fields = CollectionFieldsBase()
+        
+        for field in fields:
+            query = QSqlQuery(db)
+            query.prepare("""INSERT INTO fields (id, title, enabled)
+                VALUES (?, ?, ?)""")
+            query.addBindValue(field.id)
+            query.addBindValue(field.title)
+            enabled = field in fields.userFields
+            query.addBindValue(int(enabled))
+            query.exec_()
+        
+        return CollectionFields(db)

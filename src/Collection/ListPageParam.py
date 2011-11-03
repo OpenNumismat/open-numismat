@@ -44,9 +44,11 @@ class ListPageParam(QtCore.QObject):
             param = ColumnListParam(query.record())
             self.columns.append(param)
         
+        fields = CollectionFields(self.db)
+        
         # Create default parameters
         if not self.columns:
-            for field in CollectionFields().userFields:
+            for field in fields.userFields:
                 enabled = False
                 # TODO: Customize default fields
                 if field.name in ['title', 'value', 'unit', 'country', 'year']:
@@ -81,7 +83,7 @@ class ListPageParam(QtCore.QObject):
                 blank = query.record().value('blank')
 
             if fieldId not in self.filters.keys():
-                self.filters[fieldId] = ColumnFilters(CollectionFields().fields[fieldId].name)
+                self.filters[fieldId] = ColumnFilters(fields.field(fieldId).name)
             self.filters[fieldId].addFilter(value, data, blank)
 
     def save(self):

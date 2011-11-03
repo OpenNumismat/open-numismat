@@ -59,6 +59,14 @@ class FormItem(object):
         if itemType & Type.Checkable:
             # Disable fields with unchecked labels
             self._widget.setDisabled(True)
+
+        self.hidden = False
+    
+    def setHidden(self):
+        self.hidden = True
+    
+    def isHidden(self):
+        return self.hidden
     
     def checkBoxChanged(self, state):
         self._widget.setDisabled(state == Qt.Unchecked)
@@ -120,6 +128,8 @@ class BaseFormLayout(QtGui.QGridLayout):
 
     def addRow(self, item1, item2=None):
         if not item2:
+            if item1.isHidden():
+                return
             self.addWidget(item1.label(), self.row, 0)
             widget = item1.widget()
             # NOTE: columnSpan parameter in addWidget don't work with value -1
@@ -129,24 +139,37 @@ class BaseFormLayout(QtGui.QGridLayout):
             if isinstance(widget, NumberEdit):
                 widget.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         else:
-            self.addWidget(item1.label(), self.row, 0)
+            if item1.isHidden() and item2.isHidden():
+                return
 
             if isinstance(item2, QtGui.QAbstractButton):
+                if item1.isHidden():
+                    return
+
+                self.addWidget(item1.label(), self.row, 0)
                 self.addWidget(item1.widget(), self.row, 1, 1, 4)
                 self.addWidget(item2, self.row, 5)
             else:
-                widget = item1.widget()
-                self.addWidget(widget, self.row, 1)
-                widget = QtGui.QWidget()
-                widget.setMinimumWidth(0)
-                if self.columnCount == 6:
-                    widget.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-                self.addWidget(widget, self.row, 2)
+                col = 0
+                if not item1.isHidden():
+                    self.addWidget(item1.label(), self.row, col)
+                    col = col + 1
+                    self.addWidget(item1.widget(), self.row, col)
+                    col = col + 1
+
+                    widget = QtGui.QWidget()
+                    widget.setMinimumWidth(0)
+                    if self.columnCount == 6:
+                        widget.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+                    self.addWidget(widget, self.row, col)
+                    col = col + 1
         
-                if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
-                    item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
-                self.addWidget(item2.label(), self.row, 3)
-                self.addWidget(item2.widget(), self.row, 4, 1, self.columnCount-4)
+                if not item2.isHidden():
+                    if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
+                        item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+                    self.addWidget(item2.label(), self.row, col)
+                    col = col + 1
+                    self.addWidget(item2.widget(), self.row, col, 1, self.columnCount-4)
 
         self.row = self.row + 1
 

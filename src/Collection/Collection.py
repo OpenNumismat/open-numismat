@@ -11,8 +11,8 @@ from EditCoinDialog.EditCoinDialog import EditCoinDialog
 class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
 
-    def __init__(self, reference, parent=None, db=QSqlDatabase(), fields=CollectionFields()):
-        super(CollectionModel, self).__init__(parent, db)
+    def __init__(self, reference, fields, parent=None):
+        super(CollectionModel, self).__init__(parent, fields.db)
         
         self.intFilter = ''
         self.extFilter = ''
@@ -144,8 +144,6 @@ class Collection(QtCore.QObject):
         self.db = QSqlDatabase.addDatabase('QSQLITE')
         self._pages = None
         self.fileName = None
-        
-        self.fields = CollectionFields()
     
     def open(self, fileName):
         file = QtCore.QFileInfo(fileName)
@@ -159,6 +157,8 @@ class Collection(QtCore.QObject):
             QtGui.QMessageBox.critical(self.parent(), self.tr("Open collection"), self.tr("Collection not exists"))
             return False
             
+        self.fields = CollectionFields(self.db)
+        
         self.fileName = fileName
         self._pages = CollectionPages(self.db)
         
@@ -186,6 +186,8 @@ class Collection(QtCore.QObject):
         
         sql = "CREATE TABLE IF NOT EXISTS coins (" + ", ".join(sqlFields) + ")"
         QSqlQuery(sql, self.db)
+        
+        self.fields = CollectionFields.create(self.db)
         
         self._pages = CollectionPages(self.db)
         
@@ -234,7 +236,7 @@ class Collection(QtCore.QObject):
         return self._pages
     
     def createModel(self):
-        model = CollectionModel(self.reference, None, self.db, self.fields)
+        model = CollectionModel(self.reference, self.fields)
         model.title = self.getCollectionName()
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         model.setTable('coins')

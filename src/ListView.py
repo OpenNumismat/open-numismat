@@ -104,7 +104,7 @@ class ListView(QtGui.QTableView):
         self.listSelectedLabel = QtGui.QLabel(self.tr("0 coin(s) selected"))
         
         # Show image data as images
-        for field in CollectionFields():
+        for field in CollectionFields(listParam.db):
             if field.type == Type.Image or field.type == Type.EdgeImage:
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
     

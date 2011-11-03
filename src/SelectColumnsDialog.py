@@ -18,7 +18,7 @@ class SelectColumnsDialog(QtGui.QDialog):
         self.listWidget.setDropIndicatorShown(True) 
         self.listWidget.setWrapping(True)
         
-        allFields = CollectionFields()
+        allFields = CollectionFields(listParam.db)
         collectionFields = allFields.userFields
         for param in listParam.columns:
             field = allFields.field(param.fieldid)
