@@ -1,7 +1,7 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
-from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, FormItem
+from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout, FormItem
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
 
@@ -485,34 +485,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def imagesLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
-
-        item = self.items['photo1']
-        item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-#        item.label().setAlignment(Qt.AlignLeft)
-        layout.addWidget(item.label(), 0, 0)
-        layout.addWidget(item.widget(), 1, 0)
-        item = self.items['photo2']
-        item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-#        item.label().setAlignment(Qt.AlignLeft)
-        layout.addWidget(item.label(),0,1)
-        layout.addWidget(item.widget(),1,1)
-        item = self.items['photo3']
-        item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-#        item.label().setAlignment(Qt.AlignLeft)
-        layout.addWidget(item.label(),2,0)
-        layout.addWidget(item.widget(),3,0)
-        item = self.items['photo4']
-        item.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-#        item.label().setAlignment(Qt.AlignLeft)
-        layout.addWidget(item.label(),2,1)
-        layout.addWidget(item.widget(),3,1)
-
-        layout.setRowMinimumHeight(1, 120)
-        layout.setRowMinimumHeight(3, 120)
-        layout.setColumnMinimumWidth(0, 160)
-        layout.setColumnMinimumWidth(1, 160)
-
+        layout = ImageFormLayout(parent)
+        layout.addImages([self.items['photo1'], self.items['photo2'], self.items['photo3'], self.items['photo4']])
         return layout
 
     def clickGenerateTitle(self):

@@ -195,9 +195,36 @@ class BaseFormGroupBox(QtGui.QGroupBox):
 
         # If field is a Text - make it vertical size preferred
         self.fixSizePolicy(item1)
-        if item2 and not isinstance(item2, QtGui.QAbstractButton) :
+        if item2 and not isinstance(item2, QtGui.QAbstractButton):
             self.fixSizePolicy(item2)
 
     def fixSizePolicy(self, item):
         if not item.isHidden() and item.type() == Type.Text:
             self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+
+class ImageFormLayout(BaseFormLayout):
+    def __init__(self, parent=None):
+        super(ImageFormLayout, self).__init__(parent)
+        
+        self.imagesCount = 0
+    
+    def addImages(self, images):
+        for image in images:
+            if not image.isHidden():
+                image.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+                if isinstance(image.label(), QtGui.QLabel):
+                    image.label().setAlignment(Qt.AlignLeft)
+                
+                row = int(self.imagesCount/2)
+                col = self.imagesCount%2
+                
+                self.addWidget(image.label(), row*2, col)
+                self.addWidget(image.widget(), row*2+1, col)
+                
+                self.setRowMinimumHeight(row*2+1, 120)
+                self.setColumnMinimumWidth(col, 160)
+                
+                self.imagesCount = self.imagesCount+1
+    
+    def isEmpty(self):
+        return (self.imagesCount == 0)
