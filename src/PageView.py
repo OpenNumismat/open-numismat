@@ -29,16 +29,23 @@ class ImageView(QtGui.QWidget):
     def setModel(self, model):
         self.model = model
         self.imageButtons = []
-        self.imageFields = []
-        for field in model.fields:
-            if field.type in [Type.Image, Type.EdgeImage] and field.name != 'image':
-                self.imageFields.append(field.name)
-                button = QtGui.QCheckBox(self)
-                button.setToolTip(field.title)
-                button.setDisabled(True)
-                button.stateChanged.connect(self.buttonClicked)
-                self.imageButtons.append(button)
-                self.buttonLayout.addWidget(button)
+        for field in self.imageFields():
+            button = QtGui.QCheckBox(self)
+            button.setToolTip(field.title)
+            button.setDisabled(True)
+            button.stateChanged.connect(self.buttonClicked)
+            self.imageButtons.append(button)
+            self.buttonLayout.addWidget(button)
+    
+    def imageFields(self):
+        # TODO: Store value of imageFields in object
+        imageFields = []
+        for field in self.model.fields:
+            if field.type in [Type.Image, Type.EdgeImage] and \
+               field.name != 'image' and \
+               field.enabled:
+                imageFields.append(field)
+        return imageFields
     
     def clear(self):
         for _ in range(self.imageLayout.count()):
@@ -50,10 +57,10 @@ class ImageView(QtGui.QWidget):
         self.clear()
 
         current = self.currentIndex
-        for i, field in enumerate(self.imageFields):
+        for i, field in enumerate(self.imageFields()):
             if self.imageButtons[i].checkState() == Qt.Checked:
                 image = ImageLabel(self)
-                index = self.model.index(current.row(), self.model.fieldIndex(field))
+                index = self.model.index(current.row(), field.id)
                 image.loadFromData(index.data())
                 self.imageLayout.addWidget(image)
     
@@ -62,12 +69,12 @@ class ImageView(QtGui.QWidget):
         self.clear()
         
         images = []
-        for i, field in enumerate(self.imageFields):
+        for i, field in enumerate(self.imageFields()):
             self.imageButtons[i].stateChanged.disconnect(self.buttonClicked)
             self.imageButtons[i].setCheckState(Qt.Unchecked)
             self.imageButtons[i].setDisabled(True)
 
-            index = self.model.index(current.row(), self.model.fieldIndex(field))
+            index = self.model.index(current.row(), field.id)
             if index.data() and not index.data().isNull():
                 # By default show only first 2 images
                 if len(images) < 2:
