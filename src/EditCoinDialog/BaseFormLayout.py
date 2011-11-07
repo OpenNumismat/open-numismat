@@ -17,41 +17,41 @@ class FormItem(object):
             self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
             self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
         
-        type_ = itemType & Type.Mask
-        if type_ == Type.String:
+        self._type = itemType & Type.Mask
+        if self._type == Type.String:
             if reference:
                 self._widget = LineEditRef(reference, parent)
             else:
                 self._widget = LineEdit(parent)
-        elif type_ == Type.ShortString:
+        elif self._type == Type.ShortString:
             self._widget = ShortLineEdit(parent)
-        elif type_ == Type.Number:
+        elif self._type == Type.Number:
             self._widget = NumberEdit(parent)
-        elif type_ == Type.BigInt:
+        elif self._type == Type.BigInt:
             self._widget = BigIntEdit(parent)
-        elif type_ == Type.Value:
+        elif self._type == Type.Value:
             self._widget = ValueEdit(parent)
-        elif type_ == Type.Money:
+        elif self._type == Type.Money:
             self._widget = MoneyEdit(parent)
-        elif type_ == Type.Text:
+        elif self._type == Type.Text:
             self._widget = TextEdit(parent)
-        elif type_ == Type.Image:
+        elif self._type == Type.Image:
             self._widget = ImageEdit(parent)
-        elif type_ == Type.EdgeImage:
+        elif self._type == Type.EdgeImage:
             self._widget = EdgeImageEdit(parent)
-        elif type_ == Type.Date:
+        elif self._type == Type.Date:
             self._widget = DateEdit(parent)
-        elif type_ == Type.Status:
+        elif self._type == Type.Status:
             self._widget = StatusEdit(parent)
-        elif type_ == Type.DateTime:
+        elif self._type == Type.DateTime:
             self._widget = DateEdit(parent)
-        elif type_ == Type.EdgeImage:
+        elif self._type == Type.EdgeImage:
             self._widget = EdgeImageEdit(parent)
         else:
             raise
         
         if itemType & Type.Disabled:
-            if type_ in [Type.Status, Type.Image, Type.EdgeImage]:
+            if self._type in [Type.Status, Type.Image, Type.EdgeImage]:
                 self._widget.setDisabled(True)
             else:
                 self._widget.setReadOnly(True)
@@ -79,6 +79,9 @@ class FormItem(object):
 
     def label(self):
         return self._label
+    
+    def type(self):
+        return self._type
 
     def widget(self):
         return self._widget
@@ -179,6 +182,16 @@ class BaseFormGroupBox(QtGui.QGroupBox):
         
         self.layout = BaseFormLayout(self)
         self.setLayout(self.layout)
+        self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
     
     def addRow(self, item1, item2=None):
         self.layout.addRow(item1, item2)
+
+        # If field is a Text - make it vertical size preferred
+        self.fixSizePolicy(item1)
+        if item2 and not isinstance(item2, QtGui.QAbstractButton) :
+            self.fixSizePolicy(item2)
+
+    def fixSizePolicy(self, item):
+        if not item.isHidden() and item.type() == Type.Text:
+            self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
