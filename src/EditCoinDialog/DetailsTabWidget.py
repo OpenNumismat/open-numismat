@@ -23,7 +23,6 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
     def createCoinPage(self):
         main = self.mainDetailsLayout()
-        main.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         state = self.stateLayout()
         self.addTabPage(self.tr("Coin"), [main, state])
 
@@ -34,11 +33,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
     def createParametersPage(self):
         parameters = self.parametersLayout()
-        parameters.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-
         minting = self.mintingLayout()
-        minting.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        
         note = self.noteLayout()
         
         layout = QtGui.QVBoxLayout()
@@ -63,15 +58,9 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
     def createClassificationPage(self):
         catalogue = self.catalogueLayout()
-        catalogue.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-
         rarity = self.rarityLayout()
-
         price = self.priceLayout()
-        price.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-
         variation = self.variationLayout()
-        variation.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
 
         layout1 = QtGui.QVBoxLayout()
         layout1.addWidget(catalogue)
@@ -90,22 +79,21 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return widget
     
     def addTabPage(self, title, parts):
-        if isinstance(parts, list):
-            pageLayout = QtGui.QBoxLayout(self.Direction, self)
-            # Fill layout with it's parts
-            for part in parts:
-                if isinstance(part, QtGui.QWidget):
-                    pageLayout.addWidget(part)
-                else:
-                    pageLayout.addLayout(part)
+        if not isinstance(parts, list):
+            parts = [parts,]
+        
+        pageLayout = QtGui.QBoxLayout(self.Direction, self)
+        # Fill layout with it's parts
+        for part in parts:
+            if isinstance(part, QtGui.QWidget):
+                pageLayout.addWidget(part)
+            else:
+                pageLayout.addLayout(part)
 
-            # Convert layout to widget and add to tab page
-            self.addTab(self._layoutToWidget(pageLayout), title)
-            if len(parts) == 0:
-                self.setTabEnabled(1, False)
-        else:
-            # Convert layout to widget and add to tab page
-            self.addTab(self._layoutToWidget(parts), title)
+        # Convert layout to widget and add to tab page
+        self.addTab(self._layoutToWidget(pageLayout), title)
+        if len(parts) == 0:
+            self.setTabEnabled(1, False)
     
     def addItem(self, field):
         item = FormItem(field.name, field.title, field.type | Type.Disabled)

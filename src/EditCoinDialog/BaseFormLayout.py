@@ -129,6 +129,9 @@ class BaseFormLayout(QtGui.QGridLayout):
         self.row = 0
         self.columnCount = 5
 
+    def isEmpty(self):
+        return self.row == 0
+
     def addRow(self, item1, item2=None):
         if not item2:
             if item1.isHidden():
@@ -183,6 +186,9 @@ class BaseFormGroupBox(QtGui.QGroupBox):
         self.layout = BaseFormLayout(self)
         self.setLayout(self.layout)
         self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+    
+    def isEmpty(self):
+        return self.layout.isEmpty()
     
     def addRow(self, item1, item2=None):
         self.layout.addRow(item1, item2)
