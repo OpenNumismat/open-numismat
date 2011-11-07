@@ -122,7 +122,7 @@ class MainSettingsPage(QtGui.QWidget):
         settings.save()
 
 class FieldsSettingsPage(QtGui.QWidget):
-    DataRole = 16
+    DataRole = Qt.UserRole
 
     def __init__(self, db, parent=None):
         super(FieldsSettingsPage, self).__init__(parent)
@@ -134,6 +134,7 @@ class FieldsSettingsPage(QtGui.QWidget):
         for field in self.fields:
             item = QtGui.QListWidgetItem(field.title, self.listWidget)
             item.setData(self.DataRole, field)
+            item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
             checked = Qt.Unchecked
             if field.enabled:
                 checked = Qt.Checked
@@ -151,6 +152,7 @@ class FieldsSettingsPage(QtGui.QWidget):
             item = self.listWidget.item(i)
             field = item.data(self.DataRole)
             field.enabled = (item.checkState() == Qt.Checked)
+            field.title = item.text()
         
         self.fields.save()
 

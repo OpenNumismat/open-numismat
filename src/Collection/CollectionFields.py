@@ -142,6 +142,7 @@ class CollectionFields(CollectionFieldsBase):
             record = query.record()
             fieldId = record.value('id')
             field = self.field(fieldId)
+            field.title = record.value('title')
             field.enabled = bool(record.value('enabled'))
             if field.enabled:
                 self.userFields.append(field)
