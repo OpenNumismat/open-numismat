@@ -1,7 +1,7 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
-from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout, FormItem
+from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout, DesignFormLayout, FormItem
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
 
@@ -446,39 +446,27 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def obverseDesignLayout(self, parent=None):
-        layout = BaseFormGroupBox(self.tr("Obverse"), parent)
-        layout.layout.columnCount = 2
+        layout = DesignFormLayout(self.tr("Obverse"), parent)
         
-        item = self.items['obverseimg']
-        layout.layout.setColumnMinimumWidth(2, 160)
-        layout.layout.addWidget(item.widget(), 0, 2, 2, 1)
-        
+        layout.addImage(self.items['obverseimg'])
         layout.addRow(self.items['obversedesign'])
         layout.addRow(self.items['obversedesigner'])
 
         return layout
 
     def reverseDesignLayout(self, parent=None):
-        layout = BaseFormGroupBox(self.tr("Reverse"), parent)
-        layout.layout.columnCount = 2
+        layout = DesignFormLayout(self.tr("Reverse"), parent)
         
-        item = self.items['reverseimg']
-        layout.layout.setColumnMinimumWidth(2, 160)
-        layout.layout.addWidget(item.widget(), 0, 2, 2, 1)
-        
+        layout.addImage(self.items['reverseimg'])
         layout.addRow(self.items['reversedesign'])
         layout.addRow(self.items['reversedesigner'])
 
         return layout
 
     def edgeDesignLayout(self, parent=None):
-        layout = BaseFormGroupBox(self.tr("Edge"), parent)
-        layout.layout.columnCount = 2
+        layout = DesignFormLayout(self.tr("Edge"), parent)
         
-        item = self.items['edgeimg']
-        layout.layout.setColumnMinimumWidth(2, 160)
-        layout.layout.addWidget(item.widget(), 0, 2, 2, 1)
-        
+        layout.addImage(self.items['edgeimg'])
         layout.addRow(self.items['edge'])
         layout.addRow(self.items['edgelabel'])
 

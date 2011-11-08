@@ -228,3 +228,13 @@ class ImageFormLayout(BaseFormLayout):
     
     def isEmpty(self):
         return (self.imagesCount == 0)
+
+class DesignFormLayout(BaseFormGroupBox):
+    def __init__(self, title, parent=None):
+        super(DesignFormLayout, self).__init__(title, parent)
+        self.layout.columnCount = 2
+    
+    def addImage(self, image):
+        if not image.isHidden():
+            self.layout.addWidget(image.widget(), 0, 2, 2, 1)
+            self.layout.setColumnMinimumWidth(2, 160)
