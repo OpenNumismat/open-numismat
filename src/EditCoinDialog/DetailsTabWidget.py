@@ -7,6 +7,7 @@ from Collection.CollectionFields import FieldTypes as Type
 
 class DetailsTabWidget(QtGui.QTabWidget):
     Direction = QtGui.QBoxLayout.LeftToRight
+    Stretch = 'stretch item'
     
     def __init__(self, parent=None):
         super(DetailsTabWidget, self).__init__(parent)
@@ -24,7 +25,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def createCoinPage(self):
         main = self.mainDetailsLayout()
         state = self.stateLayout()
-        self.addTabPage(self.tr("Coin"), [main, state])
+        self.addTabPage(self.tr("Coin"), [main, self.Stretch, state])
 
     def createTrafficPage(self):
         self.oldTrafficIndex = 0
@@ -36,11 +37,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         minting = self.mintingLayout()
         note = self.noteLayout()
         
-        layout = QtGui.QVBoxLayout()
-        layout.addWidget(minting)
-        layout.addWidget(self._layoutToWidget(note))
-
-        self.addTabPage(self.tr("Parameters"), [parameters, layout])
+        self.addTabPage(self.tr("Parameters"), [parameters, self.Stretch, minting, note])
 
     def createDesignPage(self):
         obverse = self.obverseDesignLayout()
@@ -48,13 +45,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         edge = self.edgeDesignLayout()
         subject = self.subjectLayout()
 
-        layout1 = QtGui.QVBoxLayout()
-        layout1.addWidget(obverse)
-        layout1.addWidget(reverse)
-        layout2 = QtGui.QVBoxLayout()
-        layout2.addWidget(edge)
-        layout2.addWidget(self._layoutToWidget(subject))
-        self.addTabPage(self.tr("Design"), [layout1, layout2])
+        self.addTabPage(self.tr("Design"), [obverse, reverse, self.Stretch, edge, subject])
 
     def createClassificationPage(self):
         catalogue = self.catalogueLayout()
@@ -62,38 +53,76 @@ class DetailsTabWidget(QtGui.QTabWidget):
         price = self.priceLayout()
         variation = self.variationLayout()
 
-        layout1 = QtGui.QVBoxLayout()
-        layout1.addWidget(catalogue)
-        layout1.addLayout(rarity)
-        layout1.addWidget(price)
-        layout1.insertStretch(-1)
-        layout2 = QtGui.QVBoxLayout()
-        layout2.addWidget(variation)
-        layout2.insertStretch(-1)
-
-        self.addTabPage(self.tr("Classification"), [layout1, layout2])
+        self.addTabPage(self.tr("Classification"), [catalogue, rarity, price, self.Stretch, variation])
 
     def _layoutToWidget(self, layout):
         widget = QtGui.QWidget(self)
         widget.setLayout(layout)
         return widget
-    
-    def addTabPage(self, title, parts):
-        if not isinstance(parts, list):
-            parts = [parts,]
+
+    def createTabPage(self, parts):
+        # Remove all empty parts
+        for part in parts:
+            if isinstance(part, BaseFormGroupBox):
+                if part.isEmpty():
+                    parts.remove(part)
+        
+        if self.Direction == QtGui.QBoxLayout.LeftToRight:
+            newParts = []
+            layout = QtGui.QVBoxLayout()
+            stretchNeeded = True
+            count = 0
+            for part in parts:
+                if part == self.Stretch:
+                    if count > 0:
+                        newParts.append(layout)
+                        if stretchNeeded:
+                            layout.insertStretch(-1)
+                        layout = QtGui.QVBoxLayout()
+                    stretchNeeded = True
+                    count = 0
+                else:
+                    if isinstance(part, QtGui.QWidget):
+                        layout.addWidget(part)
+                        if part.sizePolicy().verticalPolicy() == QtGui.QSizePolicy.Preferred:
+                            stretchNeeded = False
+                    else:
+                        layout.addLayout(part)
+                    count = count + 1
+            if count > 0:
+                newParts.append(layout)
+                if stretchNeeded:
+                    layout.insertStretch(-1)
+            parts = newParts
+        else:
+            for part in parts:
+                if part == self.Stretch:
+                    parts.remove(part)
         
         pageLayout = QtGui.QBoxLayout(self.Direction, self)
         # Fill layout with it's parts
+        stretchNeeded = True
         for part in parts:
             if isinstance(part, QtGui.QWidget):
                 pageLayout.addWidget(part)
+                if part.sizePolicy().verticalPolicy() == QtGui.QSizePolicy.Preferred:
+                    stretchNeeded = False
             else:
                 pageLayout.addLayout(part)
+                if isinstance(part, ImageFormLayout):
+                    stretchNeeded = False
 
-        # Convert layout to widget and add to tab page
-        self.addTab(self._layoutToWidget(pageLayout), title)
+        if self.Direction == QtGui.QBoxLayout.TopToBottom and stretchNeeded:
+            pageLayout.insertStretch(-1)
+    
+        return self._layoutToWidget(pageLayout)
+    
+    def addTabPage(self, title, parts):
+        page = self.createTabPage(parts)
+        index = self.addTab(page, title)
+        # Disable if empty
         if len(parts) == 0:
-            self.setTabEnabled(1, False)
+            self.setTabEnabled(index, False)
     
     def addItem(self, field):
         item = FormItem(field.name, field.title, field.type | Type.Disabled)
@@ -310,9 +339,8 @@ class DetailsTabWidget(QtGui.QTabWidget):
             pageParts.append(pay)
         elif index == 3:
             pay = self.payLayout()
-            pageParts.append(pay)
             sale = self.saleLayout()
-            pageParts.append(sale)
+            pageParts.extend([pay, self.Stretch, sale])
         elif index == 4:
             pay = self.payLayout()
             pageParts.append(pay)
@@ -328,14 +356,9 @@ class DetailsTabWidget(QtGui.QTabWidget):
         
         self.removeTab(1)
         pageParts = self._createTrafficParts(index)
+        page = self.createTabPage(pageParts)
 
-        pageLayout = QtGui.QBoxLayout(self.Direction, self)
-        # Fill layout with it's parts
-        for part in pageParts:
-            pageLayout.addWidget(part)
-
-        # Convert layout to widget and add to tab page
-        self.insertTab(1, self._layoutToWidget(pageLayout), self.tr("Traffic"))
+        self.insertTab(1, page, self.tr("Traffic"))
         if len(pageParts) == 0:
             self.setTabEnabled(1, False)
             self.items['grade'].widget().setEnabled(False)
@@ -343,8 +366,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
                 self.setCurrentIndex(pageIndex-1)
         else:
             self.items['grade'].widget().setEnabled(True)
-            if pageIndex == 1:
-                self.setCurrentIndex(pageIndex)
+            self.setCurrentIndex(pageIndex)
     
     def addPayCommission(self):
         item = FormItem(None, self.tr("Commission"), Type.Money)
@@ -387,11 +409,11 @@ class FormDetailsTabWidget(DetailsTabWidget):
         edge = self.edgeDesignLayout()
         subject = self.subjectLayout()
 
-        self.addTabPage(self.tr("Design"), [obverse, reverse, edge, subject])
+        self.addTabPage(self.tr("Design"), [obverse, reverse, self.Stretch, edge, subject])
 
     def createImagePage(self):
         images = self.imagesLayout()
-        self.addTabPage(self.tr("Images"), images)
+        self.addTabPage(self.tr("Images"), [images,])
     
     def addItem(self, field):
         checkable = 0
