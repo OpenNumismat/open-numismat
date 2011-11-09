@@ -127,7 +127,7 @@ class MainWindow(QtGui.QMainWindow):
             self.__menu.addAction(act)
     
     def settingsEvent(self):
-        dialog = SettingsDialog(self.collection.db, self)
+        dialog = SettingsDialog(self.collection, self)
         if dialog.exec_() == QtGui.QDialog.Accepted:
             self.reference.open(Settings().reference)
 

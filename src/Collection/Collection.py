@@ -136,6 +136,53 @@ class CollectionModel(QSqlTableModel):
             combinedFilter = self.intFilter + self.extFilter
         super(CollectionModel, self).setFilter(combinedFilter)
 
+class CollectionSettings(QtCore.QObject):
+    DefaultSettings = {'Version': 1, 'ImageSideLen': 1024}
+    
+    def __init__(self, collection):
+        super(CollectionSettings, self).__init__(collection)
+        self.db = collection.db
+        
+        self.Settings = self.DefaultSettings.copy()
+        if 'settings' in self.db.tables():
+            query = QSqlQuery("SELECT * FROM settings", self.db)
+            while query.next():
+                record = query.record()
+                self.Settings[record.value('title')] = record.value('value')
+        else:
+            self.create(self.db)
+    
+    def save(self):
+        self.db.transaction()
+        
+        for key, value in self.Settings.items():
+            query = QSqlQuery(self.db)
+            query.prepare("UPDATE settings SET value=? WHERE title=?")
+            query.addBindValue(str(value))
+            query.addBindValue(key)
+            query.exec_()
+        
+        self.db.commit()
+    
+    @staticmethod
+    def create(db=QSqlDatabase()):
+        db.transaction()
+        
+        sql = """CREATE TABLE settings (
+            title CHAR NOT NULL UNIQUE,
+            value CHAR)"""
+        QSqlQuery(sql, db)
+        
+        for key, value in CollectionSettings.DefaultSettings.items():
+            query = QSqlQuery(db)
+            query.prepare("""INSERT INTO settings (title, value)
+                    VALUES (?, ?)""")
+            query.addBindValue(key)
+            query.addBindValue(str(value))
+            query.exec_()
+        
+        db.commit()
+
 class Collection(QtCore.QObject):
     def __init__(self, reference, parent=None):
         super(Collection, self).__init__(parent)
@@ -144,6 +191,9 @@ class Collection(QtCore.QObject):
         self.db = QSqlDatabase.addDatabase('QSQLITE')
         self._pages = None
         self.fileName = None
+    
+    def isOpen(self):
+        return self.db.isValid()
     
     def open(self, fileName):
         file = QtCore.QFileInfo(fileName)
@@ -161,6 +211,8 @@ class Collection(QtCore.QObject):
         
         self.fileName = fileName
         self._pages = CollectionPages(self.db)
+        
+        self.settings = CollectionSettings(self)
         
         return True
     
@@ -190,6 +242,8 @@ class Collection(QtCore.QObject):
         self.fields = CollectionFields.create(self.db)
         
         self._pages = CollectionPages(self.db)
+        
+        self.settings = CollectionSettings(self)
         
         return True
 

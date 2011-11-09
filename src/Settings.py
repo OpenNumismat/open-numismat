@@ -4,6 +4,7 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 
 from Collection.CollectionFields import CollectionFields
+from EditCoinDialog.FormItems import NumberEdit
 import version
 
 class Settings(QtCore.QObject):
@@ -55,10 +56,11 @@ class Settings(QtCore.QObject):
 class MainSettingsPage(QtGui.QWidget):
     Languages = [("English", 'en_GB'), ("Русский", 'ru_RU')]
     
-    def __init__(self, parent=None):
+    def __init__(self, collection, parent=None):
         super(MainSettingsPage, self).__init__(parent)
 
         settings = Settings()
+        self.collectionSettings = collection.settings
         
         layout = QtGui.QGridLayout()
         
@@ -98,6 +100,14 @@ class MainSettingsPage(QtGui.QWidget):
         self.errorSending.setChecked(settings.sendError)
         layout.addWidget(self.errorSending, 3, 0, 1, 2)
         
+        self.imageSideLen = NumberEdit(self)
+        layout.addWidget(QtGui.QLabel(self.tr("Max image side len")), 4, 0)
+        layout.addWidget(self.imageSideLen, 4, 1)
+        if not collection.isOpen():
+            self.imageSideLen.setDisabled(True)
+        else:
+            self.imageSideLen.setText(self.collectionSettings.Settings['ImageSideLen'])
+        
         self.setLayout(layout)
 
     def backupButtonClicked(self):
@@ -120,17 +130,20 @@ class MainSettingsPage(QtGui.QWidget):
         settings.sendError = self.errorSending.isChecked()
 
         settings.save()
+        
+        self.collectionSettings.Settings['ImageSideLen'] = self.imageSideLen.text()
+        self.collectionSettings.save()
 
 class FieldsSettingsPage(QtGui.QWidget):
     DataRole = Qt.UserRole
 
-    def __init__(self, db, parent=None):
+    def __init__(self, collection, parent=None):
         super(FieldsSettingsPage, self).__init__(parent)
 
         self.listWidget = QtGui.QListWidget(self)
         self.listWidget.setWrapping(True)
 
-        self.fields = CollectionFields(db)
+        self.fields = collection.fields
         for field in self.fields:
             item = QtGui.QListWidgetItem(field.title, self.listWidget)
             item.setData(self.DataRole, field)
@@ -157,15 +170,17 @@ class FieldsSettingsPage(QtGui.QWidget):
         self.fields.save()
 
 class SettingsDialog(QtGui.QDialog):
-    def __init__(self, db, parent=None):
+    def __init__(self, collection, parent=None):
         super(SettingsDialog, self).__init__(parent)
         
-        mainPage = MainSettingsPage(self)
-        fieldsPage = FieldsSettingsPage(db, self)
+        mainPage = MainSettingsPage(collection, self)
+        fieldsPage = FieldsSettingsPage(collection, self)
 
         self.tab = QtGui.QTabWidget(self)
         self.tab.addTab(mainPage, self.tr("Main"))
-        self.tab.addTab(fieldsPage, self.tr("Fields"))
+        index = self.tab.addTab(fieldsPage, self.tr("Fields"))
+        if not collection.isOpen():
+            self.tab.setTabEnabled(index, False)
         
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
