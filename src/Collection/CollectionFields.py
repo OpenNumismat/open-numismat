@@ -164,6 +164,8 @@ class CollectionFields(CollectionFieldsBase):
     
     @staticmethod
     def create(db=QSqlDatabase()):
+        db.transaction()
+        
         sql = """CREATE TABLE IF NOT EXISTS fields (
             id INTEGER NOT NULL PRIMARY KEY,
             title CHAR,
@@ -181,5 +183,7 @@ class CollectionFields(CollectionFieldsBase):
             enabled = field in fields.userFields
             query.addBindValue(int(enabled))
             query.exec_()
+        
+        db.commit()
         
         return CollectionFields(db)
