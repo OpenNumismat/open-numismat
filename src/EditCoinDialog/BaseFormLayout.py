@@ -114,8 +114,11 @@ class FormItem(object):
             self._widget.setDate(QDate.fromString(str(value), Qt.ISODate))
         elif isinstance(self._widget, StatusEdit):
             self._widget.setCurrentValue(value)
-        else: 
+        elif isinstance(self._widget, TextEdit):
             self._widget.setText(str(value))
+        else:
+            self._widget.setText(str(value))
+            self._widget.home(False)
     
     def clear(self):
         if isinstance(self._widget, StatusEdit):

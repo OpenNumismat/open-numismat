@@ -57,6 +57,9 @@ class LineEditRef(QtGui.QWidget):
     def text(self):
         return self.comboBox.currentText()
     
+    def home(self, mark):
+        self.comboBox.lineEdit().home(mark)
+    
     def addDependent(self, reference):
         if not self.dependents:
             self.comboBox.currentIndexChanged.connect(self.updateDependents)
