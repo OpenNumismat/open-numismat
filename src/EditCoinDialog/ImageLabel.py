@@ -173,17 +173,7 @@ class ImageEdit(ImageLabel):
             return
         
     def data(self):
-        ba = QtCore.QByteArray() 
-        buffer = QtCore.QBuffer(ba)
-        buffer.open(QtCore.QIODevice.WriteOnly)
-
-        # Resize big images for storing in DB
-        if self.image.width() > MAX_IMAGE_WIDTH or self.image.height() > MAX_IMAGE_HEIGHT:
-            scaledImage = self.image.scaled(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        else:
-            scaledImage = self.image
-        scaledImage.save(buffer, IMAGE_FORMAT)
-        return ba
+        return self.image
 
 class EdgeImageEdit(ImageEdit):
     def __init__(self, parent=None):

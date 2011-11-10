@@ -40,10 +40,9 @@ class ImageView(QtGui.QWidget):
     def imageFields(self):
         # TODO: Store value of imageFields in object
         imageFields = []
-        for field in self.model.fields:
+        for field in self.model.fields.userFields:
             if field.type in [Type.Image, Type.EdgeImage] and \
-               field.name != 'image' and \
-               field.enabled:
+               field.name != 'image':
                 imageFields.append(field)
         return imageFields
     

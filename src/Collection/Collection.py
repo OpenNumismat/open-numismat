@@ -10,15 +10,17 @@ from EditCoinDialog.EditCoinDialog import EditCoinDialog
 
 class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
+    IMAGE_FORMAT = 'jpg'
 
-    def __init__(self, reference, fields, parent=None):
-        super(CollectionModel, self).__init__(parent, fields.db)
+    def __init__(self, collection, parent=None):
+        super(CollectionModel, self).__init__(parent, collection.db)
         
         self.intFilter = ''
         self.extFilter = ''
         
-        self.reference = reference
-        self.fields = fields
+        self.settings = collection.settings
+        self.reference = collection.reference
+        self.fields = collection.fields
         self.proxy = None
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
@@ -67,6 +69,27 @@ class CollectionModel(QSqlTableModel):
     def _updateRecord(self, record):
         if self.proxy:
             self.proxy.setDynamicSortFilter(False)
+        
+        for field in self.fields.userFields:
+            if field.type in [Type.Image, Type.EdgeImage] and \
+               field.name != 'image':
+                # Convert image to DB format
+                image = record.value(field.name)
+                if isinstance(image, QtGui.QImage):
+                    ba = QtCore.QByteArray() 
+                    buffer = QtCore.QBuffer(ba)
+                    buffer.open(QtCore.QIODevice.WriteOnly)
+                    
+                    # Resize big images for storing in DB
+                    maxWidth = self.settings.Settings['ImageSideLen']
+                    maxHeight = self.settings.Settings['ImageSideLen']
+                    if image.width() > maxWidth or image.height() > maxHeight:
+                        scaledImage = image.scaled(maxWidth, maxHeight, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                    else:
+                        scaledImage = image
+                    
+                    scaledImage.save(buffer, self.IMAGE_FORMAT)
+                    record.setValue(field.name, ba)
         
         # Creating preview image for list
         if record.isNull('obverseimg') and record.isNull('reverseimg'):
@@ -290,7 +313,7 @@ class Collection(QtCore.QObject):
         return self._pages
     
     def createModel(self):
-        model = CollectionModel(self.reference, self.fields)
+        model = CollectionModel(self)
         model.title = self.getCollectionName()
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         model.setTable('coins')
