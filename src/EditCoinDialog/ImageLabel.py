@@ -1,10 +1,6 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 
-MAX_IMAGE_WIDTH = 1024
-MAX_IMAGE_HEIGHT = 1024
-IMAGE_FORMAT = 'jpg'
-
 class ImageLabel(QtGui.QLabel):
     def __init__(self, parent=None):
         super(ImageLabel, self).__init__(parent)
@@ -31,7 +27,22 @@ class ImageLabel(QtGui.QLabel):
         self.image = QtGui.QImage()
         self.setPixmap(QtGui.QPixmap.fromImage(self.image))
     
-    def _setImage(self):
+    def resizeEvent(self, e):
+        self._showImage()
+    
+    def showEvent(self, e):
+        self._showImage()
+    
+    def loadFromData(self, data):
+        image = QtGui.QImage()
+        image.loadFromData(data)
+        self._setImage(image)
+    
+    def _setImage(self, image):
+        self.image = image
+        self._showImage()
+    
+    def _showImage(self):
         if self.image.isNull():
             return
         
@@ -43,19 +54,9 @@ class ImageLabel(QtGui.QLabel):
             scaledImage = self.image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
         else:
             scaledImage = self.image
-    
+        
         pixmap = QtGui.QPixmap.fromImage(scaledImage)
         self.setPixmap(pixmap)
-    
-    def resizeEvent(self, e):
-        self._setImage()
-    
-    def showEvent(self, e):
-        self._setImage()
-    
-    def loadFromData(self, data):
-        self.image.loadFromData(data)
-        self._setImage()
 
 class ImageEdit(ImageLabel):
     latestDir = QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.PicturesLocation)
@@ -64,7 +65,7 @@ class ImageEdit(ImageLabel):
         super(ImageEdit, self).__init__(parent)
         
         self.setFrameStyle(QtGui.QFrame.Panel | QtGui.QFrame.Plain)
-
+        
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenu)
 
@@ -110,7 +111,7 @@ class ImageEdit(ImageLabel):
     def openImage(self):
         fileName = QtGui.QFileDialog.getOpenFileName(self,
                 self.tr("Open File"), ImageEdit.latestDir,
-                self.tr("Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)"))
+                self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)"))
         if fileName:
             dir = QtCore.QDir(fileName)
             dir.cdUp()
@@ -124,8 +125,8 @@ class ImageEdit(ImageLabel):
     def saveImage(self):
         # TODO: Set default name to coin title + field name 
         fileName = QtGui.QFileDialog.getSaveFileName(self,
-                self.tr("Save File"), ImageEdit.latestDir + '/photo.' + IMAGE_FORMAT,
-                self.tr("Images (*.bmp *.png *.jpg *.jpeg *.tiff *.gif);;All files (*.*)"))
+                self.tr("Save File"), ImageEdit.latestDir + '/photo',
+                self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)"))
         if fileName:
             dir = QtCore.QDir(fileName)
             dir.cdUp()
@@ -137,17 +138,12 @@ class ImageEdit(ImageLabel):
         mime = QtGui.QApplication.clipboard().mimeData()
         if mime.hasUrls():
             url = mime.urls()[0]
-            self.image.load(url.toLocalFile())
+            self.loadFromFile(url.toLocalFile())
         elif mime.hasImage():
-            self.image = mime.imageData()
+            self._setImage(mime.imageData())
         elif mime.hasText():
             # Load image by URL
             self.loadFromUrl(mime.text())
-            return
-        else:
-            return
-
-        self._setImage()
 
     def copyImage(self):
         if not self.image.isNull():
@@ -159,8 +155,8 @@ class ImageEdit(ImageLabel):
         self.setText(self.tr("No image available\n(right-click to add an image)"))
 
     def loadFromFile(self, fileName):
-        self.image.load(fileName)
-        self._setImage()
+        image = QtGui.QImage(fileName)
+        self._setImage(image)
     
     def loadFromUrl(self, url):
         import urllib.request
@@ -179,13 +175,11 @@ class EdgeImageEdit(ImageEdit):
     def __init__(self, parent=None):
         super(EdgeImageEdit, self).__init__(parent)
 
-    def _setImage(self):
-        if self.image.isNull():
-            return
-        
-        if self.image.width() < self.image.height():
-            matrix = QtGui.QMatrix()
-            matrix.rotate(90)
-            self.image = self.image.transformed(matrix, Qt.SmoothTransformation)
+    def _setImage(self, image):
+        if not image.isNull():
+            if image.width() < image.height():
+                matrix = QtGui.QMatrix()
+                matrix.rotate(90)
+                image = image.transformed(matrix, Qt.SmoothTransformation)
 
-        super(EdgeImageEdit, self)._setImage()
+        super(EdgeImageEdit, self)._setImage(image)
