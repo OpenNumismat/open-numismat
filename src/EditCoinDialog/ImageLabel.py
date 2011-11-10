@@ -35,8 +35,11 @@ class ImageLabel(QtGui.QLabel):
     
     def loadFromData(self, data):
         image = QtGui.QImage()
-        image.loadFromData(data)
-        self._setImage(image)
+        result = image.loadFromData(data)
+        if result:
+            self._setImage(image)
+        
+        return result
     
     def _setImage(self, image):
         self.image = image
@@ -155,18 +158,26 @@ class ImageEdit(ImageLabel):
         self.setText(self.tr("No image available\n(right-click to add an image)"))
 
     def loadFromFile(self, fileName):
-        image = QtGui.QImage(fileName)
-        self._setImage(image)
+        image = QtGui.QImage()
+        result = image.load(fileName)
+        if result:
+            self._setImage(image)
+
+        return result
     
     def loadFromUrl(self, url):
+        result = False
+        
         import urllib.request
         try:
             # Wikipedia require any header 
             req = urllib.request.Request(url, headers={'User-Agent' : "OpenNumismat"})
             data = urllib.request.urlopen(req).read()
-            self.loadFromData(data)
+            result = self.loadFromData(data)
         except:
-            return
+            pass
+        
+        return result
         
     def data(self):
         return self.image

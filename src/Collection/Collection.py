@@ -81,8 +81,8 @@ class CollectionModel(QSqlTableModel):
                     buffer.open(QtCore.QIODevice.WriteOnly)
                     
                     # Resize big images for storing in DB
-                    maxWidth = self.settings.Settings['ImageSideLen']
-                    maxHeight = self.settings.Settings['ImageSideLen']
+                    maxWidth = int(self.settings.Settings['ImageSideLen'])
+                    maxHeight = int(self.settings.Settings['ImageSideLen'])
                     if image.width() > maxWidth or image.height() > maxHeight:
                         scaledImage = image.scaled(maxWidth, maxHeight, Qt.KeepAspectRatio, Qt.SmoothTransformation)
                     else:
