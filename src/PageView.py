@@ -96,12 +96,14 @@ class ImageView(QtGui.QWidget):
 from PyQt4 import QtSql
 
 class TreeView(QtGui.QTreeWidget):
-    DataRole = 16
+    FiltersRole = Qt.UserRole
+    FieldsRole = FiltersRole+1
     
     def __init__(self, parent=None):
         super(TreeView, self).__init__(parent)
 
         self.setHeaderHidden(True)
+        self.setAutoScroll(False)
 
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenuEvent)
@@ -109,13 +111,13 @@ class TreeView(QtGui.QTreeWidget):
         self.currentItemChanged.connect(self.itemActivatedEvent)
         self.expanded.connect(self.expandedEvent)
         self.collapsed.connect(self.expandedEvent)
-        
+    
     def setModel(self, model):
         self.db = model.database()
         self.model = model
 
         item = QtGui.QTreeWidgetItem(self, [model.title,])
-        item.setData(0, self.DataRole, '')
+        item.setData(0, self.FiltersRole, '')
         self.addTopLevelItem(item)
         self.expandItem(item)
         
@@ -130,7 +132,7 @@ class TreeView(QtGui.QTreeWidget):
         self.resizeColumnToContents(0)
     
     def processChilds(self, parentItem, field):
-        items = self.fillChilds(parentItem, field, parentItem.data(0, self.DataRole))
+        items = self.fillChilds(parentItem, field, parentItem.data(0, self.FiltersRole))
         if not items:
             items = [parentItem,]
         return items
@@ -159,8 +161,8 @@ class TreeView(QtGui.QTreeWidget):
             newFilters = " AND ".join(filterSql)
             if filters:
                 newFilters = filters + " AND " + newFilters
-            subItem.setData(0, self.DataRole, newFilters)
-            subItem.setData(0, self.DataRole+1, fields)
+            subItem.setData(0, self.FiltersRole, newFilters)
+            subItem.setData(0, self.FieldsRole, fields)
             items.append(subItem)
             parentItem.addChild(subItem)
         
@@ -169,13 +171,15 @@ class TreeView(QtGui.QTreeWidget):
     def rowChangedEvent(self, current):
         if current.isValid():
             self.collapseAll()
-            item = self.topLevelItem(0)
-            self.findSubitem(current, item)
+            self.scrollToIndex(current)
     
-    def findSubitem(self, index, item):
-        for i in range(item.childCount()):
-            subItem = item.child(i)
-            fields = subItem.data(0, self.DataRole+1)
+    def scrollToIndex(self, index, parent=None):
+        if not parent:
+            parent = self.topLevelItem(0)
+        
+        for i in range(parent.childCount()):
+            subItem = parent.child(i)
+            fields = subItem.data(0, self.FieldsRole)
             text1 = subItem.text(0)
             textPart = []
             for field in fields:
@@ -183,13 +187,31 @@ class TreeView(QtGui.QTreeWidget):
                 textPart.append(str(index.data()))
             text2 = ' '.join(textPart)
             if text1 == text2:
+                self.expandItem(parent)
                 self.scrollToItem(subItem)
-                self.findSubitem(index, subItem)
-                return
-
+                self.scrollToIndex(index, subItem)
+                break
+    
+    def scrollToItem(self, item):
+        parentItem = item.parent()
+        if parentItem:
+            itemRect = self.visualItemRect(parentItem)
+            if itemRect.x() < 0:
+                columnWidth = self.columnWidth(0)
+                itemWidth = itemRect.width()
+                self.horizontalScrollBar().setValue(columnWidth - itemWidth)
+            elif self.viewport().width()/2 < itemRect.x():
+                columnWidth = self.columnWidth(0)
+                itemWidth = itemRect.width()
+                self.horizontalScrollBar().setValue(itemRect.x())
+        else:
+            super(TreeView, self).scrollToItem(item)
+    
     def itemActivatedEvent(self, current, previous):
+        self.scrollToItem(current)
+        
         self.resizeColumnToContents(0)
-        filter_ = current.data(0, self.DataRole)
+        filter_ = current.data(0, self.FiltersRole)
         self.model.setAdditionalFilter(filter_)
 
     def expandedEvent(self, index):
