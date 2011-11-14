@@ -36,6 +36,7 @@ class TabView(QtGui.QTabWidget):
         self.__actions['rename'] = renameListAct
         
         closeListAct = QtGui.QAction(self.tr("Close"), self)
+        closeListAct.setShortcut(QtGui.QKeySequence.Close)
         closeListAct.triggered.connect(self.closePage)
         self.__actions['close'] = closeListAct
         
