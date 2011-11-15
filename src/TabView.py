@@ -203,14 +203,16 @@ class TabView(QtGui.QTabWidget):
         menu = self.__actions['open']
         menu.clear()
         closedPages = self.collection.pages().closedPages()
-        menu.setEnabled(len(closedPages) > 0)
-        for param in closedPages:
-            act = OpenPageAction(param, self)
-            act.openPageTriggered.connect(self.openPage)
-            menu.addAction(act)
-        
-        menu.addSeparator()
-        menu.addAction(self.__actions['removeAll'])
+        if len(closedPages) > 0:
+            for param in closedPages:
+                act = OpenPageAction(param, self)
+                act.openPageTriggered.connect(self.openPage)
+                menu.addAction(act)
+            
+            menu.addSeparator()
+            menu.addAction(self.__actions['removeAll'])
+        else:
+            menu.setDisabled(True)
 
     def __createListPage(self, title):
         pageParam = self.collection.pages().addPage(title)
