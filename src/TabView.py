@@ -3,20 +3,37 @@ from PyQt4.QtCore import pyqtSignal
 
 from PageView import PageView
 
+class TabBar(QtGui.QTabBar):
+    doubleClicked = pyqtSignal(int)
+    
+    def __init__(self, parent):
+        super(TabBar, self).__init__(parent)
+        
+        self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+    
+    def mouseDoubleClickEvent(self, event):
+        index = self.tabAt(event.pos())
+        self.doubleClicked.emit(index)
+
 class TabView(QtGui.QTabWidget):
     def __init__(self, parent):
         super(TabView, self).__init__(parent)
-
+        
+        tabBar = TabBar(self)
+        self.setTabBar(tabBar)
+        
         self.setMovable(True)
         self.setTabsClosable(True)
         self.tabCloseRequested.connect(self.closePage)
         self.currentChanged.connect(self.activatedPage)
-        self.tabBar().setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.tabBar().customContextMenuRequested.connect(self.tabBarContextMenuEvent)
+        self.tabBar().doubleClicked.connect(self.tabDClicked)
         self.oldPage = None
         
         self.__createActions()
-        self._pos = None
+    
+    def tabDClicked(self, index):
+        self.renamePage(index)
     
     def actions(self):
         return self.__actions
@@ -27,6 +44,10 @@ class TabView(QtGui.QTabWidget):
         newListAct = QtGui.QAction(self.tr("&New..."), self)
         newListAct.triggered.connect(self.newList)
         self.__actions['new'] = newListAct
+        
+        cloneListAct = QtGui.QAction(self.tr("Clone"), self)
+        cloneListAct.triggered.connect(self._clone)
+        self.__actions['clone'] = cloneListAct
         
         openPageMenu = QtGui.QMenu(self.tr("Open"), self)
         self.__actions['open'] = openPageMenu
@@ -45,17 +66,19 @@ class TabView(QtGui.QTabWidget):
         self.__actions['remove'] = removeListAct
 
     def tabBarContextMenuEvent(self, pos):
-        self._pos = pos  # store pos for action
+        index = self.tabBar().tabAt(pos)
+        self.setCurrentIndex(index)
+        
         menu = QtGui.QMenu(self)
-        menu.addAction(self.tr("Clone"), self._clone)
         menu.addAction(self.__actions['rename'])
+        menu.setDefaultAction(self.__actions['rename'])
+        menu.addAction(self.__actions['clone'])
         menu.addSeparator()
         menu.addAction(self.__actions['remove'])
         menu.exec_(self.mapToGlobal(pos))
-        self._pos = None
     
     def _clone(self):
-        index = self.tabBar().tabAt(self._pos)
+        index = self.currentIndex()
         oldLabel = self.tabText(index)
         oldWidget = self.widget(index)
 
@@ -122,11 +145,8 @@ class TabView(QtGui.QTabWidget):
         if ok and label:
             self.__createListPage(label)
     
-    def renamePage(self):
-        if self._pos:
-            index = self.tabBar().tabAt(self._pos)
-        else:
-            index = self.currentIndex()
+    def renamePage(self, index=None):
+        index = self.currentIndex()
         oldLabel = self.tabText(index)
         label, ok = QtGui.QInputDialog.getText(self, self.tr("Rename list"), self.tr("Enter new list title"), text=oldLabel)
         if ok and label:
@@ -145,10 +165,7 @@ class TabView(QtGui.QTabWidget):
         self.__updateOpenPageMenu()
     
     def removePage(self):
-        if self._pos:
-            index = self.tabBar().tabAt(self._pos)
-        else:
-            index = self.currentIndex()
+        index = self.currentIndex()
         result = QtGui.QMessageBox.question(self, self.tr("Remove page"),
                         self.tr("Remove the page '%s' permanently?") % self.tabText(index),
                         QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
