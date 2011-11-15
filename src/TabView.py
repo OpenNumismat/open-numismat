@@ -50,7 +50,12 @@ class TabView(QtGui.QTabWidget):
         self.__actions['clone'] = cloneListAct
         
         openPageMenu = QtGui.QMenu(self.tr("Open"), self)
+        openPageMenu.aboutToShow.connect(self.__updateOpenPageMenu)
         self.__actions['open'] = openPageMenu
+        
+        removeAllAct = QtGui.QAction(QtGui.QIcon('icons/cross.png'), self.tr("Remove all"), self)
+        removeAllAct.triggered.connect(self.removeClosedPages)
+        self.__actions['removeAll'] = removeAllAct
         
         renameListAct = QtGui.QAction(self.tr("Rename..."), self)
         renameListAct.triggered.connect(self.renamePage)
@@ -132,8 +137,6 @@ class TabView(QtGui.QTabWidget):
         # If no pages exists => create default page
         if self.count() == 0:
             self.__createListPage(self.tr("Coins"))
-        
-        self.__updateOpenPageMenu()
 
     def currentModel(self):
         index = self.currentIndex()
@@ -161,8 +164,6 @@ class TabView(QtGui.QTabWidget):
         page = self.widget(index)
         self.removeTab(index)
         self.collection.pages().closePage(page)
-        
-        self.__updateOpenPageMenu()
     
     def removePage(self):
         index = self.currentIndex()
@@ -182,8 +183,6 @@ class TabView(QtGui.QTabWidget):
             closedPages = self.collection.pages().closedPages()
             for pageParam in closedPages:
                 self.collection.pages().removePage(pageParam)
-            
-            self.__updateOpenPageMenu()
 
     def savePagePositions(self):
         pages = []
@@ -199,22 +198,19 @@ class TabView(QtGui.QTabWidget):
         self.setCurrentWidget(pageView)
         
         self.collection.pages().openPage(pageView)
-        
-        self.__updateOpenPageMenu()
 
     def __updateOpenPageMenu(self):
         menu = self.__actions['open']
-        closedPages = self.collection.pages().closedPages()
         menu.clear()
+        closedPages = self.collection.pages().closedPages()
         menu.setEnabled(len(closedPages) > 0)
         for param in closedPages:
             act = OpenPageAction(param, self)
             act.openPageTriggered.connect(self.openPage)
             menu.addAction(act)
+        
         menu.addSeparator()
-        act = QtGui.QAction(QtGui.QIcon('icons/cross.png'), self.tr("Remove all"), self)
-        act.triggered.connect(self.removeClosedPages)
-        menu.addAction(act)
+        menu.addAction(self.__actions['removeAll'])
 
     def __createListPage(self, title):
         pageParam = self.collection.pages().addPage(title)
