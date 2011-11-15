@@ -115,29 +115,33 @@ class TreeView(QtGui.QTreeWidget):
     def setModel(self, model):
         self.db = model.database()
         self.model = model
-
-        item = QtGui.QTreeWidgetItem(self, [model.title,])
-        item.setData(0, self.FiltersRole, '')
-        self.addTopLevelItem(item)
-        self.expandItem(item)
+        self.model.modelChanged.connect(self.updateTree)
         
-        for item in self.processChilds(item, 'type'):
+        rootItem = QtGui.QTreeWidgetItem(self, [model.title,])
+        rootItem.setData(0, self.FiltersRole, '')
+        
+        self.updateTree()
+        
+        self.addTopLevelItem(rootItem)
+        self.expandItem(rootItem)
+    
+    def updateTree(self):
+        parent = self.topLevelItem(0)
+        for item in self.processChilds(parent, 'type'):
             for item in self.processChilds(item, 'country'):
                 for item in self.processChilds(item, 'period'):
                     for item in self.processChilds(item, ['value', 'unit']):
                         for item in self.processChilds(item, 'series'):
                             for item in self.processChilds(item, 'year'):
                                 self.processChilds(item, 'mintmark')
-
-        self.resizeColumnToContents(0)
     
     def processChilds(self, parentItem, field):
-        items = self.fillChilds(parentItem, field, parentItem.data(0, self.FiltersRole))
+        items = self.updateChilds(parentItem, field, parentItem.data(0, self.FiltersRole))
         if not items:
             items = [parentItem,]
         return items
     
-    def fillChilds(self, parentItem, fields, filters=''):
+    def updateChilds(self, parentItem, fields, filters=''):
         if not isinstance(fields, list):
             fields = [fields,]
         filterSql = []
@@ -148,24 +152,48 @@ class TreeView(QtGui.QTreeWidget):
             filtersSql = filtersSql + " AND " + filters
         sql = "SELECT DISTINCT %s FROM coins WHERE %s" % (','.join(fields), filtersSql)
         query = QtSql.QSqlQuery(sql, self.db)
-
-        items = []
+        
+        childs = {}
+        for i in range(parentItem.childCount()):
+            item = parentItem.child(i)
+            childs[item.text(0)] = item
+        
+        texts = []
         while query.next():
             label = []
             for i in range(len(fields)):
                 label.append(str(query.record().value(i)))
-            subItem = QtGui.QTreeWidgetItem([' '.join(label),])
+            text = ' '.join(label)
+            
             filterSql = []
             for i, field in enumerate(fields):
                 filterSql.append("%s='%s'"%(field, label[i]))
             newFilters = " AND ".join(filterSql)
             if filters:
                 newFilters = filters + " AND " + newFilters
-            subItem.setData(0, self.FiltersRole, newFilters)
-            subItem.setData(0, self.FieldsRole, fields)
-            items.append(subItem)
-            parentItem.addChild(subItem)
+            
+            texts.append(text)
+            if text in childs.keys():
+                item = childs[text]
+            else:
+                item = QtGui.QTreeWidgetItem([text,])
+                childs[text] = item
+            
+            item.setData(0, self.FiltersRole, newFilters)
+            item.setData(0, self.FieldsRole, fields)
         
+        # Remove missed old items
+        for text in list(childs.keys()):
+            if text not in texts:
+                oldItem = childs.pop(text)
+                parentItem.removeChild(oldItem)
+        
+        # Sort items as SQL query return it
+        items = []
+        for text in texts:
+            items.append(childs[text])
+        
+        parentItem.addChildren(items)
         return items
     
     def rowChangedEvent(self, current):
