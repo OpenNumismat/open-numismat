@@ -267,17 +267,24 @@ class ListView(QtGui.QTableView):
     def contextMenuEvent(self, pos):
         style = QtGui.QApplication.style()
         icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
-
+        
         menu = QtGui.QMenu(self)
-        act = menu.addAction(self.tr("Clone"), self._clone)
-        # Disable Clone when more than one record selected
+        act = menu.addAction(QtGui.QIcon('icons/pencil.png'), self.tr("Edit..."), self._edit)
+        act.setShortcut('Enter')
+        # Disable Edit when more than one record selected
         act.setEnabled(len(self.selectedRows()) == 1)
+        menu.setDefaultAction(act)
+        
         menu.addAction(QtGui.QIcon('icons/page_copy.png'), self.tr("Copy"), self._copy, QtGui.QKeySequence.Copy)
         menu.addAction(QtGui.QIcon('icons/page_paste.png'), self.tr("Paste"), self._paste, QtGui.QKeySequence.Paste)
         menu.addSeparator()
+        act = menu.addAction(self.tr("Clone"), self._clone)
+        # Disable Clone when more than one record selected
+        act.setEnabled(len(self.selectedRows()) == 1)
         act = menu.addAction(self.tr("Multi edit..."), self._multiEdit)
         # Disable Multi edit when only one record selected
         act.setEnabled(len(self.selectedRows()) > 1)
+        menu.addSeparator()
         menu.addAction(icon, self.tr("Delete"), self._delete, QtGui.QKeySequence.Delete)
         menu.exec_(self.mapToGlobal(pos))
     
@@ -312,7 +319,10 @@ class ListView(QtGui.QTableView):
         
         return indexes
 
-    def _edit(self, index):
+    def _edit(self, index=None):
+        if not index:
+            index = self.currentIndex()
+        
         record = self.model().record(index.row())
         dialog = EditCoinDialog(self.model().reference, record, self)
         result = dialog.exec_()
