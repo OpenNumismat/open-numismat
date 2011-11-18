@@ -71,6 +71,8 @@ class CollectionModel(QSqlTableModel):
         if self.proxy:
             self.proxy.setDynamicSortFilter(False)
         
+        obverseImage = QtGui.QImage()
+        reverseImage = QtGui.QImage()
         for field in self.fields.userFields:
             if field.type in [Type.Image, Type.EdgeImage] and \
                field.name != 'image':
@@ -89,6 +91,11 @@ class CollectionModel(QSqlTableModel):
                     else:
                         scaledImage = image
                     
+                    if field.name == 'obverseimg':
+                        obverseImage = scaledImage
+                    if field.name == 'reverseimg':
+                        reverseImage = scaledImage
+                    
                     scaledImage.save(buffer, self.IMAGE_FORMAT)
                     record.setValue(field.name, ba)
         
@@ -100,13 +107,13 @@ class CollectionModel(QSqlTableModel):
             tmp = QtGui.QTableView()
             height = int(tmp.verticalHeader().defaultSectionSize() * 1.5 - 1)
     
-            obverseImage = QtGui.QImage()
-            if not record.isNull('obverseimg'):
+            if not record.isNull('obverseimg') and obverseImage.isNull():
                 obverseImage.loadFromData(record.value('obverseimg'))
+            if not obverseImage.isNull():
                 obverseImage = obverseImage.scaledToHeight(height, Qt.SmoothTransformation)
-            reverseImage = QtGui.QImage()
-            if not record.isNull('reverseimg'):
+            if not record.isNull('reverseimg') and reverseImage.isNull():
                 reverseImage.loadFromData(record.value('reverseimg'))
+            if not reverseImage.isNull():
                 reverseImage = reverseImage.scaledToHeight(height, Qt.SmoothTransformation)
             
             image = QtGui.QImage(obverseImage.width()+reverseImage.width(), height, QtGui.QImage.Format_RGB32)

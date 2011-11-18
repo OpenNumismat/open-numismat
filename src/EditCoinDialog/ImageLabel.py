@@ -26,6 +26,7 @@ class ImageLabel(QtGui.QLabel):
     def clear(self):
         self.image = QtGui.QImage()
         self.setPixmap(QtGui.QPixmap.fromImage(self.image))
+        self._data = None
     
     def resizeEvent(self, e):
         self._showImage()
@@ -34,6 +35,8 @@ class ImageLabel(QtGui.QLabel):
         self._showImage()
     
     def loadFromData(self, data):
+        self._data = data
+        
         image = QtGui.QImage()
         result = image.loadFromData(data)
         if result:
@@ -71,6 +74,8 @@ class ImageEdit(ImageLabel):
         
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenu)
+        
+        self.changed = False
 
     def contextMenu(self, pos):
         style = QtGui.QApplication.style()
@@ -124,6 +129,7 @@ class ImageEdit(ImageLabel):
 
     def deleteImage(self):
         self.clear()
+        self.changed = True
     
     def saveImage(self):
         # TODO: Set default name to coin title + field name 
@@ -144,6 +150,7 @@ class ImageEdit(ImageLabel):
             self.loadFromFile(url.toLocalFile())
         elif mime.hasImage():
             self._setImage(mime.imageData())
+            self.changed = True
         elif mime.hasText():
             # Load image by URL
             self.loadFromUrl(mime.text())
@@ -162,6 +169,7 @@ class ImageEdit(ImageLabel):
         result = image.load(fileName)
         if result:
             self._setImage(image)
+            self.changed = True
 
         return result
     
@@ -174,13 +182,17 @@ class ImageEdit(ImageLabel):
             req = urllib.request.Request(url, headers={'User-Agent' : "OpenNumismat"})
             data = urllib.request.urlopen(req).read()
             result = self.loadFromData(data)
+            if result:
+                self.changed = True
         except:
             pass
         
         return result
-        
+    
     def data(self):
-        return self.image
+        if self.changed:
+            return self.image
+        return self._data
 
 class EdgeImageEdit(ImageEdit):
     def __init__(self, parent=None):
