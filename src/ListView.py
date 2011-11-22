@@ -322,19 +322,18 @@ class ListView(QtGui.QTableView):
             index = self.currentIndex()
         
         record = self.model().record(index.row())
-        dialog = EditCoinDialog(self.model().reference, record, self)
+        dialog = EditCoinDialog(self.model(), record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
+            rowCount = self.model().rowCount()
+            
             updatedRecord = dialog.getRecord()
-            if self.model().checkExisting(updatedRecord, self):
-                rowCount = self.model().rowCount()
+            self.model().setRecord(index.row(), updatedRecord)
+            self.model().submitAll()
                 
-                self.model().setRecord(index.row(), updatedRecord)
-                self.model().submitAll()
-                
-                if rowCount == self.model().rowCount():  # inserted row visible in current model
-                    updatedRowIndex = self.proxyModel.mapFromSource(index)
-                    self.selectRow(updatedRowIndex.row())
+            if rowCount == self.model().rowCount():  # inserted row visible in current model
+                updatedRowIndex = self.proxyModel.mapFromSource(index)
+                self.selectRow(updatedRowIndex.row())
     
     def _multiEdit(self, indexes=None):
         if not indexes:
@@ -350,7 +349,7 @@ class ListView(QtGui.QTableView):
                     multiRecord.setNull(i)
                     usedFields[i] = Qt.Unchecked
 
-        dialog = EditCoinDialog(self.model().reference, multiRecord, self, usedFields)
+        dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             progressDlg = QtGui.QProgressDialog(self.tr("Updating records"), self.tr("Cancel"), 0, len(indexes), self)

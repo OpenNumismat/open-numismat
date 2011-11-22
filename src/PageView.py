@@ -287,7 +287,7 @@ class TreeView(QtGui.QTreeWidget):
                     usedFields[j] = Qt.Unchecked
 
         # TODO: Make identical with ListView._multiEdit
-        dialog = EditCoinDialog(self.model.reference, multiRecord, self, usedFields)
+        dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             # Fill records by used fields in multi record

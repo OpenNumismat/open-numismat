@@ -46,18 +46,17 @@ class CollectionModel(QSqlTableModel):
     
     def addCoin(self, record, parent=None):
         record.setNull('id')  # remove ID value from record
-        dialog = EditCoinDialog(self.reference, record, parent)
+        dialog = EditCoinDialog(self, record, parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            if self.checkExisting(record, parent):
-                rowCount = self.rowCount()
-                
-                self.insertRecord(-1, record)
-                self.submitAll()
-                
-                if rowCount < self.rowCount():  # inserted row visible in current model
-                    if self.insertedRowIndex.isValid():
-                        self.rowInserted.emit(self.insertedRowIndex)
+            rowCount = self.rowCount()
+            
+            self.insertRecord(-1, record)
+            self.submitAll()
+            
+            if rowCount < self.rowCount():  # inserted row visible in current model
+                if self.insertedRowIndex.isValid():
+                    self.rowInserted.emit(self.insertedRowIndex)
     
     def insertRecord(self, row, record):
         self._updateRecord(record)
@@ -178,7 +177,7 @@ class CollectionModel(QSqlTableModel):
             combinedFilter = self.intFilter + self.extFilter
         super(CollectionModel, self).setFilter(combinedFilter)
     
-    def checkExisting(self, record, parent=None):
+    def isExist(self, record):
         fields = ['title', 'value', 'unit', 'country', 'period', 'year', 'mint',
                   'mintmark', 'type', 'series', 'subjectshort', 'status', 'metal', 'quality',
                   'paydate', 'payprice', 'saller', 'payplace', 'saledate', 'saleprice', 'buyer', 'saleplace',
@@ -187,6 +186,7 @@ class CollectionModel(QSqlTableModel):
         for field in fields:
             filterParts.append(field + '=?')
         sqlFilter = ' AND '.join(filterParts)
+        
         db = self.database()
         query = QSqlQuery(db)
         query.prepare("SELECT count(*) FROM coins WHERE id<>? AND "+sqlFilter)
@@ -197,13 +197,9 @@ class CollectionModel(QSqlTableModel):
         if query.first():
             count = query.record().value(0)
             if count > 0:
-                result = QtGui.QMessageBox.warning(parent, self.tr("Save"),
-                                 self.tr("Similar coin already exists. Save?"),
-                                 QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
-                if result != QtGui.QMessageBox.Save:
-                    return False
+                return True
         
-        return True
+        return False
 
 class CollectionSettings(QtCore.QObject):
     DefaultSettings = {'Version': 1, 'ImageSideLen': 1024}

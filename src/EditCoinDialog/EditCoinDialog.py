@@ -5,13 +5,14 @@ from .AuctionParser import getParser
 from .DetailsTabWidget import FormDetailsTabWidget
 
 class EditCoinDialog(QtGui.QDialog):
-    def __init__(self, reference, record, parent=None, usedFields=None):
+    def __init__(self, model, record, parent=None, usedFields=None):
         super(EditCoinDialog, self).__init__(parent)
         
         self.usedFields = usedFields
         self.record = record
+        self.model = model
         
-        self.tab = FormDetailsTabWidget(reference, self, usedFields)
+        self.tab = FormDetailsTabWidget(model.reference, self, usedFields)
         self.items = self.tab.items
 
         self.tab.fillItems(record)
@@ -117,7 +118,15 @@ class EditCoinDialog(QtGui.QDialog):
             if isinstance(value, str):
                 value = value.strip()
             self.record.setValue(item.field(), value)
-    
+
+        if not self.usedFields:
+            if self.model.isExist(self.record):
+                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
+                                self.tr("Similar coin already exists. Save?"),
+                                QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                if result != QtGui.QMessageBox.Save:
+                    return
+        
         self.accept()
     
     def getUsedFields(self):
