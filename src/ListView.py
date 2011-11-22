@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import operator, pickle
 
 from PyQt4 import QtGui, QtCore

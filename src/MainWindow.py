@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 from PyQt4 import QtGui, QtCore
 
 from Collection.Collection import Collection
