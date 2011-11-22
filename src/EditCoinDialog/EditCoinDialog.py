@@ -65,7 +65,7 @@ class EditCoinDialog(QtGui.QDialog):
                     if i < len(imageFields):
                         self.items[imageFields[i]].widget().loadFromUrl(imageUrl)
                     else:
-                        QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
+                        QtGui.QMessageBox.information(self, self.tr("Parse auction lot"),
                                     self.tr("Too many images"),
                                     QtGui.QMessageBox.Ok)
                         break
@@ -86,7 +86,7 @@ class EditCoinDialog(QtGui.QDialog):
         
         if not self.usedFields:
             if not self.items['title'].value():
-                result = QtGui.QMessageBox.warning(self.parent(), self.tr("Save"),
+                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
                                  self.tr("Coin title not set. Save without title?"),
                                  QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                 if result != QtGui.QMessageBox.Save:
@@ -97,7 +97,7 @@ class EditCoinDialog(QtGui.QDialog):
         totalpayprice = self.items['totalpayprice'].value()
         if payprice and totalpayprice:
             if float(totalpayprice) < float(payprice):
-                result = QtGui.QMessageBox.warning(self.parent(), self.tr("Save"),
+                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
                                  self.tr("Pay price is great than total paid price. Save?"),
                                  QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                 if result != QtGui.QMessageBox.Save:
@@ -106,7 +106,7 @@ class EditCoinDialog(QtGui.QDialog):
         totalsaleprice = self.items['totalsaleprice'].value()
         if saleprice and totalsaleprice:
             if float(saleprice) < float(totalsaleprice):
-                result = QtGui.QMessageBox.warning(self.parent(), self.tr("Save"),
+                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
                                  self.tr("Sale price is less than total bailed price. Save?"),
                                  QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                 if result != QtGui.QMessageBox.Save:
