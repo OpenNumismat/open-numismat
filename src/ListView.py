@@ -325,15 +325,16 @@ class ListView(QtGui.QTableView):
         dialog = EditCoinDialog(self.model().reference, record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            rowCount = self.model().rowCount()
-
             updatedRecord = dialog.getRecord()
-            self.model().setRecord(index.row(), updatedRecord)
-            self.model().submitAll()
-            
-            if rowCount == self.model().rowCount():  # inserted row visible in current model
-                updatedRowIndex = self.proxyModel.mapFromSource(index)
-                self.selectRow(updatedRowIndex.row())
+            if self.model().checkExisting(updatedRecord, self):
+                rowCount = self.model().rowCount()
+                
+                self.model().setRecord(index.row(), updatedRecord)
+                self.model().submitAll()
+                
+                if rowCount == self.model().rowCount():  # inserted row visible in current model
+                    updatedRowIndex = self.proxyModel.mapFromSource(index)
+                    self.selectRow(updatedRowIndex.row())
     
     def _multiEdit(self, indexes=None):
         if not indexes:

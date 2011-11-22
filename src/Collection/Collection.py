@@ -45,17 +45,19 @@ class CollectionModel(QSqlTableModel):
         return super(CollectionModel, self).data(index, role)
     
     def addCoin(self, record, parent=None):
+        record.setNull('id')  # remove ID value from record
         dialog = EditCoinDialog(self.reference, record, parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            rowCount = self.rowCount()
-            
-            self.insertRecord(-1, record)
-            self.submitAll()
-
-            if rowCount < self.rowCount():  # inserted row visible in current model
-                if self.insertedRowIndex.isValid():
-                    self.rowInserted.emit(self.insertedRowIndex)
+            if self.checkExisting(record, parent):
+                rowCount = self.rowCount()
+                
+                self.insertRecord(-1, record)
+                self.submitAll()
+                
+                if rowCount < self.rowCount():  # inserted row visible in current model
+                    if self.insertedRowIndex.isValid():
+                        self.rowInserted.emit(self.insertedRowIndex)
     
     def insertRecord(self, row, record):
         self._updateRecord(record)
@@ -175,6 +177,33 @@ class CollectionModel(QSqlTableModel):
         else:
             combinedFilter = self.intFilter + self.extFilter
         super(CollectionModel, self).setFilter(combinedFilter)
+    
+    def checkExisting(self, record, parent=None):
+        fields = ['title', 'value', 'unit', 'country', 'period', 'year', 'mint',
+                  'mintmark', 'type', 'series', 'subjectshort', 'status', 'metal', 'quality',
+                  'paydate', 'payprice', 'saller', 'payplace', 'saledate', 'saleprice', 'buyer', 'saleplace',
+                  'variety', 'obversevar', 'reversevar', 'edgevar']
+        filterParts = []
+        for field in fields:
+            filterParts.append(field + '=?')
+        sqlFilter = ' AND '.join(filterParts)
+        db = self.database()
+        query = QSqlQuery(db)
+        query.prepare("SELECT count(*) FROM coins WHERE id<>? AND "+sqlFilter)
+        query.addBindValue(record.value('id'))
+        for field in fields:
+            query.addBindValue(record.value(field))
+        query.exec_()
+        if query.first():
+            count = query.record().value(0)
+            if count > 0:
+                result = QtGui.QMessageBox.warning(parent, self.tr("Save"),
+                                 self.tr("Similar coin already exists. Save?"),
+                                 QtGui.QMessageBox.Save | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                if result != QtGui.QMessageBox.Save:
+                    return False
+        
+        return True
 
 class CollectionSettings(QtCore.QObject):
     DefaultSettings = {'Version': 1, 'ImageSideLen': 1024}
