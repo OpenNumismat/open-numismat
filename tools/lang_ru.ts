@@ -822,12 +822,12 @@
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="44"/>
+        <location filename="main.py" line="43"/>
         <source>System error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="main.py" line="45"/>
+        <location filename="main.py" line="44"/>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Произошла ошибка.
