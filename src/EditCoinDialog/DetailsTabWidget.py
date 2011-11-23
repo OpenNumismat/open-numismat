@@ -501,10 +501,13 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def clickGenerateTitle(self):
         titleParts = []
-        for key in ['value', 'unit', 'year', 'mintmark']:
-            value = str(self.items[key].value())
+        for key in ['value', 'unit', 'year', 'subjectshort', 'mintmark', 'variety']:
+            value = self.items[key].value()
             if value:
-                titleParts.append(value) 
+                titlePart = str(value)
+                if key == 'unit':
+                    titlePart = titlePart.lower()
+                titleParts.append(titlePart) 
 
         title = ' '.join(titleParts)
         self.items['title'].setValue(title)
