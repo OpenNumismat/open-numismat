@@ -182,9 +182,7 @@ class CollectionModel(QSqlTableModel):
                   'mintmark', 'type', 'series', 'subjectshort', 'status', 'metal', 'quality',
                   'paydate', 'payprice', 'saller', 'payplace', 'saledate', 'saleprice', 'buyer', 'saleplace',
                   'variety', 'obversevar', 'reversevar', 'edgevar']
-        filterParts = []
-        for field in fields:
-            filterParts.append(field + '=?')
+        filterParts = [field+'=?' for field in fields]
         sqlFilter = ' AND '.join(filterParts)
         
         db = self.database()
