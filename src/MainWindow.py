@@ -193,11 +193,11 @@ class MainWindow(QtGui.QMainWindow):
         if self.collection.fileName:
             self.viewTab.savePagePositions()
             # Save latest opened page
-            settings.setValue('tabwindow/page', self.viewTab.currentIndex());
+            settings.setValue('tabwindow/page', self.viewTab.currentIndex())
         
         # Save main window size
-        settings.setValue('mainwindow/size', self.size());
-        settings.setValue('mainwindow/maximized', self.isMaximized());
+        settings.setValue('mainwindow/size', self.size())
+        settings.setValue('mainwindow/maximized', self.isMaximized())
     
     def about(self):
         QtGui.QMessageBox.about(self, self.tr("About %s") % version.AppName, self.tr("%s %s\n\nCopyright (C) 2011 Vitaly Ignatov\n\n%s is freeware licensed under a GPLv3.") % (version.AppName, version.Version, version.AppName))
