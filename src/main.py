@@ -7,7 +7,7 @@ from Settings import Settings
 from MainWindow import MainWindow
 import version
 
-def run():
+def main():
     import os, sys
     
     if not os.path.exists(version.AppDir):
@@ -32,8 +32,8 @@ def run():
     translatorQt.load('qt_'+locale)
     app.installTranslator(translatorQt)
 
-    main = MainWindow()
-    main.show()
+    mainWindow = MainWindow()
+    mainWindow.show()
     sys.exit(app.exec_())
 
 def exceptHook(type_, value, tback):
@@ -68,4 +68,4 @@ def exceptHook(type_, value, tback):
     sys.__excepthook__(type, value, tback) 
 
 if __name__ == '__main__':
-    run()
+    main()
