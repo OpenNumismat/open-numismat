@@ -1,3 +1,5 @@
+import sys
+
 from PyQt4 import QtGui, QtCore
 
 from Collection.Collection import Collection
@@ -129,9 +131,19 @@ class MainWindow(QtGui.QMainWindow):
     
     def settingsEvent(self):
         dialog = SettingsDialog(self.collection, self)
-        if dialog.exec_() == QtGui.QDialog.Accepted:
-            self.reference.open(Settings().reference)
-
+        res = dialog.exec_()
+        if res == QtGui.QDialog.Accepted:
+            self.__restart()
+    
+    def __restart(self):
+        result = QtGui.QMessageBox.question(self, self.tr("Settings"),
+                    self.tr("The application will need to restart to apply the new settings. Restart it now?"),
+                    QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.Yes)
+        if result == QtGui.QMessageBox.Yes:
+            self.close()
+            program = sys.executable
+            QtCore.QProcess.startDetached(program, sys.argv)
+    
     def addCoin(self):
         model = self.viewTab.currentModel()
         model.addCoin(model.record(), self)
@@ -188,6 +200,9 @@ class MainWindow(QtGui.QMainWindow):
         self.referenceMenu.addAction(self.collection.referenceMenu(self))
         
     def closeEvent(self, e):
+        self.__shutDown()
+    
+    def __shutDown(self):
         settings = QtCore.QSettings()
 
         if self.collection.fileName:
