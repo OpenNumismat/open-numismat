@@ -64,7 +64,7 @@ def exceptHook(type_, value, tback):
         executor.openUrl(url)
     
     # Call the default handler
-    sys.__excepthook__(type, value, tback) 
+    sys.__excepthook__(type_, value, tback) 
 
 if __name__ == '__main__':
     main()
