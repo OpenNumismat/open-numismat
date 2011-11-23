@@ -82,7 +82,7 @@ class MainWindow(QtGui.QMainWindow):
         file.addSeparator()
         file.addAction(aboutAct)
 
-        toolBar = QtGui.QToolBar(self)
+        toolBar = QtGui.QToolBar(self.tr("Toolbar"), self)
         toolBar.setMovable(False)
         toolBar.addAction(addCoinAct)
         toolBar.addSeparator()
