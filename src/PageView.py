@@ -182,6 +182,9 @@ class TreeView(QtGui.QTreeWidget):
             item.setData(0, self.FiltersRole, newFilters)
             item.setData(0, self.FieldsRole, fields)
         
+        if not texts:
+            return None
+        
         # Remove missed old items
         for text in list(childs.keys()):
             if text not in texts:
@@ -237,10 +240,12 @@ class TreeView(QtGui.QTreeWidget):
     
     def itemActivatedEvent(self, current, previous):
         self.scrollToItem(current)
-        
         self.resizeColumnToContents(0)
+        
+        self.model.modelChanged.disconnect(self.updateTree)
         filter_ = current.data(0, self.FiltersRole)
         self.model.setAdditionalFilter(filter_)
+        self.model.modelChanged.connect(self.updateTree)
 
     def expandedEvent(self, index):
         self.resizeColumnToContents(0)
