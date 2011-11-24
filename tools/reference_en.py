@@ -64,7 +64,9 @@ grade.addItem('VG')
 grade.model.submitAll()
 
 edge = ref.section('edge')
+edge.addItem('Reeded')
 edge.addItem('Smooth')
+edge.addItem('Segmented reeding')
 edge.model.submitAll()
 
 form = ref.section('form')
