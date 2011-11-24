@@ -1,5 +1,6 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QApplication
 
 class ImageLabel(QtGui.QLabel):
     def __init__(self, parent=None):
@@ -81,22 +82,27 @@ class ImageEdit(ImageLabel):
         style = QtGui.QApplication.style()
 
         icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
-        load = QtGui.QAction(icon, self.tr("Load..."), self)
+        text = QApplication.translate('ImageEdit', "Load...")
+        load = QtGui.QAction(icon, text, self)
         load.triggered.connect(self.openImage)
 
-        paste = QtGui.QAction(self.tr("Paste"), self)
+        text = QApplication.translate('ImageEdit', "Paste")
+        paste = QtGui.QAction(text, self)
         paste.triggered.connect(self.pasteImage)
 
-        copy = QtGui.QAction(self.tr("Copy"), self)
+        text = QApplication.translate('ImageEdit', "Copy")
+        copy = QtGui.QAction(text, self)
         copy.triggered.connect(self.copyImage)
         copy.setDisabled(self.image.isNull())
 
         icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
-        delete = QtGui.QAction(icon, self.tr("Delete"), self)
+        text = QApplication.translate('ImageEdit', "Delete")
+        delete = QtGui.QAction(icon, text, self)
         delete.triggered.connect(self.deleteImage)
         delete.setDisabled(self.image.isNull())
 
-        save = QtGui.QAction(self.tr("Save as..."), self)
+        text = QApplication.translate('ImageEdit', "Save as...")
+        save = QtGui.QAction(text, self)
         save.triggered.connect(self.saveImage)
         save.setDisabled(self.image.isNull())
 
@@ -117,13 +123,15 @@ class ImageEdit(ImageLabel):
             super(ImageEdit, self).mouseDoubleClickEvent(e)
         
     def openImage(self):
+        caption = QApplication.translate('ImageEdit', "Open File")
+        filter_ = QApplication.translate('ImageEdit', "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)")
         fileName = QtGui.QFileDialog.getOpenFileName(self,
-                self.tr("Open File"), ImageEdit.latestDir,
-                self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)"))
+                caption, ImageEdit.latestDir,
+                filter_)
         if fileName:
-            dir = QtCore.QDir(fileName)
-            dir.cdUp()
-            ImageEdit.latestDir = dir.absolutePath()
+            dir_ = QtCore.QDir(fileName)
+            dir_.cdUp()
+            ImageEdit.latestDir = dir_.absolutePath()
 
             self.loadFromFile(fileName)
 
@@ -132,10 +140,12 @@ class ImageEdit(ImageLabel):
         self.changed = True
     
     def saveImage(self):
+        caption = QApplication.translate('ImageEdit', "Save File")
+        filter_ = QApplication.translate('ImageEdit', "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)")
         # TODO: Set default name to coin title + field name 
         fileName = QtGui.QFileDialog.getSaveFileName(self,
-                self.tr("Save File"), ImageEdit.latestDir + '/photo',
-                self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)"))
+                caption, ImageEdit.latestDir + '/photo',
+                filter_)
         if fileName:
             dir = QtCore.QDir(fileName)
             dir.cdUp()
@@ -162,7 +172,8 @@ class ImageEdit(ImageLabel):
 
     def clear(self):
         super(ImageEdit, self).clear()
-        self.setText(self.tr("No image available\n(right-click to add an image)"))
+        text = QApplication.translate('ImageEdit', "No image available\n(right-click to add an image)")
+        self.setText(text)
 
     def loadFromFile(self, fileName):
         image = QtGui.QImage()
