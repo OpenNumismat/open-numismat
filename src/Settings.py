@@ -3,7 +3,6 @@
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 
-from Collection.CollectionFields import CollectionFields
 from EditCoinDialog.FormItems import NumberEdit
 import version
 
