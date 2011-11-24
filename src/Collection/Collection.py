@@ -206,14 +206,14 @@ class CollectionSettings(QtCore.QObject):
         super(CollectionSettings, self).__init__(collection)
         self.db = collection.db
         
-        self.Settings = self.DefaultSettings.copy()
-        if 'settings' in self.db.tables():
-            query = QSqlQuery("SELECT * FROM settings", self.db)
-            while query.next():
-                record = query.record()
-                self.Settings[record.value('title')] = record.value('value')
-        else:
+        if 'settings' not in self.db.tables():
             self.create(self.db)
+        
+        self.Settings = {}
+        query = QSqlQuery("SELECT * FROM settings", self.db)
+        while query.next():
+            record = query.record()
+            self.Settings[record.value('title')] = record.value('value')
     
     def save(self):
         self.db.transaction()
@@ -302,7 +302,7 @@ class Collection(QtCore.QObject):
         sql = "CREATE TABLE IF NOT EXISTS coins (" + ", ".join(sqlFields) + ")"
         QSqlQuery(sql, self.db)
         
-        self.fields = CollectionFields.create(self.db)
+        self.fields = CollectionFields(self.db)
         
         self._pages = CollectionPages(self.db)
         

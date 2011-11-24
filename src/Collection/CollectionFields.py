@@ -133,6 +133,9 @@ class CollectionFields(CollectionFieldsBase):
         super(CollectionFields, self).__init__(parent)
         self.db = db
         
+        if 'fields' not in self.db.tables():
+            self.create(self.db)
+        
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM fields")
         query.exec_()
@@ -166,7 +169,7 @@ class CollectionFields(CollectionFieldsBase):
     def create(db=QSqlDatabase()):
         db.transaction()
         
-        sql = """CREATE TABLE IF NOT EXISTS fields (
+        sql = """CREATE TABLE fields (
             id INTEGER NOT NULL PRIMARY KEY,
             title CHAR,
             enabled INTEGER)"""
@@ -185,5 +188,3 @@ class CollectionFields(CollectionFieldsBase):
             query.exec_()
         
         db.commit()
-        
-        return CollectionFields(db)
