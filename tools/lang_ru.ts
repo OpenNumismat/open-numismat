@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="ru_RU" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.0" language="ru_RU">
 <context>
     <name>AuctionSpbParser</name>
     <message>
@@ -920,7 +921,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="DetailsTabWidget.py" line="541"/>
         <source>Edit</source>
-        <translation>Редактировать</translation>
+        <translation>Редактирование</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="596"/>
@@ -1034,7 +1035,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ListView.py" line="296"/>
         <source>%d coin(s) selected</source>
-        <translation>%d монет выбрано</translation>
+        <translation type="obsolete">%d монет выбрано</translation>
     </message>
     <message>
         <location filename="ListView.py" line="355"/>
@@ -1049,7 +1050,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ListView.py" line="448"/>
         <source>Are you sure to remove a %d coin(s)?</source>
-        <translation>Удалить %d монет?</translation>
+        <translation type="obsolete">Удалить %d монет?</translation>
     </message>
     <message>
         <location filename="Reference.py" line="15"/>
@@ -1060,6 +1061,24 @@ Do you want to send an error message to the author?</source>
         <location filename="ListView.py" line="270"/>
         <source>Edit...</source>
         <translation>Редактировать...</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="ListView.py" line="448"/>
+        <source>Are you sure to remove a %n coin(s)?</source>
+        <translation>
+            <numerusform>Удалить %n монету?</numerusform>
+            <numerusform>Удалить %n монеты?</numerusform>
+            <numerusform>Удалить %n монет?</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="ListView.py" line="296"/>
+        <source>%n coin(s) selected</source>
+        <translation>
+            <numerusform>%n монета выбрана</numerusform>
+            <numerusform>%n монеты выбрано</numerusform>
+            <numerusform>%n монет выбрано</numerusform>
+        </translation>
     </message>
 </context>
 <context>

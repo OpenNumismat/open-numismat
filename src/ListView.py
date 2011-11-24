@@ -293,7 +293,7 @@ class ListView(QtGui.QTableView):
         return super(ListView, self).currentChanged(current, previous)
     
     def selectionChanged(self, selected, deselected):
-        self.listSelectedLabel.setText(self.tr("%d coin(s) selected") % len(self.selectedRows()))
+        self.listSelectedLabel.setText(self.tr("%n coin(s) selected", '', len(self.selectedRows())))
         return super(ListView, self).selectionChanged(selected, deselected)
 
     def __mapToSource(self, index):
@@ -446,7 +446,7 @@ class ListView(QtGui.QTableView):
             indexes = self.selectedRows()
 
         result = QtGui.QMessageBox.information(self, self.tr("Delete"),
-                                      self.tr("Are you sure to remove a %d coin(s)?") % len(indexes),
+                                      self.tr("Are you sure to remove a %n coin(s)?", '', len(indexes)),
                                       QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel, QtGui.QMessageBox.Cancel)
         if result == QtGui.QMessageBox.Yes:
             for index in indexes:
