@@ -510,7 +510,7 @@
     <message>
         <location filename="CollectionFields.py" line="66"/>
         <source>#4</source>
-        <translation>4 №</translation>
+        <translation type="obsolete">4 №</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="67"/>
@@ -661,6 +661,11 @@
         <location filename="CollectionFields.py" line="106"/>
         <source>Updated at</source>
         <translation>Обновлено</translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="66"/>
+        <source>4#</source>
+        <translation>4 №</translation>
     </message>
 </context>
 <context>
@@ -838,7 +843,7 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="158"/>
+        <location filename="Settings.py" line="157"/>
         <source>Global enabled fields:</source>
         <translation>Действующие поля:</translation>
     </message>
@@ -932,32 +937,32 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ImageEdit</name>
     <message>
-        <location filename="ImageLabel.py" line="84"/>
+        <location filename="ImageLabel.py" line="85"/>
         <source>Load...</source>
         <translation>Загрузить...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="87"/>
+        <location filename="ImageLabel.py" line="89"/>
         <source>Paste</source>
         <translation>Вставить</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="90"/>
+        <location filename="ImageLabel.py" line="93"/>
         <source>Copy</source>
         <translation>Копировать</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="95"/>
+        <location filename="ImageLabel.py" line="99"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="99"/>
+        <location filename="ImageLabel.py" line="104"/>
         <source>Save as...</source>
         <translation>Сохранить как...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="120"/>
+        <location filename="ImageLabel.py" line="126"/>
         <source>Open File</source>
         <translation>Открыть файл</translation>
     </message>
@@ -967,12 +972,12 @@ Do you want to send an error message to the author?</source>
         <translation type="obsolete">Изображения (*.bmp *.png *.jpg *.jpeg *.tiff *.giff);;Все файлы (*.*)</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="136"/>
+        <location filename="ImageLabel.py" line="143"/>
         <source>Save File</source>
         <translation>Сохранить файл</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="165"/>
+        <location filename="ImageLabel.py" line="175"/>
         <source>No image available
 (right-click to add an image)</source>
         <translation>Нет изображений
@@ -980,7 +985,7 @@ Do you want to send an error message to the author?</source>
 чтобы добавить изображение)</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="136"/>
+        <location filename="ImageLabel.py" line="144"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</source>
         <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.giff);;Все файлы (*.*)</translation>
     </message>
@@ -1084,32 +1089,32 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="75"/>
+        <location filename="Settings.py" line="74"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="114"/>
+        <location filename="Settings.py" line="113"/>
         <source>Backup folder</source>
         <translation>Путь к резервным копиям</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="95"/>
+        <location filename="Settings.py" line="94"/>
         <source>Reference</source>
         <translation>Справочник</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="99"/>
+        <location filename="Settings.py" line="98"/>
         <source>Send error info to author</source>
         <translation>Отправлять отчет об ошибках автору</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="104"/>
+        <location filename="Settings.py" line="103"/>
         <source>Max image side len</source>
         <translation>Максимальный размер стороны изображения</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="119"/>
+        <location filename="Settings.py" line="118"/>
         <source>Select reference</source>
         <translation>Выбор справочника</translation>
     </message>
@@ -1413,12 +1418,12 @@ Copyright (C) 2011 Игнатов Виталий
         <translation type="obsolete">Выбор справочника</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="180"/>
+        <location filename="Settings.py" line="179"/>
         <source>Main</source>
         <translation>Основные</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="181"/>
+        <location filename="Settings.py" line="180"/>
         <source>Fields</source>
         <translation>Поля</translation>
     </message>
@@ -1552,12 +1557,12 @@ Copyright (C) 2011 Игнатов Виталий
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="250"/>
+        <location filename="PageView.py" line="255"/>
         <source>Add new coin...</source>
         <translation>Добавить новую монету...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="252"/>
+        <location filename="PageView.py" line="257"/>
         <source>Edit coins...</source>
         <translation>Редактировать монеты...</translation>
     </message>

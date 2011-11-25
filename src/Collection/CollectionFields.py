@@ -63,7 +63,7 @@ class CollectionFieldsBase(QObject):
                 ('catalognum1', self.tr("1#"), Type.String),
                 ('catalognum2', self.tr("2#"), Type.String),
                 ('catalognum3', self.tr("3#"), Type.String),
-                ('catalognum4', self.tr("#4"), Type.String),
+                ('catalognum4', self.tr("4#"), Type.String),
                 ('rarity', self.tr("Rarity"), Type.String),
                 ('price1', self.tr("Fine"), Type.Money),
                 ('price2', self.tr("VF"), Type.Money),
