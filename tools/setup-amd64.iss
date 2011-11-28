@@ -28,10 +28,10 @@ ru.sendReport=Посылать отчет разработчику при возникновении ошибки
 Source: "dist\*"; DestDir: "{app}"; Flags: recursesubdirs
 Source: "..\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: en; Flags: confirmoverwrite
 Source: "..\db\demo_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: ru; Flags: confirmoverwrite
-Source: "reference_en.db"; DestDir: "{app}"
-Source: "reference_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.db"; Languages: en
-Source: "reference_ru.db"; DestDir: "{app}"
-Source: "reference_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.db"; Languages: ru
+Source: "reference_en.ref"; DestDir: "{app}"
+Source: "reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en
+Source: "reference_ru.ref"; DestDir: "{app}"
+Source: "reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat\backup"

@@ -19,7 +19,7 @@ from Reference.Reference import Reference
 app = QtGui.QApplication(sys.argv)
 
 ref = Reference()
-ref.open('reference_ru.db')
+ref.open('reference_ru.ref')
 
 for sec in ref.allSections():
     ref.section(sec)

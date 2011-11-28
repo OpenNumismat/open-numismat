@@ -8,7 +8,7 @@ import version
 
 class Settings(QtCore.QObject):
     BackupFolder = version.AppDir + "/backup/"
-    Reference = version.AppDir + "/reference.db"
+    Reference = version.AppDir + "/reference.ref"
     
     def __init__(self, parent=None):
         super(Settings, self).__init__(parent)
@@ -115,7 +115,7 @@ class MainSettingsPage(QtGui.QWidget):
             self.backupFolder.setText(folder)
 
     def referenceButtonClicked(self):
-        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Select reference"), self.reference.text(), "*.db")
+        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Select reference"), self.reference.text(), "*.ref")
         if file:
             self.reference.setText(file)
 
