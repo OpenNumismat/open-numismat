@@ -159,6 +159,9 @@ class FieldsSettingsPage(QtGui.QWidget):
 
         self.setLayout(layout)
 
+    def resizeEvent(self, event):
+        self.listWidget.setWrapping(True)
+
     def save(self):
         for i in range(self.listWidget.count()):
             item = self.listWidget.item(i)

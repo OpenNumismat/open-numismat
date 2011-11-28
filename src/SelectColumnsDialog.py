@@ -54,6 +54,9 @@ class SelectColumnsDialog(QtGui.QDialog):
         layout.addWidget(buttonBox)
 
         self.setLayout(layout)
+    
+    def resizeEvent(self, event):
+        self.listWidget.setWrapping(True)
 
     def save(self):
         self.listParam.columns = []
