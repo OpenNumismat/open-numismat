@@ -22,42 +22,42 @@
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="270"/>
+        <location filename="Collection.py" line="273"/>
         <source>Open collection</source>
         <translation>Открыть коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="290"/>
+        <location filename="Collection.py" line="293"/>
         <source>Can&apos;t open collection</source>
         <translation>Невозможно открыть коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="270"/>
+        <location filename="Collection.py" line="273"/>
         <source>Collection not exists</source>
         <translation>Коллекция не создана</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="290"/>
+        <location filename="Collection.py" line="293"/>
         <source>Create collection</source>
         <translation>Создать коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="284"/>
+        <location filename="Collection.py" line="287"/>
         <source>Specified file already exists</source>
         <translation>Указанный файл уже существует</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="368"/>
+        <location filename="Collection.py" line="371"/>
         <source>Updating reference</source>
         <translation>Обновление справочника</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="368"/>
+        <location filename="Collection.py" line="371"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="397"/>
+        <location filename="Collection.py" line="400"/>
         <source>Fill from collection</source>
         <translation>Заполнить из коллекции</translation>
     </message>
@@ -1033,7 +1033,7 @@ Do you want to send an error message to the author?</source>
         <translation>Редактировать все...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="448"/>
+        <location filename="ListView.py" line="452"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
@@ -1068,7 +1068,7 @@ Do you want to send an error message to the author?</source>
         <translation>Редактировать...</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="448"/>
+        <location filename="ListView.py" line="452"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation>
             <numerusform>Удалить %n монету?</numerusform>
