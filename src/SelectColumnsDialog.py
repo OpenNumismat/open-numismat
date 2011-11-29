@@ -8,9 +8,11 @@ class SelectColumnsDialog(QtGui.QDialog):
     DataRole = 16
     
     def __init__(self, listParam, parent=None):
-        super(SelectColumnsDialog, self).__init__(parent)
+        super(SelectColumnsDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
         
         self.listParam = listParam
+        
+        self.setWindowTitle(self.tr("Columns"))
         
         self.listWidget = QtGui.QListWidget(self)
         # TODO: Disable resizing

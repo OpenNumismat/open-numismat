@@ -19,9 +19,11 @@ class ListView(QtGui.QListView):
 
 class ReferenceDialog(QtGui.QDialog):
     def __init__(self, model, text='', parent=None):
-        super(ReferenceDialog, self).__init__(parent)
+        super(ReferenceDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
         
         self.model = model
+
+        self.setWindowTitle(self.tr("Reference"))
 
         self.listWidget = ListView(self)
         self.listWidget.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)

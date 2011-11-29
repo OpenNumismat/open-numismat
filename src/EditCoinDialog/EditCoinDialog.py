@@ -6,7 +6,7 @@ from .DetailsTabWidget import FormDetailsTabWidget
 
 class EditCoinDialog(QtGui.QDialog):
     def __init__(self, model, record, parent=None, usedFields=None):
-        super(EditCoinDialog, self).__init__(parent)
+        super(EditCoinDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
         
         self.usedFields = usedFields
         self.record = record

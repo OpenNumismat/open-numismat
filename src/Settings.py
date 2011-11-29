@@ -173,11 +173,13 @@ class FieldsSettingsPage(QtGui.QWidget):
 
 class SettingsDialog(QtGui.QDialog):
     def __init__(self, collection, parent=None):
-        super(SettingsDialog, self).__init__(parent)
+        super(SettingsDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
         
         mainPage = MainSettingsPage(collection, self)
         fieldsPage = FieldsSettingsPage(collection, self)
 
+        self.setWindowTitle(self.tr("Settings"))
+        
         self.tab = QtGui.QTabWidget(self)
         self.tab.addTab(mainPage, self.tr("Main"))
         index = self.tab.addTab(fieldsPage, self.tr("Fields"))

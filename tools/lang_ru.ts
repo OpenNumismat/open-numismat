@@ -689,7 +689,7 @@
 <context>
     <name>CrossReferenceDialog</name>
     <message>
-        <location filename="Reference.py" line="105"/>
+        <location filename="Reference.py" line="107"/>
         <source>Enter value</source>
         <translation>Введите значение</translation>
     </message>
@@ -1302,72 +1302,72 @@ Copyright (C) 2011 Игнатов Виталий
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="278"/>
+        <location filename="Reference.py" line="280"/>
         <source>C</source>
         <translation>С</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="279"/>
+        <location filename="Reference.py" line="281"/>
         <source>T</source>
         <translation>Т</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="280"/>
+        <location filename="Reference.py" line="282"/>
         <source>G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="282"/>
+        <location filename="Reference.py" line="284"/>
         <source>M</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="283"/>
+        <location filename="Reference.py" line="285"/>
         <source>F</source>
         <translation>Ф</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="285"/>
+        <location filename="Reference.py" line="287"/>
         <source>E</source>
         <translation>Г</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="286"/>
+        <location filename="Reference.py" line="288"/>
         <source>U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="288"/>
+        <location filename="Reference.py" line="290"/>
         <source>P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="289"/>
+        <location filename="Reference.py" line="291"/>
         <source>S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="290"/>
+        <location filename="Reference.py" line="292"/>
         <source>Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="291"/>
+        <location filename="Reference.py" line="293"/>
         <source>D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="292"/>
+        <location filename="Reference.py" line="294"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="318"/>
+        <location filename="Reference.py" line="320"/>
         <source>Open reference</source>
         <translation>Открыть справочник</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="318"/>
+        <location filename="Reference.py" line="320"/>
         <source>Can&apos;t open reference</source>
         <translation>Не удается открыть справочник</translation>
     </message>
@@ -1375,19 +1375,32 @@ Copyright (C) 2011 Игнатов Виталий
 <context>
     <name>ReferenceDialog</name>
     <message>
-        <location filename="Reference.py" line="38"/>
+        <location filename="Reference.py" line="40"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="40"/>
+        <location filename="Reference.py" line="42"/>
         <source>Del</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="62"/>
+        <location filename="Reference.py" line="64"/>
         <source>Enter value</source>
         <translation>Введите значение</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="26"/>
+        <source>Reference</source>
+        <translation>Справочник</translation>
+    </message>
+</context>
+<context>
+    <name>SelectColumnsDialog</name>
+    <message>
+        <location filename="SelectColumnsDialog.py" line="15"/>
+        <source>Columns</source>
+        <translation>Столбцы</translation>
     </message>
 </context>
 <context>
@@ -1418,14 +1431,19 @@ Copyright (C) 2011 Игнатов Виталий
         <translation type="obsolete">Выбор справочника</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="179"/>
+        <location filename="Settings.py" line="184"/>
         <source>Main</source>
         <translation>Основные</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="180"/>
+        <location filename="Settings.py" line="185"/>
         <source>Fields</source>
         <translation>Поля</translation>
+    </message>
+    <message>
+        <location filename="Settings.py" line="181"/>
+        <source>Settings</source>
+        <translation>Настройки</translation>
     </message>
 </context>
 <context>
