@@ -79,7 +79,10 @@ class CollectionModel(QSqlTableModel):
                field.name != 'image':
                 # Convert image to DB format
                 image = record.value(field.name)
-                if isinstance(image, QtGui.QImage):
+                if isinstance(image, str):
+                    # Copying record as text (from Excel) store missed images as string 
+                    record.setNull(field.name)
+                elif isinstance(image, QtGui.QImage):
                     ba = QtCore.QByteArray() 
                     buffer = QtCore.QBuffer(ba)
                     buffer.open(QtCore.QIODevice.WriteOnly)

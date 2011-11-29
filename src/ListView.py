@@ -422,7 +422,11 @@ class ListView(QtGui.QTableView):
             for recordData in pickleData:
                 record = self.model().record()
                 for i in range(self.model().columnCount()):
-                    record.setValue(i, recordData[i])
+                    if isinstance(recordData[i], bytes):
+                        # Note: Qt::QVariant convert Python bytes type to str type 
+                        record.setValue(i, QtCore.QByteArray(recordData[i]))
+                    else:
+                        record.setValue(i, recordData[i])
                 
                 self.model().addCoin(record, self)
         elif mime.hasText():
