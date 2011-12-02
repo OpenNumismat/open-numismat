@@ -49,14 +49,17 @@ class CollectionModel(QSqlTableModel):
         dialog = EditCoinDialog(self, record, parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            rowCount = self.rowCount()
-            
-            self.insertRecord(-1, record)
-            self.submitAll()
-            
-            if rowCount < self.rowCount():  # inserted row visible in current model
-                if self.insertedRowIndex.isValid():
-                    self.rowInserted.emit(self.insertedRowIndex)
+            self.appendRecord(record)
+    
+    def appendRecord(self, record):
+        rowCount = self.rowCount()
+        
+        self.insertRecord(-1, record)
+        self.submitAll()
+        
+        if rowCount < self.rowCount():  # inserted row visible in current model
+            if self.insertedRowIndex.isValid():
+                self.rowInserted.emit(self.insertedRowIndex)
     
     def insertRecord(self, row, record):
         self._updateRecord(record)
@@ -75,8 +78,7 @@ class CollectionModel(QSqlTableModel):
         obverseImage = QtGui.QImage()
         reverseImage = QtGui.QImage()
         for field in self.fields.userFields:
-            if field.type in [Type.Image, Type.EdgeImage] and \
-               field.name != 'image':
+            if field.type in [Type.Image, Type.EdgeImage] and field.name != 'image':
                 # Convert image to DB format
                 image = record.value(field.name)
                 if isinstance(image, str):

@@ -9,6 +9,8 @@ from Settings import Settings, SettingsDialog
 from LatestCollections import LatestCollections
 import version
 
+from Collection.Import.Numizmat import ImportNumizmat
+
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -49,10 +51,15 @@ class MainWindow(QtGui.QMainWindow):
         backupCollectionAct = QtGui.QAction(QtGui.QIcon('icons/database_backup.png'), self.tr("Backup"), self)
         backupCollectionAct.triggered.connect(self.backupCollectionEvent)
 
+        importNumizmatAct = QtGui.QAction(self.tr("Import from Numizmat 2.1"), self)
+        importNumizmatAct.triggered.connect(self.importNumizmat)
+
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
         collectionMenu.addAction(openCollectionAct)
         collectionMenu.addAction(backupCollectionAct)
+        collectionMenu.addSeparator()
+        collectionMenu.addAction(importNumizmatAct)
         collectionMenu.addSeparator()
 
         self.latestActions = []
@@ -143,6 +150,13 @@ class MainWindow(QtGui.QMainWindow):
             self.close()
             program = sys.executable
             QtCore.QProcess.startDetached(program, sys.argv)
+    
+    def importNumizmat(self):
+        # TODO: Check default dir
+        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Select file"), '', "*.fdb")
+        if file:
+            imp = ImportNumizmat(self)
+            imp.importData(file, self.viewTab.currentModel())
     
     def addCoin(self):
         model = self.viewTab.currentModel()

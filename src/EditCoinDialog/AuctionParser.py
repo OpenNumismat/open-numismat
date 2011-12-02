@@ -4,7 +4,7 @@ import urllib.request, urllib.error, urllib.parse
 try:
     import lxml.html
 except ImportError:
-    pass
+    print('lxml module missed. Auction parsing not available')
 
 from PyQt4 import QtGui, QtCore
 
