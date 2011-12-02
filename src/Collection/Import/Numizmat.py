@@ -21,7 +21,7 @@ class ImportNumizmat(QtCore.QObject):
         'type': 'types',
         'series': 'series',
         'subjectshort': None,
-        'status': 'status', # TODO: Add processing for statuses
+        'status': 'status',
         'metal': 'metal',
         'fineness': 'probe',
         'form': 'forma',
@@ -99,8 +99,21 @@ class ImportNumizmat(QtCore.QObject):
                         index = columns.index(srcColumn)
                         if isinstance(row[index], bytearray):
                             record.setValue(dstColumn, QtCore.QByteArray(row[index]))
+                        elif isinstance(row[index], str):
+                            record.setValue(dstColumn, row[index].strip())
                         else:
                             record.setValue(dstColumn, row[index])
+                        
+                        if dstColumn == 'status':
+                            # Process Status fields that contain translated text
+                            if record.value(dstColumn) in ['есть', 'have', 'є', 'притежава']:
+                                record.setValue(dstColumn, 'owned')
+                            elif record.value(dstColumn) in ['нужна', 'need', 'потрібна', 'издирва']:
+                                record.setValue(dstColumn, 'wish')
+                            elif record.value(dstColumn) in ['обмен', 'exchange', 'обмін', 'обмен']:
+                                record.setValue(dstColumn, 'sale')
+                            else:
+                                record.setValue(dstColumn, 'demo')
                 model.appendRecord(record)
             
             progressDlg.setValue(len(rows))
