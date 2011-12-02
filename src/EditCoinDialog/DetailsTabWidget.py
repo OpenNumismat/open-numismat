@@ -151,6 +151,8 @@ class DetailsTabWidget(QtGui.QTabWidget):
                 if not record.isNull(item.field()):
                     value = record.value(item.field())
                     item.setValue(value)
+                else:
+                    item.widget().clear()
     
     def clear(self):
         for item in self.items.values():
