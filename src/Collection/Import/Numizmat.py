@@ -97,7 +97,7 @@ class ImportNumizmat(QtCore.QObject):
                 for dstColumn, srcColumn in self.Columns.items():
                     if srcColumn in columns:
                         index = columns.index(srcColumn)
-                        if dstColumn in ['obverseimg', 'reverseimg']:
+                        if isinstance(row[index], bytearray):
                             record.setValue(dstColumn, QtCore.QByteArray(row[index]))
                         else:
                             record.setValue(dstColumn, row[index])
