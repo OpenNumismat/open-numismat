@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import datetime, decimal
+
 try:
     import pyodbc
 except ImportError:
@@ -101,6 +103,10 @@ class ImportNumizmat(QtCore.QObject):
                             record.setValue(dstColumn, QtCore.QByteArray(row[index]))
                         elif isinstance(row[index], str):
                             record.setValue(dstColumn, row[index].strip())
+                        elif isinstance(row[index], decimal.Decimal):
+                            record.setValue(dstColumn, int(row[index]))
+                        elif isinstance(row[index], datetime.date):
+                            record.setValue(dstColumn, QtCore.QDate.fromString(row[index].isoformat(), QtCore.Qt.ISODate))
                         else:
                             record.setValue(dstColumn, row[index])
                         
