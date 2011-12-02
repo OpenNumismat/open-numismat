@@ -51,7 +51,7 @@ class MainWindow(QtGui.QMainWindow):
         backupCollectionAct = QtGui.QAction(QtGui.QIcon('icons/database_backup.png'), self.tr("Backup"), self)
         backupCollectionAct.triggered.connect(self.backupCollectionEvent)
 
-        importNumizmatAct = QtGui.QAction(self.tr("Import from Numizmat 2.1"), self)
+        importNumizmatAct = QtGui.QAction(QtGui.QIcon('icons/numizmat.ico'), self.tr("Import from Numizmat 2.1"), self)
         importNumizmatAct.triggered.connect(self.importNumizmat)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
