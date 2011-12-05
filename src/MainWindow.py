@@ -10,6 +10,7 @@ from LatestCollections import LatestCollections
 import version
 
 from Collection.Import.Numizmat import ImportNumizmat
+from Collection.Import.Cabinet import ImportCabinet
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -53,6 +54,8 @@ class MainWindow(QtGui.QMainWindow):
 
         importNumizmatAct = QtGui.QAction(QtGui.QIcon('icons/numizmat.ico'), self.tr("Import from Numizmat 2.1"), self)
         importNumizmatAct.triggered.connect(self.importNumizmat)
+        importCabinetAct = QtGui.QAction(QtGui.QIcon('icons/cabinet.ico'), self.tr("Import from Cabinet 2.0.2.0, 2011"), self)
+        importCabinetAct.triggered.connect(self.importCabinet)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
@@ -60,6 +63,7 @@ class MainWindow(QtGui.QMainWindow):
         collectionMenu.addAction(backupCollectionAct)
         collectionMenu.addSeparator()
         collectionMenu.addAction(importNumizmatAct)
+        collectionMenu.addAction(importCabinetAct)
         collectionMenu.addSeparator()
 
         self.latestActions = []
@@ -157,6 +161,12 @@ class MainWindow(QtGui.QMainWindow):
         if file:
             imp = ImportNumizmat(self)
             imp.importData(file, self.viewTab.currentModel())
+    
+    def importCabinet(self):
+        directory = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Select directory"))
+        if directory:
+            imp = ImportCabinet(self)
+            imp.importData(directory, self.viewTab.currentModel())
     
     def addCoin(self):
         model = self.viewTab.currentModel()

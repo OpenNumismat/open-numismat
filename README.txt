@@ -5,6 +5,7 @@ Requirement:
  * pyodbc 3.0.1 (for importing)
  * Firebird 2.1 (for importing from Numizmat 2.1)
  * Firebird ODBC Driver 2.0 (for importing from Numizmat 2.1)
+ * DBISAM ODBC-TRIAL 4.3 (for importing from Cabinet 2.0.2.0, 2011)
  * cx_Freeze 4.2.3 (for deploy)
  * pywin32 216 (for deploy)
  * Inno Setup 5.4.2 (for deploy)

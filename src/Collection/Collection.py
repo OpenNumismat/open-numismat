@@ -31,14 +31,16 @@ class CollectionModel(QSqlTableModel):
 
     def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DisplayRole:
+            # Convert date values
             data = super(CollectionModel, self).data(index, role)
-            fieldType = self.fields.fields[index.column()].type
-            if fieldType == Type.Date:
-                date = QtCore.QDate.fromString(data, Qt.ISODate)
-                return date.toString(Qt.SystemLocaleShortDate)
-            elif fieldType == Type.DateTime:
-                date = QtCore.QDateTime.fromString(data, Qt.ISODate)
-                return date.toString(Qt.SystemLocaleShortDate)
+            if isinstance(data, str):
+                fieldType = self.fields.fields[index.column()].type
+                if fieldType == Type.Date:
+                    date = QtCore.QDate.fromString(data, Qt.ISODate)
+                    return date.toString(Qt.SystemLocaleShortDate)
+                elif fieldType == Type.DateTime:
+                    date = QtCore.QDateTime.fromString(data, Qt.ISODate)
+                    return date.toString(Qt.SystemLocaleShortDate)
         elif role == Qt.UserRole:
             return super(CollectionModel, self).data(index, Qt.DisplayRole)
 
