@@ -52,18 +52,21 @@ class MainWindow(QtGui.QMainWindow):
         backupCollectionAct = QtGui.QAction(QtGui.QIcon('icons/database_backup.png'), self.tr("Backup"), self)
         backupCollectionAct.triggered.connect(self.backupCollectionEvent)
 
-        importNumizmatAct = QtGui.QAction(QtGui.QIcon('icons/numizmat.ico'), self.tr("Import from Numizmat 2.1"), self)
+        importNumizmatAct = QtGui.QAction(QtGui.QIcon('icons/numizmat.ico'), self.tr("Numizmat 2.1"), self)
         importNumizmatAct.triggered.connect(self.importNumizmat)
-        importCabinetAct = QtGui.QAction(QtGui.QIcon('icons/cabinet.ico'), self.tr("Import from Cabinet 2.0.2.0, 2011"), self)
+        importCabinetAct = QtGui.QAction(QtGui.QIcon('icons/cabinet.ico'), self.tr("Cabinet 2.0.2.0, 2011"), self)
         importCabinetAct.triggered.connect(self.importCabinet)
+        
+        importMenu = QtGui.QMenu(self.tr("Import"), self)
+        importMenu.addAction(importNumizmatAct)
+        importMenu.addAction(importCabinetAct)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
         collectionMenu.addAction(openCollectionAct)
         collectionMenu.addAction(backupCollectionAct)
         collectionMenu.addSeparator()
-        collectionMenu.addAction(importNumizmatAct)
-        collectionMenu.addAction(importCabinetAct)
+        collectionMenu.addMenu(importMenu)
         collectionMenu.addSeparator()
 
         self.latestActions = []
