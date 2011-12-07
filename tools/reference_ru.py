@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 from PyQt4 import QtCore, QtGui
 
@@ -20,9 +21,6 @@ app = QtGui.QApplication(sys.argv)
 
 ref = Reference()
 ref.open('reference_ru.ref')
-
-for sec in ref.allSections():
-    ref.section(sec)
 
 place = ref.section('payplace')
 place.addItem('Молоток.Ру', convertImage('icons/molotok.ico'))

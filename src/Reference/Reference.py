@@ -145,11 +145,9 @@ class ReferenceSection(QtCore.QObject):
     
     def load(self, db):
         self.db = db
-        sql = "CREATE TABLE IF NOT EXISTS %s (\
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-            value CHAR, icon BLOB)" % self.name
-        QSqlQuery(sql, db)
-
+        if self.name not in self.db.tables():
+            self.create(self.db)
+        
         self.model = SqlRelationalTableModel(None, db)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
         self.model.setTable(self.name)
@@ -192,6 +190,23 @@ class ReferenceSection(QtCore.QObject):
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(value)
             fillQuery.exec_()
+    
+    def create(self, db=QSqlDatabase()):
+        db.transaction()
+        
+        sql = "CREATE TABLE %s (\
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+            value CHAR, icon BLOB)" % self.name
+        QSqlQuery(sql, db)
+        
+        query = QSqlQuery(db)
+        query.prepare("INSERT INTO sections (name, letter)\
+            VALUES (?, ?)")
+        query.addBindValue(self.name)
+        query.addBindValue(self.letter)
+        query.exec_()
+        
+        db.commit()
 
 class CrossReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
@@ -214,12 +229,9 @@ class CrossReferenceSection(QtCore.QObject):
     
     def load(self, db):
         self.db = db
-        sql = "CREATE TABLE IF NOT EXISTS %s (\
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-            parentid INTEGER NOT NULL,\
-            value CHAR)" % self.name
-        QSqlQuery(sql, db)
-
+        if self.name not in self.db.tables():
+            self.create(self.db)
+        
         self.model = QtSql.QSqlRelationalTableModel(None, db)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
         self.model.setTable(self.name)
@@ -260,6 +272,25 @@ class CrossReferenceSection(QtCore.QObject):
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(parentId)
             fillQuery.exec_()
+    
+    def create(self, db=QSqlDatabase()):
+        db.transaction()
+        
+        sql = "CREATE TABLE %s (\
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+            parentid INTEGER NOT NULL,\
+            value CHAR)" % self.name
+        QSqlQuery(sql, db)
+        
+        query = QSqlQuery(db)
+        query.prepare("INSERT INTO sections (name, letter, parent)\
+            VALUES (?, ?, ?)")
+        query.addBindValue(self.name)
+        query.addBindValue(self.letter)
+        query.addBindValue(self.parentName)
+        query.exec_()
+        
+        db.commit()
 
 class Reference(QtCore.QObject):
     def __init__(self, parent=None):
@@ -293,20 +324,9 @@ class Reference(QtCore.QObject):
                 ReferenceSection('defect', self.tr("D")),
                 ReferenceSection('rarity', self.tr("R"))
             ]
+        
         for section in sections:
-            query = QSqlQuery(self.db)
-            if isinstance(section, CrossReferenceSection):
-                query.prepare("INSERT INTO sections (name, letter, parent) "
-                              "VALUES (?, ?, ?)")
-                query.addBindValue(section.name)
-                query.addBindValue(section.letter)
-                query.addBindValue(section.parentName)
-            else:
-                query.prepare("INSERT INTO sections (name, letter) "
-                              "VALUES (?, ?)")
-                query.addBindValue(section.name)
-                query.addBindValue(section.letter)
-            query.exec_()
+            section.create(self.db)
     
     def open(self, fileName):
         file = QtCore.QFileInfo(fileName)
