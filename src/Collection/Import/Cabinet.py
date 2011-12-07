@@ -78,11 +78,11 @@ class ImportCabinet(QtCore.QObject):
     def __init__(self, parent=None):
         super(ImportCabinet, self).__init__(parent)
     
-    def importData(self, dbname, model):
+    def importData(self, directory, model):
         res = False
         
         try:
-            cnxn = pyodbc.connect(driver='{DBISAM 4 ODBC Driver}', connectionType='Local', catalogName=dbname)
+            cnxn = pyodbc.connect(driver='{DBISAM 4 ODBC Driver}', connectionType='Local', catalogName=directory)
         except pyodbc.Error:
             return res
         cursor = cnxn.cursor()
