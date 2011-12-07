@@ -8,11 +8,12 @@ class ListView(QtGui.QListView):
     
     def closeEditor(self, editor, hint):
         super(ListView, self).closeEditor(editor, hint)
-
-        if len(editor.text()) == 0:
+        
+        text = editor.text().strip()
+        if len(text) == 0:
             self.setRowHidden(self.currentIndex().row(), True)
             self.model().removeRow(self.currentIndex().row())
-        elif editor.text() == self.tr("Enter value"):
+        elif text == self.tr("Enter value"):
             if hint == QtGui.QAbstractItemDelegate.RevertModelCache:
                 self.setRowHidden(self.currentIndex().row(), True)
                 self.model().removeRow(self.currentIndex().row())

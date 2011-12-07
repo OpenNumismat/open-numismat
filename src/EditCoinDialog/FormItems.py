@@ -74,12 +74,13 @@ class LineEditRef(QtGui.QWidget):
             model = self.comboBox.model()
             idIndex = model.fieldIndex('id')
             parentIndex = model.index(index, idIndex)
-            for dependent in self.dependents:
-                text = dependent.text()
-                reference = dependent.reference
-                reference.model.setFilter('parentid=%d' % model.data(parentIndex))
-                reference.parentIndex = parentIndex
-                dependent.setText(text)
+            if model.data(parentIndex):
+                for dependent in self.dependents:
+                    text = dependent.text()
+                    reference = dependent.reference
+                    reference.model.setFilter('parentid=%d' % model.data(parentIndex))
+                    reference.parentIndex = parentIndex
+                    dependent.setText(text)
         else:
             for dependent in self.dependents:
                 text = dependent.text()
