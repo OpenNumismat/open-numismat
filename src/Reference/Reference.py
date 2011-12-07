@@ -22,10 +22,10 @@ class ReferenceDialog(QtGui.QDialog):
     def __init__(self, model, text='', parent=None):
         super(ReferenceDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
         
+        self.setWindowTitle()
+        
         self.model = model
-
-        self.setWindowTitle(self.tr("Reference"))
-
+        
         self.listWidget = ListView(self)
         self.listWidget.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.listWidget.setModel(self.model)
@@ -57,6 +57,12 @@ class ReferenceDialog(QtGui.QDialog):
 
         self.setLayout(layout)
     
+    def setWindowTitle(self, title=None):
+        windowTitle = QtGui.QApplication.translate('ReferenceDialog', "Reference")
+        if title:
+            windowTitle = ' - '.join([windowTitle, title])
+        super(ReferenceDialog, self).setWindowTitle(windowTitle)
+
     def clicked(self, button):
         if button == self.addButton:
             row = self.model.rowCount()
@@ -131,17 +137,12 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
 class ReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
-    def __init__(self, name, letter='', parent=None):
+    def __init__(self, name, title, letter='', parent=None):
         super(ReferenceSection, self).__init__(parent)
 
-        if isinstance(name, QSqlRecord):
-            record = name
-            self.id = record.value('id')
-            self.name = record.value('name')
-            self.letter = record.value('letter')
-        else:
-            self.name = name
-            self.letter = letter
+        self.name = name
+        self.title = title
+        self.letter = letter
         self.parentName = None
     
     def load(self, db):
@@ -163,6 +164,7 @@ class ReferenceSection(QtCore.QObject):
     
     def clickedButton(self):
         dialog = ReferenceDialog(self.model, self.parent.text(), self.parent)
+        dialog.setWindowTitle(self.title)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             index = dialog.listWidget.currentIndex()
@@ -212,21 +214,15 @@ class ReferenceSection(QtCore.QObject):
 class CrossReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
-    def __init__(self, name, parentName=None, letter='', parent=None):
+    def __init__(self, name, parentName, title, letter='', parent=None):
         super(CrossReferenceSection, self).__init__(parent)
         
         self.parentIndex = None
 
-        if isinstance(name, QSqlRecord):
-            record = name
-            self.id = record.value('id')
-            self.name = record.value('name')
-            self.letter = record.value('letter')
-            self.parentName = record.value('parent')
-        else:
-            self.name = name
-            self.letter = letter
-            self.parentName = parentName
+        self.name = name
+        self.parentName = parentName
+        self.title = title
+        self.letter = letter
     
     def load(self, db):
         self.db = db
@@ -250,6 +246,7 @@ class CrossReferenceSection(QtCore.QObject):
     
     def clickedButton(self):
         dialog = CrossReferenceDialog(self.model, self.parentIndex, self.parent.text(), self.parent)
+        dialog.setWindowTitle(self.title)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             index = dialog.listWidget.currentIndex()
@@ -299,6 +296,24 @@ class Reference(QtCore.QObject):
 
         self.db = QSqlDatabase.addDatabase('QSQLITE', "reference")
     
+        self.sections = {
+            'country': ReferenceSection('country', self.tr("Country"), self.tr("C")),
+            'type': ReferenceSection('type', self.tr("Type"), self.tr("T")),
+            'grade': ReferenceSection('grade', self.tr("Grade"), self.tr("G")),
+            'place': ReferenceSection('place', self.tr("Place")),
+            'metal': ReferenceSection('metal', self.tr("Metal"), self.tr("M")),
+            'form': ReferenceSection('form', self.tr("Form"), self.tr("F")),
+            'ovrev': ReferenceSection('obvrev', self.tr("ObvRev")),
+            'edge': ReferenceSection('edge', self.tr("Edge"), self.tr("E")),
+            'unit': CrossReferenceSection('unit', 'country', self.tr("Unit"), self.tr("U")),
+            'mint': CrossReferenceSection('mint', 'country', self.tr("Mint")),
+            'period': CrossReferenceSection('period', 'country', self.tr("Period"), self.tr("P")),
+            'series': CrossReferenceSection('series', 'country', self.tr("Series"), self.tr("S")),
+            'quality': ReferenceSection('quality', self.tr("Quality"), self.tr("Q")),
+            'defect': ReferenceSection('defect', self.tr("Defect"), self.tr("D")),
+            'rarity': ReferenceSection('rarity', self.tr("Rarity"), self.tr("R"))
+        }
+    
     def create(self):
         sql = "CREATE TABLE IF NOT EXISTS sections (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
@@ -307,26 +322,8 @@ class Reference(QtCore.QObject):
             letter CHAR(1),\
             parent CHAR)"
         QSqlQuery(sql, self.db)
-
-        sections = [
-                ReferenceSection('country', self.tr("C")),
-                ReferenceSection('type', self.tr("T")),
-                ReferenceSection('grade', self.tr("G")),
-                ReferenceSection('place'),
-                ReferenceSection('metal', self.tr("M")),
-                ReferenceSection('form', self.tr("F")),
-                ReferenceSection('obvrev'),
-                ReferenceSection('edge', self.tr("E")),
-                CrossReferenceSection('unit', 'country', self.tr("U")),
-                CrossReferenceSection('mint', 'country'),
-                CrossReferenceSection('period', 'country', self.tr("P")),
-                CrossReferenceSection('series', 'country', self.tr("S")),
-                ReferenceSection('quality', self.tr("Q")),
-                ReferenceSection('defect', self.tr("D")),
-                ReferenceSection('rarity', self.tr("R"))
-            ]
         
-        for section in sections:
+        for section in self.sections.values():
             section.create(self.db)
     
     def open(self, fileName):
@@ -350,37 +347,23 @@ class Reference(QtCore.QObject):
     
     def section(self, name):
         section = None
-
+        
         # NOTE: payplace and saleplace fields has one reference section => 
         # editing one of it should change another 
         if name in ['payplace', 'saleplace']:
             name = 'place'
         
-        query = QSqlQuery(self.db)
-        query.prepare("SELECT * FROM sections WHERE name=?")
-        query.addBindValue(name)
-        query.exec_()
-        
-        if query.first():
-            if query.record().isNull('parent'):
-                section = ReferenceSection(query.record())
-            else:
-                section = CrossReferenceSection(query.record())
+        if name in self.sections.keys():
+            section = self.sections[name]
             section.load(self.db)
         
         return section
     
     def allSections(self):
-        query = QSqlQuery(self.db)
-        query.prepare("SELECT * FROM sections")
-        query.exec_()
+        sectionNames = self.sections.keys()
         
-        sections = []
-        while query.next():
-            sections.append(query.record().value('name'))
+        if 'place' in sectionNames:
+            sectionNames.remove('place')
+            sectionNames.extend(['payplace', 'saleplace'])
         
-        if 'place' in sections:
-            sections.remove('place')
-            sections.extend(['payplace', 'saleplace'])
-        
-        return sections
+        return sectionNames
