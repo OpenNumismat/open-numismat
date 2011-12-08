@@ -7,6 +7,7 @@ from Reference.Reference import Reference
 from TabView import TabView
 from Settings import Settings, SettingsDialog
 from LatestCollections import LatestCollections
+from Tools.CursorDecorators import waitCursorDecorator
 import version
 
 from Collection.Import.Numizmat import ImportNumizmat
@@ -196,7 +197,9 @@ class MainWindow(QtGui.QMainWindow):
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
     
-    def backupCollectionEvent(self):
+    @waitCursorDecorator
+    def backupCollectionEvent(self, checked):
+        # TODO: Move this functionality to Collection
         file = QtCore.QFile(self.collection.fileName)
         folder = Settings().backupFolder
         backup = QtCore.QFileInfo(folder+'/'+self.collection.getCollectionName()+'_'+QtCore.QDateTime.currentDateTime().toString('yyMMddhhmm')+'.db')
@@ -213,6 +216,7 @@ class MainWindow(QtGui.QMainWindow):
             latest.delete(fileName)
             self.__updateLatest()
     
+    @waitCursorDecorator
     def setCollection(self, collection):
         self.collectionFileLabel.setText(collection.getFileName())
         self.setWindowTitle(collection.getCollectionName() + ' - ' + version.AppName)
