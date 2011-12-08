@@ -224,7 +224,8 @@ class MainWindow(QtGui.QMainWindow):
         self.viewTab.setCollection(collection)
         
         self.referenceMenu.clear()
-        self.referenceMenu.addAction(self.collection.referenceMenu(self))
+        for action in self.collection.referenceMenu(self):
+            self.referenceMenu.addAction(action)
         
     def closeEvent(self, e):
         self.__shutDown()

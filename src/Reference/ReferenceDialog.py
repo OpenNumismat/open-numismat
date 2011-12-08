@@ -12,14 +12,17 @@ class ListView(QtGui.QListView):
         if len(text) == 0:
             self.setRowHidden(self.currentIndex().row(), True)
             self.model().removeRow(self.currentIndex().row())
-        elif text == self.tr("Enter value"):
+        elif text == self.defaultValue():
             if hint == QtGui.QAbstractItemDelegate.RevertModelCache:
                 self.setRowHidden(self.currentIndex().row(), True)
                 self.model().removeRow(self.currentIndex().row())
+    
+    def defaultValue(self):
+        return self.tr("Enter value")
 
-class ReferenceLayout(QtGui.QVBoxLayout):
+class ReferenceWidget(QtGui.QWidget):
     def __init__(self, model, text, parent=None):
-        super(ReferenceLayout, self).__init__(parent)
+        super(ReferenceWidget, self).__init__(parent)
         
         self.model = model
         
@@ -41,33 +44,41 @@ class ReferenceLayout(QtGui.QVBoxLayout):
         editButtonBox.addButton(self.delButton, QtGui.QDialogButtonBox.ActionRole)
         editButtonBox.clicked.connect(self.clicked)
         
-        self.addWidget(self.listWidget)
-        self.addWidget(editButtonBox)
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(self.listWidget)
+        layout.addWidget(editButtonBox)
+        self.setLayout(layout)
     
     def selectedIndex(self):
         index = self.listWidget.currentIndex()
-        if index in self.listWidget.selectedIndexes():
+        if index.isValid() and index in self.listWidget.selectedIndexes():
             return index
         
         return None
     
     def clicked(self, button):
         if button == self.addButton:
-            row = self.model.rowCount()
-            self.model.insertRow(row)
-            index = self.model.index(row, self.model.fieldIndex('value'))
-            self.model.setData(index, self.tr("Enter value"))
-            self.listWidget.setCurrentIndex(index)
-            self.listWidget.edit(index)
+            self._addClicked()
         elif button == self.delButton:
-            index = self.listWidget.currentIndex()
-            if index.isValid() and index in self.listWidget.selectedIndexes():
-                self.model.removeRow(index.row())
-                self.listWidget.setRowHidden(index.row(), True)
+            self._delClicked()
+    
+    def _addClicked(self):
+        row = self.model.rowCount()
+        self.model.insertRow(row)
+        index = self.model.index(row, self.model.fieldIndex('value'))
+        self.model.setData(index, self.listWidget.defaultValue())
+        self.listWidget.setCurrentIndex(index)
+        self.listWidget.edit(index)
+    
+    def _delClicked(self):
+        index = self.selectedIndex()
+        if index:
+            self.model.removeRow(index.row())
+            self.listWidget.setRowHidden(index.row(), True)
 
-class CrossReferenceLayout(ReferenceLayout):
+class CrossReferenceWidget(ReferenceWidget):
     def __init__(self, model, parentIndex, text, parent=None):
-        super(CrossReferenceLayout, self).__init__(model, text, parent)
+        super(CrossReferenceWidget, self).__init__(model, text, parent)
         
         self.rel = self.model.relationModel(1)
         
@@ -82,27 +93,24 @@ class CrossReferenceLayout(ReferenceLayout):
         self.comboBox.setDisabled(True)
         self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
         
-        self.insertWidget(0, self.comboBox)
+        self.layout().insertWidget(0, self.comboBox)
     
     def currentIndexChanged(self, index):
         idIndex = self.rel.fieldIndex('id')
         self.model.setFilter('parentid=%d' % self.rel.data(self.rel.index(index, idIndex)))
     
-    def clicked(self, button):
-        if button == self.addButton:
-            idIndex = self.rel.fieldIndex('id')
-            parentId = self.rel.data(self.rel.index(self.comboBox.currentIndex(), idIndex))
-
-            row = self.model.rowCount()
-            self.model.insertRow(row)
-            index = self.model.index(row, 1)
-            self.model.setData(index, parentId)
-            index = self.model.index(row, self.model.fieldIndex('value'))
-            self.model.setData(index, self.tr("Enter value"))
-            self.listWidget.setCurrentIndex(index)
-            self.listWidget.edit(index)
-        elif button == self.delButton:
-            super(CrossReferenceDialog, self).clicked(button)
+    def _addClicked(self):
+        idIndex = self.rel.fieldIndex('id')
+        parentId = self.rel.data(self.rel.index(self.comboBox.currentIndex(), idIndex))
+        
+        row = self.model.rowCount()
+        self.model.insertRow(row)
+        index = self.model.index(row, 1)
+        self.model.setData(index, parentId)
+        index = self.model.index(row, self.model.fieldIndex('value'))
+        self.model.setData(index, self.listWidget.defaultValue())
+        self.listWidget.setCurrentIndex(index)
+        self.listWidget.edit(index)
 
 class ReferenceDialog(QtGui.QDialog):
     def __init__(self, model, text='', parent=None):
@@ -110,7 +118,7 @@ class ReferenceDialog(QtGui.QDialog):
         
         self.setWindowTitle()
         
-        self.listLayout = self._mainLayout(model, text)
+        self.referenceWidget = self._referenceWidget(model, text)
         
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
@@ -119,7 +127,7 @@ class ReferenceDialog(QtGui.QDialog):
         buttonBox.rejected.connect(self.reject)
 
         layout = QtGui.QVBoxLayout(self)
-        layout.addLayout(self.listLayout)
+        layout.addWidget(self.referenceWidget)
         layout.addWidget(buttonBox)
         
         self.setLayout(layout)
@@ -130,13 +138,52 @@ class ReferenceDialog(QtGui.QDialog):
             windowTitle = ' - '.join([windowTitle, title])
         super(ReferenceDialog, self).setWindowTitle(windowTitle)
     
-    def _mainLayout(self, model, text):
-        return ReferenceLayout(model, text)
+    def _referenceWidget(self, model, text):
+        return ReferenceWidget(model, text, self)
 
 class CrossReferenceDialog(ReferenceDialog):
     def __init__(self, model, parentIndex, text='', parent=None):
         self.parentIndex = parentIndex
         super(CrossReferenceDialog, self).__init__(model, text, parent)
     
-    def _mainLayout(self, model, text):
-        return CrossReferenceLayout(model, self.parentIndex, text)
+    def _referenceWidget(self, model, text):
+        return CrossReferenceWidget(model, self.parentIndex, text, self)
+
+class AllReferenceDialog(QtGui.QDialog):
+    def __init__(self, reference, parent=None):
+        super(AllReferenceDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
+        
+        self.setWindowTitle(self.tr("Reference"))
+        
+        self.sections = [reference.section(name) for name in reference.allSections()]
+        
+        tab = QtGui.QTabWidget(self)
+        for section in self.sections:
+            if section.parentName:
+                widget = CrossReferenceWidget(section.model, None, '', self)
+                widget.comboBox.setEnabled(True)
+            else:
+                widget = ReferenceWidget(section.model, '', self)
+            tab.addTab(widget, section.title)
+        
+        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
+        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        buttonBox.accepted.connect(self.accept)
+        buttonBox.rejected.connect(self.reject)
+        
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(tab)
+        layout.addWidget(buttonBox)
+        
+        self.setLayout(layout)
+    
+    def accept(self):
+        for section in self.sections:
+            section.model.submitAll()
+        super(AllReferenceDialog, self).accept()
+    
+    def reject(self):
+        for section in self.sections:
+            section.model.revertAll()
+        super(AllReferenceDialog, self).reject()

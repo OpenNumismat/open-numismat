@@ -56,7 +56,7 @@ class ReferenceSection(QtCore.QObject):
         if result == QtGui.QDialog.Accepted:
             self.model.submitAll()
             
-            index = dialog.listLayout.selectedIndex()
+            index = dialog.referenceWidget.selectedIndex()
             if index:
                 self.changed.emit(index.data())
         else:
@@ -137,7 +137,7 @@ class CrossReferenceSection(QtCore.QObject):
         if result == QtGui.QDialog.Accepted:
             self.model.submitAll()
             
-            index = dialog.listLayout.selectedIndex()
+            index = dialog.referenceWidget.selectedIndex()
             if index:
                 self.changed.emit(index.data())
         else:
@@ -245,7 +245,7 @@ class Reference(QtCore.QObject):
         return section
     
     def allSections(self):
-        sectionNames = self.sections.keys()
+        sectionNames = list(self.sections.keys())
         
         if 'place' in sectionNames:
             sectionNames.remove('place')

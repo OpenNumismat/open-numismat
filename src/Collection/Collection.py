@@ -6,6 +6,7 @@ from .CollectionFields import FieldTypes as Type
 from .CollectionFields import CollectionFields
 from .CollectionPages import CollectionPages
 from Reference.Reference import CrossReferenceSection
+from Reference.ReferenceDialog import AllReferenceDialog
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 
 class CollectionModel(QSqlTableModel):
@@ -399,12 +400,19 @@ class Collection(QtCore.QObject):
                 refSection.fillFromQuery(query)
     
         progressDlg.setValue(len(sections))
+    
+    def editReference(self):
+        dialog = AllReferenceDialog(self.reference, self.parent())
+        dialog.exec_()
 
     def referenceMenu(self, parent=None):
         createReferenceAct = QtGui.QAction(self.tr("Fill from collection"), parent)
         createReferenceAct.triggered.connect(self.createReference)
         
-        return createReferenceAct
+        editReferenceAct = QtGui.QAction(self.tr("Edit..."), parent)
+        editReferenceAct.triggered.connect(self.editReference)
+        
+        return [createReferenceAct, editReferenceAct]
     
     @staticmethod
     def fileNameToCollectionName(fileName):
