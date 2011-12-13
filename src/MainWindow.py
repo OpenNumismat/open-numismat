@@ -12,6 +12,7 @@ import version
 
 from Collection.Import.Numizmat import ImportNumizmat
 from Collection.Import.Cabinet import ImportCabinet
+from Collection.Import.CoinsCollector import ImportCoinsCollector
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -57,10 +58,13 @@ class MainWindow(QtGui.QMainWindow):
         importNumizmatAct.triggered.connect(self.importNumizmat)
         importCabinetAct = QtGui.QAction(QtGui.QIcon('icons/cabinet.ico'), self.tr("Cabinet 2.0.2.0, 2011"), self)
         importCabinetAct.triggered.connect(self.importCabinet)
+        importCoinsCollectorAct = QtGui.QAction(QtGui.QIcon('icons/CoinsCollector.ico'), self.tr("CoinsCollector 2.6"), self)
+        importCoinsCollectorAct.triggered.connect(self.importCoinsCollector)
         
         importMenu = QtGui.QMenu(self.tr("Import"), self)
         importMenu.addAction(importNumizmatAct)
         importMenu.addAction(importCabinetAct)
+        importMenu.addAction(importCoinsCollectorAct)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
@@ -170,6 +174,12 @@ class MainWindow(QtGui.QMainWindow):
         directory = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Select directory"))
         if directory:
             imp = ImportCabinet(self)
+            imp.importData(directory, self.viewTab.currentModel())
+    
+    def importCoinsCollector(self):
+        directory = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Select directory"))
+        if directory:
+            imp = ImportCoinsCollector(self)
             imp.importData(directory, self.viewTab.currentModel())
     
     def addCoin(self):
