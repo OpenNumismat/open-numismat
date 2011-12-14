@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import base64
-from encodings.cp1251 import Codec
+import base64, ctypes, tempfile
 
 try:
     import lxml.etree
@@ -9,14 +8,6 @@ except ImportError:
     print('lxml module missed. Importing from CoinsCollector not available')
 
 from PyQt4 import QtCore, QtGui
-
-def encodeXml(data):
-    if data:
-        codec = Codec()
-        decodedData = codec.decode(bytes(data, 'latin-1'))
-        return decodedData[0].strip()
-    else:
-        return ''
 
 class Reference(dict):
     def __init__(self, fileName=''):
@@ -27,7 +18,7 @@ class Reference(dict):
         tree = lxml.etree.parse(fileName)
         rows = tree.xpath("/DATAPACKET/ROWDATA/ROW")
         for row in rows:
-            dict.__setitem__(self, row.get("ID"), encodeXml(row.get("NAME")))
+            dict.__setitem__(self, row.get("ID"), row.get("NAME"))
     
     def __getitem__(self, key):
         try:
@@ -46,9 +37,9 @@ class MintReference(Reference):
         tree = lxml.etree.parse(fileName)
         rows = tree.xpath("/DATAPACKET/ROWDATA/ROW")
         for row in rows:
-            dict.__setitem__(self, row.get("ID"), encodeXml(row.get("NAME")))
-            self.mintMarks[row.get("ID")] = encodeXml(row.get("MARK"))
-            self.mintDescriptions[row.get("ID")] = encodeXml(row.get("DESCRIPTION"))
+            dict.__setitem__(self, row.get("ID"), row.get("NAME"))
+            self.mintMarks[row.get("ID")] = row.get("MARK")
+            self.mintDescriptions[row.get("ID")] = row.get("DESCRIPTION")
     
     def mark(self, key):
         return self.mintMarks[key]
@@ -143,24 +134,26 @@ class ImportCoinsCollector(QtCore.QObject):
     }
     
     referenceFiles = {
-        'COUNTRY_CODE': 'Country.XML',
-        'UNIT_CODE': 'Unit.XML',
-        'CONDITION_CODE': 'Condition.XML',
-        'MATERIAL_CODE': 'Material.XML',
-        'CATALOG_CODE': 'Catalog.XML',
-        'TYPE_CODE': 'Type.XML',
-        'STATUS_CODE': 'Status.XML',
-        'LOCATION_CODE': 'Location.XML',
-        'FORMA_CODE': 'FORMA.XML',
-        'GURT_CODE': 'Gurt.XML',
-        'MINT_CODE': 'Mint.XML',
-        'OBREV_CODE': 'ObRev.XML',
-        'RARITY_CODE': 'Rarity.XML',
-        'VARIETY_CODE': 'Variety.XML',
-        'GURT_DESC_CODE': 'GurtDesc.XML',
-        'DESIGNER_CODE': 'Designer.XML',
-        'PURCHFROM_CODE': 'Seller.XML',
-        'PURCHTO_CODE': 'Buyer.XML',
+        '__dummy1__': 'MainTable',
+        '__dummy2__': 'Pictures',
+        'COUNTRY_CODE': 'Country',
+        'UNIT_CODE': 'Unit',
+        'CONDITION_CODE': 'Condition',
+        'MATERIAL_CODE': 'Material',
+        'CATALOG_CODE': 'Catalog',
+        'TYPE_CODE': 'Type',
+        'STATUS_CODE': 'Status',
+        'LOCATION_CODE': 'Location',
+        'FORMA_CODE': 'FORMA',
+        'GURT_CODE': 'Gurt',
+        'MINT_CODE': 'Mint',
+        'OBREV_CODE': 'ObRev',
+        'RARITY_CODE': 'Rarity',
+        'VARIETY_CODE': 'Variety',
+        'GURT_DESC_CODE': 'GurtDesc',
+        'DESIGNER_CODE': 'Designer',
+        'PURCHFROM_CODE': 'Seller',
+        'PURCHTO_CODE': 'Buyer',
     }
     
     def __init__(self, parent=None):
@@ -172,7 +165,7 @@ class ImportCoinsCollector(QtCore.QObject):
         for row in rows:
             field = row.get("attrname")
             if field in self.referenceFiles:
-                ref = self.__loadReference(self.referenceFiles[field])
+                ref = self.__loadReference('.'.join([self.referenceFiles[field], 'xml']))
                 fields[field] = ref
             else:
                 if "SUBTYPE" in row.keys():
@@ -180,14 +173,14 @@ class ImportCoinsCollector(QtCore.QObject):
                 else:
                     fields[field] = row.get("fieldtype").lower()
         
-        fields["PICTURES"] = self.__loadReference("Pictures.XML")
+        fields["PICTURES"] = self.__loadReference("Pictures.xml")
         
         return fields
     
     def __loadReference(self, fileTitle):
-        if fileTitle == "Mint.XML":
+        if fileTitle == "Mint.xml":
             ref = MintReference()
-        elif fileTitle == "Pictures.XML":
+        elif fileTitle == "Pictures.xml":
             ref = PictureReference()
         else:
             ref = Reference()
@@ -201,15 +194,19 @@ class ImportCoinsCollector(QtCore.QObject):
     def importData(self, directory, model):
         res = False
         if self._check(directory):
-            self.dir_ = QtCore.QDir(directory)
-            file = self.dir_.absoluteFilePath("MainTable.XML")
+            progressDlg = QtGui.QProgressDialog(self.tr("Importing"), self.tr("Cancel"), 0, 1, self.parent())
+            progressDlg.setWindowModality(QtCore.Qt.WindowModal)
+            progressDlg.setMinimumDuration(250)
+            progressDlg.setValue(0)
+            
+            self.dir_ = self.convert(directory)
+            
+            file = self.dir_.absoluteFilePath("MainTable.xml")
             tree = lxml.etree.parse(file)
             fields = self.getFields(tree)
             rows = tree.xpath("/DATAPACKET/ROWDATA/ROW")
             
-            progressDlg = QtGui.QProgressDialog(self.tr("Importing"), self.tr("Cancel"), 0, len(rows), self.parent())
-            progressDlg.setWindowModality(QtCore.Qt.WindowModal)
-            progressDlg.setMinimumDuration(250)
+            progressDlg.setMaximum(len(rows))
             
             for progress, row in enumerate(rows):
                 progressDlg.setValue(progress)
@@ -232,7 +229,7 @@ class ImportCoinsCollector(QtCore.QObject):
                             except ValueError:
                                 value = None
                         else:
-                            value = encodeXml(value)
+                            value = value
                         
                         record.setValue(dstColumn, value)
                     
@@ -264,7 +261,7 @@ class ImportCoinsCollector(QtCore.QObject):
                         catalog = ref[row.get("CATALOG_CODE")]
                         if catalog:
                             catalogParts.append(catalog)
-                        catalogNum = encodeXml(row.get("CATALOG_NUMBER"))
+                        catalogNum = row.get("CATALOG_NUMBER")
                         if catalogNum:
                             catalogParts.append(catalogNum)
                         record.setValue(dstColumn, ' '.join(catalogParts))
@@ -281,13 +278,13 @@ class ImportCoinsCollector(QtCore.QObject):
                     
                     if dstColumn == 'features':
                         features = []
-                        value = encodeXml(row.get('NOTE'))
+                        value = row.get('NOTE')
                         if value:
                             features.append(value)
-                        value = encodeXml(row.get('CERTIFIEDBY'))
+                        value = row.get('CERTIFIEDBY')
                         if value:
                             features.append(self.tr("Certified by: %s") % value)
-                        value = encodeXml(row.get('VALUENOTE'))
+                        value = row.get('VALUENOTE')
                         if value:
                             features.append(self.tr("Price note: %s") % value)
                         
@@ -301,9 +298,23 @@ class ImportCoinsCollector(QtCore.QObject):
         
         return res
     
+    def convert(self, directory):
+        dfBinary, dfXML, dfXMLUTF8 = range(3)
+        
+        srcDir = QtCore.QDir(directory)
+        dstDir = QtCore.QDir(tempfile.mkdtemp())
+        
+        converter = ctypes.windll.LoadLibrary("Cdr2Xml.dll")
+        for fn in self.referenceFiles.values():
+            src = srcDir.absoluteFilePath('.'.join([fn, 'cds']))
+            dst = dstDir.absoluteFilePath('.'.join([fn, 'xml']))
+            converter.CdrToXml(src, dst, dfXMLUTF8)
+        
+        return dstDir
+    
     def _check(self, directory):
         dir_ = QtCore.QDir(directory)
-        if not dir_.exists("MainTable.XML"):
+        if not dir_.exists("MainTable.cds"):
             return False
         
         return True
