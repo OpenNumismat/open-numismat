@@ -10,9 +10,7 @@ from LatestCollections import LatestCollections
 from Tools.CursorDecorators import waitCursorDecorator
 import version
 
-from Collection.Import.Numizmat import ImportNumizmat
-from Collection.Import.Cabinet import ImportCabinet
-from Collection.Import.CoinsCollector import ImportCoinsCollector
+from Collection.Import import *
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
