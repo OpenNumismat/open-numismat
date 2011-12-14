@@ -21,6 +21,7 @@ freezer = Freezer(executables,
     base = base)
 freezer.Freeze()
 
+shutil.copy("../src/Collection/Import/CdrToXml/CdrToXml.dll", "dist")
 shutil.copytree("../src/icons", "dist/icons")
 shutil.copy("../COPYING", "dist")
 shutil.copy("lang_ru.qm", "dist")
