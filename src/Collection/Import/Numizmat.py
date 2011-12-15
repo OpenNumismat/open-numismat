@@ -7,9 +7,11 @@ try:
 except ImportError:
     print('firebirdsql module missed. Importing from Numizmat 2.1 not available')
 
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore
 
-class ImportNumizmat(QtCore.QObject):
+from Collection.Import import _Import
+
+class ImportNumizmat(_Import):
     Columns = {
         'title': 'NAME',
         'value': 'NOMINAL',
@@ -72,62 +74,39 @@ class ImportNumizmat(QtCore.QObject):
     def __init__(self, parent=None):
         super(ImportNumizmat, self).__init__(parent)
     
-    def importData(self, file, model):
-        res = False
-        
-        try:
-            cnxn = firebirdsql.connect(database=file, host='localhost', user='SYSDBA', password='masterkey', charset='WIN1251')
-        except firebirdsql.Error:
-            return res
-        cursor = cnxn.cursor()
-        
-        if self._check(cursor):
-            rows = cursor.execute("SELECT * FROM coins")
-            rows = cursor.fetchallmap()
-            
-            progressDlg = QtGui.QProgressDialog(self.tr("Importing"), self.tr("Cancel"), 0, len(rows), self.parent())
-            progressDlg.setWindowModality(QtCore.Qt.WindowModal)
-            progressDlg.setMinimumDuration(250)
-            
-            for progress, row in enumerate(rows):
-                progressDlg.setValue(progress)
-                if progressDlg.wasCanceled():
-                    break
-                
-                record = model.record()
-                for dstColumn, srcColumn in self.Columns.items():
-                    if srcColumn and srcColumn in row.keys():
-                        value = row[srcColumn]
-                        if isinstance(value, bytearray) or isinstance(value, bytes):
-                            record.setValue(dstColumn, QtCore.QByteArray(value))
-                        elif isinstance(value, str):
-                            record.setValue(dstColumn, value.strip())
-                        elif isinstance(value, decimal.Decimal):
-                            record.setValue(dstColumn, int(value))
-                        elif isinstance(value, datetime.date):
-                            record.setValue(dstColumn, QtCore.QDate.fromString(value.isoformat(), QtCore.Qt.ISODate))
-                        else:
-                            record.setValue(dstColumn, value)
-                        
-                        if dstColumn == 'status':
-                            # Process Status fields that contain translated text
-                            if record.value(dstColumn) in ['есть', 'have', 'є', 'притежава']:
-                                record.setValue(dstColumn, 'owned')
-                            elif record.value(dstColumn) in ['нужна', 'need', 'потрібна', 'издирва']:
-                                record.setValue(dstColumn, 'wish')
-                            elif record.value(dstColumn) in ['обмен', 'exchange', 'обмін', 'обмен']:
-                                record.setValue(dstColumn, 'sale')
-                            else:
-                                record.setValue(dstColumn, 'demo')
-                model.appendRecord(record)
-            
-            progressDlg.setValue(len(rows))
-            res = True
-        else:
-            res = False
-        
-        cnxn.close()
-        return res
+    def _connect(self, src):
+        self.cnxn = firebirdsql.connect(database=src, host='localhost', user='SYSDBA', password='masterkey', charset='WIN1251')
+        return self.cnxn.cursor()
     
-    def _check(self, cursor):
-        return True
+    def _getRows(self, cursor):
+        cursor.execute("SELECT * FROM coins")
+        return cursor.fetchallmap()
+    
+    def _setRecord(self, record, row):
+        for dstColumn, srcColumn in self.Columns.items():
+            if srcColumn and srcColumn in row.keys():
+                value = row[srcColumn]
+                if isinstance(value, bytearray) or isinstance(value, bytes):
+                    record.setValue(dstColumn, QtCore.QByteArray(value))
+                elif isinstance(value, str):
+                    record.setValue(dstColumn, value.strip())
+                elif isinstance(value, decimal.Decimal):
+                    record.setValue(dstColumn, int(value))
+                elif isinstance(value, datetime.date):
+                    record.setValue(dstColumn, QtCore.QDate.fromString(value.isoformat(), QtCore.Qt.ISODate))
+                else:
+                    record.setValue(dstColumn, value)
+                
+                if dstColumn == 'status':
+                    # Process Status fields that contain translated text
+                    if record.value(dstColumn) in ['есть', 'have', 'є', 'притежава']:
+                        record.setValue(dstColumn, 'owned')
+                    elif record.value(dstColumn) in ['нужна', 'need', 'потрібна', 'издирва']:
+                        record.setValue(dstColumn, 'wish')
+                    elif record.value(dstColumn) in ['обмен', 'exchange', 'обмін', 'обмен']:
+                        record.setValue(dstColumn, 'sale')
+                    else:
+                        record.setValue(dstColumn, 'demo')
+    
+    def _close(self, connection):
+        self.cnxn.close()

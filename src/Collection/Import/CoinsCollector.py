@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
-import base64, ctypes, tempfile
+import base64, ctypes, shutil, tempfile
 
 try:
     import lxml.etree
 except ImportError:
     print('lxml module missed. Importing from CoinsCollector not available')
 
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore
+
+from Collection.Import import _Import
 
 class Reference(dict):
     def __init__(self, fileName=''):
@@ -66,7 +68,7 @@ class PictureReference(Reference):
             
             dict.__setitem__(self, id_, pictures)
 
-class ImportCoinsCollector(QtCore.QObject):
+class ImportCoinsCollector(_Import):
     Columns = {
         'title': 'TITLE',
         'value': 'DENOMINATION',
@@ -159,7 +161,122 @@ class ImportCoinsCollector(QtCore.QObject):
     def __init__(self, parent=None):
         super(ImportCoinsCollector, self).__init__(parent)
     
-    def getFields(self, tree):
+    def _connect(self, src):
+        self.dir_ = None
+        return QtCore.QDir(src)
+    
+    def _check(self, srcDir):
+        if not srcDir.exists("MainTable.cds"):
+            return False
+        
+        return True
+    
+    def _getRows(self, srcDir):
+        self.dir_ = self.__convert(srcDir)
+        
+        file = self.dir_.absoluteFilePath("MainTable.xml")
+        tree = lxml.etree.parse(file)
+        self.fields = self.__getFields(tree)
+        rows = tree.xpath("/DATAPACKET/ROWDATA/ROW")
+        return rows
+    
+    def _setRecord(self, record, row):
+        for dstColumn, srcColumn in self.Columns.items():
+            if srcColumn and srcColumn in row.keys():
+                value = row.get(srcColumn)
+                if isinstance(self.fields[srcColumn], Reference):
+                    ref = self.fields[srcColumn]
+                    value = ref[value]
+                elif self.fields[srcColumn] == 'date':
+                    value = QtCore.QDate.fromString(value, 'yyyyMMdd')
+                elif srcColumn in ['COST', 'SELLPRISE']:
+                    try:
+                        # TODO: Use converter from auction parser
+                        value = float(value)
+                    except ValueError:
+                        value = None
+                else:
+                    value = value
+                
+                record.setValue(dstColumn, value)
+            
+            if dstColumn == 'status':
+                # Process Status fields that contain translated text
+                value = record.value(dstColumn) or ''
+                if value.lower() in ['имеется', 'приобретена', 'есть', 'в наличии']:
+                    record.setValue(dstColumn, 'owned')
+                elif value.lower() in ['нужна', 'нуждаюсь']:
+                    record.setValue(dstColumn, 'wish')
+                else:
+                    record.setValue(dstColumn, 'demo')
+                
+                if row.get('SELLPRISE') or row.get('PURCHTO_CODE'):
+                    record.setValue(dstColumn, 'sold')
+                elif row.get('COST') or row.get('PURCHFROM_CODE'):
+                    record.setValue(dstColumn, 'owned')
+            
+            if dstColumn == 'mintmark':
+                mintId = row.get("MINT_CODE")
+                if mintId:
+                    ref = self.fields["MINT_CODE"]
+                    mark = ref.mark(mintId)
+                    record.setValue(dstColumn, mark)
+            
+            if dstColumn == 'catalognum1':
+                catalogParts = []
+                ref = self.fields["CATALOG_CODE"]
+                catalog = ref[row.get("CATALOG_CODE")]
+                if catalog:
+                    catalogParts.append(catalog)
+                catalogNum = row.get("CATALOG_NUMBER")
+                if catalogNum:
+                    catalogParts.append(catalogNum)
+                record.setValue(dstColumn, ' '.join(catalogParts))
+            
+            imgFields = ['obverseimg', 'reverseimg', 'photo1', 'photo2']
+            if dstColumn in imgFields:
+                ref = self.fields["PICTURES"]
+                pictures = ref[row.get("ID")]
+                if pictures:
+                    type_ = imgFields.index(dstColumn)
+                    value = pictures[type_]
+                    if value:
+                        record.setValue(dstColumn, QtCore.QByteArray(value))
+            
+            if dstColumn == 'features':
+                features = []
+                value = row.get('NOTE')
+                if value:
+                    features.append(value)
+                value = row.get('CERTIFIEDBY')
+                if value:
+                    features.append(self.tr("Certified by: %s") % value)
+                value = row.get('VALUENOTE')
+                if value:
+                    features.append(self.tr("Price note: %s") % value)
+                
+                if features:
+                    record.setValue(dstColumn, '\n'.join(features))
+    
+    def _close(self, connection):
+        if self.dir_:
+            shutil.rmtree(self.dir_.absolutePath(), True)
+    
+    def __convert(self, directory):
+        dfBinary, dfXML, dfXMLUTF8 = range(3)
+        
+        srcDir = QtCore.QDir(directory)
+        dstDir = QtCore.QDir(tempfile.mkdtemp())
+        
+        converter = ctypes.windll.LoadLibrary("Cdr2Xml.dll")
+        for fn in self.referenceFiles.values():
+            src = srcDir.absoluteFilePath('.'.join([fn, 'cds']))
+            dst = dstDir.absoluteFilePath('.'.join([fn, 'xml']))
+            converter.CdrToXml(src, dst, dfXMLUTF8)
+        
+        return dstDir
+    
+    def __getFields(self, tree):
         fields = {}
         rows = tree.xpath("/DATAPACKET/METADATA/FIELDS/FIELD")
         for row in rows:
@@ -190,131 +307,3 @@ class ImportCoinsCollector(QtCore.QObject):
             ref.load(fileName)
         
         return ref
-    
-    def importData(self, directory, model):
-        res = False
-        if self._check(directory):
-            progressDlg = QtGui.QProgressDialog(self.tr("Importing"), self.tr("Cancel"), 0, 1, self.parent())
-            progressDlg.setWindowModality(QtCore.Qt.WindowModal)
-            progressDlg.setMinimumDuration(250)
-            progressDlg.setValue(0)
-            
-            self.dir_ = self.convert(directory)
-            
-            file = self.dir_.absoluteFilePath("MainTable.xml")
-            tree = lxml.etree.parse(file)
-            fields = self.getFields(tree)
-            rows = tree.xpath("/DATAPACKET/ROWDATA/ROW")
-            
-            progressDlg.setMaximum(len(rows))
-            
-            for progress, row in enumerate(rows):
-                progressDlg.setValue(progress)
-                if progressDlg.wasCanceled():
-                    break
-                
-                record = model.record()
-                for dstColumn, srcColumn in self.Columns.items():
-                    if srcColumn and srcColumn in row.keys():
-                        value = row.get(srcColumn)
-                        if isinstance(fields[srcColumn], Reference):
-                            ref = fields[srcColumn]
-                            value = ref[value]
-                        elif fields[srcColumn] == 'date':
-                            value = QtCore.QDate.fromString(value, 'yyyyMMdd')
-                        elif srcColumn in ['COST', 'SELLPRISE']:
-                            try:
-                                # TODO: Use converter from auction parser
-                                value = float(value)
-                            except ValueError:
-                                value = None
-                        else:
-                            value = value
-                        
-                        record.setValue(dstColumn, value)
-                    
-                    if dstColumn == 'status':
-                        # Process Status fields that contain translated text
-                        value = record.value(dstColumn) or ''
-                        if value.lower() in ['имеется', 'приобретена', 'есть', 'в наличии']:
-                            record.setValue(dstColumn, 'owned')
-                        elif value.lower() in ['нужна', 'нуждаюсь']:
-                            record.setValue(dstColumn, 'wish')
-                        else:
-                            record.setValue(dstColumn, 'demo')
-                        
-                        if row.get('SELLPRISE') or row.get('PURCHTO_CODE'):
-                            record.setValue(dstColumn, 'sold')
-                        elif row.get('COST') or row.get('PURCHFROM_CODE'):
-                            record.setValue(dstColumn, 'owned')
-                    
-                    if dstColumn == 'mintmark':
-                        mintId = row.get("MINT_CODE")
-                        if mintId:
-                            ref = fields["MINT_CODE"]
-                            mark = ref.mark(mintId)
-                            record.setValue(dstColumn, mark)
-                    
-                    if dstColumn == 'catalognum1':
-                        catalogParts = []
-                        ref = fields["CATALOG_CODE"]
-                        catalog = ref[row.get("CATALOG_CODE")]
-                        if catalog:
-                            catalogParts.append(catalog)
-                        catalogNum = row.get("CATALOG_NUMBER")
-                        if catalogNum:
-                            catalogParts.append(catalogNum)
-                        record.setValue(dstColumn, ' '.join(catalogParts))
-                    
-                    imgFields = ['obverseimg', 'reverseimg', 'photo1', 'photo2']
-                    if dstColumn in imgFields:
-                        ref = fields["PICTURES"]
-                        pictures = ref[row.get("ID")]
-                        if pictures:
-                            type_ = imgFields.index(dstColumn)
-                            value = pictures[type_]
-                            if value:
-                                record.setValue(dstColumn, QtCore.QByteArray(value))
-                    
-                    if dstColumn == 'features':
-                        features = []
-                        value = row.get('NOTE')
-                        if value:
-                            features.append(value)
-                        value = row.get('CERTIFIEDBY')
-                        if value:
-                            features.append(self.tr("Certified by: %s") % value)
-                        value = row.get('VALUENOTE')
-                        if value:
-                            features.append(self.tr("Price note: %s") % value)
-                        
-                        if features:
-                            record.setValue(dstColumn, '\n'.join(features))
-                
-                model.appendRecord(record)
-            
-            progressDlg.setValue(len(rows))
-            res = True
-        
-        return res
-    
-    def convert(self, directory):
-        dfBinary, dfXML, dfXMLUTF8 = range(3)
-        
-        srcDir = QtCore.QDir(directory)
-        dstDir = QtCore.QDir(tempfile.mkdtemp())
-        
-        converter = ctypes.windll.LoadLibrary("Cdr2Xml.dll")
-        for fn in self.referenceFiles.values():
-            src = srcDir.absoluteFilePath('.'.join([fn, 'cds']))
-            dst = dstDir.absoluteFilePath('.'.join([fn, 'xml']))
-            converter.CdrToXml(src, dst, dfXMLUTF8)
-        
-        return dstDir
-    
-    def _check(self, directory):
-        dir_ = QtCore.QDir(directory)
-        if not dir_.exists("MainTable.cds"):
-            return False
-        
-        return True
