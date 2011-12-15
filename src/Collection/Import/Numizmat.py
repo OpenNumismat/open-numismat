@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import datetime, decimal
+import datetime, decimal, socket
 
 try:
     import firebirdsql
@@ -9,7 +9,7 @@ except ImportError:
 
 from PyQt4 import QtCore
 
-from Collection.Import import _Import
+from Collection.Import import _Import, _InvalidDatabaseError, _DatabaseServerError
 
 class ImportNumizmat(_Import):
     Columns = {
@@ -75,7 +75,14 @@ class ImportNumizmat(_Import):
         super(ImportNumizmat, self).__init__(parent)
     
     def _connect(self, src):
-        self.cnxn = firebirdsql.connect(database=src, host='localhost', user='SYSDBA', password='masterkey', charset='WIN1251')
+        try:
+            self.cnxn = firebirdsql.connect(database=src, host='localhost', user='SYSDBA',
+                                            password='masterkey', charset='WIN1251')
+        except firebirdsql.OperationalError as error:
+            raise _InvalidDatabaseError(error.__str__())
+        except socket.error as error:
+            raise _DatabaseServerError(error.__str__())
+        
         return self.cnxn.cursor()
     
     def _getRows(self, cursor):

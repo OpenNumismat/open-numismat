@@ -9,7 +9,7 @@ except ImportError:
 
 from PyQt4 import QtCore
 
-from Collection.Import import _Import
+from Collection.Import import _Import, _DatabaseServerError
 
 class ImportCabinet(_Import):
     Columns = {
@@ -81,7 +81,11 @@ class ImportCabinet(_Import):
         super(ImportCabinet, self).__init__(parent)
     
     def _connect(self, src):
-        self.cnxn = pyodbc.connect(driver='{DBISAM 4 ODBC Driver}', connectionType='Local', catalogName=src)
+        try:
+            self.cnxn = pyodbc.connect(driver='{DBISAM 4 ODBC Driver}', connectionType='Local', catalogName=src)
+        except pyodbc.Error as error:
+            raise _DatabaseServerError(error.__str__())
+        
         return self.cnxn.cursor()
     
     def _check(self, cursor):
