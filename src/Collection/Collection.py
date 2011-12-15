@@ -153,8 +153,6 @@ class CollectionModel(QSqlTableModel):
         if self.proxy:
             self.proxy.setDynamicSortFilter(True)
         
-        self.modelChanged.emit()
-        
         return ret
     
     def select(self):
