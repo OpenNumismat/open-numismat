@@ -1,3 +1,5 @@
+import locale
+
 from PyQt4 import QtGui
 from PyQt4.QtCore import QT_TRANSLATE_NOOP, QMargins
 
@@ -146,6 +148,36 @@ class BigIntEdit(QtGui.QLineEdit):
         self.setMaxLength(15)
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+    
+    def focusInEvent(self, event):
+        self.__updateText()
+        return super(BigIntEdit, self).focusInEvent(event)
+    
+    def focusOutEvent(self, event):
+        self.__updateText()
+        return super(BigIntEdit, self).focusOutEvent(event)
+    
+    def setText(self, text):
+        super(BigIntEdit, self).setText(text)
+        self.__updateText()
+    
+    def text(self):
+        text = super(BigIntEdit, self).text()
+        parts = text.split()
+        text = ''.join(parts)
+        return text
+    
+    def __updateText(self):
+        text = self.text()
+        if text:
+            parts = text.split()
+            text = ''.join(parts)
+            if not self.hasFocus() or self.isReadOnly():
+                # TODO: Set locale in main()
+                locale.setlocale(locale.LC_ALL, '')
+                text = locale.format("%d", int(text), grouping=True)
+            
+            super(BigIntEdit, self).setText(text)
 
 class ValueEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
@@ -172,6 +204,39 @@ class MoneyEdit(QtGui.QLineEdit):
     
     def sizeHint(self):
         return self.minimumSizeHint()
+    
+    def focusInEvent(self, event):
+        self.__updateText()
+        return super(MoneyEdit, self).focusInEvent(event)
+    
+    def focusOutEvent(self, event):
+        self.__updateText()
+        return super(MoneyEdit, self).focusOutEvent(event)
+    
+    def setText(self, text):
+        super(MoneyEdit, self).setText(text)
+        self.__updateText()
+    
+    def text(self):
+        text = super(MoneyEdit, self).text()
+        parts = text.split()
+        text = ''.join(parts)
+        return text
+    
+    def __updateText(self):
+        text = self.text()
+        if text:
+            parts = text.split()
+            text = ''.join(parts)
+            if not self.hasFocus() or self.isReadOnly():
+                # TODO: Set locale in main()
+                locale.setlocale(locale.LC_ALL, '')
+                text = locale.format("%.2f", float(text), grouping=True)
+                integer, fraction = text.split('.')
+                if not int(fraction):
+                    text = integer
+            
+            super(MoneyEdit, self).setText(text)
 
 class TextEdit(QtGui.QTextEdit):
     def __init__(self, parent=None):
