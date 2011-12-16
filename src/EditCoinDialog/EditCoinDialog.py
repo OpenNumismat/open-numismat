@@ -81,8 +81,8 @@ class EditCoinDialog(QtGui.QDialog):
                         'totalsaleprice', 'buyer', 'saleplace', 'saleinfo', 'grade']:
                 self.items[key].clear()
         elif self.items['status'].widget().data() in ['owned', 'sale']:
-            for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
-                        'payplace', 'payinfo']:
+            for key in ['saledate', 'saleprice', 'totalsaleprice', 'buyer',
+                        'saleplace', 'saleinfo']:
                 self.items[key].clear()
         
         if not self.usedFields:
