@@ -175,7 +175,10 @@ class BigIntEdit(QtGui.QLineEdit):
             if not self.hasFocus() or self.isReadOnly():
                 # TODO: Set locale in main()
                 locale.setlocale(locale.LC_ALL, '')
-                text = locale.format("%d", int(text), grouping=True)
+                try:
+                    text = locale.format("%d", int(text), grouping=True)
+                except ValueError:
+                    return
             
             super(BigIntEdit, self).setText(text)
 
@@ -231,7 +234,10 @@ class MoneyEdit(QtGui.QLineEdit):
             if not self.hasFocus() or self.isReadOnly():
                 # TODO: Set locale in main()
                 locale.setlocale(locale.LC_ALL, '')
-                text = locale.format("%.2f", float(text), grouping=True)
+                try:
+                    text = locale.format("%.2f", float(text), grouping=True)
+                except ValueError:
+                    return
                 integer, fraction = text.split('.')
                 if not int(fraction):
                     text = integer
