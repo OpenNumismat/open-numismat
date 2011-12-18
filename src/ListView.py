@@ -127,6 +127,7 @@ class ListView(QtGui.QTableView):
         self.pos = pos  # store pos for action
         menu = QtGui.QMenu(self)
         menu.addAction(self.tr("Select columns..."), self._selectColumns)
+        menu.addAction(self.tr("Hide"), self._hideColumn)
         menu.addSeparator()
         menu.addAction(self.tr("Adjust size"), self._adjustColumn)
         menu.exec_(self.mapToGlobal(pos))
@@ -135,6 +136,13 @@ class ListView(QtGui.QTableView):
     def _adjustColumn(self):
         index = self.horizontalHeader().logicalIndexAt(self.pos)
         self.resizeColumnToContents(index)
+    
+    def _hideColumn(self):
+        index = self.horizontalHeader().logicalIndexAt(self.pos)
+        column = self.horizontalHeader().visualIndex(index)
+        self.listParam.columns[column].enabled = False
+        self.listParam.save()
+        self.setColumnHidden(index, True)
     
     def _selectColumns(self):
         dialog = SelectColumnsDialog(self.listParam, self)
