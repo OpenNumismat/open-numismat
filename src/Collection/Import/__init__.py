@@ -1,5 +1,6 @@
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QApplication
 
 class _InvalidDatabaseError(Exception):
     pass
@@ -14,8 +15,8 @@ class _Import(QtCore.QObject):
         self.progressDlg = QtGui.QProgressDialog(self.parent(), Qt.WindowSystemMenuHint)
         self.progressDlg.setWindowModality(Qt.WindowModal)
         self.progressDlg.setMinimumDuration(250)
-        self.progressDlg.setCancelButtonText(self.tr("Cancel"))
-        self.progressDlg.setWindowTitle(self.tr("Importing"))
+        self.progressDlg.setCancelButtonText(QApplication.translate('_Import', "Cancel"))
+        self.progressDlg.setWindowTitle(QApplication.translate('_Import', "Importing"))
     
     def importData(self, src, model):
         try:
@@ -26,7 +27,7 @@ class _Import(QtCore.QObject):
                 QtGui.QApplication.restoreOverrideCursor();
                 
                 self.progressDlg.setMaximum(len(rows))
-                self.progressDlg.setWindowTitle(self.tr("Importing from %s") % src)
+                self.progressDlg.setWindowTitle(QApplication.translate('_Import', "Importing from %s") % src)
                 
                 for progress, row in enumerate(rows):
                     self.progressDlg.setValue(progress)
@@ -64,7 +65,7 @@ class _Import(QtCore.QObject):
         pass
     
     def __errorMessage(self, message, text):
-        msgBox = QtGui.QMessageBox(QtGui.QMessageBox.Critical, self.tr("Importing"),
+        msgBox = QtGui.QMessageBox(QtGui.QMessageBox.Critical, QApplication.translate('_Import', "Importing"),
                                    message,
                                    parent=self.parent())
         if text:
@@ -72,10 +73,10 @@ class _Import(QtCore.QObject):
         msgBox.exec_()
     
     def __invalidDbMessage(self, src, text=''):
-        self.__errorMessage(self.tr("'%s' is not a valid database") % src, text)
+        self.__errorMessage(QApplication.translate('_Import', "'%s' is not a valid database") % src, text)
     
     def __serverErrorMessage(self, text=''):
-        self.__errorMessage(self.tr("DB server connection problem. Check additional software."), text)
+        self.__errorMessage(QApplication.translate('_Import', "DB server connection problem. Check additional software."), text)
 
 from Collection.Import.Numizmat import ImportNumizmat
 from Collection.Import.Cabinet import ImportCabinet
