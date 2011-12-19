@@ -43,11 +43,15 @@ class _Import(QtCore.QObject):
                 self.__invalidDbMessage(src)
             
             self._close(connection)
+            
+            return not self.progressDlg.wasCanceled()
         
         except _InvalidDatabaseError as error:
             self.__invalidDbMessage(src, error.__str__())
         except _DatabaseServerError as error:
             self.__serverErrorMessage(error.__str__())
+        
+        return False
     
     def _connect(self, src):
         raise NotImplementedError
@@ -82,5 +86,6 @@ from Collection.Import.Numizmat import ImportNumizmat
 from Collection.Import.Cabinet import ImportCabinet
 from Collection.Import.CoinsCollector import ImportCoinsCollector
 from Collection.Import.CoinManage import ImportCoinManage
+from Collection.Import.CoinManagePredefined import ImportCoinManagePredefined
 
-__all__ = ["ImportNumizmat", "ImportCabinet", "ImportCoinsCollector", "ImportCoinManage"]
+__all__ = ["ImportNumizmat", "ImportCabinet", "ImportCoinsCollector", "ImportCoinManage", "ImportCoinManagePredefined"]

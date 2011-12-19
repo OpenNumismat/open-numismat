@@ -186,6 +186,15 @@ class MainWindow(QtGui.QMainWindow):
     def importCoinManage(self):
         file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Open CoinManage file"), '', "*.mdb")
         if file:
+            btn = QtGui.QMessageBox.question(self, self.tr("Importing"), self.tr("Import pre-defined coins?"),
+                                       buttons=QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
+                                       defaultButton=QtGui.QMessageBox.Yes)
+            if btn == QtGui.QMessageBox.Yes:
+                imp = ImportCoinManagePredefined(self)
+                res = imp.importData(file, self.viewTab.currentModel())
+                if not res:
+                    return
+            
             imp = ImportCoinManage(self)
             imp.importData(file, self.viewTab.currentModel())
     

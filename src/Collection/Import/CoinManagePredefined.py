@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import datetime, decimal
+import datetime
 
 try:
     import pyodbc
@@ -11,9 +11,9 @@ from PyQt4 import QtCore
 
 from Collection.Import import _Import, _DatabaseServerError
 
-class ImportCoinManage(_Import):
+class ImportCoinManagePredefined(_Import):
     Columns = {
-        'title': 'ShortDesc',
+        'title': None,
         'value': None,
         'unit': 'Denomination',
         'country': 'Country',
@@ -32,16 +32,16 @@ class ImportCoinManage(_Import):
         'diameter': 'Diameter',
         'thick': 'Thickness',
         'mass': 'Weight',
-        'grade': 'Grade',
+        'grade': None,
         'edge': 'Edge',
         'edgelabel': None,
         'obvrev': None,
         'quality': None,
         'mintage': 'Mintage',
         'dateemis': 'Type Years',
-        'catalognum1': 'CatNumber1',
-        'catalognum2': 'CatNumber2',
-        'catalognum3': 'CatNumber3',
+        'catalognum1': None,
+        'catalognum2': None,
+        'catalognum3': None,
         'catalognum4': None,
         'rarity': None,
         'price1': None,
@@ -49,16 +49,16 @@ class ImportCoinManage(_Import):
         'price3': None,
         'price4': None,
         'variety': 'Variety',
-        'paydate': 'Date Purchased',
-        'payprice': 'Amount Paid',
-        'totalpayprice': 'Amount Paid',
-        'saller': 'Dealer',
+        'paydate': None,
+        'payprice': None,
+        'totalpayprice': None,
+        'saller': None,
         'payplace': None,
         'payinfo': None,
-        'saledate': 'Date Sold',
-        'saleprice': 'Sold For',
-        'totalsaleprice': 'Sold For',
-        'buyer': 'Sold To',
+        'saledate': None,
+        'saleprice': None,
+        'totalsaleprice': None,
+        'buyer': None,
         'saleplace': None,
         'saleinfo': None,
         'note': None,
@@ -70,16 +70,16 @@ class ImportCoinManage(_Import):
         'reversedesigner': 'Designer',
         'edgeimg': None,
         'subject': None,
-        'photo1': 'Bitmap',
+        'photo1': None,
         'photo2': None,
         'photo3': None,
         'photo4': None,
-        'storage': 'Location',
-        'features': 'Comments',
+        'storage': None,
+        'features': None
     }
 
     def __init__(self, parent=None):
-        super(ImportCoinManage, self).__init__(parent)
+        super(ImportCoinManagePredefined, self).__init__(parent)
     
     def _connect(self, src):
         try:
@@ -91,7 +91,7 @@ class ImportCoinManage(_Import):
     
     def _check(self, cursor):
         tables = [row.table_name.lower() for row in cursor.tables()]
-        for requiredTables in ['coinattributes', 'cm2001maincollection', 'cm2001maincollection']:
+        for requiredTables in ['coinattributes', 'cointypes']:
             if requiredTables not in tables:
                 return False
         
@@ -99,10 +99,9 @@ class ImportCoinManage(_Import):
     
     def _getRows(self, cursor):
         cursor.execute("""
-            SELECT cm2001maincollection.*,
-                coinattributes.*, cointypes.* FROM (cm2001maincollection
-            LEFT JOIN coinattributes ON cm2001maincollection.[type id] = coinattributes.[type id])
-            LEFT JOIN cointypes ON cm2001maincollection.[coin id] = cointypes.[coin id]
+            SELECT cointypes.*,
+                coinattributes.* FROM cointypes
+            LEFT JOIN coinattributes ON cointypes.[type id] = coinattributes.[type id]
         """)
         return cursor.fetchall()
     
@@ -116,29 +115,20 @@ class ImportCoinManage(_Import):
                     record.setValue(dstColumn, value.strip())
                 elif isinstance(value, datetime.date):
                     record.setValue(dstColumn, QtCore.QDate.fromString(value.isoformat(), QtCore.Qt.ISODate))
-                elif isinstance(value, decimal.Decimal):
-                    record.setValue(dstColumn, float(value))
                 else:
                     record.setValue(dstColumn, value)
             
             if dstColumn == 'status':
-                record.setValue(dstColumn, 'owned')
-                if getattr(row, 'Sold To') or getattr(row, 'Date Sold'):
-                    record.setValue(dstColumn, 'sold')
-                elif getattr(row, 'Sell'):
-                    record.setValue(dstColumn, 'sale')
-                elif getattr(row, 'Want'):
-                    record.setValue(dstColumn, 'wish')
+                record.setValue(dstColumn, 'demo')
         
-        if not record.value('title'):
-            # Make a coin title (1673 Charles II Farthing - Brittania)
-            year = record.value('year')
-            period = record.value('period')
-            unit = record.value('unit')
-            variety = record.value('variety')
-            mainTitle = ' '.join(filter(None, [year, period, unit]))
-            title = ' - '.join(filter(None, [mainTitle, variety]))
-            record.setValue('title', title)
+        # Make a coin title (1673 Charles II Farthing - Brittania)
+        year = record.value('year')
+        period = record.value('period')
+        unit = record.value('unit')
+        variety = record.value('variety')
+        mainTitle = ' '.join(filter(None, [year, period, unit]))
+        title = ' - '.join(filter(None, [mainTitle, variety]))
+        record.setValue('title', title)
     
     def _close(self, connection):
         self.cnxn.close()
