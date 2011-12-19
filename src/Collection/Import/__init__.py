@@ -81,5 +81,6 @@ class _Import(QtCore.QObject):
 from Collection.Import.Numizmat import ImportNumizmat
 from Collection.Import.Cabinet import ImportCabinet
 from Collection.Import.CoinsCollector import ImportCoinsCollector
+from Collection.Import.CoinManage import ImportCoinManage
 
-__all__ = ["ImportNumizmat", "ImportCabinet", "ImportCoinsCollector"]
+__all__ = ["ImportNumizmat", "ImportCabinet", "ImportCoinsCollector", "ImportCoinManage"]

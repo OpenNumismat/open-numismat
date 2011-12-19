@@ -58,11 +58,14 @@ class MainWindow(QtGui.QMainWindow):
         importCabinetAct.triggered.connect(self.importCabinet)
         importCoinsCollectorAct = QtGui.QAction(QtGui.QIcon('icons/CoinsCollector.ico'), self.tr("CoinsCollector 2.6"), self)
         importCoinsCollectorAct.triggered.connect(self.importCoinsCollector)
+        importCoinManageAct = QtGui.QAction(QtGui.QIcon('icons/CoinManage.ico'), self.tr("CoinManage 2011"), self)
+        importCoinManageAct.triggered.connect(self.importCoinManage)
         
         importMenu = QtGui.QMenu(self.tr("Import"), self)
         importMenu.addAction(importNumizmatAct)
         importMenu.addAction(importCabinetAct)
         importMenu.addAction(importCoinsCollectorAct)
+        importMenu.addAction(importCoinManageAct)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
@@ -179,6 +182,12 @@ class MainWindow(QtGui.QMainWindow):
         if directory:
             imp = ImportCoinsCollector(self)
             imp.importData(directory, self.viewTab.currentModel())
+    
+    def importCoinManage(self):
+        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Open CoinManage file"), '', "*.mdb")
+        if file:
+            imp = ImportCoinManage(self)
+            imp.importData(file, self.viewTab.currentModel())
     
     def addCoin(self):
         model = self.viewTab.currentModel()
