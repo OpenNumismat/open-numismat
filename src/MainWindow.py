@@ -184,7 +184,15 @@ class MainWindow(QtGui.QMainWindow):
             imp.importData(directory, self.viewTab.currentModel())
     
     def importCoinManage(self):
-        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Open CoinManage file"), '', "*.mdb")
+        # Try to find collection folder
+        defaultDir = QtCore.QDir(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
+        dirNames = ["CoinManage/Data", "CoinManage UK/Data", "CoinManage Canada/Data"]
+        for dirName in dirNames:
+            if defaultDir.cd(dirName):
+                break
+        
+        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Open CoinManage file"),
+                                                 defaultDir.absolutePath(), "*.mdb")
         if file:
             btn = QtGui.QMessageBox.question(self, self.tr("Importing"), self.tr("Import pre-defined coins?"),
                                        buttons=QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
