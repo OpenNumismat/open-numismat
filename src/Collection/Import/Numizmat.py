@@ -96,6 +96,8 @@ class ImportNumizmat(_Import):
                 if isinstance(value, bytearray) or isinstance(value, bytes):
                     record.setValue(dstColumn, QtCore.QByteArray(value))
                 elif isinstance(value, str):
+                    if srcColumn == 'CIRC':
+                        value = value.replace('.', '')
                     record.setValue(dstColumn, value.strip())
                 elif isinstance(value, decimal.Decimal):
                     record.setValue(dstColumn, int(value))

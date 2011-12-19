@@ -113,6 +113,8 @@ class ImportCoinManage(_Import):
                 if isinstance(value, bytearray):
                     record.setValue(dstColumn, QtCore.QByteArray(value))
                 elif isinstance(value, str):
+                    if srcColumn == 'Mintage':
+                        value = value.replace(',', '').replace('(', '').replace(')', '')
                     record.setValue(dstColumn, value.strip())
                 elif isinstance(value, datetime.date):
                     record.setValue(dstColumn, QtCore.QDate.fromString(value.isoformat(), QtCore.Qt.ISODate))
