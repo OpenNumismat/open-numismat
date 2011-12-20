@@ -165,34 +165,30 @@ class MainWindow(QtGui.QMainWindow):
             QtCore.QProcess.startDetached(program, sys.argv)
     
     def importNumizmat(self):
-        # TODO: Check default dir
-        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Select file"), '', "*.fdb")
+        defaultDir = ImportNumizmat.defaultDir()
+        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Select file"), defaultDir, "*.fdb")
         if file:
             imp = ImportNumizmat(self)
             imp.importData(file, self.viewTab.currentModel())
     
     def importCabinet(self):
-        directory = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Select directory"))
+        defaultDir = ImportCabinet.defaultDir()
+        directory = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Select directory"), defaultDir)
         if directory:
             imp = ImportCabinet(self)
             imp.importData(directory, self.viewTab.currentModel())
     
     def importCoinsCollector(self):
-        directory = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Select directory"))
+        defaultDir = ImportCoinsCollector.defaultDir()
+        directory = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Select directory"), defaultDir)
         if directory:
             imp = ImportCoinsCollector(self)
             imp.importData(directory, self.viewTab.currentModel())
     
     def importCoinManage(self):
-        # Try to find collection folder
-        defaultDir = QtCore.QDir(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
-        dirNames = ["CoinManage/Data", "CoinManage UK/Data", "CoinManage Canada/Data"]
-        for dirName in dirNames:
-            if defaultDir.cd(dirName):
-                break
-        
+        defaultDir = ImportCoinManage.defaultDir()
         file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Open CoinManage file"),
-                                                 defaultDir.absolutePath(), "*.mdb")
+                                                 defaultDir, "*.mdb")
         if file:
             btn = QtGui.QMessageBox.question(self, self.tr("Importing"), self.tr("Import pre-defined coins?"),
                                        buttons=QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,

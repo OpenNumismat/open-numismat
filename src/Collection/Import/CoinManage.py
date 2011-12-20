@@ -81,6 +81,33 @@ class ImportCoinManage(_Import):
     def __init__(self, parent=None):
         super(ImportCoinManage, self).__init__(parent)
     
+    @staticmethod
+    def defaultDir():
+        # Search for default default dir in default location on disk
+        dir_ = QtCore.QDir(_Import.defaultDir())
+        dirNames = ["CoinManage/Data", "CoinManage UK/Data", "CoinManage Canada/Data"]
+        for dirName in dirNames:
+            if dir_.cd(dirName):
+                break
+        
+        try:
+            # Search for default dir in windows registry
+            import winreg
+            subkeys = ['CoinManage', 'CoinManage UK', 'CoinManage Canada']
+            for key in [r'Software\Liberty Street Software\%s' % subkey for subkey in subkeys]:
+                try:
+                    hkey = winreg.OpenKey(winreg.HKEY_CURRENT_USER, key)
+                    value = winreg.QueryValueEx(hkey, 'DataDirectory')[0]
+                    winreg.CloseKey(hkey)
+                    if dir_.cd(value):
+                        break
+                except WindowsError:
+                    continue
+        except ImportError:
+            pass
+        
+        return dir_.absolutePath()
+    
     def _connect(self, src):
         try:
             self.cnxn = pyodbc.connect(driver='{Microsoft Access Driver (*.mdb)}', DBQ=src)

@@ -9,6 +9,11 @@ class _DatabaseServerError(Exception):
     pass
 
 class _Import(QtCore.QObject):
+    @staticmethod
+    def defaultDir():
+        dir_ = QtCore.QDir(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
+        return dir_.absolutePath()
+    
     def __init__(self, parent=None):
         super(_Import, self).__init__(parent)
 

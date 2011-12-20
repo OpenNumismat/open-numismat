@@ -161,6 +161,25 @@ class ImportCoinsCollector(_Import):
     def __init__(self, parent=None):
         super(ImportCoinsCollector, self).__init__(parent)
     
+    @staticmethod
+    def defaultDir():
+        dir_ = QtCore.QDir(_Import.defaultDir())
+        dirNames = ["C:/Program Files/Coins Collector 2/Collections", "C:/Program Files (x86)/Coins Collector 2/Collections"]
+        for dirName in dirNames:
+            if dir_.cd(dirName):
+                break
+        
+        try:
+            import winreg
+            hkey = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Software\SerFox Soft\Coins Collector\2.0')
+            value = winreg.QueryValueEx(hkey, 'LocalBase')[0]
+            winreg.CloseKey(hkey)
+            dir_.cd(value)
+        except (ImportError, WindowsError):
+            pass
+        
+        return dir_.absolutePath()
+    
     def _connect(self, src):
         self.dir_ = None
         return QtCore.QDir(src)
