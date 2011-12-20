@@ -25,6 +25,9 @@ class _Import(QtCore.QObject):
     def importData(self, src, model):
         try:
             connection = self._connect(src)
+            if not connection:
+                return False
+            
             if self._check(connection):
                 QtGui.QApplication.setOverrideCursor(QtGui.QCursor(Qt.WaitCursor))
                 rows = self._getRows(connection)

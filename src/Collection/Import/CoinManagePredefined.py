@@ -7,7 +7,7 @@ try:
 except ImportError:
     print('pyodbc module missed. Importing not available')
 
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 
 from Collection.Import import _Import, _DatabaseServerError
 
@@ -62,7 +62,7 @@ class ImportCoinManagePredefined(_Import):
         'saleplace': None,
         'saleinfo': None,
         'note': None,
-        'obverseimg': 'Picture',
+        'obverseimg': None,
         'obversedesign': None,
         'obversedesigner': 'Designer',
         'reverseimg': None,
@@ -70,7 +70,7 @@ class ImportCoinManagePredefined(_Import):
         'reversedesigner': 'Designer',
         'edgeimg': None,
         'subject': None,
-        'photo1': None,
+        'photo1': 'Picture',
         'photo2': None,
         'photo3': None,
         'photo4': None,
@@ -86,6 +86,17 @@ class ImportCoinManagePredefined(_Import):
             self.cnxn = pyodbc.connect(driver='{Microsoft Access Driver (*.mdb)}', DBQ=src)
         except pyodbc.Error as error:
             raise _DatabaseServerError(error.__str__())
+        
+        # Check images folder
+        self.imgDir = QtCore.QDir(src)
+        if not self.imgDir.cd('../../Images'):
+            directory = QtGui.QFileDialog.getExistingDirectory(self.parent(),
+                            self.tr("Select directory with pre-defined images"),
+                            QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
+            if directory:
+                self.imgDir = QtCore.QDir(directory)
+            else:
+                return None
         
         return self.cnxn.cursor()
     
@@ -122,6 +133,17 @@ class ImportCoinManagePredefined(_Import):
             
             if dstColumn == 'status':
                 record.setValue(dstColumn, 'demo')
+            
+            if dstColumn == 'obverseimg':
+                if hasattr(row, 'UseGraphic') and hasattr(row, 'Country'):
+                    value = getattr(row, 'UseGraphic')
+                    country = getattr(row, 'Country')
+                    if value and country:
+                        dir_ = QtCore.QDir(self.imgDir)
+                        dir_.cd(country)
+                        image = QtGui.QImage()
+                        if image.load(dir_.absoluteFilePath(value+'.jpg')):
+                            record.setValue('obverseimg', image)
         
         # Make a coin title (1673 Charles II Farthing - Brittania)
         year = record.value('year')
