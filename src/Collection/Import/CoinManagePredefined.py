@@ -96,7 +96,7 @@ class ImportCoinManagePredefined(_Import):
             if directory:
                 self.imgDir = QtCore.QDir(directory)
             else:
-                return None
+                return False
         
         return self.cnxn.cursor()
     
@@ -142,7 +142,7 @@ class ImportCoinManagePredefined(_Import):
                         dir_ = QtCore.QDir(self.imgDir)
                         dir_.cd(country)
                         image = QtGui.QImage()
-                        if image.load(dir_.absoluteFilePath(value+'.jpg')):
+                        if image.load(dir_.absoluteFilePath(value)):
                             record.setValue('obverseimg', image)
         
         # Make a coin title (1673 Charles II Farthing - Brittania)

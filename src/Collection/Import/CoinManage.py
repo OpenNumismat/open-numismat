@@ -3,9 +3,10 @@
 import datetime, decimal
 
 try:
+    import winreg
     import pyodbc
 except ImportError:
-    print('pyodbc module missed. Importing not available')
+    print('pyodbc or winreg module missed. Importing not available')
 
 from PyQt4 import QtCore, QtGui
 
@@ -62,7 +63,7 @@ class ImportCoinManage(_Import):
         'saleplace': None,
         'saleinfo': None,
         'note': None,
-        'obverseimg': 'Picture',
+        'obverseimg': None,
         'obversedesign': None,
         'obversedesigner': 'Designer',
         'reverseimg': None,
@@ -70,10 +71,10 @@ class ImportCoinManage(_Import):
         'reversedesigner': 'Designer',
         'edgeimg': None,
         'subject': None,
-        'photo1': 'Bitmap',
+        'photo1': None,
         'photo2': None,
         'photo3': None,
-        'photo4': None,
+        'photo4': 'Picture',
         'storage': 'Location',
         'features': 'Comments',
     }
@@ -90,21 +91,17 @@ class ImportCoinManage(_Import):
             if dir_.cd(dirName):
                 break
         
-        try:
-            # Search for default dir in windows registry
-            import winreg
-            subkeys = ['CoinManage', 'CoinManage UK', 'CoinManage Canada']
-            for key in [r'Software\Liberty Street Software\%s' % subkey for subkey in subkeys]:
-                try:
-                    hkey = winreg.OpenKey(winreg.HKEY_CURRENT_USER, key)
-                    value = winreg.QueryValueEx(hkey, 'DataDirectory')[0]
-                    winreg.CloseKey(hkey)
-                    if dir_.cd(value):
-                        break
-                except WindowsError:
-                    continue
-        except ImportError:
-            pass
+        # Search for default dir in windows registry
+        subkeys = ['CoinManage', 'CoinManage UK', 'CoinManage Canada']
+        for key in [r'Software\Liberty Street Software\%s' % subkey for subkey in subkeys]:
+            try:
+                hkey = winreg.OpenKey(winreg.HKEY_CURRENT_USER, key)
+                value = winreg.QueryValueEx(hkey, 'DataDirectory')[0]
+                winreg.CloseKey(hkey)
+                if dir_.cd(value):
+                    break
+            except WindowsError:
+                continue
         
         return dir_.absolutePath()
     
@@ -113,6 +110,17 @@ class ImportCoinManage(_Import):
             self.cnxn = pyodbc.connect(driver='{Microsoft Access Driver (*.mdb)}', DBQ=src)
         except pyodbc.Error as error:
             raise _DatabaseServerError(error.__str__())
+        
+        # Check images folder
+        self.imgDir = QtCore.QDir(src)
+        if not self.imgDir.cd('../../CoinImages'):
+            directory = QtGui.QFileDialog.getExistingDirectory(self.parent(),
+                            self.tr("Select directory with images"),
+                            QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
+            if directory:
+                self.imgDir = QtCore.QDir(directory)
+            else:
+                return False
         
         return self.cnxn.cursor()
     
@@ -168,6 +176,19 @@ class ImportCoinManage(_Import):
             mainTitle = ' '.join(filter(None, [year, period, unit]))
             title = ' - '.join(filter(None, [mainTitle, variety]))
             record.setValue('title', title)
+        
+        # Processing images
+        image = QtGui.QImage()
+        rowId = getattr(row, 'ID')
+        if image.load(self.imgDir.absoluteFilePath('Coin%d(1)' % rowId)):
+            record.setValue('obverseimg', image)
+        if image.load(self.imgDir.absoluteFilePath('Coin%d(2)' % rowId)):
+            record.setValue('reverseimg', image)
+        if image.load(self.imgDir.absoluteFilePath('Coin%d(3)' % rowId)):
+            record.setValue('photo1', image)
+        if image.load(self.imgDir.absoluteFilePath('Coin%d(4)' % rowId)):
+            record.setValue('photo2', image)
+        # TODO: Add pre-defined image
     
     def _close(self, connection):
         self.cnxn.close()

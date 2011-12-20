@@ -3,9 +3,10 @@
 import base64, ctypes, shutil, tempfile
 
 try:
+    import winreg
     import lxml.etree
 except ImportError:
-    print('lxml module missed. Importing from CoinsCollector not available')
+    print('lxml or winreg module missed. Importing from CoinsCollector not available')
 
 from PyQt4 import QtCore
 
@@ -170,12 +171,11 @@ class ImportCoinsCollector(_Import):
                 break
         
         try:
-            import winreg
             hkey = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Software\SerFox Soft\Coins Collector\2.0')
             value = winreg.QueryValueEx(hkey, 'LocalBase')[0]
             winreg.CloseKey(hkey)
             dir_.cd(value)
-        except (ImportError, WindowsError):
+        except WindowsError:
             pass
         
         return dir_.absolutePath()
