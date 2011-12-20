@@ -108,6 +108,10 @@ class ListView(QtGui.QTableView):
     
     def rowCountChanged(self, oldCount, newCount):
         if self.model():
+            while self.model().canFetchMore():
+                self.model().fetchMore()
+            newCount = self.model().rowCount()
+            
             sql = "SELECT count(*) FROM coins"
             query = QSqlQuery(sql, self.model().database())
             query.first()
