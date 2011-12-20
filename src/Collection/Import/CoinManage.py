@@ -76,7 +76,7 @@ class ImportCoinManage(_Import):
         'photo3': None,
         'photo4': 'Picture',
         'storage': 'Location',
-        'features': 'Comments',
+        'features': None,
     }
 
     def __init__(self, parent=None):
@@ -166,6 +166,27 @@ class ImportCoinManage(_Import):
                     record.setValue(dstColumn, 'sale')
                 elif getattr(row, 'Want'):
                     record.setValue(dstColumn, 'wish')
+        
+            if dstColumn == 'features':
+                features = []
+                additionalFields = {
+                    'Comments': None,
+                    'Error': self.tr("Error: %s"),
+                    'UDF1': self.tr("Field 1: %s"),
+                    'UDF2': self.tr("Field 2: %s"),
+                    'Defects': self.tr("Defect: %s"),
+                    'BarCode': self.tr("BarCode: %s"),
+                }
+                for column, string in additionalFields.items():
+                    value = getattr(row, column)
+                    if value:
+                        if string:
+                            features.append(string % value)
+                        else:
+                            features.append(value.strip())
+                
+                if features:
+                    record.setValue(dstColumn, '\n'.join(features))
         
         if not record.value('title'):
             # Make a coin title (1673 Charles II Farthing - Brittania)
