@@ -11,8 +11,7 @@ class _DatabaseServerError(Exception):
 class _Import(QtCore.QObject):
     @staticmethod
     def defaultDir():
-        dir_ = QtCore.QDir(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
-        return dir_.absolutePath()
+        return QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation)
     
     def __init__(self, parent=None):
         super(_Import, self).__init__(parent)

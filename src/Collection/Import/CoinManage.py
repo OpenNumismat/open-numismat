@@ -7,7 +7,7 @@ try:
 except ImportError:
     print('pyodbc module missed. Importing not available')
 
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 
 from Collection.Import import _Import, _DatabaseServerError
 
@@ -84,7 +84,7 @@ class ImportCoinManage(_Import):
     @staticmethod
     def defaultDir():
         # Search for default default dir in default location on disk
-        dir_ = QtCore.QDir(_Import.defaultDir())
+        dir_ = QtCore.QDir(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
         dirNames = ["CoinManage/Data", "CoinManage UK/Data", "CoinManage Canada/Data"]
         for dirName in dirNames:
             if dir_.cd(dirName):
