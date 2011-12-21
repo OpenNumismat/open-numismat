@@ -161,9 +161,7 @@ class BigIntEdit(QtGui.QLineEdit):
     
     def text(self):
         text = super(BigIntEdit, self).text()
-        parts = text.split()
-        text = ''.join(parts)
-        return text
+        return text.replace(locale.localeconv()['thousands_sep'], '')
     
     def __updateText(self):
         text = self.text()
@@ -220,9 +218,7 @@ class MoneyEdit(QtGui.QLineEdit):
     
     def text(self):
         text = super(MoneyEdit, self).text()
-        parts = text.split()
-        text = ''.join(parts)
-        return text
+        return text.replace(locale.localeconv()['thousands_sep'], '')
     
     def __updateText(self):
         text = self.text()
@@ -236,7 +232,8 @@ class MoneyEdit(QtGui.QLineEdit):
                     text = locale.format("%.2f", float(text), grouping=True)
                 except ValueError:
                     return
-                integer, fraction = text.split('.')
+                
+                integer, fraction = text.split(locale.localeconv()['decimal_point'])
                 if not int(fraction):
                     text = integer
             
