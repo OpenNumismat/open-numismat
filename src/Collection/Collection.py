@@ -8,6 +8,7 @@ from .CollectionPages import CollectionPages
 from Reference.Reference import CrossReferenceSection
 from Reference.ReferenceDialog import AllReferenceDialog
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
+from Collection.CollectionFields import Statuses
 
 class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
@@ -34,7 +35,9 @@ class CollectionModel(QSqlTableModel):
         if role == Qt.DisplayRole:
             # Convert date values
             data = super(CollectionModel, self).data(index, role)
-            if isinstance(data, str):
+            if self.fields.fields[index.column()].name == 'status':
+                return Statuses[data]
+            elif isinstance(data, str):
                 fieldType = self.fields.fields[index.column()].type
                 if fieldType == Type.Date:
                     date = QtCore.QDate.fromString(data, Qt.ISODate)

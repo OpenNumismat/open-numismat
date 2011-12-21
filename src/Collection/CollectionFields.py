@@ -1,4 +1,5 @@
-from PyQt4.QtCore import QObject
+from PyQt4.QtCore import QT_TRANSLATE_NOOP, QObject
+from PyQt4.QtGui import QApplication
 from PyQt4.QtSql import QSqlDatabase, QSqlQuery
 
 class FieldTypes():
@@ -18,6 +19,45 @@ class FieldTypes():
     Mask = int('FF', 16)  # 0xFF
     Checkable = int('100', 16)  # 0x100
     Disabled = int('200', 16)  # 0x200
+
+class Status(dict):
+    Keys = ('demo', 'pass', 'owned', 'sold', 'sale', 'wish')
+    Titles = (
+        QT_TRANSLATE_NOOP("Status", "Demo"),
+        QT_TRANSLATE_NOOP("Status", "Pass"),
+        QT_TRANSLATE_NOOP("Status", "Owned"),
+        QT_TRANSLATE_NOOP("Status", "Sold"),
+        QT_TRANSLATE_NOOP("Status", "Sale"),
+        QT_TRANSLATE_NOOP("Status", "Wish"),
+    )
+    
+    def __init__(self):
+        for key, value in zip(self.Keys, self.Titles):
+            dict.__setitem__(self, key, value)
+    
+    def keys(self):
+        return self.Keys
+    
+    def items(self):
+        result = []
+        for key in self.Keys:
+            result.append((key, self.__getitem__(key)))
+        return result
+    
+    def values(self):
+        result = []
+        for key in self.Keys:
+            result.append(self.__getitem__(key))
+        return result
+    
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            value = dict.__getitem__(self, self.Keys[key])
+        else:
+            value = dict.__getitem__(self, key)
+        return QApplication.translate("Status", value)
+
+Statuses = Status()
 
 class CollectionField():
     def __init__(self, id, name, title, type):

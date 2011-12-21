@@ -3,6 +3,7 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtSql import QSqlQuery
 
 from .CollectionFields import FieldTypes as Type
+from .CollectionFields import Statuses
 
 class FilterMenuButton(QtGui.QPushButton):
     DefaultType = 0
@@ -36,6 +37,7 @@ class FilterMenuButton(QtGui.QPushButton):
         self.listWidget = QtGui.QListWidget(self)
 
         item = QtGui.QListWidgetItem(self.tr("(Select all)"), self.listWidget, FilterMenuButton.SelectAllType)
+        item.setData(Qt.UserRole, self.tr("(Select all)"))
         item.setCheckState(Qt.PartiallyChecked)
         self.listWidget.addItem(item)
 
@@ -48,28 +50,7 @@ class FilterMenuButton(QtGui.QPushButton):
                 appliedValues.append(filter_.value)
 
         hasBlanks = False
-        if not self.model.columnType(self.fieldid) in [Type.Image, Type.EdgeImage, Type.Text]:
-            filtersSql = self.filtersToSql(filters.values())
-            if filtersSql:
-                filtersSql = 'WHERE ' + filtersSql 
-            sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
-            query = QSqlQuery(sql, self.db)
-
-            while query.next():
-                if query.record().isNull(0):
-                    label = None
-                else:
-                    label = str(query.record().value(0))
-                if not label:
-                    hasBlanks = True
-                    continue
-                item = QtGui.QListWidgetItem(label, self.listWidget)
-                if label in appliedValues:
-                    item.setCheckState(Qt.Unchecked)
-                else:
-                    item.setCheckState(Qt.Checked)
-                self.listWidget.addItem(item)
-        else:
+        if self.model.columnType(self.fieldid) in [Type.Image, Type.EdgeImage, Type.Text]:
             dataFilter = Filter(self.columnName, blank=True).toSql()
             blanksFilter = Filter(self.columnName, data=True).toSql()
 
@@ -96,6 +77,7 @@ class FilterMenuButton(QtGui.QPushButton):
                 else:
                     label = self.tr("(Data)")
                 item = QtGui.QListWidgetItem(label, self.listWidget, FilterMenuButton.DataType)
+                item.setData(Qt.UserRole, label)
                 item.setCheckState(Qt.Checked)
                 if columnFilters and columnFilters.hasData():
                     item.setCheckState(Qt.Unchecked)
@@ -103,9 +85,49 @@ class FilterMenuButton(QtGui.QPushButton):
 
             if blanksCount > 0:
                 hasBlanks = True
+        elif self.model.columnType(self.fieldid) in [Type.Status,]:
+            filtersSql = self.filtersToSql(filters.values())
+            if filtersSql:
+                filtersSql = 'WHERE ' + filtersSql 
+            sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
+            query = QSqlQuery(sql, self.db)
+            
+            while query.next():
+                value = query.record().value(0)
+                label = Statuses[value]
+                item = QtGui.QListWidgetItem(label, self.listWidget)
+                item.setData(Qt.UserRole, value)
+                if value in appliedValues:
+                    item.setCheckState(Qt.Unchecked)
+                else:
+                    item.setCheckState(Qt.Checked)
+                self.listWidget.addItem(item)
+        else:
+            filtersSql = self.filtersToSql(filters.values())
+            if filtersSql:
+                filtersSql = 'WHERE ' + filtersSql 
+            sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
+            query = QSqlQuery(sql, self.db)
+
+            while query.next():
+                if query.record().isNull(0):
+                    label = None
+                else:
+                    label = str(query.record().value(0))
+                if not label:
+                    hasBlanks = True
+                    continue
+                item = QtGui.QListWidgetItem(label, self.listWidget)
+                item.setData(Qt.UserRole, label.replace("'", "''"))
+                if label in appliedValues:
+                    item.setCheckState(Qt.Unchecked)
+                else:
+                    item.setCheckState(Qt.Checked)
+                self.listWidget.addItem(item)
         
         if hasBlanks:
             item = QtGui.QListWidgetItem(self.tr("(Blanks)"), self.listWidget, FilterMenuButton.BlanksType)
+            item.setData(Qt.UserRole, self.tr("(Blanks)"))
             item.setCheckState(Qt.Checked)
             if columnFilters and columnFilters.hasBlank():
                 item.setCheckState(Qt.Unchecked)
@@ -173,7 +195,7 @@ class FilterMenuButton(QtGui.QPushButton):
                 elif item.type() == FilterMenuButton.DataType:
                     filters.addFilter(data=True)
                 else:
-                    filters.addFilter(item.text())
+                    filters.addFilter(item.data(Qt.UserRole))
 
         if filters.filters():
             self.setIcon(QtGui.QIcon('icons/filters.ico'))
