@@ -126,7 +126,7 @@ class ImportCoinManage(_Import):
     
     def _check(self, cursor):
         tables = [row.table_name.lower() for row in cursor.tables()]
-        for requiredTables in ['coinattributes', 'cm2001maincollection', 'cm2001maincollection']:
+        for requiredTables in ['coinattributes', 'cointypes', 'cm2001maincollection']:
             if requiredTables not in tables:
                 return False
         
