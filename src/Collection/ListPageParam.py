@@ -85,6 +85,12 @@ class ListPageParam(QtCore.QObject):
             if fieldId not in self.filters.keys():
                 self.filters[fieldId] = ColumnFilters(fields.field(fieldId).name)
             self.filters[fieldId].addFilter(value, data, blank)
+    
+    def clone(self):
+        newList = ListPageParam(None, self.db, self.parent())
+        newList.columns = list(self.columns)
+        newList.filters = self.filters.copy()
+        return newList
 
     def save(self):
         self.db.transaction()

@@ -88,7 +88,7 @@ class TabView(QtGui.QTabWidget):
         oldWidget = self.widget(index)
 
         pageParam = self.collection.pages().addPage(oldLabel + self.tr(" (clone)"))
-        pageParam.listParam = oldWidget.listView.listParam
+        pageParam.listParam = oldWidget.listView.listParam.clone()
         pageParam.listParam.pageId = pageParam.id
         pageParam.listParam.save()
 
