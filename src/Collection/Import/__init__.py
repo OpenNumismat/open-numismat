@@ -34,7 +34,7 @@ class _Import(QtCore.QObject):
                 QtGui.QApplication.restoreOverrideCursor();
                 
                 self.progressDlg.setMaximum(len(rows))
-                self.progressDlg.setWindowTitle(QApplication.translate('_Import', "Importing from %s") % src)
+                self.progressDlg.setLabelText(QApplication.translate('_Import', "Importing from %s") % src)
                 
                 for progress, row in enumerate(rows):
                     self.progressDlg.setValue(progress)

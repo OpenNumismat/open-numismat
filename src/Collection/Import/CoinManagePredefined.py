@@ -70,7 +70,7 @@ class ImportCoinManagePredefined(_Import):
         'reversedesigner': 'Designer',
         'edgeimg': None,
         'subject': None,
-        'photo1': 'Picture',
+        'photo1': None,
         'photo2': None,
         'photo3': None,
         'photo4': None,
@@ -130,20 +130,29 @@ class ImportCoinManagePredefined(_Import):
                     record.setValue(dstColumn, QtCore.QDate.fromString(value.isoformat(), QtCore.Qt.ISODate))
                 else:
                     record.setValue(dstColumn, value)
-            
-            if dstColumn == 'status':
-                record.setValue(dstColumn, 'demo')
-            
-            if dstColumn == 'obverseimg':
-                if hasattr(row, 'UseGraphic') and hasattr(row, 'Country'):
-                    value = getattr(row, 'UseGraphic')
-                    country = getattr(row, 'Country')
-                    if value and country:
-                        dir_ = QtCore.QDir(self.imgDir)
-                        dir_.cd(country)
-                        image = QtGui.QImage()
-                        if image.load(dir_.absoluteFilePath(value)):
-                            record.setValue('obverseimg', image)
+        
+        # Process Status field
+        record.setValue('status', 'demo')
+        
+        if hasattr(row, 'UseGraphic') and hasattr(row, 'Country') and hasattr(row, 'Type ID'):
+            value = getattr(row, 'UseGraphic')
+            country = getattr(row, 'Country')
+            typeId = getattr(row, 'Type ID')
+            if value and country:
+                dir_ = QtCore.QDir(self.imgDir)
+                dir_.cd(country)
+                image = QtGui.QImage()
+                if image.load(dir_.absoluteFilePath(value)):
+                    record.setValue('obverseimg', image)
+            if typeId and country:
+                dir_ = QtCore.QDir(self.imgDir)
+                dir_.cd(country)
+                image = QtGui.QImage()
+                if image.load(dir_.absoluteFilePath(str(typeId))):
+                    if record.isNull('obverseimg'):
+                        record.setValue('obverseimg', image)
+                    else:
+                        record.setValue('photo1', image)
         
         # Make a coin title (1673 Charles II Farthing - Brittania)
         year = record.value('year')

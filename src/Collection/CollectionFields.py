@@ -51,11 +51,14 @@ class Status(dict):
         return result
     
     def __getitem__(self, key):
-        if isinstance(key, int):
-            value = dict.__getitem__(self, self.Keys[key])
-        else:
-            value = dict.__getitem__(self, key)
-        return QApplication.translate("Status", value)
+        try:
+            if isinstance(key, int):
+                value = dict.__getitem__(self, self.Keys[key])
+            else:
+                value = dict.__getitem__(self, key)
+            return QApplication.translate("Status", value)
+        except KeyError:
+            return None
 
 Statuses = Status()
 

@@ -74,7 +74,7 @@ class ImportCoinManage(_Import):
         'photo1': None,
         'photo2': None,
         'photo3': None,
-        'photo4': 'Picture',
+        'photo4': None,
         'storage': 'Location',
         'features': None,
     }
