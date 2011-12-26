@@ -7,7 +7,7 @@ try:
 except ImportError:
     print('pyodbc module missed. Importing not available')
 
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 
 from Collection.Import import _Import, _DatabaseServerError
 
@@ -120,15 +120,19 @@ class ImportCabinet(_Import):
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
             if srcColumn and hasattr(row, srcColumn):
-                value = getattr(row, srcColumn)
-                if isinstance(value, bytearray):
-                    record.setValue(dstColumn, QtCore.QByteArray(value))
-                elif isinstance(value, str):
-                    record.setValue(dstColumn, value.strip())
-                elif isinstance(value, datetime.date):
-                    record.setValue(dstColumn, QtCore.QDate.fromString(value.isoformat(), QtCore.Qt.ISODate))
+                rawData = getattr(row, srcColumn)
+                if isinstance(rawData, bytearray):
+                    image = QtGui.QImage()
+                    image.loadFromData(rawData)
+                    value = image
+                elif isinstance(rawData, str):
+                    value = rawData.strip()
+                elif isinstance(rawData, datetime.date):
+                    value = QtCore.QDate.fromString(rawData.isoformat(), QtCore.Qt.ISODate)
                 else:
-                    record.setValue(dstColumn, value)
+                    value = rawData
+                
+                record.setValue(dstColumn, value)
             
             if dstColumn == 'status':
                 record.setValue(dstColumn, 'demo')

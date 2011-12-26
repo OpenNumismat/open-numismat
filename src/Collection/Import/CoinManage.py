@@ -144,19 +144,21 @@ class ImportCoinManage(_Import):
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
             if srcColumn and hasattr(row, srcColumn):
-                value = getattr(row, srcColumn)
-                if isinstance(value, bytearray):
-                    record.setValue(dstColumn, QtCore.QByteArray(value))
-                elif isinstance(value, str):
+                rawData = getattr(row, srcColumn)
+                if isinstance(rawData, bytearray):
+                    value = QtCore.QByteArray(rawData)
+                elif isinstance(rawData, str):
                     if srcColumn == 'Mintage':
-                        value = value.replace(',', '').replace('(', '').replace(')', '')
-                    record.setValue(dstColumn, value.strip())
-                elif isinstance(value, datetime.date):
-                    record.setValue(dstColumn, QtCore.QDate.fromString(value.isoformat(), QtCore.Qt.ISODate))
-                elif isinstance(value, decimal.Decimal):
-                    record.setValue(dstColumn, float(value))
+                        rawData = rawData.replace(',', '').replace('(', '').replace(')', '')
+                    value = rawData.strip()
+                elif isinstance(rawData, datetime.date):
+                    value = QtCore.QDate.fromString(rawData.isoformat(), QtCore.Qt.ISODate)
+                elif isinstance(rawData, decimal.Decimal):
+                    value = float(rawData)
                 else:
-                    record.setValue(dstColumn, value)
+                    value = rawData
+                
+                record.setValue(dstColumn, value)
             
             if dstColumn == 'status':
                 record.setValue(dstColumn, 'owned')

@@ -8,7 +8,7 @@ try:
 except ImportError:
     print('lxml or winreg module missed. Importing from CoinsCollector not available')
 
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 
 from Collection.Import import _Import
 
@@ -202,20 +202,20 @@ class ImportCoinsCollector(_Import):
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
             if srcColumn and srcColumn in row.keys():
-                value = row.get(srcColumn)
+                rawData = row.get(srcColumn)
                 if isinstance(self.fields[srcColumn], Reference):
                     ref = self.fields[srcColumn]
-                    value = ref[value]
+                    value = ref[rawData]
                 elif self.fields[srcColumn] == 'date':
-                    value = QtCore.QDate.fromString(value, 'yyyyMMdd')
+                    value = QtCore.QDate.fromString(rawData, 'yyyyMMdd')
                 elif srcColumn in ['COST', 'SELLPRISE']:
                     try:
                         # TODO: Use converter from auction parser
-                        value = float(value)
+                        value = float(rawData)
                     except ValueError:
                         value = None
                 else:
-                    value = value
+                    value = rawData
                 
                 record.setValue(dstColumn, value)
             
@@ -260,7 +260,9 @@ class ImportCoinsCollector(_Import):
                     type_ = imgFields.index(dstColumn)
                     value = pictures[type_]
                     if value:
-                        record.setValue(dstColumn, QtCore.QByteArray(value))
+                        image = QtGui.QImage()
+                        image.loadFromData(value)
+                        record.setValue(dstColumn, image)
             
             if dstColumn == 'features':
                 features = []

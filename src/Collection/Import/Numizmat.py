@@ -7,7 +7,7 @@ try:
 except ImportError:
     print('firebirdsql module missed. Importing from Numizmat 2.1 not available')
 
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 
 from Collection.Import import _Import, _InvalidDatabaseError, _DatabaseServerError
 
@@ -92,19 +92,23 @@ class ImportNumizmat(_Import):
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
             if srcColumn and srcColumn in row.keys():
-                value = row[srcColumn]
-                if isinstance(value, bytearray) or isinstance(value, bytes):
-                    record.setValue(dstColumn, QtCore.QByteArray(value))
-                elif isinstance(value, str):
+                rawData = row[srcColumn]
+                if isinstance(rawData, bytearray) or isinstance(rawData, bytes):
+                    image = QtGui.QImage()
+                    image.loadFromData(rawData)
+                    value = image
+                elif isinstance(rawData, str):
                     if srcColumn == 'CIRC':
-                        value = value.replace('.', '')
-                    record.setValue(dstColumn, value.strip())
-                elif isinstance(value, decimal.Decimal):
-                    record.setValue(dstColumn, int(value))
-                elif isinstance(value, datetime.date):
-                    record.setValue(dstColumn, QtCore.QDate.fromString(value.isoformat(), QtCore.Qt.ISODate))
+                        rawData = rawData.replace('.', '')
+                    value = rawData.strip()
+                elif isinstance(rawData, decimal.Decimal):
+                    value = int(rawData)
+                elif isinstance(rawData, datetime.date):
+                    value = QtCore.QDate.fromString(rawData.isoformat(), QtCore.Qt.ISODate)
                 else:
-                    record.setValue(dstColumn, value)
+                    value = rawData
+                
+                record.setValue(dstColumn, value)
                 
                 if dstColumn == 'status':
                     # Process Status fields that contain translated text
