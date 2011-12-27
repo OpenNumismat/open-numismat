@@ -92,7 +92,7 @@ class TabView(QtGui.QTabWidget):
         pageParam.listParam.pageId = pageParam.id
         pageParam.listParam.save()
 
-        pageView = PageView(pageParam.listParam)
+        pageView = PageView(pageParam.listParam, self)
         pageView.id = pageParam.id
         pageView.setModel(self.collection.model())
         self.addTab(pageView, pageParam.title)
@@ -129,7 +129,7 @@ class TabView(QtGui.QTabWidget):
 
         for pageParam in collection.pages().pagesParam():
             if pageParam.isopen:
-                pageView = PageView(pageParam.listParam)
+                pageView = PageView(pageParam.listParam, self)
                 pageView.id = pageParam.id
                 pageView.setModel(self.collection.model())
                 self.addTab(pageView, pageParam.title)
@@ -191,7 +191,7 @@ class TabView(QtGui.QTabWidget):
         self.collection.pages().savePositions(pages)
     
     def openPage(self, pageParam):
-        pageView = PageView(pageParam.listParam)
+        pageView = PageView(pageParam.listParam, self)
         pageView.id = pageParam.id
         pageView.setModel(self.collection.model())
         self.addTab(pageView, pageParam.title)
@@ -217,7 +217,7 @@ class TabView(QtGui.QTabWidget):
     def __createListPage(self, title):
         pageParam = self.collection.pages().addPage(title)
 
-        pageView = PageView(pageParam.listParam)
+        pageView = PageView(pageParam.listParam, self)
         pageView.setModel(self.collection.model())
         pageView.id = pageParam.id
         self.addTab(pageView, title)

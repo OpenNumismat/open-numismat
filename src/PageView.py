@@ -5,6 +5,7 @@ from ListView import ListView
 from EditCoinDialog.ImageLabel import ImageLabel
 from Collection.CollectionFields import FieldTypes as Type
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
+from CustomizeTreeDialog import CustomizeTreeDialog
 
 class ImageView(QtGui.QWidget):
     def __init__(self, parent=None):
@@ -101,7 +102,7 @@ class TreeView(QtGui.QTreeWidget):
     
     def __init__(self, parent=None):
         super(TreeView, self).__init__(parent)
-
+        
         self.setHeaderHidden(True)
         self.setAutoScroll(False)
 
@@ -253,10 +254,18 @@ class TreeView(QtGui.QTreeWidget):
     def contextMenuEvent(self, pos):
         menu = QtGui.QMenu(self)
         act = menu.addAction(self.tr("Add new coin..."), self._addCoin)
-        act.setEnabled(self.model.rowCount())
+        if not (self.model.rowCount() and self.selectedItems()):
+            act.setDisabled(True)
         act = menu.addAction(self.tr("Edit coins..."), self._multiEdit)
-        act.setEnabled(self.model.rowCount())
+        if not (self.model.rowCount() and self.selectedItems()):
+            act.setDisabled(True)
+        menu.addSeparator()
+        menu.addAction(self.tr("Customize tree..."), self._customizeTree)
         menu.exec_(self.mapToGlobal(pos))
+    
+    def _customizeTree(self):
+        dlg = CustomizeTreeDialog(self.model)
+        dlg.exec_()
     
     def _addCoin(self):
         storedFilter = self.model.intFilter
