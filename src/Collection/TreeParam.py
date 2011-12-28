@@ -16,7 +16,7 @@ class TreeParam(QtCore.QObject):
             allFields = self.fields
             self._params = [[allFields.type,], [allFields.country,], [allFields.period,],
                             [allFields.value, allFields.unit],
-                            [allFields.series,], [allFields.year,], [allFields.mintmark,]]
+                            [allFields.series,], [allFields.year,]]
     
     def params(self):
         return self._params
@@ -38,7 +38,7 @@ class TreeParam(QtCore.QObject):
         return names
     
     def _load(self):
-        self._params = []
+        self.clear()
         count = 0
         
         query = QSqlQuery(self.db)
