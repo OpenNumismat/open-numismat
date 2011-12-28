@@ -74,6 +74,16 @@ class ImportNumizmat(_Import):
     def __init__(self, parent=None):
         super(ImportNumizmat, self).__init__(parent)
     
+    @staticmethod
+    def defaultDir():
+        dir_ = QtCore.QDir(_Import.defaultDir())
+        dirNames = ["C:/Program Files/Numizmat 2/Base", "C:/Program Files (x86)/Numizmat 2/Base"]
+        for dirName in dirNames:
+            if dir_.cd(dirName):
+                break
+        
+        return dir_.absolutePath()
+    
     def _connect(self, src):
         try:
             self.cnxn = firebirdsql.connect(database=src, host='localhost', user='SYSDBA',
@@ -102,7 +112,7 @@ class ImportNumizmat(_Import):
                         rawData = rawData.replace('.', '')
                     value = rawData.strip()
                 elif isinstance(rawData, decimal.Decimal):
-                    value = int(rawData)
+                    value = float(rawData)
                 elif isinstance(rawData, datetime.date):
                     value = QtCore.QDate.fromString(rawData.isoformat(), QtCore.Qt.ISODate)
                 else:
