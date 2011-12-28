@@ -9,9 +9,9 @@ class TreeParam(QtCore.QObject):
     def init(self, model):
         self.rootTitle = model.title
         allFields = model.fields
-        self._params = [allFields.type, allFields.country, allFields.period,
+        self._params = [[allFields.type,], [allFields.country,], [allFields.period,],
                         [allFields.value, allFields.unit],
-                        allFields.series, allFields.year, allFields.mintmark]
+                        [allFields.series,], [allFields.year,], [allFields.mintmark,]]
     
     def params(self):
         return self._params
@@ -19,18 +19,18 @@ class TreeParam(QtCore.QObject):
     def clear(self):
         del self._params[:]   # clearing list
     
-    def append(self, field):
-        self._params.append(field)
-    
-    def usedFields(self):
-        fields = []
-        for param in self._params:
-            if isinstance(param, list):
-                fields.extend(param)
-            else:
-                fields.append(param)
+    def append(self, fields):
+        if not isinstance(fields, list):
+            fields = [fields,]
         
-        return fields
+        self._params.append(fields)
+    
+    def usedFieldNames(self):
+        names = []
+        for param in self._params:
+            names.extend([field.name for field in param])
+        
+        return names
     
     def __iter__(self):
         self.index = 0

@@ -27,6 +27,10 @@ class TreeWidget(QtGui.QTreeWidget):
                 topItem = topItem.child(0)
             topItem.setFlags(Qt.ItemIsEnabled | Qt.ItemIsDropEnabled | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled)
     
+    def expandAll(self):
+        QtGui.QTreeWidget.expandAll(self)
+        self.resizeColumnToContents(0)
+    
     def rowsRemoved(self, parent, start, end):
         self.updateFlags()
     
@@ -51,9 +55,7 @@ class TreeWidget(QtGui.QTreeWidget):
                 text = ' + '.join([parent.text(0), item.text(0)])
                 parent.setText(0, text)
                 data = parent.data(0, Qt.UserRole)
-                if not isinstance(data, list):
-                    data = [data,]
-                data.append(item.data(0, Qt.UserRole))
+                data.extend(item.data(0, Qt.UserRole))
                 parent.setData(0, Qt.UserRole, data)
             
             self.updateFlags()
@@ -64,6 +66,26 @@ class TreeWidget(QtGui.QTreeWidget):
 class ListWidget(QtGui.QListWidget):
     def __init__(self, parent=None):
         QtGui.QListWidget.__init__(self, parent)
+        
+        self.model().dataChanged.connect(self.__dataChanged)
+    
+    def __dataChanged(self, topLeft, bottomRight):
+        self.model().dataChanged.disconnect(self.__dataChanged)
+        if topLeft.row() == bottomRight.row():
+            item = self.item(topLeft.row())
+            data = item.data(Qt.UserRole)
+            if data:
+                field = data[0]
+                item.setText(field.title)
+                item.setData(Qt.UserRole, [field,])
+                for i, field in enumerate(data[1:]):
+                    item = QtGui.QListWidgetItem(field.title)
+                    item.setData(Qt.UserRole, [field,])
+                    self.insertItem(topLeft.row()+i+1, item)
+        self.model().dataChanged.connect(self.__dataChanged)
+    
+    def supportedDropActions(self):
+        return Qt.MoveAction
     
     def dragMoveEvent(self, event):
         if event.source() == self:
@@ -111,13 +133,10 @@ class CustomizeTreeDialog(QtGui.QDialog):
         self.treeWidget.addTopLevelItem(rootItem)
         topItem = rootItem
         for param in self.treeParam:
-            if isinstance(param, list):
-                titleParts = [field.title for field in param]
-                title = ' + '.join(titleParts)
-                data = [field for field in param]
-            else:
-                title = param.title
-                data = param
+            titleParts = [field.title for field in param]
+            title = ' + '.join(titleParts)
+            data = [field for field in param]
+            
             item = QtGui.QTreeWidgetItem([title,])
             item.setData(0, Qt.UserRole, data)
             topItem.addChild(item)
@@ -128,9 +147,9 @@ class CustomizeTreeDialog(QtGui.QDialog):
         
         for field in allFields.userFields:
             if field.type in [Type.String, Type.Money, Type.Number, Type.ShortString]:
-                if field not in self.treeParam.usedFields():
+                if field.name not in self.treeParam.usedFieldNames():
                     item = QtGui.QListWidgetItem(field.title)
-                    item.setData(Qt.UserRole, field)
+                    item.setData(Qt.UserRole, [field,])
                     self.listWidget.addItem(item)
     
     def save(self):

@@ -137,18 +137,15 @@ class TreeView(QtGui.QTreeWidget):
         
         if treeParam:
             param = treeParam[0]
-            if isinstance(param, list):
-                fieldName = [field.name for field in param]
-            else:
-                fieldName = param.name
-            for item in self.processChilds(parent, fieldName):
+            fieldNames = [field.name for field in param]
+            for item in self.processChilds(parent, fieldNames):
                 self.__updateTreeItem(treeParam[1:], item)
     
     def updateTree(self):
         self.__updateTreeItem(self.treeParam.params())
     
-    def processChilds(self, parentItem, field):
-        items = self.updateChilds(parentItem, field, parentItem.data(0, self.FiltersRole))
+    def processChilds(self, parentItem, fields):
+        items = self.updateChilds(parentItem, fields, parentItem.data(0, self.FiltersRole))
         if not items:
             items = [parentItem,]
         return items
