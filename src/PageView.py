@@ -272,7 +272,7 @@ class TreeView(QtGui.QTreeWidget):
         menu.exec_(self.mapToGlobal(pos))
     
     def _customizeTree(self):
-        dialog = CustomizeTreeDialog(self.model, self.treeParam)
+        dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
         if dialog.exec_() == QtGui.QDialog.Accepted:
             self.updateTree()
     
