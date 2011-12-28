@@ -41,9 +41,16 @@ class TreeWidget(QtGui.QTreeWidget):
 class ListWidget(QtGui.QListWidget):
     def __init__(self, parent=None):
         QtGui.QListWidget.__init__(self, parent)
+    
+    def dragMoveEvent(self, event):
+        if event.source() == self:
+            event.ignore()
+            return
+        
+        return QtGui.QListWidget.dragMoveEvent(self, event)
 
 class CustomizeTreeDialog(QtGui.QDialog):
-    def __init__(self, model, parent=None):
+    def __init__(self, model, treeParam, parent=None):
         QtGui.QDialog.__init__(self, parent, Qt.WindowSystemMenuHint)
         
         self.setWindowTitle(self.tr("Customize tree"))
@@ -55,7 +62,7 @@ class CustomizeTreeDialog(QtGui.QDialog):
         
         self.listWidget = ListWidget(self)
         self.listWidget.setDragDropMode(QtGui.QAbstractItemView.DragDrop)
-        self.listWidget.setDropIndicatorShown(True) 
+        self.listWidget.setDropIndicatorShown(True)
         self.listWidget.setDefaultDropAction(Qt.MoveAction)
         
         splitter = QtGui.QSplitter(self)
@@ -74,16 +81,15 @@ class CustomizeTreeDialog(QtGui.QDialog):
         
         self.setLayout(layout)
         
-        allFields = CollectionFields(model.database())
-        treeParam = [allFields.type, allFields.country, allFields.period,
-                     allFields.series, allFields.year, allFields.mintmark]
+        self.treeParam = treeParam
+        allFields = model.fields
         
         rootItem = QtGui.QTreeWidgetItem(self.treeWidget, [model.title,])
         self.treeWidget.addTopLevelItem(rootItem)
         topItem = rootItem
-        for field in treeParam:
+        for field in self.treeParam:
             item = QtGui.QTreeWidgetItem([field.title,])
-            item.setData(0, Qt.UserRole, field.name)
+            item.setData(0, Qt.UserRole, field)
             topItem.addChild(item)
             topItem = item
         
@@ -92,9 +98,18 @@ class CustomizeTreeDialog(QtGui.QDialog):
         
         for field in allFields.userFields:
             if field.type in [Type.String, Type.Money, Type.Number, Type.ShortString]:
-                if field not in treeParam:
+                if field not in self.treeParam:
                     item = QtGui.QListWidgetItem(field.title)
+                    item.setData(Qt.UserRole, field)
                     self.listWidget.addItem(item)
     
     def save(self):
+        del self.treeParam[:]   # clearing list
+        
+        rootItem = self.treeWidget.topLevelItem(0)
+        topItem = rootItem.child(0)
+        while topItem:
+            self.treeParam.append(topItem.data(0, Qt.UserRole))
+            topItem = topItem.child(0)
+        
         self.accept()

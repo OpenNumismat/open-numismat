@@ -118,6 +118,10 @@ class TreeView(QtGui.QTreeWidget):
         self.model = model
         self.model.modelChanged.connect(self.updateTree)
         
+        allFields = self.model.fields
+        self.treeParam = [allFields.type, allFields.country, allFields.period,
+                     allFields.series, allFields.year, allFields.mintmark]
+        
         rootItem = QtGui.QTreeWidgetItem(self, [model.title,])
         rootItem.setData(0, self.FiltersRole, '')
         
@@ -126,15 +130,18 @@ class TreeView(QtGui.QTreeWidget):
         self.addTopLevelItem(rootItem)
         self.expandItem(rootItem)
     
+    def __updateTreeItem(self, treeParam, parent=None):
+        if not parent:
+            parent = self.topLevelItem(0)
+            parent.takeChildren()
+        
+        if treeParam:
+            field = treeParam[0]
+            for item in self.processChilds(parent, field.name):
+                self.__updateTreeItem(treeParam[1:], item)
+    
     def updateTree(self):
-        parent = self.topLevelItem(0)
-        for item in self.processChilds(parent, 'type'):
-            for item in self.processChilds(item, 'country'):
-                for item in self.processChilds(item, 'period'):
-                    for item in self.processChilds(item, ['value', 'unit']):
-                        for item in self.processChilds(item, 'series'):
-                            for item in self.processChilds(item, 'year'):
-                                self.processChilds(item, 'mintmark')
+        self.__updateTreeItem(self.treeParam)
     
     def processChilds(self, parentItem, field):
         items = self.updateChilds(parentItem, field, parentItem.data(0, self.FiltersRole))
@@ -264,8 +271,9 @@ class TreeView(QtGui.QTreeWidget):
         menu.exec_(self.mapToGlobal(pos))
     
     def _customizeTree(self):
-        dlg = CustomizeTreeDialog(self.model)
-        dlg.exec_()
+        dialog = CustomizeTreeDialog(self.model, self.treeParam)
+        if dialog.exec_() == QtGui.QDialog.Accepted:
+            self.updateTree()
     
     def _addCoin(self):
         storedFilter = self.model.intFilter
