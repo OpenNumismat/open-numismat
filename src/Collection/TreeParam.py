@@ -11,6 +11,7 @@ class TreeParam(QtCore.QObject):
             self.create(self.db)
         
         self.fields = page.fields
+        self._params = []
         self._load()
         if not self._params:
             allFields = self.fields
