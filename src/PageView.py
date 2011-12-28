@@ -273,6 +273,7 @@ class TreeView(QtGui.QTreeWidget):
     def _customizeTree(self):
         dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
         if dialog.exec_() == QtGui.QDialog.Accepted:
+            self.treeParam.save()
             self.updateTree()
     
     def _addCoin(self):
@@ -368,6 +369,7 @@ class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
         super(PageView, self).__init__('0', parent=parent)
         
+        self.param = pageParam
         self.id = pageParam.id
         self.treeView = TreeView(pageParam.treeParam, self)
         self.listView = ListView(pageParam.listParam, self)

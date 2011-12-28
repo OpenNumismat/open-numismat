@@ -171,7 +171,7 @@ class TabView(QtGui.QTabWidget):
         if result == QtGui.QMessageBox.Yes:
             page = self.widget(index)
             self.removeTab(index)
-            self.collection.pages().removePage(page)
+            self.collection.pages().removePage(page.param)
 
     def removeClosedPages(self):
         result = QtGui.QMessageBox.question(self, self.tr("Remove pages"),
