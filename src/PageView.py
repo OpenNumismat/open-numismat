@@ -95,6 +95,7 @@ class ImageView(QtGui.QWidget):
         return widget
 
 from PyQt4 import QtSql
+from Collection.TreeParam import TreeParam
 
 class TreeView(QtGui.QTreeWidget):
     FiltersRole = Qt.UserRole
@@ -118,9 +119,8 @@ class TreeView(QtGui.QTreeWidget):
         self.model = model
         self.model.modelChanged.connect(self.updateTree)
         
-        allFields = self.model.fields
-        self.treeParam = [allFields.type, allFields.country, allFields.period,
-                     allFields.series, allFields.year, allFields.mintmark]
+        self.treeParam = TreeParam(self)
+        self.treeParam.init(model)
         
         rootItem = QtGui.QTreeWidgetItem(self, [model.title,])
         rootItem.setData(0, self.FiltersRole, '')
@@ -136,12 +136,16 @@ class TreeView(QtGui.QTreeWidget):
             parent.takeChildren()
         
         if treeParam:
-            field = treeParam[0]
-            for item in self.processChilds(parent, field.name):
+            param = treeParam[0]
+            if isinstance(param, list):
+                fieldName = [field.name for field in param]
+            else:
+                fieldName = param.name
+            for item in self.processChilds(parent, fieldName):
                 self.__updateTreeItem(treeParam[1:], item)
     
     def updateTree(self):
-        self.__updateTreeItem(self.treeParam)
+        self.__updateTreeItem(self.treeParam.params())
     
     def processChilds(self, parentItem, field):
         items = self.updateChilds(parentItem, field, parentItem.data(0, self.FiltersRole))

@@ -2,7 +2,6 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
 from Collection.CollectionFields import FieldTypes as Type
-from Collection.CollectionFields import CollectionFields
 
 class TreeWidget(QtGui.QTreeWidget):
     def __init__(self, parent=None):
@@ -31,11 +30,35 @@ class TreeWidget(QtGui.QTreeWidget):
     def rowsRemoved(self, parent, start, end):
         self.updateFlags()
     
+    def dragMoveEvent(self, event):
+        if event.source() == self:
+            event.ignore()
+            return
+        
+        return QtGui.QTreeWidget.dragMoveEvent(self, event)
+    
+    def dropEvent(self, event):
+        self.event = event
+        if event.dropAction() & Qt.CopyAction:
+            event.setDropAction(Qt.MoveAction)
+        QtGui.QTreeWidget.dropEvent(self, event)
+    
     def dropMimeData(self, parent, index, data, action):
         res = QtGui.QTreeWidget.dropMimeData(self, parent, index, data, action)
         if res:
+            if self.event.proposedAction() & Qt.CopyAction:
+                item = parent.takeChild(0)
+                text = ' + '.join([parent.text(0), item.text(0)])
+                parent.setText(0, text)
+                data = parent.data(0, Qt.UserRole)
+                if not isinstance(data, list):
+                    data = [data,]
+                data.append(item.data(0, Qt.UserRole))
+                parent.setData(0, Qt.UserRole, data)
+            
             self.updateFlags()
             self.expandAll()
+        
         return res
 
 class ListWidget(QtGui.QListWidget):
@@ -84,12 +107,19 @@ class CustomizeTreeDialog(QtGui.QDialog):
         self.treeParam = treeParam
         allFields = model.fields
         
-        rootItem = QtGui.QTreeWidgetItem(self.treeWidget, [model.title,])
+        rootItem = QtGui.QTreeWidgetItem(self.treeWidget, [self.treeParam.rootTitle,])
         self.treeWidget.addTopLevelItem(rootItem)
         topItem = rootItem
-        for field in self.treeParam:
-            item = QtGui.QTreeWidgetItem([field.title,])
-            item.setData(0, Qt.UserRole, field)
+        for param in self.treeParam:
+            if isinstance(param, list):
+                titleParts = [field.title for field in param]
+                title = ' + '.join(titleParts)
+                data = [field for field in param]
+            else:
+                title = param.title
+                data = param
+            item = QtGui.QTreeWidgetItem([title,])
+            item.setData(0, Qt.UserRole, data)
             topItem.addChild(item)
             topItem = item
         
@@ -98,13 +128,13 @@ class CustomizeTreeDialog(QtGui.QDialog):
         
         for field in allFields.userFields:
             if field.type in [Type.String, Type.Money, Type.Number, Type.ShortString]:
-                if field not in self.treeParam:
+                if field not in self.treeParam.usedFields():
                     item = QtGui.QListWidgetItem(field.title)
                     item.setData(Qt.UserRole, field)
                     self.listWidget.addItem(item)
     
     def save(self):
-        del self.treeParam[:]   # clearing list
+        self.treeParam.clear()
         
         rootItem = self.treeWidget.topLevelItem(0)
         topItem = rootItem.child(0)
