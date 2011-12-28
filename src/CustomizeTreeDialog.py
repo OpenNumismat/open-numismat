@@ -23,7 +23,7 @@ class TreeWidget(QtGui.QTreeWidget):
         topItem = rootItem.child(0)
         if topItem:
             while topItem.childCount():
-                topItem.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled)
+                topItem.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable)
                 topItem = topItem.child(0)
             topItem.setFlags(Qt.ItemIsEnabled | Qt.ItemIsDropEnabled | Qt.ItemIsSelectable | Qt.ItemIsDragEnabled)
     
@@ -84,10 +84,10 @@ class ListWidget(QtGui.QListWidget):
                     self.insertItem(topLeft.row()+i+1, item)
         self.model().dataChanged.connect(self.__dataChanged)
     
-    def supportedDropActions(self):
-        return Qt.MoveAction
-    
     def dragMoveEvent(self, event):
+        if event.dropAction() & Qt.CopyAction:
+            event.setDropAction(Qt.MoveAction)
+        
         if event.source() == self:
             event.ignore()
             return
