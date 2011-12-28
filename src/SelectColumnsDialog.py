@@ -1,7 +1,6 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
-from Collection.CollectionFields import CollectionFields
 from Collection.ListPageParam import ColumnListParam
 
 class SelectColumnsDialog(QtGui.QDialog):
@@ -20,7 +19,7 @@ class SelectColumnsDialog(QtGui.QDialog):
         self.listWidget.setDropIndicatorShown(True) 
         self.listWidget.setWrapping(True)
         
-        allFields = CollectionFields(listParam.db)
+        allFields = listParam.fields
         collectionFields = allFields.userFields
         for param in listParam.columns:
             field = allFields.field(param.fieldid)

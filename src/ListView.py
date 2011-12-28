@@ -5,7 +5,6 @@ from PyQt4.QtCore import Qt, pyqtSignal
 from PyQt4.QtSql import QSqlQuery
 
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
-from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
 from SelectColumnsDialog import SelectColumnsDialog
 from Collection.HeaderFilterMenu import FilterMenuButton
@@ -102,7 +101,7 @@ class ListView(QtGui.QTableView):
         self.listSelectedLabel = QtGui.QLabel(self.tr("0 coin(s) selected"))
         
         # Show image data as images
-        for field in CollectionFields(listParam.db):
+        for field in listParam.fields:
             if field.type == Type.Image or field.type == Type.EdgeImage:
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
     

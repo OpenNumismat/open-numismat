@@ -95,13 +95,12 @@ class ImageView(QtGui.QWidget):
         return widget
 
 from PyQt4 import QtSql
-from Collection.TreeParam import TreeParam
 
 class TreeView(QtGui.QTreeWidget):
     FiltersRole = Qt.UserRole
     FieldsRole = FiltersRole+1
     
-    def __init__(self, parent=None):
+    def __init__(self, treeParam, parent=None):
         super(TreeView, self).__init__(parent)
         
         self.setHeaderHidden(True)
@@ -113,15 +112,15 @@ class TreeView(QtGui.QTreeWidget):
         self.currentItemChanged.connect(self.itemActivatedEvent)
         self.expanded.connect(self.expandedEvent)
         self.collapsed.connect(self.expandedEvent)
+        
+        self.treeParam = treeParam
     
     def setModel(self, model):
         self.db = model.database()
         self.model = model
         self.model.modelChanged.connect(self.updateTree)
         
-        self.treeParam = TreeParam(self)
-        self.treeParam.init(model)
-        
+        self.treeParam.rootTitle = model.title
         rootItem = QtGui.QTreeWidgetItem(self, [model.title,])
         rootItem.setData(0, self.FiltersRole, '')
         
@@ -366,11 +365,12 @@ class Splitter(QtGui.QSplitter):
             self.splitterMoved.connect(self.splitterPosChanged)
 
 class PageView(Splitter):
-    def __init__(self, listParam, parent=None):
+    def __init__(self, pageParam, parent=None):
         super(PageView, self).__init__('0', parent=parent)
         
-        self.treeView = TreeView(self)
-        self.listView = ListView(listParam, self)
+        self.id = pageParam.id
+        self.treeView = TreeView(pageParam.treeParam, self)
+        self.listView = ListView(pageParam.listParam, self)
         self.imageView = ImageView(self)
         self.detailsView = DetailsView(self)
 

@@ -1,13 +1,17 @@
 from PyQt4 import QtCore
 from PyQt4.QtSql import QSqlQuery
 
+from .CollectionFields import CollectionFields
 from .ListPageParam import ListPageParam
+from .TreeParam import TreeParam
 
 class CollectionPageTypes:
     List = 0
 
-class CollectionPageParam:
-    def __init__(self, record):
+class CollectionPageParam(QtCore.QObject):
+    def __init__(self, record, parent=None):
+        QtCore.QObject.__init__(self, parent)
+        
         for name in ['id', 'title', 'isopen', 'type']:
             setattr(self, name, record.value(name))
 
@@ -23,6 +27,8 @@ class CollectionPages(QtCore.QObject):
             position INTEGER,\
             type INTEGER)"
         QSqlQuery(sql, self.db)
+        
+        self.fields = CollectionFields(self.db)
         
     def pagesParam(self):
         query = QSqlQuery("SELECT * FROM pages ORDER BY position")
@@ -91,8 +97,11 @@ class CollectionPages(QtCore.QObject):
         pagesParam = []
         while query.next():
             param = CollectionPageParam(query.record())
+            param.fields = self.fields
+            param.db = self.db
             if param.type == CollectionPageTypes.List:
-                param.listParam = ListPageParam(param.id, self.db, self)
+                param.listParam = ListPageParam(param)
+                param.treeParam = TreeParam(param)
             pagesParam.append(param)
 
         return pagesParam

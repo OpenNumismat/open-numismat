@@ -1,14 +1,13 @@
 from PyQt4 import QtCore
+from PyQt4.QtSql import QSqlDatabase, QSqlQuery
 
 class TreeParam(QtCore.QObject):
-    def __init__(self, parent=None):
-        QtCore.QObject.__init__(self, parent)
+    def __init__(self, page):
+        QtCore.QObject.__init__(self, page)
         
         self._params = []
-    
-    def init(self, model):
-        self.rootTitle = model.title
-        allFields = model.fields
+        
+        allFields = page.fields
         self._params = [[allFields.type,], [allFields.country,], [allFields.period,],
                         [allFields.value, allFields.unit],
                         [allFields.series,], [allFields.year,], [allFields.mintmark,]]

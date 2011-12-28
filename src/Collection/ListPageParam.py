@@ -1,7 +1,6 @@
 from PyQt4 import QtCore
 from PyQt4.QtSql import QSqlQuery, QSqlRecord
 
-from .CollectionFields import CollectionFields
 from .HeaderFilterMenu import ColumnFilters
 
 class ColumnListParam:
@@ -21,11 +20,11 @@ class ColumnListParam:
             self.width = width
 
 class ListPageParam(QtCore.QObject):
-    def __init__(self, pageId, db, parent=None):
-        super(ListPageParam, self).__init__(parent)
+    def __init__(self, page):
+        super(ListPageParam, self).__init__(page)
         
-        self.pageId = pageId
-        self.db = db
+        self.pageId = page.id
+        self.db = page.db
         sql = """CREATE TABLE IF NOT EXISTS lists (
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             pageid INTEGER,
@@ -37,18 +36,18 @@ class ListPageParam(QtCore.QObject):
 
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM lists WHERE pageid=? ORDER BY position")
-        query.addBindValue(pageId)
+        query.addBindValue(self.pageId)
         query.exec_()
         self.columns = []
         while query.next():
             param = ColumnListParam(query.record())
             self.columns.append(param)
         
-        fields = CollectionFields(self.db)
+        self.fields = page.fields
         
         # Create default parameters
         if not self.columns:
-            for field in fields.userFields:
+            for field in self.fields.userFields:
                 enabled = False
                 # TODO: Customize default fields
                 if field.name in ['title', 'value', 'unit', 'country', 'year']:
@@ -67,7 +66,7 @@ class ListPageParam(QtCore.QObject):
         
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM filters WHERE pageid=?")
-        query.addBindValue(pageId)
+        query.addBindValue(self.pageId)
         query.exec_()
         self.filters = {}
         while query.next():
@@ -83,11 +82,11 @@ class ListPageParam(QtCore.QObject):
                 blank = query.record().value('blank')
 
             if fieldId not in self.filters.keys():
-                self.filters[fieldId] = ColumnFilters(fields.field(fieldId).name)
+                self.filters[fieldId] = ColumnFilters(self.fields.field(fieldId).name)
             self.filters[fieldId].addFilter(value, data, blank)
     
     def clone(self):
-        newList = ListPageParam(None, self.db, self.parent())
+        newList = ListPageParam(self.parent())
         newList.columns = list(self.columns)
         newList.filters = self.filters.copy()
         return newList
