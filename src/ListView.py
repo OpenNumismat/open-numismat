@@ -106,6 +106,7 @@ class ListView(QtGui.QTableView):
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
     
     def rowCountChanged(self, oldCount, newCount):
+        self.verticalHeader().sectionCountChanged.disconnect(self.rowCountChanged)
         if self.model():
             while self.model().canFetchMore():
                 self.model().fetchMore()
@@ -117,6 +118,7 @@ class ListView(QtGui.QTableView):
             totalCount = query.record().value(0)
             
             self.listCountLabel.setText(self.tr("%d/%d coins") % (newCount, totalCount))
+        self.verticalHeader().sectionCountChanged.connect(self.rowCountChanged)
     
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
         column = self.listParam.columns[oldVisualIndex]
