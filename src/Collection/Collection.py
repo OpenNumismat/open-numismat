@@ -118,7 +118,7 @@ class CollectionModel(QSqlTableModel):
             # Get height of list view for resizing images        
             tmp = QtGui.QTableView()
             height = int(tmp.verticalHeader().defaultSectionSize() * 1.5 - 1)
-    
+            
             if not record.isNull('obverseimg') and obverseImage.isNull():
                 obverseImage.loadFromData(record.value('obverseimg'))
             if not obverseImage.isNull():
@@ -129,7 +129,8 @@ class CollectionModel(QSqlTableModel):
                 reverseImage = reverseImage.scaledToHeight(height, Qt.SmoothTransformation)
             
             image = QtGui.QImage(obverseImage.width()+reverseImage.width(), height, QtGui.QImage.Format_RGB32)
-    
+            image.fill(QtGui.QColor(Qt.white).rgb())
+            
             paint = QtGui.QPainter(image)
             if not record.isNull('obverseimg'):
                 paint.drawImage(QtCore.QRectF(0,0,obverseImage.width(), height), obverseImage,

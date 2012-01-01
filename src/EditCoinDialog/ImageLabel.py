@@ -159,8 +159,7 @@ class ImageEdit(ImageLabel):
             url = mime.urls()[0]
             self.loadFromFile(url.toLocalFile())
         elif mime.hasImage():
-            self._setImage(mime.imageData())
-            self.changed = True
+            self._setNewImage(mime.imageData())
         elif mime.hasText():
             # Load image by URL
             self.loadFromUrl(mime.text())
@@ -179,8 +178,7 @@ class ImageEdit(ImageLabel):
         image = QtGui.QImage()
         result = image.load(fileName)
         if result:
-            self._setImage(image)
-            self.changed = True
+            self._setNewImage(image)
 
         return result
     
@@ -192,9 +190,10 @@ class ImageEdit(ImageLabel):
             # Wikipedia require any header 
             req = urllib.request.Request(url, headers={'User-Agent' : "OpenNumismat"})
             data = urllib.request.urlopen(req).read()
-            result = self.loadFromData(data)
+            image = QtGui.QImage()
+            result = image.loadFromData(data)
             if result:
-                self.changed = True
+                self._setNewImage(image)
         except:
             pass
         
@@ -204,6 +203,17 @@ class ImageEdit(ImageLabel):
         if self.changed:
             return self.image
         return self._data
+    
+    def _setNewImage(self, image):
+        # Fill transparent color if present
+        fixedImage = QtGui.QImage(image.size(), QtGui.QImage.Format_RGB32)
+        fixedImage.fill(QtGui.QColor(Qt.white).rgb())
+        painter = QtGui.QPainter(fixedImage)
+        painter.drawImage(0, 0, image)
+        painter.end()
+        
+        self._setImage(fixedImage)
+        self.changed = True
 
 class EdgeImageEdit(ImageEdit):
     def __init__(self, parent=None):
