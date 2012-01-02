@@ -38,6 +38,13 @@ class TreeParam(QtCore.QObject):
         
         return names
     
+    def fieldNames(self, index):
+        if index >= len(self._params):
+            return None
+        
+        names = [field.name for field in self._params[index]]
+        return names
+    
     def _load(self):
         self.clear()
         count = 0

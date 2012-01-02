@@ -99,6 +99,7 @@ from PyQt4 import QtSql
 class TreeView(QtGui.QTreeWidget):
     FiltersRole = Qt.UserRole
     FieldsRole = FiltersRole+1
+    ParamRole = FieldsRole+1
     
     def __init__(self, treeParam, parent=None):
         super(TreeView, self).__init__(parent)
@@ -110,8 +111,8 @@ class TreeView(QtGui.QTreeWidget):
         self.customContextMenuRequested.connect(self.contextMenuEvent)
 
         self.currentItemChanged.connect(self.itemActivatedEvent)
-        self.expanded.connect(self.expandedEvent)
-        self.collapsed.connect(self.expandedEvent)
+        self.itemExpanded.connect(self.expandedEvent)
+        self.collapsed.connect(self.collapsedEvent)
         
         self.treeParam = treeParam
     
@@ -122,90 +123,68 @@ class TreeView(QtGui.QTreeWidget):
         
         self.treeParam.rootTitle = model.title
         rootItem = QtGui.QTreeWidgetItem(self, [model.title,])
+        rootItem.setData(0, self.ParamRole, 0)
         rootItem.setData(0, self.FiltersRole, '')
         
-        self.updateTree()
-        
         self.addTopLevelItem(rootItem)
-        self.expandItem(rootItem)
     
-    def __updateTreeItem(self, treeParam, parent=None):
-        if not parent:
-            parent = self.topLevelItem(0)
-            parent.takeChildren()
+    def expandedEvent(self, item):
+        for i in range(item.childCount()):
+            child = item.child(i)
+            if child.childCount() == 0:
+                paramIndex = child.data(0, self.ParamRole) + 1
+                filters = child.data(0, self.FiltersRole)
+                self.__updateChilds(child, paramIndex, filters)
         
-        if treeParam:
-            param = treeParam[0]
-            fieldNames = [field.name for field in param]
-            for item in self.processChilds(parent, fieldNames):
-                self.__updateTreeItem(treeParam[1:], item)
+        self.resizeColumnToContents(0)
+    
+    def collapsedEvent(self, parentItem):
+        self.resizeColumnToContents(0)
+    
+    def __updateChilds(self, item, paramIndex=0, filters=''):
+        fields = self.treeParam.fieldNames(paramIndex)
+        if not fields:
+            return
+        
+        sql = "SELECT DISTINCT %s FROM coins" % ','.join(fields)
+        if filters:
+            sql = sql + " WHERE " + filters
+        query = QtSql.QSqlQuery(sql, self.db)
+        while query.next():
+            record = query.record()
+            data = []
+            filterSql = []
+            for i in range(record.count()):
+                if record.isNull(i):
+                    continue
+                
+                text = str(record.value(i))
+                if text:
+                    data.append(text)
+                    filterSql.append("%s='%s'" % (fields[i], text.replace("'", "''")))
+            
+            if data:
+                text = ' '.join(data)
+                newFilters = ' AND '.join(filterSql)
+                if filters:
+                    newFilters = filters + ' AND ' + newFilters
+                
+                child = QtGui.QTreeWidgetItem([text,])
+                child.setData(0, self.ParamRole, paramIndex)
+                child.setData(0, self.FiltersRole, newFilters)
+                child.setData(0, self.FieldsRole, fields)
+                item.addChild(child)
+        
+        # Recursion for next field if noting selected
+        if item.childCount() == 0:
+            self.__updateChilds(item, paramIndex+1, filters)
     
     def updateTree(self):
-        self.__updateTreeItem(self.treeParam.params())
-    
-    def processChilds(self, parentItem, fields):
-        items = self.updateChilds(parentItem, fields, parentItem.data(0, self.FiltersRole))
-        if not items:
-            items = [parentItem,]
-        return items
-    
-    def updateChilds(self, parentItem, fields, filters=''):
-        if not isinstance(fields, list):
-            fields = [fields,]
-        filterSql = []
-        for field in fields:
-            filterSql.append("%s<>'' AND %s IS NOT NULL" % (field, field))
-        filtersSql = " AND ".join(filterSql)
-        if filters:
-            filtersSql = filtersSql + " AND " + filters
-        sql = "SELECT DISTINCT %s FROM coins WHERE %s" % (','.join(fields), filtersSql)
-        query = QtSql.QSqlQuery(sql, self.db)
-        
-        childs = {}
-        for i in range(parentItem.childCount()):
-            item = parentItem.child(i)
-            childs[item.text(0)] = item
-        
-        texts = []
-        while query.next():
-            label = []
-            for i in range(len(fields)):
-                label.append(str(query.record().value(i)))
-            text = ' '.join(label)
-            
-            filterSql = []
-            for i, field in enumerate(fields):
-                filterSql.append("%s='%s'"%(field, label[i]))
-            newFilters = " AND ".join(filterSql)
-            if filters:
-                newFilters = filters + " AND " + newFilters
-            
-            texts.append(text)
-            if text in childs.keys():
-                item = childs[text]
-            else:
-                item = QtGui.QTreeWidgetItem([text,])
-                childs[text] = item
-            
-            item.setData(0, self.FiltersRole, newFilters)
-            item.setData(0, self.FieldsRole, fields)
-        
-        if not texts:
-            return None
-        
-        # Remove missed old items
-        for text in list(childs.keys()):
-            if text not in texts:
-                oldItem = childs.pop(text)
-                parentItem.removeChild(oldItem)
-        
-        # Sort items as SQL query return it
-        items = []
-        for text in texts:
-            items.append(childs[text])
-        
-        parentItem.addChildren(items)
-        return items
+        self.collapseAll()
+        rootItem = self.topLevelItem(0)
+        rootItem.takeChildren()
+        self.__updateChilds(rootItem)
+        self.expandItem(rootItem)
     
     def rowChangedEvent(self, current):
         if current.isValid():
@@ -255,9 +234,6 @@ class TreeView(QtGui.QTreeWidget):
         self.model.setAdditionalFilter(filter_)
         self.model.modelChanged.connect(self.updateTree)
 
-    def expandedEvent(self, index):
-        self.resizeColumnToContents(0)
-    
     def contextMenuEvent(self, pos):
         menu = QtGui.QMenu(self)
         act = menu.addAction(self.tr("Add new coin..."), self._addCoin)
