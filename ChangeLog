@@ -1,13 +1,26 @@
 ChangeLog
 ---------
+1.1 - 2012-01-03 (beta):
+	* Implemented importing from Numizmat 2.1, Cabinet 2.0.2.0,
+	  CoinsCollector 2.6 and CoinManage 2011
+	* Added customization dialog for left-side tree view
+	* Fixed copying filters when cloning a list
+	* Translated Status field values in the list
+	* Fixed multiple image updating when coin details is updated
+	* Numeric fields now use thousand delimeters
+	* Added dialog for editing all references
+	* Transparent background of coin images now is replaced to white
+	* Other minor improvements
+	* Added custom application icon
+
 1.0 - 2011-11-30 (beta):
-Minor improvements
-Updated demo collections
-Updated DB structure
-Fixed bugs
-Fixed license (GPLv3)
-Updated PyQt to 4.8.6
-Fixed translations
+	* Minor improvements
+	* Updated demo collections
+	* Updated DB structure
+	* Fixed bugs
+	* Fixed license (GPLv3)
+	* Updated PyQt to 4.8.6
+	* Fixed translations
 
 0.9 - 2011-10-31 (alpha):
-Initial release
+	* Initial release
