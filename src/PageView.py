@@ -95,6 +95,7 @@ class ImageView(QtGui.QWidget):
         return widget
 
 from PyQt4 import QtSql
+from Collection.CollectionFields import Statuses
 
 class TreeView(QtGui.QTreeWidget):
     FiltersRole = Qt.UserRole
@@ -160,7 +161,10 @@ class TreeView(QtGui.QTreeWidget):
                 
                 text = str(record.value(i))
                 if text:
-                    data.append(text)
+                    if fields[i] == 'status':
+                        data.append(Statuses[text])
+                    else:
+                        data.append(text)
                     filterSql.append("%s='%s'" % (fields[i], text.replace("'", "''")))
             
             if data:

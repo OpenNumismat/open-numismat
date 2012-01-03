@@ -146,7 +146,8 @@ class CustomizeTreeDialog(QtGui.QDialog):
         self.treeWidget.expandAll()
         
         for field in allFields.userFields:
-            if field.type in [Type.String, Type.Money, Type.Number, Type.ShortString]:
+            if field.type in [Type.String, Type.Money, Type.Number,
+                              Type.ShortString, Type.Status]:
                 if field.name not in self.treeParam.usedFieldNames():
                     item = QtGui.QListWidgetItem(field.title)
                     item.setData(Qt.UserRole, [field,])
