@@ -30,47 +30,47 @@
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="279"/>
+        <location filename="Collection.py" line="280"/>
         <source>Open collection</source>
         <translation>Открыть коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="299"/>
+        <location filename="Collection.py" line="300"/>
         <source>Can&apos;t open collection</source>
         <translation>Невозможно открыть коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="279"/>
+        <location filename="Collection.py" line="280"/>
         <source>Collection not exists</source>
         <translation>Коллекция не создана</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="299"/>
+        <location filename="Collection.py" line="300"/>
         <source>Create collection</source>
         <translation>Создать коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="293"/>
+        <location filename="Collection.py" line="294"/>
         <source>Specified file already exists</source>
         <translation>Указанный файл уже существует</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="377"/>
+        <location filename="Collection.py" line="378"/>
         <source>Updating reference</source>
         <translation>Обновление справочника</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="377"/>
+        <location filename="Collection.py" line="378"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="410"/>
+        <location filename="Collection.py" line="411"/>
         <source>Fill from collection</source>
         <translation>Заполнить из коллекции</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="413"/>
+        <location filename="Collection.py" line="414"/>
         <source>Edit...</source>
         <translation>Редактировать...</translation>
     </message>
@@ -1007,7 +1007,7 @@ Do you want to send an error message to the author
         <translation>Сохранить файл</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="175"/>
+        <location filename="ImageLabel.py" line="174"/>
         <source>No image available
 (right-click to add an image)</source>
         <translation>Нет изображений
@@ -1356,7 +1356,7 @@ Copyright (C) 2011 Игнатов Виталий
 Copyright (C) 2011 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
-        <translation>%s %s
+        <translation type="obsolete">%s %s
 
 Copyright (C) 2011 Игнатов Виталий
 
@@ -1436,6 +1436,19 @@ Copyright (C) 2011 Игнатов Виталий
         <location filename="MainWindow.py" line="193"/>
         <source>Import pre-defined coins?</source>
         <translation>Импортировать предустановленные монеты?</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="280"/>
+        <source>%s %s
+
+Copyright (C) 2011-2012 Vitaly Ignatov
+
+%s is freeware licensed under a GPLv3.</source>
+        <translation type="unfinished">%s %s
+
+Copyright (C) 2011-2012 Игнатов Виталий
+
+%s свободное приложение лицензированное под GPLv3.</translation>
     </message>
 </context>
 <context>
@@ -1825,17 +1838,17 @@ Copyright (C) 2011 Игнатов Виталий
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="263"/>
+        <location filename="PageView.py" line="243"/>
         <source>Add new coin...</source>
         <translation>Добавить новую монету...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="266"/>
+        <location filename="PageView.py" line="246"/>
         <source>Edit coins...</source>
         <translation>Редактировать монеты...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="270"/>
+        <location filename="PageView.py" line="250"/>
         <source>Customize tree...</source>
         <translation>Настроить дерево...</translation>
     </message>
