@@ -20,7 +20,7 @@ class SelectColumnsDialog(QtGui.QDialog):
         self.listWidget.setWrapping(True)
         
         allFields = listParam.fields
-        collectionFields = allFields.userFields
+        collectionFields = list(allFields.userFields)
         for param in listParam.columns:
             field = allFields.field(param.fieldid)
             if field in allFields.disabledFields:
