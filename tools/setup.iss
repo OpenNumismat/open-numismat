@@ -13,23 +13,29 @@ AppCopyright=Copyright 2011-2012 by Vitaly Ignatov
 [Languages]
 Name: en; MessagesFile: "compiler:Default.isl"; InfoBeforeFile: license_en.txt
 Name: ru; MessagesFile: "compiler:Languages\Russian.isl"; InfoBeforeFile: license_ru.txt
+Name: es; MessagesFile: "compiler:Languages\Spanish.isl"; InfoBeforeFile: license_en.txt
 
 [Messages]
 en.BeveledLabel=English
 ru.BeveledLabel=Russian
+es.BeveledLabel=Spanish
 
 [CustomMessages]
 en.sendReport=Send a reports to author's web-site if any error occured
 ru.sendReport=Посылать отчет разработчику при возникновении ошибки
+es.sendReport=Enviar un informe al autor del sitio web si cualquier error
 
 [Files]
 Source: "dist\*"; DestDir: "{app}"; Flags: recursesubdirs
 Source: "..\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: en; Flags: confirmoverwrite
 Source: "..\db\demo_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: ru; Flags: confirmoverwrite
+Source: "..\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: es; Flags: confirmoverwrite
 Source: "reference_en.ref"; DestDir: "{app}"
 Source: "reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en
 Source: "reference_ru.ref"; DestDir: "{app}"
 Source: "reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru
+Source: "reference_es.ref"; DestDir: "{app}"
+Source: "reference_es.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: es
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat\backup"
