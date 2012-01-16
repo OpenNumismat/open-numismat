@@ -53,7 +53,7 @@ class Settings(QtCore.QObject):
         return error == 'true'
 
 class MainSettingsPage(QtGui.QWidget):
-    Languages = [("English", 'en_GB'), ("Русский", 'ru_RU')]
+    Languages = [("English", 'en'), ("Русский", 'ru'), ("Español", 'es')]
     
     def __init__(self, collection, parent=None):
         super(MainSettingsPage, self).__init__(parent)

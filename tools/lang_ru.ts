@@ -30,47 +30,47 @@
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="280"/>
+        <location filename="Collection.py" line="281"/>
         <source>Open collection</source>
         <translation>Открыть коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="300"/>
+        <location filename="Collection.py" line="301"/>
         <source>Can&apos;t open collection</source>
         <translation>Невозможно открыть коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="280"/>
+        <location filename="Collection.py" line="281"/>
         <source>Collection not exists</source>
         <translation>Коллекция не создана</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="300"/>
+        <location filename="Collection.py" line="301"/>
         <source>Create collection</source>
         <translation>Создать коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="294"/>
+        <location filename="Collection.py" line="295"/>
         <source>Specified file already exists</source>
         <translation>Указанный файл уже существует</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="378"/>
+        <location filename="Collection.py" line="379"/>
         <source>Updating reference</source>
         <translation>Обновление справочника</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="378"/>
+        <location filename="Collection.py" line="379"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="411"/>
+        <location filename="Collection.py" line="412"/>
         <source>Fill from collection</source>
         <translation>Заполнить из коллекции</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="414"/>
+        <location filename="Collection.py" line="415"/>
         <source>Edit...</source>
         <translation>Редактировать...</translation>
     </message>
@@ -1444,7 +1444,7 @@ Copyright (C) 2011 Игнатов Виталий
 Copyright (C) 2011-2012 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished">%s %s
+        <translation>%s %s
 
 Copyright (C) 2011-2012 Игнатов Виталий
 

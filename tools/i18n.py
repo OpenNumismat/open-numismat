@@ -14,9 +14,10 @@ for dirname, dirnames, filenames in os.walk('../src'):
         fileName, fileExtension = os.path.splitext(filename)
         if fileExtension == '.py':
             srcFiles.append(os.path.join(dirname, filename))
-    
-outputfile = 'lang_ru.ts'
-os.system(' '.join([lupdatePath, ' '.join(srcFiles), '-ts', outputfile]))
-os.system(' '.join([linguistPath, outputfile]))
-dstfile = 'lang_ru.qm'
-os.system(' '.join([lreleasePath, outputfile, '-qm', dstfile]))
+
+for locale in ('ru', 'es'):
+    outputfile = 'lang_%s.ts' % locale
+    os.system(' '.join([lupdatePath, ' '.join(srcFiles), '-ts', outputfile]))
+    os.system(' '.join([linguistPath, outputfile]))
+    dstfile = 'lang_%s.qm' % locale
+    os.system(' '.join([lreleasePath, outputfile, '-qm', dstfile]))
