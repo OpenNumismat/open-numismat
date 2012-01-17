@@ -29,7 +29,6 @@ class _AuctionParser(QtCore.QObject):
         self.readHtmlPage(url, self._encoding())
         
         if len(self.doc) == 0:
-            print(444)
             return
         
         try:

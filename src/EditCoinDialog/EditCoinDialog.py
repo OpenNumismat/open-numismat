@@ -42,11 +42,9 @@ class EditCoinDialog(QtGui.QDialog):
                     return
                 parser = getParser(mime.text(), self)
                 if not parser:
-                    print(111)
                     return
                 lot = parser.parse(mime.text())
                 if not lot:
-                    print(222)
                     return
                 for key in ['payprice', 'obverseimg', 'reverseimg', 'edgeimg',
                             'photo1', 'photo2', 'photo3', 'photo4']:
