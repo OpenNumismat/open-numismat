@@ -1,41 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import urllib.request, urllib.error, urllib.parse
-try:
-    import lxml.html
-except ImportError:
-    print('lxml module missed. Auction parsing not available')
+import urllib.parse
 
 from PyQt4 import QtGui, QtCore
 
-class AuctionItem:
-    def __init__(self, place):
-        self.place = place
-        self.saller = ''
-        self.info = ''
-        self.grade = ''
+from EditCoinDialog.Auctions import _AuctionParser, AuctionItem, _NotDoneYetError, _CanceledError
 
-class AuctionParser(QtCore.QObject):
-    def __init__(self, parent=None):
-        super(AuctionParser, self).__init__(parent)
-        
-        self.html = ''
-    
-    def readHtmlPage(self, url, encoding='utf-8'):
-        # TODO: Remove debug output
-        print(url)
-        try:
-            data = urllib.request.urlopen(url).read()
-
-            self.doc = str(data, encoding)
-            self.html = lxml.html.fromstring(self.doc)
-            self.url = url
-        except (ValueError, urllib.error.URLError):
-            return False
-        
-        return True
-
-class MolotokParser(AuctionParser):
+class MolotokParser(_AuctionParser):
     HostName = 'molotok.ru'
     
     @staticmethod
@@ -44,23 +15,12 @@ class MolotokParser(AuctionParser):
     
     def __init__(self, url, parent=None):
         super(MolotokParser, self).__init__(parent)
-        
-        self.readHtmlPage(url)
     
-    def parse(self):
-        if len(self.doc) == 0:
-            return
-        
+    def _parse(self):
         if self.html.get_element_by_id('itemBidInfo').cssselect('form.siBidFormOnce'):
-            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
-                        self.tr("Auction not done yet"),
-                        QtGui.QMessageBox.Ok)
-            return
+            raise _NotDoneYetError()
         if not self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('span a'):
-            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
-                        self.tr("Auction canceled"),
-                        QtGui.QMessageBox.Ok)
-            return
+            raise _CanceledError()
         
         auctionItem = AuctionItem('Молоток.Ру')
         
@@ -133,27 +93,22 @@ class MolotokParser(AuctionParser):
         
         return str(price - commission)
 
-class AuctionSpbParser(AuctionParser):
-    HostName = 'www.auction.spb.ru'
+class AuctionSpbParser(_AuctionParser):
+    HostNames = ('www.auction.spb.ru', 'auction.spb.ru')
     
     @staticmethod
     def verifyDomain(url):
-        return (urllib.parse.urlparse(url).hostname == AuctionSpbParser.HostName)
+        return (urllib.parse.urlparse(url).hostname in AuctionSpbParser.HostNames)
     
     def __init__(self, url, parent=None):
         super(AuctionSpbParser, self).__init__(parent)
         
-        self.readHtmlPage(url, 'windows-1251')
+    def _encoding(self):
+        return 'windows-1251'
     
-    def parse(self):
-        if len(self.doc) == 0:
-            return
-        
+    def _parse(self):
         if self.html.cssselect('table tr')[4].cssselect('table td')[0].text_content().find("Торги по лоту завершились") < 0:
-            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
-                        self.tr("Auction not done yet"),
-                        QtGui.QMessageBox.Ok)
-            return
+            raise _NotDoneYetError()
         
         auctionItem = AuctionItem('АукционЪ.СПб')
         
@@ -240,27 +195,22 @@ class AuctionSpbParser(AuctionParser):
             
         return grade
 
-class ConrosParser(AuctionParser):
+class ConrosParser(_AuctionParser):
     HostName = 'auction.conros.ru'
     
     @staticmethod
     def verifyDomain(url):
         return (urllib.parse.urlparse(url).hostname == ConrosParser.HostName)
     
-    def __init__(self, url, parent=None):
+    def __init__(self, parent=None):
         super(ConrosParser, self).__init__(parent)
         
-        self.readHtmlPage(url, 'windows-1251')
+    def _encoding(self):
+        return 'windows-1251'
     
-    def parse(self):
-        if len(self.doc) == 0:
-            return
-        
+    def _parse(self):
         if self.html.cssselect('form center')[1].text_content().find("Торги по этому лоту завершены") < 0:
-            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
-                        self.tr("Auction not done yet"),
-                        QtGui.QMessageBox.Ok)
-            return
+            raise _NotDoneYetError()
         
         auctionItem = AuctionItem('Конрос')
         
@@ -332,27 +282,22 @@ class ConrosParser(AuctionParser):
             
         return grade
 
-class WolmarParser(AuctionParser):
+class WolmarParser(_AuctionParser):
     HostName = 'www.wolmar.ru'
     
     @staticmethod
     def verifyDomain(url):
         return (urllib.parse.urlparse(url).hostname == WolmarParser.HostName)
     
-    def __init__(self, url, parent=None):
+    def __init__(self, parent=None):
         super(WolmarParser, self).__init__(parent)
-        
-        self.readHtmlPage(url, 'windows-1251')
     
-    def parse(self):
-        if len(self.doc) == 0:
-            return
-        
+    def _encoding(self):
+        return 'windows-1251'
+    
+    def _parse(self):
         if self.html.find_class('item')[0].text_content().find("Лот закрыт") < 0:
-            QtGui.QMessageBox.warning(self.parent(), self.tr("Parse auction lot"),
-                        self.tr("Auction not done yet"),
-                        QtGui.QMessageBox.Ok)
-            return
+            raise _NotDoneYetError()
         
         auctionItem = AuctionItem('Wolmar')
         
@@ -445,12 +390,3 @@ class WolmarParser(AuctionParser):
             
         return grade
 
-def getParser(url, parent=None):
-    if MolotokParser.verifyDomain(url):
-        return MolotokParser(url, parent)
-    elif AuctionSpbParser.verifyDomain(url):
-        return AuctionSpbParser(url, parent)
-    elif ConrosParser.verifyDomain(url):
-        return ConrosParser(url, parent)
-    elif WolmarParser.verifyDomain(url):
-        return WolmarParser(url, parent)

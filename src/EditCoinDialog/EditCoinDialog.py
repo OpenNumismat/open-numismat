@@ -1,7 +1,7 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 
-from .AuctionParser import getParser
+from .Auctions import getParser
 from .DetailsTabWidget import FormDetailsTabWidget
 
 class EditCoinDialog(QtGui.QDialog):
@@ -42,9 +42,11 @@ class EditCoinDialog(QtGui.QDialog):
                     return
                 parser = getParser(mime.text(), self)
                 if not parser:
+                    print(111)
                     return
-                lot = parser.parse()
+                lot = parser.parse(mime.text())
                 if not lot:
+                    print(222)
                     return
                 for key in ['payprice', 'obverseimg', 'reverseimg', 'edgeimg',
                             'photo1', 'photo2', 'photo3', 'photo4']:
