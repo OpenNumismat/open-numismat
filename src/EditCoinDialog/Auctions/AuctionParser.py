@@ -4,7 +4,8 @@ import urllib.parse
 
 from PyQt4 import QtGui, QtCore
 
-from EditCoinDialog.Auctions import _AuctionParser, AuctionItem, _NotDoneYetError, _CanceledError
+from EditCoinDialog.Auctions import AuctionItem, _AuctionParser, _NotDoneYetError, _CanceledError
+from Tools.Converters import stringToMoney
 
 class MolotokParser(_AuctionParser):
     HostName = 'molotok.ru'
@@ -54,28 +55,14 @@ class MolotokParser(_AuctionParser):
         auctionItem.images = images.split(',')
 
         content = self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('p strong')[1].text_content()
-        auctionItem.price = self.contentToPrice(content)
+        auctionItem.price = stringToMoney(content)
 
         content = self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('shipmentShowHide')[0].cssselect('strong')[0].text_content()
-        auctionItem.totalPayPrice = self.contentToPrice(content)
+        auctionItem.totalPayPrice = stringToMoney(content)
         
         auctionItem.totalSalePrice = self.totalSalePrice(auctionItem)
     
         return auctionItem
-    
-    def contentToPrice(self, content):
-        price = ''
-        for c in content:
-            if c in '0123456789':
-                price = price + c
-            elif c in '.,':
-                price = price + '.'
-            elif c in ' \t\n\r':
-                continue
-            else:
-                break
-
-        return float(price)
     
     def totalSalePrice(self, lot):
         price = float(lot.price)
@@ -125,7 +112,7 @@ class AuctionSpbParser(_AuctionParser):
         content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('strong')[1].text_content()
         grade = content.split()[1]
         grade = grade.replace('.', '')  # remove end dot
-        auctionItem.grade = self.contentToGrade(grade)
+        auctionItem.grade = _stringToGrade(grade)
 
         auctionItem.info = self.url
         
@@ -135,7 +122,7 @@ class AuctionSpbParser(_AuctionParser):
                                 QtGui.QMessageBox.Ok)
 
         content = self.html.cssselect('table tr')[4].cssselect('table td')[0].cssselect('strong')[2].text_content()
-        auctionItem.price = self.contentToPrice(content)
+        auctionItem.price = stringToMoney(content)
 
         price = float(auctionItem.price)
         auctionItem.totalPayPrice = str(price + price*10/100)
@@ -155,23 +142,6 @@ class AuctionSpbParser(_AuctionParser):
 
         return auctionItem
     
-    def contentToPrice(self, content):
-        valueBegan = False
-        price = ''
-        for c in content:
-            if c in '0123456789':
-                price = price + c
-                valueBegan = True
-            elif c in '.,':
-                price = price + '.'
-            elif c in ' \t\n\r':
-                continue
-            else:
-                if valueBegan:
-                    break
-
-        return float(price)
-
     def totalSalePrice(self, lot):
         price = float(lot.price)
         commission = price*15/100
@@ -183,17 +153,6 @@ class AuctionSpbParser(_AuctionParser):
             totalPrice = 0
         
         return str(totalPrice)
-
-    def contentToGrade(self, content):
-        # Parse VF-XF and XF/AU
-        grade = ''
-        for c in content:
-            if c in '-+/':
-                break
-            else:
-                grade = grade + c
-            
-        return grade
 
 class ConrosParser(_AuctionParser):
     HostName = 'auction.conros.ru'
@@ -224,7 +183,7 @@ class ConrosParser(_AuctionParser):
 
         content = self.html.cssselect('form table tr')[1].cssselect('table tr')[2].text_content()
         grade = content.split()[1]
-        auctionItem.grade = self.contentToGrade(grade)
+        auctionItem.grade = _stringToGrade(grade)
 
         index = content.find("Особенности")
         auctionItem.info = '\n'.join([content[:index], content[index:], self.url])
@@ -238,7 +197,7 @@ class ConrosParser(_AuctionParser):
 
         content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
         content = content.split('\n')[0]
-        auctionItem.price = self.contentToPrice(content)
+        auctionItem.price = stringToMoney(content)
 
         price = float(auctionItem.price)
         auctionItem.totalPayPrice = str(price + price*10/100)
@@ -253,34 +212,6 @@ class ConrosParser(_AuctionParser):
             auctionItem.images.append(href)
 
         return auctionItem
-    
-    def contentToPrice(self, content):
-        valueBegan = False
-        price = ''
-        for c in content:
-            if c in '0123456789':
-                price = price + c
-                valueBegan = True
-            elif c in '.,':
-                price = price + '.'
-            elif c in ' \t\n\r':
-                continue
-            else:
-                if valueBegan:
-                    break
-
-        return float(price)
-    
-    def contentToGrade(self, content):
-        # Parse VF-XF and XF/AU
-        grade = ''
-        for c in content:
-            if c in '-+/':
-                break
-            else:
-                grade = grade + c
-            
-        return grade
 
 class WolmarParser(_AuctionParser):
     HostName = 'www.wolmar.ru'
@@ -311,7 +242,7 @@ class WolmarParser(_AuctionParser):
         bIndex = content.find("Состояние")
         bIndex = content[bIndex:].find(":")+bIndex
         grade = content[bIndex+1:].strip()
-        auctionItem.grade = self.contentToGrade(grade)
+        auctionItem.grade = _stringToGrade(grade)
 
         auctionItem.info = self.url
         
@@ -330,7 +261,7 @@ class WolmarParser(_AuctionParser):
         bIndex = content[bIndex:].find(":")+bIndex
         eIndex = content[bIndex:].find("Лидер")+bIndex
         content = content[bIndex+1:eIndex].strip()
-        auctionItem.price = self.contentToPrice(content)
+        auctionItem.price = stringToMoney(content)
 
         price = float(auctionItem.price)
         auctionItem.totalPayPrice = str(price + price*10/100)
@@ -361,32 +292,14 @@ class WolmarParser(_AuctionParser):
         auctionItem.date = QtCore.QDate.fromString(date, 'dd.MM.yyyy').toString(QtCore.Qt.ISODate)
         
         return auctionItem
-    
-    def contentToPrice(self, content):
-        valueBegan = False
-        price = ''
-        for c in content:
-            if c in '0123456789':
-                price = price + c
-                valueBegan = True
-            elif c in '.,':
-                price = price + '.'
-            elif c in ' \t\n\r':
-                continue
-            else:
-                if valueBegan:
-                    break
 
-        return float(price)
-    
-    def contentToGrade(self, content):
-        # Parse VF-XF and XF/AU
-        grade = ''
-        for c in content:
-            if c in '-+/':
-                break
-            else:
-                grade = grade + c
-            
-        return grade
-
+def _stringToGrade(string):
+    # Parse VF-XF and XF/AU
+    grade = ''
+    for c in string:
+        if c in '-+/':
+            break
+        else:
+            grade = grade + c
+        
+    return grade

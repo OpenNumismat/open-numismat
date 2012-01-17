@@ -11,6 +11,7 @@ except ImportError:
 from PyQt4 import QtCore, QtGui
 
 from Collection.Import import _Import
+from Tools.Converters import stringToMoney
 
 class Reference(dict):
     def __init__(self, fileName=''):
@@ -210,8 +211,7 @@ class ImportCoinsCollector(_Import):
                     value = QtCore.QDate.fromString(rawData, 'yyyyMMdd')
                 elif srcColumn in ['COST', 'SELLPRISE']:
                     try:
-                        # TODO: Use converter from auction parser
-                        value = float(rawData)
+                        value = stringToMoney(rawData)
                     except ValueError:
                         value = None
                 else:
