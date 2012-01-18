@@ -18,21 +18,25 @@ class MolotokParser(_AuctionParser):
         super(MolotokParser, self).__init__(parent)
     
     def _parse(self):
-        if self.html.get_element_by_id('itemBidInfo').cssselect('form.siBidFormOnce'):
+        try:
+            self.html.get_element_by_id('siBidForm2')
             raise _NotDoneYetError()
-        if not self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('span a'):
-            raise _CanceledError()
+        except KeyError:
+            pass
+        # TODO: Update for new Molotok design
+#        if not self.html.get_element_by_id('siBidForm2').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('span a'):
+#            raise _CanceledError()
         
         auctionItem = AuctionItem('Молоток.Ру')
         
-        content = self.html.get_element_by_id('itemBidInfo').find_class('sellerItemPadding')[0].text_content()
+        content = self.html.get_element_by_id('siWrapper').find_class('timeInfo')[0].text_content()
         parts = content.split()
-        date = ' '.join(parts[1:4]) # convert '(Чтв 15 Сен 2011 22:33:47)' to '15 Сен 2011'
-        auctionItem.date = QtCore.QDate.fromString(date, 'dd MMM yyyy').toString(QtCore.Qt.ISODate)
+        date = ' '.join(parts[3:4]) # convert 'завершен ( 7 Январь, 20:45:00)' to '7 Январь'
+        auctionItem.date = QtCore.QDate.fromString(date, 'dd MMMM').toString(QtCore.Qt.ISODate)
         
-        saller = self.html.get_element_by_id('itemBidInfo').find_class('sellerInfo')[0].text_content()
-        auctionItem.saller = saller.strip()
-        buyer = self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('span a')[0].text_content()
+        saller = self.html.find_class('sellerDetails')[0].cssselect('dl dt')[0].text_content()
+        auctionItem.saller = saller.split()[0].strip()
+        buyer = self.html.get_element_by_id('siWrapper').find_class('buyerInfo')[0].cssselect('strong')[1].text_content()
         auctionItem.buyer = buyer.strip()
 
         # Remove STYLE element
@@ -46,7 +50,7 @@ class MolotokParser(_AuctionParser):
                                 self.tr("Only 1 bid"),
                                 QtGui.QMessageBox.Ok)
 
-        index = self.doc.find("$j('#galleryWrap').newGallery")
+        index = self.doc.find("$j('.galleryWrap').newGallery")
         bIndex = self.doc[index:].find("large:")+index
         bIndex = self.doc[bIndex:].find("[")+bIndex
         eIndex = self.doc[bIndex:].find("]")+bIndex
@@ -54,11 +58,12 @@ class MolotokParser(_AuctionParser):
         images = images.replace('"', '')
         auctionItem.images = images.split(',')
 
-        content = self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('p strong')[1].text_content()
+        content = self.html.get_element_by_id('itemFinishBox2').cssselect('strong')[0].text_content()
         auctionItem.price = stringToMoney(content)
 
-        content = self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('shipmentShowHide')[0].cssselect('strong')[0].text_content()
-        auctionItem.totalPayPrice = stringToMoney(content)
+        # TODO: Add processing for shipment
+#        content = self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('shipmentShowHide')[0].cssselect('strong')[0].text_content()
+        auctionItem.totalPayPrice = auctionItem.price
         
         auctionItem.totalSalePrice = self.totalSalePrice(auctionItem)
     
