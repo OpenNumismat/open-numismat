@@ -6,6 +6,8 @@ try:
 except ImportError:
     print('lxml module missed. Auction parsing not available')
 
+from Tools.CursorDecorators import waitCursorDecorator
+
 class _NotDoneYetError(Exception):
     pass
 
@@ -25,6 +27,7 @@ class _AuctionParser(QtCore.QObject):
         
         self.html = ''
     
+    @waitCursorDecorator
     def parse(self, url):
         self.readHtmlPage(url, self._encoding())
         
