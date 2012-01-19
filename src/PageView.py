@@ -257,8 +257,10 @@ class TreeView(QtGui.QTreeWidget):
             self.updateTree()
     
     def _addCoin(self):
+        self.model.modelChanged.disconnect(self.updateTree)
         storedFilter = self.model.intFilter
         self.model.setFilter('')
+        self.model.modelChanged.connect(self.updateTree)
 
         newRecord = self.model.record()
         # Fill new record with values of first record
@@ -276,8 +278,10 @@ class TreeView(QtGui.QTreeWidget):
         self.model.setFilter(storedFilter)
 
     def _multiEdit(self):
+        self.model.modelChanged.disconnect(self.updateTree)
         storedFilter = self.model.intFilter
         self.model.setFilter('')
+        self.model.modelChanged.connect(self.updateTree)
 
         # Fill multi record for editing
         multiRecord = self.model.record(0)
