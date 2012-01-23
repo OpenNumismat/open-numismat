@@ -3,6 +3,7 @@ import sys
 from PyQt4 import QtGui, QtCore
 
 from Collection.Collection import Collection
+from Collection.Description import DescriptionDialog
 from Reference.Reference import Reference
 from TabView import TabView
 from Settings import Settings, SettingsDialog
@@ -52,6 +53,9 @@ class MainWindow(QtGui.QMainWindow):
         backupCollectionAct = QtGui.QAction(QtGui.QIcon('icons/database_backup.png'), self.tr("Backup"), self)
         backupCollectionAct.triggered.connect(self.backupCollectionEvent)
 
+        descriptionCollectionAct = QtGui.QAction(self.tr("Description"), self)
+        descriptionCollectionAct.triggered.connect(self.descriptionCollectionEvent)
+
         importNumizmatAct = QtGui.QAction(QtGui.QIcon('icons/numizmat.ico'), self.tr("Numizmat 2.1"), self)
         importNumizmatAct.triggered.connect(self.importNumizmat)
         importCabinetAct = QtGui.QAction(QtGui.QIcon('icons/cabinet.ico'), self.tr("Cabinet 2.0.2.0, 2011"), self)
@@ -71,6 +75,7 @@ class MainWindow(QtGui.QMainWindow):
         collectionMenu.addAction(newCollectionAct)
         collectionMenu.addAction(openCollectionAct)
         collectionMenu.addAction(backupCollectionAct)
+        collectionMenu.addAction(descriptionCollectionAct)
         collectionMenu.addSeparator()
         collectionMenu.addMenu(importMenu)
         collectionMenu.addSeparator()
@@ -226,6 +231,10 @@ class MainWindow(QtGui.QMainWindow):
         if fileName:
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
+    
+    def descriptionCollectionEvent(self, checked):
+        dialog = DescriptionDialog(self.collection)
+        dialog.exec_()
     
     @waitCursorDecorator
     def backupCollectionEvent(self, checked):
