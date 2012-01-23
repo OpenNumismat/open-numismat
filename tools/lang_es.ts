@@ -12,17 +12,17 @@
 <context>
     <name>AuctionSpbParser</name>
     <message>
-        <location filename="AuctionParser.py" line="178"/>
+        <location filename="AuctionParser.py" line="125"/>
         <source>Parse auction lot</source>
         <translation>Analizar subasta de lote</translation>
     </message>
     <message>
         <location filename="AuctionParser.py" line="153"/>
         <source>Auction not done yet</source>
-        <translation>Subasta sin realizar</translation>
+        <translation type="obsolete">Subasta sin realizar</translation>
     </message>
     <message>
-        <location filename="AuctionParser.py" line="178"/>
+        <location filename="AuctionParser.py" line="125"/>
         <source>Only 1 bid</source>
         <translation>Sólo 1 oferta</translation>
     </message>
@@ -30,47 +30,47 @@
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="281"/>
+        <location filename="Collection.py" line="280"/>
         <source>Open collection</source>
         <translation>Abrir colección</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="301"/>
+        <location filename="Collection.py" line="300"/>
         <source>Can&apos;t open collection</source>
         <translation>No se puede abrir la colección</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="281"/>
+        <location filename="Collection.py" line="280"/>
         <source>Collection not exists</source>
         <translation>La colección no existe</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="301"/>
+        <location filename="Collection.py" line="300"/>
         <source>Create collection</source>
         <translation>Crear colección</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="295"/>
+        <location filename="Collection.py" line="294"/>
         <source>Specified file already exists</source>
         <translation>Archivo especificado ya existe</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="379"/>
+        <location filename="Collection.py" line="378"/>
         <source>Updating reference</source>
         <translation>Actualizando refencia</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="379"/>
+        <location filename="Collection.py" line="378"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="412"/>
+        <location filename="Collection.py" line="411"/>
         <source>Fill from collection</source>
         <translation>Rellenar desde la colección</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="415"/>
+        <location filename="Collection.py" line="414"/>
         <source>Edit...</source>
         <translation>Editar...</translation>
     </message>
@@ -381,17 +381,17 @@
 <context>
     <name>ConrosParser</name>
     <message>
-        <location filename="AuctionParser.py" line="285"/>
+        <location filename="AuctionParser.py" line="199"/>
         <source>Parse auction lot</source>
         <translation>Analizar subasta de lote</translation>
     </message>
     <message>
         <location filename="AuctionParser.py" line="260"/>
         <source>Auction not done yet</source>
-        <translation>Subasta sin realizar</translation>
+        <translation type="obsolete">Subasta sin realizar</translation>
     </message>
     <message>
-        <location filename="AuctionParser.py" line="285"/>
+        <location filename="AuctionParser.py" line="199"/>
         <source>Only 1 bid</source>
         <translation>Sólo 1 oferta</translation>
     </message>
@@ -402,6 +402,24 @@
         <location filename="CustomizeTreeDialog.py" line="101"/>
         <source>Customize tree</source>
         <translation>Personalizar directorios</translation>
+    </message>
+</context>
+<context>
+    <name>DescriptionDialog</name>
+    <message>
+        <location filename="Description.py" line="66"/>
+        <source>Description</source>
+        <translation>Descripción</translation>
+    </message>
+    <message>
+        <location filename="Description.py" line="64"/>
+        <source>Title</source>
+        <translation>Título</translation>
+    </message>
+    <message>
+        <location filename="Description.py" line="68"/>
+        <source>Author</source>
+        <translation>Autor</translation>
     </message>
 </context>
 <context>
@@ -898,167 +916,167 @@ Desea enviar un mensaje de error al autor
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.py" line="23"/>
+        <location filename="MainWindow.py" line="24"/>
         <source>Settings...</source>
         <translation>Configuración...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="26"/>
+        <location filename="MainWindow.py" line="27"/>
         <source>E&amp;xit</source>
         <translation>S&amp;alir</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="31"/>
+        <location filename="MainWindow.py" line="32"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="36"/>
+        <location filename="MainWindow.py" line="37"/>
         <source>Add</source>
         <translation>Agregar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="40"/>
+        <location filename="MainWindow.py" line="41"/>
         <source>Coin</source>
         <translation>Moneda</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="43"/>
+        <location filename="MainWindow.py" line="44"/>
         <source>&amp;New...</source>
         <translation>&amp;Nuevo...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="48"/>
+        <location filename="MainWindow.py" line="49"/>
         <source>&amp;Open...</source>
         <translation>&amp;Abrir...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="52"/>
+        <location filename="MainWindow.py" line="53"/>
         <source>Backup</source>
         <translation>Respaldo</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="55"/>
+        <location filename="MainWindow.py" line="59"/>
         <source>Numizmat 2.1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="57"/>
+        <location filename="MainWindow.py" line="61"/>
         <source>Cabinet 2.0.2.0, 2011</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="59"/>
+        <location filename="MainWindow.py" line="63"/>
         <source>CoinsCollector 2.6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="61"/>
+        <location filename="MainWindow.py" line="65"/>
         <source>CoinManage 2011</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="64"/>
+        <location filename="MainWindow.py" line="68"/>
         <source>Import</source>
         <translation>Importar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="70"/>
+        <location filename="MainWindow.py" line="74"/>
         <source>Collection</source>
         <translation>Colección</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="84"/>
+        <location filename="MainWindow.py" line="89"/>
         <source>List</source>
         <translation>Lista</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="92"/>
+        <location filename="MainWindow.py" line="97"/>
         <source>Reference</source>
         <translation>Referencia</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="94"/>
+        <location filename="MainWindow.py" line="99"/>
         <source>Online help</source>
         <translation>Ayuda online</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="280"/>
+        <location filename="MainWindow.py" line="289"/>
         <source>About %s</source>
         <translation>Acerca %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="100"/>
+        <location filename="MainWindow.py" line="105"/>
         <source>&amp;Help</source>
         <translation>&amp;Ayuda</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="105"/>
+        <location filename="MainWindow.py" line="110"/>
         <source>Toolbar</source>
         <translation>Toolbar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="159"/>
+        <location filename="MainWindow.py" line="164"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="159"/>
+        <location filename="MainWindow.py" line="164"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>La aplicación necesita reiniciarse para aplicar los cambios, Reiniciar ahora?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="169"/>
+        <location filename="MainWindow.py" line="174"/>
         <source>Select file</source>
         <translation>Seleccionar archivo</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="183"/>
+        <location filename="MainWindow.py" line="188"/>
         <source>Select directory</source>
         <translation>Seleccionar directorio</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="190"/>
+        <location filename="MainWindow.py" line="195"/>
         <source>Open CoinManage file</source>
         <translation>Abrir archivo CoinManage</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="193"/>
+        <location filename="MainWindow.py" line="198"/>
         <source>Importing</source>
         <translation>Importando</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="193"/>
+        <location filename="MainWindow.py" line="198"/>
         <source>Import pre-defined coins?</source>
         <translation>Importar monedas predefinidas?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="216"/>
+        <location filename="MainWindow.py" line="221"/>
         <source>Open collection</source>
         <translation>Abrir colección</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="223"/>
+        <location filename="MainWindow.py" line="228"/>
         <source>Collections (*.db)</source>
         <translation>Colecciones (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="223"/>
+        <location filename="MainWindow.py" line="228"/>
         <source>New collection</source>
         <translation>Nueva colección</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="238"/>
+        <location filename="MainWindow.py" line="247"/>
         <source>Backup collection</source>
         <translation>Respaldar colección</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="238"/>
+        <location filename="MainWindow.py" line="247"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation>No puedo hacer respaldo de la colección en %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="280"/>
+        <location filename="MainWindow.py" line="289"/>
         <source>%s %s
 
 Copyright (C) 2011-2012 Vitaly Ignatov
@@ -1070,26 +1088,31 @@ Copyright (C) 2011-2012 Vitaly Ignatov
 
 %s es freeware licenciado bajo una GPLv3.</translation>
     </message>
+    <message>
+        <location filename="MainWindow.py" line="56"/>
+        <source>Description</source>
+        <translation>Descripción</translation>
+    </message>
 </context>
 <context>
     <name>MolotokParser</name>
     <message>
-        <location filename="AuctionParser.py" line="84"/>
+        <location filename="AuctionParser.py" line="49"/>
         <source>Parse auction lot</source>
         <translation>Analizar subasta de lote</translation>
     </message>
     <message>
         <location filename="AuctionParser.py" line="55"/>
         <source>Auction not done yet</source>
-        <translation>Subasta sin realizar</translation>
+        <translation type="obsolete">Subasta sin realizar</translation>
     </message>
     <message>
         <location filename="AuctionParser.py" line="60"/>
         <source>Auction canceled</source>
-        <translation>Subasta cancelada</translation>
+        <translation type="obsolete">Subasta cancelada</translation>
     </message>
     <message>
-        <location filename="AuctionParser.py" line="84"/>
+        <location filename="AuctionParser.py" line="49"/>
         <source>Only 1 bid</source>
         <translation>Sólo 1 oferta</translation>
     </message>
@@ -1431,19 +1454,37 @@ Copyright (C) 2011-2012 Vitaly Ignatov
 <context>
     <name>WolmarParser</name>
     <message>
-        <location filename="AuctionParser.py" line="379"/>
+        <location filename="AuctionParser.py" line="260"/>
         <source>Parse auction lot</source>
         <translation>Analizar subasta de lote</translation>
     </message>
     <message>
         <location filename="AuctionParser.py" line="352"/>
         <source>Auction not done yet</source>
+        <translation type="obsolete">Subasta sin realizar</translation>
+    </message>
+    <message>
+        <location filename="AuctionParser.py" line="260"/>
+        <source>Only 1 bid</source>
+        <translation>Sólo 1 oferta</translation>
+    </message>
+</context>
+<context>
+    <name>_AuctionParser</name>
+    <message>
+        <location filename="__init__.py" line="44"/>
+        <source>Parse auction lot</source>
+        <translation>Analizar subasta de lote</translation>
+    </message>
+    <message>
+        <location filename="__init__.py" line="40"/>
+        <source>Auction not done yet</source>
         <translation>Subasta sin realizar</translation>
     </message>
     <message>
-        <location filename="AuctionParser.py" line="379"/>
-        <source>Only 1 bid</source>
-        <translation>Sólo 1 oferta</translation>
+        <location filename="__init__.py" line="44"/>
+        <source>Auction canceled</source>
+        <translation>Subasta cancelada</translation>
     </message>
 </context>
 <context>
