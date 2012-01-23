@@ -61,7 +61,8 @@ class MainSettingsPage(QtGui.QWidget):
         settings = Settings()
         self.collectionSettings = collection.settings
         
-        layout = QtGui.QGridLayout()
+        layout = QtGui.QFormLayout()
+        layout.setRowWrapPolicy(QtGui.QFormLayout.WrapLongRows)
         
         current = 0
         self.languageSelector = QtGui.QComboBox(self)
@@ -71,37 +72,44 @@ class MainSettingsPage(QtGui.QWidget):
                 current = i
         self.languageSelector.setCurrentIndex(current)
         
-        layout.addWidget(QtGui.QLabel(self.tr("Language")), 0, 0)
-        layout.addWidget(self.languageSelector, 0, 1, 1, 2)
+        layout.addRow(self.tr("Language"), self.languageSelector)
         
         self.backupFolder = QtGui.QLineEdit(self)
+        self.backupFolder.setMinimumWidth(120)
         self.backupFolder.setText(settings.backupFolder)
         style = QtGui.QApplication.style()
         icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
         self.backupFolderButton = QtGui.QPushButton(icon, '', self)
         self.backupFolderButton.clicked.connect(self.backupButtonClicked)
         
-        layout.addWidget(QtGui.QLabel(self.tr("Backup folder")), 1, 0)
-        layout.addWidget(self.backupFolder, 1, 1)
-        layout.addWidget(self.backupFolderButton, 1, 2)
+        hLayout = QtGui.QHBoxLayout()
+        hLayout.addWidget(self.backupFolder)
+        hLayout.addWidget(self.backupFolderButton)
+        hLayout.setContentsMargins(QtCore.QMargins())
+        
+        layout.addRow(self.tr("Backup folder"), hLayout)
         
         self.reference = QtGui.QLineEdit(self)
+        self.reference.setMinimumWidth(120)
         self.reference.setText(settings.reference)
         icon = style.standardIcon(QtGui.QStyle.SP_DialogOpenButton)
         self.referenceButton = QtGui.QPushButton(icon, '', self)
         self.referenceButton.clicked.connect(self.referenceButtonClicked)
         
-        layout.addWidget(QtGui.QLabel(self.tr("Reference")), 2, 0)
-        layout.addWidget(self.reference, 2, 1)
-        layout.addWidget(self.referenceButton, 2, 2)
+        hLayout = QtGui.QHBoxLayout()
+        hLayout.addWidget(self.reference)
+        hLayout.addWidget(self.referenceButton)
+        hLayout.setContentsMargins(QtCore.QMargins())
+
+        layout.addRow(self.tr("Reference"), hLayout)
         
         self.errorSending = QtGui.QCheckBox(self.tr("Send error info to author"), self)
         self.errorSending.setChecked(settings.sendError)
-        layout.addWidget(self.errorSending, 3, 0, 1, 2)
+        layout.addRow(self.errorSending)
         
         self.imageSideLen = NumberEdit(self)
-        layout.addWidget(QtGui.QLabel(self.tr("Max image side len")), 4, 0)
-        layout.addWidget(self.imageSideLen, 4, 1)
+        self.imageSideLen.setMaximumWidth(60)
+        layout.addRow(self.tr("Max image side len"), self.imageSideLen)
         if not collection.isOpen():
             self.imageSideLen.setDisabled(True)
         else:
