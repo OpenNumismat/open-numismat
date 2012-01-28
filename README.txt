@@ -1,5 +1,5 @@
 Requirement:
- * Python 3.2
+ * Python 3.2.2
  * PyQt 4.8.6
  * lxml 2.3 (for auction parsing and importing from CoinsCollector 2.6)
  * Firebird 2.0 (for importing from Numizmat 2.1)

@@ -5,6 +5,7 @@ ChangeLog
 	* Added collection description form
 	* Fixed adding coins through left-side tree view
 	* Fixed selecting columns in list view
+	* Updated Python to 3.2.2
 
 1.1 - 2012-01-03 (beta):
 	* Implemented importing from Numizmat 2.1, Cabinet 2.0.2.0,
