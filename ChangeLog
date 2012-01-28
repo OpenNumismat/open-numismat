@@ -1,5 +1,11 @@
 ChangeLog
 ---------
+1.2 - 2012-01-28 (beta):
+	* Added Spanish translation (by Carlos Rosi)
+	* Added collection description form
+	* Fixed adding coins through left-side tree view
+	* Fixed selecting columns in list view
+
 1.1 - 2012-01-03 (beta):
 	* Implemented importing from Numizmat 2.1, Cabinet 2.0.2.0,
 	  CoinsCollector 2.6 and CoinManage 2011
