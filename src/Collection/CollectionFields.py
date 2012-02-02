@@ -154,8 +154,9 @@ class CollectionFieldsBase(QObject):
             self.fields.append(CollectionField(id, field[0], field[1], field[2]))
             setattr(self, self.fields[id].name, self.fields[id])
         
+        self.systemFileds = [self.id, self.createdat, self.updatedat]
         self.userFields = list(self.fields)
-        for item in [self.id, self.createdat, self.updatedat]:
+        for item in self.systemFileds:
             self.userFields.remove(item)
     
     def field(self, id):

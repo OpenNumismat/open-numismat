@@ -141,18 +141,20 @@ class DetailsTabWidget(QtGui.QTabWidget):
         
         fields = CollectionFields()
         for field in fields:
-            self.addItem(field)
-        
+            if field not in fields.systemFileds:
+                self.addItem(field)
+    
     def fillItems(self, record):
         if not record.isEmpty():
             fields = CollectionFields()
             for field in fields:
-                item = self.items[field.name]
-                if not record.isNull(item.field()):
-                    value = record.value(item.field())
-                    item.setValue(value)
-                else:
-                    item.widget().clear()
+                if field not in fields.systemFileds:
+                    item = self.items[field.name]
+                    if not record.isNull(item.field()):
+                        value = record.value(item.field())
+                        item.setValue(value)
+                    else:
+                        item.widget().clear()
     
     def clear(self):
         for item in self.items.values():
