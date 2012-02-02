@@ -44,7 +44,7 @@ class FormItem(object):
         elif self._type == Type.Status:
             self._widget = StatusEdit(parent)
         elif self._type == Type.DateTime:
-            self._widget = DateEdit(parent)
+            self._widget = DateTimeEdit(parent)
         elif self._type == Type.EdgeImage:
             self._widget = EdgeImageEdit(parent)
         else:

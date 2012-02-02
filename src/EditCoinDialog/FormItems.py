@@ -256,3 +256,7 @@ class DateEdit(QtGui.QDateEdit):
         self.setCalendarPopup(True)
         self.setCalendarWidget(calendar)
         self.setMinimumWidth(85)
+
+class DateTimeEdit(QtGui.QDateTimeEdit):
+    def __init__(self, parent=None):
+        super(DateTimeEdit, self).__init__(parent)
