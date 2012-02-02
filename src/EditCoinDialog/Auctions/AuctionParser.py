@@ -30,9 +30,12 @@ class MolotokParser(_AuctionParser):
         auctionItem = AuctionItem('Молоток.Ру')
         
         content = self.html.get_element_by_id('siWrapper').find_class('timeInfo')[0].text_content()
-        parts = content.split()
-        date = ' '.join(parts[3:4]) # convert 'завершен ( 7 Январь, 20:45:00)' to '7 Январь'
-        auctionItem.date = QtCore.QDate.fromString(date, 'dd MMMM').toString(QtCore.Qt.ISODate)
+        begin = content.find('(')
+        end = content.find(',')
+        date = content[begin+1:end] # convert 'завершен (19 Январь, 00:34:14)' to '19 Январь'
+        tmpDate = QtCore.QDate.fromString(date, 'dd MMMM')
+        currentDate = QtCore.QDate.currentDate()
+        auctionItem.date = QtCore.QDate(currentDate.year(), tmpDate.month(), tmpDate.day()).toString(QtCore.Qt.ISODate)
         
         saller = self.html.find_class('sellerDetails')[0].cssselect('dl dt')[0].text_content()
         auctionItem.saller = saller.split()[0].strip()
@@ -61,9 +64,13 @@ class MolotokParser(_AuctionParser):
         content = self.html.get_element_by_id('itemFinishBox2').cssselect('strong')[0].text_content()
         auctionItem.price = stringToMoney(content)
 
-        # TODO: Add processing for shipment
-#        content = self.html.get_element_by_id('itemBidInfo').find_class('itemBidder')[0].find_class('shipmentShowHide')[0].cssselect('strong')[0].text_content()
-        auctionItem.totalPayPrice = auctionItem.price
+        element = self.html.get_element_by_id('paymentShipment').cssselect('dd strong')
+        if element:
+            content = element[0].text_content()
+            shipmentPrice = stringToMoney(content)
+            auctionItem.totalPayPrice = str(auctionItem.price + shipmentPrice)
+        else:
+            auctionItem.totalPayPrice = auctionItem.price
         
         auctionItem.totalSalePrice = self.totalSalePrice(auctionItem)
     
