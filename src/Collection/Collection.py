@@ -375,7 +375,9 @@ class Collection(QtCore.QObject):
     
     def createReference(self):
         sections = self.reference.allSections()
-        progressDlg = QtGui.QProgressDialog(self.tr("Updating reference"), self.tr("Cancel"), 0, len(sections), self.parent())
+        progressDlg = QtGui.QProgressDialog(self.tr("Updating reference"),
+                                            self.tr("Cancel"), 0, len(sections),
+                                            self.parent(), Qt.WindowSystemMenuHint)
         progressDlg.setWindowModality(QtCore.Qt.WindowModal)
         progressDlg.setMinimumDuration(250)
 

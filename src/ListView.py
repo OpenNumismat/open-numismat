@@ -365,7 +365,9 @@ class ListView(QtGui.QTableView):
         dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            progressDlg = QtGui.QProgressDialog(self.tr("Updating records"), self.tr("Cancel"), 0, len(indexes), self)
+            progressDlg = QtGui.QProgressDialog(self.tr("Updating records"),
+                                                self.tr("Cancel"), 0, len(indexes),
+                                                self, Qt.WindowSystemMenuHint)
             progressDlg.setWindowModality(QtCore.Qt.WindowModal)
             progressDlg.setMinimumDuration(250)
             
