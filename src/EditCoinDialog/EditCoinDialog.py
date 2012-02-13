@@ -15,6 +15,8 @@ class EditCoinDialog(QtGui.QDialog):
         self.tab = FormDetailsTabWidget(model.reference, self, usedFields)
         self.items = self.tab.items
 
+        self.textChangedTitle()
+        self.tab.items['title'].widget().textChanged.connect(self.textChangedTitle)
         self.tab.fillItems(record)
 
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal);
@@ -33,6 +35,18 @@ class EditCoinDialog(QtGui.QDialog):
         size = settings.value('editcoinwindow/size')
         if size:
             self.resize(size)
+    
+    def textChangedTitle(self, text=''):
+        if self.usedFields:
+            title = [self.tr("Multi edit"),]
+        elif self.record.isNull('id'):
+            title = [self.tr("New"),]
+        else:
+            title = [self.tr("Edit"),]
+        
+        if text:
+            title.insert(0, text)
+        self.setWindowTitle(' - '.join(title))
     
     def keyPressEvent(self, event):
         if self.items['status'].widget().data() == 'pass':

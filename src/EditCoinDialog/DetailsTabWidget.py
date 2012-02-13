@@ -479,7 +479,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
         btn = QtGui.QPushButton(self.tr("Generate"), parent)
         btn.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         btn.clicked.connect(self.clickGenerateTitle)
-        self.items['title'].widget().textChanged.connect(self.textChangedTitle)
         layout.addRow(self.items['title'], btn)
 
         layout.addRow(self.items['country'])
@@ -538,15 +537,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
         title = ' '.join(titleParts)
         self.items['title'].setValue(title)
 
-    def textChangedTitle(self, text):
-        if self.usedFields:
-            self.parent().setWindowTitle(self.tr("Multi edit"))
-        else:
-            title = [self.tr("Edit"),]
-            if text:
-                title.insert(0, text)
-            self.parent().setWindowTitle(' - '.join(title))
-    
     def _createTrafficParts(self, index=0):
         if self.oldTrafficIndex == 0:
             pass
