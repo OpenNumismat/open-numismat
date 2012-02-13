@@ -44,6 +44,9 @@ class CollectionModel(QSqlTableModel):
                     return date.toString(Qt.SystemLocaleShortDate)
                 elif fieldType == Type.DateTime:
                     date = QtCore.QDateTime.fromString(data, Qt.ISODate)
+                    # Timestamp in DB stored in UTC
+                    date.setTimeSpec(Qt.UTC)
+                    date = date.toLocalTime()
                     return date.toString(Qt.SystemLocaleShortDate)
         elif role == Qt.UserRole:
             return super(CollectionModel, self).data(index, Qt.DisplayRole)
@@ -148,7 +151,7 @@ class CollectionModel(QSqlTableModel):
             image.save(buffer, 'png')
             record.setValue('image', ba)
 
-        currentTime = QtCore.QDateTime.currentDateTime()
+        currentTime = QtCore.QDateTime.currentDateTimeUtc()
         record.setValue('updatedat', currentTime.toString(Qt.ISODate))
     
     def submitAll(self):
