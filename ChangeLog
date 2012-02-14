@@ -1,5 +1,9 @@
 ChangeLog
 ---------
+1.2.1 - 2012-02-14 (beta):
+	* Fixed DB timestamps
+	* Minor UI improvements
+
 1.2 - 2012-01-28 (beta):
 	* Added Spanish translation (by Carlos Rosi)
 	* Added collection description form
