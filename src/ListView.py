@@ -389,7 +389,7 @@ class ListView(QtGui.QTableView):
                         record.setValue(i, multiRecord.value(i))
                 self.model().setRecord(index.row(), record)
             
-                self.model().submitAll()
+            self.model().submitAll()
 
             progressDlg.setValue(len(indexes))
     

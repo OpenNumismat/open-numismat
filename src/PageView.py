@@ -184,11 +184,20 @@ class TreeView(QtGui.QTreeWidget):
             self.__updateChilds(item, paramIndex+1, filters)
     
     def updateTree(self):
+        self.currentItemChanged.disconnect(self.itemActivatedEvent)
+        
+        selectedItem = self.currentItem()
+        
         self.collapseAll()
         rootItem = self.topLevelItem(0)
         rootItem.takeChildren()
         self.__updateChilds(rootItem)
         self.expandItem(rootItem)
+        
+        if selectedItem:
+            self.setCurrentItem(selectedItem)
+        
+        self.currentItemChanged.connect(self.itemActivatedEvent)
     
     def rowChangedEvent(self, current):
         if current.isValid():
