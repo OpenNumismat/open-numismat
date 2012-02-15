@@ -306,10 +306,20 @@ class TreeView(QtGui.QTreeWidget):
         dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
+            progressDlg = QtGui.QProgressDialog(self.tr("Updating records"),
+                                                self.tr("Cancel"), 0, self.model.rowCount(),
+                                                self, Qt.WindowSystemMenuHint)
+            progressDlg.setWindowModality(QtCore.Qt.WindowModal)
+            progressDlg.setMinimumDuration(250)
+            
             # Fill records by used fields in multi record
             multiRecord = dialog.getRecord()
             usedFields = dialog.getUsedFields()
             for i in range(self.model.rowCount()):
+                progressDlg.setValue(i)
+                if progressDlg.wasCanceled():
+                    break
+                
                 record = self.model.record(i)
                 for j in range(multiRecord.count()):
                     if usedFields[j] == Qt.Checked:
@@ -317,6 +327,7 @@ class TreeView(QtGui.QTreeWidget):
                 self.model.setRecord(i, record)
             
             self.model.submitAll()
+            progressDlg.setValue(self.model.rowCount())
         
         self.model.setFilter(storedFilter)
 
