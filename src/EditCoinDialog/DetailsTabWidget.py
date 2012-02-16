@@ -394,23 +394,31 @@ class DetailsTabWidget(QtGui.QTabWidget):
     
     def addPayCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
-        item = FormItem(None, title, Type.Money)
+        self.payComission = FormItem(None, title, Type.Money)
         
+        self.items['payprice'].widget().textChanged.connect(self.payPriceChanged)
+        self.items['totalpayprice'].widget().textChanged.connect(self.payPriceChanged)
+
+        return self.payComission
+    
+    def payPriceChanged(self, text):
         price = textToFloat(self.items['payprice'].value())
         totalPrice = textToFloat(self.items['totalpayprice'].value())
-        item.widget().setText(floatToText(totalPrice - price))
-
-        return item
+        self.payComission.widget().setText(floatToText(totalPrice - price))
     
     def addSaleCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
-        item = FormItem('', title, Type.Money)
+        self.saleComission = FormItem(None, title, Type.Money)
         
+        self.items['saleprice'].widget().textChanged.connect(self.salePriceChanged)
+        self.items['totalsaleprice'].widget().textChanged.connect(self.salePriceChanged)
+
+        return self.saleComission
+    
+    def salePriceChanged(self, text):
         price = textToFloat(self.items['saleprice'].value())
         totalPrice = textToFloat(self.items['totalsaleprice'].value())
-        item.widget().setText(floatToText(price - totalPrice))
-
-        return item
+        self.saleComission.widget().setText(floatToText(price - totalPrice))
 
 class FormDetailsTabWidget(DetailsTabWidget):
     Direction = QtGui.QBoxLayout.TopToBottom
@@ -573,7 +581,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return pageParts
 
     def addPayCommission(self):
-        item = super(FormDetailsTabWidget, self).addPayCommission()
+        item = FormItem(None, self.tr("Commission"), Type.Money)
         self.payCommission = item.widget()
 
         validator = CommissionValidator(0, 9999999999, 2, self)
@@ -587,7 +595,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return item
     
     def addSaleCommission(self):
-        item = FormItem('', self.tr("Commission"), Type.Money)
+        item = FormItem(None, self.tr("Commission"), Type.Money)
         self.saleCommission = item.widget()
 
         validator = CommissionValidator(0, 9999999999, 2, self)
