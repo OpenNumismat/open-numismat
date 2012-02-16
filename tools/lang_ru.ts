@@ -816,7 +816,7 @@
         <translation>Разновидность</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="406"/>
+        <location filename="DetailsTabWidget.py" line="410"/>
         <source>Commission</source>
         <translation>Комиссия</translation>
     </message>
@@ -839,7 +839,7 @@
         <translation>Слишком много изображений</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="138"/>
+        <location filename="EditCoinDialog.py" line="150"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
@@ -849,17 +849,17 @@
         <translation>Не указано название монеты. Сохранить без названия?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="115"/>
+        <location filename="EditCoinDialog.py" line="121"/>
         <source>Pay price is great than total paid price. Save?</source>
         <translation>Цена покупки выше чем уплоченная сумма. Сохранить?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="124"/>
+        <location filename="EditCoinDialog.py" line="136"/>
         <source>Sale price is less than total bailed price. Save?</source>
         <translation>Цена продажи ниже чем выручка. Сохранить?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="138"/>
+        <location filename="EditCoinDialog.py" line="150"/>
         <source>Similar coin already exists. Save?</source>
         <translation>Похожая монета уже есть. Все равно сохранить?</translation>
     </message>
@@ -877,6 +877,16 @@
         <location filename="EditCoinDialog.py" line="45"/>
         <source>Edit</source>
         <translation>Редактирование</translation>
+    </message>
+    <message>
+        <location filename="EditCoinDialog.py" line="114"/>
+        <source>Total paid price is negative. Save?</source>
+        <translation>Уплоченная сумма отрицательна. Сохранить?</translation>
+    </message>
+    <message>
+        <location filename="EditCoinDialog.py" line="129"/>
+        <source>Total bailed price is negative. Save?</source>
+        <translation>Выручка отрицательна. Сохранить?</translation>
     </message>
 </context>
 <context>
@@ -947,37 +957,37 @@ Do you want to send an error message to the author
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="438"/>
+        <location filename="DetailsTabWidget.py" line="446"/>
         <source>Design</source>
         <translation>Дизайн</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="442"/>
+        <location filename="DetailsTabWidget.py" line="450"/>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="476"/>
+        <location filename="DetailsTabWidget.py" line="484"/>
         <source>Main details</source>
         <translation>Основное</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="479"/>
+        <location filename="DetailsTabWidget.py" line="487"/>
         <source>Generate</source>
         <translation>Генерировать</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="496"/>
+        <location filename="DetailsTabWidget.py" line="504"/>
         <source>Obverse</source>
         <translation>Аверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="505"/>
+        <location filename="DetailsTabWidget.py" line="513"/>
         <source>Reverse</source>
         <translation>Реверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="514"/>
+        <location filename="DetailsTabWidget.py" line="522"/>
         <source>Edge</source>
         <translation>Гурт</translation>
     </message>
@@ -992,7 +1002,7 @@ Do you want to send an error message to the author
         <translation type="obsolete">Редактирование</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="590"/>
+        <location filename="DetailsTabWidget.py" line="598"/>
         <source>Commission</source>
         <translation>Комиссия</translation>
     </message>
@@ -1876,19 +1886,29 @@ Copyright (C) 2011-2012 Игнатов Виталий
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="243"/>
+        <location filename="PageView.py" line="252"/>
         <source>Add new coin...</source>
         <translation>Добавить новую монету...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="246"/>
+        <location filename="PageView.py" line="255"/>
         <source>Edit coins...</source>
         <translation>Редактировать монеты...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="250"/>
+        <location filename="PageView.py" line="259"/>
         <source>Customize tree...</source>
         <translation>Настроить дерево...</translation>
+    </message>
+    <message>
+        <location filename="PageView.py" line="309"/>
+        <source>Updating records</source>
+        <translation>Обновление записей</translation>
+    </message>
+    <message>
+        <location filename="PageView.py" line="309"/>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
     </message>
 </context>
 <context>

@@ -510,7 +510,7 @@
         <translation>Variación</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="406"/>
+        <location filename="DetailsTabWidget.py" line="410"/>
         <source>Commission</source>
         <translation>Comisión</translation>
     </message>
@@ -528,7 +528,7 @@
         <translation>Muchas imágenes</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="138"/>
+        <location filename="EditCoinDialog.py" line="150"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
@@ -538,17 +538,17 @@
         <translation>Moneda sin título, guardar de todas maneras?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="115"/>
+        <location filename="EditCoinDialog.py" line="121"/>
         <source>Pay price is great than total paid price. Save?</source>
         <translation>Precio pagado es mayor que el precio total pagado. Guardar?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="124"/>
+        <location filename="EditCoinDialog.py" line="136"/>
         <source>Sale price is less than total bailed price. Save?</source>
         <translation>Precio de venta es menor que el precio total de rescate. Guardar?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="138"/>
+        <location filename="EditCoinDialog.py" line="150"/>
         <source>Similar coin already exists. Save?</source>
         <translation>Existe una moneda similar, guardar de todas maneras?</translation>
     </message>
@@ -566,6 +566,16 @@
         <location filename="EditCoinDialog.py" line="45"/>
         <source>Edit</source>
         <translation>Editar</translation>
+    </message>
+    <message>
+        <location filename="EditCoinDialog.py" line="114"/>
+        <source>Total paid price is negative. Save?</source>
+        <translation>El precio total pagado es negativo. Guardar?</translation>
+    </message>
+    <message>
+        <location filename="EditCoinDialog.py" line="129"/>
+        <source>Total bailed price is negative. Save?</source>
+        <translation>El precio total de rescate es negativo. Guardar?</translation>
     </message>
 </context>
 <context>
@@ -629,37 +639,37 @@ Desea enviar un mensaje de error al autor
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="438"/>
+        <location filename="DetailsTabWidget.py" line="446"/>
         <source>Design</source>
         <translation>Diseño</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="442"/>
+        <location filename="DetailsTabWidget.py" line="450"/>
         <source>Images</source>
         <translation>Imágenes</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="476"/>
+        <location filename="DetailsTabWidget.py" line="484"/>
         <source>Main details</source>
         <translation>Detalles principales</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="479"/>
+        <location filename="DetailsTabWidget.py" line="487"/>
         <source>Generate</source>
         <translation>Generar</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="496"/>
+        <location filename="DetailsTabWidget.py" line="504"/>
         <source>Obverse</source>
         <translation>Anverso</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="505"/>
+        <location filename="DetailsTabWidget.py" line="513"/>
         <source>Reverse</source>
         <translation>Reverso</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="514"/>
+        <location filename="DetailsTabWidget.py" line="522"/>
         <source>Edge</source>
         <translation>Canto</translation>
     </message>
@@ -674,7 +684,7 @@ Desea enviar un mensaje de error al autor
         <translation type="obsolete">Editar</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="590"/>
+        <location filename="DetailsTabWidget.py" line="598"/>
         <source>Commission</source>
         <translation>Comisión</translation>
     </message>
@@ -1451,19 +1461,29 @@ Copyright (C) 2011-2012 Vitaly Ignatov
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="243"/>
+        <location filename="PageView.py" line="252"/>
         <source>Add new coin...</source>
         <translation>Agregar moneda nueva...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="246"/>
+        <location filename="PageView.py" line="255"/>
         <source>Edit coins...</source>
         <translation>Editar monedas...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="250"/>
+        <location filename="PageView.py" line="259"/>
         <source>Customize tree...</source>
         <translation>Personalizar directorio...</translation>
+    </message>
+    <message>
+        <location filename="PageView.py" line="309"/>
+        <source>Updating records</source>
+        <translation>Actualizando registros</translation>
+    </message>
+    <message>
+        <location filename="PageView.py" line="309"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
