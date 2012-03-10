@@ -8,6 +8,8 @@ class EditCoinDialog(QtGui.QDialog):
     def __init__(self, model, record, parent=None, usedFields=None):
         super(EditCoinDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
         
+        self.clickedButton = QtGui.QDialogButtonBox.Abort
+        
         self.usedFields = usedFields
         self.record = record
         self.model = model
@@ -19,15 +21,16 @@ class EditCoinDialog(QtGui.QDialog):
         self.tab.items['title'].widget().textChanged.connect(self.textChangedTitle)
         self.tab.fillItems(record)
 
-        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal);
-        buttonBox.addButton(QtGui.QDialogButtonBox.Save);
-        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel);
-        buttonBox.accepted.connect(self.save);
-        buttonBox.rejected.connect(self.reject);
+        self.buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal);
+        self.buttonBox.addButton(QtGui.QDialogButtonBox.Save);
+        self.buttonBox.addButton(QtGui.QDialogButtonBox.Cancel);
+        self.buttonBox.accepted.connect(self.save);
+        self.buttonBox.rejected.connect(self.reject);
+        self.buttonBox.clicked.connect(self.clicked);
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.tab)
-        layout.addWidget(buttonBox)
+        layout.addWidget(self.buttonBox)
 
         self.setLayout(layout)
 
@@ -35,6 +38,19 @@ class EditCoinDialog(QtGui.QDialog):
         size = settings.value('editcoinwindow/size')
         if size:
             self.resize(size)
+    
+    def clicked(self, button):
+        buttons = [QtGui.QDialogButtonBox.Save, QtGui.QDialogButtonBox.Cancel,
+                   QtGui.QDialogButtonBox.SaveAll, QtGui.QDialogButtonBox.Abort]
+        for btn in buttons:
+            if self.buttonBox.button(btn) == button:
+                self.clickedButton = btn
+    
+    # Enable 'Save all' button
+    def setManyCoins(self, many=True):
+        if many:
+            self.buttonBox.addButton(QtGui.QDialogButtonBox.SaveAll);
+            self.buttonBox.addButton(QtGui.QDialogButtonBox.Abort);
     
     def textChangedTitle(self, text=''):
         if self.usedFields:

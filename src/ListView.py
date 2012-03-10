@@ -427,14 +427,30 @@ class ListView(QtGui.QTableView):
         clipboard = QtGui.QApplication.clipboard()
         clipboard.setMimeData(mime)
 
+    def __inserCoin(self, record, count):
+        dialog = EditCoinDialog(self.model(), record, self)
+        if count > 1:
+            dialog.setManyCoins()
+        result = dialog.exec_()
+        if result == QtGui.QDialog.Accepted:
+            self.model().appendRecord(record)
+        
+        return dialog.clickedButton
+    
     def _paste(self):
         clipboard = QtGui.QApplication.clipboard()
         mime = clipboard.mimeData()
+        progressDlg = None
         
         if mime.hasFormat(ListView.MimeType):
             # Load data stored by application
             pickleData = pickle.loads(mime.data(ListView.MimeType))
-            for recordData in pickleData:
+            for progress, recordData in enumerate(pickleData):
+                if progressDlg:
+                    progressDlg.setValue(progress)
+                    if progressDlg.wasCanceled():
+                        break
+
                 record = self.model().record()
                 for i in range(self.model().columnCount()):
                     if isinstance(recordData[i], bytes):
@@ -443,12 +459,32 @@ class ListView(QtGui.QTableView):
                     else:
                         record.setValue(i, recordData[i])
                 
-                self.model().addCoin(record, self)
+                if progressDlg:
+                    self.model().appendRecord(record)
+                else:
+                    btn = self.__inserCoin(record, len(pickleData)-progress)
+                    if btn == QtGui.QDialogButtonBox.Abort:
+                        break
+                    if btn == QtGui.QDialogButtonBox.SaveAll:
+                        progressDlg = QtGui.QProgressDialog(self.tr("Inserting records"),
+                                                            self.tr("Cancel"), 0, len(pickleData),
+                                                            self, Qt.WindowSystemMenuHint)
+                        progressDlg.setWindowModality(QtCore.Qt.WindowModal)
+                        progressDlg.setMinimumDuration(250)
+            
+            if progressDlg:
+                progressDlg.setValue(len(pickleData))
+        
         elif mime.hasText():
             # Load data stored by another application (Excel)
             # TODO: Process fields with \n and \t
             textData = clipboard.text().split('\n')
-            for recordData in textData:
+            for progress, recordData in enumerate(textData):
+                if progressDlg:
+                    progressDlg.setValue(progress)
+                    if progressDlg.wasCanceled():
+                        break
+
                 data = recordData.split('\t')
                 # Skip very short (must contain ID and NAME) and too large data
                 if len(data) < 2 or len(data) > self.model().columnCount():
@@ -458,7 +494,21 @@ class ListView(QtGui.QTableView):
                 for i in range(len(data)):
                     record.setValue(i, clipboardToText(data[i]))
                 
-                self.model().addCoin(record, self)
+                if progressDlg:
+                    self.model().appendRecord(record)
+                else:
+                    btn = self.__inserCoin(record, len(textData)-progress)
+                    if btn == QtGui.QDialogButtonBox.Abort:
+                        break
+                    if btn == QtGui.QDialogButtonBox.SaveAll:
+                        progressDlg = QtGui.QProgressDialog(self.tr("Inserting records"),
+                                                            self.tr("Cancel"), 0, len(pickleData),
+                                                            self, Qt.WindowSystemMenuHint)
+                        progressDlg.setWindowModality(QtCore.Qt.WindowModal)
+                        progressDlg.setMinimumDuration(250)
+            
+            if progressDlg:
+                progressDlg.setValue(len(textData))
     
     def _delete(self, indexes=None):
         if not indexes:
