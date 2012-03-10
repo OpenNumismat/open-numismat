@@ -518,62 +518,62 @@
 <context>
     <name>EditCoinDialog</name>
     <message>
-        <location filename="EditCoinDialog.py" line="83"/>
+        <location filename="EditCoinDialog.py" line="99"/>
         <source>Parse auction lot</source>
         <translation>Analizar subasta de lote</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="83"/>
+        <location filename="EditCoinDialog.py" line="99"/>
         <source>Too many images</source>
         <translation>Muchas imágenes</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="150"/>
+        <location filename="EditCoinDialog.py" line="166"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="104"/>
+        <location filename="EditCoinDialog.py" line="120"/>
         <source>Coin title not set. Save without title?</source>
         <translation>Moneda sin título, guardar de todas maneras?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="121"/>
+        <location filename="EditCoinDialog.py" line="137"/>
         <source>Pay price is great than total paid price. Save?</source>
         <translation>Precio pagado es mayor que el precio total pagado. Guardar?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="136"/>
+        <location filename="EditCoinDialog.py" line="152"/>
         <source>Sale price is less than total bailed price. Save?</source>
         <translation>Precio de venta es menor que el precio total de rescate. Guardar?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="150"/>
+        <location filename="EditCoinDialog.py" line="166"/>
         <source>Similar coin already exists. Save?</source>
         <translation>Existe una moneda similar, guardar de todas maneras?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="41"/>
+        <location filename="EditCoinDialog.py" line="57"/>
         <source>Multi edit</source>
         <translation>Edición múltiple</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="43"/>
+        <location filename="EditCoinDialog.py" line="59"/>
         <source>New</source>
         <translation>Nuevo</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="45"/>
+        <location filename="EditCoinDialog.py" line="61"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="114"/>
+        <location filename="EditCoinDialog.py" line="130"/>
         <source>Total paid price is negative. Save?</source>
         <translation>El precio total pagado es negativo. Guardar?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="129"/>
+        <location filename="EditCoinDialog.py" line="145"/>
         <source>Total bailed price is negative. Save?</source>
         <translation>El precio total de rescate es negativo. Guardar?</translation>
     </message>
@@ -869,7 +869,7 @@ Desea enviar un mensaje de error al autor
         <translation>Edición múltiple...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="467"/>
+        <location filename="ListView.py" line="517"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
@@ -887,12 +887,12 @@ Desea enviar un mensaje de error al autor
         <translation>Actualizando registros</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="368"/>
+        <location filename="ListView.py" line="504"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="467"/>
+        <location filename="ListView.py" line="517"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation>
             <numerusform>Esta seguro de eliminar %n moneda?</numerusform>
@@ -903,6 +903,11 @@ Desea enviar un mensaje de error al autor
         <location filename="ReferenceDialog.py" line="21"/>
         <source>Enter value</source>
         <translation>Introduzca valor</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="504"/>
+        <source>Inserting records</source>
+        <translation>La inserción de registros</translation>
     </message>
 </context>
 <context>
