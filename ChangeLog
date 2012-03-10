@@ -1,5 +1,11 @@
 ChangeLog
 ---------
+1.2.2 - 2012-03-10 (beta):
+    * Fixed data corruption on multi-editing with tree view filter
+    * Added progress for multi-editing through tree panel
+    * Fixed commission values in details panel
+    * Added SaveAll button when inserted many records from clipboard
+
 1.2.1 - 2012-02-14 (beta):
 	* Fixed DB timestamps
 	* Minor UI improvements
