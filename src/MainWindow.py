@@ -233,7 +233,7 @@ class MainWindow(QtGui.QMainWindow):
                 self.setCollection(self.collection)
     
     def descriptionCollectionEvent(self, checked):
-        dialog = DescriptionDialog(self.collection)
+        dialog = DescriptionDialog(self.collection, self)
         dialog.exec_()
     
     @waitCursorDecorator
