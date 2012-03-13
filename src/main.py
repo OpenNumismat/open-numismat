@@ -10,7 +10,12 @@ def main():
     import os, sys
     
     if not os.path.exists(version.AppDir):
-        os.mkdir(version.AppDir)
+        # Create default dirs if not exists
+        try:
+            os.makedirs(version.AppDir)
+            os.makedirs(Settings.BackupFolder)
+        except:
+            pass
     
     app = QtGui.QApplication(sys.argv)
 
