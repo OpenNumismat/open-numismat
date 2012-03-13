@@ -142,20 +142,22 @@ class ImportCabinet(_Import):
                     record.setValue(dstColumn, 'owned')
             
             if dstColumn == 'saller':
-                cursor = self.cnxn.cursor()
-                sallerRow = cursor.execute("""
-                    SELECT Name FROM person WHERE id=?
-                """, row.SellerID).fetchone()
-                if sallerRow:
-                    record.setValue(dstColumn, sallerRow.Name)
+                if row.SellerID:
+                    cursor = self.cnxn.cursor()
+                    sallerRow = cursor.execute("""
+                        SELECT Name FROM person WHERE id=?
+                    """, row.SellerID).fetchone()
+                    if sallerRow:
+                        record.setValue(dstColumn, sallerRow.Name)
             
             if dstColumn == 'buyer':
-                cursor = self.cnxn.cursor()
-                buyerRow = cursor.execute("""
-                    SELECT Name FROM person WHERE id=?
-                """, row.BuyerID).fetchone()
-                if buyerRow:
-                    record.setValue(dstColumn, buyerRow.Name)
+                if row.BuyerID:
+                    cursor = self.cnxn.cursor()
+                    buyerRow = cursor.execute("""
+                        SELECT Name FROM person WHERE id=?
+                    """, row.BuyerID).fetchone()
+                    if buyerRow:
+                        record.setValue(dstColumn, buyerRow.Name)
             
             if dstColumn == 'features':
                 features = []
