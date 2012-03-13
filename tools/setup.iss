@@ -1,12 +1,12 @@
 [Setup]
 AppName=OpenNumismat
 AppId=OpenNumismat
-AppVersion=1.2.2
+AppVersion=1.2.3
 DefaultDirName={pf}\OpenNumismat
 DefaultGroupName=OpenNumismat
 UninstallDisplayIcon={app}\OpenNumismat.exe
 OutputDir="."
-OutputBaseFilename="OpenNumismat-1.2.2"
+OutputBaseFilename="OpenNumismat-1.2.3"
 AllowNoIcons=yes
 AppCopyright=Copyright 2011-2012 by Vitaly Ignatov
 
