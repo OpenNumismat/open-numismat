@@ -540,6 +540,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 titlePart = str(value)
                 if key == 'unit':
                     titlePart = titlePart.lower()
+                if key == 'subjectshort':
+                    if len(titlePart.split()) > 1:
+                        titlePart = '"%s"' % titlePart
                 titleParts.append(titlePart) 
 
         title = ' '.join(titleParts)
