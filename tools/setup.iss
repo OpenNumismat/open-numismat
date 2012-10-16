@@ -9,6 +9,7 @@ OutputDir="."
 OutputBaseFilename="OpenNumismat-1.2.3"
 AllowNoIcons=yes
 AppCopyright=Copyright 2011-2012 by Vitaly Ignatov
+AppPublisher=Janis
 
 [Languages]
 Name: en; MessagesFile: "compiler:Default.isl"; InfoBeforeFile: license_en.txt
