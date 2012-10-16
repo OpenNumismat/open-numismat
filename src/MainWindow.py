@@ -239,12 +239,14 @@ class MainWindow(QtGui.QMainWindow):
     @waitCursorDecorator
     def backupCollectionEvent(self, checked):
         # TODO: Move this functionality to Collection
-        file = QtCore.QFile(self.collection.fileName)
-        folder = Settings().backupFolder
-        backup = QtCore.QFileInfo(folder+'/'+self.collection.getCollectionName()+'_'+QtCore.QDateTime.currentDateTime().toString('yyMMddhhmm')+'.db')
-        backupName = backup.absoluteFilePath()
-        if not file.copy(backupName):
-            QtGui.QMessageBox.critical(self, self.tr("Backup collection"), self.tr("Can't make a collection backup at %s") % backupName)
+        backupDir = QtCore.QDir(Settings().backupFolder)
+        if not backupDir.exists():
+            backupDir.mkpath(backupDir.path())
+        
+        backupFileName = backupDir.filePath("%s_%s.db" % (self.collection.getCollectionName(), QtCore.QDateTime.currentDateTime().toString('yyMMddhhmm')))
+        srcFile = QtCore.QFile(self.collection.fileName)
+        if not srcFile.copy(backupFileName):
+            QtGui.QMessageBox.critical(self, self.tr("Backup collection"), self.tr("Can't make a collection backup at %s") % backupFileName)
 
     def openCollection(self, fileName):
         if self.collection.open(fileName):

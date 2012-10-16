@@ -13,7 +13,6 @@ def main():
         # Create default dirs if not exists
         try:
             os.makedirs(version.AppDir)
-            os.makedirs(Settings.BackupFolder)
         except:
             pass
     
