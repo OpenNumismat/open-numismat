@@ -656,8 +656,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.saleCommission.textChanged.connect(self.saleCommissionChanged)
     
 def textToFloat(text):
-    text = text.replace(',', '.')
-    return float(text.replace(' ', '') or 0)
+    text = text.replace(',', '.').replace(' ', '')
+    if not text or text == '.':
+        return 0
+    return float(text)
 
 def floatToText(value):
     return str(int((value)*100 + 0.5)/100)
