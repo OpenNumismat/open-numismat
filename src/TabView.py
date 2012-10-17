@@ -50,7 +50,6 @@ class TabView(QtGui.QTabWidget):
         self.__actions['clone'] = cloneListAct
         
         openPageMenu = QtGui.QMenu(self.tr("Open"), self)
-        openPageMenu.aboutToShow.connect(self.__updateOpenPageMenu)
         self.__actions['open'] = openPageMenu
         
         removeAllAct = QtGui.QAction(QtGui.QIcon('icons/cross.png'), self.tr("Remove all"), self)
@@ -196,11 +195,13 @@ class TabView(QtGui.QTabWidget):
         
         self.collection.pages().openPage(pageView)
 
-    def __updateOpenPageMenu(self):
+    def updateOpenPageMenu(self):
         menu = self.__actions['open']
         menu.clear()
         closedPages = self.collection.pages().closedPages()
-        if len(closedPages) > 0:
+        hasClosedPages = len(closedPages)
+        menu.setEnabled(hasClosedPages)
+        if hasClosedPages:
             for param in closedPages:
                 act = OpenPageAction(param, self)
                 act.openPageTriggered.connect(self.openPage)
@@ -208,8 +209,6 @@ class TabView(QtGui.QTabWidget):
             
             menu.addSeparator()
             menu.addAction(self.__actions['removeAll'])
-        else:
-            menu.setDisabled(True)
 
     def __createListPage(self, title):
         pageParam = self.collection.pages().addPage(title)

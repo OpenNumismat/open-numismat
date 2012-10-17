@@ -89,6 +89,7 @@ class MainWindow(QtGui.QMainWindow):
         listMenu = menubar.addMenu(self.tr("List"))
         listMenu.addAction(actions['new'])
         listMenu.addMenu(actions['open'])
+        listMenu.aboutToShow.connect(self.viewTab.updateOpenPageMenu)
         listMenu.addAction(actions['rename'])
         listMenu.addSeparator()
         listMenu.addAction(actions['close'])
