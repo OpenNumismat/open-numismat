@@ -80,15 +80,18 @@ class MolotokParser(_AuctionParser):
         price = float(lot.price)
         if price > 50000:
             excess = price - 50000
-            commission = 1552.5 + (excess*2.5/100)
+            commission = 1557.5 + (excess*2.5/100)
         elif price > 10000:
             excess = price - 10000
-            commission = 352.5 + (excess*3/100)
+            commission = 357.5 + (excess*3/100)
         elif lot.price > 500:
             excess = price - 500
-            commission = 20 + (excess*3.5/100)
+            commission = 25 + (excess*3.5/100)
         else:
-            commission = price*4/100
+            commission = price*5/100
+        
+        if commission > 3999:
+            commission = 3999
         
         return str(price - commission)
 
