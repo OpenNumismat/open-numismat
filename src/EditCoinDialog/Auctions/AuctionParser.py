@@ -183,35 +183,32 @@ class ConrosParser(_AuctionParser):
         return 'windows-1251'
     
     def _parse(self):
-        if self.html.cssselect('form center')[1].text_content().find("Торги по этому лоту завершены") < 0:
+        if self.html.cssselect('div#your_rate')[0].text_content().find("Торги по этому лоту завершены") < 0:
             raise _NotDoneYetError()
         
         auctionItem = AuctionItem('Конрос')
         
-        content = self.html.cssselect('form center')[1].text_content()
-        date = content.split()[5] # extract date
+        content = self.html.cssselect('p#lot_state.lot_info_box')[0].text_content()
+        date = content.split()[9] # extract date
         auctionItem.date = QtCore.QDate.fromString(date, 'dd.MM.yyyy').toString(QtCore.Qt.ISODate)
         
-        content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
-        content = content.split('\n')[1]
-        auctionItem.buyer = content.split()[-1]
+        content = self.html.cssselect('p#lot_state.lot_info_box')[0].cssselect('#leader')[0].text_content()
+        auctionItem.buyer = content
 
-        content = self.html.cssselect('form table tr')[1].cssselect('table tr')[2].text_content()
+        content = self.html.cssselect('div#lot_information')[0].cssselect('p')[1].text_content()
         grade = content.split()[1]
         auctionItem.grade = _stringToGrade(grade)
 
         index = content.find("Особенности")
         auctionItem.info = '\n'.join([content[:index], content[index:], self.url])
         
-        content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
-        content = content.split('\n')[2]
-        if int(content.split()[-1]) < 2:
+        content = self.html.cssselect('p#lot_state.lot_info_box')[0].cssselect('#rate_count')[0].text_content()
+        if int(content) < 2:
             QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
                                 self.tr("Only 1 bid"),
                                 QtGui.QMessageBox.Ok)
 
-        content = self.html.cssselect('form table tr')[1].cssselect('table tr')[3].text_content().strip()
-        content = content.split('\n')[0]
+        content = self.html.cssselect('p#lot_state.lot_info_box')[0].cssselect('#price')[0].text_content()
         auctionItem.price = stringToMoney(content)
 
         price = float(auctionItem.price)
@@ -221,7 +218,7 @@ class ConrosParser(_AuctionParser):
         auctionItem.totalSalePrice = str(price - price*15/100)
         
         auctionItem.images = []
-        for tag in self.html.cssselect('form table tr')[1].cssselect('table tr')[1].cssselect('a'):
+        for tag in self.html.cssselect('div#lot_information')[0].cssselect('a'):
             href = tag.attrib['href']
             href = urllib.parse.urljoin(self.url, href)
             auctionItem.images.append(href)
