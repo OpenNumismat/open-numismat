@@ -53,7 +53,7 @@ class MolotokParser(_AuctionParser):
                                 self.tr("Only 1 bid"),
                                 QtGui.QMessageBox.Ok)
 
-        index = self.doc.find("$j('.galleryWrap').newGallery")
+        index = self.doc.find("$('.galleryWrap').newGallery")
         bIndex = self.doc[index:].find("large:")+index
         bIndex = self.doc[bIndex:].find("[")+bIndex
         eIndex = self.doc[bIndex:].find("]")+bIndex
