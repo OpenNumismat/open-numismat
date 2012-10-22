@@ -157,8 +157,8 @@ class AuctionSpbParser(_AuctionParser):
     def totalSalePrice(self, lot):
         price = float(lot.price)
         commission = price*15/100
-        if commission < 25:
-            commission = 25
+        if commission < 35:
+            commission = 35
         
         totalPrice = price - commission
         if totalPrice < 0:
