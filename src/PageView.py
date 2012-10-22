@@ -179,27 +179,24 @@ class TreeView(QtGui.QTreeWidget):
                 child.setData(0, self.FiltersRole, newFilters)
                 child.setData(0, self.FieldsRole, fields)
                 item.addChild(child)
+                
+                # Restore selection
+                if newFilters == self.model.extFilter:
+                    self.currentItemChanged.disconnect(self.itemActivatedEvent)
+                    self.setCurrentItem(child)
+                    self.currentItemChanged.connect(self.itemActivatedEvent)
         
-        # Recursion for next field if noting selected
+        # Recursion for next field if nothing selected
         if item.childCount() == 0:
             self.__updateChilds(item, paramIndex+1, filters)
     
     def modelChanged(self):
         if self.changingEnabled:
-            self.currentItemChanged.disconnect(self.itemActivatedEvent)
-            
-            selectedItem = self.currentItem()
-            
             self.collapseAll()
             rootItem = self.topLevelItem(0)
-            rootItem.takeChildren()
+            rootItem.takeChildren() # remove all children
             self.__updateChilds(rootItem)
             self.expandItem(rootItem)
-            
-            if selectedItem:
-                self.setCurrentItem(selectedItem)
-            
-            self.currentItemChanged.connect(self.itemActivatedEvent)
     
     def rowChangedEvent(self, current):
         if self.changingEnabled:
