@@ -116,11 +116,12 @@ class TreeView(QtGui.QTreeWidget):
         self.collapsed.connect(self.collapsedEvent)
         
         self.treeParam = treeParam
+        
+        self.changingEnabled = True    # changing of TreeView is enabled (by signals from model or ListView)
     
     def setModel(self, model):
         self.db = model.database()
         self.model = model
-        self.model.modelChanged.connect(self.updateTree)
         
         self.treeParam.rootTitle = model.title
         rootItem = QtGui.QTreeWidgetItem(self, [model.title,])
@@ -183,26 +184,28 @@ class TreeView(QtGui.QTreeWidget):
         if item.childCount() == 0:
             self.__updateChilds(item, paramIndex+1, filters)
     
-    def updateTree(self):
-        self.currentItemChanged.disconnect(self.itemActivatedEvent)
-        
-        selectedItem = self.currentItem()
-        
-        self.collapseAll()
-        rootItem = self.topLevelItem(0)
-        rootItem.takeChildren()
-        self.__updateChilds(rootItem)
-        self.expandItem(rootItem)
-        
-        if selectedItem:
-            self.setCurrentItem(selectedItem)
-        
-        self.currentItemChanged.connect(self.itemActivatedEvent)
+    def modelChanged(self):
+        if self.changingEnabled:
+            self.currentItemChanged.disconnect(self.itemActivatedEvent)
+            
+            selectedItem = self.currentItem()
+            
+            self.collapseAll()
+            rootItem = self.topLevelItem(0)
+            rootItem.takeChildren()
+            self.__updateChilds(rootItem)
+            self.expandItem(rootItem)
+            
+            if selectedItem:
+                self.setCurrentItem(selectedItem)
+            
+            self.currentItemChanged.connect(self.itemActivatedEvent)
     
     def rowChangedEvent(self, current):
-        if current.isValid():
-            self.collapseAll()
-            self.scrollToIndex(current)
+        if self.changingEnabled:
+            if current.isValid():
+                self.collapseAll()
+                self.scrollToIndex(current)
     
     def scrollToIndex(self, index, parent=None):
         if not parent:
@@ -242,10 +245,10 @@ class TreeView(QtGui.QTreeWidget):
         self.scrollToItem(current)
         self.resizeColumnToContents(0)
         
-        self.model.modelChanged.disconnect(self.updateTree)
+        self.changingEnabled = False
         filter_ = current.data(0, self.FiltersRole)
         self.model.setAdditionalFilter(filter_)
-        self.model.modelChanged.connect(self.updateTree)
+        self.changingEnabled = True
 
     def contextMenuEvent(self, pos):
         menu = QtGui.QMenu(self)
@@ -263,13 +266,14 @@ class TreeView(QtGui.QTreeWidget):
         dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
         if dialog.exec_() == QtGui.QDialog.Accepted:
             self.treeParam.save()
-            self.updateTree()
+            self.modelChanged()
     
     def _addCoin(self):
-        self.model.modelChanged.disconnect(self.updateTree)
+        self.changingEnabled = False
         storedFilter = self.model.intFilter
+        # TODO: This change ListView!
         self.model.setFilter('')
-        self.model.modelChanged.connect(self.updateTree)
+        self.changingEnabled = True
 
         newRecord = self.model.record()
         # Fill new record with values of first record
@@ -287,10 +291,10 @@ class TreeView(QtGui.QTreeWidget):
         self.model.setFilter(storedFilter)
 
     def _multiEdit(self):
-        self.model.modelChanged.disconnect(self.updateTree)
+        self.changingEnabled = False
         storedFilter = self.model.intFilter
         self.model.setFilter('')
-        self.model.modelChanged.connect(self.updateTree)
+        self.changingEnabled = True
 
         # Fill multi record for editing
         multiRecord = self.model.record(0)
@@ -373,6 +377,7 @@ class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
         super(PageView, self).__init__('0', parent=parent)
         
+        self._model = None
         self.param = pageParam
         self.id = pageParam.id
         self.treeView = TreeView(pageParam.treeParam, self)
@@ -395,9 +400,17 @@ class PageView(Splitter):
         self.splitterMoved.connect(self.splitterPosChanged)
 
     def setModel(self, model):
+        self._model = model
+        
+        self._model.modelChanged.connect(self.modelChanged)
+        
+        self.treeView.setModel(model)
         self.listView.setModel(model)
         self.imageView.setModel(model)
-        self.treeView.setModel(model)
     
     def model(self):
-        return self.listView.model()
+        return self._model
+    
+    def modelChanged(self):
+        self.treeView.modelChanged()
+        self.listView.modelChanged()

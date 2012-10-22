@@ -94,7 +94,6 @@ class ListView(QtGui.QTableView):
         self.horizontalHeader().setFont(font)
         
         self.verticalHeader().setVisible(False)
-        self.verticalHeader().sectionCountChanged.connect(self.rowCountChanged)
         self.defaultHeight = self.verticalHeader().defaultSectionSize()
         
         self.listCountLabel = QtGui.QLabel()
@@ -104,21 +103,8 @@ class ListView(QtGui.QTableView):
         for field in listParam.fields:
             if field.type == Type.Image or field.type == Type.EdgeImage:
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
-    
-    def rowCountChanged(self, oldCount, newCount):
-        self.verticalHeader().sectionCountChanged.disconnect(self.rowCountChanged)
-        if self.model():
-            while self.model().canFetchMore():
-                self.model().fetchMore()
-            newCount = self.model().rowCount()
-            
-            sql = "SELECT count(*) FROM coins"
-            query = QSqlQuery(sql, self.model().database())
-            query.first()
-            totalCount = query.record().value(0)
-            
-            self.listCountLabel.setText(self.tr("%d/%d coins") % (newCount, totalCount))
-        self.verticalHeader().sectionCountChanged.connect(self.rowCountChanged)
+        
+        self.selectedRowId = None
     
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
         column = self.listParam.columns[oldVisualIndex]
@@ -218,6 +204,31 @@ class ListView(QtGui.QTableView):
 
         self._updateHeaderButtons()
     
+    def modelChanged(self):
+        # Fetch all selected records
+        while self.model().canFetchMore():
+            self.model().fetchMore()
+        newCount = self.model().rowCount()
+        
+        # Show updated coins count
+        sql = "SELECT count(*) FROM coins"
+        query = QSqlQuery(sql, self.model().database())
+        query.first()
+        totalCount = query.record().value(0)
+        
+        self.listCountLabel.setText(self.tr("%d/%d coins") % (newCount, totalCount))
+
+        # Restore selected row
+        if self.selectedRowId is not None:
+            idIndex = self.model().fieldIndex('id')
+            startIndex = self.model().index(0, idIndex)
+            
+            indexes = self.proxyModel.match(startIndex, Qt.DisplayRole, self.selectedRowId, 1, Qt.MatchExactly)
+            if indexes:
+                self.selectRow(indexes[0].row())
+            else:
+                self.selectedRowId = None
+    
     def scrolled(self, value):
         self._updateHeaderButtons()
     
@@ -303,6 +314,11 @@ class ListView(QtGui.QTableView):
         if current.row() != previous.row():
             self.rowChanged.emit(self.currentIndex())
 
+        index = self.currentIndex()
+        if index.isValid():
+            record = self.model().record(index.row())
+            self.selectedRowId = record.field('id').value()
+
         return super(ListView, self).currentChanged(current, previous)
     
     def selectionChanged(self, selected, deselected):
@@ -338,15 +354,9 @@ class ListView(QtGui.QTableView):
         dialog = EditCoinDialog(self.model(), record, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            rowCount = self.model().rowCount()
-            
             updatedRecord = dialog.getRecord()
             self.model().setRecord(index.row(), updatedRecord)
             self.model().submitAll()
-                
-            if rowCount == self.model().rowCount():  # inserted row visible in current model
-                updatedRowIndex = self.proxyModel.mapFromSource(index)
-                self.selectRow(updatedRowIndex.row())
     
     def _multiEdit(self, indexes=None):
         if not indexes:
