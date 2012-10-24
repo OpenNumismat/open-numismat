@@ -37,6 +37,14 @@ class MolotokParser(_AuctionParser):
         currentDate = QtCore.QDate.currentDate()
         auctionItem.date = QtCore.QDate(currentDate.year(), tmpDate.month(), tmpDate.day()).toString(QtCore.Qt.ISODate)
         
+        bidHistory = self.html.find_class('bidHistoryList')
+        if not bidHistory:
+            raise _CanceledError()
+        if len(bidHistory[0].cssselect('tr')) - 1 < 2: 
+            QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
+                                self.tr("Only 1 bid"),
+                                QtGui.QMessageBox.Ok)
+
         saller = self.html.find_class('sellerDetails')[0].cssselect('dl dt')[0].text_content()
         auctionItem.saller = saller.split()[0].strip()
         buyer = self.html.get_element_by_id('siWrapper').find_class('buyerInfo')[0].cssselect('strong')[1].text_content()
@@ -48,11 +56,6 @@ class MolotokParser(_AuctionParser):
         info = self.html.get_element_by_id('user_field').text_content()
         auctionItem.info = info.strip() + '\n' + self.url
         
-        if len(self.html.find_class('bidHistoryList')[0].cssselect('tr')) - 1 < 2: 
-            QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
-                                self.tr("Only 1 bid"),
-                                QtGui.QMessageBox.Ok)
-
         index = self.doc.find("$('.galleryWrap').newGallery")
         bIndex = self.doc[index:].find("large:")+index
         bIndex = self.doc[bIndex:].find("[")+bIndex
