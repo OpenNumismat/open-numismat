@@ -536,8 +536,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
         titleParts = []
         for key in ['value', 'unit', 'year', 'subjectshort', 'mintmark', 'variety']:
             value = self.items[key].value()
-            if value:
-                titlePart = str(value)
+            if not isinstance(value, str):
+                value = str(value)
+            titlePart = value.strip()
+            if titlePart:
                 if key == 'unit':
                     titlePart = titlePart.lower()
                 if key == 'subjectshort':
