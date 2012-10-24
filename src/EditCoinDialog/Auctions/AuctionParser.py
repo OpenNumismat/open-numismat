@@ -203,7 +203,10 @@ class ConrosParser(_AuctionParser):
         auctionItem.grade = _stringToGrade(grade)
 
         index = content.find("Особенности")
-        auctionItem.info = '\n'.join([content[:index], content[index:], self.url])
+        if index > 0:
+            auctionItem.info = '\n'.join([content[:index], content[index:], self.url])
+        else:
+            auctionItem.info = '\n'.join([content, self.url])
         
         content = self.html.cssselect('p#lot_state.lot_info_box')[0].cssselect('#rate_count')[0].text_content()
         if int(content) < 2:
