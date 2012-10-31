@@ -32,8 +32,11 @@ class MolotokParser(_AuctionParser):
         content = self.html.get_element_by_id('siWrapper').find_class('timeInfo')[0].text_content()
         begin = content.find('(')
         end = content.find(',')
-        date = content[begin+1:end] # convert 'завершен (19 Январь, 00:34:14)' to '19 Январь'
-        tmpDate = QtCore.QDate.fromString(date, 'dd MMMM')
+        date = content[begin+1:end] # convert 'завершен (19 Январь, 00:34:14)' to '19 января'
+        day, month = date.split()
+        month = month[0:3].lower()
+        date = ' '.join((day, month))
+        tmpDate = QtCore.QDate.fromString(date, 'dd MMM')
         currentDate = QtCore.QDate.currentDate()
         auctionItem.date = QtCore.QDate(currentDate.year(), tmpDate.month(), tmpDate.day()).toString(QtCore.Qt.ISODate)
         
