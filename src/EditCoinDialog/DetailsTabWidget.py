@@ -672,9 +672,13 @@ class CommissionValidator(QtGui.QDoubleValidator):
         super(CommissionValidator, self).__init__(bottom, top, decimals, parent)
     
     def validate(self, input, pos):
-        numericValue = input.strip()
-        if len(numericValue) > 0 and numericValue[-1] == '%':
-            numericValue = numericValue[0:-1]
-        numericValue = numericValue.replace(',', '.')
-        state, numericValue, pos = super(CommissionValidator, self).validate(numericValue, pos)
-        return state, input, pos
+        hasPercent = False
+        input = input.replace(',', '.')
+        numericValue = input
+        if len(input) > 0 and input[-1] == '%':
+            numericValue = input[0:-1]  # trim percent sign
+            hasPercent = True
+        state, validatedValue, pos = super(CommissionValidator, self).validate(numericValue, pos)
+        if hasPercent:
+            validatedValue = validatedValue+'%' # restore percent sign
+        return state, validatedValue, pos

@@ -146,6 +146,9 @@ class BigIntEdit(QtGui.QLineEdit):
         self.setMaxLength(15)
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+
+        # TODO: Set locale in main()
+        locale.setlocale(locale.LC_ALL, '')
     
     def focusInEvent(self, event):
         self.__updateText()
@@ -161,16 +164,17 @@ class BigIntEdit(QtGui.QLineEdit):
     
     def text(self):
         text = super(BigIntEdit, self).text()
-        return text.replace(locale.localeconv()['thousands_sep'], '')
+        # Get rid of the grouping
+        text = text.replace(' ', '')
+        ts = locale.localeconv()['thousands_sep']
+        if ts:
+            text = text.replace(ts, '')
+        return text
     
     def __updateText(self):
         text = self.text()
         if text:
-            parts = text.split()
-            text = ''.join(parts)
             if not self.hasFocus() or self.isReadOnly():
-                # TODO: Set locale in main()
-                locale.setlocale(locale.LC_ALL, '')
                 try:
                     text = locale.format("%d", int(text), grouping=True)
                 except ValueError:
@@ -200,6 +204,9 @@ class MoneyEdit(QtGui.QLineEdit):
         self.setMaxLength(15)
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+
+        # TODO: Set locale in main()
+        locale.setlocale(locale.LC_ALL)
     
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -218,16 +225,21 @@ class MoneyEdit(QtGui.QLineEdit):
     
     def text(self):
         text = super(MoneyEdit, self).text()
-        return text.replace(locale.localeconv()['thousands_sep'], '')
+        # First, get rid of the grouping
+        text = text.replace(' ', '')
+        ts = locale.localeconv()['thousands_sep']
+        if ts:
+            text = text.replace(ts, '')
+        # next, replace the decimal point with a dot
+        dd = locale.localeconv()['decimal_point']
+        if dd:
+            text = text.replace(dd, '.')
+        return text
     
     def __updateText(self):
         text = self.text()
         if text:
-            parts = text.split()
-            text = ''.join(parts)
             if not self.hasFocus() or self.isReadOnly():
-                # TODO: Set locale in main()
-                locale.setlocale(locale.LC_ALL, '')
                 try:
                     text = locale.format("%.2f", float(text), grouping=True)
                 except ValueError:
