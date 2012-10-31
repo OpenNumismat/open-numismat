@@ -23,9 +23,8 @@ class MolotokParser(_AuctionParser):
             raise _NotDoneYetError()
         except KeyError:
             pass
-        # TODO: Update for new Molotok design
-#        if not self.html.get_element_by_id('siBidForm2').find_class('itemBidder')[0].find_class('siBNPanel')[0].cssselect('span a'):
-#            raise _CanceledError()
+        if not self.html.get_element_by_id('siWrapper').find_class('buyerInfo')[0].cssselect('strong'):
+            raise _CanceledError()
         
         auctionItem = AuctionItem('Молоток.Ру')
         
