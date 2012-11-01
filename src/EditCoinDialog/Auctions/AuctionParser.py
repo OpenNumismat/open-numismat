@@ -23,12 +23,21 @@ class MolotokParser(_AuctionParser):
             raise _NotDoneYetError()
         except KeyError:
             pass
-        if not self.html.get_element_by_id('siWrapper').find_class('buyerInfo')[0].cssselect('strong'):
+        
+        siWrapper = self.html.get_element_by_id('siWrapper')
+        alleLink = siWrapper.find_class('alleLink')
+        if alleLink:
+            bidCount = int(alleLink[0].text_content().split()[0])
+            if bidCount < 2: 
+                QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
+                                    self.tr("Only 1 bid"),
+                                    QtGui.QMessageBox.Ok)
+        else:
             raise _CanceledError()
         
         auctionItem = AuctionItem('Молоток.Ру')
         
-        content = self.html.get_element_by_id('siWrapper').find_class('timeInfo')[0].text_content()
+        content = siWrapper.find_class('timeInfo')[0].text_content()
         begin = content.find('(')
         end = content.find(',')
         date = content[begin+1:end] # convert 'завершен (19 Январь, 00:34:14)' to '19 января'
@@ -39,17 +48,9 @@ class MolotokParser(_AuctionParser):
         currentDate = QtCore.QDate.currentDate()
         auctionItem.date = QtCore.QDate(currentDate.year(), tmpDate.month(), tmpDate.day()).toString(QtCore.Qt.ISODate)
         
-        bidHistory = self.html.find_class('bidHistoryList')
-        if not bidHistory:
-            raise _CanceledError()
-        if len(bidHistory[0].cssselect('tr')) - 1 < 2: 
-            QtGui.QMessageBox.information(self.parent(), self.tr("Parse auction lot"),
-                                self.tr("Only 1 bid"),
-                                QtGui.QMessageBox.Ok)
-
-        saller = self.html.find_class('sellerDetails')[0].cssselect('dl dt')[0].text_content()
+        saller = siWrapper.find_class('sellerDetails')[0].cssselect('dl dt')[0].text_content()
         auctionItem.saller = saller.split()[0].strip()
-        buyer = self.html.get_element_by_id('siWrapper').find_class('buyerInfo')[0].cssselect('strong')[1].text_content()
+        buyer = siWrapper.find_class('buyerInfo')[0].cssselect('strong')[1].text_content()
         auctionItem.buyer = buyer.strip()
 
         # Remove STYLE element
@@ -66,10 +67,10 @@ class MolotokParser(_AuctionParser):
         images = images.replace('"', '')
         auctionItem.images = images.split(',')
 
-        content = self.html.get_element_by_id('itemFinishBox2').cssselect('strong')[0].text_content()
+        content = siWrapper.get_element_by_id('itemFinishBox2').cssselect('strong')[0].text_content()
         auctionItem.price = stringToMoney(content)
 
-        element = self.html.get_element_by_id('paymentShipment').cssselect('dd strong')
+        element = siWrapper.get_element_by_id('paymentShipment').cssselect('dd strong')
         if element:
             content = element[0].text_content()
             shipmentPrice = stringToMoney(content)
