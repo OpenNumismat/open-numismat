@@ -45,20 +45,21 @@ class SortFilterProxyModel(QtGui.QSortFilterProxyModel):
         self.setDynamicSortFilter(True)
     
     def lessThan(self, left, right):
-        role = Qt.UserRole
+        leftData = left.data(Qt.UserRole)
+        rightData = right.data(Qt.UserRole)
 
         if self.sortOrder() == Qt.AscendingOrder:
-            if left.data(role) == '' or isinstance(left.data(role), QtCore.QPyNullVariant):
+            if leftData == '' or isinstance(leftData, QtCore.QPyNullVariant):
                 return False
-            elif right.data(role) == '' or isinstance(right.data(role), QtCore.QPyNullVariant):
+            elif rightData == '' or isinstance(rightData, QtCore.QPyNullVariant):
                 return True
         else:
-            if right.data(role) == '' or isinstance(right.data(role), QtCore.QPyNullVariant):
+            if rightData == '' or isinstance(rightData, QtCore.QPyNullVariant):
                 return False
-            elif left.data(role) == '' or isinstance(left.data(role), QtCore.QPyNullVariant):
+            elif leftData == '' or isinstance(leftData, QtCore.QPyNullVariant):
                 return True
 
-        return left.data(role) < right.data(role)
+        return leftData < rightData
 
 class ListView(QtGui.QTableView):
     rowChanged = pyqtSignal(object)
