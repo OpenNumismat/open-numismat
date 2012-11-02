@@ -7,7 +7,9 @@ from MainWindow import MainWindow
 import version
 
 def main():
-    import os, sys
+    import os, sys, locale
+    
+    locale.setlocale(locale.LC_ALL, '')
     
     if not os.path.exists(version.AppDir):
         # Create default dirs if not exists
@@ -25,14 +27,14 @@ def main():
     if settings.sendError:
         sys.excepthook = exceptHook
     
-    locale = settings.language
+    lang = settings.language
 
     translator = QtCore.QTranslator()
-    translator.load('lang_'+locale)
+    translator.load('lang_'+lang)
     app.installTranslator(translator)
 
     translatorQt = QtCore.QTranslator()
-    translatorQt.load('qt_'+locale)
+    translatorQt.load('qt_'+lang)
     app.installTranslator(translatorQt)
 
     mainWindow = MainWindow()

@@ -1,3 +1,5 @@
+import locale
+
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt, pyqtSignal
 from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery
@@ -33,23 +35,46 @@ class CollectionModel(QSqlTableModel):
 
     def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DisplayRole:
-            # Convert date values
+            # Localize values
             data = super(CollectionModel, self).data(index, role)
-            if self.fields.fields[index.column()].name == 'status':
-                return Statuses[data]
-            elif isinstance(data, str):
-                fieldType = self.fields.fields[index.column()].type
-                if fieldType == Type.Date:
+            field = self.fields.fields[index.column()]
+            try:
+                if field.name == 'status':
+                    text = Statuses[data]
+                elif field.type == Type.BigInt:
+                    text = locale.format("%d", int(data), grouping=True)
+                elif field.type == Type.Money:
+                    text = locale.format("%.2f", float(data), grouping=True)
+                    text = text.rstrip('0')
+                    dp = locale.localeconv()['decimal_point']
+                    if dp:
+                        text = text.rstrip(dp)
+                elif field.type == Type.Value:
+                    text = locale.format("%.3f", float(data), grouping=True)
+                    text = text.rstrip('0')
+                    dp = locale.localeconv()['decimal_point']
+                    if dp:
+                        text = text.rstrip(dp)
+                elif field.type == Type.Date:
                     date = QtCore.QDate.fromString(data, Qt.ISODate)
-                    return date.toString(Qt.SystemLocaleShortDate)
-                elif fieldType == Type.DateTime:
+                    text = date.toString(Qt.SystemLocaleShortDate)
+                elif field.type == Type.DateTime:
                     date = QtCore.QDateTime.fromString(data, Qt.ISODate)
                     # Timestamp in DB stored in UTC
                     date.setTimeSpec(Qt.UTC)
                     date = date.toLocalTime()
-                    return date.toString(Qt.SystemLocaleShortDate)
+                    text = date.toString(Qt.SystemLocaleShortDate)
+                else:
+                    return data
+            except (ValueError, TypeError):
+                return data
+            return text
         elif role == Qt.UserRole:
             return super(CollectionModel, self).data(index, Qt.DisplayRole)
+        elif role == Qt.TextAlignmentRole:
+            field = self.fields.fields[index.column()]
+            if field.type == Type.BigInt:
+                return Qt.AlignRight | Qt.AlignVCenter
 
         return super(CollectionModel, self).data(index, role)
     

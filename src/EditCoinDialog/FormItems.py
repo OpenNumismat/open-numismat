@@ -147,9 +147,6 @@ class BigIntEdit(QtGui.QLineEdit):
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
 
-        # TODO: Set locale in main()
-        locale.setlocale(locale.LC_ALL, '')
-    
     def focusInEvent(self, event):
         self.__updateText()
         return super(BigIntEdit, self).focusInEvent(event)
@@ -205,9 +202,6 @@ class MoneyEdit(QtGui.QLineEdit):
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
 
-        # TODO: Set locale in main()
-        locale.setlocale(locale.LC_ALL)
-    
     def sizeHint(self):
         return self.minimumSizeHint()
     
@@ -245,9 +239,10 @@ class MoneyEdit(QtGui.QLineEdit):
                 except ValueError:
                     return
                 
-                integer, fraction = text.split(locale.localeconv()['decimal_point'])
-                if not int(fraction):
-                    text = integer
+                text = text.rstrip('0')
+                dp = locale.localeconv()['decimal_point']
+                if dp:
+                    text = text.rstrip(dp)
             
             super(MoneyEdit, self).setText(text)
 

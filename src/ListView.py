@@ -45,10 +45,7 @@ class SortFilterProxyModel(QtGui.QSortFilterProxyModel):
         self.setDynamicSortFilter(True)
     
     def lessThan(self, left, right):
-        role = Qt.DisplayRole
-        if self.sourceModel().columnType(left.column()) in [Type.Date, Type.DateTime]:
-            # For date columns use ISO format for sorting
-            role = Qt.UserRole
+        role = Qt.UserRole
 
         if self.sortOrder() == Qt.AscendingOrder:
             if left.data(role) == '' or isinstance(left.data(role), QtCore.QPyNullVariant):
