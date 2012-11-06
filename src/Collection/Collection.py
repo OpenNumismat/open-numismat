@@ -45,16 +45,12 @@ class CollectionModel(QSqlTableModel):
                     text = locale.format("%d", int(data), grouping=True)
                 elif field.type == Type.Money:
                     text = locale.format("%.2f", float(data), grouping=True)
-                    text = text.rstrip('0')
                     dp = locale.localeconv()['decimal_point']
-                    if dp:
-                        text = text.rstrip(dp)
+                    text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Value:
                     text = locale.format("%.3f", float(data), grouping=True)
-                    text = text.rstrip('0')
                     dp = locale.localeconv()['decimal_point']
-                    if dp:
-                        text = text.rstrip(dp)
+                    text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Date:
                     date = QtCore.QDate.fromString(data, Qt.ISODate)
                     text = date.toString(Qt.SystemLocaleShortDate)

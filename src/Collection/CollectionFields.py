@@ -91,7 +91,7 @@ class CollectionFieldsBase(QObject):
                 ('subjectshort', self.tr("Subject"), Type.String),
                 ('status', self.tr("Status"), Type.Status),
                 ('metal', self.tr("Metal"), Type.String),
-                ('fineness', self.tr("Fineness"), Type.Number),
+                ('fineness', self.tr("Fineness"), Type.Number), # 4 digits for Canadian Gold Maple Leaf
                 ('form', self.tr("Form"), Type.String),
                 ('diameter', self.tr("Diameter"), Type.Value),
                 ('thick', self.tr("Thick"), Type.Value),

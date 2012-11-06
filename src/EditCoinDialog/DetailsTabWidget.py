@@ -2,6 +2,7 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication
 
+from .FormItems import DoubleValidator
 from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout, DesignFormLayout, FormItem
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
@@ -666,17 +667,16 @@ def textToFloat(text):
 def floatToText(value):
     return str(int((value)*100 + 0.5)/100)
 
-# Reimplementing QDoubleValidator for replace comma with dot and accept %
-class CommissionValidator(QtGui.QDoubleValidator):
+# Reimplementing DoubleValidator for replace comma with dot and accept %
+class CommissionValidator(DoubleValidator):
     def __init__(self, bottom, top, decimals, parent=None):
         super(CommissionValidator, self).__init__(bottom, top, decimals, parent)
     
-    def validate(self, input, pos):
+    def validate(self, input_, pos):
         hasPercent = False
-        input = input.replace(',', '.')
-        numericValue = input
-        if len(input) > 0 and input[-1] == '%':
-            numericValue = input[0:-1]  # trim percent sign
+        numericValue = input_
+        if len(input_) > 0 and input_[-1] == '%':
+            numericValue = input_[0:-1]  # trim percent sign
             hasPercent = True
         state, validatedValue, pos = super(CommissionValidator, self).validate(numericValue, pos)
         if hasPercent:

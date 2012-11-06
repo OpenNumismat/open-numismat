@@ -10,9 +10,71 @@ class DoubleValidator(QtGui.QDoubleValidator):
     def __init__(self, bottom, top, decimals, parent=None):
         super(DoubleValidator, self).__init__(bottom, top, decimals, parent)
     
-    def validate(self, input, pos):
-        input = input.replace(',', '.')
-        return super(DoubleValidator, self).validate(input, pos)
+    def validate(self, input_, pos):
+        input_ = input_.lstrip()
+        if len(input_) == 0:
+            return QtGui.QValidator.Intermediate, input_, pos
+        
+        lastWasDigit = False
+        decPointFound = False
+        decDigitCnt = 0
+        value = '0'
+        ts = locale.localeconv()['thousands_sep']
+        dp = locale.localeconv()['decimal_point']
+        
+        for c in input_:
+            if c.isdigit():
+                if decPointFound and self.decimals() > 0:
+                    if decDigitCnt < self.decimals():
+                        decDigitCnt = decDigitCnt + 1
+                    else:
+                        return QtGui.QValidator.Invalid, input_, pos
+                
+                value = value + c
+                lastWasDigit = True
+            else:
+                if (c == dp or c == '.') and self.decimals() != 0:
+                    if decPointFound:
+                        return QtGui.QValidator.Invalid, input_, pos
+                    else:
+                        value = value + '.'
+                        decPointFound = True
+                elif c == ts or (ts == chr(0xA0) and c == ' '):
+                    if not lastWasDigit or decPointFound:
+                        return QtGui.QValidator.Invalid, input_, pos
+                else:
+                    return QtGui.QValidator.Invalid, input_, pos
+                
+                lastWasDigit = False
+        
+        try:
+            val = float(value)
+        except ValueError:
+            return QtGui.QValidator.Invalid, input_, pos
+        
+        if self.bottom() > val or val > self.top():
+            return QtGui.QValidator.Invalid, input_, pos
+        
+        return QtGui.QValidator.Acceptable, input_, pos
+
+class NumberValidator(QtGui.QIntValidator):
+    def __init__(self, minimum, maximum, parent=None):
+        super(NumberValidator, self).__init__(minimum, maximum, parent)
+    
+    def validate(self, input_, pos):
+        input_ = input_.strip()
+        if len(input_) == 0:
+            return QtGui.QValidator.Intermediate, input_, pos
+        
+        try:
+            val = int(input_)
+        except ValueError:
+            return QtGui.QValidator.Invalid, input_, pos
+        
+        if self.bottom() > val or val > self.top():
+            return QtGui.QValidator.Invalid, input_, pos
+        
+        return QtGui.QValidator.Acceptable, input_, pos
 
 class LineEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
@@ -128,106 +190,49 @@ class ShortLineEdit(QtGui.QLineEdit):
 class NumberEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(NumberEdit, self).__init__(parent)
-        validator = QtGui.QIntValidator(0, 9999, parent)
+        validator = NumberValidator(0, 9999, parent)
         self.setValidator(validator)
-        self.setMaxLength(15)
+        self.setMaxLength(4)
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
 
-class BigIntEdit(QtGui.QLineEdit):
-    def __init__(self, parent=None):
-        super(BigIntEdit, self).__init__(parent)
-        validator = QtGui.QDoubleValidator(0, 999999999999999, 0, parent)
+class _DoubleEdit(QtGui.QLineEdit):
+    def __init__(self, bottom, top, decimals, parent=None):
+        super(_DoubleEdit, self).__init__(parent)
+        self._decimals = decimals
+        
+        validator = DoubleValidator(bottom, top, decimals, parent)
         validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
         self.setValidator(validator)
-        self.setMaxLength(15)
-        self.setMinimumWidth(100)
-        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
-
-    def focusInEvent(self, event):
-        self.__updateText()
-        return super(BigIntEdit, self).focusInEvent(event)
-    
-    def focusOutEvent(self, event):
-        self.__updateText()
-        return super(BigIntEdit, self).focusOutEvent(event)
-    
-    def setText(self, text):
-        super(BigIntEdit, self).setText(text)
-        self.__updateText()
-    
-    def text(self):
-        text = super(BigIntEdit, self).text()
-        # Get rid of the grouping
-        text = text.replace(' ', '')
-        ts = locale.localeconv()['thousands_sep']
-        if ts:
-            text = text.replace(ts, '')
-        return text
-    
-    def __updateText(self):
-        text = self.text()
-        if text:
-            if not self.hasFocus() or self.isReadOnly():
-                try:
-                    text = locale.format("%d", int(text), grouping=True)
-                except ValueError:
-                    return
-            
-            super(BigIntEdit, self).setText(text)
-
-class ValueEdit(QtGui.QLineEdit):
-    def __init__(self, parent=None):
-        super(ValueEdit, self).__init__(parent)
-        validator = DoubleValidator(0, 9999999999, 3, parent)
-        validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
-        self.setValidator(validator)
-        self.setMaxLength(15)
-        self.setMinimumWidth(100)
-        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
-    
-    def sizeHint(self):
-        return self.minimumSizeHint()
-
-class MoneyEdit(QtGui.QLineEdit):
-    def __init__(self, parent=None):
-        super(MoneyEdit, self).__init__(parent)
-        validator = DoubleValidator(0, 9999999999, 2, parent)
-        validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
-        self.setValidator(validator)
-        self.setMaxLength(15)
-        self.setMinimumWidth(100)
-        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
-
-    def sizeHint(self):
-        return self.minimumSizeHint()
     
     def focusInEvent(self, event):
         self.__updateText()
-        return super(MoneyEdit, self).focusInEvent(event)
+        return super(_DoubleEdit, self).focusInEvent(event)
     
     def focusOutEvent(self, event):
         self.__updateText()
-        return super(MoneyEdit, self).focusOutEvent(event)
+        return super(_DoubleEdit, self).focusOutEvent(event)
     
     def setText(self, text):
-        super(MoneyEdit, self).setText(text)
+        super(_DoubleEdit, self).setText(text)
         self.__updateText()
     
     def text(self):
-        text = super(MoneyEdit, self).text()
+        text = super(_DoubleEdit, self).text()
         # First, get rid of the grouping
-        text = text.replace(' ', '')
         ts = locale.localeconv()['thousands_sep']
         if ts:
             text = text.replace(ts, '')
+            if ts == chr(0xA0):
+                text = text.replace(' ', '')
         # next, replace the decimal point with a dot
-        dd = locale.localeconv()['decimal_point']
-        if dd:
-            text = text.replace(dd, '.')
+        if self._decimals:
+            dp = locale.localeconv()['decimal_point']
+            if dp:
+                text = text.replace(dp, '.')
         return text
     
     def __updateText(self):
@@ -235,16 +240,46 @@ class MoneyEdit(QtGui.QLineEdit):
         if text:
             if not self.hasFocus() or self.isReadOnly():
                 try:
-                    text = locale.format("%.2f", float(text), grouping=True)
+                    if self._decimals:
+                        text = locale.format("%%.%df" % self._decimals, float(text), grouping=True)
+                    else:
+                        text = locale.format("%d", int(text), grouping=True)
                 except ValueError:
                     return
                 
-                text = text.rstrip('0')
-                dp = locale.localeconv()['decimal_point']
-                if dp:
-                    text = text.rstrip(dp)
+                if self._decimals:
+                    # Strip empty fraction
+                    dp = locale.localeconv()['decimal_point']
+                    text = text.rstrip('0').rstrip(dp)
             
-            super(MoneyEdit, self).setText(text)
+            super(_DoubleEdit, self).setText(text)
+
+class BigIntEdit(_DoubleEdit):
+    def __init__(self, parent=None):
+        super(BigIntEdit, self).__init__(0, 999999999999999, 0, parent)
+        self.setMaxLength(15+4)   # additional 4 symbol for thousands separator
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+
+class ValueEdit(_DoubleEdit):
+    def __init__(self, parent=None):
+        super(ValueEdit, self).__init__(0, 9999999999, 3, parent)
+        self.setMaxLength(17)
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+    
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+class MoneyEdit(_DoubleEdit):
+    def __init__(self, parent=None):
+        super(MoneyEdit, self).__init__(0, 9999999999, 2, parent)
+        self.setMaxLength(16)
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+    
+    def sizeHint(self):
+        return self.minimumSizeHint()
 
 class TextEdit(QtGui.QTextEdit):
     def __init__(self, parent=None):
