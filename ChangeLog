@@ -1,5 +1,12 @@
 ChangeLog
 ---------
+1.2.4 - 2012-11-09:
+    * Updated localization for money and number fields
+    * Fixed selection disappearing after some navigation
+    * Fixed auction parsing, updated commissions
+    * Updated additional libraries and software
+    * Fixed deploying Tcl/Tk
+
 1.2.3 - 2012-03-14 (beta):
     * Fixed importing from Cabinet
     * Fixed creating missed default application folders
