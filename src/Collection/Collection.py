@@ -11,8 +11,6 @@ from Reference.Reference import CrossReferenceSection
 from Reference.ReferenceDialog import AllReferenceDialog
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import Statuses
-from Settings import Settings
-from Tools.Converters import localizeMoney
 
 class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
@@ -24,8 +22,6 @@ class CollectionModel(QSqlTableModel):
         
         self.intFilter = ''
         self.extFilter = ''
-
-        self.fractionType = Settings().fractionType
         
         self.settings = collection.settings
         self.reference = collection.reference
@@ -45,8 +41,6 @@ class CollectionModel(QSqlTableModel):
             try:
                 if field.name == 'status':
                     text = Statuses[data]
-                elif field.name == 'value':
-                    text = localizeMoney(data, self.fractionType)
                 elif field.type == Type.BigInt:
                     text = locale.format("%d", int(data), grouping=True)
                 elif field.type == Type.Money:

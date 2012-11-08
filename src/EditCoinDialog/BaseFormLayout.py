@@ -32,10 +32,7 @@ class FormItem(object):
         elif self._type == Type.Value:
             self._widget = ValueEdit(parent)
         elif self._type == Type.Money:
-            if self._field == 'value':
-                self._widget = MoneyValueEdit(parent)
-            else:
-                self._widget = MoneyEdit(parent)
+            self._widget = MoneyEdit(parent)
         elif self._type == Type.Text:
             self._widget = TextEdit(parent)
         elif self._type == Type.Image:

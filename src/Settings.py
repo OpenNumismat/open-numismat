@@ -17,14 +17,12 @@ class Settings(QtCore.QObject):
         self.backupFolder = self.__backupFolder()
         self.reference = self.__reference()
         self.sendError = self.__sendError()
-        self.fractionType = self.__fractionType()
     
     def save(self):
         self.settings.setValue('mainwindow/locale', self.language)
         self.settings.setValue('mainwindow/backup', self.backupFolder)
         self.settings.setValue('mainwindow/reference', self.reference)
         self.settings.setValue('mainwindow/error', self.sendError)
-        self.settings.setValue('mainwindow/fraction', self.fractionType)
     
     def __language(self):
         locale = self.settings.value('mainwindow/locale')
@@ -53,13 +51,6 @@ class Settings(QtCore.QObject):
             return False
         
         return error == 'true'
-    
-    def __fractionType(self):
-        fraction = self.settings.value('mainwindow/fraction')
-        if not fraction:
-            return 0
-        
-        return int(fraction)
 
 class MainSettingsPage(QtGui.QWidget):
     Languages = [("English", 'en'), ("Русский", 'ru'), ("Español", 'es')]
@@ -188,48 +179,12 @@ class FieldsSettingsPage(QtGui.QWidget):
         
         self.fields.save()
 
-class ViewSettingsPage(QtGui.QWidget):
-    def __init__(self, collection, parent=None):
-        super(ViewSettingsPage, self).__init__(parent)
-
-        self.radios = []
-        self.radios.append(QtGui.QRadioButton(self.tr("2.5")))
-        self.radios.append(QtGui.QRadioButton(self.tr("2 1/2")))
-        self.radios.append(QtGui.QRadioButton(self.tr("2 ½")))
-
-        vbox = QtGui.QVBoxLayout(self)
-        for r in self.radios:
-            vbox.addWidget(r)
-        vbox.addStretch(1)
-        
-        groupBox = QtGui.QGroupBox(self.tr("Show coin value fraction as"))
-        groupBox.setLayout(vbox)
-        
-        layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(groupBox)
-
-        self.setLayout(layout)
-
-        settings = Settings()
-        self.radios[settings.fractionType].setChecked(True)
-
-    def save(self):
-        settings = Settings()
-
-        for i, r in enumerate(self.radios):
-            if r.isChecked():
-                settings.fractionType = i
-                break
-
-        settings.save()
-
 class SettingsDialog(QtGui.QDialog):
     def __init__(self, collection, parent=None):
         super(SettingsDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
         
         mainPage = MainSettingsPage(collection, self)
         fieldsPage = FieldsSettingsPage(collection, self)
-        viewPage = ViewSettingsPage(collection, self)
 
         self.setWindowTitle(self.tr("Settings"))
         
@@ -238,7 +193,6 @@ class SettingsDialog(QtGui.QDialog):
         index = self.tab.addTab(fieldsPage, self.tr("Fields"))
         if not collection.isOpen():
             self.tab.setTabEnabled(index, False)
-        self.tab.addTab(viewPage, self.tr("View"))
         
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)

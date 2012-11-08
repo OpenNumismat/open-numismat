@@ -6,8 +6,6 @@ from .FormItems import DoubleValidator
 from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout, DesignFormLayout, FormItem
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
-from Settings import Settings
-from Tools.Converters import localizeMoney
 
 class DetailsTabWidget(QtGui.QTabWidget):
     Direction = QtGui.QBoxLayout.LeftToRight
@@ -15,8 +13,6 @@ class DetailsTabWidget(QtGui.QTabWidget):
     
     def __init__(self, parent=None):
         super(DetailsTabWidget, self).__init__(parent)
-        
-        self._fractionType = Settings().fractionType
         
         self.createItems()
         self.createPages()
@@ -148,9 +144,6 @@ class DetailsTabWidget(QtGui.QTabWidget):
         for field in fields:
             if field not in fields.systemFileds:
                 self.addItem(field)
-
-        if 'value' in self.items:
-            self.items['value'].widget().setFractionMode(self._fractionType)
     
     def fillItems(self, record):
         if not record.isEmpty():
@@ -548,11 +541,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 value = str(value)
             titlePart = value.strip()
             if titlePart:
-                if key == 'value':
-                    titlePart = localizeMoney(titlePart, self._fractionType)
-                elif key == 'unit':
+                if key == 'unit':
                     titlePart = titlePart.lower()
-                elif key == 'subjectshort':
+                if key == 'subjectshort':
                     if len(titlePart.split()) > 1:
                         titlePart = '"%s"' % titlePart
                 titleParts.append(titlePart) 
