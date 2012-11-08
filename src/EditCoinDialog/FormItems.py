@@ -1,11 +1,13 @@
+# -*- coding: utf-8 -*-
+
 import locale
 
 from PyQt4 import QtGui
 from PyQt4.QtCore import QMargins
 
 from Collection.CollectionFields import Statuses
+from Tools.Converters import volgarToFloat, localizeMoney, FractionTypes, valueToFloat
 
-# Reimplementing QDoubleValidator for replace comma with dot
 class DoubleValidator(QtGui.QDoubleValidator):
     def __init__(self, bottom, top, decimals, parent=None):
         super(DoubleValidator, self).__init__(bottom, top, decimals, parent)
@@ -70,6 +72,69 @@ class NumberValidator(QtGui.QIntValidator):
             val = int(input_)
         except ValueError:
             return QtGui.QValidator.Invalid, input_, pos
+        
+        if self.bottom() > val or val > self.top():
+            return QtGui.QValidator.Invalid, input_, pos
+        
+        return QtGui.QValidator.Acceptable, input_, pos
+
+class MoneyValueValidator(QtGui.QDoubleValidator):
+    def __init__(self, bottom, top, decimals, parent=None):
+        super(MoneyValueValidator, self).__init__(bottom, top, decimals, parent)
+    
+    def validate(self, input_, pos):
+        input_ = input_.lstrip()
+        if len(input_) == 0:
+            return QtGui.QValidator.Intermediate, input_, pos
+        
+        lastWasDigit = False
+        decPointFound = False
+        vulgarFound = False
+        uniVulgarFound = False
+        decDigitCnt = 0
+        ts = locale.localeconv()['thousands_sep']
+        dp = locale.localeconv()['decimal_point']
+        
+        for c in input_:
+            if c.isdigit():
+                if decPointFound or vulgarFound:
+                    if decDigitCnt < self.decimals():
+                        decDigitCnt = decDigitCnt + 1
+                    else:
+                        return QtGui.QValidator.Invalid, input_, pos
+                elif uniVulgarFound:
+                    return QtGui.QValidator.Invalid, input_, pos
+                
+                lastWasDigit = True
+            else:
+                if vulgarFound or uniVulgarFound or decPointFound:
+                    # After vulgar or decimal point may be only digits
+                    return QtGui.QValidator.Invalid, input_, pos
+                
+                if (c == dp or c == '.') and self.decimals() != 0:
+                    decPointFound = True
+                elif c == ts or (ts == chr(0xA0) and c == ' '):
+                    if not lastWasDigit:
+                        return QtGui.QValidator.Invalid, input_, pos
+                elif c == '/':
+                    if not lastWasDigit:
+                        return QtGui.QValidator.Invalid, input_, pos
+                    else:
+                        vulgarFound = True
+                elif c in "⅛⅙⅕¼⅓⅜⅖½⅗⅝⅔¾⅘⅚⅞":
+                    uniVulgarFound = True
+                else:
+                    return QtGui.QValidator.Invalid, input_, pos
+                
+                lastWasDigit = False
+        
+        try:
+            val = volgarToFloat(input_)
+        except ValueError:
+            return QtGui.QValidator.Invalid, input_, pos
+        
+        if val is None:
+            return QtGui.QValidator.Intermediate, input_, pos
         
         if self.bottom() > val or val > self.top():
             return QtGui.QValidator.Invalid, input_, pos
@@ -205,7 +270,6 @@ class _DoubleEdit(QtGui.QLineEdit):
         self._decimals = decimals
         
         validator = DoubleValidator(bottom, top, decimals, parent)
-        validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
         self.setValidator(validator)
     
     def focusInEvent(self, event):
@@ -222,18 +286,7 @@ class _DoubleEdit(QtGui.QLineEdit):
     
     def text(self):
         text = super(_DoubleEdit, self).text()
-        # First, get rid of the grouping
-        ts = locale.localeconv()['thousands_sep']
-        if ts:
-            text = text.replace(ts, '')
-            if ts == chr(0xA0):
-                text = text.replace(' ', '')
-        # next, replace the decimal point with a dot
-        if self._decimals:
-            dp = locale.localeconv()['decimal_point']
-            if dp:
-                text = text.replace(dp, '.')
-        return text
+        return valueToFloat(text)
     
     def __updateText(self):
         text = self.text()
@@ -280,6 +333,57 @@ class MoneyEdit(_DoubleEdit):
     
     def sizeHint(self):
         return self.minimumSizeHint()
+
+class MoneyValueEdit(QtGui.QLineEdit):
+    def __init__(self, parent=None):
+        super(MoneyValueEdit, self).__init__(parent)
+        
+        self.setMaxLength(16)
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+    
+    def sizeHint(self):
+        return self.minimumSizeHint()
+    
+    def setFractionMode(self, fractionType):
+        self._fractionType = fractionType
+        
+        if fractionType == FractionTypes.Decimal:
+            validator = DoubleValidator(0, 9999999999, 2, self.parent())
+        else:
+            validator = MoneyValueValidator(0, 9999999999, 2, self.parent())
+        self.setValidator(validator)
+    
+    def focusInEvent(self, event):
+        self.__updateText()
+        return super(MoneyValueEdit, self).focusInEvent(event)
+    
+    def focusOutEvent(self, event):
+        self.__updateText()
+        return super(MoneyValueEdit, self).focusOutEvent(event)
+    
+    def setText(self, text):
+        super(MoneyValueEdit, self).setText(text)
+        self.__updateText()
+    
+    def text(self):
+        text = super(MoneyValueEdit, self).text()
+        
+        if text[-1] == '/':
+            text = text[:-1]
+        val = volgarToFloat(text)
+        return str(val)
+    
+    def __updateText(self):
+        text = self.text()
+        if text:
+            if not self.hasFocus() or self.isReadOnly():
+                text = localizeMoney(text, self._fractionType)
+            else:
+                if self._fractionType in (FractionTypes.Vulgar, FractionTypes.VulgarUnicode):
+                    text = localizeMoney(text, FractionTypes.Vulgar)
+            
+            super(MoneyValueEdit, self).setText(text)
 
 class TextEdit(QtGui.QTextEdit):
     def __init__(self, parent=None):
