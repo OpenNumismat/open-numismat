@@ -13,17 +13,15 @@ class Updater(QtCore.QObject):
     
     def update(self):
         if self.check():
-            self.__begin()
-            
-            if self.currentVersion < 2:
-                updater = UpdaterTo2(self.collection)
-                updater.update()
-            
-            self.__finalize()
+            if self.__begin():
+                if self.currentVersion < 2:
+                    updater = UpdaterTo2(self.collection)
+                    updater.update()
+                
+                self.__finalize()
     
     def __begin(self):
-        # TODO: Make backup
-        pass
+        return self.collection.backup()
     
     def __finalize(self):
         # TODO: Move vacuum here
@@ -190,7 +188,7 @@ class UpdaterTo2(_Updater):
         self.progressDlg.setLabelText(QApplication.translate('UpdaterTo2', "Vacuum..."))
         self._updateRecord()
 
-        QSqlQuery("VACUUM", self.db)
+        self.collection.vacuum()
     
         self._finish()
 

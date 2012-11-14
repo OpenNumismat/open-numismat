@@ -12,6 +12,8 @@ from Reference.ReferenceDialog import AllReferenceDialog
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import Statuses
 from Collection.VersionUpdater import updateCollection
+from Tools.CursorDecorators import waitCursorDecorator
+from Settings import Settings
 
 class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
@@ -403,13 +405,13 @@ class Collection(QtCore.QObject):
             QtGui.QMessageBox.critical(self.parent(), self.tr("Open collection"), self.tr("Collection not exists"))
             return False
         
+        self.fileName = fileName
+
         self.settings = CollectionSettings(self)
-        
         self.fields = CollectionFields(self.db)
         
         updateCollection(self)
         
-        self.fileName = fileName
         self._pages = CollectionPages(self.db)
         
         return True
@@ -550,6 +552,25 @@ class Collection(QtCore.QObject):
         editReferenceAct.triggered.connect(self.editReference)
         
         return [createReferenceAct, editReferenceAct]
+    
+    @waitCursorDecorator
+    def backup(self):
+        # TODO: Move this functionality to Collection
+        backupDir = QtCore.QDir(Settings().backupFolder)
+        if not backupDir.exists():
+            backupDir.mkpath(backupDir.path())
+        
+        backupFileName = backupDir.filePath("%s_%s.db" % (self.getCollectionName(), QtCore.QDateTime.currentDateTime().toString('yyMMddhhmm')))
+        srcFile = QtCore.QFile(self.fileName)
+        if not srcFile.copy(backupFileName):
+            QtGui.QMessageBox.critical(self.parent(), self.tr("Backup collection"), self.tr("Can't make a collection backup at %s") % backupFileName)
+            return False
+        
+        return True
+
+    @waitCursorDecorator
+    def vacuum(self):
+        QSqlQuery("VACUUM", self.db)
     
     @staticmethod
     def fileNameToCollectionName(fileName):
