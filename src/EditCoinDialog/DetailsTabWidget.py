@@ -132,6 +132,10 @@ class DetailsTabWidget(QtGui.QTabWidget):
             self.setTabEnabled(index, False)
     
     def addItem(self, field):
+        # Skip image fields for not a form
+        if field.type in Type.ImageTypes:
+            return
+        
         item = FormItem(field.name, field.title, field.type | Type.Disabled)
         if not field.enabled:
             item.setHidden()
@@ -147,15 +151,12 @@ class DetailsTabWidget(QtGui.QTabWidget):
     
     def fillItems(self, record):
         if not record.isEmpty():
-            fields = CollectionFields()
-            for field in fields:
-                if field not in fields.systemFileds:
-                    item = self.items[field.name]
-                    if not record.isNull(item.field()):
-                        value = record.value(item.field())
-                        item.setValue(value)
-                    else:
-                        item.widget().clear()
+            for item in self.items.values():
+                if not record.isNull(item.field()):
+                    value = record.value(item.field())
+                    item.setValue(value)
+                else:
+                    item.widget().clear()
     
     def clear(self):
         for item in self.items.values():
@@ -247,10 +248,10 @@ class DetailsTabWidget(QtGui.QTabWidget):
         title = QApplication.translate('DetailsTabWidget', "Parameters")
         layout = BaseFormGroupBox(title, parent)
         
-        layout.addRow(self.items['metal'])
-        layout.addRow(self.items['fineness'], self.items['mass'])
-        layout.addRow(self.items['diameter'], self.items['thick'])
-        layout.addRow(self.items['form'])
+        layout.addRow(self.items['material'])
+        layout.addRow(self.items['fineness'], self.items['weight'])
+        layout.addRow(self.items['diameter'], self.items['thickness'])
+        layout.addRow(self.items['shape'])
         layout.addRow(self.items['obvrev'])
 
         return layout

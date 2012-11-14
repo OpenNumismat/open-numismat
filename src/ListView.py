@@ -28,7 +28,7 @@ class ImageDelegate(QtGui.QStyledItemDelegate):
         QtGui.QStyledItemDelegate.__init__(self, parent)
 
     def paint(self, painter, option, index):
-        if not index.data().isNull():
+        if index.data() and not index.data().isNull():
             image = QtGui.QImage()
             image.loadFromData(index.data())
             scaledImage = image.scaled(option.rect.width(), option.rect.height(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
@@ -99,7 +99,7 @@ class ListView(QtGui.QTableView):
         
         # Show image data as images
         for field in listParam.fields:
-            if field.type == Type.Image or field.type == Type.EdgeImage:
+            if field.type in Type.ImageTypes:
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
         
         self.selectedRowId = None
@@ -261,7 +261,7 @@ class ListView(QtGui.QTableView):
             col.insert(pos, param.fieldid)
             self.horizontalHeader().moveSection(index, pos)
             
-            if self.model().fields.field(param.fieldid).type in [Type.Image, Type.EdgeImage]:
+            if self.model().fields.field(param.fieldid).type in Type.ImageTypes:
                 self.verticalHeader().setDefaultSectionSize(self.defaultHeight*1.5)
 
         self.horizontalHeader().sectionMoved.connect(self.columnMoved)
@@ -376,7 +376,7 @@ class ListView(QtGui.QTableView):
             progressDlg = QtGui.QProgressDialog(self.tr("Updating records"),
                                                 self.tr("Cancel"), 0, len(indexes),
                                                 self, Qt.WindowSystemMenuHint)
-            progressDlg.setWindowModality(QtCore.Qt.WindowModal)
+            progressDlg.setWindowModality(Qt.WindowModal)
             progressDlg.setMinimumDuration(250)
             
             # Fill records by used fields in multi record

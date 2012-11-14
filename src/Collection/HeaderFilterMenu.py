@@ -50,7 +50,8 @@ class FilterMenuButton(QtGui.QPushButton):
                 appliedValues.append(filter_.value)
 
         hasBlanks = False
-        if self.model.columnType(self.fieldid) in [Type.Image, Type.EdgeImage, Type.Text]:
+        columnType = self.model.columnType(self.fieldid)
+        if columnType == Type.Text or columnType in Type.ImageTypes:
             dataFilter = Filter(self.columnName, blank=True).toSql()
             blanksFilter = Filter(self.columnName, data=True).toSql()
 
@@ -70,9 +71,9 @@ class FilterMenuButton(QtGui.QPushButton):
             dataCount = query.record().value(0)
             
             if dataCount > 0:
-                if self.model.columnType(self.fieldid) in [Type.Image, Type.EdgeImage]:
+                if columnType in Type.ImageTypes:
                     label = self.tr("(Images)")
-                elif self.model.columnType(self.fieldid) == Type.Text:
+                elif columnType == Type.Text:
                     label = self.tr("(Text)")
                 else:
                     label = self.tr("(Data)")

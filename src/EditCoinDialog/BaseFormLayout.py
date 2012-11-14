@@ -37,6 +37,8 @@ class FormItem(object):
             self._widget = TextEdit(parent)
         elif self._type == Type.Image:
             self._widget = ImageEdit(parent)
+        elif self._type == Type.PreviewImage:
+            self._widget = ImageEdit(parent)
         elif self._type == Type.EdgeImage:
             self._widget = EdgeImageEdit(parent)
         elif self._type == Type.Date:
@@ -45,13 +47,11 @@ class FormItem(object):
             self._widget = StatusEdit(parent)
         elif self._type == Type.DateTime:
             self._widget = DateTimeEdit(parent)
-        elif self._type == Type.EdgeImage:
-            self._widget = EdgeImageEdit(parent)
         else:
             raise
         
         if itemType & Type.Disabled:
-            if self._type in [Type.Status, Type.Image, Type.EdgeImage]:
+            if self._type == Type.Status or self._type in Type.ImageTypes:
                 self._widget.setDisabled(True)
             else:
                 self._widget.setReadOnly(True)

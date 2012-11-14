@@ -15,10 +15,13 @@ class FieldTypes():
     Status = 10
     DateTime = 11
     EdgeImage = 12
+    PreviewImage = 13
     
-    Mask = int('FF', 16)  # 0xFF
-    Checkable = int('100', 16)  # 0x100
-    Disabled = int('200', 16)  # 0x200
+    Mask = 0xFF
+    Checkable = 0x100
+    Disabled = 0x200
+    
+    ImageTypes = (Image, EdgeImage, PreviewImage)
 
 class Status(dict):
     Keys = ('demo', 'pass', 'owned', 'sold', 'sale', 'wish')
@@ -90,12 +93,12 @@ class CollectionFieldsBase(QObject):
                 ('series', self.tr("Series"), Type.String),
                 ('subjectshort', self.tr("Subject"), Type.String),
                 ('status', self.tr("Status"), Type.Status),
-                ('metal', self.tr("Metal"), Type.String),
+                ('material', self.tr("Material"), Type.String),
                 ('fineness', self.tr("Fineness"), Type.Number), # 4 digits for Canadian Gold Maple Leaf
-                ('form', self.tr("Form"), Type.String),
+                ('shape', self.tr("Shape"), Type.String),
                 ('diameter', self.tr("Diameter"), Type.Value),
-                ('thick', self.tr("Thick"), Type.Value),
-                ('mass', self.tr("Mass"), Type.Value),
+                ('thickness', self.tr("Thickness"), Type.Value),
+                ('weight', self.tr("Weight"), Type.Value),
                 ('grade', self.tr("Grade"), Type.String),
                 ('edge', self.tr("Type"), Type.String),
                 ('edgelabel', self.tr("Label"), Type.String),
@@ -129,7 +132,7 @@ class CollectionFieldsBase(QObject):
                 ('saleplace', self.tr("Place"), Type.String),
                 ('saleinfo', self.tr("Info"), Type.Text),
                 ('note', self.tr("Note"), Type.Text),
-                ('image', self.tr("Image"), Type.Image),
+                ('image', self.tr("Image"), Type.PreviewImage),
                 ('obverseimg', self.tr("Obverse"), Type.Image),
                 ('obversedesign', self.tr("Design"), Type.Text),
                 ('obversedesigner', self.tr("Designer"), Type.String),

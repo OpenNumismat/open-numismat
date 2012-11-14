@@ -42,8 +42,7 @@ class ImageView(QtGui.QWidget):
         # TODO: Store value of imageFields in object
         imageFields = []
         for field in self.model.fields.userFields:
-            if field.type in [Type.Image, Type.EdgeImage] and \
-               field.name != 'image':
+            if field.type in [Type.Image, Type.EdgeImage]:
                 imageFields.append(field)
         return imageFields
     

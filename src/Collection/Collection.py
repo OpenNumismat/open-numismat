@@ -2,7 +2,7 @@ import locale
 
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt, pyqtSignal
-from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery
+from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 
 from .CollectionFields import FieldTypes as Type
 from .CollectionFields import CollectionFields
@@ -11,6 +11,7 @@ from Reference.Reference import CrossReferenceSection
 from Reference.ReferenceDialog import AllReferenceDialog
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import Statuses
+from Collection.VersionUpdater import updateCollection
 
 class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
@@ -54,6 +55,11 @@ class CollectionModel(QSqlTableModel):
                 elif field.type == Type.Date:
                     date = QtCore.QDate.fromString(data, Qt.ISODate)
                     text = date.toString(Qt.SystemLocaleShortDate)
+                elif field.type == Type.Image or field.type == Type.EdgeImage:
+                    if not isinstance(data, QtCore.QPyNullVariant):
+                        return self.getImage(data)
+                    else:
+                        return None
                 elif field.type == Type.DateTime:
                     date = QtCore.QDateTime.fromString(data, Qt.ISODate)
                     # Timestamp in DB stored in UTC
@@ -95,11 +101,88 @@ class CollectionModel(QSqlTableModel):
         self._updateRecord(record)
         record.setNull('id')  # remove ID value from record
         record.setValue('createdat', record.value('updatedat'))
+
+        for field in ['obverseimg', 'reverseimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4']:
+            if not record.isNull(field):
+                query = QSqlQuery(self.database())
+                query.prepare("INSERT INTO images (title, image) VALUES (?, ?)")
+                query.addBindValue(record.value(field+'_title'))
+                query.addBindValue(record.value(field))
+                query.exec_()
+                
+                img_id = query.lastInsertId()
+            else:
+                img_id = None
+            
+            record.setValue(field, img_id)
+        
         return super(CollectionModel, self).insertRecord(row, record)
     
     def setRecord(self, row, record):
         self._updateRecord(record)
+        for field in ['obverseimg', 'reverseimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4']:
+            img_id = record.value(field+'_id')
+            if record.isNull(field):
+                if not record.isNull(field+'_id'):
+                    query = QSqlQuery(self.database())
+                    query.prepare("DELETE FROM images WHERE id=?")
+                    query.addBindValue(img_id)
+                    query.exec_()
+                    
+                    img_id = None
+            else:
+                if record.isNull(field+'_id'):
+                    query = QSqlQuery(self.database())
+                    query.prepare("INSERT INTO images (title, image) VALUES (?, ?)")
+                    query.addBindValue(record.value(field+'_title'))
+                    query.addBindValue(record.value(field))
+                    query.exec_()
+                    
+                    img_id = query.lastInsertId()
+                else:
+                    query = QSqlQuery(self.database())
+                    query.prepare("UPDATE images SET title=?, image=? WHERE id=?")
+                    query.addBindValue(record.value(field+'_title'))
+                    query.addBindValue(record.value(field))
+                    query.addBindValue(img_id)
+                    query.exec_()
+            
+            record.setValue(field, img_id)
         return super(CollectionModel, self).setRecord(row, record)
+    
+    def record(self, row=-1):
+        if row >= 0:
+            record = super(CollectionModel, self).record(row)
+        else:
+            record = super(CollectionModel, self).record()
+        
+        for field in ['obverseimg', 'reverseimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4']:
+            record.append(QSqlField(field+'_title'))
+            record.append(QSqlField(field+'_id'))
+
+            if not record.isNull(field):
+                img_id = record.value(field)
+                data = self.getImage(img_id)
+                record.setValue(field, data)
+                record.setValue(field+'_title', self.getImageTitle(img_id))
+                record.setValue(field+'_id', record.value(field))
+            else:
+                record.setValue(field, None)
+                fieldDesc = getattr(self.fields, field)
+                record.setValue(field+'_title', fieldDesc.title)
+
+        return record
+    
+    def removeRow(self, row):
+        record = super(CollectionModel, self).record(row)
+        for field in ['obverseimg', 'reverseimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4']:
+            if not record.isNull(field):
+                query = QSqlQuery(self.database())
+                query.prepare("DELETE FROM images WHERE id=?")
+                query.addBindValue(record.value(field))
+                query.exec_()
+        
+        return super(CollectionModel, self).removeRow(row)
     
     def _updateRecord(self, record):
         if self.proxy:
@@ -108,7 +191,7 @@ class CollectionModel(QSqlTableModel):
         obverseImage = QtGui.QImage()
         reverseImage = QtGui.QImage()
         for field in self.fields.userFields:
-            if field.type in [Type.Image, Type.EdgeImage] and field.name != 'image':
+            if field.type in [Type.Image, Type.EdgeImage]:
                 # Convert image to DB format
                 image = record.value(field.name)
                 if isinstance(image, str):
@@ -204,6 +287,22 @@ class CollectionModel(QSqlTableModel):
         self.extFilter = filter_
         self.__applyFilter()
     
+    def getImage(self, img_id):
+        query = QSqlQuery(self.database())
+        query.prepare("SELECT image FROM images WHERE id==?")
+        query.addBindValue(img_id)
+        query.exec_()
+        if query.first():
+            return query.record().value(0)
+    
+    def getImageTitle(self, img_id):
+        query = QSqlQuery(self.database())
+        query.prepare("SELECT title FROM images WHERE id==?")
+        query.addBindValue(img_id)
+        query.exec_()
+        if query.first():
+            return query.record().value(0)
+    
     def __applyFilter(self):
         if self.intFilter and self.extFilter:
             combinedFilter = self.intFilter + " AND " + self.extFilter
@@ -234,7 +333,7 @@ class CollectionModel(QSqlTableModel):
         return False
 
 class CollectionSettings(QtCore.QObject):
-    DefaultSettings = {'Version': 1, 'ImageSideLen': 1024}
+    DefaultSettings = {'Version': 2, 'ImageSideLen': 1024}
     
     def __init__(self, collection):
         super(CollectionSettings, self).__init__(collection)
@@ -303,13 +402,15 @@ class Collection(QtCore.QObject):
         else:
             QtGui.QMessageBox.critical(self.parent(), self.tr("Open collection"), self.tr("Collection not exists"))
             return False
-            
+        
+        self.settings = CollectionSettings(self)
+        
         self.fields = CollectionFields(self.db)
+        
+        updateCollection(self)
         
         self.fileName = fileName
         self._pages = CollectionPages(self.db)
-        
-        self.settings = CollectionSettings(self)
         
         return True
     
@@ -326,15 +427,7 @@ class Collection(QtCore.QObject):
         
         self.fileName = fileName
 
-        sqlFields = []
-        for field in self.fields:
-            if field.name == 'id':
-                sqlFields.append('id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT')
-            else:
-                sqlFields.append(self.__fieldToSql(field))
-        
-        sql = "CREATE TABLE IF NOT EXISTS coins (" + ", ".join(sqlFields) + ")"
-        QSqlQuery(sql, self.db)
+        self.createCoinsTable()
         
         self.fields = CollectionFields(self.db)
         
@@ -343,6 +436,20 @@ class Collection(QtCore.QObject):
         self.settings = CollectionSettings(self)
         
         return True
+    
+    def createCoinsTable(self):
+        sqlFields = []
+        for field in self.fields:
+            if field.name == 'id':
+                sqlFields.append('id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT')
+            else:
+                sqlFields.append(self.__fieldToSql(field))
+        
+        sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
+        QSqlQuery(sql, self.db)
+        
+        sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title CHAR, image BLOB)"
+        QSqlQuery(sql, self.db)
 
     def __fieldToSql(self, field):
         if field.type == Type.String:
@@ -359,8 +466,10 @@ class Collection(QtCore.QObject):
             type_ = 'CHAR'
         elif field.type == Type.BigInt:
             type_ = 'INTEGER'
-        elif field.type == Type.Image:
+        elif field.type == Type.PreviewImage:
             type_ = 'BLOB'
+        elif field.type == Type.Image:
+            type_ = 'INTEGER'
         elif field.type == Type.Value:
             type_ = 'NUMERIC(10,3)'
         elif field.type == Type.Status:
@@ -368,7 +477,7 @@ class Collection(QtCore.QObject):
         elif field.type == Type.DateTime:
             type_ = 'CHAR'
         elif field.type == Type.EdgeImage:
-            type_ = 'BLOB'
+            type_ = 'INTEGER'
         else:
             raise
         
