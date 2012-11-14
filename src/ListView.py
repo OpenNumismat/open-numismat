@@ -28,12 +28,13 @@ class ImageDelegate(QtGui.QStyledItemDelegate):
         QtGui.QStyledItemDelegate.__init__(self, parent)
 
     def paint(self, painter, option, index):
-        if index.data() and not index.data().isNull():
+        data = index.data()
+        if data and not data.isNull():
             image = QtGui.QImage()
-            image.loadFromData(index.data())
-            scaledImage = image.scaled(option.rect.width(), option.rect.height(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            pixmap = QtGui.QPixmap.fromImage(scaledImage)
+            image.loadFromData(data)
             rect = option.rect
+            scaledImage = image.scaled(rect.width(), rect.height(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            pixmap = QtGui.QPixmap.fromImage(scaledImage)
             # Set rect at center of item
             rect.translate((rect.width()-pixmap.width())/2, (rect.height()-pixmap.height())/2)
             rect.setSize(pixmap.size())
