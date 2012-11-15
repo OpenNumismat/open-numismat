@@ -72,6 +72,20 @@ class UpdaterTo2(_Updater):
     
         self.db.transaction()
         
+        fields = ['quantity', 'url', 'barcode']
+        for field in fields:
+            fieldDesc = getattr(self.collection.fields, field)
+            fieldDesc.enabled = True
+            query = QSqlQuery(self.db)
+            query.prepare("""INSERT INTO fields (id, title, enabled)
+                VALUES (?, ?, ?)""")
+            query.addBindValue(fieldDesc.id)
+            query.addBindValue(fieldDesc.title)
+            query.addBindValue(int(fieldDesc.enabled))
+            query.exec_()
+            
+            self.collection.fields.userFields.append(fieldDesc)
+        
         sql = """ALTER TABLE coins RENAME TO tmp_coins"""
         QSqlQuery(sql, self.db)
         

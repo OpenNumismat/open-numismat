@@ -445,7 +445,7 @@ class Collection(QtCore.QObject):
             if field.name == 'id':
                 sqlFields.append('id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT')
             else:
-                sqlFields.append("%s %s" % [field.name, Type.toSql(field.type)])
+                sqlFields.append("%s %s" % (field.name, Type.toSql(field.type)))
         
         sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
         QSqlQuery(sql, self.db)

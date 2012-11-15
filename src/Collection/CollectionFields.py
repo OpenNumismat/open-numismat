@@ -182,7 +182,10 @@ class CollectionFieldsBase(QObject):
                 ('storage', self.tr("Storage"), Type.String),
                 ('features', self.tr("Features"), Type.Text),
                 ('createdat', self.tr("Created at"), Type.DateTime),
-                ('updatedat', self.tr("Updated at"), Type.DateTime)
+                ('updatedat', self.tr("Updated at"), Type.DateTime),
+                ('quantity', self.tr("Quantity"), Type.BigInt),
+                ('url', self.tr("URL"), Type.String),
+                ('barcode', self.tr("Barcode"), Type.String),
             ]
 
         self.fields = []
