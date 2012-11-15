@@ -32,6 +32,9 @@ class TabView(QtGui.QTabWidget):
         
         self.__createActions()
     
+    def mouseDoubleClickEvent(self, event):
+        self.newList()
+    
     def tabDClicked(self, index):
         self.renamePage(index)
     
