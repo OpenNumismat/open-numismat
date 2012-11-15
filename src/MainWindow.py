@@ -137,6 +137,8 @@ class MainWindow(QtGui.QMainWindow):
             size = settings.value('mainwindow/size')
             if size:
                 self.resize(size)
+        
+        self.autoUpdate()
     
     def createStatusBar(self):
         self.collectionFileLabel = QtGui.QLabel()
@@ -288,3 +290,48 @@ class MainWindow(QtGui.QMainWindow):
 
         executor = QtGui.QDesktopServices()
         executor.openUrl(url)
+    
+    def autoUpdate(self):
+        if Settings().checkUpdates:
+            currentDate = QtCore.QDate.currentDate()
+            currentDateStr = currentDate.toString(QtCore.Qt.ISODate)
+            
+            settings = QtCore.QSettings()
+            lastUpdateDateStr = settings.value('mainwindow/last_update')
+            if lastUpdateDateStr:
+                lastUpdateDate = QtCore.QDate.fromString(lastUpdateDateStr, QtCore.Qt.ISODate)
+                if lastUpdateDate.addDays(10) < currentDate:
+                    self.checkUpdates()
+    
+            settings.setValue('mainwindow/last_update', currentDateStr)
+    
+    def checkUpdates(self):
+        newVersion = self.__getNewVersion()
+        if newVersion != version.Version:
+            result = QtGui.QMessageBox.question(self, self.tr("New version"),
+                        self.tr("New version is available. Download it now?"),
+                        QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.Yes)
+            if result == QtGui.QMessageBox.Yes:
+                url = QtCore.QUrl(version.Web + 'wiki/MainPage')
+                url.setQueryItems([('wl', Settings().language)])
+        
+                executor = QtGui.QDesktopServices()
+                executor.openUrl(url)
+
+    @waitCursorDecorator
+    def __getNewVersion(self):
+        import urllib.request
+        from xml.dom.minidom import parseString
+        
+        newVersion = version.Version
+        
+        try:
+            req = urllib.request.Request("http://wiki.open-numismat.googlecode.com/git/data/pad.xml")
+            data = urllib.request.urlopen(req).read()
+            xml = parseString(data)
+            tag = xml.getElementsByTagName('Program_Version')[0]
+            newVersion = tag.firstChild.nodeValue
+        except:
+            pass
+        
+        return newVersion

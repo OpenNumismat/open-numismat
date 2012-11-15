@@ -17,12 +17,14 @@ class Settings(QtCore.QObject):
         self.backupFolder = self.__backupFolder()
         self.reference = self.__reference()
         self.sendError = self.__sendError()
+        self.checkUpdates = self.__checkUpdates()
     
     def save(self):
         self.settings.setValue('mainwindow/locale', self.language)
         self.settings.setValue('mainwindow/backup', self.backupFolder)
         self.settings.setValue('mainwindow/reference', self.reference)
         self.settings.setValue('mainwindow/error', self.sendError)
+        self.settings.setValue('mainwindow/updates', self.checkUpdates)
     
     def __language(self):
         locale = self.settings.value('mainwindow/locale')
@@ -53,6 +55,13 @@ class Settings(QtCore.QObject):
             return False
         
         return error == 'true'
+
+    def __checkUpdates(self):
+        checkUpdates = self.settings.value('mainwindow/updates')
+        if not checkUpdates:
+            return False
+        
+        return checkUpdates == 'true'
 
 class MainSettingsPage(QtGui.QWidget):
     Languages = [("English", 'en'), ("Русский", 'ru'), ("Español", 'es')]
@@ -109,6 +118,10 @@ class MainSettingsPage(QtGui.QWidget):
         self.errorSending.setChecked(settings.sendError)
         layout.addRow(self.errorSending)
         
+        self.checkUpdates = QtGui.QCheckBox(self.tr("Automatically check for updates"), self)
+        self.checkUpdates.setChecked(settings.checkUpdates)
+        layout.addRow(self.checkUpdates)
+        
         self.imageSideLen = NumberEdit(self)
         self.imageSideLen.setMaximumWidth(60)
         layout.addRow(self.tr("Max image side len"), self.imageSideLen)
@@ -137,6 +150,7 @@ class MainSettingsPage(QtGui.QWidget):
         settings.backupFolder = self.backupFolder.text()
         settings.reference = self.reference.text()
         settings.sendError = self.errorSending.isChecked()
+        settings.checkUpdates = self.checkUpdates.isChecked()
 
         settings.save()
         
