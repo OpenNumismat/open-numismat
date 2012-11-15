@@ -28,6 +28,8 @@ class Settings(QtCore.QObject):
         locale = self.settings.value('mainwindow/locale')
         if not locale:
             locale = QtCore.QLocale.system().name()
+            if '_' in locale:
+                locale = locale.split('_')[0]
         
         return locale
     
