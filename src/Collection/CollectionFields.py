@@ -23,6 +23,39 @@ class FieldTypes():
     
     ImageTypes = (Image, EdgeImage, PreviewImage)
 
+    @staticmethod
+    def toSql(type_):
+        if type_ == FieldTypes.String:
+            sql_type = 'CHAR'
+        elif type_ == FieldTypes.ShortString:
+            sql_type = 'CHAR(10)'
+        elif type_ == FieldTypes.Number:
+            sql_type = 'NUMERIC(4)'
+        elif type_ == FieldTypes.Text:
+            sql_type = 'TEXT'
+        elif type_ == FieldTypes.Money:
+            sql_type = 'NUMERIC(10,2)'
+        elif type_ == FieldTypes.Date:
+            sql_type = 'CHAR'
+        elif type_ == FieldTypes.BigInt:
+            sql_type = 'INTEGER'
+        elif type_ == FieldTypes.PreviewImage:
+            sql_type = 'BLOB'
+        elif type_ == FieldTypes.Image:
+            sql_type = 'INTEGER'
+        elif type_ == FieldTypes.Value:
+            sql_type = 'NUMERIC(10,3)'
+        elif type_ == FieldTypes.Status:
+            sql_type = 'CHAR'
+        elif type_ == FieldTypes.DateTime:
+            sql_type = 'CHAR'
+        elif type_ == FieldTypes.EdgeImage:
+            sql_type = 'INTEGER'
+        else:
+            raise
+        
+        return sql_type
+
 class Status(dict):
     Keys = ('demo', 'pass', 'owned', 'sold', 'sale', 'wish')
     Titles = (

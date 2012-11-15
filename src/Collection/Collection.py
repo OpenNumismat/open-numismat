@@ -445,45 +445,13 @@ class Collection(QtCore.QObject):
             if field.name == 'id':
                 sqlFields.append('id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT')
             else:
-                sqlFields.append(self.__fieldToSql(field))
+                sqlFields.append("%s %s" % [field.name, Type.toSql(field.type)])
         
         sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
         QSqlQuery(sql, self.db)
         
         sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title CHAR, image BLOB)"
         QSqlQuery(sql, self.db)
-
-    def __fieldToSql(self, field):
-        if field.type == Type.String:
-            type_ = 'CHAR'
-        elif field.type == Type.ShortString:
-            type_ = 'CHAR(10)'
-        elif field.type == Type.Number:
-            type_ = 'NUMERIC(4)'
-        elif field.type == Type.Text:
-            type_ = 'TEXT'
-        elif field.type == Type.Money:
-            type_ = 'NUMERIC(10,2)'
-        elif field.type == Type.Date:
-            type_ = 'CHAR'
-        elif field.type == Type.BigInt:
-            type_ = 'INTEGER'
-        elif field.type == Type.PreviewImage:
-            type_ = 'BLOB'
-        elif field.type == Type.Image:
-            type_ = 'INTEGER'
-        elif field.type == Type.Value:
-            type_ = 'NUMERIC(10,3)'
-        elif field.type == Type.Status:
-            type_ = 'CHAR'
-        elif field.type == Type.DateTime:
-            type_ = 'CHAR'
-        elif field.type == Type.EdgeImage:
-            type_ = 'INTEGER'
-        else:
-            raise
-        
-        return field.name + ' ' + type_
 
     def getFileName(self):
         return QtCore.QDir(self.fileName).absolutePath()
