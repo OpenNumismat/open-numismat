@@ -64,12 +64,15 @@ class MainWindow(QtGui.QMainWindow):
         importCoinsCollectorAct.triggered.connect(self.importCoinsCollector)
         importCoinManageAct = QtGui.QAction(QtGui.QIcon('icons/CoinManage.ico'), self.tr("CoinManage 2011"), self)
         importCoinManageAct.triggered.connect(self.importCoinManage)
+        importCollectionStudioAct = QtGui.QAction(QtGui.QIcon('icons/CollectionStudio.ico'), self.tr("Collection Studio 3.65"), self)
+        importCollectionStudioAct.triggered.connect(self.importCollectionStudio)
         
         importMenu = QtGui.QMenu(self.tr("Import"), self)
         importMenu.addAction(importNumizmatAct)
         importMenu.addAction(importCabinetAct)
         importMenu.addAction(importCoinsCollectorAct)
         importMenu.addAction(importCoinManageAct)
+        importMenu.addAction(importCollectionStudioAct)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
@@ -208,6 +211,13 @@ class MainWindow(QtGui.QMainWindow):
                     return
             
             imp = ImportCoinManage(self)
+            imp.importData(file, self.viewTab.currentModel())
+    
+    def importCollectionStudio(self):
+        defaultDir = ImportCollectionStudio.defaultDir()
+        file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Select file"), defaultDir, "*.xml")
+        if file:
+            imp = ImportCollectionStudio(self)
             imp.importData(file, self.viewTab.currentModel())
     
     def addCoin(self):

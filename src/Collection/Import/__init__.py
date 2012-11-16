@@ -94,5 +94,7 @@ from Collection.Import.Cabinet import ImportCabinet
 from Collection.Import.CoinsCollector import ImportCoinsCollector
 from Collection.Import.CoinManage import ImportCoinManage
 from Collection.Import.CoinManagePredefined import ImportCoinManagePredefined
+from Collection.Import.CollectionStudio import ImportCollectionStudio
 
-__all__ = ["ImportNumizmat", "ImportCabinet", "ImportCoinsCollector", "ImportCoinManage", "ImportCoinManagePredefined"]
+__all__ = ["ImportNumizmat", "ImportCabinet", "ImportCoinsCollector",
+           "ImportCoinManage", "ImportCoinManagePredefined", "ImportCollectionStudio"]
