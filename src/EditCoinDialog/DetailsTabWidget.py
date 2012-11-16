@@ -58,9 +58,10 @@ class DetailsTabWidget(QtGui.QTabWidget):
         rarity = self.rarityLayout()
         price = self.priceLayout()
         variation = self.variationLayout()
+        url = self.urlLayout()
 
         title = QApplication.translate('DetailsTabWidget', "Classification")
-        self.addTabPage(title, [catalogue, rarity, price, self.Stretch, variation])
+        self.addTabPage(title, [catalogue, rarity, price, self.Stretch, variation, url])
 
     def _layoutToWidget(self, layout):
         widget = QtGui.QWidget(self)
@@ -185,6 +186,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         layout.addRow(self.items['status'], self.items['grade'])
         self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
         layout.addRow(self.items['storage'])
+        layout.addRow(self.items['quantity'], self.items['barcode'])
         layout.addRow(self.items['defect'])
         layout.addRow(self.items['features'])
 
@@ -349,6 +351,13 @@ class DetailsTabWidget(QtGui.QTabWidget):
         item = self.items['edgevar']
         layout.layout.addWidget(item.label(), 3, 0)
         layout.layout.addWidget(item.widget(), 3, 1)
+
+        return layout
+
+    def urlLayout(self, parent=None):
+        layout = BaseFormLayout(parent)
+        
+        layout.addRow(self.items['url'])
 
         return layout
 
