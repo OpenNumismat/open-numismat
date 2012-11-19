@@ -675,7 +675,10 @@ def textToFloat(text):
     return float(text)
 
 def floatToText(value):
-    return str(int((value)*100 + 0.5)/100)
+    if value > 0:
+        return str(int((value)*100 + 0.5)/100)
+    else:
+        return str(int((value)*100 - 0.5)/100)
 
 # Reimplementing DoubleValidator for replace comma with dot and accept %
 class CommissionValidator(DoubleValidator):
