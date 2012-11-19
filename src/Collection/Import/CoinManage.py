@@ -77,6 +77,9 @@ class ImportCoinManage(_Import):
         'photo4': None,
         'storage': 'Location',
         'features': None,
+        'quantity': 'Quantity',
+        'url': None,
+        'barcode': 'BarCode',
     }
 
     def __init__(self, parent=None):
@@ -177,7 +180,6 @@ class ImportCoinManage(_Import):
                     'UDF1': self.tr("Field 1: %s"),
                     'UDF2': self.tr("Field 2: %s"),
                     'Defects': self.tr("Defect: %s"),
-                    'BarCode': self.tr("BarCode: %s"),
                 }
                 for column, string in additionalFields.items():
                     value = getattr(row, column)
