@@ -4,6 +4,7 @@ from PyQt4 import QtGui, QtCore
 
 from Collection.Collection import Collection
 from Collection.Description import DescriptionDialog
+from Collection.Password import PasswordSetDialog
 from Reference.Reference import Reference
 from TabView import TabView
 from Settings import Settings, SettingsDialog
@@ -56,6 +57,9 @@ class MainWindow(QtGui.QMainWindow):
         descriptionCollectionAct = QtGui.QAction(self.tr("Description"), self)
         descriptionCollectionAct.triggered.connect(self.descriptionCollectionEvent)
 
+        passwordCollectionAct = QtGui.QAction(QtGui.QIcon('icons/key.png'), self.tr("Set password..."), self)
+        passwordCollectionAct.triggered.connect(self.passwordCollectionEvent)
+
         importNumizmatAct = QtGui.QAction(QtGui.QIcon('icons/numizmat.ico'), self.tr("Numizmat 2.1"), self)
         importNumizmatAct.triggered.connect(self.importNumizmat)
         importCabinetAct = QtGui.QAction(QtGui.QIcon('icons/cabinet.ico'), self.tr("Cabinet 2.0.2.0, 2011"), self)
@@ -79,6 +83,7 @@ class MainWindow(QtGui.QMainWindow):
         collectionMenu.addAction(openCollectionAct)
         collectionMenu.addAction(backupCollectionAct)
         collectionMenu.addAction(descriptionCollectionAct)
+        collectionMenu.addAction(passwordCollectionAct)
         collectionMenu.addSeparator()
         collectionMenu.addMenu(importMenu)
         collectionMenu.addSeparator()
@@ -247,6 +252,10 @@ class MainWindow(QtGui.QMainWindow):
     
     def descriptionCollectionEvent(self, checked):
         dialog = DescriptionDialog(self.collection, self)
+        dialog.exec_()
+    
+    def passwordCollectionEvent(self, checked):
+        dialog = PasswordSetDialog(self.collection, self)
         dialog.exec_()
     
     def backupCollectionEvent(self, checked):

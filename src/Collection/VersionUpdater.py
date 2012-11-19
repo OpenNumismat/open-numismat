@@ -197,6 +197,12 @@ class UpdaterTo2(_Updater):
         self.collection.settings.Settings['Version'] = 2
         self.collection.settings.save()
         
+        query = QSqlQuery(self.db)
+        query.prepare("""INSERT INTO settings (title, value) VALUES (?, ?)""")
+        query.addBindValue('Password')
+        query.addBindValue(self.collection.settings.Settings['Password'])
+        query.exec_()
+        
         self.db.commit()
 
         self.progressDlg.setLabelText(QApplication.translate('UpdaterTo2', "Vacuum..."))

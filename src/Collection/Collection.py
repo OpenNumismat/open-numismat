@@ -7,6 +7,7 @@ from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 from .CollectionFields import FieldTypes as Type
 from .CollectionFields import CollectionFields
 from .CollectionPages import CollectionPages
+from Collection.Password import cryptPassword, PasswordDialog
 from Reference.Reference import CrossReferenceSection
 from Reference.ReferenceDialog import AllReferenceDialog
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
@@ -335,7 +336,7 @@ class CollectionModel(QSqlTableModel):
         return False
 
 class CollectionSettings(QtCore.QObject):
-    DefaultSettings = {'Version': 2, 'ImageSideLen': 1024}
+    DefaultSettings = {'Version': 2, 'ImageSideLen': 1024, 'Password': cryptPassword()}
     
     def __init__(self, collection):
         super(CollectionSettings, self).__init__(collection)
@@ -344,7 +345,7 @@ class CollectionSettings(QtCore.QObject):
         if 'settings' not in self.db.tables():
             self.create(self.db)
         
-        self.Settings = {}
+        self.Settings = CollectionSettings.DefaultSettings.copy()
         query = QSqlQuery("SELECT * FROM settings", self.db)
         while query.next():
             record = query.record()
@@ -408,6 +409,13 @@ class Collection(QtCore.QObject):
         self.fileName = fileName
 
         self.settings = CollectionSettings(self)
+        
+        if self.settings.Settings['Password'] != cryptPassword():
+            dialog = PasswordDialog(self, self.parent())
+            result = dialog.exec_()
+            if result == QtGui.QDialog.Rejected:
+                return False
+        
         self.fields = CollectionFields(self.db)
         
         updateCollection(self)
@@ -523,7 +531,6 @@ class Collection(QtCore.QObject):
     
     @waitCursorDecorator
     def backup(self):
-        # TODO: Move this functionality to Collection
         backupDir = QtCore.QDir(Settings().backupFolder)
         if not backupDir.exists():
             backupDir.mkpath(backupDir.path())
