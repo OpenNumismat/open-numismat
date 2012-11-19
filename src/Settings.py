@@ -83,6 +83,7 @@ class MainSettingsPage(QtGui.QWidget):
             if settings.language == lang[1]:
                 current = i
         self.languageSelector.setCurrentIndex(current)
+        self.languageSelector.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         
         layout.addRow(self.tr("Language"), self.languageSelector)
         
@@ -166,6 +167,7 @@ class FieldsSettingsPage(QtGui.QWidget):
 
         self.listWidget = QtGui.QListWidget(self)
         self.listWidget.setWrapping(True)
+        self.listWidget.setMinimumWidth(330)
         self.listWidget.setMinimumHeight(180)
 
         self.fields = collection.fields
