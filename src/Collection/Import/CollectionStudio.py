@@ -98,15 +98,28 @@ class ImportCollectionStudio(_Import):
             if srcColumn and row.find(srcColumn) is not None:
                 rawData = row.find(srcColumn).text
                 if rawData:
-                    if dstColumn == 'paydate':
+                    if srcColumn == 'Income':
                         value = QtCore.QDate.fromString(rawData, 'ddMMyyyy')
-                    if dstColumn == 'year' and rawData == 'N/A':
+                    elif srcColumn == 'Year' and rawData == 'N/A':
                         value = None
-                    elif dstColumn in ['payprice', 'totalpayprice', 'price4']:
-                        try:
-                            value = stringToMoney(rawData)
-                        except ValueError:
+                    elif srcColumn in ['Nominal', 'Diameter', 'Thickness', 'ReversRotation', 'Weight']:
+                        if rawData == '0':
                             value = None
+                        else:
+                            value = rawData
+                    elif srcColumn == 'Duplicates':
+                        if rawData == '0':
+                            value = None
+                        else:
+                            value = int(rawData) + 1
+                    elif srcColumn in ['Price', 'CatalogPrice']:
+                        if rawData == '0':
+                            value = None
+                        else:
+                            try:
+                                value = stringToMoney(rawData)
+                            except ValueError:
+                                value = None
                     else:
                         value = rawData
                     
@@ -115,13 +128,13 @@ class ImportCollectionStudio(_Import):
             if dstColumn == 'status':
                 value = 'owned'
                 # Process Status fields that contain translated text
-                for element in row.find('ItemStatus').iter('Status'):
-                    if element.text in ['Private', 'Частный', 'Прыватны']:
-                        value = 'demo'
-                    elif element.text in ['Lost', 'Утерян', 'Згублен']:
-                        value = 'wish'
-                    elif element.text in ['Sold', 'Продан', 'Прададзен']:
-                        value = 'sold'
+                element = row.find('ItemStatus').find('Status')
+                if element.text in ['Private', 'Частный', 'Прыватны']:
+                    value = 'demo'
+                elif element.text in ['Lost', 'Утерян', 'Згублен']:
+                    value = 'wish'
+                elif element.text in ['Sold', 'Продан', 'Прададзен']:
+                    value = 'sold'
 
                 record.setValue(dstColumn, value)
         
