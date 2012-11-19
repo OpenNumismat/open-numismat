@@ -167,7 +167,7 @@ class CollectionModel(QSqlTableModel):
                 data = self.getImage(img_id)
                 record.setValue(field, data)
                 record.setValue(field+'_title', self.getImageTitle(img_id))
-                record.setValue(field+'_id', record.value(field))
+                record.setValue(field+'_id', img_id)
             else:
                 record.setValue(field, None)
                 fieldDesc = getattr(self.fields, field)
