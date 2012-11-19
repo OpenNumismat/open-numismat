@@ -149,3 +149,24 @@ class ImportCollectionStudio(_Import):
                     image.loadFromData(value)
                     record.setValue(imgFields[imageNo], image)
                     imageNo = imageNo + 1
+        
+        record.setValue('title', self.__generateTitle(record))
+    
+    def __generateTitle(self, record):
+        title = ""
+        if record.value('value'):
+            title = title + record.value('value')
+        if record.value('unit'):
+            if title:
+                title = title + ' '
+            title = title + record.value('unit')
+        if record.value('country'):
+            if title:
+                title = title + ', '
+            title = title + record.value('country')
+        if record.value('year'):
+            if title:
+                title = title + ' '
+            title = title + '(' + record.value('year') + ')'
+        
+        return title
