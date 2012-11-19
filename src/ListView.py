@@ -375,7 +375,7 @@ class ListView(QtGui.QTableView):
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             progressDlg = QtGui.QProgressDialog(self.tr("Updating records"),
-                                                self.tr("Cancel"), 0, len(indexes),
+                                                self.tr("Cancel"), 0, len(indexes)+1,
                                                 self, Qt.WindowSystemMenuHint)
             progressDlg.setWindowModality(Qt.WindowModal)
             progressDlg.setMinimumDuration(250)
@@ -398,9 +398,11 @@ class ListView(QtGui.QTableView):
                         record.setValue(i, multiRecord.value(i))
                 self.model().setRecord(index.row(), record)
             
+            progressDlg.setLabelText(self.tr("Saving..."))
+            progressDlg.setValue(progress+1)
             self.model().submitAll()
 
-            progressDlg.setValue(len(indexes))
+            progressDlg.setValue(progressDlg.maximum())
     
     def _copy(self, indexes=None):
         if not indexes:
@@ -524,12 +526,27 @@ class ListView(QtGui.QTableView):
             indexes = self.selectedRows()
 
         result = QtGui.QMessageBox.information(self, self.tr("Delete"),
-                                      self.tr("Are you sure to remove a %n coin(s)?", '', len(indexes)),
+                                      self.tr("Are you sure to remove a %n coin(s)?", '', len(indexes)+1),
                                       QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel, QtGui.QMessageBox.Cancel)
         if result == QtGui.QMessageBox.Yes:
-            for index in indexes:
+            progressDlg = QtGui.QProgressDialog(self.tr("Deleting records"),
+                                                self.tr("Cancel"), 0, len(indexes),
+                                                self, Qt.WindowSystemMenuHint)
+            progressDlg.setWindowModality(Qt.WindowModal)
+            progressDlg.setMinimumDuration(250)
+
+            for progress, index in enumerate(indexes):
+                progressDlg.setValue(progress)
+                if progressDlg.wasCanceled():
+                    break
+
                 self.model().removeRow(index.row())
+            
+            progressDlg.setLabelText(self.tr("Saving..."))
+            progressDlg.setValue(progress+1)
             self.model().submitAll()
+
+            progressDlg.setValue(progressDlg.maximum())
     
     def _clone(self, index=None):
         if not index:
