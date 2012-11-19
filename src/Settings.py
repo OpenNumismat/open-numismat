@@ -4,6 +4,7 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 
 from EditCoinDialog.FormItems import NumberEdit
+from Collection.CollectionFields import CollectionFieldsBase
 import version
 
 class Settings(QtCore.QObject):
@@ -165,6 +166,7 @@ class FieldsSettingsPage(QtGui.QWidget):
 
         self.listWidget = QtGui.QListWidget(self)
         self.listWidget.setWrapping(True)
+        self.listWidget.setMinimumHeight(180)
 
         self.fields = collection.fields
         for field in self.fields:
@@ -177,14 +179,27 @@ class FieldsSettingsPage(QtGui.QWidget):
             item.setCheckState(checked)
             self.listWidget.addItem(item)
 
+        self.defaultFieldsButton = QtGui.QPushButton(self.tr("Revert to default"), self)
+        self.defaultFieldsButton.clicked.connect(self.defaultFieldsButtonClicked)
+        self.defaultFieldsButton.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(QtGui.QLabel(self.tr("Global enabled fields:"), self))
         layout.addWidget(self.listWidget)
+        layout.addWidget(self.defaultFieldsButton)
 
         self.setLayout(layout)
 
     def resizeEvent(self, event):
         self.listWidget.setWrapping(True)
+        
+    def defaultFieldsButtonClicked(self):
+        defaultFields = CollectionFieldsBase()
+        for i in range(self.listWidget.count()):
+            item = self.listWidget.item(i)
+            field = item.data(self.DataRole)
+            defaultField = defaultFields.field(field.id)
+            item.setText(defaultField.title)
 
     def save(self):
         for i in range(self.listWidget.count()):
