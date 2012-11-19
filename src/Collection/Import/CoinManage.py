@@ -125,6 +125,17 @@ class ImportCoinManage(_Import):
             else:
                 return False
         
+        # Check predefined images folder
+        self.defImgDir = QtCore.QDir(src)
+        if not self.defImgDir.cd('../../Images'):
+            directory = QtGui.QFileDialog.getExistingDirectory(self.parent(),
+                            self.tr("Select directory with pre-defined images"),
+                            QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
+            if directory:
+                self.defImgDir = QtCore.QDir(directory)
+            else:
+                return False
+        
         return self.cnxn.cursor()
     
     def _check(self, cursor):
@@ -213,7 +224,29 @@ class ImportCoinManage(_Import):
             record.setValue('photo1', image)
         if image.load(self.imgDir.absoluteFilePath('Coin%d(4)' % rowId)):
             record.setValue('photo2', image)
-        # TODO: Add pre-defined image
+
+        # Processing pre-defined images
+        if hasattr(row, 'UseGraphic') and hasattr(row, 'Country') and hasattr(row, 'Type ID'):
+            value = getattr(row, 'UseGraphic')
+            country = getattr(row, 'Country')
+            typeId = getattr(row, 'Type ID')
+            if country:
+                dir_ = QtCore.QDir(self.defImgDir)
+                dir_.cd(country)
+            if value and country:
+                image = QtGui.QImage()
+                if image.load(dir_.absoluteFilePath(value)):
+                    if record.isNull('obverseimg'):
+                        record.setValue('obverseimg', image)
+                    else:
+                        record.setValue('photo3', image)
+            if typeId and country:
+                image = QtGui.QImage()
+                if image.load(dir_.absoluteFilePath(str(typeId))):
+                    if record.isNull('obverseimg'):
+                        record.setValue('obverseimg', image)
+                    else:
+                        record.setValue('photo4', image)
     
     def _close(self, connection):
         self.cnxn.close()
