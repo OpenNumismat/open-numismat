@@ -526,11 +526,11 @@ class ListView(QtGui.QTableView):
             indexes = self.selectedRows()
 
         result = QtGui.QMessageBox.information(self, self.tr("Delete"),
-                                      self.tr("Are you sure to remove a %n coin(s)?", '', len(indexes)+1),
+                                      self.tr("Are you sure to remove a %n coin(s)?", '', len(indexes)),
                                       QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel, QtGui.QMessageBox.Cancel)
         if result == QtGui.QMessageBox.Yes:
             progressDlg = QtGui.QProgressDialog(self.tr("Deleting records"),
-                                                self.tr("Cancel"), 0, len(indexes),
+                                                self.tr("Cancel"), 0, len(indexes)+1,
                                                 self, Qt.WindowSystemMenuHint)
             progressDlg.setWindowModality(Qt.WindowModal)
             progressDlg.setMinimumDuration(250)
