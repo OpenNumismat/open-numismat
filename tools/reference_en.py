@@ -60,6 +60,7 @@ type.addItem('Bullion')
 type.addItem('Restrike')
 type.addItem('Pattern')
 type.addItem('Set')
+type.addItem('Roll')
 type.model.submitAll()
 
 grade = ref.section('grade')
