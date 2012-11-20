@@ -219,6 +219,9 @@ class MainWindow(QtGui.QMainWindow):
             imp.importData(file, self.viewTab.currentModel())
     
     def importCollectionStudio(self):
+        QtGui.QMessageBox.information(self, self.tr("Importing"),
+                                      self.tr("Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools > Export...)."))
+        
         defaultDir = ImportCollectionStudio.defaultDir()
         file = QtGui.QFileDialog.getOpenFileName(self, self.tr("Select file"), defaultDir, "*.xml")
         if file:
