@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import datetime
+import datetime, decimal
 
 try:
     import pyodbc
@@ -101,19 +101,39 @@ class ImportCoinManagePredefined(_Import):
         return self.cnxn.cursor()
     
     def _check(self, cursor):
+        self.priceTable = None
         tables = [row.table_name.lower() for row in cursor.tables()]
+        
         for requiredTables in ['coinattributes', 'cointypes']:
             if requiredTables not in tables:
                 return False
         
+        for table in tables:
+            if table[:6] == 'cmval~':
+                self.priceTable = table
+        
+        if not self.priceTable:
+            # Prices not found
+            return False
+        
         return True
     
     def _getRows(self, cursor):
-        cursor.execute("""
-            SELECT cointypes.*,
-                coinattributes.* FROM cointypes
-            LEFT JOIN coinattributes ON cointypes.[type id] = coinattributes.[type id]
-        """)
+        priceFields = ['F-12', 'F-16', 'VF-20', 'VF-30', 'XF-40', 'XF-45',
+                       'AU-50', 'AU-55', 'AU-57', 'AU-58', 'AU-59', 'MS-60',
+                       'MS-61', 'MS-62', 'MS-63', 'MS-64', 'MS-65', 'MS-66',
+                       'MS-67', 'MS-68', 'MS-69', 'MS-70', 'F', 'VF', 'EF',
+                       'AU', 'Unc', 'BU']
+        priceSql = []
+        for field in priceFields:
+            priceSql.append("[%s].[%s]" % (self.priceTable, field))            
+        
+        sql = "SELECT cointypes.*, \
+                coinattributes.*, %s FROM (cointypes \
+            LEFT JOIN coinattributes ON cointypes.[type id] = coinattributes.[type id]) \
+            LEFT JOIN [%s] ON cointypes.[coin id] = [%s].[coin id]" % (','.join(priceSql), self.priceTable, self.priceTable)
+        
+        cursor.execute(sql)
         return cursor.fetchall()
     
     def _setRecord(self, record, row):
@@ -135,6 +155,17 @@ class ImportCoinManagePredefined(_Import):
         
         # Process Status field
         record.setValue('status', 'demo')
+        
+        # Process prices
+        fineFields = ['F-16', 'F-12', 'F']
+        self.__processPrices(row, record, fineFields, 'price1')
+        vfFields = ['VF-30', 'VF-20', 'VF']
+        self.__processPrices(row, record, vfFields, 'price2')
+        xfFields = ['XF-45', 'XF-40', 'AU-50', 'AU-55', 'AU-57', 'AU-58', 'AU-59', 'EF', 'AU']
+        self.__processPrices(row, record, xfFields, 'price3')
+        uncFields = ['MS-64', 'MS-63', 'MS-62', 'MS-61', 'MS-60', 'MS-65',
+                     'MS-66', 'MS-67', 'MS-68', 'MS-69', 'MS-70', 'Unc', 'BU']
+        self.__processPrices(row, record, uncFields, 'price4')
         
         if hasattr(row, 'UseGraphic') and hasattr(row, 'Country') and hasattr(row, 'Type ID'):
             value = getattr(row, 'UseGraphic')
@@ -171,3 +202,13 @@ class ImportCoinManagePredefined(_Import):
     def __getColumns(self, cursor):
         columns = [row.column_name for row in cursor.columns('coins')]
         return columns
+    
+    def __processPrices(self, row, record, srcFields, dstField):
+        for field in srcFields:
+            if hasattr(row, field):
+                rawData = getattr(row, field)
+                if isinstance(rawData, decimal.Decimal):
+                    value = float(rawData)
+                    if value > 0:
+                        record.setValue(dstField, value)
+                        break
