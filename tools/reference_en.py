@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import shutil
+
 from PyQt4 import QtCore, QtGui
 
 def convertImage(fileName):
@@ -16,6 +18,8 @@ def convertImage(fileName):
 import sys
 sys.path.append('../src')
 from Reference.Reference import Reference
+
+shutil.copy("../db/reference_en.ref", ".")
 
 app = QtGui.QApplication(sys.argv)
 
@@ -72,6 +76,11 @@ grade.addItem('F')
 grade.addItem('VG')
 grade.model.submitAll()
 
+obvrev = ref.section('obvrev')
+obvrev.addItem('Medallic (0°)')
+obvrev.addItem('Coin (180°)')
+obvrev.model.submitAll()
+
 edge = ref.section('edge')
 edge.addItem('Plain')
 edge.addItem('Grooved')
@@ -82,33 +91,33 @@ edge.addItem('Indented')
 edge.addItem('Smooth')
 edge.model.submitAll()
 
-form = ref.section('form')
-form.addItem('Round')
-form.addItem('Square')
-form.addItem('Polygon')
-form.model.submitAll()
+shape = ref.section('shape')
+shape.addItem('Round')
+shape.addItem('Square')
+shape.addItem('Polygon')
+shape.model.submitAll()
 
-metal = ref.section('metal')
-metal.addItem('Aluminium')
-metal.addItem('Antimony')
-metal.addItem('Carbon')
-metal.addItem('Chromium')
-metal.addItem('Cobalt')
-metal.addItem('Copper')
-metal.addItem('Gold')
-metal.addItem('Iron')
-metal.addItem('Lead')
-metal.addItem('Magnesium')
-metal.addItem('Manganese')
-metal.addItem('Nickel')
-metal.addItem('Niobium')
-metal.addItem('Nordic gold')
-metal.addItem('Palladium')
-metal.addItem('Platinum')
-metal.addItem('Silver')
-metal.addItem('Tantalum')
-metal.addItem('Tellurium')
-metal.addItem('Tin')
-metal.addItem('Zinc')
-metal.addItem('Bimetal')
-metal.model.submitAll()
+material = ref.section('material')
+material.addItem('Aluminium')
+material.addItem('Antimony')
+material.addItem('Carbon')
+material.addItem('Chromium')
+material.addItem('Cobalt')
+material.addItem('Copper')
+material.addItem('Gold')
+material.addItem('Iron')
+material.addItem('Lead')
+material.addItem('Magnesium')
+material.addItem('Manganese')
+material.addItem('Nickel')
+material.addItem('Niobium')
+material.addItem('Nordic gold')
+material.addItem('Palladium')
+material.addItem('Platinum')
+material.addItem('Silver')
+material.addItem('Tantalum')
+material.addItem('Tellurium')
+material.addItem('Tin')
+material.addItem('Zinc')
+material.addItem('Bimetal')
+material.model.submitAll()

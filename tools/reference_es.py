@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import shutil
+
 from PyQt4 import QtCore, QtGui
 
 def convertImage(fileName):
@@ -16,6 +18,8 @@ def convertImage(fileName):
 import sys
 sys.path.append('../src')
 from Reference.Reference import Reference
+
+shutil.copy("../db/reference_es.ref", ".")
 
 app = QtGui.QApplication(sys.argv)
 
@@ -67,31 +71,31 @@ edge.addItem('Liso')
 edge.addItem('Estriado segmentado')
 edge.model.submitAll()
 
-form = ref.section('form')
-form.addItem('Círculo')
-form.model.submitAll()
+shape = ref.section('shape')
+shape.addItem('Círculo')
+shape.model.submitAll()
 
-metal = ref.section('metal')
-metal.addItem('Aluminio')
-metal.addItem('Antimonio')
-metal.addItem('Caróon')
-metal.addItem('Cromo')
-metal.addItem('Cobalto')
-metal.addItem('Cobre')
-metal.addItem('Oro')
-metal.addItem('Hierro')
-metal.addItem('Plomo')
-metal.addItem('Magnesio')
-metal.addItem('Manganeso')
-metal.addItem('Níquel')
-metal.addItem('Niobio')
-metal.addItem('Oro nórdico')
-metal.addItem('Paladio')
-metal.addItem('Platino')
-metal.addItem('Plata')
-metal.addItem('Tantalio')
-metal.addItem('Telurio')
-metal.addItem('Estaño')
-metal.addItem('Zinc')
-metal.addItem('Bimetálica')
-metal.model.submitAll()
+material = ref.section('material')
+material.addItem('Aluminio')
+material.addItem('Antimonio')
+material.addItem('Caróon')
+material.addItem('Cromo')
+material.addItem('Cobalto')
+material.addItem('Cobre')
+material.addItem('Oro')
+material.addItem('Hierro')
+material.addItem('Plomo')
+material.addItem('Magnesio')
+material.addItem('Manganeso')
+material.addItem('Níquel')
+material.addItem('Niobio')
+material.addItem('Oro nórdico')
+material.addItem('Paladio')
+material.addItem('Platino')
+material.addItem('Plata')
+material.addItem('Tantalio')
+material.addItem('Telurio')
+material.addItem('Estaño')
+material.addItem('Zinc')
+material.addItem('Bimetálica')
+material.model.submitAll()
