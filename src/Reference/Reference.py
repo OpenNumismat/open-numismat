@@ -238,7 +238,7 @@ class Reference(QtCore.QObject):
         if name in ['payplace', 'saleplace']:
             name = 'place'
         
-        if name in self.sections.keys():
+        if name in self.sections:
             section = self.sections[name]
             section.load(self.db)
         
@@ -246,6 +246,10 @@ class Reference(QtCore.QObject):
     
     def allSections(self):
         sectionNames = list(self.sections.keys())
+        # Move cross section to bottom for filling after parent reference
+        for key in ['unit', 'mint', 'period', 'series']:
+            sectionNames.remove(key)
+            sectionNames.append(key)
         
         if 'place' in sectionNames:
             sectionNames.remove('place')
