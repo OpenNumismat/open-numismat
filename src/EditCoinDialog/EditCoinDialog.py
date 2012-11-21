@@ -65,8 +65,10 @@ class EditCoinDialog(QtGui.QDialog):
         self.setWindowTitle(' - '.join(title))
     
     def keyPressEvent(self, event):
-        if self.items['status'].widget().data() == 'pass':
-            if event.matches(QtGui.QKeySequence.Paste):
+        if event.key() == Qt.Key_Escape:
+            self.reject()
+        elif event.matches(QtGui.QKeySequence.Paste):
+            if self.items['status'].widget().data() == 'pass':
                 mime = QtGui.QApplication.clipboard().mimeData()
                 if not mime.hasText():
                     return
