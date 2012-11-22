@@ -1,5 +1,22 @@
 ChangeLog
 ---------
+1.3 - 2012-11-23:
+    * Refactored format of database to improve performance
+    * Added new fields: Quantity, URL, Barcode.
+    * Added automatic check for updates
+    * Implemented import from Collection Studio 3.65. To import, you must first export the existing collection to a format XML Table using the menu Collection Studio: _Tools_> _Export..._.
+    * Added the ability to protect data on the collection with password
+    * Improved import from CoinManage
+    * Added button "Revert to default" in the Settings dialog to restore the names of all the coin fields to its original values.
+    * Fixed calculation of negative commissions for editing information on the purchase/sale of the coins.
+    * Fixed detection of the current language in the Settings dialog.
+    * Fixed filling references, depending on the country of data collection.
+    * Esc key in the edit coin dialog closes dialog.
+    * Double click on the lists tab bar create a new list.
+    * Added displaying a progress bar when removing coins.
+    * Improved English translation.
+    * Improved look of the Settings dialog.
+
 1.2.4 - 2012-11-09:
     * Updated localization for money and number fields
     * Fixed selection disappearing after some navigation
