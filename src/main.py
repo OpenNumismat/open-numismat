@@ -39,6 +39,7 @@ def main():
 
     mainWindow = MainWindow()
     mainWindow.show()
+    mainWindow.raise_() # this will raise the window on Mac OS X
     sys.exit(app.exec_())
 
 def exceptHook(type_, value, tback):
