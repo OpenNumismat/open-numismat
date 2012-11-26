@@ -4,9 +4,10 @@ from PyQt4.QtCore import pyqtSignal
 from Collection.Collection import Collection
 import version
 
+
 class LatestCollectionAction(QtGui.QAction):
     latestTriggered = pyqtSignal(str)
-    
+
     def __init__(self, key, parent=None):
         super(LatestCollectionAction, self).__init__(parent)
 
@@ -14,9 +15,10 @@ class LatestCollectionAction(QtGui.QAction):
         self.fileName = settings.value(key)
         self.setText(Collection.fileNameToCollectionName(self.fileName))
         self.triggered.connect(self.trigger)
-    
+
     def trigger(self):
         self.latestTriggered.emit(self.fileName)
+
 
 class LatestCollections(QtCore.QObject):
     DefaultCollectionName = version.AppDir + "/demo.db"
@@ -27,7 +29,7 @@ class LatestCollections(QtCore.QObject):
         super(LatestCollections, self).__init__(parent)
 
         self.settings = QtCore.QSettings()
-    
+
     # Create menu actions
     def actions(self):
         actions = []
@@ -35,7 +37,7 @@ class LatestCollections(QtCore.QObject):
             key = self.__key(i)
             if self.settings.value(key):
                 actions.append(LatestCollectionAction(key, self))
-        
+
         return actions
 
     # Return latest opened collection file name
@@ -43,9 +45,9 @@ class LatestCollections(QtCore.QObject):
         fileName = self.settings.value(self.SettingsKey)
         if not fileName:
             fileName = LatestCollections.DefaultCollectionName
-        
+
         return fileName
-    
+
     def add(self, fileName):
         # Get stored latest collections
         values = []
@@ -53,7 +55,7 @@ class LatestCollections(QtCore.QObject):
             val = self.settings.value(self.__key(i))
             if val:
                 values.append(val)
-        
+
         values.insert(0, fileName)
         # Uniqify collections name (order preserving)
         checked = []
@@ -69,15 +71,15 @@ class LatestCollections(QtCore.QObject):
         # Remove unused settings entries
         for i in range(len(values), LatestCollections.LatestCount):
             self.settings.remove(self.__key(i))
-        
+
         # Store latest collection for auto opening
         self.settings.setValue(self.SettingsKey, fileName)
-    
+
     def delete(self, fileName):
         for i in range(LatestCollections.LatestCount):
             value = self.settings.value(self.__key(i))
             if value == fileName:
                 self.settings.remove(self.__key(i))
-    
+
     def __key(self, i):
-        return self.SettingsKey + str(i+1)
+        return self.SettingsKey + str(i + 1)

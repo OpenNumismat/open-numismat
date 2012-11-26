@@ -5,38 +5,40 @@ from PyQt4.QtSql import QSqlQuery
 from .CollectionFields import FieldTypes as Type
 from .CollectionFields import Statuses
 
+
 class FilterMenuButton(QtGui.QPushButton):
     DefaultType = 0
     SelectAllType = 1
     BlanksType = 2
     DataType = 3
-    
+
     def __init__(self, columnParam, listParam, model, parent):
         super(FilterMenuButton, self).__init__(parent)
-        
+
         self.db = model.database()
         self.model = model
         self.columnName = self.model.fields.fields[columnParam.fieldid].name
         self.fieldid = columnParam.fieldid
         self.filters = listParam.filters
         self.listParam = listParam
-        
+
         menu = QtGui.QMenu()
 
         self.setToolTip(self.tr("Filter items"))
 
-        self.setFixedHeight(self.parent().height()-2)
+        self.setFixedHeight(self.parent().height() - 2)
         self.setFixedWidth(self.height())
         self.setMenu(menu)
         if self.fieldid in self.filters.keys():
             self.setIcon(QtGui.QIcon('icons/filters.ico'))
-        
+
         menu.aboutToShow.connect(self.prepareMenu)
 
     def prepareMenu(self):
         self.listWidget = QtGui.QListWidget(self)
 
-        item = QtGui.QListWidgetItem(self.tr("(Select all)"), self.listWidget, FilterMenuButton.SelectAllType)
+        item = QtGui.QListWidgetItem(self.tr("(Select all)"), self.listWidget,
+                                     FilterMenuButton.SelectAllType)
         item.setData(Qt.UserRole, self.tr("(Select all)"))
         item.setCheckState(Qt.PartiallyChecked)
         self.listWidget.addItem(item)
@@ -69,7 +71,7 @@ class FilterMenuButton(QtGui.QPushButton):
             query = QSqlQuery(sql + dataFilter, self.db)
             query.first()
             dataCount = query.record().value(0)
-            
+
             if dataCount > 0:
                 if columnType in Type.ImageTypes:
                     label = self.tr("(Images)")
@@ -77,7 +79,8 @@ class FilterMenuButton(QtGui.QPushButton):
                     label = self.tr("(Text)")
                 else:
                     label = self.tr("(Data)")
-                item = QtGui.QListWidgetItem(label, self.listWidget, FilterMenuButton.DataType)
+                item = QtGui.QListWidgetItem(label, self.listWidget,
+                                             FilterMenuButton.DataType)
                 item.setData(Qt.UserRole, label)
                 item.setCheckState(Qt.Checked)
                 if columnFilters and columnFilters.hasData():
@@ -86,13 +89,13 @@ class FilterMenuButton(QtGui.QPushButton):
 
             if blanksCount > 0:
                 hasBlanks = True
-        elif self.model.columnType(self.fieldid) in [Type.Status,]:
+        elif self.model.columnType(self.fieldid) in [Type.Status, ]:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
-                filtersSql = 'WHERE ' + filtersSql 
+                filtersSql = 'WHERE ' + filtersSql
             sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
             query = QSqlQuery(sql, self.db)
-            
+
             while query.next():
                 value = query.record().value(0)
                 label = Statuses[value]
@@ -106,7 +109,7 @@ class FilterMenuButton(QtGui.QPushButton):
         else:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
-                filtersSql = 'WHERE ' + filtersSql 
+                filtersSql = 'WHERE ' + filtersSql
             sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
             query = QSqlQuery(sql, self.db)
 
@@ -125,17 +128,18 @@ class FilterMenuButton(QtGui.QPushButton):
                 else:
                     item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
-        
+
         if hasBlanks:
-            item = QtGui.QListWidgetItem(self.tr("(Blanks)"), self.listWidget, FilterMenuButton.BlanksType)
+            item = QtGui.QListWidgetItem(self.tr("(Blanks)"), self.listWidget,
+                                         FilterMenuButton.BlanksType)
             item.setData(Qt.UserRole, self.tr("(Blanks)"))
             item.setCheckState(Qt.Checked)
             if columnFilters and columnFilters.hasBlank():
                 item.setCheckState(Qt.Unchecked)
             self.listWidget.addItem(item)
-        
+
         self.listWidget.itemChanged.connect(self.itemChanged)
-        
+
         self.buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         self.buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
         self.buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
@@ -153,10 +157,10 @@ class FilterMenuButton(QtGui.QPushButton):
         widgetAction.setDefaultWidget(widget)
         self.menu().clear()
         self.menu().addAction(widgetAction)
-    
+
         # Fill items
         self.itemChanged(item)
-        
+
     def itemChanged(self, item):
         self.listWidget.itemChanged.disconnect(self.itemChanged)
 
@@ -165,7 +169,8 @@ class FilterMenuButton(QtGui.QPushButton):
                 self.listWidget.item(i).setCheckState(item.checkState())
 
             # Disable applying filter when nothing to show
-            self.buttonBox.button(QtGui.QDialogButtonBox.Ok).setDisabled(item.checkState() == Qt.Unchecked)
+            button = self.buttonBox.button(QtGui.QDialogButtonBox.Ok)
+            button.setDisabled(item.checkState() == Qt.Unchecked)
         else:
             checkedCount = 0
             for i in range(1, self.listWidget.count()):
@@ -175,14 +180,15 @@ class FilterMenuButton(QtGui.QPushButton):
 
             if checkedCount == 0:
                 state = Qt.Unchecked
-            elif checkedCount == self.listWidget.count()-1:
+            elif checkedCount == self.listWidget.count() - 1:
                 state = Qt.Checked
             else:
                 state = Qt.PartiallyChecked
             self.listWidget.item(0).setCheckState(state)
 
             # Disable applying filter when nothing to show
-            self.buttonBox.button(QtGui.QDialogButtonBox.Ok).setDisabled(checkedCount == 0)
+            button = self.buttonBox.button(QtGui.QDialogButtonBox.Ok)
+            button.setDisabled(checkedCount == 0)
 
         self.listWidget.itemChanged.connect(self.itemChanged)
 
@@ -208,18 +214,19 @@ class FilterMenuButton(QtGui.QPushButton):
 
         filtersSql = self.filtersToSql(self.filters.values())
         self.model.setFilter(filtersSql)
-        
+
         self.menu().hide()
-        
+
         self.listParam.save()
-    
+
     @staticmethod
     def filtersToSql(filters):
         sqlFilters = []
         for columnFilters in filters:
             sqlFilters.append(columnFilters.toSql())
-        
+
         return ' AND '.join(sqlFilters)
+
 
 class Filter:
     def __init__(self, name, value=None, data=None, blank=None):
@@ -239,27 +246,28 @@ class Filter:
         else:
             return "%s<>'%s'" % (name, self.value)
 
+
 class ColumnFilters:
     def __init__(self, name):
         self.name = name
         self._filters = []
-        self._blank = False   # blank out filter present
-        self._data = False    # data out filter present
+        self._blank = False  # blank out filter present
+        self._data = False  # data out filter present
 
     def addFilter(self, value=None, data=None, blank=None):
         self._blank = self._blank or blank
         self._data = self._data or data
         self._filters.append(Filter(self.name, value, data, blank))
-    
+
     def filters(self):
         return self._filters
-    
+
     def hasBlank(self):
         return self._blank
-    
+
     def hasData(self):
         return self._data
-    
+
     def toSql(self):
         sqlFilters = []
         for filter_ in self._filters:
@@ -270,4 +278,4 @@ class ColumnFilters:
         # out a NULL values. Work around this problem
         if not self.hasBlank() and not self.hasData():
             combinedFilters = combinedFilters + (' OR %s IS NULL' % self.name)
-        return '('+combinedFilters+')'
+        return '(' + combinedFilters + ')'

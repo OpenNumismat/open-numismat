@@ -3,17 +3,19 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication
 
 from .FormItems import DoubleValidator
-from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout, DesignFormLayout, FormItem
+from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
+from .BaseFormLayout import DesignFormLayout, FormItem
 from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
+
 
 class DetailsTabWidget(QtGui.QTabWidget):
     Direction = QtGui.QBoxLayout.LeftToRight
     Stretch = 'stretch item'
-    
+
     def __init__(self, parent=None):
         super(DetailsTabWidget, self).__init__(parent)
-        
+
         self.createItems()
         self.createPages()
 
@@ -23,7 +25,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         self.createParametersPage()
         self.createDesignPage()
         self.createClassificationPage()
-    
+
     def createCoinPage(self):
         main = self.mainDetailsLayout()
         state = self.stateLayout()
@@ -40,7 +42,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         parameters = self.parametersLayout()
         minting = self.mintingLayout()
         note = self.noteLayout()
-        
+
         title = QApplication.translate('DetailsTabWidget', "Parameters")
         self.addTabPage(title, [parameters, self.Stretch, minting, note])
 
@@ -61,7 +63,8 @@ class DetailsTabWidget(QtGui.QTabWidget):
         url = self.urlLayout()
 
         title = QApplication.translate('DetailsTabWidget', "Classification")
-        self.addTabPage(title, [catalogue, rarity, price, self.Stretch, variation, url])
+        self.addTabPage(title, [catalogue, rarity, price, self.Stretch,
+                                variation, url])
 
     def _layoutToWidget(self, layout):
         widget = QtGui.QWidget(self)
@@ -74,7 +77,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
             if isinstance(part, BaseFormGroupBox):
                 if part.isEmpty():
                     parts.remove(part)
-        
+
         if self.Direction == QtGui.QBoxLayout.LeftToRight:
             newParts = []
             layout = QtGui.QVBoxLayout()
@@ -106,7 +109,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
             for part in parts:
                 if part == self.Stretch:
                     parts.remove(part)
-        
+
         pageLayout = QtGui.QBoxLayout(self.Direction, self)
         # Fill layout with it's parts
         stretchNeeded = True
@@ -122,34 +125,34 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
         if self.Direction == QtGui.QBoxLayout.TopToBottom and stretchNeeded:
             pageLayout.insertStretch(-1)
-    
+
         return self._layoutToWidget(pageLayout)
-    
+
     def addTabPage(self, title, parts):
         page = self.createTabPage(parts)
         index = self.addTab(page, title)
         # Disable if empty
         if len(parts) == 0:
             self.setTabEnabled(index, False)
-    
+
     def addItem(self, field):
         # Skip image fields for not a form
         if field.type in Type.ImageTypes:
             return
-        
+
         item = FormItem(field.name, field.title, field.type | Type.Disabled)
         if not field.enabled:
             item.setHidden()
         self.items[field.name] = item
-    
+
     def createItems(self):
         self.items = {}
-        
+
         fields = CollectionFields()
         for field in fields:
             if field not in fields.systemFileds:
                 self.addItem(field)
-    
+
     def fillItems(self, record):
         if not record.isEmpty():
             for item in self.items.values():
@@ -158,7 +161,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
                     item.setValue(value)
                 else:
                     item.widget().clear()
-    
+
     def clear(self):
         for item in self.items.values():
             item.widget().clear()
@@ -182,7 +185,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def stateLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "State")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['status'], self.items['grade'])
         self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
         layout.addRow(self.items['storage'])
@@ -195,7 +198,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def payLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Buy")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['paydate'], self.items['payprice'])
 
         # Add auxiliary field
@@ -211,7 +214,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def saleLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Sale")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['saledate'], self.items['saleprice'])
 
         # Add auxiliary field
@@ -227,7 +230,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def passLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Pass")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['saledate'], self.items['saleprice'])
 
         # Add auxiliary field
@@ -249,7 +252,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def parametersLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Parameters")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['material'])
         layout.addRow(self.items['fineness'], self.items['weight'])
         layout.addRow(self.items['diameter'], self.items['thickness'])
@@ -261,20 +264,21 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def mintingLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Minting")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['issuedate'], self.items['mintage'])
         layout.addRow(self.items['dateemis'])
 
         item = self.items['quality']
         layout.layout.addWidget(item.label(), 2, 0)
         layout.layout.addWidget(item.widget(), 2, 1)
-        item.widget().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        item.widget().setSizePolicy(QtGui.QSizePolicy.Preferred,
+                                    QtGui.QSizePolicy.Fixed)
 
         return layout
 
     def noteLayout(self, parent=None):
         layout = BaseFormLayout(parent)
-        
+
         layout.addRow(self.items['note'])
 
         return layout
@@ -282,7 +286,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def obverseDesignLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Obverse")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['obversedesign'])
         layout.addRow(self.items['obversedesigner'])
 
@@ -291,7 +295,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def reverseDesignLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Reverse")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['reversedesign'])
         layout.addRow(self.items['reversedesigner'])
 
@@ -300,7 +304,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def edgeDesignLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Edge")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['edge'])
         layout.addRow(self.items['edgelabel'])
 
@@ -308,26 +312,27 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
     def subjectLayout(self, parent=None):
         layout = BaseFormLayout(parent)
-        
+
         layout.addRow(self.items['subject'])
 
         return layout
 
     def rarityLayout(self, parent=None):
         layout = BaseFormLayout(parent)
-        
+
         item = self.items['rarity']
         layout.addWidget(item.label(), 1, 0)
         layout.addWidget(item.widget(), 1, 1)
         layout.addWidget(QtGui.QWidget(), 1, 2)
-        item.widget().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        item.widget().setSizePolicy(QtGui.QSizePolicy.Preferred,
+                                    QtGui.QSizePolicy.Fixed)
 
         return layout
 
     def catalogueLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Catalogue")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['catalognum1'], self.items['catalognum2'])
         layout.addRow(self.items['catalognum3'], self.items['catalognum4'])
 
@@ -336,7 +341,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def priceLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Price")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['price1'], self.items['price2'])
         layout.addRow(self.items['price3'], self.items['price4'])
 
@@ -345,7 +350,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def variationLayout(self, parent=None):
         title = QApplication.translate('DetailsTabWidget', "Variation")
         layout = BaseFormGroupBox(title, parent)
-        
+
         layout.addRow(self.items['variety'])
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
         item = self.items['edgevar']
@@ -356,7 +361,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
     def urlLayout(self, parent=None):
         layout = BaseFormLayout(parent)
-        
+
         layout.addRow(self.items['url'])
 
         return layout
@@ -380,14 +385,14 @@ class DetailsTabWidget(QtGui.QTabWidget):
             pageParts.append(pay)
         elif index == 5:
             pass
-        
+
         self.oldTrafficIndex = index
-        
+
         return pageParts
 
     def indexChangedState(self, index):
         pageIndex = self.currentIndex()
-        
+
         self.removeTab(1)
         pageParts = self._createTrafficParts(index)
         page = self.createTabPage(pageParts)
@@ -398,38 +403,39 @@ class DetailsTabWidget(QtGui.QTabWidget):
             self.setTabEnabled(1, False)
             self.items['grade'].widget().setEnabled(False)
             if pageIndex == 1:
-                self.setCurrentIndex(pageIndex-1)
+                self.setCurrentIndex(pageIndex - 1)
         else:
             self.items['grade'].widget().setEnabled(True)
             self.setCurrentIndex(pageIndex)
-    
+
     def addPayCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
         self.payComission = FormItem(None, title, Type.Money)
-        
+
         self.items['payprice'].widget().textChanged.connect(self.payPriceChanged)
         self.items['totalpayprice'].widget().textChanged.connect(self.payPriceChanged)
 
         return self.payComission
-    
+
     def payPriceChanged(self, text):
         price = textToFloat(self.items['payprice'].value())
         totalPrice = textToFloat(self.items['totalpayprice'].value())
         self.payComission.widget().setText(floatToText(totalPrice - price))
-    
+
     def addSaleCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
         self.saleComission = FormItem(None, title, Type.Money)
-        
+
         self.items['saleprice'].widget().textChanged.connect(self.salePriceChanged)
         self.items['totalsaleprice'].widget().textChanged.connect(self.salePriceChanged)
 
         return self.saleComission
-    
+
     def salePriceChanged(self, text):
         price = textToFloat(self.items['saleprice'].value())
         totalPrice = textToFloat(self.items['totalsaleprice'].value())
         self.saleComission.widget().setText(floatToText(price - totalPrice))
+
 
 class FormDetailsTabWidget(DetailsTabWidget):
     Direction = QtGui.QBoxLayout.TopToBottom
@@ -458,8 +464,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def createImagePage(self):
         images = self.imagesLayout()
-        self.addTabPage(self.tr("Images"), [images,])
-    
+        self.addTabPage(self.tr("Images"), [images, ])
+
     def addItem(self, field):
         checkable = 0
         if self.usedFields:
@@ -473,7 +479,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         if not field.enabled:
             item.setHidden()
         self.items[field.name] = item
-    
+
     def createItems(self):
         super(FormDetailsTabWidget, self).createItems()
 
@@ -482,19 +488,19 @@ class FormDetailsTabWidget(DetailsTabWidget):
             self.items['country'].widget().addDependent(self.items['unit'].widget())
             self.items['country'].widget().addDependent(self.items['mint'].widget())
             self.items['country'].widget().addDependent(self.items['series'].widget())
-    
+
     def fillItems(self, record):
         super(FormDetailsTabWidget, self).fillItems(record)
-        
+
         if self.usedFields:
             for item in self.items.values():
                 if self.usedFields[record.indexOf(item.field())]:
                     item.label().setCheckState(Qt.Checked)
-    
+
     def mainDetailsLayout(self, parent=None):
         layout = BaseFormGroupBox(self.tr("Main details"), parent)
         layout.layout.columnCount = 6
-       
+
         btn = QtGui.QPushButton(self.tr("Generate"), parent)
         btn.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         btn.clicked.connect(self.clickGenerateTitle)
@@ -513,7 +519,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def obverseDesignLayout(self, parent=None):
         layout = DesignFormLayout(self.tr("Obverse"), parent)
-        
+
         layout.addImage(self.items['obverseimg'])
         layout.addRow(self.items['obversedesign'])
         layout.addRow(self.items['obversedesigner'])
@@ -522,7 +528,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def reverseDesignLayout(self, parent=None):
         layout = DesignFormLayout(self.tr("Reverse"), parent)
-        
+
         layout.addImage(self.items['reverseimg'])
         layout.addRow(self.items['reversedesign'])
         layout.addRow(self.items['reversedesigner'])
@@ -531,7 +537,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def edgeDesignLayout(self, parent=None):
         layout = DesignFormLayout(self.tr("Edge"), parent)
-        
+
         layout.addImage(self.items['edgeimg'])
         layout.addRow(self.items['edge'])
         layout.addRow(self.items['edgelabel'])
@@ -540,12 +546,14 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def imagesLayout(self, parent=None):
         layout = ImageFormLayout(parent)
-        layout.addImages([self.items['photo1'], self.items['photo2'], self.items['photo3'], self.items['photo4']])
+        layout.addImages([self.items['photo1'], self.items['photo2'],
+                          self.items['photo3'], self.items['photo4']])
         return layout
 
     def clickGenerateTitle(self):
         titleParts = []
-        for key in ['value', 'unit', 'year', 'subjectshort', 'mintmark', 'variety']:
+        for key in ['value', 'unit', 'year', 'subjectshort',
+                    'mintmark', 'variety']:
             value = self.items[key].value()
             if not isinstance(value, str):
                 value = str(value)
@@ -556,7 +564,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 if key == 'subjectshort':
                     if len(titlePart.split()) > 1:
                         titlePart = '"%s"' % titlePart
-                titleParts.append(titlePart) 
+                titleParts.append(titlePart)
 
         title = ' '.join(titleParts)
         self.items['title'].setValue(title)
@@ -591,9 +599,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
             pass
 
         pageParts = super(FormDetailsTabWidget, self)._createTrafficParts(index)
-        
+
         self.oldTrafficIndex = index
-        
+
         return pageParts
 
     def addPayCommission(self):
@@ -603,13 +611,13 @@ class FormDetailsTabWidget(DetailsTabWidget):
         validator = CommissionValidator(0, 9999999999, 2, self)
         validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
         self.payCommission.setValidator(validator)
-        
+
         self.items['payprice'].widget().textChanged.connect(self.payCommissionChanged)
         self.payCommission.textChanged.connect(self.payCommissionChanged)
         self.items['totalpayprice'].widget().textChanged.connect(self.payTotalPriceChanged)
-        
+
         return item
-    
+
     def addSaleCommission(self):
         item = FormItem(None, self.tr("Commission"), Type.Money)
         self.saleCommission = item.widget()
@@ -617,16 +625,16 @@ class FormDetailsTabWidget(DetailsTabWidget):
         validator = CommissionValidator(0, 9999999999, 2, self)
         validator.setNotation(QtGui.QDoubleValidator.StandardNotation)
         self.saleCommission.setValidator(validator)
-        
+
         self.items['saleprice'].widget().textChanged.connect(self.saleCommissionChanged)
         self.saleCommission.textChanged.connect(self.saleCommissionChanged)
         self.items['totalsaleprice'].widget().textChanged.connect(self.saleTotalPriceChanged)
-        
+
         return item
-    
+
     def payCommissionChanged(self, text):
         self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
-        
+
         price = textToFloat(self.items['payprice'].value())
         text = self.payCommission.text().strip()
         if len(text) > 0 and text[-1] == '%':
@@ -645,10 +653,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.payCommission.setText(floatToText(totalPrice - price))
 
         self.payCommission.textChanged.connect(self.payCommissionChanged)
-    
+
     def saleCommissionChanged(self, text):
         self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
-        
+
         price = textToFloat(self.items['saleprice'].value())
         text = self.saleCommission.text().strip()
         if len(text) > 0 and text[-1] == '%':
@@ -667,24 +675,27 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.saleCommission.setText(floatToText(price - totalPrice))
 
         self.saleCommission.textChanged.connect(self.saleCommissionChanged)
-    
+
+
 def textToFloat(text):
     text = text.replace(',', '.').replace(' ', '')
     if not text or text == '.':
         return 0
     return float(text)
 
+
 def floatToText(value):
     if value > 0:
-        return str(int((value)*100 + 0.5)/100)
+        return str(int((value) * 100 + 0.5) / 100)
     else:
-        return str(int((value)*100 - 0.5)/100)
+        return str(int((value) * 100 - 0.5) / 100)
+
 
 # Reimplementing DoubleValidator for replace comma with dot and accept %
 class CommissionValidator(DoubleValidator):
     def __init__(self, bottom, top, decimals, parent=None):
         super(CommissionValidator, self).__init__(bottom, top, decimals, parent)
-    
+
     def validate(self, input_, pos):
         hasPercent = False
         numericValue = input_
@@ -693,5 +704,5 @@ class CommissionValidator(DoubleValidator):
             hasPercent = True
         state, validatedValue, pos = super(CommissionValidator, self).validate(numericValue, pos)
         if hasPercent:
-            validatedValue = validatedValue+'%' # restore percent sign
+            validatedValue = validatedValue + '%'  # restore percent sign
         return state, validatedValue, pos

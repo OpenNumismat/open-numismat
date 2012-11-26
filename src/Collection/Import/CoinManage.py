@@ -12,6 +12,7 @@ from PyQt4 import QtCore, QtGui
 
 from Collection.Import import _Import, _DatabaseServerError
 
+
 class ImportCoinManage(_Import):
     Columns = {
         'title': 'ShortDesc',
@@ -84,7 +85,7 @@ class ImportCoinManage(_Import):
 
     def __init__(self, parent=None):
         super(ImportCoinManage, self).__init__(parent)
-    
+
     @staticmethod
     def defaultDir():
         # Search for default default dir in default location on disk
@@ -93,7 +94,7 @@ class ImportCoinManage(_Import):
         for dirName in dirNames:
             if dir_.cd(dirName):
                 break
-        
+
         # Search for default dir in windows registry
         subkeys = ['CoinManage', 'CoinManage UK', 'CoinManage Canada']
         for key in [r'Software\Liberty Street Software\%s' % subkey for subkey in subkeys]:
@@ -105,15 +106,15 @@ class ImportCoinManage(_Import):
                     break
             except WindowsError:
                 continue
-        
+
         return dir_.absolutePath()
-    
+
     def _connect(self, src):
         try:
             self.cnxn = pyodbc.connect(driver='{Microsoft Access Driver (*.mdb)}', DBQ=src)
         except pyodbc.Error as error:
             raise _DatabaseServerError(error.__str__())
-        
+
         # Check images folder
         self.imgDir = QtCore.QDir(src)
         if not self.imgDir.cd('../../CoinImages'):
@@ -124,7 +125,7 @@ class ImportCoinManage(_Import):
                 self.imgDir = QtCore.QDir(directory)
             else:
                 return False
-        
+
         # Check predefined images folder
         self.defImgDir = QtCore.QDir(src)
         if not self.defImgDir.cd('../../Images'):
@@ -135,25 +136,25 @@ class ImportCoinManage(_Import):
                 self.defImgDir = QtCore.QDir(directory)
             else:
                 return False
-        
+
         return self.cnxn.cursor()
-    
+
     def _check(self, cursor):
         tables = [row.table_name.lower() for row in cursor.tables()]
         for requiredTables in ['coinattributes', 'cointypes', 'cm2001maincollection']:
             if requiredTables not in tables:
                 return False
-        
+
         for table in tables:
             if table[:6] == 'cmval~':
                 self.priceTable = table
-        
+
         if not self.priceTable:
             # Prices not found
             return False
 
         return True
-    
+
     def _getRows(self, cursor):
         priceFields = ['F-12', 'F-16', 'VF-20', 'VF-30', 'XF-40', 'XF-45',
                        'AU-50', 'AU-55', 'AU-57', 'AU-58', 'AU-59', 'MS-60',
@@ -162,8 +163,8 @@ class ImportCoinManage(_Import):
                        'AU', 'Unc', 'BU']
         priceSql = []
         for field in priceFields:
-            priceSql.append("[%s].[%s]" % (self.priceTable, field))            
-        
+            priceSql.append("[%s].[%s]" % (self.priceTable, field))
+
         sql = "SELECT cm2001maincollection.*, \
                 coinattributes.*, cointypes.* , %s FROM ((cm2001maincollection \
             LEFT JOIN coinattributes ON cm2001maincollection.[type id] = coinattributes.[type id]) \
@@ -172,7 +173,7 @@ class ImportCoinManage(_Import):
 
         cursor.execute(sql)
         return cursor.fetchall()
-    
+
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
             if srcColumn and hasattr(row, srcColumn):
@@ -189,9 +190,9 @@ class ImportCoinManage(_Import):
                     value = float(rawData)
                 else:
                     value = rawData
-                
+
                 record.setValue(dstColumn, value)
-            
+
             if dstColumn == 'status':
                 record.setValue(dstColumn, 'owned')
                 if getattr(row, 'Sold To') or getattr(row, 'Date Sold'):
@@ -200,7 +201,7 @@ class ImportCoinManage(_Import):
                     record.setValue(dstColumn, 'sale')
                 elif getattr(row, 'Want'):
                     record.setValue(dstColumn, 'wish')
-        
+
             if dstColumn == 'features':
                 features = []
                 additionalFields = {
@@ -217,10 +218,10 @@ class ImportCoinManage(_Import):
                             features.append(string % value)
                         else:
                             features.append(value.strip())
-                
+
                 if features:
                     record.setValue(dstColumn, '\n'.join(features))
-        
+
         if not record.value('title'):
             # Make a coin title (1673 Charles II Farthing - Brittania)
             year = record.value('year')
@@ -230,7 +231,7 @@ class ImportCoinManage(_Import):
             mainTitle = ' '.join(filter(None, [year, period, unit]))
             title = ' - '.join(filter(None, [mainTitle, variety]))
             record.setValue('title', title)
-        
+
         # Process prices
         fineFields = ['F-16', 'F-12', 'F']
         self.__processPrices(row, record, fineFields, 'price1')
@@ -241,7 +242,7 @@ class ImportCoinManage(_Import):
         uncFields = ['MS-64', 'MS-63', 'MS-62', 'MS-61', 'MS-60', 'MS-65',
                      'MS-66', 'MS-67', 'MS-68', 'MS-69', 'MS-70', 'Unc', 'BU']
         self.__processPrices(row, record, uncFields, 'price4')
-        
+
         # Processing images
         image = QtGui.QImage()
         rowId = getattr(row, 'ID')
@@ -276,14 +277,14 @@ class ImportCoinManage(_Import):
                         record.setValue('obverseimg', image)
                     else:
                         record.setValue('photo4', image)
-    
+
     def _close(self, connection):
         self.cnxn.close()
-    
+
     def __getColumns(self, cursor):
         columns = [row.column_name for row in cursor.columns('coins')]
         return columns
-    
+
     def __processPrices(self, row, record, srcFields, dstField):
         for field in srcFields:
             if hasattr(row, field):

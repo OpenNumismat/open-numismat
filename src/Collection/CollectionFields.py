@@ -2,6 +2,7 @@ from PyQt4.QtCore import QT_TRANSLATE_NOOP, QObject
 from PyQt4.QtGui import QApplication
 from PyQt4.QtSql import QSqlDatabase, QSqlQuery
 
+
 class FieldTypes():
     String = 1
     ShortString = 2
@@ -16,11 +17,11 @@ class FieldTypes():
     DateTime = 11
     EdgeImage = 12
     PreviewImage = 13
-    
+
     Mask = 0xFF
     Checkable = 0x100
     Disabled = 0x200
-    
+
     ImageTypes = (Image, EdgeImage, PreviewImage)
 
     @staticmethod
@@ -53,8 +54,9 @@ class FieldTypes():
             sql_type = 'INTEGER'
         else:
             raise
-        
+
         return sql_type
+
 
 class Status(dict):
     Keys = ('demo', 'pass', 'owned', 'sold', 'sale', 'wish')
@@ -66,26 +68,26 @@ class Status(dict):
         QT_TRANSLATE_NOOP("Status", "Sale"),
         QT_TRANSLATE_NOOP("Status", "Wish"),
     )
-    
+
     def __init__(self):
         for key, value in zip(self.Keys, self.Titles):
             dict.__setitem__(self, key, value)
-    
+
     def keys(self):
         return self.Keys
-    
+
     def items(self):
         result = []
         for key in self.Keys:
             result.append((key, self.__getitem__(key)))
         return result
-    
+
     def values(self):
         result = []
         for key in self.Keys:
             result.append(self.__getitem__(key))
         return result
-    
+
     def __getitem__(self, key):
         try:
             if isinstance(key, int):
@@ -98,18 +100,20 @@ class Status(dict):
 
 Statuses = Status()
 
+
 class CollectionField():
-    def __init__(self, id, name, title, type):
-        self.id = id
+    def __init__(self, id_, name, title, type_):
+        self.id = id_
         self.name = name
         self.title = title
-        self.type = type
+        self.type = type_
+
 
 class CollectionFieldsBase(QObject):
     def __init__(self, parent=None):
         from Collection.CollectionFields import FieldTypes as Type
         super(CollectionFieldsBase, self).__init__(parent)
-        
+
         fields = [
                 ('id', self.tr("ID"), Type.BigInt),
 
@@ -127,7 +131,7 @@ class CollectionFieldsBase(QObject):
                 ('subjectshort', self.tr("Subject"), Type.String),
                 ('status', self.tr("Status"), Type.Status),
                 ('material', self.tr("Material"), Type.String),
-                ('fineness', self.tr("Fineness"), Type.Number), # 4 digits for Canadian Gold Maple Leaf
+                ('fineness', self.tr("Fineness"), Type.Number),  # 4 digits for Canadian Gold Maple Leaf
                 ('shape', self.tr("Shape"), Type.String),
                 ('diameter', self.tr("Diameter"), Type.Value),
                 ('thickness', self.tr("Thickness"), Type.Value),
@@ -189,36 +193,38 @@ class CollectionFieldsBase(QObject):
             ]
 
         self.fields = []
-        for id, field in enumerate(fields):
-            self.fields.append(CollectionField(id, field[0], field[1], field[2]))
-            setattr(self, self.fields[id].name, self.fields[id])
-        
+        for id_, field in enumerate(fields):
+            self.fields.append(
+                            CollectionField(id_, field[0], field[1], field[2]))
+            setattr(self, self.fields[id_].name, self.fields[id_])
+
         self.systemFileds = [self.id, self.createdat, self.updatedat]
         self.userFields = list(self.fields)
         for item in self.systemFileds:
             self.userFields.remove(item)
-    
-    def field(self, id):
-        return self.fields[id]
+
+    def field(self, id_):
+        return self.fields[id_]
 
     def __iter__(self):
         self.index = 0
         return self
-    
+
     def __next__(self):
         if self.index == len(self.fields):
             raise StopIteration
         self.index = self.index + 1
-        return self.fields[self.index-1]
+        return self.fields[self.index - 1]
+
 
 class CollectionFields(CollectionFieldsBase):
     def __init__(self, db=QSqlDatabase(), parent=None):
         super(CollectionFields, self).__init__(parent)
         self.db = db
-        
+
         if 'fields' not in self.db.tables():
             self.create(self.db)
-        
+
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM fields")
         query.exec_()
@@ -234,7 +240,7 @@ class CollectionFields(CollectionFieldsBase):
                 self.userFields.append(field)
             else:
                 self.disabledFields.append(field)
-    
+
     def save(self):
         self.db.transaction()
 
@@ -247,19 +253,19 @@ class CollectionFields(CollectionFieldsBase):
             query.exec_()
 
         self.db.commit()
-    
+
     @staticmethod
     def create(db=QSqlDatabase()):
         db.transaction()
-        
+
         sql = """CREATE TABLE fields (
             id INTEGER NOT NULL PRIMARY KEY,
             title CHAR,
             enabled INTEGER)"""
         QSqlQuery(sql, db)
-        
+
         fields = CollectionFieldsBase()
-        
+
         for field in fields:
             query = QSqlQuery(db)
             query.prepare("""INSERT INTO fields (id, title, enabled)
@@ -269,5 +275,5 @@ class CollectionFields(CollectionFieldsBase):
             enabled = field in fields.userFields
             query.addBindValue(int(enabled))
             query.exec_()
-        
+
         db.commit()

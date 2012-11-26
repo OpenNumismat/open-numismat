@@ -4,19 +4,22 @@ from .FormItems import *
 from .ImageLabel import ImageEdit, EdgeImageEdit
 from Collection.CollectionFields import FieldTypes as Type
 
+
 class FormItem(object):
     def __init__(self, field, title, itemType, reference=None, parent=None):
         self._field = field
         self._title = title
         if itemType & Type.Checkable:
             self._label = QtGui.QCheckBox(title, parent)
-            self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
+            self._label.setSizePolicy(QtGui.QSizePolicy.Fixed,
+                                      QtGui.QSizePolicy.Preferred)
             self._label.stateChanged.connect(self.checkBoxChanged)
         else:
             self._label = QtGui.QLabel(title, parent)
             self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
-            self._label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
-        
+            self._label.setSizePolicy(QtGui.QSizePolicy.Fixed,
+                                      QtGui.QSizePolicy.Preferred)
+
         self._type = itemType & Type.Mask
         if self._type == Type.String:
             if reference:
@@ -49,7 +52,7 @@ class FormItem(object):
             self._widget = DateTimeEdit(parent)
         else:
             raise
-        
+
         if itemType & Type.Disabled:
             if self._type == Type.Status or self._type in Type.ImageTypes:
                 self._widget.setDisabled(True)
@@ -61,16 +64,16 @@ class FormItem(object):
             self._widget.setDisabled(True)
 
         self.hidden = False
-    
+
     def setHidden(self):
         self.hidden = True
-    
+
     def isHidden(self):
         return self.hidden
-    
+
     def checkBoxChanged(self, state):
         self._widget.setDisabled(state == Qt.Unchecked)
-    
+
     def field(self):
         return self._field
 
@@ -79,16 +82,16 @@ class FormItem(object):
 
     def label(self):
         return self._label
-    
+
     def type(self):
         return self._type
 
     def widget(self):
         return self._widget
-    
+
     def setWidget(self, widget):
         self._widget = widget
-        
+
     def value(self):
         if isinstance(self._widget, QtGui.QTextEdit):
             return self._widget.toPlainText()
@@ -119,12 +122,13 @@ class FormItem(object):
         else:
             self._widget.setText(str(value))
             self._widget.home(False)
-    
+
     def clear(self):
         if isinstance(self._widget, StatusEdit):
             self._widget.setCurrentValue('demo')
-        else: 
+        else:
             self._widget.clear()
+
 
 class BaseFormLayout(QtGui.QGridLayout):
     def __init__(self, parent=None):
@@ -144,9 +148,10 @@ class BaseFormLayout(QtGui.QGridLayout):
             # NOTE: columnSpan parameter in addWidget don't work with value -1
             # for 2-columns grid
             # self.addWidget(widget, self.row, 1, 1, -1)
-            self.addWidget(widget, self.row, 1, 1, self.columnCount-1)
+            self.addWidget(widget, self.row, 1, 1, self.columnCount - 1)
             if isinstance(widget, NumberEdit):
-                widget.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+                widget.setSizePolicy(QtGui.QSizePolicy.Fixed,
+                                     QtGui.QSizePolicy.Fixed)
         else:
             if item1.isHidden() and item2.isHidden():
                 return
@@ -169,30 +174,33 @@ class BaseFormLayout(QtGui.QGridLayout):
                     widget = QtGui.QWidget()
                     widget.setMinimumWidth(0)
                     if self.columnCount == 6:
-                        widget.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+                        widget.setSizePolicy(QtGui.QSizePolicy.Fixed,
+                                             QtGui.QSizePolicy.Fixed)
                     self.addWidget(widget, self.row, col)
                     col = col + 1
-        
+
                 if not item2.isHidden():
                     if item2.widget().sizePolicy().horizontalPolicy() == QtGui.QSizePolicy.Fixed:
                         item2.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
                     self.addWidget(item2.label(), self.row, col)
                     col = col + 1
-                    self.addWidget(item2.widget(), self.row, col, 1, self.columnCount-4)
+                    self.addWidget(item2.widget(), self.row, col, 1, self.columnCount - 4)
 
         self.row = self.row + 1
+
 
 class BaseFormGroupBox(QtGui.QGroupBox):
     def __init__(self, title, parent=None):
         super(BaseFormGroupBox, self).__init__(title, parent)
-        
+
         self.layout = BaseFormLayout(self)
         self.setLayout(self.layout)
-        self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-    
+        self.setSizePolicy(QtGui.QSizePolicy.Preferred,
+                           QtGui.QSizePolicy.Fixed)
+
     def isEmpty(self):
         return self.layout.isEmpty()
-    
+
     def addRow(self, item1, item2=None):
         self.layout.addRow(item1, item2)
 
@@ -203,40 +211,44 @@ class BaseFormGroupBox(QtGui.QGroupBox):
 
     def fixSizePolicy(self, item):
         if not item.isHidden() and item.type() == Type.Text:
-            self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+            self.setSizePolicy(QtGui.QSizePolicy.Preferred,
+                               QtGui.QSizePolicy.Preferred)
+
 
 class ImageFormLayout(BaseFormLayout):
     def __init__(self, parent=None):
         super(ImageFormLayout, self).__init__(parent)
-        
+
         self.imagesCount = 0
-    
+
     def addImages(self, images):
         for image in images:
             if not image.isHidden():
-                image.label().setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+                image.label().setSizePolicy(QtGui.QSizePolicy.Preferred,
+                                            QtGui.QSizePolicy.Fixed)
                 if isinstance(image.label(), QtGui.QLabel):
                     image.label().setAlignment(Qt.AlignLeft)
-                
-                row = int(self.imagesCount/2)
-                col = self.imagesCount%2
-                
-                self.addWidget(image.label(), row*2, col)
-                self.addWidget(image.widget(), row*2+1, col)
-                
-                self.setRowMinimumHeight(row*2+1, 120)
+
+                row = int(self.imagesCount / 2)
+                col = self.imagesCount % 2
+
+                self.addWidget(image.label(), row * 2, col)
+                self.addWidget(image.widget(), row * 2 + 1, col)
+
+                self.setRowMinimumHeight(row * 2 + 1, 120)
                 self.setColumnMinimumWidth(col, 160)
-                
-                self.imagesCount = self.imagesCount+1
-    
+
+                self.imagesCount = self.imagesCount + 1
+
     def isEmpty(self):
         return (self.imagesCount == 0)
+
 
 class DesignFormLayout(BaseFormGroupBox):
     def __init__(self, title, parent=None):
         super(DesignFormLayout, self).__init__(title, parent)
         self.layout.columnCount = 3
-    
+
     def addImage(self, image):
         if not image.isHidden():
             if isinstance(image.label(), QtGui.QLabel):

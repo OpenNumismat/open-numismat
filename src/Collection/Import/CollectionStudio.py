@@ -12,6 +12,7 @@ from PyQt4 import QtCore, QtGui
 from Collection.Import import _Import
 from Tools.Converters import stringToMoney
 
+
 class ImportCollectionStudio(_Import):
     Columns = {
         'title': None,
@@ -81,18 +82,18 @@ class ImportCollectionStudio(_Import):
         'url': None,
         'barcode': 'Barcode',
     }
-    
+
     def __init__(self, parent=None):
         super(ImportCollectionStudio, self).__init__(parent)
-    
+
     def _connect(self, src):
         return src
-    
+
     def _getRows(self, srcFile):
         tree = lxml.etree.parse(srcFile)
         rows = tree.xpath("/Collection/ITEM")
         return rows
-    
+
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
             if srcColumn and row.find(srcColumn) is not None:
@@ -102,7 +103,8 @@ class ImportCollectionStudio(_Import):
                         value = QtCore.QDate.fromString(rawData, 'ddMMyyyy')
                     elif srcColumn == 'Year' and rawData == 'N/A':
                         value = None
-                    elif srcColumn in ['Nominal', 'Diameter', 'Thickness', 'ReversRotation', 'Weight']:
+                    elif srcColumn in ['Nominal', 'Diameter', 'Thickness',
+                                       'ReversRotation', 'Weight']:
                         if rawData == '0':
                             value = None
                         else:
@@ -122,9 +124,9 @@ class ImportCollectionStudio(_Import):
                                 value = None
                     else:
                         value = rawData
-                    
+
                     record.setValue(dstColumn, value)
-            
+
             if dstColumn == 'status':
                 value = 'owned'
                 # Process Status fields that contain translated text
@@ -137,8 +139,9 @@ class ImportCollectionStudio(_Import):
                     value = 'sold'
 
                 record.setValue(dstColumn, value)
-        
-        imgFields = ['obverseimg', 'reverseimg', 'photo1', 'photo2', 'photo3', 'photo4']
+
+        imgFields = ['obverseimg', 'reverseimg', 'photo1',
+                     'photo2', 'photo3', 'photo4']
         imageNo = 0
         imageElements = row.find('Images')
         if imageElements is not None:
@@ -149,9 +152,9 @@ class ImportCollectionStudio(_Import):
                     image.loadFromData(value)
                     record.setValue(imgFields[imageNo], image)
                     imageNo = imageNo + 1
-        
+
         record.setValue('title', self.__generateTitle(record))
-    
+
     def __generateTitle(self, record):
         title = ""
         if record.value('value'):
@@ -168,5 +171,5 @@ class ImportCollectionStudio(_Import):
             if title:
                 title = title + ' '
             title = title + '(' + record.value('year') + ')'
-        
+
         return title

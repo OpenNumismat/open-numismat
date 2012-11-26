@@ -7,6 +7,7 @@ from Collection.CollectionFields import FieldTypes as Type
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from CustomizeTreeDialog import CustomizeTreeDialog
 
+
 class ImageView(QtGui.QWidget):
     def __init__(self, parent=None):
         super(ImageView, self).__init__(parent)
@@ -14,15 +15,16 @@ class ImageView(QtGui.QWidget):
         self.currentIndex = None
 
         layout = QtGui.QVBoxLayout(self)
-        
+
         self.imageLayout = QtGui.QVBoxLayout()
         self.imageLayout.setContentsMargins(QtCore.QMargins())
         layout.addWidget(self.__layoutToWidget(self.imageLayout))
-        
+
         self.buttonLayout = QtGui.QHBoxLayout()
         self.buttonLayout.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
         widget = self.__layoutToWidget(self.buttonLayout)
-        widget.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        widget.setSizePolicy(QtGui.QSizePolicy.Preferred,
+                             QtGui.QSizePolicy.Fixed)
         layout.addWidget(widget)
 
         self.setLayout(layout)
@@ -37,7 +39,7 @@ class ImageView(QtGui.QWidget):
             button.stateChanged.connect(self.buttonClicked)
             self.imageButtons.append(button)
             self.buttonLayout.addWidget(button)
-    
+
     def imageFields(self):
         # TODO: Store value of imageFields in object
         imageFields = []
@@ -45,7 +47,7 @@ class ImageView(QtGui.QWidget):
             if field.type in [Type.Image, Type.EdgeImage]:
                 imageFields.append(field)
         return imageFields
-    
+
     def clear(self):
         for _ in range(self.imageLayout.count()):
             item = self.imageLayout.itemAt(0)
@@ -62,11 +64,11 @@ class ImageView(QtGui.QWidget):
                 index = self.model.index(current.row(), field.id)
                 image.loadFromData(index.data())
                 self.imageLayout.addWidget(image)
-    
+
     def rowChangedEvent(self, current):
         self.currentIndex = current
         self.clear()
-        
+
         images = []
         for i, field in enumerate(self.imageFields()):
             self.imageButtons[i].stateChanged.disconnect(self.buttonClicked)
@@ -96,14 +98,15 @@ class ImageView(QtGui.QWidget):
 from PyQt4 import QtSql
 from Collection.CollectionFields import Statuses
 
+
 class TreeView(QtGui.QTreeWidget):
     FiltersRole = Qt.UserRole
-    FieldsRole = FiltersRole+1
-    ParamRole = FieldsRole+1
-    
+    FieldsRole = FiltersRole + 1
+    ParamRole = FieldsRole + 1
+
     def __init__(self, treeParam, parent=None):
         super(TreeView, self).__init__(parent)
-        
+
         self.setHeaderHidden(True)
         self.setAutoScroll(False)
 
@@ -113,22 +116,23 @@ class TreeView(QtGui.QTreeWidget):
         self.currentItemChanged.connect(self.itemActivatedEvent)
         self.itemExpanded.connect(self.expandedEvent)
         self.collapsed.connect(self.collapsedEvent)
-        
+
         self.treeParam = treeParam
-        
-        self.changingEnabled = True    # changing of TreeView is enabled (by signals from model or ListView)
-    
+
+        # Changing of TreeView is enabled (by signals from model or ListView)
+        self.changingEnabled = True
+
     def setModel(self, model):
         self.db = model.database()
         self.model = model
-        
+
         self.treeParam.rootTitle = model.title
-        rootItem = QtGui.QTreeWidgetItem(self, [model.title,])
+        rootItem = QtGui.QTreeWidgetItem(self, [model.title, ])
         rootItem.setData(0, self.ParamRole, 0)
         rootItem.setData(0, self.FiltersRole, '')
-        
+
         self.addTopLevelItem(rootItem)
-    
+
     def expandedEvent(self, item):
         for i in range(item.childCount()):
             child = item.child(i)
@@ -136,17 +140,17 @@ class TreeView(QtGui.QTreeWidget):
                 paramIndex = child.data(0, self.ParamRole) + 1
                 filters = child.data(0, self.FiltersRole)
                 self.__updateChilds(child, paramIndex, filters)
-        
+
         self.resizeColumnToContents(0)
-    
+
     def collapsedEvent(self, parentItem):
         self.resizeColumnToContents(0)
-    
+
     def __updateChilds(self, item, paramIndex=0, filters=''):
         fields = self.treeParam.fieldNames(paramIndex)
         if not fields:
             return
-        
+
         sql = "SELECT DISTINCT %s FROM coins" % ','.join(fields)
         if filters:
             sql = sql + " WHERE " + filters
@@ -158,62 +162,64 @@ class TreeView(QtGui.QTreeWidget):
             for i in range(record.count()):
                 if record.isNull(i):
                     continue
-                
+
                 text = str(record.value(i))
                 if text:
                     if fields[i] == 'status':
                         data.append(Statuses[text])
                     else:
                         data.append(text)
-                    filterSql.append("%s='%s'" % (fields[i], text.replace("'", "''")))
-            
+                    escapedText = text.replace("'", "''")
+                    filterSql.append("%s='%s'" % (fields[i], escapedText))
+
             if data:
                 text = ' '.join(data)
                 newFilters = ' AND '.join(filterSql)
                 if filters:
                     newFilters = filters + ' AND ' + newFilters
-                
-                child = QtGui.QTreeWidgetItem([text,])
+
+                child = QtGui.QTreeWidgetItem([text, ])
                 child.setData(0, self.ParamRole, paramIndex)
                 child.setData(0, self.FiltersRole, newFilters)
                 child.setData(0, self.FieldsRole, fields)
                 item.addChild(child)
-                
+
                 # Restore selection
                 if newFilters == self.model.extFilter:
                     self.currentItemChanged.disconnect(self.itemActivatedEvent)
                     self.setCurrentItem(child)
                     self.currentItemChanged.connect(self.itemActivatedEvent)
-        
+
         # Recursion for next field if nothing selected
         if item.childCount() == 0:
-            self.__updateChilds(item, paramIndex+1, filters)
-    
+            self.__updateChilds(item, paramIndex + 1, filters)
+
     def modelChanged(self):
         if self.changingEnabled:
             self.collapseAll()
             rootItem = self.topLevelItem(0)
-            rootItem.takeChildren() # remove all children
+            rootItem.takeChildren()  # remove all children
             self.__updateChilds(rootItem)
             self.expandItem(rootItem)
-    
+
     def rowChangedEvent(self, current):
         if self.changingEnabled:
             if current.isValid():
                 self.collapseAll()
                 self.scrollToIndex(current)
-    
+
     def scrollToIndex(self, index, parent=None):
         if not parent:
             parent = self.topLevelItem(0)
-        
+
         for i in range(parent.childCount()):
             subItem = parent.child(i)
             fields = subItem.data(0, self.FieldsRole)
             text1 = subItem.text(0)
             textPart = []
             for field in fields:
-                index = self.model.index(index.row(), self.model.fieldIndex(field))
+                index = self.model.index(index.row(),
+                                         self.model.fieldIndex(field))
                 textPart.append(str(index.data()))
             text2 = ' '.join(textPart)
             if text1 == text2:
@@ -221,7 +227,7 @@ class TreeView(QtGui.QTreeWidget):
                 self.scrollToItem(subItem)
                 self.scrollToIndex(index, subItem)
                 break
-    
+
     def scrollToItem(self, item):
         parentItem = item.parent()
         if parentItem:
@@ -230,17 +236,17 @@ class TreeView(QtGui.QTreeWidget):
                 columnWidth = self.columnWidth(0)
                 itemWidth = itemRect.width()
                 self.horizontalScrollBar().setValue(columnWidth - itemWidth)
-            elif self.viewport().width()/2 < itemRect.x():
+            elif self.viewport().width() / 2 < itemRect.x():
                 columnWidth = self.columnWidth(0)
                 itemWidth = itemRect.width()
                 self.horizontalScrollBar().setValue(itemRect.x())
         else:
             super(TreeView, self).scrollToItem(item)
-    
+
     def itemActivatedEvent(self, current, previous):
         self.scrollToItem(current)
         self.resizeColumnToContents(0)
-        
+
         self.changingEnabled = False
         filter_ = current.data(0, self.FiltersRole)
         self.model.setAdditionalFilter(filter_)
@@ -257,13 +263,13 @@ class TreeView(QtGui.QTreeWidget):
         menu.addSeparator()
         menu.addAction(self.tr("Customize tree..."), self._customizeTree)
         menu.exec_(self.mapToGlobal(pos))
-    
+
     def _customizeTree(self):
         dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
         if dialog.exec_() == QtGui.QDialog.Accepted:
             self.treeParam.save()
             self.modelChanged()
-    
+
     def _addCoin(self):
         self.changingEnabled = False
         storedFilter = self.model.intFilter
@@ -279,11 +285,12 @@ class TreeView(QtGui.QTreeWidget):
         for i in range(self.model.rowCount()):
             record = self.model.record(i)
             for j in range(newRecord.count()):
-                if newRecord.value(j) != record.value(j) or not record.value(j):
+                value = record.value(j)
+                if newRecord.value(j) != value or not value:
                     newRecord.setNull(j)
-        
+
         self.model.addCoin(newRecord, self)
-        
+
         self.model.setFilter(storedFilter)
 
     def _multiEdit(self):
@@ -298,7 +305,8 @@ class TreeView(QtGui.QTreeWidget):
         for i in range(self.model.rowCount()):
             record = self.model.record(i)
             for j in range(multiRecord.count()):
-                if multiRecord.value(j) != record.value(j) or not record.value(j):
+                value = record.value(j)
+                if multiRecord.value(j) != value or not value:
                     multiRecord.setNull(j)
                     usedFields[j] = Qt.Unchecked
 
@@ -307,11 +315,12 @@ class TreeView(QtGui.QTreeWidget):
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             progressDlg = QtGui.QProgressDialog(self.tr("Updating records"),
-                                                self.tr("Cancel"), 0, self.model.rowCount(),
+                                                self.tr("Cancel"), 0,
+                                                self.model.rowCount(),
                                                 self, Qt.WindowSystemMenuHint)
             progressDlg.setWindowModality(QtCore.Qt.WindowModal)
             progressDlg.setMinimumDuration(250)
-            
+
             # Fill records by used fields in multi record
             multiRecord = dialog.getRecord()
             usedFields = dialog.getUsedFields()
@@ -319,19 +328,20 @@ class TreeView(QtGui.QTreeWidget):
                 progressDlg.setValue(i)
                 if progressDlg.wasCanceled():
                     break
-                
+
                 record = self.model.record(i)
                 for j in range(multiRecord.count()):
                     if usedFields[j] == Qt.Checked:
                         record.setValue(j, multiRecord.value(j))
                 self.model.setRecord(i, record)
-            
+
             self.model.submitAll()
             progressDlg.setValue(self.model.rowCount())
-        
+
         self.model.setFilter(storedFilter)
 
 from EditCoinDialog.DetailsTabWidget import DetailsTabWidget
+
 
 class DetailsView(DetailsTabWidget):
     def __init__(self, parent=None):
@@ -347,6 +357,7 @@ class DetailsView(DetailsTabWidget):
         else:
             self.clear()
 
+
 class Splitter(QtGui.QSplitter):
     def __init__(self, title, orientation=Qt.Horizontal, parent=None):
         super(Splitter, self).__init__(orientation, parent)
@@ -356,11 +367,11 @@ class Splitter(QtGui.QSplitter):
 
     def splitterPosChanged(self, pos, index):
         settings = QtCore.QSettings()
-        settings.setValue('pageview/splittersizes'+self.title, self.sizes())
+        settings.setValue('pageview/splittersizes' + self.title, self.sizes())
 
     def showEvent(self, e):
         settings = QtCore.QSettings()
-        sizes = settings.value('pageview/splittersizes'+self.title)
+        sizes = settings.value('pageview/splittersizes' + self.title)
         if sizes:
             for i in range(len(sizes)):
                 sizes[i] = int(sizes[i])
@@ -369,10 +380,11 @@ class Splitter(QtGui.QSplitter):
             self.setSizes(sizes)
             self.splitterMoved.connect(self.splitterPosChanged)
 
+
 class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
         super(PageView, self).__init__('0', parent=parent)
-        
+
         self._model = None
         self.param = pageParam
         self.id = pageParam.id
@@ -389,7 +401,7 @@ class PageView(Splitter):
         splitter1.addWidget(self.detailsView)
         self.addWidget(splitter1)
         self.addWidget(self.imageView)
-        
+
         self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
         self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
         self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
@@ -397,16 +409,16 @@ class PageView(Splitter):
 
     def setModel(self, model):
         self._model = model
-        
+
         self._model.modelChanged.connect(self.modelChanged)
-        
+
         self.treeView.setModel(model)
         self.listView.setModel(model)
         self.imageView.setModel(model)
-    
+
     def model(self):
         return self._model
-    
+
     def modelChanged(self):
         self.treeView.modelChanged()
         self.listView.modelChanged()

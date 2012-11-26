@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import datetime, decimal, socket
+import datetime
+import decimal
+import socket
 
 try:
     import firebirdsql
@@ -10,6 +12,7 @@ except ImportError:
 from PyQt4 import QtCore, QtGui
 
 from Collection.Import import _Import, _InvalidDatabaseError, _DatabaseServerError
+
 
 class ImportNumizmat(_Import):
     Columns = {
@@ -73,32 +76,33 @@ class ImportNumizmat(_Import):
 
     def __init__(self, parent=None):
         super(ImportNumizmat, self).__init__(parent)
-    
+
     @staticmethod
     def defaultDir():
         dir_ = QtCore.QDir(_Import.defaultDir())
-        dirNames = ["C:/Program Files/Numizmat 2/Base", "C:/Program Files (x86)/Numizmat 2/Base"]
+        dirNames = ["C:/Program Files/Numizmat 2/Base",
+                    "C:/Program Files (x86)/Numizmat 2/Base"]
         for dirName in dirNames:
             if dir_.cd(dirName):
                 break
-        
+
         return dir_.absolutePath()
-    
+
     def _connect(self, src):
         try:
-            self.cnxn = firebirdsql.connect(database=src, host='localhost', user='SYSDBA',
-                                            password='masterkey', charset='WIN1251')
+            self.cnxn = firebirdsql.connect(database=src, host='localhost',
+                    user='SYSDBA', password='masterkey', charset='WIN1251')
         except firebirdsql.OperationalError as error:
             raise _InvalidDatabaseError(error.__str__())
         except socket.error as error:
             raise _DatabaseServerError(error.__str__())
-        
+
         return self.cnxn.cursor()
-    
+
     def _getRows(self, cursor):
         cursor.execute("SELECT * FROM coins")
         return cursor.fetchallmap()
-    
+
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
             if srcColumn and srcColumn in row.keys():
@@ -117,9 +121,9 @@ class ImportNumizmat(_Import):
                     value = QtCore.QDate.fromString(rawData.isoformat(), QtCore.Qt.ISODate)
                 else:
                     value = rawData
-                
+
                 record.setValue(dstColumn, value)
-                
+
                 if dstColumn == 'status':
                     # Process Status fields that contain translated text
                     if record.value(dstColumn) in ['есть', 'have', 'є', 'притежава']:
@@ -130,6 +134,6 @@ class ImportNumizmat(_Import):
                         record.setValue(dstColumn, 'sale')
                     else:
                         record.setValue(dstColumn, 'demo')
-    
+
     def _close(self, connection):
         self.cnxn.close()

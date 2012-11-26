@@ -11,6 +11,7 @@ from PyQt4 import QtCore, QtGui
 
 from Collection.Import import _Import, _DatabaseServerError
 
+
 class ImportCabinet(_Import):
     Columns = {
         'title': None,
@@ -79,28 +80,29 @@ class ImportCabinet(_Import):
 
     def __init__(self, parent=None):
         super(ImportCabinet, self).__init__(parent)
-    
+
     def _connect(self, src):
         try:
-            self.cnxn = pyodbc.connect(driver='{DBISAM 4 ODBC Driver}', connectionType='Local', catalogName=src)
+            self.cnxn = pyodbc.connect(driver='{DBISAM 4 ODBC Driver}',
+                                       connectionType='Local', catalogName=src)
         except pyodbc.Error as error:
             raise _DatabaseServerError(error.__str__())
-        
+
         return self.cnxn.cursor()
-    
+
     def _check(self, cursor):
         tables = [row.table_name.lower() for row in cursor.tables()]
         for requiredTables in ['coins', 'country']:
             if requiredTables not in tables:
                 return False
-        
+
         columns = self.__getColumns(cursor)
         for requiredColumn in ['Nominal', 'idCurrency', 'idCountry']:
             if requiredColumn not in columns:
                 return False
-        
+
         return True
-    
+
     def _getRows(self, cursor):
         cursor.execute("""
             SELECT coins.*, country.Name AS Country, kl_nominal.Name AS Currency,
@@ -116,7 +118,7 @@ class ImportCabinet(_Import):
             LEFT OUTER JOIN kl_album ON CAST(coins.CoinLocation AS INTEGER) = kl_album.id
         """)
         return cursor.fetchall()
-    
+
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
             if srcColumn and hasattr(row, srcColumn):
@@ -131,16 +133,16 @@ class ImportCabinet(_Import):
                     value = QtCore.QDate.fromString(rawData.isoformat(), QtCore.Qt.ISODate)
                 else:
                     value = rawData
-                
+
                 record.setValue(dstColumn, value)
-            
+
             if dstColumn == 'status':
                 record.setValue(dstColumn, 'demo')
                 if getattr(row, 'Sold') or getattr(row, 'PriceSold'):
                     record.setValue(dstColumn, 'sold')
                 elif getattr(row, 'Present') == 1 or getattr(row, 'Purchased') or getattr(row, 'Price') or getattr(row, 'PurchasedInfo'):
                     record.setValue(dstColumn, 'owned')
-            
+
             if dstColumn == 'saller':
                 if row.SellerID:
                     cursor = self.cnxn.cursor()
@@ -149,7 +151,7 @@ class ImportCabinet(_Import):
                     """, row.SellerID).fetchone()
                     if sallerRow:
                         record.setValue(dstColumn, sallerRow.Name)
-            
+
             if dstColumn == 'buyer':
                 if row.BuyerID:
                     cursor = self.cnxn.cursor()
@@ -158,7 +160,7 @@ class ImportCabinet(_Import):
                     """, row.BuyerID).fetchone()
                     if buyerRow:
                         record.setValue(dstColumn, buyerRow.Name)
-            
+
             if dstColumn == 'features':
                 features = []
                 value = getattr(row, 'CoinInfo')
@@ -179,13 +181,13 @@ class ImportCabinet(_Import):
                 value = getattr(row, 'Extra n.')
                 if value:
                     features.append(self.tr("Extra n: %d") % value)
-                
+
                 if features:
                     record.setValue(dstColumn, '\n'.join(features))
-    
+
     def _close(self, connection):
         self.cnxn.close()
-    
+
     def __getColumns(self, cursor):
         columns = [row.column_name for row in cursor.columns('coins')]
         return columns

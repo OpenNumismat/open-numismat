@@ -5,20 +5,23 @@ from .CollectionFields import CollectionFields
 from .ListPageParam import ListPageParam
 from .TreeParam import TreeParam
 
+
 class CollectionPageTypes:
     List = 0
+
 
 class CollectionPageParam(QtCore.QObject):
     def __init__(self, record, parent=None):
         QtCore.QObject.__init__(self, parent)
-        
+
         for name in ['id', 'title', 'isopen', 'type']:
             setattr(self, name, record.value(name))
+
 
 class CollectionPages(QtCore.QObject):
     def __init__(self, db, parent=None):
         super(CollectionPages, self).__init__(parent)
-        
+
         self.db = db
         sql = "CREATE TABLE IF NOT EXISTS pages (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
@@ -27,9 +30,9 @@ class CollectionPages(QtCore.QObject):
             position INTEGER,\
             type INTEGER)"
         QSqlQuery(sql, self.db)
-        
+
         self.fields = CollectionFields(self.db)
-        
+
     def pagesParam(self):
         query = QSqlQuery("SELECT * FROM pages ORDER BY position")
         return self.__queryToParam(query)
@@ -43,16 +46,17 @@ class CollectionPages(QtCore.QObject):
         query.addBindValue(CollectionPageTypes.List)
         query.exec_()
 
-        query = QSqlQuery("SELECT * FROM pages WHERE id=last_insert_rowid()", self.db)
-        return self.__queryToParam(query)[0]    # get only one item
-    
+        query = QSqlQuery("SELECT * FROM pages WHERE id=last_insert_rowid()",
+                          self.db)
+        return self.__queryToParam(query)[0]  # get only one item
+
     def renamePage(self, page, title):
         query = QSqlQuery(self.db)
         query.prepare("UPDATE pages SET title=? WHERE id=?")
         query.addBindValue(title)
         query.addBindValue(page.id)
         query.exec_()
-    
+
     def closePage(self, page):
         query = QSqlQuery(self.db)
         query.prepare("UPDATE pages SET isopen=? WHERE id=?")
@@ -90,7 +94,7 @@ class CollectionPages(QtCore.QObject):
         query.addBindValue(int(False))
         query.exec_()
         return self.__queryToParam(query)
-    
+
     def __queryToParam(self, query):
         pagesParam = []
         while query.next():

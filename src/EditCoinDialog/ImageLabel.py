@@ -2,19 +2,21 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication
 
+
 class ImageLabel(QtGui.QLabel):
     def __init__(self, parent=None):
         super(ImageLabel, self).__init__(parent)
-        
+
         self.clear()
-        
+
         self.setBackgroundRole(QtGui.QPalette.Base)
-        self.setSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Ignored)
+        self.setSizePolicy(QtGui.QSizePolicy.Ignored,
+                           QtGui.QSizePolicy.Ignored)
         self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.setFocusPolicy(Qt.StrongFocus)
 
     def mouseDoubleClickEvent(self, e):
-        file = QtCore.QTemporaryFile(QtCore.QDir.tempPath()+"/img_XXXXXX.jpg")
+        file = QtCore.QTemporaryFile(QtCore.QDir.tempPath() + "/img_XXXXXX.jpg")
         file.setAutoRemove(False)
         file.open()
 
@@ -22,60 +24,64 @@ class ImageLabel(QtGui.QLabel):
         self.image.save(fileName)
 
         executor = QtGui.QDesktopServices()
-        executor.openUrl(QtCore.QUrl.fromLocalFile(fileName)) 
+        executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
 
     def clear(self):
         self.image = QtGui.QImage()
         self.setPixmap(QtGui.QPixmap.fromImage(self.image))
         self._data = None
-    
+
     def resizeEvent(self, e):
         self._showImage()
-    
+
     def showEvent(self, e):
         self._showImage()
-    
+
     def loadFromData(self, data):
         self._data = data
-        
+
         image = QtGui.QImage()
         result = image.loadFromData(data)
         if result:
             self._setImage(image)
-        
+
         return result
-    
+
     def _setImage(self, image):
         self.image = image
         self._showImage()
-    
+
     def _showImage(self):
         if self.image.isNull():
             return
-        
+
         # Label not shown => can't get size for resizing image
         if not self.isVisible():
             return
-        
-        if self.image.width() > self.width() or self.image.height() > self.height():
-            scaledImage = self.image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+
+        if self.image.width() > self.width() or \
+                                        self.image.height() > self.height():
+            scaledImage = self.image.scaled(self.size(),
+                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
         else:
             scaledImage = self.image
-        
+
         pixmap = QtGui.QPixmap.fromImage(scaledImage)
         self.setPixmap(pixmap)
 
+
 class ImageEdit(ImageLabel):
-    latestDir = QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.PicturesLocation)
-    
+    latestDir = QtGui.QDesktopServices.storageLocation(
+                                    QtGui.QDesktopServices.PicturesLocation)
+
     def __init__(self, parent=None):
         super(ImageEdit, self).__init__(parent)
-        
+
         self.setFrameStyle(QtGui.QFrame.Panel | QtGui.QFrame.Plain)
-        
+
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenu)
-        
+
         self.changed = False
 
     def contextMenu(self, pos):
@@ -115,16 +121,18 @@ class ImageEdit(ImageLabel):
         menu.addAction(copy)
         menu.addAction(delete)
         menu.exec_(self.mapToGlobal(pos))
-    
+
     def mouseDoubleClickEvent(self, e):
         if self.image.isNull():
             self.openImage()
         else:
             super(ImageEdit, self).mouseDoubleClickEvent(e)
-        
+
     def openImage(self):
         caption = QApplication.translate('ImageEdit', "Open File")
-        filter_ = QApplication.translate('ImageEdit', "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)")
+        filter_ = QApplication.translate('ImageEdit',
+                            "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
+                            "All files (*.*)")
         fileName = QtGui.QFileDialog.getOpenFileName(self,
                 caption, ImageEdit.latestDir,
                 filter_)
@@ -138,21 +146,23 @@ class ImageEdit(ImageLabel):
     def deleteImage(self):
         self.clear()
         self.changed = True
-    
+
     def saveImage(self):
         caption = QApplication.translate('ImageEdit', "Save File")
-        filter_ = QApplication.translate('ImageEdit', "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)")
-        # TODO: Set default name to coin title + field name 
+        filter_ = QApplication.translate('ImageEdit',
+                            "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
+                            "All files (*.*)")
+        # TODO: Set default name to coin title + field name
         fileName = QtGui.QFileDialog.getSaveFileName(self,
                 caption, ImageEdit.latestDir + '/photo',
                 filter_)
         if fileName:
-            dir = QtCore.QDir(fileName)
-            dir.cdUp()
-            ImageEdit.latestDir = dir.absolutePath()
+            dir_ = QtCore.QDir(fileName)
+            dir_.cdUp()
+            ImageEdit.latestDir = dir_.absolutePath()
 
             self.image.save(fileName)
-    
+
     def pasteImage(self):
         mime = QtGui.QApplication.clipboard().mimeData()
         if mime.hasUrls():
@@ -171,7 +181,8 @@ class ImageEdit(ImageLabel):
 
     def clear(self):
         super(ImageEdit, self).clear()
-        text = QApplication.translate('ImageEdit', "No image available\n(right-click to add an image)")
+        text = QApplication.translate('ImageEdit',
+                        "No image available\n(right-click to add an image)")
         self.setText(text)
 
     def loadFromFile(self, fileName):
@@ -181,14 +192,15 @@ class ImageEdit(ImageLabel):
             self._setNewImage(image)
 
         return result
-    
+
     def loadFromUrl(self, url):
         result = False
-        
+
         import urllib.request
         try:
-            # Wikipedia require any header 
-            req = urllib.request.Request(url, headers={'User-Agent' : "OpenNumismat"})
+            # Wikipedia require any header
+            req = urllib.request.Request(url,
+                                    headers={'User-Agent': "OpenNumismat"})
             data = urllib.request.urlopen(req).read()
             image = QtGui.QImage()
             result = image.loadFromData(data)
@@ -196,14 +208,14 @@ class ImageEdit(ImageLabel):
                 self._setNewImage(image)
         except:
             pass
-        
+
         return result
-    
+
     def data(self):
         if self.changed:
             return self.image
         return self._data
-    
+
     def _setNewImage(self, image):
         # Fill transparent color if present
         fixedImage = QtGui.QImage(image.size(), QtGui.QImage.Format_RGB32)
@@ -211,9 +223,10 @@ class ImageEdit(ImageLabel):
         painter = QtGui.QPainter(fixedImage)
         painter.drawImage(0, 0, image)
         painter.end()
-        
+
         self._setImage(fixedImage)
         self.changed = True
+
 
 class EdgeImageEdit(ImageEdit):
     def __init__(self, parent=None):

@@ -3,75 +3,79 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication
 from PyQt4.QtSql import QSqlQuery
 
+
 class Updater(QtCore.QObject):
     def __init__(self, collection):
         self.collection = collection
         self.currentVersion = int(self.collection.settings.Settings['Version'])
-    
+
     def check(self):
         return self.currentVersion != self.collection.settings.DefaultSettings['Version']
-    
+
     def update(self):
         if self.check():
             if self.__begin():
                 if self.currentVersion < 2:
                     updater = UpdaterTo2(self.collection)
                     updater.update()
-                
+
                 self.__finalize()
-    
+
     def __begin(self):
         return self.collection.backup()
-    
+
     def __finalize(self):
         # TODO: Move vacuum here
         pass
+
 
 class _Updater(QtCore.QObject):
     def __init__(self, collection):
         self.collection = collection
         self.db = collection.db
-        
+
         self.totalCount = self.getTotalCount()
-        
-        self.progressDlg = QtGui.QProgressDialog(QApplication.translate('_Updater', "Updating records"),
-                                            None, 0, self.totalCount,
-                                            collection.parent(), Qt.WindowTitleHint)
+
+        self.progressDlg = QtGui.QProgressDialog(
+                    QApplication.translate('_Updater', "Updating records"),
+                    None, 0, self.totalCount,
+                    collection.parent(), Qt.WindowTitleHint)
         self.progressDlg.setWindowModality(Qt.WindowModal)
         self.progressDlg.setMinimumDuration(250)
         self.progress = 0
-    
+
     def getTotalCount(self):
         raise NotImplementedError
-    
+
     def update(self):
         pass
-    
+
     def _begin(self):
         pass
-    
+
     def _updateRecord(self):
         self.progressDlg.setValue(self.progress)
         self.progress = self.progress + 1
-    
+
     def _finish(self):
         self.progressDlg.setValue(self.totalCount)
+
 
 class UpdaterTo2(_Updater):
     def __init__(self, collection):
         super(UpdaterTo2, self).__init__(collection)
-    
+
     def getTotalCount(self):
         sql = "SELECT count(*) FROM coins"
         query = QSqlQuery(sql, self.db)
         query.first()
-        return query.record().value(0) + 2 # Add 2 for updating progress label
-    
+        return query.record().value(0) + 2  # Add 2 for updating progress label
+
     def update(self):
         self._begin()
-    
+
         self.db.transaction()
-        
+
         fields = ['quantity', 'url', 'barcode']
         for field in fields:
             fieldDesc = getattr(self.collection.fields, field)
@@ -83,22 +87,23 @@ class UpdaterTo2(_Updater):
             query.addBindValue(fieldDesc.title)
             query.addBindValue(int(fieldDesc.enabled))
             query.exec_()
-            
+
             self.collection.fields.userFields.append(fieldDesc)
-        
+
         sql = """ALTER TABLE coins RENAME TO tmp_coins"""
         QSqlQuery(sql, self.db)
-        
+
         self.collection.createCoinsTable()
-    
+
         query = QSqlQuery("SELECT * FROM tmp_coins", self.db)
         while query.next():
             self._updateRecord()
-            
+
             record = query.record()
-            
+
             imgIds = {}
-            fields = ['obverseimg', 'reverseimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4']
+            fields = ['obverseimg', 'reverseimg', 'edgeimg',
+                      'photo1', 'photo2', 'photo3', 'photo4']
             for field in fields:
                 if not record.isNull(field):
                     image_query = QSqlQuery(self.db)
@@ -111,10 +116,27 @@ class UpdaterTo2(_Updater):
                     imgIds[field] = image_query.lastInsertId()
                 else:
                     imgIds[field] = None
-    
+
             coin_query = QSqlQuery(self.db)
-            coin_query.prepare("""INSERT INTO coins (title, value, unit, country, year, period, mint, mintmark, issuedate, type, series, subjectshort, status, material, fineness, shape, diameter, thickness, weight, grade, edge, edgelabel, obvrev, quality, mintage, dateemis, catalognum1, catalognum2, catalognum3, catalognum4, rarity, price1, price2, price3, price4, variety, obversevar, reversevar, edgevar, paydate, payprice, totalpayprice, saller, payplace, payinfo, saledate, saleprice, totalsaleprice, buyer, saleplace, saleinfo, note, image, obverseimg, obversedesign, obversedesigner, reverseimg, reversedesign, reversedesigner, edgeimg, subject, photo1, photo2, photo3, photo4, defect, storage, features, createdat, updatedat)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""")
+            coin_query.prepare("""INSERT INTO coins (title, value, unit,
+                        country, year, period, mint, mintmark, issuedate, type,
+                        series, subjectshort, status, material, fineness,
+                        shape, diameter, thickness, weight, grade, edge,
+                        edgelabel, obvrev, quality, mintage, dateemis,
+                        catalognum1, catalognum2, catalognum3, catalognum4,
+                        rarity, price1, price2, price3, price4, variety,
+                        obversevar, reversevar, edgevar, paydate, payprice,
+                        totalpayprice, saller, payplace, payinfo, saledate,
+                        saleprice, totalsaleprice, buyer, saleplace, saleinfo,
+                        note, image, obverseimg, obversedesign,
+                        obversedesigner, reverseimg, reversedesign,
+                        reversedesigner, edgeimg, subject, photo1, photo2,
+                        photo3, photo4, defect, storage, features, createdat,
+                        updatedat)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""")
             coin_query.addBindValue(record.value('title'))
             coin_query.addBindValue(record.value('value'))
             coin_query.addBindValue(record.value('unit'))
@@ -187,30 +209,33 @@ class UpdaterTo2(_Updater):
             coin_query.addBindValue(record.value('updatedat'))
             if not coin_query.exec_():
                 print(coin_query.lastError().text())
-        
-        self.progressDlg.setLabelText(QApplication.translate('UpdaterTo2', "Saving..."))
+
+        self.progressDlg.setLabelText(
+                            QApplication.translate('UpdaterTo2', "Saving..."))
         self._updateRecord()
-        
+
         sql = """DROP TABLE tmp_coins"""
         QSqlQuery(sql, self.db)
-        
+
         self.collection.settings.Settings['Version'] = 2
         self.collection.settings.save()
-        
+
         query = QSqlQuery(self.db)
         query.prepare("""INSERT INTO settings (title, value) VALUES (?, ?)""")
         query.addBindValue('Password')
         query.addBindValue(self.collection.settings.Settings['Password'])
         query.exec_()
-        
+
         self.db.commit()
 
-        self.progressDlg.setLabelText(QApplication.translate('UpdaterTo2', "Vacuum..."))
+        self.progressDlg.setLabelText(
+                            QApplication.translate('UpdaterTo2', "Vacuum..."))
         self._updateRecord()
 
         self.collection.vacuum()
-    
+
         self._finish()
+
 
 def updateCollection(collection):
     updater = Updater(collection)

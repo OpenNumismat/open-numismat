@@ -13,30 +13,32 @@ from PyQt4 import QtCore, QtGui
 from Collection.Import import _Import
 from Tools.Converters import stringToMoney
 
+
 class Reference(dict):
     def __init__(self, fileName=''):
         if fileName:
             self.load(fileName)
-    
+
     def load(self, fileName):
         tree = lxml.etree.parse(fileName)
         rows = tree.xpath("/DATAPACKET/ROWDATA/ROW")
         for row in rows:
             dict.__setitem__(self, row.get("ID"), row.get("NAME"))
-    
+
     def __getitem__(self, key):
         try:
             return dict.__getitem__(self, key)
         except KeyError:
             return None
 
+
 class MintReference(Reference):
     def __init__(self, fileName=''):
         super(MintReference, self).__init__(fileName)
-        
+
         self.mintMarks = {}
         self.mintDescriptions = {}
-    
+
     def load(self, fileName):
         tree = lxml.etree.parse(fileName)
         rows = tree.xpath("/DATAPACKET/ROWDATA/ROW")
@@ -44,17 +46,18 @@ class MintReference(Reference):
             dict.__setitem__(self, row.get("ID"), row.get("NAME"))
             self.mintMarks[row.get("ID")] = row.get("MARK")
             self.mintDescriptions[row.get("ID")] = row.get("DESCRIPTION")
-    
+
     def mark(self, key):
         return self.mintMarks[key]
-    
+
     def description(self, key):
         return self.mintDescriptions[key]
+
 
 class PictureReference(Reference):
     def __init__(self, fileName=''):
         super(PictureReference, self).__init__(fileName)
-    
+
     def load(self, fileName):
         tree = lxml.etree.parse(fileName)
         rows = tree.xpath("/DATAPACKET/ROWDATA/ROW")
@@ -63,12 +66,13 @@ class PictureReference(Reference):
             if id_ in self.keys():
                 pictures = self.__getitem__(id_)
             else:
-                pictures = [None]*4
+                pictures = [None] * 4
             type_ = int(row.get("TYPE")) - 1
             data = bytes(row.get("PICTURE"), 'latin-1')
             pictures[type_] = base64.b64decode(data)
-            
+
             dict.__setitem__(self, id_, pictures)
+
 
 class ImportCoinsCollector(_Import):
     Columns = {
@@ -136,7 +140,7 @@ class ImportCoinsCollector(_Import):
         'storage': 'LOCATION_CODE',
         'features': None,
     }
-    
+
     referenceFiles = {
         '__dummy1__': 'MainTable',
         '__dummy2__': 'Pictures',
@@ -159,47 +163,49 @@ class ImportCoinsCollector(_Import):
         'PURCHFROM_CODE': 'Seller',
         'PURCHTO_CODE': 'Buyer',
     }
-    
+
     def __init__(self, parent=None):
         super(ImportCoinsCollector, self).__init__(parent)
-    
+
     @staticmethod
     def defaultDir():
         dir_ = QtCore.QDir(_Import.defaultDir())
-        dirNames = ["C:/Program Files/Coins Collector 2/Collections", "C:/Program Files (x86)/Coins Collector 2/Collections"]
+        dirNames = ["C:/Program Files/Coins Collector 2/Collections",
+                    "C:/Program Files (x86)/Coins Collector 2/Collections"]
         for dirName in dirNames:
             if dir_.cd(dirName):
                 break
-        
+
         try:
-            hkey = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Software\SerFox Soft\Coins Collector\2.0')
+            hkey = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
+                                  r'Software\SerFox Soft\Coins Collector\2.0')
             value = winreg.QueryValueEx(hkey, 'LocalBase')[0]
             winreg.CloseKey(hkey)
             dir_.cd(value)
         except WindowsError:
             pass
-        
+
         return dir_.absolutePath()
-    
+
     def _connect(self, src):
         self.dir_ = None
         return QtCore.QDir(src)
-    
+
     def _check(self, srcDir):
         if not srcDir.exists("MainTable.cds"):
             return False
-        
+
         return True
-    
+
     def _getRows(self, srcDir):
         self.dir_ = self.__convert(srcDir)
-        
+
         file = self.dir_.absoluteFilePath("MainTable.xml")
         tree = lxml.etree.parse(file)
         self.fields = self.__getFields(tree)
         rows = tree.xpath("/DATAPACKET/ROWDATA/ROW")
         return rows
-    
+
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
             if srcColumn and srcColumn in row.keys():
@@ -216,9 +222,9 @@ class ImportCoinsCollector(_Import):
                         value = None
                 else:
                     value = rawData
-                
+
                 record.setValue(dstColumn, value)
-            
+
             if dstColumn == 'status':
                 # Process Status fields that contain translated text
                 value = record.value(dstColumn) or ''
@@ -228,19 +234,19 @@ class ImportCoinsCollector(_Import):
                     record.setValue(dstColumn, 'wish')
                 else:
                     record.setValue(dstColumn, 'demo')
-                
+
                 if row.get('SELLPRISE') or row.get('PURCHTO_CODE'):
                     record.setValue(dstColumn, 'sold')
                 elif row.get('COST') or row.get('PURCHFROM_CODE'):
                     record.setValue(dstColumn, 'owned')
-            
+
             if dstColumn == 'mintmark':
                 mintId = row.get("MINT_CODE")
                 if mintId:
                     ref = self.fields["MINT_CODE"]
                     mark = ref.mark(mintId)
                     record.setValue(dstColumn, mark)
-            
+
             if dstColumn == 'catalognum1':
                 catalogParts = []
                 ref = self.fields["CATALOG_CODE"]
@@ -251,7 +257,7 @@ class ImportCoinsCollector(_Import):
                 if catalogNum:
                     catalogParts.append(catalogNum)
                 record.setValue(dstColumn, ' '.join(catalogParts))
-            
+
             imgFields = ['obverseimg', 'reverseimg', 'photo1', 'photo2']
             if dstColumn in imgFields:
                 ref = self.fields["PICTURES"]
@@ -264,7 +270,7 @@ class ImportCoinsCollector(_Import):
                         image = QtGui.QImage()
                         image.loadFromData(value)
                         record.setValue(dstColumn, image)
-            
+
             if dstColumn == 'features':
                 features = []
                 value = row.get('NOTE')
@@ -276,28 +282,28 @@ class ImportCoinsCollector(_Import):
                 value = row.get('VALUENOTE')
                 if value:
                     features.append(self.tr("Price note: %s") % value)
-                
+
                 if features:
                     record.setValue(dstColumn, '\n'.join(features))
-    
+
     def _close(self, connection):
         if self.dir_:
             shutil.rmtree(self.dir_.absolutePath(), True)
-    
+
     def __convert(self, directory):
         dfBinary, dfXML, dfXMLUTF8 = range(3)
-        
+
         srcDir = QtCore.QDir(directory)
         dstDir = QtCore.QDir(tempfile.mkdtemp())
-        
+
         converter = ctypes.windll.LoadLibrary("Cdr2Xml.dll")
         for fn in self.referenceFiles.values():
             src = srcDir.absoluteFilePath('.'.join([fn, 'cds']))
             dst = dstDir.absoluteFilePath('.'.join([fn, 'xml']))
             converter.CdrToXml(src, dst, dfXMLUTF8)
-        
+
         return dstDir
-    
+
     def __getFields(self, tree):
         fields = {}
         rows = tree.xpath("/DATAPACKET/METADATA/FIELDS/FIELD")
@@ -311,11 +317,11 @@ class ImportCoinsCollector(_Import):
                     fields[field] = row.get("SUBTYPE").lower()
                 else:
                     fields[field] = row.get("fieldtype").lower()
-        
+
         fields["PICTURES"] = self.__loadReference("Pictures.xml")
-        
+
         return fields
-    
+
     def __loadReference(self, fileTitle):
         if fileTitle == "Mint.xml":
             ref = MintReference()
@@ -323,9 +329,9 @@ class ImportCoinsCollector(_Import):
             ref = PictureReference()
         else:
             ref = Reference()
-        
+
         if self.dir_.exists(fileTitle):
             fileName = self.dir_.absoluteFilePath(fileTitle)
             ref.load(fileName)
-        
+
         return ref

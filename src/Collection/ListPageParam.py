@@ -3,6 +3,7 @@ from PyQt4.QtSql import QSqlQuery, QSqlRecord
 
 from .HeaderFilterMenu import ColumnFilters
 
+
 class ColumnListParam:
     def __init__(self, arg1, arg2=None, arg3=None):
         if isinstance(arg1, QSqlRecord):
@@ -19,10 +20,11 @@ class ColumnListParam:
             self.enabled = enabled
             self.width = width
 
+
 class ListPageParam(QtCore.QObject):
     def __init__(self, page):
         super(ListPageParam, self).__init__(page)
-        
+
         self.pageId = page.id
         self.db = page.db
         sql = """CREATE TABLE IF NOT EXISTS lists (
@@ -42,9 +44,9 @@ class ListPageParam(QtCore.QObject):
         while query.next():
             param = ColumnListParam(query.record())
             self.columns.append(param)
-        
+
         self.fields = page.fields
-        
+
         # Create default parameters
         if not self.columns:
             for field in self.fields.userFields:
@@ -54,7 +56,7 @@ class ListPageParam(QtCore.QObject):
                     enabled = True
                 param = ColumnListParam(field.id, enabled)
                 self.columns.append(param)
-        
+
         sql = """CREATE TABLE IF NOT EXISTS filters (
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             pageid INTEGER,
@@ -63,7 +65,7 @@ class ListPageParam(QtCore.QObject):
             blank INTEGER,
             data INTEGER)"""
         QSqlQuery(sql, self.db)
-        
+
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM filters WHERE pageid=?")
         query.addBindValue(self.pageId)
@@ -82,9 +84,10 @@ class ListPageParam(QtCore.QObject):
                 blank = query.record().value('blank')
 
             if fieldId not in self.filters.keys():
-                self.filters[fieldId] = ColumnFilters(self.fields.field(fieldId).name)
+                self.filters[fieldId] = ColumnFilters(
+                                            self.fields.field(fieldId).name)
             self.filters[fieldId].addFilter(value, data, blank)
-    
+
     def clone(self):
         newList = ListPageParam(self.parent())
         newList.columns = list(self.columns)
@@ -93,15 +96,15 @@ class ListPageParam(QtCore.QObject):
 
     def save(self):
         self.db.transaction()
-        
+
         # Remove old values
         self.remove()
-        
+
         # Save new all
         for position, param in enumerate(self.columns):
             query = QSqlQuery(self.db)
-            query.prepare("INSERT INTO lists (pageid, fieldid, position, enabled, width) "
-                          "VALUES (?, ?, ?, ?, ?)")
+            query.prepare("INSERT INTO lists (pageid, fieldid, position,"
+                          " enabled, width) VALUES (?, ?, ?, ?, ?)")
             query.addBindValue(self.pageId)
             query.addBindValue(param.fieldid)
             query.addBindValue(position)
@@ -114,8 +117,8 @@ class ListPageParam(QtCore.QObject):
         for fieldId, columnFilters in self.filters.items():
             for filter_ in columnFilters.filters():
                 query = QSqlQuery(self.db)
-                query.prepare("INSERT INTO filters (pageid, fieldid, value, blank, data) "
-                              "VALUES (?, ?, ?, ?, ?)")
+                query.prepare("INSERT INTO filters (pageid, fieldid, value,"
+                              " blank, data) VALUES (?, ?, ?, ?, ?)")
                 query.addBindValue(self.pageId)
                 query.addBindValue(fieldId)
                 query.addBindValue(filter_.value)
@@ -130,7 +133,7 @@ class ListPageParam(QtCore.QObject):
                     data = None
                 query.addBindValue(data)
                 query.exec_()
-        
+
         self.db.commit()
 
     def remove(self):
