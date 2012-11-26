@@ -484,10 +484,11 @@ class FormDetailsTabWidget(DetailsTabWidget):
         super(FormDetailsTabWidget, self).createItems()
 
         if self.reference:
-            self.items['country'].widget().addDependent(self.items['period'].widget())
-            self.items['country'].widget().addDependent(self.items['unit'].widget())
-            self.items['country'].widget().addDependent(self.items['mint'].widget())
-            self.items['country'].widget().addDependent(self.items['series'].widget())
+            widget = self.items['country'].widget()
+            widget.addDependent(self.items['period'].widget())
+            widget.addDependent(self.items['unit'].widget())
+            widget.addDependent(self.items['mint'].widget())
+            widget.addDependent(self.items['series'].widget())
 
     def fillItems(self, record):
         super(FormDetailsTabWidget, self).fillItems(record)
