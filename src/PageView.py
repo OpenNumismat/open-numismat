@@ -6,6 +6,7 @@ from EditCoinDialog.ImageLabel import ImageLabel
 from Collection.CollectionFields import FieldTypes as Type
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from CustomizeTreeDialog import CustomizeTreeDialog
+from Tools import Gui
 
 
 class ImageView(QtGui.QWidget):
@@ -314,12 +315,8 @@ class TreeView(QtGui.QTreeWidget):
         dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            progressDlg = QtGui.QProgressDialog(self.tr("Updating records"),
-                                                self.tr("Cancel"), 0,
-                                                self.model.rowCount(),
-                                                self, Qt.WindowSystemMenuHint)
-            progressDlg.setWindowModality(QtCore.Qt.WindowModal)
-            progressDlg.setMinimumDuration(250)
+            progressDlg = Gui.ProgressDialog(self.tr("Updating records"),
+                                self.tr("Cancel"), self.model.rowCount(), self)
 
             # Fill records by used fields in multi record
             multiRecord = dialog.getRecord()
@@ -336,7 +333,7 @@ class TreeView(QtGui.QTreeWidget):
                 self.model.setRecord(i, record)
 
             self.model.submitAll()
-            progressDlg.setValue(self.model.rowCount())
+            progressDlg.reset()
 
         self.model.setFilter(storedFilter)
 

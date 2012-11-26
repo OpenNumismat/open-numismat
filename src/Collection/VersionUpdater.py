@@ -3,6 +3,8 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication
 from PyQt4.QtSql import QSqlQuery
 
+from Tools import Gui
+
 
 class Updater(QtCore.QObject):
     def __init__(self, collection):
@@ -36,13 +38,10 @@ class _Updater(QtCore.QObject):
 
         self.totalCount = self.getTotalCount()
 
-        self.progressDlg = QtGui.QProgressDialog(
+        self.progressDlg = Gui.ProgressDialog(
                     QApplication.translate('_Updater', "Updating records"),
-                    None, 0, self.totalCount,
-                    collection.parent(), Qt.WindowTitleHint)
-        self.progressDlg.setWindowModality(Qt.WindowModal)
-        self.progressDlg.setMinimumDuration(250)
-        self.progress = 0
+                    None, self.totalCount,
+                    collection.parent())
 
     def getTotalCount(self):
         raise NotImplementedError
@@ -54,11 +53,10 @@ class _Updater(QtCore.QObject):
         pass
 
     def _updateRecord(self):
-        self.progressDlg.setValue(self.progress)
-        self.progress = self.progress + 1
+        self.progressDlg.step()
 
     def _finish(self):
-        self.progressDlg.setValue(self.totalCount)
+        self.progressDlg.reset()
 
 
 class UpdaterTo2(_Updater):
@@ -69,7 +67,7 @@ class UpdaterTo2(_Updater):
         sql = "SELECT count(*) FROM coins"
         query = QSqlQuery(sql, self.db)
         query.first()
-        return query.record().value(0) + 2  # Add 2 for updating progress label
+        return query.record().value(0)
 
     def update(self):
         self._begin()
@@ -212,7 +210,6 @@ class UpdaterTo2(_Updater):
 
         self.progressDlg.setLabelText(
                             QApplication.translate('UpdaterTo2', "Saving..."))
-        self._updateRecord()
 
         sql = """DROP TABLE tmp_coins"""
         QSqlQuery(sql, self.db)
@@ -230,7 +227,6 @@ class UpdaterTo2(_Updater):
 
         self.progressDlg.setLabelText(
                             QApplication.translate('UpdaterTo2', "Vacuum..."))
-        self._updateRecord()
 
         self.collection.vacuum()
 

@@ -9,6 +9,7 @@ from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import FieldTypes as Type
 from SelectColumnsDialog import SelectColumnsDialog
 from Collection.HeaderFilterMenu import FilterMenuButton
+from Tools import Gui
 
 
 def textToClipboard(text):
@@ -401,12 +402,8 @@ class ListView(QtGui.QTableView):
         dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            progressDlg = QtGui.QProgressDialog(self.tr("Updating records"),
-                                                self.tr("Cancel"), 0,
-                                                len(indexes) + 1,
-                                                self, Qt.WindowSystemMenuHint)
-            progressDlg.setWindowModality(Qt.WindowModal)
-            progressDlg.setMinimumDuration(250)
+            progressDlg = Gui.ProgressDialog(self.tr("Updating records"),
+                                        self.tr("Cancel"), len(indexes), self)
 
             # Fill records by used fields in multi record
             multiRecord = dialog.getRecord()
@@ -416,8 +413,8 @@ class ListView(QtGui.QTableView):
             # filtered after updating
             rindexes = sorted(indexes, key=operator.methodcaller('row'),
                               reverse=True)
-            for progress, index in enumerate(rindexes):
-                progressDlg.setValue(progress)
+            for index in rindexes:
+                progressDlg.step()
                 if progressDlg.wasCanceled():
                     break
 
@@ -428,10 +425,9 @@ class ListView(QtGui.QTableView):
                 self.model().setRecord(index.row(), record)
 
             progressDlg.setLabelText(self.tr("Saving..."))
-            progressDlg.setValue(progress + 1)
             self.model().submitAll()
 
-            progressDlg.setValue(progressDlg.maximum())
+            progressDlg.reset()
 
     def _copy(self, indexes=None):
         if not indexes:
@@ -508,16 +504,12 @@ class ListView(QtGui.QTableView):
                     if btn == QtGui.QDialogButtonBox.Abort:
                         break
                     if btn == QtGui.QDialogButtonBox.SaveAll:
-                        progressDlg = QtGui.QProgressDialog(
-                                                self.tr("Inserting records"),
-                                                self.tr("Cancel"), 0,
-                                                len(pickleData),
-                                                self, Qt.WindowSystemMenuHint)
-                        progressDlg.setWindowModality(QtCore.Qt.WindowModal)
-                        progressDlg.setMinimumDuration(250)
+                        progressDlg = Gui.ProgressDialog(
+                                    self.tr("Inserting records"),
+                                    self.tr("Cancel"), len(pickleData), self)
 
             if progressDlg:
-                progressDlg.setValue(len(pickleData))
+                progressDlg.reset()
 
         elif mime.hasText():
             # Load data stored by another application (Excel)
@@ -545,16 +537,12 @@ class ListView(QtGui.QTableView):
                     if btn == QtGui.QDialogButtonBox.Abort:
                         break
                     if btn == QtGui.QDialogButtonBox.SaveAll:
-                        progressDlg = QtGui.QProgressDialog(
-                                                self.tr("Inserting records"),
-                                                self.tr("Cancel"), 0,
-                                                len(pickleData),
-                                                self, Qt.WindowSystemMenuHint)
-                        progressDlg.setWindowModality(QtCore.Qt.WindowModal)
-                        progressDlg.setMinimumDuration(250)
+                        progressDlg = Gui.ProgressDialog(
+                                    self.tr("Inserting records"),
+                                    self.tr("Cancel"), len(pickleData), self)
 
             if progressDlg:
-                progressDlg.setValue(len(textData))
+                progressDlg.reset()
 
     def _delete(self, indexes=None):
         if not indexes:
@@ -566,25 +554,20 @@ class ListView(QtGui.QTableView):
                     QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel,
                     QtGui.QMessageBox.Cancel)
         if result == QtGui.QMessageBox.Yes:
-            progressDlg = QtGui.QProgressDialog(self.tr("Deleting records"),
-                                                self.tr("Cancel"), 0,
-                                                len(indexes) + 1,
-                                                self, Qt.WindowSystemMenuHint)
-            progressDlg.setWindowModality(Qt.WindowModal)
-            progressDlg.setMinimumDuration(250)
+            progressDlg = Gui.ProgressDialog(self.tr("Deleting records"),
+                                        self.tr("Cancel"), len(indexes), self)
 
-            for progress, index in enumerate(indexes):
-                progressDlg.setValue(progress)
+            for index in indexes:
+                progressDlg.step()
                 if progressDlg.wasCanceled():
                     break
 
                 self.model().removeRow(index.row())
 
             progressDlg.setLabelText(self.tr("Saving..."))
-            progressDlg.setValue(progress + 1)
             self.model().submitAll()
 
-            progressDlg.setValue(progressDlg.maximum())
+            progressDlg.reset()
 
     def _clone(self, index=None):
         if not index:

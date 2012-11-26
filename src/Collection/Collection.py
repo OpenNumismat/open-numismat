@@ -14,6 +14,7 @@ from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import Statuses
 from Collection.VersionUpdater import updateCollection
 from Tools.CursorDecorators import waitCursorDecorator
+from Tools import Gui
 from Settings import Settings
 
 
@@ -509,14 +510,11 @@ class Collection(QtCore.QObject):
 
     def createReference(self):
         sections = self.reference.allSections()
-        progressDlg = QtGui.QProgressDialog(self.tr("Updating reference"),
-                                        self.tr("Cancel"), 0, len(sections),
-                                        self.parent(), Qt.WindowSystemMenuHint)
-        progressDlg.setWindowModality(QtCore.Qt.WindowModal)
-        progressDlg.setMinimumDuration(250)
+        progressDlg = Gui.ProgressDialog(self.tr("Updating reference"),
+                            self.tr("Cancel"), len(sections), self.parent())
 
-        for progress, columnName in enumerate(sections):
-            progressDlg.setValue(progress)
+        for columnName in sections:
+            progressDlg.step()
             if progressDlg.wasCanceled():
                 break
 
@@ -537,7 +535,7 @@ class Collection(QtCore.QObject):
                 query = QSqlQuery(sql, self.db)
                 refSection.fillFromQuery(query)
 
-        progressDlg.setValue(len(sections))
+        progressDlg.reset()
 
     def editReference(self):
         dialog = AllReferenceDialog(self.reference, self.parent())
