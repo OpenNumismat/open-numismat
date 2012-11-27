@@ -16,7 +16,6 @@ def path():
 
     if not __path:
         __path = tempfile.mkdtemp(prefix=__prefix)
-        print(__path)
 
     return __path
 
