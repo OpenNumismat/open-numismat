@@ -10,6 +10,7 @@ from PyQt4 import QtGui, QtCore
 
 from Settings import Settings
 from MainWindow import MainWindow
+from Tools import TemporaryDir
 import version
 
 
@@ -22,6 +23,8 @@ def main():
             os.makedirs(version.AppDir)
         except:
             pass
+
+    TemporaryDir.init(version.AppName)
 
     app = QtGui.QApplication(sys.argv)
 
@@ -45,7 +48,12 @@ def main():
     mainWindow = MainWindow()
     mainWindow.show()
     mainWindow.raise_()  # this will raise the window on Mac OS X
-    sys.exit(app.exec_())
+    status = app.exec_()
+
+    # Clear temporary files
+    TemporaryDir.remove()
+
+    sys.exit(status)
 
 
 def exceptHook(type_, value, tback):

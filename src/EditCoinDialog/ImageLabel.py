@@ -2,6 +2,8 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication
 
+from Tools import TemporaryDir
+
 
 class ImageLabel(QtGui.QLabel):
     def __init__(self, parent=None):
@@ -16,7 +18,8 @@ class ImageLabel(QtGui.QLabel):
         self.setFocusPolicy(Qt.StrongFocus)
 
     def mouseDoubleClickEvent(self, e):
-        file = QtCore.QTemporaryFile(QtCore.QDir.tempPath() + "/img_XXXXXX.jpg")
+        tmpDir = QtCore.QDir(TemporaryDir.path())
+        file = QtCore.QTemporaryFile(tmpDir.absoluteFilePath("img_XXXXXX.jpg"))
         file.setAutoRemove(False)
         file.open()
 
