@@ -116,6 +116,10 @@ class ListView(QtGui.QTableView):
 
         self.selectedRowId = None
 
+    def hideEvent(self, e):
+        # Save columns parameters (sizes)
+        self.listParam.save()
+
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
         column = self.listParam.columns[oldVisualIndex]
         self.listParam.columns.remove(column)
@@ -165,8 +169,8 @@ class ListView(QtGui.QTableView):
         if newSize > 0:
             column = self.horizontalHeader().visualIndex(index)
             self.listParam.columns[column].width = newSize
-            # TODO: Saving columns parameters in this slot make resizing
-            # very slow
+            # Saving columns parameters in this slot make resizing very slow
+            # It will be saved at hideEvent
             # self.listParam.save()
 
         self._updateHeaderButtons()
