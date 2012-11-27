@@ -146,7 +146,7 @@ class MainWindow(QtGui.QMainWindow):
         self.setWindowTitle(version.AppName)
 
         self.reference = Reference(self)
-        self.reference.open(Settings().reference)
+        self.reference.open(Settings()['reference'])
 
         latest = LatestCollections(self)
         self.collection = Collection(self.reference, self)
@@ -343,13 +343,13 @@ class MainWindow(QtGui.QMainWindow):
 
     def onlineHelp(self):
         url = QtCore.QUrl(version.Web + 'wiki/MainPage')
-        url.setQueryItems([('wl', Settings().language)])
+        url.setQueryItems([('wl', Settings()['locale'])])
 
         executor = QtGui.QDesktopServices()
         executor.openUrl(url)
 
     def autoUpdate(self):
-        if Settings().checkUpdates:
+        if Settings()['updates']:
             currentDate = QtCore.QDate.currentDate()
             currentDateStr = currentDate.toString(QtCore.Qt.ISODate)
 
@@ -372,7 +372,7 @@ class MainWindow(QtGui.QMainWindow):
                         QtGui.QMessageBox.Yes)
             if result == QtGui.QMessageBox.Yes:
                 url = QtCore.QUrl(version.Web + 'wiki/MainPage')
-                url.setQueryItems([('wl', Settings().language)])
+                url.setQueryItems([('wl', Settings()['locale'])])
 
                 executor = QtGui.QDesktopServices()
                 executor.openUrl(url)

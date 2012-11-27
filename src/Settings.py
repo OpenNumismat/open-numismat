@@ -8,62 +8,85 @@ from Collection.CollectionFields import CollectionFieldsBase
 import version
 
 
-class Settings(QtCore.QObject):
+class Settings(dict):
     BackupFolder = version.AppDir + "/backup/"
     Reference = version.AppDir + "/reference.ref"
+    Keys = ('locale', 'backup', 'reference', 'error', 'updates')
 
-    def __init__(self, parent=None):
-        super(Settings, self).__init__(parent)
+    def __init__(self, autoSave=False):
+        self.__autoSave = autoSave
+        self.__items = {}
         self.settings = QtCore.QSettings()
-        self.language = self.__language()
-        self.backupFolder = self.__backupFolder()
-        self.reference = self.__reference()
-        self.sendError = self.__sendError()
-        self.checkUpdates = self.__checkUpdates()
+
+    def keys(self):
+        return self.Keys
+
+    def items(self):
+        result = []
+        for key in self.Keys:
+            result.append((key, self.__getitem__(key)))
+        return result
+
+    def values(self):
+        result = []
+        for key in self.Keys:
+            result.append(self.__getitem__(key))
+        return result
+
+    def __getitem__(self, key):
+        if key in self.__items:
+            return self.__items[key]
+
+        if key in self.Keys:
+            value = self.settings.value('mainwindow/' + key)
+            if value:
+                if key in ('error', 'updates'):
+                    # Convert boolean value
+                    value = (value == 'true')
+            else:
+                if key == 'locale':
+                    locale = QtCore.QLocale.system().name()
+                    if '_' in locale:
+                        value = locale.split('_')[0]
+                    else:
+                        value = locale
+                elif key == 'backup':
+                    value = self.BackupFolder
+                elif key == 'reference':
+                    value = self.Reference
+                elif key == 'error':
+                    value = False
+                elif key == 'updates':
+                    value = False
+                else:
+                    raise NotImplementedError(key)
+
+            self.__items[key] = value
+
+            return value
+        else:
+            raise KeyError(key)
+
+    def __setitem__(self, key, val):
+        if key in self.Keys:
+            self.__items[key] = val
+            if self.__autoSave:
+                self._saveValue(key, val)
+        else:
+            raise KeyError(key)
+
+    def setAutoSave(self, autoSave):
+        self.__autoSave = autoSave
+
+    def autoSave(self):
+        return self.__autoSave
 
     def save(self):
-        self.settings.setValue('mainwindow/locale', self.language)
-        self.settings.setValue('mainwindow/backup', self.backupFolder)
-        self.settings.setValue('mainwindow/reference', self.reference)
-        self.settings.setValue('mainwindow/error', self.sendError)
-        self.settings.setValue('mainwindow/updates', self.checkUpdates)
+        for key in self.Keys:
+            self._saveValue(key, self.__getitem__(key))
 
-    def __language(self):
-        locale = self.settings.value('mainwindow/locale')
-        if not locale:
-            locale = QtCore.QLocale.system().name()
-            if '_' in locale:
-                locale = locale.split('_')[0]
-
-        return locale
-
-    def __backupFolder(self):
-        folder = self.settings.value('mainwindow/backup')
-        if not folder:
-            folder = QtCore.QDir(self.BackupFolder).absolutePath()
-
-        return folder
-
-    def __reference(self):
-        file = self.settings.value('mainwindow/reference')
-        if not file:
-            file = QtCore.QDir(self.Reference).absolutePath()
-
-        return file
-
-    def __sendError(self):
-        error = self.settings.value('mainwindow/error')
-        if not error:
-            return False
-
-        return error == 'true'
-
-    def __checkUpdates(self):
-        checkUpdates = self.settings.value('mainwindow/updates')
-        if not checkUpdates:
-            return False
-
-        return checkUpdates == 'true'
+    def _saveValue(self, key, val):
+        self.settings.setValue('mainwindow/' + key, val)
 
 
 class MainSettingsPage(QtGui.QWidget):
@@ -82,7 +105,7 @@ class MainSettingsPage(QtGui.QWidget):
         self.languageSelector = QtGui.QComboBox(self)
         for i, lang in enumerate(self.Languages):
             self.languageSelector.addItem(lang[0], lang[1])
-            if settings.language == lang[1]:
+            if settings['locale'] == lang[1]:
                 current = i
         self.languageSelector.setCurrentIndex(current)
         self.languageSelector.setSizePolicy(QtGui.QSizePolicy.Fixed,
@@ -92,7 +115,7 @@ class MainSettingsPage(QtGui.QWidget):
 
         self.backupFolder = QtGui.QLineEdit(self)
         self.backupFolder.setMinimumWidth(120)
-        self.backupFolder.setText(settings.backupFolder)
+        self.backupFolder.setText(settings['backup'])
         style = QtGui.QApplication.style()
         icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
         self.backupFolderButton = QtGui.QPushButton(icon, '', self)
@@ -107,7 +130,7 @@ class MainSettingsPage(QtGui.QWidget):
 
         self.reference = QtGui.QLineEdit(self)
         self.reference.setMinimumWidth(120)
-        self.reference.setText(settings.reference)
+        self.reference.setText(settings['reference'])
         icon = style.standardIcon(QtGui.QStyle.SP_DialogOpenButton)
         self.referenceButton = QtGui.QPushButton(icon, '', self)
         self.referenceButton.clicked.connect(self.referenceButtonClicked)
@@ -121,12 +144,12 @@ class MainSettingsPage(QtGui.QWidget):
 
         self.errorSending = QtGui.QCheckBox(
                             self.tr("Send error info to author"), self)
-        self.errorSending.setChecked(settings.sendError)
+        self.errorSending.setChecked(settings['error'])
         layout.addRow(self.errorSending)
 
         self.checkUpdates = QtGui.QCheckBox(
                             self.tr("Automatically check for updates"), self)
-        self.checkUpdates.setChecked(settings.checkUpdates)
+        self.checkUpdates.setChecked(settings['updates'])
         layout.addRow(self.checkUpdates)
 
         self.imageSideLen = NumberEdit(self)
@@ -159,11 +182,11 @@ class MainSettingsPage(QtGui.QWidget):
         settings = Settings()
 
         current = self.languageSelector.currentIndex()
-        settings.language = self.languageSelector.itemData(current)
-        settings.backupFolder = self.backupFolder.text()
-        settings.reference = self.reference.text()
-        settings.sendError = self.errorSending.isChecked()
-        settings.checkUpdates = self.checkUpdates.isChecked()
+        settings['locale'] = self.languageSelector.itemData(current)
+        settings['backup'] = self.backupFolder.text()
+        settings['reference'] = self.reference.text()
+        settings['error'] = self.errorSending.isChecked()
+        settings['updates'] = self.checkUpdates.isChecked()
 
         settings.save()
 

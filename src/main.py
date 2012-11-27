@@ -32,10 +32,10 @@ def main():
     QtCore.QCoreApplication.setApplicationName(version.AppName)
 
     settings = Settings()
-    if settings.sendError:
+    if settings['error']:
         sys.excepthook = exceptHook
 
-    lang = settings.language
+    lang = settings['locale']
 
     translator = QtCore.QTranslator()
     translator.load('lang_' + lang)

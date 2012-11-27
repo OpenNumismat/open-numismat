@@ -552,7 +552,7 @@ class Collection(QtCore.QObject):
 
     @waitCursorDecorator
     def backup(self):
-        backupDir = QtCore.QDir(Settings().backupFolder)
+        backupDir = QtCore.QDir(Settings()['backup'])
         if not backupDir.exists():
             backupDir.mkpath(backupDir.path())
 
