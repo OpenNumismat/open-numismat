@@ -1,5 +1,6 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QApplication
 
 
 class ListView(QtGui.QListView):
@@ -42,10 +43,12 @@ class ReferenceWidget(QtGui.QWidget):
 
         # TODO: Customize edit buttons
         editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        self.addButton = QtGui.QPushButton(self.tr("Add"))
+        self.addButton = QtGui.QPushButton(
+                            QApplication.translate('ReferenceWidget', "Add"))
         editButtonBox.addButton(self.addButton,
                                 QtGui.QDialogButtonBox.ActionRole)
-        self.delButton = QtGui.QPushButton(self.tr("Del"))
+        self.delButton = QtGui.QPushButton(
+                            QApplication.translate('ReferenceWidget', "Del"))
         editButtonBox.addButton(self.delButton,
                                 QtGui.QDialogButtonBox.ActionRole)
         editButtonBox.clicked.connect(self.clicked)
