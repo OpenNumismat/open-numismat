@@ -8,28 +8,23 @@ from Collection.CollectionFields import CollectionFieldsBase
 import version
 
 
-class Settings(dict):
-    BackupFolder = version.AppDir + "/backup/"
-    Reference = version.AppDir + "/reference.ref"
-    Keys = ('locale', 'backup', 'reference', 'error', 'updates')
-
+class BaseSettings(dict):
     def __init__(self, autoSave=False):
         self.__autoSave = autoSave
         self.__items = {}
-        self.settings = QtCore.QSettings()
 
     def keys(self):
-        return self.Keys
+        raise NotImplementedError
 
     def items(self):
         result = []
-        for key in self.Keys:
+        for key in self.keys():
             result.append((key, self.__getitem__(key)))
         return result
 
     def values(self):
         result = []
-        for key in self.Keys:
+        for key in self.keys():
             result.append(self.__getitem__(key))
         return result
 
@@ -37,30 +32,8 @@ class Settings(dict):
         if key in self.__items:
             return self.__items[key]
 
-        if key in self.Keys:
-            value = self.settings.value('mainwindow/' + key)
-            if value:
-                if key in ('error', 'updates'):
-                    # Convert boolean value
-                    value = (value == 'true')
-            else:
-                if key == 'locale':
-                    locale = QtCore.QLocale.system().name()
-                    if '_' in locale:
-                        value = locale.split('_')[0]
-                    else:
-                        value = locale
-                elif key == 'backup':
-                    value = self.BackupFolder
-                elif key == 'reference':
-                    value = self.Reference
-                elif key == 'error':
-                    value = False
-                elif key == 'updates':
-                    value = False
-                else:
-                    raise NotImplementedError(key)
-
+        if key in self.keys():
+            value = self._getValue(key)
             self.__items[key] = value
 
             return value
@@ -68,7 +41,7 @@ class Settings(dict):
             raise KeyError(key)
 
     def __setitem__(self, key, val):
-        if key in self.Keys:
+        if key in self.keys():
             self.__items[key] = val
             if self.__autoSave:
                 self._saveValue(key, val)
@@ -82,8 +55,48 @@ class Settings(dict):
         return self.__autoSave
 
     def save(self):
-        for key in self.Keys:
+        for key in self.keys():
             self._saveValue(key, self.__getitem__(key))
+
+    def _getValue(self, key):
+        raise NotImplementedError
+
+    def _saveValue(self, key, val):
+        raise NotImplementedError
+
+
+def _getLocale():
+    locale = QtCore.QLocale.system().name()
+    if '_' in locale:
+        return locale.split('_')[0]
+    else:
+        return locale
+
+
+class Settings(BaseSettings):
+    Default = {'locale': _getLocale(),
+               'backup': version.AppDir + "/backup/",
+               'reference': version.AppDir + "/reference.ref",
+               'error': False, 'updates': False}
+
+    def __init__(self, autoSave=False):
+        super(Settings, self).__init__(autoSave)
+
+        self.settings = QtCore.QSettings()
+
+    def keys(self):
+        return self.Default.keys()
+
+    def _getValue(self, key):
+        value = self.settings.value('mainwindow/' + key)
+        if value:
+            if key in ('error', 'updates'):
+                # Convert boolean value
+                value = (value == 'true')
+        else:
+            value = self.Default[key]
+
+        return value
 
     def _saveValue(self, key, val):
         self.settings.setValue('mainwindow/' + key, val)
@@ -158,8 +171,7 @@ class MainSettingsPage(QtGui.QWidget):
         if not collection.isOpen():
             self.imageSideLen.setDisabled(True)
         else:
-            self.imageSideLen.setText(
-                            self.collectionSettings.Settings['ImageSideLen'])
+            self.imageSideLen.setText(self.collectionSettings['ImageSideLen'])
 
         self.setLayout(layout)
 
@@ -190,8 +202,7 @@ class MainSettingsPage(QtGui.QWidget):
 
         settings.save()
 
-        self.collectionSettings.Settings['ImageSideLen'] = \
-                                                    self.imageSideLen.text()
+        self.collectionSettings['ImageSideLen'] = self.imageSideLen.text()
         self.collectionSettings.save()
 
 

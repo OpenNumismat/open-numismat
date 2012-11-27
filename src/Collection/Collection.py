@@ -15,7 +15,7 @@ from Collection.CollectionFields import Statuses
 from Collection.VersionUpdater import updateCollection
 from Tools.CursorDecorators import waitCursorDecorator
 from Tools import Gui
-from Settings import Settings
+from Settings import Settings, BaseSettings
 
 
 class CollectionModel(QSqlTableModel):
@@ -213,8 +213,9 @@ class CollectionModel(QSqlTableModel):
                     buffer.open(QtCore.QIODevice.WriteOnly)
 
                     # Resize big images for storing in DB
-                    maxWidth = int(self.settings.Settings['ImageSideLen'])
-                    maxHeight = int(self.settings.Settings['ImageSideLen'])
+                    sideLen = int(self.settings['ImageSideLen'])
+                    maxWidth = sideLen
+                    maxHeight = sideLen
                     if image.width() > maxWidth or image.height() > maxHeight:
                         scaledImage = image.scaled(maxWidth, maxHeight,
                                 Qt.KeepAspectRatio, Qt.SmoothTransformation)
@@ -349,27 +350,33 @@ class CollectionModel(QSqlTableModel):
         return False
 
 
-class CollectionSettings(QtCore.QObject):
-    DefaultSettings = {'Version': 2, 'ImageSideLen': 1024,
-                       'Password': cryptPassword()}
+class CollectionSettings(BaseSettings):
+    Default = {'Version': 2, 'ImageSideLen': 1024,
+               'Password': cryptPassword()}
 
     def __init__(self, collection):
-        super(CollectionSettings, self).__init__(collection)
+        super(CollectionSettings, self).__init__()
         self.db = collection.db
 
         if 'settings' not in self.db.tables():
             self.create(self.db)
 
-        self.Settings = CollectionSettings.DefaultSettings.copy()
         query = QSqlQuery("SELECT * FROM settings", self.db)
         while query.next():
             record = query.record()
-            self.Settings[record.value('title')] = record.value('value')
+            self.__setitem__(record.value('title'), record.value('value'))
+
+    def keys(self):
+        return self.Default.keys()
+
+    def _getValue(self, key):
+        return self.Default[key]
 
     def save(self):
         self.db.transaction()
 
-        for key, value in self.Settings.items():
+        for key, value in self.items():
+            # TODO: Insert value if currently not present
             query = QSqlQuery(self.db)
             query.prepare("UPDATE settings SET value=? WHERE title=?")
             query.addBindValue(str(value))
@@ -387,7 +394,7 @@ class CollectionSettings(QtCore.QObject):
             value CHAR)"""
         QSqlQuery(sql, db)
 
-        for key, value in CollectionSettings.DefaultSettings.items():
+        for key, value in CollectionSettings.Default.items():
             query = QSqlQuery(db)
             query.prepare("""INSERT INTO settings (title, value)
                     VALUES (?, ?)""")
@@ -430,7 +437,7 @@ class Collection(QtCore.QObject):
 
         self.settings = CollectionSettings(self)
 
-        if self.settings.Settings['Password'] != cryptPassword():
+        if self.settings['Password'] != cryptPassword():
             dialog = PasswordDialog(self, self.parent())
             result = dialog.exec_()
             if result == QtGui.QDialog.Rejected:

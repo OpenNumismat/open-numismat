@@ -1,5 +1,4 @@
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import Qt
+from PyQt4 import QtCore
 from PyQt4.QtGui import QApplication
 from PyQt4.QtSql import QSqlQuery
 
@@ -9,10 +8,10 @@ from Tools import Gui
 class Updater(QtCore.QObject):
     def __init__(self, collection):
         self.collection = collection
-        self.currentVersion = int(self.collection.settings.Settings['Version'])
+        self.currentVersion = int(self.collection.settings['Version'])
 
     def check(self):
-        return self.currentVersion != self.collection.settings.DefaultSettings['Version']
+        return self.currentVersion != self.collection.settings.Default['Version']
 
     def update(self):
         if self.check():
@@ -208,25 +207,23 @@ class UpdaterTo2(_Updater):
             if not coin_query.exec_():
                 print(coin_query.lastError().text())
 
-        self.progressDlg.setLabelText(
-                            QApplication.translate('UpdaterTo2', "Saving..."))
+        self.progressDlg.setLabelText(self.tr("Saving..."))
 
         sql = """DROP TABLE tmp_coins"""
         QSqlQuery(sql, self.db)
 
-        self.collection.settings.Settings['Version'] = 2
+        self.collection.settings['Version'] = 2
         self.collection.settings.save()
 
         query = QSqlQuery(self.db)
         query.prepare("""INSERT INTO settings (title, value) VALUES (?, ?)""")
         query.addBindValue('Password')
-        query.addBindValue(self.collection.settings.Settings['Password'])
+        query.addBindValue(self.collection.settings['Password'])
         query.exec_()
 
         self.db.commit()
 
-        self.progressDlg.setLabelText(
-                            QApplication.translate('UpdaterTo2', "Vacuum..."))
+        self.progressDlg.setLabelText(self.tr("Vacuum..."))
 
         self.collection.vacuum()
 
