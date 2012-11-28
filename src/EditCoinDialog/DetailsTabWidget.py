@@ -401,11 +401,11 @@ class DetailsTabWidget(QtGui.QTabWidget):
         self.insertTab(1, page, title)
         if len(pageParts) == 0:
             self.setTabEnabled(1, False)
-            self.items['grade'].widget().setEnabled(False)
+#            self.items['grade'].widget().setEnabled(False)
             if pageIndex == 1:
                 self.setCurrentIndex(pageIndex - 1)
         else:
-            self.items['grade'].widget().setEnabled(True)
+#            self.items['grade'].widget().setEnabled(True)
             self.setCurrentIndex(pageIndex)
 
     def addPayCommission(self):
