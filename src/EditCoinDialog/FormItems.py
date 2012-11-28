@@ -1,7 +1,7 @@
 import locale
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QMargins
+from PyQt4.QtCore import QMargins, QUrl
 
 from Collection.CollectionFields import Statuses
 
@@ -84,6 +84,68 @@ class LineEdit(QtGui.QLineEdit):
         super(LineEdit, self).__init__(parent)
         self.setMaxLength(1024)
         self.setMinimumWidth(100)
+
+
+class UrlLineEdit(QtGui.QWidget):
+    def __init__(self, parent=None):
+        super(UrlLineEdit, self).__init__(parent)
+
+        self.lineEdit = LineEdit(parent)
+
+        buttonLoad = QtGui.QPushButton(QtGui.QIcon('icons/world.png'), '', parent)
+        buttonLoad.setFixedWidth(25)
+        buttonLoad.setToolTip(self.tr("Open specified URL"))
+        buttonLoad.clicked.connect(self.clickedButtonLoad)
+
+        style = QtGui.QApplication.style()
+        icon = style.standardIcon(QtGui.QStyle.SP_DialogOpenButton)
+
+        self.buttonOpen = QtGui.QPushButton(icon, '', parent)
+        self.buttonOpen.setFixedWidth(25)
+        self.buttonOpen.setToolTip(self.tr("Select file from disc"))
+        self.buttonOpen.clicked.connect(self.clickedButtonOpen)
+
+        layout = QtGui.QHBoxLayout()
+        layout.addWidget(self.lineEdit)
+        layout.addWidget(self.buttonOpen)
+        layout.addWidget(buttonLoad)
+        layout.setContentsMargins(QMargins())
+
+        self.setLayout(layout)
+
+    def clickedButtonOpen(self):
+        file = QtGui.QFileDialog.getOpenFileName(self,
+                                                self.tr("Select file"),
+                                                self.text(),
+                                                "*.*")
+        if file:
+            self.setText(file)
+
+    def clickedButtonLoad(self):
+        url = QUrl(self.text())
+
+        executor = QtGui.QDesktopServices()
+        executor.openUrl(url)
+
+    def clear(self):
+        self.lineEdit.clear()
+
+    def setText(self, text):
+        self.lineEdit.setText(text)
+
+    def text(self):
+        return self.lineEdit.text()
+
+    def home(self, mark):
+        self.lineEdit.home(mark)
+
+    def setReadOnly(self, b):
+        self.lineEdit.setReadOnly(b)
+
+        if b:
+            self.buttonOpen.hide()
+        else:
+            self.buttonOpen.show()
 
 
 class LineEditRef(QtGui.QWidget):

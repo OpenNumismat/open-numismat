@@ -25,7 +25,10 @@ class FormItem(object):
             if reference:
                 self._widget = LineEditRef(reference, parent)
             else:
-                self._widget = LineEdit(parent)
+                if self._field == 'url':
+                    self._widget = UrlLineEdit(parent)
+                else:
+                    self._widget = LineEdit(parent)
         elif self._type == Type.ShortString:
             self._widget = ShortLineEdit(parent)
         elif self._type == Type.Number:
