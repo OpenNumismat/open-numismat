@@ -42,20 +42,20 @@ class ReferenceWidget(QtGui.QWidget):
             self.listWidget.setCurrentIndex(indexes[0])
 
         # TODO: Customize edit buttons
-        editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
+        self.editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         self.addButton = QtGui.QPushButton(
                             QApplication.translate('ReferenceWidget', "Add"))
-        editButtonBox.addButton(self.addButton,
+        self.editButtonBox.addButton(self.addButton,
                                 QtGui.QDialogButtonBox.ActionRole)
         self.delButton = QtGui.QPushButton(
                             QApplication.translate('ReferenceWidget', "Del"))
-        editButtonBox.addButton(self.delButton,
+        self.editButtonBox.addButton(self.delButton,
                                 QtGui.QDialogButtonBox.ActionRole)
-        editButtonBox.clicked.connect(self.clicked)
+        self.editButtonBox.clicked.connect(self.clicked)
 
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.listWidget)
-        layout.addWidget(editButtonBox)
+        layout.addWidget(self.editButtonBox)
         self.setLayout(layout)
 
     def selectedIndex(self):
@@ -99,6 +99,7 @@ class CrossReferenceWidget(ReferenceWidget):
             row = parentIndex.row()
         else:
             row = -1
+            self.editButtonBox.setEnabled(False)
         self.comboBox.setCurrentIndex(row)
         self.comboBox.setDisabled(True)
         self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
@@ -109,6 +110,8 @@ class CrossReferenceWidget(ReferenceWidget):
         idIndex = self.rel.fieldIndex('id')
         parentId = self.rel.data(self.rel.index(index, idIndex))
         self.model.setFilter('parentid=%d' % parentId)
+
+        self.editButtonBox.setEnabled(True)
 
     def _addClicked(self):
         idIndex = self.rel.fieldIndex('id')
