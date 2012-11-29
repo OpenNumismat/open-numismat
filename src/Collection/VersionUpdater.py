@@ -31,7 +31,9 @@ class Updater(QtCore.QObject):
 
 
 class _Updater(QtCore.QObject):
-    def __init__(self, collection):
+    def __init__(self, collection, parent=None):
+        super(_Updater, self).__init__(parent)
+
         self.collection = collection
         self.db = collection.db
 
