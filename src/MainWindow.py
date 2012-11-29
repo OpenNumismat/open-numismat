@@ -148,9 +148,14 @@ class MainWindow(QtGui.QMainWindow):
         self.reference = Reference(self)
         self.reference.open(Settings()['reference'])
 
-        latest = LatestCollections(self)
+        if len(sys.argv) > 1:
+            fileName = sys.argv[1]
+        else:
+            latest = LatestCollections(self)
+            fileName = latest.latest()
+
         self.collection = Collection(self.reference, self)
-        self.openCollection(latest.latest())
+        self.openCollection(fileName)
 
         self.setCentralWidget(self.viewTab)
 
@@ -200,7 +205,7 @@ class MainWindow(QtGui.QMainWindow):
         if result == QtGui.QMessageBox.Yes:
             self.close()
             program = sys.executable
-            QtCore.QProcess.startDetached(program, sys.argv)
+            QtCore.QProcess.startDetached(program)
 
     def importNumizmat(self):
         defaultDir = ImportNumizmat.defaultDir()
