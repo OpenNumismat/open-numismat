@@ -59,7 +59,7 @@ class _AuctionParser(QtCore.QObject):
         try:
             data = urllib.request.urlopen(url).read()
 
-            self.doc = str(data, encoding)
+            self.doc = data.decode(encoding, 'ignore')
             self.html = lxml.html.fromstring(self.doc)
             self.url = url
         except (ValueError, urllib.error.URLError):
