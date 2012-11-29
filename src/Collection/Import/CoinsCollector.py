@@ -266,7 +266,6 @@ class ImportCoinsCollector(_Import):
                     type_ = imgFields.index(dstColumn)
                     value = pictures[type_]
                     if value:
-                        print(value[:10])
                         image = QtGui.QImage()
                         image.loadFromData(value)
                         record.setValue(dstColumn, image)
