@@ -3,6 +3,7 @@ from PyQt4.QtCore import Qt
 
 from .Auctions import getParser
 from .DetailsTabWidget import FormDetailsTabWidget
+from .CbrParser import CbrParser
 
 
 class EditCoinDialog(QtGui.QDialog):
@@ -108,6 +109,47 @@ class EditCoinDialog(QtGui.QDialog):
                         break
 
                 self.tab.setCurrentIndex(1)
+            elif self.items['status'].widget().data() == 'demo':
+                mime = QtGui.QApplication.clipboard().mimeData()
+                if not mime.hasText():
+                    return
+                parser = CbrParser(mime.text(), self)
+                if not parser:
+                    return
+                lot = parser.parse(mime.text())
+                if not lot:
+                    return
+                self.items['title'].setValue(lot.title)
+                self.items['series'].setValue(lot.series)
+                self.items['subjectshort'].setValue(lot.subjectshort)
+                self.items['issuedate'].setValue(lot.issuedate)
+                self.items['catalognum1'].setValue(lot.catalognum1)
+                self.items['issuedate'].setValue(lot.issuedate)
+                self.items['year'].setValue(lot.year)
+                self.items['value'].setValue(lot.value)
+                self.items['quality'].setValue(lot.quality)
+                self.items['material'].setValue(lot.material)
+                self.items['fineness'].setValue(lot.fineness)
+                self.items['weight'].setValue(lot.weight)
+                self.items['diameter'].setValue(lot.diameter)
+                self.items['thickness'].setValue(lot.thickness)
+                self.items['mintage'].setValue(lot.mintage)
+                self.items['obversedesign'].setValue(lot.obversedesign)
+                self.items['reversedesign'].setValue(lot.reversedesign)
+                self.items['subject'].setValue(lot.subject)
+                self.items['reversedesigner'].setValue(lot.reversedesigner)
+                self.items['obversedesigner'].setValue(lot.obversedesigner)
+                self.items['edgelabel'].setValue(lot.edgelabel)
+                self.items['mintmark'].setValue(lot.mintmark)
+                self.items['mint'].setValue(lot.mint)
+                self.items['url'].setValue(lot.url)
+
+                # Add images
+                imageFields = ['obverseimg', 'reverseimg']
+                for i, imageUrl in enumerate(lot.images):
+                    self.items[imageFields[i]].widget().loadFromUrl(imageUrl)
+
+                self.tab.setCurrentIndex(3)
 
     def save(self):
         # Clear unused fields
