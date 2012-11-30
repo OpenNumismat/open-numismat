@@ -32,10 +32,13 @@ class CollectionPages(QtCore.QObject):
         QSqlQuery(sql, self.db)
 
         self.fields = CollectionFields(self.db)
+        self.params = None
 
     def pagesParam(self):
-        query = QSqlQuery("SELECT * FROM pages ORDER BY position")
-        return self.__queryToParam(query)
+        if self.params is None:
+            query = QSqlQuery("SELECT * FROM pages ORDER BY position")
+            self.params = self.__queryToParam(query)
+        return self.params
 
     def addPage(self, title):
         query = QSqlQuery(self.db)

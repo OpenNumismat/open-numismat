@@ -285,6 +285,8 @@ class MainWindow(QtGui.QMainWindow):
                 self.tr("Collections (*.db)"),
                 QtGui.QFileDialog.DontConfirmOverwrite)
         if fileName:
+            self.__saveParams()
+
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
 
@@ -300,6 +302,8 @@ class MainWindow(QtGui.QMainWindow):
         self.collection.backup()
 
     def openCollection(self, fileName):
+        self.__saveParams()
+
         if self.collection.open(fileName):
             self.setCollection(self.collection)
         else:
@@ -328,6 +332,8 @@ class MainWindow(QtGui.QMainWindow):
         self.__shutDown()
 
     def __shutDown(self):
+        self.__saveParams()
+
         settings = QtCore.QSettings()
 
         if self.collection.fileName:
@@ -338,6 +344,11 @@ class MainWindow(QtGui.QMainWindow):
         # Save main window size
         settings.setValue('mainwindow/size', self.size())
         settings.setValue('mainwindow/maximized', self.isMaximized())
+
+    def __saveParams(self):
+        if self.collection.pages():
+            for param in self.collection.pages().pagesParam():
+                param.listParam.save()
 
     def about(self):
         QtGui.QMessageBox.about(self, self.tr("About %s") % version.AppName,

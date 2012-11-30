@@ -116,10 +116,6 @@ class ListView(QtGui.QTableView):
 
         self.selectedRowId = None
 
-    def hideEvent(self, e):
-        # Save columns parameters (sizes)
-        self.listParam.save()
-
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
         column = self.listParam.columns[oldVisualIndex]
         self.listParam.columns.remove(column)
