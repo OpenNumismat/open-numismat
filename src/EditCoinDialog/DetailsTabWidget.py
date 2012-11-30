@@ -682,7 +682,10 @@ def textToFloat(text):
     text = text.replace(',', '.').replace(' ', '')
     if not text or text == '.':
         return 0
-    return float(text)
+    try:
+        return float(text)
+    except ValueError:
+        return 0
 
 
 def floatToText(value):
