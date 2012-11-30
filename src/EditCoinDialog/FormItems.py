@@ -231,7 +231,11 @@ class StatusEdit(QtGui.QComboBox):
             self.addItem(statusTitle)
 
     def data(self):
-        return Statuses.keys()[self.currentIndex()]
+        currentIndex = self.currentIndex()
+        if currentIndex < 0:
+            currentIndex = 0
+
+        return Statuses.keys()[currentIndex]
 
     def clear(self):
         self.setCurrentIndex(-1)
