@@ -66,8 +66,10 @@ class DescriptionDialog(QtGui.QDialog):
 
         self.titleWidget = QtGui.QLineEdit(self.description.title, self)
         mainLayout.addRow(self.tr("Title"), self.titleWidget)
-        self.descriptionWidget = QtGui.QTextEdit(
-                                            self.description.description, self)
+        self.descriptionWidget = QtGui.QTextEdit(self)
+        self.descriptionWidget.setText(self.description.description)
+        self.descriptionWidget.setAcceptRichText(False)
+        self.descriptionWidget.setTabChangesFocus(True)
         mainLayout.addRow(self.tr("Description"), self.descriptionWidget)
         self.authorWidget = QtGui.QLineEdit(self.description.author, self)
         mainLayout.addRow(self.tr("Author"), self.authorWidget)

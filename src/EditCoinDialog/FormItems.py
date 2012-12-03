@@ -369,6 +369,7 @@ class TextEdit(QtGui.QTextEdit):
     def __init__(self, parent=None):
         super(TextEdit, self).__init__(parent)
 
+        self.setAcceptRichText(False)
         self.setTabChangesFocus(True)
 
     def sizeHint(self):
