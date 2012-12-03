@@ -58,7 +58,7 @@ class ReferenceSection(QtCore.QObject):
         if result == QtGui.QDialog.Accepted:
             self.model.submitAll()
 
-            index = dialog.referenceWidget.selectedIndex()
+            index = dialog.selectedIndex()
             if index:
                 self.changed.emit(index.data())
         else:
@@ -142,7 +142,7 @@ class CrossReferenceSection(QtCore.QObject):
         if result == QtGui.QDialog.Accepted:
             self.model.submitAll()
 
-            index = dialog.referenceWidget.selectedIndex()
+            index = dialog.selectedIndex()
             if index:
                 self.changed.emit(index.data())
         else:

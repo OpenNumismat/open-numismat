@@ -148,6 +148,8 @@ class ReferenceDialog(QtGui.QDialog):
 
         self.setLayout(layout)
 
+        self.__selectedIndex = self.referenceWidget.selectedIndex()
+
     def setWindowTitle(self, title=None):
         windowTitle = QtGui.QApplication.translate('ReferenceDialog',
                                                    "Reference")
@@ -157,6 +159,13 @@ class ReferenceDialog(QtGui.QDialog):
 
     def _referenceWidget(self, model, text):
         return ReferenceWidget(model, text, self)
+
+    def accept(self):
+        self.__selectedIndex = self.referenceWidget.selectedIndex()
+        super(ReferenceDialog, self).accept()
+
+    def selectedIndex(self):
+        return self.__selectedIndex
 
 
 class CrossReferenceDialog(ReferenceDialog):
