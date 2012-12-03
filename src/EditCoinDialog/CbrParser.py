@@ -36,15 +36,18 @@ class CbrParser(_AuctionParser):
         header_parts = tables[start_tbl_index].text_content().splitlines()
         auctionItem.series = ''
         for part in header_parts:
-            start = part.find('Cерия:')
-            if start >= 0:
-                auctionItem.series = part[start + 6:].strip()
             start = part.find('Серия:')
             if start >= 0:
-                auctionItem.series = part[start + 6:].strip()
+                series = part[start + 6:].strip()
+                if series and series[-1] == '.':
+                    series = series[:-1]
+                auctionItem.series = series
             start = part.find('Дата выпуска:')
             if start >= 0:
-                auctionItem.subjectshort = part[:start].strip()
+                subjectshort = part[:start].strip()
+                if subjectshort and subjectshort[-1] == '.':
+                    subjectshort = subjectshort[:-1]
+                auctionItem.subjectshort = subjectshort
                 date = part[(start + 14):(start + 24)]
                 auctionItem.issuedate = QtCore.QDate.fromString(date, 'dd.MM.yyyy').toString(QtCore.Qt.ISODate)
                 auctionItem.year = date[6:10]
@@ -67,11 +70,11 @@ class CbrParser(_AuctionParser):
             elif head.startswith('Качество'):
                 auctionItem.quality = value
             elif head.startswith('Сплав'):
-                auctionItem.material = value
+                auctionItem.material = value.title()
             elif head.startswith('Материал'):
-                auctionItem.material = value
+                auctionItem.material = value.title()
             elif head.startswith('Металл'):
-                auctionItem.material = value.split()[0]
+                auctionItem.material = value.split()[0].title()
                 auctionItem.fineness = value.split()[-1].split('/')[0]
             elif head.startswith('Масса'):
                 auctionItem.weight = stringToMoney(value)
