@@ -104,6 +104,8 @@ class CbrParser(_AuctionParser):
         auctionItem.obversedesigner = ''
         auctionItem.reversedesigner = ''
         auctionItem.edgelabel = ''
+        auctionItem.mintmark = ''
+        auctionItem.mint = ''
         for part in parts:
             if part and part[-1] == '.':
                 part = part[:-1]
