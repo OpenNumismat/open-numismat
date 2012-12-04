@@ -1,5 +1,19 @@
 ChangeLog
 ---------
+1.3.1 - 2012-12-05 (minor bug fixing):
+    * Fixed saving column sizes
+    * Added buttons for openning URL and selecting local file
+    * Fixed selecting values from reference dialog in edit mode
+    * Fixed problem with editing negative commission
+    * Fixed formating collection description and other text fields (design, subject, etc)
+    * Collection file can be passed as command line argument
+    * Updated Russian references
+    * Removing temprary files (images) after closing application
+    * Updating CrossReference dialog for protect adding/deleting entries before selecting parent
+    * Fixed translations
+    * Default value for Status is Demo
+    * Updated code style for PEP8
+
 1.3 - 2012-11-23:
     * Refactored format of database to improve performance
     * Added new fields: Quantity, URL, Barcode.
