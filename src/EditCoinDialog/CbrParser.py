@@ -130,6 +130,9 @@ class CbrParser(_AuctionParser):
             start = part.find('Художник и скульптор:')
             if start >= 0:
                 auctionItem.reversedesigner = part[start + 22:].strip()
+            start = part.find('Художники:')
+            if start >= 0:
+                auctionItem.reversedesigner = part[start + 10:].strip()
             start = part.find('Оформление гурта')
             if start >= 0:
                 auctionItem.edgelabel = part[start + 18:].strip()
