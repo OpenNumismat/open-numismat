@@ -65,7 +65,7 @@ class CbrParser(_AuctionParser):
             head = e.text_content().strip()
             value = body_table.cssselect('td')[i].text_content().strip()
             if head.startswith('Номинал'):
-                auctionItem.value = int(value.split()[0])
+                auctionItem.value = stringToMoney(value)
                 auctionItem.title = value
             elif head.startswith('Качество'):
                 auctionItem.quality = value
@@ -83,10 +83,7 @@ class CbrParser(_AuctionParser):
             elif head.startswith('Толщина'):
                 auctionItem.thickness = stringToMoney(value)
             elif head.startswith('Тираж'):
-                try:
-                    auctionItem.mintage = int(value)
-                except ValueError:
-                    auctionItem.mintage = ''
+                auctionItem.mintage = stringToMoney(value)
 
         auctionItem.images = []
 
