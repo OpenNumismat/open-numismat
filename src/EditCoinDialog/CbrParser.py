@@ -83,7 +83,10 @@ class CbrParser(_AuctionParser):
             elif head.startswith('Толщина'):
                 auctionItem.thickness = stringToMoney(value)
             elif head.startswith('Тираж'):
-                auctionItem.mintage = int(value)
+                try:
+                    auctionItem.mintage = int(value)
+                except ValueError:
+                    auctionItem.mintage = ''
 
         auctionItem.images = []
 
