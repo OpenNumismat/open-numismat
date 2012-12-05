@@ -113,9 +113,9 @@ class EditCoinDialog(QtGui.QDialog):
                 mime = QtGui.QApplication.clipboard().mimeData()
                 if not mime.hasText():
                     return
-                parser = CbrParser(mime.text(), self)
-                if not parser:
+                if not CbrParser.verifyDomain(mime.text()):
                     return
+                parser = CbrParser(mime.text(), self)
                 lot = parser.parse(mime.text())
                 if not lot:
                     return

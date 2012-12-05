@@ -61,6 +61,7 @@ class CbrParser(_AuctionParser):
         auctionItem.thickness = ''
         auctionItem.fineness = ''
         auctionItem.weight = ''
+        auctionItem.diameter = ''
         for i, e in enumerate(header_table.cssselect('td')):
             head = e.text_content().strip()
             value = body_table.cssselect('td')[i].text_content().strip()
