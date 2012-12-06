@@ -318,7 +318,6 @@ class MainWindow(QtGui.QMainWindow):
 
     @waitCursorDecorator
     def setCollection(self, collection):
-        print(collection.getFileName())
         self.collectionFileLabel.setText(collection.getFileName())
         title = "%s - %s" % (collection.getCollectionName(), version.AppName)
         self.setWindowTitle(title)
