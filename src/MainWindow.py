@@ -205,7 +205,11 @@ class MainWindow(QtGui.QMainWindow):
         if result == QtGui.QMessageBox.Yes:
             self.close()
             program = sys.executable
-            QtCore.QProcess.startDetached(program)
+            argv = []
+            if program != sys.argv[0]:
+                # Process running as Python arg
+                argv.append(sys.argv[0])
+            QtCore.QProcess.startDetached(program, argv)
 
     def importNumizmat(self):
         defaultDir = ImportNumizmat.defaultDir()
@@ -314,6 +318,7 @@ class MainWindow(QtGui.QMainWindow):
 
     @waitCursorDecorator
     def setCollection(self, collection):
+        print(collection.getFileName())
         self.collectionFileLabel.setText(collection.getFileName())
         title = "%s - %s" % (collection.getCollectionName(), version.AppName)
         self.setWindowTitle(title)
