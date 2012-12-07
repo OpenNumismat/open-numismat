@@ -134,7 +134,7 @@ class UrlLineEdit(QtGui.QWidget):
         self.lineEdit.setText(text)
 
     def text(self):
-        return self.lineEdit.text()
+        return self.lineEdit.text().replace('\\', '/')
 
     def home(self, mark):
         self.lineEdit.home(mark)
