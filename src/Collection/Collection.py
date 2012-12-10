@@ -421,16 +421,16 @@ class Collection(QtCore.QObject):
         file = QtCore.QFileInfo(fileName)
         if file.isFile():
             self.db.setDatabaseName(fileName)
-            if not self.db.open():
+            if not self.db.open() or not self.db.tables():
                 print(self.db.lastError().text())
                 QtGui.QMessageBox.critical(self.parent(),
-                                           self.tr("Open collection"),
-                                           self.tr("Can't open collection"))
+                                self.tr("Open collection"),
+                                self.tr("Can't open collection %s") % fileName)
                 return False
         else:
             QtGui.QMessageBox.critical(self.parent(),
-                                       self.tr("Open collection"),
-                                       self.tr("Collection not exists"))
+                                self.tr("Open collection"),
+                                self.tr("Collection %s not exists") % fileName)
             return False
 
         self.fileName = fileName
