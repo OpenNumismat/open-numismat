@@ -226,6 +226,9 @@ class TabView(QtGui.QTabWidget):
             menu.addSeparator()
             menu.addAction(self.__actions['removeAll'])
 
+    def currentListView(self):
+        return self.currentWidget().listView
+
     def __createListPage(self, title):
         pageParam = self.collection.pages().addPage(title)
 

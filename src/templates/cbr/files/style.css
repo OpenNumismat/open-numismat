@@ -1,0 +1,28 @@
+﻿td {
+	font-size: 10pt; color: #001f4b; font-family: "Times New Roman", Times, serif; font-size: 10pt
+	}
+p {
+	font-size: 10pt; color: #001f4b; font-family: "Times New Roman", Times, serif; font-size: 10pt
+	}
+li {
+	font-size: 10pt; color: #001f4b; font-family: "Times New Roman", Times, serif; font-size: 10pt
+	}
+A {
+	color: #001f4b; font-family: "Times New Roman", Times, serif; text-decoration: underline
+	}
+body, html 
+{
+	padding:0;
+	margin:0;
+	background-color: #FFFFFF;
+	height: 100% !important;
+	}
+A:visited {
+	color: #001f4b; font-family: "Times New Roman", Times, serif; text-decoration: underline
+	}
+A:hover {
+	color: #556a78; font-family: "Times New Roman", Times, serif; text-decoration: underline
+	}
+A:active {
+	color: #001f4b; font-family: "Times New Roman", Times, serif; text-decoration: underline
+	}

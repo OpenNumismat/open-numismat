@@ -46,6 +46,10 @@ class MainWindow(QtGui.QMainWindow):
         coin = menubar.addMenu(self.tr("Coin"))
         coin.addAction(addCoinAct)
 
+        viewBrowserAct = QtGui.QAction(QtGui.QIcon('icons/page_white_world.png'),
+                                   self.tr("View in browser"), self)
+        viewBrowserAct.triggered.connect(self.viewBrowser)
+
         newCollectionAct = QtGui.QAction(self.tr("&New..."), self)
         newCollectionAct.triggered.connect(self.newCollectionEvent)
 
@@ -139,6 +143,7 @@ class MainWindow(QtGui.QMainWindow):
         toolBar = QtGui.QToolBar(self.tr("Toolbar"), self)
         toolBar.setMovable(False)
         toolBar.addAction(addCoinAct)
+        toolBar.addAction(viewBrowserAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
         self.addToolBar(toolBar)
@@ -269,6 +274,10 @@ class MainWindow(QtGui.QMainWindow):
     def addCoin(self):
         model = self.viewTab.currentModel()
         model.addCoin(model.record(), self)
+
+    def viewBrowser(self):
+        listView = self.viewTab.currentListView()
+        listView.viewInBrowser()
 
     def __workingDir(self):
         fileName = self.collection.fileName

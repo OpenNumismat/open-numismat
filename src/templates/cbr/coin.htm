@@ -1,0 +1,186 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{% if subjectshort %}{{subjectshort}}{% else %}{{title}}{% endif %}</title>
+<link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+</head>
+
+<body bgcolor="white">
+<table border="0" cellpadding="1px" cellspacing="1px" width="100%">
+<tbody><tr>
+<td aling="left" valign="top">
+
+</td><td align="right" valign="top">
+
+
+</td>
+</tr>
+</tbody></table>
+
+
+
+<table border="0" cellpadding="2" cellspacing="1" width="100%">
+    <tbody><tr>
+
+    <td width="30%"></td>
+    <td width="60%">
+      
+      {% if series %}
+      <b>{{series_title}}: {{series}}</b>
+      {% endif %}
+      <br>
+      {{subjectshort}}
+      <br>
+      <p>
+      {% if issuedate %}
+        {{issuedate_title}}: {{issuedate}}<br>
+      {% endif %}
+      {% if catalognum1 %}
+        {{catalognum1_title}}: {{catalognum1}}<br>
+      {% endif %}
+      {% if catalognum2 %}
+        {{catalognum2_title}}: {{catalognum2}}<br>
+      {% endif %}
+      {% if catalognum3 %}
+        {{catalognum3_title}}: {{catalognum3}}<br>
+      {% endif %}
+      {% if catalognum4 %}
+        {{catalognum4_title}}: {{catalognum4}}<br>
+      {% endif %}
+      </p>
+      <p>&nbsp;</p></td>
+    <td width="10%"></td>
+  </tr>
+</tbody></table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr><td bgcolor="#4B5B65" width="100%"><img src="{{static_files}}/temp.gif" height="3" width="1"></td></tr>
+</tbody></table>
+<table bgcolor="#4B5B65" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+	<td><table border="0" cellpadding="2" cellspacing="1" width="100%">
+    <tbody><tr bgcolor="white">
+        {% if denomination %}
+        <td align="center"><font size="2">{{denomination_title}}</font></td>
+        {% endif %}
+        {% if quality %}
+        <td align="center"><font size="2">{{quality_title}}</font></td>
+        {% endif %}
+        {% if material %}
+        <td align="center"><font size="2">{{material_title}}</font></td>
+        {% endif %}
+        {% if weight or fineness %}
+        <td align="center"><font size="2">
+          {% if weight %}{{ weight_title }}{% endif %}
+          {% if weight and fineness %},{% endif %}
+          {% if fineness %}{{ fineness_title }}{% endif %}
+        </font></td>
+        {% endif %}
+        {% if diameter %}
+        <td align="center"><font size="2">{{diameter_title}}</font></td>
+        {% endif %}
+        {% if thickness %}
+        <td align="center"><font size="2">{{thickness_title}}</font></td>
+        {% endif %}
+        {% if mintage %}
+        <td align="center"><font size="2">{{mintage_title}}</font></td>
+        {% endif %}
+  </tr>
+<!-- main pqart -->
+
+  <tr bgcolor="white">
+        {% if denomination %}
+        <td align="center"><font size="2">{{denomination}}</font></td>
+        {% endif %}
+        {% if quality %}
+        <td align="center"><font size="2">{{quality}}</font></td>
+        {% endif %}
+        {% if material %}
+        <td align="center"><font size="2">{{material}}</font></td>
+        {% endif %}
+        {% if weight or fineness %}
+        <td align="center"><font size="2">{{weight}} {{fineness}}</font></td>
+        {% endif %}
+        {% if diameter %}
+        <td align="center"><font size="2">{{diameter}}</font></td>
+        {% endif %}
+        {% if thickness %}
+        <td align="center"><font size="2">{{thickness}}</font></td>
+        {% endif %}
+        {% if mintage %}
+        <td align="center"><font size="2">{{mintage}}</font></td>
+        {% endif %}
+  </tr>
+<!-- /main pqart -->
+
+</tbody></table></td></tr></tbody></table>
+<br>
+<table border="0" cellspacing="0" width="100%">
+  <tbody><tr bgcolor="white">
+    <td rowspan="3" width="11"></td>
+    <td valign="top" width="172"><img src="{{static_files}}/{{obverseimg}}" width="300" border="0">&nbsp;
+      <p>&nbsp;</p></td>
+    <td valign="top" width="54"><br>
+      <br>
+      {{obverseimg_title}}:</td>
+    <td valign="top">
+      <p align="justify"> <br>
+      <br>{{obversedesign}}</p>
+    </td>
+    <td width="72"></td>
+  </tr>
+  <tr bgcolor="white">
+    <td valign="top"><img src="{{static_files}}/{{reverseimg}}" width="300" border="0">&nbsp;
+</td>
+    <td valign="top" width="54"><br>
+      <br>
+      {{reverseimg_title}}:</td>
+    <td valign="top">
+      <p align="justify"> <br>
+      <br>{{reversedesign}}</p>
+    </td>
+    <td width="72"></td>
+  </tr>
+  <tr bgcolor="white">
+    <td width="172"></td>
+    <td width="54"></td>
+    
+    <td valign="top"><br>
+      {% if obversedesigner or reversedesigner %}
+        {{obversedesigner_title}}: {{ obversedesigner }}{% if obversedesigner and reversedesigner %},{% endif %} {{ reversedesigner }}<br>
+      {% endif %}
+      {% if mint or mintmark %}
+        {{mint_title}}: {{mint}} {% if mintmark %}({{mintmark}}){% endif %}<br>
+      {% endif %}
+      {% if edgelabel %}
+        {{edgeimg_title}}: {{edgelabel}}
+      {% endif %}
+    </td>
+    <td width="72"></td>
+  </tr>
+  <tr bgcolor="white">
+    <td width="11"></td>
+    <td colspan="3"><br><p align="justify">{{subject}}</p><p></p></td>
+    <td width="72"></td>
+  </tr>
+</tbody></table>
+
+
+
+<br><br>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+	<td><hr></td>
+</tr>
+<tr>
+	<td height="6"><br>
+	</td>
+</tr>
+<tr>
+	<td align="center">
+        Generated by <a href="http://code.google.com/p/open-numismat/">OpenNumismat</a><br>
+    </td>
+</tr>
+</tbody></table>
+
+
+
+</body></html>

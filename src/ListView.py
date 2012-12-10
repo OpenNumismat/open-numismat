@@ -9,7 +9,8 @@ from EditCoinDialog.EditCoinDialog import EditCoinDialog
 from Collection.CollectionFields import FieldTypes as Type
 from SelectColumnsDialog import SelectColumnsDialog
 from Collection.HeaderFilterMenu import FilterMenuButton
-from Tools import Gui
+from Tools import Gui, TemporaryDir
+from Reports.Report import Report
 
 
 def textToClipboard(text):
@@ -371,6 +372,19 @@ class ListView(QtGui.QTableView):
             indexes = list(rowsIndexes.values())
 
         return indexes
+
+    def viewInBrowser(self, index=None):
+        if not index:
+            index = self.currentIndex()
+
+        if index.isValid():
+            record = self.model().record(index.row())
+
+            report = Report(TemporaryDir.path())
+            fileName = report.generate(record)
+
+            executor = QtGui.QDesktopServices()
+            executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
 
     def _edit(self, index=None):
         if not index:
