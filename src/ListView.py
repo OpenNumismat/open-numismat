@@ -373,15 +373,17 @@ class ListView(QtGui.QTableView):
 
         return indexes
 
-    def viewInBrowser(self, index=None):
-        if not index:
-            index = self.currentIndex()
+    def viewInBrowser(self, indexes=None):
+        if not indexes:
+            indexes = self.selectedRows()
 
-        if index.isValid():
-            record = self.model().record(index.row())
+        records = []
+        for index in indexes:
+            records.append(self.model().record(index.row()))
 
+        if records:
             report = Report(TemporaryDir.path())
-            fileName = report.generate(record)
+            fileName = report.generate(records, self)
 
             executor = QtGui.QDesktopServices()
             executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))

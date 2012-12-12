@@ -26,3 +26,15 @@ A:hover {
 A:active {
 	color: #001f4b; font-family: "Times New Roman", Times, serif; text-decoration: underline
 	}
+TD.menu A {
+	color: #001f4b; font-family: "Times New Roman", Times, serif; text-decoration: none
+	}
+TD.menu A:visited {
+	color: #001f4b; font-family: "Times New Roman", Times, serif; text-decoration: none
+	}
+TD.menu A:hover {
+	color: #556a78; font-family: "Times New Roman", Times, serif; text-decoration: none
+	}
+TD.menu A:active {
+	color: #001f4b; font-family: "Times New Roman", Times, serif; text-decoration: none
+	}

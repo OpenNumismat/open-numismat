@@ -14,20 +14,46 @@ class Report(QtCore.QObject):
 
         self.dstPath = dstPath
 
-    def generate(self, record):
-        mapping = {}
+    def generate(self, records):
+        self.mapping = {}
 
-        contentDir = os.path.join(self.dstPath, "coin_%d" % record.value('id'))
-        mapping['static_files'] = contentDir
+        if len(records) > 1:
+            static_files = "coins_files"
+        else:
+            static_files = "coin_%d_files" % records[0].value('id')
+        self.contentDir = os.path.join(self.dstPath, static_files)
 
-        shutil.rmtree(contentDir, ignore_errors=True)
-        shutil.copytree('templates/cbr/files', contentDir)
+        self.mapping['static_files'] = static_files
 
+        shutil.rmtree(self.contentDir, ignore_errors=True)
+        shutil.copytree('templates/cbr/files', self.contentDir)
+
+        self.env = Environment(loader=FileSystemLoader('templates/cbr'))
+
+        if len(records) > 1:
+            record_data = []
+            for record in records:
+                self._generateItem(record)
+                record_data.append(self.mapping.copy())
+
+            template = self.env.get_template('coins.htm')
+            res = template.render({'records': record_data, 'static_files': static_files})
+
+            dstFile = os.path.join(self.dstPath, "coins.htm")
+            f = codecs.open(dstFile, 'w', 'utf-8')
+            f.write(res)
+            f.close()
+        else:
+            dstFile = self._generateItem(records[0])
+
+        return dstFile
+
+    def _generateItem(self, record):
         imgFields = ['image', 'obverseimg', 'reverseimg',
                      'photo1', 'photo2', 'photo3', 'photo4']
 
         for field in CollectionFields():
-            mapping[field.name + '_title'] = field.title
+            self.mapping[field.name + '_title'] = field.title
             if record.value(field.name):
                 if field.name in imgFields:
                     if field.name == 'image':
@@ -35,21 +61,20 @@ class Report(QtCore.QObject):
                     else:
                         ext = 'jpg'
 
-                    imgFileTitle = "%s.%s" % (field.name, ext)
-                    imgFile = os.path.join(contentDir, imgFileTitle)
+                    imgFileTitle = "%s_%d.%s" % (field.name, record.value('id'), ext)
+                    imgFile = os.path.join(self.contentDir, imgFileTitle)
 
                     image = QtGui.QImage()
                     image.loadFromData(record.value(field.name))
                     image.save(imgFile)
-                    mapping[field.name] = imgFileTitle
+                    self.mapping[field.name] = imgFileTitle
                 else:
-                    mapping[field.name] = record.value(field.name)
+                    self.mapping[field.name] = record.value(field.name)
             else:
-                mapping[field.name] = ''
+                self.mapping[field.name] = ''
 
-        env = Environment(loader=FileSystemLoader('templates/cbr'))
-        template = env.get_template('coin.htm')
-        res = template.render(mapping)
+        template = self.env.get_template('coin.htm')
+        res = template.render(self.mapping)
 
         dstFile = os.path.join(self.dstPath, "coin_%d.htm" % record.value('id'))
         f = codecs.open(dstFile, 'w', 'utf-8')
