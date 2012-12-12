@@ -37,9 +37,9 @@ class CollectionDescription(QtCore.QObject):
 
         sql = """CREATE TABLE description (
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            title CHAR,
+            title TEXT,
             description TEXT,
-            author CHAR)"""
+            author TEXT)"""
         QSqlQuery(sql, self.db)
 
         query = QSqlQuery(self.db)

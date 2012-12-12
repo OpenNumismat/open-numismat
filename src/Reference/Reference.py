@@ -88,7 +88,7 @@ class ReferenceSection(QtCore.QObject):
 
         sql = "CREATE TABLE %s (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-            value CHAR, icon BLOB)" % self.name
+            value TEXT, icon BLOB)" % self.name
         QSqlQuery(sql, db)
 
         query = QSqlQuery(db)
@@ -169,7 +169,7 @@ class CrossReferenceSection(QtCore.QObject):
         sql = "CREATE TABLE %s (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
             parentid INTEGER NOT NULL,\
-            value CHAR)" % self.name
+            value TEXT)" % self.name
         QSqlQuery(sql, db)
 
         query = QSqlQuery(db)
@@ -210,10 +210,10 @@ class Reference(QtCore.QObject):
     def create(self):
         sql = "CREATE TABLE IF NOT EXISTS sections (\
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-            name CHAR,\
+            name TEXT,\
             icon BLOB,\
-            letter CHAR(1),\
-            parent CHAR)"
+            letter TEXT,\
+            parent TEXT)"
         QSqlQuery(sql, self.db)
 
         for section in self.sections.values():

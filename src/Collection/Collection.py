@@ -490,7 +490,7 @@ class Collection(QtCore.QObject):
         sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
         QSqlQuery(sql, self.db)
 
-        sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title CHAR, image BLOB)"
+        sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, image BLOB)"
         QSqlQuery(sql, self.db)
 
     def getFileName(self):

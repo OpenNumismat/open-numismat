@@ -27,17 +27,17 @@ class FieldTypes():
     @staticmethod
     def toSql(type_):
         if type_ == FieldTypes.String:
-            sql_type = 'CHAR'
+            sql_type = 'TEXT'
         elif type_ == FieldTypes.ShortString:
-            sql_type = 'CHAR(10)'
+            sql_type = 'TEXT'
         elif type_ == FieldTypes.Number:
-            sql_type = 'NUMERIC(4)'
+            sql_type = 'INTEGER'
         elif type_ == FieldTypes.Text:
             sql_type = 'TEXT'
         elif type_ == FieldTypes.Money:
-            sql_type = 'NUMERIC(10,2)'
+            sql_type = 'REAL'
         elif type_ == FieldTypes.Date:
-            sql_type = 'CHAR'
+            sql_type = 'TEXT'
         elif type_ == FieldTypes.BigInt:
             sql_type = 'INTEGER'
         elif type_ == FieldTypes.PreviewImage:
@@ -45,11 +45,11 @@ class FieldTypes():
         elif type_ == FieldTypes.Image:
             sql_type = 'INTEGER'
         elif type_ == FieldTypes.Value:
-            sql_type = 'NUMERIC(10,3)'
+            sql_type = 'REAL'
         elif type_ == FieldTypes.Status:
-            sql_type = 'CHAR'
+            sql_type = 'TEXT'
         elif type_ == FieldTypes.DateTime:
-            sql_type = 'CHAR'
+            sql_type = 'TEXT'
         elif type_ == FieldTypes.EdgeImage:
             sql_type = 'INTEGER'
         else:
@@ -260,7 +260,7 @@ class CollectionFields(CollectionFieldsBase):
 
         sql = """CREATE TABLE fields (
             id INTEGER NOT NULL PRIMARY KEY,
-            title CHAR,
+            title TEXT,
             enabled INTEGER)"""
         QSqlQuery(sql, db)
 
