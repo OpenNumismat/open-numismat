@@ -54,11 +54,11 @@ class CollectionDescription(QtCore.QObject):
 
 
 class DescriptionDialog(QtGui.QDialog):
-    def __init__(self, collection, parent=None):
+    def __init__(self, description, parent=None):
         super(DescriptionDialog, self).__init__(parent,
                                                 Qt.WindowSystemMenuHint)
 
-        self.description = CollectionDescription(collection)
+        self.description = description
 
         self.setWindowTitle(self.tr("Description"))
 

@@ -8,6 +8,7 @@ from .CollectionFields import FieldTypes as Type
 from .CollectionFields import CollectionFields
 from .CollectionPages import CollectionPages
 from Collection.Password import cryptPassword, PasswordDialog
+from Collection.Description import CollectionDescription
 from Reference.Reference import CrossReferenceSection
 from Reference.ReferenceDialog import AllReferenceDialog
 from EditCoinDialog.EditCoinDialog import EditCoinDialog
@@ -497,6 +498,9 @@ class Collection(QtCore.QObject):
 
     def getCollectionName(self):
         return Collection.fileNameToCollectionName(self.fileName)
+
+    def getDescription(self):
+        return CollectionDescription(self)
 
     def model(self):
         return self.createModel()

@@ -304,7 +304,7 @@ class MainWindow(QtGui.QMainWindow):
                 self.setCollection(self.collection)
 
     def descriptionCollectionEvent(self, checked):
-        dialog = DescriptionDialog(self.collection, self)
+        dialog = DescriptionDialog(self.collection.getDescription(), self)
         dialog.exec_()
 
     def passwordCollectionEvent(self, checked):
