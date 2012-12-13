@@ -176,8 +176,8 @@ class MainWindow(QtGui.QMainWindow):
 
         settings = QtCore.QSettings()
         pageIndex = settings.value('tabwindow/page')
-        if pageIndex:
-            self.viewTab.setCurrentIndex(pageIndex)
+        if not isinstance(pageIndex, QtCore.QPyNullVariant):
+            self.viewTab.setCurrentIndex(int(pageIndex))
 
         if settings.value('mainwindow/maximized') == 'true':
             self.setWindowState(self.windowState() | QtCore.Qt.WindowMaximized)
