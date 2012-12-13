@@ -4,10 +4,13 @@ import datetime
 import decimal
 import socket
 
+available = True
+
 try:
     import firebirdsql
 except ImportError:
     print('firebirdsql module missed. Importing from Numizmat 2.1 not available')
+    available = False
 
 from PyQt4 import QtCore, QtGui
 
@@ -76,6 +79,10 @@ class ImportNumizmat(_Import):
 
     def __init__(self, parent=None):
         super(ImportNumizmat, self).__init__(parent)
+
+    @staticmethod
+    def isAvailable():
+        return available
 
     @staticmethod
     def defaultDir():

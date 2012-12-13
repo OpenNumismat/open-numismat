@@ -7,10 +7,13 @@ try:
 except ImportError:
     pass
 
+available = True
+
 try:
     import pyodbc
 except ImportError:
     print('pyodbc module missed. Importing from CoinManage not available')
+    available = False
 
 from PyQt4 import QtCore, QtGui
 
@@ -89,6 +92,10 @@ class ImportCoinManage(_Import):
 
     def __init__(self, parent=None):
         super(ImportCoinManage, self).__init__(parent)
+
+    @staticmethod
+    def isAvailable():
+        return available
 
     @staticmethod
     def defaultDir():

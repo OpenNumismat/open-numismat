@@ -7,10 +7,13 @@ try:
 except ImportError:
     pass
 
+available = True
+
 try:
     import lxml.etree
 except ImportError:
     print('lxml module missed. Importing from CoinsCollector not available')
+    available = False
 
 from PyQt4 import QtCore, QtGui
 
@@ -170,6 +173,10 @@ class ImportCoinsCollector(_Import):
 
     def __init__(self, parent=None):
         super(ImportCoinsCollector, self).__init__(parent)
+
+    @staticmethod
+    def isAvailable():
+        return available
 
     @staticmethod
     def defaultDir():

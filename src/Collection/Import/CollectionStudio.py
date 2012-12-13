@@ -2,10 +2,13 @@
 
 import base64
 
+available = True
+
 try:
     import lxml.etree
 except ImportError:
     print('lxml module missed. Importing from CollectionStudio not available')
+    available = False
 
 from PyQt4 import QtCore, QtGui
 
@@ -85,6 +88,10 @@ class ImportCollectionStudio(_Import):
 
     def __init__(self, parent=None):
         super(ImportCollectionStudio, self).__init__(parent)
+
+    @staticmethod
+    def isAvailable():
+        return available
 
     def _connect(self, src):
         return src

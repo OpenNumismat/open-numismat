@@ -2,10 +2,13 @@
 
 import datetime
 
+available = True
+
 try:
     import pyodbc
 except ImportError:
-    print('pyodbc module missed. Importing not available')
+    print('pyodbc module missed. Importing from Cabinet not available')
+    available = False
 
 from PyQt4 import QtCore, QtGui
 
@@ -80,6 +83,10 @@ class ImportCabinet(_Import):
 
     def __init__(self, parent=None):
         super(ImportCabinet, self).__init__(parent)
+
+    @staticmethod
+    def isAvailable():
+        return available
 
     def _connect(self, src):
         try:

@@ -5,7 +5,7 @@ import datetime, decimal
 try:
     import pyodbc
 except ImportError:
-    print('pyodbc module missed. Importing not available')
+    pass
 
 from PyQt4 import QtCore, QtGui
 

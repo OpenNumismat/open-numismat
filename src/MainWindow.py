@@ -72,34 +72,44 @@ class MainWindow(QtGui.QMainWindow):
                                               self.tr("Set password..."), self)
         passwordCollectionAct.triggered.connect(self.passwordCollectionEvent)
 
-        importNumizmatAct = QtGui.QAction(
+        importMenu = QtGui.QMenu(self.tr("Import"), self)
+
+        if ImportNumizmat.isAvailable():
+            importNumizmatAct = QtGui.QAction(
                                     QtGui.QIcon('icons/numizmat.ico'),
                                     self.tr("Numizmat 2.1"), self)
-        importNumizmatAct.triggered.connect(self.importNumizmat)
-        importCabinetAct = QtGui.QAction(
+            importNumizmatAct.triggered.connect(self.importNumizmat)
+            importMenu.addAction(importNumizmatAct)
+
+        if ImportCabinet.isAvailable():
+            importCabinetAct = QtGui.QAction(
                                     QtGui.QIcon('icons/cabinet.ico'),
                                     self.tr("Cabinet 2.0.2.0, 2011"), self)
-        importCabinetAct.triggered.connect(self.importCabinet)
-        importCoinsCollectorAct = QtGui.QAction(
+            importCabinetAct.triggered.connect(self.importCabinet)
+            importMenu.addAction(importCabinetAct)
+
+        if ImportCoinsCollector.isAvailable():
+            importCoinsCollectorAct = QtGui.QAction(
                                     QtGui.QIcon('icons/CoinsCollector.ico'),
                                     self.tr("CoinsCollector 2.6"), self)
-        importCoinsCollectorAct.triggered.connect(self.importCoinsCollector)
-        importCoinManageAct = QtGui.QAction(
+            importCoinsCollectorAct.triggered.connect(
+                                                    self.importCoinsCollector)
+            importMenu.addAction(importCoinsCollectorAct)
+
+        if ImportCoinManage.isAvailable():
+            importCoinManageAct = QtGui.QAction(
                                     QtGui.QIcon('icons/CoinManage.ico'),
                                     self.tr("CoinManage 2011"), self)
-        importCoinManageAct.triggered.connect(self.importCoinManage)
-        importCollectionStudioAct = QtGui.QAction(
+            importCoinManageAct.triggered.connect(self.importCoinManage)
+            importMenu.addAction(importCoinManageAct)
+
+        if ImportCollectionStudio.isAvailable():
+            importCollectionStudioAct = QtGui.QAction(
                                     QtGui.QIcon('icons/CollectionStudio.ico'),
                                     self.tr("Collection Studio 3.65"), self)
-        importCollectionStudioAct.triggered.connect(
+            importCollectionStudioAct.triggered.connect(
                                                 self.importCollectionStudio)
-
-        importMenu = QtGui.QMenu(self.tr("Import"), self)
-        importMenu.addAction(importNumizmatAct)
-        importMenu.addAction(importCabinetAct)
-        importMenu.addAction(importCoinsCollectorAct)
-        importMenu.addAction(importCoinManageAct)
-        importMenu.addAction(importCollectionStudioAct)
+            importMenu.addAction(importCollectionStudioAct)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)

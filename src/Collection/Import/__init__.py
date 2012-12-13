@@ -13,6 +13,10 @@ class _DatabaseServerError(Exception):
 
 class _Import(QtCore.QObject):
     @staticmethod
+    def isAvailable():
+        return True
+
+    @staticmethod
     def defaultDir():
         return QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation)
 
