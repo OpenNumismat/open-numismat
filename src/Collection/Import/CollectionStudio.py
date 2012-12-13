@@ -5,7 +5,7 @@ import base64
 try:
     import lxml.etree
 except ImportError:
-    print('lxml module missed. Importing from CoinsCollector not available')
+    print('lxml module missed. Importing from CollectionStudio not available')
 
 from PyQt4 import QtCore, QtGui
 

@@ -4,9 +4,13 @@ import datetime, decimal
 
 try:
     import winreg
+except ImportError:
+    pass
+
+try:
     import pyodbc
 except ImportError:
-    print('pyodbc or winreg module missed. Importing not available')
+    print('pyodbc module missed. Importing from CoinManage not available')
 
 from PyQt4 import QtCore, QtGui
 
@@ -104,7 +108,7 @@ class ImportCoinManage(_Import):
                 winreg.CloseKey(hkey)
                 if dir_.cd(value):
                     break
-            except WindowsError:
+            except (WindowsError, NameError):
                 continue
 
         return dir_.absolutePath()

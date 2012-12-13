@@ -4,9 +4,13 @@ import base64, ctypes, shutil, tempfile
 
 try:
     import winreg
+except ImportError:
+    pass
+
+try:
     import lxml.etree
 except ImportError:
-    print('lxml or winreg module missed. Importing from CoinsCollector not available')
+    print('lxml module missed. Importing from CoinsCollector not available')
 
 from PyQt4 import QtCore, QtGui
 
@@ -182,7 +186,7 @@ class ImportCoinsCollector(_Import):
             value = winreg.QueryValueEx(hkey, 'LocalBase')[0]
             winreg.CloseKey(hkey)
             dir_.cd(value)
-        except WindowsError:
+        except (WindowsError, NameError):
             pass
 
         return dir_.absolutePath()
