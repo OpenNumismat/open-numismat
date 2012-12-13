@@ -35,7 +35,7 @@ class FieldTypes():
         elif type_ == FieldTypes.Text:
             sql_type = 'TEXT'
         elif type_ == FieldTypes.Money:
-            sql_type = 'REAL'
+            sql_type = 'NUMERIC'
         elif type_ == FieldTypes.Date:
             sql_type = 'TEXT'
         elif type_ == FieldTypes.BigInt:
@@ -45,7 +45,7 @@ class FieldTypes():
         elif type_ == FieldTypes.Image:
             sql_type = 'INTEGER'
         elif type_ == FieldTypes.Value:
-            sql_type = 'REAL'
+            sql_type = 'NUMERIC'
         elif type_ == FieldTypes.Status:
             sql_type = 'TEXT'
         elif type_ == FieldTypes.DateTime:
