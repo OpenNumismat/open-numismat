@@ -261,6 +261,18 @@ class ShortLineEdit(QtGui.QLineEdit):
         return self.minimumSizeHint()
 
 
+class UserNumericEdit(QtGui.QLineEdit):
+    def __init__(self, parent=None):
+        super(UserNumericEdit, self).__init__(parent)
+        self.setMaxLength(25)
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum,
+                    QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+
 class NumberEdit(QtGui.QLineEdit):
     def __init__(self, parent=None):
         super(NumberEdit, self).__init__(parent)

@@ -77,7 +77,8 @@ class Settings(BaseSettings):
     Default = {'locale': _getLocale(),
                'backup': version.AppDir + "/backup/",
                'reference': version.AppDir + "/reference.ref",
-               'error': False, 'updates': False}
+               'error': False, 'updates': False,
+               'free_numeric': False}
 
     def __init__(self, autoSave=False):
         super(Settings, self).__init__(autoSave)
@@ -90,7 +91,7 @@ class Settings(BaseSettings):
     def _getValue(self, key):
         value = self.settings.value('mainwindow/' + key)
         if value:
-            if key in ('error', 'updates'):
+            if key in ('error', 'updates', 'free_numeric'):
                 # Convert boolean value
                 value = (value == 'true')
         else:
@@ -173,6 +174,11 @@ class MainSettingsPage(QtGui.QWidget):
         else:
             self.imageSideLen.setText(self.collectionSettings['ImageSideLen'])
 
+        self.freeNumeric = QtGui.QCheckBox(
+                            self.tr("Free format numeric fields"), self)
+        self.freeNumeric.setChecked(settings['free_numeric'])
+        layout.addRow(self.freeNumeric)
+
         self.setLayout(layout)
 
     def backupButtonClicked(self):
@@ -199,6 +205,7 @@ class MainSettingsPage(QtGui.QWidget):
         settings['reference'] = self.reference.text()
         settings['error'] = self.errorSending.isChecked()
         settings['updates'] = self.checkUpdates.isChecked()
+        settings['free_numeric'] = self.freeNumeric.isChecked()
 
         settings.save()
 

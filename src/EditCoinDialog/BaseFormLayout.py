@@ -3,10 +3,13 @@ from PyQt4.QtCore import Qt, QDate
 from .FormItems import *
 from .ImageLabel import ImageEdit, EdgeImageEdit
 from Collection.CollectionFields import FieldTypes as Type
+from Settings import Settings
 
 
 class FormItem(object):
     def __init__(self, field, title, itemType, reference=None, parent=None):
+        settings = Settings()
+
         self._field = field
         self._title = title
         if itemType & Type.Checkable:
@@ -32,13 +35,25 @@ class FormItem(object):
         elif self._type == Type.ShortString:
             self._widget = ShortLineEdit(parent)
         elif self._type == Type.Number:
-            self._widget = NumberEdit(parent)
+            if settings['free_numeric']:
+                self._widget = UserNumericEdit(parent)
+            else:
+                self._widget = NumberEdit(parent)
         elif self._type == Type.BigInt:
-            self._widget = BigIntEdit(parent)
+            if settings['free_numeric']:
+                self._widget = UserNumericEdit(parent)
+            else:
+                self._widget = BigIntEdit(parent)
         elif self._type == Type.Value:
-            self._widget = ValueEdit(parent)
+            if settings['free_numeric']:
+                self._widget = UserNumericEdit(parent)
+            else:
+                self._widget = ValueEdit(parent)
         elif self._type == Type.Money:
-            self._widget = MoneyEdit(parent)
+            if settings['free_numeric']:
+                self._widget = UserNumericEdit(parent)
+            else:
+                self._widget = MoneyEdit(parent)
         elif self._type == Type.Text:
             self._widget = TextEdit(parent)
         elif self._type == Type.Image:
@@ -152,7 +167,7 @@ class BaseFormLayout(QtGui.QGridLayout):
             # for 2-columns grid
             # self.addWidget(widget, self.row, 1, 1, -1)
             self.addWidget(widget, self.row, 1, 1, self.columnCount - 1)
-            if isinstance(widget, NumberEdit):
+            if item1.type() == Type.Number:
                 widget.setSizePolicy(QtGui.QSizePolicy.Fixed,
                                      QtGui.QSizePolicy.Fixed)
         else:

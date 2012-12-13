@@ -69,6 +69,10 @@ class SortFilterProxyModel(QtGui.QSortFilterProxyModel):
             elif leftData == '' or isinstance(leftData, QtCore.QPyNullVariant):
                 return True
 
+        if isinstance(leftData, str) or isinstance(rightData, str):
+            leftData = str(leftData)
+            rightData = str(rightData)
+
         return leftData < rightData
 
 
