@@ -13,8 +13,10 @@ class DetailsTabWidget(QtGui.QTabWidget):
     Direction = QtGui.QBoxLayout.LeftToRight
     Stretch = 'stretch item'
 
-    def __init__(self, parent=None):
+    def __init__(self, model, parent=None):
         super(DetailsTabWidget, self).__init__(parent)
+
+        self.model = model
 
         self.createItems()
         self.createPages()
@@ -148,7 +150,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
     def createItems(self):
         self.items = {}
 
-        fields = CollectionFields()
+        fields = self.model.fields
         for field in fields:
             if field not in fields.systemFileds:
                 self.addItem(field)
@@ -440,11 +442,11 @@ class DetailsTabWidget(QtGui.QTabWidget):
 class FormDetailsTabWidget(DetailsTabWidget):
     Direction = QtGui.QBoxLayout.TopToBottom
 
-    def __init__(self, reference, parent=None, usedFields=None):
+    def __init__(self, model, parent=None, usedFields=None):
         self.usedFields = usedFields
-        self.reference = reference
+        self.reference = model.reference
 
-        super(FormDetailsTabWidget, self).__init__(parent)
+        super(FormDetailsTabWidget, self).__init__(model, parent)
 
     def createPages(self):
         self.createCoinPage()

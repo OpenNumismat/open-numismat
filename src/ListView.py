@@ -382,8 +382,8 @@ class ListView(QtGui.QTableView):
             records.append(self.model().record(index.row()))
 
         if records:
-            report = Report(TemporaryDir.path())
-            fileName = report.generate(records, self)
+            report = Report(self.model(), TemporaryDir.path())
+            fileName = report.generate(records)
 
             executor = QtGui.QDesktopServices()
             executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))

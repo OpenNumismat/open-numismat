@@ -16,7 +16,7 @@ class EditCoinDialog(QtGui.QDialog):
         self.record = record
         self.model = model
 
-        self.tab = FormDetailsTabWidget(model.reference, self, usedFields)
+        self.tab = FormDetailsTabWidget(model, self, usedFields)
         self.items = self.tab.items
 
         self.textChangedTitle()

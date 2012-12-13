@@ -340,19 +340,27 @@ class TreeView(QtGui.QTreeWidget):
 from EditCoinDialog.DetailsTabWidget import DetailsTabWidget
 
 
-class DetailsView(DetailsTabWidget):
+class DetailsView(QtGui.QWidget):
     def __init__(self, parent=None):
         super(DetailsView, self).__init__(parent)
 
         self.resize(0, 120)
 
+        self.layout = QtGui.QVBoxLayout(self)
+        self.setLayout(self.layout)
+
+    def setModel(self, model):
+        self.model = model
+
+        self.widget = DetailsTabWidget(model)
+        self.layout.addWidget(self.widget)
+
     def rowChangedEvent(self, current):
         if current.isValid():
-            model = current.model()
-            record = model.record(current.row())
-            self.fillItems(record)
+            record = self.model.record(current.row())
+            self.widget.fillItems(record)
         else:
-            self.clear()
+            self.widget.clear()
 
 
 class Splitter(QtGui.QSplitter):
@@ -412,6 +420,7 @@ class PageView(Splitter):
         self.treeView.setModel(model)
         self.listView.setModel(model)
         self.imageView.setModel(model)
+        self.detailsView.setModel(model)
 
     def model(self):
         return self._model

@@ -9,9 +9,10 @@ from PyQt4 import QtGui, QtCore
 from Collection.CollectionFields import CollectionFields
 
 class Report(QtCore.QObject):
-    def __init__(self, dstPath, parent=None):
+    def __init__(self, model, dstPath, parent=None):
         super(Report, self).__init__(parent)
 
+        self.model = model
         self.dstPath = dstPath
 
     def generate(self, records):
@@ -52,7 +53,7 @@ class Report(QtCore.QObject):
         imgFields = ['image', 'obverseimg', 'reverseimg',
                      'photo1', 'photo2', 'photo3', 'photo4']
 
-        for field in CollectionFields():
+        for field in self.model.fields:
             self.mapping[field.name + '_title'] = field.title
             if record.value(field.name):
                 if field.name in imgFields:

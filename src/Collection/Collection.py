@@ -469,9 +469,9 @@ class Collection(QtCore.QObject):
 
         self.fileName = fileName
 
-        self.createCoinsTable()
-
         self.fields = CollectionFields(self.db)
+
+        self.createCoinsTable()
 
         self._pages = CollectionPages(self.db)
 

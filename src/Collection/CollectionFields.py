@@ -218,7 +218,7 @@ class CollectionFieldsBase(QObject):
 
 
 class CollectionFields(CollectionFieldsBase):
-    def __init__(self, db=QSqlDatabase(), parent=None):
+    def __init__(self, db, parent=None):
         super(CollectionFields, self).__init__(parent)
         self.db = db
 
