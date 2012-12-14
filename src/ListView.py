@@ -484,7 +484,7 @@ class ListView(QtGui.QTableView):
         clipboard = QtGui.QApplication.clipboard()
         clipboard.setMimeData(mime)
 
-    def __inserCoin(self, record, count):
+    def __insertCoin(self, record, count):
         dialog = EditCoinDialog(self.model(), record, self)
         if count > 1:
             dialog.setManyCoins()
@@ -520,7 +520,7 @@ class ListView(QtGui.QTableView):
                 if progressDlg:
                     self.model().appendRecord(record)
                 else:
-                    btn = self.__inserCoin(record, len(pickleData) - progress)
+                    btn = self.__insertCoin(record, len(pickleData) - progress)
                     if btn == QtGui.QDialogButtonBox.Abort:
                         break
                     if btn == QtGui.QDialogButtonBox.SaveAll:
@@ -553,7 +553,7 @@ class ListView(QtGui.QTableView):
                 if progressDlg:
                     self.model().appendRecord(record)
                 else:
-                    btn = self.__inserCoin(record, len(textData) - progress)
+                    btn = self.__insertCoin(record, len(textData) - progress)
                     if btn == QtGui.QDialogButtonBox.Abort:
                         break
                     if btn == QtGui.QDialogButtonBox.SaveAll:
