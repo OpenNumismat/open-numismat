@@ -10,6 +10,9 @@ from TabView import TabView
 from Settings import Settings, SettingsDialog
 from LatestCollections import LatestCollections
 from Tools.CursorDecorators import waitCursorDecorator
+from Tools import TemporaryDir
+from Reports.Report import Report
+from Reports.Preview import PreviewDialog
 import version
 
 from Collection.Import import *
@@ -137,6 +140,13 @@ class MainWindow(QtGui.QMainWindow):
         listMenu.addAction(actions['remove'])
 
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
+
+        reportAct = QtGui.QAction(self.tr("Report..."), self)
+        reportAct.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_P)
+        reportAct.triggered.connect(self.report)
+
+        report = menubar.addMenu(self.tr("Report"))
+        report.addAction(reportAct)
 
         helpAct = QtGui.QAction(QtGui.QIcon('icons/help.png'),
                                 self.tr("Online help"), self)
@@ -288,6 +298,28 @@ class MainWindow(QtGui.QMainWindow):
     def viewBrowser(self):
         listView = self.viewTab.currentListView()
         listView.viewInBrowser()
+
+    def report(self):
+        listView = self.viewTab.currentListView()
+        indexes = listView.selectedRows()
+
+        records = []
+        for index in indexes:
+            records.append(listView.model().record(index.row()))
+
+        if records:
+            report = Report(listView.model(), TemporaryDir.path())
+            fileName = report.generate(records, True)
+            file = QtCore.QFile(fileName)
+            file.open(QtCore.QIODevice.ReadOnly)
+
+            out = QtCore.QTextStream(file)
+            out.setCodec(QtCore.QTextCodec.codecForName('utf-8'))
+            output = out.readAll()
+
+            folder = QtCore.QFileInfo(fileName).absolutePath()
+            preview = PreviewDialog(output, folder, self)
+            preview.exec_()
 
     def __workingDir(self):
         fileName = self.collection.fileName

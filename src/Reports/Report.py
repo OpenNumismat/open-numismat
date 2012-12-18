@@ -6,8 +6,6 @@ from jinja2 import Environment, FileSystemLoader
 
 from PyQt4 import QtGui, QtCore
 
-from Collection.CollectionFields import CollectionFields
-
 class Report(QtCore.QObject):
     def __init__(self, model, dstPath, parent=None):
         super(Report, self).__init__(parent)
@@ -15,8 +13,9 @@ class Report(QtCore.QObject):
         self.model = model
         self.dstPath = dstPath
 
-    def generate(self, records):
-        self.mapping = {}
+    def generate(self, records, single_file=False):
+        self.single_file = single_file
+        self.mapping = {'single_file': single_file}
 
         if len(records) > 1:
             static_files = "coins_files"
@@ -31,14 +30,24 @@ class Report(QtCore.QObject):
 
         self.env = Environment(loader=FileSystemLoader('templates/cbr'))
 
+        titles_mapping = {}
+        for field in self.model.fields:
+            titles_mapping[field.name] = field.title
+        self.mapping['titles'] = titles_mapping
+
         if len(records) > 1:
             record_data = []
             for record in records:
-                self._generateItem(record)
-                record_data.append(self.mapping.copy())
+                if single_file:
+                    record_data.append(self.__recordMapping(record))
+                else:
+                    self._generateItem(record)
+                    record_data.append(self.mapping['record'])
+
+            self.mapping['records'] = record_data
 
             template = self.env.get_template('coins.htm')
-            res = template.render({'records': record_data, 'static_files': static_files})
+            res = template.render(self.mapping)
 
             dstFile = os.path.join(self.dstPath, "coins.htm")
             f = codecs.open(dstFile, 'w', 'utf-8')
@@ -50,11 +59,24 @@ class Report(QtCore.QObject):
         return dstFile
 
     def _generateItem(self, record):
+        self.mapping['record'] = self.__recordMapping(record)
+
+        template = self.env.get_template('coin.htm')
+        res = template.render(self.mapping)
+
+        dstFile = os.path.join(self.dstPath, "coin_%d.htm" % record.value('id'))
+        f = codecs.open(dstFile, 'w', 'utf-8')
+        f.write(res)
+        f.close()
+
+        return dstFile
+
+    def __recordMapping(self, record):
         imgFields = ['image', 'obverseimg', 'reverseimg',
                      'photo1', 'photo2', 'photo3', 'photo4']
 
+        record_mapping = {}
         for field in self.model.fields:
-            self.mapping[field.name + '_title'] = field.title
             if record.value(field.name):
                 if field.name in imgFields:
                     if field.name == 'image':
@@ -68,18 +90,10 @@ class Report(QtCore.QObject):
                     image = QtGui.QImage()
                     image.loadFromData(record.value(field.name))
                     image.save(imgFile)
-                    self.mapping[field.name] = imgFileTitle
+                    record_mapping[field.name] = imgFileTitle
                 else:
-                    self.mapping[field.name] = record.value(field.name)
+                    record_mapping[field.name] = record.value(field.name)
             else:
-                self.mapping[field.name] = ''
+                record_mapping[field.name] = ''
 
-        template = self.env.get_template('coin.htm')
-        res = template.render(self.mapping)
-
-        dstFile = os.path.join(self.dstPath, "coin_%d.htm" % record.value('id'))
-        f = codecs.open(dstFile, 'w', 'utf-8')
-        f.write(res)
-        f.close()
-
-        return dstFile
+        return record_mapping

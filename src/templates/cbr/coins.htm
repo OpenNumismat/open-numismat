@@ -9,7 +9,7 @@
 <body leftmargin="0" topmargin="0" bgcolor="#ffffff" marginheight="0" marginwidth="0">
 
 
-<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tbody><tr>
 	<td background="{{static_files}}/bg.gif" valign="top" width="15"><img src="{{static_files}}/temp.gif" height="1" width="15"></td>
 	<td valign="top">
@@ -34,12 +34,12 @@
 <tr><td>
 <table border="0" cellspacing="1" width="100%">
   <tbody><tr align="center" bgcolor="white">
-    <td width="10%">{{records[0].issuedate_title}}</td>
+    <td width="10%">{{titles.issuedate}}</td>
 
-  <td width="15%">{{records[0].catalognum1_title}}</td>
+  <td width="15%">{{titles.catalognum1}}</td>
 
-  <td width="15%">{{records[0].denomination_title}}</td>
-    <td align="left" valign="center"><dd>{{records[0].title_title}}</dd></td>
+  <td width="15%">{{titles.denomination}}</td>
+    <td align="left" valign="center"><dd>{{titles.title}}</dd></td>
   </tr>
   <tr bgcolor="#ffffff"><td colspan="4"><b><br></b></td></tr>
   {% for record in records %}
@@ -47,7 +47,11 @@
       <td align="center">{{record.issuedate}}</td>
       <td align="center">{{record.catalognum1}}</td>
       <td>&nbsp; <font size="2">{{record.denomination}}</font></td>
-      <td class="menu"><a href="coin_{{record.id}}.htm">{% if record.subjectshort %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}</a></td>
+      <td class="menu">
+        <a href="{% if single_file %}#id_{{record.id}}{% else %}coin_{{record.id}}.htm{% endif %}">
+          {% if record.subjectshort %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}
+        </a>
+      </td>
     </tr>
   {% endfor %}
   <tr bgcolor="#ffffff"><td colspan="4"><b><br>Спортивная серия: Кубок мира по спортивной ходьбе (г. Чебоксары)</b></td></tr>
@@ -84,4 +88,11 @@
 </tr></tbody></table>
 </td>
     <td background="{{static_files}}/bg.gif" valign="top" width="15"><img src="{{static_files}}/temp.gif" height="1" width="15"></td></tr></tbody></table>
+
+    {% if single_file %}
+      {% for record in records %}
+        <p class="breakhere"><a name="id_{{record.id}}"></p>
+        {% include 'coin_body.htm' %}
+      {% endfor %}
+    {% endif %}
 </body></html>

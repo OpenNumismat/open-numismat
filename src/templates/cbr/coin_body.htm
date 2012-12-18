@@ -1,0 +1,157 @@
+<table border="0" cellpadding="1px" cellspacing="1px" width="100%">
+<tbody><tr>
+<td aling="left" valign="top">
+
+</td><td align="right" valign="top">
+
+
+</td>
+</tr>
+</tbody></table>
+
+
+
+<table border="0" cellpadding="2" cellspacing="1" width="100%">
+    <tbody><tr>
+
+    <td width="30%"></td>
+    <td width="60%">
+      
+      {% if record.series %}
+      <b>{{titles.series}}: {{record.series}}</b>
+      {% endif %}
+      <br>
+      {{record.subjectshort}}
+      <br>
+      <p>
+      {% if record.issuedate %}
+        {{titles.issuedate}}: {{record.issuedate}}<br>
+      {% endif %}
+      {% if record.catalognum1 %}
+        {{titles.catalognum1}}: {{record.catalognum1}}<br>
+      {% endif %}
+      {% if record.catalognum2 %}
+        {{titles.catalognum2}}: {{record.catalognum2}}<br>
+      {% endif %}
+      {% if record.catalognum3 %}
+        {{titles.catalognum3}}: {{record.catalognum3}}<br>
+      {% endif %}
+      {% if record.catalognum4 %}
+        {{titles.catalognum4}}: {{record.catalognum4}}<br>
+      {% endif %}
+      </p>
+      <p>&nbsp;</p></td>
+    <td width="10%"></td>
+  </tr>
+</tbody></table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr><td bgcolor="#4B5B65" width="100%"><img src="{{static_files}}/temp.gif" height="3" width="1"></td></tr>
+</tbody></table>
+<table bgcolor="#4B5B65" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+	<td><table border="0" cellpadding="2" cellspacing="1" width="100%">
+    <tbody><tr bgcolor="white">
+        {% if record.denomination %}
+        <td align="center"><font size="2">{{titles.denomination}}</font></td>
+        {% endif %}
+        {% if record.quality %}
+        <td align="center"><font size="2">{{titles.quality}}</font></td>
+        {% endif %}
+        {% if record.material %}
+        <td align="center"><font size="2">{{titles.material}}</font></td>
+        {% endif %}
+        {% if record.weight or record.fineness %}
+        <td align="center"><font size="2">
+          {% if record.weight %}{{titles.weight}}{% endif %}
+          {% if record.weight and record.fineness %},{% endif %}
+          {% if record.fineness %}{{titles.fineness}}{% endif %}
+        </font></td>
+        {% endif %}
+        {% if record.diameter %}
+        <td align="center"><font size="2">{{titles.diameter}}</font></td>
+        {% endif %}
+        {% if record.thickness %}
+        <td align="center"><font size="2">{{titles.thickness}}</font></td>
+        {% endif %}
+        {% if record.mintage %}
+        <td align="center"><font size="2">{{titles.mintage}}</font></td>
+        {% endif %}
+  </tr>
+<!-- main pqart -->
+
+  <tr bgcolor="white">
+        {% if record.denomination %}
+        <td align="center"><font size="2">{{record.denomination}}</font></td>
+        {% endif %}
+        {% if record.quality %}
+        <td align="center"><font size="2">{{record.quality}}</font></td>
+        {% endif %}
+        {% if record.material %}
+        <td align="center"><font size="2">{{record.material}}</font></td>
+        {% endif %}
+        {% if record.weight or record.fineness %}
+        <td align="center"><font size="2">{{record.weight}} {{record.fineness}}</font></td>
+        {% endif %}
+        {% if record.diameter %}
+        <td align="center"><font size="2">{{record.diameter}}</font></td>
+        {% endif %}
+        {% if record.thickness %}
+        <td align="center"><font size="2">{{record.thickness}}</font></td>
+        {% endif %}
+        {% if record.mintage %}
+        <td align="center"><font size="2">{{record.mintage}}</font></td>
+        {% endif %}
+  </tr>
+<!-- /main pqart -->
+
+</tbody></table></td></tr></tbody></table>
+<br>
+<table border="0" cellspacing="0" width="100%">
+  <tbody><tr bgcolor="white">
+    <td rowspan="3" width="11"></td>
+    <td valign="top" width="172"><img src="{{static_files}}/{{record.obverseimg}}" width="300" border="0">&nbsp;
+      <p>&nbsp;</p></td>
+    <td valign="top" width="54"><br>
+      <br>
+      {{titles.obverseimg}}:</td>
+    <td valign="top">
+      <p align="justify"> <br>
+      <br>{{record.obversedesign}}</p>
+    </td>
+    <td width="72"></td>
+  </tr>
+  <tr bgcolor="white">
+    <td valign="top"><img src="{{static_files}}/{{record.reverseimg}}" width="300" border="0">&nbsp;
+</td>
+    <td valign="top" width="54"><br>
+      <br>
+      {{titles.reverseimg}}:</td>
+    <td valign="top">
+      <p align="justify"> <br>
+      <br>{{record.reversedesign}}</p>
+    </td>
+    <td width="72"></td>
+  </tr>
+  <tr bgcolor="white">
+    <td width="172"></td>
+    <td width="54"></td>
+    
+    <td valign="top"><br>
+      {% if record.obversedesigner or record.reversedesigner %}
+        {{titles.obversedesigner}}: {{ record.obversedesigner }}{% if record.obversedesigner and record.reversedesigner %},{% endif %} {{ record.reversedesigner }}<br>
+      {% endif %}
+      {% if record.mint or record.mintmark %}
+        {{titles.mint}}: {{record.mint}} {% if record.mintmark %}({{record.mintmark}}){% endif %}<br>
+      {% endif %}
+      {% if record.edgelabel %}
+        {{titles.edgeimg}}: {{record.edgelabel}}
+      {% endif %}
+    </td>
+    <td width="72"></td>
+  </tr>
+  <tr bgcolor="white">
+    <td width="11"></td>
+    <td colspan="3"><br><p align="justify">{{record.subject}}</p><p></p></td>
+    <td width="72"></td>
+  </tr>
+</tbody></table>
