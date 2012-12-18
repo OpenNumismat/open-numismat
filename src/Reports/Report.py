@@ -6,6 +6,8 @@ from jinja2 import Environment, FileSystemLoader
 
 from PyQt4 import QtGui, QtCore
 
+from Tools import Gui
+
 class Report(QtCore.QObject):
     def __init__(self, model, dstPath, parent=None):
         super(Report, self).__init__(parent)
@@ -36,8 +38,15 @@ class Report(QtCore.QObject):
         self.mapping['titles'] = titles_mapping
 
         if len(records) > 1:
+            progressDlg = Gui.ProgressDialog(self.tr("Generating report"),
+                            self.tr("Cancel"), len(records), self.parent())
+
             record_data = []
             for record in records:
+                progressDlg.step()
+                if progressDlg.wasCanceled():
+                    break
+
                 if single_file:
                     record_data.append(self.__recordMapping(record))
                 else:
@@ -53,6 +62,8 @@ class Report(QtCore.QObject):
             f = codecs.open(dstFile, 'w', 'utf-8')
             f.write(res)
             f.close()
+
+            progressDlg.reset()
         else:
             dstFile = self._generateItem(records[0])
 
