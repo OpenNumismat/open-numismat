@@ -67,6 +67,11 @@ class MainWindow(QtGui.QMainWindow):
                                     self.tr("Backup"), self)
         backupCollectionAct.triggered.connect(self.backupCollectionEvent)
 
+        vacuumCollectionAct = QtGui.QAction(
+                                    QtGui.QIcon('icons/compress.png'),
+                                    self.tr("Vacuum"), self)
+        vacuumCollectionAct.triggered.connect(self.vacuumCollectionEvent)
+
         descriptionCollectionAct = QtGui.QAction(self.tr("Description"), self)
         descriptionCollectionAct.triggered.connect(
                                             self.descriptionCollectionEvent)
@@ -118,6 +123,7 @@ class MainWindow(QtGui.QMainWindow):
         collectionMenu.addAction(newCollectionAct)
         collectionMenu.addAction(openCollectionAct)
         collectionMenu.addAction(backupCollectionAct)
+        collectionMenu.addAction(vacuumCollectionAct)
         collectionMenu.addAction(passwordCollectionAct)
         collectionMenu.addAction(descriptionCollectionAct)
         collectionMenu.addSeparator()
@@ -355,6 +361,9 @@ class MainWindow(QtGui.QMainWindow):
 
     def backupCollectionEvent(self, checked):
         self.collection.backup()
+
+    def vacuumCollectionEvent(self, checked):
+        self.collection.vacuum()
 
     def openCollection(self, fileName):
         self.__saveParams()
