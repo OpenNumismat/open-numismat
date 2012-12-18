@@ -77,8 +77,10 @@ class ImageEdit(ImageLabel):
     latestDir = QtGui.QDesktopServices.storageLocation(
                                     QtGui.QDesktopServices.PicturesLocation)
 
-    def __init__(self, parent=None):
+    def __init__(self, name, parent=None):
         super(ImageEdit, self).__init__(parent)
+
+        self.name = name or 'photo'
 
         self.setFrameStyle(QtGui.QFrame.Panel | QtGui.QFrame.Plain)
 
@@ -157,7 +159,7 @@ class ImageEdit(ImageLabel):
                             "All files (*.*)")
         # TODO: Set default name to coin title + field name
         fileName = QtGui.QFileDialog.getSaveFileName(self,
-                caption, ImageEdit.latestDir + '/photo',
+                caption, ImageEdit.latestDir + '/' + self.name,
                 filter_)
         if fileName:
             dir_ = QtCore.QDir(fileName)
@@ -232,8 +234,8 @@ class ImageEdit(ImageLabel):
 
 
 class EdgeImageEdit(ImageEdit):
-    def __init__(self, parent=None):
-        super(EdgeImageEdit, self).__init__(parent)
+    def __init__(self, name, parent=None):
+        super(EdgeImageEdit, self).__init__(name, parent)
 
     def _setImage(self, image):
         if not image.isNull():
