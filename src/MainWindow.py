@@ -317,16 +317,17 @@ class MainWindow(QtGui.QMainWindow):
         if records:
             report = Report(listView.model(), TemporaryDir.path())
             fileName = report.generate(Settings()['template'], records, True)
-            file = QtCore.QFile(fileName)
-            file.open(QtCore.QIODevice.ReadOnly)
+            if fileName:
+                file = QtCore.QFile(fileName)
+                file.open(QtCore.QIODevice.ReadOnly)
 
-            out = QtCore.QTextStream(file)
-            out.setCodec(QtCore.QTextCodec.codecForName('utf-8'))
-            output = out.readAll()
+                out = QtCore.QTextStream(file)
+                out.setCodec(QtCore.QTextCodec.codecForName('utf-8'))
+                output = out.readAll()
 
-            folder = QtCore.QFileInfo(fileName).absolutePath()
-            preview = PreviewDialog(output, folder, self)
-            preview.exec_()
+                folder = QtCore.QFileInfo(fileName).absolutePath()
+                preview = PreviewDialog(output, folder, self)
+                preview.exec_()
 
     def __workingDir(self):
         fileName = self.collection.fileName

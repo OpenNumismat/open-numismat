@@ -86,7 +86,7 @@ class Report(QtCore.QObject):
             for record in records:
                 progressDlg.step()
                 if progressDlg.wasCanceled():
-                    break
+                    return None
 
                 if single_file:
                     record_data.append(self.__recordMapping(record))
@@ -130,7 +130,7 @@ class Report(QtCore.QObject):
         record_mapping = {}
         for field in self.model.fields:
             value = record.value(field.name)
-            if value == '' or isinstance(value, QtCore.QPyNullVariant):
+            if value is None or value == '' or isinstance(value, QtCore.QPyNullVariant):
                 record_mapping[field.name] = ''
             else:
                 if field.name in imgFields:

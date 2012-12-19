@@ -390,8 +390,9 @@ class ListView(QtGui.QTableView):
             report = Report(self.model(), TemporaryDir.path())
             fileName = report.generate(Settings()['template'], records)
 
-            executor = QtGui.QDesktopServices()
-            executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
+            if fileName:
+                executor = QtGui.QDesktopServices()
+                executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
 
     def _edit(self, index=None):
         if not index:

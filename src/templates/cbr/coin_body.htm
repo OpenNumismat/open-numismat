@@ -21,7 +21,7 @@
       <b>{{titles.series}}: {{record.series}}</b>
       {% endif %}
       <br>
-      {{record.subjectshort}}
+      {% if record.subjectshort %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}
       <br>
       <p>
       {% if record.issuedate %}
