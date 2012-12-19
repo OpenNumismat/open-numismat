@@ -153,6 +153,7 @@ class MainWindow(QtGui.QMainWindow):
 
         report = menubar.addMenu(self.tr("Report"))
         report.addAction(reportAct)
+        report.addAction(viewBrowserAct)
 
         helpAct = QtGui.QAction(QtGui.QIcon('icons/help.png'),
                                 self.tr("Online help"), self)
@@ -315,7 +316,7 @@ class MainWindow(QtGui.QMainWindow):
 
         if records:
             report = Report(listView.model(), TemporaryDir.path())
-            fileName = report.generate(records, True)
+            fileName = report.generate(Settings()['template'], records, True)
             file = QtCore.QFile(fileName)
             file.open(QtCore.QIODevice.ReadOnly)
 

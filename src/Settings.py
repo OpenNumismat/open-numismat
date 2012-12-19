@@ -5,6 +5,7 @@ from PyQt4.QtCore import Qt
 
 from EditCoinDialog.FormItems import NumberEdit
 from Collection.CollectionFields import CollectionFieldsBase
+from Reports import Report
 import version
 
 
@@ -78,7 +79,8 @@ class Settings(BaseSettings):
                'backup': version.AppDir + "/backup/",
                'reference': version.AppDir + "/reference.ref",
                'error': False, 'updates': False,
-               'free_numeric': False}
+               'free_numeric': False,
+               'template': 'cbr'}
 
     def __init__(self, autoSave=False):
         super(Settings, self).__init__(autoSave)
@@ -179,6 +181,18 @@ class MainSettingsPage(QtGui.QWidget):
         self.freeNumeric.setChecked(settings['free_numeric'])
         layout.addRow(self.freeNumeric)
 
+        current = 0
+        self.templateSelector = QtGui.QComboBox(self)
+        for i, template in enumerate(Report.scanTemplates()):
+            self.templateSelector.addItem(template)
+            if settings['template'] == template:
+                current = i
+        self.templateSelector.setCurrentIndex(current)
+        self.templateSelector.setSizePolicy(QtGui.QSizePolicy.Fixed,
+                                            QtGui.QSizePolicy.Fixed)
+
+        layout.addRow(self.tr("Default template"), self.templateSelector)
+
         self.setLayout(layout)
 
     def backupButtonClicked(self):
@@ -206,6 +220,7 @@ class MainSettingsPage(QtGui.QWidget):
         settings['error'] = self.errorSending.isChecked()
         settings['updates'] = self.checkUpdates.isChecked()
         settings['free_numeric'] = self.freeNumeric.isChecked()
+        settings['template'] = self.templateSelector.currentText()
 
         settings.save()
 

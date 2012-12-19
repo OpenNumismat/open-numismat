@@ -8,15 +8,56 @@ from PyQt4 import QtGui, QtCore
 
 from Tools import Gui
 
+def copyFolder(sourceFolder, destFolder):
+    sourceDir = QtCore.QDir(sourceFolder)
+    if not sourceDir.exists():
+        return
+
+    destDir = QtCore.QDir(destFolder)
+    if not destDir.exists():
+        destDir.mkpath(destFolder)
+
+    files = sourceDir.entryList(QtCore.QDir.Files)
+    for file in files:
+        srcName = sourceFolder + "/" + file
+        destName = destFolder + "/" + file
+        QtCore.QFile.copy(srcName, destName)
+
+    files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+    for file in files:
+        srcName = sourceFolder + "/" + file
+        destName = destFolder + "/" + file
+        copyFolder(srcName, destName)
+
+def scanTemplates():
+    templates = []
+
+    sourceDir = QtCore.QDir(Report.BASE_FOLDER)
+    if not sourceDir.exists():
+        return templates
+
+    files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+    for file in files:
+        templates.append(file)
+
+    return templates
+
 class Report(QtCore.QObject):
+    BASE_FOLDER = 'templates'
+
     def __init__(self, model, dstPath, parent=None):
         super(Report, self).__init__(parent)
 
         self.model = model
         self.dstPath = dstPath
 
-    def generate(self, records, single_file=False):
-        self.single_file = single_file
+    def generate(self, template_name, records, single_file=False):
+        if os.path.exists('%s/%s/coin.htm' % (self.BASE_FOLDER, template_name)):
+            has_item_template = True
+        else:
+            has_item_template = False
+            single_file = True
+
         self.mapping = {'single_file': single_file}
 
         if len(records) > 1:
@@ -27,17 +68,17 @@ class Report(QtCore.QObject):
 
         self.mapping['static_files'] = static_files
 
-        shutil.rmtree(self.contentDir, ignore_errors=True)
-        shutil.copytree('templates/cbr/files', self.contentDir)
+        copyFolder('%s/%s/files' % (self.BASE_FOLDER, template_name),
+                   self.contentDir)
 
-        self.env = Environment(loader=FileSystemLoader('templates/cbr'))
+        self.env = Environment(loader=FileSystemLoader('%s/%s' % (self.BASE_FOLDER, template_name)))
 
         titles_mapping = {}
         for field in self.model.fields:
             titles_mapping[field.name] = field.title
         self.mapping['titles'] = titles_mapping
 
-        if len(records) > 1:
+        if len(records) > 1 or not has_item_template:
             progressDlg = Gui.ProgressDialog(self.tr("Generating report"),
                             self.tr("Cancel"), len(records), self.parent())
 
@@ -88,7 +129,10 @@ class Report(QtCore.QObject):
 
         record_mapping = {}
         for field in self.model.fields:
-            if record.value(field.name):
+            value = record.value(field.name)
+            if value == '' or isinstance(value, QtCore.QPyNullVariant):
+                record_mapping[field.name] = ''
+            else:
                 if field.name in imgFields:
                     if field.name == 'image':
                         ext = 'png'
@@ -103,8 +147,6 @@ class Report(QtCore.QObject):
                     image.save(imgFile)
                     record_mapping[field.name] = imgFileTitle
                 else:
-                    record_mapping[field.name] = record.value(field.name)
-            else:
-                record_mapping[field.name] = ''
+                    record_mapping[field.name] = value
 
         return record_mapping

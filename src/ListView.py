@@ -11,6 +11,7 @@ from SelectColumnsDialog import SelectColumnsDialog
 from Collection.HeaderFilterMenu import FilterMenuButton
 from Tools import Gui, TemporaryDir
 from Reports.Report import Report
+from Settings import Settings
 
 
 def textToClipboard(text):
@@ -387,7 +388,7 @@ class ListView(QtGui.QTableView):
 
         if records:
             report = Report(self.model(), TemporaryDir.path())
-            fileName = report.generate(records)
+            fileName = report.generate(Settings()['template'], records)
 
             executor = QtGui.QDesktopServices()
             executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
