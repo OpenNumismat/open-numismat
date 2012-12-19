@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>База данных по памятным и инвестиционным монетам | Банк России</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+</head>
+
+<body>
+
+<div id="bodyContent">
+
+<table class="standard sortable jquery-tablesorter" border="1" cellpadding="2" cellspacing="0" style="background: #f9f9f9; border: 1px solid #aaaaaa; border-collapse: collapse">
+<thead><tr>
+<th>{{titles.reverseimg}}</th>
+<th>{{titles.country}}</th>
+<th>{{titles.title}}</th>
+<th>{{titles.mintage}}</th>
+<th>{{titles.issuedate}}</th>
+</tr></thead><tbody>
+  {% for record in records %}
+<tr>
+<td style="width:160px;" rowspan="2">
+<center><a href="{{static_files}}/{{record.reverseimg}}" class="image"><img src="{{static_files}}/{{record.reverseimg}}" width="150" height="152"></a></center>
+</td>
+<td>{{record.country}}</td>
+<td>{{record.subjectshort}}</td>
+<td>{{record.mintage}}</td>
+<td><span style="white-space: nowrap;">{{record.issuedate}}</span></td>
+</tr>
+    {% if not loop.last %}
+<tr>
+<td colspan="5">{{record.subject}}</td>
+</tr>
+    {% endif %}
+<tr>
+<td colspan="5">&nbsp;</td>
+</tr>
+  {% endfor %}
+</tbody><tfoot></tfoot></table>
+
+</div>
+
+</body>
+</html>

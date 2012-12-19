@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>База данных по памятным и инвестиционным монетам | Банк России</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+</head>
+
+<body>
+
+<div id="bodyContent">
+
+<table class="standard sortable jquery-tablesorter" border="1" cellpadding="2" cellspacing="0" style="background: #f9f9f9; border: 1px solid #aaaaaa; border-collapse: collapse">
+<thead><tr>
+<th>{{titles.issuedate}}</th>
+<th>{{titles.catalognum1}}</th>
+<th>{{titles.mintage}}<br>
+(- {{titles.quality}})</th>
+<th>{{titles.value}}</th>
+<th>{{titles.material}}</th>
+<th>{{titles.title}}</th>
+<th>{{titles.obverseimg}}</th>
+<th>{{titles.reverseimg}}</th>
+</tr></thead><tbody>
+  {% for record in records %}
+<tr>
+<td>{{record.issuedate}}</td>
+<td>{% if record.url %}<a rel="nofollow" href="{{record.url}}">{% endif %}{{record.catalognum1}}{% if record.url %}</a>{% endif %}</td>
+<td>
+<p style="text-align:right;"><span style="white-space: nowrap;">{{record.mintage}}{% if record.quality %} - {{record.quality}}{% endif %}</span></p>
+</td>
+<td>
+<p style="text-align:right;">{{record.value}}</p>
+</td>
+<td>{{record.material}}</td>
+<td>{% if record.series %}<b>{{record.series}}:</b> {% endif %}{{record.subjectshort}}</td>
+<td><a href="{{static_files}}/{{record.obverseimg}}" class="image"><img src="{{static_files}}/{{record.obverseimg}}" width="120" height="120"></a></td>
+<td><a href="{{static_files}}/{{record.reverseimg}}" class="image"><img src="{{static_files}}/{{record.reverseimg}}" width="120" height="120"></a></td>
+</tr>
+  {% endfor %}
+</tbody><tfoot></tfoot></table>
+
+</div>
+
+</body>
+</html>
