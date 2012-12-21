@@ -1,6 +1,5 @@
 import codecs
 import os
-import shutil
 # TODO: For speedup use additional a http://pypi.python.org/pypi/MarkupSafe
 from jinja2 import Environment, FileSystemLoader
 
