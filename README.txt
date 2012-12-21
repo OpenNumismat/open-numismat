@@ -1,6 +1,7 @@
 Requirement:
  * Python 3.2.3
  * PyQt 4.9.5
+ * Jinja2 2.6 (for reports)
  * lxml 2.3 (for auction parsing and importing from CoinsCollector 2.6)
  * Firebird 2.0 (for importing from Numizmat 2.1)
  * nakagami/pyfirebirdsql 0.7.0 (for importing from Numizmat 2.1)
