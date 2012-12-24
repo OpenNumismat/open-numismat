@@ -386,13 +386,12 @@ class ListView(QtGui.QTableView):
         for index in indexes:
             records.append(self.model().record(index.row()))
 
-        if records:
-            report = Report(self.model(), TemporaryDir.path())
-            fileName = report.generate(Settings()['template'], records)
+        report = Report(self.model(), TemporaryDir.path())
+        fileName = report.generate(Settings()['template'], records)
 
-            if fileName:
-                executor = QtGui.QDesktopServices()
-                executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
+        if fileName:
+            executor = QtGui.QDesktopServices()
+            executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
 
     def _edit(self, index=None):
         if not index:

@@ -59,10 +59,10 @@ class Report(QtCore.QObject):
 
         self.mapping = {'single_file': single_file}
 
-        if len(records) > 1:
-            static_files = "coins_files"
-        else:
+        if len(records) == 1:
             static_files = "coin_%d_files" % records[0].value('id')
+        else:
+            static_files = "coins_files"
         self.contentDir = os.path.join(self.dstPath, static_files)
 
         self.mapping['static_files'] = static_files
@@ -77,7 +77,9 @@ class Report(QtCore.QObject):
             titles_mapping[field.name] = field.title
         self.mapping['titles'] = titles_mapping
 
-        if len(records) > 1 or not has_item_template:
+        if len(records) == 1 and has_item_template:
+            dstFile = self._generateItem(records[0])
+        else:
             progressDlg = Gui.ProgressDialog(self.tr("Generating report"),
                             self.tr("Cancel"), len(records), self.parent())
 
@@ -104,8 +106,6 @@ class Report(QtCore.QObject):
             f.close()
 
             progressDlg.reset()
-        else:
-            dstFile = self._generateItem(records[0])
 
         return dstFile
 

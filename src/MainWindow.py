@@ -10,8 +10,6 @@ from TabView import TabView
 from Settings import Settings, SettingsDialog
 from LatestCollections import LatestCollections
 from Tools.CursorDecorators import waitCursorDecorator
-from Tools import TemporaryDir
-from Reports.Report import Report
 from Reports.Preview import PreviewDialog
 import version
 
@@ -309,25 +307,14 @@ class MainWindow(QtGui.QMainWindow):
     def report(self):
         listView = self.viewTab.currentListView()
         indexes = listView.selectedRows()
+        model = listView.model()
 
         records = []
         for index in indexes:
-            records.append(listView.model().record(index.row()))
+            records.append(model.record(index.row()))
 
-        if records:
-            report = Report(listView.model(), TemporaryDir.path())
-            fileName = report.generate(Settings()['template'], records, True)
-            if fileName:
-                file = QtCore.QFile(fileName)
-                file.open(QtCore.QIODevice.ReadOnly)
-
-                out = QtCore.QTextStream(file)
-                out.setCodec(QtCore.QTextCodec.codecForName('utf-8'))
-                output = out.readAll()
-
-                folder = QtCore.QFileInfo(fileName).absolutePath()
-                preview = PreviewDialog(output, folder, self)
-                preview.exec_()
+        preview = PreviewDialog(model, records, self)
+        preview.exec_()
 
     def __workingDir(self):
         fileName = self.collection.fileName
