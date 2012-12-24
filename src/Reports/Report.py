@@ -70,7 +70,8 @@ class Report(QtCore.QObject):
         copyFolder('%s/%s/files' % (self.BASE_FOLDER, template_name),
                    self.contentDir)
 
-        self.env = Environment(loader=FileSystemLoader('%s/%s' % (self.BASE_FOLDER, template_name)))
+        loader = FileSystemLoader('%s/%s' % (self.BASE_FOLDER, template_name))
+        self.env = Environment(loader=loader)
 
         titles_mapping = {}
         for field in self.model.fields:

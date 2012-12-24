@@ -33,11 +33,11 @@ class PreviewDialog(QtGui.QDialog):
         self.setupActions()
 
         self.templateSelector = QtGui.QComboBox(self)
-        self.templateSelector.currentIndexChanged.connect(self._templateChanged)
         for i, template in enumerate(Report.scanTemplates()):
             self.templateSelector.addItem(template)
             if Settings()['template'] == template:
                 current = i
+        self.templateSelector.currentIndexChanged.connect(self._templateChanged)
         self.templateSelector.setCurrentIndex(current)
 
         mw = QPrintPreviewMainWindow(self)
@@ -125,7 +125,7 @@ class PreviewDialog(QtGui.QDialog):
         report = Report.Report(self.model, TemporaryDir.path())
         fileName = report.generate(template_name, self.records, True)
         if not fileName:
-            return  #TODO: !!!
+            return
 
         file = QtCore.QFile(fileName)
         file.open(QtCore.QIODevice.ReadOnly)
