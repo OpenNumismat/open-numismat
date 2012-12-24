@@ -1,7 +1,11 @@
 import codecs
 import os
+
+try:
 # TODO: For speedup use additional a http://pypi.python.org/pypi/MarkupSafe
-from jinja2 import Environment, FileSystemLoader
+    from jinja2 import Environment, FileSystemLoader
+except ImportError:
+    print('jinja2 module missed. Report engine not available')
 
 from PyQt4 import QtGui, QtCore
 
