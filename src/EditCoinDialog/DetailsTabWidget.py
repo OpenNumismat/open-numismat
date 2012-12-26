@@ -5,7 +5,6 @@ from PyQt4.QtGui import QApplication
 from .FormItems import DoubleValidator
 from .BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from .BaseFormLayout import DesignFormLayout, FormItem
-from Collection.CollectionFields import CollectionFields
 from Collection.CollectionFields import FieldTypes as Type
 
 
