@@ -48,14 +48,22 @@ def scanTemplates():
 class Report(QtCore.QObject):
     BASE_FOLDER = 'templates'
 
-    def __init__(self, model, dstPath, parent=None):
+    def __init__(self, model, template_name, dstPath, parent=None):
         super(Report, self).__init__(parent)
 
         self.model = model
-        self.dstPath = dstPath
+        self.srcFolder = os.path.join(self.BASE_FOLDER, template_name)
 
-    def generate(self, template_name, records, single_file=False):
-        if os.path.exists('%s/%s/coin.htm' % (self.BASE_FOLDER, template_name)):
+        fileInfo = QtCore.QFileInfo(dstPath)
+        if fileInfo.exists() and fileInfo.isDir():
+            self.dstFolder = dstPath
+            self.fileName = None
+        else:
+            self.dstFolder = fileInfo.dir().path()
+            self.fileName = fileInfo.fileName()
+
+    def generate(self, records, single_file=False):
+        if os.path.exists(os.path.join(self.srcFolder, 'coin.htm')):
             has_item_template = True
         else:
             has_item_template = False
@@ -63,18 +71,19 @@ class Report(QtCore.QObject):
 
         self.mapping = {'single_file': single_file}
 
-        if len(records) == 1:
-            static_files = "coin_%d_files" % records[0].value('id')
-        else:
-            static_files = "coins_files"
-        self.contentDir = os.path.join(self.dstPath, static_files)
+        if not self.fileName:
+            if len(records) == 1 and has_item_template:
+                self.fileName = "coin_%d.htm" % records[0].value('id')
+            else:
+                self.fileName = "coins.htm"
+        static_files = QtCore.QFileInfo(self.fileName).baseName() + '_files'
+        self.contentDir = os.path.join(self.dstFolder, static_files)
 
         self.mapping['static_files'] = static_files
 
-        copyFolder('%s/%s/files' % (self.BASE_FOLDER, template_name),
-                   self.contentDir)
+        copyFolder(os.path.join(self.srcFolder, 'files'), self.contentDir)
 
-        loader = FileSystemLoader('%s/%s' % (self.BASE_FOLDER, template_name))
+        loader = FileSystemLoader(self.srcFolder)
         self.env = Environment(loader=loader)
 
         titles_mapping = {}
@@ -83,7 +92,8 @@ class Report(QtCore.QObject):
         self.mapping['titles'] = titles_mapping
 
         if len(records) == 1 and has_item_template:
-            dstFile = self._generateItem(records[0])
+            self.mapping['record'] = self.__recordMapping(records[0])
+            dstFile = self.__render('coin.htm', self.fileName)
         else:
             progressDlg = Gui.ProgressDialog(self.tr("Generating report"),
                             self.tr("Cancel"), len(records), self.parent())
@@ -94,33 +104,25 @@ class Report(QtCore.QObject):
                 if progressDlg.wasCanceled():
                     return None
 
-                if single_file:
-                    record_data.append(self.__recordMapping(record))
-                else:
-                    self._generateItem(record)
-                    record_data.append(self.mapping['record'])
+                recordMapping = self.__recordMapping(record)
+                record_data.append(recordMapping)
+                if not single_file:
+                    self.mapping['record'] = recordMapping
+                    self.__render('coin.htm', "coin_%d.htm" % record.value('id'))
 
             self.mapping['records'] = record_data
 
-            template = self.env.get_template('coins.htm')
-            res = template.render(self.mapping)
-
-            dstFile = os.path.join(self.dstPath, "coins.htm")
-            f = codecs.open(dstFile, 'w', 'utf-8')
-            f.write(res)
-            f.close()
+            dstFile = self.__render('coins.htm', self.fileName)
 
             progressDlg.reset()
 
         return dstFile
 
-    def _generateItem(self, record):
-        self.mapping['record'] = self.__recordMapping(record)
-
-        template = self.env.get_template('coin.htm')
+    def __render(self, template, fileName):
+        template = self.env.get_template(template)
         res = template.render(self.mapping)
 
-        dstFile = os.path.join(self.dstPath, "coin_%d.htm" % record.value('id'))
+        dstFile = os.path.join(self.dstFolder, fileName)
         f = codecs.open(dstFile, 'w', 'utf-8')
         f.write(res)
         f.close()

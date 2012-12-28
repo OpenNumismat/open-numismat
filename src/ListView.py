@@ -386,8 +386,9 @@ class ListView(QtGui.QTableView):
         for index in indexes:
             records.append(self.model().record(index.row()))
 
-        report = Report(self.model(), TemporaryDir.path())
-        fileName = report.generate(Settings()['template'], records)
+        report = Report(self.model(), Settings()['template'],
+                        TemporaryDir.path())
+        fileName = report.generate(records)
 
         if fileName:
             executor = QtGui.QDesktopServices()

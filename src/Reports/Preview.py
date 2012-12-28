@@ -1,7 +1,13 @@
+try:
+    import win32com.client
+except ImportError:
+    print('win32com module missed. Exporting to Word not available')
+
 from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.QtCore import Qt
 
 from Tools import TemporaryDir
+from Tools.CursorDecorators import waitCursorDecorator
 from Reports import Report
 from Settings import Settings
 
@@ -78,10 +84,12 @@ class PreviewDialog(QtGui.QDialog):
         self.setupActions()
 
         self.templateSelector = QtGui.QComboBox(self)
+        current = 0
         for i, template in enumerate(Report.scanTemplates()):
             self.templateSelector.addItem(template)
             if Settings()['template'] == template:
                 current = i
+        self.templateSelector.setCurrentIndex(-1)
         self.templateSelector.currentIndexChanged.connect(self._templateChanged)
 
         self.pageNumEdit = LineEdit()
@@ -141,6 +149,9 @@ class PreviewDialog(QtGui.QDialog):
         toolbar.addSeparator()
         toolbar.addAction(self.pageSetupAction)
         toolbar.addAction(self.printAction)
+        toolbar.addAction(self.htmlAction)
+        toolbar.addAction(self.pdfAction)
+        toolbar.addAction(self.wordAction)
 
         # Cannot use the actions' triggered signal here, since it doesn't autorepeat
         zoomInButton = toolbar.widgetForAction(self.zoomInAction)
@@ -231,6 +242,18 @@ class PreviewDialog(QtGui.QDialog):
         self.qt_setupActionIcon(self.pageSetupAction, "page-setup")
         self.printAction.triggered.connect(self._q_print)
         self.pageSetupAction.triggered.connect(self._q_pageSetup)
+        # Export
+        self.exportGroup = QtGui.QActionGroup(self)
+        self.wordAction = self.exportGroup.addAction(
+                        QtGui.QIcon('icons/Document Microsoft Word-01.png'),
+                        self.tr("Save as MS Word document"))
+        self.htmlAction = self.exportGroup.addAction(
+                        QtGui.QIcon('icons/Web HTML-01.png'),
+                        self.tr("Save as HTML files"))
+        self.pdfAction = self.exportGroup.addAction(
+                        QtGui.QIcon('icons/Adobe PDF Document-01.png'),
+                        self.tr("Save as PDF file"))
+        self.exportGroup.triggered.connect(self._q_export)
 
         # Initial state:
         self.fitWidthAction.setChecked(True)
@@ -255,19 +278,19 @@ class PreviewDialog(QtGui.QDialog):
 
     def _templateChanged(self, index):
         template_name = self.templateSelector.currentText()
-        report = Report.Report(self.model, TemporaryDir.path())
-        fileName = report.generate(template_name, self.records, True)
-        if not fileName:
+        report = Report.Report(self.model, template_name, TemporaryDir.path())
+        self.fileName = report.generate(self.records, True)
+        if not self.fileName:
             return
 
-        file = QtCore.QFile(fileName)
+        file = QtCore.QFile(self.fileName)
         file.open(QtCore.QIODevice.ReadOnly)
 
         out = QtCore.QTextStream(file)
         out.setCodec(QtCore.QTextCodec.codecForName('utf-8'))
         html = out.readAll()
 
-        basePath = QtCore.QFileInfo(fileName).absolutePath()
+        basePath = QtCore.QFileInfo(self.fileName).absolutePath()
 
         baseUrl = QtCore.QUrl.fromLocalFile(basePath + '/')
         self.webView.setHtml(html, baseUrl)
@@ -388,6 +411,49 @@ class PreviewDialog(QtGui.QDialog):
             else:
                 self.landscapeAction.setChecked(True)
                 self.preview.setLandscapeOrientation()
+
+    def _q_export(self, action):
+        if action == self.wordAction:
+            fileName = QtGui.QFileDialog.getSaveFileName(self,
+                                self.tr("Save as"),
+                                filter=self.tr("Word documents (*.doc)"))
+            if fileName:
+                self.__exportToWord(self.fileName, fileName)
+        elif action == self.htmlAction:
+            fileName = QtGui.QFileDialog.getSaveFileName(self,
+                                self.tr("Save as"),
+                                filter=self.tr("Web page (*.htm *.html)"))
+            if fileName:
+                self.__exportToHtml(fileName)
+        elif action == self.pdfAction:
+            fileName = QtGui.QFileDialog.getSaveFileName(self,
+                                self.tr("Save as"),
+                                filter=self.tr("PDF file (*.pdf)"))
+            if fileName:
+                self.__exportToPdf(fileName)
+
+    @waitCursorDecorator
+    def __exportToWord(self, src, dst):
+        word = win32com.client.Dispatch('Word.Application')
+
+        doc = word.Documents.Add(src)
+        doc.SaveAs(dst, FileFormat=0)
+        doc.Close()
+
+        word.Quit()
+
+    @waitCursorDecorator
+    def __exportToHtml(self, fileName):
+        template_name = self.templateSelector.currentText()
+        report = Report.Report(self.model, template_name, fileName)
+        self.fileName = report.generate(self.records, True)
+
+    @waitCursorDecorator
+    def __exportToPdf(self, fileName):
+        self.printer.setOutputFormat(QtGui.QPrinter.PdfFormat)
+        self.printer.setOutputFileName(fileName)
+        self.preview.print_()
+        self.printer.setOutputFormat(QtGui.QPrinter.NativeFormat)
 
     def _q_previewChanged(self):
         self.updateNavActions()
