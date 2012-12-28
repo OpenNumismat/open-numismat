@@ -69,6 +69,8 @@ class PreviewDialog(QtGui.QDialog):
         super(PreviewDialog, self).__init__(parent,
                         Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint)
 
+        self.started = False
+
         self.records = records
         self.model = model
 
@@ -256,12 +258,15 @@ class PreviewDialog(QtGui.QDialog):
         self.exportGroup.triggered.connect(self._q_export)
 
         # Initial state:
-        self.fitWidthAction.setChecked(True)
+        self.fitPageAction.setChecked(True)
         self.singleModeAction.setChecked(True)
         if self.preview.orientation() == QtGui.QPrinter.Portrait:
             self.portraitAction.setChecked(True)
         else:
             self.landscapeAction.setChecked(True)
+
+    def exec_(self):
+        pass
 
     def paintRequested(self, printer):
         self.webView.print_(printer)
@@ -275,6 +280,10 @@ class PreviewDialog(QtGui.QDialog):
 
     def _loadFinished(self, ok):
         self.preview.updatePreview()
+        if not self.started:
+            # Fist rendering is done - show dialog
+            self.started = True
+            super(PreviewDialog, self).exec_()
 
     def _templateChanged(self, index):
         template_name = self.templateSelector.currentText()
