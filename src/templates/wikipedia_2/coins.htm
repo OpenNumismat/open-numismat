@@ -10,6 +10,8 @@
 
 <div id="bodyContent">
 
+{% for group in records|groupby('year') %}
+<h3>{{ group.grouper }}</h3>
 <table class="standard sortable jquery-tablesorter" border="1" cellpadding="2" cellspacing="0" style="background: #f9f9f9; border: 1px solid #aaaaaa; border-collapse: collapse">
 <thead><tr>
 <th>{{titles.reverseimg}}</th>
@@ -18,7 +20,7 @@
 <th>{{titles.mintage}}</th>
 <th>{{titles.issuedate}}</th>
 </tr></thead><tbody>
-  {% for record in records %}
+  {% for record in group.list|sort(attribute='issuedate') %}
 <tr>
 <td style="width:160px;" rowspan="2">
 <center><a href="{{static_files}}/{{record.reverseimg}}" class="image"><img src="{{static_files}}/{{record.reverseimg}}" width="150" height="152"></a></center>
@@ -38,6 +40,7 @@
 </tr>
   {% endfor %}
 </tbody><tfoot></tfoot></table>
+{% endfor %}
 
 </div>
 

@@ -22,7 +22,7 @@
 <th>{{titles.obverseimg}}</th>
 <th>{{titles.reverseimg}}</th>
 </tr></thead><tbody>
-  {% for record in records %}
+  {% for record in records|sort(attribute='catalognum1')|sort(attribute='issuedate') %}
 <tr>
 <td>{{record.issuedate}}</td>
 <td>{% if record.url %}<a rel="nofollow" href="{{record.url}}">{% endif %}{{record.catalognum1}}{% if record.url %}</a>{% endif %}</td>

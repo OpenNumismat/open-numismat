@@ -3,7 +3,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>{{collection.title}}</title>
 	<link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
-
 </head>
 
 <body leftmargin="0" topmargin="0" bgcolor="#ffffff" marginheight="0" marginwidth="0">
@@ -27,7 +26,6 @@
 
 	<td class="content" valign="top" width="100%">
 <br>
-	
 
 <table bgcolor="#4B5B65" border="0" cellpadding="0" cellspacing="0" width="100%">
 <tbody><tr><td bgcolor="#4B5B65" width="100%"><img src="{{static_files}}/temp.gif" height="3" width="1"></td></tr>
@@ -41,31 +39,22 @@
   <td width="15%">{{titles.denomination}}</td>
     <td align="left" valign="center"><dd>{{titles.title}}</dd></td>
   </tr>
-  <tr bgcolor="#ffffff"><td colspan="4"><b><br></b></td></tr>
-  {% for record in records %}
-    <tr bgcolor="#ffffff">
-      <td align="center">{{record.issuedate}}</td>
-      <td align="center">{{record.catalognum1}}</td>
-      <td>&nbsp; <font size="2">{{record.denomination}}</font></td>
-      <td class="menu">
-        <a href="{% if single_file %}#id_{{record.id}}{% else %}coin_{{record.id}}.htm{% endif %}">
-          {% if record.subjectshort %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}
-        </a>
-      </td>
-    </tr>
-  {% endfor %}
-  <tr bgcolor="#ffffff"><td colspan="4"><b><br>Спортивная серия: Кубок мира по спортивной ходьбе (г. Чебоксары)</b></td></tr>
+{% for group in records|groupby('series') %}
+  <tr bgcolor="#ffffff"><td colspan="4"><b><br>{% if group.grouper %}{{titles.series}}: {{ group.grouper }}{% endif %}</b></td></tr>
+  {% for record in group.list|sort(attribute='catalognum1')|sort(attribute='issuedate') %}
   <tr bgcolor="#ffffff">
-    <td align="center">03.03.2008</td>
+    <td align="center">{{record.issuedate}}</td>
+    <td align="center">{{record.catalognum1}}</td>
+    <td>&nbsp; <font size="2">{{record.denomination}}</font></td>
+    <td class="menu">
+      <a href="{% if single_file %}#id_{{record.id}}{% else %}coin_{{record.id}}.htm{% endif %}">
+        {% if record.subjectshort %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+{% endfor %}
 
-<td align="center">5111-0167</td>
-
-<td>&nbsp; <font size="2">3 рубля</font></td>
-    <td class="menu"><a href="http://www.cbr.ru/bank-notes_coins/base_of_memorable_coins/coins1.asp?cat_num=5111-0167" target="_TOP">
-Кубок мира по спортивной ходьбе (г. Чебоксары)</a>
-</td>
-</tr>
-  
 </tbody></table></td></tr></tbody></table>
 <br>
 

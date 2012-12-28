@@ -25,3 +25,7 @@ table.standard th, table.wide th, table.prettytable th {
     background: #F2F2F2;
 }
 
+h3 {
+    font-size: 132%;
+    font-weight: bold;
+}
