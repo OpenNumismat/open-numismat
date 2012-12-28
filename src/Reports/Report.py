@@ -71,6 +71,10 @@ class Report(QtCore.QObject):
 
         self.mapping = {'single_file': single_file}
 
+        self.mapping['collection'] = {'title': self.model.description.title,
+                            'description': self.model.description.description,
+                            'author': self.model.description.author}
+
         if not self.fileName:
             if len(records) == 1 and has_item_template:
                 self.fileName = "coin_%d.htm" % records[0].value('id')

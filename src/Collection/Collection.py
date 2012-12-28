@@ -33,6 +33,7 @@ class CollectionModel(QSqlTableModel):
         self.settings = collection.settings
         self.reference = collection.reference
         self.fields = collection.fields
+        self.description = collection.description
         self.proxy = None
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
@@ -450,6 +451,8 @@ class Collection(QtCore.QObject):
 
         self._pages = CollectionPages(self.db)
 
+        self.description = CollectionDescription(self)
+
         return True
 
     def create(self, fileName):
@@ -477,6 +480,8 @@ class Collection(QtCore.QObject):
 
         self.settings = CollectionSettings(self)
 
+        self.description = CollectionDescription(self)
+
         return True
 
     def createCoinsTable(self):
@@ -500,7 +505,7 @@ class Collection(QtCore.QObject):
         return Collection.fileNameToCollectionName(self.fileName)
 
     def getDescription(self):
-        return CollectionDescription(self)
+        return self.description
 
     def model(self):
         return self.createModel()
