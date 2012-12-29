@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{{collection.title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+</head>
+
+<body>
+
+<div id="bodyContent">
+
+<table border="1" cellpadding="2" cellspacing="0">
+<thead><tr>
+<th>{{titles.image}}</th>
+<th>{{titles.title}}</th>
+<th>{{titles.value}}</th>
+<th>{{titles.unit}}</th>
+<th>{{titles.mintmark}}</th>
+<th>{{titles.country}}</th>
+<th>{{titles.year}}</th>
+<th>{{titles.series}}</th>
+<th>{{titles.subjectshort}}</th>
+<th>{{titles.status}}</th>
+</tr></thead><tbody>
+  {% for record in records %}
+<tr>
+<td><img src="{{static_files}}/{{record.image}}"></td>
+<td>{{record.title}}</td>
+<td>{{record.value}}</td>
+<td>{{record.unit}}</td>
+<td>{{record.mintmark}}</td>
+<td>{{record.country}}</td>
+<td>{{record.year}}</td>
+<td>{{record.series}}</td>
+<td>{{record.subjectshort}}</td>
+<td>{{record.status}}</td>
+</tr>
+  {% endfor %}
+</tbody><tfoot></tfoot></table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{{collection.title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+</head>
+
+<body>
+
+<div id="bodyContent">
+
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+  <td class="s0" colspan="19">{{collection.title}}</td>
+  <td class="s3" colspan="21"></td>
+</tr>
+  {% for record in records %}
+<tr style="height:4px">
+<td colspan="28" class="s7" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:18px">
+<td colspan="5" class="s4">{{record.catalognum1}}</td><td colspan="23" class="s4">{{record.title}}</td>
+</tr>
+<tr style="height:7px">
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="2" class="s6">{{titles.year}}:</td><td colspan="3" rowspan="2" class="s5">{{record.year}}</td><td colspan="2" rowspan="2" class="s6">{{titles.country}}:</td><td colspan="2" rowspan="2" class="s5">{{record.country}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr style="height:7px">
+<td colspan="6" rowspan="11" class="s10" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="152" height="152" alt=""></td><td colspan="2" rowspan="11" class="s10" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="152" height="152" alt=""></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr style="height:15px">
+<td class="s6">{{titles.period}}:</td><td colspan="19" class="s5">{{record.period}}</td>
+</tr>
+<tr style="height:15px">
+<td class="s6">{{titles.value}}:</td><td colspan="3" class="s5">{{record.value}}</td><td colspan="2" class="s6">{{titles.unit}}:</td><td colspan="14" class="s5">{{record.unit}}</td>
+</tr>
+<tr style="height:15px">
+<td class="s6">{{titles.mintmark}}:</td><td colspan="3" class="s5">{{record.mintmark}}</td><td colspan="2" class="s6">{{titles.mint}}:</td><td colspan="14" class="s5">{{record.mint}}</td>
+</tr>
+<tr style="height:15px">
+<td class="s6">{{titles.status}}:</td><td colspan="3" class="s5">{{record.status}}</td><td colspan="2" class="s6">{{titles.type}}:</td><td colspan="9" class="s5">{{record.type}}</td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr style="height:15px">
+<td class="s6">{{titles.series}}:</td><td colspan="19" cclass="s5">{{record.series}}</td>
+</tr>
+<tr style="height:15px">
+<td class="s6">{{titles.material}}:</td><td colspan="19" class="s5">{{record.material}}</td>
+</tr>
+<tr style="height:15px">
+<td class="s6">{{titles.fineness}}:</td><td colspan="2" class="s5">{{record.fineness}}</td><td colspan="2" class="s6">{{titles.weight}}:</td><td colspan="2" class="s5">{{record.weight}}</td><td colspan="3" class="s6">{{titles.diameter}}:</td><td colspan="4" class="s5">{{record.diameter}}</td><td colspan="5" class="s6">{{titles.thickness}}:</td><td class="s5">{{record.thickness}}</td>
+</tr>
+<tr style="height:15px">
+<td colspan="3" class="s6">{{titles.mintage}}:</td><td colspan="17" class="s5">{{record.mintage}}</td>
+</tr>
+<tr style="height:15px">
+<td colspan="3" class="s6">{{titles.issuedate}}:</td><td colspan="17" class="s5">{{record.issuedate}}</td>
+</tr>
+<tr style="height:7px">
+<td colspan="3" rowspan="2" class="s6">{{titles.quality}}:</td><td colspan="6" rowspan="2" class="s5">{{record.quality}}</td><td colspan="7" rowspan="2" class="s6">{{titles.paydate}}:</td><td colspan="4" rowspan="2" class="s9">{{record.paydate}}</td>
+</tr>
+<tr style="height:7px">
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr style="height:15px">
+<td class="s6">{{titles.edgeimg}}:</td><td colspan="6" class="s5">{{record.edge}}</td><td colspan="21" class="s5">{{record.edgelabel}}</td>
+</tr>
+<tr style="height:15px">
+<td colspan="3" class="s6">{{titles.features}}:</td><td colspan="15" rowspan="2" class="s8">{{record.features}}</td><td colspan="7" class="s6">{{titles.payprice}}:</td><td colspan="3" class="s5">{{record.payprice}}</td>
+</tr>
+<tr style="height:15px">
+<td colspan="3" class="s6">{{titles.subject}}:</td><td colspan="7" class="s6">{{titles.saleprice}}:</td><td colspan="3" class="s5">{{record.saleprice}}</td>
+</tr>
+<tr style="height:15px">
+<td colspan="19" rowspan="4" class="s8">{{record.subject}}</td><td></td><td></td><td colspan="4" class="s6">{{titles.price1}}:</td><td colspan="3" class="s5">{{record.price1}}</td>
+</tr>
+<tr style="height:15px">
+<td></td><td></td><td colspan="4" class="s6">{{titles.price2}}:</td><td colspan="3" class="s5">{{record.price2}}</td>
+</tr>
+<tr style="height:15px">
+<td></td><td></td><td colspan="4" class="s6">{{titles.price3}}:</td><td colspan="3" class="s5">{{record.price3}}</td>
+</tr>
+<tr style="height:15px">
+<td></td><td></td><td colspan="4" class="s6">{{titles.price4}}:</td><td colspan="3" class="s5">{{record.price4}}</td>
+</tr>
+  {% endfor %}
+<tr style="height:4px">
+<td colspan="28" class="s1" style="font-size:1px">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</body>
+</html>
