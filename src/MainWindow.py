@@ -44,8 +44,21 @@ class MainWindow(QtGui.QMainWindow):
         addCoinAct.setShortcut('Insert')
         addCoinAct.triggered.connect(self.addCoin)
 
+        editCoinAct = QtGui.QAction(QtGui.QIcon('icons/pencil.png'),
+                                   self.tr("Edit..."), self)
+        editCoinAct.triggered.connect(self.editCoin)
+
+        style = QtGui.QApplication.style()
+        icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
+        deleteCoinAct = QtGui.QAction(icon,
+                                   self.tr("Delete"), self)
+        deleteCoinAct.setShortcut(QtGui.QKeySequence.Delete)
+        deleteCoinAct.triggered.connect(self.deleteCoin)
+
         coin = menubar.addMenu(self.tr("Coin"))
         coin.addAction(addCoinAct)
+        coin.addAction(editCoinAct)
+        coin.addAction(deleteCoinAct)
 
         viewBrowserAct = QtGui.QAction(QtGui.QIcon('icons/page_white_world.png'),
                                    self.tr("View in browser"), self)
@@ -168,6 +181,7 @@ class MainWindow(QtGui.QMainWindow):
         toolBar = QtGui.QToolBar(self.tr("Toolbar"), self)
         toolBar.setMovable(False)
         toolBar.addAction(addCoinAct)
+        toolBar.addAction(editCoinAct)
         toolBar.addAction(viewBrowserAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
@@ -299,6 +313,20 @@ class MainWindow(QtGui.QMainWindow):
     def addCoin(self):
         model = self.viewTab.currentModel()
         model.addCoin(model.record(), self)
+
+    def editCoin(self):
+        listView = self.viewTab.currentListView()
+        indexes = listView.selectedRows()
+        if len(indexes) == 1:
+            listView._edit(indexes[0])
+        elif len(indexes) > 1:
+            listView._multiEdit(indexes)
+
+    def deleteCoin(self):
+        listView = self.viewTab.currentListView()
+        indexes = listView.selectedRows()
+        if len(indexes):
+            listView._delete(indexes)
 
     def viewBrowser(self):
         listView = self.viewTab.currentListView()
