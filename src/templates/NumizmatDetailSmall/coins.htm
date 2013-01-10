@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{{collection.title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+</head>
+
+<body>
+
+<div id="bodyContent">
+
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td colspan="21" class="s0">{{collection.title}}</td><td colspan="3" class="s3">{{date}}</td><td/>
+</tr>
+  {% for record in records %}
+<tr style="height:4px">
+<td colspan="25" class="s1" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:18px">
+<td colspan="3" class="s5">{{record.catalognum1}}</td><td colspan="20" class="s5">{{record.title}}</td>
+</tr>
+<tr style="height:15px">
+<td colspan="3" rowspan="7" class="s11" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="107" height="107" alt=""></td><td rowspan="7" class="s11" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="107" height="107" alt=""></td><td/><td class="s8">{{titles.year}}:</td><td colspan="2" class="s7">{{record.year}}</td><td colspan="2" class="s8">{{titles.country}}:</td><td colspan="8" class="s6">{{record.country}}</td><td colspan="3" class="s8">{{titles.paydate}}:</td><td colspan="2" class="s10">{{record.paydate}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s8">{{titles.period}}:</td><td colspan="12" class="s6">{{record.period}}</td><td colspan="3" class="s8">{{titles.payprice}}:</td><td colspan="2" class="s7">{{record.payprice}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s8">{{titles.value}}:</td><td colspan="2" class="s7">{{record.value}}</td><td colspan="2" class="s8">{{titles.unit}}:</td><td colspan="8" class="s6">{{record.unit}}</td><td colspan="3" class="s8">{{titles.saleprice}}:</td><td colspan="2" class="s7">{{record.saleprice}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s8">{{titles.mintmark}}:</td><td colspan="2" class="s7">{{record.mintmark}}</td><td colspan="2" class="s8">{{titles.mint}}:</td><td colspan="8" class="s6">{{record.mint}}</td><td/><td/><td class="s8">{{titles.price1}}:</td><td colspan="2" class="s7">{{record.price1}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s8">{{titles.status}}:</td><td colspan="4" class="s7">{{record.status}}</td><td class="s8">{{titles.type}}:</td><td colspan="7" class="s6">{{record.type}}</td><td/><td/><td class="s8">{{titles.price2}}:</td><td colspan="2" class="s7">{{record.price2}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s8">{{titles.series}}:</td><td colspan="12" class="s6">{{record.series}}</td><td/><td/><td class="s8">{{titles.price3}}:</td><td colspan="2" class="s7">{{record.price3}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s8">{{titles.material}}:</td><td colspan="5" class="s7">{{record.material}}</td><td colspan="3" class="s8">{{titles.quality}}:</td><td colspan="4" class="s6">{{record.quality}}</td><td/><td/><td class="s8">{{titles.price4}}:</td><td colspan="2" class="s7">{{record.price4}}</td>
+</tr>
+<tr style="height:15px">
+<td class="s8">{{titles.edgeimg}}:</td><td colspan="3" class="s7">{{record.edge}}</td><td/><td class="s8">{{titles.fineness}}:</td><td class="s7">{{record.fineness}}</td><td colspan="2" class="s8">{{titles.weight}}:</td><td colspan="2" class="s7">{{record.weight}}</td><td colspan="3" class="s8">{{titles.diameter}}:</td><td colspan="2" class="s7">{{record.diameter}}</td><td class="s8">{{titles.thickness}}:</td><td colspan="3" class="s6">{{record.thickness}}</td><td/><td/>
+</tr>
+<tr style="height:15px">
+<td colspan="4" class="s7">{{record.edgelabel}}</td><td/><td class="s8">{{titles.mintage}}:</td><td colspan="4" class="s7">{{record.mintage}}</td><td colspan="3" class="s8">{% if record.issuedate %}{{titles.issuedate}}{% else %}{{titles.dateemis}}{% endif %}:</td><td colspan="5" class="s6">{% if record.issuedate %}{{record.issuedate}}{% else %}{{record.dateemis}}{% endif %}</td><td/><td/><td/><td/>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s8">{{titles.features}}:</td><td colspan="23" rowspan="2" class="s4">{{record.features}}</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s8">{{titles.subject}}:</td>
+</tr>
+<tr style="height:55px">
+<td colspan="25" class="s4">{{record.subject}}</td>
+</tr>
+  {% endfor %}
+<tr style="height:4px">
+<td colspan="25" class="s9" style="font-size:1px">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</body>
+</html>

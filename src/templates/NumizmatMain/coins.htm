@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{{collection.title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+</head>
+
+<body>
+
+<div id="bodyContent">
+
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td colspan="13" class="s0">{{collection.title}}</td><td class="s3">{{date}}</td><td/>
+</tr>
+  {% for record in records %}
+<tr style="height:4px">
+<td colspan="15" rowspan="2" class="s1" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:4px">
+</tr>
+<tr style="height:4px">
+<td/><td/><td/><td/><td colspan="3" rowspan="2" class="s4">{{record.catalognum1}}</td><td/><td colspan="7" rowspan="2" class="s4">{{record.title}}</td>
+</tr>
+<tr style="height:29px">
+<td colspan="2" rowspan="9" class="s8" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="152" height="152" alt=""></td><td rowspan="9" class="s8" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="152" height="152" alt=""></td><td/><td/>
+</tr>
+<tr style="height:15px">
+<td/><td class="s6">{{titles.year}}:</td><td colspan="5" class="s5">{{record.year}}</td><td class="s6">{{titles.country}}:</td><td class="s5">{{record.country}}</td><td/><td/><td/>
+</tr>
+<tr style="height:15px">
+<td/><td class="s6">{{titles.period}}:</td><td colspan="10" class="s5">{{record.period}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s6">{{titles.value}}:</td><td colspan="5" class="s5">{{record.value}}</td><td class="s6">{{titles.unit}}:</td><td colspan="4" class="s5">{{record.unit}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s6">{{titles.mintmark}}:</td><td colspan="4" class="s5">{{record.mintmark}}</td><td/><td class="s6">{{titles.mint}}:</td><td colspan="4" class="s5">{{record.mint}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s6">{{titles.series}}:</td><td colspan="10" class="s5">{{record.series}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s6">{{titles.material}}:</td><td colspan="10" class="s5">{{record.material}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td class="s6">{{titles.edgeimg}}:</td><td colspan="10" class="s5">{{record.edge}}</td>
+</tr>
+<tr style="height:15px">
+<td/><td colspan="11" class="s5">{{record.edgelabel}}</td>
+</tr>
+  {% endfor %}
+<tr style="height:4px">
+<td colspan="15" class="s7" style="font-size:1px">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</body>
+</html>

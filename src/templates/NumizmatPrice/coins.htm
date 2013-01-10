@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{{collection.title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+</head>
+
+<body>
+
+<div id="bodyContent">
+
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td colspan="17" class="s0">{{collection.title}}</td><td class="s3">{{date}}</td>
+</tr>
+  {% for record in records %}
+<tr style="height:4px">
+<td colspan="18" class="s2" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:4px">
+<td/><td/><td/><td rowspan="2" class="s3">{{record.value}}</td><td colspan="3" rowspan="2" class="s17">{{record.unit}}</td><td colspan="7" rowspan="2" class="s17">{{record.title}}</td><td colspan="4" rowspan="2" class="s17">{{record.catalognum1}}</td>
+</tr>
+<tr style="height:11px">
+<td rowspan="6" class="s6" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="77" height="77" alt=""></td><td rowspan="6" class="s7" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="77" height="77" alt=""></td><td/>
+</tr>
+<tr style="height:11px">
+<td/><td class="s18">{{titles.year}}:</td><td colspan="2" class="s19">{{record.year}}</td><td class="s20">{{titles.country}}:</td><td colspan="7" class="s19">{{record.country}}</td><td colspan="2" class="s20">{{titles.mintmark}}:</td><td colspan="2" class="s19">{{record.mintmark}}</td>
+</tr>
+<tr style="height:11px">
+<td/><td class="s18">{{titles.period}}:</td><td colspan="7" class="s19">{{record.period}}</td><td class="s20">{{titles.material}}:</td><td colspan="6" class="s19">{{record.material}}</td>
+</tr>
+<tr style="height:11px">
+<td/><td class="s18">{{titles.edgeimg}}:</td><td colspan="5" class="s21">{{record.edge}}</td><td colspan="5" class="s19">{{record.edgelabel}}</td><td colspan="2" class="s20">{{titles.fineness}}:</td><td colspan="2" class="s19">{{record.fineness}}</td>
+</tr>
+<tr style="height:11px">
+<td/><td class="s18">{{titles.mintage}}:</td><td colspan="4" class="s21">{{record.mintage}}</td><td colspan="2" class="s18">{% if record.issuedate %}{{titles.issuedate}}{% else %}{{titles.dateemis}}{% endif %}:</td><td colspan="3" class="s19">{% if record.issuedate %}{{record.issuedate}}{% else %}{{record.dateemis}}{% endif %}</td><td colspan="2" class="s20">{{titles.quality}}:</td><td colspan="3" class="s19">{{record.quality}}</td>
+</tr>
+<tr style="height:18px">
+<td/><td colspan="2" class="s22">{{titles.features}}:</td><td colspan="7" class="s23">{{record.features}}</td><td colspan="2" class="s24">{{titles.saleprice}}:</td><td colspan="4" class="s25">{{record.saleprice}}</td>
+</tr>
+  {% endfor %}
+<tr style="height:4px">
+<td colspan="18" class="s2" style="font-size:1px">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</body>
+</html>

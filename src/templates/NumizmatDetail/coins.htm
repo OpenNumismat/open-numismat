@@ -14,7 +14,7 @@
 <tbody>
 <tr>
   <td class="s0" colspan="19">{{collection.title}}</td>
-  <td class="s3" colspan="21"></td>
+  <td class="s3" colspan="21">{{date}}</td>
 </tr>
   {% for record in records %}
 <tr style="height:4px">
@@ -54,7 +54,7 @@
 <td colspan="3" class="s6">{{titles.mintage}}:</td><td colspan="17" class="s5">{{record.mintage}}</td>
 </tr>
 <tr style="height:15px">
-<td colspan="3" class="s6">{{titles.issuedate}}:</td><td colspan="17" class="s5">{{record.issuedate}}</td>
+<td colspan="3" class="s6">{% if record.issuedate %}{{titles.issuedate}}{% else %}{{titles.dateemis}}{% endif %}:</td><td colspan="17" class="s5">{% if record.issuedate %}{{record.issuedate}}{% else %}{{record.dateemis}}{% endif %}</td>
 </tr>
 <tr style="height:7px">
 <td colspan="3" rowspan="2" class="s6">{{titles.quality}}:</td><td colspan="6" rowspan="2" class="s5">{{record.quality}}</td><td colspan="7" rowspan="2" class="s6">{{titles.paydate}}:</td><td colspan="4" rowspan="2" class="s9">{{record.paydate}}</td>

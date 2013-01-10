@@ -69,7 +69,8 @@ class Report(QtCore.QObject):
             has_item_template = False
             single_file = True
 
-        self.mapping = {'single_file': single_file}
+        self.mapping = {'single_file': single_file,
+                        'date': QtCore.QDate.currentDate().toString(QtCore.Qt.DefaultLocaleLongDate)}
 
         self.mapping['collection'] = {'title': self.model.description.title,
                             'description': self.model.description.description,
