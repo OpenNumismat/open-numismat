@@ -457,6 +457,8 @@ class MainWindow(QtGui.QMainWindow):
                                                          QtCore.Qt.ISODate)
                 if lastUpdateDate.addDays(10) < currentDate:
                     self.checkUpdates()
+            else:
+                self.checkUpdates()
 
             settings.setValue('mainwindow/last_update', currentDateStr)
 
