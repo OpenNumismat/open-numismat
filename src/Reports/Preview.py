@@ -79,6 +79,7 @@ class PreviewDialog(QtGui.QDialog):
         self.webView.loadFinished.connect(self._loadFinished)
 
         self.printer = QtGui.QPrinter()
+        self.printer.setPageMargins(12.7, 10, 10, 10, QtGui.QPrinter.Millimeter)
         self.preview = QtGui.QPrintPreviewWidget(self.printer, self)
 
         self.preview.paintRequested.connect(self.paintRequested)
