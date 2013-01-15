@@ -10,12 +10,36 @@
 
 <div id="bodyContent">
 
-<table border="0" cellpadding="0" cellspacing="0">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tbody>
 <tr>
-<td colspan="13" class="s0">{{collection.title}}</td><td class="s3">{{date}}</td><td/>
+  <td colspan="21" class="s0">{{collection.title}}</td>
+  <td colspan="3" class="s2">{{date}}</td>
 </tr>
+</tbody>
+</table>
+
   {% for record in records %}
+<div class="row">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+<tr style="height: 1px">
+  <td width="76"/>
+  <td width="76"/>
+  <td width="152"/>
+  <td width="4"/>
+  <td width="8.0%"/>
+  <td width="0.6%"/>
+  <td width="3.9%"/>
+  <td width="0.6%"/>
+  <td width="1.2%"/>
+  <td width="0.6%"/>
+  <td width="8.0%"/>
+  <td width="7.3%"/>
+  <td width="7.8%"/>
+  <td width="8.6%"/>
+  <td width="6.4%"/>
+</tr>
 <tr style="height:4px">
 <td colspan="15" rowspan="2" class="s1" style="font-size:1px">&nbsp;</td>
 </tr>
@@ -25,7 +49,7 @@
 <td/><td/><td/><td/><td colspan="3" rowspan="2" class="s4">{{record.catalognum1}}</td><td/><td colspan="7" rowspan="2" class="s4">{{record.title}}</td>
 </tr>
 <tr style="height:29px">
-<td colspan="2" rowspan="9" class="s8" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="152" height="152" alt=""></td><td rowspan="9" class="s8" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="152" height="152" alt=""></td><td/><td/>
+<td colspan="2" rowspan="9" class="s8" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="152" alt=""></td><td rowspan="9" class="s8" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="152" alt=""></td><td/><td/>
 </tr>
 <tr style="height:15px">
 <td/><td class="s6">{{titles.year}}:</td><td colspan="5" class="s5">{{record.year}}</td><td class="s6">{{titles.country}}:</td><td class="s5">{{record.country}}</td><td/><td/><td/>
@@ -51,12 +75,15 @@
 <tr style="height:15px">
 <td/><td colspan="11" class="s5">{{record.edgelabel}}</td>
 </tr>
-  {% endfor %}
+{% if loop.last %}
 <tr style="height:4px">
-<td colspan="15" class="s7" style="font-size:1px">&nbsp;</td>
+  <td colspan="28" class="s7" style="font-size:1px">&nbsp;</td>
 </tr>
+{% endif %}
 </tbody>
 </table>
+</div>
+  {% endfor %}
 
 </div>
 

@@ -10,12 +10,45 @@
 
 <div id="bodyContent">
 
-<table border="0" cellpadding="0" cellspacing="0">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tbody>
 <tr>
-<td colspan="21" class="s0">{{collection.title}}</td><td colspan="3" class="s3">{{date}}</td><td/>
+  <td colspan="21" class="s0">{{collection.title}}</td>
+  <td colspan="3" class="s2">{{date}}</td>
 </tr>
+</tbody>
+</table>
   {% for record in records %}
+<div class="row">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+<tr style="height: 1px">
+  <td width="30"/>
+  <td width="26"/>
+  <td width="19"/>
+  <td width="8"/>
+  <td width="23"/>
+  <td width="106"/>
+  <td width="4"/>
+  <td width="6.4%"/>
+  <td width="5.1%"/>
+  <td width="0.6%"/>
+  <td width="4.5%"/>
+  <td width="2.3%"/>
+  <td width="4.5%"/>
+  <td width="2.3%"/>
+  <td width="2.3%"/>
+  <td width="1.7%"/>
+  <td width="2.3%"/>
+  <td width="2.3%"/>
+  <td width="7.4%"/>
+  <td width="4.5%"/>
+  <td width="3.9%"/>
+  <td width="0.6%"/>
+  <td width="5.1%"/>
+  <td width="2.3%"/>
+  <td width="6.8%"/>
+</tr>
 <tr style="height:4px">
 <td colspan="25" class="s1" style="font-size:1px">&nbsp;</td>
 </tr>
@@ -23,7 +56,7 @@
 <td colspan="3" class="s5">{{record.catalognum1}}</td><td colspan="20" class="s5">{{record.title}}</td>
 </tr>
 <tr style="height:15px">
-<td colspan="3" rowspan="7" class="s11" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="107" height="107" alt=""></td><td rowspan="7" class="s11" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="107" height="107" alt=""></td><td/><td class="s8">{{titles.year}}:</td><td colspan="2" class="s7">{{record.year}}</td><td colspan="2" class="s8">{{titles.country}}:</td><td colspan="8" class="s6">{{record.country}}</td><td colspan="3" class="s8">{{titles.paydate}}:</td><td colspan="2" class="s10">{{record.paydate}}</td>
+<td colspan="3" rowspan="7" class="s11" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="107" alt=""></td><td rowspan="7" class="s11" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="107" alt=""></td><td/><td class="s8">{{titles.year}}:</td><td colspan="2" class="s7">{{record.year}}</td><td colspan="2" class="s8">{{titles.country}}:</td><td colspan="8" class="s6">{{record.country}}</td><td colspan="3" class="s8">{{titles.paydate}}:</td><td colspan="2" class="s10">{{record.paydate}}</td>
 </tr>
 <tr style="height:15px">
 <td/><td class="s8">{{titles.period}}:</td><td colspan="12" class="s6">{{record.period}}</td><td colspan="3" class="s8">{{titles.payprice}}:</td><td colspan="2" class="s7">{{record.payprice}}</td>
@@ -55,15 +88,18 @@
 <tr style="height:15px">
 <td colspan="2" class="s8">{{titles.subject}}:</td>
 </tr>
-<tr style="height:55px">
+<tr style="height:40px">
 <td colspan="25" class="s4">{{record.subject}}</td>
 </tr>
-  {% endfor %}
+{% if loop.last %}
 <tr style="height:4px">
-<td colspan="25" class="s9" style="font-size:1px">&nbsp;</td>
+  <td colspan="28" class="s7" style="font-size:1px">&nbsp;</td>
 </tr>
+{% endif %}
 </tbody>
 </table>
+</div>
+  {% endfor %}
 
 </div>
 

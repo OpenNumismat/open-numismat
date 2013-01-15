@@ -10,18 +10,51 @@
 
 <div id="bodyContent">
 
-<table border="0" cellpadding="0" cellspacing="0">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tbody>
 <tr>
   <td class="s0" colspan="19">{{collection.title}}</td>
-  <td class="s24" colspan="21">{{date}}</td>
+  <td class="s1" colspan="21">{{date}}</td>
 </tr>
+</tbody>
+</table>
   {% for record in records %}
-<tr style="height:4px">
-<td colspan="26" class="s2" style="font-size:1px">&nbsp;</td>
+<div class="row">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+<tr style="height: 1px">
+  <td width="77"/>
+  <td width="77"/>
+  <td width="4"/>
+  <td width="1.7%"/>
+  <td width="2.3%"/>
+  <td width="1.2%"/>
+  <td width="2.3%"/>
+  <td width="4%"/>
+  <td width="3.5%"/>
+  <td width="1.2%"/>
+  <td width="1.7%"/>
+  <td width="6.4%"/>
+  <td width="2.9%"/>
+  <td width="9.8%"/>
+  <td width="2.9%"/>
+  <td width="5.8%"/>
+  <td width="0.6%"/>
+  <td width="3.5%"/>
+  <td width="2.3%"/>
+  <td width="1.2%"/>
+  <td width="9.2%"/>
+  <td width="1.2%"/>
+  <td width="2.9%"/>
+  <td width="1.2%"/>
+  <td width="2.9%"/>
+  <td width="4.6%"/>
 </tr>
 <tr style="height:4px">
-<td/><td/><td/><td colspan="2" rowspan="2" class="s3">{{record.value}}</td><td colspan="6" rowspan="2" class="s15">{{record.unit}}</td><td colspan="11" rowspan="2" class="s15">{{record.subjectshort}}</td><td colspan="4" rowspan="2" class="s15">{{record.catalognum1}}</td>
+  <td colspan="26" class="s2" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:4px">
+<td/><td/><td/><td colspan="2" rowspan="2" class="s3">{{record.value}}</td><td colspan="6" rowspan="2" class="s15">{{record.unit}}</td><td colspan="11" rowspan="2" class="s15">{% if record.subjectshort %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}</td><td colspan="4" rowspan="2" class="s15">{{record.catalognum1}}</td>
 </tr>
 <tr style="height:11px">
 <td rowspan="7" class="s6" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="77" alt=""></td><td rowspan="7" class="s7" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="77" alt=""></td><td/>
@@ -42,14 +75,17 @@
 <td/><td colspan="4" class="s16">{{titles.features}}:</td><td colspan="19" class="s20">{{record.features}}</td>
 </tr>
 <tr style="height:7px">
-<td/><td class="s21">{{titles.price1}}:</td><td colspan="4" class="s22">{{record.price1}}</td><td class="s21">{{titles.price2}}:</td><td colspan="3" class="s22">{{record.price2}}</td><td class="s21">{{titles.price3}}:</td><td class="s22">{{record.price3}}</td><td class="s23">{{titles.price4}}:</td><td class="s22">{{record.price4}}</td><td colspan="3" class="s22"></td>
+<td/><td class="s21">{{titles.price1}}:</td><td colspan="4" class="s22">{{record.price1}}</td><td class="s21">{{titles.price2}}:</td><td colspan="3" class="s22">{{record.price2}}</td><td class="s21">{{titles.price3}}:</td><td class="s22">{{record.price3}}</td><td class="s21">{{titles.price4}}:</td><td class="s22">{{record.price4}}</td><td colspan="3" class="s22"></td>
 </tr>
-  {% endfor %}
+{% if loop.last %}
 <tr style="height:4px">
-<td colspan="26" class="s2" style="font-size:1px">&nbsp;</td>
+  <td colspan="26" class="s2" style="font-size:1px">&nbsp;</td>
 </tr>
+{% endif %}
 </tbody>
 </table>
+</div>
+  {% endfor %}
 
 </div>
 

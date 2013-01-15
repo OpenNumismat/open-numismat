@@ -3,6 +3,10 @@
     margin-bottom: 0;
     margin-top: 0;
 }
+div.row {
+    page-break-inside: avoid;
+    page-break-after:auto
+}
 
 html, body {
     font-family: sans-serif;
@@ -266,16 +270,4 @@ html, body {
  color: #000000; font-style: italic;
  background-color: transparent;
  text-align: Left; vertical-align: Middle;
-}
-.s24 {
- font-family: Arial;
- font-size: 11px;
- color: #000000; font-weight: bold; font-style: normal;
- background-color: transparent;
- border-color:#C0C0C0; border-style: solid;
- border-left-width: 1;
- border-right-width: 1;
- border-top-width: 0px;
- border-bottom-width: 1;
- text-align: Right; vertical-align: Middle;
 }

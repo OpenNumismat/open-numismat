@@ -10,15 +10,43 @@
 
 <div id="bodyContent">
 
-<table border="0" cellpadding="0" cellspacing="0">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tbody>
 <tr>
   <td class="s0" colspan="19">{{collection.title}}</td>
-  <td class="s3" colspan="21">{{date}}</td>
+  <td class="s2" colspan="21">{{date}}</td>
 </tr>
+</tbody>
+</table>
   {% for record in records %}
+<div class="row">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+<tr style="height: 1px">
+<td width="30"/><td width="45"/><td width="4"/><td width="4"/><td width="26"/><td width="42"/><td width="38"/><td width="113"/>
+  <td width="7.4%"/>
+  <td width="4"/>
+  <td width="4.5%"/>
+  <td width="1.2%"/>
+  <td width="5.7%"/>
+  <td width="2.3%"/>
+  <td width="4.5%"/>
+  <td width="2.1%"/>
+  <td width="2.4%"/>
+  <td width="3.5%"/>
+  <td width="3.5%"/>
+  <td width="1.7%"/>
+  <td width="0.6%"/>
+  <td width="0.6%"/>
+  <td width="1.4%"/>
+  <td width="2.1%"/>
+  <td width="1.2%"/>
+  <td width="2.3%"/>
+  <td width="1.2%"/>
+  <td width="5.7%"/>
+</tr>
 <tr style="height:4px">
-<td colspan="28" class="s7" style="font-size:1px">&nbsp;</td>
+  <td colspan="28" class="s1" style="font-size:1px">&nbsp;</td>
 </tr>
 <tr style="height:18px">
 <td colspan="5" class="s4">{{record.catalognum1}}</td><td colspan="23" class="s4">{{record.title}}</td>
@@ -27,7 +55,7 @@
 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td rowspan="2" class="s6">{{titles.year}}:</td><td colspan="3" rowspan="2" class="s5">{{record.year}}</td><td colspan="2" rowspan="2" class="s6">{{titles.country}}:</td><td colspan="2" rowspan="2" class="s5">{{record.country}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr style="height:7px">
-<td colspan="6" rowspan="11" class="s10" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="152" height="152" alt=""></td><td colspan="2" rowspan="11" class="s10" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="152" height="152" alt=""></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+<td colspan="6" rowspan="11" class="s10" style="font-size:1px"><img src="{{static_files}}/{{record.obverseimg}}" width="152" alt=""></td><td colspan="2" rowspan="11" class="s10" style="font-size:1px"><img src="{{static_files}}/{{record.reverseimg}}" width="152" alt=""></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr style="height:15px">
 <td class="s6">{{titles.period}}:</td><td colspan="19" class="s5">{{record.period}}</td>
@@ -51,13 +79,13 @@
 <td class="s6">{{titles.fineness}}:</td><td colspan="2" class="s5">{{record.fineness}}</td><td colspan="2" class="s6">{{titles.weight}}:</td><td colspan="2" class="s5">{{record.weight}}</td><td colspan="3" class="s6">{{titles.diameter}}:</td><td colspan="4" class="s5">{{record.diameter}}</td><td colspan="5" class="s6">{{titles.thickness}}:</td><td class="s5">{{record.thickness}}</td>
 </tr>
 <tr style="height:15px">
-<td colspan="3" class="s6">{{titles.mintage}}:</td><td colspan="17" class="s5">{{record.mintage}}</td>
+<td colspan="2" class="s6">{{titles.mintage}}:</td><td colspan="18" class="s5">{{record.mintage}}</td>
 </tr>
 <tr style="height:15px">
-<td colspan="3" class="s6">{% if record.issuedate %}{{titles.issuedate}}{% else %}{{titles.dateemis}}{% endif %}:</td><td colspan="17" class="s5">{% if record.issuedate %}{{record.issuedate}}{% else %}{{record.dateemis}}{% endif %}</td>
+<td colspan="2" class="s6">{% if record.issuedate %}{{titles.issuedate}}{% else %}{{titles.dateemis}}{% endif %}:</td><td colspan="18" class="s5">{% if record.issuedate %}{{record.issuedate}}{% else %}{{record.dateemis}}{% endif %}</td>
 </tr>
 <tr style="height:7px">
-<td colspan="3" rowspan="2" class="s6">{{titles.quality}}:</td><td colspan="6" rowspan="2" class="s5">{{record.quality}}</td><td colspan="7" rowspan="2" class="s6">{{titles.paydate}}:</td><td colspan="4" rowspan="2" class="s9">{{record.paydate}}</td>
+<td colspan="2" rowspan="2" class="s6">{{titles.quality}}:</td><td colspan="6" rowspan="2" class="s5">{{record.quality}}</td><td colspan="5" rowspan="2" class="s6">{{titles.paydate}}:</td><td colspan="8" rowspan="2" class="s9">{{record.paydate}}</td>
 </tr>
 <tr style="height:7px">
 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
@@ -83,12 +111,15 @@
 <tr style="height:15px">
 <td></td><td></td><td colspan="4" class="s6">{{titles.price4}}:</td><td colspan="3" class="s5">{{record.price4}}</td>
 </tr>
-  {% endfor %}
+{% if loop.last %}
 <tr style="height:4px">
-<td colspan="28" class="s1" style="font-size:1px">&nbsp;</td>
+  <td colspan="28" class="s7" style="font-size:1px">&nbsp;</td>
 </tr>
+{% endif %}
 </tbody>
 </table>
+</div>
+  {% endfor %}
 
 </div>
 
