@@ -18,7 +18,7 @@ table {
     font-size: 100%;
 }
 
-table.standard th, table.wide th, table.prettytable th {
+table.standard th {
     border: 1px solid #AAA;
     padding-left: 0.2em;
     padding-right: 0.2em;

@@ -10,7 +10,7 @@
 
 <div id="bodyContent">
 
-<table class="standard sortable jquery-tablesorter" border="1" cellpadding="2" cellspacing="0" style="background: #f9f9f9; border: 1px solid #aaaaaa; border-collapse: collapse">
+<table class="standard" border="1" cellpadding="2" cellspacing="0" style="background: #f9f9f9; border: 1px solid #aaaaaa; border-collapse: collapse">
 <thead><tr>
 <th>{{titles.issuedate}}</th>
 <th>{{titles.catalognum1}}</th>
@@ -21,24 +21,26 @@
 <th>{{titles.title}}</th>
 <th>{{titles.obverseimg}}</th>
 <th>{{titles.reverseimg}}</th>
-</tr></thead><tbody>
+</tr></thead>
+<tbody>
   {% for record in records|sort(attribute='catalognum1')|sort(attribute='issuedate') %}
 <tr>
 <td>{{record.issuedate}}</td>
 <td>{% if record.url %}<a rel="nofollow" href="{{record.url}}">{% endif %}{{record.catalognum1}}{% if record.url %}</a>{% endif %}</td>
 <td>
-<p style="text-align:right;"><span style="white-space: nowrap;">{{record.mintage}}{% if record.quality %} - {{record.quality}}{% endif %}</span></p>
+<p style="text-align:right;"><span style="white-space: nowrap;">{{record.mintage}}</span>{% if record.quality %}<span style="white-space: nowrap;"> - {{record.quality}}</span>{% endif %}</p>
 </td>
 <td>
-<p style="text-align:right;">{{record.value}}</p>
+<p style="text-align:right;"><span style="white-space: nowrap;">{{record.value}}</span></p>
 </td>
 <td>{{record.material}}</td>
-<td>{% if record.series %}<b>{{record.series}}:</b> {% endif %}{{record.subjectshort}}</td>
-<td><a href="{{static_files}}/{{record.obverseimg}}" class="image"><img src="{{static_files}}/{{record.obverseimg}}" width="120" height="120"></a></td>
-<td><a href="{{static_files}}/{{record.reverseimg}}" class="image"><img src="{{static_files}}/{{record.reverseimg}}" width="120" height="120"></a></td>
+<td>{% if record.subjectshort %}{% if record.series %}<b>{{record.series}}:</b> {% endif %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}</td>
+<td><a href="{{static_files}}/{{record.obverseimg}}" class="image"><img src="{{static_files}}/{{record.obverseimg}}" width="120"></a></td>
+<td><a href="{{static_files}}/{{record.reverseimg}}" class="image"><img src="{{static_files}}/{{record.reverseimg}}" width="120"></a></td>
 </tr>
   {% endfor %}
-</tbody><tfoot></tfoot></table>
+</tbody>
+</table>
 
 </div>
 
