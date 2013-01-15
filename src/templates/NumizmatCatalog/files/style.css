@@ -267,3 +267,15 @@ html, body {
  background-color: transparent;
  text-align: Left; vertical-align: Middle;
 }
+.s24 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ border-color:#C0C0C0; border-style: solid;
+ border-left-width: 1;
+ border-right-width: 1;
+ border-top-width: 0px;
+ border-bottom-width: 1;
+ text-align: Right; vertical-align: Middle;
+}
