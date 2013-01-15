@@ -24,6 +24,7 @@ def copyFolder(sourceFolder, destFolder):
     for file in files:
         srcName = sourceFolder + "/" + file
         destName = destFolder + "/" + file
+        QtCore.QFile.remove(destName)  # remove if existing
         QtCore.QFile.copy(srcName, destName)
 
     files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
