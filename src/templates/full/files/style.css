@@ -4,17 +4,29 @@
     margin-top: 0;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 html, body {
-    font-family: sans-serif;
     font-size: 1em;
 }
 
-div#bodyContent {
-    line-height: 1.5em;
-    font-size: 0.8em;
+table {
+    font-family: Verdana,Helvetica;
+    font-size: 10px;
+    border: 1px solid #bbb;
+    border-collapse: collapse;
 }
 
-table {
-    font-size: 100%;
-    border: 1px solid;
+thead { display:table-header-group }
+
+th {
+    background: #ddd;
+}
+
+td {
+    background: #ecf0f6;
+    text-align: right;
 }

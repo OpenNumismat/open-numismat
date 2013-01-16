@@ -10,7 +10,7 @@
 
 <div id="bodyContent">
 
-<table border="1" cellpadding="2" cellspacing="0">
+<table width="100%" border="1">
 <thead><tr>
 <th>{{titles.image}}</th>
 <th>{{titles.title}}</th>
@@ -18,11 +18,20 @@
 <th>{{titles.unit}}</th>
 <th>{{titles.mintmark}}</th>
 <th>{{titles.country}}</th>
+<th>{{titles.period}}</th>
 <th>{{titles.year}}</th>
-<th>{{titles.series}}</th>
 <th>{{titles.subjectshort}}</th>
+<th>{{titles.mintage}}</th>
+<th>{{titles.material}}</th>
+<th>{{titles.fineness}}</th>
+<th>{{titles.quality}}</th>
+<th>{{titles.catalognum1}}</th>
+<th>{{titles.rarity}}</th>
 <th>{{titles.status}}</th>
-</tr></thead><tbody>
+<th>{{titles.quantity}}</th>
+<th>{{titles.grade}}</th>
+</tr></thead>
+<tbody>
   {% for record in records %}
 <tr>
 <td><img src="{{static_files}}/{{record.image}}"></td>
@@ -31,13 +40,22 @@
 <td>{{record.unit}}</td>
 <td>{{record.mintmark}}</td>
 <td>{{record.country}}</td>
+<td>{{record.period}}</td>
 <td>{{record.year}}</td>
-<td>{{record.series}}</td>
 <td>{{record.subjectshort}}</td>
+<td>{{record.mintage}}</td>
+<td>{{record.material}}</td>
+<td>{{record.fineness}}</td>
+<td>{{record.quality}}</td>
+<td>{{record.catalognum1}}</td>
+<td>{{record.rarity}}</td>
 <td>{{record.status}}</td>
+<td>{{record.quantity}}</td>
+<td>{{record.grade}}</td>
 </tr>
   {% endfor %}
-</tbody><tfoot></tfoot></table>
+</tbody>
+</table>
 
 </div>
 
