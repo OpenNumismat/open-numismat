@@ -1,3 +1,5 @@
+import os.path
+
 try:
     import win32com.client
 except ImportError:
@@ -288,7 +290,8 @@ class PreviewDialog(QtGui.QDialog):
 
     def _templateChanged(self, index):
         template_name = self.templateSelector.currentText()
-        report = Report.Report(self.model, template_name, TemporaryDir.path())
+        dstPath = os.path.join(TemporaryDir.path(), template_name)
+        report = Report.Report(self.model, template_name, dstPath)
         self.fileName = report.generate(self.records, True)
         if not self.fileName:
             return

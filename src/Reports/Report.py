@@ -55,15 +55,15 @@ def copyFolder(sourceFolder, destFolder):
 
     files = sourceDir.entryList(QtCore.QDir.Files)
     for file in files:
-        srcName = sourceFolder + "/" + file
-        destName = destFolder + "/" + file
+        srcName = os.path.join(sourceFolder, file)
+        destName = os.path.join(destFolder, file)
         QtCore.QFile.remove(destName)  # remove if existing
         QtCore.QFile.copy(srcName, destName)
 
     files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
     for file in files:
-        srcName = sourceFolder + "/" + file
-        destName = destFolder + "/" + file
+        srcName = os.path.join(sourceFolder, file)
+        destName = os.path.join(destFolder, file)
         copyFolder(srcName, destName)
 
 def scanTemplates():
