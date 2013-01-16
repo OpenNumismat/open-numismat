@@ -1,4 +1,5 @@
 import codecs
+import locale
 import os
 
 try:
@@ -8,8 +9,40 @@ except ImportError:
     print('jinja2 module missed. Report engine not available')
 
 from PyQt4 import QtGui, QtCore
+from PyQt4.QtCore import Qt
 
+from Collection.CollectionFields import FieldTypes as Type
+from Collection.CollectionFields import Statuses
 from Tools import Gui
+
+def formatFields(field, data):
+    try:
+        if field.name == 'status':
+            text = Statuses[data]
+        elif field.type == Type.BigInt:
+            text = locale.format("%d", int(data), grouping=True)
+        elif field.type == Type.Money:
+            text = locale.format("%.2f", float(data), grouping=True)
+            dp = locale.localeconv()['decimal_point']
+            text = text.rstrip('0').rstrip(dp)
+        elif field.type == Type.Value:
+            text = locale.format("%.3f", float(data), grouping=True)
+            dp = locale.localeconv()['decimal_point']
+            text = text.rstrip('0').rstrip(dp)
+        elif field.type == Type.Date:
+            date = QtCore.QDate.fromString(data, Qt.ISODate)
+            text = date.toString(Qt.SystemLocaleShortDate)
+        elif field.type == Type.DateTime:
+            date = QtCore.QDateTime.fromString(data, Qt.ISODate)
+            # Timestamp in DB stored in UTC
+            date.setTimeSpec(Qt.UTC)
+            date = date.toLocalTime()
+            text = date.toString(Qt.SystemLocaleShortDate)
+        else:
+            return data
+    except (ValueError, TypeError):
+        return data
+    return text
 
 def copyFolder(sourceFolder, destFolder):
     sourceDir = QtCore.QDir(sourceFolder)
@@ -159,6 +192,8 @@ class Report(QtCore.QObject):
                     image.save(imgFile)
                     record_mapping[field.name] = imgFileTitle
                 else:
-                    record_mapping[field.name] = value
+                    record_mapping[field.name] = formatFields(field, value)
+                    if field.name == 'status':
+                        record_mapping['status_raw'] = value
 
         return record_mapping
