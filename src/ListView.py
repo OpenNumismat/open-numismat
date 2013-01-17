@@ -1,5 +1,6 @@
 import operator
 import pickle
+import os.path
 
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt, pyqtSignal
@@ -386,8 +387,8 @@ class ListView(QtGui.QTableView):
         for index in indexes:
             records.append(self.model().record(index.row()))
 
-        report = Report(self.model(), Settings()['template'],
-                        TemporaryDir.path())
+        dstPath = os.path.join(TemporaryDir.path(), Settings()['template'] + '.htm')
+        report = Report(self.model(), Settings()['template'], dstPath)
         fileName = report.generate(records)
 
         if fileName:

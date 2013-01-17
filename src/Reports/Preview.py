@@ -290,7 +290,7 @@ class PreviewDialog(QtGui.QDialog):
 
     def _templateChanged(self, index):
         template_name = self.templateSelector.currentText()
-        dstPath = os.path.join(TemporaryDir.path(), template_name)
+        dstPath = os.path.join(TemporaryDir.path(), template_name + '.htm')
         report = Report.Report(self.model, template_name, dstPath)
         self.fileName = report.generate(self.records, True)
         if not self.fileName:
