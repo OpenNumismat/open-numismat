@@ -459,7 +459,6 @@ class MainWindow(QtGui.QMainWindow):
     def autoUpdate(self):
         if Settings()['updates']:
             currentDate = QtCore.QDate.currentDate()
-            currentDateStr = currentDate.toString(QtCore.Qt.ISODate)
 
             settings = QtCore.QSettings()
             lastUpdateDateStr = settings.value('mainwindow/last_update')
@@ -467,11 +466,13 @@ class MainWindow(QtGui.QMainWindow):
                 lastUpdateDate = QtCore.QDate.fromString(lastUpdateDateStr,
                                                          QtCore.Qt.ISODate)
                 if lastUpdateDate.addDays(10) < currentDate:
+                    currentDateStr = currentDate.toString(QtCore.Qt.ISODate)
+                    settings.setValue('mainwindow/last_update', currentDateStr)
                     self.checkUpdates()
             else:
+                currentDateStr = currentDate.toString(QtCore.Qt.ISODate)
+                settings.setValue('mainwindow/last_update', currentDateStr)
                 self.checkUpdates()
-
-            settings.setValue('mainwindow/last_update', currentDateStr)
 
     def checkUpdates(self):
         newVersion = self.__getNewVersion()
