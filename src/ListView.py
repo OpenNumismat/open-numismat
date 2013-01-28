@@ -414,7 +414,7 @@ class ListView(QtGui.QTableView):
             if filters.index(filter_) == 2:  # Text file
                 file = open(fileName, 'w', newline='')
                 file.truncate()
-                writer = csv.writer(file)
+                writer = csv.writer(file, delimiter=';')
                 for i in range(model.rowCount()):
                     progressDlg.step()
                     if progressDlg.wasCanceled():
@@ -444,7 +444,7 @@ class ListView(QtGui.QTableView):
             elif filters.index(filter_) == 3:  # Text file UTF-8
                 file = open(fileName, 'w', newline='', encoding='utf-8')
                 file.truncate()
-                writer = csv.writer(file)
+                writer = csv.writer(file, delimiter=';')
                 for i in range(model.rowCount()):
                     progressDlg.step()
                     if progressDlg.wasCanceled():
