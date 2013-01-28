@@ -67,6 +67,10 @@ class TabView(QtGui.QTabWidget):
         renameListAct.triggered.connect(self.renamePage)
         self.__actions['rename'] = renameListAct
 
+        selectColumnsAct = QtGui.QAction(self.tr("Select columns..."), self)
+        selectColumnsAct.triggered.connect(self.selectColumns)
+        self.__actions['select'] = selectColumnsAct
+
         closeListAct = QtGui.QAction(self.tr("Close"), self)
         closeListAct.setShortcut(QtGui.QKeySequence.Close)
         closeListAct.triggered.connect(self.closePage)
@@ -167,6 +171,10 @@ class TabView(QtGui.QTabWidget):
             page = self.widget(index)
             self.collection.pages().renamePage(page, label)
             self.setCurrentIndex(index)
+
+    def selectColumns(self, index=None):
+        listView = self.currentListView()
+        listView.selectColumns()
 
     def closePage(self, index=None):
         if not index:
