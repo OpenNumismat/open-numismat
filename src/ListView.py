@@ -1,5 +1,7 @@
+import csv
 import operator
 import pickle
+import sys
 import os.path
 
 from PyQt4 import QtGui, QtCore
@@ -134,7 +136,7 @@ class ListView(QtGui.QTableView):
     def headerContextMenuEvent(self, pos):
         self.pos = pos  # store pos for action
         menu = QtGui.QMenu(self)
-        menu.addAction(self.tr("Select columns..."), self._selectColumns)
+        menu.addAction(self.tr("Select columns..."), self.selectColumns)
         menu.addAction(self.tr("Hide"), self._hideColumn)
         menu.addSeparator()
         menu.addAction(self.tr("Adjust size"), self._adjustColumn)
@@ -152,7 +154,7 @@ class ListView(QtGui.QTableView):
         self.listParam.save()
         self.setColumnHidden(index, True)
 
-    def _selectColumns(self):
+    def selectColumns(self):
         dialog = SelectColumnsDialog(self.listParam, self)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
@@ -395,6 +397,82 @@ class ListView(QtGui.QTableView):
             executor = QtGui.QDesktopServices()
             executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
 
+    def saveTable(self):
+        filters = [self.tr("Excel documents (*.xls)"),
+                   self.tr("Web page (*.htm *.html)"),
+                   self.tr("Text file (*.csv)"),
+                   self.tr("Text file UTF-8 (*.csv)")]
+
+        fileName, filter_ = QtGui.QFileDialog.getSaveFileNameAndFilter(self,
+                                    self.tr("Save as"),
+                                    filter=';;'.join(filters))
+        if fileName:
+            model = self.model()
+            progressDlg = Gui.ProgressDialog(self.tr("Saving list"),
+                                    self.tr("Cancel"), model.rowCount(), self)
+
+            if filters.index(filter_) == 2:  # Text file
+                file = open(fileName, 'w', newline='')
+                file.truncate()
+                writer = csv.writer(file)
+                for i in range(model.rowCount()):
+                    progressDlg.step()
+                    if progressDlg.wasCanceled():
+                        break
+
+                    index = self.__mapToSource(self.proxyModel.index(i, 0))
+                    record = model.record(index.row())
+                    parts = []
+                    for param in self.listParam.columns:
+                        field = model.fields.field(param.fieldid)
+                        if field.type in Type.ImageTypes:
+                            continue
+
+                        if not param.enabled:
+                            continue
+
+                        if record.isNull(param.fieldid):
+                            parts.append('')
+                        else:
+                            value = str(record.value(param.fieldid))
+                            translated_value = value.encode(encoding=sys.stdout.encoding, errors='ignore').decode(sys.stdout.encoding)
+                            parts.append(translated_value)
+
+                    writer.writerow(parts)
+
+                file.close()
+            elif filters.index(filter_) == 3:  # Text file UTF-8
+                file = open(fileName, 'w', newline='', encoding='utf-8')
+                file.truncate()
+                writer = csv.writer(file)
+                for i in range(model.rowCount()):
+                    progressDlg.step()
+                    if progressDlg.wasCanceled():
+                        break
+
+                    index = self.__mapToSource(self.proxyModel.index(i, 0))
+                    record = model.record(index.row())
+                    parts = []
+                    for param in self.listParam.columns:
+                        field = model.fields.field(param.fieldid)
+                        if field.type in Type.ImageTypes:
+                            continue
+
+                        if not param.enabled:
+                            continue
+
+                        if record.isNull(param.fieldid):
+                            parts.append('')
+                        else:
+                            value = record.value(param.fieldid)
+                            parts.append(value)
+
+                    writer.writerow(parts)
+
+                file.close()
+
+            progressDlg.reset()
+
     def _edit(self, index=None):
         if not index:
             index = self.currentIndex()
@@ -537,6 +615,7 @@ class ListView(QtGui.QTableView):
         elif mime.hasText():
             # Load data stored by another application (Excel)
             # TODO: Process fields with \n and \t
+            # http://docs.python.org/3.2/library/csv.html#csv.excel_tab
             textData = clipboard.text().split('\n')
             for progress, recordData in enumerate(textData):
                 if progressDlg:

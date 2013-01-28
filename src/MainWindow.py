@@ -153,6 +153,8 @@ class MainWindow(QtGui.QMainWindow):
         listMenu.aboutToShow.connect(self.viewTab.updateOpenPageMenu)
         listMenu.addAction(actions['rename'])
         listMenu.addSeparator()
+        listMenu.addAction(actions['select'])
+        listMenu.addSeparator()
         listMenu.addAction(actions['close'])
         listMenu.addAction(actions['remove'])
 
@@ -162,8 +164,13 @@ class MainWindow(QtGui.QMainWindow):
         reportAct.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_P)
         reportAct.triggered.connect(self.report)
 
+        saveTableAct = QtGui.QAction(QtGui.QIcon('icons/table.png'),
+                                     self.tr("Save current list..."), self)
+        saveTableAct.triggered.connect(self.saveTable)
+
         report = menubar.addMenu(self.tr("Report"))
         report.addAction(reportAct)
+        report.addAction(saveTableAct)
         report.addAction(viewBrowserAct)
 
         helpAct = QtGui.QAction(QtGui.QIcon('icons/help.png'),
@@ -343,6 +350,10 @@ class MainWindow(QtGui.QMainWindow):
 
         preview = PreviewDialog(model, records, self)
         preview.exec_()
+
+    def saveTable(self):
+        listView = self.viewTab.currentListView()
+        listView.saveTable()
 
     def __workingDir(self):
         fileName = self.collection.fileName
