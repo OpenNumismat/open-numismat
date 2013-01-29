@@ -25,7 +25,7 @@ class ListPageParam(QtCore.QObject):
     def __init__(self, page):
         super(ListPageParam, self).__init__(page)
 
-        self.pageId = page.id
+        self.page = page
         self.db = page.db
 
         if 'lists' not in self.db.tables():
@@ -40,7 +40,7 @@ class ListPageParam(QtCore.QObject):
 
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM lists WHERE pageid=? ORDER BY position")
-        query.addBindValue(self.pageId)
+        query.addBindValue(self.page.id)
         query.exec_()
         self.columns = []
         while query.next():
@@ -71,7 +71,7 @@ class ListPageParam(QtCore.QObject):
 
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM filters WHERE pageid=?")
-        query.addBindValue(self.pageId)
+        query.addBindValue(self.page.id)
         query.exec_()
         self.filters = {}
         while query.next():
@@ -108,7 +108,7 @@ class ListPageParam(QtCore.QObject):
             query = QSqlQuery(self.db)
             query.prepare("INSERT INTO lists (pageid, fieldid, position,"
                           " enabled, width) VALUES (?, ?, ?, ?, ?)")
-            query.addBindValue(self.pageId)
+            query.addBindValue(self.page.id)
             query.addBindValue(param.fieldid)
             query.addBindValue(position)
             query.addBindValue(int(param.enabled))
@@ -122,7 +122,7 @@ class ListPageParam(QtCore.QObject):
                 query = QSqlQuery(self.db)
                 query.prepare("INSERT INTO filters (pageid, fieldid, value,"
                               " blank, data) VALUES (?, ?, ?, ?, ?)")
-                query.addBindValue(self.pageId)
+                query.addBindValue(self.page.id)
                 query.addBindValue(fieldId)
                 query.addBindValue(filter_.value)
                 if filter_.blank:
@@ -142,10 +142,10 @@ class ListPageParam(QtCore.QObject):
     def remove(self):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM lists WHERE pageid=?")
-        query.addBindValue(self.pageId)
+        query.addBindValue(self.page.id)
         query.exec_()
 
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM filters WHERE pageid=?")
-        query.addBindValue(self.pageId)
+        query.addBindValue(self.page.id)
         query.exec_()

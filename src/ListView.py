@@ -409,17 +409,27 @@ class ListView(QtGui.QTableView):
                    self.tr("Text file (*.csv)"),
                    self.tr("Text file UTF-8 (*.csv)")]
 
+        defaultFileName = self.listParam.page.title
+        settings = QtCore.QSettings()
+        lastExportDir = settings.value('export_table/last_dir')
+        if lastExportDir:
+            defaultFileName = os.path.join(lastExportDir, defaultFileName)
+
         fileName, filter_ = QtGui.QFileDialog.getSaveFileNameAndFilter(self,
                                     self.tr("Save as"),
+                                    defaultFileName,
                                     filter=';;'.join(filters))
         if fileName:
+            file_info = QtCore.QFileInfo(fileName)
+            settings.setValue('export_table/last_dir', file_info.absolutePath())
+
             model = self.model()
             progressDlg = Gui.ProgressDialog(self.tr("Saving list"),
                                     self.tr("Cancel"), model.rowCount(), self)
 
             if filters.index(filter_) == 0:  # Excel documents
                 wb = xlwt.Workbook()
-                ws = wb.add_sheet("coins")
+                ws = wb.add_sheet(self.listParam.page.title)
 
                 for j, param in enumerate(self.listParam.columns):
                     field = model.fields.field(param.fieldid)
@@ -462,7 +472,7 @@ class ListView(QtGui.QTableView):
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Coins</title>
+<title>""" + self.listParam.page.title + """</title>
 <style>
 td {
     margin: 0;

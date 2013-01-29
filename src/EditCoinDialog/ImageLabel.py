@@ -142,9 +142,8 @@ class ImageEdit(ImageLabel):
                 caption, ImageEdit.latestDir,
                 filter_)
         if fileName:
-            dir_ = QtCore.QDir(fileName)
-            dir_.cdUp()
-            ImageEdit.latestDir = dir_.absolutePath()
+            file_info = QtCore.QFileInfo(fileName)
+            ImageEdit.latestDir = file_info.absolutePath()
 
             self.loadFromFile(fileName)
 

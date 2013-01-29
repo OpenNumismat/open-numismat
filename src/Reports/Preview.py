@@ -426,24 +426,31 @@ class PreviewDialog(QtGui.QDialog):
                 self.preview.setLandscapeOrientation()
 
     def _q_export(self, action):
+        settings = QtCore.QSettings()
+        lastExportDir = settings.value('export/last_dir') or ''
+
         if action == self.wordAction:
             fileName = QtGui.QFileDialog.getSaveFileName(self,
-                                self.tr("Save as"),
+                                self.tr("Save as"), lastExportDir,
                                 filter=self.tr("Word documents (*.doc)"))
             if fileName:
                 self.__exportToWord(self.fileName, fileName)
         elif action == self.htmlAction:
             fileName = QtGui.QFileDialog.getSaveFileName(self,
-                                self.tr("Save as"),
+                                self.tr("Save as"), lastExportDir,
                                 filter=self.tr("Web page (*.htm *.html)"))
             if fileName:
                 self.__exportToHtml(fileName)
         elif action == self.pdfAction:
             fileName = QtGui.QFileDialog.getSaveFileName(self,
-                                self.tr("Save as"),
+                                self.tr("Save as"), lastExportDir,
                                 filter=self.tr("PDF file (*.pdf)"))
             if fileName:
                 self.__exportToPdf(fileName)
+
+        if fileName:
+            file_info = QtCore.QFileInfo(fileName)
+            settings.setValue('export/last_dir', file_info.absolutePath())
 
     @waitCursorDecorator
     def __exportToWord(self, src, dst):
