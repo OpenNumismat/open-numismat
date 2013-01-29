@@ -1,4 +1,6 @@
+import codecs
 import csv
+import html
 import operator
 import pickle
 import sys
@@ -402,7 +404,7 @@ class ListView(QtGui.QTableView):
             executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
 
     def saveTable(self):
-        filters = [self.tr("Excel documents (*.xls)"),
+        filters = [self.tr("Excel document (*.xls)"),
                    self.tr("Web page (*.htm *.html)"),
                    self.tr("Text file (*.csv)"),
                    self.tr("Text file UTF-8 (*.csv)")]
@@ -442,6 +444,68 @@ class ListView(QtGui.QTableView):
                         ws.write(i, j, value)
 
                 wb.save(fileName)
+            elif filters.index(filter_) == 1:  # Web page
+                f = codecs.open(fileName, 'w', 'utf-8')
+                f.truncate()
+                f.write("""
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Coins</title>
+<style>
+td {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    font-size: 1em;
+}
+table {
+    font-family: Verdana,Helvetica;
+    font-size: 10px;
+    border: 1px solid #bbb;
+    border-collapse: collapse;
+}
+td {
+    background: #ecf0f6;
+}
+</style>
+</head>
+<body>
+<table border="1">
+<tbody>
+""")
+
+                for i in range(model.rowCount()):
+                    progressDlg.step()
+                    if progressDlg.wasCanceled():
+                        break
+
+                    f.write("<tr>")
+                    index = self.__mapToSource(self.proxyModel.index(i, 0))
+                    record = model.record(index.row())
+                    for j, param in enumerate(self.listParam.columns):
+                        field = model.fields.field(param.fieldid)
+                        if field.type in Type.ImageTypes:
+                            continue
+
+                        if not param.enabled:
+                            continue
+
+                        if record.isNull(param.fieldid):
+                            value = ''
+                        else:
+                            value = record.value(param.fieldid)
+
+                        f.write("<td>")
+                        f.write(html.escape(str(value)))
+                        f.write("</td>")
+
+                    f.write("</tr>\n")
+
+                f.write("</tbody></table></body></html>")
+                f.close()
             elif filters.index(filter_) == 2:  # Text file
                 file = open(fileName, 'w', newline='')
                 file.truncate()
