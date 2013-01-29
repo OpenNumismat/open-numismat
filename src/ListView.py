@@ -1,14 +1,6 @@
-import codecs
-import csv
-import html
 import operator
 import pickle
-import sys
 import os.path
-try:
-    import xlwt3 as xlwt
-except ImportError:
-    print('xlwt3 module missed. Exporting to Excel not available')
 
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt, pyqtSignal
@@ -21,6 +13,7 @@ from Collection.HeaderFilterMenu import FilterMenuButton
 from Tools import Gui, TemporaryDir
 from Reports.Report import Report
 from Settings import Settings
+from Reports.ExportList import ExportToExcel, ExportToHtml, ExportToCsv, ExportToCsvUtf8
 
 
 def textToClipboard(text):
@@ -428,128 +421,40 @@ class ListView(QtGui.QTableView):
                                     self.tr("Cancel"), model.rowCount(), self)
 
             if filters.index(filter_) == 0:  # Excel documents
-                wb = xlwt.Workbook()
-                ws = wb.add_sheet(self.listParam.page.title)
+                export = ExportToExcel(fileName, self.listParam.page.title)
+            elif filters.index(filter_) == 1:  # Excel documents
+                export = ExportToHtml(fileName, self.listParam.page.title)
+            elif filters.index(filter_) == 2:  # Excel documents
+                export = ExportToCsv(fileName, self.listParam.page.title)
+            elif filters.index(filter_) == 3:  # Excel documents
+                export = ExportToCsvUtf8(fileName, self.listParam.page.title)
+            else:
+                raise
 
-                for j, param in enumerate(self.listParam.columns):
-                    field = model.fields.field(param.fieldid)
-                    if field.type in Type.ImageTypes:
-                        continue
+            export.open()
 
-                    if not param.enabled:
-                        continue
+            parts = []
+            for param in self.listParam.columns:
+                field = model.fields.field(param.fieldid)
+                if field.type in Type.ImageTypes:
+                    continue
 
-                    ws.write(0, j, field.title)
+                if not param.enabled:
+                    continue
 
-                for i in range(model.rowCount()):
-                    progressDlg.step()
-                    if progressDlg.wasCanceled():
-                        break
+                parts.append(field.title)
 
-                    index = self.__mapToSource(self.proxyModel.index(i, 0))
-                    record = model.record(index.row())
-                    for j, param in enumerate(self.listParam.columns):
-                        field = model.fields.field(param.fieldid)
-                        if field.type in Type.ImageTypes:
-                            continue
+            export.writeHeader(parts)
 
-                        if not param.enabled:
-                            continue
+            for i in range(model.rowCount()):
+                progressDlg.step()
+                if progressDlg.wasCanceled():
+                    break
 
-                        if record.isNull(param.fieldid):
-                            value = ''
-                        else:
-                            value = record.value(param.fieldid)
-
-                        ws.write(i + 1, j, value)
-
-                wb.save(fileName)
-            elif filters.index(filter_) == 1:  # Web page
-                f = codecs.open(fileName, 'w', 'utf-8')
-                f.truncate()
-                f.write("""
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>""" + self.listParam.page.title + """</title>
-<style>
-td {
-    margin: 0;
-    padding: 0;
-}
-html, body {
-    font-size: 1em;
-}
-table {
-    font-family: Verdana,Helvetica;
-    font-size: 10px;
-    border: 1px solid #bbb;
-    border-collapse: collapse;
-}
-th {
-    background: #ddd;
-}
-td {
-    background: #ecf0f6;
-}
-</style>
-</head>
-<body>
-<table border="1">
-""")
-
-                f.write("<thead><tr>")
-                for j, param in enumerate(self.listParam.columns):
-                    field = model.fields.field(param.fieldid)
-                    if field.type in Type.ImageTypes:
-                        continue
-
-                    if not param.enabled:
-                        continue
-
-                    f.write("<th>")
-                    f.write(html.escape(field.title))
-                    f.write("</th>")
-                f.write("</tr></thead>\n")
-
-                f.write("<tbody>\n")
-                for i in range(model.rowCount()):
-                    progressDlg.step()
-                    if progressDlg.wasCanceled():
-                        break
-
-                    f.write("<tr>")
-                    index = self.__mapToSource(self.proxyModel.index(i, 0))
-                    record = model.record(index.row())
-                    for j, param in enumerate(self.listParam.columns):
-                        field = model.fields.field(param.fieldid)
-                        if field.type in Type.ImageTypes:
-                            continue
-
-                        if not param.enabled:
-                            continue
-
-                        if record.isNull(param.fieldid):
-                            value = ''
-                        else:
-                            value = record.value(param.fieldid)
-
-                        f.write("<td>")
-                        f.write(html.escape(str(value)))
-                        f.write("</td>")
-
-                    f.write("</tr>\n")
-
-                f.write("</tbody></table></body></html>")
-                f.close()
-            elif filters.index(filter_) == 2:  # Text file
-                file = open(fileName, 'w', newline='')
-                file.truncate()
-                writer = csv.writer(file, delimiter=';')
-
+                index = self.__mapToSource(self.proxyModel.index(i, 0))
+                record = model.record(index.row())
                 parts = []
-                for j, param in enumerate(self.listParam.columns):
+                for param in self.listParam.columns:
                     field = model.fields.field(param.fieldid)
                     if field.type in Type.ImageTypes:
                         continue
@@ -557,80 +462,14 @@ td {
                     if not param.enabled:
                         continue
 
-                    value = field.title.encode(encoding=sys.stdout.encoding, errors='ignore').decode(sys.stdout.encoding)
-                    parts.append(value)
+                    if record.isNull(param.fieldid):
+                        parts.append('')
+                    else:
+                        parts.append(record.value(param.fieldid))
 
-                writer.writerow(parts)
+                export.writeRow(parts)
 
-                for i in range(model.rowCount()):
-                    progressDlg.step()
-                    if progressDlg.wasCanceled():
-                        break
-
-                    index = self.__mapToSource(self.proxyModel.index(i, 0))
-                    record = model.record(index.row())
-                    parts = []
-                    for param in self.listParam.columns:
-                        field = model.fields.field(param.fieldid)
-                        if field.type in Type.ImageTypes:
-                            continue
-
-                        if not param.enabled:
-                            continue
-
-                        if record.isNull(param.fieldid):
-                            parts.append('')
-                        else:
-                            value = str(record.value(param.fieldid))
-                            translated_value = value.encode(encoding=sys.stdout.encoding, errors='ignore').decode(sys.stdout.encoding)
-                            parts.append(translated_value)
-
-                    writer.writerow(parts)
-
-                file.close()
-            elif filters.index(filter_) == 3:  # Text file UTF-8
-                file = open(fileName, 'w', newline='', encoding='utf-8')
-                file.truncate()
-                writer = csv.writer(file, delimiter=';')
-
-                parts = []
-                for j, param in enumerate(self.listParam.columns):
-                    field = model.fields.field(param.fieldid)
-                    if field.type in Type.ImageTypes:
-                        continue
-
-                    if not param.enabled:
-                        continue
-
-                    parts.append(field.title)
-
-                writer.writerow(parts)
-
-                for i in range(model.rowCount()):
-                    progressDlg.step()
-                    if progressDlg.wasCanceled():
-                        break
-
-                    index = self.__mapToSource(self.proxyModel.index(i, 0))
-                    record = model.record(index.row())
-                    parts = []
-                    for param in self.listParam.columns:
-                        field = model.fields.field(param.fieldid)
-                        if field.type in Type.ImageTypes:
-                            continue
-
-                        if not param.enabled:
-                            continue
-
-                        if record.isNull(param.fieldid):
-                            parts.append('')
-                        else:
-                            value = record.value(param.fieldid)
-                            parts.append(value)
-
-                    writer.writerow(parts)
-
-                file.close()
+            export.close()
 
             progressDlg.reset()
 
