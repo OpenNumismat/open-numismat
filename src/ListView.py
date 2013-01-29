@@ -421,6 +421,16 @@ class ListView(QtGui.QTableView):
                 wb = xlwt.Workbook()
                 ws = wb.add_sheet("coins")
 
+                for j, param in enumerate(self.listParam.columns):
+                    field = model.fields.field(param.fieldid)
+                    if field.type in Type.ImageTypes:
+                        continue
+
+                    if not param.enabled:
+                        continue
+
+                    ws.write(0, j, field.title)
+
                 for i in range(model.rowCount()):
                     progressDlg.step()
                     if progressDlg.wasCanceled():
@@ -441,7 +451,7 @@ class ListView(QtGui.QTableView):
                         else:
                             value = record.value(param.fieldid)
 
-                        ws.write(i, j, value)
+                        ws.write(i + 1, j, value)
 
                 wb.save(fileName)
             elif filters.index(filter_) == 1:  # Web page
@@ -467,6 +477,9 @@ table {
     border: 1px solid #bbb;
     border-collapse: collapse;
 }
+th {
+    background: #ddd;
+}
 td {
     background: #ecf0f6;
 }
@@ -474,9 +487,23 @@ td {
 </head>
 <body>
 <table border="1">
-<tbody>
 """)
 
+                f.write("<thead><tr>")
+                for j, param in enumerate(self.listParam.columns):
+                    field = model.fields.field(param.fieldid)
+                    if field.type in Type.ImageTypes:
+                        continue
+
+                    if not param.enabled:
+                        continue
+
+                    f.write("<th>")
+                    f.write(html.escape(field.title))
+                    f.write("</th>")
+                f.write("</tr></thead>\n")
+
+                f.write("<tbody>\n")
                 for i in range(model.rowCount()):
                     progressDlg.step()
                     if progressDlg.wasCanceled():
@@ -510,6 +537,21 @@ td {
                 file = open(fileName, 'w', newline='')
                 file.truncate()
                 writer = csv.writer(file, delimiter=';')
+
+                parts = []
+                for j, param in enumerate(self.listParam.columns):
+                    field = model.fields.field(param.fieldid)
+                    if field.type in Type.ImageTypes:
+                        continue
+
+                    if not param.enabled:
+                        continue
+
+                    value = field.title.encode(encoding=sys.stdout.encoding, errors='ignore').decode(sys.stdout.encoding)
+                    parts.append(value)
+
+                writer.writerow(parts)
+
                 for i in range(model.rowCount()):
                     progressDlg.step()
                     if progressDlg.wasCanceled():
@@ -540,6 +582,20 @@ td {
                 file = open(fileName, 'w', newline='', encoding='utf-8')
                 file.truncate()
                 writer = csv.writer(file, delimiter=';')
+
+                parts = []
+                for j, param in enumerate(self.listParam.columns):
+                    field = model.fields.field(param.fieldid)
+                    if field.type in Type.ImageTypes:
+                        continue
+
+                    if not param.enabled:
+                        continue
+
+                    parts.append(field.title)
+
+                writer.writerow(parts)
+
                 for i in range(model.rowCount()):
                     progressDlg.step()
                     if progressDlg.wasCanceled():
