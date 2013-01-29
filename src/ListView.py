@@ -3,6 +3,10 @@ import operator
 import pickle
 import sys
 import os.path
+try:
+    import xlwt3 as xlwt
+except ImportError:
+    print('xlwt3 module missed. Exporting to Excel not available')
 
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt, pyqtSignal
@@ -411,7 +415,34 @@ class ListView(QtGui.QTableView):
             progressDlg = Gui.ProgressDialog(self.tr("Saving list"),
                                     self.tr("Cancel"), model.rowCount(), self)
 
-            if filters.index(filter_) == 2:  # Text file
+            if filters.index(filter_) == 0:  # Excel documents
+                wb = xlwt.Workbook()
+                ws = wb.add_sheet("coins")
+
+                for i in range(model.rowCount()):
+                    progressDlg.step()
+                    if progressDlg.wasCanceled():
+                        break
+
+                    index = self.__mapToSource(self.proxyModel.index(i, 0))
+                    record = model.record(index.row())
+                    for j, param in enumerate(self.listParam.columns):
+                        field = model.fields.field(param.fieldid)
+                        if field.type in Type.ImageTypes:
+                            continue
+
+                        if not param.enabled:
+                            continue
+
+                        if record.isNull(param.fieldid):
+                            value = ''
+                        else:
+                            value = record.value(param.fieldid)
+
+                        ws.write(i, j, value)
+
+                wb.save(fileName)
+            elif filters.index(filter_) == 2:  # Text file
                 file = open(fileName, 'w', newline='')
                 file.truncate()
                 writer = csv.writer(file, delimiter=';')

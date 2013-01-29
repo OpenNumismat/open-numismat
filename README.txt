@@ -3,6 +3,7 @@ Requirement:
  * PyQt 4.9.5
  * Jinja2 2.6 (for reports)
  * lxml 2.3 (for auction parsing and importing from CoinsCollector 2.6)
+ * xlwt3 0.1.2 (for exporting to Excel)
  * Firebird 2.0 (for importing from Numizmat 2.1)
  * nakagami/pyfirebirdsql 0.7.0 (for importing from Numizmat 2.1)
  * pyodbc 3.0.2 (for importing from Cabinet 2.0.2.0, 2011 and CoinManage 2011)
