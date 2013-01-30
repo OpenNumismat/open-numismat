@@ -13,8 +13,8 @@ if sys.platform == "win32":
 
 executables = [Executable("../src/main.py", targetName=version.AppName+".exe")]
 freezer = Freezer(executables,
-    includes = ["lxml._elementpath", "gzip", "inspect"],
-    excludes = ["win32api", "win32pipe", "win32con"],
+    includes = ["lxml._elementpath", "gzip", "inspect", "PyQt4.QtNetwork"],
+    excludes = ["unittest"],
     compress = True,
     replacePaths = [('..\\src\\', '')],
     icon = '../src/icons/main.ico',
@@ -23,6 +23,7 @@ freezer.Freeze()
 
 shutil.copy("../src/Collection/Import/CdrToXml/Cdr2Xml.dll", "dist")
 shutil.copytree("../src/icons", "dist/icons")
+shutil.copytree("../src/templates", "dist/templates")
 shutil.copy("../COPYING", "dist")
 shutil.copy("lang_ru.qm", "dist")
 shutil.copy("lang_es.qm", "dist")
