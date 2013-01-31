@@ -1,5 +1,8 @@
 ChangeLog
 ---------
+1.4.1 - 2013-01-31:
+    * Fixed critical bug with opening main window
+
 1.4 - 2013-01-31:
     * Rollback to PyQt 4.8.6 (https://bugs.webkit.org/show_bug.cgi?id=89756)
     * Implemented generation reports
