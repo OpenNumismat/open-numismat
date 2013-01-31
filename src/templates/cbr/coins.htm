@@ -36,7 +36,7 @@
 
   <td width="15%">{{titles.catalognum1}}</td>
 
-  <td width="15%">{{titles.denomination}}</td>
+  <td width="15%">{{titles.value}}</td>
     <td align="left" valign="center"><dd>{{titles.title}}</dd></td>
   </tr>
 {% for group in records|groupby('series') %}
@@ -45,7 +45,7 @@
   <tr bgcolor="#ffffff">
     <td align="center">{{record.issuedate}}</td>
     <td align="center">{{record.catalognum1}}</td>
-    <td>&nbsp; <font size="2">{{record.denomination}}</font></td>
+    <td>&nbsp; <font size="2">{{record.value}} {{record.unit|lower}}</font></td>
     <td class="menu">
       <a href="{% if single_file %}#id_{{record.id}}{% else %}coin_{{record.id}}.htm{% endif %}">
         {% if record.subjectshort %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}

@@ -51,9 +51,7 @@
 <tbody><tr>
 	<td><table border="0" cellpadding="2" cellspacing="1" width="100%">
     <tbody><tr bgcolor="white">
-        {% if record.denomination %}
-        <td align="center"><font size="2">{{titles.denomination}}</font></td>
-        {% endif %}
+        <td align="center"><font size="2">{{titles.value}}</font></td>
         {% if record.quality %}
         <td align="center"><font size="2">{{titles.quality}}</font></td>
         {% endif %}
@@ -80,9 +78,7 @@
 <!-- main pqart -->
 
   <tr bgcolor="white">
-        {% if record.denomination %}
-        <td align="center"><font size="2">{{record.denomination}}</font></td>
-        {% endif %}
+        <td align="center"><font size="2">{{record.value}} {{record.unit|lower}}</font></td>
         {% if record.quality %}
         <td align="center"><font size="2">{{record.quality}}</font></td>
         {% endif %}
