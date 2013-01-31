@@ -22,7 +22,7 @@ ru.sendReport=Посылать отчет разработчику при возникновении ошибки
 es.sendReport=Enviar un informe al autor del sitio web si cualquier error
 
 [Files]
-Source: "dist\*"; DestDir: "{app}"; Flags: recursesubdirs
+Source: "dist\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 Source: "..\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: en; Flags: confirmoverwrite
 Source: "..\db\demo_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: ru; Flags: confirmoverwrite
 Source: "..\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: es; Flags: confirmoverwrite
