@@ -212,7 +212,7 @@ class MainWindow(QtGui.QMainWindow):
 
         settings = QtCore.QSettings()
         pageIndex = settings.value('tabwindow/page')
-        if not isinstance(pageIndex, QtCore.QPyNullVariant):
+        if pageIndex != None:
             self.viewTab.setCurrentIndex(int(pageIndex))
 
         if settings.value('mainwindow/maximized') == 'true':
