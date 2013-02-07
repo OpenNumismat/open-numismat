@@ -4,6 +4,7 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import QMargins, QUrl
 
 from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Tools.Gui import createIcon
 
 
 # Reimplementing QDoubleValidator for replace comma with dot
@@ -92,7 +93,7 @@ class UrlLineEdit(QtGui.QWidget):
 
         self.lineEdit = LineEdit(parent)
 
-        buttonLoad = QtGui.QPushButton(QtGui.QIcon('icons/world.png'), '', parent)
+        buttonLoad = QtGui.QPushButton(createIcon('world.png'), '', parent)
         buttonLoad.setFixedWidth(25)
         buttonLoad.setToolTip(self.tr("Open specified URL"))
         buttonLoad.clicked.connect(self.clickedButtonLoad)

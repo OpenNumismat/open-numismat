@@ -1,4 +1,8 @@
+import os
+
 from PyQt4 import QtCore, QtGui
+
+import OpenNumismat
 
 
 class ProgressDialog(QtGui.QProgressDialog):
@@ -16,3 +20,11 @@ class ProgressDialog(QtGui.QProgressDialog):
         super(ProgressDialog, self).setLabelText(text)
         self.setMaximum(self.maximum() + 1)
         self.step()
+
+
+def createIcon(fileTitle=None):
+    if fileTitle:
+        fileName = os.path.join(OpenNumismat.PRJ_PATH, "icons", fileTitle)
+        return QtGui.QIcon(fileName)
+    else:
+        return QtGui.QIcon()

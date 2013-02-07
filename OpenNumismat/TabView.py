@@ -2,6 +2,7 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import pyqtSignal
 
 from OpenNumismat.PageView import PageView
+from OpenNumismat.Tools.Gui import createIcon
 
 
 class TabBar(QtGui.QTabBar):
@@ -58,7 +59,7 @@ class TabView(QtGui.QTabWidget):
         openPageMenu = QtGui.QMenu(self.tr("Open"), self)
         self.__actions['open'] = openPageMenu
 
-        removeAllAct = QtGui.QAction(QtGui.QIcon('icons/cross.png'),
+        removeAllAct = QtGui.QAction(createIcon('cross.png'),
                                      self.tr("Remove all"), self)
         removeAllAct.triggered.connect(self.removeClosedPages)
         self.__actions['removeAll'] = removeAllAct
@@ -76,7 +77,7 @@ class TabView(QtGui.QTabWidget):
         closeListAct.triggered.connect(self.closePage)
         self.__actions['close'] = closeListAct
 
-        removeListAct = QtGui.QAction(QtGui.QIcon('icons/cross.png'),
+        removeListAct = QtGui.QAction(createIcon('cross.png'),
                                       self.tr("Remove"), self)
         removeListAct.triggered.connect(self.removePage)
         self.__actions['remove'] = removeListAct

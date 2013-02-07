@@ -14,6 +14,8 @@ from PyQt4.QtCore import Qt
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools import Gui
+import OpenNumismat
+
 
 def formatFields(field, data):
     try:
@@ -69,7 +71,7 @@ def copyFolder(sourceFolder, destFolder):
 def scanTemplates():
     templates = []
 
-    sourceDir = QtCore.QDir(Report.BASE_FOLDER)
+    sourceDir = QtCore.QDir(os.path.join(OpenNumismat.PRJ_PATH, Report.BASE_FOLDER))
     if not sourceDir.exists():
         return templates
 
@@ -86,7 +88,7 @@ class Report(QtCore.QObject):
         super(Report, self).__init__(parent)
 
         self.model = model
-        self.srcFolder = os.path.join(self.BASE_FOLDER, template_name)
+        self.srcFolder = os.path.join(OpenNumismat.PRJ_PATH, self.BASE_FOLDER, template_name)
 
         fileInfo = QtCore.QFileInfo(dstPath)
         if fileInfo.exists() and fileInfo.isDir():

@@ -9,7 +9,7 @@ linguistPath = os.path.join(pyqtDir, 'linguist.exe')
 lreleasePath = os.path.join(pyqtDir, 'lrelease.exe')
     
 srcFiles = []
-for dirname, dirnames, filenames in os.walk('../src'):
+for dirname, dirnames, filenames in os.walk('../OpenNumismat'):
     for filename in filenames:
         fileName, fileExtension = os.path.splitext(filename)
         if fileExtension == '.py':

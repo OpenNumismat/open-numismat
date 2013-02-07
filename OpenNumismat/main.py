@@ -10,6 +10,7 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.MainWindow import MainWindow
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import version
+import OpenNumismat
 
 
 def main():
@@ -36,11 +37,11 @@ def main():
     lang = settings['locale']
 
     translator = QtCore.QTranslator()
-    translator.load('lang_' + lang)
+    translator.load('lang_' + lang, OpenNumismat.PRJ_PATH)
     app.installTranslator(translator)
 
     translatorQt = QtCore.QTranslator()
-    translatorQt.load('qt_' + lang)
+    translatorQt.load('qt_' + lang, OpenNumismat.PRJ_PATH)
     app.installTranslator(translatorQt)
 
     mainWindow = MainWindow()

@@ -17,13 +17,13 @@ freezer = Freezer(executables,
     excludes=["unittest"],
     compress=True,
     replacePaths=[('..\\OpenNumismat\\', '')],
-    icon='../icons/main.ico',
+    icon='../OpenNumismat/icons/main.ico',
     base=base)
 freezer.Freeze()
 
 shutil.copy("../OpenNumismat/Collection/Import/CdrToXml/Cdr2Xml.dll", "dist")
-shutil.copytree("../icons", "dist/icons")
-shutil.copytree("../templates", "dist/templates")
+shutil.copytree("../OpenNumismat/icons", "dist/icons")
+shutil.copytree("../OpenNumismat/templates", "dist/templates")
 shutil.copy("../COPYING", "dist")
 shutil.copy("lang_ru.qm", "dist")
 shutil.copy("lang_es.qm", "dist")

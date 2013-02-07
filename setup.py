@@ -112,8 +112,8 @@ params = {
 
     # include ninja pkg and setup the run script
     "packages": find_packages() + [
-        'templates',
-        'icons'],
+        'OpenNumismat/templates',
+        'OpenNumismat/icons'],
 
     # auto create scripts
     "entry_points": {

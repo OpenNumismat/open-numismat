@@ -4,6 +4,7 @@ from PyQt4.QtSql import QSqlQuery
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Tools.Gui import createIcon
 
 
 class FilterMenuButton(QtGui.QPushButton):
@@ -30,7 +31,7 @@ class FilterMenuButton(QtGui.QPushButton):
         self.setFixedWidth(self.height())
         self.setMenu(menu)
         if self.fieldid in self.filters.keys():
-            self.setIcon(QtGui.QIcon('icons/filters.ico'))
+            self.setIcon(createIcon('filters.ico'))
 
         menu.aboutToShow.connect(self.prepareMenu)
 
@@ -205,10 +206,10 @@ class FilterMenuButton(QtGui.QPushButton):
                     filters.addFilter(item.data(Qt.UserRole))
 
         if filters.filters():
-            self.setIcon(QtGui.QIcon('icons/filters.ico'))
+            self.setIcon(createIcon('filters.ico'))
             self.filters[self.fieldid] = filters
         else:
-            self.setIcon(QtGui.QIcon())
+            self.setIcon(createIcon())
             if self.fieldid in self.filters.keys():
                 self.filters.pop(self.fieldid)
 

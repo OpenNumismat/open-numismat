@@ -14,6 +14,7 @@ from OpenNumismat.Tools import Gui, TemporaryDir
 from OpenNumismat.Reports.Report import Report
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportToCsv, ExportToCsvUtf8
+from OpenNumismat.Tools.Gui import createIcon
 
 
 def textToClipboard(text):
@@ -317,16 +318,16 @@ class ListView(QtGui.QTableView):
 
     def contextMenuEvent(self, pos):
         menu = QtGui.QMenu(self)
-        act = menu.addAction(QtGui.QIcon('icons/pencil.png'),
+        act = menu.addAction(createIcon('pencil.png'),
                              self.tr("Edit..."), self._edit)
         act.setShortcut('Enter')
         # Disable Edit when more than one record selected
         act.setEnabled(len(self.selectedRows()) == 1)
         menu.setDefaultAction(act)
 
-        menu.addAction(QtGui.QIcon('icons/page_copy.png'),
+        menu.addAction(createIcon('page_copy.png'),
                        self.tr("Copy"), self._copy, QtGui.QKeySequence.Copy)
-        menu.addAction(QtGui.QIcon('icons/page_paste.png'),
+        menu.addAction(createIcon('page_paste.png'),
                        self.tr("Paste"), self._paste, QtGui.QKeySequence.Paste)
         menu.addSeparator()
         act = menu.addAction(self.tr("Clone"), self._clone)
