@@ -6,7 +6,7 @@ import shutil
 from PyQt4 import QtCore, QtGui
 
 def convertImage(fileName):
-    ba = QtCore.QByteArray() 
+    ba = QtCore.QByteArray()
     buffer = QtCore.QBuffer(ba)
     buffer.open(QtCore.QIODevice.WriteOnly)
 
@@ -16,8 +16,8 @@ def convertImage(fileName):
     return ba
 
 import sys
-sys.path.append('../src')
-from Reference.Reference import Reference
+sys.path.append('..')
+from OpenNumismat.Reference.Reference import Reference
 
 shutil.copy("../db/reference_en.ref", ".")
 
