@@ -45,6 +45,7 @@ OpenNumismat based on PyQt framework with SQLite database engine to store data c
 # IMPORTS
 ###############################################################################
 
+import os
 import sys
 
 from setuptools import setup, find_packages
@@ -77,6 +78,12 @@ if sys.platform == 'win32':
     dependencies.append("xlwt3")
 
 
+data_files = []
+for dirname, dirnames, filenames in os.walk('OpenNumismat/templates'):
+    for filename in filenames:
+        data_files.append((dirname,
+                           [os.path.join(dirname, filename), ]))
+
 ###############################################################################
 # PRE-SETUP
 ###############################################################################
@@ -92,13 +99,13 @@ params = {
     "license": "GPLv3",
     "keywords": "numismatics, coins, qt, pyqt, collecting, cataloging",
     "classifiers": ["Development Status :: 5 - Production/Stable",
-               "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-               "Natural Language :: English",
-               "Natural Language :: Russian",
-               "Natural Language :: Spanish",
-               "Intended Audience :: End Users/Desktop",
-               "Operating System :: OS Independent",
-               "Programming Language :: Python :: 3.2"],
+            "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+            "Natural Language :: English",
+            "Natural Language :: Russian",
+            "Natural Language :: Spanish",
+            "Intended Audience :: End Users/Desktop",
+            "Operating System :: OS Independent",
+            "Programming Language :: Python :: 3.2"],
 
     "install_requires": dependencies,
 
@@ -106,13 +113,11 @@ params = {
     "include_package_data": True,
     "package_data": {'': ['*.png', '*.gif', '*.jpg', '*.ico',
         '*.js', '*.htm', '*.html', '*.css', '*.qm']},
-#    "data_files": [('templates', os.walk('templates').get(2)), ],
+    "data_files": data_files,
 
     "py_modules": ['open-numismat', ],
 
-    # include ninja pkg and setup the run script
     "packages": find_packages() + [
-        'OpenNumismat/templates',
         'OpenNumismat/icons'],
 
     # auto create scripts
