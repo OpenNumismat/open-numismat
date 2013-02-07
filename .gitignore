@@ -1,4 +1,6 @@
 __pycache__
 *.pyc
 *.qm
-tools/dist
+/tools/dist
+/build
+/OpenNumismat.egg-info
