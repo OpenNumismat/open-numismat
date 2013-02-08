@@ -26,7 +26,12 @@ class MolotokParser(_AuctionParser):
         except KeyError:
             pass
 
-        siWrapper = self.html.get_element_by_id('siWrapper')
+        try:
+            siWrapper = self.html.get_element_by_id('siWrapper')
+        except KeyError:
+            # Already moved to archive (after 2 months after done)
+            raise _CanceledError()
+
         alleLink = siWrapper.find_class('alleLink')
         if alleLink:
             bidCount = int(alleLink[0].text_content().split()[0])
@@ -258,6 +263,9 @@ class WolmarParser(_AuctionParser):
         return 'windows-1251'
 
     def _parse(self):
+        for el in self.html.find_class('time_line2')[0].getchildren():
+            self.html.find_class('time_line2')[0].remove(el)
+
         item = self.html.find_class('item')[0]
         if item.text_content().find("Лот закрыт") < 0:
             raise _NotDoneYetError()
