@@ -29,6 +29,10 @@ class MainWindow(QtGui.QMainWindow):
                                     self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
 
+        cancelFilteringAct = QtGui.QAction(createIcon('funnel.png'),
+                                    self.tr("Clear all filters"), self)
+        cancelFilteringAct.triggered.connect(self.cancelFilteringEvent)
+
         exitAct = QtGui.QAction(createIcon('door_in.png'),
                                 self.tr("E&xit"), self)
         exitAct.setShortcut(QtGui.QKeySequence.Quit)
@@ -192,6 +196,8 @@ class MainWindow(QtGui.QMainWindow):
         toolBar.addAction(editCoinAct)
         toolBar.addAction(viewBrowserAct)
         toolBar.addSeparator()
+        toolBar.addAction(cancelFilteringAct)
+        toolBar.addSeparator()
         toolBar.addAction(settingsAct)
         self.addToolBar(toolBar)
 
@@ -241,6 +247,10 @@ class MainWindow(QtGui.QMainWindow):
             self.latestActions.append(act)
             act.latestTriggered.connect(self.openCollection)
             self.__menu.addAction(act)
+
+    def cancelFilteringEvent(self):
+        listView = self.viewTab.currentListView()
+        listView.clearAllFilters()
 
     def settingsEvent(self):
         dialog = SettingsDialog(self.collection, self)

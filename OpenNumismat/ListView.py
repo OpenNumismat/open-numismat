@@ -190,6 +190,14 @@ class ListView(QtGui.QTableView):
         self.selectRow(insertedRowIndex.row())
         self.scrollTo(insertedRowIndex)
 
+    def clearAllFilters(self):
+        for btn in self.headerButtons:
+            btn.clear()
+
+        self.listParam.filters.clear()
+        self.listParam.save()
+        self.model().setFilter('')
+
     def setModel(self, model):
         model.rowInserted.connect(self.rowInserted)
 

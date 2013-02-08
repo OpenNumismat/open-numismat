@@ -220,6 +220,9 @@ class FilterMenuButton(QtGui.QPushButton):
 
         self.listParam.save()
 
+    def clear(self):
+        self.setIcon(createIcon())
+
     @staticmethod
     def filtersToSql(filters):
         sqlFilters = []
