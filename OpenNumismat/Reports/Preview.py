@@ -288,7 +288,7 @@ class PreviewDialog(QtGui.QDialog):
         if not self.started:
             # Fist rendering is done - show dialog
             self.started = True
-            super(PreviewDialog, self).exec_()
+            self.setVisible(True)
 
     def _templateChanged(self, index):
         template_name = self.templateSelector.currentText()
