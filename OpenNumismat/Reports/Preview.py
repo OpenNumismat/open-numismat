@@ -70,7 +70,8 @@ class LineEdit(QtGui.QLineEdit):
 class PreviewDialog(QtGui.QDialog):
     def __init__(self, model, records, parent=None):
         super(PreviewDialog, self).__init__(parent,
-                        Qt.WindowSystemMenuHint)
+                        Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint |
+                        Qt.WindowCloseButtonHint)
 
         self.started = False
 
