@@ -251,13 +251,13 @@ class PreviewDialog(QtGui.QDialog):
         # Export
         self.exportGroup = QtGui.QActionGroup(self)
         self.wordAction = self.exportGroup.addAction(
-                        createIcon('Document Microsoft Word-01.png'),
+                        createIcon('Document_Microsoft_Word.png'),
                         self.tr("Save as MS Word document"))
         self.htmlAction = self.exportGroup.addAction(
-                        createIcon('Web HTML-01.png'),
+                        createIcon('Web_HTML.png'),
                         self.tr("Save as HTML files"))
         self.pdfAction = self.exportGroup.addAction(
-                        createIcon('Adobe PDF Document-01.png'),
+                        createIcon('Adobe_PDF_Document.png'),
                         self.tr("Save as PDF file"))
         self.exportGroup.triggered.connect(self._q_export)
 
