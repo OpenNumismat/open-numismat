@@ -2,7 +2,7 @@ import codecs
 import csv
 import html
 import sys
-import os.path
+
 try:
     import xlwt3 as xlwt
 except ImportError:
@@ -60,7 +60,8 @@ class ExportToHtml(__ExportBase):
         self._file = codecs.open(self.fileName, 'w', 'utf-8')
         self._file.truncate()
         self._file.write("""
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -129,7 +130,7 @@ class ExportToCsv(__ExportBase):
     def writeHeader(self, headers):
         encoded_vals = []
         for val in headers:
-            value = val.encode(encoding=sys.stdout.encoding, errors='ignore').decode(sys.stdout.encoding)
+            value = __prepareStr(val)
             encoded_vals.append(value)
 
         self._writer.writerow(encoded_vals)
@@ -137,7 +138,7 @@ class ExportToCsv(__ExportBase):
     def writeRow(self, row):
         encoded_vals = []
         for val in row:
-            value = str(val).encode(encoding=sys.stdout.encoding, errors='ignore').decode(sys.stdout.encoding)
+            value = __prepareStr(str(val))
             encoded_vals.append(value)
 
         self._writer.writerow(encoded_vals)
@@ -160,3 +161,11 @@ class ExportToCsvUtf8(__ExportBase):
 
     def writeRow(self, row):
         self._writer.writerow(row)
+
+
+# Prepare string for default system encoding (remove or replace extra
+# characters)
+def __prepareStr(string):
+    encoded_str = string.encode(encoding=sys.stdout.encoding, errors='ignore')
+    decoded_str = encoded_str.decode(sys.stdout.encoding)
+    return decoded_str

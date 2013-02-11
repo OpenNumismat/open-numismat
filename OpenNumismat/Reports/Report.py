@@ -46,6 +46,7 @@ def formatFields(field, data):
         return data
     return text
 
+
 def copyFolder(sourceFolder, destFolder):
     sourceDir = QtCore.QDir(sourceFolder)
     if not sourceDir.exists():
@@ -68,6 +69,7 @@ def copyFolder(sourceFolder, destFolder):
         destName = os.path.join(destFolder, file)
         copyFolder(srcName, destName)
 
+
 def scanTemplates():
     templates = []
 
@@ -80,6 +82,7 @@ def scanTemplates():
         templates.append(file)
 
     return templates
+
 
 class Report(QtCore.QObject):
     BASE_FOLDER = 'templates'

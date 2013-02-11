@@ -9,7 +9,7 @@ def cryptPassword(password=''):
 
 
 def checkPassword(collection, password):
-    collectionPassword = collection.settings.Settings['Password']
+    collectionPassword = collection.settings['Password']
     if collectionPassword != cryptPassword(password):
         return False
 
@@ -99,7 +99,7 @@ class PasswordSetDialog(QtGui.QDialog):
                                     "password must match"))
                 return
 
-            self.collection.settings.Settings['Password'] = newPassword
+            self.collection.settings['Password'] = newPassword
             self.collection.settings.save()
             self.accept()
         else:
