@@ -1,0 +1,12 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{% if record.subjectshort %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}</title>
+<link rel="stylesheet" type="text/css" href="{{static_files}}/numis_admin.css">
+</head>
+
+<body leftmargin="1" marginheight="1" marginwidth="1" bottommargin="1" topmargin="1" rightmargin="1" background="{{static_files}}/bg_default_login.gif">
+
+{% include 'coin_body.htm' %}
+
+
+</body></html>

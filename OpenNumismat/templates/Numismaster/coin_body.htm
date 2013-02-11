@@ -1,0 +1,69 @@
+<div style="width:100%;text-align:center;"><table cellpadding="0" cellspacing="0" border="0" id="wrapper"><tbody>
+
+  <tr><td id="content">
+  <div id="PAGE_BODY" class="adminBodyDiv" width="100%">
+
+<table border="0" cellpadding="0" cellspacing="0" class="infoBoxTable" width="100%"><tbody>
+<tr><td height="1%">
+  <table border="0" cellspacing="0" cellpadding="0" class="infoBoxTitleBox"><tbody>
+    <tr><td class="infoBoxTitle">{% if record.subjectshort %}{{record.subjectshort}}{% else %}{{record.title}}{% endif %}</td>
+        <td><div class="infoBoxEnd"></div></td>
+    </tr>
+  </tbody></table>
+</td></tr>
+<tr><td class="infoBoxBodyWithTitle" valign="top">
+  <div style=""><table style="width:100%;" cellpadding="0" cellspacing="0" border="0"><tbody>
+    <tr><td style="width:100%;" valign="top">
+      <table style="width:100%;" cellpadding="0" cellspacing="0" border="0"><tbody>
+        <tr><td width="100%">
+          <table cellpadding="0" cellspacing="0" border="0" class="efTable"><tbody>
+            <tr><td nowrap=""><b>{{titles.catalognum1}}</b></td><td width="100%" style="padding-left: 30px;">{{record.catalognum1}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.value}}</b></td><td width="100%" style="padding-left: 30px;">{{record.value}} {{record.unit|lower}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.country}}</b></td><td width="100%" style="padding-left: 30px;">{{record.country}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.period}}</b></td><td width="100%" style="padding-left: 30px;">{{record.period}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.mint}}</b></td><td width="100%" style="padding-left: 30px;">{{record.mint}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.material}}</b></td><td width="100%" style="padding-left: 30px;">{{record.material}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.weight}}</b></td><td width="100%" style="padding-left: 30px;">{{record.weight}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.diameter}}</b></td><td width="100%" style="padding-left: 30px;">{{record.diameter}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.edgeimg}}</b></td><td width="100%" style="padding-left: 30px;">{{record.edge}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.series}}</b></td><td width="100%" style="padding-left: 30px;">{{record.series}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.subjectshort}}</b></td><td width="100%" style="padding-left: 30px;">{{record.subjectshort}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.obverseimg}}</b></td><td width="100%" style="padding-left: 30px;">{{record.obversedesign}}</td></tr>
+            <tr><td nowrap=""><b>{{titles.reverseimg}}</b></td><td width="100%" style="padding-left: 30px;">{{record.reversedesign}}</td></tr>
+          </tbody></table>
+        </td></tr>
+      </tbody></table>
+    </td>
+    <td><img src="{{static_files}}/px.gif" width="15" height="1" border="0"></td>
+    <td valign="top">
+      <table cellpadding="0" cellspacing="0" border="0" style="width:380px;"><tbody>
+        <tr><td style="width:100%;padding: 2px 2px 2px 2px;">
+          <div id="ImageScroll" style="background-color:white;overflow-x:auto;width:100%">
+            <table width="100%" align="center"><tbody>
+              <tr><td nowrap=""><img style="vertical-align:middle;" src="{{static_files}}/{{record.obverseimg}}" width="180"> </td></tr>
+              <tr><td nowrap=""><img style="vertical-align:middle;" src="{{static_files}}/{{record.reverseimg}}" width="180"> </td></tr>
+            </tbody></table>
+          </div>
+        </td></tr>
+      </tbody></table>
+    </td></tr>
+  </tbody></table></div>
+</td></tr>
+</tbody></table>
+<!--
+<table border="0" cellpadding="0" cellspacing="0" class="infoBoxTable" width="100%"><tbody>
+  <tr><td height="1%">
+    <table border="0" cellspacing="0" cellpadding="0" class="infoBoxTitleBox"><tbody>
+      <tr><td class="infoBoxTitle">Mintages &amp; Price Information</td><td><div class="infoBoxEnd"></div></td></tr>
+    </tbody></table>
+  </td></tr>
+  <tr><td class="infoBoxBodyWithTitle" valign="top">
+    <div style="">In order to view mintages and price information, you must subscribe to one of the following price guides that this coin is found in:<br>
+    </div>
+  </td></tr>
+</tbody></table>
+-->
+</div></td></tr>
+</tbody></table>
+
+</div>

@@ -1,0 +1,611 @@
+p.breakhere {
+    page-break-before: always;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/* BASE ELEMENT SELECTORS */
+body {
+ font-family: "Lucida Grande",Lucida, Helvetica,  "Lucida Sans Unicode", "Lucida Sans", Arial, sans-serif;;
+ font-size: 11px;
+ line-height: 14px;
+ color: #333;
+ background: url('/numis/images/bkg_gd-wht_gld.gif') top left repeat-x #D5CDA9;
+ margin-top: 10px;
+}
+
+div, td, tr, table, span, input, select {
+ font-family: "Lucida Grande",Lucida, Helvetica,  "Lucida Sans Unicode", "Lucida Sans", Arial, sans-serif;;
+ font-size: 11px;
+}
+
+input, select {
+ font-size: 10px;
+}
+
+a, a:visited { color: #000; }
+a:hover, a:visited:hover { color: #000;}
+
+img { border: 0px; }
+
+h1, h2, h3, h4, h5 { margin: 0; padding: 0; font-weight: bold; }
+
+.smallBrown {
+	color: #838865;
+	font-size: 13px;
+  font-weight: bold;
+}
+.smallBlue {
+	color: #1C6991;
+	font-size: 13px;
+  font-weight: bold;
+}
+
+.blue {
+	color: #1C6991;
+	font-size: 11px;
+  font-weight: bold;
+}
+
+.gray {
+	color: #807f7f;
+	font-size: 11px;
+  font-weight: bold;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+h2 {
+	color: #1C6991;
+	font-size: 13px;
+	padding-bottom: 4px;
+	margin-bottom: 5px;
+}
+
+h2 span {
+	font-size: 11px;
+	font-weight: normal;
+	margin-left: 10px;
+	color: #8DB4C8;
+}
+
+h3, h4 {
+	color: #999;
+	border-bottom: 1px dotted #CCC;
+	font-size: 11px;
+}
+
+h4 {
+ margin-top: 7px;
+ color: #1C6991;
+}
+
+h5 {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+ul {
+	margin: 0;
+	padding: 0px 0px 0px 15px;
+	list-style: square;
+}
+ul span { color: #999; }
+
+
+strong, strong a { font-weight: bold; color: #333; }
+
+
+span.extra { color: #999; }
+
+/* MAIN LAYOUT SELECTORS */
+#wrapper {
+  width: 990px;
+  margin: 0px 10px 10px 10px;
+  background-color: #FFF;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#wrapper_print {
+  background-color: #FFF;
+  width: 100%;
+}
+
+#leader {
+	padding-bottom:10px;
+}
+
+
+span.imp { color: #FFF; background-color: #B35400; padding: 1px; margin: 1px; }
+
+/* SUPPLEMENTARY LAYOUT SELECTORS */
+
+/* tags - secion ids */
+.tag_home, .tag_folio, .tag_guide, .tag_cal,
+.tag_news, .tag_blog, .tag_gloss, .tag_help,
+.tag_radio, .tag_contest, .tag_dir,
+.lk_away, .lk_away_blue, .lk_new, .lk_help, .lk_add, .lk_rem, .lk_com {
+	background: no-repeat top left;
+	padding-left: 13px;
+}
+
+.lk_away { background-image: url('/numis/images/tag_lk_away_gld_lt.gif'); }
+.lk_away_blue { background-image: url('/numis/images/tag_lk_away_blue.gif'); }
+.nt_new { background-image: url('/numis/images/tag_nt_new_gld_lt.gif'); }
+.lk_add { background-image: url('/numis/images/tag_lk_add_gld_lt.gif'); }
+.lk_com { background-image: url('/numis/images/tag_lk_com_gld_lt.gif'); }
+.lk_rem { background-image: url('/numis/images/tag_lk_rem_gld_lt.gif'); }
+
+/* tags - numbers */
+.nm_one, .nm_two { background: no-repeat 0px 2px; padding: 4px 0px 4px 23px; }
+.nm_one { background-image: url('/numis/images/tag_nm_one_blu_lt.gif'); }
+.nm_two { background-image: url('/numis/images/tag_nm_two_blu_lt.gif'); }
+
+
+/* tags - flags */
+img.flag { position: relative; top: 3px; margin-right: 2px; }
+
+/* MYNUMIS HOME STYLES */
+/* calendar */
+.sm_cal_date, .sm_cal_date_em, .sm_cal_head, .sm_cal_state {
+	width: 40px;
+	height: 26px;
+	float: left;
+	margin: 0px 2px 2px 0px;
+	background: url('/numis/images/des_cal-date.gif') no-repeat center;
+	color: #FFF;
+}
+.sm_cal_date DIV, .sm_cal_date_em DIV, .sm_cal_head DIV, .sm_cal_state DIV {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+}
+.sm_cal_state DIV {
+	font-size: 15px;
+}
+
+.sm_cal_date A, .sm_cal_date_em A, .sm_cal_date A:VISITED, .sm_cal_date_em A:VISITED,
+.sm_cal_date A:HOVER, .sm_cal_date_em A:HOVER, .sm_cal_date A:VISITED:HOVER, .sm_cal_date_em A:VISITED:HOVER  {
+ color: #FFF;
+}
+
+.sm_cal_date_em { background-image: url('/numis/images/des_cal-date_em.gif'); }
+.sm_cal_head { height: 12px; background: none; }
+
+.sm_cal_date div, .sm_cal_date_em div, .sm_cal_state div { padding-top: 3px; }
+
+.sm_cal_state {
+ background-image: url('/numis/images/des_cal-state.gif');
+}
+
+.show_info {
+  margin-bottom: 15px;
+  color: #999;
+}
+
+.show_info TD {
+  vertical-align: top;
+}
+
+.show_info .name, .show_info .date {
+  font-weight: bold;
+}
+
+.show_info .name A, .show_info .date A {
+  color: #000;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.adminTitleDiv {
+  background-color: #558FAC;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.adminTitle {
+  font-size: 17px;
+  color: white;
+  font-weight: bold;
+}
+
+.adminTitle a.lk_away { background-image: url('/numis/images/tag_lk_away_wht_dk.gif'); color: #FFF; font-size: 11px; }
+
+.adminBodyDiv {
+  width: 980px;
+  margin-top: 10px;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding: 0px 0px 0px 0px;
+}
+
+#wrapper_print .adminBodyDiv {
+  width: inherit;
+}
+
+.adminTitleImg {
+  padding-right: 5px;
+}
+
+.efTableLbl {
+  width:100%;
+}
+
+.efTableRow LABEL {
+  white-space: nowrap;
+  padding-right: 2px;
+}
+
+
+.efTable {
+  width: 100%;
+}
+
+.efTable TD {
+  border-bottom: 1px dotted #CCC;
+  padding: 3px 0px 5px 0px;
+}
+
+.efTable .tbl TD {
+  border-bottom: 0px;
+  padding: 0px;
+}
+
+.efTableData {
+  text-align: right;
+}
+
+.efTableData .tbl {
+  margin-right: 0px;
+  margin-left: auto;
+}
+
+.infoBoxSmallMarginTable {
+  margin-bottom: 5px;
+}
+
+.infoBoxTable {
+  margin-bottom: 30px;
+}
+
+.infoBoxTitleBox TABLE {
+	display: inline;
+}
+
+.infoBoxOther {
+  float: right;
+}
+
+.infoBoxTitle, .infoBoxSmallMarginTitle {
+	color: #1C6991;
+	font-size: 13px;
+	font-weight: bold;
+	padding-bottom: 4px;
+  white-space: nowrap;
+  padding-right: 5px;
+}
+
+.infoBoxExtraTitle, .infoBoxSmallMarginExtraTitle {
+  white-space: nowrap;
+  width:100%;
+}
+
+.infoBoxExtraTitle SPAN, .infoBoxSmallMarginTitle SPAN{
+	color: #1C6991;
+}
+
+.infoBoxEnd, .infoBoxSmallMarginEnd {
+  width: 100%;
+}
+
+.infoBoxBody, .infoBoxSmallMarginBody {
+	border-top: 1px solid #1C6991;
+  padding: 3px 5px 1px 5px;
+}
+
+.infoBoxBodyWithTitle, .infoBoxSmallMarginBodyWithTitle {
+	border-top: 1px solid #1C6991;
+  padding: 3px 5px 1px 5px;
+}
+
+
+.infoBoxGoldTable {
+  margin-bottom: 30px;
+}
+
+.infoBoxGoldTitleBox TABLE {
+	display: inline;
+}
+
+.infoBoxGoldOther {
+  float: right;
+}
+
+.infoBoxGoldTitle {
+	color: #B9AD74;
+	font-size: 13px;
+	font-weight: bold;
+	padding-bottom: 4px;
+  white-space: nowrap;
+  padding-right: 5px;
+}
+
+.infoBoxGoldExtraTitle {
+  white-space: nowrap;
+  width:100%;
+}
+
+.infoBoxGoldExtraTitle SPAN {
+	color: #1C6991;
+}
+
+.infoBoxGoldEnd {
+  width: 100%;
+}
+
+.infoBoxGoldBody {
+	border-top: 1px solid #1C6991;
+  padding: 3px 5px 1px 5px;
+}
+
+.infoBoxGoldBodyWithTitle {
+	border-top: 1px solid #1C6991;
+  padding: 3px 5px 1px 5px;
+}
+
+.msgBoxTable {
+	margin-bottom: 30px;
+}
+
+.msgBoxTitleBox {
+	width: 100%;
+}
+
+.msgBoxTitle {
+	color: #FFF;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 2px 2px 4px 6px;
+	background-color: #AB9C54;
+}
+
+.msgBoxBody, .msgBoxBodyWithTitle {
+  padding: 2px 5px 5px 5px;
+  background: url('/numis/images/bkg_gd-gld_wht.gif') repeat-x top left #FFF;
+}
+
+.advBoxTable {
+	margin-bottom: 30px;
+}
+
+.advBoxTitle {
+
+}
+
+.advBoxBody, .advBoxBodyWithTitle {
+  padding: 2px 5px 5px 5px;
+  background-color: #FFF;
+}
+
+/* - - - - - - - - - - - - - Price Guides  - - - - - - - - - - - - - */
+
+.pgNoPadding, .pgNoPadding TD {
+  padding: 0px 0px 0px 0px;
+}
+
+.pgMy TD {
+  padding: 30px 5px 10px 12px;
+}
+
+.pgMy STRONG {
+  font-weight: bold;
+}
+.pgVertSepBlue {
+  background: url('/numis/images/BorderVertBlue.gif');
+}
+
+.pgVertSep {
+  background: url('/numis/images/BorderVert.gif');
+}
+
+.pgSampleCoins {
+  width: 290px;
+}
+.pgSampleCoin TD, .pgSampleCoins TD  {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 9px;
+  text-align: center;
+}
+
+.editFormSimpleText_disabled, .editLookupText_disabled, .editFormTextArea_disabled, .editFormText_disabled,.editFormCombo_disabled, .editFormSelect_disabled  {
+ border:1px outset #9B9B9B;
+ background-color:#CECECE;
+ margin:1px;
+}
+
+.coinSearchRes {
+  width: 99%;
+}
+.coinSearchRes TD {
+  padding: 2px;
+}
+
+.coinSearchRes THEAD TD {
+  border-bottom: 2px solid #8DB4C8;
+}
+
+.coinSearchRes THEAD TD H2 {
+  font-size: 13px;
+  padding-bottom: 2px;
+  margin-bottom: 0px;
+}
+
+.coinSearchRes TBODY TD {
+  border-bottom: 2px solid #C6D9E3;
+}
+
+.coinSearchRes .group TD {
+  border: 0px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  color: #1C6991;
+}
+
+.coinSearchRes .group .lbl_1 {
+  padding-left: 1px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.coinSearchRes .group .lbl_2 {
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.coinSearchRes .group .lbl_3 {
+  padding-left: 15px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.coinSearchRes .cat {
+  width: 75px;
+}
+
+.coinSearchRes .pic {
+  width: 150px;
+  text-align: center;
+}
+
+.coinSearchRes .sel {
+  width: 20px;
+}
+
+.coinSearchRes .denom, .coinSearchRes .comp, .coinSearchRes .dates, .coinSearchRes .cntr {
+  white-space: nowrap;
+  padding-right: 7px;
+}
+
+.coinSearchRes .cntr {
+  width: 57px;
+}
+
+.coinSearchRes .gnumcoin, .coinSearchRes .gprice {
+  text-align: right;
+  padding-right: 10px;
+}
+
+
+.coinSearchRes .gdesc {
+  width: 540px;
+}
+
+.myCoin TD, .myCoin TBODY TD {
+  border:0px;
+  padding:0px;
+  margin:0px;
+  background-color:#E8F0F4;
+}
+
+.coinSearchHead, .coinSearchHead STRONG {
+ color:#1C6991;
+}
+
+
+.coinSearchHead  {
+ width: 99%;
+ margin-top: 8px;
+ margin-bottom: 0px;
+ text-align:right;
+}
+
+
+.coinSearchHead .counts {
+ margin-right: 8px;
+}
+
+.coinSearchHead .rowsPerPage {
+ margin-right: 3px;
+}
+
+.coinSearchHead .line2 a, .coinSearchHead .line2_b a {
+ font-weight: bold;
+ color:#1C6991;
+ padding: 0px 2px 0px 2px;
+}
+
+.coinSearchHead .line2_b  {
+ text-align:center;
+ margin: 5px 0px 5px 0px;
+}
+
+.coinDetail {
+ width: 100%;
+ margin-top: 8px;
+ margin-bottom: 0px;
+}
+
+.coinDetail TD {
+ padding: 5px 8px 5px 0px;
+}
+
+.coinDetail THEAD TD {
+  font-weight: bold;
+  padding-left: 0px;
+  border-bottom: 2px solid #666666;
+}
+
+.coinDetail THEAD TD.coin {
+  width: 100px;
+}
+
+.coinDetail THEAD TD.mntg {
+  width: 100px;
+}
+
+.coinDetail TD.price, .coinDetail TD.mntg  {
+  text-align: right;
+}
+
+.coinDetail TBODY TD {
+  border-bottom: 1px dotted #666666;
+}
+
+.coinDetail TR.cr_wd TD {
+  border-bottom: 0px;
+}
+
+.coinDetail TBODY TD.detail {
+  text-align: left;
+  padding-top: 0px;
+  padding-left: 10px;
+}
+
+.coinDetail TBODY TD.lnks {
+  text-align: right;
+  width: 110px;
+  white-space: nowrap;
+}
+
+.coinDetail TBODY TD.coin {
+  white-space: nowrap;
+}
+
+
+.coinDetail TBODY TD.price .blueBox {
+  padding:0px;
+}
+.coinDetail TBODY TD.price .blueBox TD {
+  padding:0px;
+  border:0px;
+  text-align: right;
+  font-weight: bold;
+}
+
