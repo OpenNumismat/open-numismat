@@ -121,13 +121,14 @@ params = {
     # include all resources
     "include_package_data": True,
     "package_data": {'': ['*.png', '*.gif', '*.jpg', '*.ico',
-        '*.js', '*.htm', '*.html', '*.css', '*.qm']},
+        '*.js', '*.htm', '*.html', '*.css', '*.qm', '*.db', '*.ref']},
     "data_files": data_files,
 
     "py_modules": ['open-numismat', ],
 
     "packages": find_packages() + [
-        'OpenNumismat/icons'],
+        'OpenNumismat/icons',
+        'OpenNumismat/db'],
 
     # auto create scripts
     "entry_points": {

@@ -19,7 +19,7 @@ import sys
 sys.path.append('..')
 from OpenNumismat.Reference.Reference import Reference
 
-shutil.copy("../db/reference_en.ref", ".")
+shutil.copy("../OpenNumismat/db/reference_en.ref", ".")
 
 app = QtGui.QApplication(sys.argv)
 
