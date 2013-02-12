@@ -19,5 +19,5 @@ for locale in ('ru', 'es'):
     outputfile = 'lang_%s.ts' % locale
     os.system(' '.join([lupdatePath, ' '.join(srcFiles), '-ts', outputfile]))
     os.system(' '.join([linguistPath, outputfile]))
-    dstfile = 'lang_%s.qm' % locale
+    dstfile = '../OpenNumismat/lang_%s.qm' % locale
     os.system(' '.join([lreleasePath, outputfile, '-qm', dstfile]))
