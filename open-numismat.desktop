@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.2.4
+Type=Application
+Terminal=false
+Exec=/bin/open-numismat
+Icon=/usr/lib/python3/dist-packages/OpenNumismat/icons/main.ico
+Name=OpenNumismat
+Comment=Coin collecting software for organize and manage your own catalogue
+Categories=Office,Utility
