@@ -1,8 +1,8 @@
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import pyqtSignal
 
+import OpenNumismat
 from OpenNumismat.Collection.Collection import Collection
-from OpenNumismat import version
 
 
 class LatestCollectionAction(QtGui.QAction):
@@ -21,7 +21,7 @@ class LatestCollectionAction(QtGui.QAction):
 
 
 class LatestCollections(QtCore.QObject):
-    DefaultCollectionName = version.AppDir + "/demo.db"
+    DefaultCollectionName = OpenNumismat.HOME_PATH + "/demo.db"
     SettingsKey = 'collection/latest'
     LatestCount = 5
 

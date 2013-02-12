@@ -6,20 +6,20 @@ import traceback
 
 from PyQt4 import QtGui, QtCore
 
+import OpenNumismat
 from OpenNumismat.Settings import Settings
 from OpenNumismat.MainWindow import MainWindow
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import version
-import OpenNumismat
 
 
 def main():
     locale.setlocale(locale.LC_ALL, '')
 
-    if not os.path.exists(version.AppDir):
+    if not os.path.exists(OpenNumismat.HOME_PATH):
         # Create default dirs if not exists
         try:
-            os.makedirs(version.AppDir)
+            os.makedirs(OpenNumismat.HOME_PATH)
         except:
             pass
 

@@ -3,10 +3,10 @@
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 
+import OpenNumismat
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Reports import Report
-from OpenNumismat import version
 
 
 class BaseSettings(dict):
@@ -76,8 +76,8 @@ def _getLocale():
 
 class Settings(BaseSettings):
     Default = {'locale': _getLocale(),
-               'backup': version.AppDir + "/backup/",
-               'reference': version.AppDir + "/reference.ref",
+               'backup': OpenNumismat.HOME_PATH + "/backup/",
+               'reference': OpenNumismat.HOME_PATH + "/reference.ref",
                'error': False, 'updates': False,
                'free_numeric': False,
                'template': 'cbr'}
