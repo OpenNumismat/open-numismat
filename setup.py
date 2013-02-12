@@ -100,8 +100,8 @@ for dirname, dirnames, filenames in os.walk('OpenNumismat/templates'):
 params = {
     "name": version.AppName,
     "version": version.Version,
-    "author": "Vitaly Ignatov",
-    "author_email": "ignatov.vit@gmail.com",
+    "author": version.Author,
+    "author_email": version.EMail,
     "description": "Coin collecting software for organize and manage your own catalogue",
     "long_description": __doc__,
     "url": version.Web,
