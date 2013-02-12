@@ -20,24 +20,32 @@
 # DOCS
 ###############################################################################
 
-"""**OpenNumismat** is an application for coins collectors and numismatists. You can create and manage your own catalogue with detailed description and photos of coins.
+"""**OpenNumismat** is a handy and reliable application aimed at coin lovers,
+numismatists or amateurs looking to create a numismatics collection.
+
+With **OpenNumismat**, you will be able to create, organize and manage your own
+coin catalogue with detailed description and photos for each of the items.
 
 Main features:
 
 - More than 60 customizable fields to describe the coin
-- Up to 7 photos coins (insert image from file, clipboard, download from the Web at URL)
-- The grouping, filters and sorting to facilitate the retrieval of coins in the catalog
+- Up to 7 photos coins (insert image from file, clipboard, download from the
+  Web at URL)
+- The grouping, filters and sorting to facilitate the retrieval of coins in the
+  catalog
 - Generate and print reports, saving as HTML, PDF, MS Word
 - Export customized lists as MS Excel, HTML and CSV
 - Duplication of coins to quickly add a similar coin
 - Batch edit coins
 - Ability to add and customize the lists to display the required data
 - Does not require additional software to work with a database
-- Importing from CoinsCollector, Numizmat 2, Cabinet and CoinManage 2011, 2013, Collection Studio 3.65 (additional software may be required)
+- Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013
+  and Collection Studio 3.65 (additional software may be required)
 - Support languages (English, Russian, Spanish)
-- Potential support for Linux and MacOS (from source code) 
+- Potential support for Linux and MacOS (from source code)
 
-OpenNumismat based on PyQt framework with SQLite database engine to store data collection.
+OpenNumismat based on PyQt framework with SQLite database engine to store data
+collection.
 """
 
 
@@ -93,7 +101,8 @@ params = {
     "name": version.AppName,
     "version": version.Version,
     "author": "Vitaly Ignatov",
-    "description": "An application for coins collectors and numismatists",
+    "author_email": "ignatov.vit@gmail.com",
+    "description": "Coin collecting software for organize and manage your own catalogue",
     "long_description": __doc__,
     "url": version.Web,
     "license": "GPLv3",
