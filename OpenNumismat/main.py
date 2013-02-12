@@ -1,6 +1,7 @@
 import locale
 import os
 import platform
+import shutil
 import sys
 import traceback
 
@@ -16,15 +17,6 @@ from OpenNumismat import version
 def main():
     locale.setlocale(locale.LC_ALL, '')
 
-    if not os.path.exists(OpenNumismat.HOME_PATH):
-        # Create default dirs if not exists
-        try:
-            os.makedirs(OpenNumismat.HOME_PATH)
-        except:
-            pass
-
-    TemporaryDir.init(version.AppName)
-
     app = QtGui.QApplication(sys.argv)
 
     QtCore.QCoreApplication.setOrganizationName(version.Company)
@@ -33,6 +25,28 @@ def main():
     settings = Settings()
     if settings['error']:
         sys.excepthook = exceptHook
+
+    if not os.path.exists(settings['reference']):
+        # Create default dirs and files if not exists
+        try:
+            ref_path = os.path.dirname(settings['reference'])
+            dst_ref = os.path.join(ref_path, 'reference.ref')
+            if not os.path.exists(dst_ref):
+                os.makedirs(ref_path, exist_ok=True)
+                src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
+                                   'reference_%s.ref' % settings['locale'])
+                shutil.copy(src_ref, dst_ref)
+
+            dst_demo_db = os.path.join(OpenNumismat.HOME_PATH, 'demo.db')
+            if not os.path.exists(dst_demo_db):
+                os.makedirs(OpenNumismat.HOME_PATH, exist_ok=True)
+                src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
+                                           'demo_%s.db' % settings['locale'])
+                shutil.copy(src_demo_db, dst_demo_db)
+        except:
+            pass
+
+    TemporaryDir.init(version.AppName)
 
     lang = settings['locale']
 
