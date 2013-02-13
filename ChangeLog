@@ -6,6 +6,7 @@ ChangeLog
     * Added Numismater report template
     * Fixed showing end of lines in some fields on Edit coin dialog
     * Fixed password functionality
+    * Moved export buttons to left of toolbar in Preview report dialog
     * Updated auctions (molotok, Wolmar) parsers
     * Fixed detecting application resources path
     * Updated creating default folders and files (reference and demo.db)
