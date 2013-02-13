@@ -1,9 +1,12 @@
 import os.path
 
+exportToWordAvailable = True
+
 try:
     import win32com.client
 except ImportError:
     print('win32com module missed. Exporting to Word not available')
+    exportToWordAvailable = False
 
 from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.QtCore import Qt
@@ -123,6 +126,12 @@ class PreviewDialog(QtGui.QDialog):
 
         toolbar.addWidget(self.templateSelector)
         toolbar.addSeparator()
+        toolbar.addAction(self.printAction)
+        toolbar.addAction(self.htmlAction)
+        toolbar.addAction(self.pdfAction)
+        if exportToWordAvailable:
+            toolbar.addAction(self.wordAction)
+        toolbar.addSeparator()
         toolbar.addAction(self.fitWidthAction)
         toolbar.addAction(self.fitPageAction)
         toolbar.addSeparator()
@@ -155,10 +164,6 @@ class PreviewDialog(QtGui.QDialog):
         toolbar.addAction(self.overviewModeAction)
         toolbar.addSeparator()
         toolbar.addAction(self.pageSetupAction)
-        toolbar.addAction(self.printAction)
-        toolbar.addAction(self.htmlAction)
-        toolbar.addAction(self.pdfAction)
-        toolbar.addAction(self.wordAction)
 
         # Cannot use the actions' triggered signal here, since it doesn't autorepeat
         zoomInButton = toolbar.widgetForAction(self.zoomInAction)
@@ -251,9 +256,10 @@ class PreviewDialog(QtGui.QDialog):
         self.pageSetupAction.triggered.connect(self._q_pageSetup)
         # Export
         self.exportGroup = QtGui.QActionGroup(self)
-        self.wordAction = self.exportGroup.addAction(
-                        createIcon('Document_Microsoft_Word.png'),
-                        self.tr("Save as MS Word document"))
+        if exportToWordAvailable:
+            self.wordAction = self.exportGroup.addAction(
+                            createIcon('Document_Microsoft_Word.png'),
+                            self.tr("Save as MS Word document"))
         self.htmlAction = self.exportGroup.addAction(
                         createIcon('Web_HTML.png'),
                         self.tr("Save as HTML files"))

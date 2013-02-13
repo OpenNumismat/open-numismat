@@ -3,10 +3,13 @@ import csv
 import html
 import sys
 
+exportToExcelAvailable = True
+
 try:
     import xlwt3 as xlwt
 except ImportError:
     print('xlwt3 module missed. Exporting to Excel not available')
+exportToExcelAvailable = False
 
 
 class __ExportBase():
@@ -31,6 +34,10 @@ class __ExportBase():
 class ExportToExcel(__ExportBase):
     def __init__(self, fileName, title=''):
         super(ExportToExcel, self).__init__(fileName, title)
+
+    @staticmethod
+    def isAvailable():
+        return exportToExcelAvailable
 
     def open(self):
         self._wb = xlwt.Workbook()
