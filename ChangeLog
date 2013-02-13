@@ -1,5 +1,18 @@
 ChangeLog
 ---------
+1.4.2 - 2013-02-19:
+    * Debian package for Linux is available
+    * Added Clear all filter command to menu and toolbox
+    * Added Numismater report template
+    * Fixed showing end of lines in some fields on Edit coin dialog
+    * Fixed password functionality
+    * Updated auctions (molotok, Wolmar) parsers
+    * Fixed detecting application resources path
+    * Updated creating default folders and files (reference and demo.db)
+    * Added Python setup script
+    * Minor chages for porting to Linux
+    * Refactord project folders
+
 1.4.1 - 2013-01-31:
     * Fixed critical bug with opening main window
 
