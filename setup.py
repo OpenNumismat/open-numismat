@@ -42,7 +42,8 @@ Main features:
 - Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013
   and Collection Studio 3.65 (additional software may be required)
 - Support languages (English, Russian, Spanish)
-- Potential support for Linux and MacOS (from source code)
+- Cross-platform: Windows, Linux. Potential support for MacOS (from source
+  code)
 
 OpenNumismat based on PyQt framework with SQLite database engine to store data
 collection.
