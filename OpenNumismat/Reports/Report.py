@@ -178,6 +178,8 @@ class Report(QtCore.QObject):
                      'photo1', 'photo2', 'photo3', 'photo4']
 
         record_mapping = {}
+        record_mapping['status_raw'] = ''
+        record_mapping['issuedate_raw'] = ''
         for field in self.model.fields:
             value = record.value(field.name)
             if value is None or value == '' or isinstance(value, QtCore.QPyNullVariant):
@@ -200,5 +202,7 @@ class Report(QtCore.QObject):
                     record_mapping[field.name] = formatFields(field, value)
                     if field.name == 'status':
                         record_mapping['status_raw'] = value
+                    elif field.name == 'issuedate':
+                        record_mapping['issuedate_raw'] = value
 
         return record_mapping

@@ -41,7 +41,7 @@
   </tr>
 {% for group in records|groupby('series') %}
   <tr bgcolor="#ffffff"><td colspan="4"><b><br>{% if group.grouper %}{{titles.series}}: {{ group.grouper }}{% endif %}</b></td></tr>
-  {% for record in group.list|sort(attribute='catalognum1')|sort(attribute='issuedate') %}
+  {% for record in group.list|sort(attribute='catalognum1')|sort(attribute='issuedate_raw') %}
   <tr bgcolor="#ffffff">
     <td align="center">{{record.issuedate}}</td>
     <td align="center">{{record.catalognum1}}</td>
