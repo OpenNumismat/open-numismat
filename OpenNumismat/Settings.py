@@ -106,7 +106,7 @@ class Settings(BaseSettings):
 
 
 class MainSettingsPage(QtGui.QWidget):
-    Languages = [("English", 'en'), ("Русский", 'ru'), ("Español", 'es')]
+    Languages = [("English", 'en'), ("Русский", 'ru'), ("Український", 'uk'), ("Español", 'es')]
 
     def __init__(self, collection, parent=None):
         super(MainSettingsPage, self).__init__(parent)
