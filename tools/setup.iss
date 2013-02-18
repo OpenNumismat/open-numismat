@@ -14,11 +14,13 @@ AppPublisher=Janis
 [Languages]
 Name: en; MessagesFile: "compiler:Default.isl"; InfoBeforeFile: license_en.txt
 Name: ru; MessagesFile: "compiler:Languages\Russian.isl"; InfoBeforeFile: license_ru.txt
-Name: es; MessagesFile: "compiler:Languages\Spanish.isl"; InfoBeforeFile: license_en.txt
+Name: uk; MessagesFile: "compiler:Languages\Ukrainian.isl"; InfoBeforeFile: license_uk.txt
+Name: es; MessagesFile: "compiler:Languages\Spanish.isl"; InfoBeforeFile: license_es.txt
 
 [CustomMessages]
 en.sendReport=Send a reports to author's web-site if any error occured
 ru.sendReport=Посылать отчет разработчику при возникновении ошибки
+uk.sendReport=Відправляти звіт про помилки автору
 es.sendReport=Enviar un informe al autor del sitio web si cualquier error
 
 [Files]
