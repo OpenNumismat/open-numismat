@@ -26,13 +26,14 @@ class SqlTableModel(QtSql.QSqlTableModel):
 class ReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
-    def __init__(self, name, title, letter='', parent=None):
+    def __init__(self, name, title, letter='', sort=False, parent=None):
         super(ReferenceSection, self).__init__(parent)
 
         self.name = name
+        self.parentName = None
         self.title = title
         self.letter = letter
-        self.parentName = None
+        self.sort = sort
 
     def load(self, db):
         self.db = db
@@ -42,6 +43,8 @@ class ReferenceSection(QtCore.QObject):
         self.model = SqlTableModel(None, db)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
         self.model.setTable(self.name)
+        if self.sort:
+            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
         self.model.select()
 
     def button(self, parent=None):
@@ -52,8 +55,7 @@ class ReferenceSection(QtCore.QObject):
         return button
 
     def clickedButton(self):
-        dialog = ReferenceDialog(self.model, self.parent.text(), self.parent)
-        dialog.setWindowTitle(self.title)
+        dialog = ReferenceDialog(self, self.parent.text(), self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             self.model.submitAll()
@@ -100,11 +102,21 @@ class ReferenceSection(QtCore.QObject):
 
         db.commit()
 
+    def setSort(self, sort):
+        if self.sort != sort:
+            self.sort = sort
+
+            query = QSqlQuery(self.db)
+            query.prepare("UPDATE sections SET sort=? WHERE name=?")
+            query.addBindValue(sort)
+            query.addBindValue(self.name)
+            query.exec_()
+
 
 class CrossReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
-    def __init__(self, name, parentName, title, letter='', parent=None):
+    def __init__(self, name, parentName, title, letter='', sort=False, parent=None):
         super(CrossReferenceSection, self).__init__(parent)
 
         self.parentIndex = None
@@ -113,6 +125,7 @@ class CrossReferenceSection(QtCore.QObject):
         self.parentName = parentName
         self.title = title
         self.letter = letter
+        self.sort = sort
 
     def load(self, db):
         self.db = db
@@ -122,6 +135,8 @@ class CrossReferenceSection(QtCore.QObject):
         self.model = QtSql.QSqlRelationalTableModel(None, db)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
         self.model.setTable(self.name)
+        if self.sort:
+            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
         parentIndex = self.model.fieldIndex('parentid')
         self.model.setRelation(parentIndex,
                            QtSql.QSqlRelation(self.parentName, 'id', 'value'))
@@ -135,9 +150,8 @@ class CrossReferenceSection(QtCore.QObject):
         return button
 
     def clickedButton(self):
-        dialog = CrossReferenceDialog(self.model, self.parentIndex,
+        dialog = CrossReferenceDialog(self, self.parentIndex,
                                       self.parent.text(), self.parent)
-        dialog.setWindowTitle(self.title)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
             self.model.submitAll()
@@ -182,6 +196,16 @@ class CrossReferenceSection(QtCore.QObject):
 
         db.commit()
 
+    def setSort(self, sort):
+        if self.sort != sort:
+            self.sort = sort
+
+            query = QSqlQuery(self.db)
+            query.prepare("UPDATE sections SET sort=? WHERE name=?")
+            query.addBindValue(sort)
+            query.addBindValue(self.name)
+            query.exec_()
+
 
 class Reference(QtCore.QObject):
     def __init__(self, parent=None):
@@ -213,7 +237,8 @@ class Reference(QtCore.QObject):
             name TEXT,\
             icon BLOB,\
             letter TEXT,\
-            parent TEXT)"
+            parent TEXT,\
+            sort INTEGER)"
         QSqlQuery(sql, self.db)
 
         for section in self.sections.values():
@@ -229,6 +254,13 @@ class Reference(QtCore.QObject):
                                            self.tr("Open reference"),
                                            self.tr("Can't open reference"))
                 return False
+            else:
+                # Update reference DB for version 1.4.3
+                if self.db.record('sections').indexOf('sort') < 0:
+                    sql = "ALTER TABLE sections ADD COLUMN sort INTEGER"
+                    QSqlQuery(sql, self.db)
+                    sql = "UPDATE sections SET name = 'material' WHERE name = 'metal'"
+                    QSqlQuery(sql, self.db)
         else:
             QtGui.QMessageBox.critical(self.parent(),
                                        self.tr("Open reference"),
@@ -239,6 +271,16 @@ class Reference(QtCore.QObject):
             return False
 
         self.fileName = fileName
+
+        for section_name, section in self.sections.items():
+            query = QSqlQuery(self.db)
+            query.prepare("SELECT sort FROM sections WHERE name=?")
+            query.addBindValue(section_name)
+            query.exec_()
+            if query.first():
+                data = query.record().value(0)
+                if not isinstance(data, QtCore.QPyNullVariant):
+                    section.sort = bool(data)
 
         return True
 

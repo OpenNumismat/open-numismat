@@ -24,10 +24,10 @@ class ListView(QtGui.QListView):
 
 
 class ReferenceWidget(QtGui.QWidget):
-    def __init__(self, model, text, parent=None):
+    def __init__(self, section, text, parent=None):
         super(ReferenceWidget, self).__init__(parent)
 
-        self.model = model
+        self.model = section.model
 
         self.listWidget = ListView(parent)
         self.listWidget.setSelectionMode(
@@ -53,10 +53,29 @@ class ReferenceWidget(QtGui.QWidget):
                                 QtGui.QDialogButtonBox.ActionRole)
         self.editButtonBox.clicked.connect(self.clicked)
 
+        self.sortButton = QtGui.QCheckBox(
+                            QApplication.translate('ReferenceWidget', "Sort"))
+        self.sortButton.setChecked(section.sort)
+        self.sortButton.stateChanged.connect(self.sortChanged)
+
+        hlayout = QtGui.QHBoxLayout(self)
+        hlayout.addWidget(self.sortButton)
+        hlayout.addWidget(self.editButtonBox)
+        hlayout.setContentsMargins(0, 0, 0, 0)
+        widget = QtGui.QWidget(self)
+        widget.setLayout(hlayout)
+
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.listWidget)
-        layout.addWidget(self.editButtonBox)
+        layout.addWidget(widget)
         self.setLayout(layout)
+
+    def sortChanged(self, state):
+        if self.sortButton.isChecked():
+            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
+        else:
+            self.model.setSort(0, Qt.AscendingOrder)
+        self.model.select()
 
     def selectedIndex(self):
         index = self.listWidget.currentIndex()
@@ -87,8 +106,8 @@ class ReferenceWidget(QtGui.QWidget):
 
 
 class CrossReferenceWidget(ReferenceWidget):
-    def __init__(self, model, parentIndex, text, parent=None):
-        super(CrossReferenceWidget, self).__init__(model, text, parent)
+    def __init__(self, section, parentIndex, text, parent=None):
+        super(CrossReferenceWidget, self).__init__(section, text, parent)
 
         self.rel = self.model.relationModel(1)
 
@@ -129,12 +148,14 @@ class CrossReferenceWidget(ReferenceWidget):
 
 
 class ReferenceDialog(QtGui.QDialog):
-    def __init__(self, model, text='', parent=None):
+    def __init__(self, section, text='', parent=None):
         super(ReferenceDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
 
-        self.setWindowTitle()
+        self.secton = section
 
-        self.referenceWidget = self._referenceWidget(model, text)
+        self.setWindowTitle(section.title)
+
+        self.referenceWidget = self._referenceWidget(section, text)
 
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
@@ -157,10 +178,12 @@ class ReferenceDialog(QtGui.QDialog):
             windowTitle = ' - '.join([windowTitle, title])
         super(ReferenceDialog, self).setWindowTitle(windowTitle)
 
-    def _referenceWidget(self, model, text):
-        return ReferenceWidget(model, text, self)
+    def _referenceWidget(self, section, text):
+        return ReferenceWidget(section, text, self)
 
     def accept(self):
+        self.secton.setSort(self.referenceWidget.sortButton.isChecked())
+
         self.__selectedIndex = self.referenceWidget.selectedIndex()
         super(ReferenceDialog, self).accept()
 
@@ -169,12 +192,12 @@ class ReferenceDialog(QtGui.QDialog):
 
 
 class CrossReferenceDialog(ReferenceDialog):
-    def __init__(self, model, parentIndex, text='', parent=None):
+    def __init__(self, section, parentIndex, text='', parent=None):
         self.parentIndex = parentIndex
-        super(CrossReferenceDialog, self).__init__(model, text, parent)
+        super(CrossReferenceDialog, self).__init__(section, text, parent)
 
-    def _referenceWidget(self, model, text):
-        return CrossReferenceWidget(model, self.parentIndex, text, self)
+    def _referenceWidget(self, section, text):
+        return CrossReferenceWidget(section, self.parentIndex, text, self)
 
 
 class AllReferenceDialog(QtGui.QDialog):
@@ -187,12 +210,16 @@ class AllReferenceDialog(QtGui.QDialog):
         self.sections = [reference.section(name) for name in reference.allSections()]
 
         tab = QtGui.QTabWidget(self)
+        self.widgets = {}
         for section in self.sections:
             if section.parentName:
-                widget = CrossReferenceWidget(section.model, None, '', self)
+                widget = CrossReferenceWidget(section, None, '', self)
                 widget.comboBox.setEnabled(True)
             else:
-                widget = ReferenceWidget(section.model, '', self)
+                widget = ReferenceWidget(section, '', self)
+
+            widget.sortButton.setChecked(section.sort)
+            self.widgets[section.title] = widget
             tab.addTab(widget, section.title)
 
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
@@ -210,6 +237,8 @@ class AllReferenceDialog(QtGui.QDialog):
     def accept(self):
         for section in self.sections:
             section.model.submitAll()
+            widget = self.widgets[section.title]
+            section.setSort(widget.sortButton.isChecked())
         super(AllReferenceDialog, self).accept()
 
     def reject(self):
