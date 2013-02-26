@@ -3,7 +3,7 @@
 <context>
     <name>AllReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="185"/>
+        <location filename="ReferenceDialog.py" line="208"/>
         <source>Reference</source>
         <translation>Довідники</translation>
     </message>
@@ -1439,147 +1439,147 @@ Copyright (C) 2011-2013 Ігнатов Віталій
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="193"/>
+        <location filename="Reference.py" line="217"/>
         <source>C</source>
         <translation>С</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="194"/>
+        <location filename="Reference.py" line="218"/>
         <source>T</source>
         <translation>Т</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="195"/>
+        <location filename="Reference.py" line="219"/>
         <source>G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="197"/>
+        <location filename="Reference.py" line="221"/>
         <source>M</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="198"/>
+        <location filename="Reference.py" line="222"/>
         <source>F</source>
         <translation>Ф</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="200"/>
+        <location filename="Reference.py" line="224"/>
         <source>E</source>
         <translation>Г</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="201"/>
+        <location filename="Reference.py" line="225"/>
         <source>U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="203"/>
+        <location filename="Reference.py" line="227"/>
         <source>P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="204"/>
+        <location filename="Reference.py" line="228"/>
         <source>S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="205"/>
+        <location filename="Reference.py" line="229"/>
         <source>Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="206"/>
+        <location filename="Reference.py" line="230"/>
         <source>D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="207"/>
+        <location filename="Reference.py" line="231"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="233"/>
+        <location filename="Reference.py" line="265"/>
         <source>Open reference</source>
         <translation>Відкрити довідник</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="233"/>
+        <location filename="Reference.py" line="265"/>
         <source>Can&apos;t open reference</source>
         <translation>Не вдається відкрити довідник</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="193"/>
+        <location filename="Reference.py" line="217"/>
         <source>Country</source>
         <translation>Країна</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="194"/>
+        <location filename="Reference.py" line="218"/>
         <source>Type</source>
         <translation>Тип</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="195"/>
+        <location filename="Reference.py" line="219"/>
         <source>Grade</source>
         <translation>Схоронність</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="196"/>
+        <location filename="Reference.py" line="220"/>
         <source>Place</source>
         <translation>Місце</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="199"/>
+        <location filename="Reference.py" line="223"/>
         <source>ObvRev</source>
         <translation>Ав/Рев</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="200"/>
+        <location filename="Reference.py" line="224"/>
         <source>Edge</source>
         <translation>Гурт</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="201"/>
+        <location filename="Reference.py" line="225"/>
         <source>Unit</source>
         <translation>Валюта</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="202"/>
+        <location filename="Reference.py" line="226"/>
         <source>Mint</source>
         <translation>Монетний двір</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="203"/>
+        <location filename="Reference.py" line="227"/>
         <source>Period</source>
         <translation>Період</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="204"/>
+        <location filename="Reference.py" line="228"/>
         <source>Series</source>
         <translation>Серія</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="205"/>
+        <location filename="Reference.py" line="229"/>
         <source>Quality</source>
         <translation>Якість</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="206"/>
+        <location filename="Reference.py" line="230"/>
         <source>Defect</source>
         <translation>Брак</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="207"/>
+        <location filename="Reference.py" line="231"/>
         <source>Rarity</source>
         <translation>Рідкість</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="197"/>
+        <location filename="Reference.py" line="221"/>
         <source>Material</source>
         <translation>Матеріал</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="198"/>
+        <location filename="Reference.py" line="222"/>
         <source>Shape</source>
         <translation>Форма</translation>
     </message>
@@ -1587,7 +1587,7 @@ Copyright (C) 2011-2013 Ігнатов Віталій
 <context>
     <name>ReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="154"/>
+        <location filename="ReferenceDialog.py" line="175"/>
         <source>Reference</source>
         <translation>Довідник</translation>
     </message>
@@ -1603,6 +1603,11 @@ Copyright (C) 2011-2013 Ігнатов Віталій
         <location filename="ReferenceDialog.py" line="50"/>
         <source>Del</source>
         <translation>Видалити</translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="56"/>
+        <source>Sort</source>
+        <translation>Сортувати</translation>
     </message>
 </context>
 <context>

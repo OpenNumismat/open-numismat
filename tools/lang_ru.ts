@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="ru_RU">
+<!DOCTYPE TS><TS version="2.0" language="ru_RU" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="185"/>
+        <location filename="ReferenceDialog.py" line="208"/>
         <source>Reference</source>
         <translation>Справочники</translation>
     </message>
@@ -1784,42 +1783,42 @@ Copyright (C) 2011-2013 Игнатов Виталий
 <context>
     <name>PreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="184"/>
+        <location filename="Preview.py" line="189"/>
         <source>Report preview</source>
         <translation>Предпросмотр отчета</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="254"/>
+        <location filename="Preview.py" line="260"/>
         <source>Save as MS Word document</source>
         <translation>Сохранить как документ Word</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="257"/>
+        <location filename="Preview.py" line="263"/>
         <source>Save as HTML files</source>
         <translation>Сохранить как HTML файл</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="260"/>
+        <location filename="Preview.py" line="266"/>
         <source>Save as PDF file</source>
         <translation>Сохранить как PDF файл</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="447"/>
+        <location filename="Preview.py" line="453"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="435"/>
+        <location filename="Preview.py" line="441"/>
         <source>Word documents (*.doc)</source>
         <translation>Документ Word (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="441"/>
+        <location filename="Preview.py" line="447"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Веб-страница (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="447"/>
+        <location filename="Preview.py" line="453"/>
         <source>PDF file (*.pdf)</source>
         <translation>Файл PDF (*.pdf)</translation>
     </message>
@@ -1827,77 +1826,77 @@ Copyright (C) 2011-2013 Игнатов Виталий
 <context>
     <name>QPrintPreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="194"/>
+        <location filename="Preview.py" line="199"/>
         <source>Next page</source>
         <translation>Следующая страница</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="195"/>
+        <location filename="Preview.py" line="200"/>
         <source>Previous page</source>
         <translation>Предыдущая страница</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="196"/>
+        <location filename="Preview.py" line="201"/>
         <source>First page</source>
         <translation>Первая страница</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="197"/>
+        <location filename="Preview.py" line="202"/>
         <source>Last page</source>
         <translation>Последняя страница</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="205"/>
+        <location filename="Preview.py" line="210"/>
         <source>Fit width</source>
         <translation>По ширине</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="206"/>
+        <location filename="Preview.py" line="211"/>
         <source>Fit page</source>
         <translation>На всю страницу</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="215"/>
+        <location filename="Preview.py" line="220"/>
         <source>Zoom in</source>
         <translation>Увеличить</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="216"/>
+        <location filename="Preview.py" line="221"/>
         <source>Zoom out</source>
         <translation>Уменьшить</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="222"/>
+        <location filename="Preview.py" line="227"/>
         <source>Portrait</source>
         <translation>Книжная</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="223"/>
+        <location filename="Preview.py" line="228"/>
         <source>Landscape</source>
         <translation>Альбомная</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="233"/>
+        <location filename="Preview.py" line="238"/>
         <source>Show single page</source>
         <translation>Показать одну страницу</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="234"/>
+        <location filename="Preview.py" line="239"/>
         <source>Show facing pages</source>
         <translation>Показать титульные страницы</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="235"/>
+        <location filename="Preview.py" line="240"/>
         <source>Show overview of all pages</source>
         <translation>Показать обзор всех страниц</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="246"/>
+        <location filename="Preview.py" line="251"/>
         <source>Print</source>
         <translation>Печать</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="247"/>
+        <location filename="Preview.py" line="252"/>
         <source>Page setup</source>
         <translation>Параметры страницы</translation>
     </message>
@@ -1905,92 +1904,92 @@ Copyright (C) 2011-2013 Игнатов Виталий
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="193"/>
+        <location filename="Reference.py" line="217"/>
         <source>C</source>
         <translation>С</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="194"/>
+        <location filename="Reference.py" line="218"/>
         <source>T</source>
         <translation>Т</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="195"/>
+        <location filename="Reference.py" line="219"/>
         <source>G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="197"/>
+        <location filename="Reference.py" line="221"/>
         <source>M</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="198"/>
+        <location filename="Reference.py" line="222"/>
         <source>F</source>
         <translation>Ф</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="200"/>
+        <location filename="Reference.py" line="224"/>
         <source>E</source>
         <translation>Г</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="201"/>
+        <location filename="Reference.py" line="225"/>
         <source>U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="203"/>
+        <location filename="Reference.py" line="227"/>
         <source>P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="204"/>
+        <location filename="Reference.py" line="228"/>
         <source>S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="205"/>
+        <location filename="Reference.py" line="229"/>
         <source>Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="206"/>
+        <location filename="Reference.py" line="230"/>
         <source>D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="207"/>
+        <location filename="Reference.py" line="231"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="233"/>
+        <location filename="Reference.py" line="265"/>
         <source>Open reference</source>
         <translation>Открыть справочник</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="233"/>
+        <location filename="Reference.py" line="265"/>
         <source>Can&apos;t open reference</source>
         <translation>Не удается открыть справочник</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="193"/>
+        <location filename="Reference.py" line="217"/>
         <source>Country</source>
         <translation>Страна</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="194"/>
+        <location filename="Reference.py" line="218"/>
         <source>Type</source>
         <translation>Тип</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="195"/>
+        <location filename="Reference.py" line="219"/>
         <source>Grade</source>
         <translation>Сохранность</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="196"/>
+        <location filename="Reference.py" line="220"/>
         <source>Place</source>
         <translation>Место</translation>
     </message>
@@ -2005,57 +2004,57 @@ Copyright (C) 2011-2013 Игнатов Виталий
         <translation type="obsolete">Форма</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="199"/>
+        <location filename="Reference.py" line="223"/>
         <source>ObvRev</source>
         <translation>Ав/Рев</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="200"/>
+        <location filename="Reference.py" line="224"/>
         <source>Edge</source>
         <translation>Гурт</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="201"/>
+        <location filename="Reference.py" line="225"/>
         <source>Unit</source>
         <translation>Валюта</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="202"/>
+        <location filename="Reference.py" line="226"/>
         <source>Mint</source>
         <translation>Монетный двор</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="203"/>
+        <location filename="Reference.py" line="227"/>
         <source>Period</source>
         <translation>Период</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="204"/>
+        <location filename="Reference.py" line="228"/>
         <source>Series</source>
         <translation>Серия</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="205"/>
+        <location filename="Reference.py" line="229"/>
         <source>Quality</source>
         <translation>Качество</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="206"/>
+        <location filename="Reference.py" line="230"/>
         <source>Defect</source>
         <translation>Брак</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="207"/>
+        <location filename="Reference.py" line="231"/>
         <source>Rarity</source>
         <translation>Редкость</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="197"/>
+        <location filename="Reference.py" line="221"/>
         <source>Material</source>
         <translation>Материал</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="198"/>
+        <location filename="Reference.py" line="222"/>
         <source>Shape</source>
         <translation>Форма</translation>
     </message>
@@ -2078,7 +2077,7 @@ Copyright (C) 2011-2013 Игнатов Виталий
         <translation type="obsolete">Введите значение</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="154"/>
+        <location filename="ReferenceDialog.py" line="175"/>
         <source>Reference</source>
         <translation>Справочник</translation>
     </message>
@@ -2094,6 +2093,11 @@ Copyright (C) 2011-2013 Игнатов Виталий
         <location filename="ReferenceDialog.py" line="50"/>
         <source>Del</source>
         <translation>Удалить</translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="56"/>
+        <source>Sort</source>
+        <translation>Сортировать</translation>
     </message>
 </context>
 <context>
