@@ -57,7 +57,14 @@ collection.
 import os
 import sys
 
-from setuptools import setup, find_packages
+from setuptools import find_packages
+
+try:
+    from cx_Freeze import setup, Executable
+    cx_Freeze_available = True
+except ImportError:
+    from setuptools import setup
+    cx_Freeze_available = False
 
 from OpenNumismat import version
 
@@ -98,6 +105,7 @@ for dirname, dirnames, filenames in os.walk('OpenNumismat/templates'):
     if filenames:
         templates_packages.append(dirname)
 
+
 ###############################################################################
 # PRE-SETUP
 ###############################################################################
@@ -108,7 +116,8 @@ params = {
     "version": version.Version,
     "author": version.Author,
     "author_email": version.EMail,
-    "description": "Coin collecting software for organize and manage your own catalogue",
+    "description": "Coin collecting software for organize and manage your own "
+                   "catalogue",
     "long_description": __doc__,
     "url": version.Web,
     "license": "GPLv3",
@@ -147,6 +156,41 @@ params = {
         ]
     }
 }
+
+if cx_Freeze_available:
+    import PyQt4
+
+    base = None
+    if sys.platform == "win32":
+        base = "Win32GUI"
+
+    executable = Executable("open-numismat.py", base=base, compress=True,
+                            icon='OpenNumismat/icons/main.ico',
+                            targetName=version.AppName + ".exe")
+
+    translation_files = []
+    for translation in ['ru', 'uk', 'es']:
+        translation_files.append(("OpenNumismat/lang_%s.qm" % translation,
+                                  "lang_%s.qm" % translation))
+        translation_files.append(("OpenNumismat/qt_%s.qm" % translation,
+                                  "qt_%s.qm" % translation))
+    build_exe_options = {
+            "excludes": ["unittest"],
+            "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt4.QtNetwork"],
+            "build_exe": "build/exe.win32",
+            "include_files": [
+                "COPYING",
+                ("OpenNumismat/Collection/Import/CdrToXml/Cdr2Xml.dll", "Cdr2Xml.dll"),
+                ("OpenNumismat/icons", "icons"),
+                ("OpenNumismat/templates", "templates"),
+                ("OpenNumismat/db", "db"),
+                (PyQt4.__path__[0] + "/plugins/sqldrivers/qsqlite4.dll", "sqldrivers/qsqlite4.dll"),
+                (PyQt4.__path__[0] + "/plugins/imageformats", "imageformats")
+            ] + translation_files
+    }
+
+    params["executables"] = [executable]
+    params["options"] = {"build_exe": build_exe_options}
 
 
 ###############################################################################
