@@ -18,5 +18,5 @@ Requirement:
 
 Deploying:
 Run `python i18n.py` and fill translations
-Run `python setup.py`
+Run `python setup.py build`
 Compile setup*.iss with Inno Setup
