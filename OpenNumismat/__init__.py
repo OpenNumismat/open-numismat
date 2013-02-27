@@ -7,7 +7,7 @@ from OpenNumismat import version
 
 
 # Getting default path for storing user data
-if sys.platform == 'win32':
+if sys.platform in ['win32', 'darwin']:
     __docDir = QDesktopServices.storageLocation(QDesktopServices.DocumentsLocation)
     HOME_PATH = os.path.join(__docDir, version.AppName)
 else:
