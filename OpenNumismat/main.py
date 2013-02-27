@@ -15,7 +15,11 @@ from OpenNumismat import version
 
 
 def main():
-    locale.setlocale(locale.LC_ALL, '')
+    try:
+        locale.setlocale(locale.LC_ALL, '')
+    except:
+        # Work around system locale not specified (under Linux or Mac OS)
+        pass
 
     app = QtGui.QApplication(sys.argv)
 
