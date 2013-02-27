@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import base64, ctypes, shutil, tempfile
+import base64, ctypes, shutil, sys, tempfile
+
+if sys.platform != "win32":
+    available = False
 
 try:
     import winreg
 except ImportError:
     pass
-
-available = True
 
 try:
     import lxml.etree
