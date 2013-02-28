@@ -2,6 +2,8 @@
 
 import base64, ctypes, shutil, sys, tempfile
 
+available = True
+
 if sys.platform != "win32":
     available = False
 
