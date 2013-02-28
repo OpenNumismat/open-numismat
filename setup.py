@@ -164,9 +164,17 @@ if cx_Freeze_available:
     if sys.platform == "win32":
         base = "Win32GUI"
 
+    if sys.platform == "win32":
+        qt_dir = PyQt4.__path__[0]
+        executable_ext = '.exe'
+    else:
+        # Path to Qt on MacPorts
+        qt_dir = '/opt/local/share/qt4'
+        executable_ext = ''
+
     executable = Executable("open-numismat.py", base=base, compress=True,
                             icon='OpenNumismat/icons/main.ico',
-                            targetName=version.AppName + ".exe")
+                            targetName=version.AppName + executable_ext)
 
     translation_files = []
     for translation in ['ru', 'uk', 'es']:
@@ -174,19 +182,26 @@ if cx_Freeze_available:
                                   "lang_%s.qm" % translation))
         translation_files.append(("OpenNumismat/qt_%s.qm" % translation,
                                   "qt_%s.qm" % translation))
+    include_files = translation_files + [
+            "COPYING",
+            ("OpenNumismat/icons", "icons"),
+            ("OpenNumismat/templates", "templates"),
+            ("OpenNumismat/db", "db"),
+            (qt_dir + "/plugins/imageformats", "imageformats")
+        ]
+    if sys.platform == "win32":
+        include_files.append(
+                ("OpenNumismat/Collection/Import/CdrToXml/Cdr2Xml.dll", "Cdr2Xml.dll"))
+        include_files.append(
+                (qt_dir + "/plugins/sqldrivers/qsqlite4.dll", "sqldrivers/qsqlite4.dll"))
+    else:
+        include_files.append(
+                (qt_dir + "/plugins/sqldrivers/libqsqlite4.dylib", "sqldrivers/libqsqlite4.dylib"))
     build_exe_options = {
             "excludes": ["unittest"],
             "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt4.QtNetwork"],
-            "build_exe": "build/exe.win32",
-            "include_files": [
-                "COPYING",
-                ("OpenNumismat/Collection/Import/CdrToXml/Cdr2Xml.dll", "Cdr2Xml.dll"),
-                ("OpenNumismat/icons", "icons"),
-                ("OpenNumismat/templates", "templates"),
-                ("OpenNumismat/db", "db"),
-                (PyQt4.__path__[0] + "/plugins/sqldrivers/qsqlite4.dll", "sqldrivers/qsqlite4.dll"),
-                (PyQt4.__path__[0] + "/plugins/imageformats", "imageformats")
-            ] + translation_files
+            "include_files": include_files,
+            "replace_paths": [(os.path.dirname(__file__) + os.sep, '')]
     }
 
     params["executables"] = [executable]
