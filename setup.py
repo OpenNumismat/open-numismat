@@ -196,7 +196,7 @@ if cx_Freeze_available:
                 (qt_dir + "/plugins/sqldrivers/qsqlite4.dll", "sqldrivers/qsqlite4.dll"))
     else:
         include_files.append(
-                (qt_dir + "/plugins/sqldrivers/libqsqlite4.dylib", "sqldrivers/libqsqlite4.dylib"))
+                (qt_dir + "/plugins/sqldrivers/libqsqlite.dylib", "sqldrivers/libqsqlite.dylib"))
     build_exe_options = {
             "excludes": ["unittest"],
             "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt4.QtNetwork"],
