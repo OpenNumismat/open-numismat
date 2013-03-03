@@ -231,81 +231,81 @@ if sys.platform == "darwin":
 
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/../MacOS/QtCore",
+            "@executable_path/QtCore",
             binDir + "sqldrivers/libqsqlite.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtSql.framework/Versions/4/QtSql",
-            "@executable_path/../MacOS/QtSql",
+            "@executable_path/QtSql",
             binDir + "sqldrivers/libqsqlite.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/lib/libsqlite3.0.dylib",
-            "@executable_path/../MacOS/libsqlite3.0.dylib",
+            "@executable_path/libsqlite3.0.dylib",
             binDir + "sqldrivers/libqsqlite.dylib"]))
 
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/../MacOS/QtCore",
+            "@executable_path/QtCore",
             binDir + "imageformats/libqgif.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/../MacOS/QtGui",
+            "@executable_path/QtGui",
             binDir + "imageformats/libqgif.dylib"]))
 
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/../MacOS/QtCore",
+            "@executable_path/QtCore",
             binDir + "imageformats/libqico.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/../MacOS/QtGui",
+            "@executable_path/QtGui",
             binDir + "imageformats/libqico.dylib"]))
 
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/../MacOS/QtCore",
+            "@executable_path/QtCore",
             binDir + "imageformats/libqjpeg.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/../MacOS/QtGui",
+            "@executable_path/QtGui",
             binDir + "imageformats/libqjpeg.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/lib/libjpeg.9.dylib",
-            "@executable_path/../MacOS/libjpeg.9.dylib",
+            "@executable_path/libjpeg.9.dylib",
             binDir + "imageformats/libqjpeg.dylib"]))
 
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/../MacOS/QtCore",
+            "@executable_path/QtCore",
             binDir + "imageformats/libqmng.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/../MacOS/QtGui",
+            "@executable_path/QtGui",
             binDir + "imageformats/libqmng.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/lib/libmng.1.dylib",
-            "@executable_path/../MacOS/libmng.1.dylib",
+            "@executable_path/libmng.1.dylib",
             binDir + "imageformats/libqmng.dylib"]))
 
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/../MacOS/QtCore",
+            "@executable_path/QtCore",
             binDir + "imageformats/libqtga.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/../MacOS/QtGui",
+            "@executable_path/QtGui",
             binDir + "imageformats/libqtga.dylib"]))
 
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/../MacOS/QtCore",
+            "@executable_path/QtCore",
             binDir + "imageformats/libqtiff.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/../MacOS/QtGui",
+            "@executable_path/QtGui",
             binDir + "imageformats/libqtiff.dylib"]))
     os.system(' '.join(["install_name_tool", "-change",
             "/opt/local/lib/libtiff.5.dylib",
-            "@executable_path/../MacOS/libtiff.5.dylib",
+            "@executable_path/libtiff.5.dylib",
             binDir + "imageformats/libqtiff.dylib"]))
 
 
