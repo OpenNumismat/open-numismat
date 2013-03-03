@@ -1,4 +1,8 @@
-open-numismat (1.4.2) oneiric; urgency=low
+open-numismat (1.4.3) oneiric; urgency=low
+
+  * Ukrainian.
+
+ -- Vitaly Ignatov <ignatov.vit@gmail.com>  Sat, 3 Mar 2013 01:41:51 -0800
 
   * Initial Release.
 
