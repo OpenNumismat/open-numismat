@@ -39,6 +39,10 @@ def main():
                 os.makedirs(ref_path, exist_ok=True)
                 src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
                                    'reference_%s.ref' % settings['locale'])
+                if not os.path.exists(src_ref):
+                    src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
+                                       'reference_en.ref')
+
                 shutil.copy(src_ref, dst_ref)
 
             dst_demo_db = os.path.join(OpenNumismat.HOME_PATH, 'demo.db')
@@ -46,6 +50,10 @@ def main():
                 os.makedirs(OpenNumismat.HOME_PATH, exist_ok=True)
                 src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
                                            'demo_%s.db' % settings['locale'])
+                if not os.path.exists(src_demo_db):
+                    src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
+                                       'demo_en.ref')
+
                 shutil.copy(src_demo_db, dst_demo_db)
         except:
             pass
