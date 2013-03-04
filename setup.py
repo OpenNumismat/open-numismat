@@ -127,8 +127,13 @@ params = {
             "Natural Language :: English",
             "Natural Language :: Russian",
             "Natural Language :: Spanish",
+            "Natural Language :: Ukranian",
             "Intended Audience :: End Users/Desktop",
             "Operating System :: OS Independent",
+            "Operating System :: POSIX :: Linux",
+            "Operating System :: Microsoft :: Windows",
+            "Environment :: X11 Applications :: Qt",
+            "Environment :: Win32 (MS Windows)",
             "Programming Language :: Python :: 3.2"],
 
     "install_requires": dependencies,
