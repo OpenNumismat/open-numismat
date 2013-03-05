@@ -207,6 +207,7 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/libjpeg.9.dylib", "libjpeg.9.dylib"))
         include_files.append(("/opt/local/lib/libmng.1.dylib", "libmng.1.dylib"))
         include_files.append(("/opt/local/lib/libtiff.5.dylib", "libtiff.5.dylib"))
+        include_files.append(("/opt/local/lib/liblcms.1.dylib", "liblcms.1.dylib"))
     build_exe_options = {
             "excludes": ["unittest"],
             "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt4.QtNetwork"],
