@@ -41,7 +41,7 @@ Main features:
 - Does not require additional software to work with a database
 - Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013
   and Collection Studio 3.65 (additional software may be required)
-- Support languages (English, Russian, Ukrainian, Spanish)
+- Support languages (English, Russian, Ukranian, Spanish)
 - Cross-platform: Windows, Linux. Potential support for MacOS (from source
   code)
 
