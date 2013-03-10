@@ -182,13 +182,17 @@ class MainWindow(QtGui.QMainWindow):
                                 self.tr("Online help"), self)
         helpAct.setShortcut(QtGui.QKeySequence.HelpContents)
         helpAct.triggered.connect(self.onlineHelp)
+        checkUpdatesAct = QtGui.QAction(self.tr("Check for updates"), self)
+        checkUpdatesAct.triggered.connect(self.manualUpdate)
         aboutAct = QtGui.QAction(self.tr("About %s") % version.AppName, self)
         aboutAct.triggered.connect(self.about)
 
-        file = menubar.addMenu(self.tr("&Help"))
-        file.addAction(helpAct)
-        file.addSeparator()
-        file.addAction(aboutAct)
+        help_ = menubar.addMenu(self.tr("&Help"))
+        help_.addAction(helpAct)
+        help_.addSeparator()
+        help_.addAction(checkUpdatesAct)
+        help_.addSeparator()
+        help_.addAction(aboutAct)
 
         toolBar = QtGui.QToolBar(self.tr("Toolbar"), self)
         toolBar.setMovable(False)
@@ -476,27 +480,36 @@ class MainWindow(QtGui.QMainWindow):
                 lastUpdateDate = QtCore.QDate.fromString(lastUpdateDateStr,
                                                          QtCore.Qt.ISODate)
                 if lastUpdateDate.addDays(10) < currentDate:
-                    currentDateStr = currentDate.toString(QtCore.Qt.ISODate)
-                    settings.setValue('mainwindow/last_update', currentDateStr)
                     self.checkUpdates()
             else:
-                currentDateStr = currentDate.toString(QtCore.Qt.ISODate)
-                settings.setValue('mainwindow/last_update', currentDateStr)
                 self.checkUpdates()
 
+    def manualUpdate(self):
+        if not self.checkUpdates():
+            QtGui.QMessageBox.information(self, self.tr("Updates"),
+                    self.tr("You already have the latest version."))
+
     def checkUpdates(self):
+        currentDate = QtCore.QDate.currentDate()
+        currentDateStr = currentDate.toString(QtCore.Qt.ISODate)
+        settings = QtCore.QSettings()
+        settings.setValue('mainwindow/last_update', currentDateStr)
+
         newVersion = self.__getNewVersion()
-        if newVersion != version.Version:
+        if newVersion and newVersion != version.Version:
             result = QtGui.QMessageBox.question(self, self.tr("New version"),
                         self.tr("New version is available. Download it now?"),
                         QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
                         QtGui.QMessageBox.Yes)
             if result == QtGui.QMessageBox.Yes:
                 url = QtCore.QUrl(version.Web + 'wiki/MainPage')
-                url.setQueryItems([('wl', Settings()['locale'])])
 
                 executor = QtGui.QDesktopServices()
                 executor.openUrl(url)
+
+            return True
+        else:
+            return False
 
     @waitCursorDecorator
     def __getNewVersion(self):
@@ -513,6 +526,6 @@ class MainWindow(QtGui.QMainWindow):
             tag = xml.getElementsByTagName('Program_Version')[0]
             newVersion = tag.firstChild.nodeValue
         except:
-            pass
+            return None
 
         return newVersion
