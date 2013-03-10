@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="ru_RU" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.0" language="ru_RU">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -946,7 +947,7 @@
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="75"/>
+        <location filename="main.py" line="87"/>
         <source>System error</source>
         <translation>Ошибка</translation>
     </message>
@@ -958,7 +959,7 @@ Do you want to send an error message to the author?</source>
 Вы хотите отправить сообщение об ошибке разработчику?</translation>
     </message>
     <message>
-        <location filename="main.py" line="76"/>
+        <location filename="main.py" line="88"/>
         <source>A system error occurred.
 Do you want to send an error message to the author
 (Google account required)?</source>
@@ -1194,12 +1195,12 @@ Do you want to send an error message to the author
 <context>
     <name>ImportCoinsCollector</name>
     <message>
-        <location filename="CoinsCollector.py" line="291"/>
+        <location filename="CoinsCollector.py" line="294"/>
         <source>Certified by: %s</source>
         <translation>Сертифицирована: %s</translation>
     </message>
     <message>
-        <location filename="CoinsCollector.py" line="294"/>
+        <location filename="CoinsCollector.py" line="297"/>
         <source>Price note: %s</source>
         <translation>Примечание по цене: %s</translation>
     </message>
@@ -1537,7 +1538,7 @@ Copyright (C) 2011 Игнатов Виталий
     <message>
         <location filename="MainWindow.py" line="181"/>
         <source>Online help</source>
-        <translation>Справка</translation>
+        <translation>Онлайн-справка</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="193"/>
@@ -1638,12 +1639,12 @@ Copyright (C) 2011-2012 Игнатов Виталий
         <translation>Перед импортом необходимо экспортировать существующую коллекцию из Collection Studio в формат XML Table (используйте меню Collection Studio: Инструменты &gt; Экспорт...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="491"/>
+        <location filename="MainWindow.py" line="490"/>
         <source>New version</source>
         <translation>Новая версия</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="491"/>
+        <location filename="MainWindow.py" line="490"/>
         <source>New version is available. Download it now?</source>
         <translation>Доступна новая версия. Скачать сейчас?</translation>
     </message>

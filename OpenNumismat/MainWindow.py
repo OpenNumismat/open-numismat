@@ -462,7 +462,6 @@ class MainWindow(QtGui.QMainWindow):
 
     def onlineHelp(self):
         url = QtCore.QUrl(version.Web + 'wiki/MainPage')
-        url.setQueryItems([('wl', Settings()['locale'])])
 
         executor = QtGui.QDesktopServices()
         executor.openUrl(url)
