@@ -127,6 +127,7 @@ params = {
             "Natural Language :: Russian",
             "Natural Language :: Spanish",
             "Natural Language :: Ukranian",
+            "Natural Language :: Hungarian",
             "Intended Audience :: End Users/Desktop",
             "Operating System :: OS Independent",
             "Operating System :: POSIX :: Linux",
@@ -182,7 +183,7 @@ if cx_Freeze_available:
                             targetName=version.AppName + executable_ext)
 
     translation_files = []
-    for translation in ['ru', 'uk', 'es']:
+    for translation in ['ru', 'uk', 'es', 'hu']:
         translation_files.append(("OpenNumismat/lang_%s.qm" % translation,
                                   "lang_%s.qm" % translation))
         translation_files.append(("OpenNumismat/qt_%s.qm" % translation,
