@@ -199,7 +199,7 @@
     <message>
         <location filename="CollectionFields.py" line="142"/>
         <source>ObvRev</source>
-        <translation>ObvRev</translation>
+        <translation>ElőHát</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="143"/>
@@ -1228,7 +1228,8 @@ Copyright (C) 2011-2013 Vitaly Ignatov
 
 Copyright (C) 2011-2013 Vitaly Ignatov
 
-%s egy ingyenes alkalmazás a GPLv3 licenc alatt.</translation>
+%s egy ingyenes alkalmazás a GPLv3 licenc alatt.
+Fordította: http://kattide.com .</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="500"/>
@@ -1506,7 +1507,7 @@ Copyright (C) 2011-2013 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="223"/>
         <source>ObvRev</source>
-        <translation>ObvRev</translation>
+        <translation>ElőHát</translation>
     </message>
     <message>
         <location filename="Reference.py" line="224"/>
@@ -1617,7 +1618,7 @@ Copyright (C) 2011-2013 Vitaly Ignatov
     <message>
         <location filename="ReferenceDialog.py" line="56"/>
         <source>Sort</source>
-        <translation>Fajta</translation>
+        <translation>ABC sorrend</translation>
     </message>
 </context>
 <context>
@@ -1669,7 +1670,7 @@ Copyright (C) 2011-2013 Vitaly Ignatov
     <message>
         <location filename="CollectionFields.py" line="63"/>
         <source>Pass</source>
-        <translation>Halad</translation>
+        <translation>Átmeneti</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="63"/>
