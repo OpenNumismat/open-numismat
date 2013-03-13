@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="uk_UA" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.0" language="uk_UA">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -119,7 +120,7 @@
     <message>
         <location filename="CollectionFields.py" line="125"/>
         <source>Period</source>
-        <translation>Период</translation>
+        <translation type="unfinished">Перiод</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="126"/>
