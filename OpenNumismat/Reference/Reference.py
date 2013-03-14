@@ -23,6 +23,21 @@ class SqlTableModel(QtSql.QSqlTableModel):
         return super(SqlTableModel, self).data(index, role)
 
 
+class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
+    def __init__(self, parent, db):
+        super(SqlRelationalTableModel, self).__init__(parent, db)
+
+        self.model = None
+
+    def relationModel(self, column):
+        if not self.model:
+            self.model = SqlTableModel(self, self.database())
+            self.model.setTable(self.relation(column).tableName())
+            self.model.select()
+
+        return self.model
+
+
 class ReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
@@ -132,7 +147,7 @@ class CrossReferenceSection(QtCore.QObject):
         if self.name not in self.db.tables():
             self.create(self.db)
 
-        self.model = QtSql.QSqlRelationalTableModel(None, db)
+        self.model = SqlRelationalTableModel(None, db)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
         self.model.setTable(self.name)
         if self.sort:
