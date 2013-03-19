@@ -30,9 +30,11 @@ class ImageLabel(QtGui.QLabel):
         executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
 
     def clear(self):
-        self.image = QtGui.QImage()
-        self.setPixmap(QtGui.QPixmap.fromImage(self.image))
         self._data = None
+
+        self.image = QtGui.QImage()
+        pixmap = QtGui.QPixmap.fromImage(self.image)
+        self.setPixmap(pixmap)
 
     def resizeEvent(self, e):
         self._showImage()
