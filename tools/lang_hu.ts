@@ -902,7 +902,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek
     <message>
         <location filename="ListView.py" line="410"/>
         <source>Web page (*.htm *.html)</source>
-        <translation>Weboldalak (*.htm, *.html)</translation>
+        <translation>Weboldalak (*.htm *.html)</translation>
     </message>
     <message>
         <location filename="ListView.py" line="411"/>
