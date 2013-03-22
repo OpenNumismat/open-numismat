@@ -24,17 +24,12 @@ class SqlTableModel(QtSql.QSqlTableModel):
 
 
 class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
-    def __init__(self, parent, db):
+    def __init__(self, model, parent, db):
         super(SqlRelationalTableModel, self).__init__(parent, db)
 
-        self.model = None
+        self.model = model
 
     def relationModel(self, column):
-        if not self.model:
-            self.model = SqlTableModel(self, self.database())
-            self.model.setTable(self.relation(column).tableName())
-            self.model.select()
-
         return self.model
 
 
@@ -56,10 +51,9 @@ class ReferenceSection(QtCore.QObject):
             self.create(self.db)
 
         self.model = SqlTableModel(None, db)
-        self.model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
+        self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
         self.model.setTable(self.name)
-        if self.sort:
-            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
+        self.setSort()
         self.model.select()
 
     def button(self, parent=None):
@@ -73,13 +67,9 @@ class ReferenceSection(QtCore.QObject):
         dialog = ReferenceDialog(self, self.parent.text(), self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            self.model.submitAll()
-
             index = dialog.selectedIndex()
             if index:
                 self.changed.emit(index.data())
-        else:
-            self.model.revertAll()
 
     def addItem(self, value, icon=None):
         record = self.model.record()
@@ -117,27 +107,36 @@ class ReferenceSection(QtCore.QObject):
 
         db.commit()
 
-    def setSort(self, sort):
+    def setSort(self):
+        if self.sort:
+            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
+        else:
+            self.model.setSort(0, Qt.AscendingOrder)
+
+    def saveSort(self, sort):
         if self.sort != sort:
             self.sort = sort
 
             query = QSqlQuery(self.db)
             query.prepare("UPDATE sections SET sort=? WHERE name=?")
-            query.addBindValue(sort)
+            query.addBindValue(int(sort))
             query.addBindValue(self.name)
             query.exec_()
+
+        self.setSort()
 
 
 class CrossReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
-    def __init__(self, name, parentName, title, letter='', sort=False, parent=None):
+    def __init__(self, name, parentRef, title, letter='', sort=False, parent=None):
         super(CrossReferenceSection, self).__init__(parent)
 
         self.parentIndex = None
 
         self.name = name
-        self.parentName = parentName
+        self.parentRef = parentRef
+        self.parentName = parentRef.name
         self.title = title
         self.letter = letter
         self.sort = sort
@@ -147,11 +146,10 @@ class CrossReferenceSection(QtCore.QObject):
         if self.name not in self.db.tables():
             self.create(self.db)
 
-        self.model = SqlRelationalTableModel(None, db)
-        self.model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
+        self.model = SqlRelationalTableModel(self.parentRef.model, None, db)
+        self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
         self.model.setTable(self.name)
-        if self.sort:
-            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
+        self.setSort()
         parentIndex = self.model.fieldIndex('parentid')
         self.model.setRelation(parentIndex,
                            QtSql.QSqlRelation(self.parentName, 'id', 'value'))
@@ -169,13 +167,9 @@ class CrossReferenceSection(QtCore.QObject):
                                       self.parent.text(), self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
-            self.model.submitAll()
-
             index = dialog.selectedIndex()
             if index:
                 self.changed.emit(index.data())
-        else:
-            self.model.revertAll()
 
     def fillFromQuery(self, parentId, query):
         while query.next():
@@ -211,15 +205,23 @@ class CrossReferenceSection(QtCore.QObject):
 
         db.commit()
 
-    def setSort(self, sort):
+    def setSort(self):
+        if self.sort:
+            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
+        else:
+            self.model.setSort(0, Qt.AscendingOrder)
+
+    def saveSort(self, sort):
         if self.sort != sort:
             self.sort = sort
 
             query = QSqlQuery(self.db)
             query.prepare("UPDATE sections SET sort=? WHERE name=?")
-            query.addBindValue(sort)
+            query.addBindValue(int(sort))
             query.addBindValue(self.name)
             query.exec_()
+
+        self.setSort()
 
 
 class Reference(QtCore.QObject):
@@ -228,23 +230,39 @@ class Reference(QtCore.QObject):
 
         self.db = QSqlDatabase.addDatabase('QSQLITE', "reference")
 
-        self.sections = {
-            'country': ReferenceSection('country', self.tr("Country"), self.tr("C")),
-            'type': ReferenceSection('type', self.tr("Type"), self.tr("T")),
-            'grade': ReferenceSection('grade', self.tr("Grade"), self.tr("G")),
-            'place': ReferenceSection('place', self.tr("Place")),
-            'material': ReferenceSection('material', self.tr("Material"), self.tr("M")),
-            'shape': ReferenceSection('shape', self.tr("Shape"), self.tr("F")),
-            'obvrev': ReferenceSection('obvrev', self.tr("ObvRev")),
-            'edge': ReferenceSection('edge', self.tr("Edge"), self.tr("E")),
-            'unit': CrossReferenceSection('unit', 'country', self.tr("Unit"), self.tr("U")),
-            'mint': CrossReferenceSection('mint', 'country', self.tr("Mint")),
-            'period': CrossReferenceSection('period', 'country', self.tr("Period"), self.tr("P")),
-            'series': CrossReferenceSection('series', 'country', self.tr("Series"), self.tr("S")),
-            'quality': ReferenceSection('quality', self.tr("Quality"), self.tr("Q")),
-            'defect': ReferenceSection('defect', self.tr("Defect"), self.tr("D")),
-            'rarity': ReferenceSection('rarity', self.tr("Rarity"), self.tr("R"))
-        }
+        ref_country = ReferenceSection('country', self.tr("Country"), self.tr("C"))
+        ref_type = ReferenceSection('type', self.tr("Type"), self.tr("T"))
+        ref_grade = ReferenceSection('grade', self.tr("Grade"), self.tr("G"))
+        ref_place = ReferenceSection('place', self.tr("Place"))
+        ref_material = ReferenceSection('material', self.tr("Material"), self.tr("M"))
+        ref_shape = ReferenceSection('shape', self.tr("Shape"), self.tr("F"))
+        ref_obvrev = ReferenceSection('obvrev', self.tr("ObvRev"))
+        ref_edge = ReferenceSection('edge', self.tr("Edge"), self.tr("E"))
+        ref_unit = CrossReferenceSection('unit', ref_country, self.tr("Unit"), self.tr("U"))
+        ref_mint = CrossReferenceSection('mint', ref_country, self.tr("Mint"))
+        ref_period = CrossReferenceSection('period', ref_country, self.tr("Period"), self.tr("P"))
+        ref_series = CrossReferenceSection('series', ref_country, self.tr("Series"), self.tr("S"))
+        ref_quality = ReferenceSection('quality', self.tr("Quality"), self.tr("Q"))
+        ref_defect = ReferenceSection('defect', self.tr("Defect"), self.tr("D"))
+        ref_rarity = ReferenceSection('rarity', self.tr("Rarity"), self.tr("R"))
+
+        self.sections = [
+            ref_grade,
+            ref_material,
+            ref_defect,
+            ref_shape,
+            ref_quality,
+            ref_country,
+            ref_rarity,
+            ref_edge,
+            ref_obvrev,
+            ref_type,
+            ref_unit,
+            ref_mint,
+            ref_period,
+            ref_series,
+            ref_place,
+        ]
 
     def create(self):
         sql = "CREATE TABLE IF NOT EXISTS sections (\
@@ -256,7 +274,7 @@ class Reference(QtCore.QObject):
             sort INTEGER)"
         QSqlQuery(sql, self.db)
 
-        for section in self.sections.values():
+        for section in self.sections:
             section.create(self.db)
 
     def open(self, fileName):
@@ -266,8 +284,8 @@ class Reference(QtCore.QObject):
             if not self.db.open():
                 print(self.db.lastError().text())
                 QtGui.QMessageBox.critical(self.parent(),
-                                           self.tr("Open reference"),
-                                           self.tr("Can't open reference"))
+                            self.tr("Open reference"),
+                            self.tr("Can't open reference:\n%s" % fileName))
                 return False
             else:
                 # Update reference DB for version 1.4.3
@@ -277,51 +295,48 @@ class Reference(QtCore.QObject):
                     sql = "UPDATE sections SET name = 'material' WHERE name = 'metal'"
                     QSqlQuery(sql, self.db)
         else:
-            QtGui.QMessageBox.critical(self.parent(),
-                                       self.tr("Open reference"),
-                                       self.tr("Can't open reference"))
+            QtGui.QMessageBox.warning(self.parent(),
+                            self.tr("Open reference"),
+                            self.tr("Can't open reference:\n%s\nCreated new one" % fileName))
             self.db.setDatabaseName(fileName)
             self.db.open()
             self.create()
-            return False
 
         self.fileName = fileName
 
-        for section_name, section in self.sections.items():
+        for section in self.sections:
             query = QSqlQuery(self.db)
             query.prepare("SELECT sort FROM sections WHERE name=?")
-            query.addBindValue(section_name)
+            query.addBindValue(section.name)
             query.exec_()
             if query.first():
                 data = query.record().value(0)
                 if not isinstance(data, QtCore.QPyNullVariant):
                     section.sort = bool(data)
+            query.clear()
+
+            section.load(self.db)
 
         return True
 
     def section(self, name):
-        section = None
-
         # NOTE: payplace and saleplace fields has one reference section =>
         # editing one of it should change another
         if name in ['payplace', 'saleplace']:
             name = 'place'
 
-        if name in self.sections:
-            section = self.sections[name]
-            section.load(self.db)
+        for section in self.sections:
+            if section.name == name:
+                return section
 
-        return section
+        return None
 
     def allSections(self):
-        sectionNames = list(self.sections.keys())
-        # Move cross section to bottom for filling after parent reference
-        for key in ['unit', 'mint', 'period', 'series']:
-            sectionNames.remove(key)
-            sectionNames.append(key)
-
-        if 'place' in sectionNames:
-            sectionNames.remove('place')
-            sectionNames.extend(['payplace', 'saleplace'])
+        sectionNames = []
+        for section in self.sections:
+            if section.name == 'place':
+                sectionNames.extend(['payplace', 'saleplace'])
+            else:
+                sectionNames.append(section.name)
 
         return sectionNames

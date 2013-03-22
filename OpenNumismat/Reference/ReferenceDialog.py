@@ -7,17 +7,27 @@ class ListView(QtGui.QListView):
     def __init__(self, parent=None):
         super(ListView, self).__init__(parent)
 
+    def commitData(self, editor):
+        text = editor.text().strip()
+        if len(text) > 0:
+            super(ListView, self).commitData(editor)
+
     def closeEditor(self, editor, hint):
+        row = self.currentIndex().row()
         super(ListView, self).closeEditor(editor, hint)
 
+        valid = True
         text = editor.text().strip()
         if len(text) == 0:
-            self.setRowHidden(self.currentIndex().row(), True)
-            self.model().removeRow(self.currentIndex().row())
+            valid = False
         elif text == self.defaultValue():
             if hint == QtGui.QAbstractItemDelegate.RevertModelCache:
-                self.setRowHidden(self.currentIndex().row(), True)
-                self.model().removeRow(self.currentIndex().row())
+                valid = False
+
+        if valid:
+            self.model().submit()
+        else:
+            self.model().removeRow(row)
 
     def defaultValue(self):
         return self.tr("Enter value")
@@ -102,7 +112,6 @@ class ReferenceWidget(QtGui.QWidget):
         index = self.selectedIndex()
         if index:
             self.model.removeRow(index.row())
-            self.listWidget.setRowHidden(index.row(), True)
 
 
 class CrossReferenceWidget(ReferenceWidget):
@@ -114,23 +123,25 @@ class CrossReferenceWidget(ReferenceWidget):
         self.comboBox = QtGui.QComboBox(parent)
         self.comboBox.setModel(self.rel)
         self.comboBox.setModelColumn(self.rel.fieldIndex('value'))
+        self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
         if parentIndex:
             row = parentIndex.row()
         else:
             row = -1
-            self.editButtonBox.setEnabled(False)
         self.comboBox.setCurrentIndex(row)
         self.comboBox.setDisabled(True)
-        self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
 
         self.layout().insertWidget(0, self.comboBox)
 
     def currentIndexChanged(self, index):
-        idIndex = self.rel.fieldIndex('id')
-        parentId = self.rel.data(self.rel.index(index, idIndex))
-        self.model.setFilter('parentid=%d' % parentId)
+        if index >= 0:
+            idIndex = self.rel.fieldIndex('id')
+            parentId = self.rel.data(self.rel.index(index, idIndex))
+            self.model.setFilter('parentid=%d' % parentId)
+        else:
+            self.model.setFilter('')
 
-        self.editButtonBox.setEnabled(True)
+        self.editButtonBox.setEnabled(index >= 0)
 
     def _addClicked(self):
         idIndex = self.rel.fieldIndex('id')
@@ -151,7 +162,9 @@ class ReferenceDialog(QtGui.QDialog):
     def __init__(self, section, text='', parent=None):
         super(ReferenceDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
 
-        self.secton = section
+        self.section = section
+        self.db = section.db
+        self.db.transaction()
 
         self.setWindowTitle(section.title)
 
@@ -182,10 +195,19 @@ class ReferenceDialog(QtGui.QDialog):
         return ReferenceWidget(section, text, self)
 
     def accept(self):
-        self.secton.setSort(self.referenceWidget.sortButton.isChecked())
+        self.section.saveSort(self.referenceWidget.sortButton.isChecked())
+        if not self.db.commit():
+            self.db.rollback()
 
         self.__selectedIndex = self.referenceWidget.selectedIndex()
         super(ReferenceDialog, self).accept()
+
+    def reject(self):
+        self.db.rollback()
+        self.section.setSort()
+        self.section.model.select()
+
+        super(ReferenceDialog, self).reject()
 
     def selectedIndex(self):
         return self.__selectedIndex
@@ -205,9 +227,12 @@ class AllReferenceDialog(QtGui.QDialog):
         super(AllReferenceDialog, self).__init__(parent,
                                                  Qt.WindowSystemMenuHint)
 
+        self.db = reference.db
+        self.db.transaction()
+
         self.setWindowTitle(self.tr("Reference"))
 
-        self.sections = [reference.section(name) for name in reference.allSections()]
+        self.sections = reference.sections
 
         tab = QtGui.QTabWidget(self)
         self.widgets = {}
@@ -219,7 +244,7 @@ class AllReferenceDialog(QtGui.QDialog):
                 widget = ReferenceWidget(section, '', self)
 
             widget.sortButton.setChecked(section.sort)
-            self.widgets[section.title] = widget
+            self.widgets[section.name] = widget
             tab.addTab(widget, section.title)
 
         buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
@@ -236,12 +261,28 @@ class AllReferenceDialog(QtGui.QDialog):
 
     def accept(self):
         for section in self.sections:
-            section.model.submitAll()
-            widget = self.widgets[section.title]
-            section.setSort(widget.sortButton.isChecked())
+            widget = self.widgets[section.name]
+            section.saveSort(widget.sortButton.isChecked())
+        if not self.db.commit():
+            QtGui.QMessageBox.critical(self.parent(),
+                            self.tr("Save reference"),
+                            self.tr("Something went wrong when saving. Please restart"))
+            self.db.rollback()
+
         super(AllReferenceDialog, self).accept()
 
     def reject(self):
+        # Make select for close all SQL request
         for section in self.sections:
-            section.model.revertAll()
+            section.model.select()
+
+        if not self.db.rollback():
+            QtGui.QMessageBox.critical(self.parent(),
+                            self.tr("Save reference"),
+                            self.tr("Something went wrong when canceling. Please restart"))
+
+        for section in self.sections:
+            section.setSort()
+            section.model.select()
+
         super(AllReferenceDialog, self).reject()
