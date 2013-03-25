@@ -40,8 +40,22 @@
         <tr><td style="width:100%;padding: 2px 2px 2px 2px;">
           <div id="ImageScroll" style="background-color:white;overflow-x:auto;width:100%">
             <table width="100%" align="center"><tbody>
-              <tr><td nowrap=""><img style="vertical-align:middle;" src="{{static_files}}/{{record.obverseimg}}" width="180"><img style="vertical-align:middle;" src="{{static_files}}/{{record.reverseimg}}" width="180"></td></tr>
-              <tr><td nowrap=""><img style="vertical-align:middle;" src="{{static_files}}/{{record.photo1}}" width="180"><img style="vertical-align:middle;" src="{{static_files}}/{{record.photo2}}" width="180"></td></tr>
+              <tr><td nowrap="">
+              	{% if record.obverseimg %}
+	              <img style="vertical-align:middle;" src="{{static_files}}/{{record.obverseimg}}" width="180">
+              	{% endif %}
+              	{% if record.reverseimg %}
+    	          <img style="vertical-align:middle;" src="{{static_files}}/{{record.reverseimg}}" width="180">
+              	{% endif %}
+              </td></tr>
+              <tr><td nowrap="">
+              	{% if record.photo1 %}
+              		<img style="vertical-align:middle;" src="{{static_files}}/{{record.photo1}}" width="180">
+              	{% endif %}
+              	{% if record.photo2 %}
+              		<img style="vertical-align:middle;" src="{{static_files}}/{{record.photo2}}" width="180">
+              	{% endif %}
+              </td></tr>
             </tbody></table>
           </div>
         </td></tr>

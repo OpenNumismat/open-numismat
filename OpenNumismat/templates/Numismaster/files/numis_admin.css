@@ -10,7 +10,7 @@ body {
  font-size: 11px;
  line-height: 14px;
  color: #333;
- background: url('/numis/images/bkg_gd-wht_gld.gif') top left repeat-x #D5CDA9;
+ background: #D5CDA9;
  margin-top: 10px;
 }
 
@@ -132,17 +132,8 @@ span.imp { color: #FFF; background-color: #B35400; padding: 1px; margin: 1px; }
 	padding-left: 13px;
 }
 
-.lk_away { background-image: url('/numis/images/tag_lk_away_gld_lt.gif'); }
-.lk_away_blue { background-image: url('/numis/images/tag_lk_away_blue.gif'); }
-.nt_new { background-image: url('/numis/images/tag_nt_new_gld_lt.gif'); }
-.lk_add { background-image: url('/numis/images/tag_lk_add_gld_lt.gif'); }
-.lk_com { background-image: url('/numis/images/tag_lk_com_gld_lt.gif'); }
-.lk_rem { background-image: url('/numis/images/tag_lk_rem_gld_lt.gif'); }
-
 /* tags - numbers */
 .nm_one, .nm_two { background: no-repeat 0px 2px; padding: 4px 0px 4px 23px; }
-.nm_one { background-image: url('/numis/images/tag_nm_one_blu_lt.gif'); }
-.nm_two { background-image: url('/numis/images/tag_nm_two_blu_lt.gif'); }
 
 
 /* tags - flags */
@@ -155,7 +146,6 @@ img.flag { position: relative; top: 3px; margin-right: 2px; }
 	height: 26px;
 	float: left;
 	margin: 0px 2px 2px 0px;
-	background: url('/numis/images/des_cal-date.gif') no-repeat center;
 	color: #FFF;
 }
 .sm_cal_date DIV, .sm_cal_date_em DIV, .sm_cal_head DIV, .sm_cal_state DIV {
@@ -172,14 +162,12 @@ img.flag { position: relative; top: 3px; margin-right: 2px; }
  color: #FFF;
 }
 
-.sm_cal_date_em { background-image: url('/numis/images/des_cal-date_em.gif'); }
 .sm_cal_head { height: 12px; background: none; }
 
 .sm_cal_date div, .sm_cal_date_em div, .sm_cal_state div { padding-top: 3px; }
 
 .sm_cal_state {
- background-image: url('/numis/images/des_cal-state.gif');
-}
+ 
 
 .show_info {
   margin-bottom: 15px;
@@ -214,7 +202,7 @@ img.flag { position: relative; top: 3px; margin-right: 2px; }
   font-weight: bold;
 }
 
-.adminTitle a.lk_away { background-image: url('/numis/images/tag_lk_away_wht_dk.gif'); color: #FFF; font-size: 11px; }
+.adminTitle a.lk_away { color: #FFF; font-size: 11px; }
 
 .adminBodyDiv {
   width: 980px;
@@ -376,7 +364,6 @@ img.flag { position: relative; top: 3px; margin-right: 2px; }
 
 .msgBoxBody, .msgBoxBodyWithTitle {
   padding: 2px 5px 5px 5px;
-  background: url('/numis/images/bkg_gd-gld_wht.gif') repeat-x top left #FFF;
 }
 
 .advBoxTable {
@@ -404,13 +391,6 @@ img.flag { position: relative; top: 3px; margin-right: 2px; }
 
 .pgMy STRONG {
   font-weight: bold;
-}
-.pgVertSepBlue {
-  background: url('/numis/images/BorderVertBlue.gif');
-}
-
-.pgVertSep {
-  background: url('/numis/images/BorderVert.gif');
 }
 
 .pgSampleCoins {
