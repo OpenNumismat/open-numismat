@@ -200,7 +200,7 @@ if cx_Freeze_available:
                 ("OpenNumismat/Collection/Import/CdrToXml/Cdr2Xml.dll", "Cdr2Xml.dll"))
         include_files.append(
                 (qt_dir + "/plugins/sqldrivers/qsqlite4.dll", "sqldrivers/qsqlite4.dll"))
-    else:
+    elif sys.platform == "darwin":
         include_files.append(
                 (qt_dir + "/plugins/sqldrivers/libqsqlite.dylib", "sqldrivers/libqsqlite.dylib"))
 
