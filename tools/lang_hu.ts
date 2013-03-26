@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="hu_HU" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.0" language="hu_HU">
 <context>
     <name>AllReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="208"/>
+        <location filename="ReferenceDialog.py" line="233"/>
         <source>Reference</source>
         <translation>Referancia</translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="280"/>
+        <source>Save reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="267"/>
+        <source>Something went wrong when saving. Please restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="280"/>
+        <source>Something went wrong when canceling. Please restart</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -706,47 +722,47 @@ El szeretnéd küldeni a hibát a fejlesztőnek
 <context>
     <name>ImageEdit</name>
     <message>
-        <location filename="ImageLabel.py" line="96"/>
+        <location filename="ImageLabel.py" line="98"/>
         <source>Load...</source>
         <translation>Betöltés...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="100"/>
+        <location filename="ImageLabel.py" line="102"/>
         <source>Paste</source>
         <translation>Beillesztés</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="104"/>
+        <location filename="ImageLabel.py" line="106"/>
         <source>Copy</source>
         <translation>Másolás</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="110"/>
+        <location filename="ImageLabel.py" line="112"/>
         <source>Delete</source>
         <translation>Törlés</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="115"/>
+        <location filename="ImageLabel.py" line="117"/>
         <source>Save as...</source>
         <translation>Mentés másként...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="137"/>
+        <location filename="ImageLabel.py" line="139"/>
         <source>Open File</source>
         <translation>Megnyitás</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="156"/>
+        <location filename="ImageLabel.py" line="158"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</source>
         <translation>Képek(*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;Összes fájl (*.*)</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="155"/>
+        <location filename="ImageLabel.py" line="157"/>
         <source>Save File</source>
         <translation>Fájl mentése</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="188"/>
+        <location filename="ImageLabel.py" line="190"/>
         <source>No image available
 (right-click to add an image)</source>
         <translation>Nincs elérhető kép
@@ -957,7 +973,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek
         <translation>Bejegyzések törlése</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="23"/>
+        <location filename="ReferenceDialog.py" line="33"/>
         <source>Enter value</source>
         <translation>Érték megadása</translation>
     </message>
@@ -1450,155 +1466,169 @@ Fordította: http://kattide.com .</translation>
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="217"/>
+        <location filename="Reference.py" line="233"/>
         <source>Country</source>
         <translation>Ország</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="217"/>
+        <location filename="Reference.py" line="233"/>
         <source>C</source>
         <translation>O</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="218"/>
+        <location filename="Reference.py" line="234"/>
         <source>Type</source>
         <translation>Típus</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="218"/>
+        <location filename="Reference.py" line="234"/>
         <source>T</source>
         <translation>T</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="219"/>
+        <location filename="Reference.py" line="235"/>
         <source>Grade</source>
         <translation>Fokozat</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="219"/>
+        <location filename="Reference.py" line="235"/>
         <source>G</source>
         <translation>F</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="220"/>
+        <location filename="Reference.py" line="236"/>
         <source>Place</source>
         <translation>Hely</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="221"/>
+        <location filename="Reference.py" line="237"/>
         <source>Material</source>
         <translation>Anyag</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="221"/>
+        <location filename="Reference.py" line="237"/>
         <source>M</source>
         <translation>A</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="222"/>
+        <location filename="Reference.py" line="238"/>
         <source>Shape</source>
         <translation>Forma</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="222"/>
+        <location filename="Reference.py" line="238"/>
         <source>F</source>
         <translation>F</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="223"/>
+        <location filename="Reference.py" line="239"/>
         <source>ObvRev</source>
         <translation>ElőHát</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="224"/>
+        <location filename="Reference.py" line="240"/>
         <source>Edge</source>
         <translation>Él</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="224"/>
+        <location filename="Reference.py" line="240"/>
         <source>E</source>
         <translation>É</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="225"/>
+        <location filename="Reference.py" line="241"/>
         <source>Unit</source>
         <translation>Egység</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="225"/>
+        <location filename="Reference.py" line="241"/>
         <source>U</source>
         <translation>E</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="226"/>
+        <location filename="Reference.py" line="242"/>
         <source>Mint</source>
         <translation>Pénzverde</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="227"/>
+        <location filename="Reference.py" line="243"/>
         <source>Period</source>
         <translation>Koszak</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="227"/>
+        <location filename="Reference.py" line="243"/>
         <source>P</source>
         <translation>K</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="228"/>
+        <location filename="Reference.py" line="244"/>
         <source>Series</source>
         <translation>Sorozat</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="228"/>
+        <location filename="Reference.py" line="244"/>
         <source>S</source>
         <translation>S</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="229"/>
+        <location filename="Reference.py" line="245"/>
         <source>Quality</source>
         <translation>Minőség</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="229"/>
+        <location filename="Reference.py" line="245"/>
         <source>Q</source>
         <translation>M</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="230"/>
+        <location filename="Reference.py" line="246"/>
         <source>Defect</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="230"/>
+        <location filename="Reference.py" line="246"/>
         <source>D</source>
         <translation>H</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="231"/>
+        <location filename="Reference.py" line="247"/>
         <source>Rarity</source>
         <translation>Ritkaság</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="231"/>
+        <location filename="Reference.py" line="247"/>
         <source>R</source>
         <translation>R</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="265"/>
+        <location filename="Reference.py" line="298"/>
         <source>Open reference</source>
         <translation>Referencia megnyitása</translation>
     </message>
     <message>
         <location filename="Reference.py" line="265"/>
         <source>Can&apos;t open reference</source>
-        <translation>Nem lehetett megnyitni a referenciát</translation>
+        <translation type="obsolete">Nem lehetett megnyitni a referenciát</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="286"/>
+        <source>Can&apos;t open reference:
+%s</source>
+        <translation>Nem lehetett megnyitni a referenciát:
+%s</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="298"/>
+        <source>Can&apos;t open reference:
+%s
+Created new one</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="175"/>
+        <location filename="ReferenceDialog.py" line="188"/>
         <source>Reference</source>
         <translation>Referancia</translation>
     </message>
@@ -1606,17 +1636,17 @@ Fordította: http://kattide.com .</translation>
 <context>
     <name>ReferenceWidget</name>
     <message>
-        <location filename="ReferenceDialog.py" line="46"/>
+        <location filename="ReferenceDialog.py" line="56"/>
         <source>Add</source>
         <translation>Hozzáad</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="50"/>
+        <location filename="ReferenceDialog.py" line="60"/>
         <source>Del</source>
         <translation>Törlés</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="56"/>
+        <location filename="ReferenceDialog.py" line="66"/>
         <source>Sort</source>
         <translation>ABC sorrend</translation>
     </message>

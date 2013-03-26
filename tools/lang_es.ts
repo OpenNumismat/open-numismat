@@ -4,9 +4,24 @@
 <context>
     <name>AllReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="208"/>
+        <location filename="ReferenceDialog.py" line="233"/>
         <source>Reference</source>
         <translation>Referencia</translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="280"/>
+        <source>Save reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="267"/>
+        <source>Something went wrong when saving. Please restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="280"/>
+        <source>Something went wrong when canceling. Please restart</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -636,12 +651,12 @@
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="79"/>
+        <location filename="main.py" line="87"/>
         <source>System error</source>
         <translation>Error de sistema</translation>
     </message>
     <message>
-        <location filename="main.py" line="80"/>
+        <location filename="main.py" line="88"/>
         <source>A system error occurred.
 Do you want to send an error message to the author
 (Google account required)?</source>
@@ -653,12 +668,12 @@ Desea enviar un mensaje de error al autor
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="262"/>
+        <location filename="Settings.py" line="263"/>
         <source>Global enabled fields:</source>
         <translation>Campos globales permitidos:</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="254"/>
+        <location filename="Settings.py" line="255"/>
         <source>Revert to default</source>
         <translation>Volver a configuración por defecto</translation>
     </message>
@@ -752,47 +767,47 @@ Desea enviar un mensaje de error al autor
 <context>
     <name>ImageEdit</name>
     <message>
-        <location filename="ImageLabel.py" line="96"/>
+        <location filename="ImageLabel.py" line="98"/>
         <source>Load...</source>
         <translation>Cargar...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="100"/>
+        <location filename="ImageLabel.py" line="102"/>
         <source>Paste</source>
         <translation>Pegar</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="104"/>
+        <location filename="ImageLabel.py" line="106"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="110"/>
+        <location filename="ImageLabel.py" line="112"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="115"/>
+        <location filename="ImageLabel.py" line="117"/>
         <source>Save as...</source>
         <translation>Guardar como...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="137"/>
+        <location filename="ImageLabel.py" line="139"/>
         <source>Open File</source>
         <translation>Abrir archivo</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="156"/>
+        <location filename="ImageLabel.py" line="158"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</source>
         <translation>Imágenes (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="155"/>
+        <location filename="ImageLabel.py" line="157"/>
         <source>Save File</source>
         <translation>Guardar archivo</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="188"/>
+        <location filename="ImageLabel.py" line="190"/>
         <source>No image available
 (right-click to add an image)</source>
         <translation>Imagen no disponible
@@ -965,7 +980,7 @@ Desea enviar un mensaje de error al autor
         </translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="23"/>
+        <location filename="ReferenceDialog.py" line="33"/>
         <source>Enter value</source>
         <translation>Introduzca valor</translation>
     </message>
@@ -1018,47 +1033,47 @@ Desea enviar un mensaje de error al autor
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="130"/>
+        <location filename="Settings.py" line="131"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="199"/>
+        <location filename="Settings.py" line="200"/>
         <source>Backup folder</source>
         <translation>Carpeta respaldo</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="159"/>
+        <location filename="Settings.py" line="160"/>
         <source>Reference</source>
         <translation>Referencia</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="161"/>
+        <location filename="Settings.py" line="162"/>
         <source>Send error info to author</source>
         <translation>Enviar información del error al autor</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="173"/>
+        <location filename="Settings.py" line="174"/>
         <source>Max image side len</source>
         <translation>Longitud máxima de la imagen</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="206"/>
+        <location filename="Settings.py" line="207"/>
         <source>Select reference</source>
         <translation>Seleccione referencia</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="166"/>
+        <location filename="Settings.py" line="167"/>
         <source>Automatically check for updates</source>
         <translation>Chequear automaticamente por actualizaciones</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="179"/>
+        <location filename="Settings.py" line="180"/>
         <source>Free format numeric fields</source>
         <translation>Campos numéricos sin formato</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="194"/>
+        <location filename="Settings.py" line="195"/>
         <source>Default template</source>
         <translation>Plantilla por defecto</translation>
     </message>
@@ -1151,37 +1166,37 @@ Desea enviar un mensaje de error al autor
         <translation>Ayuda online</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="457"/>
+        <location filename="MainWindow.py" line="461"/>
         <source>About %s</source>
         <translation>Acerca %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="188"/>
+        <location filename="MainWindow.py" line="190"/>
         <source>&amp;Help</source>
         <translation>&amp;Ayuda</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="193"/>
+        <location filename="MainWindow.py" line="197"/>
         <source>Toolbar</source>
         <translation>Toolbar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="262"/>
+        <location filename="MainWindow.py" line="266"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="262"/>
+        <location filename="MainWindow.py" line="266"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>La aplicación necesita reiniciarse para aplicar los cambios, ¿Reiniciar ahora?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="325"/>
+        <location filename="MainWindow.py" line="329"/>
         <source>Select file</source>
         <translation>Seleccionar archivo</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="294"/>
+        <location filename="MainWindow.py" line="298"/>
         <source>Select directory</source>
         <translation>Seleccionar directorio</translation>
     </message>
@@ -1191,27 +1206,27 @@ Desea enviar un mensaje de error al autor
         <translation type="obsolete">Abrir archivo CoinManage</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="319"/>
+        <location filename="MainWindow.py" line="323"/>
         <source>Importing</source>
         <translation>Importando</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="305"/>
+        <location filename="MainWindow.py" line="309"/>
         <source>Import pre-defined coins?</source>
         <translation>Importar monedas predefinidas?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="376"/>
+        <location filename="MainWindow.py" line="380"/>
         <source>Open collection</source>
         <translation>Abrir colección</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="383"/>
+        <location filename="MainWindow.py" line="387"/>
         <source>Collections (*.db)</source>
         <translation>Colecciones (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="383"/>
+        <location filename="MainWindow.py" line="387"/>
         <source>New collection</source>
         <translation>Nueva colección</translation>
     </message>
@@ -1294,12 +1309,12 @@ Copyright (C) 2011-2012 Vitaly Ignatov
         <translation>Reporte</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="319"/>
+        <location filename="MainWindow.py" line="323"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Antes de importar debería exportar la colección existente de Collection Studio a una tabla XML (elija el menú Tools &gt; Export... en Collection Studio).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="457"/>
+        <location filename="MainWindow.py" line="461"/>
         <source>%s %s
 
 Copyright (C) 2011-2013 Vitaly Ignatov
@@ -1312,14 +1327,29 @@ Copyright (C) 2011-2013 Vitaly Ignatov
 %s es freeware licenciado bajo una GPLv3.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="491"/>
+        <location filename="MainWindow.py" line="500"/>
         <source>New version</source>
         <translation>Nueva versión</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="491"/>
+        <location filename="MainWindow.py" line="500"/>
         <source>New version is available. Download it now?</source>
         <translation>Nueva versión disponible. ¿Desea descargarla?</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="185"/>
+        <source>Check for updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="489"/>
+        <source>Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="489"/>
+        <source>You already have the latest version.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1525,37 +1555,37 @@ Copyright (C) 2011-2013 Vitaly Ignatov
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="217"/>
+        <location filename="Reference.py" line="233"/>
         <source>Country</source>
         <translation>País</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="217"/>
+        <location filename="Reference.py" line="233"/>
         <source>C</source>
         <translation>C</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="218"/>
+        <location filename="Reference.py" line="234"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="218"/>
+        <location filename="Reference.py" line="234"/>
         <source>T</source>
         <translation>T</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="219"/>
+        <location filename="Reference.py" line="235"/>
         <source>Grade</source>
         <translation>Grado</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="219"/>
+        <location filename="Reference.py" line="235"/>
         <source>G</source>
         <translation>G</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="220"/>
+        <location filename="Reference.py" line="236"/>
         <source>Place</source>
         <translation>Lugar</translation>
     </message>
@@ -1565,7 +1595,7 @@ Copyright (C) 2011-2013 Vitaly Ignatov
         <translation type="obsolete">Metal</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="221"/>
+        <location filename="Reference.py" line="237"/>
         <source>M</source>
         <translation>M</translation>
     </message>
@@ -1575,115 +1605,129 @@ Copyright (C) 2011-2013 Vitaly Ignatov
         <translation type="obsolete">Forma</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="222"/>
+        <location filename="Reference.py" line="238"/>
         <source>F</source>
         <translation>F</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="223"/>
+        <location filename="Reference.py" line="239"/>
         <source>ObvRev</source>
         <translation>AnvRev</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="224"/>
+        <location filename="Reference.py" line="240"/>
         <source>Edge</source>
         <translation>Canto</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="224"/>
+        <location filename="Reference.py" line="240"/>
         <source>E</source>
         <translation>E</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="225"/>
+        <location filename="Reference.py" line="241"/>
         <source>Unit</source>
         <translation>Unidad</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="225"/>
+        <location filename="Reference.py" line="241"/>
         <source>U</source>
         <translation>U</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="226"/>
+        <location filename="Reference.py" line="242"/>
         <source>Mint</source>
         <translation>Ceca</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="227"/>
+        <location filename="Reference.py" line="243"/>
         <source>Period</source>
         <translation>Período</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="227"/>
+        <location filename="Reference.py" line="243"/>
         <source>P</source>
         <translation>P</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="228"/>
+        <location filename="Reference.py" line="244"/>
         <source>Series</source>
         <translation>Series</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="228"/>
+        <location filename="Reference.py" line="244"/>
         <source>S</source>
         <translation>S</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="229"/>
+        <location filename="Reference.py" line="245"/>
         <source>Quality</source>
         <translation>Calidad</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="229"/>
+        <location filename="Reference.py" line="245"/>
         <source>Q</source>
         <translation>Q</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="230"/>
+        <location filename="Reference.py" line="246"/>
         <source>Defect</source>
         <translation>Defecto</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="230"/>
+        <location filename="Reference.py" line="246"/>
         <source>D</source>
         <translation>D</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="231"/>
+        <location filename="Reference.py" line="247"/>
         <source>Rarity</source>
         <translation>Rareza</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="231"/>
+        <location filename="Reference.py" line="247"/>
         <source>R</source>
         <translation>R</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="265"/>
+        <location filename="Reference.py" line="298"/>
         <source>Open reference</source>
         <translation>Abrir referencia</translation>
     </message>
     <message>
         <location filename="Reference.py" line="265"/>
         <source>Can&apos;t open reference</source>
-        <translation>No puedo abrir la referencia</translation>
+        <translation type="obsolete">No puedo abrir la referencia</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="221"/>
+        <location filename="Reference.py" line="237"/>
         <source>Material</source>
         <translation>Material</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="222"/>
+        <location filename="Reference.py" line="238"/>
         <source>Shape</source>
         <translation>Forma</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="286"/>
+        <source>Can&apos;t open reference:
+%s</source>
+        <translation>No puedo abrir la referencia:
+%s</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="298"/>
+        <source>Can&apos;t open reference:
+%s
+Created new one</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="175"/>
+        <location filename="ReferenceDialog.py" line="188"/>
         <source>Reference</source>
         <translation>Referencia</translation>
     </message>
@@ -1691,17 +1735,17 @@ Copyright (C) 2011-2013 Vitaly Ignatov
 <context>
     <name>ReferenceWidget</name>
     <message>
-        <location filename="ReferenceDialog.py" line="46"/>
+        <location filename="ReferenceDialog.py" line="56"/>
         <source>Add</source>
         <translation>Agregar</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="50"/>
+        <location filename="ReferenceDialog.py" line="60"/>
         <source>Del</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="56"/>
+        <location filename="ReferenceDialog.py" line="66"/>
         <source>Sort</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1730,17 +1774,17 @@ Copyright (C) 2011-2013 Vitaly Ignatov
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="Settings.py" line="296"/>
+        <location filename="Settings.py" line="297"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="299"/>
+        <location filename="Settings.py" line="300"/>
         <source>Main</source>
         <translation>Principal</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="300"/>
+        <location filename="Settings.py" line="301"/>
         <source>Fields</source>
         <translation>Campos</translation>
     </message>
