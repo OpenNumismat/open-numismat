@@ -19,9 +19,6 @@ class CbrParser(_AuctionParser):
     def __init__(self, url, parent=None):
         super(CbrParser, self).__init__(parent)
 
-    def _encoding(self):
-        return 'windows-1251'
-
     def _parse(self):
         auctionItem = AuctionItem(None)
 
@@ -29,14 +26,12 @@ class CbrParser(_AuctionParser):
 
         tables = self.html.cssselect('table')
 
-        start_tbl_index = 1
-        if len(tables[3].cssselect('table')[0].cssselect('tr')) < 3:
-            start_tbl_index = 2
-
-        header_parts = tables[start_tbl_index].text_content().splitlines()
+        header_parts = self.html.find_class('BnkHeader')[0].text_content().splitlines()
         auctionItem.series = ''
-        for part in header_parts:
-            start = part.find('Серия:')
+        for i, part in enumerate(header_parts):
+            start = part.find('Серия:')  # Old pages contain English C letter
+            if start < 0:
+                start = part.find('Cерия:')
             if start >= 0:
                 series = part[start + 6:].strip()
                 if series and series[-1] == '.':
@@ -44,7 +39,7 @@ class CbrParser(_AuctionParser):
                 auctionItem.series = series
             start = part.find('Дата выпуска:')
             if start >= 0:
-                subjectshort = part[:start].strip()
+                subjectshort = header_parts[i - 1].strip()
                 if subjectshort and subjectshort[-1] == '.':
                     subjectshort = subjectshort[:-1]
                 auctionItem.subjectshort = subjectshort
@@ -55,9 +50,9 @@ class CbrParser(_AuctionParser):
             if start >= 0:
                 auctionItem.catalognum1 = part[start + 17:].strip()
 
-        table_element = tables[start_tbl_index + 2].cssselect('table')[0]
-        header_table = table_element.cssselect('tr')[1]
-        body_table = table_element.cssselect('tr')[2]
+        table_element = tables[1]
+        header_table = table_element.cssselect('tr')[0]
+        body_table = table_element.cssselect('tr')[1]
         auctionItem.thickness = ''
         auctionItem.fineness = ''
         auctionItem.weight = ''
@@ -88,7 +83,7 @@ class CbrParser(_AuctionParser):
 
         auctionItem.images = []
 
-        obverse_element = tables[start_tbl_index + 4].cssselect('tr')[0]
+        obverse_element = tables[2].cssselect('tr')[0]
         tag = obverse_element.cssselect('img')[0]
         href = tag.attrib['src']
         href = urllib.parse.urljoin(self.url, href)
@@ -96,7 +91,7 @@ class CbrParser(_AuctionParser):
         value = obverse_element.cssselect('td')[3].text_content()
         auctionItem.obversedesign = value.strip()
 
-        reverse_element = tables[start_tbl_index + 4].cssselect('tr')[1]
+        reverse_element = tables[2].cssselect('tr')[1]
         tag = reverse_element.cssselect('img')[0]
         href = tag.attrib['src']
         href = urllib.parse.urljoin(self.url, href)
@@ -104,7 +99,7 @@ class CbrParser(_AuctionParser):
         value = reverse_element.cssselect('td')[2].text_content()
         auctionItem.reversedesign = value.strip()
 
-        parts = tables[start_tbl_index + 4].cssselect('tr')[2].text_content().splitlines()
+        parts = tables[2].cssselect('tr')[2].text_content().splitlines()
         auctionItem.obversedesigner = ''
         auctionItem.reversedesigner = ''
         auctionItem.edgelabel = ''
@@ -152,7 +147,7 @@ class CbrParser(_AuctionParser):
                 content = self.html.cssselect('table')[0]
                 auctionItem.subject = content.text_content().strip().replace('\t', '')
         else:
-            subject_element = tables[5].cssselect('tr')[3]
+            subject_element = tables[2].cssselect('tr')[3]
             value = subject_element.text_content()
             auctionItem.subject = value.strip()
 
