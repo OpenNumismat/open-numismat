@@ -177,7 +177,7 @@ class LineEditRef(QtGui.QWidget):
         self.dependents = []
 
     def clear(self):
-        self.comboBox.clear()
+        self.comboBox.setCurrentIndex(-1)
 
     def setText(self, text):
         self.comboBox.setCurrentIndex(-1)
