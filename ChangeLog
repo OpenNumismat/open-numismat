@@ -1,13 +1,21 @@
 ChangeLog
 ---------
+1.4.4 - 2013-04-02:
+    * Added Hungarian translations (by Zalán Csúszó)
+    * Fixed references editors
+    * Added Check for updates menu command
+    * Show country flag icon in cross-reference editor combo box
+    * Updated Numismaster template
+    * Fixed parser for cbr.ru
+
 1.4.3 - 2013-03-05:
+    * dmg package for MacOS is available
     * Updated icon
     * Added Ukranian translations (by Alex Shilyaev)
     * Updated Spanish translations (by Carlos Rosi)
     * Added sorting in references
     * Fixed sorting in cbr template
     * Importing from CoinCollector command available only on Windows
-    * Fixed code for running on MacOS
     * Refactored setup script. Updated for MacOS
     * Updated pyfirebirdsql to 0.7.2
 

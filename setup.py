@@ -41,8 +41,8 @@ Main features:
 - Does not require additional software to work with a database
 - Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013
   and Collection Studio 3.65 (additional software may be required)
-- Support languages (English, Russian, Ukranian, Spanish)
-- Cross-platform: Windows, Linux, MacOS
+- Support languages (English, Russian, Ukranian, Spanish, Hungarian)
+- Cross-platform: Windows, Linux, MacOS X
 
 OpenNumismat based on PyQt framework with SQLite database engine to store data
 collection.
@@ -135,6 +135,7 @@ params = {
             "Operating System :: MacOS :: MacOS X",
             "Environment :: X11 Applications :: Qt",
             "Environment :: Win32 (MS Windows)",
+            "Environment :: MacOS X",
             "Programming Language :: Python :: 3.2"],
 
     "install_requires": dependencies,

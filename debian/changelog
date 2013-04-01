@@ -1,6 +1,10 @@
-open-numismat (1.4.3) oneiric; urgency=low
+open-numismat (1.4.4) oneiric; urgency=low
 
-  * Ukrainian.
+  * Hungarian.
+
+ -- Vitaly Ignatov <ignatov.vit@gmail.com>  Sat, 2 Apr 2013 01:41:51 -0800
+
+  * Ukranian.
 
  -- Vitaly Ignatov <ignatov.vit@gmail.com>  Sat, 3 Mar 2013 01:41:51 -0800
 
