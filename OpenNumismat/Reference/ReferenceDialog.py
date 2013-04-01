@@ -204,8 +204,6 @@ class ReferenceDialog(QtGui.QDialog):
 
     def reject(self):
         self.db.rollback()
-        self.section.setSort()
-        self.section.model.select()
 
         super(ReferenceDialog, self).reject()
 

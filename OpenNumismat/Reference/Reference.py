@@ -53,6 +53,11 @@ class ReferenceSection(QtCore.QObject):
         self.model = SqlTableModel(None, db)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
         self.model.setTable(self.name)
+
+        self.reload()
+
+    def reload(self):
+        self.getSort()
         self.setSort()
         self.model.select()
 
@@ -64,12 +69,19 @@ class ReferenceSection(QtCore.QObject):
         return button
 
     def clickedButton(self):
-        dialog = ReferenceDialog(self, self.parent.text(), self.parent)
+        old_text = self.parent.text()
+        copy = ReferenceSection(self.name, self.title, self.letter, self.sort, self.parent)
+        copy.load(self.db)
+        dialog = ReferenceDialog(copy, self.parent.text(), self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
+            self.reload()
+
             index = dialog.selectedIndex()
             if index:
                 self.changed.emit(index.data())
+            else:
+                self.changed.emit(old_text)
 
     def addItem(self, value, icon=None):
         record = self.model.record()
@@ -113,6 +125,21 @@ class ReferenceSection(QtCore.QObject):
         else:
             self.model.setSort(0, Qt.AscendingOrder)
 
+    def getSort(self):
+        query = QSqlQuery(self.db)
+        query.prepare("SELECT sort FROM sections WHERE name=?")
+        query.addBindValue(self.name)
+        query.exec_()
+        if query.first():
+            data = query.record().value(0)
+            if not isinstance(data, QtCore.QPyNullVariant):
+                self.sort = bool(data)
+            else:
+                self.sort = False
+        query.clear()
+
+        return self.sort
+
     def saveSort(self, sort):
         if self.sort != sort:
             self.sort = sort
@@ -149,10 +176,15 @@ class CrossReferenceSection(QtCore.QObject):
         self.model = SqlRelationalTableModel(self.parentRef.model, None, db)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
         self.model.setTable(self.name)
-        self.setSort()
         parentIndex = self.model.fieldIndex('parentid')
         self.model.setRelation(parentIndex,
                            QtSql.QSqlRelation(self.parentName, 'id', 'value'))
+
+        self.reload()
+
+    def reload(self):
+        self.getSort()
+        self.setSort()
         self.model.select()
 
     def button(self, parent=None):
@@ -163,13 +195,21 @@ class CrossReferenceSection(QtCore.QObject):
         return button
 
     def clickedButton(self):
-        dialog = CrossReferenceDialog(self, self.parentIndex,
+        old_text = self.parent.text()
+        copy = CrossReferenceSection(self.name, self.parentRef, self.title,
+                                     self.letter, self.sort, self.parent)
+        copy.load(self.db)
+        dialog = CrossReferenceDialog(copy, self.parentIndex,
                                       self.parent.text(), self.parent)
         result = dialog.exec_()
         if result == QtGui.QDialog.Accepted:
+            self.reload()
+
             index = dialog.selectedIndex()
             if index:
                 self.changed.emit(index.data())
+            else:
+                self.changed.emit(old_text)
 
     def fillFromQuery(self, parentId, query):
         while query.next():
@@ -210,6 +250,21 @@ class CrossReferenceSection(QtCore.QObject):
             self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
         else:
             self.model.setSort(0, Qt.AscendingOrder)
+
+    def getSort(self):
+        query = QSqlQuery(self.db)
+        query.prepare("SELECT sort FROM sections WHERE name=?")
+        query.addBindValue(self.name)
+        query.exec_()
+        if query.first():
+            data = query.record().value(0)
+            if not isinstance(data, QtCore.QPyNullVariant):
+                self.sort = bool(data)
+            else:
+                self.sort = False
+        query.clear()
+
+        return self.sort
 
     def saveSort(self, sort):
         if self.sort != sort:
@@ -305,16 +360,6 @@ class Reference(QtCore.QObject):
         self.fileName = fileName
 
         for section in self.sections:
-            query = QSqlQuery(self.db)
-            query.prepare("SELECT sort FROM sections WHERE name=?")
-            query.addBindValue(section.name)
-            query.exec_()
-            if query.first():
-                data = query.record().value(0)
-                if not isinstance(data, QtCore.QPyNullVariant):
-                    section.sort = bool(data)
-            query.clear()
-
             section.load(self.db)
 
         return True
