@@ -156,8 +156,7 @@ class EditCoinDialog(QtGui.QDialog):
         if self.items['status'].widget().data() in ['demo', 'wish']:
             for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
                         'payplace', 'payinfo', 'saledate', 'saleprice',
-                        'totalsaleprice', 'buyer', 'saleplace', 'saleinfo',
-                        'grade']:
+                        'totalsaleprice', 'buyer', 'saleplace', 'saleinfo']:
                 self.items[key].clear()
         elif self.items['status'].widget().data() in ['owned', 'sale']:
             for key in ['saledate', 'saleprice', 'totalsaleprice', 'buyer',
