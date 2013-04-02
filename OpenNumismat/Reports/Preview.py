@@ -437,7 +437,7 @@ class PreviewDialog(QtGui.QDialog):
         settings = QtCore.QSettings()
         lastExportDir = settings.value('export/last_dir') or ''
 
-        if action == self.wordAction:
+        if exportToWordAvailable and action == self.wordAction:
             fileName = QtGui.QFileDialog.getSaveFileName(self,
                                 self.tr("Save as"), lastExportDir,
                                 filter=self.tr("Word documents (*.doc)"))
