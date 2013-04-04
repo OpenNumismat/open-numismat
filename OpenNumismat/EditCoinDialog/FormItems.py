@@ -1,7 +1,7 @@
 import locale
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QMargins, QUrl
+from PyQt4.QtCore import QMargins, QUrl, QDate, Qt
 
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import createIcon
@@ -399,6 +399,33 @@ class DateEdit(QtGui.QDateEdit):
         self.setCalendarPopup(True)
         self.setCalendarWidget(calendar)
         self.setMinimumWidth(85)
+
+    def showEvent(self, e):
+        super(DateEdit, self).showEvent(e)
+        self.__clearDefaultDate()
+
+    def focusInEvent(self, event):
+        self.setDate(self.date())
+        super(DateEdit, self).focusInEvent(event)
+
+    def focusOutEvent(self, event):
+        super(DateEdit, self).focusOutEvent(event)
+        self.__clearDefaultDate()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Delete:
+            lineEdit = self.findChild(QtGui.QLineEdit)
+            if lineEdit.selectedText() == lineEdit.text():
+                default_date = QDate(2000, 1, 1)
+                self.setDate(default_date)
+
+        super(DateEdit, self).keyPressEvent(event)
+
+    def __clearDefaultDate(self):
+        default_date = QDate(2000, 1, 1)
+        if self.date() == default_date:
+            lineEdit = self.findChild(QtGui.QLineEdit)
+            lineEdit.setText("")
 
 
 class DateTimeEdit(QtGui.QDateTimeEdit):
