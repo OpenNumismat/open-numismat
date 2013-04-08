@@ -392,6 +392,8 @@ class TextEdit(QtGui.QTextEdit):
 
 
 class DateEdit(QtGui.QDateEdit):
+    DEFAULT_DATE = QDate(2000, 1, 1)
+
     def __init__(self, parent=None):
         super(DateEdit, self).__init__(parent)
         calendar = QtGui.QCalendarWidget()
@@ -413,16 +415,16 @@ class DateEdit(QtGui.QDateEdit):
         self.__clearDefaultDate()
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Delete:
+        if event.key() in [Qt.Key_Delete, Qt.Key_Backspace]:
             lineEdit = self.findChild(QtGui.QLineEdit)
             if lineEdit.selectedText() == lineEdit.text():
-                default_date = QDate(2000, 1, 1)
+                default_date = self.DEFAULT_DATE
                 self.setDate(default_date)
 
         super(DateEdit, self).keyPressEvent(event)
 
     def __clearDefaultDate(self):
-        default_date = QDate(2000, 1, 1)
+        default_date = self.DEFAULT_DATE
         if self.date() == default_date:
             lineEdit = self.findChild(QtGui.QLineEdit)
             lineEdit.setText("")

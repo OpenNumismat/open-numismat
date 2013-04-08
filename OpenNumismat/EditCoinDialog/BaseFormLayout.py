@@ -1,5 +1,5 @@
 from PyQt4 import QtGui
-from PyQt4.QtCore import Qt, QDate
+from PyQt4.QtCore import Qt
 
 from OpenNumismat.EditCoinDialog.FormItems import *
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit, EdgeImageEdit
@@ -115,9 +115,8 @@ class FormItem(object):
         if isinstance(self._widget, QtGui.QTextEdit):
             return self._widget.toPlainText()
         elif isinstance(self._widget, QtGui.QDateTimeEdit):
-            default_date = QDate(2000, 1, 1)
             date = self._widget.date()
-            if date == default_date:
+            if date == self._widget.DEFAULT_DATE:
                 return ''
             else:
                 return date.toString(Qt.ISODate)
