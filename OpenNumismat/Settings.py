@@ -7,6 +7,7 @@ import OpenNumismat
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Reports import Report
+from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
 class BaseSettings(dict):
@@ -287,6 +288,7 @@ class FieldsSettingsPage(QtGui.QWidget):
         self.fields.save()
 
 
+@storeDlgSizeDecorator
 class SettingsDialog(QtGui.QDialog):
     def __init__(self, collection, parent=None):
         super(SettingsDialog, self).__init__(parent, Qt.WindowSystemMenuHint)

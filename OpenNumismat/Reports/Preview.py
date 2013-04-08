@@ -16,6 +16,7 @@ from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Reports import Report
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
 class QPrintPreviewMainWindow(QtGui.QMainWindow):
@@ -70,6 +71,7 @@ class LineEdit(QtGui.QLineEdit):
         self.origText = self.text()
 
 
+@storeDlgSizeDecorator
 class PreviewDialog(QtGui.QDialog):
     def __init__(self, model, records, parent=None):
         super(PreviewDialog, self).__init__(parent,

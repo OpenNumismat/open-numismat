@@ -2,6 +2,8 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication
 
+from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+
 
 class ListView(QtGui.QListView):
     def __init__(self, parent=None):
@@ -220,6 +222,35 @@ class CrossReferenceDialog(ReferenceDialog):
         return CrossReferenceWidget(section, self.parentIndex, text, self)
 
 
+from functools import WRAPPER_ASSIGNMENTS
+
+
+def class_wraps(cls):
+    """Update a wrapper class `cls` to look like the wrapped."""
+
+    class Wrapper(cls):
+        """New wrapper that will extend the wrapper `cls` to make it look like `wrapped`.
+
+        wrapped: Original function or class that is beign decorated.
+        assigned: A list of attribute to assign to the the wrapper, by default they are:
+             ['__doc__', '__name__', '__module__', '__annotations__'].
+
+        """
+
+        def __init__(self, wrapped, assigned=WRAPPER_ASSIGNMENTS):
+            self.__wrapped = wrapped
+            for attr in assigned:
+                setattr(self, attr, getattr(wrapped, attr))
+
+            super().__init__(wrapped)
+
+        def __repr__(self):
+            return repr(self.__wrapped)
+
+    return Wrapper
+
+
+@storeDlgSizeDecorator
 class AllReferenceDialog(QtGui.QDialog):
     def __init__(self, reference, parent=None):
         super(AllReferenceDialog, self).__init__(parent,

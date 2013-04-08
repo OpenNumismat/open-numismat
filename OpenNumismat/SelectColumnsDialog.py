@@ -2,8 +2,10 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
 from OpenNumismat.Collection.ListPageParam import ColumnListParam
+from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
+@storeDlgSizeDecorator
 class SelectColumnsDialog(QtGui.QDialog):
     DataRole = 16
 

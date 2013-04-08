@@ -2,6 +2,7 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
 class TreeWidget(QtGui.QTreeWidget):
@@ -100,6 +101,7 @@ class ListWidget(QtGui.QListWidget):
         return QtGui.QListWidget.dragMoveEvent(self, event)
 
 
+@storeDlgSizeDecorator
 class CustomizeTreeDialog(QtGui.QDialog):
     def __init__(self, model, treeParam, parent=None):
         QtGui.QDialog.__init__(self, parent, Qt.WindowSystemMenuHint)

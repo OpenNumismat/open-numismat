@@ -4,8 +4,10 @@ from PyQt4.QtCore import Qt
 from OpenNumismat.EditCoinDialog.Auctions import getParser
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
 from OpenNumismat.EditCoinDialog.CbrParser import CbrParser
+from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
+@storeDlgSizeDecorator
 class EditCoinDialog(QtGui.QDialog):
     def __init__(self, model, record, parent=None, usedFields=None):
         super(EditCoinDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
@@ -36,11 +38,6 @@ class EditCoinDialog(QtGui.QDialog):
         layout.addWidget(self.buttonBox)
 
         self.setLayout(layout)
-
-        settings = QtCore.QSettings()
-        size = settings.value('editcoinwindow/size')
-        if size:
-            self.resize(size)
 
     def clicked(self, button):
         buttons = [QtGui.QDialogButtonBox.Save, QtGui.QDialogButtonBox.SaveAll,
@@ -235,8 +232,3 @@ class EditCoinDialog(QtGui.QDialog):
 
     def getRecord(self):
         return self.record
-
-    def done(self, r):
-        settings = QtCore.QSettings()
-        settings.setValue('editcoinwindow/size', self.size())
-        super(EditCoinDialog, self).done(r)
