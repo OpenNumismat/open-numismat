@@ -1,5 +1,5 @@
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import pyqtSignal
+from PyQt4.QtCore import pyqtSignal, Qt
 
 from OpenNumismat.PageView import PageView
 from OpenNumismat.Tools.Gui import createIcon
@@ -158,7 +158,8 @@ class TabView(QtGui.QTabWidget):
 
     def newList(self):
         label, ok = QtGui.QInputDialog.getText(self, self.tr("New list"),
-                self.tr("Enter list title"), text=self.tr("New list"))
+                self.tr("Enter list title"), text=self.tr("New list"),
+                flags=Qt.WindowSystemMenuHint)
         if ok and label:
             self.__createListPage(label)
 
@@ -166,7 +167,8 @@ class TabView(QtGui.QTabWidget):
         index = self.currentIndex()
         oldLabel = self.tabText(index)
         label, ok = QtGui.QInputDialog.getText(self, self.tr("Rename list"),
-                self.tr("Enter new list title"), text=oldLabel)
+                self.tr("Enter new list title"), text=oldLabel,
+                flags=Qt.WindowSystemMenuHint)
         if ok and label:
             self.setTabText(index, label)
             page = self.widget(index)
