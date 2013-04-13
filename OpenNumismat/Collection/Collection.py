@@ -353,7 +353,7 @@ class CollectionModel(QSqlTableModel):
 
 
 class CollectionSettings(BaseSettings):
-    Default = {'Version': 2, 'ImageSideLen': 1024,
+    Default = {'Version': 3, 'ImageSideLen': 1024,
                'Password': cryptPassword()}
 
     def __init__(self, collection):

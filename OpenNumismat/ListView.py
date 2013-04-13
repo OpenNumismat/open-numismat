@@ -105,6 +105,9 @@ class ListView(QtGui.QTableView):
         self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.horizontalHeader().customContextMenuRequested.connect(
                                                 self.headerContextMenuEvent)
+        if Settings()['store_sorting']:
+            self.horizontalHeader().sortIndicatorChanged.connect(
+                                                self.sortChangedEvent)
         self.horizontalScrollBar().valueChanged.connect(self.scrolled)
         self.horizontalHeader().setDefaultAlignment(Qt.AlignLeft)
         # Make header font always bold
@@ -124,6 +127,17 @@ class ListView(QtGui.QTableView):
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
 
         self.selectedRowId = None
+
+    def sortChangedEvent(self, logicalIndex, order):
+        # Clear all sort orders
+        for column in self.listParam.columns:
+            column.sortorder = None
+
+        visualIndex = self.horizontalHeader().visualIndex(logicalIndex)
+        # Set sort order only in required column
+        column = self.listParam.columns[visualIndex]
+        column.sortorder = order
+        self.listParam.save()
 
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
         column = self.listParam.columns[oldVisualIndex]
@@ -223,9 +237,15 @@ class ListView(QtGui.QTableView):
         for i in range(model.columnCount()):
             self.hideColumn(i)
 
+        apply_sorting = Settings()['store_sorting']
         for param in self.listParam.columns:
             if param.enabled:
                 self.showColumn(param.fieldid)
+
+                if apply_sorting:
+                    if param.sortorder in [Qt.AscendingOrder, Qt.DescendingOrder]:
+                        self.horizontalHeader().setSortIndicator(param.fieldid, param.sortorder)
+                        self.sortByColumn(param.fieldid)
 
         for param in self.listParam.columns:
             if param.width:

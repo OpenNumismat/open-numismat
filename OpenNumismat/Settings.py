@@ -81,6 +81,7 @@ class Settings(BaseSettings):
                'reference': OpenNumismat.HOME_PATH + "/reference.ref",
                'error': False, 'updates': False,
                'free_numeric': False,
+               'store_sorting': False,
                'template': 'cbr'}
 
     def __init__(self, autoSave=False):
@@ -94,8 +95,9 @@ class Settings(BaseSettings):
     def _getValue(self, key):
         value = self.settings.value('mainwindow/' + key)
         if value:
-            if key in ('error', 'updates', 'free_numeric'):
+            if key in ('error', 'updates', 'free_numeric', 'store_sorting'):
                 # Convert boolean value
+                # TODO: From Qt 5.1 SQLite boolean type work correct
                 value = (value == 'true')
         else:
             value = self.Default[key]
@@ -183,6 +185,11 @@ class MainSettingsPage(QtGui.QWidget):
         self.freeNumeric.setChecked(settings['free_numeric'])
         layout.addRow(self.freeNumeric)
 
+        self.storeSorting = QtGui.QCheckBox(
+                            self.tr("Store column sorting"), self)
+        self.storeSorting.setChecked(settings['store_sorting'])
+        layout.addRow(self.storeSorting)
+
         current = 0
         self.templateSelector = QtGui.QComboBox(self)
         for i, template in enumerate(Report.scanTemplates()):
@@ -222,6 +229,7 @@ class MainSettingsPage(QtGui.QWidget):
         settings['error'] = self.errorSending.isChecked()
         settings['updates'] = self.checkUpdates.isChecked()
         settings['free_numeric'] = self.freeNumeric.isChecked()
+        settings['store_sorting'] = self.storeSorting.isChecked()
         settings['template'] = self.templateSelector.currentText()
 
         settings.save()
