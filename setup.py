@@ -44,6 +44,8 @@ Main features:
 - Support languages: English, Russian, Ukranian, Spanish, Hungarian
 - Cross-platform: Windows, Linux, MacOS X
 
+.. image:: http://wiki.open-numismat.googlecode.com/git/images/screenMain.png
+
 OpenNumismat based on PyQt framework with SQLite database engine to store data
 collection.
 """
