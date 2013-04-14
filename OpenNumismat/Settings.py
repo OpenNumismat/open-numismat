@@ -82,7 +82,8 @@ class Settings(BaseSettings):
                'error': False, 'updates': False,
                'free_numeric': False,
                'store_sorting': False,
-               'template': 'cbr'}
+               'template': 'cbr',
+               'ImageSideLen': 1024}
 
     def __init__(self, autoSave=False):
         super(Settings, self).__init__(autoSave)
@@ -116,7 +117,6 @@ class MainSettingsPage(QtGui.QWidget):
         super(MainSettingsPage, self).__init__(parent)
 
         settings = Settings()
-        self.collectionSettings = collection.settings
 
         layout = QtGui.QFormLayout()
         layout.setRowWrapPolicy(QtGui.QFormLayout.WrapLongRows)
@@ -175,10 +175,7 @@ class MainSettingsPage(QtGui.QWidget):
         self.imageSideLen = NumberEdit(self)
         self.imageSideLen.setMaximumWidth(60)
         layout.addRow(self.tr("Max image side len"), self.imageSideLen)
-        if not collection.isOpen():
-            self.imageSideLen.setDisabled(True)
-        else:
-            self.imageSideLen.setText(self.collectionSettings['ImageSideLen'])
+        self.imageSideLen.setText(str(settings['ImageSideLen']))
 
         self.freeNumeric = QtGui.QCheckBox(
                             self.tr("Free format numeric fields"), self)
@@ -231,11 +228,9 @@ class MainSettingsPage(QtGui.QWidget):
         settings['free_numeric'] = self.freeNumeric.isChecked()
         settings['store_sorting'] = self.storeSorting.isChecked()
         settings['template'] = self.templateSelector.currentText()
+        settings['ImageSideLen'] = int(self.imageSideLen.text())
 
         settings.save()
-
-        self.collectionSettings['ImageSideLen'] = self.imageSideLen.text()
-        self.collectionSettings.save()
 
 
 class FieldsSettingsPage(QtGui.QWidget):

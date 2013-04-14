@@ -30,7 +30,6 @@ class CollectionModel(QSqlTableModel):
         self.intFilter = ''
         self.extFilter = ''
 
-        self.settings = collection.settings
         self.reference = collection.reference
         self.fields = collection.fields
         self.description = collection.description
@@ -215,7 +214,7 @@ class CollectionModel(QSqlTableModel):
                     buffer.open(QtCore.QIODevice.WriteOnly)
 
                     # Resize big images for storing in DB
-                    sideLen = int(self.settings['ImageSideLen'])
+                    sideLen = Settings()['ImageSideLen']
                     maxWidth = sideLen
                     maxHeight = sideLen
                     if image.width() > maxWidth or image.height() > maxHeight:
@@ -353,8 +352,7 @@ class CollectionModel(QSqlTableModel):
 
 
 class CollectionSettings(BaseSettings):
-    Default = {'Version': 3, 'ImageSideLen': 1024,
-               'Password': cryptPassword()}
+    Default = {'Version': 3, 'Password': cryptPassword()}
 
     def __init__(self, collection):
         super(CollectionSettings, self).__init__()
@@ -366,7 +364,8 @@ class CollectionSettings(BaseSettings):
         query = QSqlQuery("SELECT * FROM settings", self.db)
         while query.next():
             record = query.record()
-            self.__setitem__(record.value('title'), record.value('value'))
+            if record.value('title') in self.keys():
+                self.__setitem__(record.value('title'), record.value('value'))
 
     def keys(self):
         return self.Default.keys()
