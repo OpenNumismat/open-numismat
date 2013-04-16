@@ -329,7 +329,7 @@ class CollectionModel(QSqlTableModel):
     def isExist(self, record):
         fields = ['title', 'value', 'unit', 'country', 'period', 'year',
                   'mint', 'mintmark', 'type', 'series', 'subjectshort',
-                  'status', 'metal', 'quality', 'paydate', 'payprice',
+                  'status', 'material', 'quality', 'paydate', 'payprice',
                   'saller', 'payplace', 'saledate', 'saleprice', 'buyer',
                   'saleplace', 'variety', 'obversevar', 'reversevar',
                   'edgevar']
