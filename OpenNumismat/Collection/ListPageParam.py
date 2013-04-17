@@ -1,7 +1,7 @@
 from PyQt4 import QtCore
 from PyQt4.QtSql import QSqlQuery, QSqlRecord
 
-from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters
+from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
 
 
 class ColumnListParam:
@@ -68,7 +68,8 @@ class ListPageParam(QtCore.QObject):
                 fieldid INTEGER,
                 value INTEGER,
                 blank INTEGER,
-                data INTEGER)"""
+                data INTEGER,
+                revert INTEGER)"""
             QSqlQuery(sql, self.db)
 
         query = QSqlQuery(self.db)
@@ -78,20 +79,23 @@ class ListPageParam(QtCore.QObject):
         self.filters = {}
         while query.next():
             fieldId = query.record().value('fieldid')
-            value = None
+            column_name = self.fields.field(fieldId).name
             if not query.record().isNull('value'):
                 value = str(query.record().value('value'))
-            data = None
+                filter_ = ValueFilter(column_name, value)
             if not query.record().isNull('data'):
-                data = query.record().value('data')
-            blank = None
+                if query.record().value('data'):
+                    filter_ = DataFilter(column_name)
             if not query.record().isNull('blank'):
-                blank = query.record().value('blank')
+                if query.record().value('blank'):
+                    filter_ = BlankFilter(column_name)
+            if not query.record().isNull('revert'):
+                if query.record().value('revert'):
+                    filter_.revert = True
 
             if fieldId not in self.filters.keys():
-                self.filters[fieldId] = ColumnFilters(
-                                            self.fields.field(fieldId).name)
-            self.filters[fieldId].addFilter(value, data, blank)
+                self.filters[fieldId] = ColumnFilters(column_name)
+            self.filters[fieldId].addFilter(filter_)
 
     def clone(self):
         newList = ListPageParam(self.parent())
@@ -125,20 +129,25 @@ class ListPageParam(QtCore.QObject):
             for filter_ in columnFilters.filters():
                 query = QSqlQuery(self.db)
                 query.prepare("INSERT INTO filters (pageid, fieldid, value,"
-                              " blank, data) VALUES (?, ?, ?, ?, ?)")
+                              " blank, data, revert) VALUES (?, ?, ?, ?, ?, ?)")
                 query.addBindValue(self.page.id)
                 query.addBindValue(fieldId)
                 query.addBindValue(filter_.value)
-                if filter_.blank:
+                if filter_.isBlank():
                     blank = int(True)
                 else:
                     blank = None
                 query.addBindValue(blank)
-                if filter_.data:
+                if filter_.isData():
                     data = int(True)
                 else:
                     data = None
                 query.addBindValue(data)
+                if filter_.isRevert():
+                    revert = int(True)
+                else:
+                    revert = None
+                query.addBindValue(revert)
                 query.exec_()
 
         self.db.commit()

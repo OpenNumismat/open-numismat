@@ -250,6 +250,9 @@ class UpdaterTo3(_Updater):
         sql = "ALTER TABLE lists ADD COLUMN sortorder INTEGER"
         QSqlQuery(sql, self.db)
 
+        sql = "ALTER TABLE filters ADD COLUMN revert INTEGER"
+        QSqlQuery(sql, self.db)
+
         self.collection.settings['Version'] = 3
         self.collection.settings.save()
 

@@ -47,16 +47,19 @@ class FilterMenuButton(QtGui.QPushButton):
         filters = self.filters.copy()
         appliedValues = []
         columnFilters = None
+        revert = False
         if self.fieldid in filters.keys():
             columnFilters = filters.pop(self.fieldid)
             for filter_ in columnFilters.filters():
+                if filter_.isRevert():
+                    revert = True
                 appliedValues.append(filter_.value)
 
         hasBlanks = False
         columnType = self.model.columnType(self.fieldid)
         if columnType == Type.Text or columnType in Type.ImageTypes:
-            dataFilter = Filter(self.columnName, blank=True).toSql()
-            blanksFilter = Filter(self.columnName, data=True).toSql()
+            dataFilter = BlankFilter(self.columnName).toSql()
+            blanksFilter = DataFilter(self.columnName).toSql()
 
             filtersSql = self.filtersToSql(filters.values())
             sql = "SELECT count(*) FROM coins WHERE " + filtersSql
@@ -90,7 +93,7 @@ class FilterMenuButton(QtGui.QPushButton):
 
             if blanksCount > 0:
                 hasBlanks = True
-        elif self.model.columnType(self.fieldid) in [Type.Status, ]:
+        elif self.model.columnType(self.fieldid) == Type.Status:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
@@ -102,10 +105,16 @@ class FilterMenuButton(QtGui.QPushButton):
                 label = Statuses[value]
                 item = QtGui.QListWidgetItem(label, self.listWidget)
                 item.setData(Qt.UserRole, value)
-                if value in appliedValues:
-                    item.setCheckState(Qt.Unchecked)
+                if label in appliedValues:
+                    if revert:
+                        item.setCheckState(Qt.Checked)
+                    else:
+                        item.setCheckState(Qt.Unchecked)
                 else:
-                    item.setCheckState(Qt.Checked)
+                    if revert:
+                        item.setCheckState(Qt.Unchecked)
+                    else:
+                        item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
         else:
             filtersSql = self.filtersToSql(filters.values())
@@ -123,11 +132,17 @@ class FilterMenuButton(QtGui.QPushButton):
                     hasBlanks = True
                     continue
                 item = QtGui.QListWidgetItem(label, self.listWidget)
-                item.setData(Qt.UserRole, label.replace("'", "''"))
+                item.setData(Qt.UserRole, label)
                 if label in appliedValues:
-                    item.setCheckState(Qt.Unchecked)
+                    if revert:
+                        item.setCheckState(Qt.Checked)
+                    else:
+                        item.setCheckState(Qt.Unchecked)
                 else:
-                    item.setCheckState(Qt.Checked)
+                    if revert:
+                        item.setCheckState(Qt.Unchecked)
+                    else:
+                        item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
 
         if hasBlanks:
@@ -135,8 +150,12 @@ class FilterMenuButton(QtGui.QPushButton):
                                          FilterMenuButton.BlanksType)
             item.setData(Qt.UserRole, self.tr("(Blanks)"))
             item.setCheckState(Qt.Checked)
-            if columnFilters and columnFilters.hasBlank():
-                item.setCheckState(Qt.Unchecked)
+            if revert:
+                if columnFilters and not columnFilters.hasBlank():
+                    item.setCheckState(Qt.Unchecked)
+            else:
+                if columnFilters and columnFilters.hasBlank():
+                    item.setCheckState(Qt.Unchecked)
             self.listWidget.addItem(item)
 
         self.listWidget.itemChanged.connect(self.itemChanged)
@@ -195,15 +214,40 @@ class FilterMenuButton(QtGui.QPushButton):
 
     def apply(self):
         filters = ColumnFilters(self.columnName)
+        unchecked = 0
+        checked = 0
         for i in range(1, self.listWidget.count()):
             item = self.listWidget.item(i)
             if item.checkState() == Qt.Unchecked:
-                if item.type() == FilterMenuButton.BlanksType:
-                    filters.addFilter(blank=True)
-                elif item.type() == FilterMenuButton.DataType:
-                    filters.addFilter(data=True)
-                else:
-                    filters.addFilter(item.data(Qt.UserRole))
+                unchecked = unchecked + 1
+            else:
+                checked = checked + 1
+
+        for i in range(1, self.listWidget.count()):
+            item = self.listWidget.item(i)
+            if unchecked > checked:
+                if item.checkState() == Qt.Checked:
+                    if item.type() == FilterMenuButton.BlanksType:
+                        filter_ = BlankFilter(self.columnName)
+                    elif item.type() == FilterMenuButton.DataType:
+                        filter_ = DataFilter(self.columnName)
+                    else:
+                        value = item.data(Qt.UserRole)
+                        filter_ = ValueFilter(self.columnName, value)
+
+                    filter_.revert = True
+                    filters.addFilter(filter_)
+            else:
+                if item.checkState() == Qt.Unchecked:
+                    if item.type() == FilterMenuButton.BlanksType:
+                        filter_ = BlankFilter(self.columnName)
+                    elif item.type() == FilterMenuButton.DataType:
+                        filter_ = DataFilter(self.columnName)
+                    else:
+                        value = item.data(Qt.UserRole)
+                        filter_ = ValueFilter(self.columnName, value)
+
+                    filters.addFilter(filter_)
 
         if filters.filters():
             self.setIcon(createIcon('filters.ico'))
@@ -232,23 +276,68 @@ class FilterMenuButton(QtGui.QPushButton):
         return ' AND '.join(sqlFilters)
 
 
-class Filter:
-    def __init__(self, name, value=None, data=None, blank=None):
+class BaseFilter:
+    def __init__(self, name):
         self.name = name
-        self.value = value
-        self.data = data
-        self.blank = blank
+        self.value = None
+        self.revert = False
 
     def toSql(self):
-        name = self.name
-        if self.blank:
-            # Filter out blank values
-            return "%s<>'' AND %s IS NOT NULL" % (name, name)
-        elif self.data:
-            # Filter out not null and not empty values
-            return "ifnull(%s,'')=''" % name
+        raise NotImplementedError
+
+    def isBlank(self):
+        return False
+
+    def isData(self):
+        return False
+
+    def isRevert(self):
+        return self.revert
+
+
+class ValueFilter(BaseFilter):
+    def __init__(self, name, value):
+        super(ValueFilter, self).__init__(name)
+
+        self.value = value
+
+    def toSql(self):
+        if self.revert:
+            return "%s='%s'" % (self.name, self.value.replace("'", "''"))
         else:
-            return "%s<>'%s'" % (name, self.value)
+            return "%s<>'%s'" % (self.name, self.value.replace("'", "''"))
+
+
+class DataFilter(BaseFilter):
+    def __init__(self, name):
+        super(DataFilter, self).__init__(name)
+
+    def toSql(self):
+        if self.revert:
+            # Filter out blank values
+            return "%s<>'' AND %s IS NOT NULL" % (self.name, self.name)
+        else:
+            # Filter out not null and not empty values
+            return "ifnull(%s,'')=''" % self.name
+
+    def isData(self):
+        return True
+
+
+class BlankFilter(BaseFilter):
+    def __init__(self, name):
+        super(BlankFilter, self).__init__(name)
+
+    def toSql(self):
+        if self.revert:
+            # Filter out not null and not empty values
+            return "ifnull(%s,'')=''" % self.name
+        else:
+            # Filter out blank values
+            return "%s<>'' AND %s IS NOT NULL" % (self.name, self.name)
+
+    def isBlank(self):
+        return True
 
 
 class ColumnFilters:
@@ -257,11 +346,13 @@ class ColumnFilters:
         self._filters = []
         self._blank = False  # blank out filter present
         self._data = False  # data out filter present
+        self._revert = False
 
-    def addFilter(self, value=None, data=None, blank=None):
-        self._blank = self._blank or blank
-        self._data = self._data or data
-        self._filters.append(Filter(self.name, value, data, blank))
+    def addFilter(self, filter_):
+        self._blank = self._blank or filter_.isBlank()
+        self._data = self._data or filter_.isData()
+        self._revert = self._revert or filter_.isRevert()
+        self._filters.append(filter_)
 
     def filters(self):
         return self._filters
@@ -272,12 +363,19 @@ class ColumnFilters:
     def hasData(self):
         return self._data
 
+    def hasRevert(self):
+        return self._revert
+
     def toSql(self):
         sqlFilters = []
         for filter_ in self._filters:
             sqlFilters.append(filter_.toSql())
 
-        combinedFilters = ' AND '.join(sqlFilters)
+        if self.hasRevert():
+            combinedFilters = ' OR '.join(sqlFilters)
+        else:
+            combinedFilters = ' AND '.join(sqlFilters)
+
         # Note: In SQLite SELECT * FROM coins WHERE title<>'value' also filter
         # out a NULL values. Work around this problem
         if not self.hasBlank() and not self.hasData():
