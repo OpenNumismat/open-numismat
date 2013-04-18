@@ -86,6 +86,9 @@ class CollectionModel(QSqlTableModel):
 
         return super(CollectionModel, self).data(index, role)
 
+    def dataDisplayRole(self, index):
+        return super(CollectionModel, self).data(index, Qt.DisplayRole)
+
     def addCoin(self, record, parent=None):
         record.setNull('id')  # remove ID value from record
         dialog = EditCoinDialog(self, record, parent)

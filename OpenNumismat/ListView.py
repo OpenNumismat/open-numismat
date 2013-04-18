@@ -58,11 +58,16 @@ class SortFilterProxyModel(QtGui.QSortFilterProxyModel):
         super(SortFilterProxyModel, self).__init__(parent)
         self.setDynamicSortFilter(True)
 
-    def lessThan(self, left, right):
-        leftData = left.data(Qt.UserRole)
-        rightData = right.data(Qt.UserRole)
+    def sort(self, column, order=Qt.AscendingOrder):
+        self.order = order
+        self.model = self.sourceModel()
+        super(SortFilterProxyModel, self).sort(column, order)
 
-        if self.sortOrder() == Qt.AscendingOrder:
+    def lessThan(self, left, right):
+        leftData = self.model.dataDisplayRole(left)
+        rightData = self.model.dataDisplayRole(right)
+
+        if self.order == Qt.AscendingOrder:
             if leftData == '' or isinstance(leftData, QtCore.QPyNullVariant):
                 return False
             elif rightData == '' or isinstance(rightData, QtCore.QPyNullVariant):
@@ -73,9 +78,10 @@ class SortFilterProxyModel(QtGui.QSortFilterProxyModel):
             elif leftData == '' or isinstance(leftData, QtCore.QPyNullVariant):
                 return True
 
-        if isinstance(leftData, str) or isinstance(rightData, str):
-            leftData = str(leftData)
+        if isinstance(leftData, str):
             rightData = str(rightData)
+        elif isinstance(rightData, str):
+            leftData = str(leftData)
 
         return leftData < rightData
 
