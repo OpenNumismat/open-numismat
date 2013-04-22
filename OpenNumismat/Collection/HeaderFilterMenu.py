@@ -301,6 +301,7 @@ class ValueFilter(BaseFilter):
 
         self.value = value
 
+    # TODO: Deprecated method
     def toSql(self):
         if self.revert:
             return "%s='%s'" % (self.name, self.value.replace("'", "''"))
@@ -315,7 +316,7 @@ class DataFilter(BaseFilter):
     def toSql(self):
         if self.revert:
             # Filter out blank values
-            return "%s<>'' AND %s IS NOT NULL" % (self.name, self.name)
+            return "ifnull(%s,'')<>''" % self.name
         else:
             # Filter out not null and not empty values
             return "ifnull(%s,'')=''" % self.name
@@ -334,7 +335,7 @@ class BlankFilter(BaseFilter):
             return "ifnull(%s,'')=''" % self.name
         else:
             # Filter out blank values
-            return "%s<>'' AND %s IS NOT NULL" % (self.name, self.name)
+            return "ifnull(%s,'')<>''" % self.name
 
     def isBlank(self):
         return True
@@ -344,13 +345,15 @@ class ColumnFilters:
     def __init__(self, name):
         self.name = name
         self._filters = []
-        self._blank = False  # blank out filter present
-        self._data = False  # data out filter present
+        self._blank = None  # blank out filter
+        self._data = None  # data out filter
         self._revert = False
 
     def addFilter(self, filter_):
-        self._blank = self._blank or filter_.isBlank()
-        self._data = self._data or filter_.isData()
+        if filter_.isBlank():
+            self._blank = filter_
+        if filter_.isData():
+            self._data = filter_
         self._revert = self._revert or filter_.isRevert()
         self._filters.append(filter_)
 
@@ -367,17 +370,38 @@ class ColumnFilters:
         return self._revert
 
     def toSql(self):
-        sqlFilters = []
-        for filter_ in self._filters:
-            sqlFilters.append(filter_.toSql())
+        values = []
+        for filter_ in self._valueFilters():
+            sql = "'%s'" % filter_.value.replace("'", "''")
+            values.append(sql)
 
-        if self.hasRevert():
-            combinedFilters = ' OR '.join(sqlFilters)
-        else:
-            combinedFilters = ' AND '.join(sqlFilters)
+        combinedFilters = ''
+        if values:
+            sqlValueFilters = ','.join(values)
+            if self.hasRevert():
+                combinedFilters = "%s IN (%s)" % (self.name, sqlValueFilters)
+            else:
+                combinedFilters = "%s NOT IN (%s)" % (self.name, sqlValueFilters)
 
-        # Note: In SQLite SELECT * FROM coins WHERE title<>'value' also filter
-        # out a NULL values. Work around this problem
-        if not self.hasBlank() and not self.hasData():
+        if self.hasBlank():
+            if combinedFilters:
+                if self.hasRevert():
+                    combinedFilters = combinedFilters + ' OR ' + self._blank.toSql()
+                else:
+                    combinedFilters = combinedFilters + ' AND ' + self._blank.toSql()
+            else:
+                combinedFilters = self._blank.toSql()
+        elif self.hasData():
+            # Data filter can't contain any additional value filters
+            combinedFilters = self._data.toSql()
+
+        # Note: In SQLite SELECT * FROM coins WHERE title NOT IN ('value') also
+        # filter out a NULL values. Work around this problem
+        if not self.hasBlank() and not self.hasRevert():
             combinedFilters = combinedFilters + (' OR %s IS NULL' % self.name)
         return '(' + combinedFilters + ')'
+
+    def _valueFilters(self):
+        for filter_ in self._filters:
+            if isinstance(filter_, ValueFilter):
+                yield filter_
