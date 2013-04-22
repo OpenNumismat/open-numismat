@@ -327,6 +327,14 @@ class CollectionModel(QSqlTableModel):
             combinedFilter = self.intFilter + " AND " + self.extFilter
         else:
             combinedFilter = self.intFilter + self.extFilter
+
+        # Checking for SQLITE_MAX_SQL_LENGTH (default value - 1 000 000)
+        if len(combinedFilter) > 900000:
+            QtGui.QMessageBox.warning(self.parent(),
+                            self.tr("Filtering"),
+                            self.tr("Filter is too complex. Will be ignored"))
+            return
+
         super(CollectionModel, self).setFilter(combinedFilter)
 
     def isExist(self, record):
