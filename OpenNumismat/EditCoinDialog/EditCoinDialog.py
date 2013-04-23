@@ -5,6 +5,7 @@ from OpenNumismat.EditCoinDialog.Auctions import getParser
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
 from OpenNumismat.EditCoinDialog.CbrParser import CbrParser
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+from OpenNumismat.Tools.Converters import stringToMoney
 
 
 @storeDlgSizeDecorator
@@ -170,17 +171,20 @@ class EditCoinDialog(QtGui.QDialog):
                     return
 
         # Checking that TotalPrice not less than Price
-        payprice = self.items['payprice'].value()
-        totalpayprice = self.items['totalpayprice'].value()
-        if totalpayprice and float(totalpayprice) < 0:
-            result = QtGui.QMessageBox.warning(self, self.tr("Save"),
-                            self.tr("Total paid price is negative. Save?"),
-                            QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
-                            QtGui.QMessageBox.No)
-            if result != QtGui.QMessageBox.Save:
-                return
-        if payprice and totalpayprice:
-            if float(totalpayprice) < float(payprice):
+        payprice_str = self.items['payprice'].value()
+        totalpayprice_str = self.items['totalpayprice'].value()
+        if totalpayprice_str:
+            totalpayprice = stringToMoney(totalpayprice_str)
+            if totalpayprice < 0:
+                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
+                                self.tr("Total paid price is negative. Save?"),
+                                QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
+                                QtGui.QMessageBox.No)
+                if result != QtGui.QMessageBox.Save:
+                    return
+        if payprice_str and totalpayprice_str:
+            payprice = stringToMoney(payprice_str)
+            if totalpayprice < payprice:
                 result = QtGui.QMessageBox.warning(self, self.tr("Save"),
                             self.tr("Pay price is great than total "
                                     "paid price. Save?"),
@@ -188,17 +192,20 @@ class EditCoinDialog(QtGui.QDialog):
                             QtGui.QMessageBox.No)
                 if result != QtGui.QMessageBox.Save:
                     return
-        saleprice = self.items['saleprice'].value()
-        totalsaleprice = self.items['totalsaleprice'].value()
-        if totalsaleprice and float(totalsaleprice) < 0:
-            result = QtGui.QMessageBox.warning(self, self.tr("Save"),
-                            self.tr("Total bailed price is negative. Save?"),
-                            QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
-                            QtGui.QMessageBox.No)
-            if result != QtGui.QMessageBox.Save:
-                return
-        if saleprice and totalsaleprice:
-            if float(saleprice) < float(totalsaleprice):
+        saleprice_str = self.items['saleprice'].value()
+        totalsaleprice_str = self.items['totalsaleprice'].value()
+        if totalsaleprice_str:
+            totalsaleprice = stringToMoney(totalsaleprice_str)
+            if totalsaleprice < 0:
+                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
+                                self.tr("Total bailed price is negative. Save?"),
+                                QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
+                                QtGui.QMessageBox.No)
+                if result != QtGui.QMessageBox.Save:
+                    return
+        if saleprice_str and totalsaleprice_str:
+            saleprice = stringToMoney(saleprice_str)
+            if saleprice < totalsaleprice:
                 result = QtGui.QMessageBox.warning(self, self.tr("Save"),
                             self.tr("Sale price is less than total "
                                     "bailed price. Save?"),

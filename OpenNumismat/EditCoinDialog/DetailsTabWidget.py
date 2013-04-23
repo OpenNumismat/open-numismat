@@ -6,6 +6,7 @@ from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.Tools.Converters import stringToMoney
 
 
 class DetailsTabWidget(QtGui.QTabWidget):
@@ -156,12 +157,27 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
     def fillItems(self, record):
         if not record.isEmpty():
+            # Fields with commission dependent on status field and should be
+            # filled after it and in right order
+            ordered_item_keys = ['status', 'payprice', 'totalpayprice',
+                                 'saleprice', 'totalsaleprice']
+            for key in ordered_item_keys:
+                if key in self.items:
+                    item = self.items[key]
+                    self._fillItem(record, item)
+
             for item in self.items.values():
-                if not record.isNull(item.field()):
-                    value = record.value(item.field())
-                    item.setValue(value)
-                else:
-                    item.widget().clear()
+                if item.field() in ordered_item_keys:
+                    continue
+
+                self._fillItem(record, item)
+
+    def _fillItem(self, record, item):
+        if not record.isNull(item.field()):
+            value = record.value(item.field())
+            item.setValue(value)
+        else:
+            item.widget().clear()
 
     def clear(self):
         for item in self.items.values():
@@ -650,9 +666,12 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def payTotalPriceChanged(self, text):
         self.payCommission.textChanged.disconnect(self.payCommissionChanged)
 
-        price = textToFloat(self.items['payprice'].value())
-        totalPrice = textToFloat(self.items['totalpayprice'].value())
-        self.payCommission.setText(floatToText(totalPrice - price))
+        if text:
+            price = textToFloat(self.items['payprice'].value())
+            totalPrice = textToFloat(self.items['totalpayprice'].value())
+            self.payCommission.setText(floatToText(totalPrice - price))
+        else:
+            self.payCommission.clear()
 
         self.payCommission.textChanged.connect(self.payCommissionChanged)
 
@@ -672,20 +691,20 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def saleTotalPriceChanged(self, text):
         self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
 
-        price = textToFloat(self.items['saleprice'].value())
-        totalPrice = textToFloat(self.items['totalsaleprice'].value())
-        self.saleCommission.setText(floatToText(price - totalPrice))
+        if text:
+            price = textToFloat(self.items['saleprice'].value())
+            totalPrice = textToFloat(self.items['totalsaleprice'].value())
+            self.saleCommission.setText(floatToText(price - totalPrice))
+        else:
+            self.saleCommission.clear()
 
         self.saleCommission.textChanged.connect(self.saleCommissionChanged)
 
 
 def textToFloat(text):
-    text = text.replace(',', '.').replace(' ', '')
-    if not text or text == '.':
-        return 0
-    try:
-        return float(text)
-    except ValueError:
+    if text:
+        return stringToMoney(text)
+    else:
         return 0
 
 
