@@ -250,7 +250,10 @@ class UpdaterTo3(_Updater):
         super(UpdaterTo3, self).__init__(collection)
 
     def getTotalCount(self):
-        return 1
+        sql = "SELECT count(*) FROM coins"
+        query = QSqlQuery(sql, self.db)
+        query.first()
+        return query.record().value(0)
 
     def update(self):
         self._begin()
@@ -268,6 +271,35 @@ class UpdaterTo3(_Updater):
         query.addBindValue('Type')
         query.addBindValue(self.collection.settings['Type'])
         query.exec_()
+
+        sql = """ALTER TABLE images RENAME TO photos"""
+        QSqlQuery(sql, self.db)
+
+        sql = """CREATE TABLE images (
+                    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    image BLOB)"""
+        QSqlQuery(sql, self.db)
+
+        query = QSqlQuery("SELECT id, image FROM coins", self.db)
+        while query.next():
+            self._updateRecord()
+
+            record = query.record()
+
+            if not record.isNull('image'):
+                insert_query = QSqlQuery(self.db)
+                insert_query.prepare("INSERT INTO images (image) VALUES (?)")
+                insert_query.addBindValue(record.value('image'))
+                insert_query.exec_()
+                img_id = insert_query.lastInsertId()
+            else:
+                img_id = None
+
+            update_query = QSqlQuery(self.db)
+            update_query.prepare("UPDATE coins SET image=? WHERE id=?")
+            update_query.addBindValue(img_id)
+            update_query.addBindValue(record.value('id'))
+            update_query.exec_()
 
         self.collection.settings['Version'] = 3
         self.collection.settings.save()

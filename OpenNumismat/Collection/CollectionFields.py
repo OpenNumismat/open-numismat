@@ -41,7 +41,7 @@ class FieldTypes():
         elif type_ == FieldTypes.BigInt:
             sql_type = 'INTEGER'
         elif type_ == FieldTypes.PreviewImage:
-            sql_type = 'BLOB'
+            sql_type = 'INTEGER'
         elif type_ == FieldTypes.Image:
             sql_type = 'INTEGER'
         elif type_ == FieldTypes.Value:

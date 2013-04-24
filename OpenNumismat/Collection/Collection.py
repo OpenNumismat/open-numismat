@@ -67,6 +67,11 @@ class CollectionModel(QSqlTableModel):
                         return self.getImage(data)
                     else:
                         return None
+                elif field.type == Type.PreviewImage:
+                    if not isinstance(data, QtCore.QPyNullVariant):
+                        return self.getPreviewImage(data)
+                    else:
+                        return None
                 elif field.type == Type.DateTime:
                     date = QtCore.QDateTime.fromString(data, Qt.ISODate)
                     # Timestamp in DB stored in UTC
@@ -116,7 +121,7 @@ class CollectionModel(QSqlTableModel):
                       'photo1', 'photo2', 'photo3', 'photo4']:
             if not record.isNull(field):
                 query = QSqlQuery(self.database())
-                query.prepare("INSERT INTO images (title, image) VALUES (?, ?)")
+                query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
                 query.addBindValue(record.value(field + '_title'))
                 query.addBindValue(record.value(field))
                 query.exec_()
@@ -127,17 +132,29 @@ class CollectionModel(QSqlTableModel):
 
             record.setValue(field, img_id)
 
+        if not record.isNull('image'):
+            query = QSqlQuery(self.database())
+            query.prepare("INSERT INTO images (image) VALUES (?)")
+            query.addBindValue(record.value('image'))
+            query.exec_()
+
+            img_id = query.lastInsertId()
+        else:
+            img_id = None
+        record.setValue('image', img_id)
+
         return super(CollectionModel, self).insertRecord(row, record)
 
     def setRecord(self, row, record):
         self._updateRecord(record)
+        # TODO : check that images was realy changed
         for field in ['obverseimg', 'reverseimg', 'edgeimg',
                       'photo1', 'photo2', 'photo3', 'photo4']:
             img_id = record.value(field + '_id')
             if record.isNull(field):
                 if not record.isNull(field + '_id'):
                     query = QSqlQuery(self.database())
-                    query.prepare("DELETE FROM images WHERE id=?")
+                    query.prepare("DELETE FROM photos WHERE id=?")
                     query.addBindValue(img_id)
                     query.exec_()
 
@@ -145,7 +162,7 @@ class CollectionModel(QSqlTableModel):
             else:
                 if record.isNull(field + '_id'):
                     query = QSqlQuery(self.database())
-                    query.prepare("INSERT INTO images (title, image) VALUES (?, ?)")
+                    query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
                     query.addBindValue(record.value(field + '_title'))
                     query.addBindValue(record.value(field))
                     query.exec_()
@@ -153,13 +170,46 @@ class CollectionModel(QSqlTableModel):
                     img_id = query.lastInsertId()
                 else:
                     query = QSqlQuery(self.database())
-                    query.prepare("UPDATE images SET title=?, image=? WHERE id=?")
+                    query.prepare("UPDATE photos SET title=?, image=? WHERE id=?")
                     query.addBindValue(record.value(field + '_title'))
                     query.addBindValue(record.value(field))
                     query.addBindValue(img_id)
                     query.exec_()
 
-            record.setValue(field, img_id)
+            if img_id is None:
+                record.setNull(field)
+            else:
+                record.setValue(field, img_id)
+
+        img_id = record.value('image_id')
+        if record.isNull('image'):
+            if not record.isNull('image_id'):
+                query = QSqlQuery(self.database())
+                query.prepare("DELETE FROM images WHERE id=?")
+                query.addBindValue(img_id)
+                query.exec_()
+
+                img_id = None
+        else:
+            if record.isNull('image_id'):
+                query = QSqlQuery(self.database())
+                query.prepare("INSERT INTO images (image) VALUES (?)")
+                query.addBindValue(record.value('image'))
+                query.exec_()
+
+                img_id = query.lastInsertId()
+            else:
+                query = QSqlQuery(self.database())
+                query.prepare("UPDATE images SET image=? WHERE id=?")
+                query.addBindValue(record.value('image'))
+                query.addBindValue(img_id)
+                query.exec_()
+
+        if img_id is None:
+            record.setNull('image')
+        else:
+            record.setValue('image', img_id)
+
         return super(CollectionModel, self).setRecord(row, record)
 
     def record(self, row= -1):
@@ -184,6 +234,15 @@ class CollectionModel(QSqlTableModel):
                 fieldDesc = getattr(self.fields, field)
                 record.setValue(field + '_title', fieldDesc.title)
 
+        record.append(QSqlField('image_id'))
+        if not record.isNull('image'):
+            img_id = record.value('image')
+            data = self.getPreviewImage(img_id)
+            record.setValue('image', data)
+            record.setValue('image_id', img_id)
+        else:
+            record.setValue('image', None)
+
         return record
 
     def removeRow(self, row):
@@ -192,9 +251,15 @@ class CollectionModel(QSqlTableModel):
                       'photo1', 'photo2', 'photo3', 'photo4']:
             if not record.isNull(field):
                 query = QSqlQuery(self.database())
-                query.prepare("DELETE FROM images WHERE id=?")
+                query.prepare("DELETE FROM photos WHERE id=?")
                 query.addBindValue(record.value(field))
                 query.exec_()
+
+        if not record.isNull('image'):
+            query = QSqlQuery(self.database())
+            query.prepare("DELETE FROM images WHERE id=?")
+            query.addBindValue(record.value('image'))
+            query.exec_()
 
         return super(CollectionModel, self).removeRow(row)
 
@@ -309,7 +374,15 @@ class CollectionModel(QSqlTableModel):
 
     def getImage(self, img_id):
         query = QSqlQuery(self.database())
-        query.prepare("SELECT image FROM images WHERE id==?")
+        query.prepare("SELECT image FROM photos WHERE id=?")
+        query.addBindValue(img_id)
+        query.exec_()
+        if query.first():
+            return query.record().value(0)
+
+    def getPreviewImage(self, img_id):
+        query = QSqlQuery(self.database())
+        query.prepare("SELECT image FROM images WHERE id=?")
         query.addBindValue(img_id)
         query.exec_()
         if query.first():
@@ -317,7 +390,7 @@ class CollectionModel(QSqlTableModel):
 
     def getImageTitle(self, img_id):
         query = QSqlQuery(self.database())
-        query.prepare("SELECT title FROM images WHERE id==?")
+        query.prepare("SELECT title FROM photos WHERE id=?")
         query.addBindValue(img_id)
         query.exec_()
         if query.first():
@@ -515,7 +588,10 @@ class Collection(QtCore.QObject):
         sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
         QSqlQuery(sql, self.db)
 
-        sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, image BLOB)"
+        sql = "CREATE TABLE photos (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, image BLOB)"
+        QSqlQuery(sql, self.db)
+
+        sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, image BLOB)"
         QSqlQuery(sql, self.db)
 
     def getFileName(self):
