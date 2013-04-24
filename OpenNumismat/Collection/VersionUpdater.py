@@ -1,17 +1,28 @@
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import QApplication
 from PyQt4.QtSql import QSqlQuery
 
 from OpenNumismat.Tools import Gui
+from OpenNumismat.version import AppName
 
 
 class Updater(QtCore.QObject):
-    def __init__(self, collection):
+    def __init__(self, collection, parent=None):
+        super(Updater, self).__init__(parent)
+
         self.collection = collection
         self.currentVersion = int(self.collection.settings['Version'])
 
     def check(self):
-        return self.currentVersion != self.collection.settings.Default['Version']
+        if self.currentVersion < self.collection.settings.Default['Version']:
+            return True
+        elif self.currentVersion > self.collection.settings.Default['Version']:
+            QtGui.QMessageBox.warning(self.parent(),
+                    self.tr("Checking collection version"),
+                    self.tr("Collection %s a newer version.\n" \
+                            "Please update OpenNumismat") % self.collection.fileName)
+
+        return False
 
     def update(self):
         if self.check():
@@ -253,6 +264,12 @@ class UpdaterTo3(_Updater):
         sql = "ALTER TABLE filters ADD COLUMN revert INTEGER"
         QSqlQuery(sql, self.db)
 
+        query = QSqlQuery(self.db)
+        query.prepare("""INSERT INTO settings (title, value) VALUES (?, ?)""")
+        query.addBindValue('Type')
+        query.addBindValue(self.collection.settings['Type'])
+        query.exec_()
+
         self.collection.settings['Version'] = 3
         self.collection.settings.save()
 
@@ -262,6 +279,6 @@ class UpdaterTo3(_Updater):
 
 
 def updateCollection(collection):
-    updater = Updater(collection)
+    updater = Updater(collection, collection.parent())
     if updater.check():
         updater.update()
