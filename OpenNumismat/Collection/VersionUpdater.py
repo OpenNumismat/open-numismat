@@ -3,7 +3,6 @@ from PyQt4.QtGui import QApplication
 from PyQt4.QtSql import QSqlQuery
 
 from OpenNumismat.Tools import Gui
-from OpenNumismat.version import AppName
 
 
 class Updater(QtCore.QObject):

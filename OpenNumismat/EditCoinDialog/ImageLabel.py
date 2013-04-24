@@ -3,6 +3,7 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication
 
 from OpenNumismat.Tools import TemporaryDir
+from OpenNumismat import version
 
 
 class ImageLabel(QtGui.QLabel):
@@ -206,7 +207,7 @@ class ImageEdit(ImageLabel):
         try:
             # Wikipedia require any header
             req = urllib.request.Request(url,
-                                    headers={'User-Agent': "OpenNumismat"})
+                                    headers={'User-Agent': version.AppName})
             data = urllib.request.urlopen(req).read()
             image = QtGui.QImage()
             result = image.loadFromData(data)

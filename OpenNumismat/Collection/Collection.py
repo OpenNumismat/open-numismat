@@ -17,7 +17,7 @@ from OpenNumismat.Collection.VersionUpdater import updateCollection
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools import Gui
 from OpenNumismat.Settings import Settings, BaseSettings
-from OpenNumismat.version import AppName
+from OpenNumismat import version
 
 
 class CollectionModel(QSqlTableModel):
@@ -364,7 +364,11 @@ class CollectionModel(QSqlTableModel):
 
 
 class CollectionSettings(BaseSettings):
-    Default = {'Version': 3, 'Type': AppName, 'Password': cryptPassword()}
+    Default = {
+            'Version': 3,
+            'Type': version.AppName,
+            'Password': cryptPassword()
+    }
 
     def __init__(self, collection):
         super(CollectionSettings, self).__init__()
@@ -449,10 +453,10 @@ class Collection(QtCore.QObject):
         self.fileName = fileName
 
         self.settings = CollectionSettings(self)
-        if self.settings['Type'] != AppName:
+        if self.settings['Type'] != version.AppName:
             QtGui.QMessageBox.critical(self.parent(),
                     self.tr("Open collection"),
-                    self.tr("Collection %s in wrong format %s") % (fileName, AppName))
+                    self.tr("Collection %s in wrong format %s") % (fileName, version.AppName))
             return False
 
         if self.settings['Password'] != cryptPassword():
