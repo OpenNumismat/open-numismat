@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{{collection.title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+</head>
+
+<body>
+
+<div id="bodyContent">
+
+  {% for record in records %}
+<div class="row">
+<table border="0" cellpadding="0" cellspacing="0" >
+<tbody>
+<!-- 9 -->
+<tr style="height: 1px">
+    <td width="200"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+    <td width="10%"/>
+</tr>
+<tr style="height:4px">
+  <td colspan="9" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:18px" align="center">
+  <td colspan="9" class="s4" align="center"><b>{{record.title}}</b></td>
+</tr>
+<tr style="height:18px">
+  <td colspan="9" class="s6 bt br bl" align="center">{{titles.obverseimg}}</td>
+</tr>
+<tr>
+  <td colspan="2" class="bl bt"><img style="max-width: 200" src="{{static_files}}/{{record.obverseimg}}" width="200" alt=""></td>
+  <td colspan="7" class="s6 br bt">{{record.obversedesign}}</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="9" class="s6 bt br bl" align="center">{{titles.reverseimg}}</td>
+</tr>
+<tr>
+  <td colspan="2" class="bl bt"><img style="max-width: 200" src="{{static_files}}/{{record.reverseimg}}" alt=""></td>
+  <td colspan="7" class="s6 bt br">{{record.reversedesign}}</td>
+</tr>
+
+<tr style="height:18px">
+  <td colspan="1" class="s6 bl bt br">{{titles.rarity}}:</td>
+  <td colspan="2" class="s7 bt br">{{record.rarity}}</td>
+  <td colspan="2" class="s6 bt br">{{titles.material}}:</td>
+  <td colspan="6" class="s7 bt br">{{record.material}}</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 bl br bt">{{titles.year}}:</td>
+  <td colspan="2" class="s7 br bt">{{record.year}}</td>
+  <td colspan="2" class="s6 br bt">{{titles.fineness}}:</td>
+  <td colspan="6" class="s7 br bt">{{record.fineness}}</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 br bt bl">{{titles.country}}:</td>
+  <td colspan="2" class="s7 br bt">{{record.country}}</td>
+  <td colspan="2" class="s6 br bt">{{titles.weight}}:</td>
+  <td colspan="6" class="s7 br bt">{{record.weight}}</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 bl br bt">{{titles.value}}:</td>
+  <td colspan="2" class="s7 br bt">{{record.value}}</td>
+  <td colspan="2" class="s6 br bt">{{titles.diameter}}:</td>
+  <td colspan="6" class="s7 br bt">{{record.diameter}}</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 bl br bt">{{titles.unit}}:</td>
+  <td colspan="2" class="s7 br bt">{{record.unit}}</td>
+  <td colspan="2" class="s6 br bt">{{titles.thickness}}:</td>
+  <td colspan="6" class="s7 br bt">{{record.thickness}}</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" rowspan="2" class="s6 bl br bt">{{titles.mint}}:</td>
+  <td colspan="2" rowspan="2" class="s7 br bt">{{record.mint}}</td>
+  <td colspan="2" class="s6 bt br">{{titles.mintage}}:</td>
+  <td colspan="6" class="s7 bt br">{{record.mintage}}</td>
+</tr>
+<tr style="height:18px">
+  <!--td></td>
+  <td></td-->
+  <td colspan="2" class="s6 br bt">{{titles.dateemis}}:</td>
+  <td colspan="6" class="s7 br bt">{{record.dateemis}}</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 bt bl br">{{titles.status}}:</td>
+  <td colspan="2" class="s7 bt br">{{record.status}}</td>
+  <td colspan="2" class="s6 bt br">{{titles.quality}}:</td>
+  <td colspan="6" class="s7 bt br">{{record.quality}}</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 br bt bl">{{titles.type}}:</td>
+  <td colspan="2" class="s7 br bt">{{record.type}}</td>
+  <td colspan="2" class="s6 br bt">{{titles.catalognum1}}:</td>
+  <td colspan="6" class="s7 br bt">{{record.catalognum1}}</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 br bt bl">{{titles.edgeimg}}:</td>
+  <td colspan="2" class="s7 bt">{{record.edge}}</td>
+  <td colspan="8" class="s7 br bt">{{record.edgelabel}}</td>
+</tr>
+{% if record.note %}
+<tr style="height:18px">
+  <td colspan="9" class="s6 br bt bl" align="center">{{titles.note}}:</td>
+</tr>
+<tr class="bt bl br">
+  <td colspan="9" class="s6 br bt bl" align="center"><b>{{record.note}}</b></td>
+</tr>
+{% endif %}
+<tr style="height:18px">
+  <td colspan="3" class="s6 br bt bl" align="center">Информация о покупке:</td>
+  <td colspan="6" class="s6 br bt" align="center">Информация о возможной стоимости:</td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 br bt bl">{{titles.saller}}:</td>
+  <td colspan="2" class="s7 br bt">{{record.saller}}</td>
+  <td colspan="6" class="s6 br bt"></td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 bl br bt">{{titles.grade}}:</td>
+  <td colspan="2" class="s7 br bt">{{record.grade}}</td>
+  <td colspan="6" class="s6 br bt"></td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 br bt bl">{{titles.paydate}}:</td>
+  <td colspan="2" class="s7 br bt">{{record.paydate}}</td>
+  <td colspan="6" rowspan="2" class="s6 br bt bb"><div style="display:block; width:400" align="center"><a href="{{record.url}}">{{record.url}}</a></div></td>
+</tr>
+<tr style="height:18px">
+  <td colspan="1" class="s6 br bt bl bb">{{titles.totalpayprice}}:</td>
+  <td colspan="2" class="s7 br bt bb">{{record.totalpayprice}}</td>
+</tr>
+</tbody>
+</table>
+</div>
+  {% if record.photo4 %}
+<br/>
+<div class="row">
+  <img style="max-width: 1000" src="{{static_files}}/{{record.photo4}}" alt="">
+</div>
+  {% endif %}
+<br/>
+<p class="breakhere"></p>
+  {% endfor %}
+
+</div>
+
+</body>
+</html>
