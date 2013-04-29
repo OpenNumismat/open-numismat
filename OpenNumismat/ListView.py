@@ -384,8 +384,9 @@ class ListView(QtGui.QTableView):
 
         index = self.currentIndex()
         if index.isValid():
-            record = self.model().record(index.row())
-            self.selectedRowId = record.field('id').value()
+            id_col = self.model().fieldIndex('id')
+            id_index = self.model().index(index.row(), id_col)
+            self.selectedRowId = self.model().dataDisplayRole(id_index)
 
         return super(ListView, self).currentChanged(current, previous)
 
