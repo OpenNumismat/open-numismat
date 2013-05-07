@@ -232,7 +232,9 @@ class TreeView(QtGui.QTreeWidget):
                 self.scrollToIndex(index, subItem)
                 break
 
-    def scrollToItem(self, item):
+    def scrollToItem(self, item, hint=QtGui.QTreeWidget.EnsureVisible):
+        super(TreeView, self).scrollToItem(item, hint)
+
         parentItem = item.parent()
         if parentItem:
             itemRect = self.visualItemRect(parentItem)
@@ -244,8 +246,6 @@ class TreeView(QtGui.QTreeWidget):
                 columnWidth = self.columnWidth(0)
                 itemWidth = itemRect.width()
                 self.horizontalScrollBar().setValue(itemRect.x())
-        else:
-            super(TreeView, self).scrollToItem(item)
 
     def itemActivatedEvent(self, current, previous):
         self.scrollToItem(current)
