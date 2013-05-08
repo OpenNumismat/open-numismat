@@ -3,11 +3,6 @@
 import datetime
 import decimal
 
-try:
-    import winreg
-except ImportError:
-    pass
-
 available = True
 
 try:
@@ -23,72 +18,70 @@ from OpenNumismat.Collection.Import import _Import, _DatabaseServerError
 
 class ImportNumizmatik_Ru(_Import):
     Columns = {
-        'title': 'ShortDesc',
+        'title': None,
         'value': None,
-        'unit': 'Denomination',
-        'country': 'Country',
-        'year': 'Year',
-        'period': 'Type',
-        'mint': 'Mints',
-        'mintmark': 'Mint',
+        'unit': None,
+        'country': None,
+        'year': 'MONY_YEAR',
+        'period': None,
+        'mint': None,
+        'mintmark': None,
         'issuedate': None,
         'type': None,
         'series': None,
         'subjectshort': None,
         'status': None,
-        'material': 'Composition',
+        'material': None,
         'fineness': None,
         'shape': None,
-        'diameter': 'Diameter',
-        'thickness': 'Thickness',
-        'weight': 'Weight',
-        'grade': 'Grade',
-        'edge': 'Edge',
+        'diameter': None,
+        'thickness': None,
+        'weight': None,
+        'grade': None,
+        'edge': None,
         'edgelabel': None,
         'obvrev': None,
         'quality': None,
-        'mintage': 'Mintage',
-        'dateemis': 'Type Years',
-        'catalognum1': 'CatNumber1',
-        'catalognum2': 'CatNumber2',
-        'catalognum3': 'CatNumber3',
+        'mintage': None,
+        'dateemis': None,
+        'catalognum1': None,
+        'catalognum2': None,
+        'catalognum3': None,
         'catalognum4': None,
         'rarity': None,
         'price1': None,
         'price2': None,
         'price3': None,
         'price4': None,
-        'variety': 'Variety',
-        'paydate': 'Date Purchased',
-        'payprice': 'Amount Paid',
-        'totalpayprice': 'Amount Paid',
-        'saller': 'Dealer',
+        'variety': None,
+        'paydate': None,
+        'payprice': None,
+        'totalpayprice': None,
+        'saller': None,
         'payplace': None,
         'payinfo': None,
-        'saledate': 'Date Sold',
-        'saleprice': 'Sold For',
-        'totalsaleprice': 'Sold For',
-        'buyer': 'Sold To',
+        'saledate': None,
+        'saleprice': None,
+        'totalsaleprice': None,
+        'buyer': None,
         'saleplace': None,
         'saleinfo': None,
         'note': None,
         'obverseimg': None,
         'obversedesign': None,
-        'obversedesigner': 'Designer',
+        'obversedesigner': None,
         'reverseimg': None,
         'reversedesign': None,
-        'reversedesigner': 'Designer',
+        'reversedesigner': None,
         'edgeimg': None,
         'subject': None,
         'photo1': None,
         'photo2': None,
         'photo3': None,
         'photo4': None,
-        'storage': 'Location',
+        'storage': None,
         'features': None,
-        'quantity': 'Quantity',
-        'url': None,
-        'barcode': 'BarCode',
+        'storage': None
     }
 
     def __init__(self, parent=None):
@@ -123,59 +116,22 @@ class ImportNumizmatik_Ru(_Import):
 
         # Check images folder
         self.imgDir = QtCore.QDir(src)
-        if not self.imgDir.cd('../../CoinImages'):
-            directory = QtGui.QFileDialog.getExistingDirectory(self.parent(),
-                            self.tr("Select directory with images"),
-                            QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
-            if directory:
-                self.imgDir = QtCore.QDir(directory)
-            else:
-                return False
-
-        # Check predefined images folder
-        self.defImgDir = QtCore.QDir(src)
-        if not self.defImgDir.cd('../../Images'):
-            directory = QtGui.QFileDialog.getExistingDirectory(self.parent(),
-                            self.tr("Select directory with pre-defined images"),
-                            QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
-            if directory:
-                self.defImgDir = QtCore.QDir(directory)
-            else:
-                return False
+        if not self.imgDir.cd('../Images'):
+            return False
 
         return self.cnxn.cursor()
 
     def _check(self, cursor):
         tables = [row.table_name.lower() for row in cursor.tables()]
-        for requiredTables in ['coinattributes', 'cointypes', 'cm2001maincollection']:
+
+        for requiredTables in ['elements', 'mony']:
             if requiredTables not in tables:
                 return False
-
-        for table in tables:
-            if table[:6] == 'cmval~':
-                self.priceTable = table
-
-        if not self.priceTable:
-            # Prices not found
-            return False
 
         return True
 
     def _getRows(self, cursor):
-        priceFields = ['F-12', 'F-16', 'VF-20', 'VF-30', 'XF-40', 'XF-45',
-                       'AU-50', 'AU-55', 'AU-57', 'AU-58', 'AU-59', 'MS-60',
-                       'MS-61', 'MS-62', 'MS-63', 'MS-64', 'MS-65', 'MS-66',
-                       'MS-67', 'MS-68', 'MS-69', 'MS-70', 'F', 'VF', 'EF',
-                       'AU', 'Unc', 'BU']
-        priceSql = []
-        for field in priceFields:
-            priceSql.append("[%s].[%s]" % (self.priceTable, field))
-
-        sql = "SELECT cm2001maincollection.*, \
-                coinattributes.*, cointypes.* , %s FROM ((cm2001maincollection \
-            LEFT JOIN coinattributes ON cm2001maincollection.[type id] = coinattributes.[type id]) \
-            LEFT JOIN cointypes ON cm2001maincollection.[coin id] = cointypes.[coin id]) \
-            LEFT JOIN [%s] ON cm2001maincollection.[coin id] = [%s].[coin id]" % (','.join(priceSql), self.priceTable, self.priceTable)
+        sql = "SELECT * FROM mony WHERE mony_loc_id<>0"
 
         cursor.execute(sql)
         return cursor.fetchall()
@@ -187,102 +143,246 @@ class ImportNumizmatik_Ru(_Import):
                 if isinstance(rawData, bytearray):
                     value = QtCore.QByteArray(rawData)
                 elif isinstance(rawData, str):
-                    if srcColumn == 'Mintage':
-                        rawData = rawData.replace(',', '').replace('(', '').replace(')', '')
                     value = rawData.strip()
                 elif isinstance(rawData, datetime.date):
                     value = QtCore.QDate.fromString(rawData.isoformat(), QtCore.Qt.ISODate)
-                elif isinstance(rawData, decimal.Decimal):
-                    value = float(rawData)
                 else:
                     value = rawData
 
                 record.setValue(dstColumn, value)
 
-            if dstColumn == 'status':
-                record.setValue(dstColumn, 'owned')
-                if getattr(row, 'Sold To') or getattr(row, 'Date Sold'):
-                    record.setValue(dstColumn, 'sold')
-                elif getattr(row, 'Sell'):
-                    record.setValue(dstColumn, 'sale')
-                elif getattr(row, 'Want'):
-                    record.setValue(dstColumn, 'wish')
+        cursor = self.cnxn.cursor()
 
-            if dstColumn == 'features':
-                features = []
-                additionalFields = {
-                    'Comments': None,
-                    'Error': self.tr("Error: %s"),
-                    'UDF1': self.tr("Field 1: %s"),
-                    'UDF2': self.tr("Field 2: %s"),
-                    'Defects': self.tr("Defect: %s"),
-                }
-                for column, string in additionalFields.items():
-                    value = getattr(row, column)
-                    if value:
-                        if string:
-                            features.append(string % value)
-                        else:
-                            features.append(value.strip())
+        srcColumn = 'MONY_PARENT_SER_ID'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn) or 0
+            id_ = int(rawData)
+            if id_:
+                sql = "SELECT el_name FROM elements \
+                        WHERE el_ser_id=%d AND el_cat_id=2" % id_
+                cursor.execute(sql)
 
-                if features:
-                    record.setValue(dstColumn, '\n'.join(features))
+                _row = cursor.fetchone()
+                if _row:
+                    record.setValue('country', _row[0])
 
-        if not record.value('title'):
-            # Make a coin title (1673 Charles II Farthing - Brittania)
-            year = record.value('year')
-            period = record.value('period')
-            unit = record.value('unit')
-            variety = record.value('variety')
-            mainTitle = ' '.join(filter(None, [year, period, unit]))
-            title = ' - '.join(filter(None, [mainTitle, variety]))
-            record.setValue('title', title)
+        srcColumn = 'MONY_PARENT_LOC_ID'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn) or 0
+            id_ = int(rawData)
+            if id_:
+                sql = "SELECT el_name FROM elements \
+                        WHERE el_loc_id=%d AND el_cat_id=2" % id_
+                cursor.execute(sql)
 
-        # Process prices
-        fineFields = ['F-16', 'F-12', 'F']
-        self.__processPrices(row, record, fineFields, 'price1')
-        vfFields = ['VF-30', 'VF-20', 'VF']
-        self.__processPrices(row, record, vfFields, 'price2')
-        xfFields = ['XF-45', 'XF-40', 'AU-50', 'AU-55', 'AU-57', 'AU-58', 'AU-59', 'EF', 'AU']
-        self.__processPrices(row, record, xfFields, 'price3')
-        uncFields = ['MS-64', 'MS-63', 'MS-62', 'MS-61', 'MS-60', 'MS-65',
-                     'MS-66', 'MS-67', 'MS-68', 'MS-69', 'MS-70', 'Unc', 'BU']
-        self.__processPrices(row, record, uncFields, 'price4')
+                _row = cursor.fetchone()
+                if _row:
+                    record.setValue('country', _row[0])
 
-        # Processing images
-        image = QtGui.QImage()
-        rowId = getattr(row, 'ID')
-        if image.load(self.imgDir.absoluteFilePath('Coin%d(1)' % rowId)):
-            record.setValue('obverseimg', image)
-        if image.load(self.imgDir.absoluteFilePath('Coin%d(2)' % rowId)):
-            record.setValue('reverseimg', image)
-        if image.load(self.imgDir.absoluteFilePath('Coin%d(3)' % rowId)):
-            record.setValue('photo1', image)
-        if image.load(self.imgDir.absoluteFilePath('Coin%d(4)' % rowId)):
-            record.setValue('photo2', image)
+        srcColumn = 'MONY_METAL_SER_ID'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn) or 0
+            id_ = int(rawData)
+            if id_:
+                sql = "SELECT el_name FROM elements \
+                        WHERE el_ser_id=%d AND el_cat_id=10" % id_
+                cursor.execute(sql)
 
-        # Processing pre-defined images
-        if hasattr(row, 'UseGraphic') and hasattr(row, 'Country') and hasattr(row, 'Type ID'):
-            value = getattr(row, 'UseGraphic')
-            country = getattr(row, 'Country')
-            typeId = getattr(row, 'Type ID')
-            if country:
-                dir_ = QtCore.QDir(self.defImgDir)
-                dir_.cd(country)
-            if value and country:
-                image = QtGui.QImage()
-                if image.load(dir_.absoluteFilePath(value)):
-                    if record.isNull('obverseimg'):
+                _row = cursor.fetchone()
+                if _row:
+                    record.setValue('material', _row[0])
+
+        srcColumn = 'MONY_METAL_LOC_ID'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn) or 0
+            id_ = int(rawData)
+            if id_:
+                sql = "SELECT el_name FROM elements \
+                        WHERE el_loc_id=%d AND el_cat_id=10" % id_
+                cursor.execute(sql)
+
+                _row = cursor.fetchone()
+                if _row:
+                    record.setValue('material', _row[0])
+
+        srcColumn = 'MONY_QUALITY_SER_ID'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn) or 0
+            id_ = int(rawData)
+            if id_:
+                sql = "SELECT el_name FROM elements \
+                        WHERE el_ser_id=%d AND el_cat_id=7" % id_
+                cursor.execute(sql)
+
+                _row = cursor.fetchone()
+                if _row:
+                    record.setValue('quality', _row[0])
+
+        srcColumn = 'MONY_QUALITY_LOC_ID'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn) or 0
+            id_ = int(rawData)
+            if id_:
+                sql = "SELECT el_name FROM elements \
+                        WHERE el_loc_id=%d AND el_cat_id=7" % id_
+                cursor.execute(sql)
+
+                _row = cursor.fetchone()
+                if _row:
+                    record.setValue('quality', _row[0])
+
+        srcColumn = 'MONY_MONYGROUP_ID'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn) or 0
+            id_ = int(rawData)
+            if id_:
+                sql = "SELECT el_name FROM elements \
+                        WHERE el_loc_id=%d AND el_cat_id=4" % id_
+                cursor.execute(sql)
+
+                _row = cursor.fetchone()
+                if _row:
+                    record.setValue('mint', _row[0])
+
+        srcColumn = 'MONY_SALER_ID'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn) or 0
+            id_ = int(rawData)
+            if id_:
+                sql = "SELECT el_name FROM elements \
+                        WHERE el_loc_id=%d AND el_cat_id=9" % id_
+                cursor.execute(sql)
+
+                _row = cursor.fetchone()
+                if _row:
+                    record.setValue('saller', _row[0])
+
+        # Process Value and Unit fields
+        srcColumn = 'MONY_NAME'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn)
+            parts = rawData.strip().split(' ', 1)
+            if len(parts) == 2:
+                record.setValue('value', parts[0])
+            record.setValue('unit', parts[-1])
+
+        # Process content
+        srcColumn = 'MONY_CONTENT'
+        if hasattr(row, srcColumn):
+            rawData = getattr(row, srcColumn)
+            rawData = rawData.replace('""', "'")
+
+            if "image=" in rawData:
+                start = rawData.find("image=") + 7
+                end = rawData.find('"', start)
+                image_name = rawData[start:end]
+                if image_name:
+                    image = QtGui.QImage()
+                    if image.load(self.imgDir.absoluteFilePath(image_name)):
                         record.setValue('obverseimg', image)
-                    else:
-                        record.setValue('photo3', image)
-            if typeId and country:
-                image = QtGui.QImage()
-                if image.load(dir_.absoluteFilePath(str(typeId))):
-                    if record.isNull('obverseimg'):
-                        record.setValue('obverseimg', image)
-                    else:
-                        record.setValue('photo4', image)
+
+            if "diameter=" in rawData:
+                start = rawData.find("diameter=") + 10
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value:
+                    value.replace(',', '.')
+                    record.setValue('diameter', value)
+
+            if "weight=" in rawData:
+                start = rawData.find("weight=") + 8
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value:
+                    value.replace(',', '.')
+                    record.setValue('weight', value)
+
+            if "height=" in rawData:
+                start = rawData.find("height=") + 8
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value:
+                    value.replace(',', '.')
+                    record.setValue('thickness', value)
+
+            if "gurt=" in rawData:
+                start = rawData.find("gurt=") + 6
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value and value != 'undefined':
+                    record.setValue('edgelabel', value)
+
+            if "content=" in rawData:
+                start = rawData.find("content=") + 9
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value and value != 'undefined':
+                    record.setValue('subjectshort', value)
+
+            if "averce legend=" in rawData:
+                start = rawData.find("averce legend=") + 15
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value and value != 'undefined':
+                    record.setValue('obversedesign', value)
+
+            if "reverce legend=" in rawData:
+                start = rawData.find("reverce legend=") + 16
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value and value != 'undefined':
+                    record.setValue('reversedesign', value)
+
+            if "km=" in rawData:
+                start = rawData.find("km=") + 4
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value and value != 'undefined':
+                    record.setValue('catalognum1', value)
+
+            if "placenumb=" in rawData:
+                start = rawData.find("placenumb=") + 11
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value and value != 'undefined':
+                    record.setValue('storage', value)
+
+            if "costbuy=" in rawData:
+                start = rawData.find("costbuy=") + 9
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value and value != 'undefined':
+                    value.replace(',', '.')
+                    record.setValue('payprice', value)
+                    record.setValue('totalpayprice', value)
+
+            if "costnumizmat=" in rawData:
+                start = rawData.find("costnumizmat=") + 14
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value and value != 'undefined':
+                    value.replace(',', '.')
+                    record.setValue('price1', value)
+
+            if "datebuy=" in rawData:
+                start = rawData.find("datebuy=") + 9
+                end = rawData.find('"', start)
+                value = rawData[start:end]
+                if value and value != 'undefined':
+                    time = QtCore.QDateTime()
+                    time.setTime_t(int(value))
+                    record.setValue('paydate', time.date())
+
+        # Process Status field
+        record.setValue('status', 'owned')
+
+        # Make a coin title
+        unit = record.value('unit')
+        value = record.value('value')
+        country = record.value('country')
+        mainTitle = ' '.join(filter(None, [unit, value]))
+        title = ', '.join(filter(None, [mainTitle, country]))
+        record.setValue('title', title)
 
     def _close(self, connection):
         self.cnxn.close()

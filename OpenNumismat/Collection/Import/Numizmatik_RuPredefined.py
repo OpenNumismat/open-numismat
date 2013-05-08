@@ -138,7 +138,8 @@ class ImportNumizmatik_RuPredefined(_Import):
                 cursor.execute(sql)
 
                 _row = cursor.fetchone()
-                record.setValue('country', _row[0])
+                if _row:
+                    record.setValue('country', _row[0])
 
         srcColumn = 'MONY_METAL_SER_ID'
         if hasattr(row, srcColumn):
@@ -150,7 +151,8 @@ class ImportNumizmatik_RuPredefined(_Import):
                 cursor.execute(sql)
 
                 _row = cursor.fetchone()
-                record.setValue('material', _row[0])
+                if _row:
+                    record.setValue('material', _row[0])
 
         srcColumn = 'MONY_QUALITY_SER_ID'
         if hasattr(row, srcColumn):
@@ -162,7 +164,8 @@ class ImportNumizmatik_RuPredefined(_Import):
                 cursor.execute(sql)
 
                 _row = cursor.fetchone()
-                record.setValue('quality', _row[0])
+                if _row:
+                    record.setValue('quality', _row[0])
 
         # Process Value and Unit fields
         srcColumn = 'MONY_NAME'
