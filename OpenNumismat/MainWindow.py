@@ -135,6 +135,14 @@ class MainWindow(QtGui.QMainWindow):
                                                 self.importCollectionStudio)
             importMenu.addAction(importCollectionStudioAct)
 
+        if ImportNumizmatik_Ru.isAvailable():
+            importCollectionStudioAct = QtGui.QAction(
+                                    createIcon('Numizmatik_Ru.ico'),
+                                    self.tr("Numizmatik_Ru 1.0.0.82"), self)
+            importCollectionStudioAct.triggered.connect(
+                                                self.importNumizmatik_Ru)
+            importMenu.addAction(importCollectionStudioAct)
+
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
         collectionMenu.addAction(openCollectionAct)
@@ -330,6 +338,24 @@ class MainWindow(QtGui.QMainWindow):
                                 self.tr("Select file"), defaultDir, "*.xml")
         if file:
             imp = ImportCollectionStudio(self)
+            imp.importData(file, self.viewTab.currentModel())
+
+    def importNumizmatik_Ru(self):
+        defaultDir = ImportNumizmatik_Ru.defaultDir()
+        file = QtGui.QFileDialog.getOpenFileName(self,
+                                self.tr("Select file"), defaultDir, "*.mdb")
+        if file:
+            btn = QtGui.QMessageBox.question(self, self.tr("Importing"),
+                                self.tr("Import club catalog?"),
+                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
+                                QtGui.QMessageBox.Yes)
+            if btn == QtGui.QMessageBox.Yes:
+                imp = ImportNumizmatik_RuPredefined(self)
+                res = imp.importData(file, self.viewTab.currentModel())
+                if not res:
+                    return
+
+            imp = ImportNumizmatik_Ru(self)
             imp.importData(file, self.viewTab.currentModel())
 
     def addCoin(self):
