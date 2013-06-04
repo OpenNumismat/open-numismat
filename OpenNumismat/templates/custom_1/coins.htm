@@ -184,12 +184,11 @@
 <tr>
   <td colspan="1" class="cell_left title">{{titles.paydate}}:</td>
   <td colspan="1" class="cell_mid data">{{record.paydate}}</td>
-  {% if record.status_raw in ['owned', 'wish', 'sale'] %}
-  <td colspan="1" rowspan="3" class="cell_mid title">{{titles.features}}:</td>
-  <td colspan="1" rowspan="3" class="cell_right data">{{record.features}}</td>
-  {% elif record.status_raw == 'sold' %}
+  {% if record.status_raw == 'sold' %}
   <td colspan="1" class="cell_mid title">{{titles.saledate}}:</td>
   <td colspan="1" class="cell_right data">{{record.saledate}}</td>
+  {% else %}
+  <td colspan="2" rowspan="2" class="cell_right data"></td>
   {% endif %}
 </tr>
 <tr>
@@ -201,15 +200,19 @@
   <td colspan="1" class="cell_right data">{{record.totalsaleprice}}</td>
   {% endif %}
 </tr>
+{% if record.payinfo or record.saleinfo %}
 <tr>
+  {% if record.payinfo %}
   <td colspan="1" class="cell_left title">{{titles.payinfo}}:</td>
   <td colspan="1" class="cell_mid data">{{record.payinfo}}</td>
+  {% endif %}
   {% if record.status_raw in ['owned', 'wish', 'sale'] %}
-  {% elif record.status_raw == 'sold' %}
+  {% elif record.status_raw == 'sold' and record.saleinfo %}
   <td colspan="1" class="cell_mid title">{{titles.saleinfo}}:</td>
   <td colspan="1" class="cell_right data">{{record.saleinfo}}</td>
   {% endif %}
 </tr>
+{% endif %}
 {% endif %}
 <tr>
   <td colspan="4" class="cell_bottom"></td>
@@ -217,83 +220,40 @@
 </tbody>
 </table>
 </div>
-  {% if record.photo1 or record.photo2 or record.photo3 or record.photo4 %}
+  {% if record.photo4 %}
 <br/>
 <div class="row">
 <table border="0" cellpadding="0" cellspacing="0">
 <tbody>
   <tr>
-    <td style="width: 50%; padding: 2">
-    {% for photo in [record.photo1, record.photo2, record.photo3, record.photo4] %}
-      {% if photo %}
-        {% if photo1 is undefined %}
-          {% set photo1 = photo %}
-      <a href="{{static_files}}/{{photo}}" target="_blank" class="image"><img src="{{static_files}}/{{photo}}" class="image"></a>
-        {% elif photo2 is undefined %}
-          {% set photo2 = photo %}
-        {% elif photo3 is undefined %}
-          {% set photo3 = photo %}
-        {% elif photo4 is undefined %}
-          {% set photo4 = photo %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-    </td>
-    <td style="width: 50%; padding: 2">
-    {% for photo in [record.photo1, record.photo2, record.photo3, record.photo4] %}
-      {% if photo %}
-        {% if photo1 is undefined %}
-          {% set photo1 = photo %}
-        {% elif photo2 is undefined %}
-          {% set photo2 = photo %}
-      <a href="{{static_files}}/{{photo}}" target="_blank" class="image"><img src="{{static_files}}/{{photo}}" class="image"></a>
-        {% elif photo3 is undefined %}
-          {% set photo3 = photo %}
-        {% elif photo4 is undefined %}
-          {% set photo4 = photo %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-    </td>
-  </tr>
-  <tr>
-    <td style="width: 50%; padding: 2">
-    {% for photo in [record.photo1, record.photo2, record.photo3, record.photo4] %}
-      {% if photo %}
-        {% if photo1 is undefined %}
-          {% set photo1 = photo %}
-        {% elif photo2 is undefined %}
-          {% set photo2 = photo %}
-        {% elif photo3 is undefined %}
-          {% set photo3 = photo %}
-      <a href="{{static_files}}/{{photo}}" target="_blank" class="image"><img src="{{static_files}}/{{photo}}" class="image"></a>
-        {% elif photo4 is undefined %}
-          {% set photo4 = photo %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-    </td>
-    <td style="width: 50%; padding: 2">
-    {% for photo in [record.photo1, record.photo2, record.photo3, record.photo4] %}
-      {% if photo %}
-        {% if photo1 is undefined %}
-          {% set photo1 = photo %}
-        {% elif photo2 is undefined %}
-          {% set photo2 = photo %}
-        {% elif photo3 is undefined %}
-          {% set photo3 = photo %}
-        {% elif photo4 is undefined %}
-          {% set photo4 = photo %}
-      <a href="{{static_files}}/{{photo}}" target="_blank" class="image"><img src="{{static_files}}/{{photo}}" class="image"></a>
-        {% endif %}
-      {% endif %}
-    {% endfor %}
+    <td style="width: 100%; padding: 2">
+      <a href="{{static_files}}/{{record.photo4}}" target="_blank" class="image"><img src="{{static_files}}/{{record.photo4}}" class="image"></a>
     </td>
   </tr>
 </tbody>
 </table>
 </div>
   {% endif %}
+
+{% if record.features %}
+<br/>
+<div class="row">
+<table border="0" cellpadding="0" cellspacing="0" >
+<tbody>
+<tr align="center">
+  <td class="cell_full title">{{titles.features}}</td>
+</tr>
+<tr>
+  <td class="cell_full title">{{record.features}}</td>
+</tr>
+<tr>
+  <td class="cell_bottom"></td>
+</tr>
+</tbody>
+</table>
+</div>
+{% endif %}
+
 <br/>
   {% if not loop.last %}
 <p class="breakhere"></p>
