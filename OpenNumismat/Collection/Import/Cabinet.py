@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import csv
 import datetime
+import sys
 
 available = True
 
@@ -19,24 +21,24 @@ class ImportCabinet(_Import):
     Columns = {
         'title': None,
         'value': 'Nominal',
-        'unit': 'Currency',
-        'country': 'Country',
+        'unit': 'idCurrency',
+        'country': 'idCountry',
         'year': 'Date',
         'period': None,
-        'mint': None,
-        'mintmark': 'MintMark',
+        'mint': 'MintMark',
+        'mintmark': None,
         'issuedate': None,
         'type': 'Type',
-        'series': None,
+        'series': 'idSeries',
         'subjectshort': None,
         'status': None,
-        'material': 'Material',
-        'fineness': None,
-        'shape': 'Form',
+        'material': 'idMaterial',
+        'fineness': 'idProbe',
+        'shape': 'idForm',
         'diameter': 'Diameter',
         'thickness': 'Thickness',
         'weight': 'Weight',
-        'grade': 'Sostojanie',
+        'grade': 'idSostojanie1',
         'edge': 'RandType',
         'edgelabel': 'Text_Rand',
         'obvrev': None,
@@ -55,13 +57,13 @@ class ImportCabinet(_Import):
         'paydate': 'Purchased',
         'payprice': 'Price',
         'totalpayprice': 'Price',
-        'saller': None,
+        'saller': 'SellerID',
         'payplace': 'PurchasedIn',
         'payinfo': 'PurchasedInfo',
         'saledate': 'Sold',
         'saleprice': 'PriceSold',
         'totalsaleprice': 'PriceSold',
-        'buyer': None,
+        'buyer': 'BuyerID',
         'saleplace': None,
         'saleinfo': None,
         'note': None,
@@ -77,8 +79,8 @@ class ImportCabinet(_Import):
         'photo2': 'Picture4',
         'photo3': 'Picture5',
         'photo4': 'Picture6',
-        'storage': 'Location',
-        'features': None
+        'storage': 'CoinLocation',
+        'features': 'CoinInfo'
     }
 
     def __init__(self, parent=None):
@@ -89,55 +91,133 @@ class ImportCabinet(_Import):
         return available
 
     def _connect(self, src):
-        try:
-            self.cnxn = pyodbc.connect(driver='{DBISAM 4 ODBC Driver}',
-                                       connectionType='Local', catalogName=src)
-        except pyodbc.Error as error:
-            raise _DatabaseServerError(error.__str__())
+        csv.field_size_limit(sys.maxsize)
 
-        return self.cnxn.cursor()
+        country = {}
+        first_line = True
+        with open(src + '/Территории.txt', 'r', encoding='utf-16-le') as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if first_line:
+                    first_line = False
+                else:
+                    country[int(row[0])] = row[1]
+
+        currency = {}
+        first_line = True
+        with open(src + '/Валюты.txt', 'r', encoding='utf-16-le') as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if first_line:
+                    first_line = False
+                else:
+                    currency[int(row[0])] = row[1]
+
+        material = {}
+        first_line = True
+        with open(src + '/Материал.txt', 'r', encoding='utf-16-le') as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if first_line:
+                    first_line = False
+                else:
+                    material[int(row[0])] = row[1]
+
+        form = {}
+        first_line = True
+        with open(src + '/Форма.txt', 'r', encoding='utf-16-le') as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if first_line:
+                    first_line = False
+                else:
+                    form[int(row[0])] = row[1]
+
+        sostojanie = {}
+        first_line = True
+        with open(src + '/Сохранность.txt', 'r', encoding='utf-16-le') as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if first_line:
+                    first_line = False
+                else:
+                    sostojanie[int(row[0])] = row[1]
+
+        address = {}
+        first_line = True
+        with open(src + '/Адресная книга.txt', 'r', encoding='utf-16-le') as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if first_line:
+                    first_line = False
+                else:
+                    address[int(row[0])] = row[1]
+
+        series = {}
+        first_line = True
+        with open(src + '/Серия.txt', 'r', encoding='utf-16-le') as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if first_line:
+                    first_line = False
+                else:
+                    series[int(row[0])] = row[1]
+
+        probe = {}
+        first_line = True
+        with open(src + '/Проба.txt', 'r', encoding='utf-16-le') as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if first_line:
+                    first_line = False
+                else:
+                    probe[int(row[0])] = row[1]
+
+        self.tables = {'idCountry': country, 'idCurrency': currency,
+                  'idMaterial': material, 'idForm': form,
+                  'idSostojanie1': sostojanie, 'idSostojanie2': sostojanie,
+                  'idSoldPriceCurrensy': currency, 'idPriceCurrensy': currency,
+                  'SellerID': address, 'BuyerID': address, 'idSeries': series,
+                  'idProbe': probe}
+
+        return src
 
     def _check(self, cursor):
-        tables = [row.table_name.lower() for row in cursor.tables()]
-        for requiredTables in ['coins', 'country']:
-            if requiredTables not in tables:
-                return False
-
-        columns = self.__getColumns(cursor)
-        for requiredColumn in ['Nominal', 'idCurrency', 'idCountry']:
-            if requiredColumn not in columns:
-                return False
-
         return True
 
     def _getRows(self, cursor):
-        cursor.execute("""
-            SELECT coins.*, country.Name AS Country, kl_nominal.Name AS Currency,
-                kl_metal.Name AS Material, kl_form.Name AS Form,
-                kl_cond.Name AS Sostojanie, kl_rand.Name AS RandType,
-                kl_album.Name AS Location FROM coins
-            LEFT OUTER JOIN country ON coins.idcountry = country.inc
-            LEFT OUTER JOIN kl_nominal ON coins.idcurrency = kl_nominal.id
-            LEFT OUTER JOIN kl_metal ON coins.idmaterial = kl_metal.id
-            LEFT OUTER JOIN kl_form ON coins.idform = kl_form.id
-            LEFT OUTER JOIN kl_cond ON coins.idsostojanie1 = kl_cond.id
-            LEFT OUTER JOIN kl_rand ON coins.idrand = kl_rand.id
-            LEFT OUTER JOIN kl_album ON CAST(coins.CoinLocation AS INTEGER) = kl_album.id
-        """)
-        return cursor.fetchall()
+        rows = []
+        titles = []
+        with open(cursor + '/Монеты.txt', 'r', encoding='utf-16-le') as f:
+            reader = csv.reader(f, delimiter='\t')
+            for row in reader:
+                if not titles:
+                    titles = row
+                else:
+                    r = {}
+                    for i in range(len(titles)):
+                        r[titles[i]] = row[i]
+
+                    rows.append(r)
+
+        return rows
 
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
-            if srcColumn and hasattr(row, srcColumn):
-                rawData = getattr(row, srcColumn)
-                if isinstance(rawData, bytearray):
-                    image = QtGui.QImage()
-                    image.loadFromData(rawData)
-                    value = image
-                elif isinstance(rawData, str):
-                    value = rawData.strip()
-                elif isinstance(rawData, datetime.date):
-                    value = QtCore.QDate.fromString(rawData.isoformat(), QtCore.Qt.ISODate)
+            if srcColumn and srcColumn in row:
+                rawData = row[srcColumn]
+                if srcColumn in self.tables:
+                    try:
+                        index = int(rawData)
+                        value = self.tables[srcColumn][index]
+                    except ValueError:
+                        value = None
+                elif srcColumn in ['Picture', 'Picture1', 'Picture2', 'Picture3', 'Picture4', 'Picture5', 'Picture6']:
+                    if rawData:
+                        value = QtGui.QImage()
+                        value.loadFromData(bytearray.fromhex(rawData))
+                    else:
+                        value = None
                 else:
                     value = rawData
 
@@ -145,56 +225,10 @@ class ImportCabinet(_Import):
 
             if dstColumn == 'status':
                 record.setValue(dstColumn, 'demo')
-                if getattr(row, 'Sold') or getattr(row, 'PriceSold'):
+                if 'Sold' in row or 'PriceSold' in row:
                     record.setValue(dstColumn, 'sold')
-                elif getattr(row, 'Present') == 1 or getattr(row, 'Purchased') or getattr(row, 'Price') or getattr(row, 'PurchasedInfo'):
+                elif ('Present' in row and row['Present'] == 1) or 'Purchased' in row or 'Price' in row or 'PurchasedInfo' in row:
                     record.setValue(dstColumn, 'owned')
 
-            if dstColumn == 'saller':
-                if row.SellerID:
-                    cursor = self.cnxn.cursor()
-                    sallerRow = cursor.execute("""
-                        SELECT Name FROM person WHERE id=?
-                    """, row.SellerID).fetchone()
-                    if sallerRow:
-                        record.setValue(dstColumn, sallerRow.Name)
-
-            if dstColumn == 'buyer':
-                if row.BuyerID:
-                    cursor = self.cnxn.cursor()
-                    buyerRow = cursor.execute("""
-                        SELECT Name FROM person WHERE id=?
-                    """, row.BuyerID).fetchone()
-                    if buyerRow:
-                        record.setValue(dstColumn, buyerRow.Name)
-
-            if dstColumn == 'features':
-                features = []
-                value = getattr(row, 'CoinInfo')
-                if value:
-                    features.append(value.strip())
-                inCapsule = getattr(row, 'Capsule')
-                if inCapsule:
-                    features.append(self.tr("In capsule"))
-                value = getattr(row, 'Sertified')
-                if value:
-                    features.append(value.strip())
-                value = getattr(row, 'Extra s1.')
-                if value:
-                    features.append(self.tr("Extra s1: %s") % value.strip())
-                value = getattr(row, 'Extra s2.')
-                if value:
-                    features.append(self.tr("Extra s2: %s") % value.strip())
-                value = getattr(row, 'Extra n.')
-                if value:
-                    features.append(self.tr("Extra n: %d") % value)
-
-                if features:
-                    record.setValue(dstColumn, '\n'.join(features))
-
     def _close(self, connection):
-        self.cnxn.close()
-
-    def __getColumns(self, cursor):
-        columns = [row.column_name for row in cursor.columns('coins')]
-        return columns
+        pass

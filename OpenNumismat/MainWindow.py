@@ -108,7 +108,7 @@ class MainWindow(QtGui.QMainWindow):
         if ImportCabinet.isAvailable():
             importCabinetAct = QtGui.QAction(
                                     createIcon('cabinet.ico'),
-                                    self.tr("Cabinet 2.0.2.0, 2011"), self)
+                                    self.tr("Cabinet 2.2.2.1, 2013"), self)
             importCabinetAct.triggered.connect(self.importCabinet)
             importMenu.addAction(importCabinetAct)
 
@@ -294,6 +294,10 @@ class MainWindow(QtGui.QMainWindow):
             imp.importData(file, self.viewTab.currentModel())
 
     def importCabinet(self):
+        QtGui.QMessageBox.information(self, self.tr("Importing"),
+                self.tr("Before importing you should export existing "
+                        "collection from Cabinet."))
+
         defaultDir = ImportCabinet.defaultDir()
         directory = QtGui.QFileDialog.getExistingDirectory(self,
                                 self.tr("Select directory"), defaultDir)
