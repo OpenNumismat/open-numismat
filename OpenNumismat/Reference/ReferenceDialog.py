@@ -48,7 +48,7 @@ class ListView(QtGui.QListView):
         menu = QtGui.QMenu(self)
         menu.addAction(self.tr("Add"), self.addItem)
         act = menu.addAction(self.tr("Delete"), self.deleteItem)
-        if not self.selectedIndex() or self.model().fieldIndex('icon') < 0:
+        if not self.selectedIndex():
             act.setDisabled(True)
         menu.addSeparator()
         act = menu.addAction(self.tr("Add icon..."), self._addIcon)
@@ -79,7 +79,7 @@ class ListView(QtGui.QListView):
         filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
                           "All files (*.*)")
         fileName = QtGui.QFileDialog.getOpenFileName(self,
-                self.tr("Open file"), self.latestDir,
+                self.tr("Open File"), self.latestDir,
                 filter_)
         if fileName:
             file_info = QtCore.QFileInfo(fileName)
