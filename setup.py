@@ -39,8 +39,8 @@ Main features:
 - Batch edit coins
 - Ability to add and customize the lists to display the required data
 - Does not require additional software to work with a database
-- Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013
-  and Collection Studio 3.65 (additional software may be required)
+- Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013,
+  Collection Studio and Numizmatik_Ru (additional software may be required)
 - Support languages: English, Russian, Ukranian, Spanish, Hungarian
 - Cross-platform: Windows, Linux, MacOS X
 

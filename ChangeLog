@@ -1,5 +1,21 @@
 ChangeLog
 ---------
+1.4.5 - 2013-06-06:
+    * Added Custom_1 report template
+    * Implemented importing from Numizmatik_Ru
+    * Updated importing from Cabinet to version 2.2.2.1
+    * Store column sorting
+    * Implemented adding custom icons to references item 
+    * Fixed clear date fields
+    * Improved filtering and sorting
+    * Improved DB structure (moved preview images to separate table)
+    * Added remembering count of selected checkboxes on image view page
+    * Added storing size of reference editor, report preview, settings dialogs
+    * Moved image side length configuration parameter from collection to global settings
+    * Fixed free format in price fields. Fixed calculating commission in sale part
+    * Improved TreeView scrolling
+    * Improved checking collection version
+
 1.4.4 - 2013-04-02:
     * Added Hungarian translations (by Zalán Csúszó)
     * Fixed references editors
