@@ -45,15 +45,35 @@ class ListView(QtGui.QListView):
         return None
 
     def contextMenuEvent(self, event):
-        if self.selectedIndex():
-            if self.model().fieldIndex('icon') >= 0:
-                menu = QtGui.QMenu(self)
-                menu.addAction(self.tr("Add icon..."), self._addIcon)
-                act = menu.addAction(self.tr("Clear icon"), self._clearIcon)
-                if not self.selectedIndex().data(Qt.DecorationRole):
-                    act.setDisabled(True)
+        menu = QtGui.QMenu(self)
+        menu.addAction(self.tr("Add"), self.addItem)
+        act = menu.addAction(self.tr("Delete"), self.deleteItem)
+        if not self.selectedIndex() or self.model().fieldIndex('icon') < 0:
+            act.setDisabled(True)
+        menu.addSeparator()
+        act = menu.addAction(self.tr("Add icon..."), self._addIcon)
+        if not self.selectedIndex() or self.model().fieldIndex('icon') < 0:
+            act.setDisabled(True)
+        act = menu.addAction(self.tr("Clear icon"), self._clearIcon)
+        if not self.selectedIndex() or self.model().fieldIndex('icon') < 0 or \
+                not self.selectedIndex().data(Qt.DecorationRole):
+            act.setDisabled(True)
 
-                menu.exec_(self.mapToGlobal(event.pos()))
+        menu.exec_(self.mapToGlobal(event.pos()))
+
+    def addItem(self):
+        model = self.model()
+        row = model.rowCount()
+        model.insertRow(row)
+        index = model.index(row, model.fieldIndex('value'))
+        model.setData(index, self.defaultValue())
+        self.setCurrentIndex(index)
+        self.edit(index)
+
+    def deleteItem(self):
+        index = self.selectedIndex()
+        if index:
+            self.model().removeRow(index.row())
 
     def _addIcon(self):
         filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
@@ -149,22 +169,9 @@ class ReferenceWidget(QtGui.QWidget):
 
     def clicked(self, button):
         if button == self.addButton:
-            self._addClicked()
+            self.listWidget.addItem()
         elif button == self.delButton:
-            self._delClicked()
-
-    def _addClicked(self):
-        row = self.model.rowCount()
-        self.model.insertRow(row)
-        index = self.model.index(row, self.model.fieldIndex('value'))
-        self.model.setData(index, self.listWidget.defaultValue())
-        self.listWidget.setCurrentIndex(index)
-        self.listWidget.edit(index)
-
-    def _delClicked(self):
-        index = self.selectedIndex()
-        if index:
-            self.model.removeRow(index.row())
+            self.listWidget.deleteItem()
 
 
 class CrossReferenceWidget(ReferenceWidget):
