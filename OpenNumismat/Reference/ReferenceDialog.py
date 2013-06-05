@@ -1,4 +1,4 @@
-from PyQt4 import QtGui
+from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication
 
@@ -6,6 +6,9 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
 class ListView(QtGui.QListView):
+    latestDir = QtGui.QDesktopServices.storageLocation(
+                                    QtGui.QDesktopServices.PicturesLocation)
+
     def __init__(self, parent=None):
         super(ListView, self).__init__(parent)
 
@@ -33,6 +36,58 @@ class ListView(QtGui.QListView):
 
     def defaultValue(self):
         return self.tr("Enter value")
+
+    def selectedIndex(self):
+        index = self.currentIndex()
+        if index.isValid() and index in self.selectedIndexes():
+            return index
+
+        return None
+
+    def contextMenuEvent(self, event):
+        if self.selectedIndex():
+            if self.model().fieldIndex('icon') >= 0:
+                menu = QtGui.QMenu(self)
+                menu.addAction(self.tr("Add icon..."), self._addIcon)
+                act = menu.addAction(self.tr("Clear icon"), self._clearIcon)
+                if not self.selectedIndex().data(Qt.DecorationRole):
+                    act.setDisabled(True)
+
+                menu.exec_(self.mapToGlobal(event.pos()))
+
+    def _addIcon(self):
+        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
+                          "All files (*.*)")
+        fileName = QtGui.QFileDialog.getOpenFileName(self,
+                self.tr("Open file"), self.latestDir,
+                filter_)
+        if fileName:
+            file_info = QtCore.QFileInfo(fileName)
+            self.latestDir = file_info.absolutePath()
+
+            image = QtGui.QImage()
+            if image.load(fileName):
+                maxWidth = 22
+                maxHeight = 15
+                if image.width() > maxWidth or image.height() > maxHeight:
+                    scaledImage = image.scaled(maxWidth, maxHeight,
+                            Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                else:
+                    scaledImage = image
+
+                ba = QtCore.QByteArray()
+                buffer = QtCore.QBuffer(ba)
+                buffer.open(QtCore.QIODevice.WriteOnly)
+                scaledImage.save(buffer, 'png')
+
+                model = self.model()
+                index = model.index(self.selectedIndex().row(), model.fieldIndex('icon'))
+                model.setData(index, ba)
+
+    def _clearIcon(self):
+        model = self.model()
+        index = model.index(self.selectedIndex().row(), model.fieldIndex('icon'))
+        model.setData(index, '')
 
 
 class ReferenceWidget(QtGui.QWidget):
@@ -90,11 +145,7 @@ class ReferenceWidget(QtGui.QWidget):
         self.model.select()
 
     def selectedIndex(self):
-        index = self.listWidget.currentIndex()
-        if index.isValid() and index in self.listWidget.selectedIndexes():
-            return index
-
-        return None
+        return self.listWidget.selectedIndex()
 
     def clicked(self, button):
         if button == self.addButton:
