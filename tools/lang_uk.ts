@@ -11,17 +11,17 @@
     <message>
         <location filename="ReferenceDialog.py" line="367"/>
         <source>Save reference</source>
-        <translation type="unfinished">Сохранение справочника</translation>
+        <translation>Збереження довідника</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="354"/>
         <source>Something went wrong when saving. Please restart</source>
-        <translation type="unfinished">Что-то пошло не так при сохранении. Пожалуйста, перезапустите приложение</translation>
+        <translation>Щось пішло не так при збереженні. Будь-ласка, перезапустіть програму</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="367"/>
         <source>Something went wrong when canceling. Please restart</source>
-        <translation type="unfinished">Что-то пошло не так при отмене. Пожалуйста, перезапустите приложение</translation>
+        <translation>Щось пішло не так при відміні. Будь-ласка, перезапустіть програму</translation>
     </message>
 </context>
 <context>
@@ -102,7 +102,7 @@
     <message>
         <location filename="Collection.py" line="530"/>
         <source>Collection %s in wrong format %s</source>
-        <translation type="unfinished">Коллекция %s имеет неверный формат %s</translation>
+        <translation>Колекція %s має невірний формат%s</translation>
     </message>
 </context>
 <context>
@@ -428,12 +428,12 @@
     <message>
         <location filename="Collection.py" line="407"/>
         <source>Filtering</source>
-        <translation type="unfinished">Фильтрация</translation>
+        <translation>Фільтрація</translation>
     </message>
     <message>
         <location filename="Collection.py" line="407"/>
         <source>Filter is too complex. Will be ignored</source>
-        <translation type="unfinished">Фильтр слишком сложный. Будет проигнорирован</translation>
+        <translation>Фільтр надто складний. Буде проігноровано</translation>
     </message>
 </context>
 <context>
@@ -1008,12 +1008,12 @@ Do you want to send an error message to the author
     <message>
         <location filename="ReferenceDialog.py" line="54"/>
         <source>Add icon...</source>
-        <translation type="unfinished">Добавить иконку...</translation>
+        <translation>Додати іконку...</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="57"/>
         <source>Clear icon</source>
-        <translation type="unfinished">Очистить иконку</translation>
+        <translation>Очистити іконку</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="79"/>
@@ -1081,7 +1081,7 @@ Do you want to send an error message to the author
     <message>
         <location filename="Settings.py" line="185"/>
         <source>Store column sorting</source>
-        <translation type="unfinished">Сохранять сортировку колонок</translation>
+        <translation>Зберегти сортування стовпчиків</translation>
     </message>
 </context>
 <context>
@@ -1327,7 +1327,7 @@ Copyright (C) 2011-2013 Ігнатов Віталій
     <message>
         <location filename="MainWindow.py" line="519"/>
         <source>You already have the latest version.</source>
-        <translation type="unfinished">Вы уже используете последнюю версию.</translation>
+        <translation>Зберегти сортування стовпчиків.</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="109"/>
@@ -1347,7 +1347,7 @@ Copyright (C) 2011-2013 Ігнатов Віталій
     <message>
         <location filename="MainWindow.py" line="352"/>
         <source>Import club catalog?</source>
-        <translation type="unfinished">Импортировать клубный каталог?</translation>
+        <translation>Імпортувати клубний каталог?</translation>
     </message>
 </context>
 <context>
@@ -1699,9 +1699,9 @@ Copyright (C) 2011-2013 Ігнатов Віталій
         <source>Can&apos;t open reference:
 %s
 Created new one</source>
-        <translation type="unfinished">Не вдається відкрити довідник:
+        <translation>Не вдається відкрити довідник:
 %s
-Создан новый</translation>
+Створити новий</translation>
     </message>
 </context>
 <context>
@@ -1934,8 +1934,8 @@ Created new one</source>
         <location filename="VersionUpdater.py" line="19"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished">Коллекция %s более новой версии.
-Необходимо обновить OpenNumismat</translation>
+        <translation>Колекція %s більш нової версії.
+Необхідно оновити OpenNumismat</translation>
     </message>
 </context>
 <context>
