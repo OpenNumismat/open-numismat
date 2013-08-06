@@ -25,6 +25,8 @@ class MainWindow(QtGui.QMainWindow):
 
         self.createStatusBar()
 
+        self.collectionActs = []
+
         settingsAct = QtGui.QAction(createIcon('cog.png'),
                                     self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
@@ -32,6 +34,7 @@ class MainWindow(QtGui.QMainWindow):
         cancelFilteringAct = QtGui.QAction(createIcon('funnel.png'),
                                     self.tr("Clear all filters"), self)
         cancelFilteringAct.triggered.connect(self.cancelFilteringEvent)
+        self.collectionActs.append(cancelFilteringAct)
 
         exitAct = QtGui.QAction(createIcon('door_in.png'),
                                 self.tr("E&xit"), self)
@@ -48,10 +51,12 @@ class MainWindow(QtGui.QMainWindow):
                                    self.tr("Add"), self)
         addCoinAct.setShortcut('Insert')
         addCoinAct.triggered.connect(self.addCoin)
+        self.collectionActs.append(addCoinAct)
 
         editCoinAct = QtGui.QAction(createIcon('pencil.png'),
                                    self.tr("Edit..."), self)
         editCoinAct.triggered.connect(self.editCoin)
+        self.collectionActs.append(editCoinAct)
 
         style = QtGui.QApplication.style()
         icon = style.standardIcon(QtGui.QStyle.SP_TrashIcon)
@@ -59,8 +64,10 @@ class MainWindow(QtGui.QMainWindow):
                                    self.tr("Delete"), self)
         deleteCoinAct.setShortcut(QtGui.QKeySequence.Delete)
         deleteCoinAct.triggered.connect(self.deleteCoin)
+        self.collectionActs.append(deleteCoinAct)
 
         coin = menubar.addMenu(self.tr("Coin"))
+        self.collectionActs.append(coin)
         coin.addAction(addCoinAct)
         coin.addAction(editCoinAct)
         coin.addAction(deleteCoinAct)
@@ -68,6 +75,7 @@ class MainWindow(QtGui.QMainWindow):
         viewBrowserAct = QtGui.QAction(createIcon('page_white_world.png'),
                                    self.tr("View in browser"), self)
         viewBrowserAct.triggered.connect(self.viewBrowser)
+        self.collectionActs.append(viewBrowserAct)
 
         newCollectionAct = QtGui.QAction(self.tr("&New..."), self)
         newCollectionAct.triggered.connect(self.newCollectionEvent)
@@ -82,27 +90,33 @@ class MainWindow(QtGui.QMainWindow):
                                     createIcon('database_backup.png'),
                                     self.tr("Backup"), self)
         backupCollectionAct.triggered.connect(self.backupCollectionEvent)
+        self.collectionActs.append(backupCollectionAct)
 
         vacuumCollectionAct = QtGui.QAction(
                                     createIcon('compress.png'),
                                     self.tr("Vacuum"), self)
         vacuumCollectionAct.triggered.connect(self.vacuumCollectionEvent)
+        self.collectionActs.append(vacuumCollectionAct)
 
         descriptionCollectionAct = QtGui.QAction(self.tr("Description"), self)
         descriptionCollectionAct.triggered.connect(
                                             self.descriptionCollectionEvent)
+        self.collectionActs.append(descriptionCollectionAct)
 
         passwordCollectionAct = QtGui.QAction(createIcon('key.png'),
                                               self.tr("Set password..."), self)
         passwordCollectionAct.triggered.connect(self.passwordCollectionEvent)
+        self.collectionActs.append(passwordCollectionAct)
 
         importMenu = QtGui.QMenu(self.tr("Import"), self)
+        self.collectionActs.append(importMenu)
 
         if ImportNumizmat.isAvailable():
             importNumizmatAct = QtGui.QAction(
                                     createIcon('numizmat.ico'),
                                     self.tr("Numizmat 2.1"), self)
             importNumizmatAct.triggered.connect(self.importNumizmat)
+            self.collectionActs.append(importNumizmatAct)
             importMenu.addAction(importNumizmatAct)
 
         if ImportCabinet.isAvailable():
@@ -110,6 +124,7 @@ class MainWindow(QtGui.QMainWindow):
                                     createIcon('cabinet.ico'),
                                     self.tr("Cabinet 2.2.2.1, 2013"), self)
             importCabinetAct.triggered.connect(self.importCabinet)
+            self.collectionActs.append(importCabinetAct)
             importMenu.addAction(importCabinetAct)
 
         if ImportCoinsCollector.isAvailable():
@@ -118,6 +133,7 @@ class MainWindow(QtGui.QMainWindow):
                                     self.tr("CoinsCollector 2.6"), self)
             importCoinsCollectorAct.triggered.connect(
                                                     self.importCoinsCollector)
+            self.collectionActs.append(importCoinsCollectorAct)
             importMenu.addAction(importCoinsCollectorAct)
 
         if ImportCoinManage.isAvailable():
@@ -125,6 +141,7 @@ class MainWindow(QtGui.QMainWindow):
                                     createIcon('CoinManage.ico'),
                                     self.tr("CoinManage 2011"), self)
             importCoinManageAct.triggered.connect(self.importCoinManage)
+            self.collectionActs.append(importCoinManageAct)
             importMenu.addAction(importCoinManageAct)
 
         if ImportCollectionStudio.isAvailable():
@@ -133,15 +150,16 @@ class MainWindow(QtGui.QMainWindow):
                                     self.tr("Collection Studio 3.65"), self)
             importCollectionStudioAct.triggered.connect(
                                                 self.importCollectionStudio)
+            self.collectionActs.append(importCollectionStudioAct)
             importMenu.addAction(importCollectionStudioAct)
 
         if ImportNumizmatik_Ru.isAvailable():
-            importCollectionStudioAct = QtGui.QAction(
+            importNumizmaticRuAct = QtGui.QAction(
                                     createIcon('Numizmatik_Ru.ico'),
                                     self.tr("Numizmatik_Ru 1.0.0.82"), self)
-            importCollectionStudioAct.triggered.connect(
-                                                self.importNumizmatik_Ru)
-            importMenu.addAction(importCollectionStudioAct)
+            importNumizmaticRuAct.triggered.connect(self.importNumizmatik_Ru)
+            self.collectionActs.append(importNumizmaticRuAct)
+            importMenu.addAction(importNumizmaticRuAct)
 
         collectionMenu = menubar.addMenu(self.tr("Collection"))
         collectionMenu.addAction(newCollectionAct)
@@ -161,6 +179,7 @@ class MainWindow(QtGui.QMainWindow):
 
         actions = self.viewTab.actions()
         listMenu = menubar.addMenu(self.tr("List"))
+        self.collectionActs.append(listMenu)
         listMenu.addAction(actions['new'])
         listMenu.addMenu(actions['open'])
         listMenu.aboutToShow.connect(self.viewTab.updateOpenPageMenu)
@@ -176,12 +195,15 @@ class MainWindow(QtGui.QMainWindow):
         reportAct = QtGui.QAction(self.tr("Report..."), self)
         reportAct.setShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_P)
         reportAct.triggered.connect(self.report)
+        self.collectionActs.append(reportAct)
 
         saveTableAct = QtGui.QAction(createIcon('table.png'),
                                      self.tr("Save current list..."), self)
         saveTableAct.triggered.connect(self.saveTable)
+        self.collectionActs.append(saveTableAct)
 
         report = menubar.addMenu(self.tr("Report"))
+        self.collectionActs.append(report)
         report.addAction(reportAct)
         report.addAction(saveTableAct)
         report.addAction(viewBrowserAct)
@@ -421,6 +443,7 @@ class MainWindow(QtGui.QMainWindow):
         if fileName:
             self.__saveParams()
 
+            self.__closeCollection()
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
 
@@ -441,6 +464,7 @@ class MainWindow(QtGui.QMainWindow):
     def openCollection(self, fileName):
         self.__saveParams()
 
+        self.__closeCollection()
         if self.collection.open(fileName):
             self.setCollection(self.collection)
         else:
@@ -451,6 +475,8 @@ class MainWindow(QtGui.QMainWindow):
 
     @waitCursorDecorator
     def setCollection(self, collection):
+        self.__setEnabledActs(True)
+
         self.collectionFileLabel.setText(collection.getFileName())
         title = "%s - %s" % (collection.getCollectionName(), version.AppName)
         self.setWindowTitle(title)
@@ -464,6 +490,21 @@ class MainWindow(QtGui.QMainWindow):
         self.referenceMenu.clear()
         for action in self.collection.referenceMenu(self):
             self.referenceMenu.addAction(action)
+
+    def __setEnabledActs(self, enabled):
+        for act in self.collectionActs:
+            act.setEnabled(enabled)
+
+    def __closeCollection(self):
+        self.__setEnabledActs(False)
+        self.viewTab.clear()
+
+        self.referenceMenu.clear()
+
+        self.collectionFileLabel.setText(
+                self.tr("Create new collection or open one of the existing"))
+
+        self.setWindowTitle(version.AppName)
 
     def closeEvent(self, e):
         self.__shutDown()
