@@ -55,7 +55,7 @@ class TreeWidget(QtGui.QTreeWidget):
     def dropMimeData(self, parent, index, data, action):
         res = QtGui.QTreeWidget.dropMimeData(self, parent, index, data, action)
         if res:
-            if self.event.proposedAction() & Qt.CopyAction:
+            if (self.event.proposedAction() & Qt.CopyAction) and parent.parent():
                 item = parent.takeChild(0)
                 text = ' + '.join([parent.text(0), item.text(0)])
                 parent.setText(0, text)
