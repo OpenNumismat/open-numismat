@@ -153,9 +153,6 @@ class LineEditRef(QtGui.QWidget):
     def __init__(self, reference, parent=None):
         super(LineEditRef, self).__init__(parent)
 
-        self.reference = reference
-        self.reference.changed.connect(self.setText)
-
         self.comboBox = QtGui.QComboBox(self)
         self.comboBox.setEditable(True)
         self.comboBox.lineEdit().setMaxLength(1024)
@@ -166,6 +163,9 @@ class LineEditRef(QtGui.QWidget):
         self.comboBox.setModelColumn(reference.model.fieldIndex('value'))
 
         self.comboBox.setCurrentIndex(-1)
+
+        self.reference = reference
+        self.reference.changed.connect(self.setText)
 
         layout = QtGui.QHBoxLayout()
         layout.addWidget(self.comboBox)
