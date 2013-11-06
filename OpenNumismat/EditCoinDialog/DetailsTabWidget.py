@@ -286,8 +286,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         layout.addRow(self.items['dateemis'])
 
         item = self.items['quality']
-        layout.layout.addWidget(item.label(), 2, 0)
-        layout.layout.addWidget(item.widget(), 2, 1)
+        layout.addHalfRow(item)
         item.widget().setSizePolicy(QtGui.QSizePolicy.Preferred,
                                     QtGui.QSizePolicy.Fixed)
 
@@ -338,9 +337,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
         layout = BaseFormLayout(parent)
 
         item = self.items['rarity']
-        layout.addWidget(item.label(), 1, 0)
-        layout.addWidget(item.widget(), 1, 1)
-        layout.addWidget(QtGui.QWidget(), 1, 2)
+        layout.addHalfRow(item)
         item.widget().setSizePolicy(QtGui.QSizePolicy.Preferred,
                                     QtGui.QSizePolicy.Fixed)
 
@@ -370,9 +367,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
         layout.addRow(self.items['variety'])
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
-        item = self.items['edgevar']
-        layout.layout.addWidget(item.label(), 3, 0)
-        layout.layout.addWidget(item.widget(), 3, 1)
+        layout.addHalfRow(self.items['edgevar'])
 
         return layout
 

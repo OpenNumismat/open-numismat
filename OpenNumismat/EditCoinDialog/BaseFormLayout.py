@@ -211,6 +211,27 @@ class BaseFormLayout(QtGui.QGridLayout):
 
         self.row = self.row + 1
 
+    def addHalfRow(self, item1):
+        if item1.isHidden():
+            return
+
+        col = 0
+        if not item1.isHidden():
+            self.addWidget(item1.label(), self.row, col)
+            col = col + 1
+            self.addWidget(item1.widget(), self.row, col)
+            col = col + 1
+
+            widget = QtGui.QWidget()
+            widget.setMinimumWidth(0)
+            if self.columnCount == 6:
+                widget.setSizePolicy(QtGui.QSizePolicy.Fixed,
+                                     QtGui.QSizePolicy.Fixed)
+            self.addWidget(widget, self.row, col)
+            col = col + 1
+
+        self.row = self.row + 1
+
 
 class BaseFormGroupBox(QtGui.QGroupBox):
     def __init__(self, title, parent=None):
@@ -231,6 +252,9 @@ class BaseFormGroupBox(QtGui.QGroupBox):
         self.fixSizePolicy(item1)
         if item2 and not isinstance(item2, QtGui.QAbstractButton):
             self.fixSizePolicy(item2)
+
+    def addHalfRow(self, item1):
+        self.layout.addHalfRow(item1)
 
     def fixSizePolicy(self, item):
         if not item.isHidden() and item.type() == Type.Text:
