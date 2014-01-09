@@ -284,6 +284,7 @@ class CollectionModel(QSqlTableModel):
 
                     # Resize big images for storing in DB
                     sideLen = Settings()['ImageSideLen']
+                    sideLen = int(sideLen)  # forced conversion to Integer
                     maxWidth = sideLen
                     maxHeight = sideLen
                     if image.width() > maxWidth or image.height() > maxHeight:
