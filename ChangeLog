@@ -1,5 +1,8 @@
 ChangeLog
 ---------
+1.4.6 - 2014-01-09:
+    * Fixed bugs reported by users
+
 1.4.5 - 2013-06-06:
     * Added Custom_1 report template
     * Implemented importing from Numizmatik_Ru

@@ -1,4 +1,8 @@
-open-numismat (1.4.5) oneiric; urgency=low
+open-numismat (1.4.6) oneiric; urgency=low
+
+  * Bug fix.
+
+ -- Vitaly Ignatov <ignatov.vit@gmail.com>  Tue, 9 Jan 2014 22:41:51 -0800
 
   * Bug fix.
 

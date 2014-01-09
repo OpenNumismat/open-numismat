@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="hu_HU" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.0" language="hu_HU">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -39,67 +40,67 @@
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="530"/>
+        <location filename="Collection.py" line="531"/>
         <source>Open collection</source>
         <translation>Gyűjtemény megnyitása</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="516"/>
+        <location filename="Collection.py" line="517"/>
         <source>Can&apos;t open collection %s</source>
         <translation>Nem lehet megnyitni a %s gyűjteményt</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="521"/>
+        <location filename="Collection.py" line="522"/>
         <source>Collection %s not exists</source>
         <translation>A(z) %s gyűjtemény nem létezik</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="561"/>
+        <location filename="Collection.py" line="562"/>
         <source>Create collection</source>
         <translation>Gyűjtemény létrehozása</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="553"/>
+        <location filename="Collection.py" line="554"/>
         <source>Specified file already exists</source>
         <translation>A megadott fájl már létezik</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="561"/>
+        <location filename="Collection.py" line="562"/>
         <source>Can&apos;t open collection</source>
         <translation>Nem lehet megnyitni a gyűjteményt</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="625"/>
+        <location filename="Collection.py" line="626"/>
         <source>Updating reference</source>
         <translation>Referencia frissítése</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="625"/>
+        <location filename="Collection.py" line="626"/>
         <source>Cancel</source>
         <translation>Mégse</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="657"/>
+        <location filename="Collection.py" line="658"/>
         <source>Fill from collection</source>
         <translation>Kitöltés gyűjteményből</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="660"/>
+        <location filename="Collection.py" line="661"/>
         <source>Edit...</source>
         <translation>Szerkesztés...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="674"/>
+        <location filename="Collection.py" line="675"/>
         <source>Backup collection</source>
         <translation>Gyűjtemény biztonsági mentése</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="674"/>
+        <location filename="Collection.py" line="675"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation>Nem sikerült mentést készíteni a(z) %s gyűjteményről</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="530"/>
+        <location filename="Collection.py" line="531"/>
         <source>Collection %s in wrong format %s</source>
         <translation type="unfinished"></translation>
     </message>
@@ -425,12 +426,12 @@
 <context>
     <name>CollectionModel</name>
     <message>
-        <location filename="Collection.py" line="407"/>
+        <location filename="Collection.py" line="408"/>
         <source>Filtering</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="407"/>
+        <location filename="Collection.py" line="408"/>
         <source>Filter is too complex. Will be ignored</source>
         <translation type="unfinished"></translation>
     </message>
@@ -482,7 +483,7 @@
         <translation>Érme</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="417"/>
+        <location filename="DetailsTabWidget.py" line="412"/>
         <source>Traffic</source>
         <translation>Forgalom</translation>
     </message>
@@ -532,37 +533,37 @@
         <translation>Pénzverés</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="304"/>
+        <location filename="DetailsTabWidget.py" line="303"/>
         <source>Obverse</source>
         <translation>Előlap</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="313"/>
+        <location filename="DetailsTabWidget.py" line="312"/>
         <source>Reverse</source>
         <translation>Hátlap</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="322"/>
+        <location filename="DetailsTabWidget.py" line="321"/>
         <source>Edge</source>
         <translation>Él</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="350"/>
+        <location filename="DetailsTabWidget.py" line="347"/>
         <source>Catalogue</source>
         <translation>Gyűjtemény</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="359"/>
+        <location filename="DetailsTabWidget.py" line="356"/>
         <source>Price</source>
         <translation>Ár</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="368"/>
+        <location filename="DetailsTabWidget.py" line="365"/>
         <source>Variation</source>
         <translation>Variáció</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="443"/>
+        <location filename="DetailsTabWidget.py" line="438"/>
         <source>Commission</source>
         <translation>Bizottság</translation>
     </message>
@@ -696,42 +697,42 @@ El szeretnéd küldeni a hibát a fejlesztőnek
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="480"/>
+        <location filename="DetailsTabWidget.py" line="475"/>
         <source>Design</source>
         <translation>Kialakítás</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="484"/>
+        <location filename="DetailsTabWidget.py" line="479"/>
         <source>Images</source>
         <translation>Képek</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="519"/>
+        <location filename="DetailsTabWidget.py" line="514"/>
         <source>Main details</source>
         <translation>Főbb adatok</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="522"/>
+        <location filename="DetailsTabWidget.py" line="517"/>
         <source>Generate</source>
         <translation>Generálás</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="539"/>
+        <location filename="DetailsTabWidget.py" line="534"/>
         <source>Obverse</source>
         <translation>Előlap</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="548"/>
+        <location filename="DetailsTabWidget.py" line="543"/>
         <source>Reverse</source>
         <translation>Hátlap</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="557"/>
+        <location filename="DetailsTabWidget.py" line="552"/>
         <source>Edge</source>
         <translation>Él</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="640"/>
+        <location filename="DetailsTabWidget.py" line="635"/>
         <source>Commission</source>
         <translation>Bizottság</translation>
     </message>
@@ -1076,87 +1077,87 @@ El szeretnéd küldeni a hibát a fejlesztőnek
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.py" line="28"/>
+        <location filename="MainWindow.py" line="30"/>
         <source>Settings...</source>
         <translation>Beállítások...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="32"/>
+        <location filename="MainWindow.py" line="34"/>
         <source>Clear all filters</source>
         <translation>Szűrők törlése</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="36"/>
+        <location filename="MainWindow.py" line="39"/>
         <source>E&amp;xit</source>
         <translation>K&amp;ilépés</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="42"/>
+        <location filename="MainWindow.py" line="45"/>
         <source>&amp;File</source>
         <translation>&amp;Fájl</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="47"/>
+        <location filename="MainWindow.py" line="50"/>
         <source>Add</source>
         <translation>Hozzáad</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="52"/>
+        <location filename="MainWindow.py" line="56"/>
         <source>Edit...</source>
         <translation>Szerkesztés...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="58"/>
+        <location filename="MainWindow.py" line="63"/>
         <source>Delete</source>
         <translation>Törlés</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="63"/>
+        <location filename="MainWindow.py" line="69"/>
         <source>Coin</source>
         <translation>Érme</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="68"/>
+        <location filename="MainWindow.py" line="75"/>
         <source>View in browser</source>
         <translation>Mutatás böngészőben</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="72"/>
+        <location filename="MainWindow.py" line="80"/>
         <source>&amp;New...</source>
         <translation>&amp;Új...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="77"/>
+        <location filename="MainWindow.py" line="85"/>
         <source>&amp;Open...</source>
         <translation>&amp;Megnyitás...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="81"/>
+        <location filename="MainWindow.py" line="89"/>
         <source>Backup</source>
         <translation>Biztonsági mentés</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="86"/>
+        <location filename="MainWindow.py" line="95"/>
         <source>Vacuum</source>
         <translation>Vákuum</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="91"/>
+        <location filename="MainWindow.py" line="101"/>
         <source>Description</source>
         <translation>Leírás</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="95"/>
+        <location filename="MainWindow.py" line="106"/>
         <source>Set password...</source>
         <translation>Jelszó megadása...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="99"/>
+        <location filename="MainWindow.py" line="111"/>
         <source>Import</source>
         <translation>Importálás</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="102"/>
+        <location filename="MainWindow.py" line="115"/>
         <source>Numizmat 2.1</source>
         <translation>Numizmat 2.1</translation>
     </message>
@@ -1166,117 +1167,117 @@ El szeretnéd küldeni a hibát a fejlesztőnek
         <translation type="obsolete">Cabinet 2.0.2.0, 2011</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="116"/>
+        <location filename="MainWindow.py" line="131"/>
         <source>CoinsCollector 2.6</source>
         <translation>CoinsCollector 2.6</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="124"/>
+        <location filename="MainWindow.py" line="140"/>
         <source>CoinManage 2011</source>
         <translation>CoinManage 2011</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="131"/>
+        <location filename="MainWindow.py" line="148"/>
         <source>Collection Studio 3.65</source>
         <translation>Collection Studio 3.65</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="146"/>
+        <location filename="MainWindow.py" line="164"/>
         <source>Collection</source>
         <translation>Gyűjtemény</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="163"/>
+        <location filename="MainWindow.py" line="181"/>
         <source>List</source>
         <translation>Lista</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="174"/>
+        <location filename="MainWindow.py" line="193"/>
         <source>Reference</source>
         <translation>Referancia</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="176"/>
+        <location filename="MainWindow.py" line="195"/>
         <source>Report...</source>
         <translation>Jelentés...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="180"/>
+        <location filename="MainWindow.py" line="200"/>
         <source>Save current list...</source>
         <translation>Jelenlegi lista mentése...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="184"/>
+        <location filename="MainWindow.py" line="205"/>
         <source>Report</source>
         <translation>Jelentés</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="189"/>
+        <location filename="MainWindow.py" line="211"/>
         <source>Online help</source>
         <translation>Online súgó</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="491"/>
+        <location filename="MainWindow.py" line="532"/>
         <source>About %s</source>
         <translation>Névjegy %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="198"/>
+        <location filename="MainWindow.py" line="220"/>
         <source>&amp;Help</source>
         <translation>&amp;Segítség</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="205"/>
+        <location filename="MainWindow.py" line="227"/>
         <source>Toolbar</source>
         <translation>Eszköztár</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="274"/>
+        <location filename="MainWindow.py" line="296"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="274"/>
+        <location filename="MainWindow.py" line="296"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>Az alkalmazást újra kell indítani az új beállítások életbe lépéséhez. Újraindítás most?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="349"/>
+        <location filename="MainWindow.py" line="371"/>
         <source>Select file</source>
         <translation>Fájl kiválasztása</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="310"/>
+        <location filename="MainWindow.py" line="332"/>
         <source>Select directory</source>
         <translation>Mappa kiválasztása</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="352"/>
+        <location filename="MainWindow.py" line="374"/>
         <source>Importing</source>
         <translation>Importálás</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="321"/>
+        <location filename="MainWindow.py" line="343"/>
         <source>Import pre-defined coins?</source>
         <translation>Előre definiált érmék betöltése? </translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="335"/>
+        <location filename="MainWindow.py" line="357"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Importálás előtt exportálni  kell a meglévő gyűjteményt (válaszd a Collection Studio menüből az Eszközök &gt; Exportálás-t).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="410"/>
+        <location filename="MainWindow.py" line="432"/>
         <source>Open collection</source>
         <translation>Gyűjtemény megnyitása</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="417"/>
+        <location filename="MainWindow.py" line="439"/>
         <source>Collections (*.db)</source>
         <translation>Gyűjtemények (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="417"/>
+        <location filename="MainWindow.py" line="439"/>
         <source>New collection</source>
         <translation>Új gyűjtemény</translation>
     </message>
@@ -1287,7 +1288,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek
 Copyright (C) 2011-2013 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
-        <translation>%s %s
+        <translation type="obsolete">%s %s
 
 Copyright (C) 2011-2013 Vitaly Ignatov
 
@@ -1295,49 +1296,68 @@ Copyright (C) 2011-2013 Vitaly Ignatov
 Fordította: http://kattide.com .</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="530"/>
+        <location filename="MainWindow.py" line="571"/>
         <source>New version</source>
         <translation>Új verzió</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="530"/>
+        <location filename="MainWindow.py" line="571"/>
         <source>New version is available. Download it now?</source>
         <translation>Új verzió érhető el. Letöltöd most?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="193"/>
+        <location filename="MainWindow.py" line="215"/>
         <source>Check for updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="519"/>
+        <location filename="MainWindow.py" line="560"/>
         <source>Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="519"/>
+        <location filename="MainWindow.py" line="560"/>
         <source>You already have the latest version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="109"/>
+        <location filename="MainWindow.py" line="123"/>
         <source>Cabinet 2.2.2.1, 2013</source>
         <translation>Cabinet 2.2.2.1, 2013</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="139"/>
+        <location filename="MainWindow.py" line="157"/>
         <source>Numizmatik_Ru 1.0.0.82</source>
         <translation>Numizmatik_Ru 1.0.0.82</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="297"/>
+        <location filename="MainWindow.py" line="319"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="352"/>
+        <location filename="MainWindow.py" line="374"/>
         <source>Import club catalog?</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="504"/>
+        <source>Create new collection or open one of the existing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="532"/>
+        <source>%s %s
+
+Copyright (C) 2011-2014 Vitaly Ignatov
+
+%s is freeware licensed under a GPLv3.</source>
+        <translation type="unfinished">%s %s
+
+Copyright (C) 2011-2014 Vitaly Ignatov
+
+%s egy ingyenes alkalmazás a GPLv3 licenc alatt.
+Fordította: http://kattide.com.</translation>
     </message>
 </context>
 <context>
