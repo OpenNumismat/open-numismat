@@ -13,4 +13,7 @@ def stringToMoney(string):
             if valueBegan:
                 break
 
+    if money == '.':
+        return 0
+
     return float(money)
