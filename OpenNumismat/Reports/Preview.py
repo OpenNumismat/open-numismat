@@ -41,8 +41,8 @@ class ZoomFactorValidator(QtGui.QDoubleValidator):
             input += '%'
         num_size = 4
         if state == QtGui.QDoubleValidator.Intermediate:
-            i = input.indexOf(QtCore.QLocale.system().decimalPoint())
-            if (i == -1 and input.size() > num_size) \
+            i = input.find(QtCore.QLocale.system().decimalPoint())
+            if (i == -1 and len(input) > num_size) \
                     or (i != -1 and i > num_size):
                 return QtGui.QDoubleValidator.Invalid, input, pos
 
