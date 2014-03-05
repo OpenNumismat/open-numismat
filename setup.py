@@ -186,7 +186,7 @@ if cx_Freeze_available:
                             targetName=version.AppName + executable_ext)
 
     translation_files = []
-    for translation in ['ru', 'uk', 'es', 'hu']:
+    for translation in ['ru', 'uk', 'es', 'hu', 'pt']:
         translation_files.append(("OpenNumismat/lang_%s.qm" % translation,
                                   "lang_%s.qm" % translation))
         translation_files.append(("OpenNumismat/qt_%s.qm" % translation,
