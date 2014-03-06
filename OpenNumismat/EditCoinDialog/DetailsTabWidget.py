@@ -532,6 +532,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def obverseDesignLayout(self, parent=None):
         layout = DesignFormLayout(self.tr("Obverse"), parent)
+        layout.minHeight = 120
 
         layout.addImage(self.items['obverseimg'])
         layout.addRow(self.items['obversedesign'])
@@ -541,6 +542,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def reverseDesignLayout(self, parent=None):
         layout = DesignFormLayout(self.tr("Reverse"), parent)
+        layout.minHeight = 120
 
         layout.addImage(self.items['reverseimg'])
         layout.addRow(self.items['reversedesign'])

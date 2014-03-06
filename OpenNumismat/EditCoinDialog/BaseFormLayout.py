@@ -295,14 +295,23 @@ class DesignFormLayout(BaseFormGroupBox):
     def __init__(self, title, parent=None):
         super(DesignFormLayout, self).__init__(title, parent)
         self.layout.columnCount = 3
+        self.imagesCount = 0
+        self.defaultHeight = 60
 
     def addImage(self, image):
         if not image.isHidden():
             if isinstance(image.label(), QtGui.QLabel):
                 self.layout.addWidget(image.widget(), 0, 3, 2, 2)
                 self.layout.setColumnMinimumWidth(2, 160)
+                self.layout.setRowMinimumHeight(0, self.defaultHeight)
             else:
                 image.label().setText("")
                 self.layout.addWidget(image.label(), 0, 3, 1, 1)
                 self.layout.addWidget(image.widget(), 0, 4, 2, 1)
                 self.layout.setColumnMinimumWidth(4, 160)
+                self.layout.setRowMinimumHeight(0, self.defaultHeight)
+
+            self.imagesCount = self.imagesCount + 1
+
+    def isEmpty(self):
+        return (self.imagesCount == 0) and super(DesignFormLayout, self).isEmpty()
