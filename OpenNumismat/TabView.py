@@ -180,6 +180,12 @@ class TabView(QtGui.QTabWidget):
         listView.selectColumns()
 
     def closePage(self, index=None):
+        if self.count() <= 1:
+            QtGui.QMessageBox.information(self, self.tr("Remove page"),
+                    self.tr("Can't close latest opened page.\n"
+                            "Add a new one first."))
+            return
+
         if not index:
             index = self.currentIndex()
         page = self.widget(index)
@@ -187,6 +193,12 @@ class TabView(QtGui.QTabWidget):
         self.collection.pages().closePage(page)
 
     def removePage(self):
+        if self.count() <= 1:
+            QtGui.QMessageBox.information(self, self.tr("Remove page"),
+                    self.tr("Can't remove latest opened page.\n"
+                            "Add a new one first."))
+            return
+
         index = self.currentIndex()
         pageTitle = self.tabText(index)
         result = QtGui.QMessageBox.question(self, self.tr("Remove page"),
