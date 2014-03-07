@@ -1,5 +1,9 @@
 ChangeLog
 ---------
+1.4.7 - 2014-03-07:
+    * Added Portuguese translations (by Pedro Albuquerque)
+    * Fixed few bugs reported by users
+
 1.4.6 - 2014-01-09:
     * Fixed bugs reported by users
 

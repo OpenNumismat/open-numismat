@@ -41,7 +41,7 @@ Main features:
 - Does not require additional software to work with a database
 - Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013,
   Collection Studio and Numizmatik_Ru (additional software may be required)
-- Support languages: English, Russian, Ukranian, Spanish, Hungarian
+- Support languages: English, Russian, Ukranian, Spanish, Hungarian, Portuguese
 - Cross-platform: Windows, Linux, MacOS X
 
 .. image:: http://wiki.open-numismat.googlecode.com/git/images/screenMain.png
@@ -130,6 +130,7 @@ params = {
             "Natural Language :: Spanish",
             "Natural Language :: Ukranian",
             "Natural Language :: Hungarian",
+            "Natural Language :: Portuguese",
             "Intended Audience :: End Users/Desktop",
             "Operating System :: OS Independent",
             "Operating System :: POSIX :: Linux",
