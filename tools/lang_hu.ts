@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="hu_HU">
+<!DOCTYPE TS><TS version="2.0" language="hu_HU" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -722,17 +721,17 @@ El szeretnéd küldeni a hibát a fejlesztőnek
         <translation>Előlap</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="543"/>
+        <location filename="DetailsTabWidget.py" line="544"/>
         <source>Reverse</source>
         <translation>Hátlap</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="552"/>
+        <location filename="DetailsTabWidget.py" line="554"/>
         <source>Edge</source>
         <translation>Él</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="635"/>
+        <location filename="DetailsTabWidget.py" line="637"/>
         <source>Commission</source>
         <translation>Bizottság</translation>
     </message>
@@ -1883,24 +1882,36 @@ Created new one</source>
         <translation>Add meg az új lista címét</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="192"/>
+        <location filename="TabView.py" line="204"/>
         <source>Remove page</source>
         <translation>Oldal törlése</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="192"/>
+        <location filename="TabView.py" line="204"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
         <translation>Véglegesen törlöd a(z) &apos;%s&apos; oldalt? </translation>
     </message>
     <message>
-        <location filename="TabView.py" line="202"/>
+        <location filename="TabView.py" line="214"/>
         <source>Remove pages</source>
         <translation>Oldalak törlése</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="202"/>
+        <location filename="TabView.py" line="214"/>
         <source>Remove all closed pages permanently?</source>
         <translation>Véglegesen törlöd az összes bezárt oldalt?</translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="184"/>
+        <source>Can&apos;t close latest opened page.
+Add a new one first.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="197"/>
+        <source>Can&apos;t remove latest opened page.
+Add a new one first.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

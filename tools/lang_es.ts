@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<!DOCTYPE TS><TS version="2.0" language="es_ES" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -757,12 +756,12 @@ Desea enviar un mensaje de error al autor
         <translation>Anverso</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="543"/>
+        <location filename="DetailsTabWidget.py" line="544"/>
         <source>Reverse</source>
         <translation>Reverso</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="552"/>
+        <location filename="DetailsTabWidget.py" line="554"/>
         <source>Edge</source>
         <translation>Canto</translation>
     </message>
@@ -777,7 +776,7 @@ Desea enviar un mensaje de error al autor
         <translation type="obsolete">Editar</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="635"/>
+        <location filename="DetailsTabWidget.py" line="637"/>
         <source>Commission</source>
         <translation>Comisión</translation>
     </message>
@@ -1976,22 +1975,22 @@ Created new one</source>
         <translation>Introduzca título de la nueva lista</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="192"/>
+        <location filename="TabView.py" line="204"/>
         <source>Remove page</source>
         <translation>Eliminar página</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="192"/>
+        <location filename="TabView.py" line="204"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
         <translation>¿Eliminar la página &apos;%s&apos; permanentemente?</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="202"/>
+        <location filename="TabView.py" line="214"/>
         <source>Remove pages</source>
         <translation>Eliminar páginas</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="202"/>
+        <location filename="TabView.py" line="214"/>
         <source>Remove all closed pages permanently?</source>
         <translation>¿Eliminar todas las páginas cerradas permanentemente?</translation>
     </message>
@@ -1999,6 +1998,18 @@ Created new one</source>
         <location filename="TabView.py" line="71"/>
         <source>Select columns...</source>
         <translation>Seleccionar columnas...</translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="184"/>
+        <source>Can&apos;t close latest opened page.
+Add a new one first.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="197"/>
+        <source>Can&apos;t remove latest opened page.
+Add a new one first.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

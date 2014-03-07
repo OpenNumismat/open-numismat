@@ -1075,12 +1075,12 @@ Do you want to send an error message to the author
         <translation>Аверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="543"/>
+        <location filename="DetailsTabWidget.py" line="544"/>
         <source>Reverse</source>
         <translation>Реверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="552"/>
+        <location filename="DetailsTabWidget.py" line="554"/>
         <source>Edge</source>
         <translation>Гурт</translation>
     </message>
@@ -1095,7 +1095,7 @@ Do you want to send an error message to the author
         <translation type="obsolete">Редактирование</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="635"/>
+        <location filename="DetailsTabWidget.py" line="637"/>
         <source>Commission</source>
         <translation>Комиссия</translation>
     </message>
@@ -2393,22 +2393,22 @@ Created new one</source>
         <translation>Введите новое имя для списка</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="192"/>
+        <location filename="TabView.py" line="204"/>
         <source>Remove page</source>
         <translation>Удалить страницу</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="192"/>
+        <location filename="TabView.py" line="204"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
         <translation>Удалить страницу &apos;%s&apos; навсегда?</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="202"/>
+        <location filename="TabView.py" line="214"/>
         <source>Remove pages</source>
         <translation>Удалить страницы</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="202"/>
+        <location filename="TabView.py" line="214"/>
         <source>Remove all closed pages permanently?</source>
         <translation>Удалить все закрытые страницы навсегда?</translation>
     </message>
@@ -2426,6 +2426,20 @@ Created new one</source>
         <location filename="TabView.py" line="71"/>
         <source>Select columns...</source>
         <translation>Выбрать столбцы...</translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="184"/>
+        <source>Can&apos;t close latest opened page.
+Add a new one first.</source>
+        <translation>Нельзя закрыть последнюю вкладку.
+Добавьте новую сперва.</translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="197"/>
+        <source>Can&apos;t remove latest opened page.
+Add a new one first.</source>
+        <translation>Нельзя удалить последнюю вкладку.
+Добавьте новую сперва.</translation>
     </message>
 </context>
 <context>
