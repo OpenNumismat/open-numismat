@@ -41,7 +41,8 @@ Main features:
 - Does not require additional software to work with a database
 - Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013,
   Collection Studio and Numizmatik_Ru (additional software may be required)
-- Support languages: English, Russian, Ukranian, Spanish, Hungarian, Portuguese
+- Support languages: English, Russian, Ukranian, Spanish, Hungarian,
+  Portuguese, German, Greek
 - Cross-platform: Windows, Linux, MacOS X
 
 .. image:: http://wiki.open-numismat.googlecode.com/git/images/screenMain.png
@@ -131,6 +132,8 @@ params = {
             "Natural Language :: Ukranian",
             "Natural Language :: Hungarian",
             "Natural Language :: Portuguese",
+            "Natural Language :: German",
+            "Natural Language :: Greek",
             "Intended Audience :: End Users/Desktop",
             "Operating System :: OS Independent",
             "Operating System :: POSIX :: Linux",
@@ -187,7 +190,7 @@ if cx_Freeze_available:
                             targetName=version.AppName + executable_ext)
 
     translation_files = []
-    for translation in ['ru', 'uk', 'es', 'hu', 'pt']:
+    for translation in ['ru', 'uk', 'es', 'hu', 'pt', 'de', 'el']:
         translation_files.append(("OpenNumismat/lang_%s.qm" % translation,
                                   "lang_%s.qm" % translation))
         translation_files.append(("OpenNumismat/qt_%s.qm" % translation,

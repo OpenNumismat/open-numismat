@@ -17,7 +17,7 @@ for dirname, dirnames, filenames in os.walk('../OpenNumismat'):
         if fileExtension == '.py':
             srcFiles.append(os.path.join(dirname, filename))
 
-for locale in ['ru', 'uk', 'es', 'hu', 'pt', 'el']:
+for locale in ['ru', 'uk', 'es', 'hu', 'pt', 'el', 'de']:
     outputfile = 'lang_%s.ts' % locale
     os.system(' '.join([lupdatePath, ' '.join(srcFiles), '-ts', outputfile]))
     os.system(' '.join([linguistPath, outputfile]))
