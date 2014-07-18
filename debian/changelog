@@ -1,4 +1,8 @@
-open-numismat (1.4.7) oneiric; urgency=low
+open-numismat (1.4.8) oneiric; urgency=low
+
+  * Greek, German.
+
+ -- Vitaly Ignatov <ignatov.vit@gmail.com>  Fri, 18 Jule 2014 22:41:51 -0800
 
   * Portuguese.
 
