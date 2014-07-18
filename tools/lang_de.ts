@@ -900,9 +900,9 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message numerus="yes">
         <location filename="ListView.py" line="394"/>
         <source>%n coin(s) selected</source>
-        <translation>
-            <numerusform>%n Münze(n) ausgewählt</numerusform>
-            <numerusform></numerusform>
+        <translation type="unfinished">
+            <numerusform>%n Münze ausgewählt</numerusform>
+            <numerusform>%n Münzen ausgewählt</numerusform>
         </translation>
     </message>
     <message>
@@ -958,9 +958,9 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message numerus="yes">
         <location filename="ListView.py" line="689"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation>
-            <numerusform>%n Münze(n) löschen. Sind Sie sicher?</numerusform>
-            <numerusform></numerusform>
+        <translation type="unfinished">
+            <numerusform>%n Münze löschen. Sind Sie sicher?</numerusform>
+            <numerusform>%n Münzen löschen. Sind Sie sicher?</numerusform>
         </translation>
     </message>
     <message>

@@ -935,17 +935,17 @@ Do you want to send an error message to the author
     <message numerus="yes">
         <location filename="ListView.py" line="394"/>
         <source>%n coin(s) selected</source>
-        <translation>
+        <translation type="unfinished">
             <numerusform>%n νομίσματα επιλεγμένα</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n νομίσματα επιλεγμένα</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="ListView.py" line="689"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation>
+        <translation type="unfinished">
             <numerusform>Είστε βέβαιος για την κατάργηση των %n νομισμάτων;</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Είστε βέβαιος για την κατάργηση των %n νομισμάτων;</numerusform>
         </translation>
     </message>
     <message>
