@@ -91,7 +91,7 @@
     <message>
         <location filename="Collection.py" line="661"/>
         <source>Edit...</source>
-        <translation>Bearbeiten ...</translation>
+        <translation>Bearbeiten...</translation>
     </message>
     <message>
         <location filename="Collection.py" line="675"/>
@@ -432,7 +432,7 @@
     <message>
         <location filename="Collection.py" line="408"/>
         <source>Filter is too complex. Will be ignored</source>
-        <translation>Filter ist zu komplex.Bleibt unbeachtet</translation>
+        <translation>Filter ist zu komplex. Wird ignoriert</translation>
     </message>
 </context>
 <context>
@@ -642,7 +642,9 @@
         <source>A system error occurred.
 Do you want to send an error message to the author
 (Google account required)?</source>
-        <translation>Es ist ein Systemfehler aufgetreten. Wollen Sie einen Fehlerbericht an den Autor senden (Google-Account erforderlich)?</translation>
+        <translation>Es ist ein Systemfehler aufgetreten.
+Wollen Sie einen Fehlerbericht an den Autor senden
+(Google-Account erforderlich)?</translation>
     </message>
 </context>
 <context>
@@ -780,7 +782,8 @@ Do you want to send an error message to the author
         <location filename="ImageLabel.py" line="191"/>
         <source>No image available
 (right-click to add an image)</source>
-        <translation>Kein Bild vorhanden (Rechtsklicken zum Einfügen)</translation>
+        <translation>Kein Bild vorhanden
+(Rechtsklicken zum Einfügen)</translation>
     </message>
 </context>
 <context>

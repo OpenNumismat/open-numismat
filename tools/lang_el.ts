@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="el_GR">
+<!DOCTYPE TS><TS version="2.0" language="el_GR" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -651,12 +650,12 @@ Do you want to send an error message to the author
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="259"/>
+        <location filename="Settings.py" line="260"/>
         <source>Revert to default</source>
         <translation>Επαναφορά προεπιλογών</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="267"/>
+        <location filename="Settings.py" line="268"/>
         <source>Global enabled fields:</source>
         <translation>Καθολικά ενεργοποιημένα πεδία:</translation>
     </message>
@@ -1003,52 +1002,52 @@ Do you want to send an error message to the author
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="165"/>
+        <location filename="Settings.py" line="166"/>
         <source>Send error info to author</source>
         <translation>Αποστολή πληροφοριών σφάλματος στο δημιουργό</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="200"/>
+        <location filename="Settings.py" line="201"/>
         <source>Default template</source>
         <translation>Προεπιλεγμένο πρότυπο</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="185"/>
+        <location filename="Settings.py" line="186"/>
         <source>Store column sorting</source>
         <translation>Αποθήκευση ταξινόμησης στήλης</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="212"/>
+        <location filename="Settings.py" line="213"/>
         <source>Select reference</source>
         <translation>Επιλέξτε αναφορά</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="134"/>
+        <location filename="Settings.py" line="135"/>
         <source>Language</source>
         <translation>Γλώσσα / Language</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="170"/>
+        <location filename="Settings.py" line="171"/>
         <source>Automatically check for updates</source>
         <translation>Αυτόματος έλεγχος για ενημερώσεις</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="177"/>
+        <location filename="Settings.py" line="178"/>
         <source>Max image side len</source>
         <translation>Μέγ. μήκος πλευράς εικόνας</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="163"/>
+        <location filename="Settings.py" line="164"/>
         <source>Reference</source>
         <translation>Αναφορά</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="180"/>
+        <location filename="Settings.py" line="181"/>
         <source>Free format numeric fields</source>
         <translation>Ελεύθερη μορφή αριθμητικών πεδίων</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="205"/>
+        <location filename="Settings.py" line="206"/>
         <source>Backup folder</source>
         <translation>Φάκελος αντιγρ. ασφαλείας</translation>
     </message>
@@ -1720,17 +1719,17 @@ Created new one</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="Settings.py" line="305"/>
+        <location filename="Settings.py" line="306"/>
         <source>Main</source>
         <translation>Κύριες</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="306"/>
+        <location filename="Settings.py" line="307"/>
         <source>Fields</source>
         <translation>Πεδία</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="302"/>
+        <location filename="Settings.py" line="303"/>
         <source>Settings</source>
         <translation>Ρυθμίσεις</translation>
     </message>
