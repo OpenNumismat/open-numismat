@@ -107,317 +107,317 @@
 <context>
     <name>CollectionFieldsBase</name>
     <message>
-        <location filename="CollectionFields.py" line="118"/>
+        <location filename="CollectionFields.py" line="119"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="120"/>
+        <location filename="CollectionFields.py" line="121"/>
         <source>Name</source>
         <translation>Név</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="121"/>
+        <location filename="CollectionFields.py" line="122"/>
         <source>Value</source>
         <translation>Érték</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="122"/>
+        <location filename="CollectionFields.py" line="123"/>
         <source>Unit</source>
         <translation>Egység</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="123"/>
+        <location filename="CollectionFields.py" line="124"/>
         <source>Country</source>
         <translation>Ország</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="124"/>
+        <location filename="CollectionFields.py" line="125"/>
         <source>Year</source>
         <translation>Év</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="125"/>
+        <location filename="CollectionFields.py" line="126"/>
         <source>Period</source>
         <translation>Koszak</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="126"/>
+        <location filename="CollectionFields.py" line="127"/>
         <source>Mint</source>
         <translation>Pénzverde</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="127"/>
+        <location filename="CollectionFields.py" line="128"/>
         <source>Mint mark</source>
         <translation>Pénzverde védjegy</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="128"/>
+        <location filename="CollectionFields.py" line="129"/>
         <source>Date of issue</source>
         <translation>Kiadás éve</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="140"/>
+        <location filename="CollectionFields.py" line="141"/>
         <source>Type</source>
         <translation>Típus</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="130"/>
+        <location filename="CollectionFields.py" line="131"/>
         <source>Series</source>
         <translation>Sorozat</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="180"/>
+        <location filename="CollectionFields.py" line="181"/>
         <source>Subject</source>
         <translation>Tárgy</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="132"/>
+        <location filename="CollectionFields.py" line="133"/>
         <source>Status</source>
         <translation>Státusz</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="133"/>
+        <location filename="CollectionFields.py" line="134"/>
         <source>Material</source>
         <translation>Anyag</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="134"/>
+        <location filename="CollectionFields.py" line="135"/>
         <source>Fineness</source>
         <translation>Finomság</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="135"/>
+        <location filename="CollectionFields.py" line="136"/>
         <source>Shape</source>
         <translation>Forma</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="136"/>
+        <location filename="CollectionFields.py" line="137"/>
         <source>Diameter</source>
         <translation>Átmérő</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="137"/>
+        <location filename="CollectionFields.py" line="138"/>
         <source>Thickness</source>
         <translation>Vastagság</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="138"/>
+        <location filename="CollectionFields.py" line="139"/>
         <source>Weight</source>
         <translation>Súly</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="139"/>
+        <location filename="CollectionFields.py" line="140"/>
         <source>Grade</source>
         <translation>Tartásfok</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="141"/>
+        <location filename="CollectionFields.py" line="142"/>
         <source>Label</source>
         <translation>Címke</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="142"/>
+        <location filename="CollectionFields.py" line="143"/>
         <source>ObvRev</source>
         <translation>ElőHát</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="143"/>
+        <location filename="CollectionFields.py" line="144"/>
         <source>Quality</source>
         <translation>Minőség</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="144"/>
+        <location filename="CollectionFields.py" line="145"/>
         <source>Mintage</source>
         <translation>Pénzverde</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="145"/>
+        <location filename="CollectionFields.py" line="146"/>
         <source>Emission period</source>
         <translation>Kibocsátási időszak</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="146"/>
+        <location filename="CollectionFields.py" line="147"/>
         <source>1#</source>
         <translation>1#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="147"/>
+        <location filename="CollectionFields.py" line="148"/>
         <source>2#</source>
         <translation>2#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="148"/>
+        <location filename="CollectionFields.py" line="149"/>
         <source>3#</source>
         <translation>3#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="149"/>
+        <location filename="CollectionFields.py" line="150"/>
         <source>4#</source>
         <translation>4#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="150"/>
+        <location filename="CollectionFields.py" line="151"/>
         <source>Rarity</source>
         <translation>Ritkaság</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="151"/>
+        <location filename="CollectionFields.py" line="152"/>
         <source>Fine</source>
         <translation>Szép</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="152"/>
+        <location filename="CollectionFields.py" line="153"/>
         <source>VF</source>
         <translation>VF</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="153"/>
+        <location filename="CollectionFields.py" line="154"/>
         <source>XF</source>
         <translation>XF</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="154"/>
+        <location filename="CollectionFields.py" line="155"/>
         <source>Unc</source>
         <translation>Unc</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="155"/>
+        <location filename="CollectionFields.py" line="156"/>
         <source>Variety</source>
         <translation>Különlegesség</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="173"/>
+        <location filename="CollectionFields.py" line="174"/>
         <source>Obverse</source>
         <translation>Előlap</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="176"/>
+        <location filename="CollectionFields.py" line="177"/>
         <source>Reverse</source>
         <translation>Hátlap</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="179"/>
+        <location filename="CollectionFields.py" line="180"/>
         <source>Edge</source>
         <translation>Él</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="165"/>
+        <location filename="CollectionFields.py" line="166"/>
         <source>Date</source>
         <translation>Dátum</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="166"/>
+        <location filename="CollectionFields.py" line="167"/>
         <source>Price</source>
         <translation>Ár</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="161"/>
+        <location filename="CollectionFields.py" line="162"/>
         <source>Paid</source>
         <translation>Fizetett</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="162"/>
+        <location filename="CollectionFields.py" line="163"/>
         <source>Saller</source>
         <translation>Eladó</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="169"/>
+        <location filename="CollectionFields.py" line="170"/>
         <source>Place</source>
         <translation>Hely</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="170"/>
+        <location filename="CollectionFields.py" line="171"/>
         <source>Info</source>
         <translation>Infó</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="167"/>
+        <location filename="CollectionFields.py" line="168"/>
         <source>Bailed</source>
         <translation>Segítség</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="168"/>
+        <location filename="CollectionFields.py" line="169"/>
         <source>Buyer</source>
         <translation>Vevő</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="171"/>
+        <location filename="CollectionFields.py" line="172"/>
         <source>Note</source>
         <translation>Megjegyzés</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="172"/>
+        <location filename="CollectionFields.py" line="173"/>
         <source>Image</source>
         <translation>Kép</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="177"/>
+        <location filename="CollectionFields.py" line="178"/>
         <source>Design</source>
         <translation>Kialakítás</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="178"/>
+        <location filename="CollectionFields.py" line="179"/>
         <source>Designer</source>
         <translation>Tervező</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="181"/>
+        <location filename="CollectionFields.py" line="182"/>
         <source>Photo 1</source>
         <translation>Kép 1</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="182"/>
+        <location filename="CollectionFields.py" line="183"/>
         <source>Photo 2</source>
         <translation>Kép 2</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="183"/>
+        <location filename="CollectionFields.py" line="184"/>
         <source>Photo 3</source>
         <translation>Kép 3</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="184"/>
+        <location filename="CollectionFields.py" line="185"/>
         <source>Photo 4</source>
         <translation>Kép 4</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="185"/>
+        <location filename="CollectionFields.py" line="186"/>
         <source>Defect</source>
         <translation>Hiányosság</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="186"/>
+        <location filename="CollectionFields.py" line="187"/>
         <source>Storage</source>
         <translation>Tárolás</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="187"/>
+        <location filename="CollectionFields.py" line="188"/>
         <source>Features</source>
         <translation>Jellemzők</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="188"/>
+        <location filename="CollectionFields.py" line="189"/>
         <source>Created at</source>
         <translation>Létrehozva</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="189"/>
+        <location filename="CollectionFields.py" line="190"/>
         <source>Updated at</source>
         <translation>Frissítve</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="190"/>
+        <location filename="CollectionFields.py" line="191"/>
         <source>Quantity</source>
         <translation>Mennyiség</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="191"/>
+        <location filename="CollectionFields.py" line="192"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="192"/>
+        <location filename="CollectionFields.py" line="193"/>
         <source>Barcode</source>
         <translation>Vonalkód</translation>
     </message>
@@ -650,12 +650,12 @@ El szeretnéd küldeni a hibát a fejlesztőnek
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="259"/>
+        <location filename="Settings.py" line="260"/>
         <source>Revert to default</source>
         <translation>Alapértelmezett visszaállítása</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="267"/>
+        <location filename="Settings.py" line="268"/>
         <source>Global enabled fields:</source>
         <translation>Globálisan engedélyezett mezők:</translation>
     </message>
@@ -1023,52 +1023,52 @@ El szeretnéd küldeni a hibát a fejlesztőnek
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="134"/>
+        <location filename="Settings.py" line="135"/>
         <source>Language</source>
         <translation>Nyelv</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="205"/>
+        <location filename="Settings.py" line="206"/>
         <source>Backup folder</source>
         <translation>Mentési mappa</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="163"/>
+        <location filename="Settings.py" line="164"/>
         <source>Reference</source>
         <translation>Referancia</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="165"/>
+        <location filename="Settings.py" line="166"/>
         <source>Send error info to author</source>
         <translation>Hiba elküldése a készítőnek</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="170"/>
+        <location filename="Settings.py" line="171"/>
         <source>Automatically check for updates</source>
         <translation>Automatikus frissítések keresése</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="177"/>
+        <location filename="Settings.py" line="178"/>
         <source>Max image side len</source>
         <translation>Max képek száma</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="180"/>
+        <location filename="Settings.py" line="181"/>
         <source>Free format numeric fields</source>
         <translation>Szabad formátumú numerikus mezők</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="200"/>
+        <location filename="Settings.py" line="201"/>
         <source>Default template</source>
         <translation>Alapértelmezett sablon</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="212"/>
+        <location filename="Settings.py" line="213"/>
         <source>Select reference</source>
         <translation>Referencia kiválasztása</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="185"/>
+        <location filename="Settings.py" line="186"/>
         <source>Store column sorting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1761,17 +1761,17 @@ Created new one</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="Settings.py" line="302"/>
+        <location filename="Settings.py" line="303"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="305"/>
+        <location filename="Settings.py" line="306"/>
         <source>Main</source>
         <translation>Saját</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="306"/>
+        <location filename="Settings.py" line="307"/>
         <source>Fields</source>
         <translation>Mezők</translation>
     </message>
@@ -1807,6 +1807,11 @@ Created new one</source>
         <location filename="CollectionFields.py" line="63"/>
         <source>Wish</source>
         <translation>Megszerzendő</translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="63"/>
+        <source>Ordered</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
