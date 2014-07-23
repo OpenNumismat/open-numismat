@@ -5,12 +5,12 @@
     <message>
         <location filename="ReferenceDialog.py" line="320"/>
         <source>Reference</source>
-        <translation>Auswahl</translation>
+        <translation>Auswahlliste</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="367"/>
         <source>Save reference</source>
-        <translation>Auswahl speichern</translation>
+        <translation>Auswahlliste speichern</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="354"/>
@@ -484,7 +484,7 @@
     <message>
         <location filename="DetailsTabWidget.py" line="412"/>
         <source>Traffic</source>
-        <translation>Verkehr</translation>
+        <translation>Handel</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="270"/>
@@ -865,7 +865,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="ListView.py" line="277"/>
         <source>%d/%d coins</source>
-        <translation>%d/ %d Münzen</translation>
+        <translation>%d/%d Münzen</translation>
     </message>
     <message>
         <location filename="ListView.py" line="355"/>
@@ -933,7 +933,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="ListView.py" line="456"/>
         <source>Saving list</source>
-        <translation>Speichere Liste</translation>
+        <translation>Speichere Katalog</translation>
     </message>
     <message>
         <location filename="ListView.py" line="695"/>
@@ -1172,12 +1172,12 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="MainWindow.py" line="181"/>
         <source>List</source>
-        <translation>Liste</translation>
+        <translation>Katalog</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="193"/>
         <source>Reference</source>
-        <translation>Auswahl</translation>
+        <translation>Auswahlliste</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="195"/>
@@ -1187,7 +1187,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="MainWindow.py" line="200"/>
         <source>Save current list...</source>
-        <translation>Aktuelle Liste speichern...</translation>
+        <translation>Aktuellen Katalog speichern...</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="205"/>
@@ -1519,12 +1519,12 @@ Copyright (C) 2011-2014 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="288"/>
         <source>C</source>
-        <translation>C</translation>
+        <translation>L</translation>
     </message>
     <message>
         <location filename="Reference.py" line="289"/>
         <source>Type</source>
-        <translation>Tap</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="Reference.py" line="289"/>
@@ -1579,7 +1579,7 @@ Copyright (C) 2011-2014 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="295"/>
         <source>E</source>
-        <translation>E</translation>
+        <translation>R</translation>
     </message>
     <message>
         <location filename="Reference.py" line="296"/>
@@ -1589,7 +1589,7 @@ Copyright (C) 2011-2014 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="296"/>
         <source>U</source>
-        <translation>U</translation>
+        <translation>E</translation>
     </message>
     <message>
         <location filename="Reference.py" line="297"/>
@@ -1629,7 +1629,7 @@ Copyright (C) 2011-2014 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="301"/>
         <source>Defect</source>
-        <translation>Fehler</translation>
+        <translation>Defekt</translation>
     </message>
     <message>
         <location filename="Reference.py" line="301"/>
@@ -1670,7 +1670,7 @@ Created new one</source>
     <message>
         <location filename="ReferenceDialog.py" line="248"/>
         <source>Reference</source>
-        <translation>Auswahllisten</translation>
+        <translation>Auswahlliste</translation>
     </message>
 </context>
 <context>
@@ -1818,22 +1818,22 @@ Created new one</source>
     <message>
         <location filename="TabView.py" line="160"/>
         <source>New list</source>
-        <translation>Neue Liste</translation>
+        <translation>Neuer Katalog</translation>
     </message>
     <message>
         <location filename="TabView.py" line="160"/>
         <source>Enter list title</source>
-        <translation>Listenüberschrift eingeben</translation>
+        <translation>Katalognamen eingeben</translation>
     </message>
     <message>
         <location filename="TabView.py" line="169"/>
         <source>Rename list</source>
-        <translation>Liste umbenennen</translation>
+        <translation>Katalog umbenennen</translation>
     </message>
     <message>
         <location filename="TabView.py" line="169"/>
         <source>Enter new list title</source>
-        <translation>Neue Listenüberschrift eingeben</translation>
+        <translation>Neuen Katalognamen eingeben</translation>
     </message>
     <message>
         <location filename="TabView.py" line="204"/>
