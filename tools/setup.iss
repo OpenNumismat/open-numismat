@@ -17,8 +17,8 @@ Name: ru; MessagesFile: "compiler:Languages\Russian.isl"; InfoBeforeFile: licens
 Name: uk; MessagesFile: "compiler:Languages\Ukrainian.isl"; InfoBeforeFile: license_uk.txt
 Name: es; MessagesFile: "compiler:Languages\Spanish.isl"; InfoBeforeFile: license_es.txt
 Name: hu; MessagesFile: "compiler:Languages\Hungarian.isl"; InfoBeforeFile: license_en.txt
-Name: pt; MessagesFile: "compiler:Languages\Portuguese.isl"; InfoBeforeFile: license_en.txt
-Name: de; MessagesFile: "compiler:Languages\German.isl"; InfoBeforeFile: license_en.txt
+Name: pt; MessagesFile: "compiler:Languages\Portuguese.isl"; InfoBeforeFile: license_pt.txt
+Name: de; MessagesFile: "compiler:Languages\German.isl"; InfoBeforeFile: license_de.txt
 Name: el; MessagesFile: "compiler:Languages\Greek.isl"; InfoBeforeFile: license_en.txt
 
 [CustomMessages]
