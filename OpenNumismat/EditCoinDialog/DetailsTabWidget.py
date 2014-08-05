@@ -390,12 +390,15 @@ class DetailsTabWidget(QtGui.QTabWidget):
             pageParts.append(pay)
         elif index == 3:
             pay = self.payLayout()
-            sale = self.saleLayout()
-            pageParts.extend([pay, self.Stretch, sale])
+            pageParts.append(pay)
         elif index == 4:
             pay = self.payLayout()
-            pageParts.append(pay)
+            sale = self.saleLayout()
+            pageParts.extend([pay, self.Stretch, sale])
         elif index == 5:
+            pay = self.payLayout()
+            pageParts.append(pay)
+        elif index == 6:
             pass
 
         self.oldTrafficIndex = index
@@ -603,14 +606,18 @@ class FormDetailsTabWidget(DetailsTabWidget):
             self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
-            self.items['saleprice'].widget().textChanged.disconnect(self.saleCommissionChanged)
-            self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
-            self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
         elif self.oldTrafficIndex == 4:
             self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+            self.items['saleprice'].widget().textChanged.disconnect(self.saleCommissionChanged)
+            self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
+            self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
         elif self.oldTrafficIndex == 5:
+            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
+            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
+            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+        elif self.oldTrafficIndex == 6:
             pass
 
         pageParts = super(FormDetailsTabWidget, self)._createTrafficParts(index)
