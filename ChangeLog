@@ -1,5 +1,10 @@
 ChangeLog
 ---------
+1.4.8 - 2014-08-06:
+    * Added German translations (by Detlev Vogel)
+    * Added Greek translations (by geogeo)
+    * Added new status for coins - Ordered
+
 1.4.7 - 2014-03-07:
     * Added Portuguese translations (by Pedro Albuquerque)
     * Fixed few bugs reported by users
