@@ -1,19 +1,19 @@
 def stringToMoney(string):
-    valueBegan = False
+    value_began = False
     money = ''
     for c in string:
         if c in '0123456789':
             money = money + c
-            valueBegan = True
+            value_began = True
         elif c in '.,':
-            money = money + '.'
+            money += '.'
         elif c in ' \t\n\r':
             continue
         else:
-            if valueBegan:
+            if value_began:
                 break
 
-    if money == '.':
+    if money == '.' or not money:
         return 0
 
     return float(money)
