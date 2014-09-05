@@ -433,9 +433,13 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return self.payComission
 
     def payPriceChanged(self, text):
-        price = textToFloat(self.items['payprice'].value())
-        totalPrice = textToFloat(self.items['totalpayprice'].value())
-        self.payComission.widget().setText(floatToText(totalPrice - price))
+        totalPriceValue = self.items['totalpayprice'].value()
+        if totalPriceValue:
+            price = textToFloat(self.items['payprice'].value())
+            totalPrice = textToFloat(totalPriceValue)
+            self.payComission.widget().setText(floatToText(totalPrice - price))
+        else:
+            self.payComission.widget().setText('')
 
     def addSaleCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
@@ -447,9 +451,13 @@ class DetailsTabWidget(QtGui.QTabWidget):
         return self.saleComission
 
     def salePriceChanged(self, text):
-        price = textToFloat(self.items['saleprice'].value())
-        totalPrice = textToFloat(self.items['totalsaleprice'].value())
-        self.saleComission.widget().setText(floatToText(price - totalPrice))
+        totalPriceValue = self.items['totalsaleprice'].value()
+        if totalPriceValue:
+            price = textToFloat(self.items['saleprice'].value())
+            totalPrice = textToFloat(totalPriceValue)
+            self.saleComission.widget().setText(floatToText(price - totalPrice))
+        else:
+            self.saleComission.widget().setText('')
 
 
 class FormDetailsTabWidget(DetailsTabWidget):
