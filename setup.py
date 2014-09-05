@@ -42,7 +42,7 @@ Main features:
 - Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013,
   Collection Studio and Numizmatik_Ru (additional software may be required)
 - Support languages: English, Russian, Ukranian, Spanish, Hungarian,
-  Portuguese, German, Greek
+  Portuguese, German, Greek, Czech
 - Cross-platform: Windows, Linux, MacOS X
 
 .. image:: http://wiki.open-numismat.googlecode.com/git/images/screenMain.png
@@ -134,6 +134,7 @@ params = {
             "Natural Language :: Portuguese",
             "Natural Language :: German",
             "Natural Language :: Greek",
+            "Natural Language :: Czech",
             "Intended Audience :: End Users/Desktop",
             "Operating System :: OS Independent",
             "Operating System :: POSIX :: Linux",
