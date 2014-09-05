@@ -517,7 +517,7 @@
         <translation>Κοπή</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="438"/>
+        <location filename="DetailsTabWidget.py" line="441"/>
         <source>Commission</source>
         <translation>Προμήθεια</translation>
     </message>
@@ -552,7 +552,7 @@
         <translation>Κατάλογος</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="412"/>
+        <location filename="DetailsTabWidget.py" line="415"/>
         <source>Traffic</source>
         <translation>Κυκλοφορία</translation>
     </message>
@@ -696,42 +696,42 @@ Do you want to send an error message to the author
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="554"/>
+        <location filename="DetailsTabWidget.py" line="557"/>
         <source>Edge</source>
         <translation>Περιφέρεια</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="637"/>
+        <location filename="DetailsTabWidget.py" line="644"/>
         <source>Commission</source>
         <translation>Προμήθεια</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="475"/>
+        <location filename="DetailsTabWidget.py" line="478"/>
         <source>Design</source>
         <translation>Σχέδιο</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="479"/>
+        <location filename="DetailsTabWidget.py" line="482"/>
         <source>Images</source>
         <translation>Εικόνες</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="534"/>
+        <location filename="DetailsTabWidget.py" line="537"/>
         <source>Obverse</source>
         <translation>Εμπρόσθια όψη</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="544"/>
+        <location filename="DetailsTabWidget.py" line="547"/>
         <source>Reverse</source>
         <translation>Οπίσθια όψη</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="517"/>
+        <location filename="DetailsTabWidget.py" line="520"/>
         <source>Generate</source>
         <translation>Δημιουργία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="514"/>
+        <location filename="DetailsTabWidget.py" line="517"/>
         <source>Main details</source>
         <translation>Κύρια στοιχεία</translation>
     </message>

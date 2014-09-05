@@ -482,7 +482,7 @@
         <translation>Érme</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="412"/>
+        <location filename="DetailsTabWidget.py" line="415"/>
         <source>Traffic</source>
         <translation>Forgalom</translation>
     </message>
@@ -562,7 +562,7 @@
         <translation>Variáció</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="438"/>
+        <location filename="DetailsTabWidget.py" line="441"/>
         <source>Commission</source>
         <translation>Bizottság</translation>
     </message>
@@ -696,42 +696,42 @@ El szeretnéd küldeni a hibát a fejlesztőnek
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="475"/>
+        <location filename="DetailsTabWidget.py" line="478"/>
         <source>Design</source>
         <translation>Kialakítás</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="479"/>
+        <location filename="DetailsTabWidget.py" line="482"/>
         <source>Images</source>
         <translation>Képek</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="514"/>
+        <location filename="DetailsTabWidget.py" line="517"/>
         <source>Main details</source>
         <translation>Főbb adatok</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="517"/>
+        <location filename="DetailsTabWidget.py" line="520"/>
         <source>Generate</source>
         <translation>Generálás</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="534"/>
+        <location filename="DetailsTabWidget.py" line="537"/>
         <source>Obverse</source>
         <translation>Előlap</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="544"/>
+        <location filename="DetailsTabWidget.py" line="547"/>
         <source>Reverse</source>
         <translation>Hátlap</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="554"/>
+        <location filename="DetailsTabWidget.py" line="557"/>
         <source>Edge</source>
         <translation>Él</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="637"/>
+        <location filename="DetailsTabWidget.py" line="644"/>
         <source>Commission</source>
         <translation>Bizottság</translation>
     </message>

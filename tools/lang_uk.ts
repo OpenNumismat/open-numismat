@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="uk_UA">
+<!DOCTYPE TS><TS version="2.0" language="uk_UA" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -483,7 +482,7 @@
         <translation>Монета</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="412"/>
+        <location filename="DetailsTabWidget.py" line="415"/>
         <source>Traffic</source>
         <translation>Ринок</translation>
     </message>
@@ -558,7 +557,7 @@
         <translation>Різновид</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="438"/>
+        <location filename="DetailsTabWidget.py" line="441"/>
         <source>Commission</source>
         <translation>Комісія</translation>
     </message>
@@ -697,42 +696,42 @@ Do you want to send an error message to the author
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="475"/>
+        <location filename="DetailsTabWidget.py" line="478"/>
         <source>Design</source>
         <translation>Дизайн</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="479"/>
+        <location filename="DetailsTabWidget.py" line="482"/>
         <source>Images</source>
         <translation>Зображення</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="514"/>
+        <location filename="DetailsTabWidget.py" line="517"/>
         <source>Main details</source>
         <translation>Основне</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="517"/>
+        <location filename="DetailsTabWidget.py" line="520"/>
         <source>Generate</source>
         <translation>Генерувати</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="534"/>
+        <location filename="DetailsTabWidget.py" line="537"/>
         <source>Obverse</source>
         <translation>Аверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="544"/>
+        <location filename="DetailsTabWidget.py" line="547"/>
         <source>Reverse</source>
         <translation>Реверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="554"/>
+        <location filename="DetailsTabWidget.py" line="557"/>
         <source>Edge</source>
         <translation>Гурт</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="637"/>
+        <location filename="DetailsTabWidget.py" line="644"/>
         <source>Commission</source>
         <translation>Комісія</translation>
     </message>
