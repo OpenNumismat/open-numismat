@@ -20,6 +20,7 @@ Name: hu; MessagesFile: "compiler:Languages\Hungarian.isl"; InfoBeforeFile: lice
 Name: pt; MessagesFile: "compiler:Languages\Portuguese.isl"; InfoBeforeFile: license_pt.txt
 Name: de; MessagesFile: "compiler:Languages\German.isl"; InfoBeforeFile: license_de.txt
 Name: el; MessagesFile: "compiler:Languages\Greek.isl"; InfoBeforeFile: license_en.txt
+Name: cs; MessagesFile: "compiler:Languages\Czech.isl"; InfoBeforeFile: license_en.txt
 
 [CustomMessages]
 en.sendReport=Send a reports to author's web-site if any error occured
@@ -30,6 +31,7 @@ hu.sendReport=Hiba elkuldese a keszitonek
 pt.sendReport=Enviar relatorios para o autor do web-site se algum erro ocorreu
 de.sendReport=Send a reports to author's web-site if any error occured
 el.sendReport=Send a reports to author's web-site if any error occured
+cs.sendReport=Send a reports to author's web-site if any error occured
 
 [Files]
 Source: "..\build\exe.win32-3.2\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
@@ -41,6 +43,7 @@ Source: "..\build\exe.win32-3.2\db\demo_hu.db"; DestDir: "{userdocs}\OpenNumisma
 Source: "..\build\exe.win32-3.2\db\demo_pt.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: pt; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.2\db\demo_de.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: de; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.2\db\demo_el.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: el; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.2\db\demo_cs.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: cs; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.2\db\reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en; Flags: confirmoverwrite
 Source: "..\build\exe.win32-3.2\db\reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru; Flags: confirmoverwrite
 Source: "..\build\exe.win32-3.2\db\reference_uk.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: uk; Flags: confirmoverwrite
@@ -49,6 +52,7 @@ Source: "..\build\exe.win32-3.2\db\reference_hu.ref"; DestDir: "{userdocs}\OpenN
 Source: "..\build\exe.win32-3.2\db\reference_pt.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: pt; Flags: confirmoverwrite
 Source: "..\build\exe.win32-3.2\db\reference_de.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: de; Flags: confirmoverwrite
 Source: "..\build\exe.win32-3.2\db\reference_el.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: el; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.2\db\reference_cs.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: cs; Flags: confirmoverwrite
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat\backup"
