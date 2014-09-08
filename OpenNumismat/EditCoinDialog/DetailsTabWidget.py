@@ -425,7 +425,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
     def addPayCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
-        self.payComission = FormItem(None, title, Type.Money)
+        self.payComission = FormItem(None, title, Type.Money | Type.Disabled)
 
         self.items['payprice'].widget().textChanged.connect(self.payPriceChanged)
         self.items['totalpayprice'].widget().textChanged.connect(self.payPriceChanged)
@@ -443,7 +443,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
     def addSaleCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
-        self.saleComission = FormItem(None, title, Type.Money)
+        self.saleComission = FormItem(None, title, Type.Money | Type.Disabled)
 
         self.items['saleprice'].widget().textChanged.connect(self.salePriceChanged)
         self.items['totalsaleprice'].widget().textChanged.connect(self.salePriceChanged)
