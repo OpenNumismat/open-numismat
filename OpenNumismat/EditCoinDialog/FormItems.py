@@ -28,7 +28,7 @@ class DoubleValidator(QtGui.QDoubleValidator):
             if c.isdigit():
                 if decPointFound and self.decimals() > 0:
                     if decDigitCnt < self.decimals():
-                        decDigitCnt = decDigitCnt + 1
+                        decDigitCnt += 1
                     else:
                         return QtGui.QValidator.Invalid, input_, pos
 
@@ -39,7 +39,7 @@ class DoubleValidator(QtGui.QDoubleValidator):
                     if decPointFound:
                         return QtGui.QValidator.Invalid, input_, pos
                     else:
-                        value = value + '.'
+                        value += '.'
                         decPointFound = True
                 elif c == ts or (ts == chr(0xA0) and c == ' '):
                     if not lastWasDigit or decPointFound:
@@ -116,9 +116,9 @@ class UrlLineEdit(QtGui.QWidget):
 
     def clickedButtonOpen(self):
         file = QtGui.QFileDialog.getOpenFileName(self,
-                                                self.tr("Select file"),
-                                                self.text(),
-                                                "*.*")
+                                                 self.tr("Select file"),
+                                                 self.text(),
+                                                 "*.*")
         if file:
             self.setText(file)
 
@@ -214,7 +214,7 @@ class LineEditRef(QtGui.QWidget):
                     text = dependent.text()
                     reference = dependent.reference
                     reference.model.setFilter(
-                                    'parentid=%d' % model.data(parentIndex))
+                        'parentid=%d' % model.data(parentIndex))
                     reference.parentIndex = parentIndex
                     dependent.setText(text)
         else:
@@ -353,7 +353,7 @@ class BigIntEdit(_DoubleEdit):
         self.setMaxLength(15 + 4)  # additional 4 symbol for thousands separator
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum,
-                        QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+                                             QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
 
 
 class ValueEdit(_DoubleEdit):
@@ -362,7 +362,7 @@ class ValueEdit(_DoubleEdit):
         self.setMaxLength(17)
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum,
-                        QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+                                             QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -374,7 +374,7 @@ class MoneyEdit(_DoubleEdit):
         self.setMaxLength(16)
         self.setMinimumWidth(100)
         self.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum,
-                        QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
+                                             QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
