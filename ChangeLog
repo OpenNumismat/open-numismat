@@ -3,6 +3,7 @@ ChangeLog
 1.4.9 - 2014-09-05:
     * Added Czech translations (by fri)
     * Fixed debian package for Ubuntu 14.04
+    * Fixed commission field processing
 
 1.4.8 - 2014-08-06:
     * Added German translations (by Detlev Vogel)
