@@ -152,7 +152,7 @@ class DetailsTabWidget(QtGui.QTabWidget):
 
         fields = self.model.fields
         for field in fields:
-            if field not in fields.systemFileds:
+            if field not in fields.systemFields:
                 self.addItem(field)
 
     def fillItems(self, record):
