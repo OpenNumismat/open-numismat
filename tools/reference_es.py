@@ -3,7 +3,7 @@
 
 import shutil
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui
 
 def convertImage(fileName):
     ba = QtCore.QByteArray()

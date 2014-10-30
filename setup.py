@@ -76,7 +76,7 @@ from OpenNumismat import version
 
 # This modules can't be easy installed
 # Syntax: [(module, url of the tutorial)...]
-NEEDED_MODULES = [("PyQt4",
+NEEDED_MODULES = [("PyQt5",
         "http://www.riverbankcomputing.co.uk/software/pyqt/intro"), ]
 if sys.platform == 'win32':
     NEEDED_MODULES.append(('win32com',
@@ -172,14 +172,14 @@ params = {
 }
 
 if cx_Freeze_available:
-    import PyQt4
+    import PyQt5
 
     base = None
     if sys.platform == "win32":
         base = "Win32GUI"
 
     if sys.platform == "win32":
-        qt_dir = PyQt4.__path__[0]
+        qt_dir = PyQt5.__path__[0]
         executable_ext = '.exe'
     else:
         # Path to Qt on MacPorts
@@ -219,7 +219,7 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/liblcms.1.dylib", "liblcms.1.dylib"))
     build_exe_options = {
             "excludes": ["unittest"],
-            "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt4.QtNetwork"],
+            "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork"],
             "include_files": include_files,
             "replace_paths": [(os.path.dirname(__file__) + os.sep, '')]
     }

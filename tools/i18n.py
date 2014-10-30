@@ -2,9 +2,9 @@
 
 import os
 import shutil
-import PyQt4
+import PyQt5
 
-pyqtPath = PyQt4.__path__[0]
+pyqtPath = PyQt5.__path__[0]
 translationsPath = os.path.join(pyqtPath, "translations")
 lupdatePath = os.path.join(pyqtPath, 'pylupdate4.exe')
 linguistPath = os.path.join(pyqtPath, 'linguist.exe')

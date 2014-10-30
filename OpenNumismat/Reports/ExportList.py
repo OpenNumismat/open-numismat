@@ -6,9 +6,9 @@ import sys
 exportToExcelAvailable = True
 
 try:
-    import xlwt3 as xlwt
+    import xlwt
 except ImportError:
-    print('xlwt3 module missed. Exporting to Excel not available')
+    print('xlwt module missed. Exporting to Excel not available')
 exportToExcelAvailable = False
 
 
