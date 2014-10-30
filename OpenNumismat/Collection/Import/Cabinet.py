@@ -1,20 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import csv
-import datetime
 import sys
 
-available = True
+from PyQt5 import QtGui
 
-try:
-    import pyodbc
-except ImportError:
-    print('pyodbc module missed. Importing from Cabinet not available')
-    available = False
-
-from PyQt5 import QtCore, QtGui
-
-from OpenNumismat.Collection.Import import _Import, _DatabaseServerError
+from OpenNumismat.Collection.Import import _Import
 
 
 class ImportCabinet(_Import):
@@ -88,7 +79,7 @@ class ImportCabinet(_Import):
 
     @staticmethod
     def isAvailable():
-        return available
+        return True
 
     def _connect(self, src):
         csv.field_size_limit(sys.maxsize)
