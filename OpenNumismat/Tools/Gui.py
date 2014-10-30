@@ -1,15 +1,17 @@
 import os
 
-from PyQt4 import QtCore, QtGui
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QProgressDialog
 
 import OpenNumismat
 
 
-class ProgressDialog(QtGui.QProgressDialog):
+class ProgressDialog(QProgressDialog):
     def __init__(self, labelText, cancelButtonText, maximum, parent=None):
         super(ProgressDialog, self).__init__(labelText, cancelButtonText, 0,
-                            maximum, parent, QtCore.Qt.WindowSystemMenuHint)
-        self.setWindowModality(QtCore.Qt.WindowModal)
+                            maximum, parent, Qt.WindowSystemMenuHint)
+        self.setWindowModality(Qt.WindowModal)
         self.setMinimumDuration(250)
 
     def step(self):
@@ -25,6 +27,6 @@ class ProgressDialog(QtGui.QProgressDialog):
 def createIcon(fileTitle=None):
     if fileTitle:
         fileName = os.path.join(OpenNumismat.PRJ_PATH, "icons", fileTitle)
-        return QtGui.QIcon(fileName)
+        return QIcon(fileName)
     else:
-        return QtGui.QIcon()
+        return QIcon()

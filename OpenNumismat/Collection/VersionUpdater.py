@@ -1,6 +1,6 @@
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtGui import QApplication
-from PyQt4.QtSql import QSqlQuery
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtSql import QSqlQuery
 
 from OpenNumismat.Tools import Gui
 
@@ -16,7 +16,7 @@ class Updater(QtCore.QObject):
         if self.currentVersion < self.collection.settings.Default['Version']:
             return True
         elif self.currentVersion > self.collection.settings.Default['Version']:
-            QtGui.QMessageBox.warning(self.parent(),
+            QMessageBox.warning(self.parent(),
                     self.tr("Checking collection version"),
                     self.tr("Collection %s a newer version.\n" \
                             "Please update OpenNumismat") % self.collection.fileName)

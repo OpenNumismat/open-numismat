@@ -1,6 +1,7 @@
-from PyQt4 import QtCore, QtGui
-from PyQt4 import QtSql
-from PyQt4.QtCore import Qt
+from PyQt5 import QtCore
+from PyQt5 import QtSql
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import *
 
 from OpenNumismat.ListView import ListView
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
@@ -12,23 +13,23 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import DetailsTabWidget
 
 
-class ImageView(QtGui.QWidget):
+class ImageView(QWidget):
     def __init__(self, parent=None):
         super(ImageView, self).__init__(parent)
 
         self.currentIndex = None
 
-        layout = QtGui.QVBoxLayout(self)
+        layout = QVBoxLayout(self)
 
-        self.imageLayout = QtGui.QVBoxLayout()
+        self.imageLayout = QVBoxLayout()
         self.imageLayout.setContentsMargins(QtCore.QMargins())
         layout.addWidget(self.__layoutToWidget(self.imageLayout))
 
-        self.buttonLayout = QtGui.QHBoxLayout()
+        self.buttonLayout = QHBoxLayout()
         self.buttonLayout.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
         widget = self.__layoutToWidget(self.buttonLayout)
-        widget.setSizePolicy(QtGui.QSizePolicy.Preferred,
-                             QtGui.QSizePolicy.Fixed)
+        widget.setSizePolicy(QSizePolicy.Preferred,
+                             QSizePolicy.Fixed)
         layout.addWidget(widget)
 
         self.setLayout(layout)
@@ -46,7 +47,7 @@ class ImageView(QtGui.QWidget):
 
         self.imageButtons = []
         for field in self.imageFields:
-            button = QtGui.QCheckBox(self)
+            button = QCheckBox(self)
             button.setToolTip(field.title)
             button.setDisabled(True)
             button.stateChanged.connect(self.buttonClicked)
@@ -98,12 +99,12 @@ class ImageView(QtGui.QWidget):
             self.imageLayout.addWidget(image)
 
     def __layoutToWidget(self, layout):
-        widget = QtGui.QWidget(self)
+        widget = QWidget(self)
         widget.setLayout(layout)
         return widget
 
 
-class TreeView(QtGui.QTreeWidget):
+class TreeView(QTreeWidget):
     FiltersRole = Qt.UserRole
     FieldsRole = FiltersRole + 1
     ParamRole = FieldsRole + 1
@@ -131,7 +132,7 @@ class TreeView(QtGui.QTreeWidget):
         self.model = model
 
         self.treeParam.rootTitle = model.title
-        rootItem = QtGui.QTreeWidgetItem(self, [model.title, ])
+        rootItem = QTreeWidgetItem(self, [model.title, ])
         rootItem.setData(0, self.ParamRole, 0)
         rootItem.setData(0, self.FiltersRole, '')
 
@@ -182,7 +183,7 @@ class TreeView(QtGui.QTreeWidget):
                 if filters:
                     newFilters = filters + ' AND ' + newFilters
 
-                child = QtGui.QTreeWidgetItem([text, ])
+                child = QTreeWidgetItem([text, ])
                 child.setData(0, self.ParamRole, paramIndex)
                 child.setData(0, self.FiltersRole, newFilters)
                 child.setData(0, self.FieldsRole, fields)
@@ -232,7 +233,7 @@ class TreeView(QtGui.QTreeWidget):
                 self.scrollToIndex(index, subItem)
                 break
 
-    def scrollToItem(self, item, hint=QtGui.QTreeWidget.EnsureVisible):
+    def scrollToItem(self, item, hint=QTreeWidget.EnsureVisible):
         super(TreeView, self).scrollToItem(item, hint)
 
         parentItem = item.parent()
@@ -257,7 +258,7 @@ class TreeView(QtGui.QTreeWidget):
         self.changingEnabled = True
 
     def contextMenuEvent(self, pos):
-        menu = QtGui.QMenu(self)
+        menu = QMenu(self)
         act = menu.addAction(self.tr("Add new coin..."), self._addCoin)
         if not (self.model.rowCount() and self.selectedItems()):
             act.setDisabled(True)
@@ -270,7 +271,7 @@ class TreeView(QtGui.QTreeWidget):
 
     def _customizeTree(self):
         dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
-        if dialog.exec_() == QtGui.QDialog.Accepted:
+        if dialog.exec_() == QDialog.Accepted:
             self.treeParam.save()
             self.modelChanged()
 
@@ -317,7 +318,7 @@ class TreeView(QtGui.QTreeWidget):
         # TODO: Make identical with ListView._multiEdit
         dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
         result = dialog.exec_()
-        if result == QtGui.QDialog.Accepted:
+        if result == QDialog.Accepted:
             progressDlg = Gui.ProgressDialog(self.tr("Updating records"),
                                 self.tr("Cancel"), self.model.rowCount(), self)
 
@@ -341,13 +342,13 @@ class TreeView(QtGui.QTreeWidget):
         self.model.setFilter(storedFilter)
 
 
-class DetailsView(QtGui.QWidget):
+class DetailsView(QWidget):
     def __init__(self, parent=None):
         super(DetailsView, self).__init__(parent)
 
         self.resize(0, 120)
 
-        self.layout = QtGui.QVBoxLayout(self)
+        self.layout = QVBoxLayout(self)
         self.setLayout(self.layout)
 
     def setModel(self, model):
@@ -364,7 +365,7 @@ class DetailsView(QtGui.QWidget):
             self.widget.clear()
 
 
-class Splitter(QtGui.QSplitter):
+class Splitter(QSplitter):
     def __init__(self, title, orientation=Qt.Horizontal, parent=None):
         super(Splitter, self).__init__(orientation, parent)
 

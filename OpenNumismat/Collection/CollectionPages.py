@@ -1,5 +1,5 @@
-from PyQt4 import QtCore
-from PyQt4.QtSql import QSqlQuery
+from PyQt5 import QtCore
+from PyQt5.QtSql import QSqlQuery
 
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.ListPageParam import ListPageParam

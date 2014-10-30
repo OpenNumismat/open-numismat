@@ -5,7 +5,9 @@ import shutil
 import sys
 import traceback
 
-from PyQt4 import QtGui, QtCore
+from PyQt5.QtCore import QCoreApplication, QTranslator, QUrl, PYQT_VERSION_STR
+from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtGui import QDesktopServices 
 
 import OpenNumismat
 from OpenNumismat.Settings import Settings
@@ -21,10 +23,10 @@ def main():
         # Work around system locale not specified (under Linux or Mac OS)
         pass
 
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
 
-    QtCore.QCoreApplication.setOrganizationName(version.Company)
-    QtCore.QCoreApplication.setApplicationName(version.AppName)
+    QCoreApplication.setOrganizationName(version.Company)
+    QCoreApplication.setApplicationName(version.AppName)
 
     settings = Settings()
     if settings['error']:
@@ -62,11 +64,11 @@ def main():
 
     lang = settings['locale']
 
-    translator = QtCore.QTranslator()
+    translator = QTranslator()
     translator.load('lang_' + lang, OpenNumismat.PRJ_PATH)
     app.installTranslator(translator)
 
-    translatorQt = QtCore.QTranslator()
+    translatorQt = QTranslator()
     translatorQt.load('qt_' + lang, OpenNumismat.PRJ_PATH)
     app.installTranslator(translatorQt)
 
@@ -84,15 +86,15 @@ def main():
 def exceptHook(type_, value, tback):
     stack = ''.join(traceback.format_exception(type_, value, tback))
 
-    title = QtGui.QApplication.translate("ExcpHook", "System error")
-    text = QtGui.QApplication.translate("ExcpHook",
+    title = QApplication.translate("ExcpHook", "System error")
+    text = QApplication.translate("ExcpHook",
                         "A system error occurred.\n"
                         "Do you want to send an error message to the author\n"
                         "(Google account required)?")
-    msgBox = QtGui.QMessageBox(QtGui.QMessageBox.Information, title, text)
+    msgBox = QMessageBox(QMessageBox.Information, title, text)
     msgBox.setDetailedText(stack)
-    msgBox.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-    if msgBox.exec_() == QtGui.QMessageBox.Yes:
+    msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+    if msgBox.exec_() == QMessageBox.Yes:
         line = traceback.extract_tb(tback, 1)[0]
         subject = "[v%s] %s - %s:%d" % (version.Version, type_.__name__,
                                         line[0], line[1])
@@ -104,15 +106,15 @@ def exceptHook(type_, value, tback):
                                                    platform.architecture()[0],
                                                    platform.version()))
         errorMessage.append("Python: %s" % platform.python_version())
-        errorMessage.append("Qt: %s" % QtCore.PYQT_VERSION_STR)
+        errorMessage.append("Qt: %s" % PYQT_VERSION_STR)
         errorMessage.append('')
         errorMessage.append(stack)
 
-        url = QtCore.QUrl(version.Web + 'issues/entry')
+        url = QUrl(version.Web + 'issues/entry')
         url.setQueryItems([('summary', subject),
                            ('comment', '\n'.join(errorMessage))])
 
-        executor = QtGui.QDesktopServices()
+        executor = QDesktopServices()
         executor.openUrl(url)
 
     # Call the default handler

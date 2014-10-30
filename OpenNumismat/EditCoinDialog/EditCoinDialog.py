@@ -1,5 +1,6 @@
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import Qt
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.Auctions import getParser
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
@@ -9,11 +10,11 @@ from OpenNumismat.Tools.Converters import stringToMoney
 
 
 @storeDlgSizeDecorator
-class EditCoinDialog(QtGui.QDialog):
+class EditCoinDialog(QDialog):
     def __init__(self, model, record, parent=None, usedFields=None):
         super(EditCoinDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
 
-        self.clickedButton = QtGui.QDialogButtonBox.Abort
+        self.clickedButton = QDialogButtonBox.Abort
 
         self.usedFields = usedFields
         self.record = record
@@ -27,22 +28,22 @@ class EditCoinDialog(QtGui.QDialog):
                                                         self.textChangedTitle)
         self.tab.fillItems(record)
 
-        self.buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        self.buttonBox.addButton(QtGui.QDialogButtonBox.Save)
-        self.buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        self.buttonBox = QDialogButtonBox(Qt.Horizontal)
+        self.buttonBox.addButton(QDialogButtonBox.Save)
+        self.buttonBox.addButton(QDialogButtonBox.Cancel)
         self.buttonBox.accepted.connect(self.save)
         self.buttonBox.rejected.connect(self.reject)
         self.buttonBox.clicked.connect(self.clicked)
 
-        layout = QtGui.QVBoxLayout(self)
+        layout = QVBoxLayout(self)
         layout.addWidget(self.tab)
         layout.addWidget(self.buttonBox)
 
         self.setLayout(layout)
 
     def clicked(self, button):
-        buttons = [QtGui.QDialogButtonBox.Save, QtGui.QDialogButtonBox.SaveAll,
-                   QtGui.QDialogButtonBox.Cancel, QtGui.QDialogButtonBox.Abort]
+        buttons = [QDialogButtonBox.Save, QDialogButtonBox.SaveAll,
+                   QDialogButtonBox.Cancel, QDialogButtonBox.Abort]
         for btn in buttons:
             if self.buttonBox.button(btn) == button:
                 self.clickedButton = btn
@@ -50,8 +51,8 @@ class EditCoinDialog(QtGui.QDialog):
     # Enable 'Save all' button
     def setManyCoins(self, many=True):
         if many:
-            self.buttonBox.addButton(QtGui.QDialogButtonBox.SaveAll)
-            self.buttonBox.addButton(QtGui.QDialogButtonBox.Abort)
+            self.buttonBox.addButton(QDialogButtonBox.SaveAll)
+            self.buttonBox.addButton(QDialogButtonBox.Abort)
 
     def textChangedTitle(self, text=''):
         if self.usedFields:
@@ -68,9 +69,9 @@ class EditCoinDialog(QtGui.QDialog):
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             self.reject()
-        elif event.matches(QtGui.QKeySequence.Paste):
+        elif event.matches(QKeySequence.Paste):
             if self.items['status'].widget().data() == 'pass':
-                mime = QtGui.QApplication.clipboard().mimeData()
+                mime = QApplication.clipboard().mimeData()
                 if not mime.hasText():
                     return
                 parser = getParser(mime.text(), self)
@@ -100,15 +101,15 @@ class EditCoinDialog(QtGui.QDialog):
                         self.items[imageFields[i]].widget().loadFromUrl(
                                                                     imageUrl)
                     else:
-                        QtGui.QMessageBox.information(self,
+                        QMessageBox.information(self,
                                     self.tr("Parse auction lot"),
                                     self.tr("Too many images"),
-                                    QtGui.QMessageBox.Ok)
+                                    QMessageBox.Ok)
                         break
 
                 self.tab.setCurrentIndex(1)
             elif self.items['status'].widget().data() == 'demo':
-                mime = QtGui.QApplication.clipboard().mimeData()
+                mime = QApplication.clipboard().mimeData()
                 if not mime.hasText():
                     return
                 if not CbrParser.verifyDomain(mime.text()):
@@ -163,11 +164,11 @@ class EditCoinDialog(QtGui.QDialog):
 
         if not self.usedFields:
             if not self.items['title'].value():
-                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
+                result = QMessageBox.warning(self, self.tr("Save"),
                             self.tr("Coin title not set. Save without title?"),
-                            QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
-                            QtGui.QMessageBox.No)
-                if result != QtGui.QMessageBox.Save:
+                            QMessageBox.Save | QMessageBox.No,
+                            QMessageBox.No)
+                if result != QMessageBox.Save:
                     return
 
         # Checking that TotalPrice not less than Price
@@ -176,42 +177,42 @@ class EditCoinDialog(QtGui.QDialog):
         if totalpayprice_str:
             totalpayprice = stringToMoney(totalpayprice_str)
             if totalpayprice < 0:
-                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
+                result = QMessageBox.warning(self, self.tr("Save"),
                                 self.tr("Total paid price is negative. Save?"),
-                                QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
-                                QtGui.QMessageBox.No)
-                if result != QtGui.QMessageBox.Save:
+                                QMessageBox.Save | QMessageBox.No,
+                                QMessageBox.No)
+                if result != QMessageBox.Save:
                     return
         if payprice_str and totalpayprice_str:
             payprice = stringToMoney(payprice_str)
             if totalpayprice < payprice:
-                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
+                result = QMessageBox.warning(self, self.tr("Save"),
                             self.tr("Pay price is great than total "
                                     "paid price. Save?"),
-                            QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
-                            QtGui.QMessageBox.No)
-                if result != QtGui.QMessageBox.Save:
+                            QMessageBox.Save | QMessageBox.No,
+                            QMessageBox.No)
+                if result != QMessageBox.Save:
                     return
         saleprice_str = self.items['saleprice'].value()
         totalsaleprice_str = self.items['totalsaleprice'].value()
         if totalsaleprice_str:
             totalsaleprice = stringToMoney(totalsaleprice_str)
             if totalsaleprice < 0:
-                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
+                result = QMessageBox.warning(self, self.tr("Save"),
                                 self.tr("Total bailed price is negative. Save?"),
-                                QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
-                                QtGui.QMessageBox.No)
-                if result != QtGui.QMessageBox.Save:
+                                QMessageBox.Save | QMessageBox.No,
+                                QMessageBox.No)
+                if result != QMessageBox.Save:
                     return
         if saleprice_str and totalsaleprice_str:
             saleprice = stringToMoney(saleprice_str)
             if saleprice < totalsaleprice:
-                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
+                result = QMessageBox.warning(self, self.tr("Save"),
                             self.tr("Sale price is less than total "
                                     "bailed price. Save?"),
-                            QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
-                            QtGui.QMessageBox.No)
-                if result != QtGui.QMessageBox.Save:
+                            QMessageBox.Save | QMessageBox.No,
+                            QMessageBox.No)
+                if result != QMessageBox.Save:
                     return
 
         for item in self.items.values():
@@ -222,11 +223,11 @@ class EditCoinDialog(QtGui.QDialog):
 
         if not self.usedFields:
             if self.model.isExist(self.record):
-                result = QtGui.QMessageBox.warning(self, self.tr("Save"),
+                result = QMessageBox.warning(self, self.tr("Save"),
                             self.tr("Similar coin already exists. Save?"),
-                            QtGui.QMessageBox.Save | QtGui.QMessageBox.No,
-                            QtGui.QMessageBox.No)
-                if result != QtGui.QMessageBox.Save:
+                            QMessageBox.Save | QMessageBox.No,
+                            QMessageBox.No)
+                if result != QMessageBox.Save:
                     return
 
         self.accept()

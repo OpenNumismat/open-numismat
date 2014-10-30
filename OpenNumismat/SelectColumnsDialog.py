@@ -1,12 +1,12 @@
-from PyQt4 import QtGui
-from PyQt4.QtCore import Qt
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.ListPageParam import ColumnListParam
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
 @storeDlgSizeDecorator
-class SelectColumnsDialog(QtGui.QDialog):
+class SelectColumnsDialog(QDialog):
     DataRole = 16
 
     def __init__(self, listParam, parent=None):
@@ -17,9 +17,9 @@ class SelectColumnsDialog(QtGui.QDialog):
 
         self.setWindowTitle(self.tr("Columns"))
 
-        self.listWidget = QtGui.QListWidget(self)
+        self.listWidget = QListWidget(self)
         # TODO: Disable resizing
-        self.listWidget.setDragDropMode(QtGui.QAbstractItemView.InternalMove)
+        self.listWidget.setDragDropMode(QAbstractItemView.InternalMove)
         self.listWidget.setDropIndicatorShown(True)
         self.listWidget.setWrapping(True)
 
@@ -29,7 +29,7 @@ class SelectColumnsDialog(QtGui.QDialog):
             field = allFields.field(param.fieldid)
             if field in allFields.disabledFields:
                 continue
-            item = QtGui.QListWidgetItem(field.title, self.listWidget)
+            item = QListWidgetItem(field.title, self.listWidget)
             item.setData(SelectColumnsDialog.DataRole, param)
             checked = Qt.Unchecked
             if param.enabled:
@@ -41,7 +41,7 @@ class SelectColumnsDialog(QtGui.QDialog):
 
         # Process missed columns
         for field in collectionFields:
-            item = QtGui.QListWidgetItem(field.title, self.listWidget)
+            item = QListWidgetItem(field.title, self.listWidget)
             item.setData(SelectColumnsDialog.DataRole,
                          ColumnListParam(field.id, False))
             item.setCheckState(Qt.Unchecked)
@@ -49,13 +49,13 @@ class SelectColumnsDialog(QtGui.QDialog):
 
         # TODO: Add buttons SelectAll, ClearAll, EnabledToTop
 
-        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.Ok)
+        buttonBox.addButton(QDialogButtonBox.Cancel)
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QtGui.QVBoxLayout(self)
+        layout = QVBoxLayout(self)
         layout.addWidget(self.listWidget)
         layout.addWidget(buttonBox)
 

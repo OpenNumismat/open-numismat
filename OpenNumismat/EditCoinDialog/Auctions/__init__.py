@@ -1,4 +1,5 @@
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import *
 
 import urllib.error
 import urllib.parse
@@ -43,15 +44,15 @@ class _AuctionParser(QtCore.QObject):
         try:
             return self._parse()
         except _NotDoneYetError:
-            QtGui.QMessageBox.warning(self.parent(),
+            QMessageBox.warning(self.parent(),
                             self.tr("Parse auction lot"),
                             self.tr("Auction not done yet"),
-                            QtGui.QMessageBox.Ok)
+                            QMessageBox.Ok)
         except _CanceledError:
-            QtGui.QMessageBox.warning(self.parent(),
+            QMessageBox.warning(self.parent(),
                             self.tr("Parse auction lot"),
                             self.tr("Auction canceled"),
-                            QtGui.QMessageBox.Ok)
+                            QMessageBox.Ok)
 
     def readHtmlPage(self, url, encoding='utf-8'):
         # TODO: Remove debug output

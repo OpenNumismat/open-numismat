@@ -1,8 +1,10 @@
 import locale
 
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import Qt, pyqtSignal
-from PyQt4.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QImage, QPainter, QColor
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import CollectionFields
@@ -63,12 +65,16 @@ class CollectionModel(QSqlTableModel):
                     date = QtCore.QDate.fromString(data, Qt.ISODate)
                     text = date.toString(Qt.SystemLocaleShortDate)
                 elif field.type == Type.Image or field.type == Type.EdgeImage:
-                    if not isinstance(data, QtCore.QPyNullVariant):
+# TODO: Check this after porting to PyQt5
+#                    if not isinstance(data, QtCore.QPyNullVariant):
+                    if data:
                         return self.getImage(data)
                     else:
                         return None
                 elif field.type == Type.PreviewImage:
-                    if not isinstance(data, QtCore.QPyNullVariant):
+# TODO: Check this after porting to PyQt5
+#                    if not isinstance(data, QtCore.QPyNullVariant):
+                    if data:
                         return self.getPreviewImage(data)
                     else:
                         return None
@@ -99,7 +105,7 @@ class CollectionModel(QSqlTableModel):
         record.setNull('id')  # remove ID value from record
         dialog = EditCoinDialog(self, record, parent)
         result = dialog.exec_()
-        if result == QtGui.QDialog.Accepted:
+        if result == QDialog.Accepted:
             self.appendRecord(record)
 
     def appendRecord(self, record):
@@ -267,8 +273,8 @@ class CollectionModel(QSqlTableModel):
         if self.proxy:
             self.proxy.setDynamicSortFilter(False)
 
-        obverseImage = QtGui.QImage()
-        reverseImage = QtGui.QImage()
+        obverseImage = QImage()
+        reverseImage = QImage()
         for field in self.fields.userFields:
             if field.type in [Type.Image, Type.EdgeImage]:
                 # Convert image to DB format
@@ -277,7 +283,7 @@ class CollectionModel(QSqlTableModel):
                     # Copying record as text (from Excel) store missed images
                     # as string
                     record.setNull(field.name)
-                elif isinstance(image, QtGui.QImage):
+                elif isinstance(image, QImage):
                     ba = QtCore.QByteArray()
                     buffer = QtCore.QBuffer(ba)
                     buffer.open(QtCore.QIODevice.WriteOnly)
@@ -306,7 +312,7 @@ class CollectionModel(QSqlTableModel):
             record.setNull('image')
         else:
             # Get height of list view for resizing images
-            tmp = QtGui.QTableView()
+            tmp = QTableView()
             height = int(tmp.verticalHeader().defaultSectionSize() * 1.5 - 1)
 
             if not record.isNull('obverseimg') and obverseImage.isNull():
@@ -320,11 +326,11 @@ class CollectionModel(QSqlTableModel):
                 reverseImage = reverseImage.scaledToHeight(height,
                                                     Qt.SmoothTransformation)
 
-            image = QtGui.QImage(obverseImage.width() + reverseImage.width(),
-                                 height, QtGui.QImage.Format_RGB32)
-            image.fill(QtGui.QColor(Qt.white).rgb())
+            image = QImage(obverseImage.width() + reverseImage.width(),
+                                 height, QImage.Format_RGB32)
+            image.fill(QColor(Qt.white).rgb())
 
-            paint = QtGui.QPainter(image)
+            paint = QPainter(image)
             if not record.isNull('obverseimg'):
                 paint.drawImage(QtCore.QRectF(0, 0, obverseImage.width(), height), obverseImage,
                                 QtCore.QRectF(0, 0, obverseImage.width(), height))
@@ -405,7 +411,7 @@ class CollectionModel(QSqlTableModel):
 
         # Checking for SQLITE_MAX_SQL_LENGTH (default value - 1 000 000)
         if len(combinedFilter) > 900000:
-            QtGui.QMessageBox.warning(self.parent(),
+            QMessageBox.warning(self.parent(),
                             self.tr("Filtering"),
                             self.tr("Filter is too complex. Will be ignored"))
             return
@@ -514,12 +520,12 @@ class Collection(QtCore.QObject):
             self.db.setDatabaseName(fileName)
             if not self.db.open() or not self.db.tables():
                 print(self.db.lastError().text())
-                QtGui.QMessageBox.critical(self.parent(),
+                QMessageBox.critical(self.parent(),
                                 self.tr("Open collection"),
                                 self.tr("Can't open collection %s") % fileName)
                 return False
         else:
-            QtGui.QMessageBox.critical(self.parent(),
+            QMessageBox.critical(self.parent(),
                                 self.tr("Open collection"),
                                 self.tr("Collection %s not exists") % fileName)
             return False
@@ -528,7 +534,7 @@ class Collection(QtCore.QObject):
 
         self.settings = CollectionSettings(self)
         if self.settings['Type'] != version.AppName:
-            QtGui.QMessageBox.critical(self.parent(),
+            QMessageBox.critical(self.parent(),
                     self.tr("Open collection"),
                     self.tr("Collection %s in wrong format %s") % (fileName, version.AppName))
             return False
@@ -536,7 +542,7 @@ class Collection(QtCore.QObject):
         if self.settings['Password'] != cryptPassword():
             dialog = PasswordDialog(self, self.parent())
             result = dialog.exec_()
-            if result == QtGui.QDialog.Rejected:
+            if result == QDialog.Rejected:
                 return False
 
         self.fields = CollectionFields(self.db)
@@ -551,7 +557,7 @@ class Collection(QtCore.QObject):
 
     def create(self, fileName):
         if QtCore.QFileInfo(fileName).exists():
-            QtGui.QMessageBox.critical(self.parent(),
+            QMessageBox.critical(self.parent(),
                                     self.tr("Create collection"),
                                     self.tr("Specified file already exists"))
             return False
@@ -559,7 +565,7 @@ class Collection(QtCore.QObject):
         self.db.setDatabaseName(fileName)
         if not self.db.open():
             print(self.db.lastError().text())
-            QtGui.QMessageBox.critical(self.parent(),
+            QMessageBox.critical(self.parent(),
                                        self.tr("Create collection"),
                                        self.tr("Can't open collection"))
             return False
@@ -655,10 +661,10 @@ class Collection(QtCore.QObject):
         dialog.exec_()
 
     def referenceMenu(self, parent=None):
-        createReferenceAct = QtGui.QAction(self.tr("Fill from collection"), parent)
+        createReferenceAct = QAction(self.tr("Fill from collection"), parent)
         createReferenceAct.triggered.connect(self.createReference)
 
-        editReferenceAct = QtGui.QAction(self.tr("Edit..."), parent)
+        editReferenceAct = QAction(self.tr("Edit..."), parent)
         editReferenceAct.triggered.connect(self.editReference)
 
         return [createReferenceAct, editReferenceAct]
@@ -672,7 +678,7 @@ class Collection(QtCore.QObject):
         backupFileName = backupDir.filePath("%s_%s.db" % (self.getCollectionName(), QtCore.QDateTime.currentDateTime().toString('yyMMddhhmm')))
         srcFile = QtCore.QFile(self.fileName)
         if not srcFile.copy(backupFileName):
-            QtGui.QMessageBox.critical(self.parent(),
+            QMessageBox.critical(self.parent(),
                             self.tr("Backup collection"),
                             self.tr("Can't make a collection backup at %s") %
                                                                 backupFileName)

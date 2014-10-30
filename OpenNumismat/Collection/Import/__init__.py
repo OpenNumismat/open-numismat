@@ -1,6 +1,7 @@
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QApplication
+from PyQt5 import QtCore
+from PyQt5.QtCore import Qt, QStandardPaths
+from PyQt5.QtGui import QCursor
+from PyQt5.QtWidgets import *
 
 
 class _InvalidDatabaseError(Exception):
@@ -18,12 +19,12 @@ class _Import(QtCore.QObject):
 
     @staticmethod
     def defaultDir():
-        return QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation)
+        return QStandardPaths.displayName(QStandardPaths.DocumentsLocation)
 
     def __init__(self, parent=None):
         super(_Import, self).__init__(parent)
 
-        self.progressDlg = QtGui.QProgressDialog(self.parent(), Qt.WindowSystemMenuHint)
+        self.progressDlg = QProgressDialog(self.parent(), Qt.WindowSystemMenuHint)
         self.progressDlg.setWindowModality(Qt.WindowModal)
         self.progressDlg.setMinimumDuration(250)
         self.progressDlg.setCancelButtonText(QApplication.translate('_Import', "Cancel"))
@@ -36,9 +37,9 @@ class _Import(QtCore.QObject):
                 return False
 
             if self._check(connection):
-                QtGui.QApplication.setOverrideCursor(QtGui.QCursor(Qt.WaitCursor))
+                QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
                 rows = self._getRows(connection)
-                QtGui.QApplication.restoreOverrideCursor();
+                QApplication.restoreOverrideCursor();
 
                 self.progressDlg.setMaximum(len(rows))
                 self.progressDlg.setLabelText(QApplication.translate('_Import', "Importing from %s") % src)
@@ -83,7 +84,7 @@ class _Import(QtCore.QObject):
         pass
 
     def __errorMessage(self, message, text):
-        msgBox = QtGui.QMessageBox(QtGui.QMessageBox.Critical, QApplication.translate('_Import', "Importing"),
+        msgBox = QMessageBox(QMessageBox.Critical, QApplication.translate('_Import', "Importing"),
                                    message,
                                    parent=self.parent())
         if text:

@@ -11,7 +11,7 @@ except ImportError:
     print('pyodbc module missed. Importing from Numizmatik_Ru not available')
     available = False
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui
 
 from OpenNumismat.Collection.Import import _Import, _DatabaseServerError
 

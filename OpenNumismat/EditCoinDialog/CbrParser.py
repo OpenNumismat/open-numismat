@@ -2,7 +2,7 @@
 
 import urllib.parse
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore
 
 from OpenNumismat.EditCoinDialog.Auctions import AuctionItem
 from OpenNumismat.EditCoinDialog.Auctions import _AuctionParser

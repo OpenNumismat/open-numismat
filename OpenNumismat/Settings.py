@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import Qt
+from PyQt5.QtCore import Qt, QLocale, QSettings, QMargins
+from PyQt5.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
@@ -68,7 +68,7 @@ class BaseSettings(dict):
 
 
 def _getLocale():
-    locale = QtCore.QLocale.system().name()
+    locale = QLocale.system().name()
     if '_' in locale:
         return locale.split('_')[0]
     else:
@@ -88,7 +88,7 @@ class Settings(BaseSettings):
     def __init__(self, autoSave=False):
         super(Settings, self).__init__(autoSave)
 
-        self.settings = QtCore.QSettings()
+        self.settings = QSettings()
 
     def keys(self):
         return self.Default.keys()
@@ -109,7 +109,7 @@ class Settings(BaseSettings):
         self.settings.setValue('mainwindow/' + key, val)
 
 
-class MainSettingsPage(QtGui.QWidget):
+class MainSettingsPage(QWidget):
     Languages = [("English", 'en'), ("Русский", 'ru'), ("Deutsch", 'de'),
                  ("Український", 'uk'), ("Español", 'es'), ("Magyar", 'hu'),
                  ("Português", 'pt'), ("Ελληνικά", 'el'), ("Čeština", 'cs')]
@@ -119,56 +119,56 @@ class MainSettingsPage(QtGui.QWidget):
 
         settings = Settings()
 
-        layout = QtGui.QFormLayout()
-        layout.setRowWrapPolicy(QtGui.QFormLayout.WrapLongRows)
+        layout = QFormLayout()
+        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
         current = 0
-        self.languageSelector = QtGui.QComboBox(self)
+        self.languageSelector = QComboBox(self)
         for i, lang in enumerate(self.Languages):
             self.languageSelector.addItem(lang[0], lang[1])
             if settings['locale'] == lang[1]:
                 current = i
         self.languageSelector.setCurrentIndex(current)
-        self.languageSelector.setSizePolicy(QtGui.QSizePolicy.Fixed,
-                                            QtGui.QSizePolicy.Fixed)
+        self.languageSelector.setSizePolicy(QSizePolicy.Fixed,
+                                            QSizePolicy.Fixed)
 
         layout.addRow(self.tr("Language"), self.languageSelector)
 
-        self.backupFolder = QtGui.QLineEdit(self)
+        self.backupFolder = QLineEdit(self)
         self.backupFolder.setMinimumWidth(120)
         self.backupFolder.setText(settings['backup'])
-        style = QtGui.QApplication.style()
-        icon = style.standardIcon(QtGui.QStyle.SP_DirOpenIcon)
-        self.backupFolderButton = QtGui.QPushButton(icon, '', self)
+        style = QApplication.style()
+        icon = style.standardIcon(QStyle.SP_DirOpenIcon)
+        self.backupFolderButton = QPushButton(icon, '', self)
         self.backupFolderButton.clicked.connect(self.backupButtonClicked)
 
-        hLayout = QtGui.QHBoxLayout()
+        hLayout = QHBoxLayout()
         hLayout.addWidget(self.backupFolder)
         hLayout.addWidget(self.backupFolderButton)
-        hLayout.setContentsMargins(QtCore.QMargins())
+        hLayout.setContentsMargins(QMargins())
 
         layout.addRow(self.tr("Backup folder"), hLayout)
 
-        self.reference = QtGui.QLineEdit(self)
+        self.reference = QLineEdit(self)
         self.reference.setMinimumWidth(120)
         self.reference.setText(settings['reference'])
-        icon = style.standardIcon(QtGui.QStyle.SP_DialogOpenButton)
-        self.referenceButton = QtGui.QPushButton(icon, '', self)
+        icon = style.standardIcon(QStyle.SP_DialogOpenButton)
+        self.referenceButton = QPushButton(icon, '', self)
         self.referenceButton.clicked.connect(self.referenceButtonClicked)
 
-        hLayout = QtGui.QHBoxLayout()
+        hLayout = QHBoxLayout()
         hLayout.addWidget(self.reference)
         hLayout.addWidget(self.referenceButton)
-        hLayout.setContentsMargins(QtCore.QMargins())
+        hLayout.setContentsMargins(QMargins())
 
         layout.addRow(self.tr("Reference"), hLayout)
 
-        self.errorSending = QtGui.QCheckBox(
+        self.errorSending = QCheckBox(
                             self.tr("Send error info to author"), self)
         self.errorSending.setChecked(settings['error'])
         layout.addRow(self.errorSending)
 
-        self.checkUpdates = QtGui.QCheckBox(
+        self.checkUpdates = QCheckBox(
                             self.tr("Automatically check for updates"), self)
         self.checkUpdates.setChecked(settings['updates'])
         layout.addRow(self.checkUpdates)
@@ -178,39 +178,39 @@ class MainSettingsPage(QtGui.QWidget):
         layout.addRow(self.tr("Max image side len"), self.imageSideLen)
         self.imageSideLen.setText(str(settings['ImageSideLen']))
 
-        self.freeNumeric = QtGui.QCheckBox(
+        self.freeNumeric = QCheckBox(
                             self.tr("Free format numeric fields"), self)
         self.freeNumeric.setChecked(settings['free_numeric'])
         layout.addRow(self.freeNumeric)
 
-        self.storeSorting = QtGui.QCheckBox(
+        self.storeSorting = QCheckBox(
                             self.tr("Store column sorting"), self)
         self.storeSorting.setChecked(settings['store_sorting'])
         layout.addRow(self.storeSorting)
 
         current = 0
-        self.templateSelector = QtGui.QComboBox(self)
+        self.templateSelector = QComboBox(self)
         for i, template in enumerate(Report.scanTemplates()):
             self.templateSelector.addItem(template)
             if settings['template'] == template:
                 current = i
         self.templateSelector.setCurrentIndex(current)
-        self.templateSelector.setSizePolicy(QtGui.QSizePolicy.Fixed,
-                                            QtGui.QSizePolicy.Fixed)
+        self.templateSelector.setSizePolicy(QSizePolicy.Fixed,
+                                            QSizePolicy.Fixed)
 
         layout.addRow(self.tr("Default template"), self.templateSelector)
 
         self.setLayout(layout)
 
     def backupButtonClicked(self):
-        folder = QtGui.QFileDialog.getExistingDirectory(self,
+        folder = QFileDialog.getExistingDirectory(self,
                                                 self.tr("Backup folder"),
                                                 self.backupFolder.text())
         if folder:
             self.backupFolder.setText(folder)
 
     def referenceButtonClicked(self):
-        file = QtGui.QFileDialog.getOpenFileName(self,
+        file = QFileDialog.getOpenFileName(self,
                                                 self.tr("Select reference"),
                                                 self.reference.text(),
                                                 "*.ref")
@@ -234,20 +234,20 @@ class MainSettingsPage(QtGui.QWidget):
         settings.save()
 
 
-class FieldsSettingsPage(QtGui.QWidget):
+class FieldsSettingsPage(QWidget):
     DataRole = Qt.UserRole
 
     def __init__(self, collection, parent=None):
         super(FieldsSettingsPage, self).__init__(parent)
 
-        self.listWidget = QtGui.QListWidget(self)
+        self.listWidget = QListWidget(self)
         self.listWidget.setWrapping(True)
         self.listWidget.setMinimumWidth(330)
         self.listWidget.setMinimumHeight(180)
 
         self.fields = collection.fields
         for field in self.fields:
-            item = QtGui.QListWidgetItem(field.title, self.listWidget)
+            item = QListWidgetItem(field.title, self.listWidget)
             item.setData(self.DataRole, field)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
                           Qt.ItemIsEnabled)
@@ -257,15 +257,15 @@ class FieldsSettingsPage(QtGui.QWidget):
             item.setCheckState(checked)
             self.listWidget.addItem(item)
 
-        self.defaultFieldsButton = QtGui.QPushButton(
+        self.defaultFieldsButton = QPushButton(
                                             self.tr("Revert to default"), self)
         self.defaultFieldsButton.clicked.connect(
                                             self.defaultFieldsButtonClicked)
-        self.defaultFieldsButton.setSizePolicy(QtGui.QSizePolicy.Fixed,
-                                               QtGui.QSizePolicy.Fixed)
+        self.defaultFieldsButton.setSizePolicy(QSizePolicy.Fixed,
+                                               QSizePolicy.Fixed)
 
-        layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(QtGui.QLabel(self.tr("Global enabled fields:"), self))
+        layout = QVBoxLayout(self)
+        layout.addWidget(QLabel(self.tr("Global enabled fields:"), self))
         layout.addWidget(self.listWidget)
         layout.addWidget(self.defaultFieldsButton)
 
@@ -293,7 +293,7 @@ class FieldsSettingsPage(QtGui.QWidget):
 
 
 @storeDlgSizeDecorator
-class SettingsDialog(QtGui.QDialog):
+class SettingsDialog(QDialog):
     def __init__(self, collection, parent=None):
         super(SettingsDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
 
@@ -302,19 +302,19 @@ class SettingsDialog(QtGui.QDialog):
 
         self.setWindowTitle(self.tr("Settings"))
 
-        self.tab = QtGui.QTabWidget(self)
+        self.tab = QTabWidget(self)
         self.tab.addTab(mainPage, self.tr("Main"))
         index = self.tab.addTab(fieldsPage, self.tr("Fields"))
         if not collection.isOpen():
             self.tab.setTabEnabled(index, False)
 
-        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.Ok)
+        buttonBox.addButton(QDialogButtonBox.Cancel)
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QtGui.QVBoxLayout(self)
+        layout = QVBoxLayout(self)
         layout.addWidget(self.tab)
         layout.addWidget(buttonBox)
 

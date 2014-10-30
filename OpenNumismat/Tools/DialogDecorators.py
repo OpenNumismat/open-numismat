@@ -1,4 +1,4 @@
-from PyQt4 import QtCore
+from PyQt5 import QtCore
 
 
 def storeDlgSizeDecorator(original_class):

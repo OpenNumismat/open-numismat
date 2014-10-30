@@ -1,13 +1,12 @@
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QApplication
+from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QStandardPaths
+from PyQt5.QtWidgets import *
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
-class ListView(QtGui.QListView):
-    latestDir = QtGui.QDesktopServices.storageLocation(
-                                    QtGui.QDesktopServices.PicturesLocation)
+class ListView(QListView):
+    latestDir = QStandardPaths.displayName(
+                                    QStandardPaths.PicturesLocation)
 
     def __init__(self, parent=None):
         super(ListView, self).__init__(parent)
@@ -26,7 +25,7 @@ class ListView(QtGui.QListView):
         if len(text) == 0:
             valid = False
         elif text == self.defaultValue():
-            if hint == QtGui.QAbstractItemDelegate.RevertModelCache:
+            if hint == QAbstractItemDelegate.RevertModelCache:
                 valid = False
 
         if valid:
@@ -45,7 +44,7 @@ class ListView(QtGui.QListView):
         return None
 
     def contextMenuEvent(self, event):
-        menu = QtGui.QMenu(self)
+        menu = QMenu(self)
         menu.addAction(self.tr("Add"), self.addItem)
         act = menu.addAction(self.tr("Delete"), self.deleteItem)
         if not self.selectedIndex():
@@ -78,14 +77,14 @@ class ListView(QtGui.QListView):
     def _addIcon(self):
         filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
                           "All files (*.*)")
-        fileName = QtGui.QFileDialog.getOpenFileName(self,
+        fileName = QFileDialog.getOpenFileName(self,
                 self.tr("Open File"), self.latestDir,
                 filter_)
         if fileName:
-            file_info = QtCore.QFileInfo(fileName)
+            file_info = QFileInfo(fileName)
             self.latestDir = file_info.absolutePath()
 
-            image = QtGui.QImage()
+            image = QImage()
             if image.load(fileName):
                 maxWidth = 22
                 maxHeight = 15
@@ -95,9 +94,9 @@ class ListView(QtGui.QListView):
                 else:
                     scaledImage = image
 
-                ba = QtCore.QByteArray()
-                buffer = QtCore.QBuffer(ba)
-                buffer.open(QtCore.QIODevice.WriteOnly)
+                ba = QByteArray()
+                buffer = QBuffer(ba)
+                buffer.open(QIODevice.WriteOnly)
                 scaledImage.save(buffer, 'png')
 
                 model = self.model()
@@ -110,7 +109,7 @@ class ListView(QtGui.QListView):
         model.setData(index, '')
 
 
-class ReferenceWidget(QtGui.QWidget):
+class ReferenceWidget(QWidget):
     def __init__(self, section, text, parent=None):
         super(ReferenceWidget, self).__init__(parent)
 
@@ -118,7 +117,7 @@ class ReferenceWidget(QtGui.QWidget):
 
         self.listWidget = ListView(parent)
         self.listWidget.setSelectionMode(
-                                    QtGui.QAbstractItemView.SingleSelection)
+                                    QAbstractItemView.SingleSelection)
         self.listWidget.setModel(self.model)
         self.listWidget.setModelColumn(self.model.fieldIndex('value'))
 
@@ -129,30 +128,30 @@ class ReferenceWidget(QtGui.QWidget):
             self.listWidget.setCurrentIndex(indexes[0])
 
         # TODO: Customize edit buttons
-        self.editButtonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        self.addButton = QtGui.QPushButton(
+        self.editButtonBox = QDialogButtonBox(Qt.Horizontal)
+        self.addButton = QPushButton(
                             QApplication.translate('ReferenceWidget', "Add"))
         self.editButtonBox.addButton(self.addButton,
-                                QtGui.QDialogButtonBox.ActionRole)
-        self.delButton = QtGui.QPushButton(
+                                QDialogButtonBox.ActionRole)
+        self.delButton = QPushButton(
                             QApplication.translate('ReferenceWidget', "Del"))
         self.editButtonBox.addButton(self.delButton,
-                                QtGui.QDialogButtonBox.ActionRole)
+                                QDialogButtonBox.ActionRole)
         self.editButtonBox.clicked.connect(self.clicked)
 
-        self.sortButton = QtGui.QCheckBox(
+        self.sortButton = QCheckBox(
                             QApplication.translate('ReferenceWidget', "Sort"))
         self.sortButton.setChecked(section.sort)
         self.sortButton.stateChanged.connect(self.sortChanged)
 
-        hlayout = QtGui.QHBoxLayout(self)
+        hlayout = QHBoxLayout(self)
         hlayout.addWidget(self.sortButton)
         hlayout.addWidget(self.editButtonBox)
         hlayout.setContentsMargins(0, 0, 0, 0)
-        widget = QtGui.QWidget(self)
+        widget = QWidget(self)
         widget.setLayout(hlayout)
 
-        layout = QtGui.QVBoxLayout(self)
+        layout = QVBoxLayout(self)
         layout.addWidget(self.listWidget)
         layout.addWidget(widget)
         self.setLayout(layout)
@@ -180,7 +179,7 @@ class CrossReferenceWidget(ReferenceWidget):
 
         self.rel = self.model.relationModel(1)
 
-        self.comboBox = QtGui.QComboBox(parent)
+        self.comboBox = QComboBox(parent)
         self.comboBox.setModel(self.rel)
         self.comboBox.setModelColumn(self.rel.fieldIndex('value'))
         self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
@@ -218,7 +217,7 @@ class CrossReferenceWidget(ReferenceWidget):
         self.listWidget.edit(index)
 
 
-class ReferenceDialog(QtGui.QDialog):
+class ReferenceDialog(QDialog):
     def __init__(self, section, text='', parent=None):
         super(ReferenceDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
 
@@ -230,13 +229,13 @@ class ReferenceDialog(QtGui.QDialog):
 
         self.referenceWidget = self._referenceWidget(section, text)
 
-        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.Ok)
+        buttonBox.addButton(QDialogButtonBox.Cancel)
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QtGui.QVBoxLayout(self)
+        layout = QVBoxLayout(self)
         layout.addWidget(self.referenceWidget)
         layout.addWidget(buttonBox)
 
@@ -245,7 +244,7 @@ class ReferenceDialog(QtGui.QDialog):
         self.__selectedIndex = self.referenceWidget.selectedIndex()
 
     def setWindowTitle(self, title=None):
-        windowTitle = QtGui.QApplication.translate('ReferenceDialog',
+        windowTitle = QApplication.translate('ReferenceDialog',
                                                    "Reference")
         if title:
             windowTitle = ' - '.join([windowTitle, title])
@@ -309,7 +308,7 @@ def class_wraps(cls):
 
 
 @storeDlgSizeDecorator
-class AllReferenceDialog(QtGui.QDialog):
+class AllReferenceDialog(QDialog):
     def __init__(self, reference, parent=None):
         super(AllReferenceDialog, self).__init__(parent,
                                                  Qt.WindowSystemMenuHint)
@@ -321,7 +320,7 @@ class AllReferenceDialog(QtGui.QDialog):
 
         self.sections = reference.sections
 
-        tab = QtGui.QTabWidget(self)
+        tab = QTabWidget(self)
         self.widgets = {}
         for section in self.sections:
             if section.parentName:
@@ -334,13 +333,13 @@ class AllReferenceDialog(QtGui.QDialog):
             self.widgets[section.name] = widget
             tab.addTab(widget, section.title)
 
-        buttonBox = QtGui.QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Ok)
-        buttonBox.addButton(QtGui.QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.Ok)
+        buttonBox.addButton(QDialogButtonBox.Cancel)
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QtGui.QVBoxLayout(self)
+        layout = QVBoxLayout(self)
         layout.addWidget(tab)
         layout.addWidget(buttonBox)
 
@@ -351,7 +350,7 @@ class AllReferenceDialog(QtGui.QDialog):
             widget = self.widgets[section.name]
             section.saveSort(widget.sortButton.isChecked())
         if not self.db.commit():
-            QtGui.QMessageBox.critical(self.parent(),
+            QMessageBox.critical(self.parent(),
                             self.tr("Save reference"),
                             self.tr("Something went wrong when saving. Please restart"))
             self.db.rollback()
@@ -364,7 +363,7 @@ class AllReferenceDialog(QtGui.QDialog):
             section.model.select()
 
         if not self.db.rollback():
-            QtGui.QMessageBox.critical(self.parent(),
+            QMessageBox.critical(self.parent(),
                             self.tr("Save reference"),
                             self.tr("Something went wrong when canceling. Please restart"))
 

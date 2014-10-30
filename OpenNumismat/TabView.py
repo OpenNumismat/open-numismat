@@ -1,11 +1,13 @@
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import pyqtSignal, Qt
+from PyQt5 import QtCore
+from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import *
 
 from OpenNumismat.PageView import PageView
 from OpenNumismat.Tools.Gui import createIcon
 
 
-class TabBar(QtGui.QTabBar):
+class TabBar(QTabBar):
     doubleClicked = pyqtSignal(int)
 
     def __init__(self, parent):
@@ -18,7 +20,7 @@ class TabBar(QtGui.QTabBar):
         self.doubleClicked.emit(index)
 
 
-class TabView(QtGui.QTabWidget):
+class TabView(QTabWidget):
     def __init__(self, parent):
         super(TabView, self).__init__(parent)
 
@@ -48,36 +50,36 @@ class TabView(QtGui.QTabWidget):
     def __createActions(self):
         self.__actions = {}
 
-        newListAct = QtGui.QAction(self.tr("&New..."), self)
+        newListAct = QAction(self.tr("&New..."), self)
         newListAct.triggered.connect(self.newList)
         self.__actions['new'] = newListAct
 
-        cloneListAct = QtGui.QAction(self.tr("Clone"), self)
+        cloneListAct = QAction(self.tr("Clone"), self)
         cloneListAct.triggered.connect(self._clone)
         self.__actions['clone'] = cloneListAct
 
-        openPageMenu = QtGui.QMenu(self.tr("Open"), self)
+        openPageMenu = QMenu(self.tr("Open"), self)
         self.__actions['open'] = openPageMenu
 
-        removeAllAct = QtGui.QAction(createIcon('cross.png'),
+        removeAllAct = QAction(createIcon('cross.png'),
                                      self.tr("Remove all"), self)
         removeAllAct.triggered.connect(self.removeClosedPages)
         self.__actions['removeAll'] = removeAllAct
 
-        renameListAct = QtGui.QAction(self.tr("Rename..."), self)
+        renameListAct = QAction(self.tr("Rename..."), self)
         renameListAct.triggered.connect(self.renamePage)
         self.__actions['rename'] = renameListAct
 
-        selectColumnsAct = QtGui.QAction(self.tr("Select columns..."), self)
+        selectColumnsAct = QAction(self.tr("Select columns..."), self)
         selectColumnsAct.triggered.connect(self.selectColumns)
         self.__actions['select'] = selectColumnsAct
 
-        closeListAct = QtGui.QAction(self.tr("Close"), self)
-        closeListAct.setShortcut(QtGui.QKeySequence.Close)
+        closeListAct = QAction(self.tr("Close"), self)
+        closeListAct.setShortcut(QKeySequence.Close)
         closeListAct.triggered.connect(self.closePage)
         self.__actions['close'] = closeListAct
 
-        removeListAct = QtGui.QAction(createIcon('cross.png'),
+        removeListAct = QAction(createIcon('cross.png'),
                                       self.tr("Remove"), self)
         removeListAct.triggered.connect(self.removePage)
         self.__actions['remove'] = removeListAct
@@ -86,7 +88,7 @@ class TabView(QtGui.QTabWidget):
         index = self.tabBar().tabAt(pos)
         self.setCurrentIndex(index)
 
-        menu = QtGui.QMenu(self)
+        menu = QMenu(self)
         menu.addAction(self.__actions['rename'])
         menu.setDefaultAction(self.__actions['rename'])
         menu.addAction(self.__actions['clone'])
@@ -157,7 +159,7 @@ class TabView(QtGui.QTabWidget):
         return page.model()
 
     def newList(self):
-        label, ok = QtGui.QInputDialog.getText(self, self.tr("New list"),
+        label, ok = QInputDialog.getText(self, self.tr("New list"),
                 self.tr("Enter list title"), text=self.tr("New list"),
                 flags=Qt.WindowSystemMenuHint)
         if ok and label:
@@ -166,7 +168,7 @@ class TabView(QtGui.QTabWidget):
     def renamePage(self, index=None):
         index = self.currentIndex()
         oldLabel = self.tabText(index)
-        label, ok = QtGui.QInputDialog.getText(self, self.tr("Rename list"),
+        label, ok = QInputDialog.getText(self, self.tr("Rename list"),
                 self.tr("Enter new list title"), text=oldLabel,
                 flags=Qt.WindowSystemMenuHint)
         if ok and label:
@@ -181,7 +183,7 @@ class TabView(QtGui.QTabWidget):
 
     def closePage(self, index=None):
         if self.count() <= 1:
-            QtGui.QMessageBox.information(self, self.tr("Remove page"),
+            QMessageBox.information(self, self.tr("Remove page"),
                     self.tr("Can't close latest opened page.\n"
                             "Add a new one first."))
             return
@@ -194,28 +196,28 @@ class TabView(QtGui.QTabWidget):
 
     def removePage(self):
         if self.count() <= 1:
-            QtGui.QMessageBox.information(self, self.tr("Remove page"),
+            QMessageBox.information(self, self.tr("Remove page"),
                     self.tr("Can't remove latest opened page.\n"
                             "Add a new one first."))
             return
 
         index = self.currentIndex()
         pageTitle = self.tabText(index)
-        result = QtGui.QMessageBox.question(self, self.tr("Remove page"),
+        result = QMessageBox.question(self, self.tr("Remove page"),
                 self.tr("Remove the page '%s' permanently?") % pageTitle,
-                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
-                QtGui.QMessageBox.No)
-        if result == QtGui.QMessageBox.Yes:
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.No)
+        if result == QMessageBox.Yes:
             page = self.widget(index)
             self.removeTab(index)
             self.collection.pages().removePage(page.param)
 
     def removeClosedPages(self):
-        result = QtGui.QMessageBox.question(self, self.tr("Remove pages"),
+        result = QMessageBox.question(self, self.tr("Remove pages"),
                 self.tr("Remove all closed pages permanently?"),
-                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
-                QtGui.QMessageBox.No)
-        if result == QtGui.QMessageBox.Yes:
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.No)
+        if result == QMessageBox.Yes:
             closedPages = self.collection.pages().closedPages()
             for pageParam in closedPages:
                 self.collection.pages().removePage(pageParam)
@@ -261,7 +263,7 @@ class TabView(QtGui.QTabWidget):
         self.setCurrentWidget(pageView)
 
 
-class OpenPageAction(QtGui.QAction):
+class OpenPageAction(QAction):
     openPageTriggered = pyqtSignal(object)
 
     def __init__(self, pageParam, parent=None):

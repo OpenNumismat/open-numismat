@@ -1,17 +1,17 @@
 import os
 import sys
 
-from PyQt4.QtGui import QDesktopServices
+from PyQt5.QtCore import QStandardPaths
 
 from OpenNumismat import version
 
 
 # Getting default path for storing user data
 if sys.platform in ['win32', 'darwin']:
-    __docDir = QDesktopServices.storageLocation(QDesktopServices.DocumentsLocation)
+    __docDir = QStandardPaths.displayName(QStandardPaths.DocumentsLocation)
     HOME_PATH = os.path.join(__docDir, version.AppName)
 else:
-    __homeDir = QDesktopServices.storageLocation(QDesktopServices.HomeLocation)
+    __homeDir = QStandardPaths.displayName(QStandardPaths.HomeLocation)
     HOME_PATH = os.path.join(__homeDir, version.AppName)
 
 

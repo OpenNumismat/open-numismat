@@ -8,8 +8,12 @@ except ImportError:
     print('win32com module missed. Exporting to Word not available')
     exportToWordAvailable = False
 
-from PyQt4 import QtCore, QtGui, QtWebKit
-from PyQt4.QtCore import Qt
+from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtPrintSupport import QPrinter, QPrintPreviewWidget, QPrintDialog, QPageSetupDialog
+from PyQt5.QtWebKitWidgets import QWebView
 
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
@@ -19,7 +23,7 @@ from OpenNumismat.Tools.Gui import createIcon
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
-class QPrintPreviewMainWindow(QtGui.QMainWindow):
+class QPrintPreviewMainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(QPrintPreviewMainWindow, self).__init__(parent)
 
@@ -27,7 +31,7 @@ class QPrintPreviewMainWindow(QtGui.QMainWindow):
         return None
 
 
-class ZoomFactorValidator(QtGui.QDoubleValidator):
+class ZoomFactorValidator(QDoubleValidator):
     def __init__(self, bottom, top, decimals, parent):
         super(ZoomFactorValidator, self).__init__(bottom, top, decimals, parent)
 
@@ -40,16 +44,16 @@ class ZoomFactorValidator(QtGui.QDoubleValidator):
         if replacePercent:
             input += '%'
         num_size = 4
-        if state == QtGui.QDoubleValidator.Intermediate:
+        if state == QDoubleValidator.Intermediate:
             i = input.find(QtCore.QLocale.system().decimalPoint())
             if (i == -1 and len(input) > num_size) \
                     or (i != -1 and i > num_size):
-                return QtGui.QDoubleValidator.Invalid, input, pos
+                return QDoubleValidator.Invalid, input, pos
 
         return state, input, pos
 
 
-class LineEdit(QtGui.QLineEdit):
+class LineEdit(QLineEdit):
     def __init__(self, parent=None):
         super(LineEdit, self).__init__(parent)
 
@@ -72,7 +76,7 @@ class LineEdit(QtGui.QLineEdit):
 
 
 @storeDlgSizeDecorator
-class PreviewDialog(QtGui.QDialog):
+class PreviewDialog(QDialog):
     def __init__(self, model, records, parent=None):
         super(PreviewDialog, self).__init__(parent,
                         Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint |
@@ -83,19 +87,19 @@ class PreviewDialog(QtGui.QDialog):
         self.records = records
         self.model = model
 
-        self.webView = QtWebKit.QWebView(self)
+        self.webView = QWebView(self)
         self.webView.setVisible(False)
         self.webView.loadFinished.connect(self._loadFinished)
 
-        self.printer = QtGui.QPrinter()
-        self.printer.setPageMargins(12.7, 10, 10, 10, QtGui.QPrinter.Millimeter)
-        self.preview = QtGui.QPrintPreviewWidget(self.printer, self)
+        self.printer = QPrinter()
+        self.printer.setPageMargins(12.7, 10, 10, 10, QPrinter.Millimeter)
+        self.preview = QPrintPreviewWidget(self.printer, self)
 
         self.preview.paintRequested.connect(self.paintRequested)
         self.preview.previewChanged.connect(self._q_previewChanged)
         self.setupActions()
 
-        self.templateSelector = QtGui.QComboBox(self)
+        self.templateSelector = QComboBox(self)
         current = 0
         for i, template in enumerate(Report.scanTemplates()):
             self.templateSelector.addItem(template)
@@ -106,14 +110,14 @@ class PreviewDialog(QtGui.QDialog):
 
         self.pageNumEdit = LineEdit()
         self.pageNumEdit.setAlignment(Qt.AlignRight)
-        self.pageNumEdit.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed))
-        self.pageNumLabel = QtGui.QLabel()
+        self.pageNumEdit.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.pageNumLabel = QLabel()
         self.pageNumEdit.editingFinished.connect(self._q_pageNumEdited)
 
-        self.zoomFactor = QtGui.QComboBox()
+        self.zoomFactor = QComboBox()
         self.zoomFactor.setEditable(True)
         self.zoomFactor.setMinimumContentsLength(7)
-        self.zoomFactor.setInsertPolicy(QtGui.QComboBox.NoInsert)
+        self.zoomFactor.setInsertPolicy(QComboBox.NoInsert)
         zoomEditor = LineEdit()
         zoomEditor.setValidator(ZoomFactorValidator(1, 1000, 1, zoomEditor))
         self.zoomFactor.setLineEdit(zoomEditor)
@@ -124,7 +128,7 @@ class PreviewDialog(QtGui.QDialog):
         self.zoomFactor.currentIndexChanged.connect(self._q_zoomFactorChanged)
 
         mw = QPrintPreviewMainWindow(self)
-        toolbar = QtGui.QToolBar(mw)
+        toolbar = QToolBar(mw)
 
         toolbar.addWidget(self.templateSelector)
         toolbar.addSeparator()
@@ -147,12 +151,12 @@ class PreviewDialog(QtGui.QDialog):
         toolbar.addAction(self.firstPageAction)
         toolbar.addAction(self.prevPageAction)
 
-        pageEdit = QtGui.QWidget(toolbar)
-        vboxLayout = QtGui.QVBoxLayout()
+        pageEdit = QWidget(toolbar)
+        vboxLayout = QVBoxLayout()
         vboxLayout.setContentsMargins(0, 0, 0, 0)
-        formLayout = QtGui.QFormLayout()
-        formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.pageNumEdit)
-        formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.pageNumLabel)
+        formLayout = QFormLayout()
+        formLayout.setWidget(0, QFormLayout.LabelRole, self.pageNumEdit)
+        formLayout.setWidget(0, QFormLayout.FieldRole, self.pageNumLabel)
         vboxLayout.addLayout(formLayout)
         vboxLayout.setAlignment(Qt.AlignVCenter)
         pageEdit.setLayout(vboxLayout)
@@ -183,9 +187,10 @@ class PreviewDialog(QtGui.QDialog):
         mw.setCentralWidget(self.preview)
         mw.setParent(self, Qt.Widget)
 
-        topLayout = QtGui.QVBoxLayout()
+        topLayout = QVBoxLayout()
         topLayout.addWidget(mw)
-        topLayout.setMargin(0)
+# TODO: Check this after porting to PyQt5
+#        topLayout.setMargin(0)
         self.setLayout(topLayout)
 
         self.setWindowTitle(self.tr("Report preview"))
@@ -196,21 +201,21 @@ class PreviewDialog(QtGui.QDialog):
 
     def setupActions(self):
         # Navigation
-        self.navGroup = QtGui.QActionGroup(self)
+        self.navGroup = QActionGroup(self)
         self.navGroup.setExclusive(False)
-        self.nextPageAction = self.navGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Next page"))
-        self.prevPageAction = self.navGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Previous page"))
-        self.firstPageAction = self.navGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "First page"))
-        self.lastPageAction = self.navGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Last page"))
+        self.nextPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Next page"))
+        self.prevPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Previous page"))
+        self.firstPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "First page"))
+        self.lastPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Last page"))
         self.qt_setupActionIcon(self.nextPageAction, "go-next")
         self.qt_setupActionIcon(self.prevPageAction, "go-previous")
         self.qt_setupActionIcon(self.firstPageAction, "go-first")
         self.qt_setupActionIcon(self.lastPageAction, "go-last")
         self.navGroup.triggered.connect(self._q_navigate)
 
-        self.fitGroup = QtGui.QActionGroup(self)
-        self.fitWidthAction = self.fitGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Fit width"))
-        self.fitPageAction = self.fitGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Fit page"))
+        self.fitGroup = QActionGroup(self)
+        self.fitWidthAction = self.fitGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Fit width"))
+        self.fitPageAction = self.fitGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Fit page"))
         self.fitWidthAction.setCheckable(True)
         self.fitPageAction.setCheckable(True)
         self.qt_setupActionIcon(self.fitWidthAction, "fit-width")
@@ -218,16 +223,16 @@ class PreviewDialog(QtGui.QDialog):
         self.fitGroup.triggered.connect(self._q_fit)
 
         # Zoom
-        self.zoomGroup = QtGui.QActionGroup(self)
-        self.zoomInAction = self.zoomGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Zoom in"))
-        self.zoomOutAction = self.zoomGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Zoom out"))
+        self.zoomGroup = QActionGroup(self)
+        self.zoomInAction = self.zoomGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Zoom in"))
+        self.zoomOutAction = self.zoomGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Zoom out"))
         self.qt_setupActionIcon(self.zoomInAction, "zoom-in")
         self.qt_setupActionIcon(self.zoomOutAction, "zoom-out")
 
         # Portrait/Landscape
-        self.orientationGroup = QtGui.QActionGroup(self)
-        self.portraitAction = self.orientationGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Portrait"))
-        self.landscapeAction = self.orientationGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Landscape"))
+        self.orientationGroup = QActionGroup(self)
+        self.portraitAction = self.orientationGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Portrait"))
+        self.landscapeAction = self.orientationGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Landscape"))
         self.portraitAction.setCheckable(True)
         self.landscapeAction.setCheckable(True)
         self.qt_setupActionIcon(self.portraitAction, "layout-portrait")
@@ -236,10 +241,10 @@ class PreviewDialog(QtGui.QDialog):
         self.landscapeAction.triggered.connect(self.preview.setLandscapeOrientation)
 
         # Display mode
-        self.modeGroup = QtGui.QActionGroup(self)
-        self.singleModeAction = self.modeGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Show single page"))
-        self.facingModeAction = self.modeGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Show facing pages"))
-        self.overviewModeAction = self.modeGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Show overview of all pages"))
+        self.modeGroup = QActionGroup(self)
+        self.singleModeAction = self.modeGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Show single page"))
+        self.facingModeAction = self.modeGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Show facing pages"))
+        self.overviewModeAction = self.modeGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Show overview of all pages"))
         self.singleModeAction.setCheckable(True)
         self.facingModeAction.setCheckable(True)
         self.overviewModeAction.setCheckable(True)
@@ -249,15 +254,15 @@ class PreviewDialog(QtGui.QDialog):
         self.modeGroup.triggered.connect(self._q_setMode)
 
         # Print
-        self.printerGroup = QtGui.QActionGroup(self)
-        self.printAction = self.printerGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Print"))
-        self.pageSetupAction = self.printerGroup.addAction(QtGui.QApplication.translate("QPrintPreviewDialog", "Page setup"))
+        self.printerGroup = QActionGroup(self)
+        self.printAction = self.printerGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Print"))
+        self.pageSetupAction = self.printerGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Page setup"))
         self.qt_setupActionIcon(self.printAction, "print")
         self.qt_setupActionIcon(self.pageSetupAction, "page-setup")
         self.printAction.triggered.connect(self._q_print)
         self.pageSetupAction.triggered.connect(self._q_pageSetup)
         # Export
-        self.exportGroup = QtGui.QActionGroup(self)
+        self.exportGroup = QActionGroup(self)
         if exportToWordAvailable:
             self.wordAction = self.exportGroup.addAction(
                             createIcon('Document_Microsoft_Word.png'),
@@ -273,7 +278,7 @@ class PreviewDialog(QtGui.QDialog):
         # Initial state:
         self.fitPageAction.setChecked(True)
         self.singleModeAction.setChecked(True)
-        if self.preview.orientation() == QtGui.QPrinter.Portrait:
+        if self.preview.orientation() == QPrinter.Portrait:
             self.portraitAction.setChecked(True)
         else:
             self.landscapeAction.setChecked(True)
@@ -286,7 +291,7 @@ class PreviewDialog(QtGui.QDialog):
 
     def qt_setupActionIcon(self, action, name):
         imagePrefix = ":/trolltech/dialogs/qprintpreviewdialog/images/"
-        icon = QtGui.QIcon()
+        icon = QIcon()
         icon.addFile(imagePrefix + name + "-24.png", QtCore.QSize(24, 24))
         icon.addFile(imagePrefix + name + "-32.png", QtCore.QSize(32, 32))
         action.setIcon(icon)
@@ -357,7 +362,7 @@ class PreviewDialog(QtGui.QDialog):
         maxWidth = self.pageNumEdit.minimumSizeHint().width() + cyphersWidth
         self.pageNumEdit.setMinimumWidth(maxWidth)
         self.pageNumEdit.setMaximumWidth(maxWidth)
-        self.pageNumEdit.setValidator(QtGui.QIntValidator(1, numPages, self.pageNumEdit))
+        self.pageNumEdit.setValidator(QIntValidator(1, numPages, self.pageNumEdit))
 
     def updateZoomFactor(self):
         self.zoomFactor.lineEdit().setText("%.1f%%" % (self.preview.zoomFactor() * 100))
@@ -400,16 +405,16 @@ class PreviewDialog(QtGui.QDialog):
 
     def _q_setMode(self, action):
         if action == self.overviewModeAction:
-            self.preview.setViewMode(QtGui.QPrintPreviewWidget.AllPagesView)
+            self.preview.setViewMode(QPrintPreviewWidget.AllPagesView)
             self.setFitting(False)
             self.fitGroup.setEnabled(False)
             self.navGroup.setEnabled(False)
             self.pageNumEdit.setEnabled(False)
             self.pageNumLabel.setEnabled(False)
         elif action == self.facingModeAction:
-            self.preview.setViewMode(QtGui.QPrintPreviewWidget.FacingPagesView)
+            self.preview.setViewMode(QPrintPreviewWidget.FacingPagesView)
         else:
-            self.preview.setViewMode(QtGui.QPrintPreviewWidget.SinglePageView)
+            self.preview.setViewMode(QPrintPreviewWidget.SinglePageView)
 
         if action == self.facingModeAction or action == self.singleModeAction:
             self.fitGroup.setEnabled(True)
@@ -419,16 +424,16 @@ class PreviewDialog(QtGui.QDialog):
             self.setFitting(True)
 
     def _q_print(self):
-        printDialog = QtGui.QPrintDialog(self.printer, self)
-        if printDialog.exec_() == QtGui.QDialog.Accepted:
+        printDialog = QPrintDialog(self.printer, self)
+        if printDialog.exec_() == QDialog.Accepted:
             self.preview.print_()
             self.accept()
 
     def _q_pageSetup(self):
-        pageSetup = QtGui.QPageSetupDialog(self.printer, self)
-        if pageSetup.exec_() == QtGui.QDialog.Accepted:
+        pageSetup = QPageSetupDialog(self.printer, self)
+        if pageSetup.exec_() == QDialog.Accepted:
             # update possible orientation changes
-            if self.preview.orientation() == QtGui.QPrinter.Portrait:
+            if self.preview.orientation() == QPrinter.Portrait:
                 self.portraitAction.setChecked(True)
                 self.preview.setPortraitOrientation()
             else:
@@ -440,19 +445,19 @@ class PreviewDialog(QtGui.QDialog):
         lastExportDir = settings.value('export/last_dir') or ''
 
         if exportToWordAvailable and action == self.wordAction:
-            fileName = QtGui.QFileDialog.getSaveFileName(self,
+            fileName = QFileDialog.getSaveFileName(self,
                                 self.tr("Save as"), lastExportDir,
                                 filter=self.tr("Word documents (*.doc)"))
             if fileName:
                 self.__exportToWord(self.fileName, fileName)
         elif action == self.htmlAction:
-            fileName = QtGui.QFileDialog.getSaveFileName(self,
+            fileName = QFileDialog.getSaveFileName(self,
                                 self.tr("Save as"), lastExportDir,
                                 filter=self.tr("Web page (*.htm *.html)"))
             if fileName:
                 self.__exportToHtml(fileName)
         elif action == self.pdfAction:
-            fileName = QtGui.QFileDialog.getSaveFileName(self,
+            fileName = QFileDialog.getSaveFileName(self,
                                 self.tr("Save as"), lastExportDir,
                                 filter=self.tr("PDF file (*.pdf)"))
             if fileName:
@@ -480,10 +485,10 @@ class PreviewDialog(QtGui.QDialog):
 
     @waitCursorDecorator
     def __exportToPdf(self, fileName):
-        self.printer.setOutputFormat(QtGui.QPrinter.PdfFormat)
+        self.printer.setOutputFormat(QPrinter.PdfFormat)
         self.printer.setOutputFileName(fileName)
         self.preview.print_()
-        self.printer.setOutputFormat(QtGui.QPrinter.NativeFormat)
+        self.printer.setOutputFormat(QPrinter.NativeFormat)
 
     def _q_previewChanged(self):
         self.updateNavActions()

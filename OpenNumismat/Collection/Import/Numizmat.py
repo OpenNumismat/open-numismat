@@ -12,7 +12,7 @@ except ImportError:
     print('firebirdsql module missed. Importing from Numizmat 2.1 not available')
     available = False
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui
 
 from OpenNumismat.Collection.Import import _Import, _InvalidDatabaseError, _DatabaseServerError
 

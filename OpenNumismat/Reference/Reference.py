@@ -1,6 +1,8 @@
-from PyQt4 import QtGui, QtCore, QtSql
-from PyQt4.QtSql import QSqlDatabase, QSqlQuery
-from PyQt4.QtCore import Qt, pyqtSignal
+from PyQt5 import QtCore, QtSql
+from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import *
 
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
 
@@ -16,7 +18,7 @@ class SqlTableModel(QtSql.QSqlTableModel):
             iconIndex = self.index(index.row(), self.fieldIndex('icon'))
             if not self.data(iconIndex) or self.data(iconIndex).isNull():
                 return None
-            icon = QtGui.QPixmap()
+            icon = QPixmap()
             icon.loadFromData(self.data(iconIndex))
             return icon
 
@@ -63,7 +65,7 @@ class ReferenceSection(QtCore.QObject):
 
     def button(self, parent=None):
         self.parent = parent
-        button = QtGui.QPushButton(self.letter, parent)
+        button = QPushButton(self.letter, parent)
         button.setFixedWidth(25)
         button.clicked.connect(self.clickedButton)
         return button
@@ -74,7 +76,7 @@ class ReferenceSection(QtCore.QObject):
         copy.load(self.db)
         dialog = ReferenceDialog(copy, self.parent.text(), self.parent)
         result = dialog.exec_()
-        if result == QtGui.QDialog.Accepted:
+        if result == QDialog.Accepted:
             self.reload()
 
             index = dialog.selectedIndex()
@@ -132,7 +134,7 @@ class ReferenceSection(QtCore.QObject):
         query.exec_()
         if query.first():
             data = query.record().value(0)
-            if not isinstance(data, QtCore.QPyNullVariant):
+            if data:
                 self.sort = bool(data)
             else:
                 self.sort = False
@@ -189,7 +191,7 @@ class CrossReferenceSection(QtCore.QObject):
 
     def button(self, parent=None):
         self.parent = parent
-        button = QtGui.QPushButton(self.letter, parent)
+        button = QPushButton(self.letter, parent)
         button.setFixedWidth(25)
         button.clicked.connect(self.clickedButton)
         return button
@@ -202,7 +204,7 @@ class CrossReferenceSection(QtCore.QObject):
         dialog = CrossReferenceDialog(copy, self.parentIndex,
                                       self.parent.text(), self.parent)
         result = dialog.exec_()
-        if result == QtGui.QDialog.Accepted:
+        if result == QDialog.Accepted:
             self.reload()
 
             index = dialog.selectedIndex()
@@ -258,7 +260,7 @@ class CrossReferenceSection(QtCore.QObject):
         query.exec_()
         if query.first():
             data = query.record().value(0)
-            if not isinstance(data, QtCore.QPyNullVariant):
+            if data:
                 self.sort = bool(data)
             else:
                 self.sort = False
@@ -338,7 +340,7 @@ class Reference(QtCore.QObject):
             self.db.setDatabaseName(fileName)
             if not self.db.open():
                 print(self.db.lastError().text())
-                QtGui.QMessageBox.critical(self.parent(),
+                QMessageBox.critical(self.parent(),
                             self.tr("Open reference"),
                             self.tr("Can't open reference:\n%s" % fileName))
                 return False
@@ -350,7 +352,7 @@ class Reference(QtCore.QObject):
                     sql = "UPDATE sections SET name = 'material' WHERE name = 'metal'"
                     QSqlQuery(sql, self.db)
         else:
-            QtGui.QMessageBox.warning(self.parent(),
+            QMessageBox.warning(self.parent(),
                             self.tr("Open reference"),
                             self.tr("Can't open reference:\n%s\nCreated new one" % fileName))
             self.db.setDatabaseName(fileName)

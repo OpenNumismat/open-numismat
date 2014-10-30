@@ -8,8 +8,8 @@ try:
 except ImportError:
     print('jinja2 module missed. Report engine not available')
 
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import Qt
+from PyQt5 import QtGui, QtCore
+from PyQt5.QtCore import Qt
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses
@@ -182,7 +182,9 @@ class Report(QtCore.QObject):
         record_mapping['issuedate_raw'] = ''
         for field in self.model.fields:
             value = record.value(field.name)
-            if value is None or value == '' or isinstance(value, QtCore.QPyNullVariant):
+# TODO: Check this after porting to PyQt5
+#            if value is None or value == '' or isinstance(value, QtCore.QPyNullVariant):
+            if value is None or value == '':
                 record_mapping[field.name] = ''
             else:
                 if field.name in imgFields:
