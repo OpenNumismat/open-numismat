@@ -1,4 +1,3 @@
-from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import *
@@ -13,7 +12,7 @@ class TabBar(QTabBar):
     def __init__(self, parent):
         super(TabBar, self).__init__(parent)
 
-        self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
 
     def mouseDoubleClickEvent(self, event):
         index = self.tabAt(event.pos())
@@ -62,7 +61,7 @@ class TabView(QTabWidget):
         self.__actions['open'] = openPageMenu
 
         removeAllAct = QAction(createIcon('cross.png'),
-                                     self.tr("Remove all"), self)
+                               self.tr("Remove all"), self)
         removeAllAct.triggered.connect(self.removeClosedPages)
         self.__actions['removeAll'] = removeAllAct
 
@@ -80,7 +79,7 @@ class TabView(QTabWidget):
         self.__actions['close'] = closeListAct
 
         removeListAct = QAction(createIcon('cross.png'),
-                                      self.tr("Remove"), self)
+                                self.tr("Remove"), self)
         removeListAct.triggered.connect(self.removePage)
         self.__actions['remove'] = removeListAct
 
