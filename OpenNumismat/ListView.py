@@ -107,8 +107,7 @@ class ListView(QTableView):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenuEvent)
         self.setSortingEnabled(True)
-# TODO: Check this after porting to PyQt5
-#        self.horizontalHeader().setMovable(True)
+        self.horizontalHeader().setSectionsMovable(True)
         self.horizontalHeader().sectionDoubleClicked.connect(
                                                 self.sectionDoubleClicked)
         self.horizontalHeader().sectionResized.connect(self.columnResized)

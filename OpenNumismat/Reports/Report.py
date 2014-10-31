@@ -182,8 +182,6 @@ class Report(QtCore.QObject):
         record_mapping['issuedate_raw'] = ''
         for field in self.model.fields:
             value = record.value(field.name)
-# TODO: Check this after porting to PyQt5
-#            if value is None or value == '' or isinstance(value, QtCore.QPyNullVariant):
             if value is None or value == '':
                 record_mapping[field.name] = ''
             else:
