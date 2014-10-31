@@ -137,6 +137,8 @@ class CollectionModel(QSqlTableModel):
                 img_id = None
 
             record.setValue(field, img_id)
+            record.remove(record.indexOf(field + '_id'))
+            record.remove(record.indexOf(field + '_title'))
 
         if not record.isNull('image'):
             query = QSqlQuery(self.database())
@@ -148,6 +150,7 @@ class CollectionModel(QSqlTableModel):
         else:
             img_id = None
         record.setValue('image', img_id)
+        record.remove(record.indexOf('image_id'))
 
         return super(CollectionModel, self).insertRecord(row, record)
 
@@ -186,6 +189,8 @@ class CollectionModel(QSqlTableModel):
                 record.setNull(field)
             else:
                 record.setValue(field, img_id)
+            record.remove(record.indexOf(field + '_id'))
+            record.remove(record.indexOf(field + '_title'))
 
         img_id = record.value('image_id')
         if record.isNull('image'):
@@ -215,6 +220,7 @@ class CollectionModel(QSqlTableModel):
             record.setNull('image')
         else:
             record.setValue('image', img_id)
+        record.remove(record.indexOf('image_id'))
 
         return super(CollectionModel, self).setRecord(row, record)
 
