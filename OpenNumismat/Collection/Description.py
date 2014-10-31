@@ -55,8 +55,8 @@ class CollectionDescription(QObject):
 
 class DescriptionDialog(QDialog):
     def __init__(self, description, parent=None):
-        super(DescriptionDialog, self).__init__(parent,
-                                                Qt.WindowSystemMenuHint)
+        super().__init__(parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.description = description
 

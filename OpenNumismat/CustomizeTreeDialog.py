@@ -104,7 +104,8 @@ class ListWidget(QListWidget):
 @storeDlgSizeDecorator
 class CustomizeTreeDialog(QDialog):
     def __init__(self, model, treeParam, parent=None):
-        QDialog.__init__(self, parent, Qt.WindowSystemMenuHint)
+        QDialog.__init__(self, parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.setWindowTitle(self.tr("Customize tree"))
 

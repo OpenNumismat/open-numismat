@@ -78,9 +78,8 @@ class LineEdit(QLineEdit):
 @storeDlgSizeDecorator
 class PreviewDialog(QDialog):
     def __init__(self, model, records, parent=None):
-        super(PreviewDialog, self).__init__(parent,
-                        Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint |
-                        Qt.WindowCloseButtonHint)
+        super().__init__(parent, Qt.WindowSystemMenuHint |
+                         Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
 
         self.started = False
 

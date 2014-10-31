@@ -295,7 +295,8 @@ class FieldsSettingsPage(QWidget):
 @storeDlgSizeDecorator
 class SettingsDialog(QDialog):
     def __init__(self, collection, parent=None):
-        super(SettingsDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
+        super().__init__(parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         mainPage = MainSettingsPage(collection, self)
         fieldsPage = FieldsSettingsPage(collection, self)

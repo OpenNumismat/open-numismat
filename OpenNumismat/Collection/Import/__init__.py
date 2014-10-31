@@ -24,7 +24,9 @@ class _Import(QtCore.QObject):
     def __init__(self, parent=None):
         super(_Import, self).__init__(parent)
 
-        self.progressDlg = QProgressDialog(self.parent(), Qt.WindowSystemMenuHint)
+        self.progressDlg = QProgressDialog(self.parent(),
+                                           Qt.WindowCloseButtonHint |
+                                           Qt.WindowSystemMenuHint)
         self.progressDlg.setWindowModality(Qt.WindowModal)
         self.progressDlg.setMinimumDuration(250)
         self.progressDlg.setCancelButtonText(QApplication.translate('_Import', "Cancel"))

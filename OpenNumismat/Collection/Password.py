@@ -18,7 +18,8 @@ def checkPassword(collection, password):
 
 class PasswordDialog(QDialog):
     def __init__(self, collection, parent=None):
-        super(PasswordDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
+        super().__init__(parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
         self.collection = collection
 
         self.setWindowTitle(self.tr("Password"))
@@ -53,8 +54,8 @@ class PasswordDialog(QDialog):
 
 class PasswordSetDialog(QDialog):
     def __init__(self, collection, parent=None):
-        super(PasswordSetDialog, self).__init__(parent,
-                                                Qt.WindowSystemMenuHint)
+        super().__init__(parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
         self.collection = collection
 
         self.setWindowTitle(self.tr("Set password"))

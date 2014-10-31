@@ -219,7 +219,8 @@ class CrossReferenceWidget(ReferenceWidget):
 
 class ReferenceDialog(QDialog):
     def __init__(self, section, text='', parent=None):
-        super(ReferenceDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
+        super().__init__(parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.section = section
         self.db = section.db
@@ -310,8 +311,8 @@ def class_wraps(cls):
 @storeDlgSizeDecorator
 class AllReferenceDialog(QDialog):
     def __init__(self, reference, parent=None):
-        super(AllReferenceDialog, self).__init__(parent,
-                                                 Qt.WindowSystemMenuHint)
+        super().__init__(parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.db = reference.db
         self.db.transaction()

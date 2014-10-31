@@ -9,8 +9,8 @@ import OpenNumismat
 
 class ProgressDialog(QProgressDialog):
     def __init__(self, labelText, cancelButtonText, maximum, parent=None):
-        super(ProgressDialog, self).__init__(labelText, cancelButtonText, 0,
-                            maximum, parent, Qt.WindowSystemMenuHint)
+        super().__init__(labelText, cancelButtonText, 0, maximum, parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
         self.setWindowModality(Qt.WindowModal)
         self.setMinimumDuration(250)
 

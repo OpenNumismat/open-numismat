@@ -12,7 +12,8 @@ from OpenNumismat.Tools.Converters import stringToMoney
 @storeDlgSizeDecorator
 class EditCoinDialog(QDialog):
     def __init__(self, model, record, parent=None, usedFields=None):
-        super(EditCoinDialog, self).__init__(parent, Qt.WindowSystemMenuHint)
+        super().__init__(parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.clickedButton = QDialogButtonBox.Abort
 
