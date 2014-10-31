@@ -65,15 +65,11 @@ class CollectionModel(QSqlTableModel):
                     date = QtCore.QDate.fromString(data, Qt.ISODate)
                     text = date.toString(Qt.SystemLocaleShortDate)
                 elif field.type == Type.Image or field.type == Type.EdgeImage:
-# TODO: Check this after porting to PyQt5
-#                    if not isinstance(data, QtCore.QPyNullVariant):
                     if data:
                         return self.getImage(data)
                     else:
                         return None
                 elif field.type == Type.PreviewImage:
-# TODO: Check this after porting to PyQt5
-#                    if not isinstance(data, QtCore.QPyNullVariant):
                     if data:
                         return self.getPreviewImage(data)
                     else:
@@ -125,11 +121,12 @@ class CollectionModel(QSqlTableModel):
 
         for field in ['obverseimg', 'reverseimg', 'edgeimg',
                       'photo1', 'photo2', 'photo3', 'photo4']:
-            if not record.isNull(field):
+            value = record.value(field)
+            if not (value is None or value == ''):
                 query = QSqlQuery(self.database())
                 query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
                 query.addBindValue(record.value(field + '_title'))
-                query.addBindValue(record.value(field))
+                query.addBindValue(value)
                 query.exec_()
 
                 img_id = query.lastInsertId()
@@ -140,7 +137,8 @@ class CollectionModel(QSqlTableModel):
             record.remove(record.indexOf(field + '_id'))
             record.remove(record.indexOf(field + '_title'))
 
-        if not record.isNull('image'):
+        value = record.value('image')
+        if not (value is None or value == ''):
             query = QSqlQuery(self.database())
             query.prepare("INSERT INTO images (image) VALUES (?)")
             query.addBindValue(record.value('image'))
@@ -160,8 +158,9 @@ class CollectionModel(QSqlTableModel):
         for field in ['obverseimg', 'reverseimg', 'edgeimg',
                       'photo1', 'photo2', 'photo3', 'photo4']:
             img_id = record.value(field + '_id')
-            if record.isNull(field):
-                if not record.isNull(field + '_id'):
+            value = record.value(field)
+            if value is None or value == '':
+                if not (img_id is None or img_id == ''):
                     query = QSqlQuery(self.database())
                     query.prepare("DELETE FROM photos WHERE id=?")
                     query.addBindValue(img_id)
@@ -169,7 +168,7 @@ class CollectionModel(QSqlTableModel):
 
                     img_id = None
             else:
-                if record.isNull(field + '_id'):
+                if img_id is None or img_id == '':
                     query = QSqlQuery(self.database())
                     query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
                     query.addBindValue(record.value(field + '_title'))
@@ -193,8 +192,9 @@ class CollectionModel(QSqlTableModel):
             record.remove(record.indexOf(field + '_title'))
 
         img_id = record.value('image_id')
-        if record.isNull('image'):
-            if not record.isNull('image_id'):
+        value = record.value('image')
+        if value is None or value == '':
+            if not (img_id is None or img_id == ''):
                 query = QSqlQuery(self.database())
                 query.prepare("DELETE FROM images WHERE id=?")
                 query.addBindValue(img_id)
@@ -202,7 +202,7 @@ class CollectionModel(QSqlTableModel):
 
                 img_id = None
         else:
-            if record.isNull('image_id'):
+            if img_id is None or img_id == '':
                 query = QSqlQuery(self.database())
                 query.prepare("INSERT INTO images (image) VALUES (?)")
                 query.addBindValue(record.value('image'))
@@ -235,8 +235,8 @@ class CollectionModel(QSqlTableModel):
             record.append(QSqlField(field + '_title'))
             record.append(QSqlField(field + '_id'))
 
-            if not record.isNull(field):
-                img_id = record.value(field)
+            img_id = record.value(field)
+            if not (img_id is None or img_id == ''):
                 data = self.getImage(img_id)
                 record.setValue(field, data)
                 record.setValue(field + '_title', self.getImageTitle(img_id))
@@ -247,8 +247,8 @@ class CollectionModel(QSqlTableModel):
                 record.setValue(field + '_title', fieldDesc.title)
 
         record.append(QSqlField('image_id'))
-        if not record.isNull('image'):
-            img_id = record.value('image')
+        img_id = record.value('image')
+        if not (img_id is None or img_id == ''):
             data = self.getPreviewImage(img_id)
             record.setValue('image', data)
             record.setValue('image_id', img_id)
@@ -261,13 +261,15 @@ class CollectionModel(QSqlTableModel):
         record = super(CollectionModel, self).record(row)
         for field in ['obverseimg', 'reverseimg', 'edgeimg',
                       'photo1', 'photo2', 'photo3', 'photo4']:
-            if not record.isNull(field):
+            value = record.value(field)
+            if not (value is None or value == ''):
                 query = QSqlQuery(self.database())
                 query.prepare("DELETE FROM photos WHERE id=?")
                 query.addBindValue(record.value(field))
                 query.exec_()
 
-        if not record.isNull('image'):
+        value = record.value('image')
+        if not (value is None or value == ''):
             query = QSqlQuery(self.database())
             query.prepare("DELETE FROM images WHERE id=?")
             query.addBindValue(record.value('image'))
