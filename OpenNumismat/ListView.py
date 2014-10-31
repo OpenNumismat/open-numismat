@@ -447,7 +447,7 @@ class ListView(QTableView):
         if lastExportDir:
             defaultFileName = os.path.join(lastExportDir, defaultFileName)
 
-        fileName, filter_ = QFileDialog.getSaveFileNameAndFilter(self,
+        fileName, selectedFilter = QFileDialog.getSaveFileName(self,
                                     self.tr("Save as"),
                                     defaultFileName,
                                     filter=';;'.join(filters))
@@ -459,13 +459,13 @@ class ListView(QTableView):
             progressDlg = Gui.ProgressDialog(self.tr("Saving list"),
                                     self.tr("Cancel"), model.rowCount(), self)
 
-            if filters.index(filter_) == 0:  # Excel documents
+            if filters.index(selectedFilter) == 0:  # Excel documents
                 export = ExportToExcel(fileName, self.listParam.page.title)
-            elif filters.index(filter_) == 1:  # Excel documents
+            elif filters.index(selectedFilter) == 1:  # Excel documents
                 export = ExportToHtml(fileName, self.listParam.page.title)
-            elif filters.index(filter_) == 2:  # Excel documents
+            elif filters.index(selectedFilter) == 2:  # Excel documents
                 export = ExportToCsv(fileName, self.listParam.page.title)
-            elif filters.index(filter_) == 3:  # Excel documents
+            elif filters.index(selectedFilter) == 3:  # Excel documents
                 export = ExportToCsvUtf8(fileName, self.listParam.page.title)
             else:
                 raise

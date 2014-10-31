@@ -444,19 +444,19 @@ class PreviewDialog(QDialog):
         lastExportDir = settings.value('export/last_dir') or ''
 
         if exportToWordAvailable and action == self.wordAction:
-            fileName = QFileDialog.getSaveFileName(self,
+            fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
                                 self.tr("Save as"), lastExportDir,
                                 filter=self.tr("Word documents (*.doc)"))
             if fileName:
                 self.__exportToWord(self.fileName, fileName)
         elif action == self.htmlAction:
-            fileName = QFileDialog.getSaveFileName(self,
+            fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
                                 self.tr("Save as"), lastExportDir,
                                 filter=self.tr("Web page (*.htm *.html)"))
             if fileName:
                 self.__exportToHtml(fileName)
         elif action == self.pdfAction:
-            fileName = QFileDialog.getSaveFileName(self,
+            fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
                                 self.tr("Save as"), lastExportDir,
                                 filter=self.tr("PDF file (*.pdf)"))
             if fileName:

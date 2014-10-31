@@ -311,7 +311,7 @@ class MainWindow(QMainWindow):
 
     def importNumizmat(self):
         defaultDir = ImportNumizmat.defaultDir()
-        file = QFileDialog.getOpenFileName(self,
+        file, _selectedFilter = QFileDialog.getOpenFileName(self,
                                 self.tr("Select file"), defaultDir, "*.fdb")
         if file:
             imp = ImportNumizmat(self)
@@ -339,7 +339,7 @@ class MainWindow(QMainWindow):
 
     def importCoinManage(self):
         defaultDir = ImportCoinManage.defaultDir()
-        file = QFileDialog.getOpenFileName(self,
+        file, _selectedFilter = QFileDialog.getOpenFileName(self,
                                 self.tr("Select file"), defaultDir, "*.mdb")
         if file:
             btn = QMessageBox.question(self, self.tr("Importing"),
@@ -362,7 +362,7 @@ class MainWindow(QMainWindow):
                         "(choose Collection Studio menu Tools > Export...)."))
 
         defaultDir = ImportCollectionStudio.defaultDir()
-        file = QFileDialog.getOpenFileName(self,
+        file, _selectedFilter = QFileDialog.getOpenFileName(self,
                                 self.tr("Select file"), defaultDir, "*.xml")
         if file:
             imp = ImportCollectionStudio(self)
@@ -370,7 +370,7 @@ class MainWindow(QMainWindow):
 
     def importNumizmatik_Ru(self):
         defaultDir = ImportNumizmatik_Ru.defaultDir()
-        file = QFileDialog.getOpenFileName(self,
+        file, _selectedFilter = QFileDialog.getOpenFileName(self,
                                 self.tr("Select file"), defaultDir, "*.mdb")
         if file:
             btn = QMessageBox.question(self, self.tr("Importing"),
@@ -431,14 +431,14 @@ class MainWindow(QMainWindow):
         return QFileInfo(fileName).absolutePath()
 
     def openCollectionEvent(self):
-        fileName = QFileDialog.getOpenFileName(self,
+        fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 self.tr("Open collection"), self.__workingDir(),
                 self.tr("Collections (*.db)"))
         if fileName:
             self.openCollection(fileName)
 
     def newCollectionEvent(self):
-        fileName = QFileDialog.getSaveFileName(self,
+        fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
                 self.tr("New collection"), self.__workingDir(),
                 self.tr("Collections (*.db)"),
                 QFileDialog.DontConfirmOverwrite)

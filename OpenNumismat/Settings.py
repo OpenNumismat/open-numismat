@@ -210,7 +210,7 @@ class MainSettingsPage(QWidget):
             self.backupFolder.setText(folder)
 
     def referenceButtonClicked(self):
-        file = QFileDialog.getOpenFileName(self,
+        file, _selectedFilter = QFileDialog.getOpenFileName(self,
                                                 self.tr("Select reference"),
                                                 self.reference.text(),
                                                 "*.ref")

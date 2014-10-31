@@ -141,7 +141,7 @@ class ImageEdit(ImageLabel):
         filter_ = QApplication.translate('ImageEdit',
                             "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
                             "All files (*.*)")
-        fileName = QFileDialog.getOpenFileName(self,
+        fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 caption, ImageEdit.latestDir,
                 filter_)
         if fileName:
@@ -160,7 +160,7 @@ class ImageEdit(ImageLabel):
                             "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
                             "All files (*.*)")
         # TODO: Set default name to coin title + field name
-        fileName = QFileDialog.getSaveFileName(self,
+        fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
                 caption, ImageEdit.latestDir + '/' + self.name,
                 filter_)
         if fileName:

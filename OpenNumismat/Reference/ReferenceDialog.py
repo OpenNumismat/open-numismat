@@ -77,7 +77,7 @@ class ListView(QListView):
     def _addIcon(self):
         filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
                           "All files (*.*)")
-        fileName = QFileDialog.getOpenFileName(self,
+        fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 self.tr("Open File"), self.latestDir,
                 filter_)
         if fileName:

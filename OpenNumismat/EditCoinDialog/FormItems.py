@@ -116,7 +116,7 @@ class UrlLineEdit(QWidget):
         self.setLayout(layout)
 
     def clickedButtonOpen(self):
-        file = QFileDialog.getOpenFileName(self,
+        file, _selectedFilter = QFileDialog.getOpenFileName(self,
                                                  self.tr("Select file"),
                                                  self.text(),
                                                  "*.*")
