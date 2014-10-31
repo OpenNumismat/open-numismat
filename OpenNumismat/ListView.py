@@ -69,16 +69,18 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         leftData = self.model.dataDisplayRole(left)
         rightData = self.model.dataDisplayRole(right)
 
-        if self.order == Qt.AscendingOrder:
-            if leftData == '' or leftData.isNull():
-                return False
-            elif rightData == '' or rightData.isNull():
-                return True
-        else:
-            if rightData == '' or rightData.isNull():
-                return False
-            elif leftData == '' or leftData.isNull():
-                return True
+# TODO: Check this after porting to PyQt5
+#         if self.order == Qt.AscendingOrder:
+#             print(leftData, type(leftData))
+#             if leftData == '' or leftData.isNull():
+#                 return False
+#             elif rightData == '' or rightData.isNull():
+#                 return True
+#         else:
+#             if rightData == '' or rightData.isNull():
+#                 return False
+#             elif leftData == '' or leftData.isNull():
+#                 return True
 
         if isinstance(leftData, str):
             rightData = str(rightData)
