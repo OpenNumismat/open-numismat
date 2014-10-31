@@ -69,7 +69,7 @@ def main():
     app.installTranslator(translator)
 
     translatorQt = QTranslator()
-    translatorQt.load('qt_' + lang, OpenNumismat.PRJ_PATH)
+    translatorQt.load('qtbase_' + lang, OpenNumismat.PRJ_PATH)
     app.installTranslator(translatorQt)
 
     mainWindow = MainWindow()
