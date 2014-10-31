@@ -188,8 +188,7 @@ class PreviewDialog(QDialog):
 
         topLayout = QVBoxLayout()
         topLayout.addWidget(mw)
-# TODO: Check this after porting to PyQt5
-#        topLayout.setMargin(0)
+        topLayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(topLayout)
 
         self.setWindowTitle(self.tr("Report preview"))
@@ -289,7 +288,7 @@ class PreviewDialog(QDialog):
         self.webView.print_(printer)
 
     def qt_setupActionIcon(self, action, name):
-        imagePrefix = ":/trolltech/dialogs/qprintpreviewdialog/images/"
+        imagePrefix = ":/qt-project.org/dialogs/qprintpreviewdialog/images/"
         icon = QIcon()
         icon.addFile(imagePrefix + name + "-24.png", QtCore.QSize(24, 24))
         icon.addFile(imagePrefix + name + "-32.png", QtCore.QSize(32, 32))
