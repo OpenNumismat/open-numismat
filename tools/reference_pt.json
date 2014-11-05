@@ -1,0 +1,82 @@
+{
+    "rarity": [
+        "Comum",
+        "Normal",
+        "Escassa",
+        "Rara",
+        "Única",
+        "Só em conjuntos"
+    ],
+    "quality": [
+        "Não circulada",
+        "Brilhante não circulada",
+        "Proof",
+        "Tipo Proof",
+        "Reverso congelado"
+    ],
+    "defect": [
+        "Peça aparada",
+        "Laminação",
+        "Descentrada",
+        "Cunhagem múltipla",
+        "Mulo",
+        "Dupla impressão",
+        "Brocado"
+    ],
+    "type": [
+        "Emissão regular",
+        "Comemorativa",
+        "Lingote",
+        "Recunhagem",
+        "Padrão",
+        "Conjunto",
+        "Rolo"
+    ],
+    "obvrev": [
+        "Metálico (0°)",
+        "Moeda (180°)"
+    ],
+    "edge": [
+        "Recartilhado",
+        "Decorada",
+        "Interrompido",
+        "Suave",
+        "Letrado"
+    ],
+    "shape": [
+        "Redondo",
+        "Quadrado",
+        "Polígono",
+        "Flor espanhola",
+        "Círculo com furo"
+    ],
+    "material": [
+        "Acmonital",
+        "Alumínio",
+        "Alumínio-Bronze",
+        "Antimónio",
+        "Bronze",
+        "Bronze",
+        "Cobalto",
+        "Cobre",
+        "Cuproníquel",
+        "Ouro",
+        "Ferro",
+        "Magnésio",
+        "Manganês",
+        "Melchior",
+        "Níquel",
+        "Níquel-Prata",
+        "Ouro branco",
+        "Paládio",
+        "Platina",
+        "Prata",
+        "Aço",
+        "Tântalo",
+        "Tombac",
+        "Telúrio",
+        "Lata",
+        "Zinco",
+        "Bimetálico"
+    ]
+}

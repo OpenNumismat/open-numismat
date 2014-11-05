@@ -1,0 +1,82 @@
+{
+    "rarity": [
+        "Común",
+        "Normal",
+        "Limitada",
+        "Rara",
+        "Única",
+        "Sólo en sets"
+    ],
+    "quality": [
+        "Sin circular",
+        "Brillante sin circular",
+        "Prueba",
+        "Similar a prueba",
+        "Reverso escarchado"
+    ],
+    "defect": [
+        "Clipped planchet",
+        "Lamination",
+        "Off center strike",
+        "Multiple strike",
+        "Mule",
+        "Doubled die",
+        "Brockage"
+    ],
+    "type": [
+        "Emisión regular",
+        "Conmemorativa",
+        "Metal precioso",
+        "Restrike",
+        "Pattern",
+        "Set",
+        "Roll"
+    ],
+    "obvrev": [
+        "Medallic (0°)",
+        "Coin (180°)"
+    ],
+    "edge": [
+        "Reeded",
+        "Decorated",
+        "Interrupted milled",
+        "Smooth",
+        "Lettered"
+    ],
+    "shape": [
+        "Círculo",
+        "Square",
+        "Polygon",
+        "Spanish flower",
+        "Circle with hole"
+    ],
+    "material": [
+        "Acmonital",
+        "Aluminium",
+        "Aluminium bronze",
+        "Antimony",
+        "Brass",
+        "Bronze",
+        "Cobalt",
+        "Copper",
+        "Cupronickel",
+        "Gold",
+        "Iron",
+        "Magnesium",
+        "Manganese",
+        "Melchior",
+        "Nickel",
+        "Nickel silver",
+        "Nordic gold",
+        "Palladium",
+        "Platinum",
+        "Silver",
+        "Steel",
+        "Tantalum",
+        "Tombac",
+        "Tellurium",
+        "Tin",
+        "Zinc",
+        "Bimetal"
+    ]
+}
