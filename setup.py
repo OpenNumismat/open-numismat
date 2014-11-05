@@ -143,7 +143,7 @@ params = {
             "Environment :: X11 Applications :: Qt",
             "Environment :: Win32 (MS Windows)",
             "Environment :: MacOS X",
-            "Programming Language :: Python :: 3.2"],
+            "Programming Language :: Python :: 3.4"],
 
     "install_requires": dependencies,
 
