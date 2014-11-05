@@ -183,7 +183,7 @@ if cx_Freeze_available:
         executable_ext = '.exe'
     else:
         # Path to Qt on MacPorts
-        qt_dir = '/opt/local/share/qt4'
+        qt_dir = '/opt/local/share/qt5'
         executable_ext = ''
 
     executable = Executable("open-numismat.py", base=base, compress=True,
@@ -194,8 +194,9 @@ if cx_Freeze_available:
     for translation in ['ru', 'uk', 'es', 'hu', 'pt', 'de', 'el']:
         translation_files.append(("OpenNumismat/lang_%s.qm" % translation,
                                   "lang_%s.qm" % translation))
-        translation_files.append(("OpenNumismat/qt_%s.qm" % translation,
-                                  "qt_%s.qm" % translation))
+        if os.path.isfile("OpenNumismat/qtbase_%s.qm" % translation):
+            translation_files.append(("OpenNumismat/qtbase_%s.qm" % translation,
+                                  "qtbase_%s.qm" % translation))
     include_files = translation_files + [
             "COPYING",
             ("OpenNumismat/icons", "icons"),
@@ -207,7 +208,7 @@ if cx_Freeze_available:
         include_files.append(
                 ("OpenNumismat/Collection/Import/CdrToXml/Cdr2Xml.dll", "Cdr2Xml.dll"))
         include_files.append(
-                (qt_dir + "/plugins/sqldrivers/qsqlite4.dll", "sqldrivers/qsqlite4.dll"))
+                (qt_dir + "/plugins/sqldrivers/qsqlite.dll", "sqldrivers/qsqlite.dll"))
     elif sys.platform == "darwin":
         include_files.append(
                 (qt_dir + "/plugins/sqldrivers/libqsqlite.dylib", "sqldrivers/libqsqlite.dylib"))
@@ -219,7 +220,7 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/liblcms.1.dylib", "liblcms.1.dylib"))
     build_exe_options = {
             "excludes": ["unittest"],
-            "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork"],
+            "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork", "PyQt5.QtWebKit"],
             "include_files": include_files,
             "replace_paths": [(os.path.dirname(__file__) + os.sep, '')]
     }
