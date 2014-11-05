@@ -1,4 +1,5 @@
 from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QStandardPaths
+from PyQt5.QtGui import QImage
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
