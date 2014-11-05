@@ -4,6 +4,7 @@
 import shutil
 
 from PyQt5 import QtCore, QtGui
+from PyQt5.QtWidgets import QApplication
 
 def convertImage(fileName):
     ba = QtCore.QByteArray()
@@ -21,7 +22,7 @@ from OpenNumismat.Reference.Reference import Reference
 
 shutil.copy("../OpenNumismat/db/reference_es.ref", ".")
 
-app = QtGui.QApplication(sys.argv)
+app = QApplication(sys.argv)
 
 ref = Reference()
 ref.open('reference_es.ref')
