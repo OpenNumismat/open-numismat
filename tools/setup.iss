@@ -43,26 +43,36 @@ de.checkUpdate=Automatically check for updates
 el.checkUpdate=Automatically check for updates
 cs.checkUpdate=Automatically check for updates
 
+en.associate=Associate *.db files with OpenNumismat
+ru.associate=Связать *.db файлы с OpenNumismat
+uk.associate=Associate *.db files with OpenNumismat
+es.associate=Associate *.db files with OpenNumismat
+hu.associate=Associate *.db files with OpenNumismat
+pt.associate=Associate *.db files with OpenNumismat
+de.associate=Associate *.db files with OpenNumismat
+el.associate=Associate *.db files with OpenNumismat
+cs.associate=Associate *.db files with OpenNumismat
+
 [Files]
-Source: "..\build\exe.win32-3.2\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
-Source: "..\build\exe.win32-3.2\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: en; Flags: onlyifdoesntexist
-Source: "..\build\exe.win32-3.2\db\demo_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: ru; Flags: onlyifdoesntexist
-Source: "..\build\exe.win32-3.2\db\demo_uk.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: uk; Flags: onlyifdoesntexist
-Source: "..\build\exe.win32-3.2\db\demo_es.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: es; Flags: onlyifdoesntexist
-Source: "..\build\exe.win32-3.2\db\demo_hu.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: hu; Flags: onlyifdoesntexist
-Source: "..\build\exe.win32-3.2\db\demo_pt.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: pt; Flags: onlyifdoesntexist
-Source: "..\build\exe.win32-3.2\db\demo_de.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: de; Flags: onlyifdoesntexist
-Source: "..\build\exe.win32-3.2\db\demo_el.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: el; Flags: onlyifdoesntexist
-Source: "..\build\exe.win32-3.2\db\demo_cs.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: cs; Flags: onlyifdoesntexist
-Source: "..\build\exe.win32-3.2\db\reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en; Flags: confirmoverwrite
-Source: "..\build\exe.win32-3.2\db\reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru; Flags: confirmoverwrite
-Source: "..\build\exe.win32-3.2\db\reference_uk.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: uk; Flags: confirmoverwrite
-Source: "..\build\exe.win32-3.2\db\reference_es.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: es; Flags: confirmoverwrite
-Source: "..\build\exe.win32-3.2\db\reference_hu.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: hu; Flags: confirmoverwrite
-Source: "..\build\exe.win32-3.2\db\reference_pt.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: pt; Flags: confirmoverwrite
-Source: "..\build\exe.win32-3.2\db\reference_de.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: de; Flags: confirmoverwrite
-Source: "..\build\exe.win32-3.2\db\reference_el.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: el; Flags: confirmoverwrite
-Source: "..\build\exe.win32-3.2\db\reference_cs.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: cs; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+Source: "..\build\exe.win32-3.4\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: en; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: ru; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_uk.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: uk; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_es.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: es; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_hu.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: hu; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_pt.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: pt; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_de.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: de; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_el.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: el; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_cs.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: cs; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_uk.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: uk; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_es.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: es; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_hu.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: hu; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_pt.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: pt; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_de.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: de; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_el.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: el; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_cs.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: cs; Flags: confirmoverwrite
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat\backup"
@@ -72,6 +82,10 @@ Root: HKCU; Subkey: "Software\Janis"; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: "Software\Janis\OpenNumismat"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "Software\Janis\OpenNumismat\mainwindow"; ValueType: string; ValueName: "error"; ValueData: "true"; Tasks: sendreport
 Root: HKCU; Subkey: "Software\Janis\OpenNumismat\mainwindow"; ValueType: string; ValueName: "updates"; ValueData: "true"; Tasks: checkupdate
+Root: HKCR; Subkey: ".db"; ValueType: string; ValueName: ""; ValueData: "OpenNumismatCollection"; Flags: uninsdeletevalue; Tasks: associate 
+Root: HKCR; Subkey: "OpenNumismatCollection"; ValueType: string; ValueName: ""; ValueData: "OpenNumismat collection"; Flags: uninsdeletekey; Tasks: associate
+Root: HKCR; Subkey: "OpenNumismatCollection\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\OpenNumismat.EXE,0"; Flags: uninsdeletekey; Tasks: associate
+Root: HKCR; Subkey: "OpenNumismatCollection\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\OpenNumismat.EXE"" ""%1"""; Flags: uninsdeletekey; Tasks: associate
 
 [Icons]
 Name: "{group}\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"
@@ -83,6 +97,7 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\OpenNumismat"; Fil
 Filename: "{app}\OpenNumismat.exe"; Flags: postinstall nowait skipifsilent
 
 [Tasks]
+Name: associate; Description: "{cm:associate}"; Flags: unchecked
 Name: sendreport; Description: "{cm:sendReport}"
 Name: checkupdate; Description: "{cm:checkUpdate}"
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"

@@ -93,7 +93,7 @@ for mn, urlm in NEEDED_MODULES:
 
 dependencies = ['lxml', 'jinja2']
 if sys.platform == 'win32':
-    dependencies.append("xlwt3")
+    dependencies.append("xlwt")
 
 
 # data_files = []
