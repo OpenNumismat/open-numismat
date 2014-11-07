@@ -19,7 +19,11 @@ class _Import(QtCore.QObject):
 
     @staticmethod
     def defaultDir():
-        return QStandardPaths.displayName(QStandardPaths.DocumentsLocation)
+        dirs = QStandardPaths.standardLocations(QStandardPaths.DocumentsLocation)
+        if dirs:
+            return dirs[0]
+        else:
+            return ''
 
     def __init__(self, parent=None):
         super(_Import, self).__init__(parent)

@@ -2,6 +2,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
+import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import version
 
@@ -77,8 +78,7 @@ class ImageLabel(QLabel):
 
 
 class ImageEdit(ImageLabel):
-    latestDir = QStandardPaths.displayName(
-                                    QStandardPaths.PicturesLocation)
+    latestDir = OpenNumismat.IMAGE_PATH
 
     def __init__(self, name, parent=None):
         super(ImageEdit, self).__init__(parent)
@@ -142,8 +142,7 @@ class ImageEdit(ImageLabel):
                             "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
                             "All files (*.*)")
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
-                caption, ImageEdit.latestDir,
-                filter_)
+                caption, ImageEdit.latestDir, filter_)
         if fileName:
             file_info = QFileInfo(fileName)
             ImageEdit.latestDir = file_info.absolutePath()
@@ -161,8 +160,7 @@ class ImageEdit(ImageLabel):
                             "All files (*.*)")
         # TODO: Set default name to coin title + field name
         fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
-                caption, ImageEdit.latestDir + '/' + self.name,
-                filter_)
+                caption, ImageEdit.latestDir + '/' + self.name, filter_)
         if fileName:
             dir_ = QDir(fileName)
             dir_.cdUp()

@@ -1,13 +1,13 @@
-from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QStandardPaths
+from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer
 from PyQt5.QtGui import QImage
 from PyQt5.QtWidgets import *
 
+import OpenNumismat
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
 class ListView(QListView):
-    latestDir = QStandardPaths.displayName(
-                                    QStandardPaths.PicturesLocation)
+    latestDir = OpenNumismat.IMAGE_PATH
 
     def __init__(self, parent=None):
         super(ListView, self).__init__(parent)

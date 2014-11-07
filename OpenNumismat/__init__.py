@@ -7,13 +7,21 @@ from OpenNumismat import version
 
 
 # Getting default path for storing user data
+HOME_PATH = ''
 if sys.platform in ['win32', 'darwin']:
-    __docDir = QStandardPaths.displayName(QStandardPaths.DocumentsLocation)
-    HOME_PATH = os.path.join(__docDir, version.AppName)
+    __docDirs = QStandardPaths.standardLocations(QStandardPaths.DocumentsLocation)
+    if __docDirs:
+        HOME_PATH = os.path.join(__docDirs[0], version.AppName)
 else:
-    __homeDir = QStandardPaths.displayName(QStandardPaths.HomeLocation)
-    HOME_PATH = os.path.join(__homeDir, version.AppName)
+    __homeDirs = QStandardPaths.standardLocations(QStandardPaths.HomeLocation)
+    if __homeDirs:
+        HOME_PATH = os.path.join(__homeDirs[0], version.AppName)
 
+__imgDirs = QStandardPaths.standardLocations(QStandardPaths.PicturesLocation)
+if __imgDirs:
+    IMAGE_PATH = __imgDirs[0]
+else:
+    IMAGE_PATH = HOME_PATH
 
 # Getting path where stored application data (icons, templates, etc)
 PRJ_PATH = os.path.abspath(os.path.dirname(__file__))
