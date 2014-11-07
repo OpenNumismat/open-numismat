@@ -23,15 +23,25 @@ Name: el; MessagesFile: "compiler:Languages\Greek.isl"; InfoBeforeFile: license_
 Name: cs; MessagesFile: "compiler:Languages\Czech.isl"; InfoBeforeFile: license_en.txt
 
 [CustomMessages]
-en.sendReport=Send a reports to author's web-site if any error occured
+en.sendReport=Send a reports to author's web-site if any error occurred
 ru.sendReport=Посылать отчет разработчику при возникновении ошибки
 uk.sendReport=Відправляти звіт про помилки автору
 es.sendReport=Enviar un informe al autor del sitio web si cualquier error
 hu.sendReport=Hiba elkuldese a keszitonek
 pt.sendReport=Enviar relatorios para o autor do web-site se algum erro ocorreu
-de.sendReport=Send a reports to author's web-site if any error occured
-el.sendReport=Send a reports to author's web-site if any error occured
-cs.sendReport=Send a reports to author's web-site if any error occured
+de.sendReport=Send a reports to author's web-site if any error occurred
+el.sendReport=Send a reports to author's web-site if any error occurred
+cs.sendReport=Send a reports to author's web-site if any error occurred
+
+en.checkUpdate=Automatically check for updates
+ru.checkUpdate=Проверять обновления автоматически
+uk.checkUpdate=Automatically check for updates
+es.checkUpdate=Automatically check for updates
+hu.checkUpdate=Automatically check for updates
+pt.checkUpdate=Automatically check for updates
+de.checkUpdate=Automatically check for updates
+el.checkUpdate=Automatically check for updates
+cs.checkUpdate=Automatically check for updates
 
 [Files]
 Source: "..\build\exe.win32-3.2\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
@@ -61,6 +71,7 @@ Name: "{userdocs}\OpenNumismat\backup"
 Root: HKCU; Subkey: "Software\Janis"; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: "Software\Janis\OpenNumismat"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "Software\Janis\OpenNumismat\mainwindow"; ValueType: string; ValueName: "error"; ValueData: "true"; Tasks: sendreport
+Root: HKCU; Subkey: "Software\Janis\OpenNumismat\mainwindow"; ValueType: string; ValueName: "updates"; ValueData: "true"; Tasks: checkupdate
 
 [Icons]
 Name: "{group}\OpenNumismat"; Filename: "{app}\OpenNumismat.exe"
@@ -73,5 +84,6 @@ Filename: "{app}\OpenNumismat.exe"; Flags: postinstall nowait skipifsilent
 
 [Tasks]
 Name: sendreport; Description: "{cm:sendReport}"
+Name: checkupdate; Description: "{cm:checkUpdate}"
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
