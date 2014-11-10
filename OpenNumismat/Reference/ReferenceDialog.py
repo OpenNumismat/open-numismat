@@ -10,16 +10,16 @@ class ListView(QListView):
     latestDir = OpenNumismat.IMAGE_PATH
 
     def __init__(self, parent=None):
-        super(ListView, self).__init__(parent)
+        super().__init__(parent)
 
     def commitData(self, editor):
         text = editor.text().strip()
         if len(text) > 0:
-            super(ListView, self).commitData(editor)
+            super().commitData(editor)
 
     def closeEditor(self, editor, hint):
         row = self.currentIndex().row()
-        super(ListView, self).closeEditor(editor, hint)
+        super().closeEditor(editor, hint)
 
         valid = True
         text = editor.text().strip()
@@ -73,7 +73,8 @@ class ListView(QListView):
     def deleteItem(self):
         index = self.selectedIndex()
         if index:
-            self.model().removeRow(index.row())
+            if self.model().removeRow(index.row()):
+                self.model().select()
 
     def _addIcon(self):
         filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
@@ -112,7 +113,7 @@ class ListView(QListView):
 
 class ReferenceWidget(QWidget):
     def __init__(self, section, text, parent=None):
-        super(ReferenceWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.model = section.model
 
@@ -176,7 +177,7 @@ class ReferenceWidget(QWidget):
 
 class CrossReferenceWidget(ReferenceWidget):
     def __init__(self, section, parentIndex, text, parent=None):
-        super(CrossReferenceWidget, self).__init__(section, text, parent)
+        super().__init__(section, text, parent)
 
         self.rel = self.model.relationModel(1)
 
@@ -250,7 +251,7 @@ class ReferenceDialog(QDialog):
                                                    "Reference")
         if title:
             windowTitle = ' - '.join([windowTitle, title])
-        super(ReferenceDialog, self).setWindowTitle(windowTitle)
+        super().setWindowTitle(windowTitle)
 
     def _referenceWidget(self, section, text):
         return ReferenceWidget(section, text, self)
@@ -261,12 +262,12 @@ class ReferenceDialog(QDialog):
             self.db.rollback()
 
         self.__selectedIndex = self.referenceWidget.selectedIndex()
-        super(ReferenceDialog, self).accept()
+        super().accept()
 
     def reject(self):
         self.db.rollback()
 
-        super(ReferenceDialog, self).reject()
+        super().reject()
 
     def selectedIndex(self):
         return self.__selectedIndex
@@ -275,7 +276,7 @@ class ReferenceDialog(QDialog):
 class CrossReferenceDialog(ReferenceDialog):
     def __init__(self, section, parentIndex, text='', parent=None):
         self.parentIndex = parentIndex
-        super(CrossReferenceDialog, self).__init__(section, text, parent)
+        super().__init__(section, text, parent)
 
     def _referenceWidget(self, section, text):
         return CrossReferenceWidget(section, self.parentIndex, text, self)
@@ -357,7 +358,7 @@ class AllReferenceDialog(QDialog):
                             self.tr("Something went wrong when saving. Please restart"))
             self.db.rollback()
 
-        super(AllReferenceDialog, self).accept()
+        super().accept()
 
     def reject(self):
         # Make select for close all SQL request
@@ -373,4 +374,4 @@ class AllReferenceDialog(QDialog):
             section.setSort()
             section.model.select()
 
-        super(AllReferenceDialog, self).reject()
+        super().reject()
