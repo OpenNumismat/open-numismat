@@ -9,8 +9,10 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 class ListView(QListView):
     latestDir = OpenNumismat.IMAGE_PATH
 
-    def __init__(self, parent=None):
+    def __init__(self, widget, parent=None):
         super().__init__(parent)
+
+        self.widget = widget
 
     def commitData(self, editor):
         text = editor.text().strip()
@@ -46,35 +48,36 @@ class ListView(QListView):
 
     def contextMenuEvent(self, event):
         menu = QMenu(self)
-        menu.addAction(self.tr("Add"), self.addItem)
+
+        act = menu.addAction(self.tr("Add"), self.addItem)
+        if not self.widget.isEnabled():
+            act.setDisabled(True)
+
         act = menu.addAction(self.tr("Delete"), self.deleteItem)
-        if not self.selectedIndex():
+        if not self.selectedIndex() or not self.widget.isEnabled():
             act.setDisabled(True)
+
         menu.addSeparator()
-        act = menu.addAction(self.tr("Add icon..."), self._addIcon)
-        if not self.selectedIndex() or self.model().fieldIndex('icon') < 0:
+
+        if self.selectedIndex() and self.selectedIndex().data(Qt.DecorationRole):
+            act = menu.addAction(self.tr("Change icon..."), self._addIcon)
+        else:
+            act = menu.addAction(self.tr("Add icon..."), self._addIcon)
+        if not self.selectedIndex() or not self.widget.isEnabled():
             act.setDisabled(True)
+
         act = menu.addAction(self.tr("Clear icon"), self._clearIcon)
-        if not self.selectedIndex() or self.model().fieldIndex('icon') < 0 or \
+        if not self.selectedIndex() or not self.widget.isEnabled() or \
                 not self.selectedIndex().data(Qt.DecorationRole):
             act.setDisabled(True)
 
         menu.exec_(self.mapToGlobal(event.pos()))
 
     def addItem(self):
-        model = self.model()
-        row = model.rowCount()
-        model.insertRow(row)
-        index = model.index(row, model.fieldIndex('value'))
-        model.setData(index, self.defaultValue())
-        self.setCurrentIndex(index)
-        self.edit(index)
+        self.widget.addItem()
 
     def deleteItem(self):
-        index = self.selectedIndex()
-        if index:
-            if self.model().removeRow(index.row()):
-                self.model().select()
+        self.widget.deleteItem()
 
     def _addIcon(self):
         filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
@@ -117,7 +120,7 @@ class ReferenceWidget(QWidget):
 
         self.model = section.model
 
-        self.listWidget = ListView(parent)
+        self.listWidget = ListView(self, parent)
         self.listWidget.setSelectionMode(
                                     QAbstractItemView.SingleSelection)
         self.listWidget.setModel(self.model)
@@ -170,9 +173,26 @@ class ReferenceWidget(QWidget):
 
     def clicked(self, button):
         if button == self.addButton:
-            self.listWidget.addItem()
+            self.addItem()
         elif button == self.delButton:
-            self.listWidget.deleteItem()
+            self.deleteItem()
+
+    def addItem(self):
+        row = self.model.rowCount()
+        self.model.insertRow(row)
+        index = self.model.index(row, self.model.fieldIndex('value'))
+        self.model.setData(index, self.listWidget.defaultValue())
+        self.listWidget.setCurrentIndex(index)
+        self.listWidget.edit(index)
+
+    def deleteItem(self):
+        index = self.selectedIndex()
+        if index:
+            if self.model.removeRow(index.row()):
+                self.model.select()
+
+    def isEnabled(self):
+        return True
 
 
 class CrossReferenceWidget(ReferenceWidget):
@@ -204,7 +224,7 @@ class CrossReferenceWidget(ReferenceWidget):
 
         self.editButtonBox.setEnabled(index >= 0)
 
-    def _addClicked(self):
+    def addItem(self):
         idIndex = self.rel.fieldIndex('id')
         index = self.rel.index(self.comboBox.currentIndex(), idIndex)
         parentId = self.rel.data(index)
@@ -217,6 +237,15 @@ class CrossReferenceWidget(ReferenceWidget):
         self.model.setData(index, self.listWidget.defaultValue())
         self.listWidget.setCurrentIndex(index)
         self.listWidget.edit(index)
+
+    def deleteItem(self):
+        index = self.selectedIndex()
+        if index:
+            if self.model.removeRow(index.row()):
+                self.model.select()
+
+    def isEnabled(self):
+        return self.comboBox.currentIndex() >= 0
 
 
 class ReferenceDialog(QDialog):
