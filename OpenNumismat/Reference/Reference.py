@@ -316,20 +316,20 @@ class Reference(QtCore.QObject):
         ref_rarity = ReferenceSection('rarity', self.tr("Rarity"), self.tr("R"))
 
         self.sections = [
-            ref_grade,
-            ref_material,
-            ref_defect,
-            ref_shape,
-            ref_quality,
             ref_country,
-            ref_rarity,
-            ref_edge,
-            ref_obvrev,
-            ref_type,
+            ref_period,
             ref_unit,
             ref_mint,
-            ref_period,
             ref_series,
+            ref_grade,
+            ref_material,
+            ref_shape,
+            ref_quality,
+            ref_edge,
+            ref_rarity,
+            ref_obvrev,
+            ref_type,
+            ref_defect,
             ref_place,
         ]
 
