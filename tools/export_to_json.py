@@ -38,7 +38,7 @@ if file_name:
     data = {'title': desc.title, 'description': desc.description, 'author': desc.author}
 
     json_file.write('{"description": ')
-    json.dump(data, json_file, indent=2, ensure_ascii=False)
+    json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
     json_file.write(',\n"coins": [\n')
 
     model = collection.model()
@@ -56,7 +56,10 @@ if file_name:
 
             if field.name in ('id', 'createdat', 'updatedat') or field.type == Type.PreviewImage:
                 continue
-            elif field.type in (Type.Image, Type.EdgeImage):
+            if field.name in ('saledate', 'paydate') and val == '2000-01-01':
+                continue
+
+            if field.type in (Type.Image, Type.EdgeImage):
                 img_file_title = "%d_%s.jpg" % (coin.value('id'), field.name)
                 img_file_name = os.path.join(image_path, img_file_title)
                 img_file = open(img_file_name, 'wb')
@@ -66,7 +69,7 @@ if file_name:
             else:
                 data[field.name] = val
 
-        json.dump(data, json_file, indent=2, ensure_ascii=False)
+        json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
         json_file.write(',\n')
 
     json_file.write(']\n}')
