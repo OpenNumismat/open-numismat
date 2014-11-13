@@ -144,7 +144,7 @@ class MainWindow(QMainWindow):
 
         self.latestActions = []
         self.__updateLatest(file)
-        
+
         file.addAction(settingsAct)
         file.addSeparator()
 
@@ -446,7 +446,7 @@ class MainWindow(QMainWindow):
     def newCollectionEvent(self):
         fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
                 self.tr("New collection"), self.__workingDir(),
-                self.tr("Collections (*.db)"),
+                self.tr("Collections (*.db)"), "",
                 QFileDialog.DontConfirmOverwrite)
         if fileName:
             self.__saveParams()
