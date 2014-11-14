@@ -77,4 +77,4 @@ if file_name:
     json_file.write(']\n}')
     json_file.close()
 
-print("Processed %d coins" % model.rowCount())
+    print("Processed %d coins" % model.rowCount())
