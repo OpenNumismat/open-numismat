@@ -29,7 +29,7 @@ if file_name:
     collection.open(file_name)
 
     json_file_name = file_name.replace('.db', '.json')
-    json_file = codecs.open(json_file_name, "w", "utf-8-sig")
+    json_file = codecs.open(json_file_name, "w", "utf-8")
 
     image_path = file_name.replace('.db', '_images')
     os.makedirs(image_path, exist_ok=True)
