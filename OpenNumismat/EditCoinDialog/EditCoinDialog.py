@@ -2,7 +2,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import *
 
-from OpenNumismat.EditCoinDialog.Auctions import getParser
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
@@ -69,45 +68,6 @@ class EditCoinDialog(QDialog):
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             self.reject()
-        elif event.matches(QKeySequence.Paste):
-            if self.items['status'].widget().data() == 'pass':
-                mime = QApplication.clipboard().mimeData()
-                if not mime.hasText():
-                    return
-                parser = getParser(mime.text(), self)
-                if not parser:
-                    return
-                lot = parser.parse(mime.text())
-                if not lot:
-                    return
-                for key in ['payprice', 'obverseimg', 'reverseimg', 'edgeimg',
-                            'photo1', 'photo2', 'photo3', 'photo4']:
-                    self.items[key].clear()
-                self.items['saleplace'].setValue(lot.place)
-                self.items['saleprice'].setValue(lot.price)
-                self.items['totalpayprice'].setValue(lot.totalPayPrice)
-                self.items['totalsaleprice'].setValue(lot.totalSalePrice)
-                self.items['saller'].setValue(lot.saller)
-                self.items['buyer'].setValue(lot.buyer)
-                self.items['saleinfo'].setValue(lot.info)
-                self.items['saledate'].setValue(lot.date)
-                self.items['grade'].setValue(lot.grade)
-
-                # Add images
-                imageFields = ['reverseimg', 'obverseimg',
-                            'photo1', 'photo2', 'photo3', 'photo4']
-                for i, imageUrl in enumerate(lot.images):
-                    if i < len(imageFields):
-                        self.items[imageFields[i]].widget().loadFromUrl(
-                                                                    imageUrl)
-                    else:
-                        QMessageBox.information(self,
-                                    self.tr("Parse auction lot"),
-                                    self.tr("Too many images"),
-                                    QMessageBox.Ok)
-                        break
-
-                self.tab.setCurrentIndex(1)
 
     def save(self):
         # Clear unused fields
