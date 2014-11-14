@@ -82,6 +82,8 @@ class Settings(BaseSettings):
                'error': False, 'updates': False,
                'free_numeric': False,
                'store_sorting': False,
+               'sort_filter': True,
+               'sort_tree': True,
                'template': 'cbr',
                'ImageSideLen': 1024}
 
@@ -96,9 +98,9 @@ class Settings(BaseSettings):
     def _getValue(self, key):
         value = self.settings.value('mainwindow/' + key)
         if value:
-            if key in ('error', 'updates', 'free_numeric', 'store_sorting'):
+            if key in ('error', 'updates', 'free_numeric', 'store_sorting',
+                       'sort_filter', 'sort_tree'):
                 # Convert boolean value
-                # TODO: From Qt 5.1 SQLite boolean type work correct
                 value = (value == 'true')
         else:
             value = self.Default[key]
@@ -188,6 +190,16 @@ class MainSettingsPage(QWidget):
         self.storeSorting.setChecked(settings['store_sorting'])
         layout.addRow(self.storeSorting)
 
+        self.sortFilter = QCheckBox(
+                            self.tr("Sort items in filters (slow)"), self)
+        self.sortFilter.setChecked(settings['sort_filter'])
+        layout.addRow(self.sortFilter)
+
+        self.sortTree = QCheckBox(
+                            self.tr("Sort items in tree (slow)"), self)
+        self.sortTree.setChecked(settings['sort_tree'])
+        layout.addRow(self.sortTree)
+
         current = 0
         self.templateSelector = QComboBox(self)
         for i, template in enumerate(Report.scanTemplates()):
@@ -228,6 +240,8 @@ class MainSettingsPage(QWidget):
         settings['updates'] = self.checkUpdates.isChecked()
         settings['free_numeric'] = self.freeNumeric.isChecked()
         settings['store_sorting'] = self.storeSorting.isChecked()
+        settings['sort_filter'] = self.sortFilter.isChecked()
+        settings['sort_tree'] = self.sortTree.isChecked()
         settings['template'] = self.templateSelector.currentText()
         settings['ImageSideLen'] = int(self.imageSideLen.text())
 

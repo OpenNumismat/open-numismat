@@ -11,6 +11,7 @@ from OpenNumismat.CustomizeTreeDialog import CustomizeTreeDialog
 from OpenNumismat.Tools import Gui
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import DetailsTabWidget
+from OpenNumismat.Settings import Settings
 
 
 class ImageView(QWidget):
@@ -112,6 +113,8 @@ class TreeView(QTreeWidget):
     def __init__(self, treeParam, parent=None):
         super(TreeView, self).__init__(parent)
 
+        self.settings = Settings()
+
         self.setHeaderHidden(True)
         self.setAutoScroll(False)
 
@@ -158,7 +161,9 @@ class TreeView(QTreeWidget):
 
         sql = "SELECT DISTINCT %s FROM coins" % ','.join(fields)
         if filters:
-            sql = sql + " WHERE " + filters
+            sql += " WHERE " + filters
+        if self.settings['sort_tree']:
+            sql += " ORDER BY %s ASC" % fields[-1]
         query = QtSql.QSqlQuery(sql, self.db)
         while query.next():
             record = query.record()

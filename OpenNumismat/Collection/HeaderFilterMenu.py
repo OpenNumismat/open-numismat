@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Settings import Settings
 
 
 class FilterMenuButton(QPushButton):
@@ -22,6 +23,7 @@ class FilterMenuButton(QPushButton):
         self.fieldid = columnParam.fieldid
         self.filters = listParam.filters
         self.listParam = listParam
+        self.settings = Settings()
 
         menu = QMenu()
 
@@ -64,7 +66,7 @@ class FilterMenuButton(QPushButton):
             filtersSql = self.filtersToSql(filters.values())
             sql = "SELECT count(*) FROM coins WHERE " + filtersSql
             if filtersSql:
-                sql = sql + ' AND '
+                sql += ' AND '
 
             # Get blank row count
             query = QSqlQuery(sql + blanksFilter, self.db)
@@ -98,6 +100,8 @@ class FilterMenuButton(QPushButton):
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
             sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
+            if self.settings['sort_filter']:
+                sql += " ORDER BY %s ASC" % self.columnName
             query = QSqlQuery(sql, self.db)
 
             while query.next():
@@ -121,6 +125,8 @@ class FilterMenuButton(QPushButton):
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
             sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
+            if self.settings['sort_filter']:
+                sql += " ORDER BY %s ASC" % self.columnName
             query = QSqlQuery(sql, self.db)
 
             while query.next():
