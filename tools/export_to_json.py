@@ -46,7 +46,8 @@ if file_name:
         model.fetchMore()
 
     fields = CollectionFieldsBase()
-    for i in range(model.rowCount()):
+    count = model.rowCount()
+    for i in range(count):
         data = {}
         coin = model.record(i)
         for field in fields:
@@ -70,7 +71,8 @@ if file_name:
                 data[field.name] = val
 
         json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
-        json_file.write(',\n')
+        if i < count - 1:
+            json_file.write(',\n')
 
     json_file.write(']\n}')
     json_file.close()
