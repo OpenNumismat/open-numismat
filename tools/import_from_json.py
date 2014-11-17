@@ -6,7 +6,7 @@ import json
 import os
 import sys
 
-from PyQt5.QtCore import QStandardPaths
+from PyQt5.QtCore import QStandardPaths, QTranslator
 from PyQt5.QtGui import QImage
 from PyQt5.QtWidgets import QApplication, QFileDialog
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -21,6 +21,9 @@ HOME_PATH = ''
 __docDirs = QStandardPaths.standardLocations(QStandardPaths.DocumentsLocation)
 if __docDirs:
     HOME_PATH = os.path.join(__docDirs[0], "OpenNumismat")
+# Getting path where stored application data (icons, templates, etc)
+PRJ_PATH = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", "OpenNumismat"))
 
 json_file_name, _selectedFilter = QFileDialog.getOpenFileName(None,
                 "Open collection", HOME_PATH,
@@ -29,6 +32,12 @@ if json_file_name:
     file_name = json_file_name.replace('.json', '.db')
     json_file = codecs.open(json_file_name, "r", "utf-8")
     data = json.load(json_file)
+
+    if 'lang' in data['description']:
+        lang = data['description']['lang']
+        translator = QTranslator()
+        translator.load('lang_' + lang, PRJ_PATH)
+        app.installTranslator(translator)
 
     collection = Collection(None)
     collection.create(file_name)
