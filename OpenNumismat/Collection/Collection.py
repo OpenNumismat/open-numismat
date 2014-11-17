@@ -1,4 +1,5 @@
 import locale
+import os
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
@@ -6,6 +7,7 @@ from PyQt5.QtGui import QImage, QPainter, QColor
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 
+from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.CollectionPages import CollectionPages
@@ -20,6 +22,7 @@ from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools import Gui
 from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
+from OpenNumismat.Collection.Export import ExportDialog
 
 
 class CollectionModel(QSqlTableModel):
@@ -224,7 +227,7 @@ class CollectionModel(QSqlTableModel):
 
         return super(CollectionModel, self).setRecord(row, record)
 
-    def record(self, row= -1):
+    def record(self, row=-1):
         if row >= 0:
             record = super(CollectionModel, self).record(row)
         else:
@@ -702,3 +705,175 @@ class Collection(QtCore.QObject):
     def fileNameToCollectionName(fileName):
         file = QtCore.QFileInfo(fileName)
         return file.baseName()
+
+    def exportToMobile(self, params):
+        SKIPPED_FIELDS = ('edgeimg', 'photo1', 'photo2', 'photo3', 'photo4',
+            'obversedesigner', 'reversedesigner', 'catalognum2', 'catalognum3', 'catalognum4',
+            'saledate', 'saleprice', 'totalsaleprice', 'buyer', 'saleplace', 'saleinfo',
+            'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace', 'payinfo',
+            'url', 'obversevar', 'reversevar', 'edgevar', 'obversedesigner', 'reversedesigner')
+
+        if os.path.isfile(params['file']):
+            os.remove(params['file'])
+
+        db = QSqlDatabase.addDatabase('QSQLITE', 'mobile')
+        db.setDatabaseName(params['file'])
+        if not db.open():
+            print(db.lastError().text())
+            QMessageBox.critical(self.parent(),
+                                       self.tr("Create mobile collection"),
+                                       self.tr("Can't open collection"))
+            return
+
+        mobile_settings = {'Version': 4, 'Type': 'Mobile', 'Filter': params['filter']}
+
+        sql = """CREATE TABLE settings (
+            title CHAR NOT NULL UNIQUE,
+            value CHAR)"""
+        QSqlQuery(sql, db)
+        for key, value in mobile_settings.items():
+            query = QSqlQuery(db)
+            query.prepare("""INSERT INTO settings (title, value)
+                    VALUES (?, ?)""")
+            query.addBindValue(key)
+            query.addBindValue(str(value))
+            query.exec_()
+
+        sql = """CREATE TABLE updates (
+            title CHAR NOT NULL UNIQUE,
+            value CHAR)"""
+        QSqlQuery(sql, db)
+
+        sql = """CREATE TABLE photos (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            image BLOB)"""
+        QSqlQuery(sql, db)
+
+        sqlFields = []
+        fields = CollectionFieldsBase()
+        for field in fields:
+            if field.name == 'id':
+                sqlFields.append('id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT')
+            elif field.name == 'image':
+                sqlFields.append('image INTEGER')
+            elif field.name in SKIPPED_FIELDS:
+                continue
+            else:
+                sqlFields.append("%s %s" % (field.name, Type.toSql(field.type)))
+
+        sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
+        QSqlQuery(sql, db)
+
+        model = self.model()
+        while model.canFetchMore():
+            model.fetchMore()
+
+        dest_model = QSqlTableModel(self.parent(), db)
+        dest_model.setEditStrategy(QSqlTableModel.OnManualSubmit)
+        dest_model.setTable('coins')
+        dest_model.select()
+
+        if params['density'] == 'HDPI':
+            height = 64 * 1.5
+        elif params['density'] == 'XHDPI':
+            height = 64 * 2
+        elif params['density'] == 'XXHDPI':
+            height = 64 * 3
+        elif params['density'] == 'XXXHDPI':
+            height = 64 * 4
+        else:
+            height = 64
+
+        is_obverse_enabled = params['image'] in (ExportDialog.IMAGE_OBVERSE, ExportDialog.IMAGE_BOTH)
+        is_reverse_enabled = params['image'] in (ExportDialog.IMAGE_REVERSE, ExportDialog.IMAGE_BOTH)
+
+        fields = CollectionFieldsBase()
+        count = model.rowCount()
+        progressDlg = Gui.ProgressDialog(self.tr("Exporting records"),
+                                        self.tr("Cancel"), count, self.parent())
+
+        for i in range(count):
+            progressDlg.step()
+            if progressDlg.wasCanceled():
+                break
+
+            coin = model.record(i)
+            if coin.value('status') in ('pass', 'sold'):
+                continue
+
+            dest_record = dest_model.record()
+
+            for field in fields:
+                if field.name in ('id', 'image', 'obverseimg', 'reverseimg'):
+                    continue
+                if field.name in SKIPPED_FIELDS:
+                    continue
+
+                val = coin.value(field.name)
+                if val is None or val == '':
+                    continue
+
+                data = coin.value(field.name)
+                dest_record.setValue(field.name, data)
+
+            # Process images
+            is_obverse_present = is_obverse_enabled and not coin.isNull('obverseimg')
+            is_reverse_present = is_reverse_enabled and not coin.isNull('reverseimg')
+            if is_obverse_present or is_reverse_present:
+                obverseImage = QImage()
+                reverseImage = QImage()
+
+                if is_obverse_present:
+                    obverseImage.loadFromData(coin.value('obverseimg'))
+                    query = QSqlQuery(db)
+                    query.prepare("""INSERT INTO photos (image)
+                            VALUES (?)""")
+                    query.addBindValue(coin.value('obverseimg'))
+                    query.exec_()
+                    img_id = query.lastInsertId()
+                    dest_record.setValue('obverseimg', img_id)
+                if not obverseImage.isNull():
+                    obverseImage = obverseImage.scaledToHeight(height,
+                                                            Qt.SmoothTransformation)
+
+                if is_reverse_present:
+                    reverseImage.loadFromData(coin.value('reverseimg'))
+                    query = QSqlQuery(db)
+                    query.prepare("""INSERT INTO photos (image)
+                            VALUES (?)""")
+                    query.addBindValue(coin.value('reverseimg'))
+                    query.exec_()
+                    img_id = query.lastInsertId()
+                    dest_record.setValue('reverseimg', img_id)
+                if not reverseImage.isNull():
+                    reverseImage = reverseImage.scaledToHeight(height,
+                                                        Qt.SmoothTransformation)
+
+                image = QImage(obverseImage.width() + reverseImage.width(),
+                                     height, QImage.Format_RGB32)
+                image.fill(QColor(Qt.white).rgb())
+
+                paint = QPainter(image)
+                if is_obverse_present:
+                    paint.drawImage(QtCore.QRectF(0, 0, obverseImage.width(), height), obverseImage,
+                                    QtCore.QRectF(0, 0, obverseImage.width(), height))
+                if is_reverse_present:
+                    paint.drawImage(QtCore.QRectF(obverseImage.width(), 0, reverseImage.width(), height), reverseImage,
+                                    QtCore.QRectF(0, 0, reverseImage.width(), height))
+                paint.end()
+
+                ba = QtCore.QByteArray()
+                buffer = QtCore.QBuffer(ba)
+                buffer.open(QtCore.QIODevice.WriteOnly)
+
+                # Store as PNG for better view
+                image.save(buffer, 'png')
+                dest_record.setValue('image', ba)
+
+            dest_model.insertRecord(-1, dest_record)
+
+        progressDlg.setLabelText(self.tr("Saving..."))
+        dest_model.submitAll()
+        db.close()
+
+        progressDlg.reset()

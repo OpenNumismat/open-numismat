@@ -15,6 +15,7 @@ from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.Gui import createIcon
 from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat import version
+from OpenNumismat.Collection.Export import ExportDialog
 
 from OpenNumismat.Collection.Import import *
 
@@ -129,6 +130,14 @@ class MainWindow(QMainWindow):
             importMenu.addAction(importNumizmaticRuAct)
 
 
+        exportMenu = QMenu(self.tr("Export"), self)
+        self.collectionActs.append(exportMenu)
+
+        exportMobileAct = QAction(self.tr("For Android version"), self)
+        exportMobileAct.triggered.connect(self.exportMobile)
+        self.collectionActs.append(exportMobileAct)
+        exportMenu.addAction(exportMobileAct)
+
         file = menubar.addMenu(self.tr("&File"))
 
         file.addAction(newCollectionAct)
@@ -140,6 +149,8 @@ class MainWindow(QMainWindow):
         file.addAction(descriptionCollectionAct)
         file.addSeparator()
         file.addMenu(importMenu)
+        file.addSeparator()
+        file.addMenu(exportMenu)
         file.addSeparator()
 
         self.latestActions = []
@@ -391,6 +402,12 @@ class MainWindow(QMainWindow):
 
             imp = ImportNumizmatik_Ru(self)
             imp.importData(file, self.viewTab.currentModel())
+
+    def exportMobile(self):
+        dialog = ExportDialog(self.collection, self)
+        res = dialog.exec_()
+        if res == QDialog.Accepted:
+            self.collection.exportToMobile(dialog.params)
 
     def addCoin(self):
         model = self.viewTab.currentModel()

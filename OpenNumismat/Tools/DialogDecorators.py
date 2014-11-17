@@ -1,4 +1,4 @@
-from PyQt5 import QtCore
+from PyQt5.QtCore import QSettings
 
 
 def storeDlgSizeDecorator(original_class):
@@ -9,14 +9,14 @@ def storeDlgSizeDecorator(original_class):
     def __init__(self, *args, **kws):
         orig_init(self, *args, **kws)  # call the original __init__
 
-        settings = QtCore.QSettings()
+        settings = QSettings()
         orig_class_name = self.__class__.__name__
         size = settings.value('%s/size' % orig_class_name)
         if size:
             self.resize(size)
 
     def done(self, r):
-        settings = QtCore.QSettings()
+        settings = QSettings()
         orig_class_name = self.__class__.__name__
         settings.setValue('%s/size' % orig_class_name, self.size())
 
