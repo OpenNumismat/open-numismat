@@ -817,8 +817,8 @@ class Collection(QtCore.QObject):
                 dest_record.setValue(field.name, data)
 
             # Process images
-            is_obverse_present = is_obverse_enabled and not coin.isNull('obverseimg')
-            is_reverse_present = is_reverse_enabled and not coin.isNull('reverseimg')
+            is_obverse_present = not coin.isNull('obverseimg')
+            is_reverse_present = not coin.isNull('reverseimg')
             if is_obverse_present or is_reverse_present:
                 obverseImage = QImage()
                 reverseImage = QImage()
@@ -849,15 +849,20 @@ class Collection(QtCore.QObject):
                     reverseImage = reverseImage.scaledToHeight(height,
                                                         Qt.SmoothTransformation)
 
+                if not is_obverse_enabled:
+                    obverseImage = QImage()
+                if not is_reverse_enabled:
+                    reverseImage = QImage()
+
                 image = QImage(obverseImage.width() + reverseImage.width(),
                                      height, QImage.Format_RGB32)
                 image.fill(QColor(Qt.white).rgb())
 
                 paint = QPainter(image)
-                if is_obverse_present:
+                if is_obverse_present and is_obverse_enabled:
                     paint.drawImage(QtCore.QRectF(0, 0, obverseImage.width(), height), obverseImage,
                                     QtCore.QRectF(0, 0, obverseImage.width(), height))
-                if is_reverse_present:
+                if is_reverse_present and is_reverse_enabled:
                     paint.drawImage(QtCore.QRectF(obverseImage.width(), 0, reverseImage.width(), height), reverseImage,
                                     QtCore.QRectF(0, 0, reverseImage.width(), height))
                 paint.end()
