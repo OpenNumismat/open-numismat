@@ -166,6 +166,9 @@ class FilterMenuButton(QPushButton):
 
         self.listWidget.itemChanged.connect(self.itemChanged)
 
+        self.searchBox = QLineEdit(self)
+        self.searchBox.textChanged.connect(self.applySearch)
+
         self.buttonBox = QDialogButtonBox(Qt.Horizontal)
         self.buttonBox.addButton(QDialogButtonBox.Ok)
         self.buttonBox.addButton(QDialogButtonBox.Cancel)
@@ -173,6 +176,7 @@ class FilterMenuButton(QPushButton):
         self.buttonBox.rejected.connect(self.menu().hide)
 
         layout = QVBoxLayout(self)
+        layout.addWidget(self.searchBox)
         layout.addWidget(self.listWidget)
         layout.addWidget(self.buttonBox)
 
@@ -272,6 +276,14 @@ class FilterMenuButton(QPushButton):
 
     def clear(self):
         self.setIcon(createIcon())
+
+    def applySearch(self, text):
+        for i in range(self.listWidget.count()):
+            item = self.listWidget.item(i)
+            if item.text().find(text) >= 0:
+                item.setHidden(False)
+            else:
+                item.setHidden(True)
 
     @staticmethod
     def filtersToSql(filters):
