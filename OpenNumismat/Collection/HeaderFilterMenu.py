@@ -167,7 +167,7 @@ class FilterMenuButton(QPushButton):
         self.listWidget.itemChanged.connect(self.itemChanged)
 
         self.searchBox = QLineEdit(self)
-        self.searchBox.setPlaceholderText(self.tr("Enter filter"))
+        self.searchBox.setPlaceholderText(self.tr("Filter"))
         self.searchBox.textChanged.connect(self.applySearch)
 
         self.buttonBox = QDialogButtonBox(Qt.Horizontal)
