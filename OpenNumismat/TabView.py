@@ -160,7 +160,7 @@ class TabView(QTabWidget):
     def newList(self):
         label, ok = QInputDialog.getText(self, self.tr("New list"),
                 self.tr("Enter list title"), text=self.tr("New list"),
-                flags=Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                flags=(Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint))
         if ok and label:
             self.__createListPage(label)
 
@@ -169,7 +169,7 @@ class TabView(QTabWidget):
         oldLabel = self.tabText(index)
         label, ok = QInputDialog.getText(self, self.tr("Rename list"),
                 self.tr("Enter new list title"), text=oldLabel,
-                flags=Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                flags=(Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint))
         if ok and label:
             self.setTabText(index, label)
             page = self.widget(index)
