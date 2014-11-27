@@ -180,10 +180,26 @@ class MainWindow(QMainWindow):
         deleteCoinAct.triggered.connect(self.deleteCoin)
         self.collectionActs.append(deleteCoinAct)
 
+        copyCoinAct = QAction(createIcon('page_copy.png'),
+                                   self.tr("Copy"), self)
+        copyCoinAct.setShortcut(QKeySequence.Copy)
+        copyCoinAct.triggered.connect(self.copyCoin)
+        self.collectionActs.append(copyCoinAct)
+
+        pasteCoinAct = QAction(createIcon('page_paste.png'),
+                                   self.tr("Paste"), self)
+        pasteCoinAct.setShortcut(QKeySequence.Paste)
+        pasteCoinAct.triggered.connect(self.pasteCoin)
+        self.collectionActs.append(pasteCoinAct)
+
         coin = menubar.addMenu(self.tr("Coin"))
         self.collectionActs.append(coin)
         coin.addAction(addCoinAct)
         coin.addAction(editCoinAct)
+        coin.addSeparator()
+        coin.addAction(copyCoinAct)
+        coin.addAction(pasteCoinAct)
+        coin.addSeparator()
         coin.addAction(deleteCoinAct)
 
         viewBrowserAct = QAction(createIcon('page_white_world.png'),
@@ -426,6 +442,16 @@ class MainWindow(QMainWindow):
         indexes = listView.selectedRows()
         if len(indexes):
             listView._delete(indexes)
+
+    def copyCoin(self):
+        listView = self.viewTab.currentListView()
+        indexes = listView.selectedRows()
+        if len(indexes):
+            listView._copy(indexes)
+
+    def pasteCoin(self):
+        listView = self.viewTab.currentListView()
+        listView._paste()
 
     def viewBrowser(self):
         listView = self.viewTab.currentListView()
