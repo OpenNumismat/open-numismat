@@ -36,17 +36,19 @@ if file_name:
 
     desc = collection.getDescription()
     data = {'title': desc.title, 'description': desc.description, 'author': desc.author}
-
     json_file.write('{"description": ')
-    json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
-    json_file.write(',\n"coins": [\n')
 
     model = collection.model()
     while model.canFetchMore():
         model.fetchMore()
 
-    fields = CollectionFieldsBase()
     count = model.rowCount()
+
+    data['count'] = count
+    json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
+    json_file.write(',\n"coins": [\n')
+
+    fields = CollectionFieldsBase()
     for i in range(count):
         data = {}
         coin = model.record(i)
