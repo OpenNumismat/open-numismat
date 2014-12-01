@@ -317,6 +317,9 @@ class CollectionModel(QSqlTableModel):
 
                     scaledImage.save(buffer, self.IMAGE_FORMAT)
                     record.setValue(field.name, ba)
+                elif isinstance(image, bytes):
+                    ba = QtCore.QByteArray(image)
+                    record.setValue(field.name, ba)
 
         # Creating preview image for list
         if record.isNull('obverseimg') and record.isNull('reverseimg'):

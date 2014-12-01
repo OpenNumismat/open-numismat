@@ -57,7 +57,9 @@ if json_file_name:
             if field in ('obverseimg', 'reverseimg', 'edgeimg',
                          'photo1', 'photo2', 'photo3', 'photo4'):
                 img_file_name = os.path.join(image_path, value)
-                image = QImage(img_file_name)
+                img_file = open(img_file_name, 'rb')
+                image = img_file.read()
+                img_file.close()
                 coin.setValue(field, image)
             else:
                 coin.setValue(field, value)
