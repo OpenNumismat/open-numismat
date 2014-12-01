@@ -879,6 +879,25 @@ class Collection(QtCore.QObject):
 
         progressDlg.setLabelText(self.tr("Saving..."))
         dest_model.submitAll()
+
+        progressDlg.setLabelText(self.tr("Compact..."))
+        QSqlQuery("""UPDATE coins
+SET
+  reverseimg = (select t2.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.reverseimg = t1.id where t1.id <> t2.id and t3.id = coins.id)
+WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.reverseimg = t1.id where t1.id <> t2.id)
+""", db)
+        QSqlQuery("""UPDATE coins
+SET
+  obverseimg = (select t2.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.obverseimg = t1.id where t1.id <> t2.id and t3.id = coins.id)
+WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.obverseimg = t1.id where t1.id <> t2.id)
+""", db)
+
+        QSqlQuery("""DELETE FROM photos
+            WHERE id NOT IN (SELECT id FROM photos GROUP BY image)""", db)
+
+        progressDlg.setLabelText(self.tr("Vacuum..."))
+        QSqlQuery("VACUUM", db)
+
         db.close()
 
         progressDlg.reset()
