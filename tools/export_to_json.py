@@ -35,7 +35,8 @@ if file_name:
     os.makedirs(image_path, exist_ok=True)
 
     desc = collection.getDescription()
-    data = {'title': desc.title, 'description': desc.description, 'author': desc.author}
+    data = {'title': desc.title, 'description': desc.description,
+            'author': desc.author, 'type': "OpenNumismat"}
     json_file.write('{"description": ')
 
     model = collection.model()
@@ -59,11 +60,11 @@ if file_name:
 
             if field.name in ('id', 'createdat', 'updatedat') or field.type == Type.PreviewImage:
                 continue
-            if field.name in ('saledate', 'paydate') and val == '2000-01-01':
+            if field.name in ('saledate', 'paydate', 'issuedate') and val == '2000-01-01':
                 continue
 
             if field.type in (Type.Image, Type.EdgeImage):
-                img_file_title = "%d_%s.jpg" % (coin.value('id'), field.name)
+                img_file_title = "%d_%s.jpg" % (i, field.name)
                 img_file_name = os.path.join(image_path, img_file_title)
                 img_file = open(img_file_name, 'wb')
                 img_file.write(val)
