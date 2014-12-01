@@ -64,7 +64,7 @@ if file_name:
                 continue
 
             if field.type in (Type.Image, Type.EdgeImage):
-                img_file_title = "%d_%s.jpg" % (i, field.name)
+                img_file_title = "%d_%s.jpg" % (i + 1, field.name)
                 img_file_name = os.path.join(image_path, img_file_title)
                 img_file = open(img_file_name, 'wb')
                 img_file.write(val)
