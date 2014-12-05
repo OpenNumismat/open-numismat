@@ -36,7 +36,7 @@ class ExportDialog(QDialog):
 
         # filtering
         self.filterSelector = QComboBox(self)
-        self.filterSelector.addItem(self.tr("Countries"), 'countries')
+        self.filterSelector.addItem(self.tr("Countries"), 'country')
         self.filterSelector.addItem(self.tr("Series"), 'series')
         self.filterSelector.addItem(self.tr("Denomination"), 'denomination')
         self.filterSelector.setSizePolicy(QSizePolicy.Fixed,
