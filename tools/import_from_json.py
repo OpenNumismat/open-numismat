@@ -7,13 +7,11 @@ import os
 import sys
 
 from PyQt5.QtCore import QStandardPaths, QTranslator
-from PyQt5.QtGui import QImage
 from PyQt5.QtWidgets import QApplication, QFileDialog
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 
 sys.path.append('..')
 from OpenNumismat.Collection.Collection import Collection
-from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 
 app = QApplication(sys.argv)
 
