@@ -714,7 +714,7 @@ class Collection(QtCore.QObject):
             'obversedesigner', 'reversedesigner', 'catalognum2', 'catalognum3', 'catalognum4',
             'saledate', 'saleprice', 'totalsaleprice', 'buyer', 'saleplace', 'saleinfo',
             'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace', 'payinfo',
-            'url', 'obversevar', 'reversevar', 'edgevar', 'obversedesigner', 'reversedesigner')
+            'url', 'obversedesigner', 'reversedesigner')
 
         if os.path.isfile(params['file']):
             os.remove(params['file'])
@@ -728,7 +728,7 @@ class Collection(QtCore.QObject):
                                        self.tr("Can't open collection"))
             return
 
-        mobile_settings = {'Version': 4, 'Type': 'Mobile', 'Filter': params['filter']}
+        mobile_settings = {'Version': 5, 'Type': 'Mobile', 'Filter': params['filter']}
 
         sql = """CREATE TABLE settings (
             title CHAR NOT NULL UNIQUE,
