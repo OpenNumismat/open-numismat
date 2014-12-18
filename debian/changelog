@@ -1,4 +1,8 @@
-open-numismat (1.4.9) oneiric; urgency=low
+open-numismat (1.5) oneiric; urgency=low
+
+  * Italian.
+
+ -- Vitaly Ignatov <ignatov.vit@gmail.com>  Fri, 18 Dec 2014 22:41:51 -0800
 
   * Czech.
 
