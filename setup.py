@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# This file is part of OpenNumismat (http://code.google.com/p/open-numismat/).
+# This file is part of OpenNumismat (http://opennumismat.github.io/).
 #
 # OpenNumismat is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,10 +42,10 @@ Main features:
 - Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013,
   Collection Studio and Numizmatik_Ru (additional software may be required)
 - Support languages: English, Russian, Ukranian, Spanish, Hungarian,
-  Portuguese, German, Greek, Czech
+  Portuguese, German, Greek, Czech, Italian, Polish
 - Cross-platform: Windows, Linux, MacOS X
 
-.. image:: http://wiki.open-numismat.googlecode.com/git/images/screenMain.png
+.. image:: http://opennumismat.github.io/images/screenMain.png
 
 OpenNumismat based on PyQt framework with SQLite database engine to store data
 collection.
@@ -135,6 +135,8 @@ params = {
             "Natural Language :: German",
             "Natural Language :: Greek",
             "Natural Language :: Czech",
+            "Natural Language :: Italian",
+            "Natural Language :: Polish",
             "Intended Audience :: End Users/Desktop",
             "Operating System :: OS Independent",
             "Operating System :: POSIX :: Linux",

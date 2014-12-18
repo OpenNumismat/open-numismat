@@ -1,9 +1,9 @@
 Format: http://dep.debian.net/deps/dep5
 Upstream-Name: open-numismat
-Source: http://code.google.com/p/open-numismat/
+Source: http://opennumismat.github.io/
 
 Files: *
-Copyright: 2011-2014 Vitaly Ignatov <ignatov.vit@gmail.com>
+Copyright: 2011-2014 Vitaly Ignatov <opennumismat@gmail.com>
 License: GPL-3.0+
 
 License: GPL-3.0+

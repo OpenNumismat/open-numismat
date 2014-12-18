@@ -587,7 +587,7 @@ class MainWindow(QMainWindow):
                         (version.AppName, version.Version, version.AppName))
 
     def onlineHelp(self):
-        url = QUrl(version.Web + 'wiki/MainPage')
+        url = QUrl(version.Web)
 
         executor = QDesktopServices()
         executor.openUrl(url)
@@ -624,7 +624,7 @@ class MainWindow(QMainWindow):
                         QMessageBox.Yes | QMessageBox.No,
                         QMessageBox.Yes)
             if result == QMessageBox.Yes:
-                url = QUrl(version.Web + 'wiki/MainPage')
+                url = QUrl(version.Web)
 
                 executor = QDesktopServices()
                 executor.openUrl(url)
@@ -641,7 +641,7 @@ class MainWindow(QMainWindow):
         newVersion = version.Version
 
         try:
-            url = "http://wiki.open-numismat.googlecode.com/git/data/pad.xml"
+            url = "http://opennumismat.github.io/data/pad.xml"
             req = urllib.request.Request(url)
             data = urllib.request.urlopen(req).read()
             xml = parseString(data)

@@ -1,10 +1,10 @@
 Source: open-numismat
 Section: misc
 Priority: extra
-Maintainer: Vitaly Ignatov <ignatov.vit@gmail.com>
+Maintainer: Vitaly Ignatov <opennumismat@gmail.com>
 Build-Depends: debhelper (>= 8.0.0), python3, python3-setuptools
 Standards-Version: 3.9.2
-Homepage: http://code.google.com/p/open-numismat/
+Homepage: http://opennumismat.github.io/
 
 Package: open-numismat
 Architecture: all
