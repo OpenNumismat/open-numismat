@@ -5,9 +5,9 @@ import shutil
 import sys
 import traceback
 
-from PyQt5.QtCore import QCoreApplication, QTranslator, QUrl, PYQT_VERSION_STR
+from PyQt5.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, PYQT_VERSION_STR
 from PyQt5.QtWidgets import QApplication, QMessageBox
-from PyQt5.QtGui import QDesktopServices 
+from PyQt5.QtGui import QDesktopServices
 
 import OpenNumismat
 from OpenNumismat.Settings import Settings
@@ -110,9 +110,11 @@ def exceptHook(type_, value, tback):
         errorMessage.append('')
         errorMessage.append(stack)
 
-        url = QUrl(version.Web + 'issues/entry')
-        url.setQueryItems([('summary', subject),
-                           ('comment', '\n'.join(errorMessage))])
+        url = QUrl('https://code.google.com/p/open-numismat/issues/entry')
+        query = QUrlQuery()
+        query.addQueryItem('summary', subject)
+        query.addQueryItem('comment', '\n'.join(errorMessage))
+        url.setQuery(query)
 
         executor = QDesktopServices()
         executor.openUrl(url)
