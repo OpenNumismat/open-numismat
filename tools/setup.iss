@@ -21,6 +21,8 @@ Name: pt; MessagesFile: "compiler:Languages\Portuguese.isl"; InfoBeforeFile: lic
 Name: de; MessagesFile: "compiler:Languages\German.isl"; InfoBeforeFile: license_de.txt
 Name: el; MessagesFile: "compiler:Languages\Greek.isl"; InfoBeforeFile: license_en.txt
 Name: cs; MessagesFile: "compiler:Languages\Czech.isl"; InfoBeforeFile: license_en.txt
+Name: it; MessagesFile: "compiler:Languages\Italian.isl"; InfoBeforeFile: license_it.txt
+Name: pl; MessagesFile: "compiler:Languages\Polish.isl"; InfoBeforeFile: license_pl.txt
 
 [CustomMessages]
 en.sendReport=Send a reports to author's web-site if any error occurred
@@ -28,30 +30,36 @@ ru.sendReport=Посылать отчет разработчику при возникновении ошибки
 uk.sendReport=Відправляти звіт про помилки автору
 es.sendReport=Enviar un informe al autor del sitio web si cualquier error
 hu.sendReport=Hiba elkuldese a keszitonek
-pt.sendReport=Enviar relatorios para o autor do web-site se algum erro ocorreu
+pt.sendReport=Enviar um relatorio para o site do autor se ocorrer um erro
 de.sendReport=Send a reports to author's web-site if any error occurred
 el.sendReport=Send a reports to author's web-site if any error occurred
 cs.sendReport=Send a reports to author's web-site if any error occurred
+it.sendReport=Send a reports to author's web-site if any error occurred
+pl.sendReport=Send a reports to author's web-site if any error occurred
 
 en.checkUpdate=Automatically check for updates
 ru.checkUpdate=Проверять обновления автоматически
 uk.checkUpdate=Automatically check for updates
 es.checkUpdate=Automatically check for updates
 hu.checkUpdate=Automatically check for updates
-pt.checkUpdate=Automatically check for updates
+pt.checkUpdate=Procurar atualizacoes automaticamente
 de.checkUpdate=Automatically check for updates
 el.checkUpdate=Automatically check for updates
 cs.checkUpdate=Automatically check for updates
+it.checkUpdate=Cerca automaticamente gli aggiornamenti
+pl.checkUpdate=Automatically check for updates
 
 en.associate=Associate *.db files with OpenNumismat
 ru.associate=Связать *.db файлы с OpenNumismat
 uk.associate=Associate *.db files with OpenNumismat
 es.associate=Associate *.db files with OpenNumismat
 hu.associate=Associate *.db files with OpenNumismat
-pt.associate=Associate *.db files with OpenNumismat
+pt.associate=Associar ficheiros *.db com o OpenNumismat
 de.associate=Associate *.db files with OpenNumismat
 el.associate=Associate *.db files with OpenNumismat
 cs.associate=Associate *.db files with OpenNumismat
+it.associate=Associare i file *.db con OpenNumismat
+pl.associate=Associate *.db files with OpenNumismat
 
 [Files]
 Source: "..\build\exe.win32-3.4\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
@@ -64,6 +72,8 @@ Source: "..\build\exe.win32-3.4\db\demo_pt.db"; DestDir: "{userdocs}\OpenNumisma
 Source: "..\build\exe.win32-3.4\db\demo_de.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: de; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\demo_el.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: el; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\demo_cs.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: cs; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_it.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: it; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_pl.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: pl; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en; Flags: confirmoverwrite
 Source: "..\build\exe.win32-3.4\db\reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru; Flags: confirmoverwrite
 Source: "..\build\exe.win32-3.4\db\reference_uk.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: uk; Flags: confirmoverwrite
@@ -73,6 +83,8 @@ Source: "..\build\exe.win32-3.4\db\reference_pt.ref"; DestDir: "{userdocs}\OpenN
 Source: "..\build\exe.win32-3.4\db\reference_de.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: de; Flags: confirmoverwrite
 Source: "..\build\exe.win32-3.4\db\reference_el.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: el; Flags: confirmoverwrite
 Source: "..\build\exe.win32-3.4\db\reference_cs.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: cs; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_it.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: it; Flags: confirmoverwrite
+Source: "..\build\exe.win32-3.4\db\reference_pl.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: pl; Flags: confirmoverwrite
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat\backup"
