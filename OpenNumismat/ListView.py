@@ -699,15 +699,16 @@ class ListView(QTableView):
             progressDlg = Gui.ProgressDialog(self.tr("Deleting records"),
                                         self.tr("Cancel"), len(indexes), self)
 
+            model = self.model()
             for index in indexes:
                 progressDlg.step()
                 if progressDlg.wasCanceled():
                     break
 
-                self.model().removeRow(index.row())
+                model.removeRow(index.row())
 
             progressDlg.setLabelText(self.tr("Saving..."))
-            self.model().submitAll()
+            model.submitAll()
 
             progressDlg.reset()
 

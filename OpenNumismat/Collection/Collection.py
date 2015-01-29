@@ -261,24 +261,32 @@ class CollectionModel(QSqlTableModel):
         return record
 
     def removeRow(self, row):
-        record = super(CollectionModel, self).record(row)
+        record = super().record(row)
+
+        ids = []
         for field in ['obverseimg', 'reverseimg', 'edgeimg',
                       'photo1', 'photo2', 'photo3', 'photo4']:
             value = record.value(field)
             if value:
-                query = QSqlQuery(self.database())
-                query.prepare("DELETE FROM photos WHERE id=?")
-                query.addBindValue(record.value(field))
-                query.exec_()
+                ids.append(value)
+
+        if ids:
+            ids_sql = '(' + ','.join('?' * len(ids)) + ')'
+
+            query = QSqlQuery(self.database())
+            query.prepare("DELETE FROM photos WHERE id IN " + ids_sql)
+            for id_ in ids:
+                query.addBindValue(id_)
+            query.exec_()
 
         value = record.value('image')
         if value:
             query = QSqlQuery(self.database())
             query.prepare("DELETE FROM images WHERE id=?")
-            query.addBindValue(record.value('image'))
+            query.addBindValue(value)
             query.exec_()
 
-        return super(CollectionModel, self).removeRow(row)
+        return super().removeRow(row)
 
     def _updateRecord(self, record):
         if self.proxy:
