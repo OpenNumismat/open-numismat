@@ -16,7 +16,9 @@ except ImportError:
     available = False
 
 from PyQt5 import QtCore, QtGui
+from PyQt5.QtWidgets import QFileDialog
 
+import OpenNumismat
 from OpenNumismat.Collection.Import import _Import, _DatabaseServerError
 
 
@@ -100,7 +102,7 @@ class ImportCoinManage(_Import):
     @staticmethod
     def defaultDir():
         # Search for default default dir in default location on disk
-        dir_ = QtCore.QDir(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
+        dir_ = QtCore.QDir(OpenNumismat.HOME_PATH)
         dirNames = ["CoinManage/Data", "CoinManage UK/Data", "CoinManage Canada/Data"]
         for dirName in dirNames:
             if dir_.cd(dirName):
@@ -129,9 +131,9 @@ class ImportCoinManage(_Import):
         # Check images folder
         self.imgDir = QtCore.QDir(src)
         if not self.imgDir.cd('../../CoinImages'):
-            directory = QtGui.QFileDialog.getExistingDirectory(self.parent(),
+            directory = QFileDialog.getExistingDirectory(self.parent(),
                             self.tr("Select directory with images"),
-                            QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
+                            OpenNumismat.HOME_PATH)
             if directory:
                 self.imgDir = QtCore.QDir(directory)
             else:
@@ -140,9 +142,9 @@ class ImportCoinManage(_Import):
         # Check predefined images folder
         self.defImgDir = QtCore.QDir(src)
         if not self.defImgDir.cd('../../Images'):
-            directory = QtGui.QFileDialog.getExistingDirectory(self.parent(),
+            directory = QFileDialog.getExistingDirectory(self.parent(),
                             self.tr("Select directory with pre-defined images"),
-                            QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
+                            OpenNumismat.HOME_PATH)
             if directory:
                 self.defImgDir = QtCore.QDir(directory)
             else:

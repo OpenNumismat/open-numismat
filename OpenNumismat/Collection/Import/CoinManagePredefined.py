@@ -8,7 +8,9 @@ except ImportError:
     pass
 
 from PyQt5 import QtCore, QtGui
+from PyQt5.QtWidgets import QFileDialog
 
+import OpenNumismat
 from OpenNumismat.Collection.Import import _Import, _DatabaseServerError
 
 
@@ -91,9 +93,9 @@ class ImportCoinManagePredefined(_Import):
         # Check images folder
         self.imgDir = QtCore.QDir(src)
         if not self.imgDir.cd('../../Images'):
-            directory = QtGui.QFileDialog.getExistingDirectory(self.parent(),
+            directory = QFileDialog.getExistingDirectory(self.parent(),
                             self.tr("Select directory with pre-defined images"),
-                            QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.DocumentsLocation))
+                            OpenNumismat.HOME_PATH)
             if directory:
                 self.imgDir = QtCore.QDir(directory)
             else:
