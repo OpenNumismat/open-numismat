@@ -776,16 +776,15 @@ class Collection(QtCore.QObject):
         dest_model.setTable('coins')
         dest_model.select()
 
+        height = 64
         if params['density'] == 'HDPI':
-            height = 64 * 1.5
+            height *= 1.5
         elif params['density'] == 'XHDPI':
-            height = 64 * 2
+            height *= 2
         elif params['density'] == 'XXHDPI':
-            height = 64 * 3
+            height *= 3
         elif params['density'] == 'XXXHDPI':
-            height = 64 * 4
-        else:
-            height = 64
+            height *= 4
 
         is_obverse_enabled = params['image'] in (ExportDialog.IMAGE_OBVERSE, ExportDialog.IMAGE_BOTH)
         is_reverse_enabled = params['image'] in (ExportDialog.IMAGE_REVERSE, ExportDialog.IMAGE_BOTH)
@@ -816,8 +815,7 @@ class Collection(QtCore.QObject):
                 if val is None or val == '':
                     continue
 
-                data = coin.value(field.name)
-                dest_record.setValue(field.name, data)
+                dest_record.setValue(field.name, val)
 
             # Process images
             is_obverse_present = not coin.isNull('obverseimg')
