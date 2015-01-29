@@ -255,7 +255,7 @@ class ListView(QTableView):
                 if apply_sorting:
                     if param.sortorder in [Qt.AscendingOrder, Qt.DescendingOrder]:
                         self.horizontalHeader().setSortIndicator(param.fieldid, param.sortorder)
-                        self.sortByColumn(param.fieldid)
+                        self.sortByColumn(param.fieldid, Qt.AscendingOrder)
 
         for param in self.listParam.columns:
             if param.width:
