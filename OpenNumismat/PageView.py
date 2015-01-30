@@ -253,7 +253,10 @@ class TreeView(QTreeWidget):
             for field in fields:
                 index = self.model.index(index.row(),
                                          self.model.fieldIndex(field))
-                textPart.append(str(index.data()))
+                if field == 'status':
+                    textPart.append(str(index.data()))
+                else:
+                    textPart.append(str(index.data(Qt.UserRole)))
             text2 = ' '.join(textPart)
             if text1 == text2 or (not text2 and text1 == self.tr("Other")):
                 self.expandItem(parent)
