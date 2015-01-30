@@ -408,7 +408,8 @@ class DateEdit(QDateEdit):
         self.__clearDefaultDate()
 
     def focusInEvent(self, event):
-        self.setDate(self.date())
+        if not self.isReadOnly():
+            self.setDate(self.date())
         super(DateEdit, self).focusInEvent(event)
 
     def focusOutEvent(self, event):

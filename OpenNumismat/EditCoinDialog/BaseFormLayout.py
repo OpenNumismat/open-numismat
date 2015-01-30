@@ -137,7 +137,13 @@ class FormItem(object):
         elif isinstance(self._widget, QDoubleSpinBox):
             self._widget.setValue(float(value))
         elif isinstance(self._widget, QDateTimeEdit):
-            self._widget.setDate(QDate.fromString(str(value), Qt.ISODate))
+            value = str(value)
+            if value:
+                self._widget.setDate(QDate.fromString(str(value), Qt.ISODate))
+            else:
+                self._widget.setDate(self._widget.DEFAULT_DATE)
+                lineEdit = self._widget.findChild(QLineEdit)
+                lineEdit.setText("")
         elif isinstance(self._widget, StatusEdit):
             self._widget.setCurrentValue(value)
         elif isinstance(self._widget, TextEdit):
