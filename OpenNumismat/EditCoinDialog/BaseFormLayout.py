@@ -302,7 +302,7 @@ class DesignFormLayout(BaseFormGroupBox):
         super(DesignFormLayout, self).__init__(title, parent)
         self.layout.columnCount = 3
         self.imagesCount = 0
-        self.defaultHeight = 60
+        self.defaultHeight = 30
 
     def addImage(self, image):
         if not image.isHidden():
