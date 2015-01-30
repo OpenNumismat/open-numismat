@@ -54,3 +54,23 @@ class ImportUcoin(_Import):
         record.setValue('payprice', row[6])
         record.setValue('features', row[7])
         record.setValue('status', 'owned')
+        record.setValue('status', 'owned')
+
+        record.setValue('title', self.__generateTitle(record))
+
+    def __generateTitle(self, record):
+        title = ""
+        if record.value('country'):
+            title += record.value('country') + ' '
+        if record.value('value'):
+            title += record.value('value') + ' '
+        if record.value('unit'):
+            title += record.value('unit') + ' '
+        if record.value('year'):
+            title += record.value('year') + ' '
+        if record.value('subjectshort'):
+            title += '(' + record.value('subjectshort') + ') '
+        if record.value('variety'):
+            title += '/' + record.value('variety') + '/'
+
+        return title.strip()
