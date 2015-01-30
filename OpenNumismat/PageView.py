@@ -163,14 +163,17 @@ class TreeView(QTreeWidget):
         if filters:
             sql += " WHERE " + filters
         if self.settings['sort_tree']:
-            sql += " ORDER BY %s ASC" % fields[-1]
+            sql += " ORDER BY "
+            sql += ','.join([f + ' ASC' for f in reversed(fields)])
         query = QtSql.QSqlQuery(sql, self.db)
+        hasEmpty = False
         while query.next():
             record = query.record()
             data = []
             filterSql = []
             for i in range(record.count()):
                 if record.isNull(i):
+                    hasEmpty = True
                     continue
 
                 text = str(record.value(i))
@@ -181,6 +184,8 @@ class TreeView(QTreeWidget):
                         data.append(text)
                     escapedText = text.replace("'", "''")
                     filterSql.append("%s='%s'" % (fields[i], escapedText))
+                else:
+                    hasEmpty = True
 
             if data:
                 text = ' '.join(data)
@@ -199,6 +204,24 @@ class TreeView(QTreeWidget):
                     self.currentItemChanged.disconnect(self.itemActivatedEvent)
                     self.setCurrentItem(child)
                     self.currentItemChanged.connect(self.itemActivatedEvent)
+
+        if hasEmpty and len(fields) == 1 and item.childCount() > 0:
+            text = self.tr("Other")
+            newFilters = "ifnull(%s,'')=''" % fields[0]
+            if filters:
+                newFilters = filters + ' AND ' + newFilters
+
+            child = QTreeWidgetItem([text, ])
+            child.setData(0, self.ParamRole, paramIndex)
+            child.setData(0, self.FiltersRole, newFilters)
+            child.setData(0, self.FieldsRole, fields)
+            item.addChild(child)
+
+            # Restore selection
+            if newFilters == self.model.extFilter:
+                self.currentItemChanged.disconnect(self.itemActivatedEvent)
+                self.setCurrentItem(child)
+                self.currentItemChanged.connect(self.itemActivatedEvent)
 
         # Recursion for next field if nothing selected
         if item.childCount() == 0:
@@ -232,7 +255,7 @@ class TreeView(QTreeWidget):
                                          self.model.fieldIndex(field))
                 textPart.append(str(index.data()))
             text2 = ' '.join(textPart)
-            if text1 == text2:
+            if text1 == text2 or (not text2 and text1 == self.tr("Other")):
                 self.expandItem(parent)
                 self.scrollToItem(subItem)
                 self.scrollToIndex(index, subItem)
