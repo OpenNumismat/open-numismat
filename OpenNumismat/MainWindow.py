@@ -129,6 +129,14 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importNumizmaticRuAct)
             importMenu.addAction(importNumizmaticRuAct)
 
+        if ImportUcoin.isAvailable():
+            importUcoinAct = QAction(
+                                    createIcon('ucoin.png'),
+                                    self.tr("uCoin.net"), self)
+            importUcoinAct.triggered.connect(self.importUcoin)
+            self.collectionActs.append(importUcoinAct)
+            importMenu.addAction(importUcoinAct)
+
 
         exportMenu = QMenu(self.tr("Export"), self)
         self.collectionActs.append(exportMenu)
@@ -417,6 +425,19 @@ class MainWindow(QMainWindow):
                     return
 
             imp = ImportNumizmatik_Ru(self)
+            imp.importData(file, self.viewTab.currentModel())
+
+    def importUcoin(self):
+        QMessageBox.information(self, self.tr("Importing"),
+                self.tr("Before importing you should export existing "
+                        "collection from uCoin.net to Comma-Separated (CSV) "
+                        "format."))
+
+        defaultDir = ImportUcoin.defaultDir()
+        file, _selectedFilter = QFileDialog.getOpenFileName(self,
+                                self.tr("Select file"), defaultDir, "*.csv")
+        if file:
+            imp = ImportUcoin(self)
             imp.importData(file, self.viewTab.currentModel())
 
     def exportMobile(self):

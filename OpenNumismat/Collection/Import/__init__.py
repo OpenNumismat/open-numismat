@@ -111,8 +111,9 @@ from OpenNumismat.Collection.Import.CoinManagePredefined import ImportCoinManage
 from OpenNumismat.Collection.Import.CollectionStudio import ImportCollectionStudio
 from OpenNumismat.Collection.Import.Numizmatik_Ru import ImportNumizmatik_Ru
 from OpenNumismat.Collection.Import.Numizmatik_RuPredefined import ImportNumizmatik_RuPredefined
+from OpenNumismat.Collection.Import.Ucoin import ImportUcoin
 
 __all__ = ["ImportNumizmat", "ImportCabinet", "ImportCoinsCollector",
            "ImportCoinManage", "ImportCoinManagePredefined",
            "ImportCollectionStudio", "ImportNumizmatik_Ru",
-           "ImportNumizmatik_RuPredefined"]
+           "ImportNumizmatik_RuPredefined", "ImportUcoin"]
