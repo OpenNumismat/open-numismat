@@ -1,14 +1,14 @@
 [Setup]
 AppName=OpenNumismat
 AppId=OpenNumismat
-AppVersion=1.5
+AppVersion=1.5.1
 DefaultDirName={pf}\OpenNumismat
 DefaultGroupName=OpenNumismat
 UninstallDisplayIcon={app}\OpenNumismat.exe
 OutputDir="."
-OutputBaseFilename="OpenNumismat-1.5"
+OutputBaseFilename="OpenNumismat-1.5.1"
 AllowNoIcons=yes
-AppCopyright=Copyright 2011-2014 by Vitaly Ignatov
+AppCopyright=Copyright 2011-2015 by Vitaly Ignatov
 AppPublisher=Janis
 
 [Languages]
@@ -27,19 +27,19 @@ Name: pl; MessagesFile: "compiler:Languages\Polish.isl"; InfoBeforeFile: license
 [CustomMessages]
 en.sendReport=Send a reports to author's web-site if any error occurred
 ru.sendReport=Посылать отчет разработчику при возникновении ошибки
-uk.sendReport=Відправляти звіт про помилки автору
+uk.sendReport=Відправляти звіт автору при виникненні помилки
 es.sendReport=Enviar un informe al autor del sitio web si cualquier error
 hu.sendReport=Hiba elkuldese a keszitonek
 pt.sendReport=Enviar um relatorio para o site do autor se ocorrer um erro
 de.sendReport=Send a reports to author's web-site if any error occurred
 el.sendReport=Send a reports to author's web-site if any error occurred
 cs.sendReport=Send a reports to author's web-site if any error occurred
-it.sendReport=Send a reports to author's web-site if any error occurred
-pl.sendReport=Send a reports to author's web-site if any error occurred
+it.sendReport=Invia un rapporto al sito web dell'autore se e avvenuto un errore
+pl.sendReport=Wyslij raport do Autorow w przypadku problemow
 
 en.checkUpdate=Automatically check for updates
 ru.checkUpdate=Проверять обновления автоматически
-uk.checkUpdate=Automatically check for updates
+uk.checkUpdate=Перевіряти оновлення автоматично
 es.checkUpdate=Automatically check for updates
 hu.checkUpdate=Automatically check for updates
 pt.checkUpdate=Procurar atualizacoes automaticamente
@@ -47,11 +47,11 @@ de.checkUpdate=Automatically check for updates
 el.checkUpdate=Automatically check for updates
 cs.checkUpdate=Automatically check for updates
 it.checkUpdate=Cerca automaticamente gli aggiornamenti
-pl.checkUpdate=Automatically check for updates
+pl.checkUpdate=Automatycznie sprawdzaj w poszukiwaniu najnowszej wersji
 
 en.associate=Associate *.db files with OpenNumismat
 ru.associate=Связать *.db файлы с OpenNumismat
-uk.associate=Associate *.db files with OpenNumismat
+uk.associate=Ассоціювати файли *.db з OpenNumismat
 es.associate=Associate *.db files with OpenNumismat
 hu.associate=Associate *.db files with OpenNumismat
 pt.associate=Associar ficheiros *.db com o OpenNumismat
@@ -59,7 +59,7 @@ de.associate=Associate *.db files with OpenNumismat
 el.associate=Associate *.db files with OpenNumismat
 cs.associate=Associate *.db files with OpenNumismat
 it.associate=Associare i file *.db con OpenNumismat
-pl.associate=Associate *.db files with OpenNumismat
+pl.associate=Skojarz rozszerzenie *.db z OpenNumismat
 
 [Files]
 Source: "..\build\exe.win32-3.4\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
