@@ -1311,7 +1311,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="604"/>
         <source>About %s</source>
-        <translation>O nas</translation>
+        <translation>O %s</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="260"/>
