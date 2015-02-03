@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="es" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="es" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -645,7 +646,7 @@ Desea enviar un mensaje de error al autor
     <message>
         <location filename="Export.py" line="31"/>
         <source>Target density of the display</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="39"/>
@@ -966,7 +967,10 @@ Desea enviar un mensaje de error al autor
     <message numerus="yes">
         <location filename="ListView.py" line="398"/>
         <source>%n coin(s) selected</source>
-        <translation><numerusform>%n moneda seleccionada</numerusform><numerusform>%n monedas seleccionadas</numerusform></translation>
+        <translation>
+            <numerusform>%n moneda seleccionada</numerusform>
+            <numerusform>%n monedas seleccionadas</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="440"/>
@@ -1021,7 +1025,10 @@ Desea enviar un mensaje de error al autor
     <message numerus="yes">
         <location filename="ListView.py" line="693"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation><numerusform>Esta seguro de eliminar %n moneda?</numerusform><numerusform>Esta seguro de eliminar %n monedas?</numerusform></translation>
+        <translation>
+            <numerusform>Esta seguro de eliminar %n moneda?</numerusform>
+            <numerusform>Esta seguro de eliminar %n monedas?</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="699"/>
@@ -1104,17 +1111,17 @@ Desea enviar un mensaje de error al autor
     <message>
         <location filename="Settings.py" line="189"/>
         <source>Store column sorting</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="194"/>
         <source>Sort items in filters (slow)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="199"/>
         <source>Sort items in tree (slow)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="214"/>
@@ -1337,7 +1344,7 @@ Desea enviar un mensaje de error al autor
     <message>
         <location filename="MainWindow.py" line="362"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="375"/>
@@ -1357,12 +1364,12 @@ Desea enviar un mensaje de error al autor
     <message>
         <location filename="MainWindow.py" line="417"/>
         <source>Import club catalog?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="431"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="504"/>
@@ -1739,17 +1746,17 @@ Copyright (C) 2011-2015 Vitaly Ignatov
     </message>
     <message>
         <location filename="Reference.py" line="355"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s</source>
         <translation>No puedo abrir la referencia:
 %s</translation>
     </message>
     <message>
         <location filename="Reference.py" line="372"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s
 Created new one</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1934,15 +1941,15 @@ Created new one</source>
     </message>
     <message>
         <location filename="TabView.py" line="185"/>
-        <source>Can't close latest opened page.
+        <source>Can&apos;t close latest opened page.
 Add a new one first.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="TabView.py" line="198"/>
-        <source>Can't remove latest opened page.
+        <source>Can&apos;t remove latest opened page.
 Add a new one first.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="TabView.py" line="205"/>
@@ -1965,7 +1972,7 @@ Add a new one first.</source>
     <message>
         <location filename="PageView.py" line="261"/>
         <source>Other</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="PageView.py" line="293"/>
@@ -1998,13 +2005,13 @@ Add a new one first.</source>
     <message>
         <location filename="VersionUpdater.py" line="19"/>
         <source>Checking collection version</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="VersionUpdater.py" line="19"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

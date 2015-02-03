@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="uk" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="uk" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -967,7 +968,11 @@ Do you want to send an error message to the author
     <message numerus="yes">
         <location filename="ListView.py" line="398"/>
         <source>%n coin(s) selected</source>
-        <translation><numerusform>%n монета обрана</numerusform><numerusform>%n монеты обрано</numerusform><numerusform>%n монет обрано</numerusform></translation>
+        <translation>
+            <numerusform>%n монета обрана</numerusform>
+            <numerusform>%n монеты обрано</numerusform>
+            <numerusform>%n монет обрано</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="440"/>
@@ -1022,7 +1027,11 @@ Do you want to send an error message to the author
     <message numerus="yes">
         <location filename="ListView.py" line="693"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation><numerusform>Видалити %n монету?</numerusform><numerusform>Видалити %n монети?</numerusform><numerusform>Видалити %n монет?</numerusform></translation>
+        <translation>
+            <numerusform>Видалити %n монету?</numerusform>
+            <numerusform>Видалити %n монети?</numerusform>
+            <numerusform>Видалити %n монет?</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="699"/>
@@ -1363,7 +1372,7 @@ Do you want to send an error message to the author
     <message>
         <location filename="MainWindow.py" line="431"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="504"/>
@@ -1740,14 +1749,14 @@ Copyright (C) 2011-2015 Ігнатов Віталій
     </message>
     <message>
         <location filename="Reference.py" line="355"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s</source>
         <translation>Не вдається відкрити довідник:
 %s</translation>
     </message>
     <message>
         <location filename="Reference.py" line="372"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s
 Created new one</source>
         <translation>Не вдається відкрити довідник:
@@ -1937,13 +1946,13 @@ Created new one</source>
     </message>
     <message>
         <location filename="TabView.py" line="185"/>
-        <source>Can't close latest opened page.
+        <source>Can&apos;t close latest opened page.
 Add a new one first.</source>
         <translation>Неможливо закрити останню вкладку. Спочатку додайте нову.</translation>
     </message>
     <message>
         <location filename="TabView.py" line="198"/>
-        <source>Can't remove latest opened page.
+        <source>Can&apos;t remove latest opened page.
 Add a new one first.</source>
         <translation>Неможливо видалити останню вкладку. Спочатку додайте нову.</translation>
     </message>
@@ -1968,7 +1977,7 @@ Add a new one first.</source>
     <message>
         <location filename="PageView.py" line="261"/>
         <source>Other</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="PageView.py" line="293"/>

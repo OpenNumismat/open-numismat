@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="cs" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="cs" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -220,7 +221,7 @@
     <message>
         <location filename="CollectionFields.py" line="140"/>
         <source>Grade</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="142"/>
@@ -230,7 +231,7 @@
     <message>
         <location filename="CollectionFields.py" line="143"/>
         <source>ObvRev</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Líc a rub</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="144"/>
@@ -275,27 +276,27 @@
     <message>
         <location filename="CollectionFields.py" line="152"/>
         <source>Fine</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="153"/>
         <source>VF</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="154"/>
         <source>XF</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="155"/>
         <source>Unc</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="156"/>
         <source>Variety</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="174"/>
@@ -522,7 +523,7 @@
     <message>
         <location filename="DetailsTabWidget.py" line="248"/>
         <source>Pass</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="282"/>
@@ -562,7 +563,7 @@
     <message>
         <location filename="DetailsTabWidget.py" line="445"/>
         <source>Commission</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -799,7 +800,7 @@ Chcete autorovi poslat hlášení o chybě
     <message>
         <location filename="DetailsTabWidget.py" line="652"/>
         <source>Commission</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -966,7 +967,11 @@ Chcete autorovi poslat hlášení o chybě
     <message numerus="yes">
         <location filename="ListView.py" line="398"/>
         <source>%n coin(s) selected</source>
-        <translation><numerusform>%n mince vybrána</numerusform><numerusform>%n mince vybrány</numerusform><numerusform>%n mincí vybráno</numerusform></translation>
+        <translation>
+            <numerusform>%n mince vybrána</numerusform>
+            <numerusform>%n mince vybrány</numerusform>
+            <numerusform>%n mincí vybráno</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="440"/>
@@ -1021,7 +1026,11 @@ Chcete autorovi poslat hlášení o chybě
     <message numerus="yes">
         <location filename="ListView.py" line="693"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation><numerusform>Jste si jistý, že chcete odstranit %n minci?</numerusform><numerusform>Jste si jistý, že chcete odstranit %n mince?</numerusform><numerusform>Jste si jistý, že chcete odstranit %n mincí?</numerusform></translation>
+        <translation>
+            <numerusform>Jste si jistý, že chcete odstranit %n minci?</numerusform>
+            <numerusform>Jste si jistý, že chcete odstranit %n mince?</numerusform>
+            <numerusform>Jste si jistý, že chcete odstranit %n mincí?</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="699"/>
@@ -1362,7 +1371,7 @@ Chcete autorovi poslat hlášení o chybě
     <message>
         <location filename="MainWindow.py" line="431"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="504"/>
@@ -1620,12 +1629,12 @@ Autorské právo (C) 2011-2015 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="304"/>
         <source>Grade</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Reference.py" line="304"/>
         <source>G</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Reference.py" line="305"/>
@@ -1650,7 +1659,7 @@ Autorské právo (C) 2011-2015 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="307"/>
         <source>F</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Reference.py" line="308"/>
@@ -1665,7 +1674,7 @@ Autorské právo (C) 2011-2015 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="309"/>
         <source>E</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Reference.py" line="310"/>
@@ -1690,7 +1699,7 @@ Autorské právo (C) 2011-2015 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="312"/>
         <source>P</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Reference.py" line="313"/>
@@ -1739,14 +1748,14 @@ Autorské právo (C) 2011-2015 Vitaly Ignatov
     </message>
     <message>
         <location filename="Reference.py" line="355"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s</source>
         <translation>Nelze otevřít odkaz:
 %s</translation>
     </message>
     <message>
         <location filename="Reference.py" line="372"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s
 Created new one</source>
         <translation>Nelze otevřít odkaz:
@@ -1829,7 +1838,7 @@ Vytvořen nový</translation>
     <message>
         <location filename="CollectionFields.py" line="63"/>
         <source>Pass</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="63"/>
@@ -1936,14 +1945,14 @@ Vytvořen nový</translation>
     </message>
     <message>
         <location filename="TabView.py" line="185"/>
-        <source>Can't close latest opened page.
+        <source>Can&apos;t close latest opened page.
 Add a new one first.</source>
         <translation>Nelze zavřít poslední otevřenou stránku.
 Nejprve přidejte novou.</translation>
     </message>
     <message>
         <location filename="TabView.py" line="198"/>
-        <source>Can't remove latest opened page.
+        <source>Can&apos;t remove latest opened page.
 Add a new one first.</source>
         <translation>Nelze odstranit poslední otevřenou stránku.
 Nejprve přidejte novou.</translation>
@@ -1969,7 +1978,7 @@ Nejprve přidejte novou.</translation>
     <message>
         <location filename="PageView.py" line="261"/>
         <source>Other</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="PageView.py" line="293"/>

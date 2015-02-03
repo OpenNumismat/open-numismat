@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="pt" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="pt" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -966,7 +967,10 @@ Quer enviar uma mensagem de erro ao autor
     <message numerus="yes">
         <location filename="ListView.py" line="398"/>
         <source>%n coin(s) selected</source>
-        <translation><numerusform>%n moeda selecionada</numerusform><numerusform>%n moedas selecionadas</numerusform></translation>
+        <translation>
+            <numerusform>%n moeda selecionada</numerusform>
+            <numerusform>%n moedas selecionadas</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="440"/>
@@ -1021,7 +1025,10 @@ Quer enviar uma mensagem de erro ao autor
     <message numerus="yes">
         <location filename="ListView.py" line="693"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation><numerusform>Tem a certeza que quer remover %n moeda?</numerusform><numerusform>Tem a certeza que quer remover %n moedas?</numerusform></translation>
+        <translation>
+            <numerusform>Tem a certeza que quer remover %n moeda?</numerusform>
+            <numerusform>Tem a certeza que quer remover %n moedas?</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="699"/>
@@ -1362,7 +1369,7 @@ Quer enviar uma mensagem de erro ao autor
     <message>
         <location filename="MainWindow.py" line="431"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="504"/>
@@ -1739,14 +1746,14 @@ Copyright (C) 2011-2015 Vitaly Ignatov
     </message>
     <message>
         <location filename="Reference.py" line="355"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s</source>
         <translation>Impossível abrir a referência:
 %s</translation>
     </message>
     <message>
         <location filename="Reference.py" line="372"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s
 Created new one</source>
         <translation>Impossível abrir a referência:
@@ -1936,14 +1943,14 @@ Criada uma nova</translation>
     </message>
     <message>
         <location filename="TabView.py" line="185"/>
-        <source>Can't close latest opened page.
+        <source>Can&apos;t close latest opened page.
 Add a new one first.</source>
         <translation>Impossível fechar a última página aberta.
 Adicione uma nova primeiro.</translation>
     </message>
     <message>
         <location filename="TabView.py" line="198"/>
-        <source>Can't remove latest opened page.
+        <source>Can&apos;t remove latest opened page.
 Add a new one first.</source>
         <translation>Impossível remover a última página aberta.
 Adicione uma nova primeiro.</translation>
@@ -1969,7 +1976,7 @@ Adicione uma nova primeiro.</translation>
     <message>
         <location filename="PageView.py" line="261"/>
         <source>Other</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="PageView.py" line="293"/>

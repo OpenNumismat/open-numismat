@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="pl_PL" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="pl_PL" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -903,7 +904,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="CoinsCollector.py" line="298"/>
         <source>Price note: %s</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -966,7 +967,11 @@ Chcesz zgłosić błąd autorowi?
     <message numerus="yes">
         <location filename="ListView.py" line="398"/>
         <source>%n coin(s) selected</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="440"/>
@@ -986,7 +991,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="ListView.py" line="443"/>
         <source>Text file UTF-8 (*.csv)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ListView.py" line="451"/>
@@ -1021,7 +1026,11 @@ Chcesz zgłosić błąd autorowi?
     <message numerus="yes">
         <location filename="ListView.py" line="693"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="699"/>
@@ -1084,7 +1093,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="Settings.py" line="169"/>
         <source>Send error info to author</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="174"/>
@@ -1094,12 +1103,12 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="Settings.py" line="181"/>
         <source>Max image side len</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="184"/>
         <source>Free format numeric fields</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="189"/>
@@ -1109,12 +1118,12 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="Settings.py" line="194"/>
         <source>Sort items in filters (slow)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="199"/>
         <source>Sort items in tree (slow)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="214"/>
@@ -1212,7 +1221,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="133"/>
         <source>uCoin.net</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="141"/>
@@ -1322,7 +1331,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="339"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="437"/>
@@ -1337,7 +1346,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="362"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="375"/>
@@ -1352,7 +1361,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="400"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="417"/>
@@ -1362,7 +1371,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="431"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="504"/>
@@ -1391,7 +1400,7 @@ Chcesz zgłosić błąd autorowi?
 Copyright (C) 2011-2015 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="632"/>
@@ -1735,16 +1744,16 @@ Copyright (C) 2011-2015 Vitaly Ignatov
     </message>
     <message>
         <location filename="Reference.py" line="355"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Reference.py" line="372"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s
 Created new one</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1929,20 +1938,20 @@ Created new one</source>
     </message>
     <message>
         <location filename="TabView.py" line="185"/>
-        <source>Can't close latest opened page.
+        <source>Can&apos;t close latest opened page.
 Add a new one first.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="TabView.py" line="198"/>
-        <source>Can't remove latest opened page.
+        <source>Can&apos;t remove latest opened page.
 Add a new one first.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="TabView.py" line="205"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="TabView.py" line="215"/>
@@ -1952,7 +1961,7 @@ Add a new one first.</source>
     <message>
         <location filename="TabView.py" line="215"/>
         <source>Remove all closed pages permanently?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1960,7 +1969,7 @@ Add a new one first.</source>
     <message>
         <location filename="PageView.py" line="261"/>
         <source>Other</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="PageView.py" line="293"/>
@@ -1993,13 +2002,13 @@ Add a new one first.</source>
     <message>
         <location filename="VersionUpdater.py" line="19"/>
         <source>Checking collection version</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="VersionUpdater.py" line="19"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2048,17 +2057,17 @@ Please update OpenNumismat</source>
     <message>
         <location filename="__init__.py" line="52"/>
         <source>Importing from %s</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="__init__.py" line="102"/>
         <source>&apos;%s&apos; is not a valid database</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="__init__.py" line="105"/>
         <source>DB server connection problem. Check additional software.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

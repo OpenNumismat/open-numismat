@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="de" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="de" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -92,12 +93,12 @@
     <message>
         <location filename="Collection.py" line="736"/>
         <source>Create mobile collection</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Collection.py" line="804"/>
         <source>Exporting records</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Collection.py" line="891"/>
@@ -107,7 +108,7 @@
     <message>
         <location filename="Collection.py" line="894"/>
         <source>Compact...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Collection.py" line="909"/>
@@ -640,17 +641,17 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="Export.py" line="20"/>
         <source>Export to mobile</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="31"/>
         <source>Target density of the display</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="39"/>
         <source>Countries</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="40"/>
@@ -660,12 +661,12 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="Export.py" line="41"/>
         <source>Denomination</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="44"/>
         <source>Default filter by</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="47"/>
@@ -685,27 +686,27 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="Export.py" line="52"/>
         <source>Both</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="74"/>
         <source>Destination</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="95"/>
         <source>Select destination</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="109"/>
         <source>Create mobile collection</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Export.py" line="109"/>
         <source>Destination file not specified</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -966,7 +967,10 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message numerus="yes">
         <location filename="ListView.py" line="398"/>
         <source>%n coin(s) selected</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="440"/>
@@ -1021,7 +1025,10 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message numerus="yes">
         <location filename="ListView.py" line="693"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="699"/>
@@ -1041,7 +1048,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="ReferenceDialog.py" line="63"/>
         <source>Change icon...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="65"/>
@@ -1109,12 +1116,12 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="Settings.py" line="194"/>
         <source>Sort items in filters (slow)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="199"/>
         <source>Sort items in tree (slow)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Settings.py" line="214"/>
@@ -1217,12 +1224,12 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="MainWindow.py" line="141"/>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="144"/>
         <source>For Android version</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="149"/>
@@ -1362,7 +1369,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden
     <message>
         <location filename="MainWindow.py" line="431"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="504"/>
@@ -1739,13 +1746,13 @@ Copyright (C) 2011-2015 Vitaly Ignatov
     </message>
     <message>
         <location filename="Reference.py" line="355"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s</source>
         <translation>Kann Auswahlliste nicht öffnen: %s</translation>
     </message>
     <message>
         <location filename="Reference.py" line="372"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s
 Created new one</source>
         <translation>Kann Auswahlliste nicht öffnen: %s. Neue Liste hergestellt</translation>
@@ -1933,14 +1940,14 @@ Created new one</source>
     </message>
     <message>
         <location filename="TabView.py" line="185"/>
-        <source>Can't close latest opened page.
+        <source>Can&apos;t close latest opened page.
 Add a new one first.</source>
         <translation>Kann die letzte geöffnete Seite nicht schließen. 
 Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <location filename="TabView.py" line="198"/>
-        <source>Can't remove latest opened page.
+        <source>Can&apos;t remove latest opened page.
 Add a new one first.</source>
         <translation>Kann die letzte geöffnete Seite nicht entfernen. 
 Fügen Sie erst eine Neue ein.</translation>
@@ -1966,7 +1973,7 @@ Fügen Sie erst eine Neue ein.</translation>
     <message>
         <location filename="PageView.py" line="261"/>
         <source>Other</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="PageView.py" line="293"/>

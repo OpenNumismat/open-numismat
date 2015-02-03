@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="ru" sourcelanguage="">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -967,7 +968,11 @@ Do you want to send an error message to the author
     <message numerus="yes">
         <location filename="ListView.py" line="398"/>
         <source>%n coin(s) selected</source>
-        <translation><numerusform>%n монета выбрана</numerusform><numerusform>%n монеты выбрано</numerusform><numerusform>%n монет выбрано</numerusform></translation>
+        <translation>
+            <numerusform>%n монета выбрана</numerusform>
+            <numerusform>%n монеты выбрано</numerusform>
+            <numerusform>%n монет выбрано</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="440"/>
@@ -1022,7 +1027,11 @@ Do you want to send an error message to the author
     <message numerus="yes">
         <location filename="ListView.py" line="693"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation><numerusform>Удалить %n монету?</numerusform><numerusform>Удалить %n монеты?</numerusform><numerusform>Удалить %n монет?</numerusform></translation>
+        <translation>
+            <numerusform>Удалить %n монету?</numerusform>
+            <numerusform>Удалить %n монеты?</numerusform>
+            <numerusform>Удалить %n монет?</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="ListView.py" line="699"/>
@@ -1740,14 +1749,14 @@ Copyright (C) 2011-2015 Игнатов Виталий
     </message>
     <message>
         <location filename="Reference.py" line="355"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s</source>
         <translation>Не удалось открыть справочник:
 %s</translation>
     </message>
     <message>
         <location filename="Reference.py" line="372"/>
-        <source>Can't open reference:
+        <source>Can&apos;t open reference:
 %s
 Created new one</source>
         <translation>Не удалось открыть справочник:
@@ -1937,14 +1946,14 @@ Created new one</source>
     </message>
     <message>
         <location filename="TabView.py" line="185"/>
-        <source>Can't close latest opened page.
+        <source>Can&apos;t close latest opened page.
 Add a new one first.</source>
         <translation>Нельзя закрыть последнюю вкладку.
 Добавьте новую сперва.</translation>
     </message>
     <message>
         <location filename="TabView.py" line="198"/>
-        <source>Can't remove latest opened page.
+        <source>Can&apos;t remove latest opened page.
 Add a new one first.</source>
         <translation>Нельзя удалить последнюю вкладку.
 Добавьте новую сперва.</translation>
