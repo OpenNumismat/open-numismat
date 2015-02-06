@@ -33,17 +33,17 @@
     <message>
         <location filename="Collection.py" line="547"/>
         <source>Can&apos;t open collection %s</source>
-        <translation>Nie można otworzyć kolekcji</translation>
+        <translation>Nie można otworzyć kolekcji %s</translation>
     </message>
     <message>
         <location filename="Collection.py" line="552"/>
         <source>Collection %s not exists</source>
-        <translation>Kolekcja nie istnieje</translation>
+        <translation>Kolekcja %s nie istnieje</translation>
     </message>
     <message>
         <location filename="Collection.py" line="561"/>
         <source>Collection %s in wrong format %s</source>
-        <translation>Kolekcja ma błędny format</translation>
+        <translation>Kolekcja %s ma błędny format %s</translation>
     </message>
     <message>
         <location filename="Collection.py" line="592"/>
@@ -53,7 +53,7 @@
     <message>
         <location filename="Collection.py" line="584"/>
         <source>Specified file already exists</source>
-        <translation>Taki plik już istnieje</translation>
+        <translation>Wybrany plik już istnieje</translation>
     </message>
     <message>
         <location filename="Collection.py" line="736"/>
@@ -904,7 +904,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="CoinsCollector.py" line="298"/>
         <source>Price note: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Cena: %s</translation>
     </message>
 </context>
 <context>
@@ -991,7 +991,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="ListView.py" line="443"/>
         <source>Text file UTF-8 (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik tekstowy UTF-8 (*.csv)</translation>
     </message>
     <message>
         <location filename="ListView.py" line="451"/>
@@ -1093,7 +1093,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="Settings.py" line="169"/>
         <source>Send error info to author</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyślij informacje o błędzie do Autora</translation>
     </message>
     <message>
         <location filename="Settings.py" line="174"/>
@@ -1103,12 +1103,12 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="Settings.py" line="181"/>
         <source>Max image side len</source>
-        <translation type="unfinished"></translation>
+        <translation>Przekroczono maksymalny rozmiar obrazu</translation>
     </message>
     <message>
         <location filename="Settings.py" line="184"/>
         <source>Free format numeric fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Wolny format pól numerycznych</translation>
     </message>
     <message>
         <location filename="Settings.py" line="189"/>
@@ -1118,12 +1118,12 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="Settings.py" line="194"/>
         <source>Sort items in filters (slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortuj obiekty w filtrach (wolne)</translation>
     </message>
     <message>
         <location filename="Settings.py" line="199"/>
         <source>Sort items in tree (slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortuj obiekty w drzewku wyboru (wolne)</translation>
     </message>
     <message>
         <location filename="Settings.py" line="214"/>
@@ -1221,7 +1221,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="133"/>
         <source>uCoin.net</source>
-        <translation type="unfinished"></translation>
+        <translation>uCoin.net</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="141"/>
@@ -1331,7 +1331,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="339"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplikacja wymaga ponownego uruchomienia żeby zapisać nowe ustawienia. Uruchomić ponownie teraz?</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="437"/>
@@ -1346,7 +1346,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="362"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Przed importem powinieneś eksportować istniejącą kolekcję z Cabinet.</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="375"/>
@@ -1361,7 +1361,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="400"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
-        <translation type="unfinished"></translation>
+        <translation>Przed importem powinieneś eksportować kolekcję z Collection Studio do tabeli XML (wybierz Menu Collection Studio Tools &gt; Export...).</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="417"/>
@@ -1371,7 +1371,7 @@ Chcesz zgłosić błąd autorowi?
     <message>
         <location filename="MainWindow.py" line="431"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Przed importem powinieneś eksportować istniejącą kolekcję z uCoin.net do formatu (CSV). </translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="504"/>
@@ -1400,7 +1400,11 @@ Chcesz zgłosić błąd autorowi?
 Copyright (C) 2011-2015 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished"></translation>
+        <translation>%s %s
+
+Wszelkie Prawa Zastrzeżone (C) 2011-2015 Vitaly Ignatov
+
+%s jest oprogramowaniem wolnym na licencji zgodnej z GPLv3.</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="632"/>
@@ -1746,14 +1750,17 @@ Copyright (C) 2011-2015 Vitaly Ignatov
         <location filename="Reference.py" line="355"/>
         <source>Can&apos;t open reference:
 %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie mogę otworzyć odniesienia:
+%s</translation>
     </message>
     <message>
         <location filename="Reference.py" line="372"/>
         <source>Can&apos;t open reference:
 %s
 Created new one</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie mogę otworzyć odniesienia:
+%s
+Utworzono nowe</translation>
     </message>
 </context>
 <context>
@@ -1940,18 +1947,20 @@ Created new one</source>
         <location filename="TabView.py" line="185"/>
         <source>Can&apos;t close latest opened page.
 Add a new one first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie mogę otworzyć ostatnio otwartej zakładki.
+Dodaj wpierw nową.</translation>
     </message>
     <message>
         <location filename="TabView.py" line="198"/>
         <source>Can&apos;t remove latest opened page.
 Add a new one first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie mogę usunąć ostatnio otwartej zakładki.
+Dodaj wpierw nową.</translation>
     </message>
     <message>
         <location filename="TabView.py" line="205"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
-        <translation type="unfinished"></translation>
+        <translation>Usunąć zakładkę &apos;%s&apos; trwale?</translation>
     </message>
     <message>
         <location filename="TabView.py" line="215"/>
@@ -1961,7 +1970,7 @@ Add a new one first.</source>
     <message>
         <location filename="TabView.py" line="215"/>
         <source>Remove all closed pages permanently?</source>
-        <translation type="unfinished"></translation>
+        <translation>Usunąć trwale wszystkie zamknięte zakładki?</translation>
     </message>
 </context>
 <context>
@@ -1969,7 +1978,7 @@ Add a new one first.</source>
     <message>
         <location filename="PageView.py" line="261"/>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>Inne</translation>
     </message>
     <message>
         <location filename="PageView.py" line="293"/>
@@ -2002,13 +2011,14 @@ Add a new one first.</source>
     <message>
         <location filename="VersionUpdater.py" line="19"/>
         <source>Checking collection version</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdzanie wersji kolekcji</translation>
     </message>
     <message>
         <location filename="VersionUpdater.py" line="19"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolekcja &amp;s ma nowszą wersję.
+Zaktualizuj OpenNumismat</translation>
     </message>
 </context>
 <context>
@@ -2057,17 +2067,17 @@ Please update OpenNumismat</source>
     <message>
         <location filename="__init__.py" line="52"/>
         <source>Importing from %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Importowanie z %s</translation>
     </message>
     <message>
         <location filename="__init__.py" line="102"/>
         <source>&apos;%s&apos; is not a valid database</source>
-        <translation type="unfinished"></translation>
+        <translation>%s nie jest poprawną bazą danych</translation>
     </message>
     <message>
         <location filename="__init__.py" line="105"/>
         <source>DB server connection problem. Check additional software.</source>
-        <translation type="unfinished"></translation>
+        <translation>Problem z połączeniem z serwerem DB. Sprawdź dodatkowe oprogramowanie</translation>
     </message>
 </context>
 <context>
