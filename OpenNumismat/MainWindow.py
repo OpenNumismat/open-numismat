@@ -298,12 +298,12 @@ class MainWindow(QMainWindow):
         if pageIndex != None:
             self.viewTab.setCurrentIndex(int(pageIndex))
 
+        size = settings.value('mainwindow/size')
+        if size:
+            self.resize(size)
+
         if settings.value('mainwindow/maximized') == 'true':
-            self.setWindowState(self.windowState() | Qt.WindowMaximized)
-        else:
-            size = settings.value('mainwindow/size')
-            if size:
-                self.resize(size)
+            self.showMaximized()
 
         self.autoUpdate()
 
