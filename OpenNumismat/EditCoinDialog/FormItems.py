@@ -406,24 +406,28 @@ class DateEdit(QDateEdit):
     DEFAULT_DATE = QDate(2000, 1, 1)
 
     def __init__(self, parent=None):
-        super(DateEdit, self).__init__(parent)
+        super().__init__(parent)
         calendar = CalendarWidget()
         calendar.setGridVisible(True)
         self.setCalendarPopup(True)
         self.setCalendarWidget(calendar)
         self.setMinimumWidth(85)
 
+    def clear(self):
+        self.setDate(self.DEFAULT_DATE)
+        super().clear()
+
     def showEvent(self, e):
-        super(DateEdit, self).showEvent(e)
+        super().showEvent(e)
         self.__clearDefaultDate()
 
     def focusInEvent(self, event):
         if not self.isReadOnly():
             self.setDate(self.date())
-        super(DateEdit, self).focusInEvent(event)
+        super().focusInEvent(event)
 
     def focusOutEvent(self, event):
-        super(DateEdit, self).focusOutEvent(event)
+        super().focusOutEvent(event)
         self.__clearDefaultDate()
 
     def keyPressEvent(self, event):
@@ -432,7 +436,7 @@ class DateEdit(QDateEdit):
             if lineEdit.selectedText() == lineEdit.text():
                 self.setDate(self.DEFAULT_DATE)
 
-        super(DateEdit, self).keyPressEvent(event)
+        super().keyPressEvent(event)
 
     def __clearDefaultDate(self):
         if self.date() == self.DEFAULT_DATE:
