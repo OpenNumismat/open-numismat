@@ -392,12 +392,22 @@ class TextEdit(QTextEdit):
         return self.minimumSizeHint()
 
 
+class CalendarWidget(QCalendarWidget):
+    DEFAULT_DATE = QDate(2000, 1, 1)
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def showEvent(self, e):
+        if self.selectedDate() == self.DEFAULT_DATE:
+            self.showToday()
+
 class DateEdit(QDateEdit):
     DEFAULT_DATE = QDate(2000, 1, 1)
 
     def __init__(self, parent=None):
         super(DateEdit, self).__init__(parent)
-        calendar = QCalendarWidget()
+        calendar = CalendarWidget()
         calendar.setGridVisible(True)
         self.setCalendarPopup(True)
         self.setCalendarWidget(calendar)
@@ -420,15 +430,14 @@ class DateEdit(QDateEdit):
         if event.key() in [Qt.Key_Delete, Qt.Key_Backspace]:
             lineEdit = self.findChild(QLineEdit)
             if lineEdit.selectedText() == lineEdit.text():
-                default_date = self.DEFAULT_DATE
-                self.setDate(default_date)
+                self.setDate(self.DEFAULT_DATE)
 
         super(DateEdit, self).keyPressEvent(event)
 
     def __clearDefaultDate(self):
-        default_date = self.DEFAULT_DATE
-        if self.date() == default_date:
+        if self.date() == self.DEFAULT_DATE:
             lineEdit = self.findChild(QLineEdit)
+            lineEdit.setCursorPosition(0)
             lineEdit.setText("")
 
 
