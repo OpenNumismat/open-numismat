@@ -16,9 +16,11 @@ from  PyQt5.QtCore import pyqtRemoveInputHook
 import os
 import zipfile
 import urllib
-from OpenNumismat.Settings import Settings
+from OpenNumismat.Settings import Settings, BaseSettings
+
 from pytz import timezone
 import pytz, datetime
+from PyQt5.QtWidgets import QDialog, QLabel, QComboBox, QPushButton, QVBoxLayout, QGridLayout, QCheckBox, QMessageBox
 
 available = True
 
@@ -113,9 +115,14 @@ class ImportTellico(_Import):
 
     def __init__(self, parent=None):
         super(ImportTellico, self).__init__(parent)
-        
+
         self.settings = Settings()
 
+        #if id_dates set then convert recorded times to UTC
+        if self.settings['id_dates']: #krr:todo: gotta be a better way
+            self.myTZ = TZprompt.getTZ()
+
+        
     @staticmethod
     def isAvailable():
         return available
@@ -211,19 +218,31 @@ class ImportTellico(_Import):
                     value = row.find("./t:countrys/t:country", namespaces={'t': 'http://periapsis.org/tellico/'}).text
                     record.setValue(dstColumn, value)
 
-#                elif self.settings['id_dates'] and srcColumn in ['cdate', 'mdate']:
                 elif srcColumn in ['cdate', 'mdate']:
                     #extract date elements from xml    
                     tsYear = int(row.find("./t:"+srcColumn+"/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
                     tsMonth = int(row.find("./t:"+srcColumn+"/t:month", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
                     tsDay = int(row.find("./t:"+srcColumn+"/t:day", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
                     recordedDate = '{:04}{:02}{:02}'.format(tsYear, tsMonth, tsDay)
-                    myTZ = "America/Chicago"  #krr:todo: prompt for this
-                    local = pytz.timezone(myTZ)
-                    naive = datetime.datetime.strptime(recordedDate, "%Y%m%d")
-                    local_dt = local.localize(naive)
-                    utc_dt = local_dt.astimezone (pytz.utc)
-                    record.setValue(dstColumn, str(utc_dt))
+
+                    #if id_dates set then convert recorded times to UTC
+                    if self.settings['id_dates']: #krr:todo: gotta be a better way
+                        #convert local time in Tellico to UTC
+                        localT = pytz.timezone(self.myTZ)
+                        naive = datetime.datetime.strptime(recordedDate, "%Y%m%d")
+                        local_dt = localT.localize(naive)
+                        utc_dt = local_dt.astimezone (pytz.utc)
+
+                        #Convert ISODate to QDate
+                        [tsCal, tsTimeSpec] = str(utc_dt).split()
+                        [tsYear, tsMonth, tsDay] = tsCal.split('-')
+                        [tsTime, tsOffset] = tsTimeSpec.split('+')
+                        [tsHour, tsMin, tsSec] = tsTime.split(':')
+                        UTCDate = QtCore.QDateTime.fromString(tsYear + tsMonth + tsDay + tsHour + tsMin + tsSec, 'yyyyMMddHHmmss')
+
+                        record.setValue(dstColumn,
+                                        UTCDate.toString(Qt.ISODate))
+                        
                 elif rawData:
                     ############################
                     #
@@ -299,7 +318,7 @@ class ImportTellico(_Import):
         ONimgFields = ['obverseimg', 'reverseimg', 'edgeimg',
                      'photo1', 'photo2', 'photo3', 'photo4']
 
-        image3Suffixes = ['.png','.jpg', '.bmp']  #krr:todo: .gif hangs
+        image3Suffixes = ['.png','.jpg', '.bmp', '.gif']
         image4Suffixes = ['.jpeg', '.tiff']
         imageNo = 0
         for srcImg in tellicoImages:
@@ -330,3 +349,52 @@ class ImportTellico(_Import):
                     record.setValue(ONimgFields[imageNo], image)
                     
                     imageNo = imageNo + 1
+
+class TZprompt(QDialog):
+    def __init__(self, parent=None):
+        super(TZprompt, self).__init__(parent)
+
+        #self.idDates = QCheckBox("Import ID and created/modified dates")
+
+        promptLabel = QLabel("Time Zone in which the Tellico data was entered:")
+
+        self.zoneName = QComboBox(self)
+        current = -1
+        self.suppliedTZ = 'America/Chicago'
+        for i, zone in enumerate (pytz.common_timezones):
+            self.zoneName.addItem(zone, i)
+            if self.suppliedTZ == zone:
+                current = i
+        self.zoneName.setCurrentIndex(current)
+        
+        self.submitButton = QPushButton("Submit")
+        self.submitButton.isDefault()
+
+        
+        buttonLayout1 = QVBoxLayout()
+        #buttonLayout1.addWidget(self.idDates)
+        buttonLayout1.addWidget(promptLabel)
+        buttonLayout1.addWidget(self.zoneName)
+        buttonLayout1.addWidget(self.submitButton)
+        
+        self.submitButton.clicked.connect(self.TZsubmitted)
+        
+        mainLayout = QGridLayout()
+        mainLayout.addLayout(buttonLayout1, 0, 1)
+        
+        self.setLayout(mainLayout)
+        self.setWindowTitle("Time Zone")
+ 
+    def TZsubmitted(self):
+        self.suppliedTZ = self.zoneName.currentText()
+        QDialog.accept(self)
+        
+    @staticmethod
+    def getTZ(parent = None):
+        TZdialog = TZprompt(parent)
+        result = TZdialog.exec_()
+        
+        if result == QDialog.Accepted:
+            return TZdialog.suppliedTZ
+
+        return 'UTC'

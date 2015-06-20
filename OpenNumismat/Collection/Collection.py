@@ -121,10 +121,9 @@ class CollectionModel(QSqlTableModel):
 
     def insertRecord(self, row, record):
         self._updateRecord(record)
-        #krr: A check for an empty DB here would be nice and a check for...
-        #krr: having a value in the imported data would also be nice
+        #krr:todo: A check for an empty DB here would be nice 
+        #krr:todo: or checking for duplicate ID
         if not self.settings['id_dates']: #krr:todo: gotta be a better way
-            print ("krr: in collection.py don't import id")
             record.setNull('id')  # remove ID value from record
             record.setValue('createdat', record.value('updatedat'))
 
@@ -385,7 +384,6 @@ class CollectionModel(QSqlTableModel):
             record.setValue('image', ba)
             
         if not self.settings['id_dates']: #krr:todo: gotta be a better way
-            print ("krr: in Collection.py don't import dates")
             currentTime = QtCore.QDateTime.currentDateTimeUtc()
             record.setValue('updatedat', currentTime.toString(Qt.ISODate))
             
