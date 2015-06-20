@@ -43,6 +43,8 @@ class CollectionModel(QSqlTableModel):
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
 
+        self.settings = Settings()
+
     def rowsInsertedEvent(self, parent, start, end):
         self.insertedRowIndex = self.index(end, 0)
 
@@ -119,12 +121,10 @@ class CollectionModel(QSqlTableModel):
 
     def insertRecord(self, row, record):
         self._updateRecord(record)
-        #krr: the set Null and setValue should be bypassed when importing to...
-        #krr: an EMPTY DB...
-        #krr: ...and updatedat IS SET in the imported data
         #krr: A check for an empty DB here would be nice and a check for...
         #krr: having a value in the imported data would also be nice
-        if not os.getenv('ON_NEW_DB'):
+        if not self.settings['id_dates']: #krr:todo: gotta be a better way
+            print ("krr: in collection.py don't import id")
             record.setNull('id')  # remove ID value from record
             record.setValue('createdat', record.value('updatedat'))
 
@@ -384,13 +384,9 @@ class CollectionModel(QSqlTableModel):
             image.save(buffer, 'png')
             record.setValue('image', ba)
             
-        currentTime = QtCore.QDateTime.currentDateTimeUtc()
-        #krr: the setValue should be bypassed when importing to an EMPTY DB...
-        #krr: ...and updatedat IS SET in the imported data
-        #krr: 1. A check for an empty DB here would be nice
-        #krr: 2. check for a value in the imported data would also be nice
-        #krr:*** Tellico time is in local time.  change that to UT
-        if not os.getenv('ON_NEW_DB'):
+        if not self.settings['id_dates']: #krr:todo: gotta be a better way
+            print ("krr: in Collection.py don't import dates")
+            currentTime = QtCore.QDateTime.currentDateTimeUtc()
             record.setValue('updatedat', currentTime.toString(Qt.ISODate))
             
     def submitAll(self):
@@ -860,7 +856,10 @@ class Collection(QtCore.QObject):
                 reverseImage = QImage()
                 
                 if is_obverse_present:
-                    obverseImage.loadFromData(coin.value('obverseimg'))
+                    if record.value('obverseimg')[:7] == 'file://':
+                        reverseImage.load(record.value('obverseimg')[7:])
+                    else:
+                        obverseImage.loadFromData(coin.value('obverseimg'))
                     query = QSqlQuery(db)
                     query.prepare("""INSERT INTO photos (image)
                             VALUES (?)""")
@@ -873,7 +872,10 @@ class Collection(QtCore.QObject):
                                                             Qt.SmoothTransformation)
                     
                 if is_reverse_present:
-                    reverseImage.loadFromData(coin.value('reverseimg'))
+                    if record.value('reverseimg')[:7] == 'file://':
+                        reverseImage.load(record.value('reverseimg')[7:])
+                    else:
+                        reverseImage.loadFromData(coin.value('reverseimg'))
                     query = QSqlQuery(db)
                     query.prepare("""INSERT INTO photos (image)
                             VALUES (?)""")

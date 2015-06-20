@@ -80,20 +80,14 @@ class ImageView(QWidget):
         self.clear()
 
         images = []
-        #print ("krr: imageFields =", self.imageFields)
         for i, field in enumerate(self.imageFields):
-            #print ("krr: processing field =", field)
             self.imageButtons[i].stateChanged.disconnect(self.buttonClicked)
             self.imageButtons[i].setCheckState(Qt.Unchecked)
             self.imageButtons[i].setDisabled(True)
 
-            #print ("krr: field.id =", field.id)
-            #print ("krr: current.row() =", current.row())
             index = self.model.index(current.row(), field.id)
             if index.data():
-                #print ("krr: index.data() exist")
                 if not index.data().isNull():
-                    #print ("krr: index.data() not Null")
                     #binary index.data()
                     if len(images) < self.showedCount:
                         images.append(index.data())
@@ -102,19 +96,13 @@ class ImageView(QWidget):
 
             self.imageButtons[i].stateChanged.connect(self.buttonClicked)
 
-        #print ("krr: len images=", len(images))
         for imageData in images:
             image = ImageLabel(self)
-            #print ("krr: see imageData =", imageData[:7])
             if imageData[:7] == 'file://':
-                #print ("krr: got imageData =", imageData[:7])
                 image.load(imageData[7:])
             else:
-                #print ("krr: got raw image =", imageData[:7])
                 image.loadFromData(imageData)
-            #print ("krr: loaded imageData")
             self.imageLayout.addWidget(image)
-            #print ("krr: added widget")
 
     def __layoutToWidget(self, layout):
         widget = QWidget(self)

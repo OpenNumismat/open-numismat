@@ -42,7 +42,6 @@ class ImageDelegate(QStyledItemDelegate):
     def paint(self, painter, option, index):
         data = index.data()
         if data and not data.isNull():
-            #print ("krr: got paint data()=", data[:15])
             image = QImage()
             image.loadFromData(data)
             rect = option.rect

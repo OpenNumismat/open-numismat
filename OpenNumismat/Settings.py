@@ -84,6 +84,9 @@ class Settings(BaseSettings):
                'store_sorting': False,
                'sort_filter': True,
                'sort_tree': True,
+               'title_format': 'default',
+               'image_name': False,
+               'id_dates': False, #krr:todo: prompt for this on import & reset
                'template': 'cbr',
                'ImageSideLen': 1024}
 
@@ -99,7 +102,7 @@ class Settings(BaseSettings):
         value = self.settings.value('mainwindow/' + key)
         if value:
             if key in ('error', 'updates', 'free_numeric', 'store_sorting',
-                       'sort_filter', 'sort_tree'):
+                       'sort_filter', 'sort_tree', 'image_name', 'id_dates'):
                 # Convert boolean value
                 value = (value == 'true')
         else:
@@ -201,6 +204,16 @@ class MainSettingsPage(QWidget):
         self.sortTree.setChecked(settings['sort_tree'])
         layout.addRow(self.sortTree)
 
+        self.imageName = QCheckBox(
+                            self.tr("Point to image file rather than storing image"), self)
+        self.imageName.setChecked(settings['image_name'])
+        layout.addRow(self.imageName)
+
+        self.idDates = QCheckBox(
+                            self.tr("Tellico import: keep ID and created/modified dates"), self)
+        self.idDates.setChecked(settings['id_dates'])
+        layout.addRow(self.idDates)
+
         current = 0
         self.templateSelector = QComboBox(self)
         for i, template in enumerate(Report.scanTemplates()):
@@ -212,6 +225,18 @@ class MainSettingsPage(QWidget):
                                             QSizePolicy.Fixed)
 
         layout.addRow(self.tr("Default template"), self.templateSelector)
+
+        current = 0
+        self.titleFormatSelector = QComboBox(self)
+        for i, titleFormat in enumerate(['default', 'US']):
+            self.titleFormatSelector.addItem(titleFormat)
+            if settings['title_format'] == titleFormat:
+                current = i
+        self.titleFormatSelector.setCurrentIndex(current)
+        self.titleFormatSelector.setSizePolicy(QSizePolicy.Fixed,
+                                            QSizePolicy.Fixed)
+
+        layout.addRow(self.tr("Title Format"), self.titleFormatSelector)
 
         self.setLayout(layout)
 
@@ -243,6 +268,9 @@ class MainSettingsPage(QWidget):
         settings['store_sorting'] = self.storeSorting.isChecked()
         settings['sort_filter'] = self.sortFilter.isChecked()
         settings['sort_tree'] = self.sortTree.isChecked()
+        settings['image_name'] = self.imageName.isChecked()
+        settings['id_dates'] = self.idDates.isChecked()
+        settings['title_format'] = self.titleFormatSelector.currentText()
         settings['template'] = self.templateSelector.currentText()
         settings['ImageSideLen'] = int(self.imageSideLen.text())
 

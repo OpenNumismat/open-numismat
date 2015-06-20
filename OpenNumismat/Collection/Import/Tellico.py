@@ -9,9 +9,16 @@
 # Gnu public license V3
 #
 #############################################
+
+import pdb
+from  PyQt5.QtCore import pyqtRemoveInputHook
+
 import os
 import zipfile
 import urllib
+from OpenNumismat.Settings import Settings
+from pytz import timezone
+import pytz, datetime
 
 available = True
 
@@ -106,6 +113,8 @@ class ImportTellico(_Import):
 
     def __init__(self, parent=None):
         super(ImportTellico, self).__init__(parent)
+        
+        self.settings = Settings()
 
     @staticmethod
     def isAvailable():
@@ -134,13 +143,13 @@ class ImportTellico(_Import):
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
           #
-          # assumptions
+          # assumed field values
           #
           if dstColumn == 'shape':
-              value = 'Circle'
+              value = 'Circle' #good for most modern coins
               record.setValue(dstColumn, value)
           elif dstColumn == 'obvrev':
-              value = 'Coin'
+              value = 'Coin' # good for US coins
               record.setValue(dstColumn, value)
           if srcColumn is not None:
 
@@ -202,17 +211,23 @@ class ImportTellico(_Import):
                     value = row.find("./t:countrys/t:country", namespaces={'t': 'http://periapsis.org/tellico/'}).text
                     record.setValue(dstColumn, value)
 
+#                elif self.settings['id_dates'] and srcColumn in ['cdate', 'mdate']:
                 elif srcColumn in ['cdate', 'mdate']:
-                    valueY = int(row.find("./t:"+srcColumn+"/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
-                    valueM = int(row.find("./t:"+srcColumn+"/t:month", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
-                    valueD = int(row.find("./t:"+srcColumn+"/t:day", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
-                    recordedDate = QtCore.QDateTime.fromString('{:04}{:02}{:02}'.format(valueY, valueM, valueM),'yyyyMMdd')
-                    record.setValue(dstColumn, recordedDate.toString(Qt.ISODate))
-
+                    #extract date elements from xml    
+                    tsYear = int(row.find("./t:"+srcColumn+"/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
+                    tsMonth = int(row.find("./t:"+srcColumn+"/t:month", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
+                    tsDay = int(row.find("./t:"+srcColumn+"/t:day", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
+                    recordedDate = '{:04}{:02}{:02}'.format(tsYear, tsMonth, tsDay)
+                    myTZ = "America/Chicago"  #krr:todo: prompt for this
+                    local = pytz.timezone(myTZ)
+                    naive = datetime.datetime.strptime(recordedDate, "%Y%m%d")
+                    local_dt = local.localize(naive)
+                    utc_dt = local_dt.astimezone (pytz.utc)
+                    record.setValue(dstColumn, str(utc_dt))
                 elif rawData:
                     ############################
                     #
-                    # sources w/o parent
+                    # correction to sources w/o parent
                     #
                     ############################
 
@@ -258,7 +273,7 @@ class ImportTellico(_Import):
                             value = rawData
                         else:
                             value = ' '.join(rawData.split()[1:])
-                        
+
                     else:
                         value = rawData
 
@@ -284,25 +299,32 @@ class ImportTellico(_Import):
         ONimgFields = ['obverseimg', 'reverseimg', 'edgeimg',
                      'photo1', 'photo2', 'photo3', 'photo4']
 
-        image3Suffixes = ['.png','.jpg']  #some features of py don't like .gif
-        image4Suffixes = ['.jpeg']
+        image3Suffixes = ['.png','.jpg', '.bmp']  #krr:todo: .gif hangs
+        image4Suffixes = ['.jpeg', '.tiff']
         imageNo = 0
         for srcImg in tellicoImages:
             if row.find("./t:"+srcImg, namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
                 element = row.find("./t:"+srcImg, namespaces={'t': 'http://periapsis.org/tellico/'}).text
                 if element:
                     element = urllib.parse.unquote(element)
+                    image = QtGui.QImage()
                     if element[:7] == 'file://':
-                        image = element
+                        if self.settings['image_name']:
+                            image = element
+                        else:
+                            image.load(element[7:])
                     elif element[-4:] in image3Suffixes or element[-5:] in image4Suffixes:
-                        if self.unzippedName: #rm .tc
-                            image = "file://" + self.srcDB[:-3] + "_files" + "/" + element
+                        if self.unzippedName: #was unzipped so is a .tc file
+                            imagePath = "file://" + self.srcDB[:-3] + "_files" + "/" + element
                         else: #rm .xml
-                            image = "file://" + self.srcDB[:-4] + "_files" + "/" + element
-                        if not os.path.exists(image[7:]):
-                            image = "file://" + os.path.dirname(self.srcDB) + "/" + element
+                            imagePath = "file://" + self.srcDB[:-4] + "_files" + "/" + element
+                        if not os.path.exists(imagePath[7:]): #if not in sub dir look in same dir as .tc or .xml
+                            imagePath = "file://" + os.path.dirname(self.srcDB) + "/" + element
+                        if self.settings['image_name']:
+                            image = imagePath
+                        else:
+                            image.load(imagePath[7:])
                     else:
-                        image = QtGui.QImage()
                         image.loadImageData(element)
 
                     record.setValue(ONimgFields[imageNo], image)
