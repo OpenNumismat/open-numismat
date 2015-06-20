@@ -307,7 +307,11 @@ class CollectionModel(QSqlTableModel):
                 if isinstance(image, str):
                     # Copying record as text (from Excel) store missed images
                     # as string
-                    record.setNull(field.name)
+                    if image[:7] == "file://":
+                        print ("krr: found file:// to store in DB")
+                        record.setValue(field.name, image)
+                    else:
+                        record.setNull(field.name)
                 elif isinstance(image, QImage):
                     ba = QtCore.QByteArray()
                     buffer = QtCore.QBuffer(ba)
@@ -344,12 +348,20 @@ class CollectionModel(QSqlTableModel):
             height = int(tmp.verticalHeader().defaultSectionSize() * 1.5 - 1)
 
             if not record.isNull('obverseimg') and obverseImage.isNull():
-                obverseImage.loadFromData(record.value('obverseimg'))
+                print ("krr: got the obverseimage =", record.value('obverseimg')[:7])
+                if record.value('obverseimg')[:7] == 'file://':
+                    obverseImage.load(record.value('obverseimg')[7:])
+                else:
+                    obverseImage.loadFromData(record.value('obverseimg'))
             if not obverseImage.isNull():
                 obverseImage = obverseImage.scaledToHeight(height,
                                                     Qt.SmoothTransformation)
             if not record.isNull('reverseimg') and reverseImage.isNull():
-                reverseImage.loadFromData(record.value('reverseimg'))
+                if record.value('reverseimg')[:7] == 'file://':
+                    print ("krr: got the reverseimage =", record.value('reverseimg')[:7])
+                    reverseImage.load(record.value('reverseimg')[7:])
+                else:
+                    reverseImage.loadFromData(record.value('reverseimg'))
             if not reverseImage.isNull():
                 reverseImage = reverseImage.scaledToHeight(height,
                                                     Qt.SmoothTransformation)
@@ -419,7 +431,13 @@ class CollectionModel(QSqlTableModel):
         query.addBindValue(img_id)
         query.exec_()
         if query.first():
-            return query.record().value(0)
+            imageOrFile = query.record().value(0)
+            #if imageOrFile[:7] == 'file://':
+                #print ("krr: getImage returning contents of file://")
+                #image = QtGui.QImage()
+                #image.load(imageOrFile[7:])
+                #return image
+            return imageOrFile
 
     def getPreviewImage(self, img_id):
         query = QSqlQuery(self.database())

@@ -117,7 +117,7 @@ class ImportTellico(_Import):
         return rows
         
     def _setRecord(self, record, row):
-#        print ("\n1***add coin\nkrr: row: "+ str(row))
+        #print("\n1***add coin\nkrr: row: "+ str(row))
         for dstColumn, srcColumn in self.Columns.items():
           #
           # assumptions
@@ -129,7 +129,7 @@ class ImportTellico(_Import):
               value = 'Coin'
               record.setValue(dstColumn, value)
           if srcColumn is not None:
-#            print ("krr: "+str(dstColumn)+":"+ str(srcColumn))
+            #print ("krr: Tellico.py::ImportTellico::_setRecord: "+str(dstColumn)+":"+ str(srcColumn))
             #############################
             #
             # multiple source processing
@@ -147,7 +147,7 @@ class ImportTellico(_Import):
                 else: value2 = '~'
                 if value1 != '~' or value2 != '~':
                     record.setValue(dstColumn, value1+"-"+value2)
-#                print('')
+                #print('')
             #
             # status of coin
             #
@@ -159,22 +159,23 @@ class ImportTellico(_Import):
                         value = 'owned'
                 else:
                     value = 'owned'
-#                print ("  krr: status(want) =", value)
+                #print ("  krr: Tellico.py::ImportTellico::_setRecord: status(want) =", value)
 
                 if value == 'owned':
                     #I have it but am I selling it?
                     if row.find("./t:sell", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
                         if (row.find("./t:sell", namespaces={'t': 'http://periapsis.org/tellico/'}).text) == "true":
                             value = 'sale'
-#                    print ("  krr: status(sell) =", value)
+                    #print ("  krr: Tellico.py::ImportTellico::_setRecord: status(sell) =", value)
                     # I have/had it.  Was it sold?
                     # the status can 'sold' wether or not sell was set. so don't use an elif below
                     if row.find("./t:sold", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
                         rawData = row.find("./t:sold", namespaces={'t': 'http://periapsis.org/tellico/'}).text
                         value = 'sold'
-#                            print ("  krr: status(sold-raw) =", rawData)
-#                        else:    print ("  krr: status(sold) is absent") #keep it the same as it was
-#                    print ("    krr: status result:", dstColumn, value)
+                        #print ("  krr: Tellico.py::ImportTellico::_setRecord: status(sold-raw) =", rawData)
+                    #else:
+                        #print ("  krr: Tellico.py::ImportTellico::_setRecord: status(sold) is absent") #keep it the same as it was
+                    #print ("    krr: Tellico.py::ImportTellico::_setRecord: status result:", dstColumn, value)
                 record.setValue(dstColumn, value)
             ############################
             #
@@ -183,7 +184,7 @@ class ImportTellico(_Import):
             ############################
             elif srcColumn and row.find("t:"+srcColumn, namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
                 rawData = row.find("t:"+srcColumn, namespaces={'t': 'http://periapsis.org/tellico/'}).text
-#                print ("  krr: processing: "+srcColumn+" raw data: "+ str(rawData))
+                #print ("  krr: Tellico.py::ImportTellico::_setRecord: processing: "+srcColumn+" raw data: "+ str(rawData))
                 ############################
                 #
                 # has child nodes
@@ -192,7 +193,7 @@ class ImportTellico(_Import):
                 if srcColumn == 'countrys':
                     value = row.find("./t:countrys/t:country", namespaces={'t': 'http://periapsis.org/tellico/'}).text
                     record.setValue(dstColumn, value)
-#                    print('')
+                    #print('')
 
                 elif srcColumn in ['cdate', 'mdate']:
                     valueY = int(row.find("./t:"+srcColumn+"/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
@@ -200,7 +201,7 @@ class ImportTellico(_Import):
                     valueD = int(row.find("./t:"+srcColumn+"/t:day", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
                     recordedDate = QtCore.QDateTime.fromString('{:04}{:02}{:02}'.format(valueY, valueM, valueM),'yyyyMMdd')
                     record.setValue(dstColumn, recordedDate.toString(Qt.ISODate))
-#                    print ("krr: date=", recordedDate)
+                    #print ("krr: Tellico.py::ImportTellico::_setRecord: date=", recordedDate)
 
                 elif rawData:
                     ############################
@@ -208,7 +209,7 @@ class ImportTellico(_Import):
                     # sources w/o parent
                     #
                     ############################
-#                    print ("    krr: no child values: "+srcColumn+" raw data: "+ str(rawData))
+                    #print ("    krr: Tellico.py::ImportTellico::_setRecord: no child values: "+srcColumn+" raw data: "+ str(rawData))
                     #
                     # year
                     #
@@ -255,9 +256,9 @@ class ImportTellico(_Import):
                     else:
                         value = rawData
 
-#                    print ("krr: setvalue is " + str(dstColumn)+":"+str(srcColumn)+"=", value)
+                    #print ("krr: Tellico.py::ImportTellico::_setRecord: setvalue is " + str(dstColumn)+":"+str(srcColumn)+"=", value)
                     record.setValue(dstColumn, value)
-#                    print('')
+                    #print('')
                     
 # Obverse obverseimg
 # Reverse reverseimg
@@ -270,6 +271,9 @@ class ImportTellico(_Import):
 # Detail photo3
 # Detail2 photo4
 #*Detail3 
+
+        #print ("krr: Tellico.py::ImportTellico::_setRecord: images.")
+        
         tellicoImages = ['obverse', 'reverse',
                      'edge',
                      'display', 'display2'
@@ -281,11 +285,19 @@ class ImportTellico(_Import):
         imageNo = 0
         for srcImg in tellicoImages:
             if row.find("./t:"+srcImg, namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
-                element = row.find("./t:"+srcImg, namespaces={'t': 'http://periapsis.org/tellico/'}).text[7:]
+                element = row.find("./t:"+srcImg, namespaces={'t': 'http://periapsis.org/tellico/'}).text
                 if element:
-                    image = QtGui.QImage()
-                    image.load(element)
+                    #print ("krr: Tellico.py::ImportTellico::_setRecord: element =", element)
+                    if element[:7] == 'file://':
+                        #print ("krr: Tellico.py::ImportTellico::_setRecord: use file name:", element[:7])
+                        image = element
+                    else:
+                        #print ("krr: Tellico.py::ImportTellico::_setRecord: use image data.")
+                        image = QtGui.QImage()
+                        image.loadImageData(element)
+                    #print ("krr: Tellico.py::ImportTellico::_setRecord: ONimgField(", ONimgFields[imageNo], ") is being set to ", image)
                     record.setValue(ONimgFields[imageNo], image)
+                    #print ("krr: Tellico.py::ImportTellico::_setRecord: ONimgField(", ONimgFields[imageNo], ") was set to ", record.value(ONimgFields[imageNo]))
                     imageNo = imageNo + 1
 
 #krr        record.setValue('title', self.__generateTitle(record))
