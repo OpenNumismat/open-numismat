@@ -1,3 +1,5 @@
+import os
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import *
@@ -578,10 +580,16 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def clickGenerateTitle(self):
         titleParts = []
-        #krr: for key in ['value', 'unit', 'year', 'subjectshort',
-        #krr:            'mintmark', 'variety']:
-        for key in ['country', 'value', 'unit', 'type',
-                    'year', 'mintmark', 'variety']:
+        #default title information
+        keys = ['value', 'unit', 'year', 'subjectshort',
+                         'mintmark', 'variety']
+        if os.getenv('ON_TITLE'):
+            if os.environ['ON_TITLE'] == 'US':
+                keys = ['country', 'value', 'unit', 'type',
+                        'year', 'mintmark', 'variety']
+            
+        for key in keys:
+
             value = self.items[key].value()
             if not isinstance(value, str):
                 value = str(value)
@@ -594,7 +602,12 @@ class FormDetailsTabWidget(DetailsTabWidget):
                         titlePart = '"%s"' % titlePart
                 titleParts.append(titlePart)
 
-        title = '-'.join(titleParts)
+        #default join charachter
+        title = ' '.join(titleParts)
+        if os.getenv('ON_TITLE'):
+            if os.environ['ON_TITLE'] == 'US':
+                title = '-'.join(titleParts)
+        
         self.items['title'].setValue(title)
 
     def _createTrafficParts(self, index=0):

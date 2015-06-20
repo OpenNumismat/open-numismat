@@ -119,10 +119,14 @@ class CollectionModel(QSqlTableModel):
 
     def insertRecord(self, row, record):
         self._updateRecord(record)
-        #krr: the following two lines should be bypassed when importing...
-        #krr: ...to a new DB and their values are already set
-#        record.setNull('id')  # remove ID value from record
-#        record.setValue('createdat', record.value('updatedat'))
+        #krr: the set Null and setValue should be bypassed when importing to...
+        #krr: an EMPTY DB...
+        #krr: ...and updatedat IS SET in the imported data
+        #krr: A check for an empty DB here would be nice and a check for...
+        #krr: having a value in the imported data would also be nice
+        if not os.getenv('ON_NEW_DB'):
+            record.setNull('id')  # remove ID value from record
+            record.setValue('createdat', record.value('updatedat'))
 
         for field in ['obverseimg', 'reverseimg', 'edgeimg',
                       'photo1', 'photo2', 'photo3', 'photo4']:
@@ -372,9 +376,13 @@ class CollectionModel(QSqlTableModel):
             record.setValue('image', ba)
 
         currentTime = QtCore.QDateTime.currentDateTimeUtc()
-        #krr: this should be bypassed when importing to an empty DB and...
-        #krr: ...updatedat is already set
-#        record.setValue('updatedat', currentTime.toString(Qt.ISODate))
+        #krr: the setValue should be bypassed when importing to an EMPTY DB...
+        #krr: ...and updatedat IS SET in the imported data
+        #krr: 1. A check for an empty DB here would be nice
+        #krr: 2. check for a value in the imported data would also be nice
+        #krr:*** Tellico time is in local time.  change that to UT
+        if not os.getenv('ON_NEW_DB'):
+            record.setValue('updatedat', currentTime.toString(Qt.ISODate))
 
     def submitAll(self):
         ret = super(CollectionModel, self).submitAll()
