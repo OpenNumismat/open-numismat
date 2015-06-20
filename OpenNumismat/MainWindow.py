@@ -421,7 +421,6 @@ class MainWindow(QMainWindow):
             imp.importData(file, self.viewTab.currentModel())
 
     def importTellico(self):
-#krr: *** This would be a good place to prompt about importing to a new DB
 #        QMessageBox.information(self, self.tr("Importing"),
 #                self.tr("Before importing you should export existing "
 #                        "collection from Collection Studio to XML Table "
@@ -429,7 +428,7 @@ class MainWindow(QMainWindow):
 
         defaultDir = ImportTellico.defaultDir()
         file, _selectedFilter = QFileDialog.getOpenFileName(self,
-                                self.tr("Select file"), defaultDir, "*.xml")
+                                self.tr("Select file"), defaultDir, "*.tc *.xml")
         if file:
             imp = ImportTellico(self)
             imp.importData(file, self.viewTab.currentModel())
