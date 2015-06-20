@@ -10,6 +10,8 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormIte
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools.Converters import stringToMoney
 
+from OpenNumismat.Settings import Settings
+
 
 class DetailsTabWidget(QTabWidget):
     Direction = QBoxLayout.LeftToRight
@@ -466,6 +468,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
     Direction = QBoxLayout.TopToBottom
 
     def __init__(self, model, parent=None, usedFields=None):
+
+        self.settings = Settings()
+
         self.usedFields = usedFields
         self.reference = model.reference
 
@@ -580,13 +585,13 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def clickGenerateTitle(self):
         titleParts = []
-        #default title information
-        keys = ['value', 'unit', 'year', 'subjectshort',
+        if self.settings['title_format'] == 'US':
+            keys = ['country', 'value', 'unit', 'type',
+                    'year', 'mintmark', 'variety']
+        else:
+            #default title information
+            keys = ['value', 'unit', 'year', 'subjectshort',
                          'mintmark', 'variety']
-        if os.getenv('ON_TITLE'):
-            if os.environ['ON_TITLE'] == 'US':
-                keys = ['country', 'value', 'unit', 'type',
-                        'year', 'mintmark', 'variety']
             
         for key in keys:
 
@@ -602,11 +607,11 @@ class FormDetailsTabWidget(DetailsTabWidget):
                         titlePart = '"%s"' % titlePart
                 titleParts.append(titlePart)
 
-        #default join charachter
-        title = ' '.join(titleParts)
-        if os.getenv('ON_TITLE'):
-            if os.environ['ON_TITLE'] == 'US':
-                title = '-'.join(titleParts)
+        if self.settings['title_format'] == 'US':
+            title = '-'.join(titleParts)
+        else:
+            #default join charachter
+            title = ' '.join(titleParts)
         
         self.items['title'].setValue(title)
 
