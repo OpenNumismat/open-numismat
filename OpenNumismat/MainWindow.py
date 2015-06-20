@@ -121,6 +121,15 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importCollectionStudioAct)
             importMenu.addAction(importCollectionStudioAct)
 
+        if ImportTellico.isAvailable():
+            importTellicoAct = QAction(
+                                    createIcon('tellico.png'),
+                                    self.tr("Tellico"), self)
+            importTellicoAct.triggered.connect(
+                                                self.importTellico)
+            self.collectionActs.append(importTellicoAct)
+            importMenu.addAction(importTellicoAct)
+
         if ImportNumizmatik_Ru.isAvailable():
             importNumizmaticRuAct = QAction(
                                     createIcon('Numizmatik_Ru.ico'),
@@ -409,6 +418,19 @@ class MainWindow(QMainWindow):
                                 self.tr("Select file"), defaultDir, "*.xml")
         if file:
             imp = ImportCollectionStudio(self)
+            imp.importData(file, self.viewTab.currentModel())
+
+    def importTellico(self):
+        QMessageBox.information(self, self.tr("Importing"),
+                self.tr("Before importing you should export existing "
+                        "collection from Collection Studio to XML Table "
+                        "(choose Collection Studio menu Tools > Export...)."))
+
+        defaultDir = ImportTellico.defaultDir()
+        file, _selectedFilter = QFileDialog.getOpenFileName(self,
+                                self.tr("Select file"), defaultDir, "*.xml")
+        if file:
+            imp = ImportTellico(self)
             imp.importData(file, self.viewTab.currentModel())
 
     def importNumizmatik_Ru(self):

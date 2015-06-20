@@ -109,11 +109,12 @@ from OpenNumismat.Collection.Import.CoinsCollector import ImportCoinsCollector
 from OpenNumismat.Collection.Import.CoinManage import ImportCoinManage
 from OpenNumismat.Collection.Import.CoinManagePredefined import ImportCoinManagePredefined
 from OpenNumismat.Collection.Import.CollectionStudio import ImportCollectionStudio
+from OpenNumismat.Collection.Import.Tellico import ImportTellico
 from OpenNumismat.Collection.Import.Numizmatik_Ru import ImportNumizmatik_Ru
 from OpenNumismat.Collection.Import.Numizmatik_RuPredefined import ImportNumizmatik_RuPredefined
 from OpenNumismat.Collection.Import.Ucoin import ImportUcoin
 
 __all__ = ["ImportNumizmat", "ImportCabinet", "ImportCoinsCollector",
            "ImportCoinManage", "ImportCoinManagePredefined",
-           "ImportCollectionStudio", "ImportNumizmatik_Ru",
+           "ImportCollectionStudio", "ImportTellico", "ImportNumizmatik_Ru",
            "ImportNumizmatik_RuPredefined", "ImportUcoin"]

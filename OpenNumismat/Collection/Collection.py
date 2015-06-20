@@ -119,8 +119,10 @@ class CollectionModel(QSqlTableModel):
 
     def insertRecord(self, row, record):
         self._updateRecord(record)
-        record.setNull('id')  # remove ID value from record
-        record.setValue('createdat', record.value('updatedat'))
+        #krr: the following two lines should be bypassed when importing...
+        #krr: ...to a new DB and their values are already set
+#        record.setNull('id')  # remove ID value from record
+#        record.setValue('createdat', record.value('updatedat'))
 
         for field in ['obverseimg', 'reverseimg', 'edgeimg',
                       'photo1', 'photo2', 'photo3', 'photo4']:
@@ -370,7 +372,9 @@ class CollectionModel(QSqlTableModel):
             record.setValue('image', ba)
 
         currentTime = QtCore.QDateTime.currentDateTimeUtc()
-        record.setValue('updatedat', currentTime.toString(Qt.ISODate))
+        #krr: this should be bypassed when importing to an empty DB and...
+        #krr: ...updatedat is already set
+#        record.setValue('updatedat', currentTime.toString(Qt.ISODate))
 
     def submitAll(self):
         ret = super(CollectionModel, self).submitAll()

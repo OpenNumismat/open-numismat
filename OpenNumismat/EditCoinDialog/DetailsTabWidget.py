@@ -578,8 +578,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def clickGenerateTitle(self):
         titleParts = []
-        for key in ['value', 'unit', 'year', 'subjectshort',
-                    'mintmark', 'variety']:
+        #krr: for key in ['value', 'unit', 'year', 'subjectshort',
+        #krr:            'mintmark', 'variety']:
+        for key in ['country', 'value', 'unit', 'type',
+                    'year', 'mintmark', 'variety']:
             value = self.items[key].value()
             if not isinstance(value, str):
                 value = str(value)
@@ -592,7 +594,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
                         titlePart = '"%s"' % titlePart
                 titleParts.append(titlePart)
 
-        title = ' '.join(titleParts)
+        title = '-'.join(titleParts)
         self.items['title'].setValue(title)
 
     def _createTrafficParts(self, index=0):
