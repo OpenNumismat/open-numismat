@@ -48,7 +48,7 @@ class ImportCabinet(_Import):
         'paydate': 'Purchased',
         'payprice': 'Price',
         'totalpayprice': 'Price',
-        'saller': 'SellerID',
+        'seller': 'SellerID',
         'payplace': 'PurchasedIn',
         'payinfo': 'PurchasedInfo',
         'saledate': 'Sold',

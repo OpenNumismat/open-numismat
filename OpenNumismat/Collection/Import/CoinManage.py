@@ -63,7 +63,7 @@ class ImportCoinManage(_Import):
         'paydate': 'Date Purchased',
         'payprice': 'Amount Paid',
         'totalpayprice': 'Amount Paid',
-        'saller': 'Dealer',
+        'seller': 'Dealer',
         'payplace': None,
         'payinfo': None,
         'saledate': 'Date Sold',

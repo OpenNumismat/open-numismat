@@ -57,7 +57,7 @@ class ImportNumizmatik_Ru(_Import):
         'paydate': None,
         'payprice': None,
         'totalpayprice': None,
-        'saller': None,
+        'seller': None,
         'payplace': None,
         'payinfo': None,
         'saledate': None,
@@ -255,7 +255,7 @@ class ImportNumizmatik_Ru(_Import):
 
                 _row = cursor.fetchone()
                 if _row:
-                    record.setValue('saller', _row[0])
+                    record.setValue('seller', _row[0])
 
         # Process Value and Unit fields
         srcColumn = 'MONY_NAME'

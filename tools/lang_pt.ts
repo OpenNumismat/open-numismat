@@ -345,7 +345,7 @@
     </message>
     <message>
         <location filename="CollectionFields.py" line="168"/>
-        <source>Bailed</source>
+        <source>Bundeled</source>
         <translation>Fiança</translation>
     </message>
     <message>
@@ -605,12 +605,12 @@
     </message>
     <message>
         <location filename="EditCoinDialog.py" line="120"/>
-        <source>Total bailed price is negative. Save?</source>
+        <source>Total bundeled price is negative. Save?</source>
         <translation>Preço fiançado total é negativo. Gravar?</translation>
     </message>
     <message>
         <location filename="EditCoinDialog.py" line="129"/>
-        <source>Sale price is less than total bailed price. Save?</source>
+        <source>Sale price is less than total bundeled price. Save?</source>
         <translation>Preço de venda é menor que o preço fiançado total. Gravar?</translation>
     </message>
     <message>

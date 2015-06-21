@@ -55,7 +55,7 @@ class ImportCoinManagePredefined(_Import):
         'paydate': None,
         'payprice': None,
         'totalpayprice': None,
-        'saller': None,
+        'seller': None,
         'payplace': None,
         'payinfo': None,
         'saledate': None,

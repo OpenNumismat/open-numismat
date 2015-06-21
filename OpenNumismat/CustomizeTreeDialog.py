@@ -160,7 +160,7 @@ class CustomizeTreeDialog(QDialog):
                               'mint', 'mintmark', 'type', 'series',
                               'subjectshort', 'dateemis', 'status', 'material',
                               'fineness', 'grade', 'quality', 'rarity',
-                              'variety', 'saller', 'payplace', 'buyer',
+                              'variety', 'seller', 'payplace', 'buyer',
                               'saleplace', 'defect', 'storage']:
                 if field.name not in self.treeParam.usedFieldNames():
                     item = QListWidgetItem(field.title)

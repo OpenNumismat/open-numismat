@@ -465,7 +465,7 @@ class CollectionModel(QSqlTableModel):
         fields = ['title', 'value', 'unit', 'country', 'period', 'year',
                   'mint', 'mintmark', 'type', 'series', 'subjectshort',
                   'status', 'material', 'quality', 'paydate', 'payprice',
-                  'saller', 'payplace', 'saledate', 'saleprice', 'buyer',
+                  'seller', 'payplace', 'saledate', 'saleprice', 'buyer',
                   'saleplace', 'variety', 'obversevar', 'reversevar',
                   'edgevar']
         filterParts = [field + '=?' for field in fields]
@@ -742,7 +742,7 @@ class Collection(QtCore.QObject):
         SKIPPED_FIELDS = ('edgeimg', 'photo1', 'photo2', 'photo3', 'photo4',
             'obversedesigner', 'reversedesigner', 'catalognum2', 'catalognum3', 'catalognum4',
             'saledate', 'saleprice', 'totalsaleprice', 'buyer', 'saleplace', 'saleinfo',
-            'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace', 'payinfo',
+            'paydate', 'payprice', 'totalpayprice', 'seller', 'payplace', 'payinfo',
             'url', 'obversedesigner', 'reversedesigner')
         
         if os.path.isfile(params['file']):

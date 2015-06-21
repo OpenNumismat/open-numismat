@@ -57,7 +57,7 @@ class ImportNumizmat(_Import):
         'paydate': 'DATAPAY',
         'payprice': 'PRICEPAY',
         'totalpayprice': 'PRICEPAY',
-        'saller': None,
+        'seller': None,
         'payplace': None,
         'payinfo': None,
         'saledate': None,

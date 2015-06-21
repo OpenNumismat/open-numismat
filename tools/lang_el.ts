@@ -345,7 +345,7 @@
     </message>
     <message>
         <location filename="CollectionFields.py" line="168"/>
-        <source>Bailed</source>
+        <source>Bundeled</source>
         <translation>Πωλήθηκε</translation>
     </message>
     <message>
@@ -605,12 +605,12 @@
     </message>
     <message>
         <location filename="EditCoinDialog.py" line="120"/>
-        <source>Total bailed price is negative. Save?</source>
+        <source>Total bundeled price is negative. Save?</source>
         <translation>Η συνολική τιμή πώλησης είναι αρνητική. Αποθήκευση;</translation>
     </message>
     <message>
         <location filename="EditCoinDialog.py" line="129"/>
-        <source>Sale price is less than total bailed price. Save?</source>
+        <source>Sale price is less than total bundeled price. Save?</source>
         <translation>Η τιμή πώλησης είναι μικρότερη από τη συνολική τιμή πώλησης. Αποθήκευση;</translation>
     </message>
     <message>

@@ -345,7 +345,7 @@
     </message>
     <message>
         <location filename="CollectionFields.py" line="168"/>
-        <source>Bailed</source>
+        <source>Bundeled</source>
         <translation>Anticipo</translation>
     </message>
     <message>
@@ -605,12 +605,12 @@
     </message>
     <message>
         <location filename="EditCoinDialog.py" line="120"/>
-        <source>Total bailed price is negative. Save?</source>
+        <source>Total bundeled price is negative. Save?</source>
         <translation>Il prezzo totale anticipato è negativo. Salvare?</translation>
     </message>
     <message>
         <location filename="EditCoinDialog.py" line="129"/>
-        <source>Sale price is less than total bailed price. Save?</source>
+        <source>Sale price is less than total bundeled price. Save?</source>
         <translation>Il prezzo di vendita è minore del prezzo totale anticipato. Salvare?</translation>
     </message>
     <message>

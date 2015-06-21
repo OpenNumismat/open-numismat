@@ -226,7 +226,7 @@ class DetailsTabWidget(QTabWidget):
         item = self.addPayCommission()
 
         layout.addRow(self.items['totalpayprice'], item)
-        layout.addRow(self.items['saller'])
+        layout.addRow(self.items['seller'])
         layout.addRow(self.items['payplace'])
         layout.addRow(self.items['payinfo'])
 
@@ -263,7 +263,7 @@ class DetailsTabWidget(QTabWidget):
         item = self.addSaleCommission()
         layout.addRow(self.items['totalsaleprice'], item)
 
-        layout.addRow(self.items['saller'])
+        layout.addRow(self.items['seller'])
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
         layout.addRow(self.items['saleinfo'])

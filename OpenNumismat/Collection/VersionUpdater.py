@@ -138,7 +138,7 @@ class UpdaterTo2(_Updater):
                         catalognum1, catalognum2, catalognum3, catalognum4,
                         rarity, price1, price2, price3, price4, variety,
                         obversevar, reversevar, edgevar, paydate, payprice,
-                        totalpayprice, saller, payplace, payinfo, saledate,
+                        totalpayprice, seller, payplace, payinfo, saledate,
                         saleprice, totalsaleprice, buyer, saleplace, saleinfo,
                         note, image, obverseimg, obversedesign,
                         obversedesigner, reverseimg, reversedesign,
@@ -191,7 +191,7 @@ class UpdaterTo2(_Updater):
             coin_query.addBindValue(record.value('paydate'))
             coin_query.addBindValue(record.value('payprice'))
             coin_query.addBindValue(record.value('totalpayprice'))
-            coin_query.addBindValue(record.value('saller'))
+            coin_query.addBindValue(record.value('seller'))
             coin_query.addBindValue(record.value('payplace'))
             coin_query.addBindValue(record.value('payinfo'))
             coin_query.addBindValue(record.value('saledate'))

@@ -125,7 +125,7 @@ class ImportCoinsCollector(_Import):
         'paydate': 'PURCHASED',
         'payprice': 'COST',
         'totalpayprice': 'COST',
-        'saller': 'PURCHFROM_CODE',
+        'seller': 'PURCHFROM_CODE',
         'payplace': None,
         'payinfo': 'CUSTOM2',
         'saledate': 'SOLD',

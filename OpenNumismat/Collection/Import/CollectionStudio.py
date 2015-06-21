@@ -57,7 +57,7 @@ class ImportCollectionStudio(_Import):
         'paydate': 'Income',
         'payprice': 'Price',
         'totalpayprice': 'Price',
-        'saller': 'Donator',
+        'seller': 'Donator',
         'payplace': None,
         'payinfo': 'BuyComments',
         'saledate': None,

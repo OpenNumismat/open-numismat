@@ -80,7 +80,7 @@ class ImportTellico(_Import):
         'paydate': 'purchased',
         'payprice': 'cost',
         'totalpayprice': 'cost',
-        'saller': 'dealer',
+        'seller': 'dealer',
         'payplace': None,
         'payinfo': None,
         'saledate': 'sold',
