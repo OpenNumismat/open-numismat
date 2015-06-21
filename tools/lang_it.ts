@@ -330,7 +330,7 @@
     </message>
     <message>
         <location filename="CollectionFields.py" line="163"/>
-        <source>Saller</source>
+        <source>Seller</source>
         <translation>Venditore</translation>
     </message>
     <message>
