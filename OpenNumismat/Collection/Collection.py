@@ -33,6 +33,8 @@ class CollectionModel(QSqlTableModel):
     def __init__(self, collection, parent=None):
         super(CollectionModel, self).__init__(parent, collection.db)
 
+        self.badFileNameImage = '/home/kurtrr/Documnets/collection_files/on_badFileName.png'
+
         self.intFilter = ''
         self.extFilter = ''
 
@@ -71,7 +73,8 @@ class CollectionModel(QSqlTableModel):
                     text = date.toString(Qt.SystemLocaleShortDate)
                 elif field.type == Type.Image or field.type == Type.EdgeImage:
                     if data:
-                        return self.getImage(data)
+                        image, fileName = self.getImage(data)
+                        return image
                     else:
                         return None
                 elif field.type == Type.PreviewImage:
@@ -161,6 +164,8 @@ class CollectionModel(QSqlTableModel):
         return super(CollectionModel, self).insertRecord(row, record)
 
     def setRecord(self, row, record):
+        """Write or delete changes to the coin's info
+        (which is held in the "record" variable) to the DB."""
         self._updateRecord(record)
         # TODO : check that images was realy changed
         for field in ['obverseimg', 'reverseimg', 'edgeimg',
@@ -198,7 +203,7 @@ class CollectionModel(QSqlTableModel):
                 record.setNull(field)
             record.remove(record.indexOf(field + '_id'))
             record.remove(record.indexOf(field + '_title'))
-
+            
         img_id = record.value('image_id')
         value = record.value('image')
         if not value:
@@ -242,10 +247,10 @@ class CollectionModel(QSqlTableModel):
                       'photo1', 'photo2', 'photo3', 'photo4']:
             record.append(QSqlField(field + '_title'))
             record.append(QSqlField(field + '_id'))
-            
+
             img_id = record.value(field)
             if img_id:
-                data = self.getImage(img_id)
+                data, fileName = self.getImage(img_id)
                 record.setValue(field, data)
                 record.setValue(field + '_title', self.getImageTitle(img_id))
                 record.setValue(field + '_id', img_id)
@@ -305,7 +310,8 @@ class CollectionModel(QSqlTableModel):
                 image = record.value(field.name)
                 if isinstance(image, str):
                     # Copying record as text (from Excel) store missed images
-                    # as string
+                    #    as string
+                    # Also, for file names stored in image fields.
                     if image[:7] == "file://":
                         record.setValue(field.name, image)
                     else:
@@ -417,6 +423,7 @@ class CollectionModel(QSqlTableModel):
         self.__applyFilter()
         
     def getImage(self, img_id):
+        """Read the image data/fileName from the DB."""
         query = QSqlQuery(self.database())
         query.prepare("SELECT image FROM photos WHERE id=?")
         query.addBindValue(img_id)
@@ -424,11 +431,15 @@ class CollectionModel(QSqlTableModel):
         if query.first():
             imageOrFile = query.record().value(0)
             if imageOrFile[:7] == 'file://':
-                imageFile = open(imageOrFile[7:], "rb")
+                try:
+                    imageFile = open(imageOrFile[7:], "rb")
+                except IOError:
+                    imageFile = open(self.badFileNameImage, "rb")
                 image = QtCore.QByteArray(imageFile.read())
                 imageFile.close()
-                return image
-            return imageOrFile
+                return image, imageOrFile
+            else:
+                return imageOrFile, None
         
     def getPreviewImage(self, img_id):
         query = QSqlQuery(self.database())

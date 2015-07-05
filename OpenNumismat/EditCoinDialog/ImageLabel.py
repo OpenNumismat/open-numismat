@@ -6,10 +6,14 @@ import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import version
 
+from OpenNumismat.Settings import Settings
+
 
 class ImageLabel(QLabel):
     def __init__(self, parent=None):
         super(ImageLabel, self).__init__(parent)
+
+        self.settings = Settings()
 
         self.clear()
 
@@ -18,6 +22,7 @@ class ImageLabel(QLabel):
                            QSizePolicy.Ignored)
         self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.setFocusPolicy(Qt.StrongFocus)
+        
 
     def mouseDoubleClickEvent(self, e):
         tmpDir = QDir(TemporaryDir.path())
@@ -27,7 +32,8 @@ class ImageLabel(QLabel):
 
         fileName = QFileInfo(file).absoluteFilePath()
         self.image.save(fileName)
-
+        print("krr: mdce: fn=",fileName)
+        
         executor = QDesktopServices()
         executor.openUrl(QUrl.fromLocalFile(fileName))
 
@@ -46,12 +52,10 @@ class ImageLabel(QLabel):
 
     def loadFromData(self, data):
         self._data = data
-
         image = QImage()
         result = image.loadFromData(data)
         if result:
             self._setImage(image)
-
         return result
 
     def _setImage(self, image):
@@ -82,6 +86,9 @@ class ImageEdit(ImageLabel):
 
     def __init__(self, name, parent=None):
         super(ImageEdit, self).__init__(parent)
+
+        self.fileName = ''
+        self.settings = Settings()
 
         self.name = name or 'photo'
 
@@ -148,6 +155,7 @@ class ImageEdit(ImageLabel):
             ImageEdit.latestDir = file_info.absolutePath()
 
             self.loadFromFile(fileName)
+            self.fileName = 'file://' + fileName
 
     def deleteImage(self):
         self.clear()
@@ -161,6 +169,7 @@ class ImageEdit(ImageLabel):
         # TODO: Set default name to coin title + field name
         fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
                 caption, ImageEdit.latestDir + '/' + self.name, filter_)
+        print("krr: saveImage: fn=",fileName)
         if fileName:
             dir_ = QDir(fileName)
             dir_.cdUp()
@@ -195,7 +204,6 @@ class ImageEdit(ImageLabel):
         result = image.load(fileName)
         if result:
             self._setNewImage(image)
-
         return result
 
     def loadFromUrl(self, url):
@@ -218,7 +226,10 @@ class ImageEdit(ImageLabel):
 
     def data(self):
         if self.changed:
-            return self.image
+            if self.settings['image_name'] == True and self.fileName[:7] == 'file://':
+                return self.fileName
+            else:
+                return self.image
         return self._data
 
     def _setNewImage(self, image):
