@@ -147,7 +147,8 @@ class CollectionModel(QSqlTableModel):
             record.setValue(field, img_id)
             record.remove(record.indexOf(field + '_id'))
             record.remove(record.indexOf(field + '_title'))
-        
+            record.remove(record.indexOf(field + '_file'))
+            
         value = record.value('image')
         if value:
             query = QSqlQuery(self.database())
@@ -185,14 +186,20 @@ class CollectionModel(QSqlTableModel):
                     query = QSqlQuery(self.database())
                     query.prepare("UPDATE photos SET title=?, image=? WHERE id=?")
                     query.addBindValue(record.value(field + '_title'))
-                    query.addBindValue(record.value(field))
+                    if self.settings['image_name'] and record.value(field + '_file'):
+                        query.addBindValue(record.value(field + '_file'))
+                    else:
+                        query.addBindValue(record.value(field))
                     query.addBindValue(img_id)
                     query.exec_()
                 else:
                     query = QSqlQuery(self.database())
                     query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
                     query.addBindValue(record.value(field + '_title'))
-                    query.addBindValue(record.value(field))
+                    if self.settings['image_name'] and record.value(field + '_file'):
+                        query.addBindValue(record.value(field + '_file'))
+                    else:
+                        query.addBindValue(record.value(field))
                     query.exec_()
 
                     img_id = query.lastInsertId()
@@ -203,6 +210,7 @@ class CollectionModel(QSqlTableModel):
                 record.setNull(field)
             record.remove(record.indexOf(field + '_id'))
             record.remove(record.indexOf(field + '_title'))
+            record.remove(record.indexOf(field + '_file'))
             
         img_id = record.value('image_id')
         value = record.value('image')
@@ -247,6 +255,7 @@ class CollectionModel(QSqlTableModel):
                       'photo1', 'photo2', 'photo3', 'photo4']:
             record.append(QSqlField(field + '_title'))
             record.append(QSqlField(field + '_id'))
+            record.append(QSqlField(field + '_file'))
 
             img_id = record.value(field)
             if img_id:
@@ -254,6 +263,7 @@ class CollectionModel(QSqlTableModel):
                 record.setValue(field, data)
                 record.setValue(field + '_title', self.getImageTitle(img_id))
                 record.setValue(field + '_id', img_id)
+                record.setValue(field + '_file', fileName)
             else:
                 record.setValue(field, None)
                 fieldDesc = getattr(self.fields, field)
@@ -417,11 +427,11 @@ class CollectionModel(QSqlTableModel):
     def setFilter(self, filter_):
         self.intFilter = filter_
         self.__applyFilter()
-        
+
     def setAdditionalFilter(self, filter_):
         self.extFilter = filter_
         self.__applyFilter()
-        
+
     def getImage(self, img_id):
         """Read the image data/fileName from the DB."""
         query = QSqlQuery(self.database())
