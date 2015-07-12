@@ -32,7 +32,6 @@ class ImageLabel(QLabel):
 
         fileName = QFileInfo(file).absoluteFilePath()
         self.image.save(fileName)
-        print("krr: mdce: fn=",fileName)
         
         executor = QDesktopServices()
         executor.openUrl(QUrl.fromLocalFile(fileName))
@@ -169,7 +168,6 @@ class ImageEdit(ImageLabel):
         # TODO: Set default name to coin title + field name
         fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
                 caption, ImageEdit.latestDir + '/' + self.name, filter_)
-        print("krr: saveImage: fn=",fileName)
         if fileName:
             dir_ = QDir(fileName)
             dir_.cdUp()

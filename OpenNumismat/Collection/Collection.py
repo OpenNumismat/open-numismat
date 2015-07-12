@@ -23,9 +23,10 @@ from OpenNumismat.Tools import Gui
 from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
-
+import OpenNumismat
 
 class CollectionModel(QSqlTableModel):
+    """Deal with the coins in a collection."""
     rowInserted = pyqtSignal(object)
     modelChanged = pyqtSignal()
     IMAGE_FORMAT = 'jpg'
@@ -33,7 +34,7 @@ class CollectionModel(QSqlTableModel):
     def __init__(self, collection, parent=None):
         super(CollectionModel, self).__init__(parent, collection.db)
 
-        self.badFileNameImage = '/home/kurtrr/Documnets/collection_files/on_badFileName.png'
+        self.badFileNameImage = os.path.join(OpenNumismat.PRJ_PATH, 'icons', 'badFileName.png')
 
         self.intFilter = ''
         self.extFilter = ''
@@ -123,6 +124,7 @@ class CollectionModel(QSqlTableModel):
                 self.rowInserted.emit(self.insertedRowIndex)
 
     def insertRecord(self, row, record):
+        """Insert a record into the DB after {row}."""
         self._updateRecord(record)
         #krr:todo: A check for an empty DB here would be nice 
         #krr:todo: or checking for duplicate ID
@@ -147,7 +149,8 @@ class CollectionModel(QSqlTableModel):
             record.setValue(field, img_id)
             record.remove(record.indexOf(field + '_id'))
             record.remove(record.indexOf(field + '_title'))
-            record.remove(record.indexOf(field + '_file'))
+            if self.settings['image_name']:
+                record.remove(record.indexOf(field + '_orig'))
             
         value = record.value('image')
         if value:
@@ -174,6 +177,7 @@ class CollectionModel(QSqlTableModel):
             img_id = record.value(field + '_id')
             value = record.value(field)
             if not value:
+                #If image has bee removed...
                 if img_id:
                     query = QSqlQuery(self.database())
                     query.prepare("DELETE FROM photos WHERE id=?")
@@ -183,23 +187,23 @@ class CollectionModel(QSqlTableModel):
                     img_id = None
             else:
                 if img_id:
+                    #If replaceing an existing image...
                     query = QSqlQuery(self.database())
                     query.prepare("UPDATE photos SET title=?, image=? WHERE id=?")
                     query.addBindValue(record.value(field + '_title'))
-                    if self.settings['image_name'] and record.value(field + '_file'):
-                        query.addBindValue(record.value(field + '_file'))
+                    if self.settings['image_name'] and type(value) is str:
+                        query.addBindValue(value)
                     else:
-                        query.addBindValue(record.value(field))
+                        query.addBindValue(record.value(field + '_orig'))
+
                     query.addBindValue(img_id)
                     query.exec_()
                 else:
+                    #If adding a new image...
                     query = QSqlQuery(self.database())
                     query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
                     query.addBindValue(record.value(field + '_title'))
-                    if self.settings['image_name'] and record.value(field + '_file'):
-                        query.addBindValue(record.value(field + '_file'))
-                    else:
-                        query.addBindValue(record.value(field))
+                    query.addBindValue(record.value(field))
                     query.exec_()
 
                     img_id = query.lastInsertId()
@@ -210,7 +214,8 @@ class CollectionModel(QSqlTableModel):
                 record.setNull(field)
             record.remove(record.indexOf(field + '_id'))
             record.remove(record.indexOf(field + '_title'))
-            record.remove(record.indexOf(field + '_file'))
+            if self.settings['image_name']:
+                record.remove(record.indexOf(field + '_orig'))
             
         img_id = record.value('image_id')
         value = record.value('image')
@@ -246,6 +251,7 @@ class CollectionModel(QSqlTableModel):
         return super(CollectionModel, self).setRecord(row, record)
     
     def record(self, row=-1):
+        """Get a record (row) from the DB."""
         if row >= 0:
             record = super(CollectionModel, self).record(row)
         else:
@@ -255,15 +261,21 @@ class CollectionModel(QSqlTableModel):
                       'photo1', 'photo2', 'photo3', 'photo4']:
             record.append(QSqlField(field + '_title'))
             record.append(QSqlField(field + '_id'))
-            record.append(QSqlField(field + '_file'))
+            if self.settings['image_name']:
+                record.append(QSqlField(field + '_orig'))
 
             img_id = record.value(field)
             if img_id:
                 data, fileName = self.getImage(img_id)
                 record.setValue(field, data)
+                if self.settings['image_name']:
+                    record.setValue(field + '_orig', fileName)
+                else:
+                    record.setValue(field + '_orig', None)
                 record.setValue(field + '_title', self.getImageTitle(img_id))
                 record.setValue(field + '_id', img_id)
-                record.setValue(field + '_file', fileName)
+                if self.settings['image_name']:
+                    record.setValue(field + '_orig', fileName)
             else:
                 record.setValue(field, None)
                 fieldDesc = getattr(self.fields, field)
@@ -508,6 +520,7 @@ class CollectionModel(QSqlTableModel):
     
     
 class CollectionSettings(BaseSettings):
+    """Setting that pertain to a particular collection. (In a particular DB file.)"""
     Default = {
             'Version': 3,
             'Type': version.AppName,
@@ -567,6 +580,7 @@ class CollectionSettings(BaseSettings):
         
         
 class Collection(QtCore.QObject):
+    """Deal with whole collections. (A particular DB file.)"""
     def __init__(self, reference, parent=None):
         super(Collection, self).__init__(parent)
         
