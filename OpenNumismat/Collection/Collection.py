@@ -191,10 +191,18 @@ class CollectionModel(QSqlTableModel):
                     query = QSqlQuery(self.database())
                     query.prepare("UPDATE photos SET title=?, image=? WHERE id=?")
                     query.addBindValue(record.value(field + '_title'))
-                    if self.settings['image_name'] and type(value) is str:
-                        query.addBindValue(value)
+                    if self.settings['image_name']:
+                        if type(value) is str:
+                            query.addBindValue(value)
+                        else:
+                            if record.value(field + '_orig'):
+                                query.addBindValue(record.value(field + '_orig'))
+                            else:
+                                #While using file names the _orig is null...
+                                #when coming from blob in DB, use current value
+                                query.addBindValue(value)
                     else:
-                        query.addBindValue(record.value(field + '_orig'))
+                        query.addBindValue(value)
 
                     query.addBindValue(img_id)
                     query.exec_()
