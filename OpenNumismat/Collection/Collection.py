@@ -191,15 +191,6 @@ class CollectionModel(QSqlTableModel):
                     query = QSqlQuery(self.database())
                     query.prepare("UPDATE photos SET title=?, image=? WHERE id=?")
                     query.addBindValue(record.value(field + '_title'))
-#krr:
-#krr:
-                    from PyQt5.QtCore import pyqtRemoveInputHook #krr:
-                    from pdb import set_trace #krr:
-                    pyqtRemoveInputHook() #krr:
-                    set_trace() #krr:
-#krr:
-#krr:
-                    
                     if self.settings['image_name']:
                         if type(value) is str:
                             query.addBindValue(value)
