@@ -586,7 +586,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def clickGenerateTitle(self):
         titleParts = []
         if self.settings['title_format'] == 'US':
-            keys = ['country', 'value', 'unit', 'type',
+            keys = ['country', 'period', 'value', 'unit', 'type',
                     'year', 'mintmark', 'variety']
         else:
             #default title information

@@ -46,13 +46,13 @@ class ImportTellico(_Import):
         'unit': 'denomination', #the units part: for this denomination
         'country': 'countrys',
         'year': 'year',
-        'period': 'rangestart',
+        'period': None,
         'mint': None,
         'mintmark': 'mintmark',
         'issuedate': None,
         'type': 'type',
-        'series': 'type',
-        'subjectshort': 'type',
+        'series': None,
+        'subjectshort': None,
         'status': 'want',
         'material': 'precious',
         'fineness': None,
@@ -153,10 +153,10 @@ class ImportTellico(_Import):
           # assumed field values
           #
           if dstColumn == 'shape':
-              value = 'Circle' #good for most modern coins
+              value = 'Round' #good for most modern coins
               record.setValue(dstColumn, value)
           elif dstColumn == 'obvrev':
-              value = 'Coin' # good for US coins
+              value = 'Coin (180' + u'\u00b0' + ')' # good for US coins
               record.setValue(dstColumn, value)
           if srcColumn is not None:
 
