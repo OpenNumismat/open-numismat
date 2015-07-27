@@ -46,7 +46,8 @@ class ImportTellico(_Import):
         'unit': 'denomination', #the units part: for this denomination
         'country': 'countrys',
         'year': 'year',
-        'period': None,
+        'period': 'countrymodififier',
+        'dateemis': 'rangestart',
         'mint': None,
         'mintmark': 'mintmark',
         'issuedate': None,
@@ -89,7 +90,7 @@ class ImportTellico(_Import):
         'buyer': 'client',
         'saleplace': None,
         'saleinfo': None,
-        'note': 'comments',
+        'note': None,
         'obverseimg': None, #obverse
         'obversedesign': None,
         'obversedesigner': None,
@@ -103,7 +104,7 @@ class ImportTellico(_Import):
         'photo3': None, #detail
         'photo4': None, #detail2
         'storage': 'location',
-        'features': None,
+        'features': 'comments',
         'quantity': 'quantity',
         'url': None,
         'barcode': 'certification',
@@ -122,7 +123,7 @@ class ImportTellico(_Import):
         if self.settings['id_dates']: #krr:todo: gotta be a better way
             self.myTZ = TZprompt.getTZ()
 
-        
+
     @staticmethod
     def isAvailable():
         return available
@@ -146,158 +147,200 @@ class ImportTellico(_Import):
         if self.unzippedName:
             os.remove(self.unzippedName)
         return rows
-        
+
     def _setRecord(self, record, row):
+        #put these fields is ON's note field
+        featuresFields = [ 'replica', 'set', 'security', 'gradenote', 'grader', 'gradecasual', 'Authenticator', 'obversesample', 'reversesample', 'edgesample', 'displaysample', 'display2sample', 'detailsample', 'detail2sample', 'detail3', 'detail3sample', 'valuedate', 'valuesource', 'gift', 'conserved', 'restricted', 'currency', 'ebay', 'atributor', 'needsupdate', 'yearalt', 'soldfor' ]
+
         for dstColumn, srcColumn in self.Columns.items():
-          #
-          # assumed field values
-          #
-          if dstColumn == 'shape':
-              value = 'Round' #good for most modern coins
-              record.setValue(dstColumn, value)
-          elif dstColumn == 'obvrev':
-              value = 'Coin (180' + u'\u00b0' + ')' # good for US coins
-              record.setValue(dstColumn, value)
-          if srcColumn is not None:
+            #
+            # assumed field values
+            #
+            if dstColumn == 'shape':
+                if row.find("./t:currency", namespaces={'t': 'http://periapsis.org/tellico/'}) is None:
+                    value = 'Round' #good for most coins
+                else:
+                    value = None
+                record.setValue(dstColumn, value)
+            elif dstColumn == 'obvrev':
+                if row.find("./t:currency", namespaces={'t': 'http://periapsis.org/tellico/'}) is None:
+                    value = 'Coin (180' + u'\u00b0' + ')' # good for US coins +
+                else:
+                    value = None
+                record.setValue(dstColumn, value)
+                    
+            if srcColumn is not None:
 
             #############################
             #
             # multiple source processing
             #
             #############################
-            #
-            # period of production
-            #
-            if dstColumn == 'period':
-                if row.find("./t:rangestart/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
-                    value1 = row.find("./t:rangestart/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text
-                else: value1 = '~'
-                if row.find("./t:rangeend/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
-                    value2 = row.find("./t:rangeend/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text
-                else: value2 = '~'
-                if value1 != '~' or value2 != '~':
-                    record.setValue(dstColumn, value1+"-"+value2)
-            #
-            # status of coin
-            #
-            elif dstColumn == 'status':
-                if row.find("./t:want", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
-                    if (row.find("./t:want", namespaces={'t': 'http://periapsis.org/tellico/'}).text) == "true":
-                        value = 'wish'
+                #
+                # Emission of production
+                #
+                if dstColumn == 'dateemis':
+                    if row.find("./t:rangestart/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
+                        value1 = row.find("./t:rangestart/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text
+                    else: value1 = '~'
+                    if row.find("./t:rangeend/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
+                        value2 = row.find("./t:rangeend/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text
+                    else: value2 = '~'
+                    if value1 != '~' or value2 != '~':
+                        record.setValue(dstColumn, value1+"-"+value2)
+                #
+                # status of coin
+                #
+                elif dstColumn == 'status':
+                    if row.find("./t:want", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
+                        if (row.find("./t:want", namespaces={'t': 'http://periapsis.org/tellico/'}).text) == "true":
+                            value = 'wish'
+                        else:
+                            value = 'owned'
                     else:
                         value = 'owned'
-                else:
-                    value = 'owned'
 
-                if value == 'owned':
-                    #I have it but am I selling it?
-                    if row.find("./t:sell", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
-                        if (row.find("./t:sell", namespaces={'t': 'http://periapsis.org/tellico/'}).text) == "true":
-                            value = 'sale'
-                    # I have/had it.  Was it sold?
-                    # the status can 'sold' wether or not sell was set. so don't use an elif below
-                    if row.find("./t:sold", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
-                        rawData = row.find("./t:sold", namespaces={'t': 'http://periapsis.org/tellico/'}).text
-                        value = 'sold'
-
-                record.setValue(dstColumn, value)
-            ############################
-            #
-            # single souce processing
-            #
-            ############################
-            elif srcColumn and row.find("t:"+srcColumn, namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
-                rawData = row.find("t:"+srcColumn, namespaces={'t': 'http://periapsis.org/tellico/'}).text
-
-                ############################
-                #
-                # has child nodes
-                #
-                ############################
-                if srcColumn == 'countrys':
-                    value = row.find("./t:countrys/t:country", namespaces={'t': 'http://periapsis.org/tellico/'}).text
+                    if value == 'owned':
+                        #I have it but am I selling it?
+                        if row.find("./t:sell", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
+                            if (row.find("./t:sell", namespaces={'t': 'http://periapsis.org/tellico/'}).text) == "true":
+                                value = 'sale'
+                        # I have/had it.  Was it sold?
+                        # the status can 'sold' wether or not sell was set. so don't use an elif below
+                        if row.find("./t:sold", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
+                            rawData = row.find("./t:sold", namespaces={'t': 'http://periapsis.org/tellico/'}).text
+                            value = 'sold'
                     record.setValue(dstColumn, value)
+                ############################
+                #
+                # save comments and other fields
+                #
+                ############################
+                elif dstColumn == 'features':
+                    if row.find("t:"+'comments', namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
+                        value = row.find("t:"+'comments', namespaces={'t': 'http://periapsis.org/tellico/'}).text
+                        value = value + '\nADITIONAL FIELDS:\n'
+                    else:
+                        value = ''
+                    for featuresAdd in featuresFields:
+                        if row.find("./t:" + featuresAdd, namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
+                            value2 = row.find("./t:" + featuresAdd, namespaces={'t': 'http://periapsis.org/tellico/'}).text
+                            value = value + featuresAdd + "=" + value2 + ';\n'
+                    record.setValue(dstColumn, value)
+                ############################
+                #
+                # single souce processing
+                #
+                ############################
+                elif srcColumn and row.find("t:"+srcColumn, namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
+                    rawData = row.find("t:"+srcColumn, namespaces={'t': 'http://periapsis.org/tellico/'}).text
 
-                elif srcColumn in ['cdate', 'mdate']:
-                    #extract date elements from xml    
-                    tsYear = int(row.find("./t:"+srcColumn+"/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
-                    tsMonth = int(row.find("./t:"+srcColumn+"/t:month", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
-                    tsDay = int(row.find("./t:"+srcColumn+"/t:day", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
-                    recordedDate = '{:04}{:02}{:02}'.format(tsYear, tsMonth, tsDay)
-
-                    #if id_dates set then convert recorded times to UTC
-                    if self.settings['id_dates']: #krr:todo: gotta be a better way
-                        #convert local time in Tellico to UTC
-                        localT = pytz.timezone(self.myTZ)
-                        naive = datetime.datetime.strptime(recordedDate, "%Y%m%d")
-                        local_dt = localT.localize(naive)
-                        utc_dt = local_dt.astimezone (pytz.utc)
-
-                        #Convert ISODate to QDate
-                        [tsCal, tsTimeSpec] = str(utc_dt).split()
-                        [tsYear, tsMonth, tsDay] = tsCal.split('-')
-                        [tsTime, tsOffset] = tsTimeSpec.split('+')
-                        [tsHour, tsMin, tsSec] = tsTime.split(':')
-                        UTCDate = QtCore.QDateTime.fromString(tsYear + tsMonth + tsDay + tsHour + tsMin + tsSec, 'yyyyMMddHHmmss')
-
-                        record.setValue(dstColumn,
-                                        UTCDate.toString(Qt.ISODate))
-                        
-                elif rawData:
                     ############################
                     #
-                    # correction to sources w/o parent
+                    # has child nodes
                     #
                     ############################
+                    if srcColumn == 'countrys':
+                        value = row.find("./t:countrys/t:country", namespaces={'t': 'http://periapsis.org/tellico/'}).text
+                        record.setValue(dstColumn, value)
 
-                    #
-                    # year
-                    #
-                    if srcColumn == 'Year' and rawData == '00-00-00':
-                        value = None
-                    #
-                    # quantity
-                    #
-                    elif srcColumn == 'quantity':
-                        if rawData == '0':
-                            value = None
-                        else:
-                            value = int(rawData)
-                    #
-                    # money fields
-                    #
-                    elif srcColumn in ['cost','price', 'value']:
-                        if rawData == '0':
-                            value = None
-                        else:
-                            try:
-                                value = stringToMoney(rawData)
-                            except ValueError:
-                                value = None
-                                
-                    #
-                    # denomination processing (value, unit)
-                    #
-                    elif dstColumn == 'value':
-                        if len(rawData.split()) == 1:
-                            if rawData in ['Tokens', 'Low', 'Medium', 'High']:
+                    elif srcColumn in ['cdate', 'mdate']:
+                        #extract date elements from xml
+                        tsYear = int(row.find("./t:"+srcColumn+"/t:year", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
+                        tsMonth = int(row.find("./t:"+srcColumn+"/t:month", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
+                        tsDay = int(row.find("./t:"+srcColumn+"/t:day", namespaces={'t': 'http://periapsis.org/tellico/'}).text)
+                        recordedDate = '{:04}{:02}{:02}'.format(tsYear, tsMonth, tsDay)
+
+                        #if id_dates set then convert recorded times to UTC
+                        if self.settings['id_dates']: #krr:todo: gotta be a better way
+                            #convert local time in Tellico to UTC
+                            localT = pytz.timezone(self.myTZ)
+                            naive = datetime.datetime.strptime(recordedDate, "%Y%m%d")
+                            local_dt = localT.localize(naive)
+                            utc_dt = local_dt.astimezone (pytz.utc)
+
+                            #Convert ISODate to QDate
+                            [tsCal, tsTimeSpec] = str(utc_dt).split()
+                            [tsYear, tsMonth, tsDay] = tsCal.split('-')
+                            [tsTime, tsOffset] = tsTimeSpec.split('+')
+                            [tsHour, tsMin, tsSec] = tsTime.split(':')
+                            UTCDate = QtCore.QDateTime.fromString(tsYear + tsMonth + tsDay + tsHour + tsMin + tsSec, 'yyyyMMddHHmmss')
+
+                            record.setValue(dstColumn,
+                                            UTCDate.toString(Qt.ISODate))
+
+                    elif rawData:
+                        ############################
+                        #
+                        # correction to sources w/o parent
+                        #
+                        ############################
+
+                        #
+                        # year
+                        #
+                        if srcColumn == 'Year':
+                            if rawData == '00-00-00':
                                 value = None
                             else:
-                                value = 1
-                        else:
-                            value = rawData.split()[0]
+                                if row.find("./t:bc", namespaces={'t': 'http://periapsis.org/tellico/'}).text:
+                                    value = 0 - int(rawData)
+                        #
+                        # quantity
+                        #
+                        elif srcColumn == 'quantity':
+                            if rawData == '0':
+                                value = None
+                            else:
+                                value = rawData
+                        #
+                        # money fields
+                        #
+                        elif srcColumn in ['cost','price', 'value']:
+                            if rawData == '0':
+                                value = None
+                            else:
+                                try:
+                                    value = stringToMoney(rawData)
+                                except ValueError:
+                                    value = None
 
-                    elif dstColumn == 'unit':
-                        if len(rawData.split()) == 1:
+                        #
+                        # denomination processing (value, unit)
+                        #
+                        elif dstColumn == 'value':
+                            if len(rawData.split()) == 1:
+                                if rawData in ['Tokens', 'Low', 'Medium', 'High']:
+                                    value = None
+                                else:
+                                    value = 1
+                            else:
+                                value = rawData.split()[0]
+
+                        elif dstColumn == 'unit':
+                            if len(rawData.split()) == 1:
+                                value = rawData
+                            else:
+                                value = ' '.join(rawData.split()[1:])
+
+                        elif dstColumn == 'defect':
+                            if row.find("./t:error", namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
+                                rawData2 = row.find("./t:error", namespaces={'t': 'http://periapsis.org/tellico/'}).text                            
+                                value = rawData + 'error=' + rawData2
+                        elif dstColumn == 'mintage':
+                            if rawData == '':
+                                value == row.find("./t:proofs", namespaces={'t': 'http://periapsis.org/tellico/'}).text
+                            else:
+                                if row.find("./t:X10e", namespaces={'t': 'http://periapsis.org/tellico/'}):
+                                    rawData2 = row.find("./t:X10e", namespaces={'t': 'http://periapsis.org/tellico/'}).text
+                                    value = longint(rawData) * int(rawData2) * 10
+                                else:
+                                    value = rawData
+                        else:
                             value = rawData
-                        else:
-                            value = ' '.join(rawData.split()[1:])
 
-                    else:
-                        value = rawData
+                        record.setValue(dstColumn, value)
 
-                    record.setValue(dstColumn, value)
-                    
         # Obverse obverseimg
         # Reverse reverseimg
         # Edge edgeimg
@@ -308,7 +351,7 @@ class ImportTellico(_Import):
         # Display2 photo2
         # Detail photo3
         # Detail2 photo4
-        #*Detail3 
+        #*Detail3
 
         tellicoImages = ['obverse', 'reverse',
                      'edge',
@@ -347,7 +390,7 @@ class ImportTellico(_Import):
                         image.loadImageData(element)
 
                     record.setValue(ONimgFields[imageNo], image)
-                    
+
                     imageNo = imageNo + 1
 
 class TZprompt(QDialog):
@@ -366,34 +409,34 @@ class TZprompt(QDialog):
             if self.suppliedTZ == zone:
                 current = i
         self.zoneName.setCurrentIndex(current)
-        
+
         self.submitButton = QPushButton("Submit")
         self.submitButton.isDefault()
 
-        
+
         buttonLayout1 = QVBoxLayout()
         #buttonLayout1.addWidget(self.idDates)
         buttonLayout1.addWidget(promptLabel)
         buttonLayout1.addWidget(self.zoneName)
         buttonLayout1.addWidget(self.submitButton)
-        
+
         self.submitButton.clicked.connect(self.TZsubmitted)
-        
+
         mainLayout = QGridLayout()
         mainLayout.addLayout(buttonLayout1, 0, 1)
-        
+
         self.setLayout(mainLayout)
         self.setWindowTitle("Time Zone")
- 
+
     def TZsubmitted(self):
         self.suppliedTZ = self.zoneName.currentText()
         QDialog.accept(self)
-        
+
     @staticmethod
     def getTZ(parent = None):
         TZdialog = TZprompt(parent)
         result = TZdialog.exec_()
-        
+
         if result == QDialog.Accepted:
             return TZdialog.suppliedTZ
 
