@@ -219,7 +219,7 @@ class ImportTellico(_Import):
                 elif dstColumn == 'features':
                     if row.find("t:"+'comments', namespaces={'t': 'http://periapsis.org/tellico/'}) is not None:
                         value = row.find("t:"+'comments', namespaces={'t': 'http://periapsis.org/tellico/'}).text
-                        value = value + '\nADITIONAL FIELDS:\n'
+                        value = value + '\nADDITIONAL FIELDS:\n'
                     else:
                         value = ''
                     for featuresAdd in featuresFields:

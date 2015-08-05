@@ -897,8 +897,8 @@ class Collection(QtCore.QObject):
                 reverseImage = QImage()
                 
                 if is_obverse_present:
-                    if record.value('obverseimg')[:7] == 'file://':
-                        reverseImage.load(record.value('obverseimg')[7:])
+                    if coin.value('obverseimg')[:7] == 'file://':
+                        reverseImage.load(coin.value('obverseimg')[7:])
                     else:
                         obverseImage.loadFromData(coin.value('obverseimg'))
                     query = QSqlQuery(db)
@@ -913,8 +913,8 @@ class Collection(QtCore.QObject):
                                                             Qt.SmoothTransformation)
                     
                 if is_reverse_present:
-                    if record.value('reverseimg')[:7] == 'file://':
-                        reverseImage.load(record.value('reverseimg')[7:])
+                    if coin.value('reverseimg')[:7] == 'file://':
+                        reverseImage.load(coin.value('reverseimg')[7:])
                     else:
                         reverseImage.loadFromData(coin.value('reverseimg'))
                     query = QSqlQuery(db)
