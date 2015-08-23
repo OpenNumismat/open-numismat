@@ -7,7 +7,8 @@ class ExportDialog(QDialog):
     IMAGE_OBVERSE = 0
     IMAGE_REVERSE = 1
     IMAGE_BOTH = 2
-
+    IMAGE_NONE = 3
+    
     latestDir = OpenNumismat.HOME_PATH
     params = {}
 
@@ -50,11 +51,13 @@ class ExportDialog(QDialog):
         self.obverseRadio = QRadioButton(self.tr("Obverse"), self)
         self.reverseRadio = QRadioButton(self.tr("Reverse"), self)
         self.bothRadio = QRadioButton(self.tr("Both"), self)
+        self.noneRadio = QRadioButton(self.tr("None"), self)        
         self.bothRadio.setChecked(True)
 
         vbox.addRow(self.obverseRadio)
         vbox.addRow(self.reverseRadio)
         vbox.addRow(self.bothRadio)
+        vbox.addRow(self.noneRadio)
 
         groupBox.setLayout(vbox)
         form.addRow(groupBox)
@@ -122,6 +125,8 @@ class ExportDialog(QDialog):
             self.params['image'] = self.IMAGE_OBVERSE
         elif self.reverseRadio.isChecked():
             self.params['image'] = self.IMAGE_REVERSE
+        elif self.noneRadio.isChecked():
+            self.params['image'] = self.IMAGE_NONE
         else:
             self.params['image'] = self.IMAGE_BOTH
 

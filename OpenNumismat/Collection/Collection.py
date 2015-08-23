@@ -860,7 +860,7 @@ class Collection(QtCore.QObject):
             
         is_obverse_enabled = params['image'] in (ExportDialog.IMAGE_OBVERSE, ExportDialog.IMAGE_BOTH)
         is_reverse_enabled = params['image'] in (ExportDialog.IMAGE_REVERSE, ExportDialog.IMAGE_BOTH)
-        
+
         fields = CollectionFieldsBase()
         count = model.rowCount()
         progressDlg = Gui.ProgressDialog(self.tr("Exporting records"),
@@ -896,9 +896,9 @@ class Collection(QtCore.QObject):
                 obverseImage = QImage()
                 reverseImage = QImage()
                 
-                if is_obverse_present:
+                if is_obverse_present and is_obverse_enabled:
                     if coin.value('obverseimg')[:7] == 'file://':
-                        reverseImage.load(coin.value('obverseimg')[7:])
+                        obverseImage.load(coin.value('obverseimg')[7:])
                     else:
                         obverseImage.loadFromData(coin.value('obverseimg'))
                     query = QSqlQuery(db)
@@ -912,7 +912,7 @@ class Collection(QtCore.QObject):
                     obverseImage = obverseImage.scaledToHeight(height,
                                                             Qt.SmoothTransformation)
                     
-                if is_reverse_present:
+                if is_reverse_present and is_reverse_enabled:
                     if coin.value('reverseimg')[:7] == 'file://':
                         reverseImage.load(coin.value('reverseimg')[7:])
                     else:
