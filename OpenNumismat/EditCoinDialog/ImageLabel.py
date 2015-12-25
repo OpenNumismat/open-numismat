@@ -170,11 +170,11 @@ class ImageEdit(ImageLabel):
 
     def pasteImage(self):
         mime = QApplication.clipboard().mimeData()
-        if mime.hasUrls():
+        if mime.hasImage():
+            self._setNewImage(mime.imageData())
+        elif mime.hasUrls():
             url = mime.urls()[0]
             self.loadFromFile(url.toLocalFile())
-        elif mime.hasImage():
-            self._setNewImage(mime.imageData())
         elif mime.hasText():
             # Load image by URL
             self.loadFromUrl(mime.text())
