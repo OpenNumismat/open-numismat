@@ -42,7 +42,7 @@ Main features:
 - Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013,
   2015, Collection Studio, Numizmatik_Ru (additional software may be required),
   uCoin.net
-- Support languages: English, Russian, Ukranian, Spanish, Hungarian,
+- Support languages: English, Russian, Ukranian, Spanish, French, Hungarian,
   Portuguese, German, Greek, Czech, Italian, Polish
 - Cross-platform: Windows, Linux, MacOS X
 
@@ -133,6 +133,7 @@ params = {
             "Natural Language :: Ukranian",
             "Natural Language :: Hungarian",
             "Natural Language :: Portuguese",
+            "Natural Language :: French",
             "Natural Language :: German",
             "Natural Language :: Greek",
             "Natural Language :: Czech",
