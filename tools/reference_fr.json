@@ -1,0 +1,82 @@
+{
+    "rarity": [
+        "Commune",
+        "Normale",
+        "Rare",
+        "Rare",
+        "Unique",
+        "En ensemble seulement"
+    ],
+    "quality": [
+        "Brillant Universel",
+        "Brillant Universel",
+        "Belle épreuve",
+        "Tel une épreuve",
+        "Revers givré"
+    ],
+    "defect": [
+        "Flan coupé",
+        "Laminage",
+        "Frappe hors de la virole",
+        "Frappe multiple",
+        "Coin interchangé",
+        "Coin doublé",
+        "Effet miroir"
+    ],
+    "type": [
+        "Émission régulière",
+        "Commémorative",
+        "Bullion",
+        "Double frappe",
+        "Essai",
+        "Ensemble",
+        "Rouleau"
+    ],
+    "obvrev": [
+        "Alignement médaille (0°)",
+        "Alignement monnaie (180°)"
+    ],
+    "edge": [
+        "Cannelures",
+        "Décoré",
+        "Listel interrompu",
+        "Poli",
+        "Lettré"
+    ],
+    "shape": [
+        "Arrondi",
+        "Carré",
+        "Polygone",
+        "Fleur espagnole",
+        "Cercle avec trou"
+    ],
+    "material": [
+        "Acmonital",
+        "Aluminium",
+        "Cuproaluminium",
+        "Antimoine",
+        "Laiton",
+        "Bronze",
+        "Cobalt",
+        "Cuivre",
+        "Cupronickel",
+        "Or",
+        "Fer",
+        "Magnésium",
+        "Manganèse",
+        "Maillechort",
+        "Nickel",
+        "Nickel argent",
+        "Or nordique",
+        "Palladium",
+        "Platine",
+        "Argent",
+        "Acier",
+        "Tantale",
+        "Tombac",
+        "Tellure",
+        "Étain",
+        "Zinc",
+        "Bimétallique"
+    ]
+}
