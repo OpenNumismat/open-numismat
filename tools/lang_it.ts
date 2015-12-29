@@ -1307,7 +1307,7 @@ Vuoi mandare un messaggio di errore agli autori
         <translation>Cerca aggiornamenti</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="604"/>
+        <location filename="MainWindow.py" line="609"/>
         <source>About %s</source>
         <translation>Riguardo a %s</translation>
     </message>
@@ -1322,77 +1322,77 @@ Vuoi mandare un messaggio di errore agli autori
         <translation>Barra degli strumenti</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="339"/>
+        <location filename="MainWindow.py" line="341"/>
         <source>Settings</source>
         <translation>Impostazioni</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="339"/>
+        <location filename="MainWindow.py" line="341"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>L&apos;applicazione deve essere riavviata per applicare le nuove impostazioni. Riavviare ora?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="437"/>
+        <location filename="MainWindow.py" line="439"/>
         <source>Select file</source>
         <translation>Seleziona file</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="431"/>
+        <location filename="MainWindow.py" line="433"/>
         <source>Importing</source>
         <translation>Importa</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="362"/>
+        <location filename="MainWindow.py" line="364"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Prima di importare devi esportare la collezione esistente dallo schedario</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="375"/>
+        <location filename="MainWindow.py" line="377"/>
         <source>Select directory</source>
         <translation>Seleziona directory</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="386"/>
+        <location filename="MainWindow.py" line="388"/>
         <source>Import pre-defined coins?</source>
         <translation>Importare monete predefinite?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="400"/>
+        <location filename="MainWindow.py" line="402"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Prima di importare è necessario esportare la raccolta esistente da Collection Studio in una tabella XML (scegliere Collection Studio dal menu Strumenti&gt; Esporta ...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="417"/>
+        <location filename="MainWindow.py" line="419"/>
         <source>Import club catalog?</source>
         <translation>Importare catalogo club?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="431"/>
+        <location filename="MainWindow.py" line="433"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="504"/>
+        <location filename="MainWindow.py" line="506"/>
         <source>Open collection</source>
         <translation>Aprire collezione</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="511"/>
+        <location filename="MainWindow.py" line="513"/>
         <source>Collections (*.db)</source>
         <translation>Collezione (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="511"/>
+        <location filename="MainWindow.py" line="513"/>
         <source>New collection</source>
         <translation>Nuova collezione</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="576"/>
+        <location filename="MainWindow.py" line="578"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Crea una nuova collezione o apri una esistente</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="604"/>
+        <location filename="MainWindow.py" line="609"/>
         <source>%s %s
 
 Copyright (C) 2011-2015 Vitaly Ignatov
@@ -1405,22 +1405,22 @@ Copyright (C) 2011-2015 Vitaly Ignatov
 %s è freeware rilasciato sotto GPLv3.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="632"/>
+        <location filename="MainWindow.py" line="637"/>
         <source>Updates</source>
         <translation>Aggiornamenti</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="632"/>
+        <location filename="MainWindow.py" line="637"/>
         <source>You already have the latest version.</source>
         <translation>Hai già l&apos;ultima versione.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="643"/>
+        <location filename="MainWindow.py" line="648"/>
         <source>New version</source>
         <translation>Nuova versione</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="643"/>
+        <location filename="MainWindow.py" line="648"/>
         <source>New version is available. Download it now?</source>
         <translation>La nuova versione è disponibile. Vuoi scaricarla adesso?</translation>
     </message>
