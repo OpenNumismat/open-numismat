@@ -59,6 +59,9 @@ class ExportDialog(QDialog):
         groupBox.setLayout(vbox)
         form.addRow(groupBox)
 
+        self.fullImage = QCheckBox(self.tr("Export a full-sized image"), self)
+        form.addRow(self.fullImage)
+
         # file
         self.destination = QLineEdit(self)
         style = QApplication.style()
@@ -124,5 +127,6 @@ class ExportDialog(QDialog):
             self.params['image'] = self.IMAGE_REVERSE
         else:
             self.params['image'] = self.IMAGE_BOTH
+        self.params['fullimage'] = self.fullImage.isChecked()
 
         self.accept()

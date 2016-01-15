@@ -718,6 +718,7 @@ class Collection(QtCore.QObject):
         return file.baseName()
 
     def exportToMobile(self, params):
+        IMAGE_FORMAT = 'jpg'
         SKIPPED_FIELDS = ('edgeimg', 'photo1', 'photo2', 'photo3', 'photo4',
             'obversedesigner', 'reversedesigner', 'catalognum2', 'catalognum3', 'catalognum4',
             'saledate', 'saleprice', 'totalsaleprice', 'buyer', 'saleplace', 'saleinfo',
@@ -793,6 +794,7 @@ class Collection(QtCore.QObject):
             height *= 3
         elif params['density'] == 'XXXHDPI':
             height *= 4
+        maxHeight = height * 4
 
         is_obverse_enabled = params['image'] in (ExportDialog.IMAGE_OBVERSE, ExportDialog.IMAGE_BOTH)
         is_reverse_enabled = params['image'] in (ExportDialog.IMAGE_REVERSE, ExportDialog.IMAGE_BOTH)
@@ -833,11 +835,23 @@ class Collection(QtCore.QObject):
                 reverseImage = QImage()
 
                 if is_obverse_present:
+                    ba = QtCore.QByteArray()
+                    buffer = QtCore.QBuffer(ba)
+                    buffer.open(QtCore.QIODevice.WriteOnly)
+
                     obverseImage.loadFromData(coin.value('obverseimg'))
+                    if not obverseImage.isNull() and not params['fullimage'] and obverseImage.height() > maxHeight:
+                        scaledImage = obverseImage.scaled(maxHeight, maxHeight,
+                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                        scaledImage.save(buffer, IMAGE_FORMAT)
+                        save_data = ba
+                    else:
+                        save_data = coin.value('obverseimg')
+
                     query = QSqlQuery(db)
                     query.prepare("""INSERT INTO photos (image)
                             VALUES (?)""")
-                    query.addBindValue(coin.value('obverseimg'))
+                    query.addBindValue(save_data)
                     query.exec_()
                     img_id = query.lastInsertId()
                     dest_record.setValue('obverseimg', img_id)
@@ -846,11 +860,23 @@ class Collection(QtCore.QObject):
                                                             Qt.SmoothTransformation)
 
                 if is_reverse_present:
+                    ba = QtCore.QByteArray()
+                    buffer = QtCore.QBuffer(ba)
+                    buffer.open(QtCore.QIODevice.WriteOnly)
+
                     reverseImage.loadFromData(coin.value('reverseimg'))
+                    if not reverseImage.isNull() and not params['fullimage'] and reverseImage.height() > maxHeight:
+                        scaledImage = reverseImage.scaled(maxHeight, maxHeight,
+                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                        scaledImage.save(buffer, IMAGE_FORMAT)
+                        save_data = ba
+                    else:
+                        save_data = coin.value('reverseimg')
+
                     query = QSqlQuery(db)
                     query.prepare("""INSERT INTO photos (image)
                             VALUES (?)""")
-                    query.addBindValue(coin.value('reverseimg'))
+                    query.addBindValue(save_data)
                     query.exec_()
                     img_id = query.lastInsertId()
                     dest_record.setValue('reverseimg', img_id)
