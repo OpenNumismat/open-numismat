@@ -93,7 +93,7 @@ class ExportDialog(QDialog):
 
     def destinationButtonClicked(self):
         destination = self.destination.text()
-        if not destination:
+        if not destination and self.collection:
             destination = self.latestDir + '/' + self.collection.getCollectionName() + '_mobile.db'
         file, _selectedFilter = QFileDialog.getSaveFileName(self,
                                                 self.tr("Select destination"),
