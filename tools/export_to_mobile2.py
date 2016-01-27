@@ -23,10 +23,11 @@ IMAGE_BOTH = 2
 
 def exportToMobile(model, params):
     IMAGE_FORMAT = 'jpg'
+    IMAGE_COMPRESS = 50
     USED_FIELDS = ('title', 'unit', 'country', 'year', 'mint', 'mintmark',
         'issuedate', 'type', 'series', 'subjectshort', 'material', 'fineness',
         'diameter', 'thickness', 'weight', 'mintage', 'rarity',
-        'obverseimg', 'reverseimg', 'subject')
+        'obverseimg', 'reverseimg', 'subject', 'price1', 'price2', 'price3', 'price4')
 
     if os.path.isfile(params['file']):
         os.remove(params['file'])
@@ -70,7 +71,8 @@ def exportToMobile(model, params):
     sql = """CREATE TABLE coins (
         id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         description_id INTEGER,
-        grade INTEGER)"""
+        grade INTEGER,
+        createdat STRING)"""
     QSqlQuery(sql, db)
 
     sqlFields = []
@@ -103,7 +105,7 @@ def exportToMobile(model, params):
         height *= 3
     elif params['density'] == 'XXXHDPI':
         height *= 4
-    maxHeight = height * 3
+    maxHeight = height * 4
 
     is_obverse_enabled = params['image'] in (ExportDialog.IMAGE_OBVERSE, ExportDialog.IMAGE_BOTH)
     is_reverse_enabled = params['image'] in (ExportDialog.IMAGE_REVERSE, ExportDialog.IMAGE_BOTH)
@@ -150,11 +152,11 @@ def exportToMobile(model, params):
                 if not obverseImage.isNull() and not params['fullimage'] and obverseImage.height() > maxHeight:
                     scaledImage = obverseImage.scaled(maxHeight, maxHeight,
                             Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                    scaledImage.save(buffer, IMAGE_FORMAT, 40)
+                    scaledImage.save(buffer, IMAGE_FORMAT, IMAGE_COMPRESS)
                     save_data = ba
                 else:
                     if not obverseImage.isNull():
-                        obverseImage.save(buffer, IMAGE_FORMAT, 40)
+                        obverseImage.save(buffer, IMAGE_FORMAT, IMAGE_COMPRESS)
                         save_data = ba
                     else:
                         save_data = coin.value('obverseimg')
@@ -179,11 +181,11 @@ def exportToMobile(model, params):
                 if not reverseImage.isNull() and not params['fullimage'] and reverseImage.height() > maxHeight:
                     scaledImage = reverseImage.scaled(maxHeight, maxHeight,
                             Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                    scaledImage.save(buffer, IMAGE_FORMAT, 40)
+                    scaledImage.save(buffer, IMAGE_FORMAT, IMAGE_COMPRESS)
                     save_data = ba
                 else:
                     if not reverseImage.isNull():
-                        reverseImage.save(buffer, IMAGE_FORMAT, 40)
+                        reverseImage.save(buffer, IMAGE_FORMAT, IMAGE_COMPRESS)
                         save_data = ba
                     else:
                         save_data = coin.value('reverseimg')
@@ -220,10 +222,15 @@ def exportToMobile(model, params):
             ba = QtCore.QByteArray()
             buffer = QtCore.QBuffer(ba)
             buffer.open(QtCore.QIODevice.WriteOnly)
+            image.save(buffer, IMAGE_FORMAT, 75)
 
-            # Store as PNG for better view
-            image.save(buffer, 'jpg', 75)
-            dest_record.setValue('image', ba)
+            query = QSqlQuery(db)
+            query.prepare("""INSERT INTO photos (image)
+                    VALUES (?)""")
+            query.addBindValue(ba)
+            query.exec_()
+            img_id = query.lastInsertId()
+            dest_record.setValue('image', img_id)
 
         dest_model.insertRecord(-1, dest_record)
 
@@ -241,13 +248,25 @@ SET
 obverseimg = (select t2.id from descriptions t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.obverseimg = t1.id where t1.id <> t2.id and t3.id = descriptions.id)
 WHERE descriptions.id in (select t3.id from descriptions t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.obverseimg = t1.id where t1.id <> t2.id)
 """, db)
+    QSqlQuery("""UPDATE descriptions
+SET
+image = (select t2.id from descriptions t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.image = t1.id where t1.id <> t2.id and t3.id = descriptions.id)
+WHERE descriptions.id in (select t3.id from descriptions t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.image = t1.id where t1.id <> t2.id)
+""", db)
 
     QSqlQuery("""DELETE FROM photos
         WHERE id NOT IN (SELECT id FROM photos GROUP BY image)""", db)
 
-    progressDlg.setLabelText("Vacuum...")
-    QSqlQuery("VACUUM", db)
+    db.close()
 
+    progressDlg.setLabelText("Vacuum...")
+    db = QSqlDatabase.addDatabase('QSQLITE', 'mobile')
+    db.setDatabaseName(params['file'])
+    if not db.open():
+        print(db.lastError().text())
+        QMessageBox.critical(None, "Create mobile collection", "Can't open collection")
+        return
+    QSqlQuery("VACUUM", db)
     db.close()
 
     progressDlg.reset()
