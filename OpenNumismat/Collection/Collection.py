@@ -843,10 +843,14 @@ class Collection(QtCore.QObject):
                     if not obverseImage.isNull() and not params['fullimage'] and obverseImage.height() > maxHeight:
                         scaledImage = obverseImage.scaled(maxHeight, maxHeight,
                                 Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                        scaledImage.save(buffer, IMAGE_FORMAT)
+                        scaledImage.save(buffer, IMAGE_FORMAT, 50)
                         save_data = ba
                     else:
-                        save_data = coin.value('obverseimg')
+                        if not obverseImage.isNull():
+                            obverseImage.save(buffer, IMAGE_FORMAT, 50)
+                            save_data = ba
+                        else:
+                            save_data = coin.value('obverseimg')
 
                     query = QSqlQuery(db)
                     query.prepare("""INSERT INTO photos (image)
@@ -868,10 +872,14 @@ class Collection(QtCore.QObject):
                     if not reverseImage.isNull() and not params['fullimage'] and reverseImage.height() > maxHeight:
                         scaledImage = reverseImage.scaled(maxHeight, maxHeight,
                                 Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                        scaledImage.save(buffer, IMAGE_FORMAT)
+                        scaledImage.save(buffer, IMAGE_FORMAT, 50)
                         save_data = ba
                     else:
-                        save_data = coin.value('reverseimg')
+                        if not reverseImage.isNull():
+                            reverseImage.save(buffer, IMAGE_FORMAT, 50)
+                            save_data = ba
+                        else:
+                            save_data = coin.value('reverseimg')
 
                     query = QSqlQuery(db)
                     query.prepare("""INSERT INTO photos (image)
@@ -930,9 +938,13 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         QSqlQuery("""DELETE FROM photos
             WHERE id NOT IN (SELECT id FROM photos GROUP BY image)""", db)
 
-        progressDlg.setLabelText(self.tr("Vacuum..."))
-        QSqlQuery("VACUUM", db)
+        db.close()
 
+        progressDlg.setLabelText(self.tr("Vacuum..."))
+        db = QSqlDatabase.addDatabase('QSQLITE', 'mobile')
+        db.setDatabaseName(params['file'])
+        db.open()
+        QSqlQuery("VACUUM", db)
         db.close()
 
         progressDlg.reset()
