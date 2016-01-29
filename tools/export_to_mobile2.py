@@ -75,6 +75,9 @@ def exportToMobile(model, params):
         createdat STRING)"""
     QSqlQuery(sql, db)
 
+    sql = """CREATE INDEX coins_descriptions ON coins(description_id)"""
+    QSqlQuery(sql, db)
+
     sqlFields = []
     fields = CollectionFieldsBase()
     for field in fields:
@@ -287,7 +290,7 @@ if res == QDialog.Accepted:
     collection.open(dialog.params['file'])
     model = collection.model()
 
-    for density in ('MDPI', 'HDPI', 'XHDPI', 'XXHDPI', 'XXXHDPI'):
+    for density in ('MDPI', 'HDPI', 'XHDPI', 'XXHDPI'):
         params = {'filter': dialog.params['filter'], 'image': dialog.params['image'],
             'density': density,
             'file': collection.getCollectionName() + '_' + density.lower() + '.db',
