@@ -63,6 +63,10 @@ def exportToMobile(model, params):
         value CHAR)"""
     QSqlQuery(sql, db)
 
+    sql = """INSERT INTO updates (title, value)
+                VALUES ('160203', '2016-02-03T10:19:00')"""
+    QSqlQuery(sql, db)
+
     sql = """CREATE TABLE photos (
         id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         image BLOB)"""
