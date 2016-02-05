@@ -23,8 +23,12 @@ class DoubleValidator(QDoubleValidator):
         decPointFound = False
         decDigitCnt = 0
         value = '0'
-        ts = locale.localeconv()['thousands_sep']
-        dp = locale.localeconv()['decimal_point']
+        ts = [locale.localeconv()['thousands_sep'], ]
+        if ts[0] == chr(0xA0):
+            ts.append(' ')
+        dp = [locale.localeconv()['decimal_point'], ]
+        if dp[0] == ',' and '.' not in ts:
+            dp.append('.')
 
         for c in input_:
             if c.isdigit():
@@ -37,13 +41,13 @@ class DoubleValidator(QDoubleValidator):
                 value = value + c
                 lastWasDigit = True
             else:
-                if (c == dp or c == '.') and self.decimals() != 0:
+                if c in dp and self.decimals() != 0:
                     if decPointFound:
                         return QValidator.Invalid, input_, pos
                     else:
                         value += '.'
                         decPointFound = True
-                elif c == ts or (ts == chr(0xA0) and c == ' '):
+                elif c in ts:
                     if not lastWasDigit or decPointFound:
                         return QValidator.Invalid, input_, pos
                 else:
@@ -74,10 +78,10 @@ class BigIntValidator(QDoubleValidator):
 
         lastWasDigit = False
         value = '0'
-        ts = (locale.localeconv()['thousands_sep'],)
+        ts = [locale.localeconv()['thousands_sep'], ]
         if ts[0] == chr(0xA0):
-            ts = (' ', ts[0])
-        tss = (ts, ' ', chr(0xA0), '.', ',')
+            ts.append(' ')
+        tss = (ts[0], ' ', chr(0xA0), '.', ',')
 
         for c in input_:
             if c.isdigit():
@@ -346,18 +350,21 @@ class _DoubleEdit(QLineEdit):
 
     def focusInEvent(self, event):
         self.__updateText()
-        return super(_DoubleEdit, self).focusInEvent(event)
+        return super().focusInEvent(event)
 
     def focusOutEvent(self, event):
         self.__updateText()
-        return super(_DoubleEdit, self).focusOutEvent(event)
+        return super().focusOutEvent(event)
 
     def setText(self, text):
-        super(_DoubleEdit, self).setText(text)
+        ts = locale.localeconv()['thousands_sep']
+        if ts == '.':
+            text = text.replace('.', ',')
+        super().setText(text)
         self.__updateText()
 
     def text(self):
-        text = super(_DoubleEdit, self).text()
+        text = super().text()
         # First, get rid of the grouping
         ts = locale.localeconv()['thousands_sep']
         if ts:
@@ -388,8 +395,12 @@ class _DoubleEdit(QLineEdit):
                     # Strip empty fraction
                     dp = locale.localeconv()['decimal_point']
                     text = text.rstrip('0').rstrip(dp)
+            else:
+                ts = locale.localeconv()['thousands_sep']
+                if ts == '.':
+                    text = text.replace('.', ',')
 
-            super(_DoubleEdit, self).setText(text)
+            super().setText(text)
 
 
 class BigIntEdit(_DoubleEdit):
