@@ -11,7 +11,8 @@ from OpenNumismat.Tools.Gui import createIcon
 # Reimplementing QDoubleValidator for replace comma with dot
 class DoubleValidator(QDoubleValidator):
     def __init__(self, bottom, top, decimals, parent=None):
-        super(DoubleValidator, self).__init__(bottom, top, decimals, parent)
+        super().__init__(bottom, top, decimals, parent)
+        self.setNotation(QDoubleValidator.StandardNotation)
 
     def validate(self, input_, pos):
         input_ = input_.lstrip()
@@ -53,6 +54,50 @@ class DoubleValidator(QDoubleValidator):
         try:
             val = float(value)
         except ValueError:
+            return QValidator.Invalid, input_, pos
+
+        if self.bottom() > val or val > self.top():
+            return QValidator.Invalid, input_, pos
+
+        return QValidator.Acceptable, input_, pos
+
+
+# Reimplementing QDoubleValidator for replace thousands separators
+class BigIntValidator(QDoubleValidator):
+    def __init__(self, bottom, top, parent=None):
+        super().__init__(bottom, top, 0, parent)
+
+    def validate(self, input_, pos):
+        input_ = input_.lstrip()
+        if len(input_) == 0:
+            return QValidator.Intermediate, input_, pos
+
+        lastWasDigit = False
+        value = '0'
+        ts = (locale.localeconv()['thousands_sep'],)
+        if ts[0] == chr(0xA0):
+            ts = (' ', ts[0])
+        tss = (ts, ' ', chr(0xA0), '.', ',')
+
+        for c in input_:
+            if c.isdigit():
+                value = value + c
+                lastWasDigit = True
+            else:
+                if c in tss:
+                    if not lastWasDigit:
+                        return QValidator.Invalid, input_, pos
+                else:
+                    return QValidator.Invalid, input_, pos
+
+                lastWasDigit = False
+
+        try:
+            val = int(value)
+        except ValueError:
+            return QValidator.Invalid, input_, pos
+
+        if not lastWasDigit and len(input_) > 0 and input_[-1] not in ts:
             return QValidator.Invalid, input_, pos
 
         if self.bottom() > val or val > self.top():
@@ -293,11 +338,10 @@ class NumberEdit(QLineEdit):
 
 class _DoubleEdit(QLineEdit):
     def __init__(self, bottom, top, decimals, parent=None):
-        super(_DoubleEdit, self).__init__(parent)
+        super().__init__(parent)
         self._decimals = decimals
 
         validator = DoubleValidator(bottom, top, decimals, parent)
-        validator.setNotation(QDoubleValidator.StandardNotation)
         self.setValidator(validator)
 
     def focusInEvent(self, event):
@@ -350,11 +394,22 @@ class _DoubleEdit(QLineEdit):
 
 class BigIntEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super(BigIntEdit, self).__init__(0, 999999999999999, 0, parent)
+        super().__init__(0, 999999999999999, 0, parent)
+
+        validator = BigIntValidator(0, 999999999999999, parent)
+        self.setValidator(validator)
+
         self.setMaxLength(15 + 4)  # additional 4 symbol for thousands separator
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
                                              QSizePolicy.Fixed, QSizePolicy.SpinBox))
+
+    def text(self):
+        text = super().text()
+        ts = (locale.localeconv()['thousands_sep'], ' ', chr(0xA0), '.', ',')
+        for c in ts:
+            text = text.replace(c, '')
+        return text
 
 
 class ValueEdit(_DoubleEdit):
