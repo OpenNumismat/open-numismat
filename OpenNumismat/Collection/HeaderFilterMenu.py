@@ -109,7 +109,7 @@ class FilterMenuButton(QPushButton):
                 label = Statuses[value]
                 item = QListWidgetItem(label, self.listWidget)
                 item.setData(Qt.UserRole, value)
-                if label in appliedValues:
+                if value in appliedValues:
                     if revert:
                         item.setCheckState(Qt.Checked)
                     else:
