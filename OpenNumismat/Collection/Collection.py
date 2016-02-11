@@ -144,7 +144,7 @@ class CollectionModel(QSqlTableModel):
         if value:
             query = QSqlQuery(self.database())
             query.prepare("INSERT INTO images (image) VALUES (?)")
-            query.addBindValue(record.value('image'))
+            query.addBindValue(value)
             query.exec_()
 
             img_id = query.lastInsertId()
@@ -472,9 +472,9 @@ class CollectionSettings(BaseSettings):
             'Password': cryptPassword()
     }
 
-    def __init__(self, collection):
+    def __init__(self, db):
         super(CollectionSettings, self).__init__()
-        self.db = collection.db
+        self.db = db
 
         if 'settings' not in self.db.tables():
             self.create(self.db)
@@ -554,7 +554,7 @@ class Collection(QtCore.QObject):
 
         self.fileName = fileName
 
-        self.settings = CollectionSettings(self)
+        self.settings = CollectionSettings(self.db)
         if self.settings['Type'] != version.AppName:
             QMessageBox.critical(self.parent(),
                     self.tr("Open collection"),
@@ -562,7 +562,7 @@ class Collection(QtCore.QObject):
             return False
 
         if self.settings['Password'] != cryptPassword():
-            dialog = PasswordDialog(self, self.parent())
+            dialog = PasswordDialog(self.settings, self.parent())
             result = dialog.exec_()
             if result == QDialog.Rejected:
                 return False
@@ -600,7 +600,7 @@ class Collection(QtCore.QObject):
 
         self._pages = CollectionPages(self.db)
 
-        self.settings = CollectionSettings(self)
+        self.settings = CollectionSettings(self.db)
 
         self.description = CollectionDescription(self)
 
@@ -948,3 +948,122 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         db.close()
 
         progressDlg.reset()
+
+    def merge(self, fileName):
+        db = QSqlDatabase.addDatabase('QSQLITE', 'merge')
+        db.setDatabaseName(fileName)
+        if not db.open():
+            print(db.lastError().text())
+            QMessageBox.critical(self.parent(),
+                                       self.tr("Merge collections"),
+                                       self.tr("Can't open collection"))
+            return
+
+        settings = CollectionSettings(db)
+        if self.settings['Type'] != version.AppName:
+            QMessageBox.critical(self.parent(),
+                    self.tr("Merge collection"),
+                    self.tr("Collection %s in wrong format %s") % (fileName, version.AppName))
+
+        if int(settings['Version']) != CollectionSettings.Default['Version']:
+            QMessageBox.critical(self.parent(),
+                                    self.tr("Merge collections"),
+                                    self.tr("Source collection %s in old format %d.\n(Try to open it before merging.)") % (fileName, int(settings['Version'])))
+            return
+
+        if settings['Password'] != cryptPassword():
+            dialog = PasswordDialog(settings, self.parent())
+            result = dialog.exec_()
+            if result == QDialog.Rejected:
+                return False
+
+        query = QSqlQuery("SELECT COUNT(id) FROM coins", db)
+        count = query.record().value(0)
+        progressDlg = Gui.ProgressDialog(self.tr("Inserting records"),
+                            self.tr("Cancel"), count, self.parent())
+
+        big_query = QSqlQuery("""SELECT coins.title AS title, "value", "unit", "country",
+        "year", "period", "mint", "mintmark", "issuedate", "type", "series",
+        "subjectshort", "status", "material", "fineness", "shape", "diameter",
+        "thickness", "weight", "grade", "edge", "edgelabel", "obvrev",
+        "quality", "mintage", "dateemis", "catalognum1", "catalognum2",
+        "catalognum3", "catalognum4", "rarity", "price1", "price2", "price3",
+        "price4", "variety", "obversevar", "reversevar", "edgevar", "paydate",
+        "payprice", "totalpayprice", "saller", "payplace", "payinfo",
+        "saledate", "saleprice", "totalsaleprice", "buyer", "saleplace",
+        "saleinfo", "note", "obversedesign",
+        "obversedesigner", "reversedesign", "reversedesigner",
+        "subject", "defect",
+        "storage", "features", "createdat", "updatedat", "quantity", "url",
+        "barcode",
+        coins.image AS image, images.image AS images_image,
+        obverseimg, obverseimg.image AS obverseimg_image, obverseimg.title AS obverseimg_title,
+        reverseimg, reverseimg.image AS reverseimg_image, reverseimg.title AS reverseimg_title,
+        edgeimg, edgeimg.image AS edgeimg_image, edgeimg.title AS edgeimg_title,
+        photo1, photo1.image AS photo1_image, photo1.title AS photo1_title,
+        photo2, photo2.image AS photo2_image, photo2.title AS photo2_title,
+        photo3, photo3.image AS photo3_image, photo3.title AS photo3_title,
+        photo4, photo4.image AS photo4_image, photo4.title AS photo4_title
+          FROM coins
+            LEFT OUTER JOIN images ON coins.image=images.id
+            LEFT OUTER JOIN photos AS obverseimg ON coins.obverseimg=obverseimg.id
+            LEFT OUTER JOIN photos AS reverseimg ON coins.reverseimg=reverseimg.id
+            LEFT OUTER JOIN photos AS edgeimg ON coins.edgeimg=edgeimg.id
+            LEFT OUTER JOIN photos AS photo1 ON coins.photo1=photo1.id
+            LEFT OUTER JOIN photos AS photo2 ON coins.photo2=photo2.id
+            LEFT OUTER JOIN photos AS photo3 ON coins.photo3=photo3.id
+            LEFT OUTER JOIN photos AS photo4 ON coins.photo4=photo4.id""", db)
+
+        _model = QSqlTableModel(db=self.db)
+        _model.setTable('coins')
+        _model.select()
+
+        while big_query.next():
+            progressDlg.step()
+            if progressDlg.wasCanceled():
+                break
+
+            record = big_query.record()
+
+            record.setNull('id')  # remove ID value from record
+
+            for field in ['obverseimg', 'reverseimg', 'edgeimg',
+                          'photo1', 'photo2', 'photo3', 'photo4']:
+                value = record.value(field + '_image')
+                if value:
+                    query = QSqlQuery(self.db)
+                    query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
+                    query.addBindValue(record.value(field + '_title'))
+                    query.addBindValue(value)
+                    query.exec_()
+
+                    img_id = query.lastInsertId()
+                else:
+                    img_id = None
+
+                record.setValue(field, img_id)
+                record.remove(record.indexOf(field + '_image'))
+                record.remove(record.indexOf(field + '_title'))
+
+            value = record.value('images_image')
+            if value:
+                query = QSqlQuery(self.db)
+                query.prepare("INSERT INTO images (image) VALUES (?)")
+                query.addBindValue(value)
+                query.exec_()
+
+                img_id = query.lastInsertId()
+            else:
+                img_id = None
+            record.setValue('image', img_id)
+            record.remove(record.indexOf('images_image'))
+
+            _model.insertRecord(-1, record)
+            _model.submitAll()
+
+        progressDlg.reset()
+
+        db.close()
+
+        QMessageBox.warning(self.parent(), self.tr("Merge collection"),
+                    self.tr("The application will need to restart now"))

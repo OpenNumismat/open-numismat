@@ -138,6 +138,11 @@ class MainWindow(QMainWindow):
             importMenu.addAction(importUcoinAct)
 
 
+        mergeCollectionAct = QAction(self.tr("Add from another..."), self)
+        mergeCollectionAct.triggered.connect(self.mergeCollectionEvent)
+        self.collectionActs.append(mergeCollectionAct)
+
+
         exportMenu = QMenu(self.tr("Export"), self)
         self.collectionActs.append(exportMenu)
 
@@ -157,6 +162,7 @@ class MainWindow(QMainWindow):
         file.addAction(descriptionCollectionAct)
         file.addSeparator()
         file.addMenu(importMenu)
+        file.addAction(mergeCollectionAct)
         file.addSeparator()
         file.addMenu(exportMenu)
         file.addSeparator()
@@ -526,7 +532,7 @@ class MainWindow(QMainWindow):
         dialog.exec_()
 
     def passwordCollectionEvent(self, checked):
-        dialog = PasswordSetDialog(self.collection, self)
+        dialog = PasswordSetDialog(self.collection.settings, self)
         dialog.exec_()
 
     def backupCollectionEvent(self, checked):
@@ -534,6 +540,13 @@ class MainWindow(QMainWindow):
 
     def vacuumCollectionEvent(self, checked):
         self.collection.vacuum()
+
+    def mergeCollectionEvent(self, checked):
+        fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
+                self.tr("Open collection"), self.__workingDir(),
+                self.tr("Collections (*.db)"))
+        if fileName:
+            self.collection.merge(fileName)
 
     def openCollection(self, fileName):
         self.__saveParams()

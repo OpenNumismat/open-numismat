@@ -8,8 +8,8 @@ def cryptPassword(password=''):
     return hashlib.md5(password.encode('utf-8')).hexdigest()
 
 
-def checkPassword(collection, password):
-    collectionPassword = collection.settings['Password']
+def checkPassword(settings, password):
+    collectionPassword = settings['Password']
     if collectionPassword != cryptPassword(password):
         return False
 
@@ -17,10 +17,10 @@ def checkPassword(collection, password):
 
 
 class PasswordDialog(QDialog):
-    def __init__(self, collection, parent=None):
+    def __init__(self, settings, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
-        self.collection = collection
+        self.settings = settings
 
         self.setWindowTitle(self.tr("Password"))
 
@@ -44,7 +44,7 @@ class PasswordDialog(QDialog):
 
     def apply(self):
         text = self.passwordWidget.text()
-        if checkPassword(self.collection, text):
+        if checkPassword(self.settings, text):
             self.accept()
         else:
             QMessageBox.critical(self, self.tr("Open collection"),
@@ -53,10 +53,10 @@ class PasswordDialog(QDialog):
 
 
 class PasswordSetDialog(QDialog):
-    def __init__(self, collection, parent=None):
+    def __init__(self, settings, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
-        self.collection = collection
+        self.settings = settings
 
         self.setWindowTitle(self.tr("Set password"))
 
@@ -64,7 +64,7 @@ class PasswordSetDialog(QDialog):
 
         self.passwordWidget = QLineEdit(self)
         self.passwordWidget.setEchoMode(QLineEdit.Password)
-        if checkPassword(self.collection, ''):
+        if checkPassword(self.settings, ''):
             self.passwordWidget.setDisabled(True)
         mainLayout.addRow(self.tr("Current password"), self.passwordWidget)
         self.newPasswordWidget = QLineEdit(self)
@@ -89,7 +89,7 @@ class PasswordSetDialog(QDialog):
 
     def save(self):
         text = self.passwordWidget.text()
-        if checkPassword(self.collection, text):
+        if checkPassword(self.settings, text):
             text = self.newPasswordWidget.text()
             newPassword = cryptPassword(text)
             text = self.confirmPasswordWidget.text()
@@ -100,8 +100,8 @@ class PasswordSetDialog(QDialog):
                                     "password must match"))
                 return
 
-            self.collection.settings['Password'] = newPassword
-            self.collection.settings.save()
+            self.settings['Password'] = newPassword
+            self.settings.save()
             self.accept()
         else:
             QMessageBox.critical(self, self.tr("Change password"),
