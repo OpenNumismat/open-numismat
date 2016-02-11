@@ -259,18 +259,24 @@ class FieldsSettingsPage(QWidget):
         self.listWidget.setWrapping(True)
         self.listWidget.setMinimumWidth(330)
         self.listWidget.setMinimumHeight(180)
+        self.listWidget.itemSelectionChanged.connect(self.itemSelectionChanged)
 
         self.fields = collection.fields
         for field in self.fields:
             item = QListWidgetItem(field.title, self.listWidget)
             item.setData(self.DataRole, field)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
-                          Qt.ItemIsEnabled)
+                          Qt.ItemIsEnabled | Qt.ItemIsSelectable)
             checked = Qt.Unchecked
             if field.enabled:
                 checked = Qt.Checked
             item.setCheckState(checked)
             self.listWidget.addItem(item)
+
+        self.renameButton = QPushButton(self.tr("Rename"), self)
+        self.renameButton.clicked.connect(self.renameButtonClicked)
+        self.renameButton.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.renameButton.setEnabled(False)
 
         self.defaultFieldsButton = QPushButton(
                                             self.tr("Revert to default"), self)
@@ -282,9 +288,16 @@ class FieldsSettingsPage(QWidget):
         layout = QVBoxLayout(self)
         layout.addWidget(QLabel(self.tr("Global enabled fields:"), self))
         layout.addWidget(self.listWidget)
-        layout.addWidget(self.defaultFieldsButton)
+
+        hLayout = QHBoxLayout()
+        hLayout.addWidget(self.renameButton, alignment=Qt.AlignLeft)
+        hLayout.addWidget(self.defaultFieldsButton, alignment=Qt.AlignRight)
+        layout.addLayout(hLayout)
 
         self.setLayout(layout)
+
+    def itemSelectionChanged(self):
+        self.renameButton.setEnabled(len(self.listWidget.selectedItems()) > 0)
 
     def resizeEvent(self, event):
         self.listWidget.setWrapping(True)
@@ -296,6 +309,11 @@ class FieldsSettingsPage(QWidget):
             field = item.data(self.DataRole)
             defaultField = defaultFields.field(field.id)
             item.setText(defaultField.title)
+
+    def renameButtonClicked(self):
+        items = self.listWidget.selectedItems()
+        if len(items) > 0:
+            self.listWidget.editItem(items[0])
 
     def save(self):
         for i in range(self.listWidget.count()):
