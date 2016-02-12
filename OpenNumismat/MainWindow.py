@@ -341,22 +341,22 @@ class MainWindow(QMainWindow):
         dialog = SettingsDialog(self.collection, self)
         res = dialog.exec_()
         if res == QDialog.Accepted:
-            self.__restart()
+            result = QMessageBox.question(self, self.tr("Settings"),
+                        self.tr("The application will need to restart to apply "
+                                "the new settings. Restart it now?"),
+                        QMessageBox.Yes | QMessageBox.No,
+                        QMessageBox.Yes)
+            if result == QMessageBox.Yes:
+                self.restart()
 
-    def __restart(self):
-        result = QMessageBox.question(self, self.tr("Settings"),
-                    self.tr("The application will need to restart to apply "
-                            "the new settings. Restart it now?"),
-                    QMessageBox.Yes | QMessageBox.No,
-                    QMessageBox.Yes)
-        if result == QMessageBox.Yes:
-            self.close()
-            program = sys.executable
-            argv = []
-            if program != sys.argv[0]:
-                # Process running as Python arg
-                argv.append(sys.argv[0])
-            QProcess.startDetached(program, argv)
+    def restart(self):
+        self.close()
+        program = sys.executable
+        argv = []
+        if program != sys.argv[0]:
+            # Process running as Python arg
+            argv.append(sys.argv[0])
+        QProcess.startDetached(program, argv)
 
     def importNumizmat(self):
         defaultDir = ImportNumizmat.defaultDir()

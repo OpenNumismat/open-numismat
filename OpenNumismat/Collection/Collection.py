@@ -1067,3 +1067,4 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
 
         QMessageBox.warning(self.parent(), self.tr("Merge collection"),
                     self.tr("The application will need to restart now"))
+        self.parent().restart()
