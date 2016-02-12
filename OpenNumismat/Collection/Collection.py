@@ -978,6 +978,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                 return False
 
         query = QSqlQuery("SELECT COUNT(id) FROM coins", db)
+        query.first()
         count = query.record().value(0)
         progressDlg = Gui.ProgressDialog(self.tr("Inserting records"),
                             self.tr("Cancel"), count, self.parent())
