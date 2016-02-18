@@ -231,7 +231,11 @@ class TreeView(QTreeWidget):
         if self.changingEnabled:
             self.collapseAll()
             rootItem = self.topLevelItem(0)
+
+            self.currentItemChanged.disconnect(self.itemActivatedEvent)
             rootItem.takeChildren()  # remove all children
+            self.currentItemChanged.connect(self.itemActivatedEvent)
+
             self.__updateChilds(rootItem)
             self.expandItem(rootItem)
 
