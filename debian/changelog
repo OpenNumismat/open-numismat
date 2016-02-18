@@ -1,5 +1,5 @@
-open-numismat (1.5.2) oneiric; urgency=low
+open-numismat (1.5.3) oneiric; urgency=low
 
-  * Fix Polish.
+  * Add Franch.
 
- -- Vitaly Ignatov <opennumismat@gmail.com>  Fri, 6 Feb 2015 22:41:51 -0800
+ -- Vitaly Ignatov <opennumismat@gmail.com>  Fri, 19 Feb 2016 22:41:51 -0800
