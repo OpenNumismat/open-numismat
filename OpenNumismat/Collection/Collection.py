@@ -962,7 +962,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         settings = CollectionSettings(db)
         if self.settings['Type'] != version.AppName:
             QMessageBox.critical(self.parent(),
-                    self.tr("Merge collection"),
+                    self.tr("Merge collections"),
                     self.tr("Collection %s in wrong format %s") % (fileName, version.AppName))
 
         if int(settings['Version']) != CollectionSettings.Default['Version']:
@@ -1066,6 +1066,6 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
 
         db.close()
 
-        QMessageBox.warning(self.parent(), self.tr("Merge collection"),
+        QMessageBox.warning(self.parent(), self.tr("Merge collections"),
                     self.tr("The application will need to restart now"))
         self.parent().restart()
