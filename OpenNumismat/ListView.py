@@ -355,12 +355,14 @@ class ListView(QTableView):
             return super(ListView, self).keyPressEvent(event)
 
     def contextMenuEvent(self, pos):
+        selected_count = len(self.selectedRows())
+
         menu = QMenu(self)
         act = menu.addAction(createIcon('pencil.png'),
                              self.tr("Edit..."), self._edit)
         act.setShortcut('Enter')
         # Disable Edit when more than one record selected
-        act.setEnabled(len(self.selectedRows()) == 1)
+        act.setEnabled(selected_count == 1)
         menu.setDefaultAction(act)
 
         menu.addAction(createIcon('page_copy.png'),
@@ -370,10 +372,10 @@ class ListView(QTableView):
         menu.addSeparator()
         act = menu.addAction(self.tr("Clone"), self._clone)
         # Disable Clone when more than one record selected
-        act.setEnabled(len(self.selectedRows()) == 1)
+        act.setEnabled(selected_count == 1)
         act = menu.addAction(self.tr("Multi edit..."), self._multiEdit)
         # Disable Multi edit when only one record selected
-        act.setEnabled(len(self.selectedRows()) > 1)
+        act.setEnabled(selected_count > 1)
         menu.addSeparator()
 
         style = QApplication.style()
@@ -408,7 +410,7 @@ class ListView(QTableView):
 
     def selectedRows(self):
         indexes = self.selectedIndexes()
-        if len(indexes) == 0:
+        if not indexes:
             if self.currentIndex().row() >= 0:
                 indexes.append(self.currentIndex())
                 self.selectRow(self.currentIndex().row())
