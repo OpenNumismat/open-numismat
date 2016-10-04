@@ -86,6 +86,7 @@ class Settings(BaseSettings):
                'sort_tree': True,
                'title_format': 'default',
                'image_name': False,
+               'image_path': OpenNumismat.HOME_PATH + "/ONImages/",
                'id_dates': False, #krr:todo: prompt for this on import & reset
                'template': 'cbr',
                'ImageSideLen': 1024}
@@ -209,6 +210,20 @@ class MainSettingsPage(QWidget):
         self.imageName.setChecked(settings['image_name'])
         layout.addRow(self.imageName)
 
+        self.imagePath = QLineEdit(self)
+        self.imagePath.setMinimumWidth(120)
+        self.imagePath.setText(settings['image_path'])
+        icon = style.standardIcon(QStyle.SP_DialogOpenButton)
+        self.imagePathButton = QPushButton(icon, '', self)
+        self.imagePathButton.clicked.connect(self.imagePathButtonClicked)
+
+        hLayout = QHBoxLayout()
+        hLayout.addWidget(self.imagePath)
+        hLayout.addWidget(self.imagePathButton)
+        hLayout.setContentsMargins(QMargins())
+
+        layout.addRow(self.tr("Image Path"), hLayout)
+
         self.idDates = QCheckBox(
                             self.tr("Tellico import: keep ID and created/modified dates"), self)
         self.idDates.setChecked(settings['id_dates'])
@@ -255,6 +270,14 @@ class MainSettingsPage(QWidget):
         if file:
             self.reference.setText(file)
 
+    def imagePathButtonClicked(self):
+        file, _selectedFilter = QFileDialog.getOpenFileName(self,
+                                                self.tr("Select imagePath"),
+                                                self.imagePath.text(),
+                                                "*.ref")
+        if file:
+            self.imagePath.setText(file)
+
     def save(self):
         settings = Settings()
 
@@ -269,6 +292,7 @@ class MainSettingsPage(QWidget):
         settings['sort_filter'] = self.sortFilter.isChecked()
         settings['sort_tree'] = self.sortTree.isChecked()
         settings['image_name'] = self.imageName.isChecked()
+        settings['image_path'] = self.imagePath.text()
         settings['id_dates'] = self.idDates.isChecked()
         settings['title_format'] = self.titleFormatSelector.currentText()
         settings['template'] = self.templateSelector.currentText()
