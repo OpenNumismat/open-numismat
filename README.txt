@@ -14,7 +14,8 @@ Requirement:
  * cx_Freeze 4.3.3 (for deploy)
  * Inno Setup 5.5.5 (for deploy)
  * Delphi Delphi XE2 (for building CdrToXml.dll for importing from CoinsCollector 2.6)
-
+ * pytz
+ 
 Deploying:
 Run `python i18n.py` and fill translations
 Run `python setup.py build_exe`
