@@ -113,7 +113,6 @@ class ImportTellico(_Import):
 
     def _connect(self, src):
         self.unzippedDir = tempfile.mkdtemp(prefix='Tellico')
-        print(self.unzippedDir)
 
         zf = zipfile.ZipFile(src)
         zf.extractall(self.unzippedDir)
@@ -129,7 +128,6 @@ class ImportTellico(_Import):
     def _getRows(self, unzippedDir):
         tree = lxml.etree.parse(os.path.join(unzippedDir, 'tellico.xml'))
         rows = tree.xpath("/t:tellico/t:collection/t:entry", namespaces=NAMESPACES)
-        print(rows)
         return rows
 
     def _setRecord(self, record, row):
