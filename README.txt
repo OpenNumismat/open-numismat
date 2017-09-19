@@ -4,7 +4,7 @@ Requirement:
  * Jinja2 2.8 (for reports)
  * xlwt-future 0.8.0 (for exporting to Excel)
  * pywin32-219 (for saving report as Word Document)
- * lxml 3.4.1 (importing from CoinsCollector 2.6)
+ * lxml 3.4.1 (importing from CoinsCollector 2.6 and Tellico)
  * Firebird 2.0 (for importing from Numizmat 2.1)
  * pyfirebirdsql 0.9.12 (for importing from Numizmat 2.1)
  * pyodbc 3.0.10 (for importing from Cabinet 2.0.2.0, 2011 and CoinManage 2011)

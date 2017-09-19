@@ -137,7 +137,14 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importUcoinAct)
             importMenu.addAction(importUcoinAct)
 
-
+        if ImportTellico.isAvailable():
+            importTellicoAct = QAction(
+                                    createIcon('tellico.png'),
+                                    self.tr("Tellico"), self)
+            importTellicoAct.triggered.connect(self.importTellico)
+            self.collectionActs.append(importTellicoAct)
+            importMenu.addAction(importTellicoAct)
+ 
         mergeCollectionAct = QAction(self.tr("Add from another..."), self)
         mergeCollectionAct.triggered.connect(self.mergeCollectionEvent)
         self.collectionActs.append(mergeCollectionAct)
@@ -448,6 +455,14 @@ class MainWindow(QMainWindow):
             imp = ImportUcoin(self)
             imp.importData(file, self.viewTab.currentModel())
 
+    def importTellico(self):
+        defaultDir = ImportTellico.defaultDir()
+        file, _selectedFilter = QFileDialog.getOpenFileName(
+            self, self.tr("Select file"), defaultDir, "*.tc")
+        if file:
+            imp = ImportTellico(self)
+            imp.importData(file, self.viewTab.currentModel())
+ 
     def exportMobile(self):
         dialog = ExportDialog(self.collection, self)
         res = dialog.exec_()
