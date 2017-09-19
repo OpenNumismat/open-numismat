@@ -1,0 +1,82 @@
+{
+    "rarity": [
+        "Comú",
+        "Normal",
+        "Escàs",
+        "Rar",
+        "Única",
+        "Només en col·leccions"
+    ],
+    "quality": [
+        "Sense circular",
+        "Brillant sense circular",
+        "Prova d'encunyació",
+        "Tipus prova",
+        "Revers gravat"
+    ],
+    "defect": [
+        "Planxeta tallada",
+        "Laminatge",
+        "Encuny descentrat",
+        "Encunys múltiples",
+        "Híbrida",
+        "Doble cop de martell",
+        "Incusa"
+    ],
+    "type": [
+        "Edició normal",
+        "Commemorativa",
+        "Metall preciós",
+        "Reencunyada",
+        "Estampat",
+        "Col·lecció",
+        "Blíster"
+    ],
+    "obvrev": [
+        "Alineació de medalla (0º)",
+        "Moneda (180º)"
+    ],
+    "edge": [
+        "Amb estries",
+        "Decorada",
+        "Vora serrada",
+        "Vora llisa",
+        "Epigrafiada"
+    ],
+    "shape": [
+        "Rodona",
+        "Quadrada",
+        "Polígon",
+        "Flor espanyola",
+        "Cercle amb forat"
+    ],
+    "material": [
+        "Acer inoxidable",
+        "Alumini",
+        "Bronze d'alumini",
+        "Antimoni",
+        "Llautó",
+        "Bronze",
+        "Cobalt",
+        "Coure",
+        "Cuproníquel",
+        "Or",
+        "Ferro",
+        "Magnesi",
+        "Manganès",
+        "Níquel-llautó",
+        "Níquel",
+        "Alpaca",
+        "Or nòrdic",
+        "Pal·ladi",
+        "Platí",
+        "Plata",
+        "Acer",
+        "Tàntal",
+        "Tombac",
+        "Tel·luri",
+        "Estany",
+        "Zinc",
+        "Bimetall"
+    ]
+}

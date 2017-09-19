@@ -30,6 +30,7 @@ f = open('langs')
 langs = [x.strip('\n') for x in f.readlines()]
 
 for lang in langs:
+    print(lang)
     src_file = "../OpenNumismat/db/reference_%s.ref" % lang
     if not os.path.isfile(src_file):
         src_file = "../OpenNumismat/db/reference_en.ref"

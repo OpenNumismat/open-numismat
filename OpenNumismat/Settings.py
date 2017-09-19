@@ -112,10 +112,12 @@ class Settings(BaseSettings):
 
 
 class MainSettingsPage(QWidget):
-    Languages = [("Čeština", 'cs'), ("English", 'en'), ("Ελληνικά", 'el'),
-                 ("Español", 'es'), ("Deutsch", 'de'), ("Français", 'fr'),
-                 ("Italiano", 'it'), ("Magyar", 'hu'), ("Polski", 'pl'),
-                 ("Português", 'pt'), ("Русский", 'ru'), ("Український", 'uk')]
+    Languages = [("Català", 'ca'), ("Čeština", 'cs'), ("English", 'en'),
+                 ("Ελληνικά", 'el'), ("Español", 'es'), ("Deutsch", 'de'),
+                 ("Français", 'fr'), ("Italiano", 'it'), ("Magyar", 'hu'),
+                 ("Nederlands", 'nl'), ("Polski", 'pl'), ("Português", 'pt'),
+                 ("Русский", 'ru'), ("Український", 'uk'),
+                 ]
 
     def __init__(self, collection, parent=None):
         super(MainSettingsPage, self).__init__(parent)

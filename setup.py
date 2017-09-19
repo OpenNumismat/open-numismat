@@ -43,7 +43,7 @@ Main features:
   2015, Collection Studio, Numizmatik_Ru (additional software may be required),
   uCoin.net
 - Support languages: English, Russian, Ukranian, Spanish, French, Hungarian,
-  Portuguese, German, Greek, Czech, Italian, Polish
+  Portuguese, German, Greek, Czech, Italian, Polish, Catalan, Dutch
 - Cross-platform: Windows, Linux, MacOS X
 
 .. image:: http://opennumismat.github.io/images/screenMain.png
@@ -139,6 +139,8 @@ params = {
             "Natural Language :: Czech",
             "Natural Language :: Italian",
             "Natural Language :: Polish",
+            "Natural Language :: Catalan",
+            "Natural Language :: Dutch",
             "Intended Audience :: End Users/Desktop",
             "Operating System :: OS Independent",
             "Operating System :: POSIX :: Linux",
