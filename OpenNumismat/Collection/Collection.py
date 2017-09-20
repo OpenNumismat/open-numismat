@@ -29,6 +29,7 @@ class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
     modelChanged = pyqtSignal()
     IMAGE_FORMAT = 'jpg'
+    SQLITE_READONLY = '8'
 
     def __init__(self, collection, parent=None):
         super(CollectionModel, self).__init__(parent, collection.db)
@@ -374,6 +375,14 @@ class CollectionModel(QSqlTableModel):
 
     def submitAll(self):
         ret = super(CollectionModel, self).submitAll()
+        if not ret:
+            if self.lastError().nativeErrorCode() == self.SQLITE_READONLY:
+                message = self.tr("file is readonly")
+            else:
+                message = self.lastError().databaseText()
+            QMessageBox.critical(
+                self.parent(), self.tr("Savind"),
+                self.tr("Can't save data: %s") % message)
 
         if self.proxy:
             self.proxy.setDynamicSortFilter(True)
