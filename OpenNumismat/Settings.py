@@ -96,14 +96,11 @@ class Settings(BaseSettings):
         return self.Default.keys()
 
     def _getValue(self, key):
-        value = self.settings.value('mainwindow/' + key)
-        if value:
-            if key in ('error', 'updates', 'free_numeric', 'store_sorting',
-                       'sort_filter', 'sort_tree'):
-                # Convert boolean value
-                value = (value == 'true')
+        if key in ('error', 'updates', 'free_numeric', 'store_sorting',
+                   'sort_filter', 'sort_tree'):
+            value = self.settings.value('mainwindow/' + key, self.Default[key], type=bool)
         else:
-            value = self.Default[key]
+            value = self.settings.value('mainwindow/' + key, self.Default[key])
 
         return value
 
