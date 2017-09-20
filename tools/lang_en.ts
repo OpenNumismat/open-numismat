@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1">
+<!DOCTYPE TS><TS version="2.0">
 <context>
     <name>AllReferenceDialog</name>
     <message>
@@ -351,11 +350,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="163"/>
-        <source>Saller</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="CollectionFields.py" line="170"/>
         <source>Place</source>
         <translation type="unfinished"></translation>
@@ -453,6 +447,11 @@
     <message>
         <location filename="CollectionFields.py" line="193"/>
         <source>Barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="163"/>
+        <source>Seller</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -737,17 +736,17 @@ Do you want to send an error message to the author
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="281"/>
+        <location filename="Settings.py" line="283"/>
         <source>Revert to default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="289"/>
+        <location filename="Settings.py" line="291"/>
         <source>Global enabled fields:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="276"/>
+        <location filename="Settings.py" line="278"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1101,62 +1100,62 @@ Do you want to send an error message to the author
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="138"/>
+        <location filename="Settings.py" line="140"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="219"/>
+        <location filename="Settings.py" line="221"/>
         <source>Backup folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="167"/>
+        <location filename="Settings.py" line="169"/>
         <source>Reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="169"/>
+        <location filename="Settings.py" line="171"/>
         <source>Send error info to author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="174"/>
+        <location filename="Settings.py" line="176"/>
         <source>Automatically check for updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="181"/>
+        <location filename="Settings.py" line="183"/>
         <source>Max image side len</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="184"/>
+        <location filename="Settings.py" line="186"/>
         <source>Free format numeric fields</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="189"/>
+        <location filename="Settings.py" line="191"/>
         <source>Store column sorting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="194"/>
+        <location filename="Settings.py" line="196"/>
         <source>Sort items in filters (slow)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="199"/>
+        <location filename="Settings.py" line="201"/>
         <source>Sort items in tree (slow)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="214"/>
+        <location filename="Settings.py" line="216"/>
         <source>Default template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="226"/>
+        <location filename="Settings.py" line="228"/>
         <source>Select reference</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1249,207 +1248,212 @@ Do you want to send an error message to the author
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="146"/>
+        <location filename="MainWindow.py" line="153"/>
         <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="149"/>
+        <location filename="MainWindow.py" line="156"/>
         <source>For Android version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="154"/>
+        <location filename="MainWindow.py" line="161"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="178"/>
+        <location filename="MainWindow.py" line="185"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="184"/>
+        <location filename="MainWindow.py" line="191"/>
         <source>Edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="191"/>
+        <location filename="MainWindow.py" line="198"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="197"/>
+        <location filename="MainWindow.py" line="204"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="203"/>
+        <location filename="MainWindow.py" line="210"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="209"/>
+        <location filename="MainWindow.py" line="216"/>
         <source>Coin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="219"/>
+        <location filename="MainWindow.py" line="226"/>
         <source>View in browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="227"/>
+        <location filename="MainWindow.py" line="234"/>
         <source>List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="239"/>
+        <location filename="MainWindow.py" line="246"/>
         <source>Reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="241"/>
+        <location filename="MainWindow.py" line="248"/>
         <source>Report...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="246"/>
+        <location filename="MainWindow.py" line="253"/>
         <source>Save current list...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="251"/>
+        <location filename="MainWindow.py" line="258"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="257"/>
+        <location filename="MainWindow.py" line="264"/>
         <source>Online help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="261"/>
+        <location filename="MainWindow.py" line="268"/>
         <source>Check for updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="622"/>
+        <location filename="MainWindow.py" line="637"/>
         <source>About %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="266"/>
+        <location filename="MainWindow.py" line="273"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="273"/>
+        <location filename="MainWindow.py" line="280"/>
         <source>Toolbar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="344"/>
+        <location filename="MainWindow.py" line="351"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="344"/>
+        <location filename="MainWindow.py" line="351"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="445"/>
+        <location filename="MainWindow.py" line="460"/>
         <source>Select file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="439"/>
+        <location filename="MainWindow.py" line="446"/>
         <source>Importing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="370"/>
+        <location filename="MainWindow.py" line="377"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="383"/>
+        <location filename="MainWindow.py" line="390"/>
         <source>Select directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="394"/>
+        <location filename="MainWindow.py" line="401"/>
         <source>Import pre-defined coins?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="408"/>
+        <location filename="MainWindow.py" line="415"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="425"/>
+        <location filename="MainWindow.py" line="432"/>
         <source>Import club catalog?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="439"/>
+        <location filename="MainWindow.py" line="446"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="545"/>
+        <location filename="MainWindow.py" line="560"/>
         <source>Open collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="545"/>
+        <location filename="MainWindow.py" line="560"/>
         <source>Collections (*.db)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="519"/>
+        <location filename="MainWindow.py" line="534"/>
         <source>New collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="591"/>
+        <location filename="MainWindow.py" line="606"/>
         <source>Create new collection or open one of the existing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="622"/>
-        <source>%s %s
-
-Copyright (C) 2011-2015 Vitaly Ignatov
-
-%s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="650"/>
+        <location filename="MainWindow.py" line="665"/>
         <source>Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="650"/>
+        <location filename="MainWindow.py" line="665"/>
         <source>You already have the latest version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="661"/>
+        <location filename="MainWindow.py" line="676"/>
         <source>New version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="661"/>
+        <location filename="MainWindow.py" line="676"/>
         <source>New version is available. Download it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="141"/>
+        <location filename="MainWindow.py" line="148"/>
         <source>Add from another...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="141"/>
+        <source>Tellico</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="637"/>
+        <source>%s %s
+
+Copyright (C) 2011-2016 Vitaly Ignatov
+
+%s is freeware licensed under a GPLv3.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1836,17 +1840,17 @@ Created new one</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="Settings.py" line="337"/>
+        <location filename="Settings.py" line="339"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="340"/>
+        <location filename="Settings.py" line="342"/>
         <source>Main</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Settings.py" line="341"/>
+        <location filename="Settings.py" line="343"/>
         <source>Fields</source>
         <translation type="unfinished"></translation>
     </message>

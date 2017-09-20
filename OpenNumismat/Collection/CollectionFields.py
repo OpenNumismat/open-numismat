@@ -160,7 +160,7 @@ class CollectionFieldsBase(QObject):
                 ('paydate', self.tr("Date"), Type.Date),
                 ('payprice', self.tr("Price"), Type.Money),
                 ('totalpayprice', self.tr("Paid"), Type.Money),
-                ('saller', self.tr("Saller"), Type.String),
+                ('saller', self.tr("Seller"), Type.String),
                 ('payplace', self.tr("Place"), Type.String),
                 ('payinfo', self.tr("Info"), Type.Text),
                 ('saledate', self.tr("Date"), Type.Date),
