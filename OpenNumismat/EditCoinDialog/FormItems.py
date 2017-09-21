@@ -381,6 +381,8 @@ class _DoubleEdit(QLineEdit):
     def __updateText(self):
         text = self.text()
         if text:
+            src_text = text
+
             if not self.hasFocus() or self.isReadOnly():
                 try:
                     if self._decimals:
@@ -400,7 +402,8 @@ class _DoubleEdit(QLineEdit):
                 if ts == '.':
                     text = text.replace('.', ',')
 
-            super().setText(text)
+            if src_text != text:
+                super().setText(text)
 
 
 class BigIntEdit(_DoubleEdit):
