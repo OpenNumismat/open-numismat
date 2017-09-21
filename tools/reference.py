@@ -32,13 +32,14 @@ langs = [x.strip('\n') for x in f.readlines()]
 for lang in langs:
     print(lang)
 
-    src_file = "../OpenNumismat/db/reference_%s.ref" % lang
+    src_file = "ref/reference_%s.ref" % lang
     if not os.path.isfile(src_file):
-        src_file = "../OpenNumismat/db/reference_en.ref"
+        src_file = "ref/reference_en.ref"
 
-    shutil.copy(src_file, ".")
+    dst_file = "../OpenNumismat/db/reference_%s.ref" % lang
+    shutil.copy(src_file, dst_file)
 
-    ref.open('reference_%s.ref' % lang)
+    ref.open(dst_file)
 
     src_ref_file = "reference_%s.json" % lang
     if not os.path.isfile(src_ref_file):
