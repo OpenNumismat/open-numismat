@@ -80,7 +80,7 @@ class ListView(QListView):
         self.widget.deleteItem()
 
     def _addIcon(self):
-        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
+        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;"
                           "All files (*.*)")
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 self.tr("Open File"), self.latestDir,
