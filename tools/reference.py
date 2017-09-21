@@ -31,6 +31,7 @@ langs = [x.strip('\n') for x in f.readlines()]
 
 for lang in langs:
     print(lang)
+
     src_file = "../OpenNumismat/db/reference_%s.ref" % lang
     if not os.path.isfile(src_file):
         src_file = "../OpenNumismat/db/reference_en.ref"
@@ -61,9 +62,11 @@ for lang in langs:
 
     place = ref.section('payplace')
     if lang == 'ru':
-        place.addItem('Молоток.Ру', convertImage('icons/molotok.ico'))
+        place.addItem('newAuction', convertImage('icons/newauction.ico'))
+        place.addItem('Мешок', convertImage('icons/meshok.ico'))
         place.addItem('Конрос', convertImage('icons/conros.ico'))
         place.addItem('Wolmar', convertImage('icons/wolmar.ico'))
+        place.addItem('aucland', convertImage('icons/aucland.ico'))
         place.addItem('АукционЪ.СПб')
     place.addItem('eBay', convertImage('icons/ebay.png'))
     place.model.submitAll()
