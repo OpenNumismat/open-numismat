@@ -95,11 +95,15 @@ def exceptHook(type_, value, tback):
     msgBox.setDetailedText(stack)
     msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     if msgBox.exec_() == QMessageBox.Yes:
-        line = traceback.extract_tb(tback, 1)[0]
+        line = traceback.extract_tb(tback)[-1]
         subject = "[v%s] %s - %s:%d" % (version.Version, type_.__name__,
                                         line[0], line[1])
 
         errorMessage = []
+        errorMessage.append(QApplication.translate(
+            "ExcpHook",
+            "PLEASE ADD A COMMENT, IT WILL HELP IN SOLVING THE PROBLEM"))
+        errorMessage.append('')
         errorMessage.append("%s: %s" % (version.AppName, version.Version))
         errorMessage.append("OS: %s %s %s (%s)" % (platform.system(),
                                                    platform.release(),
@@ -110,10 +114,12 @@ def exceptHook(type_, value, tback):
         errorMessage.append('')
         errorMessage.append(stack)
 
-        url = QUrl('https://code.google.com/p/open-numismat/issues/entry')
+        url = QUrl('http://opennumismat.idea.informer.com/proj/')
         query = QUrlQuery()
-        query.addQueryItem('summary', subject)
-        query.addQueryItem('comment', '\n'.join(errorMessage))
+        query.addQueryItem('mod', 'add')
+        query.addQueryItem('cat', '3')
+        query.addQueryItem('idea', subject)
+        query.addQueryItem('descr', '\n'.join(errorMessage))
         url.setQuery(query)
 
         executor = QDesktopServices()
