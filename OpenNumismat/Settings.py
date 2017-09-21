@@ -85,7 +85,9 @@ class Settings(BaseSettings):
                'sort_filter': True,
                'sort_tree': True,
                'template': 'cbr',
-               'ImageSideLen': 1024}
+               'ImageSideLen': 1024,
+               'check_coin_title': True,
+               'check_coin_duplicate': True}
 
     def __init__(self, autoSave=False):
         super(Settings, self).__init__(autoSave)
@@ -97,7 +99,8 @@ class Settings(BaseSettings):
 
     def _getValue(self, key):
         if key in ('error', 'updates', 'free_numeric', 'store_sorting',
-                   'sort_filter', 'sort_tree'):
+                   'sort_filter', 'sort_tree', 'check_coin_title',
+                   'check_coin_duplicate'):
             value = self.settings.value('mainwindow/' + key, self.Default[key], type=bool)
         else:
             value = self.settings.value('mainwindow/' + key, self.Default[key])
@@ -200,6 +203,16 @@ class MainSettingsPage(QWidget):
         self.sortTree.setChecked(settings['sort_tree'])
         layout.addRow(self.sortTree)
 
+        self.checkTitle = QCheckBox(
+                        self.tr("Check that coin title present on save"), self)
+        self.checkTitle.setChecked(settings['check_coin_title'])
+        layout.addRow(self.checkTitle)
+
+        self.checkDuplicate = QCheckBox(
+                        self.tr("Check coin duplicates on save"), self)
+        self.checkDuplicate.setChecked(settings['check_coin_duplicate'])
+        layout.addRow(self.checkDuplicate)
+
         current = 0
         self.templateSelector = QComboBox(self)
         for i, template in enumerate(Report.scanTemplates()):
@@ -244,6 +257,8 @@ class MainSettingsPage(QWidget):
         settings['sort_tree'] = self.sortTree.isChecked()
         settings['template'] = self.templateSelector.currentText()
         settings['ImageSideLen'] = int(self.imageSideLen.text())
+        settings['check_coin_title'] = self.checkTitle.isChecked()
+        settings['check_coin_duplicate'] = self.checkDuplicate.isChecked()
 
         settings.save()
 
