@@ -63,7 +63,7 @@ for lang in langs:
 
     place = ref.section('payplace')
     if lang == 'ru':
-        place.addItem('newAuction', convertImage('icons/newauction.ico'))
+        place.addItem('newAuction', convertImage('icons/newauction.png'))
         place.addItem('Мешок', convertImage('icons/meshok.ico'))
         place.addItem('Конрос', convertImage('icons/conros.ico'))
         place.addItem('Wolmar', convertImage('icons/wolmar.ico'))
