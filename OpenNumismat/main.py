@@ -89,8 +89,7 @@ def exceptHook(type_, value, tback):
     title = QApplication.translate("ExcpHook", "System error")
     text = QApplication.translate("ExcpHook",
                         "A system error occurred.\n"
-                        "Do you want to send an error message to the author\n"
-                        "(Google account required)?")
+                        "Do you want to send an error message to the author?")
     msgBox = QMessageBox(QMessageBox.Information, title, text)
     msgBox.setDetailedText(stack)
     msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
