@@ -34,6 +34,7 @@ class MainWindow(QMainWindow):
         settingsAct = QAction(createIcon('cog.png'),
                                     self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
+        self.collectionActs.append(settingsAct)
 
         cancelFilteringAct = QAction(createIcon('funnel.png'),
                                     self.tr("Clear all filters"), self)
@@ -244,6 +245,7 @@ class MainWindow(QMainWindow):
         listMenu.addAction(actions['remove'])
 
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
+        self.collectionActs.append(self.referenceMenu)
 
         reportAct = QAction(self.tr("Report..."), self)
         reportAct.setShortcut(Qt.CTRL + Qt.Key_P)
