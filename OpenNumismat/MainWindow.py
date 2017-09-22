@@ -538,8 +538,6 @@ class MainWindow(QMainWindow):
                 self.tr("Collections (*.db)"), "",
                 QFileDialog.DontConfirmOverwrite)
         if fileName:
-            self.__saveParams()
-
             self.__closeCollection()
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
@@ -566,8 +564,6 @@ class MainWindow(QMainWindow):
             self.collection.merge(fileName)
 
     def openCollection(self, fileName):
-        self.__saveParams()
-
         self.__closeCollection()
         if self.collection.open(fileName):
             self.setCollection(self.collection)
@@ -600,6 +596,8 @@ class MainWindow(QMainWindow):
             act.setEnabled(enabled)
 
     def __closeCollection(self):
+        self.__saveParams()
+
         self.__setEnabledActs(False)
         self.viewTab.clear()
 
@@ -619,7 +617,6 @@ class MainWindow(QMainWindow):
         settings = QSettings()
 
         if self.collection.fileName:
-            self.viewTab.savePagePositions()
             # Save latest opened page
             settings.setValue('tabwindow/page', self.viewTab.currentIndex())
 
@@ -634,6 +631,8 @@ class MainWindow(QMainWindow):
         if self.collection.pages():
             for param in self.collection.pages().pagesParam():
                 param.listParam.save()
+
+            self.viewTab.savePagePositions()
 
     def about(self):
         QMessageBox.about(self, self.tr("About %s") % version.AppName,

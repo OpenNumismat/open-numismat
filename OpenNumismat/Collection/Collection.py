@@ -546,8 +546,6 @@ class Collection(QtCore.QObject):
         return self.db.isValid()
 
     def open(self, fileName):
-        self.__close()
-        
         file = QtCore.QFileInfo(fileName)
         if file.isFile():
             self.db.setDatabaseName(fileName)
@@ -570,13 +568,13 @@ class Collection(QtCore.QObject):
                     self.tr("Collection %s in wrong format %s") % (fileName, version.AppName))
             return False
 
+        self.fileName = fileName
+
         if self.settings['Password'] != cryptPassword():
             dialog = PasswordDialog(self, self.parent())
             result = dialog.exec_()
             if result == QDialog.Rejected:
                 return False
-
-        self.fileName = fileName
 
         self.fields = CollectionFields(self.db)
 
@@ -616,10 +614,6 @@ class Collection(QtCore.QObject):
         self.description = CollectionDescription(self)
 
         return True
-
-    def __close(self):
-        self._pages = None
-        self.fileName = None
 
     def createCoinsTable(self):
         sqlFields = []
