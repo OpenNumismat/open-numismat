@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer
-from PyQt5.QtGui import QImage
+from PyQt5.QtGui import QImage, QKeySequence
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -54,6 +54,7 @@ class ListView(QListView):
             act.setDisabled(True)
 
         act = menu.addAction(self.tr("Delete"), self.deleteItem)
+        act.setShortcut(QKeySequence.Delete)
         if not self.selectedIndex() or not self.widget.isEnabled():
             act.setDisabled(True)
 
@@ -140,6 +141,7 @@ class ReferenceWidget(QWidget):
                                 QDialogButtonBox.ActionRole)
         self.delButton = QPushButton(
                             QApplication.translate('ReferenceWidget', "Del"))
+        self.delButton.setShortcut(QKeySequence.Delete)
         self.editButtonBox.addButton(self.delButton,
                                 QDialogButtonBox.ActionRole)
         self.editButtonBox.clicked.connect(self.clicked)
