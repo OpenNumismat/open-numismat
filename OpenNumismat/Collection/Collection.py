@@ -571,7 +571,7 @@ class Collection(QtCore.QObject):
             return False
 
         if self.settings['Password'] != cryptPassword():
-            dialog = PasswordDialog(self.settings, self.parent())
+            dialog = PasswordDialog(self, self.parent())
             result = dialog.exec_()
             if result == QDialog.Rejected:
                 return False
