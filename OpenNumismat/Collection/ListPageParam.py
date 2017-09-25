@@ -26,6 +26,7 @@ class ListPageParam(QtCore.QObject):
     def __init__(self, page):
         super(ListPageParam, self).__init__(page)
 
+        self.__lists_changed = False
         self.page = page
         self.db = page.db
 
@@ -103,27 +104,44 @@ class ListPageParam(QtCore.QObject):
         newList.filters = self.filters.copy()
         return newList
 
+    def mark_lists_changed(self):
+        self.__lists_changed = True
+
     def save(self):
+        self.save_lists()
+        self.save_filters()
+
+    def save_lists(self, only_if_changed=False):
+        if not only_if_changed or self.__lists_changed:
+            self.db.transaction()
+
+            # Remove old values
+            self.__remove_lists()
+
+            for position, param in enumerate(self.columns):
+                query = QSqlQuery(self.db)
+                query.prepare("INSERT INTO lists (pageid, fieldid, position,"
+                              " enabled, width, sortorder)"
+                              " VALUES (?, ?, ?, ?, ?, ?)")
+                query.addBindValue(self.page.id)
+                query.addBindValue(param.fieldid)
+                query.addBindValue(position)
+                query.addBindValue(int(param.enabled))
+                if not param.enabled:
+                    param.width = None
+                query.addBindValue(param.width)
+                query.addBindValue(param.sortorder)
+                query.exec_()
+
+            self.db.commit()
+
+            self.__lists_changed = False
+
+    def save_filters(self):
         self.db.transaction()
 
         # Remove old values
-        self.remove()
-
-        # Save new all
-        for position, param in enumerate(self.columns):
-            query = QSqlQuery(self.db)
-            query.prepare("INSERT INTO lists (pageid, fieldid, position,"
-                          " enabled, width, sortorder)"
-                          " VALUES (?, ?, ?, ?, ?, ?)")
-            query.addBindValue(self.page.id)
-            query.addBindValue(param.fieldid)
-            query.addBindValue(position)
-            query.addBindValue(int(param.enabled))
-            if not param.enabled:
-                param.width = None
-            query.addBindValue(param.width)
-            query.addBindValue(param.sortorder)
-            query.exec_()
+        self.__remove_filters()
 
         for fieldId, columnFilters in self.filters.items():
             for filter_ in columnFilters.filters():
@@ -152,12 +170,13 @@ class ListPageParam(QtCore.QObject):
 
         self.db.commit()
 
-    def remove(self):
+    def __remove_lists(self):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM lists WHERE pageid=?")
         query.addBindValue(self.page.id)
         query.exec_()
 
+    def __remove_filters(self):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM filters WHERE pageid=?")
         query.addBindValue(self.page.id)

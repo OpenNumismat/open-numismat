@@ -273,7 +273,7 @@ class FilterMenuButton(QPushButton):
 
         self.menu().hide()
 
-        self.listParam.save()
+        self.listParam.save_filters()
 
     def clear(self):
         self.setIcon(createIcon())

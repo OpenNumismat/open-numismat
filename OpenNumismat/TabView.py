@@ -33,7 +33,9 @@ class TabView(QTabWidget):
         self.tabBar().customContextMenuRequested.connect(
                                                 self.tabBarContextMenuEvent)
         self.tabBar().doubleClicked.connect(self.tabDClicked)
+        self.tabBar().tabMoved.connect(self.tabMoved)
         self.oldPage = None
+        self.__pages_changed = False
 
         self.__createActions()
 
@@ -42,6 +44,9 @@ class TabView(QTabWidget):
 
     def tabDClicked(self, index):
         self.renamePage(index)
+
+    def tabMoved(self, from_, to):
+        self.__pages_changed = True
 
     def actions(self):
         return self.__actions
@@ -221,11 +226,14 @@ class TabView(QTabWidget):
             for pageParam in closedPages:
                 self.collection.pages().removePage(pageParam)
 
-    def savePagePositions(self):
-        pages = []
-        for i in range(self.count()):
-            pages.append(self.widget(i))
-        self.collection.pages().savePositions(pages)
+    def savePagePositions(self, only_if_changed=False):
+        if not only_if_changed or self.__pages_changed:
+            pages = []
+            for i in range(self.count()):
+                pages.append(self.widget(i))
+            self.collection.pages().savePositions(pages)
+
+            self.__pages_changed = False
 
     def openPage(self, pageParam):
         pageView = PageView(pageParam, self)

@@ -147,13 +147,13 @@ class ListView(QTableView):
         # Set sort order only in required column
         column = self.listParam.columns[visualIndex]
         column.sortorder = order
-        self.listParam.save()
+        self.listParam.save_lists()
 
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
         column = self.listParam.columns[oldVisualIndex]
         self.listParam.columns.remove(column)
         self.listParam.columns.insert(newVisualIndex, column)
-        self.listParam.save()
+        self.listParam.save_lists()
 
         self._updateHeaderButtons()
 
@@ -175,14 +175,14 @@ class ListView(QTableView):
         index = self.horizontalHeader().logicalIndexAt(self.pos)
         column = self.horizontalHeader().visualIndex(index)
         self.listParam.columns[column].enabled = False
-        self.listParam.save()
+        self.listParam.save_lists()
         self.setColumnHidden(index, True)
 
     def selectColumns(self):
         dialog = SelectColumnsDialog(self.listParam, self)
         result = dialog.exec_()
         if result == QDialog.Accepted:
-            self.listParam.save()
+            self.listParam.save_lists()
 
             self._moveColumns()
 
@@ -199,8 +199,8 @@ class ListView(QTableView):
             column = self.horizontalHeader().visualIndex(index)
             self.listParam.columns[column].width = newSize
             # Saving columns parameters in this slot make resizing very slow
-            # It will be saved at hideEvent
-            # self.listParam.save()
+            # self.listParam.save_lists()
+            self.listParam.mark_lists_changed()
 
         self._updateHeaderButtons()
 
@@ -219,7 +219,7 @@ class ListView(QTableView):
             btn.clear()
 
         self.listParam.filters.clear()
-        self.listParam.save()
+        self.listParam.save_filters()
         self.model().setFilter('')
 
     def setModel(self, model):

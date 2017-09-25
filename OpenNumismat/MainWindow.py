@@ -630,9 +630,9 @@ class MainWindow(QMainWindow):
     def __saveParams(self):
         if self.collection.pages():
             for param in self.collection.pages().pagesParam():
-                param.listParam.save()
+                param.listParam.save_lists(only_if_changed=True)
 
-            self.viewTab.savePagePositions()
+            self.viewTab.savePagePositions(only_if_changed=True)
 
     def about(self):
         QMessageBox.about(self, self.tr("About %s") % version.AppName,
