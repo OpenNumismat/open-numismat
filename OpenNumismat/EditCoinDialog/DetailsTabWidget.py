@@ -513,6 +513,17 @@ class FormDetailsTabWidget(DetailsTabWidget):
             widget.addDependent(self.items['mint'].widget())
             widget.addDependent(self.items['series'].widget())
 
+        image_fields = ['obverseimg', 'reverseimg', 'edgeimg',
+                        'photo1', 'photo2', 'photo3', 'photo4']
+        for image_field_src in image_fields:
+            for image_field_dst in image_fields:
+                if image_field_dst != image_field_src:
+                    if not self.items[image_field_dst].isHidden():
+                        src = self.items[image_field_src].widget()
+                        dst = self.items[image_field_dst].widget()
+                        title = self.items[image_field_dst].title()
+                        src.connectExchangeAct(dst, title)
+
     def fillItems(self, record):
         super(FormDetailsTabWidget, self).fillItems(record)
 
