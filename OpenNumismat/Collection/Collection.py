@@ -311,20 +311,19 @@ class CollectionModel(QSqlTableModel):
                     # Resize big images for storing in DB
                     sideLen = Settings()['ImageSideLen']
                     sideLen = int(sideLen)  # forced conversion to Integer
-                    maxWidth = sideLen
-                    maxHeight = sideLen
-                    if image.width() > maxWidth or image.height() > maxHeight:
-                        scaledImage = image.scaled(maxWidth, maxHeight,
-                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                    else:
-                        scaledImage = image
+                    if sideLen > 0:
+                        maxWidth = sideLen
+                        maxHeight = sideLen
+                        if image.width() > maxWidth or image.height() > maxHeight:
+                            image = image.scaled(maxWidth, maxHeight,
+                                    Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
                     if field.name == 'obverseimg':
-                        obverseImage = scaledImage
+                        obverseImage = image
                     if field.name == 'reverseimg':
-                        reverseImage = scaledImage
+                        reverseImage = image
 
-                    scaledImage.save(buffer, self.IMAGE_FORMAT)
+                    image.save(buffer, self.IMAGE_FORMAT)
                     record.setValue(field.name, ba)
                 elif isinstance(image, bytes):
                     ba = QtCore.QByteArray(image)

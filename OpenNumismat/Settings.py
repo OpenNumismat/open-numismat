@@ -182,6 +182,7 @@ class MainSettingsPage(QWidget):
         self.imageSideLen.setMaximumWidth(60)
         layout.addRow(self.tr("Max image side len"), self.imageSideLen)
         self.imageSideLen.setText(str(settings['ImageSideLen']))
+        self.imageSideLen.setToolTip(self.tr("0 for storing in original size"))
 
         self.freeNumeric = QCheckBox(
                             self.tr("Free format numeric fields"), self)
