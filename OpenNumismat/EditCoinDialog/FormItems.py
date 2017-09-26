@@ -320,7 +320,7 @@ class UserNumericEdit(QLineEdit):
         self.setMaxLength(25)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                    QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -334,7 +334,7 @@ class NumberEdit(QLineEdit):
         self.setMaxLength(4)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                    QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -416,7 +416,7 @@ class BigIntEdit(_DoubleEdit):
         self.setMaxLength(15 + 4)  # additional 4 symbol for thousands separator
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                             QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def text(self):
         text = super().text()
@@ -432,7 +432,7 @@ class ValueEdit(_DoubleEdit):
         self.setMaxLength(17)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                             QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -444,7 +444,7 @@ class MoneyEdit(_DoubleEdit):
         self.setMaxLength(16)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                             QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -470,6 +470,7 @@ class CalendarWidget(QCalendarWidget):
     def showEvent(self, e):
         if self.selectedDate() == self.DEFAULT_DATE:
             self.showToday()
+
 
 class DateEdit(QDateEdit):
     DEFAULT_DATE = QDate(2000, 1, 1)

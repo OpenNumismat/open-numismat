@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 
 import OpenNumismat
 
+
 class ExportDialog(QDialog):
     IMAGE_OBVERSE = 0
     IMAGE_REVERSE = 1
@@ -44,7 +45,7 @@ class ExportDialog(QDialog):
         form.addRow(self.tr("Default filter by"), self.filterSelector)
 
         # image
-        groupBox = QGroupBox(self.tr("Image"));
+        groupBox = QGroupBox(self.tr("Image"))
         vbox = QFormLayout(self)
 
         self.obverseRadio = QRadioButton(self.tr("Obverse"), self)
@@ -95,10 +96,8 @@ class ExportDialog(QDialog):
         destination = self.destination.text()
         if not destination and self.collection:
             destination = self.latestDir + '/' + self.collection.getCollectionName() + '_mobile.db'
-        file, _selectedFilter = QFileDialog.getSaveFileName(self,
-                                                self.tr("Select destination"),
-                                                destination,
-                                                "*.db")
+        file, _selectedFilter = QFileDialog.getSaveFileName(
+            self, self.tr("Select destination"), destination, "*.db")
         if file:
             file_info = QFileInfo(file)
             self.latestDir = file_info.absolutePath()

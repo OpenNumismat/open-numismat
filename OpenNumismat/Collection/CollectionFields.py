@@ -99,6 +99,7 @@ class Status(dict):
         except KeyError:
             return None
 
+
 Statuses = Status()
 
 

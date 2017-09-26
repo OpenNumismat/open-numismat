@@ -19,6 +19,7 @@ def path():
 
     return __path
 
+
 def remove():
     global __path
 
