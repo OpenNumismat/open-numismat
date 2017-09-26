@@ -17,18 +17,20 @@ for dirname, dirnames, filenames in os.walk('../OpenNumismat'):
         if fileExtension == '.py':
             srcFiles.append(os.path.join(dirname, filename))
 
+outputfile = 'lang_en.ts'
+os.system(' '.join([lupdatePath, ' '.join(srcFiles), '-ts', outputfile]))
+
 f = open('langs')
 langs = [x.strip('\n') for x in f.readlines()]
 
 for lang in langs:
-    outputfile = 'lang_%s.ts' % lang
-    os.system(' '.join([lupdatePath, ' '.join(srcFiles), '-ts', outputfile]))
-    os.system(' '.join([linguistPath, outputfile]))
-    dst_file = '../OpenNumismat/lang_%s.qm' % lang
-    os.system(' '.join([lreleasePath, outputfile, '-qm', dst_file]))
-
     if lang == 'en':
         continue
+
+    outputfile = 'lang_%s.ts' % lang
+    if os.path.isfile(outputfile):
+        dst_file = '../OpenNumismat/lang_%s.qm' % lang
+        os.system(' '.join([lreleasePath, outputfile, '-qm', dst_file]))
 
     src_file = os.path.join(translationsPath, "qtbase_%s.qm" % lang)
     if os.path.isfile(src_file):
