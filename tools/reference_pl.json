@@ -1,0 +1,82 @@
+{
+    "rarity": [
+        "Powszechny",
+        "Wystarczający",
+        "Deficytowy",
+        "Rzadki",
+        "Bardzo rzadki",
+        "Jedynie w kompletach"
+    ],
+    "quality": [
+        "Stan menniczy",
+        "Menniczy (doskonały)",
+        "Stempel lustrzany",
+        "Stempel zwykły",
+        "Matowo-lustrzane"
+    ],
+    "defect": [
+        "Ubytek",
+        "Złuszczenie",
+        "Przesunięcie krążka",
+        "Podwójne bicie",
+        "Hybryda",
+        "Podwójne bicie",
+        "kwadryga"
+    ],
+    "type": [
+        "Wydanie normalne",
+        "Kolekcjonerski",
+        "Z metali szlachetnych",
+        "podwójne bicie",
+        "Wzór",
+        "Zestaw",
+        "Rolka"
+    ],
+    "obvrev": [
+        "Odbicie medalowe",
+        "Odwrotka"
+    ],
+    "edge": [
+        "frezowany",
+        "Dekorowanie",
+        "przerwane ząbkowanie",
+        "Gładki",
+        "Literowana"
+    ],
+    "shape": [
+        "Okrągła",
+        "Kwadratowa",
+        "Wielokąt",
+        "Spanish flower",
+        "Okrąg z dziurką"
+    ],
+    "material": [
+        "stal nierdzewna",
+        "Aluminium",
+        "Brąz aluminiowy",
+        "Antymon",
+        "Mosiądz",
+        "Brąz",
+        "Kobalt",
+        "Miedź",
+        "Miedzionikiel",
+        "Złoto",
+        "Żelazo",
+        "Magnez",
+        "Mangan",
+        "Melchior",
+        "Nikiel",
+        "Srebrzan Niklu",
+        "GN (Nordic Gold)",
+        "Palad",
+        "Platyna",
+        "Srebro",
+        "Stal",
+        "Tantal",
+        "Tombak",
+        "Telur",
+        "Cyna",
+        "Cyn",
+        "Bimetal"
+    ]
+}

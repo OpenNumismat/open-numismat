@@ -1,0 +1,82 @@
+{
+    "rarity": [
+        "Comune",
+        "Regolare",
+        "Non comune",
+        "Rara",
+        "Unica",
+        "Solo in set"
+    ],
+    "quality": [
+        "Fior di conio",
+        "Brillante fior di conio",
+        "Fondo specchio",
+        "Simil fondo specchio",
+        "Fondo specchio inverito"
+    ],
+    "defect": [
+        "Tagliata dal conio",
+        "Squame o crepe",
+        "Decentrata",
+        "Battiture multiple",
+        "Disegni non destinati a stare insieme",
+        "Doppio conio",
+        "Colpita fuori dal collare"
+    ],
+    "type": [
+        "Emissione regolare",
+        "Commemorativa",
+        "Metallo prezioso",
+        "Riemesso",
+        "Modello",
+        "Set",
+        "Rotolo"
+    ],
+    "obvrev": [
+        "Medallic (0°)",
+        "Coin (180°)"
+    ],
+    "edge": [
+        "Zigrinato",
+        "Decorato",
+        "Zigrinatura interrotta",
+        "Liscio",
+        "Marcato con lettere"
+    ],
+    "shape": [
+        "Rotonda",
+        "Quadrata",
+        "Poligono",
+        "Fiore spagnolo",
+        "Rotonda con foro"
+    ],
+    "material": [
+        "Acmonital - Acciaio monetario italiano",
+        "Alluminio",
+        "Alluminio bronzo",
+        "Antimonio",
+        "Ottone",
+        "Bronzo",
+        "Cobalto",
+        "Rame",
+        "Nichelrame",
+        "Oro",
+        "Ferro",
+        "Magnesio",
+        "Manganese",
+        "Ramenichel",
+        "Nichel",
+        "Nichel argento",
+        "Oro nordico",
+        "Palladio",
+        "Platino",
+        "Argento",
+        "Acciaio",
+        "Tantalio",
+        "Tombacco",
+        "Tellurio",
+        "Stagno",
+        "Zinco",
+        "Bimetallica"
+    ]
+}
