@@ -1,24 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="nl_NL" sourcelanguage="">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl_NL" version="2.0">
 <context>
     <name>AllReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="351"/>
+        <location filename="ReferenceDialog.py" line="353"/>
         <source>Reference</source>
         <translation>Referentie</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="398"/>
+        <location filename="ReferenceDialog.py" line="400"/>
         <source>Save reference</source>
         <translation>Bewaar referentie</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="385"/>
+        <location filename="ReferenceDialog.py" line="387"/>
         <source>Something went wrong when saving. Please restart</source>
         <translation>Er is iets misgegaan bij het opslaan. herstart</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="398"/>
+        <location filename="ReferenceDialog.py" line="400"/>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Er is iets misgegaan bij het annuleren. herstart</translation>
     </message>
@@ -26,113 +25,113 @@
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="561"/>
+        <location filename="Collection.py" line="567"/>
         <source>Open collection</source>
         <translation>Open verzameling</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="547"/>
+        <location filename="Collection.py" line="555"/>
         <source>Can&apos;t open collection %s</source>
         <translation>Kan de verzameling niet openen %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="552"/>
+        <location filename="Collection.py" line="560"/>
         <source>Collection %s not exists</source>
         <translation>Collectie %s bestaat niet</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="966"/>
+        <location filename="Collection.py" line="974"/>
         <source>Collection %s in wrong format %s</source>
         <translation>Collectie %s heeft onjuist formaat %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="592"/>
+        <location filename="Collection.py" line="600"/>
         <source>Create collection</source>
         <translation>verzameling aanmaken</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="584"/>
+        <location filename="Collection.py" line="592"/>
         <source>Specified file already exists</source>
         <translation>Opgegegeven bestand bestaat al</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="959"/>
+        <location filename="Collection.py" line="967"/>
         <source>Can&apos;t open collection</source>
         <translation>Kan de  collectie niet openen</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="656"/>
+        <location filename="Collection.py" line="664"/>
         <source>Updating reference</source>
         <translation>Referentie bijwerken</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="985"/>
+        <location filename="Collection.py" line="993"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="688"/>
+        <location filename="Collection.py" line="696"/>
         <source>Fill from collection</source>
         <translation>Vullen uit de collectie</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="691"/>
+        <location filename="Collection.py" line="699"/>
         <source>Edit...</source>
         <translation>bewerken.....</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="705"/>
+        <location filename="Collection.py" line="713"/>
         <source>Backup collection</source>
         <translation>back-up collectie</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="705"/>
+        <location filename="Collection.py" line="713"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation>Kan een verzameling back-up  niet maken %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="737"/>
+        <location filename="Collection.py" line="745"/>
         <source>Create mobile collection</source>
         <translation>Mobiele verzameling maken</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="806"/>
+        <location filename="Collection.py" line="814"/>
         <source>Exporting records</source>
         <translation>Data export</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="925"/>
+        <location filename="Collection.py" line="933"/>
         <source>Saving...</source>
         <translation>Opslaan...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="928"/>
+        <location filename="Collection.py" line="936"/>
         <source>Compact...</source>
         <translation>Verkleinen...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="945"/>
+        <location filename="Collection.py" line="953"/>
         <source>Vacuum...</source>
         <translation>Comprimeren...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1071"/>
+        <location filename="Collection.py" line="1079"/>
         <source>Merge collections</source>
         <translation>samenvoegen collecties</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="971"/>
+        <location filename="Collection.py" line="979"/>
         <source>Source collection %s in old format %d.
 (Try to open it before merging.)</source>
         <translation>Broncollectie %s heeft een oud formaat %d. (Probeer deze te openen voor deze samen te voegen)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="985"/>
+        <location filename="Collection.py" line="993"/>
         <source>Inserting records</source>
         <translation>data toevoegen</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1071"/>
+        <location filename="Collection.py" line="1079"/>
         <source>The application will need to restart now</source>
         <translation>De applicatie moet opnieuw opstarten</translation>
     </message>
@@ -140,338 +139,353 @@
 <context>
     <name>CollectionFieldsBase</name>
     <message>
-        <location filename="CollectionFields.py" line="119"/>
+        <location filename="CollectionFields.py" line="120"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="121"/>
+        <location filename="CollectionFields.py" line="122"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="122"/>
+        <location filename="CollectionFields.py" line="123"/>
         <source>Value</source>
         <translation>Waarde</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="123"/>
+        <location filename="CollectionFields.py" line="124"/>
         <source>Unit</source>
         <translation>Eenheid</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="124"/>
+        <location filename="CollectionFields.py" line="125"/>
         <source>Country</source>
         <translation>Land</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="125"/>
+        <location filename="CollectionFields.py" line="126"/>
         <source>Year</source>
         <translation>Jaar</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="126"/>
+        <location filename="CollectionFields.py" line="127"/>
         <source>Period</source>
         <translation>Periode</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="127"/>
+        <location filename="CollectionFields.py" line="128"/>
         <source>Mint</source>
         <translation>Munthuis</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="128"/>
+        <location filename="CollectionFields.py" line="129"/>
         <source>Mint mark</source>
         <translation>Muntteken</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="129"/>
+        <location filename="CollectionFields.py" line="130"/>
         <source>Date of issue</source>
         <translation>Uitgiftedatum</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="141"/>
+        <location filename="CollectionFields.py" line="142"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="131"/>
+        <location filename="CollectionFields.py" line="132"/>
         <source>Series</source>
         <translation>Uitvoering</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="181"/>
+        <location filename="CollectionFields.py" line="182"/>
         <source>Subject</source>
         <translation>Onderwerp</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="133"/>
+        <location filename="CollectionFields.py" line="134"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="134"/>
+        <location filename="CollectionFields.py" line="135"/>
         <source>Material</source>
         <translation>Materiaal</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="135"/>
+        <location filename="CollectionFields.py" line="136"/>
         <source>Fineness</source>
         <translation>Gehalte</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="136"/>
+        <location filename="CollectionFields.py" line="137"/>
         <source>Shape</source>
         <translation>Vorm</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="137"/>
+        <location filename="CollectionFields.py" line="138"/>
         <source>Diameter</source>
         <translation>Diameter</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="138"/>
+        <location filename="CollectionFields.py" line="139"/>
         <source>Thickness</source>
         <translation>Dikte</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="139"/>
+        <location filename="CollectionFields.py" line="140"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="140"/>
+        <location filename="CollectionFields.py" line="141"/>
         <source>Grade</source>
         <translation>Kwaliteitsgraad</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="142"/>
+        <location filename="CollectionFields.py" line="143"/>
         <source>Label</source>
         <translation>Label</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="143"/>
+        <location filename="CollectionFields.py" line="144"/>
         <source>ObvRev</source>
         <translation>Voor/achter</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="144"/>
+        <location filename="CollectionFields.py" line="145"/>
         <source>Quality</source>
         <translation>Kwaliteit</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="145"/>
+        <location filename="CollectionFields.py" line="146"/>
         <source>Mintage</source>
         <translation>gemunt</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="146"/>
+        <location filename="CollectionFields.py" line="147"/>
         <source>Emission period</source>
         <translation>Uitgifte periode</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="147"/>
+        <location filename="CollectionFields.py" line="148"/>
         <source>1#</source>
         <translation>1#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="148"/>
+        <location filename="CollectionFields.py" line="149"/>
         <source>2#</source>
         <translation>2#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="149"/>
+        <location filename="CollectionFields.py" line="150"/>
         <source>3#</source>
         <translation>3#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="150"/>
+        <location filename="CollectionFields.py" line="151"/>
         <source>4#</source>
         <translation>4#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="151"/>
+        <location filename="CollectionFields.py" line="152"/>
         <source>Rarity</source>
         <translation>Zeldzaam</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="152"/>
+        <location filename="CollectionFields.py" line="153"/>
         <source>Fine</source>
         <translation>Fraai</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="153"/>
+        <location filename="CollectionFields.py" line="154"/>
         <source>VF</source>
         <translation>Zeer fraai</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="154"/>
+        <location filename="CollectionFields.py" line="155"/>
         <source>XF</source>
         <translation>Prachtig</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="155"/>
+        <location filename="CollectionFields.py" line="156"/>
         <source>Unc</source>
         <translation>Unc</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="156"/>
+        <location filename="CollectionFields.py" line="157"/>
         <source>Variety</source>
         <translation>Variant</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="174"/>
+        <location filename="CollectionFields.py" line="175"/>
         <source>Obverse</source>
         <translation>Voorzijde</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="177"/>
+        <location filename="CollectionFields.py" line="178"/>
         <source>Reverse</source>
         <translation>Achterzijde</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="180"/>
+        <location filename="CollectionFields.py" line="181"/>
         <source>Edge</source>
         <translation>Rand</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="166"/>
+        <location filename="CollectionFields.py" line="167"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="167"/>
+        <location filename="CollectionFields.py" line="168"/>
         <source>Price</source>
         <translation>Prijs</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="162"/>
+        <location filename="CollectionFields.py" line="163"/>
         <source>Paid</source>
         <translation>Betaald</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="163"/>
-        <source>Saller</source>
-        <translation>Verkoper</translation>
-    </message>
-    <message>
-        <location filename="CollectionFields.py" line="170"/>
+        <location filename="CollectionFields.py" line="171"/>
         <source>Place</source>
         <translation>Plaats</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="171"/>
+        <location filename="CollectionFields.py" line="172"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="168"/>
+        <location filename="CollectionFields.py" line="169"/>
         <source>Bailed</source>
         <translation>Ontvangen</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="169"/>
+        <location filename="CollectionFields.py" line="170"/>
         <source>Buyer</source>
         <translation>Koper</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="172"/>
+        <location filename="CollectionFields.py" line="173"/>
         <source>Note</source>
         <translation>Notitie</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="173"/>
+        <location filename="CollectionFields.py" line="174"/>
         <source>Image</source>
         <translation>Afbeelding</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="178"/>
+        <location filename="CollectionFields.py" line="179"/>
         <source>Design</source>
         <translation>Ontwerp</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="179"/>
+        <location filename="CollectionFields.py" line="180"/>
         <source>Designer</source>
         <translation>Ontwerper</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="182"/>
+        <location filename="CollectionFields.py" line="183"/>
         <source>Photo 1</source>
         <translation>Foto 1</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="183"/>
+        <location filename="CollectionFields.py" line="184"/>
         <source>Photo 2</source>
         <translation>Foto 2</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="184"/>
+        <location filename="CollectionFields.py" line="185"/>
         <source>Photo 3</source>
         <translation>Foto 3</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="185"/>
+        <location filename="CollectionFields.py" line="186"/>
         <source>Photo 4</source>
         <translation>Foto 4</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="186"/>
+        <location filename="CollectionFields.py" line="187"/>
         <source>Defect</source>
         <translation>Beschadiging</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="187"/>
+        <location filename="CollectionFields.py" line="188"/>
         <source>Storage</source>
         <translation>Opslag</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="188"/>
+        <location filename="CollectionFields.py" line="189"/>
         <source>Features</source>
         <translation>Kenmerken</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="189"/>
+        <location filename="CollectionFields.py" line="190"/>
         <source>Created at</source>
         <translation>Gemaakt bij</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="190"/>
+        <location filename="CollectionFields.py" line="191"/>
         <source>Updated at</source>
         <translation>Bijgewerkt op</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="191"/>
+        <location filename="CollectionFields.py" line="192"/>
         <source>Quantity</source>
         <translation>Aantal</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="192"/>
+        <location filename="CollectionFields.py" line="193"/>
         <source>URL</source>
         <translation>Webadres</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="193"/>
+        <location filename="CollectionFields.py" line="194"/>
         <source>Barcode</source>
         <translation>Barcode</translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="164"/>
+        <source>Seller</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>CollectionModel</name>
     <message>
-        <location filename="Collection.py" line="438"/>
+        <location filename="Collection.py" line="446"/>
         <source>Filtering</source>
         <translation>Filteren</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="438"/>
+        <location filename="Collection.py" line="446"/>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Filter is te complex. Word genegeerd</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="381"/>
+        <source>file is readonly</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="Collection.py" line="384"/>
+        <source>Can&apos;t save data: %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="Collection.py" line="384"/>
+        <source>Saving</source>
+        <translation>Opslaan</translation>
     </message>
 </context>
 <context>
     <name>CustomizeTreeDialog</name>
     <message>
-        <location filename="CustomizeTreeDialog.py" line="110"/>
+        <location filename="CustomizeTreeDialog.py" line="109"/>
         <source>Customize tree</source>
         <translation>Aanpassen zoekboom</translation>
     </message>
@@ -590,52 +604,52 @@
 <context>
     <name>EditCoinDialog</name>
     <message>
-        <location filename="EditCoinDialog.py" line="58"/>
+        <location filename="EditCoinDialog.py" line="59"/>
         <source>Multi edit</source>
         <translation>Meerdere bewerkingen</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="60"/>
+        <location filename="EditCoinDialog.py" line="61"/>
         <source>New</source>
         <translation>Nieuw</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="62"/>
+        <location filename="EditCoinDialog.py" line="63"/>
         <source>Edit</source>
         <translation>Bewerken</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="145"/>
+        <location filename="EditCoinDialog.py" line="150"/>
         <source>Save</source>
         <translation>Opslaan</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="86"/>
+        <location filename="EditCoinDialog.py" line="90"/>
         <source>Coin title not set. Save without title?</source>
         <translation>Munt titel niet opgegeven, opslaan zonder titel?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="99"/>
+        <location filename="EditCoinDialog.py" line="103"/>
         <source>Total paid price is negative. Save?</source>
         <translation>Totaal betaalde prijs is negatief. Opslaan?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="108"/>
+        <location filename="EditCoinDialog.py" line="112"/>
         <source>Pay price is great than total paid price. Save?</source>
         <translation>Koopprijs hoger is dan de totale prijs betaald. Opslaan?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="120"/>
+        <location filename="EditCoinDialog.py" line="124"/>
         <source>Total bailed price is negative. Save?</source>
         <translation>Totale ontvangen prijs is negatief. Opslaan?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="129"/>
+        <location filename="EditCoinDialog.py" line="133"/>
         <source>Sale price is less than total bailed price. Save?</source>
         <translation>Verkoopprijs is minder dan de ontvangen prijs. Opslaan?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="145"/>
+        <location filename="EditCoinDialog.py" line="150"/>
         <source>Similar coin already exists. Save?</source>
         <translation>Eenzelfde munt bestaat al. Opslaan ?</translation>
     </message>
@@ -650,87 +664,90 @@
     <message>
         <location filename="main.py" line="90"/>
         <source>A system error occurred.
-Do you want to send an error message to the author
-(Google account required)?</source>
+Do you want to send an error message to the author?</source>
         <translation>Een systeemfout is opgetreden.
-Wilt u een foutmelding te sturen naar de author
-(Google-account vereist)?</translation>
+Wilt u een foutmelding te sturen naar de author?</translation>
+    </message>
+    <message>
+        <location filename="main.py" line="102"/>
+        <source>PLEASE ADD A COMMENT, IT WILL HELP IN SOLVING THE PROBLEM</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="Export.py" line="20"/>
+        <location filename="Export.py" line="21"/>
         <source>Export to mobile</source>
         <translation>Eporteren naar mobiel</translation>
     </message>
     <message>
-        <location filename="Export.py" line="31"/>
+        <location filename="Export.py" line="32"/>
         <source>Target density of the display</source>
         <translation>Schermresolutie mobiel apparaat</translation>
     </message>
     <message>
-        <location filename="Export.py" line="39"/>
+        <location filename="Export.py" line="40"/>
         <source>Countries</source>
         <translation>Landen</translation>
     </message>
     <message>
-        <location filename="Export.py" line="40"/>
+        <location filename="Export.py" line="41"/>
         <source>Series</source>
         <translation>Uitvoeringen</translation>
     </message>
     <message>
-        <location filename="Export.py" line="41"/>
+        <location filename="Export.py" line="42"/>
         <source>Denomination</source>
         <translation>Benaming</translation>
     </message>
     <message>
-        <location filename="Export.py" line="44"/>
+        <location filename="Export.py" line="45"/>
         <source>Default filter by</source>
         <translation>Standaard filteren op</translation>
     </message>
     <message>
-        <location filename="Export.py" line="47"/>
+        <location filename="Export.py" line="48"/>
         <source>Image</source>
         <translation>Afbeelding</translation>
     </message>
     <message>
-        <location filename="Export.py" line="50"/>
+        <location filename="Export.py" line="51"/>
         <source>Obverse</source>
         <translation>Voorzijde</translation>
     </message>
     <message>
-        <location filename="Export.py" line="51"/>
+        <location filename="Export.py" line="52"/>
         <source>Reverse</source>
         <translation>Achterzijde</translation>
     </message>
     <message>
-        <location filename="Export.py" line="52"/>
+        <location filename="Export.py" line="53"/>
         <source>Both</source>
         <translation>Beide</translation>
     </message>
     <message>
-        <location filename="Export.py" line="77"/>
+        <location filename="Export.py" line="78"/>
         <source>Destination</source>
         <translation>Bestemming</translation>
     </message>
     <message>
-        <location filename="Export.py" line="98"/>
+        <location filename="Export.py" line="99"/>
         <source>Select destination</source>
         <translation>Selecteer bestemming</translation>
     </message>
     <message>
-        <location filename="Export.py" line="112"/>
+        <location filename="Export.py" line="111"/>
         <source>Create mobile collection</source>
         <translation>Maak een mobiele verzameling</translation>
     </message>
     <message>
-        <location filename="Export.py" line="112"/>
+        <location filename="Export.py" line="111"/>
         <source>Destination file not specified</source>
         <translation>lokatie bestand niet opgegeven</translation>
     </message>
     <message>
-        <location filename="Export.py" line="62"/>
+        <location filename="Export.py" line="63"/>
         <source>Export a full-sized image</source>
         <translation>Exporteer volledige afbeeldingen</translation>
     </message>
@@ -738,17 +755,17 @@ Wilt u een foutmelding te sturen naar de author
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="281"/>
+        <location filename="Settings.py" line="296"/>
         <source>Revert to default</source>
         <translation>Terugkeren naar standaardwaarden</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="289"/>
+        <location filename="Settings.py" line="304"/>
         <source>Global enabled fields:</source>
         <translation>Algemeen geactiveerde velden:</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="276"/>
+        <location filename="Settings.py" line="291"/>
         <source>Rename</source>
         <translation>Hernoemen</translation>
     </message>
@@ -804,45 +821,50 @@ Wilt u een foutmelding te sturen naar de author
         <translation>Afbeeldingen</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="525"/>
+        <location filename="DetailsTabWidget.py" line="536"/>
         <source>Main details</source>
         <translation>Hoofd details</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="528"/>
+        <location filename="DetailsTabWidget.py" line="539"/>
         <source>Generate</source>
         <translation>Genereren</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="545"/>
+        <location filename="DetailsTabWidget.py" line="556"/>
         <source>Obverse</source>
         <translation>Voorzijde</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="555"/>
+        <location filename="DetailsTabWidget.py" line="566"/>
         <source>Reverse</source>
         <translation>Achterzijde</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="565"/>
+        <location filename="DetailsTabWidget.py" line="576"/>
         <source>Edge</source>
         <translation>Rand</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="652"/>
+        <location filename="DetailsTabWidget.py" line="664"/>
         <source>Commission</source>
         <translation>Commissie</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="666"/>
+        <source>Available format 12.5 or 10%</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ImageEdit</name>
     <message>
-        <location filename="ImageLabel.py" line="99"/>
+        <location filename="ImageLabel.py" line="101"/>
         <source>Load...</source>
         <translation>Laden...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="103"/>
+        <location filename="ImageLabel.py" line="104"/>
         <source>Paste</source>
         <translation>Plakken</translation>
     </message>
@@ -852,22 +874,22 @@ Wilt u een foutmelding te sturen naar de author
         <translation>Kopiëren</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="113"/>
+        <location filename="ImageLabel.py" line="112"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="118"/>
+        <location filename="ImageLabel.py" line="116"/>
         <source>Save as...</source>
         <translation>Opslaan als...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="140"/>
+        <location filename="ImageLabel.py" line="141"/>
         <source>Open File</source>
         <translation>Open bestand</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="158"/>
+        <location filename="ImageLabel.py" line="154"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</source>
         <translation>Afbeeldingen (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;Alle bestanden (*.*)</translation>
     </message>
@@ -877,11 +899,16 @@ Wilt u een foutmelding te sturen naar de author
         <translation>Bestand opslaan</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="189"/>
+        <location filename="ImageLabel.py" line="185"/>
         <source>No image available
 (right-click to add an image)</source>
         <translation>Geen afbeelding beschikbaar
 (Klik met de rechtermuisknop op een afbeelding toe te voegen)</translation>
+    </message>
+    <message>
+        <location filename="ImageLabel.py" line="93"/>
+        <source>Exchange with</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -998,10 +1025,7 @@ Wilt u een foutmelding te sturen naar de author
     <message numerus="yes">
         <location filename="ListView.py" line="400"/>
         <source>%n coin(s) selected</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="442"/>
@@ -1056,10 +1080,7 @@ Wilt u een foutmelding te sturen naar de author
     <message numerus="yes">
         <location filename="ListView.py" line="695"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="701"/>
@@ -1077,92 +1098,107 @@ Wilt u een foutmelding te sturen naar de author
         <translation>Toevoegen</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="63"/>
+        <location filename="ReferenceDialog.py" line="64"/>
         <source>Change icon...</source>
         <translation>Icoon aanpassen</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="65"/>
+        <location filename="ReferenceDialog.py" line="66"/>
         <source>Add icon...</source>
         <translation>Ikoon toevoegen</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="69"/>
+        <location filename="ReferenceDialog.py" line="70"/>
         <source>Clear icon</source>
         <translation>Ikoon wissen</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="83"/>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</source>
-        <translation>Afbeeldingen (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;Alle bestanden (*.*)</translation>
-    </message>
-    <message>
-        <location filename="ReferenceDialog.py" line="85"/>
+        <location filename="ReferenceDialog.py" line="86"/>
         <source>Open File</source>
         <translation>Open bestand</translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="84"/>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
+        <translation>Afbeeldingen (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Alle bestanden (*.*)</translation>
     </message>
 </context>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="Settings.py" line="138"/>
+        <location filename="Settings.py" line="140"/>
         <source>Language</source>
         <translation>Taal</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="219"/>
+        <location filename="Settings.py" line="232"/>
         <source>Backup folder</source>
         <translation>Backup map</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="167"/>
+        <location filename="Settings.py" line="169"/>
         <source>Reference</source>
         <translation>Referentie</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="169"/>
+        <location filename="Settings.py" line="171"/>
         <source>Send error info to author</source>
         <translation>Verzend de fout naar de auteur</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="174"/>
+        <location filename="Settings.py" line="176"/>
         <source>Automatically check for updates</source>
         <translation>Automatisch controleren op update&apos;s</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="181"/>
+        <location filename="Settings.py" line="183"/>
         <source>Max image side len</source>
         <translation>Max beeldformaat len</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="184"/>
+        <location filename="Settings.py" line="187"/>
         <source>Free format numeric fields</source>
         <translation>Vrij format voor numerieke velden</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="189"/>
+        <location filename="Settings.py" line="192"/>
         <source>Store column sorting</source>
         <translation>Opslaan van de kolomsortering</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="194"/>
+        <location filename="Settings.py" line="197"/>
         <source>Sort items in filters (slow)</source>
         <translation>Sorteer eenheden met filters (traag)</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="199"/>
+        <location filename="Settings.py" line="202"/>
         <source>Sort items in tree (slow)</source>
         <translation>Sorteer eenheden in de zoekboom (traag)</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="214"/>
+        <location filename="Settings.py" line="227"/>
         <source>Default template</source>
         <translation>standaardsjabloon</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="226"/>
+        <location filename="Settings.py" line="239"/>
         <source>Select reference</source>
         <translation>selecteer referentie</translation>
+    </message>
+    <message>
+        <location filename="Settings.py" line="185"/>
+        <source>0 for storing in original size</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="Settings.py" line="207"/>
+        <source>Check that coin title present on save</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="Settings.py" line="212"/>
+        <source>Check coin duplicates on save</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1173,232 +1209,232 @@ Wilt u een foutmelding te sturen naar de author
         <translation>Instellingen...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="38"/>
+        <location filename="MainWindow.py" line="39"/>
         <source>Clear all filters</source>
         <translation>Wis alle filters</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="43"/>
+        <location filename="MainWindow.py" line="44"/>
         <source>E&amp;xit</source>
         <translation>E&amp;inde</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="48"/>
+        <location filename="MainWindow.py" line="49"/>
         <source>&amp;New...</source>
         <translation>&amp;nieuw</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="53"/>
+        <location filename="MainWindow.py" line="54"/>
         <source>&amp;Open...</source>
         <translation>&amp;Open</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="57"/>
+        <location filename="MainWindow.py" line="58"/>
         <source>Backup</source>
         <translation>Backup</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="63"/>
+        <location filename="MainWindow.py" line="64"/>
         <source>Vacuum</source>
         <translation>Comprimeren...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="69"/>
+        <location filename="MainWindow.py" line="70"/>
         <source>Description</source>
         <translation>Omschrijving</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="74"/>
+        <location filename="MainWindow.py" line="75"/>
         <source>Set password...</source>
         <translation>Wachtwoord instellen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="79"/>
+        <location filename="MainWindow.py" line="80"/>
         <source>Import</source>
         <translation>Importeren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="83"/>
+        <location filename="MainWindow.py" line="84"/>
         <source>Numizmat 2.1</source>
         <translation>Numizmat 2.1</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="91"/>
+        <location filename="MainWindow.py" line="92"/>
         <source>Cabinet 2.2.2.1, 2013</source>
         <translation>Cabinet 2.2.2.1, 2013</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="99"/>
+        <location filename="MainWindow.py" line="100"/>
         <source>CoinsCollector 2.6</source>
         <translation>CoinsCollector 2.6</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="108"/>
+        <location filename="MainWindow.py" line="109"/>
         <source>CoinManage 2011</source>
         <translation>CoinManage 2011</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="116"/>
+        <location filename="MainWindow.py" line="117"/>
         <source>Collection Studio 3.65</source>
         <translation>Collection Studio 3.65</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="125"/>
+        <location filename="MainWindow.py" line="126"/>
         <source>Numizmatik_Ru 1.0.0.82</source>
         <translation>Numizmatik_Ru 1.0.0.82</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="133"/>
+        <location filename="MainWindow.py" line="134"/>
         <source>uCoin.net</source>
         <translation>uCoin.net</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="153"/>
+        <location filename="MainWindow.py" line="154"/>
         <source>Export</source>
         <translation>Exporteren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="156"/>
+        <location filename="MainWindow.py" line="157"/>
         <source>For Android version</source>
         <translation>Voor Android versie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="161"/>
+        <location filename="MainWindow.py" line="162"/>
         <source>&amp;File</source>
         <translation>&amp;bestand</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="185"/>
+        <location filename="MainWindow.py" line="186"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="191"/>
+        <location filename="MainWindow.py" line="192"/>
         <source>Edit...</source>
         <translation>bewerken...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="198"/>
+        <location filename="MainWindow.py" line="199"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="204"/>
+        <location filename="MainWindow.py" line="205"/>
         <source>Copy</source>
         <translation>Kopiëren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="210"/>
+        <location filename="MainWindow.py" line="211"/>
         <source>Paste</source>
         <translation>Plakken</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="216"/>
+        <location filename="MainWindow.py" line="217"/>
         <source>Coin</source>
         <translation>Munt</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="226"/>
+        <location filename="MainWindow.py" line="227"/>
         <source>View in browser</source>
         <translation>Bekijk in de browser</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="234"/>
+        <location filename="MainWindow.py" line="235"/>
         <source>List</source>
         <translation>Lijst</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="246"/>
+        <location filename="MainWindow.py" line="247"/>
         <source>Reference</source>
         <translation>Referentie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="248"/>
+        <location filename="MainWindow.py" line="250"/>
         <source>Report...</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="253"/>
+        <location filename="MainWindow.py" line="255"/>
         <source>Save current list...</source>
         <translation>Sla huidige lijst op</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="258"/>
+        <location filename="MainWindow.py" line="260"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="264"/>
+        <location filename="MainWindow.py" line="266"/>
         <source>Online help</source>
         <translation>Online hulp</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="268"/>
+        <location filename="MainWindow.py" line="270"/>
         <source>Check for updates</source>
         <translation>Controleren op update&apos;s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="637"/>
+        <location filename="MainWindow.py" line="638"/>
         <source>About %s</source>
         <translation>Over %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="273"/>
+        <location filename="MainWindow.py" line="275"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="280"/>
+        <location filename="MainWindow.py" line="282"/>
         <source>Toolbar</source>
         <translation>Toolbar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="351"/>
+        <location filename="MainWindow.py" line="353"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="351"/>
+        <location filename="MainWindow.py" line="353"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>De applicatie moet opnieuw opstarten om de nieuwe instellingen te verwerken. Nu opnieuw starten?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="460"/>
+        <location filename="MainWindow.py" line="462"/>
         <source>Select file</source>
         <translation>Selecteer bestand</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="446"/>
+        <location filename="MainWindow.py" line="448"/>
         <source>Importing</source>
         <translation>Bezig met Importeren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="377"/>
+        <location filename="MainWindow.py" line="379"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Voordat u importeert moet u uw bestaande verzameling exporteren vanuit Cabinet</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="390"/>
+        <location filename="MainWindow.py" line="392"/>
         <source>Select directory</source>
         <translation>Selecteer map</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="401"/>
+        <location filename="MainWindow.py" line="403"/>
         <source>Import pre-defined coins?</source>
         <translation>Importeer voorgedefinieerde munten?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="415"/>
+        <location filename="MainWindow.py" line="417"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Voordat u importeert moet u uw bestaande verzameling exporteren vanuit Collection Studio naar een XML tabel (kies Collection Studio menu Tools &gt; Export...)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="432"/>
+        <location filename="MainWindow.py" line="434"/>
         <source>Import club catalog?</source>
         <translation>Importeer clubcatalogus?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="446"/>
+        <location filename="MainWindow.py" line="448"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Voordat u importeert moet u uw bestaande verzameling exporteren van uCoin.net naar Comma-Separated (CSV) formaat.</translation>
     </message>
@@ -1410,10 +1446,10 @@ Wilt u een foutmelding te sturen naar de author
     <message>
         <location filename="MainWindow.py" line="560"/>
         <source>Collections (*.db)</source>
-        <translation>verzamelingen (.db)</translation>
+        <translation>verzamelingen (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="534"/>
+        <location filename="MainWindow.py" line="536"/>
         <source>New collection</source>
         <translation>Nieuwe verzameling</translation>
     </message>
@@ -1423,54 +1459,45 @@ Wilt u een foutmelding te sturen naar de author
         <translation>Maak een nieuwe verzameling aan of open een bestaande</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="622"/>
-        <source>%s %s
-
-Copyright (C) 2011-2015 Vitaly Ignatov
-
-%s is freeware licensed under a GPLv3.</source>
-        <translation type="obsolete">%s %s
-Copyright (C) 2011-2015 Vitaly Ignatov
-%s is opensource licentie onder a GPLv3.</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="665"/>
+        <location filename="MainWindow.py" line="666"/>
         <source>Updates</source>
         <translation>Updates</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="665"/>
+        <location filename="MainWindow.py" line="666"/>
         <source>You already have the latest version.</source>
         <translation>Je beschikt al over de laatste versie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="676"/>
+        <location filename="MainWindow.py" line="677"/>
         <source>New version</source>
         <translation>nieuwe versie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="676"/>
+        <location filename="MainWindow.py" line="677"/>
         <source>New version is available. Download it now?</source>
-        <translation>Nieuwe versie beschikbaar, nu downloaden ?</translation>
+        <translation>Nieuwe versie beschikbaar, nu downloaden?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="148"/>
+        <location filename="MainWindow.py" line="149"/>
         <source>Add from another...</source>
         <translation>Toevoegen van een ander...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="141"/>
+        <location filename="MainWindow.py" line="142"/>
         <source>Tellico</source>
-        <translation type="unfinished"></translation>
+        <translation>Tellico</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="637"/>
+        <location filename="MainWindow.py" line="638"/>
         <source>%s %s
 
-Copyright (C) 2011-2016 Vitaly Ignatov
+Copyright (C) 2011-2017 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished"></translation>
+        <translation>%s %s
+Copyright (C) 2011-2017 Vitaly Ignatov
+%s is opensource licentie onder a GPLv3.</translation>
     </message>
 </context>
 <context>
@@ -1794,14 +1821,14 @@ Copyright (C) 2011-2016 Vitaly Ignatov
     </message>
     <message>
         <location filename="Reference.py" line="355"/>
-        <source>Can&apos;t open reference:
+        <source>Can't open reference:
 %s</source>
         <translation>Kan de referentie niet openen:
 %s</translation>
     </message>
     <message>
         <location filename="Reference.py" line="372"/>
-        <source>Can&apos;t open reference:
+        <source>Can't open reference:
 %s
 Created new one</source>
         <translation>Kan de referentie niet openen:
@@ -1812,7 +1839,7 @@ Nieuwe aangemaakt</translation>
 <context>
     <name>ReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="279"/>
+        <location filename="ReferenceDialog.py" line="281"/>
         <source>Reference</source>
         <translation>Referentie</translation>
     </message>
@@ -1820,17 +1847,17 @@ Nieuwe aangemaakt</translation>
 <context>
     <name>ReferenceWidget</name>
     <message>
-        <location filename="ReferenceDialog.py" line="137"/>
+        <location filename="ReferenceDialog.py" line="138"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="141"/>
+        <location filename="ReferenceDialog.py" line="142"/>
         <source>Del</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="147"/>
+        <location filename="ReferenceDialog.py" line="149"/>
         <source>Sort</source>
         <translation>Sorteren</translation>
     </message>
@@ -1859,17 +1886,17 @@ Nieuwe aangemaakt</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="Settings.py" line="337"/>
+        <location filename="Settings.py" line="352"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="340"/>
+        <location filename="Settings.py" line="355"/>
         <source>Main</source>
         <translation>Begin</translation>
     </message>
     <message>
-        <location filename="Settings.py" line="341"/>
+        <location filename="Settings.py" line="356"/>
         <source>Fields</source>
         <translation>Velden</translation>
     </message>
@@ -1915,104 +1942,104 @@ Nieuwe aangemaakt</translation>
 <context>
     <name>TabView</name>
     <message>
-        <location filename="TabView.py" line="52"/>
+        <location filename="TabView.py" line="57"/>
         <source>&amp;New...</source>
         <translation>&amp;nieuw...</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="56"/>
+        <location filename="TabView.py" line="61"/>
         <source>Clone</source>
         <translation>Klonen</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="60"/>
+        <location filename="TabView.py" line="65"/>
         <source>Open</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="63"/>
+        <location filename="TabView.py" line="68"/>
         <source>Remove all</source>
         <translation>Alles verwijderen</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="68"/>
+        <location filename="TabView.py" line="73"/>
         <source>Rename...</source>
         <translation>Hernoemen</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="72"/>
+        <location filename="TabView.py" line="77"/>
         <source>Select columns...</source>
         <translation>Kolommen selecteren ...</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="76"/>
+        <location filename="TabView.py" line="81"/>
         <source>Close</source>
         <translation>Sluiten</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="81"/>
+        <location filename="TabView.py" line="86"/>
         <source>Remove</source>
         <translation>Verwijderren</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="103"/>
+        <location filename="TabView.py" line="108"/>
         <source> (clone)</source>
         <translation>(Klonen)</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="153"/>
+        <location filename="TabView.py" line="158"/>
         <source>Coins</source>
         <translation>Munten</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="161"/>
+        <location filename="TabView.py" line="166"/>
         <source>New list</source>
         <translation>Nieuwe lijst</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="161"/>
+        <location filename="TabView.py" line="166"/>
         <source>Enter list title</source>
         <translation>Geef lijsttitel op</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="170"/>
+        <location filename="TabView.py" line="175"/>
         <source>Rename list</source>
         <translation>Verwijder lijst</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="170"/>
+        <location filename="TabView.py" line="175"/>
         <source>Enter new list title</source>
         <translation>Geef nieuwe lijsttitel op</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="205"/>
+        <location filename="TabView.py" line="210"/>
         <source>Remove page</source>
         <translation>Verwijder pagina</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="185"/>
-        <source>Can&apos;t close latest opened page.
+        <location filename="TabView.py" line="190"/>
+        <source>Can't close latest opened page.
 Add a new one first.</source>
         <translation>Kan de laatste pagina niet sluiten. Voeg eerst een nieuwe toe.</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="198"/>
-        <source>Can&apos;t remove latest opened page.
+        <location filename="TabView.py" line="203"/>
+        <source>Can't remove latest opened page.
 Add a new one first.</source>
         <translation>Kan de laatste pagina niet verwijderen. Voeg eerst een nieuwe toe</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="205"/>
+        <location filename="TabView.py" line="210"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
         <translation>Verwijder pagina &apos;%s&apos; permanent?</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="215"/>
+        <location filename="TabView.py" line="220"/>
         <source>Remove pages</source>
         <translation>Verwijder pagina&apos;s</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="215"/>
+        <location filename="TabView.py" line="220"/>
         <source>Remove all closed pages permanently?</source>
         <translation>Verwijder alle gesloten pagina&apos;s permanent?</translation>
     </message>
