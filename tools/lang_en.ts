@@ -1025,7 +1025,8 @@ Do you want to send an error message to the author?</source>
         <location filename="ListView.py" line="400"/>
         <source>%n coin(s) selected</source>
         <translation>
-            <numerusform></numerusform>
+            <numerusform>%n coin selected</numerusform>
+            <numerusform>%n coins selected</numerusform>
         </translation>
     </message>
     <message>
@@ -1082,7 +1083,8 @@ Do you want to send an error message to the author?</source>
         <location filename="ListView.py" line="695"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation>
-            <numerusform></numerusform>
+            <numerusform>Are you sure to remove a %n coin?</numerusform>
+            <numerusform>Are you sure to remove a %n coins?</numerusform>
         </translation>
     </message>
     <message>
