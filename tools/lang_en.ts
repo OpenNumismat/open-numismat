@@ -474,12 +474,12 @@
     </message>
     <message>
         <location filename="Collection.py" line="384"/>
-        <source>Savind</source>
+        <source>Can&apos;t save data: %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Collection.py" line="384"/>
-        <source>Can&apos;t save data: %s</source>
+        <source>Saving</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1025,8 +1025,7 @@ Do you want to send an error message to the author?</source>
         <location filename="ListView.py" line="400"/>
         <source>%n coin(s) selected</source>
         <translation>
-            <numerusform>%n coin selected</numerusform>
-            <numerusform>%n coins selected</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1083,8 +1082,7 @@ Do you want to send an error message to the author?</source>
         <location filename="ListView.py" line="695"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation>
-            <numerusform>Are you sure to remove a %n coin?</numerusform>
-            <numerusform>Are you sure to remove a %n coins?</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>

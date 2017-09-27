@@ -380,7 +380,7 @@ class CollectionModel(QSqlTableModel):
             else:
                 message = self.lastError().databaseText()
             QMessageBox.critical(
-                self.parent(), self.tr("Savind"),
+                self.parent(), self.tr("Saving"),
                 self.tr("Can't save data: %s") % message)
 
         if self.proxy:
