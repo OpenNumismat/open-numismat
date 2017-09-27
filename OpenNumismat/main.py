@@ -99,10 +99,10 @@ def exceptHook(type_, value, tback):
                                         line[0], line[1])
 
         errorMessage = []
-        errorMessage.append(QApplication.translate(
-            "ExcpHook",
-            "PLEASE ADD A COMMENT, IT WILL HELP IN SOLVING THE PROBLEM"))
-        errorMessage.append('')
+        # errorMessage.append(QApplication.translate(
+        #    "ExcpHook",
+        #    "PLEASE ADD A COMMENT, IT WILL HELP IN SOLVING THE PROBLEM"))
+        # errorMessage.append('')
         errorMessage.append("%s: %s" % (version.AppName, version.Version))
         errorMessage.append("OS: %s %s %s (%s)" % (platform.system(),
                                                    platform.release(),
@@ -110,6 +110,11 @@ def exceptHook(type_, value, tback):
                                                    platform.version()))
         errorMessage.append("Python: %s" % platform.python_version())
         errorMessage.append("Qt: %s" % PYQT_VERSION_STR)
+        try:
+            errorMessage.append("Locale: %s" % Settings()['locale'])
+        except:
+            pass
+
         errorMessage.append('')
         errorMessage.append(stack)
 
