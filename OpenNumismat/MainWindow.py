@@ -313,7 +313,7 @@ class MainWindow(QMainWindow):
         if pageIndex != None:
             self.viewTab.setCurrentIndex(int(pageIndex))
 
-        if settings.value('mainwindow/maximized', type=bool):
+        if settings.value('mainwindow/maximized', False, type=bool):
             self.showMaximized()
             size = settings.value('mainwindow/maximizedsize')
         else:
