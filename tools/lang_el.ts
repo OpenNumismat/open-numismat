@@ -107,12 +107,12 @@
     <message>
         <location filename="Collection.py" line="936"/>
         <source>Compact...</source>
-        <translation type="unfinished"/>
+        <translation>Συμπίεση...</translation>
     </message>
     <message>
         <location filename="Collection.py" line="953"/>
         <source>Vacuum...</source>
-        <translation type="unfinished"/>
+        <translation>Συμπίεση...</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1079"/>
@@ -297,7 +297,7 @@
     <message>
         <location filename="CollectionFields.py" line="153"/>
         <source>Fine</source>
-        <translation>Fine</translation>
+        <translation>Καλό</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="154"/>
@@ -669,11 +669,6 @@ Do you want to send an error message to the author?</source>
         <translation>Παρουσιάστηκε ένα σφάλμα συστήματος.
 Θέλετε να στείλετε ένα μήνυμα σφάλματος στον δημιουργό;</translation>
     </message>
-    <message>
-        <location filename="main.py" line="102"/>
-        <source>PLEASE ADD A COMMENT, IT WILL HELP IN SOLVING THE PROBLEM</source>
-        <translation>ΠΑΡΑΚΑΛΩ ΠΡΟΣΘΕΣΤΕ ΕΝΑ ΣΧΟΛΙΟ. ΑΥΤΟ ΘΑ ΒΟΗΘΗΣΕΙ ΣΤΗΝ ΕΠΙΛΥΣΗ ΤΟΥ ΠΡΟΒΛΗΜΑΤΟΣ</translation>
-    </message>
 </context>
 <context>
     <name>ExportDialog</name>
@@ -1026,7 +1021,7 @@ Do you want to send an error message to the author?</source>
     <message numerus="yes">
         <location filename="ListView.py" line="400"/>
         <source>%n coin(s) selected</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Επιλέχθηκε %n νόμισμα </numerusform><numerusform>Επιλέχθηκαν %n νομίσματα</numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="442"/>
@@ -1081,7 +1076,7 @@ Do you want to send an error message to the author?</source>
     <message numerus="yes">
         <location filename="ListView.py" line="695"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Είστε βέβαιος για τη διαγραφή του νομίσματος:</numerusform><numerusform>Είστε βέβαιος για τη διαγραφή των %n νομισμάτων:</numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="701"/>
@@ -1237,7 +1232,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="64"/>
         <source>Vacuum</source>
-        <translation>Συρρίκνωση</translation>
+        <translation>Συμπίεση</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="70"/>
@@ -2109,7 +2104,7 @@ Please update OpenNumismat</source>
     <message>
         <location filename="VersionUpdater.py" line="241"/>
         <source>Vacuum...</source>
-        <translation>Συρρίκνωση...</translation>
+        <translation>Συμπίεση...</translation>
     </message>
 </context>
 <context>

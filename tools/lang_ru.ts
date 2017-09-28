@@ -669,11 +669,6 @@ Do you want to send an error message to the author?</source>
         <translation>Произошла ошибка.
 Вы хотите отправить сообщение об ошибке разработчику?</translation>
     </message>
-    <message>
-        <location filename="main.py" line="102"/>
-        <source>PLEASE ADD A COMMENT, IT WILL HELP IN SOLVING THE PROBLEM</source>
-        <translation>ПОЖАЛУЙСТА, ДОБАВЬТЕ КОММЕНТАРИЙ - ЭТО ПОМОЖЕТ РЕШИТЬ ПРОБЛЕМУ</translation>
-    </message>
 </context>
 <context>
     <name>ExportDialog</name>

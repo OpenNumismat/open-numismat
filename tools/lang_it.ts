@@ -668,11 +668,6 @@ Do you want to send an error message to the author?</source>
         <translation>Si è verificato un errore di sistema.
 Vuoi mandare un messaggio di errore agli autori?</translation>
     </message>
-    <message>
-        <location filename="main.py" line="102"/>
-        <source>PLEASE ADD A COMMENT, IT WILL HELP IN SOLVING THE PROBLEM</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>ExportDialog</name>
