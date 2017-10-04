@@ -206,13 +206,14 @@ class CrossReferenceWidget(ReferenceWidget):
         self.comboBox = QComboBox(parent)
         self.comboBox.setModel(self.rel)
         self.comboBox.setModelColumn(self.rel.fieldIndex('value'))
-        self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
         if parentIndex:
             row = parentIndex.row()
         else:
             row = -1
         self.comboBox.setCurrentIndex(row)
+        self.currentIndexChanged(row)
         self.comboBox.setDisabled(True)
+        self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
 
         self.layout().insertWidget(0, self.comboBox)
 
