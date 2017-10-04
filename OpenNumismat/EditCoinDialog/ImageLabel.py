@@ -98,22 +98,27 @@ class ImageEdit(ImageLabel):
         style = QApplication.style()
 
         icon = style.standardIcon(QStyle.SP_DirOpenIcon)
-        load = QAction(icon, self.tr("Load..."), self)
+        text = QApplication.translate('ImageEdit', "Load...")
+        load = QAction(icon, text, self)
         load.triggered.connect(self.openImage)
 
-        paste = QAction(self.tr("Paste"), self)
+        text = QApplication.translate('ImageEdit', "Paste")
+        paste = QAction(text, self)
         paste.triggered.connect(self.pasteImage)
 
-        copy = QAction(self.tr("Copy"), self)
+        text = QApplication.translate('ImageEdit', "Copy")
+        copy = QAction(text, self)
         copy.triggered.connect(self.copyImage)
         copy.setDisabled(self.image.isNull())
 
         icon = style.standardIcon(QStyle.SP_TrashIcon)
-        delete = QAction(icon, self.tr("Delete"), self)
+        text = QApplication.translate('ImageEdit', "Delete")
+        delete = QAction(icon, text, self)
         delete.triggered.connect(self.deleteImage)
         delete.setDisabled(self.image.isNull())
 
-        save = QAction(self.tr("Save as..."), self)
+        text = QApplication.translate('ImageEdit', "Save as...")
+        save = QAction(text, self)
         save.triggered.connect(self.saveImage)
         save.setDisabled(self.image.isNull())
 
@@ -136,10 +141,12 @@ class ImageEdit(ImageLabel):
             super(ImageEdit, self).mouseDoubleClickEvent(e)
 
     def openImage(self):
-        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
-                          "All files (*.*)")
-        fileName, _selectedFilter = QFileDialog.getOpenFileName(
-            self, self.tr("Open File"), ImageEdit.latestDir, filter_)
+        caption = QApplication.translate('ImageEdit', "Open File")
+        filter_ = QApplication.translate('ImageEdit',
+                            "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
+                            "All files (*.*)")
+        fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
+                caption, ImageEdit.latestDir, filter_)
         if fileName:
             file_info = QFileInfo(fileName)
             ImageEdit.latestDir = file_info.absolutePath()
@@ -151,12 +158,13 @@ class ImageEdit(ImageLabel):
         self.changed = True
 
     def saveImage(self):
-        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
-                          "All files (*.*)")
+        caption = QApplication.translate('ImageEdit', "Save File")
+        filter_ = QApplication.translate('ImageEdit',
+                            "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
+                            "All files (*.*)")
         # TODO: Set default name to coin title + field name
-        fileName, _selectedFilter = QFileDialog.getSaveFileName(
-            self, self.tr("Save File"), ImageEdit.latestDir + '/' + self.name,
-            filter_)
+        fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
+                caption, ImageEdit.latestDir + '/' + self.name, filter_)
         if fileName:
             dir_ = QDir(fileName)
             dir_.cdUp()
@@ -182,7 +190,8 @@ class ImageEdit(ImageLabel):
 
     def clear(self):
         super(ImageEdit, self).clear()
-        text = self.tr("No image available\n(right-click to add an image)")
+        text = QApplication.translate('ImageEdit',
+                        "No image available\n(right-click to add an image)")
         self.setText(text)
 
     def loadFromFile(self, fileName):
