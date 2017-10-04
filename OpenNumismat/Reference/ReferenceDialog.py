@@ -164,7 +164,7 @@ class ReferenceWidget(QWidget):
         self.setLayout(layout)
 
     def sortChanged(self, state):
-        if self.sortButton.isChecked():
+        if state == Qt.Checked:
             self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
         else:
             self.model.setSort(0, Qt.AscendingOrder)
