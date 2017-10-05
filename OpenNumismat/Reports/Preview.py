@@ -13,7 +13,10 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtPrintSupport import QPrinter, QPrintPreviewWidget, QPrintDialog, QPageSetupDialog
-from PyQt5.QtWebKitWidgets import QWebView
+try:
+    from PyQt5.QtWebKitWidgets import QWebView
+except ImportError:
+    print('PyQt5.QtWebKitWidgets module missed. Report preview not available')
 
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
