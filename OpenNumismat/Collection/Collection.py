@@ -679,10 +679,12 @@ class Collection(QtCore.QObject):
                     query.addBindValue(data)
                     query.exec_()
                     refSection.fillFromQuery(parentId, query)
+                    refSection.reload()
             else:
                 sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL" % (columnName, columnName, columnName)
                 query = QSqlQuery(sql, self.db)
                 refSection.fillFromQuery(query)
+                refSection.reload()
 
         progressDlg.reset()
 
