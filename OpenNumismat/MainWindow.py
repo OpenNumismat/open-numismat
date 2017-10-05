@@ -23,6 +23,7 @@ from OpenNumismat.Collection.Import import *
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
+        self.setAttribute(Qt.WA_DeleteOnClose)
 
         self.setWindowIcon(createIcon('main.ico'))
 
