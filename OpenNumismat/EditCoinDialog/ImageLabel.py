@@ -90,7 +90,8 @@ class ImageEdit(ImageLabel):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenu)
 
-        self.exchangeMenu = QMenu(self.tr("Exchange with"), self)
+        text = QApplication.translate('ImageEdit', "Exchange with")
+        self.exchangeMenu = QMenu(text, self)
 
         self.changed = False
 
