@@ -9,7 +9,8 @@ from OpenNumismat.Collection.Description import DescriptionDialog
 from OpenNumismat.Collection.Password import PasswordSetDialog
 from OpenNumismat.Reference.Reference import Reference
 from OpenNumismat.TabView import TabView
-from OpenNumismat.Settings import Settings, SettingsDialog
+from OpenNumismat.Settings import Settings
+from OpenNumismat.SettingsDialog import SettingsDialog
 from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.Gui import createIcon
