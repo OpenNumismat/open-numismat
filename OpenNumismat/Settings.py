@@ -81,6 +81,7 @@ class Settings(BaseSettings):
                'reference': OpenNumismat.HOME_PATH + "/reference.ref",
                'error': True, 'updates': False,
                'free_numeric': False,
+               'convert_fraction': False,
                'store_sorting': False,
                'sort_filter': True,
                'sort_tree': True,
@@ -98,9 +99,9 @@ class Settings(BaseSettings):
         return self.Default.keys()
 
     def _getValue(self, key):
-        if key in ('error', 'updates', 'free_numeric', 'store_sorting',
-                   'sort_filter', 'sort_tree', 'check_coin_title',
-                   'check_coin_duplicate'):
+        if key in ('error', 'updates', 'free_numeric', 'convert_fraction',
+                   'store_sorting', 'sort_filter', 'sort_tree',
+                   'check_coin_title', 'check_coin_duplicate'):
             value = self.settings.value('mainwindow/' + key, self.Default[key], type=bool)
         else:
             value = self.settings.value('mainwindow/' + key, self.Default[key])
@@ -189,6 +190,11 @@ class MainSettingsPage(QWidget):
         self.freeNumeric.setChecked(settings['free_numeric'])
         layout.addRow(self.freeNumeric)
 
+        self.convertFraction = QCheckBox(
+            self.tr("Convert 0.5 to ½ (support ¼, ½, ¾, 1¼, 1½, 2½)"), self)
+        self.convertFraction.setChecked(settings['convert_fraction'])
+        layout.addRow(self.convertFraction)
+
         self.storeSorting = QCheckBox(
                             self.tr("Store column sorting"), self)
         self.storeSorting.setChecked(settings['store_sorting'])
@@ -229,17 +235,14 @@ class MainSettingsPage(QWidget):
         self.setLayout(layout)
 
     def backupButtonClicked(self):
-        folder = QFileDialog.getExistingDirectory(self,
-                                                self.tr("Backup folder"),
-                                                self.backupFolder.text())
+        folder = QFileDialog.getExistingDirectory(
+            self, self.tr("Backup folder"), self.backupFolder.text())
         if folder:
             self.backupFolder.setText(folder)
 
     def referenceButtonClicked(self):
-        file, _selectedFilter = QFileDialog.getOpenFileName(self,
-                                                self.tr("Select reference"),
-                                                self.reference.text(),
-                                                "*.ref")
+        file, _selectedFilter = QFileDialog.getOpenFileName(
+            self, self.tr("Select reference"), self.reference.text(), "*.ref")
         if file:
             self.reference.setText(file)
 
@@ -253,6 +256,7 @@ class MainSettingsPage(QWidget):
         settings['error'] = self.errorSending.isChecked()
         settings['updates'] = self.checkUpdates.isChecked()
         settings['free_numeric'] = self.freeNumeric.isChecked()
+        settings['convert_fraction'] = self.convertFraction.isChecked()
         settings['store_sorting'] = self.storeSorting.isChecked()
         settings['sort_filter'] = self.sortFilter.isChecked()
         settings['sort_tree'] = self.sortTree.isChecked()
@@ -314,7 +318,7 @@ class FieldsSettingsPage(QWidget):
     def itemSelectionChanged(self):
         self.renameButton.setEnabled(len(self.listWidget.selectedItems()) > 0)
 
-    def resizeEvent(self, event):
+    def resizeEvent(self, _):
         self.listWidget.setWrapping(True)
 
     def defaultFieldsButtonClicked(self):

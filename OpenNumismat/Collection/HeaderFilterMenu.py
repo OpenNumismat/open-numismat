@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Settings import Settings
 
 
@@ -131,15 +132,20 @@ class FilterMenuButton(QPushButton):
 
             while query.next():
                 if query.record().isNull(0):
+                    data = None
                     label = None
                 else:
-                    label = str(query.record().value(0))
+                    data = str(query.record().value(0))
+                    if self.columnName == 'value':
+                        label, _ = numberWithFraction(data, self.settings['convert_fraction'])
+                    else:
+                        label = data
                 if not label:
                     hasBlanks = True
                     continue
                 item = QListWidgetItem(label, self.listWidget)
-                item.setData(Qt.UserRole, label)
-                if label in appliedValues:
+                item.setData(Qt.UserRole, data)
+                if data in appliedValues:
                     if revert:
                         item.setCheckState(Qt.Checked)
                     else:

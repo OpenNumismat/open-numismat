@@ -17,6 +17,7 @@ class FieldTypes():
     DateTime = 11
     EdgeImage = 12
     PreviewImage = 13
+    Denomination = 14
 
     Mask = 0xFF
     Checkable = 0x100
@@ -35,6 +36,8 @@ class FieldTypes():
         elif type_ == FieldTypes.Text:
             sql_type = 'TEXT'
         elif type_ == FieldTypes.Money:
+            sql_type = 'NUMERIC'
+        elif type_ == FieldTypes.Denomination:
             sql_type = 'NUMERIC'
         elif type_ == FieldTypes.Date:
             sql_type = 'TEXT'
@@ -120,7 +123,7 @@ class CollectionFieldsBase(QObject):
                 ('id', self.tr("ID"), Type.BigInt),
 
                 ('title', self.tr("Name"), Type.String),
-                ('value', self.tr("Value"), Type.Money),
+                ('value', self.tr("Value"), Type.Denomination),
                 ('unit', self.tr("Unit"), Type.String),
                 ('country', self.tr("Country"), Type.String),
                 ('year', self.tr("Year"), Type.Number),

@@ -23,6 +23,7 @@ from OpenNumismat.Tools import Gui
 from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
+from OpenNumismat.Tools.Converters import numberWithFraction
 
 
 class CollectionModel(QSqlTableModel):
@@ -44,6 +45,8 @@ class CollectionModel(QSqlTableModel):
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
 
+        self.settings = Settings()
+
     def rowsInsertedEvent(self, parent, start, end):
         self.insertedRowIndex = self.index(end, 0)
 
@@ -61,6 +64,12 @@ class CollectionModel(QSqlTableModel):
                     text = locale.format("%.2f", float(data), grouping=True)
                     dp = locale.localeconv()['decimal_point']
                     text = text.rstrip('0').rstrip(dp)
+                elif field.type == Type.Denomination:
+                    text, converted = numberWithFraction(data, self.settings['convert_fraction'])
+                    if not converted:
+                        text = locale.format("%.2f", float(data), grouping=True)
+                        dp = locale.localeconv()['decimal_point']
+                        text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Value:
                     text = locale.format("%.3f", float(data), grouping=True)
                     dp = locale.localeconv()['decimal_point']
@@ -90,6 +99,11 @@ class CollectionModel(QSqlTableModel):
                 return data
             return text
         elif role == Qt.UserRole:
+            field = self.fields.fields[index.column()]
+            if field.type == Type.Denomination:
+                data = super(CollectionModel, self).data(index, Qt.DisplayRole)
+                data, _ = numberWithFraction(data, self.settings['convert_fraction'])
+                return data
             return super(CollectionModel, self).data(index, Qt.DisplayRole)
         elif role == Qt.TextAlignmentRole:
             field = self.fields.fields[index.column()]
@@ -309,7 +323,7 @@ class CollectionModel(QSqlTableModel):
                     buffer.open(QtCore.QIODevice.WriteOnly)
 
                     # Resize big images for storing in DB
-                    sideLen = Settings()['ImageSideLen']
+                    sideLen = self.settings['ImageSideLen']
                     sideLen = int(sideLen)  # forced conversion to Integer
                     if sideLen > 0:
                         maxWidth = sideLen

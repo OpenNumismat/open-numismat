@@ -6,7 +6,8 @@ from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Tools.Converters import stringToMoney
+from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
+from OpenNumismat.Settings import Settings
 
 
 class DetailsTabWidget(QTabWidget):
@@ -466,6 +467,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def __init__(self, model, parent=None, usedFields=None):
         self.usedFields = usedFields
         self.reference = model.reference
+        self.settings = Settings()
 
         super(FormDetailsTabWidget, self).__init__(model, parent)
 
@@ -598,7 +600,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
             if titlePart:
                 if key == 'unit':
                     titlePart = titlePart.lower()
-                if key == 'subjectshort':
+                elif key == 'value':
+                    titlePart, _ = numberWithFraction(titlePart, self.settings['convert_fraction'])
+                elif key == 'subjectshort':
                     if len(titlePart.split()) > 1:
                         titlePart = '"%s"' % titlePart
                 titleParts.append(titlePart)
