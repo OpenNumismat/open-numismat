@@ -1202,7 +1202,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="91"/>
-        <source>Convert 0.5 to &#xc2;&#xbd; (support &#xc2;&#xbc;, &#xc2;&#xbd;, &#xc2;&#xbe;, 1&#xc2;&#xbc;, 1&#xc2;&#xbd;, 2&#xc2;&#xbd;)</source>
+        <source>Convert 0.5 to &#xbd; (support &#xbc;, &#xbd;, &#xbe;, 1&#xbc;, 1&#xbd;, 2&#xbd;)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
