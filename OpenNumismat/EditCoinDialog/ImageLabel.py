@@ -90,6 +90,9 @@ class ImageEdit(ImageLabel):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenu)
 
+        text = QApplication.translate('ImageEdit', "Exchange with")
+        self.exchangeMenu = QMenu(text, self)
+
         self.changed = False
 
     def contextMenu(self, pos):
@@ -124,6 +127,8 @@ class ImageEdit(ImageLabel):
         menu.addAction(load)
         menu.setDefaultAction(load)
         menu.addAction(save)
+        menu.addSeparator()
+        menu.addMenu(self.exchangeMenu)
         menu.addSeparator()
         menu.addAction(paste)
         menu.addAction(copy)
@@ -221,6 +226,34 @@ class ImageEdit(ImageLabel):
             return self.image
         return self._data
 
+    def exchangeImage(self, image):
+        original_data = self.data()
+
+        if isinstance(image.data(), QImage):
+            self._setImage(image.data())
+            self.changed = True
+        else:
+            if image.data():
+                self.loadFromData(image.data())
+            else:
+                self.clear()
+            self.changed = False
+
+        if isinstance(original_data, QImage):
+            image._setImage(original_data)
+            image.changed = True
+        else:
+            if original_data:
+                image.loadFromData(original_data)
+            else:
+                image.clear()
+            image.changed = False
+
+    def connectExchangeAct(self, image, title):
+            act = ExchangeImageAction(image, title, self)
+            act.exchangeImageTriggered.connect(self.exchangeImage)
+            self.exchangeMenu.addAction(act)
+
     def _setNewImage(self, image):
         # Fill transparent color if present
         fixedImage = QImage(image.size(), QImage.Format_RGB32)
@@ -245,3 +278,16 @@ class EdgeImageEdit(ImageEdit):
                 image = image.transformed(matrix, Qt.SmoothTransformation)
 
         super(EdgeImageEdit, self)._setImage(image)
+
+
+class ExchangeImageAction(QAction):
+    exchangeImageTriggered = pyqtSignal(object)
+
+    def __init__(self, image, title, parent=None):
+        super(ExchangeImageAction, self).__init__(title, parent)
+        self.image = image
+
+        self.triggered.connect(self.trigger)
+
+    def trigger(self):
+        self.exchangeImageTriggered.emit(self.image)

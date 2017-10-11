@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer
-from PyQt5.QtGui import QImage
+from PyQt5.QtGui import QImage, QKeySequence
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -54,6 +54,7 @@ class ListView(QListView):
             act.setDisabled(True)
 
         act = menu.addAction(self.tr("Delete"), self.deleteItem)
+        act.setShortcut(QKeySequence.Delete)
         if not self.selectedIndex() or not self.widget.isEnabled():
             act.setDisabled(True)
 
@@ -80,7 +81,7 @@ class ListView(QListView):
         self.widget.deleteItem()
 
     def _addIcon(self):
-        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
+        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;"
                           "All files (*.*)")
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 self.tr("Open File"), self.latestDir,
@@ -140,6 +141,7 @@ class ReferenceWidget(QWidget):
                                 QDialogButtonBox.ActionRole)
         self.delButton = QPushButton(
                             QApplication.translate('ReferenceWidget', "Del"))
+        self.delButton.setShortcut(QKeySequence.Delete)
         self.editButtonBox.addButton(self.delButton,
                                 QDialogButtonBox.ActionRole)
         self.editButtonBox.clicked.connect(self.clicked)
@@ -162,7 +164,7 @@ class ReferenceWidget(QWidget):
         self.setLayout(layout)
 
     def sortChanged(self, state):
-        if self.sortButton.isChecked():
+        if state == Qt.Checked:
             self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
         else:
             self.model.setSort(0, Qt.AscendingOrder)
@@ -204,13 +206,14 @@ class CrossReferenceWidget(ReferenceWidget):
         self.comboBox = QComboBox(parent)
         self.comboBox.setModel(self.rel)
         self.comboBox.setModelColumn(self.rel.fieldIndex('value'))
-        self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
         if parentIndex:
             row = parentIndex.row()
         else:
             row = -1
         self.comboBox.setCurrentIndex(row)
+        self.currentIndexChanged(row)
         self.comboBox.setDisabled(True)
+        self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
 
         self.layout().insertWidget(0, self.comboBox)
 

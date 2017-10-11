@@ -14,6 +14,7 @@ from PyQt5.QtCore import Qt
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools import Gui
+from OpenNumismat.Tools.Converters import numberWithFraction
 import OpenNumismat
 
 
@@ -27,6 +28,12 @@ def formatFields(field, data):
             text = locale.format("%.2f", float(data), grouping=True)
             dp = locale.localeconv()['decimal_point']
             text = text.rstrip('0').rstrip(dp)
+        elif field.type == Type.Denomination:
+            text, converted = numberWithFraction(data)
+            if not converted:
+                text = locale.format("%.2f", float(data), grouping=True)
+                dp = locale.localeconv()['decimal_point']
+                text = text.rstrip('0').rstrip(dp)
         elif field.type == Type.Value:
             text = locale.format("%.3f", float(data), grouping=True)
             dp = locale.localeconv()['decimal_point']

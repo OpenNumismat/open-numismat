@@ -9,6 +9,7 @@ from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.CustomizeTreeDialog import CustomizeTreeDialog
 from OpenNumismat.Tools import Gui
+from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import DetailsTabWidget
 from OpenNumismat.Settings import Settings
@@ -180,6 +181,9 @@ class TreeView(QTreeWidget):
                 if text:
                     if fields[i] == 'status':
                         data.append(Statuses[text])
+                    elif fields[i] == 'value':
+                        label, _ = numberWithFraction(text, self.settings['convert_fraction'])
+                        data.append(label)
                     else:
                         data.append(text)
                     escapedText = text.replace("'", "''")

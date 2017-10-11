@@ -1,0 +1,5 @@
+OpenNumismat is vrije software: je kunt het verspreiden en / of wijzigen onder de voorwaarden van de GNU General Public License zoals gepubliceerd door de Free Software Foundation, ofwel versie 3 van de Licentie, of (naar keuze) een latere versie.
+
+OpenNumismat wordt verspreid in de hoop dat het nuttig zal zijn, maar ZONDER ENIGE GARANTIE; zelfs zonder de impliciete garantie van verkoopbaarheid of geschiktheid voor een bepaald doel. Zie de GNU General Public License voor meer details.
+
+Bij OpenNumismat heeft u een kopie ontvangen van de GNU General Public License. Als dit niet het geval is, ga naar: http://www.gnu.org/licenses/.

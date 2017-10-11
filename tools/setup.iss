@@ -1,14 +1,14 @@
-[Setup]
+п»ї[Setup]
 AppName=OpenNumismat
 AppId=OpenNumismat
-AppVersion=1.5.3
+AppVersion=1.5.5
 DefaultDirName={pf}\OpenNumismat
 DefaultGroupName=OpenNumismat
 UninstallDisplayIcon={app}\OpenNumismat.exe
 OutputDir="."
-OutputBaseFilename="OpenNumismat-1.5.3"
+OutputBaseFilename="OpenNumismat-1.5.5"
 AllowNoIcons=yes
-AppCopyright=Copyright 2011-2016 by Vitaly Ignatov
+AppCopyright=Copyright 2011-2017 by Vitaly Ignatov
 AppPublisher=Janis
 
 [Languages]
@@ -20,50 +20,58 @@ Name: fr; MessagesFile: "compiler:Languages\French.isl"; InfoBeforeFile: license
 Name: hu; MessagesFile: "compiler:Languages\Hungarian.isl"; InfoBeforeFile: license_en.txt
 Name: pt; MessagesFile: "compiler:Languages\Portuguese.isl"; InfoBeforeFile: license_pt.txt
 Name: de; MessagesFile: "compiler:Languages\German.isl"; InfoBeforeFile: license_de.txt
-Name: el; MessagesFile: "compiler:Languages\Greek.isl"; InfoBeforeFile: license_en.txt
+Name: el; MessagesFile: "compiler:Languages\Greek.isl"; InfoBeforeFile: license_el.txt
 Name: cs; MessagesFile: "compiler:Languages\Czech.isl"; InfoBeforeFile: license_en.txt
 Name: it; MessagesFile: "compiler:Languages\Italian.isl"; InfoBeforeFile: license_it.txt
 Name: pl; MessagesFile: "compiler:Languages\Polish.isl"; InfoBeforeFile: license_pl.txt
+Name: ca; MessagesFile: "compiler:Languages\Catalan.isl"; InfoBeforeFile: license_ca.txt
+Name: nl; MessagesFile: "compiler:Languages\Dutch.isl"; InfoBeforeFile: license_nl.txt
 
 [CustomMessages]
 en.sendReport=Send a reports to author's web-site if any error occurred
-ru.sendReport=Посылать отчет разработчику при возникновении ошибки
-uk.sendReport=Відправляти звіт автору при виникненні помилки
+ru.sendReport=РџРѕСЃС‹Р»Р°С‚СЊ РѕС‚С‡РµС‚ СЂР°Р·СЂР°Р±РѕС‚С‡РёРєСѓ РїСЂРё РІРѕР·РЅРёРєРЅРѕРІРµРЅРёРё РѕС€РёР±РєРё
+uk.sendReport=Р’С–РґРїСЂР°РІР»СЏС‚Рё Р·РІС–С‚ Р°РІС‚РѕСЂСѓ РїСЂРё РІРёРЅРёРєРЅРµРЅРЅС– РїРѕРјРёР»РєРё
 es.sendReport=Enviar un informe al autor del sitio web si cualquier error
-fr.sendReport=Envoyer un rapport a l'auteur du site-web si une erreur se produit.
+fr.sendReport=Envoyer un rapport a l'auteur du site-web si une erreur se produit
 hu.sendReport=Hiba elkuldese a keszitonek
 pt.sendReport=Enviar um relatorio para o site do autor se ocorrer um erro
 de.sendReport=Send a reports to author's web-site if any error occurred
-el.sendReport=Send a reports to author's web-site if any error occurred
+el.sendReport=О‘ПЂОїПѓП„ОїО»О® О±ОЅО±П†ОїПЃПЋОЅ ПѓП„ОїОЅ О№ПѓП„ПЊП„ОїПЂОї П„ОїП… ПѓП…ОіОіПЃО±П†О­О± ПѓОµ ПЂОµПЃОЇПЂП„П‰ПѓО· ПѓП†О¬О»ОјО±П„ОїП‚
 cs.sendReport=Send a reports to author's web-site if any error occurred
 it.sendReport=Invia un rapporto al sito web dell'autore se e avvenuto un errore
 pl.sendReport=Wyslij raport do Autorow w przypadku problemow
+ca.sendReport=Envieu un informe a la pagina web de l'autor si hi ha cap error
+nl.sendReport=Stuur een rapport naar de auteur als er een fout is opgetreden
 
 en.checkUpdate=Automatically check for updates
-ru.checkUpdate=Проверять обновления автоматически
-uk.checkUpdate=Перевіряти оновлення автоматично
+ru.checkUpdate=РџСЂРѕРІРµСЂСЏС‚СЊ РѕР±РЅРѕРІР»РµРЅРёСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё
+uk.checkUpdate=РџРµСЂРµРІС–СЂСЏС‚Рё РѕРЅРѕРІР»РµРЅРЅСЏ Р°РІС‚РѕРјР°С‚РёС‡РЅРѕ
 es.checkUpdate=Automatically check for updates
 fr.checkUpdate=Verification automatique des mises a jour
 hu.checkUpdate=Automatically check for updates
 pt.checkUpdate=Procurar atualizacoes automaticamente
 de.checkUpdate=Automatically check for updates
-el.checkUpdate=Automatically check for updates
+el.checkUpdate=О‘П…П„ПЊОјО±П„ОїП‚ О­О»ОµОіП‡ОїП‚ ОіО№О± ОµОЅО·ОјОµПЃПЋПѓОµО№П‚
 cs.checkUpdate=Automatically check for updates
 it.checkUpdate=Cerca automaticamente gli aggiornamenti
 pl.checkUpdate=Automatycznie sprawdzaj w poszukiwaniu najnowszej wersji
+ca.checkUpdate=Comprova si hi ha actualitzacions automaticament
+nl.checkUpdate=Automatisch controleren op update's
 
 en.associate=Associate *.db files with OpenNumismat
-ru.associate=Связать *.db файлы с OpenNumismat
-uk.associate=Ассоціювати файли *.db з OpenNumismat
+ru.associate=РЎРІСЏР·Р°С‚СЊ *.db С„Р°Р№Р»С‹ СЃ OpenNumismat
+uk.associate=РђСЃСЃРѕС†С–СЋРІР°С‚Рё С„Р°Р№Р»Рё *.db Р· OpenNumismat
 es.associate=Associate *.db files with OpenNumismat
 fr.associate=Associer les fichiers *.db avec OpenNumismat
 hu.associate=Associate *.db files with OpenNumismat
 pt.associate=Associar ficheiros *.db com o OpenNumismat
 de.associate=Associate *.db files with OpenNumismat
-el.associate=Associate *.db files with OpenNumismat
+el.associate=ОЈП…ПѓП‡О­П„О№ПѓО· О±ПЃП‡ОµОЇП‰ОЅ *.db ОјОµ П„Ої OpenNumismat
 cs.associate=Associate *.db files with OpenNumismat
 it.associate=Associare i file *.db con OpenNumismat
 pl.associate=Skojarz rozszerzenie *.db z OpenNumismat
+ca.associate=Associa fitxers *.db amb OpenNumismat
+nl.associate=Associate *.db files with OpenNumismat
 
 [Files]
 Source: "..\build\exe.win32-3.4\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
@@ -79,6 +87,8 @@ Source: "..\build\exe.win32-3.4\db\demo_el.db"; DestDir: "{userdocs}\OpenNumisma
 Source: "..\build\exe.win32-3.4\db\demo_cs.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: cs; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\demo_it.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: it; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\demo_pl.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: pl; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_ca.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: ca; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_nl.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: nl; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_uk.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: uk; Flags: onlyifdoesntexist
@@ -91,6 +101,8 @@ Source: "..\build\exe.win32-3.4\db\reference_el.ref"; DestDir: "{userdocs}\OpenN
 Source: "..\build\exe.win32-3.4\db\reference_cs.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: cs; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_it.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: it; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_pl.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: pl; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\reference_ca.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ca; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\reference_nl.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: nl; Flags: onlyifdoesntexist
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat\backup"

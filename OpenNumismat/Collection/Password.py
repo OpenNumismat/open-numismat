@@ -17,12 +17,12 @@ def checkPassword(settings, password):
 
 
 class PasswordDialog(QDialog):
-    def __init__(self, settings, parent=None):
+    def __init__(self, collection, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
-        self.settings = settings
+        self.settings = collection.settings
 
-        self.setWindowTitle(self.tr("Password"))
+        self.setWindowTitle(collection.getCollectionName())
 
         mainLayout = QFormLayout()
 

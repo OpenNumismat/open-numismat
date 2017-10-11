@@ -1,7 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
-from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
@@ -139,7 +138,7 @@ class CustomizeTreeDialog(QDialog):
         allFields = model.fields
 
         rootItem = QTreeWidgetItem(self.treeWidget,
-                                         [self.treeParam.rootTitle, ])
+                                   [self.treeParam.rootTitle, ])
         self.treeWidget.addTopLevelItem(rootItem)
         topItem = rootItem
         for param in self.treeParam:

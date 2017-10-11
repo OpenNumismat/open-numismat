@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import locale
 
 from PyQt5.QtCore import QMargins, QUrl, QDate, Qt
@@ -6,6 +8,8 @@ from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Tools.Converters import numberWithFraction
+from OpenNumismat.Settings import Settings
 
 
 # Reimplementing QDoubleValidator for replace comma with dot
@@ -320,7 +324,7 @@ class UserNumericEdit(QLineEdit):
         self.setMaxLength(25)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                    QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -334,7 +338,7 @@ class NumberEdit(QLineEdit):
         self.setMaxLength(4)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                    QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -349,11 +353,11 @@ class _DoubleEdit(QLineEdit):
         self.setValidator(validator)
 
     def focusInEvent(self, event):
-        self.__updateText()
+        self._updateText()
         return super().focusInEvent(event)
 
     def focusOutEvent(self, event):
-        self.__updateText()
+        self._updateText()
         return super().focusOutEvent(event)
 
     def setText(self, text):
@@ -361,7 +365,7 @@ class _DoubleEdit(QLineEdit):
         if ts == '.':
             text = text.replace('.', ',')
         super().setText(text)
-        self.__updateText()
+        self._updateText()
 
     def text(self):
         text = super().text()
@@ -378,9 +382,11 @@ class _DoubleEdit(QLineEdit):
                 text = text.replace(dp, '.')
         return text
 
-    def __updateText(self):
+    def _updateText(self):
         text = self.text()
         if text:
+            src_text = text
+
             if not self.hasFocus() or self.isReadOnly():
                 try:
                     if self._decimals:
@@ -400,7 +406,8 @@ class _DoubleEdit(QLineEdit):
                 if ts == '.':
                     text = text.replace('.', ',')
 
-            super().setText(text)
+            if src_text != text:
+                super().setText(text)
 
 
 class BigIntEdit(_DoubleEdit):
@@ -413,7 +420,7 @@ class BigIntEdit(_DoubleEdit):
         self.setMaxLength(15 + 4)  # additional 4 symbol for thousands separator
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                             QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def text(self):
         text = super().text()
@@ -429,7 +436,7 @@ class ValueEdit(_DoubleEdit):
         self.setMaxLength(17)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                             QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -441,10 +448,69 @@ class MoneyEdit(_DoubleEdit):
         self.setMaxLength(16)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                             QSizePolicy.Fixed, QSizePolicy.SpinBox))
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
+
+
+class DenominationEdit(MoneyEdit):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.settings = Settings()
+
+    def text(self):
+        text = super().text()
+        if text == '¼':
+            text = '0.25'
+        elif text == '½':
+            text = '0.5'
+        elif text == '¾':
+            text = '0.75'
+        elif text == '1¼':
+            text = '1.25'
+        elif text == '1½':
+            text = '1.5'
+        elif text == '2½':
+            text = '2.5'
+        else:
+            # First, get rid of the grouping
+            ts = locale.localeconv()['thousands_sep']
+            if ts:
+                text = text.replace(ts, '')
+                if ts == chr(0xA0):
+                    text = text.replace(' ', '')
+            # next, replace the decimal point with a dot
+            if self._decimals:
+                dp = locale.localeconv()['decimal_point']
+                if dp:
+                    text = text.replace(dp, '.')
+        return text
+
+    def _updateText(self):
+        text = self.text()
+        if text:
+            if not self.hasFocus() or self.isReadOnly():
+                text, converted = numberWithFraction(text, self.settings['convert_fraction'])
+                if not converted:
+                    try:
+                        if self._decimals:
+                            text = locale.format("%%.%df" % self._decimals,
+                                                 float(text), grouping=True)
+                            # Strip empty fraction
+                            dp = locale.localeconv()['decimal_point']
+                            text = text.rstrip('0').rstrip(dp)
+                        else:
+                            text = locale.format("%d", int(text), grouping=True)
+                    except ValueError:
+                        return
+            else:
+                ts = locale.localeconv()['thousands_sep']
+                if ts == '.':
+                    text = text.replace('.', ',')
+
+            if super().text() != text:
+                super().setText(text)
 
 
 class TextEdit(QTextEdit):
@@ -467,6 +533,7 @@ class CalendarWidget(QCalendarWidget):
     def showEvent(self, e):
         if self.selectedDate() == self.DEFAULT_DATE:
             self.showToday()
+
 
 class DateEdit(QDateEdit):
     DEFAULT_DATE = QDate(2000, 1, 1)

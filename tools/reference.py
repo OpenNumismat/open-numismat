@@ -30,13 +30,16 @@ f = open('langs')
 langs = [x.strip('\n') for x in f.readlines()]
 
 for lang in langs:
-    src_file = "../OpenNumismat/db/reference_%s.ref" % lang
+    print(lang)
+
+    src_file = "ref/reference_%s.ref" % lang
     if not os.path.isfile(src_file):
-        src_file = "../OpenNumismat/db/reference_en.ref"
+        src_file = "ref/reference_en.ref"
 
-    shutil.copy(src_file, ".")
+    dst_file = "../OpenNumismat/db/reference_%s.ref" % lang
+    shutil.copy(src_file, dst_file)
 
-    ref.open('reference_%s.ref' % lang)
+    ref.open(dst_file)
 
     src_ref_file = "reference_%s.json" % lang
     if not os.path.isfile(src_ref_file):
@@ -60,9 +63,11 @@ for lang in langs:
 
     place = ref.section('payplace')
     if lang == 'ru':
-        place.addItem('Молоток.Ру', convertImage('icons/molotok.ico'))
+        place.addItem('newAuction', convertImage('icons/newauction.png'))
+        place.addItem('Мешок', convertImage('icons/meshok.ico'))
         place.addItem('Конрос', convertImage('icons/conros.ico'))
         place.addItem('Wolmar', convertImage('icons/wolmar.ico'))
+        place.addItem('aucland', convertImage('icons/aucland.ico'))
         place.addItem('АукционЪ.СПб')
     place.addItem('eBay', convertImage('icons/ebay.png'))
     place.model.submitAll()

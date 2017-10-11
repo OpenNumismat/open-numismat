@@ -9,7 +9,8 @@ from OpenNumismat.Collection.Description import DescriptionDialog
 from OpenNumismat.Collection.Password import PasswordSetDialog
 from OpenNumismat.Reference.Reference import Reference
 from OpenNumismat.TabView import TabView
-from OpenNumismat.Settings import Settings, SettingsDialog
+from OpenNumismat.Settings import Settings
+from OpenNumismat.SettingsDialog import SettingsDialog
 from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.Gui import createIcon
@@ -23,6 +24,7 @@ from OpenNumismat.Collection.Import import *
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
+        self.setAttribute(Qt.WA_DeleteOnClose)
 
         self.setWindowIcon(createIcon('main.ico'))
 
@@ -34,6 +36,7 @@ class MainWindow(QMainWindow):
         settingsAct = QAction(createIcon('cog.png'),
                                     self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
+        self.collectionActs.append(settingsAct)
 
         cancelFilteringAct = QAction(createIcon('funnel.png'),
                                     self.tr("Clear all filters"), self)
@@ -137,7 +140,14 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importUcoinAct)
             importMenu.addAction(importUcoinAct)
 
-
+        if ImportTellico.isAvailable():
+            importTellicoAct = QAction(
+                                    createIcon('tellico.png'),
+                                    self.tr("Tellico"), self)
+            importTellicoAct.triggered.connect(self.importTellico)
+            self.collectionActs.append(importTellicoAct)
+            importMenu.addAction(importTellicoAct)
+ 
         mergeCollectionAct = QAction(self.tr("Add from another..."), self)
         mergeCollectionAct.triggered.connect(self.mergeCollectionEvent)
         self.collectionActs.append(mergeCollectionAct)
@@ -237,6 +247,7 @@ class MainWindow(QMainWindow):
         listMenu.addAction(actions['remove'])
 
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
+        self.collectionActs.append(self.referenceMenu)
 
         reportAct = QAction(self.tr("Report..."), self)
         reportAct.setShortcut(Qt.CTRL + Qt.Key_P)
@@ -304,7 +315,7 @@ class MainWindow(QMainWindow):
         if pageIndex != None:
             self.viewTab.setCurrentIndex(int(pageIndex))
 
-        if settings.value('mainwindow/maximized') == 'true':
+        if settings.value('mainwindow/maximized', False, type=bool):
             self.showMaximized()
             size = settings.value('mainwindow/maximizedsize')
         else:
@@ -448,6 +459,14 @@ class MainWindow(QMainWindow):
             imp = ImportUcoin(self)
             imp.importData(file, self.viewTab.currentModel())
 
+    def importTellico(self):
+        defaultDir = ImportTellico.defaultDir()
+        file, _selectedFilter = QFileDialog.getOpenFileName(
+            self, self.tr("Select file"), defaultDir, "*.tc")
+        if file:
+            imp = ImportTellico(self)
+            imp.importData(file, self.viewTab.currentModel())
+ 
     def exportMobile(self):
         dialog = ExportDialog(self.collection, self)
         res = dialog.exec_()
@@ -521,8 +540,6 @@ class MainWindow(QMainWindow):
                 self.tr("Collections (*.db)"), "",
                 QFileDialog.DontConfirmOverwrite)
         if fileName:
-            self.__saveParams()
-
             self.__closeCollection()
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
@@ -549,8 +566,6 @@ class MainWindow(QMainWindow):
             self.collection.merge(fileName)
 
     def openCollection(self, fileName):
-        self.__saveParams()
-
         self.__closeCollection()
         if self.collection.open(fileName):
             self.setCollection(self.collection)
@@ -583,6 +598,8 @@ class MainWindow(QMainWindow):
             act.setEnabled(enabled)
 
     def __closeCollection(self):
+        self.__saveParams()
+
         self.__setEnabledActs(False)
         self.viewTab.clear()
 
@@ -602,7 +619,6 @@ class MainWindow(QMainWindow):
         settings = QSettings()
 
         if self.collection.fileName:
-            self.viewTab.savePagePositions()
             # Save latest opened page
             settings.setValue('tabwindow/page', self.viewTab.currentIndex())
 
@@ -616,12 +632,14 @@ class MainWindow(QMainWindow):
     def __saveParams(self):
         if self.collection.pages():
             for param in self.collection.pages().pagesParam():
-                param.listParam.save()
+                param.listParam.save_lists(only_if_changed=True)
+
+            self.viewTab.savePagePositions(only_if_changed=True)
 
     def about(self):
         QMessageBox.about(self, self.tr("About %s") % version.AppName,
                 self.tr("%s %s\n\n"
-                        "Copyright (C) 2011-2016 Vitaly Ignatov\n\n"
+                        "Copyright (C) 2011-2017 Vitaly Ignatov\n\n"
                         "%s is freeware licensed under a GPLv3.") %
                         (version.AppName, version.Version, version.AppName))
 

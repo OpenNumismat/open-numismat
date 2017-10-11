@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
+from OpenNumismat.Settings import Settings
 
 
 @storeDlgSizeDecorator
@@ -71,24 +72,27 @@ class EditCoinDialog(QDialog):
 
     def save(self):
         # Clear unused fields
-        if self.items['status'].widget().data() in ['demo', 'wish']:
+        status = self.items['status'].widget().data()
+        if status in ['demo', 'wish']:
             for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
-                        'payplace', 'payinfo', 'saledate', 'saleprice',
-                        'totalsaleprice', 'buyer', 'saleplace', 'saleinfo']:
+                        'payplace', 'payinfo']:
                 self.items[key].clear()
-        elif self.items['status'].widget().data() in ['owned', 'sale', 'ordered']:
+        if status in ['demo', 'wish', 'owned', 'sale', 'ordered']:
             for key in ['saledate', 'saleprice', 'totalsaleprice', 'buyer',
                         'saleplace', 'saleinfo']:
                 self.items[key].clear()
 
-        if not self.usedFields:
-            if not self.items['title'].value():
-                result = QMessageBox.warning(self, self.tr("Save"),
-                            self.tr("Coin title not set. Save without title?"),
-                            QMessageBox.Save | QMessageBox.No,
-                            QMessageBox.No)
-                if result != QMessageBox.Save:
-                    return
+        settings = Settings()
+
+        if settings['check_coin_title']:
+            if not self.usedFields:
+                if not self.items['title'].value():
+                    result = QMessageBox.warning(
+                        self, self.tr("Save"),
+                        self.tr("Coin title not set. Save without title?"),
+                        QMessageBox.Save | QMessageBox.No, QMessageBox.No)
+                    if result != QMessageBox.Save:
+                        return
 
         # Checking that TotalPrice not less than Price
         payprice_str = self.items['payprice'].value()
@@ -140,14 +144,15 @@ class EditCoinDialog(QDialog):
                 value = value.strip()
             self.record.setValue(item.field(), value)
 
-        if not self.usedFields:
-            if self.model.isExist(self.record):
-                result = QMessageBox.warning(self, self.tr("Save"),
-                            self.tr("Similar coin already exists. Save?"),
-                            QMessageBox.Save | QMessageBox.No,
-                            QMessageBox.No)
-                if result != QMessageBox.Save:
-                    return
+        if settings['check_coin_duplicate']:
+            if not self.usedFields:
+                if self.model.isExist(self.record):
+                    result = QMessageBox.warning(
+                        self, self.tr("Save"),
+                        self.tr("Similar coin already exists. Save?"),
+                        QMessageBox.Save | QMessageBox.No, QMessageBox.No)
+                    if result != QMessageBox.Save:
+                        return
 
         self.accept()
 

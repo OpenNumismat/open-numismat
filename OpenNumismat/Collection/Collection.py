@@ -23,12 +23,14 @@ from OpenNumismat.Tools import Gui
 from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
+from OpenNumismat.Tools.Converters import numberWithFraction
 
 
 class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
     modelChanged = pyqtSignal()
     IMAGE_FORMAT = 'jpg'
+    SQLITE_READONLY = '8'
 
     def __init__(self, collection, parent=None):
         super(CollectionModel, self).__init__(parent, collection.db)
@@ -42,6 +44,8 @@ class CollectionModel(QSqlTableModel):
         self.proxy = None
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
+
+        self.settings = Settings()
 
     def rowsInsertedEvent(self, parent, start, end):
         self.insertedRowIndex = self.index(end, 0)
@@ -60,6 +64,12 @@ class CollectionModel(QSqlTableModel):
                     text = locale.format("%.2f", float(data), grouping=True)
                     dp = locale.localeconv()['decimal_point']
                     text = text.rstrip('0').rstrip(dp)
+                elif field.type == Type.Denomination:
+                    text, converted = numberWithFraction(data, self.settings['convert_fraction'])
+                    if not converted:
+                        text = locale.format("%.2f", float(data), grouping=True)
+                        dp = locale.localeconv()['decimal_point']
+                        text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Value:
                     text = locale.format("%.3f", float(data), grouping=True)
                     dp = locale.localeconv()['decimal_point']
@@ -89,6 +99,11 @@ class CollectionModel(QSqlTableModel):
                 return data
             return text
         elif role == Qt.UserRole:
+            field = self.fields.fields[index.column()]
+            if field.type == Type.Denomination:
+                data = super(CollectionModel, self).data(index, Qt.DisplayRole)
+                data, _ = numberWithFraction(data, self.settings['convert_fraction'])
+                return data
             return super(CollectionModel, self).data(index, Qt.DisplayRole)
         elif role == Qt.TextAlignmentRole:
             field = self.fields.fields[index.column()]
@@ -308,22 +323,21 @@ class CollectionModel(QSqlTableModel):
                     buffer.open(QtCore.QIODevice.WriteOnly)
 
                     # Resize big images for storing in DB
-                    sideLen = Settings()['ImageSideLen']
+                    sideLen = self.settings['ImageSideLen']
                     sideLen = int(sideLen)  # forced conversion to Integer
-                    maxWidth = sideLen
-                    maxHeight = sideLen
-                    if image.width() > maxWidth or image.height() > maxHeight:
-                        scaledImage = image.scaled(maxWidth, maxHeight,
-                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                    else:
-                        scaledImage = image
+                    if sideLen > 0:
+                        maxWidth = sideLen
+                        maxHeight = sideLen
+                        if image.width() > maxWidth or image.height() > maxHeight:
+                            image = image.scaled(maxWidth, maxHeight,
+                                    Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
                     if field.name == 'obverseimg':
-                        obverseImage = scaledImage
+                        obverseImage = image
                     if field.name == 'reverseimg':
-                        reverseImage = scaledImage
+                        reverseImage = image
 
-                    scaledImage.save(buffer, self.IMAGE_FORMAT)
+                    image.save(buffer, self.IMAGE_FORMAT)
                     record.setValue(field.name, ba)
                 elif isinstance(image, bytes):
                     ba = QtCore.QByteArray(image)
@@ -374,6 +388,14 @@ class CollectionModel(QSqlTableModel):
 
     def submitAll(self):
         ret = super(CollectionModel, self).submitAll()
+        if not ret:
+            if self.lastError().nativeErrorCode() == self.SQLITE_READONLY:
+                message = self.tr("file is readonly")
+            else:
+                message = self.lastError().databaseText()
+            QMessageBox.critical(
+                self.parent(), self.tr("Saving"),
+                self.tr("Can't save data: %s") % message)
 
         if self.proxy:
             self.proxy.setDynamicSortFilter(True)
@@ -552,8 +574,6 @@ class Collection(QtCore.QObject):
                                 self.tr("Collection %s not exists") % fileName)
             return False
 
-        self.fileName = fileName
-
         self.settings = CollectionSettings(self.db)
         if self.settings['Type'] != version.AppName:
             QMessageBox.critical(self.parent(),
@@ -561,8 +581,10 @@ class Collection(QtCore.QObject):
                     self.tr("Collection %s in wrong format %s") % (fileName, version.AppName))
             return False
 
+        self.fileName = fileName
+
         if self.settings['Password'] != cryptPassword():
-            dialog = PasswordDialog(self.settings, self.parent())
+            dialog = PasswordDialog(self, self.parent())
             result = dialog.exec_()
             if result == QDialog.Rejected:
                 return False
@@ -671,10 +693,12 @@ class Collection(QtCore.QObject):
                     query.addBindValue(data)
                     query.exec_()
                     refSection.fillFromQuery(parentId, query)
+                    refSection.reload()
             else:
                 sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL" % (columnName, columnName, columnName)
                 query = QSqlQuery(sql, self.db)
                 refSection.fillFromQuery(query)
+                refSection.reload()
 
         progressDlg.reset()
 

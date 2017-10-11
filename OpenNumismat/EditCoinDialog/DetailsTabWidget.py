@@ -6,7 +6,8 @@ from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Tools.Converters import stringToMoney
+from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
+from OpenNumismat.Settings import Settings
 
 
 class DetailsTabWidget(QTabWidget):
@@ -466,6 +467,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def __init__(self, model, parent=None, usedFields=None):
         self.usedFields = usedFields
         self.reference = model.reference
+        self.settings = Settings()
 
         super(FormDetailsTabWidget, self).__init__(model, parent)
 
@@ -512,6 +514,17 @@ class FormDetailsTabWidget(DetailsTabWidget):
             widget.addDependent(self.items['unit'].widget())
             widget.addDependent(self.items['mint'].widget())
             widget.addDependent(self.items['series'].widget())
+
+        image_fields = ['obverseimg', 'reverseimg', 'edgeimg',
+                        'photo1', 'photo2', 'photo3', 'photo4']
+        for image_field_src in image_fields:
+            for image_field_dst in image_fields:
+                if image_field_dst != image_field_src:
+                    if not self.items[image_field_dst].isHidden():
+                        src = self.items[image_field_src].widget()
+                        dst = self.items[image_field_dst].widget()
+                        title = self.items[image_field_dst].title()
+                        src.connectExchangeAct(dst, title)
 
     def fillItems(self, record):
         super(FormDetailsTabWidget, self).fillItems(record)
@@ -587,7 +600,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
             if titlePart:
                 if key == 'unit':
                     titlePart = titlePart.lower()
-                if key == 'subjectshort':
+                elif key == 'value':
+                    titlePart, _ = numberWithFraction(titlePart, self.settings['convert_fraction'])
+                elif key == 'subjectshort':
                     if len(titlePart.split()) > 1:
                         titlePart = '"%s"' % titlePart
                 titleParts.append(titlePart)
@@ -637,6 +652,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def addPayCommission(self):
         item = FormItem(None, self.tr("Commission"), Type.Money)
         self.payCommission = item.widget()
+        self.payCommission.setToolTip(self.tr("Available format 12.5 or 10%"))
 
         validator = CommissionValidator(0, 9999999999, 2, self)
         validator.setNotation(QDoubleValidator.StandardNotation)
@@ -651,6 +667,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def addSaleCommission(self):
         item = FormItem(None, self.tr("Commission"), Type.Money)
         self.saleCommission = item.widget()
+        self.saleCommission.setToolTip(self.tr("Available format 12.5 or 10%"))
 
         validator = CommissionValidator(0, 9999999999, 2, self)
         validator.setNotation(QDoubleValidator.StandardNotation)

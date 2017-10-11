@@ -1,0 +1,82 @@
+{
+    "rarity": [
+        "Gemeenschappelijk",
+        "Normaal",
+        "Schaars",
+        "Zeldzaam",
+        "Uniek",
+        "alleen in een set"
+    ],
+    "quality": [
+        "Oncirculeerd",
+        "Brilliant ongecirculeerd",
+        "Proof",
+        "Proof like",
+        "Matte achterzijde "
+    ],
+    "defect": [
+        "geknipt planchet",
+        "Lamineren",
+        "Off center strike",
+        "meerder slagen",
+        "Mule",
+        "Doubled die",
+        "Brockage"
+    ],
+    "type": [
+        "normaal",
+        "herdenking",
+        "ongemunt goud",
+        "Restrike",
+        "Pattern",
+        "Set",
+        "Roll"
+    ],
+    "obvrev": [
+        "Medallic (0°)",
+        "Coin (180°)"
+    ],
+    "edge": [
+        "Reeded",
+        "Decorated",
+        "Interrupted milled",
+        "Smooth",
+        "Lettered"
+    ],
+    "shape": [
+        "Round",
+        "Square",
+        "Polygon",
+        "Spanish flower",
+        "Circle with hole"
+    ],
+    "material": [
+        "Acmonital",
+        "Aluminium",
+        "Aluminium bronze",
+        "Antimony",
+        "Brass",
+        "Brons",
+        "Cobalt",
+        "Koper",
+        "Cupronickel",
+        "Goud",
+        "Iron",
+        "Magnesium",
+        "Manganese",
+        "Melchior",
+        "Nickel",
+        "Nickel silver",
+        "Nordic gold",
+        "Palladium",
+        "Platina",
+        "Zilver",
+        "Staal",
+        "Tantalum",
+        "Tombac",
+        "Tellurium",
+        "Tin",
+        "Zink",
+        "Bimetal"
+    ]
+}

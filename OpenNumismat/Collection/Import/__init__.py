@@ -112,8 +112,9 @@ from OpenNumismat.Collection.Import.CollectionStudio import ImportCollectionStud
 from OpenNumismat.Collection.Import.Numizmatik_Ru import ImportNumizmatik_Ru
 from OpenNumismat.Collection.Import.Numizmatik_RuPredefined import ImportNumizmatik_RuPredefined
 from OpenNumismat.Collection.Import.Ucoin import ImportUcoin
+from OpenNumismat.Collection.Import.Tellico import ImportTellico
 
 __all__ = ["ImportNumizmat", "ImportCabinet", "ImportCoinsCollector",
            "ImportCoinManage", "ImportCoinManagePredefined",
            "ImportCollectionStudio", "ImportNumizmatik_Ru",
-           "ImportNumizmatik_RuPredefined", "ImportUcoin"]
+           "ImportNumizmatik_RuPredefined", "ImportUcoin", "ImportTellico"]
