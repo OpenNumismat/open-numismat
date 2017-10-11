@@ -59,19 +59,21 @@ class ImageView(QWidget):
     def clear(self):
         for _ in range(self.imageLayout.count()):
             item = self.imageLayout.itemAt(0)
-            item.widget().clear()
             self.imageLayout.removeItem(item)
+            item.widget().deleteLater()
 
-    def buttonClicked(self, state):
+    def buttonClicked(self, _state):
         self.clear()
 
         current = self.currentIndex
         self.showedCount = 0
         for i, field in enumerate(self.imageFields):
             if self.imageButtons[i].checkState() == Qt.Checked:
-                image = ImageLabel(self)
                 index = self.model.index(current.row(), field.id)
-                image.loadFromData(index.data())
+                data = index.data()
+                image = ImageLabel(self)
+                image.loadFromData(data[1])
+                image.setToolTip(data[0])
                 self.imageLayout.addWidget(image)
 
                 self.showedCount = self.showedCount + 1
@@ -80,7 +82,6 @@ class ImageView(QWidget):
         self.currentIndex = current
         self.clear()
 
-        images = []
         for i, field in enumerate(self.imageFields):
             self.imageButtons[i].stateChanged.disconnect(self.buttonClicked)
             self.imageButtons[i].setCheckState(Qt.Unchecked)
@@ -88,18 +89,18 @@ class ImageView(QWidget):
 
             index = self.model.index(current.row(), field.id)
             data = index.data()
-            if data and not data.isNull():
-                if len(images) < self.showedCount:
-                    images.append(data)
+            if data and not data[1].isNull():
+                if self.imageLayout.count() < self.showedCount:
+                    image = ImageLabel(self)
+                    image.loadFromData(data[1])
+                    image.setToolTip(data[0])
+                    self.imageLayout.addWidget(image)
+
                     self.imageButtons[i].setCheckState(Qt.Checked)
+
                 self.imageButtons[i].setDisabled(False)
 
             self.imageButtons[i].stateChanged.connect(self.buttonClicked)
-
-        for imageData in images:
-            image = ImageLabel(self)
-            image.loadFromData(imageData)
-            self.imageLayout.addWidget(image)
 
     def __layoutToWidget(self, layout):
         widget = QWidget(self)
