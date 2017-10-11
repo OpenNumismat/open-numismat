@@ -79,7 +79,7 @@ class CollectionModel(QSqlTableModel):
                     text = date.toString(Qt.SystemLocaleShortDate)
                 elif field.type == Type.Image or field.type == Type.EdgeImage:
                     if data:
-                        return (self.getImageTitle(data), self.getImage(data))
+                        return self.getImage(data)
                     else:
                         return None
                 elif field.type == Type.PreviewImage:

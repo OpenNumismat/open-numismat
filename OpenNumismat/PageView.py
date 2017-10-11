@@ -70,10 +70,12 @@ class ImageView(QWidget):
         for i, field in enumerate(self.imageFields):
             if self.imageButtons[i].checkState() == Qt.Checked:
                 index = self.model.index(current.row(), field.id)
-                data = index.data()
+                data = index.data(Qt.UserRole)
+                img = self.model.getImage(data)
                 image = ImageLabel(self)
-                image.loadFromData(data[1])
-                image.setToolTip(data[0])
+                image.loadFromData(img)
+                title = self.model.getImageTitle(data)
+                image.setToolTip(title)
                 self.imageLayout.addWidget(image)
 
                 self.showedCount = self.showedCount + 1
@@ -88,12 +90,14 @@ class ImageView(QWidget):
             self.imageButtons[i].setDisabled(True)
 
             index = self.model.index(current.row(), field.id)
-            data = index.data()
-            if data and not data[1].isNull():
+            data = index.data(Qt.UserRole)
+            img = self.model.getImage(data)
+            if img and not img.isNull():
                 if self.imageLayout.count() < self.showedCount:
                     image = ImageLabel(self)
-                    image.loadFromData(data[1])
-                    image.setToolTip(data[0])
+                    image.loadFromData(img)
+                    title = self.model.getImageTitle(data)
+                    image.setToolTip(title)
                     self.imageLayout.addWidget(image)
 
                     self.imageButtons[i].setCheckState(Qt.Checked)
