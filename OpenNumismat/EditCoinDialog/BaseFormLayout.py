@@ -65,11 +65,11 @@ class FormItem(object):
         elif self._type == Type.Text:
             self._widget = TextEdit(parent)
         elif self._type == Type.Image:
-            self._widget = ImageEdit(field, parent)
+            self._widget = ImageEdit(field, self._label, parent)
         elif self._type == Type.PreviewImage:
-            self._widget = ImageEdit(field, parent)
+            self._widget = ImageEdit(field, self._label, parent)
         elif self._type == Type.EdgeImage:
-            self._widget = EdgeImageEdit(field, parent)
+            self._widget = EdgeImageEdit(field, self._label, parent)
         elif self._type == Type.Date:
             self._widget = DateEdit(parent)
         elif self._type == Type.Status:

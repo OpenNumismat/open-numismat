@@ -6,6 +6,7 @@ from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
 from OpenNumismat.Settings import Settings
+from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 
 
 @storeDlgSizeDecorator
@@ -143,6 +144,13 @@ class EditCoinDialog(QDialog):
             if isinstance(value, str):
                 value = value.strip()
             self.record.setValue(item.field(), value)
+
+        image_fields = ['obverseimg', 'reverseimg', 'edgeimg',
+                        'photo1', 'photo2', 'photo3', 'photo4']
+        for image_field in image_fields:
+            item = self.items[image_field]
+            title = item.widget().title.strip()
+            self.record.setValue(image_field + '_title', title)
 
         if settings['check_coin_duplicate']:
             if not self.usedFields:

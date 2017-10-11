@@ -80,10 +80,14 @@ class ImageLabel(QLabel):
 class ImageEdit(ImageLabel):
     latestDir = OpenNumismat.IMAGE_PATH
 
-    def __init__(self, name, parent=None):
+    def __init__(self, name, label, parent=None):
         super(ImageEdit, self).__init__(parent)
 
         self.name = name or 'photo'
+        self.label = label
+        self.title = None
+
+        self.label.mouseDoubleClickEvent = self.renameImageEvent
 
         self.setFrameStyle(QFrame.Panel | QFrame.Plain)
 
@@ -94,6 +98,10 @@ class ImageEdit(ImageLabel):
         self.exchangeMenu = QMenu(text, self)
 
         self.changed = False
+
+    def setTitle(self, title):
+        self.title = title
+        self.label.setText(title)
 
     def contextMenu(self, pos):
         style = QApplication.style()
@@ -123,11 +131,16 @@ class ImageEdit(ImageLabel):
         save.triggered.connect(self.saveImage)
         save.setDisabled(self.image.isNull())
 
+        text = QApplication.translate('ImageEdit', "Rename...")
+        rename = QAction(text, self)
+        rename.triggered.connect(self.renameImage)
+
         menu = QMenu()
         menu.addAction(load)
         menu.setDefaultAction(load)
         menu.addAction(save)
         menu.addSeparator()
+        menu.addAction(rename)
         menu.addMenu(self.exchangeMenu)
         menu.addSeparator()
         menu.addAction(paste)
@@ -254,6 +267,17 @@ class ImageEdit(ImageLabel):
             act.exchangeImageTriggered.connect(self.exchangeImage)
             self.exchangeMenu.addAction(act)
 
+    def renameImageEvent(self, _event):
+        self.renameImage()
+
+    def renameImage(self):
+        title, ok = QInputDialog.getText(self, self.tr("Rename image"),
+                self.tr("Enter new image name"), text=self.title,
+                flags=(Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint))
+        if ok:
+            self.title = title
+            self.label.setText(title)
+
     def _setNewImage(self, image):
         # Fill transparent color if present
         fixedImage = QImage(image.size(), QImage.Format_RGB32)
@@ -267,8 +291,8 @@ class ImageEdit(ImageLabel):
 
 
 class EdgeImageEdit(ImageEdit):
-    def __init__(self, name, parent=None):
-        super(EdgeImageEdit, self).__init__(name, parent)
+    def __init__(self, name, label, parent=None):
+        super(EdgeImageEdit, self).__init__(name, label, parent)
 
     def _setImage(self, image):
         if not image.isNull():
