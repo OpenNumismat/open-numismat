@@ -87,9 +87,10 @@ class ImageView(QWidget):
             self.imageButtons[i].setDisabled(True)
 
             index = self.model.index(current.row(), field.id)
-            if index.data() and not index.data().isNull():
+            data = index.data()
+            if data and not data.isNull():
                 if len(images) < self.showedCount:
-                    images.append(index.data())
+                    images.append(data)
                     self.imageButtons[i].setCheckState(Qt.Checked)
                 self.imageButtons[i].setDisabled(False)
 
