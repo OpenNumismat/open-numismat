@@ -149,8 +149,10 @@ class EditCoinDialog(QDialog):
                         'photo1', 'photo2', 'photo3', 'photo4']
         for image_field in image_fields:
             item = self.items[image_field]
-            title = item.widget().title.strip()
-            self.record.setValue(image_field + '_title', title)
+            value = item.widget().title
+            if isinstance(value, str):
+                value = value.strip()
+            self.record.setValue(image_field + '_title', value)
 
         if settings['check_coin_duplicate']:
             if not self.usedFields:

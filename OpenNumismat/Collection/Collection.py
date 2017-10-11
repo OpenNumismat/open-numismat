@@ -261,8 +261,6 @@ class CollectionModel(QSqlTableModel):
                 record.setValue(field + '_id', img_id)
             else:
                 record.setValue(field, None)
-                fieldDesc = getattr(self.fields, field)
-                record.setValue(field + '_title', fieldDesc.title)
 
         record.append(QSqlField('image_id'))
         img_id = record.value('image')

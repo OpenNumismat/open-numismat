@@ -538,7 +538,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
                         'photo1', 'photo2', 'photo3', 'photo4']
         for image_field in image_fields:
             title = record.value(image_field + '_title')
-            self.items[image_field].widget().setTitle(title)
+            if title:
+                self.items[image_field].widget().setTitle(title)
 
     def mainDetailsLayout(self, parent=None):
         layout = BaseFormGroupBox(self.tr("Main details"), parent)
