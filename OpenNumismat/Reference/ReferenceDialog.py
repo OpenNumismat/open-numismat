@@ -221,7 +221,7 @@ class CrossReferenceWidget(ReferenceWidget):
         if index >= 0:
             idIndex = self.rel.fieldIndex('id')
             parentId = self.rel.data(self.rel.index(index, idIndex))
-            self.model.setFilter('parentid=%d' % parentId)
+            self.model.setFilter('%s.parentid=%d' % (self.model.tableName(), parentId))
         else:
             self.model.setFilter('')
 
@@ -234,7 +234,7 @@ class CrossReferenceWidget(ReferenceWidget):
 
         row = self.model.rowCount()
         self.model.insertRow(row)
-        index = self.model.index(row, 1)
+        index = self.model.index(row, self.model.parentidIndex)
         self.model.setData(index, parentId)
         index = self.model.index(row, self.model.fieldIndex('value'))
         self.model.setData(index, self.listWidget.defaultValue())

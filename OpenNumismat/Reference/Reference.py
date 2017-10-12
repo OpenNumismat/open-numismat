@@ -47,6 +47,7 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
 
         return super().data(index, role)
 
+
 class ReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
@@ -191,6 +192,7 @@ class CrossReferenceSection(QtCore.QObject):
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
         self.model.setTable(self.name)
         parentIndex = self.model.fieldIndex('parentid')
+        self.model.parentidIndex = parentIndex
         self.model.setRelation(parentIndex,
                            QtSql.QSqlRelation(self.parentName, 'id', 'value'))
 
@@ -299,7 +301,8 @@ class Reference(QtCore.QObject):
 
         self.db = QSqlDatabase.addDatabase('QSQLITE', "reference")
 
-        ref_country = ReferenceSection('country', self.tr("Country"), self.tr("C"))
+        ref_region = ReferenceSection('region', self.tr("Region"))
+        ref_country = CrossReferenceSection('country', ref_region, self.tr("Country"), self.tr("C"))
         ref_type = ReferenceSection('type', self.tr("Type"), self.tr("T"))
         ref_grade = ReferenceSection('grade', self.tr("Grade"), self.tr("G"))
         ref_place = ReferenceSection('place', self.tr("Place"))
@@ -314,10 +317,13 @@ class Reference(QtCore.QObject):
         ref_quality = ReferenceSection('quality', self.tr("Quality"), self.tr("Q"))
         ref_defect = ReferenceSection('defect', self.tr("Defect"), self.tr("D"))
         ref_rarity = ReferenceSection('rarity', self.tr("Rarity"), self.tr("R"))
+        ref_ruler = CrossReferenceSection('ruler', ref_country, self.tr("Ruler"))
 
         self.sections = [
+            ref_region,
             ref_country,
             ref_period,
+            ref_ruler,
             ref_unit,
             ref_mint,
             ref_series,
@@ -368,6 +374,10 @@ class Reference(QtCore.QObject):
                     for table in ['period', 'unit', 'mint', 'series']:
                         sql = "ALTER TABLE %s ADD COLUMN icon BLOB" % table
                         QSqlQuery(sql, self.db)
+                # Update reference DB for version 1.5
+                if self.db.record('country').indexOf('parentid') < 0:
+                    sql = "ALTER TABLE country ADD COLUMN parentid INTEGER"
+                    QSqlQuery(sql, self.db)
         else:
             QMessageBox.warning(self.parent(),
                             self.tr("Open reference"),
