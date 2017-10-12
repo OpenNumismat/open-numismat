@@ -18,22 +18,28 @@ class Updater(QtCore.QObject):
         elif self.currentVersion > self.collection.settings.Default['Version']:
             QMessageBox.warning(self.parent(),
                     self.tr("Checking collection version"),
-                    self.tr("Collection %s a newer version.\n" \
+                    self.tr("Collection %s a newer version.\n"
                             "Please update OpenNumismat") % self.collection.fileName)
 
         return False
 
     def update(self):
-        if self.check():
-            if self.__begin():
-                if self.currentVersion < 2:
-                    updater = UpdaterTo2(self.collection)
-                    updater.update()
-                if self.currentVersion < 3:
-                    updater = UpdaterTo3(self.collection)
-                    updater.update()
+        if self.__begin():
+            if self.currentVersion < 2:
+                updater = UpdaterTo2(self.collection)
+                updater.update()
+            if self.currentVersion < 3:
+                updater = UpdaterTo3(self.collection)
+                updater.update()
+            if self.currentVersion < 4:
+                updater = UpdaterTo4(self.collection)
+                updater.update()
 
-                self.__finalize()
+            self.__finalize()
+
+            return True
+
+        return False
 
     def __begin(self):
         return self.collection.backup()
@@ -309,7 +315,49 @@ class UpdaterTo3(_Updater):
         self._finish()
 
 
+class UpdaterTo4(_Updater):
+    def __init__(self, collection):
+        super(UpdaterTo4, self).__init__(collection)
+
+    def getTotalCount(self):
+        return 0
+
+    def update(self):
+        self._begin()
+
+        self.db.transaction()
+
+        fields = ['ruler', 'region']
+        for field in fields:
+            fieldDesc = getattr(self.collection.fields, field)
+            fieldDesc.enabled = True
+            query = QSqlQuery(self.db)
+            query.prepare("INSERT INTO fields (id, title, enabled)"
+                          " VALUES (?, ?, ?)")
+            query.addBindValue(fieldDesc.id)
+            query.addBindValue(fieldDesc.title)
+            query.addBindValue(int(fieldDesc.enabled))
+            query.exec_()
+
+            sql = "ALTER TABLE coins ADD COLUMN %s TEXT" % field
+            QSqlQuery(sql, self.db)
+
+            self.collection.fields.userFields.append(fieldDesc)
+
+        sql = "UPDATE photos SET title=NULL"
+        QSqlQuery(sql, self.db)
+
+        self.collection.settings['Version'] = 4
+        self.collection.settings.save()
+
+        self.db.commit()
+
+        self._finish()
+
+
 def updateCollection(collection):
     updater = Updater(collection, collection.parent())
     if updater.check():
-        updater.update()
+        return updater.update()
+
+    return True

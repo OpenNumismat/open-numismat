@@ -195,6 +195,8 @@ class CollectionFieldsBase(QObject):
                 ('quantity', self.tr("Quantity"), Type.BigInt),
                 ('url', self.tr("URL"), Type.String),
                 ('barcode', self.tr("Barcode"), Type.String),
+                ('ruler', self.tr("Ruler"), Type.String),
+                ('region', self.tr("Region"), Type.String),
             ]
 
         self.fields = []

@@ -461,8 +461,8 @@ class CollectionModel(QSqlTableModel):
         super(CollectionModel, self).setFilter(combinedFilter)
 
     def isExist(self, record):
-        fields = ['title', 'value', 'unit', 'country', 'period', 'year',
-                  'mint', 'mintmark', 'type', 'series', 'subjectshort',
+        fields = ['title', 'value', 'unit', 'country', 'period', 'ruler',
+                  'year', 'mint', 'mintmark', 'type', 'series', 'subjectshort',
                   'status', 'material', 'quality', 'paydate', 'payprice',
                   'saller', 'payplace', 'saledate', 'saleprice', 'buyer',
                   'saleplace', 'variety', 'obversevar', 'reversevar',
@@ -487,7 +487,7 @@ class CollectionModel(QSqlTableModel):
 
 class CollectionSettings(BaseSettings):
     Default = {
-            'Version': 3,
+            'Version': 4,
             'Type': version.AppName,
             'Password': cryptPassword()
     }
@@ -589,7 +589,8 @@ class Collection(QtCore.QObject):
 
         self.fields = CollectionFields(self.db)
 
-        updateCollection(self)
+        if not updateCollection(self):
+            return False
 
         self._pages = CollectionPages(self.db)
 

@@ -189,8 +189,10 @@ class DetailsTabWidget(QTabWidget):
         layout = BaseFormGroupBox(title, parent)
 
         layout.addRow(self.items['title'])
+        layout.addRow(self.items['region'])
         layout.addRow(self.items['country'])
         layout.addRow(self.items['period'])
+        layout.addRow(self.items['ruler'])
         layout.addRow(self.items['value'], self.items['unit'])
         layout.addRow(self.items['year'])
         layout.addRow(self.items['mintmark'], self.items['mint'])
@@ -550,8 +552,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
         btn.clicked.connect(self.clickGenerateTitle)
         layout.addRow(self.items['title'], btn)
 
+        layout.addRow(self.items['region'])
         layout.addRow(self.items['country'])
         layout.addRow(self.items['period'])
+        layout.addRow(self.items['ruler'])
         layout.addRow(self.items['value'], self.items['unit'])
         layout.addRow(self.items['year'])
         layout.addRow(self.items['mintmark'], self.items['mint'])
