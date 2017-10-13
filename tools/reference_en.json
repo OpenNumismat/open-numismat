@@ -78,5 +78,12 @@
         "Tin",
         "Zinc",
         "Bimetal"
+    ],
+    "region": [
+        "Europe",
+        "America",
+        "Asia",
+        "Africa",
+        "Oceania"
     ]
 }
