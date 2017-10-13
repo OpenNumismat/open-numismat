@@ -15,11 +15,6 @@ class Updater(QtCore.QObject):
     def check(self):
         if self.currentVersion < self.collection.settings.Default['Version']:
             return True
-        elif self.currentVersion > self.collection.settings.Default['Version']:
-            QMessageBox.warning(self.parent(),
-                    self.tr("Checking collection version"),
-                    self.tr("Collection %s a newer version.\n"
-                            "Please update OpenNumismat") % self.collection.fileName)
 
         return False
 

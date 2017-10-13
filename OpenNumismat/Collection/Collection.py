@@ -578,6 +578,12 @@ class Collection(QtCore.QObject):
                     self.tr("Open collection"),
                     self.tr("Collection %s in wrong format %s") % (fileName, version.AppName))
             return False
+        if int(self.settings['Version']) > self.settings.Default['Version']:
+            QMessageBox.critical(self.parent(),
+                    self.tr("Open collection"),
+                    self.tr("Collection %s a newer version.\n"
+                            "Please update OpenNumismat") % fileName)
+            return False
 
         self.fileName = fileName
 
