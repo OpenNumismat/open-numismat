@@ -189,6 +189,7 @@ class CrossReferenceSection(QtCore.QObject):
             self.create(self.db)
 
         self.model = SqlRelationalTableModel(self.parentRef.model, None, db)
+        self.model.setJoinMode(QtSql.QSqlRelationalTableModel.LeftJoin)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
         self.model.setTable(self.name)
         parentIndex = self.model.fieldIndex('parentid')

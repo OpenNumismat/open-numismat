@@ -223,7 +223,8 @@ class CrossReferenceWidget(ReferenceWidget):
             parentId = self.rel.data(self.rel.index(index, idIndex))
             self.model.setFilter('%s.parentid=%d' % (self.model.tableName(), parentId))
         else:
-            self.model.setFilter('')
+            self.model.setFilter(None)
+        self.model.select()
 
         self.editButtonBox.setEnabled(index >= 0)
 

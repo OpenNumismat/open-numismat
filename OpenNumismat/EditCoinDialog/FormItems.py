@@ -268,13 +268,18 @@ class LineEditRef(QWidget):
                     reference = dependent.reference
                     reference.model.setFilter(
                         '%s.parentid=%d' % (reference.model.tableName(), model.data(parentIndex)))
+                    reference.model.select()
                     reference.parentIndex = parentIndex
                     dependent.setText(text)
         else:
             for dependent in self.dependents:
                 text = dependent.text()
                 reference = dependent.reference
-                reference.model.setFilter('%s.parentid IS NULL' % reference.model.tableName())
+                if self.comboBox.currentText():
+                    reference.model.setFilter('0')  # nothing select
+                else:
+                    reference.model.setFilter(None)
+                reference.model.select()
                 reference.parentIndex = None
                 dependent.setText(text)
 
