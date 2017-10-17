@@ -1,0 +1,20 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-size: 1em;
+    font-family: Verdana,Helvetica;
+    font-size: 10px;
+}
+
+#bodyContent {
+    max-width: 812px;
+}
+
+.img_group {
+    padding: 5px;
+}
+
+img { height: 130px; }
