@@ -325,7 +325,7 @@ class UpdaterTo4(_Updater):
         fields = ['ruler', 'region']
         for field in fields:
             fieldDesc = getattr(self.collection.fields, field)
-            fieldDesc.enabled = True
+            fieldDesc.enabled = False
             query = QSqlQuery(self.db)
             query.prepare("INSERT INTO fields (id, title, enabled)"
                           " VALUES (?, ?, ?)")
