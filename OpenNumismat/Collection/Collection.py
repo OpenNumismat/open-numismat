@@ -651,7 +651,7 @@ class Collection(QtCore.QObject):
         QSqlQuery(sql, self.db)
 
     def loadReference(self, fileName):
-        self.reference = Reference(self.fields, self)
+        self.reference = Reference(self.fields, self.parent())
         self.reference.open(fileName)
 
     def getFileName(self):

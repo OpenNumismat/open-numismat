@@ -120,6 +120,42 @@ class BaseReferenceSection(QtCore.QObject):
 
         self.setSort()
 
+    def create(self, db=QSqlDatabase()):
+        db.transaction()
+
+        cross_ref = ('country', 'period', 'ruler', 'unit', 'mint', 'series')
+
+        if self.name in cross_ref:
+            sql = "CREATE TABLE %s (\
+                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+                parentid INTEGER NOT NULL,\
+                value TEXT, icon BLOB)" % self.name
+        else:
+            sql = "CREATE TABLE %s (\
+                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+                value TEXT, icon BLOB)" % self.name
+        QSqlQuery(sql, db)
+
+        query = QSqlQuery(db)
+        if self.name in cross_ref:
+            sql = "INSERT INTO sections (name, letter, parent, sort)\
+                VALUES (?, ?, ?, ?)"
+        else:
+            sql = "INSERT INTO sections (name, letter, sort)\
+                VALUES (?, ?, ?)"
+        query.prepare(sql)
+        query.addBindValue(self.name)
+        query.addBindValue(self.letter)
+        if self.name in cross_ref:
+            if self.name == 'country':
+                query.addBindValue('region')
+            else:
+                query.addBindValue('country')
+        query.addBindValue(int(self.sort))
+        query.exec_()
+
+        db.commit()
+
 
 class ReferenceSection(BaseReferenceSection):
     def __init__(self, name, title, letter='', sort=False, parent=None):
@@ -162,23 +198,6 @@ class ReferenceSection(BaseReferenceSection):
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(value)
             fillQuery.exec_()
-
-    def create(self, db=QSqlDatabase()):
-        db.transaction()
-
-        sql = "CREATE TABLE %s (\
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-            value TEXT, icon BLOB)" % self.name
-        QSqlQuery(sql, db)
-
-        query = QSqlQuery(db)
-        query.prepare("INSERT INTO sections (name, letter)\
-            VALUES (?, ?)")
-        query.addBindValue(self.name)
-        query.addBindValue(self.letter)
-        query.exec_()
-
-        db.commit()
 
 
 class CrossReferenceSection(BaseReferenceSection):
@@ -228,25 +247,6 @@ class CrossReferenceSection(BaseReferenceSection):
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(parentId)
             fillQuery.exec_()
-
-    def create(self, db=QSqlDatabase()):
-        db.transaction()
-
-        sql = "CREATE TABLE %s (\
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-            parentid INTEGER NOT NULL,\
-            value TEXT, icon BLOB)" % self.name
-        QSqlQuery(sql, db)
-
-        query = QSqlQuery(db)
-        query.prepare("INSERT INTO sections (name, letter, parent)\
-            VALUES (?, ?, ?)")
-        query.addBindValue(self.name)
-        query.addBindValue(self.letter)
-        query.addBindValue(self.parentName)
-        query.exec_()
-
-        db.commit()
 
 
 class Reference(QtCore.QObject):
@@ -346,6 +346,8 @@ class Reference(QtCore.QObject):
                 # Update reference DB for version 1.5
                 if self.db.record('country').indexOf('parentid') < 0:
                     sql = "ALTER TABLE country ADD COLUMN parentid INTEGER"
+                    QSqlQuery(sql, self.db)
+                    sql = "UPDATE sections SET parent = 'region' WHERE name = 'country'"
                     QSqlQuery(sql, self.db)
         else:
             QMessageBox.warning(self.parent(),
