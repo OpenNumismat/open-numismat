@@ -48,28 +48,18 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
         return super().data(index, role)
 
 
-class ReferenceSection(QtCore.QObject):
+class BaseReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
     def __init__(self, name, title, letter='', sort=False, parent=None):
-        super(ReferenceSection, self).__init__(parent)
+        super(BaseReferenceSection, self).__init__(parent)
 
         self.name = name
-        self.parentName = None
         self.title = title
         self.letter = letter
         self.sort = sort
 
-    def load(self, db):
-        self.db = db
-        if self.name not in self.db.tables():
-            self.create(self.db)
-
-        self.model = SqlTableModel(None, db)
-        self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
-        self.model.setTable(self.name)
-
-        self.reload()
+        self.parentName = None
 
     def reload(self):
         self.getSort()
@@ -85,9 +75,8 @@ class ReferenceSection(QtCore.QObject):
 
     def clickedButton(self):
         old_text = self.parent.text()
-        copy = ReferenceSection(self.name, self.title, self.letter, self.sort, self.parent)
-        copy.load(self.db)
-        dialog = ReferenceDialog(copy, self.parent.text(), self.parent)
+
+        dialog = self._getDialog()
         result = dialog.exec_()
         if result == QDialog.Accepted:
             self.reload()
@@ -97,6 +86,63 @@ class ReferenceSection(QtCore.QObject):
                 self.changed.emit(index.data())
             else:
                 self.changed.emit(old_text)
+
+    def setSort(self):
+        if self.sort:
+            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
+        else:
+            self.model.setSort(0, Qt.AscendingOrder)
+
+    def getSort(self):
+        query = QSqlQuery(self.db)
+        query.prepare("SELECT sort FROM sections WHERE name=?")
+        query.addBindValue(self.name)
+        query.exec_()
+        if query.first():
+            data = query.record().value(0)
+            if data:
+                self.sort = bool(data)
+            else:
+                self.sort = False
+        query.clear()
+
+        return self.sort
+
+    def saveSort(self, sort):
+        if self.sort != sort:
+            self.sort = sort
+
+            query = QSqlQuery(self.db)
+            query.prepare("UPDATE sections SET sort=? WHERE name=?")
+            query.addBindValue(int(sort))
+            query.addBindValue(self.name)
+            query.exec_()
+
+        self.setSort()
+
+
+class ReferenceSection(BaseReferenceSection):
+    def __init__(self, name, title, letter='', sort=False, parent=None):
+        super(ReferenceSection, self).__init__(name, title, letter, sort,
+                                               parent)
+
+    def load(self, db):
+        self.db = db
+        if self.name not in self.db.tables():
+            self.create(self.db)
+
+        self.model = SqlTableModel(None, db)
+        self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
+        self.model.setTable(self.name)
+
+        self.reload()
+
+    def _getDialog(self):
+        copy = ReferenceSection(self.name, self.title,
+                                self.letter, self.sort, self.parent)
+        copy.load(self.db)
+
+        return ReferenceDialog(copy, self.parent.text(), self.parent)
 
     def addItem(self, value, icon=None):
         record = self.model.record()
@@ -134,54 +180,15 @@ class ReferenceSection(QtCore.QObject):
 
         db.commit()
 
-    def setSort(self):
-        if self.sort:
-            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
-        else:
-            self.model.setSort(0, Qt.AscendingOrder)
 
-    def getSort(self):
-        query = QSqlQuery(self.db)
-        query.prepare("SELECT sort FROM sections WHERE name=?")
-        query.addBindValue(self.name)
-        query.exec_()
-        if query.first():
-            data = query.record().value(0)
-            if data:
-                self.sort = bool(data)
-            else:
-                self.sort = False
-        query.clear()
-
-        return self.sort
-
-    def saveSort(self, sort):
-        if self.sort != sort:
-            self.sort = sort
-
-            query = QSqlQuery(self.db)
-            query.prepare("UPDATE sections SET sort=? WHERE name=?")
-            query.addBindValue(int(sort))
-            query.addBindValue(self.name)
-            query.exec_()
-
-        self.setSort()
-
-
-class CrossReferenceSection(QtCore.QObject):
-    changed = pyqtSignal(object)
-
+class CrossReferenceSection(BaseReferenceSection):
     def __init__(self, name, parentRef, title, letter='', sort=False, parent=None):
-        super(CrossReferenceSection, self).__init__(parent)
+        super(CrossReferenceSection, self).__init__(name, title, letter, sort,
+                                                    parent)
 
         self.parentIndex = None
-
-        self.name = name
         self.parentRef = parentRef
         self.parentName = parentRef.name
-        self.title = title
-        self.letter = letter
-        self.sort = sort
 
     def load(self, db):
         self.db = db
@@ -192,41 +199,20 @@ class CrossReferenceSection(QtCore.QObject):
         self.model.setJoinMode(QtSql.QSqlRelationalTableModel.LeftJoin)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
         self.model.setTable(self.name)
-        parentIndex = self.model.fieldIndex('parentid')
-        self.model.parentidIndex = parentIndex
-        self.model.setRelation(parentIndex,
-                           QtSql.QSqlRelation(self.parentName, 'id', 'value'))
+        parentidIndex = self.model.fieldIndex('parentid')
+        self.model.parentidIndex = parentidIndex
+        self.model.setRelation(
+            parentidIndex, QtSql.QSqlRelation(self.parentName, 'id', 'value'))
 
         self.reload()
 
-    def reload(self):
-        self.getSort()
-        self.setSort()
-        self.model.select()
-
-    def button(self, parent=None):
-        self.parent = parent
-        button = QPushButton(self.letter, parent)
-        button.setFixedWidth(25)
-        button.clicked.connect(self.clickedButton)
-        return button
-
-    def clickedButton(self):
-        old_text = self.parent.text()
+    def _getDialog(self):
         copy = CrossReferenceSection(self.name, self.parentRef, self.title,
                                      self.letter, self.sort, self.parent)
         copy.load(self.db)
-        dialog = CrossReferenceDialog(copy, self.parentIndex,
-                                      self.parent.text(), self.parent)
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
-            self.reload()
 
-            index = dialog.selectedIndex()
-            if index:
-                self.changed.emit(index.data())
-            else:
-                self.changed.emit(old_text)
+        return CrossReferenceDialog(copy, self.parentIndex,
+                                    self.parent.text(), self.parent)
 
     def fillFromQuery(self, parentId, query):
         while query.next():
@@ -261,39 +247,6 @@ class CrossReferenceSection(QtCore.QObject):
         query.exec_()
 
         db.commit()
-
-    def setSort(self):
-        if self.sort:
-            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
-        else:
-            self.model.setSort(0, Qt.AscendingOrder)
-
-    def getSort(self):
-        query = QSqlQuery(self.db)
-        query.prepare("SELECT sort FROM sections WHERE name=?")
-        query.addBindValue(self.name)
-        query.exec_()
-        if query.first():
-            data = query.record().value(0)
-            if data:
-                self.sort = bool(data)
-            else:
-                self.sort = False
-        query.clear()
-
-        return self.sort
-
-    def saveSort(self, sort):
-        if self.sort != sort:
-            self.sort = sort
-
-            query = QSqlQuery(self.db)
-            query.prepare("UPDATE sections SET sort=? WHERE name=?")
-            query.addBindValue(int(sort))
-            query.addBindValue(self.name)
-            query.exec_()
-
-        self.setSort()
 
 
 class Reference(QtCore.QObject):
