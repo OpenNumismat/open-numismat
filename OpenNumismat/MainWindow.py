@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import *
 from OpenNumismat.Collection.Collection import Collection
 from OpenNumismat.Collection.Description import DescriptionDialog
 from OpenNumismat.Collection.Password import PasswordSetDialog
-from OpenNumismat.Reference.Reference import Reference
 from OpenNumismat.TabView import TabView
 from OpenNumismat.Settings import Settings
 from OpenNumismat.SettingsDialog import SettingsDialog
@@ -296,16 +295,13 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle(version.AppName)
 
-        self.reference = Reference(self)
-        self.reference.open(Settings()['reference'])
-
         if len(sys.argv) > 1:
             fileName = sys.argv[1]
         else:
             latest = LatestCollections(self)
             fileName = latest.latest()
 
-        self.collection = Collection(self.reference, self)
+        self.collection = Collection(self)
         self.openCollection(fileName)
 
         self.setCentralWidget(self.viewTab)
@@ -568,6 +564,7 @@ class MainWindow(QMainWindow):
     def openCollection(self, fileName):
         self.__closeCollection()
         if self.collection.open(fileName):
+            self.collection.loadReference(Settings()['reference'])
             self.setCollection(self.collection)
         else:
             # Remove wrong collection from latest collections list

@@ -13,6 +13,7 @@ from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.CollectionPages import CollectionPages
 from OpenNumismat.Collection.Password import cryptPassword, PasswordDialog
 from OpenNumismat.Collection.Description import CollectionDescription
+from OpenNumismat.Reference.Reference import Reference
 from OpenNumismat.Reference.Reference import CrossReferenceSection
 from OpenNumismat.Reference.ReferenceDialog import AllReferenceDialog
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
@@ -545,10 +546,9 @@ class CollectionSettings(BaseSettings):
 
 
 class Collection(QtCore.QObject):
-    def __init__(self, reference, parent=None):
+    def __init__(self, parent=None):
         super(Collection, self).__init__(parent)
 
-        self.reference = reference
         self.db = QSqlDatabase.addDatabase('QSQLITE')
         self._pages = None
         self.fileName = None
@@ -649,6 +649,10 @@ class Collection(QtCore.QObject):
 
         sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, image BLOB)"
         QSqlQuery(sql, self.db)
+
+    def loadReference(self, fileName):
+        self.reference = Reference(self.fields, self)
+        self.reference.open(fileName)
 
     def getFileName(self):
         return QtCore.QDir(self.fileName).absolutePath()

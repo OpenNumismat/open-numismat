@@ -511,14 +511,21 @@ class FormDetailsTabWidget(DetailsTabWidget):
         super(FormDetailsTabWidget, self).createItems()
 
         if self.reference:
-            region = self.items['region'].widget()
-            country = self.items['country'].widget()
-            region.addDependent(country)
-            country.addDependent(self.items['period'].widget())
-            country.addDependent(self.items['ruler'].widget())
-            country.addDependent(self.items['unit'].widget())
-            country.addDependent(self.items['mint'].widget())
-            country.addDependent(self.items['series'].widget())
+            if self.reference.section('country'):
+                country = self.items['country'].widget()
+                if self.reference.section('region'):
+                    region = self.items['region'].widget()
+                    region.addDependent(country)
+                if self.reference.section('period'):
+                    country.addDependent(self.items['period'].widget())
+                if self.reference.section('ruler'):
+                    country.addDependent(self.items['ruler'].widget())
+                if self.reference.section('unit'):
+                    country.addDependent(self.items['unit'].widget())
+                if self.reference.section('mint'):
+                    country.addDependent(self.items['mint'].widget())
+                if self.reference.section('series'):
+                    country.addDependent(self.items['series'].widget())
 
         image_fields = ['obverseimg', 'reverseimg', 'edgeimg',
                         'photo1', 'photo2', 'photo3', 'photo4']

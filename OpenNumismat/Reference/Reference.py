@@ -250,48 +250,63 @@ class CrossReferenceSection(BaseReferenceSection):
 
 
 class Reference(QtCore.QObject):
-    def __init__(self, parent=None):
+    def __init__(self, fields, parent=None):
         super(Reference, self).__init__(parent)
 
         self.db = QSqlDatabase.addDatabase('QSQLITE', "reference")
 
-        ref_region = ReferenceSection('region', self.tr("Region"))
-        ref_country = CrossReferenceSection('country', ref_region, self.tr("Country"), self.tr("C"))
-        ref_type = ReferenceSection('type', self.tr("Type"), self.tr("T"))
-        ref_grade = ReferenceSection('grade', self.tr("Grade"), self.tr("G"))
-        ref_place = ReferenceSection('place', self.tr("Place"))
-        ref_material = ReferenceSection('material', self.tr("Material"), self.tr("M"))
-        ref_shape = ReferenceSection('shape', self.tr("Shape"), self.tr("F"))
-        ref_obvrev = ReferenceSection('obvrev', self.tr("ObvRev"))
-        ref_edge = ReferenceSection('edge', self.tr("Edge"), self.tr("E"))
-        ref_unit = CrossReferenceSection('unit', ref_country, self.tr("Unit"), self.tr("U"))
-        ref_mint = CrossReferenceSection('mint', ref_country, self.tr("Mint"))
-        ref_period = CrossReferenceSection('period', ref_country, self.tr("Period"), self.tr("P"))
-        ref_series = CrossReferenceSection('series', ref_country, self.tr("Series"), self.tr("S"))
-        ref_quality = ReferenceSection('quality', self.tr("Quality"), self.tr("Q"))
-        ref_defect = ReferenceSection('defect', self.tr("Defect"), self.tr("D"))
-        ref_rarity = ReferenceSection('rarity', self.tr("Rarity"), self.tr("R"))
-        ref_ruler = CrossReferenceSection('ruler', ref_country, self.tr("Ruler"))
+        self.userFields = [field.name for field in fields.userFields]
+        self.sections = []
 
-        self.sections = [
-            ref_region,
-            ref_country,
-            ref_period,
-            ref_ruler,
-            ref_unit,
-            ref_mint,
-            ref_series,
-            ref_grade,
-            ref_material,
-            ref_shape,
-            ref_quality,
-            ref_edge,
-            ref_rarity,
-            ref_obvrev,
-            ref_type,
-            ref_defect,
-            ref_place,
-        ]
+        ref_region = self.__createReferenceSection(None, 'region',
+                                                   self.tr("Region"))
+        ref_country = self.__createReferenceSection(ref_region, 'country',
+                                                    self.tr("Country"), self.tr("C"), True)
+        self.__createReferenceSection(ref_country, 'period',
+                                      self.tr("Period"), self.tr("P"), True)
+        self.__createReferenceSection(ref_country, 'ruler',
+                                      self.tr("Ruler"))
+        self.__createReferenceSection(ref_country, 'unit',
+                                      self.tr("Unit"), self.tr("U"))
+        self.__createReferenceSection(ref_country, 'mint',
+                                      self.tr("Mint"))
+        self.__createReferenceSection(ref_country, 'series',
+                                      self.tr("Series"), self.tr("S"), True)
+        self.__createReferenceSection(None, 'grade',
+                                      self.tr("Grade"), self.tr("G"))
+        self.__createReferenceSection(None, 'material',
+                                      self.tr("Material"), self.tr("M"))
+        self.__createReferenceSection(None, 'shape',
+                                      self.tr("Shape"), self.tr("F"))
+        self.__createReferenceSection(None, 'quality',
+                                      self.tr("Quality"), self.tr("Q"))
+        self.__createReferenceSection(None, 'edge',
+                                      self.tr("Edge"), self.tr("E"))
+        self.__createReferenceSection(None, 'rarity',
+                                      self.tr("Rarity"), self.tr("R"))
+        self.__createReferenceSection(None, 'obvrev',
+                                      self.tr("ObvRev"))
+        self.__createReferenceSection(None, 'type',
+                                      self.tr("Type"), self.tr("T"))
+        self.__createReferenceSection(None, 'defect',
+                                      self.tr("Defect"), self.tr("D"))
+
+        if 'payplace' in self.userFields or 'saleplace' in self.userFields:
+            ref_place = ReferenceSection('place', self.tr("Place"))
+            self.sections.append(ref_place)
+
+    def __createReferenceSection(self, parentRef, name, title,
+                                 letter='', sort=False):
+        if name in self.userFields:
+            if parentRef:
+                ref = CrossReferenceSection(name, parentRef, title,
+                                            letter, sort)
+            else:
+                ref = ReferenceSection(name, title, letter, sort)
+            self.sections.append(ref)
+
+            return ref
+        return None
 
     def create(self):
         sql = "CREATE TABLE IF NOT EXISTS sections (\
