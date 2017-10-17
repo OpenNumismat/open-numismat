@@ -31,7 +31,7 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
 
         self.model = model
 
-    def relationModel(self, column):
+    def relationModel(self, _column):
         return self.model
 
     def data(self, index, role=Qt.DisplayRole):
