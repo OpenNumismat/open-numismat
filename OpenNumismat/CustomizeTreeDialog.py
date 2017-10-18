@@ -35,7 +35,7 @@ class TreeWidget(QTreeWidget):
         QTreeWidget.expandAll(self)
         self.resizeColumnToContents(0)
 
-    def rowsRemoved(self, parent, start, end):
+    def rowsRemoved(self, _parent, _start, _end):
         self.updateFlags()
 
     def dragMoveEvent(self, event):
@@ -125,10 +125,14 @@ class CustomizeTreeDialog(QDialog):
         buttonBox = QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QDialogButtonBox.Ok)
         buttonBox.addButton(QDialogButtonBox.Cancel)
+        clearButton = QPushButton(self.tr("Clear"))
+        buttonBox.addButton(clearButton, QDialogButtonBox.ResetRole)
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
+        clearButton.clicked.connect(self.clear)
 
         layout = QVBoxLayout(self)
+        layout.addWidget(QLabel(self.tr("Hold down the Ctrl key to combine two fields (Value + Unit)"), self))
         layout.addWidget(splitter)
         layout.addWidget(buttonBox)
 
@@ -154,13 +158,15 @@ class CustomizeTreeDialog(QDialog):
         self.treeWidget.updateFlags()
         self.treeWidget.expandAll()
 
+        self.availableFields = []
         for field in allFields.userFields:
-            if field.name in ['value', 'unit', 'region', 'country', 'year',
+            if field.name in ('value', 'unit', 'region', 'country', 'year',
                               'period', 'ruler', 'mint', 'mintmark', 'type',
                               'series', 'subjectshort', 'dateemis', 'status',
                               'material', 'fineness', 'grade', 'quality',
                               'rarity', 'variety', 'saller', 'payplace',
-                              'buyer', 'saleplace', 'defect', 'storage']:
+                              'buyer', 'saleplace', 'defect', 'storage'):
+                self.availableFields.append(field)
                 if field.name not in self.treeParam.usedFieldNames():
                     item = QListWidgetItem(field.title)
                     item.setData(Qt.UserRole, [field, ])
@@ -176,3 +182,16 @@ class CustomizeTreeDialog(QDialog):
             topItem = topItem.child(0)
 
         self.accept()
+
+    def clear(self):
+        self.treeWidget.clear()
+        rootItem = QTreeWidgetItem(self.treeWidget,
+                                   [self.treeParam.rootTitle, ])
+        self.treeWidget.addTopLevelItem(rootItem)
+        self.treeWidget.updateFlags()
+
+        self.listWidget.clear()
+        for field in self.availableFields:
+            item = QListWidgetItem(field.title)
+            item.setData(Qt.UserRole, [field, ])
+            self.listWidget.addItem(item)
