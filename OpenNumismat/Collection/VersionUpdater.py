@@ -313,9 +313,10 @@ class UpdaterTo3(_Updater):
 class UpdaterTo4(_Updater):
     def __init__(self, collection):
         super(UpdaterTo4, self).__init__(collection)
+        self.progressDlg.setMinimumDuration(0)
 
     def getTotalCount(self):
-        return 0
+        return 2
 
     def update(self):
         self._begin()
@@ -324,6 +325,8 @@ class UpdaterTo4(_Updater):
 
         fields = ['ruler', 'region']
         for field in fields:
+            self._updateRecord()
+
             fieldDesc = getattr(self.collection.fields, field)
             fieldDesc.enabled = False
             query = QSqlQuery(self.db)
@@ -338,6 +341,8 @@ class UpdaterTo4(_Updater):
             QSqlQuery(sql, self.db)
 
             self.collection.fields.userFields.append(fieldDesc)
+
+        self.progressDlg.setLabelText(self.tr("Saving..."))
 
         sql = "UPDATE photos SET title=NULL"
         QSqlQuery(sql, self.db)
