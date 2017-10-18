@@ -39,13 +39,13 @@ class TabView(QTabWidget):
 
         self.__createActions()
 
-    def mouseDoubleClickEvent(self, event):
+    def mouseDoubleClickEvent(self, _event):
         self.newList()
 
     def tabDClicked(self, index):
         self.renamePage(index)
 
-    def tabMoved(self, from_, to):
+    def tabMoved(self, _from, _to):
         self.__pages_changed = True
 
     def actions(self):
@@ -108,7 +108,7 @@ class TabView(QTabWidget):
         pageTitle = oldLabel + self.tr(" (clone)")
         pageParam = self.collection.pages().addPage(pageTitle)
         pageParam.listParam = oldWidget.listView.listParam.clone()
-        pageParam.listParam.pageId = pageParam.id
+        pageParam.listParam.page.id = pageParam.id
         pageParam.listParam.save()
 
         pageView = PageView(pageParam, self)
@@ -192,7 +192,7 @@ class TabView(QTabWidget):
                             "Add a new one first."))
             return
 
-        if not index:
+        if index is None:
             index = self.currentIndex()
         page = self.widget(index)
         self.removeTab(index)

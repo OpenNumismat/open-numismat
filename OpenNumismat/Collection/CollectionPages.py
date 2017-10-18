@@ -42,8 +42,8 @@ class CollectionPages(QtCore.QObject):
 
     def addPage(self, title):
         query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO pages (title, isopen, type) "
-                      "VALUES (?, ?, ?)")
+        query.prepare("INSERT INTO pages (title, isopen, type, position) "
+                      "VALUES (?, ?, ?, (SELECT COUNT(*) FROM pages))")
         query.addBindValue(title)
         query.addBindValue(int(True))
         query.addBindValue(CollectionPageTypes.List)

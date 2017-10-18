@@ -102,6 +102,7 @@ class ListPageParam(QtCore.QObject):
         newList = ListPageParam(self.parent())
         newList.columns = list(self.columns)
         newList.filters = self.filters.copy()
+        newList.mark_lists_changed()
         return newList
 
     def mark_lists_changed(self):
@@ -169,6 +170,10 @@ class ListPageParam(QtCore.QObject):
                 query.exec_()
 
         self.db.commit()
+
+    def remove(self):
+        self.__remove_lists()
+        self.__remove_filters()
 
     def __remove_lists(self):
         query = QSqlQuery(self.db)
