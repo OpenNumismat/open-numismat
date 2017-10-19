@@ -42,7 +42,7 @@ Main features:
 - Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013,
   2015, Collection Studio, Numizmatik_Ru, Tellico (additional software may be
   required), uCoin.net
-- Support languages: English, Russian, Ukranian, Spanish, French, Hungarian,
+- Support languages: English, Russian, Ukrainian, Spanish, French, Hungarian,
   Portuguese, German, Greek, Czech, Italian, Polish, Catalan, Dutch
 - Cross-platform: Windows, Linux, MacOS X
 
@@ -119,8 +119,7 @@ params = {
     "version": version.Version,
     "author": version.Author,
     "author_email": version.EMail,
-    "description": "Coin collecting software for organize and manage your own "
-                   "catalogue",
+    "description": version.AppName,
     "long_description": __doc__,
     "url": version.Web,
     "license": "GPLv3",
