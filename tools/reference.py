@@ -5,9 +5,14 @@ import codecs
 import json
 import os
 import shutil
+import sys
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication
+
+from OpenNumismat.Reference.Reference import Reference
+from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
+
 
 def convertImage(fileName):
     ba = QtCore.QByteArray()
@@ -19,12 +24,12 @@ def convertImage(fileName):
 
     return ba
 
-import sys
+
 sys.path.append('..')
-from OpenNumismat.Reference.Reference import Reference
 
 app = QApplication(sys.argv)
-ref = Reference()
+fields = CollectionFieldsBase()
+ref = Reference(fields)
 
 f = open('langs')
 langs = [x.strip('\n') for x in f.readlines()]
@@ -72,4 +77,4 @@ for lang in langs:
     place.addItem('eBay', convertImage('icons/ebay.png'))
     place.model.submitAll()
 
-print("Processed %d referenceses: %s" % (len(langs), ', '.join(langs)))
+print("Done")
