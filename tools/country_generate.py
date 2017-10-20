@@ -25,7 +25,10 @@ en_file = "ref/countries_en.json"
 en_json_data = codecs.open(en_file, "r", "utf-8").read()
 en_translations = json.loads(en_json_data)
 
-for lang in ['en', 'de', 'es', 'fr', 'it', 'nl', 'pt', 'ru']:
+f = open('langs')
+langs = [x.strip('\n') for x in f.readlines()]
+
+for lang in langs:
     print(lang)
 
     tr_file = "ref/countries_%s.json" % lang
