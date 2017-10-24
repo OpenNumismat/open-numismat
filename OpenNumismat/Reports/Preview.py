@@ -1,22 +1,10 @@
 import os.path
 
-exportToWordAvailable = True
-
-try:
-    import win32com.client
-except ImportError:
-    print('win32com module missed. Exporting to Word not available')
-    exportToWordAvailable = False
-
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtPrintSupport import QPrinter, QPrintPreviewWidget, QPrintDialog, QPageSetupDialog
-try:
-    from PyQt5.QtWebKitWidgets import QWebView
-except ImportError:
-    print('PyQt5.QtWebKitWidgets module missed. Report preview not available')
 
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
@@ -24,6 +12,22 @@ from OpenNumismat.Reports import Report
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.Gui import createIcon
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+
+
+importedQtWebKit = False
+try:
+    from PyQt5.QtWebKitWidgets import QWebView
+    importedQtWebKit = True
+except ImportError:
+    print('PyQt5.QtWebKitWidgets module missed. Report preview may be corrupted')
+
+
+exportToWordAvailable = True
+try:
+    import win32com.client
+except ImportError:
+    print('win32com module missed. Exporting to Word not available')
+    exportToWordAvailable = False
 
 
 class QPrintPreviewMainWindow(QMainWindow):
@@ -78,6 +82,23 @@ class LineEdit(QLineEdit):
         self.origText = self.text()
 
 
+class TextDocument(QTextDocument):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def loadResource(self, type_, name):
+        if type_ == QTextDocument.ImageResource:
+            fileName = (self.baseUrl().path() + name.path())[1:]
+            image = QImage()
+            if image.load(fileName):
+                return image
+        elif type_ == QTextDocument.StyleSheetResource:
+            fileName = name.path()[1:]
+            with open(fileName, 'r') as file:
+                css = file.read()
+                return css
+
+
 @storeDlgSizeDecorator
 class PreviewDialog(QDialog):
     def __init__(self, model, records, parent=None):
@@ -89,9 +110,12 @@ class PreviewDialog(QDialog):
         self.records = records
         self.model = model
 
-        self.webView = QWebView(self)
-        self.webView.setVisible(False)
-        self.webView.loadFinished.connect(self._loadFinished)
+        if importedQtWebKit:
+            self.webView = QWebView(self)
+            self.webView.setVisible(False)
+            self.webView.loadFinished.connect(self._loadFinished)
+        else:
+            self.webView = TextDocument()
 
         self.printer = QPrinter()
         self.printer.setPageMargins(12.7, 10, 10, 10, QPrinter.Millimeter)
@@ -312,17 +336,18 @@ class PreviewDialog(QDialog):
         if not self.fileName:
             return
 
-        file = QtCore.QFile(self.fileName)
-        file.open(QtCore.QIODevice.ReadOnly)
+        if importedQtWebKit:
+            self.webView.load(QtCore.QUrl.fromLocalFile(self.fileName))
+        else:
+            file = open(self.fileName, 'r', encoding='utf-8')
+            html = file.read()
 
-        out = QtCore.QTextStream(file)
-        out.setCodec(QtCore.QTextCodec.codecForName('utf-8'))
-        html = out.readAll()
+            basePath = QtCore.QFileInfo(self.fileName).absolutePath()
+            baseUrl = QtCore.QUrl.fromLocalFile(basePath + '/')
 
-        basePath = QtCore.QFileInfo(self.fileName).absolutePath()
-
-        baseUrl = QtCore.QUrl.fromLocalFile(basePath + '/')
-        self.webView.setHtml(html, baseUrl)
+            self.webView.setBaseUrl(baseUrl)
+            self.webView.setHtml(html)
+            self._loadFinished(True)
 
     def isFitting(self):
         return (self.fitGroup.isExclusive() \
