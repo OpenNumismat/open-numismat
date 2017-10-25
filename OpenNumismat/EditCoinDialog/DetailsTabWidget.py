@@ -17,7 +17,6 @@ class DetailsTabWidget(QTabWidget):
     def __init__(self, model, parent=None):
         super(DetailsTabWidget, self).__init__(parent)
 
-        self.settings = Settings()
         self.model = model
         self.reference = model.reference
 
@@ -145,11 +144,8 @@ class DetailsTabWidget(QTabWidget):
         if field.type in Type.ImageTypes:
             return
 
-        reference = None
-        if self.settings['show_icons']:
-            reference = self.reference
         item = FormItem(field.name, field.title, field.type | Type.Disabled,
-                        reference=reference)
+                        reference=self.reference)
         if not field.enabled:
             item.setHidden()
         self.items[field.name] = item
@@ -474,6 +470,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def __init__(self, model, parent=None, usedFields=None):
         self.usedFields = usedFields
+        self.settings = Settings()
 
         super(FormDetailsTabWidget, self).__init__(model, parent)
 

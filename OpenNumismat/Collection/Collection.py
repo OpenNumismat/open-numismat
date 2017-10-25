@@ -107,7 +107,7 @@ class CollectionModel(QSqlTableModel):
                 return data
             return super(CollectionModel, self).data(index, Qt.DisplayRole)
         elif role == Qt.DecorationRole:
-            if self.settings['show_icons']:
+            if self.settings['show_list_icons']:
                 field = self.fields.fields[index.column()]
                 data = super(CollectionModel, self).data(index, Qt.DisplayRole)
                 icon = self.reference.getIcon(field.name, data)

@@ -142,7 +142,7 @@ class FilterMenuButton(QPushButton):
                         label, _ = numberWithFraction(data, self.settings['convert_fraction'])
                     else:
                         label = data
-                        if self.settings['show_icons']:
+                        if self.settings['show_filter_icons']:
                             icon = self.reference.getIcon(self.columnName, data)
 
                 if not label:

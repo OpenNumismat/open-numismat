@@ -209,7 +209,7 @@ class TreeView(QTreeWidget):
                 child.setData(0, self.FiltersRole, newFilters)
                 child.setData(0, self.FieldsRole, fields)
 
-                if self.settings['show_icons']:
+                if self.settings['show_tree_icons']:
                     icon = self.reference.getIcon(fields[0], data[0])
                     if icon:
                         child.setIcon(0, icon)
