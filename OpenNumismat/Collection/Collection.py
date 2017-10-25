@@ -106,6 +106,13 @@ class CollectionModel(QSqlTableModel):
                 data, _ = numberWithFraction(data, self.settings['convert_fraction'])
                 return data
             return super(CollectionModel, self).data(index, Qt.DisplayRole)
+        elif role == Qt.DecorationRole:
+            if self.settings['show_icons']:
+                field = self.fields.fields[index.column()]
+                data = super(CollectionModel, self).data(index, Qt.DisplayRole)
+                icon = self.reference.getIcon(field.name, data)
+                if icon:
+                    return icon
         elif role == Qt.TextAlignmentRole:
             field = self.fields.fields[index.column()]
             if field.type == Type.BigInt:

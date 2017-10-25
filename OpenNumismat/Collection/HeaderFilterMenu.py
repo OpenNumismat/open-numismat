@@ -20,6 +20,7 @@ class FilterMenuButton(QPushButton):
 
         self.db = model.database()
         self.model = model
+        self.reference = model.reference
         self.columnName = self.model.fields.fields[columnParam.fieldid].name
         self.fieldid = columnParam.fieldid
         self.filters = listParam.filters
@@ -131,6 +132,7 @@ class FilterMenuButton(QPushButton):
             query = QSqlQuery(sql, self.db)
 
             while query.next():
+                icon = None
                 if query.record().isNull(0):
                     data = None
                     label = None
@@ -140,11 +142,16 @@ class FilterMenuButton(QPushButton):
                         label, _ = numberWithFraction(data, self.settings['convert_fraction'])
                     else:
                         label = data
+                        if self.settings['show_icons']:
+                            icon = self.reference.getIcon(self.columnName, data)
+
                 if not label:
                     hasBlanks = True
                     continue
                 item = QListWidgetItem(label, self.listWidget)
                 item.setData(Qt.UserRole, data)
+                if icon:
+                    item.setIcon(icon)
                 if data in appliedValues:
                     if revert:
                         item.setCheckState(Qt.Checked)
