@@ -212,7 +212,7 @@ class TreeView(QTreeWidget):
                 if self.settings['show_icons']:
                     icon = self.reference.getIcon(fields[0], data[0])
                     if icon:
-                        child.setData(0, Qt.DecorationRole, icon)
+                        child.setIcon(0, icon)
 
                 item.addChild(child)
 

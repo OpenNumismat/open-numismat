@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtSql
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
@@ -407,7 +407,8 @@ class Reference(QtCore.QObject):
             if query.first():
                 data = query.record().value(0)
                 if data:
-                    icon = QPixmap()
-                    icon.loadFromData(data)
-                    return icon
+                    pixmap = QPixmap()
+                    if pixmap.loadFromData(data):
+                        icon = QIcon(pixmap)
+                        return icon
         return None

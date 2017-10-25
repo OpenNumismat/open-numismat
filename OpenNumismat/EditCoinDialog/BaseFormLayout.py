@@ -166,7 +166,7 @@ class FormItem(object):
                     self._widget.removeAction(act)
                 icon = self.reference.getIcon(self._field, str(value))
                 if icon:
-                    self._widget.addAction(QIcon(icon), QLineEdit.LeadingPosition)
+                    self._widget.addAction(icon, QLineEdit.LeadingPosition)
         else:
             self._widget.setText(str(value))
             self._widget.home(False)

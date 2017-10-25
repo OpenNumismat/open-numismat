@@ -92,8 +92,8 @@ class ListView(QListView):
 
             image = QImage()
             if image.load(fileName):
-                maxWidth = 22
-                maxHeight = 15
+                maxWidth = 16
+                maxHeight = 16
                 if image.width() > maxWidth or image.height() > maxHeight:
                     scaledImage = image.scaled(maxWidth, maxHeight,
                             Qt.KeepAspectRatio, Qt.SmoothTransformation)
