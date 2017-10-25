@@ -480,15 +480,13 @@ class CollectionModel(QSqlTableModel):
 
         db = self.database()
         query = QSqlQuery(db)
-        query.prepare("SELECT count(*) FROM coins WHERE id<>? AND " + sqlFilter)
+        query.prepare("SELECT 1 FROM coins WHERE id<>? AND " + sqlFilter + " LIMIT 1")
         query.addBindValue(record.value('id'))
         for field in fields:
             query.addBindValue(record.value(field))
         query.exec_()
         if query.first():
-            count = query.record().value(0)
-            if count > 0:
-                return True
+            return True
 
         return False
 
@@ -1017,7 +1015,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             if result == QDialog.Rejected:
                 return False
 
-        query = QSqlQuery("SELECT COUNT(id) FROM coins", db)
+        query = QSqlQuery("SELECT COUNT(*) FROM coins", db)
         query.first()
         count = query.record().value(0)
         progressDlg = Gui.ProgressDialog(self.tr("Inserting records"),

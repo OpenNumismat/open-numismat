@@ -66,21 +66,20 @@ class FilterMenuButton(QPushButton):
             blanksFilter = DataFilter(self.columnName).toSql()
 
             filtersSql = self.filtersToSql(filters.values())
-            sql = "SELECT count(*) FROM coins WHERE " + filtersSql
+            sql = "SELECT 1 FROM coins WHERE " + filtersSql
             if filtersSql:
                 sql += ' AND '
 
             # Get blank row count
-            query = QSqlQuery(sql + blanksFilter, self.db)
-            query.first()
-            blanksCount = query.record().value(0)
+            blank_sql = sql + blanksFilter + " LIMIT 1"
+            query = QSqlQuery(blank_sql, self.db)
+            if query.first():
+                hasBlanks = True
 
             # Get not blank row count
-            query = QSqlQuery(sql + dataFilter, self.db)
-            query.first()
-            dataCount = query.record().value(0)
-
-            if dataCount > 0:
+            not_blank_sql = sql + dataFilter + " LIMIT 1"
+            query = QSqlQuery(not_blank_sql, self.db)
+            if query.first():
                 if columnType in Type.ImageTypes:
                     label = self.tr("(Images)")
                 elif columnType == Type.Text:
@@ -94,9 +93,6 @@ class FilterMenuButton(QPushButton):
                 if columnFilters and columnFilters.hasData():
                     item.setCheckState(Qt.Unchecked)
                 self.listWidget.addItem(item)
-
-            if blanksCount > 0:
-                hasBlanks = True
         elif self.model.columnType(self.fieldid) == Type.Status:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
