@@ -8,8 +8,10 @@ from OpenNumismat.Settings import Settings
 
 
 class FormItem(object):
-    def __init__(self, field, title, itemType, reference=None, parent=None):
+    def __init__(self, field, title, itemType, section=None, reference=None, parent=None):
         settings = Settings()
+
+        self.reference = reference
 
         self._field = field
         self._title = title
@@ -26,8 +28,8 @@ class FormItem(object):
 
         self._type = itemType & Type.Mask
         if self._type == Type.String:
-            if reference:
-                self._widget = LineEditRef(reference, parent)
+            if section:
+                self._widget = LineEditRef(section, parent)
             else:
                 if self._field == 'url':
                     self._widget = UrlLineEdit(parent)
@@ -155,6 +157,16 @@ class FormItem(object):
             self._widget.setCurrentValue(value)
         elif isinstance(self._widget, TextEdit):
             self._widget.setText(str(value))
+        elif isinstance(self._widget, LineEdit):
+            self._widget.setText(str(value))
+            self._widget.home(False)
+
+            if self.reference:
+                for act in self._widget.actions():
+                    self._widget.removeAction(act)
+                icon = self.reference.getIcon(self._field, str(value))
+                if icon:
+                    self._widget.addAction(QIcon(icon), QLineEdit.LeadingPosition)
         else:
             self._widget.setText(str(value))
             self._widget.home(False)

@@ -17,7 +17,9 @@ class DetailsTabWidget(QTabWidget):
     def __init__(self, model, parent=None):
         super(DetailsTabWidget, self).__init__(parent)
 
+        self.settings = Settings()
         self.model = model
+        self.reference = model.reference
 
         self.createItems()
         self.createPages()
@@ -143,7 +145,11 @@ class DetailsTabWidget(QTabWidget):
         if field.type in Type.ImageTypes:
             return
 
-        item = FormItem(field.name, field.title, field.type | Type.Disabled)
+        reference = None
+        if self.settings['show_icons']:
+            reference = self.reference
+        item = FormItem(field.name, field.title, field.type | Type.Disabled,
+                        reference=reference)
         if not field.enabled:
             item.setHidden()
         self.items[field.name] = item
@@ -468,8 +474,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def __init__(self, model, parent=None, usedFields=None):
         self.usedFields = usedFields
-        self.reference = model.reference
-        self.settings = Settings()
 
         super(FormDetailsTabWidget, self).__init__(model, parent)
 
@@ -498,11 +502,12 @@ class FormDetailsTabWidget(DetailsTabWidget):
         if self.usedFields:
             checkable = Type.Checkable
 
-        refSection = None
+        section = None
         if self.reference:
-            refSection = self.reference.section(field.name)
+            section = self.reference.section(field.name)
 
-        item = FormItem(field.name, field.title, field.type | checkable, refSection)
+        item = FormItem(field.name, field.title, field.type | checkable,
+                        section=section)
         if not field.enabled:
             item.setHidden()
         self.items[field.name] = item
