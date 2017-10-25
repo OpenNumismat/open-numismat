@@ -137,9 +137,10 @@ class TreeView(QTreeWidget):
         # Changing of TreeView is enabled (by signals from model or ListView)
         self.changingEnabled = True
 
-    def setModel(self, model):
+    def setModel(self, model, reference):
         self.db = model.database()
         self.model = model
+        self.reference = reference
 
         self.treeParam.rootTitle = model.title
         rootItem = QTreeWidgetItem(self, [model.title, ])
@@ -207,6 +208,12 @@ class TreeView(QTreeWidget):
                 child.setData(0, self.ParamRole, paramIndex)
                 child.setData(0, self.FiltersRole, newFilters)
                 child.setData(0, self.FieldsRole, fields)
+
+                if self.settings['show_icons']:
+                    icon = self.reference.getIcon(fields[0], data[0])
+                    if icon:
+                        child.setData(0, Qt.DecorationRole, icon)
+
                 item.addChild(child)
 
                 # Restore selection
@@ -459,12 +466,12 @@ class PageView(Splitter):
         self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
         self.splitterMoved.connect(self.splitterPosChanged)
 
-    def setModel(self, model):
+    def setModel(self, model, reference):
         self._model = model
 
         self._model.modelChanged.connect(self.modelChanged)
 
-        self.treeView.setModel(model)
+        self.treeView.setModel(model, reference)
         self.listView.setModel(model)
         self.imageView.setModel(model)
         self.detailsView.setModel(model)

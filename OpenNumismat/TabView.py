@@ -112,7 +112,7 @@ class TabView(QTabWidget):
         pageParam.listParam.save()
 
         pageView = PageView(pageParam, self)
-        pageView.setModel(self.collection.model())
+        pageView.setModel(self.collection.model(), self.collection.reference)
         self.addTab(pageView, pageParam.title)
         self.setCurrentWidget(pageView)
 
@@ -150,7 +150,7 @@ class TabView(QTabWidget):
         for pageParam in collection.pages().pagesParam():
             if pageParam.isopen:
                 pageView = PageView(pageParam, self)
-                pageView.setModel(self.collection.model())
+                pageView.setModel(self.collection.model(), self.collection.reference)
                 self.addTab(pageView, pageParam.title)
 
         # If no pages exists => create default page
@@ -237,7 +237,7 @@ class TabView(QTabWidget):
 
     def openPage(self, pageParam):
         pageView = PageView(pageParam, self)
-        pageView.setModel(self.collection.model())
+        pageView.setModel(self.collection.model(), self.collection.reference)
         self.addTab(pageView, pageParam.title)
         self.setCurrentWidget(pageView)
 
@@ -265,7 +265,7 @@ class TabView(QTabWidget):
         pageParam = self.collection.pages().addPage(title)
 
         pageView = PageView(pageParam, self)
-        pageView.setModel(self.collection.model())
+        pageView.setModel(self.collection.model(), self.collection.reference)
         self.addTab(pageView, title)
         self.setCurrentWidget(pageView)
 

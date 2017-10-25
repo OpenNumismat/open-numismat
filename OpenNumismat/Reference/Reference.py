@@ -362,12 +362,21 @@ class Reference(QtCore.QObject):
         for section in self.sections:
             section.load(self.db)
 
+        self.sections_with_icons = []
+        for section in self.sections:
+            name = section.name
+            sql = "SELECT 1 FROM %s WHERE icon IS NOT NULL LIMIT 1" % name
+            query = QtSql.QSqlQuery(sql, self.db)
+            query.exec_()
+            if query.first():
+                self.sections_with_icons.append(name)
+
         return True
 
     def section(self, name):
         # NOTE: payplace and saleplace fields has one reference section =>
         # editing one of it should change another
-        if name in ['payplace', 'saleplace']:
+        if name in ('payplace', 'saleplace'):
             name = 'place'
 
         for section in self.sections:
@@ -385,3 +394,20 @@ class Reference(QtCore.QObject):
                 sectionNames.append(section.name)
 
         return sectionNames
+
+    def getIcon(self, section, value):
+        if section in ('payplace', 'saleplace'):
+            section = 'place'
+
+        if section in self.sections_with_icons:
+            sql = "SELECT icon FROM %s WHERE value=?" % section
+            query = QtSql.QSqlQuery(sql, self.db)
+            query.addBindValue(value)
+            query.exec_()
+            if query.first():
+                data = query.record().value(0)
+                if data:
+                    icon = QPixmap()
+                    icon.loadFromData(data)
+                    return icon
+        return None

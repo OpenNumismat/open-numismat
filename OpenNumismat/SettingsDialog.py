@@ -108,6 +108,11 @@ class MainSettingsPage(QWidget):
         self.sortTree.setChecked(settings['sort_tree'])
         layout.addRow(self.sortTree)
 
+        self.showIcons = QCheckBox(
+                            self.tr("Show icons from reference (slow)"), self)
+        self.showIcons.setChecked(settings['show_icons'])
+        layout.addRow(self.showIcons)
+
         self.checkTitle = QCheckBox(
                         self.tr("Check that coin title present on save"), self)
         self.checkTitle.setChecked(settings['check_coin_title'])
@@ -158,6 +163,7 @@ class MainSettingsPage(QWidget):
         settings['store_sorting'] = self.storeSorting.isChecked()
         settings['sort_filter'] = self.sortFilter.isChecked()
         settings['sort_tree'] = self.sortTree.isChecked()
+        settings['show_icons'] = self.showIcons.isChecked()
         settings['template'] = self.templateSelector.currentText()
         settings['ImageSideLen'] = int(self.imageSideLen.text())
         settings['check_coin_title'] = self.checkTitle.isChecked()
