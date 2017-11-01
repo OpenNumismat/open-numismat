@@ -250,10 +250,13 @@ class CrossReferenceSection(BaseReferenceSection):
 
 
 class Reference(QtCore.QObject):
-    def __init__(self, fields, parent=None):
+    def __init__(self, fields, parent=None, db=None):
         super(Reference, self).__init__(parent)
 
-        self.db = QSqlDatabase.addDatabase('QSQLITE', "reference")
+        if db:
+            self.db = db
+        else:
+            self.db = QSqlDatabase.addDatabase('QSQLITE', "reference")
 
         self.userFields = [field.name for field in fields.userFields]
         self.sections = []
@@ -359,6 +362,11 @@ class Reference(QtCore.QObject):
 
         self.fileName = fileName
 
+        self.load()
+
+        return True
+
+    def load(self):
         for section in self.sections:
             section.load(self.db)
 
@@ -370,8 +378,6 @@ class Reference(QtCore.QObject):
             query.exec_()
             if query.first():
                 self.sections_with_icons.append(name)
-
-        return True
 
     def section(self, name):
         # NOTE: payplace and saleplace fields has one reference section =>

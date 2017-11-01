@@ -655,9 +655,16 @@ class Collection(QtCore.QObject):
         sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, image BLOB)"
         QSqlQuery(sql, self.db)
 
+    def __isReferenceAttached(self):
+        return ('sections' in self.db.tables())
+
     def loadReference(self, fileName):
-        self.reference = Reference(self.fields, self.parent())
-        self.reference.open(fileName)
+        if self.__isReferenceAttached():
+            self.reference = Reference(self.fields, self.parent(), db=self.db)
+            self.reference.load()
+        else:
+            self.reference = Reference(self.fields, self.parent())
+            self.reference.open(fileName)
 
     def getFileName(self):
         return QtCore.QDir(self.fileName).absolutePath()
@@ -685,7 +692,7 @@ class Collection(QtCore.QObject):
 
         return model
 
-    def createReference(self):
+    def fillReference(self):
         sections = self.reference.allSections()
         progressDlg = Gui.ProgressDialog(self.tr("Updating reference"),
                             self.tr("Cancel"), len(sections), self.parent())
@@ -720,14 +727,60 @@ class Collection(QtCore.QObject):
         dialog = AllReferenceDialog(self.reference, self.parent())
         dialog.exec_()
 
+    def attachReference(self):
+        result = QMessageBox.information(
+            self.parent(), self.tr("Attach"),
+            self.tr("Attach current reference to a collection file?"),
+            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.Cancel)
+        if result == QMessageBox.Yes:
+            progressDlg = Gui.ProgressDialog(
+                self.tr("Attaching reference"), None,
+                len(self.reference.sections), self.parent())
+
+            query = QSqlQuery(self.db)
+            query.prepare("ATTACH ? AS ref")
+            query.addBindValue(self.reference.fileName)
+            query.exec_()
+
+            self.reference = Reference(self.fields, self.parent(), db=self.db)
+            self.reference.create()
+
+            for section in self.reference.sections:
+                progressDlg.step()
+
+                query = QSqlQuery(self.db)
+                query.prepare("INSERT INTO %s SELECT * FROM ref.%s" % (section.name, section.name))
+                query.exec_()
+
+            self.reference.load()
+
+            progressDlg.reset()
+
+    def detachReference(self):
+        pass
+
     def referenceMenu(self, parent=None):
-        createReferenceAct = QAction(self.tr("Fill from collection"), parent)
-        createReferenceAct.triggered.connect(self.createReference)
+        fillReferenceAct = QAction(self.tr("Fill from collection"), parent)
+        fillReferenceAct.triggered.connect(self.fillReference)
 
         editReferenceAct = QAction(self.tr("Edit..."), parent)
         editReferenceAct.triggered.connect(self.editReference)
 
-        return [createReferenceAct, editReferenceAct]
+        separator = QAction(parent)
+        separator.setSeparator(True)
+
+        if self.__isReferenceAttached():
+            attachReferenceAct = QAction(self.tr("Detach current reference"), parent)
+            attachReferenceAct.triggered.connect(self.detachReference)
+        else:
+            attachReferenceAct = QAction(self.tr("Attach current reference"), parent)
+            attachReferenceAct.triggered.connect(self.attachReference)
+
+        acts = (fillReferenceAct, editReferenceAct,
+                separator, attachReferenceAct)
+
+        return acts
 
     @waitCursorDecorator
     def backup(self):
