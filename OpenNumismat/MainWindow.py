@@ -564,7 +564,6 @@ class MainWindow(QMainWindow):
     def openCollection(self, fileName):
         self.__closeCollection()
         if self.collection.open(fileName):
-            self.collection.loadReference(Settings()['reference'])
             self.setCollection(self.collection)
         else:
             # Remove wrong collection from latest collections list
@@ -574,6 +573,8 @@ class MainWindow(QMainWindow):
 
     @waitCursorDecorator
     def setCollection(self, collection):
+        self.collection.loadReference(Settings()['reference'])
+
         self.__setEnabledActs(True)
 
         self.collectionFileLabel.setText(collection.getFileName())
