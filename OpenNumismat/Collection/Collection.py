@@ -655,11 +655,11 @@ class Collection(QtCore.QObject):
         sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, image BLOB)"
         QSqlQuery(sql, self.db)
 
-    def __isReferenceAttached(self):
+    def isReferenceAttached(self):
         return ('sections' in self.db.tables())
 
     def loadReference(self, fileName):
-        if self.__isReferenceAttached():
+        if self.isReferenceAttached():
             self.reference = Reference(self.fields, self.parent(), db=self.db)
             self.reference.load()
         else:
@@ -770,7 +770,7 @@ class Collection(QtCore.QObject):
         separator = QAction(parent)
         separator.setSeparator(True)
 
-        if self.__isReferenceAttached():
+        if self.isReferenceAttached():
             attachReferenceAct = QAction(self.tr("Detach current reference"), parent)
             attachReferenceAct.triggered.connect(self.detachReference)
         else:

@@ -59,6 +59,9 @@ class MainSettingsPage(QWidget):
         icon = style.standardIcon(QStyle.SP_DialogOpenButton)
         self.referenceButton = QPushButton(icon, '', self)
         self.referenceButton.clicked.connect(self.referenceButtonClicked)
+        if collection.isReferenceAttached():
+            self.reference.setDisabled(True)
+            self.referenceButton.setDisabled(True)
 
         hLayout = QHBoxLayout()
         hLayout.addWidget(self.reference)
