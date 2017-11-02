@@ -778,6 +778,8 @@ class Collection(QtCore.QObject):
 
             progressDlg.reset()
 
+            self.__updateAttachAction()
+
     def detachReference(self):
         fileName, _selectedFilter = QFileDialog.getSaveFileName(
             self.parent(), self.tr("Save reference as"),
@@ -855,6 +857,21 @@ class Collection(QtCore.QObject):
 
             progressDlg.reset()
 
+            self.__updateAttachAction()
+
+    def __updateAttachAction(self):
+        try:
+            self.attachReferenceAct.disconnect()
+        except TypeError:
+            pass
+
+        if self.isReferenceAttached():
+            self.attachReferenceAct.setText(self.tr("Detach current reference"))
+            self.attachReferenceAct.triggered.connect(self.detachReference)
+        else:
+            self.attachReferenceAct.setText(self.tr("Attach current reference"))
+            self.attachReferenceAct.triggered.connect(self.attachReference)
+
     def referenceMenu(self, parent=None):
         fillReferenceAct = QAction(self.tr("Fill from collection"), parent)
         fillReferenceAct.triggered.connect(self.fillReference)
@@ -865,15 +882,11 @@ class Collection(QtCore.QObject):
         separator = QAction(parent)
         separator.setSeparator(True)
 
-        if self.isReferenceAttached():
-            attachReferenceAct = QAction(self.tr("Detach current reference"), parent)
-            attachReferenceAct.triggered.connect(self.detachReference)
-        else:
-            attachReferenceAct = QAction(self.tr("Attach current reference"), parent)
-            attachReferenceAct.triggered.connect(self.attachReference)
+        self.attachReferenceAct = QAction(parent)
+        self.__updateAttachAction()
 
         acts = (fillReferenceAct, editReferenceAct,
-                separator, attachReferenceAct)
+                separator, self.attachReferenceAct)
 
         return acts
 
