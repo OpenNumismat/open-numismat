@@ -785,6 +785,9 @@ class Collection(QtCore.QObject):
             self.parent(), self.tr("Save reference as"),
             filter=self.tr("Reference (*.ref)"))
         if fileName:
+            if os.path.isfile(fileName):
+                os.remove(fileName)
+
             progressDlg = Gui.ProgressDialog(
                 self.tr("Detaching reference"), None,
                 len(self.reference.sections), self.parent())
@@ -792,8 +795,6 @@ class Collection(QtCore.QObject):
             reference = Reference(self.fields, self.parent())
             if not reference.open(fileName, interactive=False):
                 return
-
-            # TODO: Clear new reference
 
             query = QSqlQuery(reference.db)
             query.prepare("ATTACH ? AS ref")
