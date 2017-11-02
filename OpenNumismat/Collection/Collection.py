@@ -741,24 +741,119 @@ class Collection(QtCore.QObject):
             query = QSqlQuery(self.db)
             query.prepare("ATTACH ? AS ref")
             query.addBindValue(self.reference.fileName)
-            query.exec_()
+            res = query.exec_()
+            if not res:
+                progressDlg.reset()
+                QMessageBox.critical(self.parent(),
+                            self.tr("Attaching reference"),
+                            self.tr("Can't attach reference:\n%s" %
+                                    query.lastError().text()))
+                return
 
-            self.reference = Reference(self.fields, self.parent(), db=self.db)
-            self.reference.create()
+            reference = Reference(self.fields, self.parent(), db=self.db)
+            reference.db.transaction()
+            reference.create()
 
             for section in self.reference.sections:
                 progressDlg.step()
 
-                query = QSqlQuery(self.db)
-                query.prepare("INSERT INTO %s SELECT * FROM ref.%s" % (section.name, section.name))
-                query.exec_()
+                if res:
+                    query = QSqlQuery(self.db)
+                    query.prepare("INSERT INTO %s SELECT * FROM ref.%s" %
+                                  (section.name, section.name))
+                    res = query.exec_()
+
+            if res:
+                reference.db.commit()
+                self.reference = reference
+            else:
+                reference.db.rollback()
+                progressDlg.reset()
+                QMessageBox.critical(self.parent(),
+                            self.tr("Attaching reference"),
+                            self.tr("Can't attach reference:\n%s" %
+                                    query.lastError().text()))
 
             self.reference.load()
 
             progressDlg.reset()
 
     def detachReference(self):
-        pass
+        fileName, _selectedFilter = QFileDialog.getSaveFileName(
+            self.parent(), self.tr("Save reference as"),
+            filter=self.tr("Reference (*.ref)"))
+        if fileName:
+            progressDlg = Gui.ProgressDialog(
+                self.tr("Detaching reference"), None,
+                len(self.reference.sections), self.parent())
+
+            reference = Reference(self.fields, self.parent())
+            if not reference.open(fileName, interactive=False):
+                return
+
+            # TODO: Clear new reference
+
+            query = QSqlQuery(reference.db)
+            query.prepare("ATTACH ? AS ref")
+            query.addBindValue(self.fileName)
+            res = query.exec_()
+            if not res:
+                progressDlg.reset()
+                QMessageBox.critical(self.parent(),
+                            self.tr("Detach reference"),
+                            self.tr("Can't detach reference:\n%s" %
+                                    query.lastError().text()))
+                return
+
+            reference.db.transaction()
+
+            for section in self.reference.sections:
+                progressDlg.step()
+
+                if res:
+                    query = QSqlQuery(reference.db)
+                    query.prepare("INSERT INTO %s SELECT * FROM ref.%s" % (section.name, section.name))
+                    res = query.exec_()
+
+            if res:
+                reference.db.commit()
+            else:
+                reference.db.rollback()
+                progressDlg.reset()
+                QMessageBox.critical(self.parent(),
+                            self.tr("Create reference"),
+                            self.tr("Can't create reference:\n%s" % fileName))
+                return
+
+            for section in self.reference.sections:
+                section.model.clear()
+
+            self.db.transaction()
+
+            for section in self.reference.sections:
+                if res:
+                    query = QSqlQuery(self.db)
+                    query.prepare("DROP TABLE %s" % section.name)
+                    res = query.exec_()
+
+            if res:
+                query = QSqlQuery(self.db)
+                query.prepare("DROP TABLE sections")
+                res = query.exec_()
+
+            if res:
+                self.db.commit()
+                self.reference = reference
+            else:
+                self.db.rollback()
+                QMessageBox.critical(self.parent(),
+                            self.tr("Create reference"),
+                            self.tr("Can't clear attached reference:\n%s" %
+                                    query.lastError().text()))
+
+            self.reference.load()
+
+            progressDlg.reset()
 
     def referenceMenu(self, parent=None):
         fillReferenceAct = QAction(self.tr("Fill from collection"), parent)

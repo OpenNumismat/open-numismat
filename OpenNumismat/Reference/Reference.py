@@ -121,7 +121,7 @@ class BaseReferenceSection(QtCore.QObject):
         self.setSort()
 
     def create(self, db=QSqlDatabase()):
-        db.transaction()
+        in_transaction = db.transaction()
 
         cross_ref = ('country', 'period', 'ruler', 'unit', 'mint', 'series')
 
@@ -154,7 +154,8 @@ class BaseReferenceSection(QtCore.QObject):
         query.addBindValue(int(self.sort))
         query.exec_()
 
-        db.commit()
+        if in_transaction:
+            db.commit()
 
 
 class ReferenceSection(BaseReferenceSection):
@@ -324,7 +325,7 @@ class Reference(QtCore.QObject):
         for section in self.sections:
             section.create(self.db)
 
-    def open(self, fileName):
+    def open(self, fileName, interactive=True):
         file = QtCore.QFileInfo(fileName)
         if file.isFile():
             self.db.setDatabaseName(fileName)
@@ -353,11 +354,18 @@ class Reference(QtCore.QObject):
                     sql = "UPDATE sections SET parent = 'region' WHERE name = 'country'"
                     QSqlQuery(sql, self.db)
         else:
-            QMessageBox.warning(self.parent(),
+            if interactive:
+                QMessageBox.warning(self.parent(),
                             self.tr("Open reference"),
                             self.tr("Can't open reference:\n%s\nCreated new one" % fileName))
+
             self.db.setDatabaseName(fileName)
-            self.db.open()
+            if not self.db.open():
+                print(self.db.lastError().text())
+                QMessageBox.critical(self.parent(),
+                            self.tr("Create reference"),
+                            self.tr("Can't create reference:\n%s" % fileName))
+                return False
             self.create()
 
         self.fileName = fileName
