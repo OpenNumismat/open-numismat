@@ -760,7 +760,7 @@ class Collection(QtCore.QObject):
                 if res:
                     query = QSqlQuery(self.db)
                     query.prepare("INSERT INTO %s SELECT * FROM ref.%s" %
-                                  (section.name, section.name))
+                                  (section.table_name, section.table_name))
                     res = query.exec_()
 
             if res:
@@ -815,7 +815,7 @@ class Collection(QtCore.QObject):
 
                 if res:
                     query = QSqlQuery(reference.db)
-                    query.prepare("INSERT INTO %s SELECT * FROM ref.%s" % (section.name, section.name))
+                    query.prepare("INSERT INTO %s SELECT * FROM ref.%s" % (section.table_name, section.table_name))
                     res = query.exec_()
 
             if res:
@@ -836,7 +836,7 @@ class Collection(QtCore.QObject):
             for section in self.reference.sections:
                 if res:
                     query = QSqlQuery(self.db)
-                    query.prepare("DROP TABLE %s" % section.name)
+                    query.prepare("DROP TABLE %s" % section.table_name)
                     res = query.exec_()
 
             if res:
