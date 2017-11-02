@@ -52,6 +52,8 @@ for lang in langs:
     json_data = codecs.open(src_ref_file, "r", "utf-8").read()
     data = json.loads(json_data)
 
+    ref.db.transaction()
+
     for section_name, values in data.items():
         section = ref.section(section_name)
         for value in values:
@@ -76,5 +78,7 @@ for lang in langs:
         place.addItem('АукционЪ.СПб')
     place.addItem('eBay', convertImage('icons/ebay.png'))
     place.model.submitAll()
+
+    ref.db.commit()
 
 print("Done")

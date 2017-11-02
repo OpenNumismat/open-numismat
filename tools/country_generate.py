@@ -48,6 +48,8 @@ for lang in langs:
     country_section = ref.section('country')
     unit_section = ref.section('unit')
 
+    ref.db.transaction()
+
     for i, region in enumerate(countries['regions'], 1):
         pos = en_translations['region'].index(region['name'])
         region_name = translations['region'][pos]
@@ -59,7 +61,7 @@ for lang in langs:
             country_name = translations['country'][pos]
 
             query = QSqlQuery(country_section.db)
-            query.prepare("INSERT INTO country (value, parentid, icon) VALUES (?, ?, ?)")
+            query.prepare("INSERT INTO ref_country (value, parentid, icon) VALUES (?, ?, ?)")
             query.addBindValue(country_name)
             query.addBindValue(i)
             code = country['code']
@@ -81,9 +83,11 @@ for lang in langs:
                 unit_name = translations['unit'][pos]
 
                 query = QSqlQuery(country_section.db)
-                query.prepare("INSERT INTO unit (value, parentid) VALUES (?, ?)")
+                query.prepare("INSERT INTO ref_unit (value, parentid) VALUES (?, ?)")
                 query.addBindValue(unit_name)
                 query.addBindValue(country_id)
                 query.exec_()
+
+    ref.db.commit()
 
 print('Done')

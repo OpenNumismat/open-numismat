@@ -55,6 +55,7 @@ class BaseReferenceSection(QtCore.QObject):
         super(BaseReferenceSection, self).__init__(parent)
 
         self.name = name
+        self.table_name = "ref_%s" % name
         self.title = title
         self.letter = letter
         self.sort = sort
@@ -129,11 +130,11 @@ class BaseReferenceSection(QtCore.QObject):
             sql = "CREATE TABLE %s (\
                 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
                 parentid INTEGER NOT NULL,\
-                value TEXT, icon BLOB)" % self.name
+                value TEXT, icon BLOB)" % self.table_name
         else:
             sql = "CREATE TABLE %s (\
                 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-                value TEXT, icon BLOB)" % self.name
+                value TEXT, icon BLOB)" % self.table_name
         QSqlQuery(sql, db)
 
         query = QSqlQuery(db)
@@ -165,12 +166,12 @@ class ReferenceSection(BaseReferenceSection):
 
     def load(self, db):
         self.db = db
-        if self.name not in self.db.tables():
+        if self.table_name not in self.db.tables():
             self.create(self.db)
 
         self.model = SqlTableModel(None, db)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
-        self.model.setTable(self.name)
+        self.model.setTable(self.table_name)
 
         self.reload()
 
@@ -193,9 +194,9 @@ class ReferenceSection(BaseReferenceSection):
             value = query.record().value(0)
             fillQuery = QSqlQuery(self.db)
             fillQuery.prepare("INSERT INTO %s (value) "
-                          "SELECT ? "
-                          "WHERE NOT EXISTS (SELECT 1 FROM %s WHERE value=?)" %
-                                                        (self.name, self.name))
+                        "SELECT ? "
+                        "WHERE NOT EXISTS (SELECT 1 FROM %s WHERE value=?)" %
+                                            (self.table_name, self.table_name))
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(value)
             fillQuery.exec_()
@@ -208,17 +209,17 @@ class CrossReferenceSection(BaseReferenceSection):
 
         self.parentIndex = None
         self.parentRef = parentRef
-        self.parentName = parentRef.name
+        self.parentName = parentRef.table_name
 
     def load(self, db):
         self.db = db
-        if self.name not in self.db.tables():
+        if self.table_name not in self.db.tables():
             self.create(self.db)
 
         self.model = SqlRelationalTableModel(self.parentRef.model, None, db)
         self.model.setJoinMode(QtSql.QSqlRelationalTableModel.LeftJoin)
         self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
-        self.model.setTable(self.name)
+        self.model.setTable(self.table_name)
         parentidIndex = self.model.fieldIndex('parentid')
         self.model.parentidIndex = parentidIndex
         self.model.setRelation(
@@ -239,10 +240,10 @@ class CrossReferenceSection(BaseReferenceSection):
             value = query.record().value(0)
             fillQuery = QSqlQuery(self.db)
             fillQuery.prepare("INSERT INTO %s (value, parentid) "
-                          "SELECT ?, ? "
-                          "WHERE NOT EXISTS "
-                          "(SELECT 1 FROM %s WHERE value=? AND parentid=?)" %
-                                                        (self.name, self.name))
+                        "SELECT ?, ? "
+                        "WHERE NOT EXISTS "
+                        "(SELECT 1 FROM %s WHERE value=? AND parentid=?)" %
+                                            (self.table_name, self.table_name))
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(parentId)
             fillQuery.addBindValue(value)
@@ -344,7 +345,7 @@ class Reference(QtCore.QObject):
                     QSqlQuery(sql, self.db)
                 # Update reference DB for version 1.4.9
                 if self.db.record('period').indexOf('icon') < 0:
-                    for table in ['period', 'unit', 'mint', 'series']:
+                    for table in ('period', 'unit', 'mint', 'series'):
                         sql = "ALTER TABLE %s ADD COLUMN icon BLOB" % table
                         QSqlQuery(sql, self.db)
                 # Update reference DB for version 1.5
@@ -353,6 +354,14 @@ class Reference(QtCore.QObject):
                     QSqlQuery(sql, self.db)
                     sql = "UPDATE sections SET parent = 'region' WHERE name = 'country'"
                     QSqlQuery(sql, self.db)
+
+                    tables = ('region', 'country', 'period', 'ruler', 'unit',
+                              'mint', 'series', 'grade', 'material', 'shape',
+                              'quality', 'edge', 'rarity', 'obvrev', 'type',
+                              'defect', 'place')
+                    for table in tables:
+                        sql = "ALTER TABLE %s RENAME TO ref_%s" % (table, table)
+                        QSqlQuery(sql, self.db)
         else:
             if interactive:
                 QMessageBox.warning(self.parent(),
@@ -380,7 +389,7 @@ class Reference(QtCore.QObject):
 
         self.sections_with_icons = []
         for section in self.sections:
-            name = section.name
+            name = section.table_name
             sql = "SELECT 1 FROM %s WHERE icon IS NOT NULL LIMIT 1" % name
             query = QtSql.QSqlQuery(sql, self.db)
             query.exec_()
@@ -413,8 +422,9 @@ class Reference(QtCore.QObject):
         if section in ('payplace', 'saleplace'):
             section = 'place'
 
-        if section in self.sections_with_icons:
-            sql = "SELECT icon FROM %s WHERE value=?" % section
+        table_name = "ref_%s" % section
+        if table_name in self.sections_with_icons:
+            sql = "SELECT icon FROM %s WHERE value=?" % table_name
             query = QtSql.QSqlQuery(sql, self.db)
             query.addBindValue(value)
             query.exec_()
