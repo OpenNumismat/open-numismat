@@ -35,11 +35,17 @@ class BaseCanvas(FigureCanvas):
 class BarCanvas(BaseCanvas):
     def setData(self, data):
         self.axes.cla()
+
+        xx = range(len(data.values()))
+        self.axes.bar(xx, data.values())
+        self.axes.set_xticks(xx)
         keys = ['\n'.join(wrap(l, 20)) for l in data.keys()]
-        self.axes.bar(keys, data.values())
+        self.axes.set_xticklabels(keys)
+
         self.axes.set_ylabel(self.tr("Number of coins"))
         ya = self.axes.get_yaxis()
         ya.set_major_locator(MaxNLocator(integer=True))
+
         self.draw()
 
 
