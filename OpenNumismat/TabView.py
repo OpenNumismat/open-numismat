@@ -261,6 +261,9 @@ class TabView(QTabWidget):
     def currentListView(self):
         return self.currentWidget().listView
 
+    def currentPageView(self):
+        return self.currentWidget()
+
     def __createListPage(self, title):
         pageParam = self.collection.pages().addPage(title)
 

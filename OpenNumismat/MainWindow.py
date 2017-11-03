@@ -32,6 +32,11 @@ class MainWindow(QMainWindow):
 
         self.collectionActs = []
 
+        statisticsAct = QAction(createIcon('chart_pie.png'),
+                                self.tr("Statistics"), self)
+        statisticsAct.triggered.connect(self.statisticsEvent)
+        self.collectionActs.append(statisticsAct)
+
         settingsAct = QAction(createIcon('cog.png'),
                                     self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
@@ -291,6 +296,8 @@ class MainWindow(QMainWindow):
         toolBar.addAction(cancelFilteringAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
+        toolBar.addSeparator()
+        toolBar.addAction(statisticsAct)
         self.addToolBar(toolBar)
 
         self.setWindowTitle(version.AppName)
@@ -355,6 +362,10 @@ class MainWindow(QMainWindow):
                         QMessageBox.Yes)
             if result == QMessageBox.Yes:
                 self.restart()
+
+    def statisticsEvent(self):
+        page = self.viewTab.currentPageView()
+        page.showStatistics(not page.statisticsShowed)
 
     def restart(self):
         self.close()
