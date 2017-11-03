@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.ListView import ListView
+from OpenNumismat.StatisticsView import StatisticsView
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
@@ -450,6 +451,7 @@ class PageView(Splitter):
         self.treeView = TreeView(pageParam.treeParam, self)
         self.listView = ListView(pageParam.listParam, self)
         self.imageView = ImageView(self)
+        self.statisticsView = StatisticsView(self)
         self.detailsView = DetailsView(self)
 
         splitter1 = Splitter('1', Qt.Vertical, self)
@@ -460,6 +462,7 @@ class PageView(Splitter):
         splitter1.addWidget(self.detailsView)
         self.addWidget(splitter1)
         self.addWidget(self.imageView)
+        splitter1.addWidget(self.statisticsView)
 
         self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
         self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
@@ -469,12 +472,13 @@ class PageView(Splitter):
     def setModel(self, model, reference):
         self._model = model
 
-        self._model.modelChanged.connect(self.modelChanged)
-
         self.treeView.setModel(model, reference)
         self.listView.setModel(model)
         self.imageView.setModel(model)
         self.detailsView.setModel(model)
+        self.statisticsView.setModel(model)
+
+        self._model.modelChanged.connect(self.modelChanged)
 
     def model(self):
         return self._model
@@ -482,3 +486,4 @@ class PageView(Splitter):
     def modelChanged(self):
         self.treeView.modelChanged()
         self.listView.modelChanged()
+        self.statisticsView.modelChanged()
