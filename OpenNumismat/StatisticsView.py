@@ -86,8 +86,8 @@ class StatisticsView(QWidget):
         field = self.fieldSelector.currentData()
         for i in range(self.model.rowCount()):
             record = self.model.record(i)
-            country = record.value(field)
-            cnt[country] += 1
+            value = str(record.value(field))
+            cnt[value] += 1
 
         self.bc.setData(cnt)
 
