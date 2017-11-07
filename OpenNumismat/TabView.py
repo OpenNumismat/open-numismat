@@ -141,6 +141,8 @@ class TabView(QTabWidget):
 
             self.oldPage = page
 
+            self.parent().updateStatisticsAct(page.statisticsShowed)
+
     def setCollection(self, collection):
         self.collection = collection
 
