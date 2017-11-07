@@ -68,6 +68,18 @@ class BarHCanvas(BaseCanvas):
         self.draw()
 
 
+class PieCanvas(BaseCanvas):
+    def setData(self, data):
+        self.axes.cla()
+
+        yy = list(data.values())
+        keys = ['\n'.join(wrap(l, 17)) for l in data.keys()]
+        self.axes.pie(yy, labels=keys)
+        self.axes.axis('equal')
+
+        self.draw()
+
+
 class StatisticsView(QWidget):
     def __init__(self, parent=None):
         super(StatisticsView, self).__init__(parent)
@@ -89,8 +101,9 @@ class StatisticsView(QWidget):
         layout.addWidget(widget)
 
         self.chartSelector = QComboBox(self)
-        self.chartSelector.addItem(self.tr("bar"), "bar")
-        self.chartSelector.addItem(self.tr("horizontal bar"), "barh")
+        self.chartSelector.addItem(self.tr("bar"), 'bar')
+        self.chartSelector.addItem(self.tr("horizontal bar"), 'barh')
+        self.chartSelector.addItem(self.tr("pie"), 'pie')
         self.chartSelector.currentIndexChanged.connect(self.chartChaged)
         ctrlLayout.addWidget(self.chartSelector)
 
@@ -118,6 +131,8 @@ class StatisticsView(QWidget):
         chart = self.chartSelector.currentData()
         if chart == 'barh':
             self.chart = BarHCanvas(self)
+        elif chart == 'pie':
+            self.chart = PieCanvas(self)
         else:
             self.chart = BarCanvas(self)
         self.imageLayout.addWidget(self.chart)
