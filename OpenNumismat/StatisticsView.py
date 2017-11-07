@@ -40,12 +40,30 @@ class BarCanvas(BaseCanvas):
         xx = range(len(data.values()))
         self.axes.bar(xx, data.values())
         self.axes.set_xticks(xx)
-        keys = ['\n'.join(wrap(l, 20)) for l in data.keys()]
+        keys = ['\n'.join(wrap(l, 17)) for l in data.keys()]
         self.axes.set_xticklabels(keys)
 
         self.axes.set_ylabel(self.tr("Number of coins"))
         ya = self.axes.get_yaxis()
         ya.set_major_locator(MaxNLocator(integer=True))
+
+        self.draw()
+
+
+class BarHCanvas(BaseCanvas):
+    def setData(self, data):
+        self.axes.cla()
+
+        xx = range(len(data.values()))
+        yy = list(data.values())
+        self.axes.barh(xx, yy)
+        self.axes.set_yticks(xx)
+        keys = ['\n'.join(wrap(l, 17)) for l in data.keys()]
+        self.axes.set_yticklabels(keys)
+
+        self.axes.set_xlabel(self.tr("Number of coins"))
+        xa = self.axes.get_xaxis()
+        xa.set_major_locator(MaxNLocator(integer=True))
 
         self.draw()
 
@@ -60,8 +78,8 @@ class StatisticsView(QWidget):
         self.imageLayout.setContentsMargins(QtCore.QMargins())
         layout.addWidget(self.__layoutToWidget(self.imageLayout))
 
-        self.bc = BarCanvas(self)
-        self.imageLayout.addWidget(self.bc)
+        self.chart = BarHCanvas(self)
+        self.imageLayout.addWidget(self.chart)
 
         ctrlLayout = QHBoxLayout()
         ctrlLayout.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
@@ -69,6 +87,12 @@ class StatisticsView(QWidget):
         widget.setSizePolicy(QSizePolicy.Preferred,
                              QSizePolicy.Fixed)
         layout.addWidget(widget)
+
+        self.chartSelector = QComboBox(self)
+        self.chartSelector.addItem(self.tr("bar"), "bar")
+        self.chartSelector.addItem(self.tr("horizontal bar"), "barh")
+        self.chartSelector.currentIndexChanged.connect(self.chartChaged)
+        ctrlLayout.addWidget(self.chartSelector)
 
         self.fieldSelector = QComboBox(self)
         self.fieldSelector.currentIndexChanged.connect(self.fieldChaged)
@@ -90,6 +114,14 @@ class StatisticsView(QWidget):
         pass
 
     def modelChanged(self):
+        self.imageLayout.removeWidget(self.chart)
+        chart = self.chartSelector.currentData()
+        if chart == 'barh':
+            self.chart = BarHCanvas(self)
+        else:
+            self.chart = BarCanvas(self)
+        self.imageLayout.addWidget(self.chart)
+
         field = self.fieldSelector.currentData()
         filter_ = self.model.filter()
         if filter_:
@@ -107,9 +139,12 @@ class StatisticsView(QWidget):
             val = str(record.value(1))
             cnt[val] = count
 
-        self.bc.setData(cnt)
+        self.chart.setData(cnt)
 
     def fieldChaged(self, _text):
+        self.modelChanged()
+
+    def chartChaged(self, _text):
         self.modelChanged()
 
     def __layoutToWidget(self, layout):
