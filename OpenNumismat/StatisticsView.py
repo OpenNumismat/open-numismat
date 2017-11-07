@@ -34,13 +34,13 @@ class BaseCanvas(FigureCanvas):
 
 
 class BarCanvas(BaseCanvas):
-    def setData(self, data):
+    def setData(self, xx, yy):
         self.axes.cla()
 
-        xx = range(len(data.values()))
-        self.axes.bar(xx, data.values())
-        self.axes.set_xticks(xx)
-        keys = ['\n'.join(wrap(l, 17)) for l in data.keys()]
+        x = range(len(yy))
+        self.axes.bar(x, yy)
+        self.axes.set_xticks(x)
+        keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_xticklabels(keys)
 
         self.axes.set_ylabel(self.tr("Number of coins"))
@@ -51,14 +51,16 @@ class BarCanvas(BaseCanvas):
 
 
 class BarHCanvas(BaseCanvas):
-    def setData(self, data):
+    def setData(self, xx, yy):
         self.axes.cla()
 
-        xx = range(len(data.values()))
-        yy = list(data.values())
-        self.axes.barh(xx, yy)
-        self.axes.set_yticks(xx)
-        keys = ['\n'.join(wrap(l, 17)) for l in data.keys()]
+        xx = xx[::-1]  # xx.reverse()
+        yy = yy[::-1]  # yy.reverse()
+
+        x = range(len(yy))
+        self.axes.barh(x, yy)
+        self.axes.set_yticks(x)
+        keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_yticklabels(keys)
 
         self.axes.set_xlabel(self.tr("Number of coins"))
@@ -69,11 +71,10 @@ class BarHCanvas(BaseCanvas):
 
 
 class PieCanvas(BaseCanvas):
-    def setData(self, data):
+    def setData(self, xx, yy):
         self.axes.cla()
 
-        yy = list(data.values())
-        keys = ['\n'.join(wrap(l, 17)) for l in data.keys()]
+        keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.pie(yy, labels=keys)
         self.axes.axis('equal')
 
@@ -147,14 +148,16 @@ class StatisticsView(QWidget):
             field, field, sql_filter, field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
-        cnt = {}
+        xx = []
+        yy = []
         while query.next():
             record = query.record()
             count = record.value(0)
             val = str(record.value(1))
-            cnt[val] = count
+            xx.append(val)
+            yy.append(count)
 
-        self.chart.setData(cnt)
+        self.chart.setData(xx, yy)
 
     def fieldChaged(self, _text):
         self.modelChanged()
