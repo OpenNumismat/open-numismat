@@ -13,6 +13,7 @@ plt.style.use('seaborn-whitegrid')
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
+from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Settings import Settings
@@ -89,12 +90,22 @@ class StatisticsView(QWidget):
         pass
 
     def modelChanged(self):
-        cnt = Counter()
         field = self.fieldSelector.currentData()
-        for i in range(self.model.rowCount()):
-            record = self.model.record(i)
-            value = str(record.value(field))
-            cnt[value] += 1
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filter = "WHERE %s" % filter_
+        else:
+            sql_filter = ""
+        sql = "SELECT count(%s), %s FROM coins %s GROUP BY %s" % (
+            field, field, sql_filter, field)
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        cnt = {}
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            val = str(record.value(1))
+            cnt[val] = count
 
         self.bc.setData(cnt)
 
