@@ -445,8 +445,6 @@ class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
         super(PageView, self).__init__('0', parent=parent)
 
-        self.statisticsShowed = False
-
         self._model = None
         self.param = pageParam
         self.id = pageParam.id
@@ -454,7 +452,7 @@ class PageView(Splitter):
         self.listView = ListView(pageParam.listParam, self)
         self.imageView = ImageView(self)
         self.detailsView = DetailsView(self)
-        self.statisticsView = StatisticsView(self)
+        self.statisticsView = StatisticsView(pageParam.statisticsParam, self)
         self.statisticsView.setMinimumHeight(200)
 
         self.splitter1 = Splitter('1', Qt.Vertical, self)
@@ -471,7 +469,7 @@ class PageView(Splitter):
         self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
         self.splitterMoved.connect(self.splitterPosChanged)
 
-        self.showStatistics(False)
+        self.statisticsShowed = self.param.statisticsParam.params()['showed']
 
     def setModel(self, model, reference):
         self._model = model
@@ -481,6 +479,7 @@ class PageView(Splitter):
         self.imageView.setModel(model)
         self.detailsView.setModel(model)
         self.statisticsView.setModel(model)
+        self.prepareStatistics(self.statisticsShowed)
 
         self._model.modelChanged.connect(self.modelChanged)
 
@@ -493,20 +492,34 @@ class PageView(Splitter):
         if self.statisticsShowed:
             self.statisticsView.modelChanged()
 
-    def showStatistics(self, show):
+    def prepareStatistics(self, show):
         sizes = self.splitter1.sizes()
+
+        try:
+            self.listView.rowChanged.disconnect(self.detailsView.rowChangedEvent)
+        except TypeError:
+            pass
 
         if show:
             self.splitter1.insertWidget(1, self.statisticsView)
             self.detailsView.hide()
-            self.listView.rowChanged.disconnect(self.detailsView.rowChangedEvent)
             self.statisticsView.show()
-            self.statisticsShowed = True
         else:
             self.splitter1.insertWidget(1, self.detailsView)
             self.statisticsView.hide()
             self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
             self.detailsView.show()
-            self.statisticsShowed = False
+
+        if self.statisticsShowed != show:
+            statisticsParam = self.param.statisticsParam.params()
+            statisticsParam['showed'] = show
+            self.param.statisticsParam.save()
+
+        self.statisticsShowed = show
 
         self.splitter1.setSizes(sizes)
+
+    def showStatistics(self, show):
+        self.prepareStatistics(show)
+        if show:
+            self.statisticsView.modelChanged()

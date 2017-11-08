@@ -82,8 +82,10 @@ class PieCanvas(BaseCanvas):
 
 
 class StatisticsView(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, statisticsParam, parent=None):
         super(StatisticsView, self).__init__(parent)
+
+        self.statisticsParam = statisticsParam
 
         layout = QVBoxLayout(self)
 
@@ -105,11 +107,9 @@ class StatisticsView(QWidget):
         self.chartSelector.addItem(self.tr("bar"), 'bar')
         self.chartSelector.addItem(self.tr("horizontal bar"), 'barh')
         self.chartSelector.addItem(self.tr("pie"), 'pie')
-        self.chartSelector.currentIndexChanged.connect(self.chartChaged)
         ctrlLayout.addWidget(self.chartSelector)
 
         self.fieldSelector = QComboBox(self)
-        self.fieldSelector.currentIndexChanged.connect(self.fieldChaged)
         ctrlLayout.addWidget(self.fieldSelector)
 
         self.setLayout(layout)
@@ -122,7 +122,19 @@ class StatisticsView(QWidget):
                               'mint', 'type', 'series', 'status', 'material',
                               'grade', 'saller', 'payplace', 'buyer',
                               'saleplace', 'storage'):
-                self.fieldSelector.addItem(field.title, field.name)
+                self.fieldSelector.addItem(field.title, field.id)
+        fieldid = self.statisticsParam.params()['fieldid']
+        index = self.fieldSelector.findData(fieldid)
+        if index >= 0:
+            self.fieldSelector.setCurrentIndex(index)
+
+        chart = self.statisticsParam.params()['chart']
+        index = self.chartSelector.findData(chart)
+        if index >= 0:
+            self.chartSelector.setCurrentIndex(index)
+
+        self.chartSelector.currentIndexChanged.connect(self.chartChaged)
+        self.fieldSelector.currentIndexChanged.connect(self.fieldChaged)
 
     def clear(self):
         pass
@@ -138,7 +150,8 @@ class StatisticsView(QWidget):
             self.chart = BarCanvas(self)
         self.imageLayout.addWidget(self.chart)
 
-        field = self.fieldSelector.currentData()
+        fieldId = self.fieldSelector.currentData()
+        field = self.model.fields.field(fieldId).name
         filter_ = self.model.filter()
         if filter_:
             sql_filter = "WHERE %s" % filter_
@@ -160,9 +173,17 @@ class StatisticsView(QWidget):
         self.chart.setData(xx, yy)
 
     def fieldChaged(self, _text):
+        fieldId = self.fieldSelector.currentData()
+        self.statisticsParam.params()['fieldid'] = fieldId
+        self.statisticsParam.save()
+
         self.modelChanged()
 
     def chartChaged(self, _text):
+        chart = self.chartSelector.currentData()
+        self.statisticsParam.params()['chart'] = chart
+        self.statisticsParam.save()
+
         self.modelChanged()
 
     def __layoutToWidget(self, layout):

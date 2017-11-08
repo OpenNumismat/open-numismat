@@ -4,6 +4,7 @@ from PyQt5.QtSql import QSqlQuery
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.ListPageParam import ListPageParam
 from OpenNumismat.Collection.TreeParam import TreeParam
+from OpenNumismat.Collection.StatisticsParam import StatisticsParam
 
 
 class CollectionPageTypes:
@@ -77,6 +78,7 @@ class CollectionPages(QtCore.QObject):
     def removePage(self, page):
         page.listParam.remove()
         page.treeParam.remove()
+        page.statisticsParam.remove()
 
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM pages WHERE id=?")
@@ -107,6 +109,7 @@ class CollectionPages(QtCore.QObject):
             if param.type == CollectionPageTypes.List:
                 param.listParam = ListPageParam(param)
                 param.treeParam = TreeParam(param)
+                param.statisticsParam = StatisticsParam(param)
             pagesParam.append(param)
 
         return pagesParam
