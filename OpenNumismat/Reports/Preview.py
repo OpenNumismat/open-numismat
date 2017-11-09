@@ -31,23 +31,17 @@ except ImportError:
 
 
 class QPrintPreviewMainWindow(QMainWindow):
-    def __init__(self, parent=None):
-        super(QPrintPreviewMainWindow, self).__init__(parent)
-
     def createPopupMenu(self):
         return None
 
 
 class ZoomFactorValidator(QDoubleValidator):
-    def __init__(self, bottom, top, decimals, parent):
-        super(ZoomFactorValidator, self).__init__(bottom, top, decimals, parent)
-
     def validate(self, input, pos):
         replacePercent = False
         if len(input) and input[-1] == '%':
             input = input[:-1]
             replacePercent = True
-        state, _1, _2 = super(ZoomFactorValidator, self).validate(input, pos)
+        state, _1, _2 = super().validate(input, pos)
         if replacePercent:
             input += '%'
         num_size = 4
@@ -62,7 +56,7 @@ class ZoomFactorValidator(QDoubleValidator):
 
 class LineEdit(QLineEdit):
     def __init__(self, parent=None):
-        super(LineEdit, self).__init__(parent)
+        super().__init__(parent)
 
         self.setContextMenuPolicy(Qt.NoContextMenu)
         self.returnPressed.connect(self.handleReturnPressed)
@@ -71,21 +65,18 @@ class LineEdit(QLineEdit):
 
     def focusInEvent(self, e):
         self.origText = self.text()
-        super(LineEdit, self).focusInEvent(e)
+        super().focusInEvent(e)
 
     def focusOutEvent(self, e):
         if self.isModified() and not self.hasAcceptableInput():
             self.setText(self.origText)
-        super(LineEdit, self).focusOutEvent(e)
+        super().focusOutEvent(e)
 
     def handleReturnPressed(self):
         self.origText = self.text()
 
 
 class TextDocument(QTextDocument):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
     def loadResource(self, type_, name):
         if type_ == QTextDocument.ImageResource:
             fileName = (self.baseUrl().path() + name.path())[1:]

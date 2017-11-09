@@ -16,7 +16,7 @@ class FilterMenuButton(QPushButton):
     DataType = 3
 
     def __init__(self, columnParam, listParam, model, parent):
-        super(FilterMenuButton, self).__init__(parent)
+        super().__init__(parent)
 
         self.db = model.database()
         self.model = model
@@ -325,7 +325,7 @@ class BaseFilter:
 
 class ValueFilter(BaseFilter):
     def __init__(self, name, value):
-        super(ValueFilter, self).__init__(name)
+        super().__init__(name)
 
         self.value = value
 
@@ -338,9 +338,6 @@ class ValueFilter(BaseFilter):
 
 
 class DataFilter(BaseFilter):
-    def __init__(self, name):
-        super(DataFilter, self).__init__(name)
-
     def toSql(self):
         if self.revert:
             # Filter out blank values
@@ -354,9 +351,6 @@ class DataFilter(BaseFilter):
 
 
 class BlankFilter(BaseFilter):
-    def __init__(self, name):
-        super(BlankFilter, self).__init__(name)
-
     def toSql(self):
         if self.revert:
             # Filter out not null and not empty values

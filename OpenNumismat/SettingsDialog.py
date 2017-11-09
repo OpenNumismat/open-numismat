@@ -19,7 +19,7 @@ class MainSettingsPage(QWidget):
                  ]
 
     def __init__(self, collection, parent=None):
-        super(MainSettingsPage, self).__init__(parent)
+        super().__init__(parent)
 
         settings = Settings()
 
@@ -190,7 +190,7 @@ class FieldsSettingsPage(QWidget):
     DataRole = Qt.UserRole
 
     def __init__(self, collection, parent=None):
-        super(FieldsSettingsPage, self).__init__(parent)
+        super().__init__(parent)
 
         self.listWidget = QListWidget(self)
         self.listWidget.setWrapping(True)

@@ -10,7 +10,7 @@ class LatestCollectionAction(QAction):
     latestTriggered = pyqtSignal(str)
 
     def __init__(self, key, parent=None):
-        super(LatestCollectionAction, self).__init__(parent)
+        super().__init__(parent)
 
         settings = QtCore.QSettings()
         self.fileName = settings.value(key)
@@ -27,7 +27,7 @@ class LatestCollections(QtCore.QObject):
     LatestCount = 5
 
     def __init__(self, parent=None):
-        super(LatestCollections, self).__init__(parent)
+        super().__init__(parent)
 
         self.settings = QtCore.QSettings()
 

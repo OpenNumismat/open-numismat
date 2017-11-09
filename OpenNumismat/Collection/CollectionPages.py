@@ -21,7 +21,7 @@ class CollectionPageParam(QtCore.QObject):
 
 class CollectionPages(QtCore.QObject):
     def __init__(self, db, parent=None):
-        super(CollectionPages, self).__init__(parent)
+        super().__init__(parent)
 
         self.db = db
         sql = "CREATE TABLE IF NOT EXISTS pages (\

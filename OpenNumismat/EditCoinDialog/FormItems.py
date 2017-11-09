@@ -115,9 +115,6 @@ class BigIntValidator(QDoubleValidator):
 
 
 class NumberValidator(QIntValidator):
-    def __init__(self, minimum, maximum, parent=None):
-        super(NumberValidator, self).__init__(minimum, maximum, parent)
-
     def validate(self, input_, pos):
         input_ = input_.strip()
         if len(input_) == 0:
@@ -136,14 +133,14 @@ class NumberValidator(QIntValidator):
 
 class LineEdit(QLineEdit):
     def __init__(self, parent=None):
-        super(LineEdit, self).__init__(parent)
+        super().__init__(parent)
         self.setMaxLength(1024)
         self.setMinimumWidth(100)
 
 
 class UrlLineEdit(QWidget):
     def __init__(self, parent=None):
-        super(UrlLineEdit, self).__init__(parent)
+        super().__init__(parent)
 
         self.lineEdit = LineEdit(parent)
 
@@ -205,7 +202,7 @@ class UrlLineEdit(QWidget):
 
 class LineEditRef(QWidget):
     def __init__(self, reference, parent=None):
-        super(LineEditRef, self).__init__(parent)
+        super().__init__(parent)
 
         self.comboBox = QComboBox(self)
         self.comboBox.setEditable(True)
@@ -286,7 +283,7 @@ class LineEditRef(QWidget):
 
 class StatusEdit(QComboBox):
     def __init__(self, parent=None):
-        super(StatusEdit, self).__init__(parent)
+        super().__init__(parent)
 
         for statusTitle in Statuses.values():
             self.addItem(statusTitle)
@@ -313,7 +310,7 @@ class StatusEdit(QComboBox):
 
 class ShortLineEdit(QLineEdit):
     def __init__(self, parent=None):
-        super(ShortLineEdit, self).__init__(parent)
+        super().__init__(parent)
         self.setMaxLength(10)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -324,7 +321,7 @@ class ShortLineEdit(QLineEdit):
 
 class UserNumericEdit(QLineEdit):
     def __init__(self, parent=None):
-        super(UserNumericEdit, self).__init__(parent)
+        super().__init__(parent)
         self.setMaxLength(25)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
@@ -336,7 +333,7 @@ class UserNumericEdit(QLineEdit):
 
 class NumberEdit(QLineEdit):
     def __init__(self, parent=None):
-        super(NumberEdit, self).__init__(parent)
+        super().__init__(parent)
         validator = NumberValidator(0, 9999, parent)
         self.setValidator(validator)
         self.setMaxLength(4)
@@ -436,7 +433,7 @@ class BigIntEdit(_DoubleEdit):
 
 class ValueEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super(ValueEdit, self).__init__(0, 9999999999, 3, parent)
+        super().__init__(0, 9999999999, 3, parent)
         self.setMaxLength(17)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
@@ -448,7 +445,7 @@ class ValueEdit(_DoubleEdit):
 
 class MoneyEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super(MoneyEdit, self).__init__(0, 9999999999, 2, parent)
+        super().__init__(0, 9999999999, 2, parent)
         self.setMaxLength(16)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
@@ -519,7 +516,7 @@ class DenominationEdit(MoneyEdit):
 
 class TextEdit(QTextEdit):
     def __init__(self, parent=None):
-        super(TextEdit, self).__init__(parent)
+        super().__init__(parent)
 
         self.setAcceptRichText(False)
         self.setTabChangesFocus(True)
@@ -530,9 +527,6 @@ class TextEdit(QTextEdit):
 
 class CalendarWidget(QCalendarWidget):
     DEFAULT_DATE = QDate(2000, 1, 1)
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
 
     def showEvent(self, e):
         if self.selectedDate() == self.DEFAULT_DATE:
@@ -584,4 +578,4 @@ class DateEdit(QDateEdit):
 
 class DateTimeEdit(QDateTimeEdit):
     def __init__(self, parent=None):
-        super(DateTimeEdit, self).__init__(parent)
+        super().__init__(parent)

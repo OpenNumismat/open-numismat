@@ -117,7 +117,7 @@ class CollectionField():
 class CollectionFieldsBase(QObject):
     def __init__(self, parent=None):
         from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-        super(CollectionFieldsBase, self).__init__(parent)
+        super().__init__(parent)
 
         fields = [
                 ('id', self.tr("ID"), Type.BigInt),
@@ -226,7 +226,7 @@ class CollectionFieldsBase(QObject):
 
 class CollectionFields(CollectionFieldsBase):
     def __init__(self, db, parent=None):
-        super(CollectionFields, self).__init__(parent)
+        super().__init__(parent)
         self.db = db
 
         if 'fields' not in self.db.tables():

@@ -9,7 +9,7 @@ from OpenNumismat import version
 
 class ImageLabel(QLabel):
     def __init__(self, parent=None):
-        super(ImageLabel, self).__init__(parent)
+        super().__init__(parent)
 
         self.clear()
 
@@ -81,7 +81,7 @@ class ImageEdit(ImageLabel):
     latestDir = OpenNumismat.IMAGE_PATH
 
     def __init__(self, name, label, parent=None):
-        super(ImageEdit, self).__init__(parent)
+        super().__init__(parent)
 
         self.name = name or 'photo'
         self.label = label
@@ -152,7 +152,7 @@ class ImageEdit(ImageLabel):
         if self.image.isNull():
             self.openImage()
         else:
-            super(ImageEdit, self).mouseDoubleClickEvent(e)
+            super().mouseDoubleClickEvent(e)
 
     def openImage(self):
         caption = QApplication.translate('ImageEdit', "Open File")
@@ -203,7 +203,7 @@ class ImageEdit(ImageLabel):
             clipboard.setImage(self.image)
 
     def clear(self):
-        super(ImageEdit, self).clear()
+        super().clear()
         text = QApplication.translate('ImageEdit',
                         "No image available\n(right-click to add an image)")
         self.setText(text)
@@ -292,7 +292,7 @@ class ImageEdit(ImageLabel):
 
 class EdgeImageEdit(ImageEdit):
     def __init__(self, name, label, parent=None):
-        super(EdgeImageEdit, self).__init__(name, label, parent)
+        super().__init__(name, label, parent)
 
     def _setImage(self, image):
         if not image.isNull():
@@ -301,14 +301,14 @@ class EdgeImageEdit(ImageEdit):
                 matrix.rotate(90)
                 image = image.transformed(matrix, Qt.SmoothTransformation)
 
-        super(EdgeImageEdit, self)._setImage(image)
+        super()._setImage(image)
 
 
 class ExchangeImageAction(QAction):
     exchangeImageTriggered = pyqtSignal(object)
 
     def __init__(self, image, title, parent=None):
-        super(ExchangeImageAction, self).__init__(title, parent)
+        super().__init__(title, parent)
         self.image = image
 
         self.triggered.connect(self.trigger)

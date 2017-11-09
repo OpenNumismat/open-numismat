@@ -57,13 +57,13 @@ class ImageDelegate(QStyledItemDelegate):
 
 class SortFilterProxyModel(QSortFilterProxyModel):
     def __init__(self, parent=None):
-        super(SortFilterProxyModel, self).__init__(parent)
+        super().__init__(parent)
         self.setDynamicSortFilter(True)
 
     def sort(self, column, order=Qt.AscendingOrder):
         self.order = order
         self.model = self.sourceModel()
-        super(SortFilterProxyModel, self).sort(column, order)
+        super().sort(column, order)
 
     def lessThan(self, left, right):
         leftData = self.model.dataDisplayRole(left)
@@ -96,7 +96,7 @@ class ListView(QTableView):
     MimeType = 'num/data'
 
     def __init__(self, listParam, parent=None):
-        super(ListView, self).__init__(parent)
+        super().__init__(parent)
 
         self.listParam = listParam
 
@@ -205,7 +205,7 @@ class ListView(QTableView):
         self._updateHeaderButtons()
 
     def model(self):
-        if not super(ListView, self).model():
+        if not super().model():
             return None
         return self.proxyModel.sourceModel()
 
@@ -227,7 +227,7 @@ class ListView(QTableView):
 
         self.proxyModel = SortFilterProxyModel(self)
         self.proxyModel.setSourceModel(model)
-        super(ListView, self).setModel(self.proxyModel)
+        super().setModel(self.proxyModel)
         model.proxy = self.proxyModel
 
         self.headerButtons = []
@@ -352,7 +352,7 @@ class ListView(QTableView):
         elif event.matches(QKeySequence.Delete):
             self._delete(self.selectedRows())
         else:
-            return super(ListView, self).keyPressEvent(event)
+            return super().keyPressEvent(event)
 
     def contextMenuEvent(self, pos):
         selected_count = len(self.selectedRows())
@@ -394,18 +394,18 @@ class ListView(QTableView):
             id_index = self.model().index(index.row(), id_col)
             self.selectedRowId = self.model().dataDisplayRole(id_index)
 
-        return super(ListView, self).currentChanged(current, previous)
+        return super().currentChanged(current, previous)
 
     def selectionChanged(self, selected, deselected):
         self.listSelectedLabel.setText(self.tr("%n coin(s) selected", '',
                                                len(self.selectedRows())))
-        return super(ListView, self).selectionChanged(selected, deselected)
+        return super().selectionChanged(selected, deselected)
 
     def __mapToSource(self, index):
         return self.proxyModel.mapToSource(index)
 
     def currentIndex(self):
-        index = super(ListView, self).currentIndex()
+        index = super().currentIndex()
         return self.__mapToSource(index)
 
     def selectedRows(self):

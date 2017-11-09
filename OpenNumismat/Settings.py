@@ -89,7 +89,7 @@ class Settings(BaseSettings):
                'check_coin_duplicate': True}
 
     def __init__(self, autoSave=False):
-        super(Settings, self).__init__(autoSave)
+        super().__init__(autoSave)
 
         self.settings = QSettings()
 

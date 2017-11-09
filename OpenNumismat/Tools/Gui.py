@@ -19,7 +19,7 @@ class ProgressDialog(QProgressDialog):
 
     # Reimplementing default method for showing updated label immediately
     def setLabelText(self, text):
-        super(ProgressDialog, self).setLabelText(text)
+        super().setLabelText(text)
         self.setMaximum(self.maximum() + 1)
         self.step()
 

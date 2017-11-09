@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 
 class CollectionDescription(QObject):
     def __init__(self, collection):
-        super(CollectionDescription, self).__init__(collection)
+        super().__init__(collection)
         self.db = collection.db
 
         if 'description' not in self.db.tables():

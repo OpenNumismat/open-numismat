@@ -33,7 +33,7 @@ class __ExportBase():
 
 class ExportToExcel(__ExportBase):
     def __init__(self, fileName, title=''):
-        super(ExportToExcel, self).__init__(fileName, title)
+        super().__init__(fileName, title)
 
     @staticmethod
     def isAvailable():
@@ -61,7 +61,7 @@ class ExportToExcel(__ExportBase):
 
 class ExportToHtml(__ExportBase):
     def __init__(self, fileName, title=''):
-        super(ExportToHtml, self).__init__(fileName, title)
+        super().__init__(fileName, title)
 
     def open(self):
         self._file = codecs.open(self.fileName, 'w', 'utf-8')
@@ -124,7 +124,7 @@ background: #ecf0f6;
 
 class ExportToCsv(__ExportBase):
     def __init__(self, fileName, title):
-        super(ExportToCsv, self).__init__(fileName)
+        super().__init__(fileName)
 
     def open(self):
         self._file = open(self.fileName, 'w', newline='')
@@ -153,7 +153,7 @@ class ExportToCsv(__ExportBase):
 
 class ExportToCsvUtf8(__ExportBase):
     def __init__(self, fileName, title=''):
-        super(ExportToCsvUtf8, self).__init__(fileName)
+        super().__init__(fileName)
 
     def open(self):
         self._file = open(self.fileName, 'w', newline='', encoding='utf-8')

@@ -34,7 +34,7 @@ class CollectionModel(QSqlTableModel):
     SQLITE_READONLY = '8'
 
     def __init__(self, collection, parent=None):
-        super(CollectionModel, self).__init__(parent, collection.db)
+        super().__init__(parent, collection.db)
 
         self.intFilter = ''
         self.extFilter = ''
@@ -54,7 +54,7 @@ class CollectionModel(QSqlTableModel):
     def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DisplayRole:
             # Localize values
-            data = super(CollectionModel, self).data(index, role)
+            data = super().data(index, role)
             field = self.fields.fields[index.column()]
             try:
                 if field.name == 'status':
@@ -102,14 +102,14 @@ class CollectionModel(QSqlTableModel):
         elif role == Qt.UserRole:
             field = self.fields.fields[index.column()]
             if field.type == Type.Denomination:
-                data = super(CollectionModel, self).data(index, Qt.DisplayRole)
+                data = super().data(index, Qt.DisplayRole)
                 data, _ = numberWithFraction(data, self.settings['convert_fraction'])
                 return data
-            return super(CollectionModel, self).data(index, Qt.DisplayRole)
+            return super().data(index, Qt.DisplayRole)
         elif role == Qt.DecorationRole:
             if self.settings['show_list_icons']:
                 field = self.fields.fields[index.column()]
-                data = super(CollectionModel, self).data(index, Qt.DisplayRole)
+                data = super().data(index, Qt.DisplayRole)
                 icon = self.reference.getIcon(field.name, data)
                 if icon:
                     return icon
@@ -118,10 +118,10 @@ class CollectionModel(QSqlTableModel):
             if field.type == Type.BigInt:
                 return Qt.AlignRight | Qt.AlignVCenter
 
-        return super(CollectionModel, self).data(index, role)
+        return super().data(index, role)
 
     def dataDisplayRole(self, index):
-        return super(CollectionModel, self).data(index, Qt.DisplayRole)
+        return super().data(index, Qt.DisplayRole)
 
     def addCoin(self, record, parent=None):
         record.setNull('id')  # remove ID value from record
@@ -176,7 +176,7 @@ class CollectionModel(QSqlTableModel):
         record.setValue('image', img_id)
         record.remove(record.indexOf('image_id'))
 
-        return super(CollectionModel, self).insertRecord(row, record)
+        return super().insertRecord(row, record)
 
     def setRecord(self, row, record):
         self._updateRecord(record)
@@ -248,13 +248,13 @@ class CollectionModel(QSqlTableModel):
             record.setNull('image')
         record.remove(record.indexOf('image_id'))
 
-        return super(CollectionModel, self).setRecord(row, record)
+        return super().setRecord(row, record)
 
     def record(self, row=-1):
         if row >= 0:
-            record = super(CollectionModel, self).record(row)
+            record = super().record(row)
         else:
-            record = super(CollectionModel, self).record()
+            record = super().record()
 
         for field in ['obverseimg', 'reverseimg', 'edgeimg',
                       'photo1', 'photo2', 'photo3', 'photo4']:
@@ -393,7 +393,7 @@ class CollectionModel(QSqlTableModel):
         record.setValue('updatedat', currentTime.toString(Qt.ISODate))
 
     def submitAll(self):
-        ret = super(CollectionModel, self).submitAll()
+        ret = super().submitAll()
         if not ret:
             if self.lastError().nativeErrorCode() == self.SQLITE_READONLY:
                 message = self.tr("file is readonly")
@@ -409,7 +409,7 @@ class CollectionModel(QSqlTableModel):
         return ret
 
     def select(self):
-        ret = super(CollectionModel, self).select()
+        ret = super().select()
 
         self.modelChanged.emit()
 
@@ -466,7 +466,7 @@ class CollectionModel(QSqlTableModel):
                             self.tr("Filter is too complex. Will be ignored"))
             return
 
-        super(CollectionModel, self).setFilter(combinedFilter)
+        super().setFilter(combinedFilter)
 
     def isExist(self, record):
         fields = ('title', 'value', 'unit', 'country', 'period', 'ruler',
@@ -499,7 +499,7 @@ class CollectionSettings(BaseSettings):
     }
 
     def __init__(self, db):
-        super(CollectionSettings, self).__init__()
+        super().__init__()
         self.db = db
 
         if 'settings' not in self.db.tables():
@@ -552,7 +552,7 @@ class CollectionSettings(BaseSettings):
 
 class Collection(QtCore.QObject):
     def __init__(self, parent=None):
-        super(Collection, self).__init__(parent)
+        super().__init__(parent)
 
         self.db = QSqlDatabase.addDatabase('QSQLITE')
         self._pages = None

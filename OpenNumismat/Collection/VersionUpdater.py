@@ -7,7 +7,7 @@ from OpenNumismat.Tools import Gui
 
 class Updater(QtCore.QObject):
     def __init__(self, collection, parent=None):
-        super(Updater, self).__init__(parent)
+        super().__init__(parent)
 
         self.collection = collection
         self.currentVersion = int(self.collection.settings['Version'])
@@ -46,7 +46,7 @@ class Updater(QtCore.QObject):
 
 class _Updater(QtCore.QObject):
     def __init__(self, collection, parent=None):
-        super(_Updater, self).__init__(parent)
+        super().__init__(parent)
 
         self.collection = collection
         self.db = collection.db
@@ -75,9 +75,6 @@ class _Updater(QtCore.QObject):
 
 
 class UpdaterTo2(_Updater):
-    def __init__(self, collection):
-        super(UpdaterTo2, self).__init__(collection)
-
     def getTotalCount(self):
         sql = "SELECT count(*) FROM coins"
         query = QSqlQuery(sql, self.db)
@@ -247,9 +244,6 @@ class UpdaterTo2(_Updater):
 
 
 class UpdaterTo3(_Updater):
-    def __init__(self, collection):
-        super(UpdaterTo3, self).__init__(collection)
-
     def getTotalCount(self):
         sql = "SELECT count(*) FROM coins"
         query = QSqlQuery(sql, self.db)
@@ -312,7 +306,7 @@ class UpdaterTo3(_Updater):
 
 class UpdaterTo4(_Updater):
     def __init__(self, collection):
-        super(UpdaterTo4, self).__init__(collection)
+        super().__init__(collection)
         self.progressDlg.setMinimumDuration(0)
 
     def getTotalCount(self):

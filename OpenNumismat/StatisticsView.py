@@ -110,7 +110,7 @@ class StackedBarCanvas(BaseCanvas):
 
 class StatisticsView(QWidget):
     def __init__(self, statisticsParam, parent=None):
-        super(StatisticsView, self).__init__(parent)
+        super().__init__(parent)
 
         self.statisticsParam = statisticsParam
 

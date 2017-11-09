@@ -18,7 +18,7 @@ from OpenNumismat.Settings import Settings
 
 class ImageView(QWidget):
     def __init__(self, parent=None):
-        super(ImageView, self).__init__(parent)
+        super().__init__(parent)
 
         self.currentIndex = None
 
@@ -119,7 +119,7 @@ class TreeView(QTreeWidget):
     ParamRole = FieldsRole + 1
 
     def __init__(self, treeParam, parent=None):
-        super(TreeView, self).__init__(parent)
+        super().__init__(parent)
 
         self.settings = Settings()
 
@@ -287,7 +287,7 @@ class TreeView(QTreeWidget):
                 break
 
     def scrollToItem(self, item, hint=QTreeWidget.EnsureVisible):
-        super(TreeView, self).scrollToItem(item, hint)
+        super().scrollToItem(item, hint)
 
         parentItem = item.parent()
         if parentItem:
@@ -397,7 +397,7 @@ class TreeView(QTreeWidget):
 
 class DetailsView(QWidget):
     def __init__(self, parent=None):
-        super(DetailsView, self).__init__(parent)
+        super().__init__(parent)
 
         self.resize(0, 120)
 
@@ -420,7 +420,7 @@ class DetailsView(QWidget):
 
 class Splitter(QSplitter):
     def __init__(self, title, orientation=Qt.Horizontal, parent=None):
-        super(Splitter, self).__init__(orientation, parent)
+        super().__init__(orientation, parent)
 
         self.title = title
         self.splitterMoved.connect(self.splitterPosChanged)
@@ -443,7 +443,7 @@ class Splitter(QSplitter):
 
 class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
-        super(PageView, self).__init__('0', parent=parent)
+        super().__init__('0', parent=parent)
 
         self._model = None
         self.param = pageParam

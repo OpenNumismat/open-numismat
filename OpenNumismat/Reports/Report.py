@@ -95,7 +95,7 @@ class Report(QtCore.QObject):
     BASE_FOLDER = 'templates'
 
     def __init__(self, model, template_name, dstPath, parent=None):
-        super(Report, self).__init__(parent)
+        super().__init__(parent)
 
         self.model = model
         self.srcFolder = os.path.join(OpenNumismat.PRJ_PATH, self.BASE_FOLDER, template_name)

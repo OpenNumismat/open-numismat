@@ -8,9 +8,6 @@ from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferen
 
 
 class SqlTableModel(QtSql.QSqlTableModel):
-    def __init__(self, parent, db):
-        super().__init__(parent, db)
-
     def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DecorationRole:
             if index.row() < 0:
@@ -52,7 +49,7 @@ class BaseReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
     def __init__(self, name, title, letter='', sort=False, parent=None):
-        super(BaseReferenceSection, self).__init__(parent)
+        super().__init__(parent)
 
         self.name = name
         self.table_name = "ref_%s" % name
@@ -161,8 +158,7 @@ class BaseReferenceSection(QtCore.QObject):
 
 class ReferenceSection(BaseReferenceSection):
     def __init__(self, name, title, letter='', sort=False, parent=None):
-        super(ReferenceSection, self).__init__(name, title, letter, sort,
-                                               parent)
+        super().__init__(name, title, letter, sort, parent)
 
     def load(self, db):
         self.db = db
@@ -204,8 +200,7 @@ class ReferenceSection(BaseReferenceSection):
 
 class CrossReferenceSection(BaseReferenceSection):
     def __init__(self, name, parentRef, title, letter='', sort=False, parent=None):
-        super(CrossReferenceSection, self).__init__(name, title, letter, sort,
-                                                    parent)
+        super().__init__(name, title, letter, sort, parent)
 
         self.parentIndex = None
         self.parentRef = parentRef
@@ -253,7 +248,7 @@ class CrossReferenceSection(BaseReferenceSection):
 
 class Reference(QtCore.QObject):
     def __init__(self, fields, parent=None, db=None):
-        super(Reference, self).__init__(parent)
+        super().__init__(parent)
 
         if db:
             self.db = db

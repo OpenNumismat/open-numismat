@@ -10,7 +10,7 @@ class TabBar(QTabBar):
     doubleClicked = pyqtSignal(int)
 
     def __init__(self, parent):
-        super(TabBar, self).__init__(parent)
+        super().__init__(parent)
 
         self.setContextMenuPolicy(Qt.CustomContextMenu)
 
@@ -21,7 +21,7 @@ class TabBar(QTabBar):
 
 class TabView(QTabWidget):
     def __init__(self, parent):
-        super(TabView, self).__init__(parent)
+        super().__init__(parent)
 
         tabBar = TabBar(self)
         self.setTabBar(tabBar)
@@ -279,7 +279,7 @@ class OpenPageAction(QAction):
     openPageTriggered = pyqtSignal(object)
 
     def __init__(self, pageParam, parent=None):
-        super(OpenPageAction, self).__init__(pageParam.title, parent)
+        super().__init__(pageParam.title, parent)
 
         self.pageParam = pageParam
         self.triggered.connect(self.trigger)

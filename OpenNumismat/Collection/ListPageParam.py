@@ -24,7 +24,7 @@ class ColumnListParam:
 
 class ListPageParam(QtCore.QObject):
     def __init__(self, page):
-        super(ListPageParam, self).__init__(page)
+        super().__init__(page)
 
         self.__lists_changed = False
         self.page = page

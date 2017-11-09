@@ -15,7 +15,7 @@ class DetailsTabWidget(QTabWidget):
     Stretch = 'stretch item'
 
     def __init__(self, model, parent=None):
-        super(DetailsTabWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.model = model
         self.reference = model.reference
@@ -472,7 +472,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.usedFields = usedFields
         self.settings = Settings()
 
-        super(FormDetailsTabWidget, self).__init__(model, parent)
+        super().__init__(model, parent)
 
     def createPages(self):
         self.createCoinPage()
@@ -510,7 +510,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.items[field.name] = item
 
     def createItems(self):
-        super(FormDetailsTabWidget, self).createItems()
+        super().createItems()
 
         if self.reference:
             if self.reference.section('country'):
@@ -541,7 +541,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
                         src.connectExchangeAct(dst, title)
 
     def fillItems(self, record):
-        super(FormDetailsTabWidget, self).fillItems(record)
+        super().fillItems(record)
 
         if self.usedFields:
             for item in self.items.values():
@@ -666,7 +666,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         elif self.oldTrafficIndex == 6:
             pass
 
-        pageParts = super(FormDetailsTabWidget, self)._createTrafficParts(index)
+        pageParts = super()._createTrafficParts(index)
 
         self.oldTrafficIndex = index
 
@@ -769,16 +769,13 @@ def floatToText(value):
 
 # Reimplementing DoubleValidator for replace comma with dot and accept %
 class CommissionValidator(DoubleValidator):
-    def __init__(self, bottom, top, decimals, parent=None):
-        super(CommissionValidator, self).__init__(bottom, top, decimals, parent)
-
     def validate(self, input_, pos):
         hasPercent = False
         numericValue = input_
         if len(input_) > 0 and input_[-1] == '%':
             numericValue = input_[0:-1]  # trim percent sign
             hasPercent = True
-        state, validatedValue, pos = super(CommissionValidator, self).validate(numericValue, pos)
+        state, validatedValue, pos = super().validate(numericValue, pos)
         if hasPercent:
             validatedValue = validatedValue + '%'  # restore percent sign
         return state, validatedValue, pos
