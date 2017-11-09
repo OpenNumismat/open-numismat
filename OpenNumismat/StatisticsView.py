@@ -17,6 +17,7 @@ from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Settings import Settings
+from OpenNumismat.Collection.CollectionFields import Statuses
 
 
 class BaseCanvas(FigureCanvas):
@@ -197,16 +198,17 @@ class StatisticsView(QWidget):
             self.chart = BarCanvas(self)
         self.imageLayout.addWidget(self.chart)
 
+        fieldId = self.fieldSelector.currentData()
+        field = self.model.fields.field(fieldId).name
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filter = "WHERE %s" % filter_
+        else:
+            sql_filter = ""
+
         if chart == 'stacked':
-            fieldId = self.fieldSelector.currentData()
-            field = self.model.fields.field(fieldId).name
             subfieldId = self.subfieldSelector.currentData()
             subfield = self.model.fields.field(subfieldId).name
-            filter_ = self.model.filter()
-            if filter_:
-                sql_filter = "WHERE %s" % filter_
-            else:
-                sql_filter = ""
             sql = "SELECT count(%s), %s, %s FROM coins %s GROUP BY %s, %s" % (
                 subfield, field, subfield, sql_filter, field, subfield)
             query = QSqlQuery(self.model.database())
@@ -219,7 +221,11 @@ class StatisticsView(QWidget):
                 record = query.record()
                 count = record.value(0)
                 val = str(record.value(1))
+                if field == 'status':
+                    val = Statuses[val]
                 subval = str(record.value(2))
+                if subfield == 'status':
+                    subval = Statuses[subval]
                 if val not in xx:
                     xx.append(val)
                 if subval not in zz:
@@ -241,13 +247,6 @@ class StatisticsView(QWidget):
 
             self.chart.setData(xx, yy, zz)
         else:
-            fieldId = self.fieldSelector.currentData()
-            field = self.model.fields.field(fieldId).name
-            filter_ = self.model.filter()
-            if filter_:
-                sql_filter = "WHERE %s" % filter_
-            else:
-                sql_filter = ""
             sql = "SELECT count(%s), %s FROM coins %s GROUP BY %s" % (
                 field, field, sql_filter, field)
             query = QSqlQuery(self.model.database())
@@ -258,6 +257,8 @@ class StatisticsView(QWidget):
                 record = query.record()
                 count = record.value(0)
                 val = str(record.value(1))
+                if field == 'status':
+                    val = Statuses[val]
                 xx.append(val)
                 yy.append(count)
 
