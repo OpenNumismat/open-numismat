@@ -120,7 +120,7 @@ class StatisticsView(QWidget):
         self.imageLayout.setContentsMargins(QtCore.QMargins())
         layout.addWidget(self.__layoutToWidget(self.imageLayout))
 
-        self.chart = BarHCanvas(self)
+        self.chart = QWidget(self)
         self.imageLayout.addWidget(self.chart)
 
         ctrlLayout = QHBoxLayout()
