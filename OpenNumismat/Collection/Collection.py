@@ -455,7 +455,7 @@ class CollectionModel(QSqlTableModel):
 
     def __applyFilter(self):
         if self.intFilter and self.extFilter:
-            combinedFilter = self.intFilter + " AND " + self.extFilter
+            combinedFilter = " AND ".join(self.intFilter, self.extFilter)
         else:
             combinedFilter = self.intFilter + self.extFilter
 
@@ -469,12 +469,12 @@ class CollectionModel(QSqlTableModel):
         super(CollectionModel, self).setFilter(combinedFilter)
 
     def isExist(self, record):
-        fields = ['title', 'value', 'unit', 'country', 'period', 'ruler',
+        fields = ('title', 'value', 'unit', 'country', 'period', 'ruler',
                   'year', 'mint', 'mintmark', 'type', 'series', 'subjectshort',
                   'status', 'material', 'quality', 'paydate', 'payprice',
                   'saller', 'payplace', 'saledate', 'saleprice', 'buyer',
                   'saleplace', 'variety', 'obversevar', 'reversevar',
-                  'edgevar']
+                  'edgevar')
         filterParts = [field + '=?' for field in fields]
         sqlFilter = ' AND '.join(filterParts)
 

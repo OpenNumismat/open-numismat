@@ -25,8 +25,8 @@ class ExportDialog(QDialog):
 
         # density
         self.densitySelector = QComboBox(self)
-        for density in ('MDPI', 'HDPI', 'XHDPI', 'XXHDPI', 'XXXHDPI'):
-            self.densitySelector.addItem(density)
+        densities = ('MDPI', 'HDPI', 'XHDPI', 'XXHDPI', 'XXXHDPI')
+        self.densitySelector.addItems(densities)
         self.densitySelector.setSizePolicy(QSizePolicy.Fixed,
                                            QSizePolicy.Fixed)
         form.addRow(self.tr("Target density of the display"), self.densitySelector)

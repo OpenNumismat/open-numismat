@@ -56,8 +56,8 @@ class ListPageParam(QtCore.QObject):
         if not self.columns:
             for field in self.fields.userFields:
                 enabled = False
-                if field.name in ['image', 'title', 'value', 'unit',
-                                  'country', 'year', 'status']:
+                if field.name in ('image', 'title', 'value', 'unit',
+                                  'country', 'year', 'status'):
                     enabled = True
                 param = ColumnListParam(field.id, enabled)
                 self.columns.append(param)
