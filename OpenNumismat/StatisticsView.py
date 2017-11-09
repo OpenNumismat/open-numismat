@@ -1,5 +1,5 @@
-from collections import Counter
 from textwrap import wrap
+import numpy
 
 import matplotlib
 matplotlib.use('Qt5Agg')
@@ -81,6 +81,32 @@ class PieCanvas(BaseCanvas):
         self.draw()
 
 
+class StackedBarCanvas(BaseCanvas):
+    def setData(self, xx, yy, zz):
+        self.axes.cla()
+
+        x = range(len(xx))
+
+        lines = []
+        prev_y = [0 * len(xx)]
+        for y in yy:
+            bars = self.axes.barh(x, y, left=prev_y)
+            prev_y = numpy.add(prev_y, y)
+            lines.append(bars[0])
+
+        self.axes.set_yticks(x)
+        keys = ['\n'.join(wrap(l, 17)) for l in xx]
+        self.axes.set_yticklabels(keys)
+
+        self.axes.set_xlabel(self.tr("Number of coins"))
+        xa = self.axes.get_xaxis()
+        xa.set_major_locator(MaxNLocator(integer=True))
+
+        self.axes.legend(lines, zz, frameon=True)
+
+        self.draw()
+
+
 class StatisticsView(QWidget):
     def __init__(self, statisticsParam, parent=None):
         super(StatisticsView, self).__init__(parent)
@@ -107,6 +133,7 @@ class StatisticsView(QWidget):
         self.chartSelector.addItem(self.tr("bar"), 'bar')
         self.chartSelector.addItem(self.tr("horizontal bar"), 'barh')
         self.chartSelector.addItem(self.tr("pie"), 'pie')
+        self.chartSelector.addItem(self.tr("stacked bar"), 'stacked')
         ctrlLayout.addWidget(self.chartSelector)
 
         self.fieldSelector = QComboBox(self)
@@ -146,31 +173,76 @@ class StatisticsView(QWidget):
             self.chart = BarHCanvas(self)
         elif chart == 'pie':
             self.chart = PieCanvas(self)
+        elif chart == 'stacked':
+            self.chart = StackedBarCanvas(self)
         else:
             self.chart = BarCanvas(self)
         self.imageLayout.addWidget(self.chart)
 
-        fieldId = self.fieldSelector.currentData()
-        field = self.model.fields.field(fieldId).name
-        filter_ = self.model.filter()
-        if filter_:
-            sql_filter = "WHERE %s" % filter_
-        else:
-            sql_filter = ""
-        sql = "SELECT count(%s), %s FROM coins %s GROUP BY %s" % (
-            field, field, sql_filter, field)
-        query = QSqlQuery(self.model.database())
-        query.exec_(sql)
-        xx = []
-        yy = []
-        while query.next():
-            record = query.record()
-            count = record.value(0)
-            val = str(record.value(1))
-            xx.append(val)
-            yy.append(count)
+        if chart == 'stacked':
+            fieldId = self.fieldSelector.currentData()
+            field = self.model.fields.field(fieldId).name
+            subfield = 'status'
+            filter_ = self.model.filter()
+            if filter_:
+                sql_filter = "WHERE %s" % filter_
+            else:
+                sql_filter = ""
+            sql = "SELECT count(%s), %s, %s FROM coins %s GROUP BY %s, %s" % (
+                subfield, field, subfield, sql_filter, field, subfield)
+            query = QSqlQuery(self.model.database())
+            query.exec_(sql)
+            xx = []
+            yy = []
+            zz = []
+            vv = {}
+            while query.next():
+                record = query.record()
+                count = record.value(0)
+                val = str(record.value(1))
+                subval = str(record.value(2))
+                if val not in xx:
+                    xx.append(val)
+                if subval not in zz:
+                    zz.append(subval)
+                if val not in vv:
+                    vv[val] = {}
+                vv[val][subval] = count
 
-        self.chart.setData(xx, yy)
+            for _ in range(len(zz)):
+                yy.append([0] * len(xx))
+
+            xx = xx[::-1]
+            for i, val in enumerate(xx):
+                for j, subval in enumerate(zz):
+                    try:
+                        yy[j][i] = vv[val][subval]
+                    except KeyError:
+                        pass
+
+            self.chart.setData(xx, yy, zz)
+        else:
+            fieldId = self.fieldSelector.currentData()
+            field = self.model.fields.field(fieldId).name
+            filter_ = self.model.filter()
+            if filter_:
+                sql_filter = "WHERE %s" % filter_
+            else:
+                sql_filter = ""
+            sql = "SELECT count(%s), %s FROM coins %s GROUP BY %s" % (
+                field, field, sql_filter, field)
+            query = QSqlQuery(self.model.database())
+            query.exec_(sql)
+            xx = []
+            yy = []
+            while query.next():
+                record = query.record()
+                count = record.value(0)
+                val = str(record.value(1))
+                xx.append(val)
+                yy.append(count)
+
+            self.chart.setData(xx, yy)
 
     def fieldChaged(self, _text):
         fieldId = self.fieldSelector.currentData()
