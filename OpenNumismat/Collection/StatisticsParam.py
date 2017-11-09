@@ -22,18 +22,20 @@ class StatisticsParam(QtCore.QObject):
         self._params['showed'] = False
         self._params['chart'] = None
         self._params['fieldid'] = None
+        self._params['subfieldid'] = None
 
     def _load(self):
         self.clear()
 
         query = QSqlQuery(self.db)
-        query.prepare("SELECT showed, chart, fieldid FROM statistics WHERE pageid=?")
+        query.prepare("SELECT showed, chart, fieldid, subfieldid FROM statistics WHERE pageid=?")
         query.addBindValue(self.pageId)
         query.exec_()
         if query.first():
             self._params['showed'] = bool(query.record().value(0))
             self._params['chart'] = query.record().value(1)
             self._params['fieldid'] = query.record().value(2)
+            self._params['subfieldid'] = query.record().value(3)
 
     def save(self):
         self.db.transaction()
@@ -41,12 +43,13 @@ class StatisticsParam(QtCore.QObject):
         self.remove()
 
         query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO statistics (pageid, showed, chart, fieldid)"
-                      " VALUES (?, ?, ?, ?)")
+        query.prepare("INSERT INTO statistics (pageid, showed, chart, fieldid, subfieldid)"
+                      " VALUES (?, ?, ?, ?, ?)")
         query.addBindValue(self.pageId)
         query.addBindValue(int(self._params['showed']))
         query.addBindValue(self._params['chart'])
         query.addBindValue(self._params['fieldid'])
+        query.addBindValue(self._params['subfieldid'])
         query.exec_()
 
         self.db.commit()
@@ -64,5 +67,6 @@ class StatisticsParam(QtCore.QObject):
             pageid INTEGER,
             showed INTEGER,
             chart TEXT,
-            fieldid INTEGER)"""
+            fieldid INTEGER,
+            subfieldid INTEGER)"""
         QSqlQuery(sql, db)

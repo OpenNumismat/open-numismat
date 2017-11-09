@@ -139,21 +139,37 @@ class StatisticsView(QWidget):
         self.fieldSelector = QComboBox(self)
         ctrlLayout.addWidget(self.fieldSelector)
 
+        self.subfieldSelector = QComboBox(self)
+        ctrlLayout.addWidget(self.subfieldSelector)
+
         self.setLayout(layout)
 
     def setModel(self, model):
         self.model = model
 
+        default_subfieldid = 0
         for field in self.model.fields.userFields:
             if field.name in ('region', 'country', 'year', 'period', 'ruler',
                               'mint', 'type', 'series', 'status', 'material',
                               'grade', 'saller', 'payplace', 'buyer',
                               'saleplace', 'storage'):
                 self.fieldSelector.addItem(field.title, field.id)
+                self.subfieldSelector.addItem(field.title, field.id)
+                if field.name == 'status':
+                    default_subfieldid = field.id
+
         fieldid = self.statisticsParam.params()['fieldid']
         index = self.fieldSelector.findData(fieldid)
         if index >= 0:
             self.fieldSelector.setCurrentIndex(index)
+
+        subfieldid = self.statisticsParam.params()['subfieldid']
+        index = self.subfieldSelector.findData(subfieldid)
+        if index >= 0:
+            self.subfieldSelector.setCurrentIndex(index)
+        elif default_subfieldid:
+            index = self.subfieldSelector.findData(default_subfieldid)
+            self.subfieldSelector.setCurrentIndex(index)
 
         chart = self.statisticsParam.params()['chart']
         index = self.chartSelector.findData(chart)
@@ -162,6 +178,8 @@ class StatisticsView(QWidget):
 
         self.chartSelector.currentIndexChanged.connect(self.chartChaged)
         self.fieldSelector.currentIndexChanged.connect(self.fieldChaged)
+        self.subfieldSelector.currentIndexChanged.connect(self.subfieldChaged)
+        self.subfieldSelector.setVisible(chart == 'stacked')
 
     def clear(self):
         pass
@@ -182,7 +200,8 @@ class StatisticsView(QWidget):
         if chart == 'stacked':
             fieldId = self.fieldSelector.currentData()
             field = self.model.fields.field(fieldId).name
-            subfield = 'status'
+            subfieldId = self.subfieldSelector.currentData()
+            subfield = self.model.fields.field(subfieldId).name
             filter_ = self.model.filter()
             if filter_:
                 sql_filter = "WHERE %s" % filter_
@@ -251,10 +270,19 @@ class StatisticsView(QWidget):
 
         self.modelChanged()
 
+    def subfieldChaged(self, _text):
+        subfieldId = self.fieldSelector.currentData()
+        self.statisticsParam.params()['subfieldid'] = subfieldId
+        self.statisticsParam.save()
+
+        self.modelChanged()
+
     def chartChaged(self, _text):
         chart = self.chartSelector.currentData()
         self.statisticsParam.params()['chart'] = chart
         self.statisticsParam.save()
+
+        self.subfieldSelector.setVisible(chart == 'stacked')
 
         self.modelChanged()
 
