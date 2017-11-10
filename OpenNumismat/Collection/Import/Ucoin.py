@@ -44,16 +44,22 @@ class ImportUcoin(_Import):
 
     def _setRecord(self, record, row):
         record.setValue('country', row[0])
-        value, unit = row[1].split(' ', 1)
+        if ' ' in row[1]:
+            value, unit = row[1].split(' ', 1)
+        else:
+            value = ''
+            unit = row[1]
         record.setValue('value', value)
         record.setValue('unit', unit)
-        record.setValue('year', row[2])
-        record.setValue('subjectshort', row[3])
-        record.setValue('variety', row[4])
-        record.setValue('grade', row[5])
-        record.setValue('payprice', row[6])
-        record.setValue('features', row[7])
-        record.setValue('status', 'owned')
+        year = row[2].split(' ', 1)[0]
+        record.setValue('year', year)
+        record.setValue('mintmark', row[3])
+        record.setValue('subjectshort', row[5])
+        record.setValue('grade', row[6])
+        record.setValue('price3', row[7])
+        record.setValue('catalognum1', row[8])
+        record.setValue('features', row[9])
+        record.setValue('payinfo', row[10])
         record.setValue('status', 'owned')
 
         record.setValue('title', self.__generateTitle(record))
