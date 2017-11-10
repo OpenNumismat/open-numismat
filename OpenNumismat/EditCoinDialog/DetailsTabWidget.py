@@ -417,7 +417,7 @@ class DetailsTabWidget(QTabWidget):
         pageParts = self._createTrafficParts(index)
         page = self.createTabPage(pageParts)
 
-        title = QApplication.translate('DetailsTabWidget', "Traffic")
+        title = QApplication.translate('DetailsTabWidget', "Market")
         self.insertTab(1, page, title)
         if len(pageParts) == 0:
             self.setTabEnabled(1, False)
