@@ -92,7 +92,7 @@ class MainSettingsPage(QWidget):
         layout.addRow(self.freeNumeric)
 
         self.convertFraction = QCheckBox(
-            self.tr("Convert 0.5 to ½ (support ¼, ½, ¾, 1¼, 1½, 2½)"), self)
+            self.tr("Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)"), self)
         self.convertFraction.setChecked(settings['convert_fraction'])
         layout.addRow(self.convertFraction)
 

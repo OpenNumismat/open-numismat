@@ -464,6 +464,8 @@ class DenominationEdit(MoneyEdit):
         text = super().text()
         if text == '¼':
             text = '0.25'
+        elif text == '⅓':
+            text = '0.33'
         elif text == '½':
             text = '0.5'
         elif text == '¾':

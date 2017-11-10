@@ -27,6 +27,8 @@ def numberWithFraction(string, enabled=True):
         try:
             if float(string) == 0.25:
                 return '¼', True
+            elif float(string) == 0.33:
+                return '⅓', True
             elif float(string) == 0.5:
                 return '½', True
             elif float(string) == 0.75:
