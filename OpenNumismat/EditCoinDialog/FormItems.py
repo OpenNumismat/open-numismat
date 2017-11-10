@@ -474,18 +474,6 @@ class DenominationEdit(MoneyEdit):
             text = '1.5'
         elif text == '2½':
             text = '2.5'
-        else:
-            # First, get rid of the grouping
-            ts = locale.localeconv()['thousands_sep']
-            if ts:
-                text = text.replace(ts, '')
-                if ts == chr(0xA0):
-                    text = text.replace(' ', '')
-            # next, replace the decimal point with a dot
-            if self._decimals:
-                dp = locale.localeconv()['decimal_point']
-                if dp:
-                    text = text.replace(dp, '.')
         return text
 
     def _updateText(self):
@@ -510,8 +498,8 @@ class DenominationEdit(MoneyEdit):
                 if ts == '.':
                     text = text.replace('.', ',')
 
-            if super().text() != text:
-                super().setText(text)
+            if QLineEdit.text(self) != text:
+                QLineEdit.setText(self, text)
 
 
 class TextEdit(QTextEdit):
