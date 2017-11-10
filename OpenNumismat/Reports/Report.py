@@ -24,6 +24,8 @@ def formatFields(field, data):
             text = Statuses[data]
         elif field.type == Type.BigInt:
             text = locale.format("%d", int(data), grouping=True)
+        elif field.type == Type.Number:
+            text = str(data)
         elif field.type == Type.Money:
             text = locale.format("%.2f", float(data), grouping=True)
             dp = locale.localeconv()['decimal_point']
