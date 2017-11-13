@@ -1,3 +1,5 @@
+import requests
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -5,11 +7,16 @@ from PyQt5.QtWidgets import *
 import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import version
+from OpenNumismat.Tools.Gui import createIcon
 
 
 class ImageLabel(QLabel):
+    latestDir = OpenNumismat.IMAGE_PATH
+
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        self.name = 'photo'
 
         self.clear()
 
@@ -19,17 +26,42 @@ class ImageLabel(QLabel):
         self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.setFocusPolicy(Qt.StrongFocus)
 
-    def mouseDoubleClickEvent(self, e):
-        tmpDir = QDir(TemporaryDir.path())
-        file = QTemporaryFile(tmpDir.absoluteFilePath("img_XXXXXX.jpg"))
-        file.setAutoRemove(False)
-        file.open()
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.contextMenu)
 
-        fileName = QFileInfo(file).absoluteFilePath()
-        self.image.save(fileName)
+    def contextMenu(self, pos):
+        open_ = QAction(self.tr("Open"), self)
+        open_.triggered.connect(self.openImage)
+
+        copy = QAction(self.tr("Copy"), self)
+        copy.triggered.connect(self.copyImage)
+        copy.setDisabled(self.image.isNull())
+
+        save = QAction(self.tr("Save as..."), self)
+        save.triggered.connect(self.saveImage)
+        save.setDisabled(self.image.isNull())
+
+        google = QAction(createIcon('google.png'),
+                         self.tr("Search in Google"), self)
+        google.triggered.connect(self.googleImage)
+
+        menu = QMenu()
+        menu.addAction(open_)
+        menu.setDefaultAction(open_)
+        menu.addAction(save)
+        menu.addSeparator()
+        menu.addAction(google)
+        menu.addAction(copy)
+        menu.exec_(self.mapToGlobal(pos))
+
+    def openImage(self):
+        fileName = self._saveTmpImage()
 
         executor = QDesktopServices()
         executor.openUrl(QUrl.fromLocalFile(fileName))
+
+    def mouseDoubleClickEvent(self, _e):
+        self.openImage()
 
     def clear(self):
         self._data = None
@@ -76,10 +108,48 @@ class ImageLabel(QLabel):
         pixmap = QPixmap.fromImage(scaledImage)
         self.setPixmap(pixmap)
 
+    def _saveTmpImage(self):
+        tmpDir = QDir(TemporaryDir.path())
+        file = QTemporaryFile(tmpDir.absoluteFilePath("img_XXXXXX.jpg"))
+        file.setAutoRemove(False)
+        file.open()
+
+        fileName = QFileInfo(file).absoluteFilePath()
+        self.image.save(fileName)
+
+        return fileName
+
+    def googleImage(self):
+        fileName = self._saveTmpImage()
+
+        searchUrl = 'http://www.google.com/searchbyimage/upload'
+        multipart = {'encoded_image': (fileName, open(fileName, 'rb')), 'image_content': ''}
+        response = requests.post(searchUrl, files=multipart, allow_redirects=False)
+        fetchUrl = response.headers['Location']
+        executor = QDesktopServices()
+        executor.openUrl(QUrl(fetchUrl))
+
+    def saveImage(self):
+        defaultFileName = QDir(ImageLabel.latestDir).filePath(self.name)
+        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
+                          "All files (*.*)")
+        # TODO: Set default name to coin title + field name
+        fileName, _selectedFilter = QFileDialog.getSaveFileName(
+            self, self.tr("Save File"), defaultFileName, filter_)
+        if fileName:
+            dir_ = QDir(fileName)
+            dir_.cdUp()
+            ImageLabel.latestDir = dir_.absolutePath()
+
+            self.image.save(fileName)
+
+    def copyImage(self):
+        if not self.image.isNull():
+            clipboard = QApplication.clipboard()
+            clipboard.setImage(self.image)
+
 
 class ImageEdit(ImageLabel):
-    latestDir = OpenNumismat.IMAGE_PATH
-
     def __init__(self, name, label, parent=None):
         super().__init__(parent)
 
@@ -90,9 +160,6 @@ class ImageEdit(ImageLabel):
         self.label.mouseDoubleClickEvent = self.renameImageEvent
 
         self.setFrameStyle(QFrame.Panel | QFrame.Plain)
-
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.contextMenu)
 
         text = QApplication.translate('ImageEdit', "Exchange with")
         self.exchangeMenu = QMenu(text, self)
@@ -109,7 +176,7 @@ class ImageEdit(ImageLabel):
         icon = style.standardIcon(QStyle.SP_DirOpenIcon)
         text = QApplication.translate('ImageEdit', "Load...")
         load = QAction(icon, text, self)
-        load.triggered.connect(self.openImage)
+        load.triggered.connect(self.loadImage)
 
         text = QApplication.translate('ImageEdit', "Paste")
         paste = QAction(text, self)
@@ -135,6 +202,11 @@ class ImageEdit(ImageLabel):
         rename = QAction(text, self)
         rename.triggered.connect(self.renameImage)
 
+        text = QApplication.translate('ImageEdit', "Search in Google")
+        google = QAction(createIcon('google.png'), text, self)
+        google.triggered.connect(self.googleImage)
+        google.setDisabled(self.image.isNull())
+
         menu = QMenu()
         menu.addAction(load)
         menu.setDefaultAction(load)
@@ -143,48 +215,34 @@ class ImageEdit(ImageLabel):
         menu.addAction(rename)
         menu.addMenu(self.exchangeMenu)
         menu.addSeparator()
-        menu.addAction(paste)
+        menu.addAction(google)
         menu.addAction(copy)
+        menu.addAction(paste)
         menu.addAction(delete)
         menu.exec_(self.mapToGlobal(pos))
 
-    def mouseDoubleClickEvent(self, e):
+    def mouseDoubleClickEvent(self, _e):
         if self.image.isNull():
-            self.openImage()
+            self.loadImage()
         else:
-            super().mouseDoubleClickEvent(e)
+            super().mouseDoubleClickEvent(_e)
 
-    def openImage(self):
+    def loadImage(self):
         caption = QApplication.translate('ImageEdit', "Open File")
         filter_ = QApplication.translate('ImageEdit',
                             "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
                             "All files (*.*)")
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
-                caption, ImageEdit.latestDir, filter_)
+                caption, ImageLabel.latestDir, filter_)
         if fileName:
             file_info = QFileInfo(fileName)
-            ImageEdit.latestDir = file_info.absolutePath()
+            ImageLabel.latestDir = file_info.absolutePath()
 
             self.loadFromFile(fileName)
 
     def deleteImage(self):
         self.clear()
         self.changed = True
-
-    def saveImage(self):
-        caption = QApplication.translate('ImageEdit', "Save File")
-        filter_ = QApplication.translate('ImageEdit',
-                            "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
-                            "All files (*.*)")
-        # TODO: Set default name to coin title + field name
-        fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
-                caption, ImageEdit.latestDir + '/' + self.name, filter_)
-        if fileName:
-            dir_ = QDir(fileName)
-            dir_.cdUp()
-            ImageEdit.latestDir = dir_.absolutePath()
-
-            self.image.save(fileName)
 
     def pasteImage(self):
         mime = QApplication.clipboard().mimeData()
@@ -196,11 +254,6 @@ class ImageEdit(ImageLabel):
         elif mime.hasText():
             # Load image by URL
             self.loadFromUrl(mime.text())
-
-    def copyImage(self):
-        if not self.image.isNull():
-            clipboard = QApplication.clipboard()
-            clipboard.setImage(self.image)
 
     def clear(self):
         super().clear()
