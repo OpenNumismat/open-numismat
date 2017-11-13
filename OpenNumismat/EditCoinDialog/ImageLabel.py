@@ -1,5 +1,3 @@
-import requests
-
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -8,6 +6,14 @@ import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import version
 from OpenNumismat.Tools.Gui import createIcon
+
+googleAvailable = True
+
+try:
+    import requests
+except ImportError:
+    print('requests module missed. Searching in Google not available')
+    googleAvailable = False
 
 
 class ImageLabel(QLabel):
@@ -50,7 +56,8 @@ class ImageLabel(QLabel):
         menu.setDefaultAction(open_)
         menu.addAction(save)
         menu.addSeparator()
-        menu.addAction(google)
+        if googleAvailable:
+            menu.addAction(google)
         menu.addAction(copy)
         menu.exec_(self.mapToGlobal(pos))
 
@@ -215,7 +222,8 @@ class ImageEdit(ImageLabel):
         menu.addAction(rename)
         menu.addMenu(self.exchangeMenu)
         menu.addSeparator()
-        menu.addAction(google)
+        if googleAvailable:
+            menu.addAction(google)
         menu.addAction(copy)
         menu.addAction(paste)
         menu.addAction(delete)

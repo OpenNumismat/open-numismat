@@ -2,8 +2,10 @@ Requirement:
  * Python 3.4.4
  * PyQt5 5.5.1
  * Jinja2 2.8 (for reports)
+ * Matplotlib 2.1.0 (for statistics)
  * xlwt-future 0.8.0 (for exporting to Excel)
  * pywin32-219 (for saving report as Word Document)
+ * requests 2.18.4 (for searching by Google)
  * lxml 3.4.1 (importing from CoinsCollector 2.6 and Tellico)
  * Firebird 2.0 (for importing from Numizmat 2.1)
  * pyfirebirdsql 0.9.12 (for importing from Numizmat 2.1)
