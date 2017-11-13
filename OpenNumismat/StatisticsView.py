@@ -1,22 +1,31 @@
 from textwrap import wrap
-import numpy
 
-import matplotlib
-matplotlib.use('Qt5Agg')
+statisticsAvailable = True
 
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
-from matplotlib.ticker import MaxNLocator
-import matplotlib.pyplot as plt
-plt.style.use('seaborn-whitegrid')
-# plt.style.use('seaborn-paper')
+try:
+    import numpy
+    import matplotlib
+    matplotlib.use('Qt5Agg')
+
+    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    from matplotlib.ticker import MaxNLocator
+    import matplotlib.pyplot as plt
+    from OpenNumismat import PRJ_PATH
+    plt.style.use(PRJ_PATH + '/seaborn-whitegrid.mplstyle')
+    # plt.style.use('seaborn-paper')
+except ImportError:
+    print('matplotlib or nympy module missed. Statistics not available')
+    statisticsAvailable = False
+
+    class FigureCanvas:
+        pass
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
-from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses
 
 

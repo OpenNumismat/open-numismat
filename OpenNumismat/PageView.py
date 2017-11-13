@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.ListView import ListView
+from OpenNumismat.StatisticsView import statisticsAvailable
 from OpenNumismat.StatisticsView import StatisticsView
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -452,8 +453,9 @@ class PageView(Splitter):
         self.listView = ListView(pageParam.listParam, self)
         self.imageView = ImageView(self)
         self.detailsView = DetailsView(self)
-        self.statisticsView = StatisticsView(pageParam.statisticsParam, self)
-        self.statisticsView.setMinimumHeight(200)
+        if statisticsAvailable:
+            self.statisticsView = StatisticsView(pageParam.statisticsParam, self)
+            self.statisticsView.setMinimumHeight(200)
 
         self.splitter1 = Splitter('1', Qt.Vertical, self)
         splitter2 = Splitter('2', parent=self.splitter1)
@@ -463,10 +465,12 @@ class PageView(Splitter):
         self.splitter1.addWidget(self.detailsView)
         self.addWidget(self.splitter1)
         self.addWidget(self.imageView)
-        self.splitter1.addWidget(self.statisticsView)
+        if statisticsAvailable:
+            self.splitter1.addWidget(self.statisticsView)
 
         self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
         self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
+        self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
         self.splitterMoved.connect(self.splitterPosChanged)
 
         self.statisticsShowed = self.param.statisticsParam.params()['showed']
@@ -478,8 +482,9 @@ class PageView(Splitter):
         self.listView.setModel(model)
         self.imageView.setModel(model)
         self.detailsView.setModel(model)
-        self.statisticsView.setModel(model)
-        self.prepareStatistics(self.statisticsShowed)
+        if statisticsAvailable:
+            self.statisticsView.setModel(model)
+            self.prepareStatistics(self.statisticsShowed)
 
         self._model.modelChanged.connect(self.modelChanged)
 
@@ -489,10 +494,13 @@ class PageView(Splitter):
     def modelChanged(self):
         self.treeView.modelChanged()
         self.listView.modelChanged()
-        if self.statisticsShowed:
+        if statisticsAvailable and self.statisticsShowed:
             self.statisticsView.modelChanged()
 
     def prepareStatistics(self, show):
+        if not statisticsAvailable:
+            return
+
         sizes = self.splitter1.sizes()
 
         try:

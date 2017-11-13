@@ -16,6 +16,7 @@ from OpenNumismat.Tools.Gui import createIcon
 from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
+from OpenNumismat.StatisticsView import statisticsAvailable
 
 from OpenNumismat.Collection.Import import *
 
@@ -32,10 +33,11 @@ class MainWindow(QMainWindow):
 
         self.collectionActs = []
 
-        self.statisticsAct = QAction(self)
-        self.updateStatisticsAct(False)
-        self.statisticsAct.triggered.connect(self.statisticsEvent)
-        self.collectionActs.append(self.statisticsAct)
+        if statisticsAvailable:
+            self.statisticsAct = QAction(self)
+            self.updateStatisticsAct(False)
+            self.statisticsAct.triggered.connect(self.statisticsEvent)
+            self.collectionActs.append(self.statisticsAct)
 
         settingsAct = QAction(createIcon('cog.png'),
                                     self.tr("Settings..."), self)
@@ -296,8 +298,9 @@ class MainWindow(QMainWindow):
         toolBar.addAction(cancelFilteringAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
-        toolBar.addSeparator()
-        toolBar.addAction(self.statisticsAct)
+        if statisticsAvailable:
+            toolBar.addSeparator()
+            toolBar.addAction(self.statisticsAct)
         self.addToolBar(toolBar)
 
         self.setWindowTitle(version.AppName)
@@ -364,12 +367,13 @@ class MainWindow(QMainWindow):
                 self.restart()
 
     def updateStatisticsAct(self, showed):
-        if showed:
-            self.statisticsAct.setText(self.tr("Details"))
-            self.statisticsAct.setIcon(createIcon('application-form.png'))
-        else:
-            self.statisticsAct.setText(self.tr("Statistics"))
-            self.statisticsAct.setIcon(createIcon('chart-bar.png'))
+        if statisticsAvailable:
+            if showed:
+                self.statisticsAct.setText(self.tr("Details"))
+                self.statisticsAct.setIcon(createIcon('application-form.png'))
+            else:
+                self.statisticsAct.setText(self.tr("Statistics"))
+                self.statisticsAct.setIcon(createIcon('chart-bar.png'))
 
     def statisticsEvent(self):
         page = self.viewTab.currentPageView()
