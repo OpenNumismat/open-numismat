@@ -12,7 +12,7 @@ try:
     from matplotlib.ticker import MaxNLocator
     import matplotlib.pyplot as plt
     from OpenNumismat import PRJ_PATH
-    plt.style.use(PRJ_PATH + '/seaborn-whitegrid.mplstyle')
+    plt.style.use(PRJ_PATH + '/opennumismat.mplstyle')
     # plt.style.use('seaborn-paper')
 except ImportError:
     print('matplotlib or nympy module missed. Statistics not available')

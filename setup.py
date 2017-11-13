@@ -91,8 +91,7 @@ for mn, urlm in NEEDED_MODULES:
         print("Module '%s' not found. For more details: '%s'.\n" % (mn, urlm))
         sys.exit(1)
 
-
-dependencies = ['lxml', 'jinja2']
+dependencies = ['lxml', 'jinja2', 'matplotlib', 'numpy']
 if sys.platform == 'win32':
     dependencies.append("xlwt")
 
@@ -213,7 +212,8 @@ if cx_Freeze_available:
             ("OpenNumismat/icons", "icons"),
             ("OpenNumismat/templates", "templates"),
             ("OpenNumismat/db", "db"),
-            (qt_dir + "/plugins/imageformats", "imageformats")
+            (qt_dir + "/plugins/imageformats", "imageformats"),
+            ("OpenNumismat/opennumismat.mplstyle", "opennumismat.mplstyle"),
         ]
     if sys.platform == "win32":
         include_files.append(
@@ -230,7 +230,7 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/libtiff.5.dylib", "libtiff.5.dylib"))
         include_files.append(("/opt/local/lib/liblcms.1.dylib", "liblcms.1.dylib"))
     build_exe_options = {
-            "excludes": ["unittest"],
+            "excludes": [],
             "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork", "PyQt5.QtWebKit"],
             "include_files": include_files,
             "replace_paths": [(os.path.dirname(__file__) + os.sep, '')]
