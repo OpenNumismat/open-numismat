@@ -91,7 +91,7 @@ for mn, urlm in NEEDED_MODULES:
         print("Module '%s' not found. For more details: '%s'.\n" % (mn, urlm))
         sys.exit(1)
 
-dependencies = ['lxml', 'jinja2', 'matplotlib', 'numpy', 'requests']
+dependencies = ['lxml', 'jinja2', 'matplotlib', 'numpy']
 if sys.platform == 'win32':
     dependencies.append("xlwt")
 

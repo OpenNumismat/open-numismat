@@ -7,14 +7,6 @@ from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import version
 from OpenNumismat.Tools.Gui import createIcon
 
-googleAvailable = True
-
-try:
-    import requests
-except ImportError:
-    print('requests module missed. Searching in Google not available')
-    googleAvailable = False
-
 
 class ImageLabel(QLabel):
     latestDir = OpenNumismat.IMAGE_PATH
@@ -47,17 +39,11 @@ class ImageLabel(QLabel):
         save.triggered.connect(self.saveImage)
         save.setDisabled(self.image.isNull())
 
-        google = QAction(createIcon('google.png'),
-                         self.tr("Search in Google"), self)
-        google.triggered.connect(self.googleImage)
-
         menu = QMenu()
         menu.addAction(open_)
         menu.setDefaultAction(open_)
         menu.addAction(save)
         menu.addSeparator()
-        if googleAvailable:
-            menu.addAction(google)
         menu.addAction(copy)
         menu.exec_(self.mapToGlobal(pos))
 
@@ -125,16 +111,6 @@ class ImageLabel(QLabel):
         self.image.save(fileName)
 
         return fileName
-
-    def googleImage(self):
-        fileName = self._saveTmpImage()
-
-        searchUrl = 'http://www.google.com/searchbyimage/upload'
-        multipart = {'encoded_image': (fileName, open(fileName, 'rb')), 'image_content': ''}
-        response = requests.post(searchUrl, files=multipart, allow_redirects=False)
-        fetchUrl = response.headers['Location']
-        executor = QDesktopServices()
-        executor.openUrl(QUrl(fetchUrl))
 
     def saveImage(self):
         defaultFileName = QDir(ImageLabel.latestDir).filePath(self.name)
@@ -209,11 +185,6 @@ class ImageEdit(ImageLabel):
         rename = QAction(text, self)
         rename.triggered.connect(self.renameImage)
 
-        text = QApplication.translate('ImageEdit', "Search in Google")
-        google = QAction(createIcon('google.png'), text, self)
-        google.triggered.connect(self.googleImage)
-        google.setDisabled(self.image.isNull())
-
         menu = QMenu()
         menu.addAction(load)
         menu.setDefaultAction(load)
@@ -222,8 +193,6 @@ class ImageEdit(ImageLabel):
         menu.addAction(rename)
         menu.addMenu(self.exchangeMenu)
         menu.addSeparator()
-        if googleAvailable:
-            menu.addAction(google)
         menu.addAction(copy)
         menu.addAction(paste)
         menu.addAction(delete)
