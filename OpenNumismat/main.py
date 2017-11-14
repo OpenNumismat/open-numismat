@@ -104,11 +104,11 @@ def exceptHook(type_, value, tback):
         #    "PLEASE ADD A COMMENT, IT WILL HELP IN SOLVING THE PROBLEM"))
         # errorMessage.append('')
         errorMessage.append("%s: %s" % (version.AppName, version.Version))
-        errorMessage.append("OS: %s %s %s (%s)" % (platform.system(),
+        errorMessage.append("OS: %s %s (%s)" % (platform.system(),
                                                    platform.release(),
-                                                   platform.architecture()[0],
                                                    platform.version()))
-        errorMessage.append("Python: %s" % platform.python_version())
+        errorMessage.append("Python: %s (%s)" % (platform.python_version(),
+                                                 platform.architecture()[0]))
         errorMessage.append("Qt: %s" % PYQT_VERSION_STR)
         try:
             errorMessage.append("Locale: %s" % Settings()['locale'])
