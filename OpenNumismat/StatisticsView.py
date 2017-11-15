@@ -117,6 +117,25 @@ class StackedBarCanvas(BaseCanvas):
         self.draw()
 
 
+class ProgressCanvas(BaseCanvas):
+    def setData(self, xx, yy):
+        self.axes.cla()
+
+        x = range(len(yy))
+        self.axes.bar(x, yy)
+        self.axes.plot(x, numpy.cumsum(yy), color='red')
+
+        self.axes.set_xticks(x)
+        keys = ['\n'.join(wrap(l, 17)) for l in xx]
+        self.axes.set_xticklabels(keys)
+
+        self.axes.set_ylabel(self.tr("Number of coins"))
+        ya = self.axes.get_yaxis()
+        ya.set_major_locator(MaxNLocator(integer=True))
+
+        self.draw()
+
+
 class StatisticsView(QWidget):
     def __init__(self, statisticsParam, parent=None):
         super().__init__(parent)
@@ -144,6 +163,7 @@ class StatisticsView(QWidget):
         self.chartSelector.addItem(self.tr("horizontal bar"), 'barh')
         self.chartSelector.addItem(self.tr("pie"), 'pie')
         self.chartSelector.addItem(self.tr("stacked bar"), 'stacked')
+        self.chartSelector.addItem(self.tr("progress"), 'progress')
         ctrlLayout.addWidget(self.chartSelector)
 
         self.fieldSelector = QComboBox(self)
@@ -151,6 +171,13 @@ class StatisticsView(QWidget):
 
         self.subfieldSelector = QComboBox(self)
         ctrlLayout.addWidget(self.subfieldSelector)
+
+        self.periodSelector = QComboBox(self)
+        ctrlLayout.addWidget(self.periodSelector)
+        self.periodSelector.addItem(self.tr("year"), 'year')
+        self.periodSelector.addItem(self.tr("month"), 'month')
+        self.periodSelector.addItem(self.tr("week"), 'week')
+        self.periodSelector.addItem(self.tr("day"), 'day')
 
         self.setLayout(layout)
 
@@ -187,9 +214,12 @@ class StatisticsView(QWidget):
             self.chartSelector.setCurrentIndex(index)
 
         self.chartSelector.currentIndexChanged.connect(self.chartChaged)
+        self.fieldSelector.setVisible(chart != 'progress')
         self.fieldSelector.currentIndexChanged.connect(self.fieldChaged)
-        self.subfieldSelector.currentIndexChanged.connect(self.subfieldChaged)
         self.subfieldSelector.setVisible(chart == 'stacked')
+        self.subfieldSelector.currentIndexChanged.connect(self.subfieldChaged)
+        self.periodSelector.setVisible(chart == 'progress')
+        self.periodSelector.currentIndexChanged.connect(self.periodChaged)
 
     def clear(self):
         pass
@@ -203,6 +233,8 @@ class StatisticsView(QWidget):
             self.chart = PieCanvas(self)
         elif chart == 'stacked':
             self.chart = StackedBarCanvas(self)
+        elif chart == 'progress':
+            self.chart = ProgressCanvas(self)
         else:
             self.chart = BarCanvas(self)
         self.imageLayout.addWidget(self.chart)
@@ -255,6 +287,43 @@ class StatisticsView(QWidget):
                         pass
 
             self.chart.setData(xx, yy, zz)
+        elif chart == 'progress':
+            period = self.periodSelector.currentData()
+            if filter_:
+                sql_filter = "%s AND" % filter_
+            else:
+                sql_filter = ""
+            if period == 'month':
+                sql = "SELECT count(*), strftime('%%m', paydate) FROM coins"\
+                      " WHERE %s status IN ('owned', 'ordered', 'sold', 'sale')"\
+                      " AND paydate > datetime('now', '-11 month')"\
+                      " GROUP BY strftime('%%m', paydate) ORDER BY paydate" % sql_filter
+            elif period == 'week':
+                sql = "SELECT count(*), strftime('%%W', paydate) FROM coins"\
+                      " WHERE %s status IN ('owned', 'ordered', 'sold', 'sale')"\
+                      " AND paydate > datetime('now', '-11 month')"\
+                      " GROUP BY strftime('%%W', paydate) ORDER BY paydate" % sql_filter
+            elif period == 'day':
+                sql = "SELECT count(*), strftime('%%d', paydate) FROM coins"\
+                      " WHERE %s status IN ('owned', 'ordered', 'sold', 'sale')"\
+                      " AND paydate > datetime('now', '-1 month')"\
+                      " GROUP BY strftime('%%d', paydate) ORDER BY paydate" % sql_filter
+            else:
+                sql = "SELECT count(*), strftime('%%Y', paydate) FROM coins"\
+                      " WHERE %s status IN ('owned', 'ordered', 'sold', 'sale')"\
+                      " GROUP BY strftime('%%Y', paydate)" % sql_filter
+            query = QSqlQuery(self.model.database())
+            query.exec_(sql)
+            xx = []
+            yy = []
+            while query.next():
+                record = query.record()
+                count = record.value(0)
+                val = str(record.value(1))
+                xx.append(val)
+                yy.append(count)
+
+            self.chart.setData(xx, yy)
         else:
             sql = "SELECT count(%s), %s FROM coins %s GROUP BY %s" % (
                 field, field, sql_filter, field)
@@ -293,7 +362,12 @@ class StatisticsView(QWidget):
         self.statisticsParam.save()
 
         self.subfieldSelector.setVisible(chart == 'stacked')
+        self.fieldSelector.setVisible(chart != 'progress')
+        self.periodSelector.setVisible(chart == 'progress')
 
+        self.modelChanged()
+
+    def periodChaged(self, _text):
         self.modelChanged()
 
     def __layoutToWidget(self, layout):
