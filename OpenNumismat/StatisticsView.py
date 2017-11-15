@@ -173,11 +173,17 @@ class StatisticsView(QWidget):
         ctrlLayout.addWidget(self.subfieldSelector)
 
         self.periodSelector = QComboBox(self)
-        ctrlLayout.addWidget(self.periodSelector)
         self.periodSelector.addItem(self.tr("year"), 'year')
         self.periodSelector.addItem(self.tr("month"), 'month')
         self.periodSelector.addItem(self.tr("week"), 'week')
         self.periodSelector.addItem(self.tr("day"), 'day')
+        ctrlLayout.addWidget(self.periodSelector)
+
+        self.progressFieldSelector = QComboBox(self)
+        self.progressFieldSelector.addItem(self.tr("count"), 'count')
+        self.progressFieldSelector.addItem(self.tr("price"), 'price')
+        self.progressFieldSelector.addItem(self.tr("total price"), 'totalprice')
+        ctrlLayout.addWidget(self.progressFieldSelector)
 
         self.setLayout(layout)
 
@@ -220,6 +226,8 @@ class StatisticsView(QWidget):
         self.subfieldSelector.currentIndexChanged.connect(self.subfieldChaged)
         self.periodSelector.setVisible(chart == 'progress')
         self.periodSelector.currentIndexChanged.connect(self.periodChaged)
+        self.progressFieldSelector.setVisible(chart == 'progress')
+        self.progressFieldSelector.currentIndexChanged.connect(self.progressFieldChaged)
 
     def clear(self):
         pass
@@ -288,30 +296,36 @@ class StatisticsView(QWidget):
 
             self.chart.setData(xx, yy, zz)
         elif chart == 'progress':
-            period = self.periodSelector.currentData()
+            field = self.progressFieldSelector.currentData()
+            if field == 'price':
+                sql_field = 'sum(payprice)'
+            elif field == 'totalprice':
+                sql_field = 'sum(totalpayprice)'
+            else:
+                sql_field = 'count(*)'
+
+            sql_filters = ["status IN ('owned', 'ordered', 'sold', 'sale')"]
             if filter_:
-                sql_filter = "%s AND" % filter_
-            else:
-                sql_filter = ""
+                sql_filters.append(filter_)
+
+            period = self.periodSelector.currentData()
             if period == 'month':
-                sql = "SELECT count(*), strftime('%%m', paydate) FROM coins"\
-                      " WHERE %s status IN ('owned', 'ordered', 'sold', 'sale')"\
-                      " AND paydate > datetime('now', '-11 month')"\
-                      " GROUP BY strftime('%%m', paydate) ORDER BY paydate" % sql_filter
+                sql_filters.append("paydate > datetime('now', '-11 month')")
+                date_format = '%m'
             elif period == 'week':
-                sql = "SELECT count(*), strftime('%%W', paydate) FROM coins"\
-                      " WHERE %s status IN ('owned', 'ordered', 'sold', 'sale')"\
-                      " AND paydate > datetime('now', '-11 month')"\
-                      " GROUP BY strftime('%%W', paydate) ORDER BY paydate" % sql_filter
+                sql_filters.append("paydate > datetime('now', '-11 month')")
+                date_format = '%W'
             elif period == 'day':
-                sql = "SELECT count(*), strftime('%%d', paydate) FROM coins"\
-                      " WHERE %s status IN ('owned', 'ordered', 'sold', 'sale')"\
-                      " AND paydate > datetime('now', '-1 month')"\
-                      " GROUP BY strftime('%%d', paydate) ORDER BY paydate" % sql_filter
+                sql_filters.append("paydate > datetime('now', '-1 month')")
+                date_format = '%d'
             else:
-                sql = "SELECT count(*), strftime('%%Y', paydate) FROM coins"\
-                      " WHERE %s status IN ('owned', 'ordered', 'sold', 'sale')"\
-                      " GROUP BY strftime('%%Y', paydate)" % sql_filter
+                date_format = '%Y'
+
+            sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
+                  " WHERE %s"\
+                  " GROUP BY strftime('%s', paydate) ORDER BY paydate" % (
+                      sql_field, date_format, ' AND '.join(sql_filters),
+                      date_format)
             query = QSqlQuery(self.model.database())
             query.exec_(sql)
             xx = []
@@ -364,10 +378,14 @@ class StatisticsView(QWidget):
         self.subfieldSelector.setVisible(chart == 'stacked')
         self.fieldSelector.setVisible(chart != 'progress')
         self.periodSelector.setVisible(chart == 'progress')
+        self.progressFieldSelector.setVisible(chart == 'progress')
 
         self.modelChanged()
 
     def periodChaged(self, _text):
+        self.modelChanged()
+
+    def progressFieldChaged(self, _text):
         self.modelChanged()
 
     def __layoutToWidget(self, layout):
