@@ -272,9 +272,11 @@ class MainWindow(QMainWindow):
         report.addAction(viewBrowserAct)
 
         helpAct = QAction(createIcon('help.png'),
-                                self.tr("Online help"), self)
+                          self.tr("User manual"), self)
         helpAct.setShortcut(QKeySequence.HelpContents)
         helpAct.triggered.connect(self.onlineHelp)
+        webAct = QAction(self.tr("Visit web-site"), self)
+        webAct.triggered.connect(self.visitWeb)
         checkUpdatesAct = QAction(self.tr("Check for updates"), self)
         checkUpdatesAct.triggered.connect(self.manualUpdate)
         aboutAct = QAction(self.tr("About %s") % version.AppName, self)
@@ -282,6 +284,7 @@ class MainWindow(QMainWindow):
 
         help_ = menubar.addMenu(self.tr("&Help"))
         help_.addAction(helpAct)
+        help_.addAction(webAct)
         help_.addSeparator()
         help_.addAction(checkUpdatesAct)
         help_.addSeparator()
@@ -666,6 +669,12 @@ class MainWindow(QMainWindow):
                         (version.AppName, version.Version, version.AppName))
 
     def onlineHelp(self):
+        url = QUrl("http://opennumismat.github.io/open-numismat/manual.html")
+
+        executor = QDesktopServices()
+        executor.openUrl(url)
+
+    def visitWeb(self):
         url = QUrl(version.Web)
 
         executor = QDesktopServices()
