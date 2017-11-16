@@ -1,9 +1,9 @@
 {
 	"region": [
-		"Europe",
-		"Americas",
-		"Asia",
-		"Africa",
+		"Europa",
+		"Ameryka",
+		"Azja",
+		"Afryka",
 		"Oceania"
 	],
 	"country": [
@@ -252,14 +252,14 @@
         "Fils",
         "Taka",
         "Paisa",
-        "Ruble",
-        "Kapyeyka",
+        "Rubel",
+        "Kopiejka",
         "Franc",
         "Centime",
         "Ngultrum",
         "Chetrum",
         "Boliviano",
-        "Mark",
+        "Marka",
         "Fening",
         "Pula",
         "Thebe",
