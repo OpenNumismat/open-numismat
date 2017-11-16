@@ -42,6 +42,11 @@ class BaseCanvas(FigureCanvas):
                                    QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
 
+        self.label = self.tr("Number of coins")
+
+    def setLabel(self, text):
+        self.label = text
+
 
 class BarCanvas(BaseCanvas):
     def setData(self, xx, yy):
@@ -53,7 +58,7 @@ class BarCanvas(BaseCanvas):
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_xticklabels(keys)
 
-        self.axes.set_ylabel(self.tr("Number of coins"))
+        self.axes.set_ylabel(self.label)
         ya = self.axes.get_yaxis()
         ya.set_major_locator(MaxNLocator(integer=True))
 
@@ -73,7 +78,7 @@ class BarHCanvas(BaseCanvas):
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_yticklabels(keys)
 
-        self.axes.set_xlabel(self.tr("Number of coins"))
+        self.axes.set_xlabel(self.label)
         xa = self.axes.get_xaxis()
         xa.set_major_locator(MaxNLocator(integer=True))
 
@@ -108,7 +113,7 @@ class StackedBarCanvas(BaseCanvas):
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_yticklabels(keys)
 
-        self.axes.set_xlabel(self.tr("Number of coins"))
+        self.axes.set_xlabel(self.label)
         xa = self.axes.get_xaxis()
         xa.set_major_locator(MaxNLocator(integer=True))
 
@@ -129,7 +134,7 @@ class ProgressCanvas(BaseCanvas):
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_xticklabels(keys)
 
-        self.axes.set_ylabel(self.tr("Number of coins"))
+        self.axes.set_ylabel(self.label)
         ya = self.axes.get_yaxis()
         ya.set_major_locator(MaxNLocator(integer=True))
 
@@ -314,10 +319,13 @@ class StatisticsView(QWidget):
             field = self.progressFieldSelector.currentData()
             if field == 'price':
                 sql_field = 'sum(payprice)'
+                self.chart.setLabel(self.tr("Paid"))
             elif field == 'totalprice':
                 sql_field = 'sum(totalpayprice)'
+                self.chart.setLabel(self.tr("Total paid"))
             else:
                 sql_field = 'count(*)'
+                self.chart.setLabel(self.tr("Number of coins"))
 
             sql_filters = ["status IN ('owned', 'ordered', 'sale')"]
             if filter_:
