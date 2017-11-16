@@ -217,12 +217,12 @@ class StatisticsView(QWidget):
                 if field.name == 'status':
                     default_subfieldid = field.id
 
-        fieldid = self.statisticsParam.params()['fieldid']
+        fieldid = self.statisticsParam['fieldid']
         index = self.fieldSelector.findData(fieldid)
         if index >= 0:
             self.fieldSelector.setCurrentIndex(index)
 
-        subfieldid = self.statisticsParam.params()['subfieldid']
+        subfieldid = self.statisticsParam['subfieldid']
         index = self.subfieldSelector.findData(subfieldid)
         if index >= 0:
             self.subfieldSelector.setCurrentIndex(index)
@@ -230,17 +230,17 @@ class StatisticsView(QWidget):
             index = self.subfieldSelector.findData(default_subfieldid)
             self.subfieldSelector.setCurrentIndex(index)
 
-        chart = self.statisticsParam.params()['chart']
+        chart = self.statisticsParam['chart']
         index = self.chartSelector.findData(chart)
         if index >= 0:
             self.chartSelector.setCurrentIndex(index)
 
-        items = self.statisticsParam.params()['items']
+        items = self.statisticsParam['items']
         index = self.itemsSelector.findData(items)
         if index >= 0:
             self.itemsSelector.setCurrentIndex(index)
 
-        period = self.statisticsParam.params()['period']
+        period = self.statisticsParam['period']
         index = self.periodSelector.findData(period)
         if index >= 0:
             self.periodSelector.setCurrentIndex(index)
@@ -391,22 +391,19 @@ class StatisticsView(QWidget):
 
     def fieldChaged(self, _text):
         fieldId = self.fieldSelector.currentData()
-        self.statisticsParam.params()['fieldid'] = fieldId
-        self.statisticsParam.save()
+        self.statisticsParam['fieldid'] = fieldId
 
         self.modelChanged()
 
     def subfieldChaged(self, _text):
         subfieldId = self.fieldSelector.currentData()
-        self.statisticsParam.params()['subfieldid'] = subfieldId
-        self.statisticsParam.save()
+        self.statisticsParam['subfieldid'] = subfieldId
 
         self.modelChanged()
 
     def chartChaged(self, _text):
         chart = self.chartSelector.currentData()
-        self.statisticsParam.params()['chart'] = chart
-        self.statisticsParam.save()
+        self.statisticsParam['chart'] = chart
 
         self.subfieldSelector.setVisible(chart == 'stacked')
         self.subfieldLabel.setVisible(chart == 'stacked')
@@ -421,15 +418,13 @@ class StatisticsView(QWidget):
 
     def periodChaged(self, _text):
         period = self.periodSelector.currentData()
-        self.statisticsParam.params()['period'] = period
-        self.statisticsParam.save()
+        self.statisticsParam['period'] = period
 
         self.modelChanged()
 
     def itemsChaged(self, _text):
         items = self.itemsSelector.currentData()
-        self.statisticsParam.params()['items'] = items
-        self.statisticsParam.save()
+        self.statisticsParam['items'] = items
 
         self.modelChanged()
 

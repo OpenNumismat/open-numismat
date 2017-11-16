@@ -473,7 +473,7 @@ class PageView(Splitter):
         self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
         self.splitterMoved.connect(self.splitterPosChanged)
 
-        self.statisticsShowed = self.param.statisticsParam.params()['showed']
+        self.statisticsShowed = self.param.statisticsParam['showed']
 
     def setModel(self, model, reference):
         self._model = model
@@ -519,9 +519,7 @@ class PageView(Splitter):
             self.detailsView.show()
 
         if self.statisticsShowed != show:
-            statisticsParam = self.param.statisticsParam.params()
-            statisticsParam['showed'] = show
-            self.param.statisticsParam.save()
+            self.param.statisticsParam['showed'] = show
 
         self.statisticsShowed = show
 
