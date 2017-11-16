@@ -25,16 +25,14 @@
 </context>
 <context>
     <name>BarCanvas</name>
-    <message>
-        <location filename="StatisticsView.py" line="56"/>
-        <source>Number of coins</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>BarHCanvas</name>
+</context>
+<context>
+    <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="76"/>
+        <location filename="StatisticsView.py" line="45"/>
         <source>Number of coins</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1798,11 +1796,6 @@ Copyright (C) 2011-2017 Vitaly Ignatov
 </context>
 <context>
     <name>ProgressCanvas</name>
-    <message>
-        <location filename="StatisticsView.py" line="132"/>
-        <source>Number of coins</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>QPrintPreviewDialog</name>
@@ -2126,72 +2119,107 @@ Created new one</source>
 </context>
 <context>
     <name>StackedBarCanvas</name>
-    <message>
-        <location filename="StatisticsView.py" line="111"/>
-        <source>Number of coins</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="162"/>
-        <source>bar</source>
+        <location filename="StatisticsView.py" line="169"/>
+        <source>Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="163"/>
-        <source>horizontal bar</source>
+        <location filename="StatisticsView.py" line="170"/>
+        <source>Horizontal bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="164"/>
-        <source>pie</source>
+        <location filename="StatisticsView.py" line="171"/>
+        <source>Pie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="165"/>
-        <source>stacked bar</source>
+        <location filename="StatisticsView.py" line="172"/>
+        <source>Stacked bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="166"/>
-        <source>progress</source>
+        <location filename="StatisticsView.py" line="173"/>
+        <source>Progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="176"/>
-        <source>year</source>
+        <location filename="StatisticsView.py" line="174"/>
+        <source>Chart:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="177"/>
-        <source>month</source>
+        <source>Field:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="178"/>
-        <source>week</source>
+        <location filename="StatisticsView.py" line="182"/>
+        <source>Additional field:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="179"/>
-        <source>day</source>
+        <location filename="StatisticsView.py" line="187"/>
+        <source>Sum per:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="183"/>
-        <source>count</source>
+        <location filename="StatisticsView.py" line="190"/>
+        <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="184"/>
-        <source>price</source>
+        <location filename="StatisticsView.py" line="191"/>
+        <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="185"/>
-        <source>total price</source>
+        <location filename="StatisticsView.py" line="192"/>
+        <source>Week</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="193"/>
+        <source>Day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="196"/>
+        <source>Items:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="199"/>
+        <source>Count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="200"/>
+        <source>Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="201"/>
+        <source>Total price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="333"/>
+        <source>Paid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="336"/>
+        <source>Total paid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="339"/>
+        <source>Number of coins</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
