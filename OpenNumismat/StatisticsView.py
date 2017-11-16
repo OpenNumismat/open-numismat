@@ -193,13 +193,13 @@ class StatisticsView(QWidget):
         self.periodSelector.addItem(self.tr("Day"), 'day')
         ctrlLayout.addWidget(self.periodSelector)
 
-        self.progressFieldLabel = QLabel(self.tr("Field:"))
-        ctrlLayout.addWidget(self.progressFieldLabel)
-        self.progressFieldSelector = QComboBox(self)
-        self.progressFieldSelector.addItem(self.tr("Count"), 'count')
-        self.progressFieldSelector.addItem(self.tr("Price"), 'price')
-        self.progressFieldSelector.addItem(self.tr("Total price"), 'totalprice')
-        ctrlLayout.addWidget(self.progressFieldSelector)
+        self.itemsLabel = QLabel(self.tr("Items:"))
+        ctrlLayout.addWidget(self.itemsLabel)
+        self.itemsSelector = QComboBox(self)
+        self.itemsSelector.addItem(self.tr("Count"), 'count')
+        self.itemsSelector.addItem(self.tr("Price"), 'price')
+        self.itemsSelector.addItem(self.tr("Total price"), 'totalprice')
+        ctrlLayout.addWidget(self.itemsSelector)
 
         self.setLayout(layout)
 
@@ -235,6 +235,16 @@ class StatisticsView(QWidget):
         if index >= 0:
             self.chartSelector.setCurrentIndex(index)
 
+        items = self.statisticsParam.params()['items']
+        index = self.itemsSelector.findData(items)
+        if index >= 0:
+            self.itemsSelector.setCurrentIndex(index)
+
+        period = self.statisticsParam.params()['period']
+        index = self.periodSelector.findData(period)
+        if index >= 0:
+            self.periodSelector.setCurrentIndex(index)
+
         self.chartSelector.currentIndexChanged.connect(self.chartChaged)
         self.fieldSelector.setVisible(chart != 'progress')
         self.fieldLabel.setVisible(chart != 'progress')
@@ -245,9 +255,9 @@ class StatisticsView(QWidget):
         self.periodSelector.setVisible(chart == 'progress')
         self.periodLabel.setVisible(chart == 'progress')
         self.periodSelector.currentIndexChanged.connect(self.periodChaged)
-        self.progressFieldSelector.setVisible(chart == 'progress')
-        self.progressFieldLabel.setVisible(chart == 'progress')
-        self.progressFieldSelector.currentIndexChanged.connect(self.progressFieldChaged)
+        self.itemsSelector.setVisible(chart == 'progress')
+        self.itemsLabel.setVisible(chart == 'progress')
+        self.itemsSelector.currentIndexChanged.connect(self.itemsChaged)
 
     def clear(self):
         pass
@@ -316,11 +326,11 @@ class StatisticsView(QWidget):
 
             self.chart.setData(xx, yy, zz)
         elif chart == 'progress':
-            field = self.progressFieldSelector.currentData()
-            if field == 'price':
+            items = self.itemsSelector.currentData()
+            if items == 'price':
                 sql_field = 'sum(payprice)'
                 self.chart.setLabel(self.tr("Paid"))
-            elif field == 'totalprice':
+            elif items == 'totalprice':
                 sql_field = 'sum(totalpayprice)'
                 self.chart.setLabel(self.tr("Total paid"))
             else:
@@ -404,15 +414,23 @@ class StatisticsView(QWidget):
         self.fieldLabel.setVisible(chart != 'progress')
         self.periodSelector.setVisible(chart == 'progress')
         self.periodLabel.setVisible(chart == 'progress')
-        self.progressFieldSelector.setVisible(chart == 'progress')
-        self.progressFieldLabel.setVisible(chart == 'progress')
+        self.itemsSelector.setVisible(chart == 'progress')
+        self.itemsLabel.setVisible(chart == 'progress')
 
         self.modelChanged()
 
     def periodChaged(self, _text):
+        period = self.periodSelector.currentData()
+        self.statisticsParam.params()['period'] = period
+        self.statisticsParam.save()
+
         self.modelChanged()
 
-    def progressFieldChaged(self, _text):
+    def itemsChaged(self, _text):
+        items = self.itemsSelector.currentData()
+        self.statisticsParam.params()['items'] = items
+        self.statisticsParam.save()
+
         self.modelChanged()
 
     def __layoutToWidget(self, layout):

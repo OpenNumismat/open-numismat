@@ -23,19 +23,23 @@ class StatisticsParam(QtCore.QObject):
         self._params['chart'] = None
         self._params['fieldid'] = None
         self._params['subfieldid'] = None
+        self._params['items'] = None
+        self._params['period'] = None
 
     def _load(self):
         self.clear()
 
         query = QSqlQuery(self.db)
-        query.prepare("SELECT showed, chart, fieldid, subfieldid FROM statistics WHERE pageid=?")
+        query.prepare("SELECT * FROM statistics WHERE pageid=?")
         query.addBindValue(self.pageId)
         query.exec_()
         if query.first():
-            self._params['showed'] = bool(query.record().value(0))
-            self._params['chart'] = query.record().value(1)
-            self._params['fieldid'] = query.record().value(2)
-            self._params['subfieldid'] = query.record().value(3)
+            self._params['showed'] = bool(query.record().value('showed'))
+            self._params['chart'] = query.record().value('chart')
+            self._params['fieldid'] = query.record().value('fieldid')
+            self._params['subfieldid'] = query.record().value('subfieldid')
+            self._params['items'] = query.record().value('items')
+            self._params['period'] = query.record().value('period')
 
     def save(self):
         self.db.transaction()
@@ -43,13 +47,15 @@ class StatisticsParam(QtCore.QObject):
         self.remove()
 
         query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO statistics (pageid, showed, chart, fieldid, subfieldid)"
-                      " VALUES (?, ?, ?, ?, ?)")
+        query.prepare("INSERT INTO statistics (pageid, showed, chart, fieldid, subfieldid, items, period)"
+                      " VALUES (?, ?, ?, ?, ?, ?, ?)")
         query.addBindValue(self.pageId)
         query.addBindValue(int(self._params['showed']))
         query.addBindValue(self._params['chart'])
         query.addBindValue(self._params['fieldid'])
         query.addBindValue(self._params['subfieldid'])
+        query.addBindValue(self._params['items'])
+        query.addBindValue(self._params['period'])
         query.exec_()
 
         self.db.commit()
@@ -68,5 +74,7 @@ class StatisticsParam(QtCore.QObject):
             showed INTEGER,
             chart TEXT,
             fieldid INTEGER,
-            subfieldid INTEGER)"""
+            subfieldid INTEGER,
+            items TEXT,
+            period TEXT)"""
         QSqlQuery(sql, db)
