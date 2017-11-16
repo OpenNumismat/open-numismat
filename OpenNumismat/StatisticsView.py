@@ -142,47 +142,58 @@ class StatisticsView(QWidget):
 
         self.statisticsParam = statisticsParam
 
-        layout = QVBoxLayout(self)
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(QtCore.QMargins())
+        layout.setAlignment(Qt.AlignTop)
 
-        self.imageLayout = QVBoxLayout()
-        self.imageLayout.setContentsMargins(QtCore.QMargins())
-        layout.addWidget(self.__layoutToWidget(self.imageLayout))
-
-        self.chart = QWidget(self)
-        self.imageLayout.addWidget(self.chart)
-
-        ctrlLayout = QHBoxLayout()
-        ctrlLayout.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
+        ctrlLayout = QVBoxLayout()
+        ctrlLayout.setAlignment(Qt.AlignTop)
         widget = self.__layoutToWidget(ctrlLayout)
         widget.setSizePolicy(QSizePolicy.Preferred,
                              QSizePolicy.Fixed)
         layout.addWidget(widget)
 
+        self.chartLayout = QVBoxLayout()
+        self.chartLayout.setContentsMargins(QtCore.QMargins())
+        layout.addWidget(self.__layoutToWidget(self.chartLayout))
+
+        self.chart = QWidget(self)
+        self.chartLayout.addWidget(self.chart)
+
         self.chartSelector = QComboBox(self)
-        self.chartSelector.addItem(self.tr("bar"), 'bar')
-        self.chartSelector.addItem(self.tr("horizontal bar"), 'barh')
-        self.chartSelector.addItem(self.tr("pie"), 'pie')
-        self.chartSelector.addItem(self.tr("stacked bar"), 'stacked')
-        self.chartSelector.addItem(self.tr("progress"), 'progress')
+        self.chartSelector.addItem(self.tr("Bar"), 'bar')
+        self.chartSelector.addItem(self.tr("Horizontal bar"), 'barh')
+        self.chartSelector.addItem(self.tr("Pie"), 'pie')
+        self.chartSelector.addItem(self.tr("Stacked bar"), 'stacked')
+        self.chartSelector.addItem(self.tr("Progress"), 'progress')
+        ctrlLayout.addWidget(QLabel(self.tr("Chart:")))
         ctrlLayout.addWidget(self.chartSelector)
 
+        self.fieldLabel = QLabel(self.tr("Field:"))
+        ctrlLayout.addWidget(self.fieldLabel)
         self.fieldSelector = QComboBox(self)
         ctrlLayout.addWidget(self.fieldSelector)
 
+        self.subfieldLabel = QLabel(self.tr("Additional field:"))
+        ctrlLayout.addWidget(self.subfieldLabel)
         self.subfieldSelector = QComboBox(self)
         ctrlLayout.addWidget(self.subfieldSelector)
 
+        self.periodLabel = QLabel(self.tr("Sum per:"))
+        ctrlLayout.addWidget(self.periodLabel)
         self.periodSelector = QComboBox(self)
-        self.periodSelector.addItem(self.tr("year"), 'year')
-        self.periodSelector.addItem(self.tr("month"), 'month')
-        self.periodSelector.addItem(self.tr("week"), 'week')
-        self.periodSelector.addItem(self.tr("day"), 'day')
+        self.periodSelector.addItem(self.tr("Year"), 'year')
+        self.periodSelector.addItem(self.tr("Month"), 'month')
+        self.periodSelector.addItem(self.tr("Week"), 'week')
+        self.periodSelector.addItem(self.tr("Day"), 'day')
         ctrlLayout.addWidget(self.periodSelector)
 
+        self.progressFieldLabel = QLabel(self.tr("Field:"))
+        ctrlLayout.addWidget(self.progressFieldLabel)
         self.progressFieldSelector = QComboBox(self)
-        self.progressFieldSelector.addItem(self.tr("count"), 'count')
-        self.progressFieldSelector.addItem(self.tr("price"), 'price')
-        self.progressFieldSelector.addItem(self.tr("total price"), 'totalprice')
+        self.progressFieldSelector.addItem(self.tr("Count"), 'count')
+        self.progressFieldSelector.addItem(self.tr("Price"), 'price')
+        self.progressFieldSelector.addItem(self.tr("Total price"), 'totalprice')
         ctrlLayout.addWidget(self.progressFieldSelector)
 
         self.setLayout(layout)
@@ -221,19 +232,23 @@ class StatisticsView(QWidget):
 
         self.chartSelector.currentIndexChanged.connect(self.chartChaged)
         self.fieldSelector.setVisible(chart != 'progress')
+        self.fieldLabel.setVisible(chart != 'progress')
         self.fieldSelector.currentIndexChanged.connect(self.fieldChaged)
         self.subfieldSelector.setVisible(chart == 'stacked')
+        self.subfieldLabel.setVisible(chart == 'stacked')
         self.subfieldSelector.currentIndexChanged.connect(self.subfieldChaged)
         self.periodSelector.setVisible(chart == 'progress')
+        self.periodLabel.setVisible(chart == 'progress')
         self.periodSelector.currentIndexChanged.connect(self.periodChaged)
         self.progressFieldSelector.setVisible(chart == 'progress')
+        self.progressFieldLabel.setVisible(chart == 'progress')
         self.progressFieldSelector.currentIndexChanged.connect(self.progressFieldChaged)
 
     def clear(self):
         pass
 
     def modelChanged(self):
-        self.imageLayout.removeWidget(self.chart)
+        self.chartLayout.removeWidget(self.chart)
         chart = self.chartSelector.currentData()
         if chart == 'barh':
             self.chart = BarHCanvas(self)
@@ -245,7 +260,7 @@ class StatisticsView(QWidget):
             self.chart = ProgressCanvas(self)
         else:
             self.chart = BarCanvas(self)
-        self.imageLayout.addWidget(self.chart)
+        self.chartLayout.addWidget(self.chart)
 
         fieldId = self.fieldSelector.currentData()
         field = self.model.fields.field(fieldId).name
@@ -304,7 +319,7 @@ class StatisticsView(QWidget):
             else:
                 sql_field = 'count(*)'
 
-            sql_filters = ["status IN ('owned', 'ordered', 'sold', 'sale')"]
+            sql_filters = ["status IN ('owned', 'ordered', 'sale')"]
             if filter_:
                 sql_filters.append(filter_)
 
@@ -376,9 +391,13 @@ class StatisticsView(QWidget):
         self.statisticsParam.save()
 
         self.subfieldSelector.setVisible(chart == 'stacked')
+        self.subfieldLabel.setVisible(chart == 'stacked')
         self.fieldSelector.setVisible(chart != 'progress')
+        self.fieldLabel.setVisible(chart != 'progress')
         self.periodSelector.setVisible(chart == 'progress')
+        self.periodLabel.setVisible(chart == 'progress')
         self.progressFieldSelector.setVisible(chart == 'progress')
+        self.progressFieldLabel.setVisible(chart == 'progress')
 
         self.modelChanged()
 
