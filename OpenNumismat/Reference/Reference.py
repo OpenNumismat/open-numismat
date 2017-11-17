@@ -339,12 +339,14 @@ class Reference(QtCore.QObject):
                     sql = "UPDATE sections SET name = 'material' WHERE name = 'metal'"
                     QSqlQuery(sql, self.db)
                 # Update reference DB for version 1.4.9
-                if self.db.record('period').indexOf('icon') < 0:
+                if 'period' in self.db.tables() and \
+                        self.db.record('period').indexOf('icon') < 0:
                     for table in ('period', 'unit', 'mint', 'series'):
                         sql = "ALTER TABLE %s ADD COLUMN icon BLOB" % table
                         QSqlQuery(sql, self.db)
-                # Update reference DB for version 1.5
-                if self.db.record('country').indexOf('parentid') < 0:
+                # Update reference DB for version 1.6
+                if 'country' in self.db.tables() and \
+                        self.db.record('country').indexOf('parentid') < 0:
                     sql = "ALTER TABLE country ADD COLUMN parentid INTEGER"
                     QSqlQuery(sql, self.db)
                     sql = "UPDATE sections SET parent = 'region' WHERE name = 'country'"
