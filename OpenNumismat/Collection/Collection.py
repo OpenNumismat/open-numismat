@@ -897,7 +897,7 @@ class Collection(QtCore.QObject):
         if not backupDir.exists():
             backupDir.mkpath(backupDir.path())
 
-        backupFileName = backupDir.filePath("%s_%s.db" % (self.getCollectionName(), QtCore.QDateTime.currentDateTime().toString('yyMMddhhmm')))
+        backupFileName = backupDir.filePath("%s_%s.db" % (self.getCollectionName(), QtCore.QDateTime.currentDateTime().toString('yyMMddhhmmss')))
         srcFile = QtCore.QFile(self.fileName)
         if not srcFile.copy(backupFileName):
             QMessageBox.critical(self.parent(),
