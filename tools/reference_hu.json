@@ -1,18 +1,18 @@
 {
     "rarity": [
-        "Común",
+        "Common",
         "Normal",
-        "Limitada",
-        "Rara",
-        "Única",
-        "Sólo en sets"
+        "Scarce",
+        "Rare",
+        "Unique",
+        "In sets only"
     ],
     "quality": [
-        "Sin circular",
-        "Brillante sin circular",
-        "Prueba",
-        "Similar a prueba",
-        "Reverso escarchado"
+        "Uncirculated",
+        "Brilliant uncirculated",
+        "Proof",
+        "Proof like",
+        "Reverse frosted"
     ],
     "defect": [
         "Clipped planchet",
@@ -24,12 +24,12 @@
         "Brockage"
     ],
     "type": [
-        "Emisión regular",
-        "Conmemorativa",
-        "Metal precioso",
+        "Regular kérdés",
+        "Emlékeztető",
+        "Rúdarany",
         "Restrike",
         "Pattern",
-        "Set",
+        "Készlet",
         "Roll"
     ],
     "obvrev": [
@@ -40,43 +40,43 @@
         "Reeded",
         "Decorated",
         "Interrupted milled",
-        "Smooth",
-        "Lettered"
+        "Sima",
+        "Feliratos"
     ],
     "shape": [
-        "Círculo",
-        "Square",
+        "Kerek",
+        "Négyzet",
         "Polygon",
         "Spanish flower",
         "Circle with hole"
     ],
     "material": [
         "Acmonital",
-        "Aluminio",
+        "Aluminium",
         "Aluminium bronze",
-        "Antimonio",
+        "Antimony",
         "Brass",
         "Bronze",
-        "Cobalto",
-        "Cobre",
+        "Cobalt",
+        "Réz",
         "Cupronickel",
-        "Oro",
-        "Hierro",
-        "Magnesio",
-        "Manganeso",
+        "Arany",
+        "Vas",
+        "Magnesium",
+        "Manganese",
         "Melchior",
-        "Níquel",
+        "Nikkel",
         "Nickel silver",
-        "Oro nórdico",
-        "Paladio",
-        "Platino",
-        "Silver",
+        "Nordic gold",
+        "Palladium",
+        "Platinum",
+        "Ezüst",
         "Steel",
-        "Tantalio",
+        "Tantalum",
         "Tombac",
-        "Telurio",
-        "Estaño",
+        "Tellurium",
+        "Tin",
         "Zinc",
-        "Bimetálica"
+        "Bimetal"
     ]
 }
