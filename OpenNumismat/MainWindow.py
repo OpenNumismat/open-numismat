@@ -372,7 +372,7 @@ class MainWindow(QMainWindow):
     def updateStatisticsAct(self, showed):
         if statisticsAvailable:
             if showed:
-                self.statisticsAct.setText(self.tr("Details"))
+                self.statisticsAct.setText(self.tr("Info panel"))
                 self.statisticsAct.setIcon(createIcon('application-form.png'))
             else:
                 self.statisticsAct.setText(self.tr("Statistics"))
