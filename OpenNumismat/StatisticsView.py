@@ -20,6 +20,12 @@ except ImportError:
 
     class FigureCanvas:
         pass
+except ValueError:
+    print('matplotlib is old version. Statistics not available')
+    statisticsAvailable = False
+
+    class FigureCanvas:
+        pass
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
