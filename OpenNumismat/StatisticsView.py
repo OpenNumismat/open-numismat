@@ -48,7 +48,7 @@ class BaseCanvas(FigureCanvas):
                                    QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
 
-        self.label = self.tr("Number of coins")
+        self.label = QApplication.translate('BaseCanvas', "Number of coins")
 
     def setLabel(self, text):
         self.label = text
