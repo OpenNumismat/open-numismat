@@ -23,12 +23,6 @@
     </message>
 </context>
 <context>
-    <name>BarCanvas</name>
-</context>
-<context>
-    <name>BarHCanvas</name>
-</context>
-<context>
     <name>BaseCanvas</name>
     <message>
         <location filename="StatisticsView.py" line="45"/>
@@ -1372,7 +1366,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="94"/>
-        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1683,13 +1677,13 @@ Copyright (C) 2011-2017 Vitaly Ignatov
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="375"/>
-        <source>Details</source>
+        <location filename="MainWindow.py" line="378"/>
+        <source>Statistics</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="378"/>
-        <source>Statistics</source>
+        <location filename="MainWindow.py" line="375"/>
+        <source>Info panel</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1791,9 +1785,6 @@ Copyright (C) 2011-2017 Vitaly Ignatov
         <source>PDF file (*.pdf)</source>
         <translation>Fichier PDF (*.pdf)</translation>
     </message>
-</context>
-<context>
-    <name>ProgressCanvas</name>
 </context>
 <context>
     <name>QPrintPreviewDialog</name>
@@ -2011,7 +2002,7 @@ Copyright (C) 2011-2017 Vitaly Ignatov
         <translation>R</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="362"/>
+        <location filename="Reference.py" line="364"/>
         <source>Open reference</source>
         <translation>Ouvrir la référence</translation>
     </message>
@@ -2023,7 +2014,7 @@ Copyright (C) 2011-2017 Vitaly Ignatov
 %s</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="362"/>
+        <location filename="Reference.py" line="364"/>
         <source>Can't open reference:
 %s
 Created new one</source>
@@ -2042,12 +2033,12 @@ Création d&apos;une nouvelle</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="369"/>
+        <location filename="Reference.py" line="371"/>
         <source>Create reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="369"/>
+        <location filename="Reference.py" line="371"/>
         <source>Can't create reference:
 %s</source>
         <translation type="unfinished"/>
@@ -2117,9 +2108,6 @@ Création d&apos;une nouvelle</translation>
         <source>Fields</source>
         <translation>Champs</translation>
     </message>
-</context>
-<context>
-    <name>StackedBarCanvas</name>
 </context>
 <context>
     <name>StatisticsView</name>

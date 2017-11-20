@@ -23,12 +23,6 @@
     </message>
 </context>
 <context>
-    <name>BarCanvas</name>
-</context>
-<context>
-    <name>BarHCanvas</name>
-</context>
-<context>
     <name>BaseCanvas</name>
     <message>
         <location filename="StatisticsView.py" line="45"/>
@@ -1691,14 +1685,14 @@ Copyright (C) 2011-2017 Игнатов Виталий
         <translation>Web-сайт программы</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="375"/>
-        <source>Details</source>
-        <translation>Детали</translation>
-    </message>
-    <message>
         <location filename="MainWindow.py" line="378"/>
         <source>Statistics</source>
         <translation>Статистика</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="375"/>
+        <source>Info panel</source>
+        <translation>Панель информации</translation>
     </message>
 </context>
 <context>
@@ -1799,9 +1793,6 @@ Copyright (C) 2011-2017 Игнатов Виталий
         <source>PDF file (*.pdf)</source>
         <translation>Файл PDF (*.pdf)</translation>
     </message>
-</context>
-<context>
-    <name>ProgressCanvas</name>
 </context>
 <context>
     <name>QPrintPreviewDialog</name>
@@ -2019,7 +2010,7 @@ Copyright (C) 2011-2017 Игнатов Виталий
         <translation>Р</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="362"/>
+        <location filename="Reference.py" line="364"/>
         <source>Open reference</source>
         <translation>Открыть справочник</translation>
     </message>
@@ -2031,7 +2022,7 @@ Copyright (C) 2011-2017 Игнатов Виталий
 %s</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="362"/>
+        <location filename="Reference.py" line="364"/>
         <source>Can't open reference:
 %s
 Created new one</source>
@@ -2050,12 +2041,12 @@ Created new one</source>
         <translation>Правитель</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="369"/>
+        <location filename="Reference.py" line="371"/>
         <source>Create reference</source>
         <translation>Создание справочника</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="369"/>
+        <location filename="Reference.py" line="371"/>
         <source>Can't create reference:
 %s</source>
         <translation>Не удалось создать справочник:
@@ -2126,9 +2117,6 @@ Created new one</source>
         <source>Fields</source>
         <translation>Поля</translation>
     </message>
-</context>
-<context>
-    <name>StackedBarCanvas</name>
 </context>
 <context>
     <name>StatisticsView</name>

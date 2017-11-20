@@ -23,12 +23,6 @@
     </message>
 </context>
 <context>
-    <name>BarCanvas</name>
-</context>
-<context>
-    <name>BarHCanvas</name>
-</context>
-<context>
     <name>BaseCanvas</name>
     <message>
         <location filename="StatisticsView.py" line="45"/>
@@ -1380,8 +1374,8 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="94"/>
-        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
-        <translation>Μετατροπή 0.5 σε ½ (υποστήριξη ¼, ½, ¾, 1¼, 1½, 2½)</translation>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <translation>Μετατροπή 0.5 σε ½ (υποστήριξη ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
 </context>
 <context>
@@ -1692,14 +1686,14 @@ Copyright (C) 2011-2017 Vitaly Ignatov
         <translation>Επίσκεψη στον ιστότοπο</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="375"/>
-        <source>Details</source>
-        <translation>Στοιχεία</translation>
-    </message>
-    <message>
         <location filename="MainWindow.py" line="378"/>
         <source>Statistics</source>
         <translation>Στατιστικά</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="375"/>
+        <source>Info panel</source>
+        <translation>Πίνακας πληροφοριών</translation>
     </message>
 </context>
 <context>
@@ -1800,9 +1794,6 @@ Copyright (C) 2011-2017 Vitaly Ignatov
         <source>PDF file (*.pdf)</source>
         <translation>Αρχείο PDF (*.pdf)</translation>
     </message>
-</context>
-<context>
-    <name>ProgressCanvas</name>
 </context>
 <context>
     <name>QPrintPreviewDialog</name>
@@ -2020,7 +2011,7 @@ Copyright (C) 2011-2017 Vitaly Ignatov
         <translation>Σ</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="362"/>
+        <location filename="Reference.py" line="364"/>
         <source>Open reference</source>
         <translation>Άνοιγμα αναφοράς</translation>
     </message>
@@ -2032,7 +2023,7 @@ Copyright (C) 2011-2017 Vitaly Ignatov
 %s</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="362"/>
+        <location filename="Reference.py" line="364"/>
         <source>Can't open reference:
 %s
 Created new one</source>
@@ -2051,12 +2042,12 @@ Created new one</source>
         <translation>Χάρακας</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="369"/>
+        <location filename="Reference.py" line="371"/>
         <source>Create reference</source>
         <translation>Δημιουργία αναφοράς</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="369"/>
+        <location filename="Reference.py" line="371"/>
         <source>Can't create reference:
 %s</source>
         <translation>Δεν ήταν δυνατή η δημιουργία αναφοράς:
@@ -2127,9 +2118,6 @@ Created new one</source>
         <source>Fields</source>
         <translation>Πεδία</translation>
     </message>
-</context>
-<context>
-    <name>StackedBarCanvas</name>
 </context>
 <context>
     <name>StatisticsView</name>

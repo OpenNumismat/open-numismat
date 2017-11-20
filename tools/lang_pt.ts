@@ -23,17 +23,11 @@
     </message>
 </context>
 <context>
-    <name>BarCanvas</name>
-</context>
-<context>
-    <name>BarHCanvas</name>
-</context>
-<context>
     <name>BaseCanvas</name>
     <message>
         <location filename="StatisticsView.py" line="45"/>
         <source>Number of coins</source>
-        <translation type="unfinished"/>
+        <translation>Número de moedas</translation>
     </message>
 </context>
 <context>
@@ -638,7 +632,7 @@ Por favor, actualize o OpenNumismat</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="42"/>
         <source>Traffic</source>
-        <translation>Tráfego</translation>
+        <translation>Mercado</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="275"/>
@@ -723,7 +717,7 @@ Por favor, actualize o OpenNumismat</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="420"/>
         <source>Market</source>
-        <translation type="unfinished"/>
+        <translation>Mercado</translation>
     </message>
 </context>
 <context>
@@ -1380,7 +1374,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="94"/>
-        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation>Converter 0.5 para ½ (suporte ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
 </context>
@@ -1687,17 +1681,17 @@ Copyright (C) 2011-2017 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="278"/>
         <source>Visit web-site</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="375"/>
-        <source>Details</source>
-        <translation>Detalhes</translation>
+        <translation>Visitar a página web</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="378"/>
         <source>Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Estatísticas</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="375"/>
+        <source>Info panel</source>
+        <translation>Painel informativo</translation>
     </message>
 </context>
 <context>
@@ -1798,9 +1792,6 @@ Copyright (C) 2011-2017 Vitaly Ignatov
         <source>PDF file (*.pdf)</source>
         <translation>Ficheiro PDF (*.pdf)</translation>
     </message>
-</context>
-<context>
-    <name>ProgressCanvas</name>
 </context>
 <context>
     <name>QPrintPreviewDialog</name>
@@ -2018,7 +2009,7 @@ Copyright (C) 2011-2017 Vitaly Ignatov
         <translation>R</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="362"/>
+        <location filename="Reference.py" line="364"/>
         <source>Open reference</source>
         <translation>Abrir referência</translation>
     </message>
@@ -2030,7 +2021,7 @@ Copyright (C) 2011-2017 Vitaly Ignatov
 %s</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="362"/>
+        <location filename="Reference.py" line="364"/>
         <source>Can't open reference:
 %s
 Created new one</source>
@@ -2049,12 +2040,12 @@ Criada uma nova</translation>
         <translation>Régua</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="369"/>
+        <location filename="Reference.py" line="371"/>
         <source>Create reference</source>
         <translation>Criar referência</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="369"/>
+        <location filename="Reference.py" line="371"/>
         <source>Can't create reference:
 %s</source>
         <translation>Impossível criar referência:
@@ -2127,39 +2118,36 @@ Criada uma nova</translation>
     </message>
 </context>
 <context>
-    <name>StackedBarCanvas</name>
-</context>
-<context>
     <name>StatisticsView</name>
     <message>
         <location filename="StatisticsView.py" line="169"/>
         <source>Bar</source>
-        <translation type="unfinished"/>
+        <translation>Barra</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="170"/>
         <source>Horizontal bar</source>
-        <translation type="unfinished"/>
+        <translation>Barra horizontal</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="171"/>
         <source>Pie</source>
-        <translation type="unfinished"/>
+        <translation>Circular</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="172"/>
         <source>Stacked bar</source>
-        <translation type="unfinished"/>
+        <translation>Barras empilhadas</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="173"/>
         <source>Progress</source>
-        <translation type="unfinished"/>
+        <translation>Progresso</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="174"/>
         <source>Chart:</source>
-        <translation type="unfinished"/>
+        <translation>Gráfico</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="177"/>
@@ -2169,12 +2157,12 @@ Criada uma nova</translation>
     <message>
         <location filename="StatisticsView.py" line="182"/>
         <source>Additional field:</source>
-        <translation type="unfinished"/>
+        <translation>Campo adicional:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="187"/>
         <source>Sum per:</source>
-        <translation type="unfinished"/>
+        <translation>Soma por:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="190"/>
@@ -2184,27 +2172,27 @@ Criada uma nova</translation>
     <message>
         <location filename="StatisticsView.py" line="191"/>
         <source>Month</source>
-        <translation type="unfinished"/>
+        <translation>Mês</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="192"/>
         <source>Week</source>
-        <translation type="unfinished"/>
+        <translation>Semana</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="193"/>
         <source>Day</source>
-        <translation type="unfinished"/>
+        <translation>Dia</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="196"/>
         <source>Items:</source>
-        <translation type="unfinished"/>
+        <translation>Itens:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="199"/>
         <source>Count</source>
-        <translation type="unfinished"/>
+        <translation>Total</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="200"/>
@@ -2214,7 +2202,7 @@ Criada uma nova</translation>
     <message>
         <location filename="StatisticsView.py" line="201"/>
         <source>Total price</source>
-        <translation type="unfinished"/>
+        <translation>Preço total</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="333"/>
@@ -2224,12 +2212,12 @@ Criada uma nova</translation>
     <message>
         <location filename="StatisticsView.py" line="336"/>
         <source>Total paid</source>
-        <translation type="unfinished"/>
+        <translation>Total pago</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="339"/>
         <source>Number of coins</source>
-        <translation type="unfinished"/>
+        <translation>Número de moedas</translation>
     </message>
 </context>
 <context>
