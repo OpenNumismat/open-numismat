@@ -41,7 +41,7 @@ class StatisticsParam(BaseSettings):
             record = query.record()
             self.__setitem__('showed', bool(record.value('showed')))
             self.__setitem__('chart', record.value('chart'))
-            self.__setitem__('fieldid', record.value('chafieldidrt'))
+            self.__setitem__('fieldid', record.value('fieldid'))
             self.__setitem__('subfieldid', record.value('subfieldid'))
             self.__setitem__('items', record.value('items'))
             self.__setitem__('period', record.value('period'))
