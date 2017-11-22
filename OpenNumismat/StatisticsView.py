@@ -349,10 +349,10 @@ class StatisticsView(QWidget):
 
             period = self.periodSelector.currentData()
             if period == 'month':
-                sql_filters.append("paydate > datetime('now', '-11 month')")
+                sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
                 date_format = '%m'
             elif period == 'week':
-                sql_filters.append("paydate > datetime('now', '-11 month')")
+                sql_filters.append("paydate > datetime('now', '-365 days')")
                 date_format = '%W'
             elif period == 'day':
                 sql_filters.append("paydate > datetime('now', '-1 month')")
