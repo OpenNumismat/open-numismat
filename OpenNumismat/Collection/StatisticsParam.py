@@ -14,7 +14,7 @@ class StatisticsParam(BaseSettings):
     }
 
     def __init__(self, page):
-        super().__init__(autoSave=True)
+        super().__init__()
 
         self.pageId = page.id
         self.db = page.db
@@ -45,6 +45,8 @@ class StatisticsParam(BaseSettings):
             self.__setitem__('subfieldid', record.value('subfieldid'))
             self.__setitem__('items', record.value('items'))
             self.__setitem__('period', record.value('period'))
+
+        self.setAutoSave(True)
 
     def save(self):
         self.db.transaction()
