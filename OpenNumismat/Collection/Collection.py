@@ -704,14 +704,12 @@ class Collection(QtCore.QObject):
 
             refSection = self.reference.section(columnName)
             if isinstance(refSection, CrossReferenceSection):
-                print(columnName)
                 rel = refSection.model.relationModel(1)
                 for i in range(rel.rowCount()):
                     data = rel.data(rel.index(i, rel.fieldIndex('value')))
                     parentId = rel.data(rel.index(i, rel.fieldIndex('id')))
                     query = QSqlQuery(self.db)
                     sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL AND %s=?" % (columnName, columnName, columnName, refSection.parentName)
-                    print(sql)
                     query.prepare(sql)
                     query.addBindValue(data)
                     query.exec_()
@@ -719,7 +717,6 @@ class Collection(QtCore.QObject):
                     refSection.reload()
             else:
                 sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL" % (columnName, columnName, columnName)
-                print(sql)
                 query = QSqlQuery(sql, self.db)
                 refSection.fillFromQuery(query)
                 refSection.reload()
