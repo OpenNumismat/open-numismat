@@ -270,6 +270,9 @@ class MainWindow(QMainWindow):
         report.addAction(reportAct)
         report.addAction(saveTableAct)
         report.addAction(viewBrowserAct)
+        if statisticsAvailable:
+            report.addSeparator()
+            report.addAction(self.statisticsAct)
 
         helpAct = QAction(createIcon('help.png'),
                           self.tr("User manual"), self)
