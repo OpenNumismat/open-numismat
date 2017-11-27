@@ -126,7 +126,7 @@ class BaseReferenceSection(QtCore.QObject):
         if self.name in cross_ref:
             sql = "CREATE TABLE %s (\
                 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
-                parentid INTEGER NOT NULL,\
+                parentid INTEGER,\
                 value TEXT, icon BLOB)" % self.table_name
         else:
             sql = "CREATE TABLE %s (\
@@ -318,6 +318,15 @@ class Reference(QtCore.QObject):
             sort INTEGER)"
         QSqlQuery(sql, self.db)
 
+        sql = """CREATE TABLE ref (
+            title CHAR NOT NULL UNIQUE,
+            value CHAR)"""
+        QSqlQuery(sql, self.db)
+
+        sql = """INSERT INTO ref (title, value)
+            VALUES ('version', 1)"""
+        QSqlQuery(sql, self.db)
+
         for section in self.sections:
             section.create(self.db)
 
@@ -381,6 +390,10 @@ class Reference(QtCore.QObject):
         return True
 
     def load(self):
+        # Update reference DB for version 1.6.2
+        if 'ref' not in self.db.tables():
+            self.__updateTo1()
+
         for section in self.sections:
             section.load(self.db)
 
@@ -433,3 +446,34 @@ class Reference(QtCore.QObject):
                         icon = QIcon(pixmap)
                         return icon
         return None
+
+    def __updateTo1(self):
+        self.db.transaction()
+
+        for cross_ref in ('country', 'period', 'ruler',
+                          'unit', 'mint', 'series'):
+            sql = "ALTER TABLE ref_%s RENAME TO old_ref_%s" % (cross_ref, cross_ref)
+            QSqlQuery(sql, self.db)
+
+            sql = "CREATE TABLE ref_%s (\
+                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+                parentid INTEGER,\
+                value TEXT, icon BLOB)" % cross_ref
+            QSqlQuery(sql, self.db)
+
+            sql = "INSERT INTO ref_%s SELECT * FROM old_ref_%s" % (cross_ref, cross_ref)
+            QSqlQuery(sql, self.db)
+
+            sql = "DROP TABLE old_ref_%s" % cross_ref
+            QSqlQuery(sql, self.db)
+
+        sql = """CREATE TABLE ref (
+            title CHAR NOT NULL UNIQUE,
+            value CHAR)"""
+        QSqlQuery(sql, self.db)
+
+        sql = """INSERT INTO ref (title, value)
+            VALUES ('version', 1)"""
+        QSqlQuery(sql, self.db)
+
+        self.db.commit()
