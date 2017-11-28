@@ -39,7 +39,7 @@ class DetailsTabWidget(QTabWidget):
     def createTrafficPage(self):
         self.oldTrafficIndex = 0
         parts = self._createTrafficParts(self.oldTrafficIndex)
-        title = QApplication.translate('DetailsTabWidget', "Traffic")
+        title = QApplication.translate('DetailsTabWidget', "Market")
         self.addTabPage(title, parts)
 
     def createParametersPage(self):
