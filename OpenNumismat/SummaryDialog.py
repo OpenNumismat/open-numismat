@@ -59,7 +59,7 @@ class SummaryDialog(QDialog):
             lines.append(self.tr("Count sales: %d" % count))
 
         paid = 0
-        sql = "SELECT SUM(totalpayprice) FROM COINS WHERE status IN ('owned', 'ordered', 'sale', 'sold') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
+        sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
         query = QSqlQuery(sql, model.database())
         if query.first():
             paid = query.record().value(0)
@@ -67,7 +67,7 @@ class SummaryDialog(QDialog):
                 lines.append(self.tr("Paid: %.2f" % paid))
 
         earned = 0
-        sql = "SELECT SUM(totalsaleprice) FROM COINS WHERE status='sold' AND totalsaleprice<>'' AND totalsaleprice IS NOT NULL"
+        sql = "SELECT SUM(totalsaleprice) FROM coins WHERE status='sold' AND totalsaleprice<>'' AND totalsaleprice IS NOT NULL"
         query = QSqlQuery(sql, model.database())
         if query.first():
             earned = query.record().value(0)
@@ -84,5 +84,67 @@ class SummaryDialog(QDialog):
             date = QDate.fromString(query.record().value(0), Qt.ISODate)
             paydate = date.toString(Qt.SystemLocaleShortDate)
             lines.append(self.tr("First purchase: %s" % paydate))
+
+        sql = "SELECT UPPER(grade), price1, price2, price3, price4 FROM coins WHERE status IN ('owned', 'ordered', 'sale') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
+        query = QSqlQuery(sql, model.database())
+        est_owned = 0
+        count = 0
+        comment = ""
+        while query.next():
+            record = query.record()
+            grade = record.value(0)
+            price1 = record.value(1)
+            price2 = record.value(2)
+            price3 = record.value(3)
+            price4 = record.value(4)
+
+            if grade[:2] in ('UN', 'MS'):
+                price = price4 if price4 else price3 * 1.6 if price3 else price2 * 2.2 if price2 else price1 * 5.5 if price1 else 0
+            elif grade[:2] in ('XF', 'EF'):
+                price = price3 if price3 else price4 * 0.6 if price4 else price2 * 1.4 if price2 else price1 * 3.5 if price1 else 0
+            elif grade[:2] in ('AU',):
+                priceU = price4 if price4 else price3 * 1.6 if price3 else price2 * 2.2 if price2 else price1 * 5.5 if price1 else 0
+                priceX = price3 if price3 else price4 * 0.6 if price4 else price2 * 1.4 if price2 else price1 * 3.5 if price1 else 0
+                price = priceX + (priceU - priceX) * 0.6
+            elif grade[:2] in ('VF',):
+                price = price2 if price2 else price3 * 0.7 if price3 else price4 * 0.45 if price4 else price1 * 2.5 if price1 else 0
+            elif grade[:2] in ('F', 'FI'):
+                price = price1 if price1 else price2 * 0.4 if price2 else price3 * 0.3 if price3 else price4 * 0.18 if price4 else 0
+            elif grade[:2] in ('VG',):
+                price = price1 * 0.5 if price1 else price2 * 0.2 if price2 else price3 * 0.14 if price3 else price4 * 0.09 if price4 else 0
+            else:
+                price = price4 if price4 else price3 if price3 else price2 if price2 else price1 if price1 else 0
+
+            if price:
+                est_owned += price
+                count += 1
+
+            if count:
+                comment = self.tr("(calculated for %d coins)" % count)
+
+        lines.append(' '.join((self.tr("Estimation owned: %d" % est_owned), comment)))
+
+        sql = "SELECT price1, price2, price3, price4 FROM coins WHERE status='wish' AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
+        query = QSqlQuery(sql, model.database())
+        est_wish = 0
+        count = 0
+        comment = ""
+        while query.next():
+            record = query.record()
+            price1 = record.value(0)
+            price2 = record.value(1)
+            price3 = record.value(2)
+            price4 = record.value(3)
+
+            price = price4 if price4 else price3 if price3 else price2 if price2 else price1 if price1 else 0
+
+            if price:
+                est_wish += price
+                count += 1
+
+            if count:
+                comment = self.tr("(calculated for %d coins)" % count)
+
+        lines.append(' '.join((self.tr("Estimation wish: %d" % est_wish), comment)))
 
         self.textBox.setText('\n'.join(lines))
