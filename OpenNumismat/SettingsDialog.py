@@ -80,6 +80,14 @@ class MainSettingsPage(QWidget):
         self.checkUpdates.setChecked(settings['updates'])
         layout.addRow(self.checkUpdates)
 
+        self.speedup = QComboBox(self)
+        self.speedup.addItem(self.tr("Reliable"), 0)
+        self.speedup.addItem(self.tr("Fast"), 1)
+        self.speedup.addItem(self.tr("Extra fast (dangerous)"), 2)
+        self.speedup.setCurrentIndex(settings['speedup'])
+        self.speedup.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        layout.addRow(self.tr("Acceleration of storage"), self.speedup)
+
         self.imageSideLen = NumberEdit(self)
         self.imageSideLen.setMaximumWidth(60)
         layout.addRow(self.tr("Max image side len"), self.imageSideLen)
@@ -170,6 +178,7 @@ class MainSettingsPage(QWidget):
         settings['reference'] = self.reference.text()
         settings['error'] = self.errorSending.isChecked()
         settings['updates'] = self.checkUpdates.isChecked()
+        settings['speedup'] = self.speedup.currentData()
         settings['free_numeric'] = self.freeNumeric.isChecked()
         settings['convert_fraction'] = self.convertFraction.isChecked()
         settings['store_sorting'] = self.storeSorting.isChecked()

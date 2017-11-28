@@ -607,6 +607,8 @@ class Collection(QtCore.QObject):
 
         self.description = CollectionDescription(self)
 
+        self.__speedup()
+
         return True
 
     def create(self, fileName):
@@ -636,7 +638,22 @@ class Collection(QtCore.QObject):
 
         self.description = CollectionDescription(self)
 
+        self.__speedup()
+
         return True
+
+    def __speedup(self):
+        settings = Settings()
+        if settings['speedup'] == 1:
+            sql = "PRAGMA synchronous=NORMAL"
+            QSqlQuery(sql, self.db)
+            sql = "PRAGMA journal_mode=MEMORY"
+            QSqlQuery(sql, self.db)
+        elif settings['speedup'] == 2:
+            sql = "PRAGMA synchronous=OFF"
+            QSqlQuery(sql, self.db)
+            sql = "PRAGMA journal_mode=MEMORY"
+            QSqlQuery(sql, self.db)
 
     def createCoinsTable(self):
         sqlFields = []
