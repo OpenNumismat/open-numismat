@@ -17,6 +17,7 @@ from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.StatisticsView import statisticsAvailable
+from OpenNumismat.SummaryDialog import SummaryDialog
 
 from OpenNumismat.Collection.Import import *
 
@@ -38,6 +39,10 @@ class MainWindow(QMainWindow):
             self.updateStatisticsAct(False)
             self.statisticsAct.triggered.connect(self.statisticsEvent)
             self.collectionActs.append(self.statisticsAct)
+
+        summaryAct = QAction(self.tr("Summary"), self)
+        summaryAct.triggered.connect(self.summaryEvent)
+        self.collectionActs.append(summaryAct)
 
         settingsAct = QAction(createIcon('cog.png'),
                                     self.tr("Settings..."), self)
@@ -158,7 +163,6 @@ class MainWindow(QMainWindow):
         mergeCollectionAct.triggered.connect(self.mergeCollectionEvent)
         self.collectionActs.append(mergeCollectionAct)
 
-
         exportMenu = QMenu(self.tr("Export"), self)
         self.collectionActs.append(exportMenu)
 
@@ -273,6 +277,7 @@ class MainWindow(QMainWindow):
         if statisticsAvailable:
             report.addSeparator()
             report.addAction(self.statisticsAct)
+        report.addAction(summaryAct)
 
         helpAct = QAction(createIcon('help.png'),
                           self.tr("User manual"), self)
@@ -385,6 +390,11 @@ class MainWindow(QMainWindow):
         page = self.viewTab.currentPageView()
         self.updateStatisticsAct(not page.statisticsShowed)
         page.showStatistics(not page.statisticsShowed)
+
+    def summaryEvent(self):
+        model = self.viewTab.currentModel()
+        dialog = SummaryDialog(model, self)
+        dialog.exec_()
 
     def restart(self):
         self.close()
