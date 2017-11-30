@@ -1227,6 +1227,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         sql_fields = ','.join(fields)
 
         inserted_count = 0
+        updated_count = 0
         query = QSqlQuery("SELECT DISTINCT createdat FROM src.coins", self.db)
         while query.next():
             progressDlg.step()
@@ -1235,13 +1236,83 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
 
             self.db.transaction()
 
-            sql = "SELECT updatedat FROM coins WHERE createdat=? LIMIT 1"
+            sql = "SELECT 1 FROM coins WHERE createdat=? LIMIT 1"
             select_query = QSqlQuery(sql, self.db)
             select_query.addBindValue(query.record().value(0))
             select_query.exec_()
             if select_query.first():
-                # if (id=, createdat=, updatedat>)
-                pass
+                dst_fields = ('obverseimg', 'reverseimg', 'edgeimg',
+                              'photo1', 'photo2', 'photo3', 'photo4') + \
+                             ('id', 'image')
+                sql_dst_fields = ','.join(['coins.%s AS coins_%s' % (f, f) for f in dst_fields])
+                sql_src_fields = ','.join(['src_coins.%s' % f for f in fields])
+                sql = "SELECT %s, %s FROM coins\
+                    INNER JOIN src.coins src_coins ON coins.id=src_coins.id\
+                    WHERE src_coins.createdat=? AND\
+                          src_coins.createdat=coins.createdat AND\
+                          src_coins.updatedat>coins.updatedat" % (sql_src_fields, sql_dst_fields)
+                sel_query = QSqlQuery(sql, self.db)
+                sel_query.addBindValue(query.record().value(0))
+                sel_query.exec_()
+                if sel_query.first():
+                    sql = "UPDATE coins SET %s WHERE id=?" % ','.join(['%s=?' % f for f in fields])
+                    up_query = QSqlQuery(sql, self.db)
+                    for field in fields:
+                        if field == 'image':
+                            img_id = sel_query.record().value(field)
+                            old_img_id = sel_query.record().value('coins_image')
+                            if img_id and old_img_id:
+                                sql = "UPDATE images SET image=(SELECT image FROM src.images WHERE id=?) WHERE id=?"
+                                img_query = QSqlQuery(sql, self.db)
+                                img_query.addBindValue(img_id)
+                                img_query.addBindValue(old_img_id)
+                                img_query.exec_()
+                            elif img_id:
+                                sql = "INSERT INTO images (image) SELECT image FROM src.images WHERE id=?"
+                                img_query = QSqlQuery(sql, self.db)
+                                img_query.addBindValue(img_id)
+                                img_query.exec_()
+                                img_id = img_query.lastInsertId()
+                            elif old_img_id:
+                                sql = "DELETE FROM images WHERE id=?"
+                                img_query = QSqlQuery(sql, self.db)
+                                img_query.addBindValue(old_img_id)
+                                img_query.exec_()
+                                img_id = None
+
+                            up_query.addBindValue(img_id)
+                        elif field in ('obverseimg', 'reverseimg', 'edgeimg',
+                                       'photo1', 'photo2', 'photo3', 'photo4'):
+                            img_id = sel_query.record().value(field)
+                            old_img_id = sel_query.record().value('coins_%s' % field)
+                            if img_id and old_img_id:
+                                sql = "UPDATE photos SET title=(SELECT title FROM src.photos WHERE id=?), image=(SELECT image FROM src.photos WHERE id=?) WHERE id=?"
+                                img_query = QSqlQuery(sql, self.db)
+                                img_query.addBindValue(img_id)
+                                img_query.addBindValue(img_id)
+                                img_query.addBindValue(old_img_id)
+                                img_query.exec_()
+                                img_id = old_img_id
+                            elif img_id:
+                                sql = "INSERT INTO photos (title, image) SELECT title, image FROM src.photos WHERE id=?"
+                                img_query = QSqlQuery(sql, self.db)
+                                img_query.addBindValue(img_id)
+                                img_query.exec_()
+                                img_id = img_query.lastInsertId()
+                            elif old_img_id:
+                                sql = "DELETE FROM photos WHERE id=?"
+                                img_query = QSqlQuery(sql, self.db)
+                                img_query.addBindValue(old_img_id)
+                                img_query.exec_()
+                                img_id = None
+
+                            up_query.addBindValue(img_id)
+                        else:
+                            up_query.addBindValue(sel_query.record().value(field))
+                    up_query.addBindValue(sel_query.record().value('coins_id'))
+
+                    up_query.exec_()
+                    updated_count += 1
             else:
                 sql = "SELECT %s FROM src.coins WHERE createdat=?" % sql_fields
                 sel_query = QSqlQuery(sql, self.db)
@@ -1281,8 +1352,8 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
 
         progressDlg.reset()
 
-        if inserted_count:
-            text = self.tr("Inserted %d coins.\nThe application will need to restart now.") % inserted_count
+        if inserted_count or updated_count:
+            text = self.tr("Inserted %d coins, updated %d coins.\nThe application will need to restart now.") % (inserted_count, updated_count)
             QMessageBox.information(self.parent(), self.tr("Synchronizing"),
                                     text)
             # TODO: refresh
