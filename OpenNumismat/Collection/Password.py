@@ -8,21 +8,21 @@ def cryptPassword(password=''):
     return hashlib.md5(password.encode('utf-8')).hexdigest()
 
 
-def checkPassword(settings, password):
-    collectionPassword = settings['Password']
-    if collectionPassword != cryptPassword(password):
+def checkPassword(crypted_password, password):
+    if crypted_password != cryptPassword(password):
         return False
 
     return True
 
 
 class PasswordDialog(QDialog):
-    def __init__(self, collection, parent=None):
+
+    def __init__(self, crypted_password, collection_name='', parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
-        self.settings = collection.settings
+        self.crypted_password = crypted_password
 
-        self.setWindowTitle(collection.getCollectionName())
+        self.setWindowTitle(collection_name)
 
         mainLayout = QFormLayout()
 
@@ -44,7 +44,7 @@ class PasswordDialog(QDialog):
 
     def apply(self):
         text = self.passwordWidget.text()
-        if checkPassword(self.settings, text):
+        if checkPassword(self.crypted_password, text):
             self.accept()
         else:
             QMessageBox.critical(self, self.tr("Open collection"),
@@ -64,7 +64,7 @@ class PasswordSetDialog(QDialog):
 
         self.passwordWidget = QLineEdit(self)
         self.passwordWidget.setEchoMode(QLineEdit.Password)
-        if checkPassword(self.settings, ''):
+        if checkPassword(self.settings['Password'], ''):
             self.passwordWidget.setDisabled(True)
         mainLayout.addRow(self.tr("Current password"), self.passwordWidget)
         self.newPasswordWidget = QLineEdit(self)
@@ -89,7 +89,7 @@ class PasswordSetDialog(QDialog):
 
     def save(self):
         text = self.passwordWidget.text()
-        if checkPassword(self.settings, text):
+        if checkPassword(self.settings['Password'], text):
             text = self.newPasswordWidget.text()
             newPassword = cryptPassword(text)
             text = self.confirmPasswordWidget.text()

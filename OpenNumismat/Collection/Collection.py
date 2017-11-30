@@ -593,7 +593,9 @@ class Collection(QtCore.QObject):
         self.fileName = fileName
 
         if self.settings['Password'] != cryptPassword():
-            dialog = PasswordDialog(self, self.parent())
+            dialog = PasswordDialog(
+                self.settings['Password'], self.getCollectionName(),
+                self.parent())
             result = dialog.exec_()
             if result == QDialog.Rejected:
                 return False
@@ -1173,19 +1175,48 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         res = query.exec_()
         if not res:
             QMessageBox.critical(self.parent(),
-                        self.tr("Synchronizing"),
-                        self.tr("Can't open catalog:\n%s" %
-                                query.lastError().text()))
+                                 self.tr("Synchronizing"),
+                                 self.tr("Can't open catalog:\n%s") %
+                                 query.lastError().text())
             return
 
-        # TODO: Check version, password
+        sql = "SELECT value FROM src.settings WHERE title='Type'"
+        query = QSqlQuery(sql, self.db)
+        query.first()
+        type_ = query.record().value(0)
+        if type_ != version.AppName:
+            QMessageBox.critical(self.parent(),
+                    self.tr("Synchronizing"),
+                    self.tr("Collection %s in wrong format") % fileName)
+            return
+
+        sql = "SELECT value FROM src.settings WHERE title='Version'"
+        query = QSqlQuery(sql, self.db)
+        query.first()
+        ver = query.record().value(0)
+        if int(ver) != CollectionSettings.Default['Version']:
+            QMessageBox.critical(self.parent(),
+                    self.tr("Synchronizing"),
+                    self.tr("Collection %s in old format.\n(Try to open it before merging.)") % fileName)
+            return
+
+        sql = "SELECT value FROM src.settings WHERE title='Password'"
+        query = QSqlQuery(sql, self.db)
+        query.first()
+        pas = query.record().value(0)
+        if pas != cryptPassword():
+            dialog = PasswordDialog(
+                pas, self.fileNameToCollectionName(fileName), self.parent())
+            result = dialog.exec_()
+            if result == QDialog.Rejected:
+                return
 
         query = QSqlQuery("SELECT COUNT(*) FROM src.coins", self.db)
         query.first()
         count = query.record().value(0)
 
-        progressDlg = Gui.ProgressDialog(self.tr("Synchronizing"),
-                            self.tr("Cancel"), count, self.parent())
+        progressDlg = Gui.ProgressDialog(
+            self.tr("Synchronizing"), self.tr("Cancel"), count, self.parent())
 
         fields_query = QSqlQuery("PRAGMA table_info(coins)", self.db)
         fields_query.exec_()
@@ -1194,24 +1225,23 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             fields.append(fields_query.record().value(1))
         fields.remove('id')
         sql_fields = ','.join(fields)
-        print(fields)
 
+        inserted_count = 0
         query = QSqlQuery("SELECT DISTINCT createdat FROM src.coins", self.db)
         while query.next():
             progressDlg.step()
             if progressDlg.wasCanceled():
                 break
 
-            print(query.record().value(0))
             sql = "SELECT updatedat FROM coins WHERE createdat=? LIMIT 1"
             select_query = QSqlQuery(sql, self.db)
             select_query.addBindValue(query.record().value(0))
             select_query.exec_()
             if select_query.first():
                 # if (id=, createdat=, updatedat>)
-                print('find', select_query.record().value(0))
+                pass
             else:
-                sql = "SELECT %s FROM src.coins WHERE src.coins.createdat=?" % sql_fields
+                sql = "SELECT %s FROM src.coins WHERE createdat=?" % sql_fields
                 sel_query = QSqlQuery(sql, self.db)
                 sel_query.addBindValue(query.record().value(0))
                 sel_query.exec_()
@@ -1240,6 +1270,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                             ins_query.addBindValue(sel_query.record().value(field))
                     if not ins_query.exec_():
                         print("Error:", ins_query.lastError().text())
+                    inserted_count += 1
 
         query = QSqlQuery("DETACH src", self.db)
         if not query.exec_():
@@ -1247,7 +1278,13 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
 
         progressDlg.reset()
 
-        # TODO: refresh
-        QMessageBox.warning(self.parent(), self.tr("Merge collections"),
-                    self.tr("The application will need to restart now"))
-        self.parent().restart()
+        if inserted_count:
+            text = self.tr("Inserted %d coins.\nThe application will need to restart now.") % inserted_count
+            QMessageBox.information(self.parent(), self.tr("Synchronizing"),
+                                    text)
+            # TODO: refresh
+            self.parent().restart()
+        else:
+            text = self.tr("Collections looks like identical")
+            QMessageBox.information(self.parent(), self.tr("Synchronizing"),
+                                    text)
