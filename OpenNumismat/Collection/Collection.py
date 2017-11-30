@@ -1233,6 +1233,8 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             if progressDlg.wasCanceled():
                 break
 
+            self.db.transaction()
+
             sql = "SELECT updatedat FROM coins WHERE createdat=? LIMIT 1"
             select_query = QSqlQuery(sql, self.db)
             select_query.addBindValue(query.record().value(0))
@@ -1268,13 +1270,14 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                             ins_query.addBindValue(img_id)
                         else:
                             ins_query.addBindValue(sel_query.record().value(field))
-                    if not ins_query.exec_():
-                        print("Error:", ins_query.lastError().text())
+
+                    ins_query.exec_()
                     inserted_count += 1
 
+            self.db.commit()
+
         query = QSqlQuery("DETACH src", self.db)
-        if not query.exec_():
-            print("Error:", query.lastError().text())
+        query.exec_()
 
         progressDlg.reset()
 
