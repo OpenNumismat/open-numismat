@@ -158,8 +158,10 @@ class MainWindow(QMainWindow):
             importTellicoAct.triggered.connect(self.importTellico)
             self.collectionActs.append(importTellicoAct)
             importMenu.addAction(importTellicoAct)
- 
-        mergeCollectionAct = QAction(self.tr("Add from another..."), self)
+
+        mergeCollectionAct = QAction(
+                                    createIcon('refresh.png'),
+                                    self.tr("Synchronize..."), self)
         mergeCollectionAct.triggered.connect(self.mergeCollectionEvent)
         self.collectionActs.append(mergeCollectionAct)
 
