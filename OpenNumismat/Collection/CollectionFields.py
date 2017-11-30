@@ -207,7 +207,7 @@ class CollectionFieldsBase(QObject):
 
         self.systemFields = [self.id, self.createdat, self.updatedat, self.image]
         self.userFields = list(self.fields)
-        for item in [self.id, self.createdat, self.updatedat]:
+        for item in (self.id, self.createdat, self.updatedat):
             self.userFields.remove(item)
 
     def field(self, id_):

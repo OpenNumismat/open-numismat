@@ -74,13 +74,13 @@ class EditCoinDialog(QDialog):
     def save(self):
         # Clear unused fields
         status = self.items['status'].widget().data()
-        if status in ['demo', 'wish']:
-            for key in ['paydate', 'payprice', 'totalpayprice', 'saller',
-                        'payplace', 'payinfo']:
+        if status in ('demo', 'wish'):
+            for key in ('paydate', 'payprice', 'totalpayprice', 'saller',
+                        'payplace', 'payinfo'):
                 self.items[key].clear()
-        if status in ['demo', 'wish', 'owned', 'sale', 'ordered']:
-            for key in ['saledate', 'saleprice', 'totalsaleprice', 'buyer',
-                        'saleplace', 'saleinfo']:
+        if status in ('demo', 'wish', 'owned', 'sale', 'ordered'):
+            for key in ('saledate', 'saleprice', 'totalsaleprice', 'buyer',
+                        'saleplace', 'saleinfo'):
                 self.items[key].clear()
 
         settings = Settings()
@@ -145,8 +145,8 @@ class EditCoinDialog(QDialog):
                 value = value.strip()
             self.record.setValue(item.field(), value)
 
-        image_fields = ['obverseimg', 'reverseimg', 'edgeimg',
-                        'photo1', 'photo2', 'photo3', 'photo4']
+        image_fields = ('obverseimg', 'reverseimg', 'edgeimg',
+                        'photo1', 'photo2', 'photo3', 'photo4')
         for image_field in image_fields:
             item = self.items[image_field]
             value = item.widget().title

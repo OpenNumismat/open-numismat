@@ -552,7 +552,7 @@ class DateEdit(QDateEdit):
         self.__clearDefaultDate()
 
     def keyPressEvent(self, event):
-        if event.key() in [Qt.Key_Delete, Qt.Key_Backspace]:
+        if event.key() in (Qt.Key_Delete, Qt.Key_Backspace):
             lineEdit = self.findChild(QLineEdit)
             if lineEdit.selectedText() == lineEdit.text():
                 self.setDate(self.DEFAULT_DATE)

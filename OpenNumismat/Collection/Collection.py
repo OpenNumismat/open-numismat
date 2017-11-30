@@ -145,8 +145,8 @@ class CollectionModel(QSqlTableModel):
         record.setNull('id')  # remove ID value from record
         record.setValue('createdat', record.value('updatedat'))
 
-        for field in ['obverseimg', 'reverseimg', 'edgeimg',
-                      'photo1', 'photo2', 'photo3', 'photo4']:
+        for field in ('obverseimg', 'reverseimg', 'edgeimg',
+                      'photo1', 'photo2', 'photo3', 'photo4'):
             value = record.value(field)
             if value:
                 query = QSqlQuery(self.database())
@@ -181,8 +181,8 @@ class CollectionModel(QSqlTableModel):
     def setRecord(self, row, record):
         self._updateRecord(record)
         # TODO : check that images was realy changed
-        for field in ['obverseimg', 'reverseimg', 'edgeimg',
-                      'photo1', 'photo2', 'photo3', 'photo4']:
+        for field in ('obverseimg', 'reverseimg', 'edgeimg',
+                      'photo1', 'photo2', 'photo3', 'photo4'):
             img_id = record.value(field + '_id')
             value = record.value(field)
             if not value:
@@ -256,8 +256,8 @@ class CollectionModel(QSqlTableModel):
         else:
             record = super().record()
 
-        for field in ['obverseimg', 'reverseimg', 'edgeimg',
-                      'photo1', 'photo2', 'photo3', 'photo4']:
+        for field in ('obverseimg', 'reverseimg', 'edgeimg',
+                      'photo1', 'photo2', 'photo3', 'photo4'):
             record.append(QSqlField(field + '_title'))
             record.append(QSqlField(field + '_id'))
 
@@ -285,8 +285,8 @@ class CollectionModel(QSqlTableModel):
         record = super().record(row)
 
         ids = []
-        for field in ['obverseimg', 'reverseimg', 'edgeimg',
-                      'photo1', 'photo2', 'photo3', 'photo4']:
+        for field in ('obverseimg', 'reverseimg', 'edgeimg',
+                      'photo1', 'photo2', 'photo3', 'photo4'):
             value = record.value(field)
             if value:
                 ids.append(value)
@@ -316,7 +316,7 @@ class CollectionModel(QSqlTableModel):
         obverseImage = QImage()
         reverseImage = QImage()
         for field in self.fields.userFields:
-            if field.type in [Type.Image, Type.EdgeImage]:
+            if field.type in (Type.Image, Type.EdgeImage):
                 # Convert image to DB format
                 image = record.value(field.name)
                 if isinstance(image, str):

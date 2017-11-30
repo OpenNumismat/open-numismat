@@ -15,7 +15,7 @@ class CollectionPageParam(QtCore.QObject):
     def __init__(self, record, parent=None):
         QtCore.QObject.__init__(self, parent)
 
-        for name in ['id', 'title', 'isopen', 'type']:
+        for name in ('id', 'title', 'isopen', 'type'):
             setattr(self, name, record.value(name))
 
 

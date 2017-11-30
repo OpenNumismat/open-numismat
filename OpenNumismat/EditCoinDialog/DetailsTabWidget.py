@@ -529,8 +529,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 if self.reference.section('series'):
                     country.addDependent(self.items['series'].widget())
 
-        image_fields = ['obverseimg', 'reverseimg', 'edgeimg',
-                        'photo1', 'photo2', 'photo3', 'photo4']
+        image_fields = ('obverseimg', 'reverseimg', 'edgeimg',
+                        'photo1', 'photo2', 'photo3', 'photo4')
         for image_field_src in image_fields:
             for image_field_dst in image_fields:
                 if image_field_dst != image_field_src:
@@ -548,8 +548,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 if self.usedFields[record.indexOf(item.field())]:
                     item.label().setCheckState(Qt.Checked)
 
-        image_fields = ['obverseimg', 'reverseimg', 'edgeimg',
-                        'photo1', 'photo2', 'photo3', 'photo4']
+        image_fields = ('obverseimg', 'reverseimg', 'edgeimg',
+                        'photo1', 'photo2', 'photo3', 'photo4')
         for image_field in image_fields:
             title = record.value(image_field + '_title')
             if title:
@@ -614,8 +614,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def clickGenerateTitle(self):
         titleParts = []
-        for key in ['value', 'unit', 'year', 'subjectshort',
-                    'mintmark', 'variety']:
+        for key in ('value', 'unit', 'year', 'subjectshort',
+                    'mintmark', 'variety'):
             value = self.items[key].value()
             if not isinstance(value, str):
                 value = str(value)

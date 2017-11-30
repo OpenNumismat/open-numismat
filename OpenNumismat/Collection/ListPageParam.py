@@ -8,7 +8,7 @@ class ColumnListParam:
     def __init__(self, arg1, arg2=None, arg3=None):
         if isinstance(arg1, QSqlRecord):
             record = arg1
-            for name in ['fieldid', 'enabled', 'width', 'sortorder']:
+            for name in ('fieldid', 'enabled', 'width', 'sortorder'):
                 if record.isNull(name):
                     value = None
                 else:
