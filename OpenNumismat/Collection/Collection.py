@@ -793,6 +793,8 @@ class Collection(QtCore.QObject):
                             self.tr("Can't attach reference:\n%s" %
                                     query.lastError().text()))
 
+            QSqlQuery("DETACH ref", reference.db)
+
             self.reference.load()
 
             progressDlg.reset()
@@ -872,6 +874,8 @@ class Collection(QtCore.QObject):
                             self.tr("Create reference"),
                             self.tr("Can't clear attached reference:\n%s" %
                                     query.lastError().text()))
+
+            QSqlQuery("DETACH ref", reference.db)
 
             self.reference.load()
 
