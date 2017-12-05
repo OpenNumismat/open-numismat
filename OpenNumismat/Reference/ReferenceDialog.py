@@ -112,7 +112,7 @@ class ListView(QListView):
     def _clearIcon(self):
         model = self.model()
         index = model.index(self.selectedIndex().row(), model.fieldIndex('icon'))
-        model.setData(index, '')
+        model.setData(index, None)
 
 
 class ReferenceWidget(QWidget):
