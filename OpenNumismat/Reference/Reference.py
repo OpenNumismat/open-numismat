@@ -461,7 +461,9 @@ class Reference(QtCore.QObject):
                 value TEXT, icon BLOB)" % cross_ref
             QSqlQuery(sql, self.db)
 
-            sql = "INSERT INTO ref_%s SELECT * FROM old_ref_%s" % (cross_ref, cross_ref)
+            sql = "INSERT INTO ref_%s\
+                SELECT id, parentid, value, icon\
+                FROM old_ref_%s" % (cross_ref, cross_ref)
             QSqlQuery(sql, self.db)
 
             sql = "DROP TABLE old_ref_%s" % cross_ref
