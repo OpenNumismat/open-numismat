@@ -1180,7 +1180,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         if not res:
             QMessageBox.critical(self.parent(),
                                  self.tr("Synchronizing"),
-                                 self.tr("Can't open catalog:\n%s") %
+                                 self.tr("Can't open collection:\n%s") %
                                  query.lastError().text())
             return
 
