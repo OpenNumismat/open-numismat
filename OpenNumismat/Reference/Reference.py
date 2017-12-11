@@ -447,7 +447,18 @@ class Reference(QtCore.QObject):
                         return icon
         return None
 
+    def backup(self):
+        if self.fileName and self.db.connectionName() == 'reference':
+            file = QtCore.QFileInfo(self.fileName)
+            backupDir = file.dir()
+            backupFileName = backupDir.filePath("%s_%s.ref" % (file.baseName(),
+                                                               QtCore.QDateTime.currentDateTime().toString('yyMMddhhmmss')))
+            srcFile = QtCore.QFile(self.fileName)
+            srcFile.copy(backupFileName)
+
     def __updateTo1(self):
+        self.backup()
+
         self.db.transaction()
 
         for cross_ref in ('country', 'period', 'ruler',
