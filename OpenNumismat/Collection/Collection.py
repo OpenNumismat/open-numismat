@@ -962,6 +962,9 @@ class Collection(QtCore.QObject):
 
         mobile_settings = {'Version': 5, 'Type': 'Mobile', 'Filter': params['filter']}
 
+        QSqlQuery("PRAGMA synchronous=OFF", db)
+        QSqlQuery("PRAGMA journal_mode=MEMORY", db)
+
         sql = """CREATE TABLE settings (
             title CHAR NOT NULL UNIQUE,
             value CHAR)"""
@@ -1162,13 +1165,17 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             WHERE id NOT IN (SELECT id FROM photos GROUP BY image)""", db)
 
         db.close()
+        QSqlDatabase.removeDatabase('mobile')
 
         progressDlg.setLabelText(self.tr("Vacuum..."))
         db = QSqlDatabase.addDatabase('QSQLITE', 'mobile')
         db.setDatabaseName(params['file'])
         db.open()
+        QSqlQuery("PRAGMA synchronous=OFF", db)
+        QSqlQuery("PRAGMA journal_mode=MEMORY", db)
         QSqlQuery("VACUUM", db)
         db.close()
+        QSqlDatabase.removeDatabase('mobile')
 
         progressDlg.reset()
 
