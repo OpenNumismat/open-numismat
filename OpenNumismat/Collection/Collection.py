@@ -680,10 +680,10 @@ class Collection(QtCore.QObject):
     def loadReference(self, fileName):
         if self.isReferenceAttached():
             self.reference = Reference(self.fields, self.parent(), db=self.db)
-            self.reference.load()
         else:
             self.reference = Reference(self.fields, self.parent())
             self.reference.open(fileName)
+        self.reference.load()
 
     def getFileName(self):
         return QtCore.QDir(self.fileName).absolutePath()

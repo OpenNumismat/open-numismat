@@ -385,8 +385,6 @@ class Reference(QtCore.QObject):
 
         self.fileName = fileName
 
-        self.load()
-
         return True
 
     def load(self):
@@ -448,7 +446,7 @@ class Reference(QtCore.QObject):
         return None
 
     def backup(self):
-        if self.fileName and self.db.connectionName() == 'reference':
+        if self.db.connectionName() == 'reference':
             file = QtCore.QFileInfo(self.fileName)
             backupDir = file.dir()
             backupFileName = backupDir.filePath("%s_%s.ref" % (file.baseName(),
