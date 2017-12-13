@@ -1,0 +1,82 @@
+{
+    "rarity": [
+        "Common",
+        "Normal",
+        "Scarce",
+        "Rare",
+        "Unique",
+        "In sets only"
+    ],
+    "quality": [
+        "нециркулирала",
+        "Brilliant uncirculated",
+        "Proof",
+        "Proof like",
+        "Reverse frosted"
+    ],
+    "defect": [
+        "Clipped planchet",
+        "Lamination",
+        "Off center strike",
+        "Multiple strike",
+        "Mule",
+        "Doubled die",
+        "Brockage"
+    ],
+    "type": [
+        "Regular issue",
+        "Commemorative",
+        "Bullion",
+        "рестрайк",
+        "Pattern",
+        "Set",
+        "Roll"
+    ],
+    "obvrev": [
+        "Medallic (0°)",
+        "Coin (180°)"
+    ],
+    "edge": [
+        "Reeded",
+        "Decorated",
+        "Interrupted milled",
+        "Smooth",
+        "Lettered"
+    ],
+    "shape": [
+        "Round",
+        "Square",
+        "Polygon",
+        "Spanish flower",
+        "Circle with hole"
+    ],
+    "material": [
+        "Acmonital",
+        "алуминий",
+        "Aluminium bronze",
+        "антимон",
+        "месинг",
+        "бронз",
+        "кобалт",
+        "мед",
+        "Cupronickel",
+        "злато",
+        "желязо",
+        "магнезий",
+        "манган",
+        "Melchior",
+        "никел",
+        "Nickel silver",
+        "Nordic gold",
+        "паладий",
+        "платина",
+        "сребро",
+        "стомана",
+        "тантал",
+        "Tombac",
+        "телур",
+        "калай",
+        "цинк",
+        "Bimetal"
+    ]
+}

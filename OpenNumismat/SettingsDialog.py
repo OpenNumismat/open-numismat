@@ -11,11 +11,11 @@ from OpenNumismat.Settings import Settings
 
 
 class MainSettingsPage(QWidget):
-    Languages = [("Català", 'ca'), ("Čeština", 'cs'), ("English", 'en'),
-                 ("Ελληνικά", 'el'), ("Español", 'es'), ("Deutsch", 'de'),
-                 ("Français", 'fr'), ("Italiano", 'it'), ("Magyar", 'hu'),
-                 ("Nederlands", 'nl'), ("Polski", 'pl'), ("Português", 'pt'),
-                 ("Русский", 'ru'), ("Український", 'uk'),
+    Languages = [("Български", 'bg'), ("Català", 'ca'), ("Čeština", 'cs'),
+                 ("Deutsch", 'de'), ("English", 'en'), ("Ελληνικά", 'el'),
+                 ("Español", 'es'), ("Français", 'fr'), ("Italiano", 'it'),
+                 ("Magyar", 'hu'), ("Nederlands", 'nl'), ("Polski", 'pl'),
+                 ("Português", 'pt'), ("Русский", 'ru'), ("Український", 'uk'),
                  ]
 
     def __init__(self, collection, parent=None):
