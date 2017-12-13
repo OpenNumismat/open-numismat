@@ -154,7 +154,8 @@ params = {
     # include all resources
     "include_package_data": True,
     "package_data": {'': ['*.png', '*.gif', '*.jpg', '*.ico',
-        '*.js', '*.htm', '*.html', '*.css', '*.qm', '*.db', '*.ref']},
+        '*.js', '*.htm', '*.html', '*.css', '*.qm', '*.db', '*.ref',
+        '*.mplstyle']},
 #    "data_files": data_files,
 
     "py_modules": ['open-numismat', ],
