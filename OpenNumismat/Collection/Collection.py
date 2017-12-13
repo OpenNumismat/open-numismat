@@ -330,7 +330,6 @@ class CollectionModel(QSqlTableModel):
 
                     # Resize big images for storing in DB
                     sideLen = self.settings['ImageSideLen']
-                    sideLen = int(sideLen)  # forced conversion to Integer
                     if sideLen > 0:
                         maxWidth = sideLen
                         maxHeight = sideLen

@@ -104,6 +104,8 @@ class Settings(BaseSettings):
                    'show_tree_icons', 'show_filter_icons', 'show_list_icons',
                    'check_coin_title', 'check_coin_duplicate'):
             value = self.settings.value('mainwindow/' + key, self.Default[key], type=bool)
+        elif key in ('speedup', 'ImageSideLen'):
+            value = self.settings.value('mainwindow/' + key, self.Default[key], type=int)
         else:
             value = self.settings.value('mainwindow/' + key, self.Default[key])
 
