@@ -882,7 +882,7 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="SettingsDialog.py" line="222"/>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>Rinomina</translation>
     </message>
 </context>
 <context>
@@ -1023,7 +1023,7 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="ImageLabel.py" line="184"/>
         <source>Rename...</source>
-        <translation type="unfinished"/>
+        <translation>Rinomina...</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="304"/>
@@ -2177,7 +2177,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="StatisticsView.py" line="183"/>
         <source>Field:</source>
-        <translation type="unfinished"/>
+        <translation>Campo:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="188"/>
@@ -2192,7 +2192,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="StatisticsView.py" line="196"/>
         <source>Year</source>
-        <translation type="unfinished"/>
+        <translation>Anno</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="197"/>
@@ -2222,7 +2222,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="StatisticsView.py" line="206"/>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Prezzo</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="207"/>
@@ -2232,7 +2232,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="StatisticsView.py" line="339"/>
         <source>Paid</source>
-        <translation type="unfinished"/>
+        <translation>Pagato</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="342"/>

@@ -152,7 +152,7 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="805"/>
         <source>Save reference as</source>
-        <translation type="unfinished"/>
+        <translation>Guardar referencia como</translation>
     </message>
     <message>
         <location filename="Collection.py" line="805"/>
@@ -551,7 +551,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="167"/>
         <source>Seller</source>
-        <translation type="unfinished"/>
+        <translation>Vendedor</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="198"/>

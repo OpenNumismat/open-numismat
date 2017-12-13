@@ -120,7 +120,7 @@
     <message>
         <location filename="Collection.py" line="1164"/>
         <source>Vacuum...</source>
-        <translation type="unfinished"/>
+        <translation>Vákuum...</translation>
     </message>
     <message>
         <location filename="Collection.py" line="589"/>
@@ -809,7 +809,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
     <message>
         <location filename="Export.py" line="41"/>
         <source>Series</source>
-        <translation type="unfinished"/>
+        <translation>Sorozat</translation>
     </message>
     <message>
         <location filename="Export.py" line="42"/>
@@ -882,7 +882,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
     <message>
         <location filename="SettingsDialog.py" line="222"/>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>Átnevezés</translation>
     </message>
 </context>
 <context>
@@ -1023,7 +1023,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
     <message>
         <location filename="ImageLabel.py" line="184"/>
         <source>Rename...</source>
-        <translation type="unfinished"/>
+        <translation>Átnevezés...</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="304"/>
@@ -2013,7 +2013,7 @@ Copyright (C) 2011-2017 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="291"/>
         <source>Defect</source>
-        <translation type="unfinished"/>
+        <translation>Hiányosság</translation>
     </message>
     <message>
         <location filename="Reference.py" line="291"/>
@@ -2171,7 +2171,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="183"/>
         <source>Field:</source>
-        <translation type="unfinished"/>
+        <translation>Mező:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="188"/>
@@ -2186,7 +2186,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="196"/>
         <source>Year</source>
-        <translation type="unfinished"/>
+        <translation>Év</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="197"/>
@@ -2216,7 +2216,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="206"/>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Ár</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="207"/>
@@ -2226,7 +2226,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="339"/>
         <source>Paid</source>
-        <translation type="unfinished"/>
+        <translation>Fizetett</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="342"/>
@@ -2496,7 +2496,7 @@ Add a new one first.</source>
     <message>
         <location filename="VersionUpdater.py" line="339"/>
         <source>Saving...</source>
-        <translation type="unfinished"/>
+        <translation>Mentés...</translation>
     </message>
 </context>
 <context>

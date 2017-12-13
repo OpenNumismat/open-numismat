@@ -1151,7 +1151,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     <message>
         <location filename="ListView.py" line="281"/>
         <source>%d/%d coins</source>
-        <translation>%d%d moedas</translation>
+        <translation>%d/%d moedas</translation>
     </message>
     <message>
         <location filename="ListView.py" line="361"/>

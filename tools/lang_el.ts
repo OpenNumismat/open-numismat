@@ -210,30 +210,33 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="1365"/>
         <source>Synchronizing</source>
-        <translation type="unfinished"/>
+        <translation>Συγχρονισμός</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1179"/>
         <source>Can't open catalog:
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Δεν είναι δυνατό το άνοιγμα του καταλόγου:
+%s</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1190"/>
         <source>Collection %s in wrong format</source>
-        <translation type="unfinished"/>
+        <translation>Η συλλογή %s είναι σε λάθος μορφή</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1200"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
-        <translation type="unfinished"/>
+        <translation>Η συλλογή %s είναι σε παλιά μορφή.
+(Δοκιμάστε να την ανοίξετε πριν τη συγχώνευση.)</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1358"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
-        <translation type="unfinished"/>
+        <translation>Έχουν εισαχθεί %d και ενημερώθηκαν %d νομίσματα.
+Η εφαρμογή πρέπει να κάνει επανεκκίνηση τώρα.</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1364"/>
@@ -1719,12 +1722,12 @@ Copyright (C) 2011-2017 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="43"/>
         <source>Summary</source>
-        <translation type="unfinished"/>
+        <translation>Περίληψη</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="162"/>
         <source>Synchronize...</source>
-        <translation type="unfinished"/>
+        <translation>Συγχρονισμός...</translation>
     </message>
 </context>
 <context>
@@ -2296,7 +2299,7 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="17"/>
         <source>Summary</source>
-        <translation type="unfinished"/>
+        <translation>Περίληψη</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="41"/>
