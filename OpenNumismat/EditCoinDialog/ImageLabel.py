@@ -70,6 +70,9 @@ class ImageLabel(QLabel):
         self._showImage()
 
     def loadFromData(self, data):
+        if not data:
+            data = None
+
         self._data = data
 
         image = QImage()
