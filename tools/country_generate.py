@@ -43,6 +43,7 @@ for lang in langs:
     fields = CollectionFieldsBase()
     ref = Reference(fields)
     ref.open(ref_file, interactive=False)
+    ref.load()
 
     region_section = ref.section('region')
     country_section = ref.section('country')

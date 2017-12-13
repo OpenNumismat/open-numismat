@@ -45,6 +45,7 @@ for lang in langs:
     shutil.copy(src_file, dst_file)
 
     ref.open(dst_file)
+    ref.load()
 
     src_ref_file = "reference_%s.json" % lang
     if not os.path.isfile(src_ref_file):
