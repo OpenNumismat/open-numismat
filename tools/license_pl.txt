@@ -1,4 +1,4 @@
-OpenNumismat is programem darmowym: może być rozpowszechniany i/lub edytowany na warunkach Powszechnej Licencji Publicznej GNU opublikowanej przez Fundację Wolnego Oprogramowania, według wersji 3 tej Licencji lub (opcjonalnie ) dowolnej późniejszej wersji.
+﻿OpenNumismat is programem darmowym: może być rozpowszechniany i/lub edytowany na warunkach Powszechnej Licencji Publicznej GNU opublikowanej przez Fundację Wolnego Oprogramowania, według wersji 3 tej Licencji lub (opcjonalnie ) dowolnej późniejszej wersji.
 
 OpenNumismat jest rozpowszechniany w nadziei, że będzie użyteczny, ale BEZ JAKIEJKOLWIEK GWARANCJI ; bez żadnej gwarancji przydatności HANDLOWEJ albo PRZYDATNOŚCI DO OKREŚLONYCH ZASTOSOWAŃ . Zobacz GNU General Public License po więcej szczegółów.
 

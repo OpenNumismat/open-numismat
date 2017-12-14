@@ -1,4 +1,4 @@
-OpenNumismat ist freie Software: Sie können sie weitergeben und / oder modifizieren unter den Bedingungen der GNU General Public License entweder Version 3 der Lizenz oder optional jeder späteren Version, wie sie von der Free Software Foundation veröffentlicht ist.
+﻿OpenNumismat ist freie Software: Sie können sie weitergeben und / oder modifizieren unter den Bedingungen der GNU General Public License entweder Version 3 der Lizenz oder optional jeder späteren Version, wie sie von der Free Software Foundation veröffentlicht ist.
 
 OpenNumismat wird in der Hoffnung veröffentlicht, dass es nützlich ist, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizierte Garantie der TAUGLICHKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Für weitere Details lesen Sie bitte die GNU General Public License.
 
