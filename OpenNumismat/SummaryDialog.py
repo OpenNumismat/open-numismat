@@ -38,25 +38,25 @@ class SummaryDialog(QDialog):
         query = QSqlQuery(sql, model.database())
         if query.first():
             totalCount = query.record().value(0)
-            lines.append(self.tr("Total count: %d" % totalCount))
+            lines.append(self.tr("Total count: %d") % totalCount)
 
         sql = "SELECT count(*) FROM coins WHERE status IN ('owned', 'ordered', 'sale')"
         query = QSqlQuery(sql, model.database())
         if query.first():
             count = query.record().value(0)
-            lines.append(self.tr("Count owned: %d" % count))
+            lines.append(self.tr("Count owned: %d") % count)
 
         sql = "SELECT count(*) FROM coins WHERE status='wish'"
         query = QSqlQuery(sql, model.database())
         if query.first():
             count = query.record().value(0)
-            lines.append(self.tr("Count wish: %d" % count))
+            lines.append(self.tr("Count wish: %d") % count)
 
         sql = "SELECT count(*) FROM coins WHERE status='sold')"
         query = QSqlQuery(sql, model.database())
         if query.first():
             count = query.record().value(0)
-            lines.append(self.tr("Count sales: %d" % count))
+            lines.append(self.tr("Count sales: %d") % count)
 
         paid = 0
         sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
@@ -64,7 +64,7 @@ class SummaryDialog(QDialog):
         if query.first():
             paid = query.record().value(0)
             if paid:
-                lines.append(self.tr("Paid: %.2f" % paid))
+                lines.append(self.tr("Paid: %.2f") % paid)
 
         earned = 0
         sql = "SELECT SUM(totalsaleprice) FROM coins WHERE status='sold' AND totalsaleprice<>'' AND totalsaleprice IS NOT NULL"
@@ -72,7 +72,7 @@ class SummaryDialog(QDialog):
         if query.first():
             earned = query.record().value(0)
             if earned:
-                lines.append(self.tr("Earned: %.2f" % earned))
+                lines.append(self.tr("Earned: %.2f") % earned)
 
         if paid and earned:
             total = (paid - earned)
@@ -83,7 +83,7 @@ class SummaryDialog(QDialog):
         if query.first():
             date = QDate.fromString(query.record().value(0), Qt.ISODate)
             paydate = date.toString(Qt.SystemLocaleShortDate)
-            lines.append(self.tr("First purchase: %s" % paydate))
+            lines.append(self.tr("First purchase: %s") % paydate)
 
         sql = "SELECT UPPER(grade), price1, price2, price3, price4 FROM coins WHERE status IN ('owned', 'ordered', 'sale') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
         query = QSqlQuery(sql, model.database())
@@ -120,9 +120,9 @@ class SummaryDialog(QDialog):
                 count += 1
 
             if count:
-                comment = self.tr("(calculated for %d coins)" % count)
+                comment = self.tr("(calculated for %d coins)") % count
 
-        lines.append(' '.join((self.tr("Estimation owned: %d" % est_owned), comment)))
+        lines.append(' '.join((self.tr("Estimation owned: %d") % est_owned, comment)))
 
         sql = "SELECT price1, price2, price3, price4 FROM coins WHERE status='wish' AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
         query = QSqlQuery(sql, model.database())
@@ -143,8 +143,8 @@ class SummaryDialog(QDialog):
                 count += 1
 
             if count:
-                comment = self.tr("(calculated for %d coins)" % count)
+                comment = self.tr("(calculated for %d coins)") % count
 
-        lines.append(' '.join((self.tr("Estimation wish: %d" % est_wish), comment)))
+        lines.append(' '.join((self.tr("Estimation wish: %d") % est_wish, comment)))
 
         self.textBox.setText('\n'.join(lines))

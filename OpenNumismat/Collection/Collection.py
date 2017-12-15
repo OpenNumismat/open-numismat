@@ -789,8 +789,8 @@ class Collection(QtCore.QObject):
                 progressDlg.reset()
                 QMessageBox.critical(self.parent(),
                             self.tr("Attaching reference"),
-                            self.tr("Can't attach reference:\n%s" %
-                                    query.lastError().text()))
+                            self.tr("Can't attach reference:\n%s") %
+                                    query.lastError().text())
 
             QSqlQuery("DETACH ref", reference.db)
 
@@ -824,8 +824,8 @@ class Collection(QtCore.QObject):
                 progressDlg.reset()
                 QMessageBox.critical(self.parent(),
                             self.tr("Detach reference"),
-                            self.tr("Can't detach reference:\n%s" %
-                                    query.lastError().text()))
+                            self.tr("Can't detach reference:\n%s") %
+                                    query.lastError().text())
                 return
 
             reference.db.transaction()
@@ -845,7 +845,7 @@ class Collection(QtCore.QObject):
                 progressDlg.reset()
                 QMessageBox.critical(self.parent(),
                             self.tr("Create reference"),
-                            self.tr("Can't create reference:\n%s" % fileName))
+                            self.tr("Can't create reference:\n%s") % fileName)
                 return
 
             for section in self.reference.sections:
@@ -871,8 +871,8 @@ class Collection(QtCore.QObject):
                 self.db.rollback()
                 QMessageBox.critical(self.parent(),
                             self.tr("Create reference"),
-                            self.tr("Can't clear attached reference:\n%s" %
-                                    query.lastError().text()))
+                            self.tr("Can't clear attached reference:\n%s") %
+                                    query.lastError().text())
 
             QSqlQuery("DETACH ref", reference.db)
 

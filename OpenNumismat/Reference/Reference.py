@@ -338,7 +338,7 @@ class Reference(QtCore.QObject):
                 print(self.db.lastError().text())
                 QMessageBox.critical(self.parent(),
                             self.tr("Open reference"),
-                            self.tr("Can't open reference:\n%s" % fileName))
+                            self.tr("Can't open reference:\n%s") % fileName)
                 return False
             else:
                 # Update reference DB for version 1.4.3
@@ -372,14 +372,14 @@ class Reference(QtCore.QObject):
             if interactive:
                 QMessageBox.warning(self.parent(),
                             self.tr("Open reference"),
-                            self.tr("Can't open reference:\n%s\nCreated new one" % fileName))
+                            self.tr("Can't open reference:\n%s\nCreated new one") % fileName)
 
             self.db.setDatabaseName(fileName)
             if not self.db.open():
                 print(self.db.lastError().text())
                 QMessageBox.critical(self.parent(),
                             self.tr("Create reference"),
-                            self.tr("Can't create reference:\n%s" % fileName))
+                            self.tr("Can't create reference:\n%s") % fileName)
                 return False
             self.create()
 
