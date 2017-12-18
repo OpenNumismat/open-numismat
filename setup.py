@@ -235,7 +235,8 @@ if cx_Freeze_available:
             "excludes": [],
             "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork", "PyQt5.QtWebKit"],
             "include_files": include_files,
-            "replace_paths": [(os.path.dirname(__file__) + os.sep, '')]
+            "replace_paths": [(os.path.dirname(__file__) + os.sep, '')],
+            "include_msvcr": True  # skip error msvcr100.dll missing
     }
 
     params["executables"] = [executable]
