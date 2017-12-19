@@ -3,7 +3,9 @@ from PyQt5.QtGui import QImage, QKeySequence
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
+from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+from OpenNumismat.Tools.SortFilterProxyModel import StringSortProxyModel
 
 
 class ListView(QListView):
@@ -204,8 +206,13 @@ class CrossReferenceWidget(ReferenceWidget):
         self.rel = self.model.relationModel(1)
 
         self.comboBox = QComboBox(parent)
-        self.comboBox.setModel(self.rel)
+        self.proxyModel = StringSortProxyModel(self)
+        self.proxyModel.setSourceModel(self.rel)
+        if section.parentRef.sort:
+            self.proxyModel.sort(self.rel.fieldIndex('value'))
+        self.comboBox.setModel(self.proxyModel)
         self.comboBox.setModelColumn(self.rel.fieldIndex('value'))
+
         if parentIndex:
             row = parentIndex.row()
         else:
@@ -220,7 +227,7 @@ class CrossReferenceWidget(ReferenceWidget):
     def currentIndexChanged(self, index):
         if index >= 0:
             idIndex = self.rel.fieldIndex('id')
-            parentId = self.rel.data(self.rel.index(index, idIndex))
+            parentId = self.proxyModel.data(self.proxyModel.index(index, idIndex))
             self.model.setFilter('%s.parentid=%d' % (self.model.tableName(), parentId))
         else:
             self.model.setFilter(None)
@@ -230,8 +237,8 @@ class CrossReferenceWidget(ReferenceWidget):
 
     def addItem(self):
         idIndex = self.rel.fieldIndex('id')
-        index = self.rel.index(self.comboBox.currentIndex(), idIndex)
-        parentId = self.rel.data(index)
+        index = self.proxyModel.index(self.comboBox.currentIndex(), idIndex)
+        parentId = self.proxyModel.data(index)
 
         row = self.model.rowCount()
         self.model.insertRow(row)

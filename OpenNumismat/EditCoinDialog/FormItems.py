@@ -3,14 +3,14 @@
 import locale
 
 from PyQt5.QtCore import QMargins, QUrl, QDate, Qt
-from PyQt5.QtCore import QSortFilterProxyModel, QCollator, QLocale
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.Gui import createIcon
 from OpenNumismat.Tools.Converters import numberWithFraction
-from OpenNumismat.Settings import Settings
+from OpenNumismat.Tools.SortFilterProxyModel import StringSortProxyModel
 
 
 # Reimplementing QDoubleValidator for replace comma with dot
@@ -201,24 +201,6 @@ class UrlLineEdit(QWidget):
             self.buttonOpen.show()
 
 
-class SortFilterProxyModel(QSortFilterProxyModel):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        locale = Settings()['locale']
-        self.collator = QCollator(QLocale(locale))
-
-    def sort(self, column, order=Qt.AscendingOrder):
-        self.model = self.sourceModel()
-        super().sort(column, order)
-
-    def lessThan(self, left, right):
-        leftData = self.model.data(left, Qt.DisplayRole)
-        rightData = self.model.data(right, Qt.DisplayRole)
-
-        return self.collator.compare(leftData, rightData) < 0
-
-
 class LineEditRef(QWidget):
     def __init__(self, reference, parent=None):
         super().__init__(parent)
@@ -230,7 +212,7 @@ class LineEditRef(QWidget):
         self.comboBox.setInsertPolicy(QComboBox.NoInsert)
 
         self.model = reference.model
-        self.proxyModel = SortFilterProxyModel(self)
+        self.proxyModel = StringSortProxyModel(self)
         self.proxyModel.setSourceModel(self.model)
         if reference.sort:
             self.proxyModel.sort(self.model.fieldIndex('value'))
@@ -282,7 +264,7 @@ class LineEditRef(QWidget):
         if index >= 0:
             idIndex = self.model.fieldIndex('id')
             parentIndex = self.proxyModel.index(index, idIndex)
-            parent_id = self.proxyModel.data(parentIndex)
+            parent_id = parentIndex.data()
             if parent_id:
                 for dependent in self.dependents:
                     text = dependent.text()
