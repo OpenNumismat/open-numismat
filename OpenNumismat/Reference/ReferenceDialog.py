@@ -3,7 +3,6 @@ from PyQt5.QtGui import QImage, QKeySequence
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
-from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.SortFilterProxyModel import StringSortProxyModel
 
@@ -126,13 +125,18 @@ class ReferenceWidget(QWidget):
         self.listWidget = ListView(self, parent)
         self.listWidget.setSelectionMode(
                                     QAbstractItemView.SingleSelection)
-        self.listWidget.setModel(self.model)
+        self.proxyModel = StringSortProxyModel(self)
+        self.proxyModel.setSourceModel(self.model)
+        if section.sort:
+            self.proxyModel.sort(self.model.fieldIndex('value'))
+        self.listWidget.setModel(self.proxyModel)
         self.listWidget.setModelColumn(self.model.fieldIndex('value'))
 
         startIndex = self.model.index(0, self.model.fieldIndex('value'))
         indexes = self.model.match(startIndex, 0, text,
                                    flags=Qt.MatchFixedString)
         if indexes:
+            # TODO: Not work
             self.listWidget.setCurrentIndex(indexes[0])
 
         # TODO: Customize edit buttons
@@ -167,10 +171,9 @@ class ReferenceWidget(QWidget):
 
     def sortChanged(self, state):
         if state == Qt.Checked:
-            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
+            self.proxyModel.sort(self.model.fieldIndex('value'))
         else:
-            self.model.setSort(0, Qt.AscendingOrder)
-        self.model.select()
+            self.proxyModel.sort(-1)
 
     def selectedIndex(self):
         return self.listWidget.selectedIndex()
@@ -182,17 +185,19 @@ class ReferenceWidget(QWidget):
             self.deleteItem()
 
     def addItem(self):
-        row = self.model.rowCount()
-        self.model.insertRow(row)
-        index = self.model.index(row, self.model.fieldIndex('value'))
-        self.model.setData(index, self.listWidget.defaultValue())
+        self.proxyModel.setDynamicSortFilter(False)
+        row = self.proxyModel.rowCount()
+        self.proxyModel.insertRow(row)
+        index = self.proxyModel.index(row, self.model.fieldIndex('value'))
+        self.proxyModel.setData(index, self.listWidget.defaultValue())
         self.listWidget.setCurrentIndex(index)
         self.listWidget.edit(index)
+        self.proxyModel.setDynamicSortFilter(True)
 
     def deleteItem(self):
         index = self.selectedIndex()
         if index:
-            if self.model.removeRow(index.row()):
+            if self.proxyModel.removeRow(index.row()):
                 self.model.select()
 
     def isEnabled(self):
@@ -206,11 +211,11 @@ class CrossReferenceWidget(ReferenceWidget):
         self.rel = self.model.relationModel(1)
 
         self.comboBox = QComboBox(parent)
-        self.proxyModel = StringSortProxyModel(self)
-        self.proxyModel.setSourceModel(self.rel)
+        self.crossProxyModel = StringSortProxyModel(self)
+        self.crossProxyModel.setSourceModel(self.rel)
         if section.parentRef.sort:
-            self.proxyModel.sort(self.rel.fieldIndex('value'))
-        self.comboBox.setModel(self.proxyModel)
+            self.crossProxyModel.sort(self.rel.fieldIndex('value'))
+        self.comboBox.setModel(self.crossProxyModel)
         self.comboBox.setModelColumn(self.rel.fieldIndex('value'))
 
         if parentIndex:
@@ -227,7 +232,7 @@ class CrossReferenceWidget(ReferenceWidget):
     def currentIndexChanged(self, index):
         if index >= 0:
             idIndex = self.rel.fieldIndex('id')
-            parentId = self.proxyModel.data(self.proxyModel.index(index, idIndex))
+            parentId = self.crossProxyModel.data(self.crossProxyModel.index(index, idIndex))
             self.model.setFilter('%s.parentid=%d' % (self.model.tableName(), parentId))
         else:
             self.model.setFilter(None)
@@ -236,24 +241,31 @@ class CrossReferenceWidget(ReferenceWidget):
         self.editButtonBox.setEnabled(index >= 0)
 
     def addItem(self):
+        self.proxyModel.setDynamicSortFilter(False)
         idIndex = self.rel.fieldIndex('id')
-        index = self.proxyModel.index(self.comboBox.currentIndex(), idIndex)
-        parentId = self.proxyModel.data(index)
+        index = self.crossProxyModel.index(self.comboBox.currentIndex(), idIndex)
+        parentId = self.crossProxyModel.data(index)
 
-        row = self.model.rowCount()
-        self.model.insertRow(row)
-        index = self.model.index(row, self.model.parentidIndex)
-        self.model.setData(index, parentId)
-        index = self.model.index(row, self.model.fieldIndex('value'))
-        self.model.setData(index, self.listWidget.defaultValue())
+        row = self.proxyModel.rowCount()
+        self.proxyModel.insertRow(row)
+        index = self.proxyModel.index(row, self.model.parentidIndex)
+        self.proxyModel.setData(index, parentId)
+        index = self.proxyModel.index(row, self.model.fieldIndex('value'))
+        self.proxyModel.setData(index, self.listWidget.defaultValue())
         self.listWidget.setCurrentIndex(index)
         self.listWidget.edit(index)
+        self.proxyModel.setDynamicSortFilter(True)
 
     def deleteItem(self):
         index = self.selectedIndex()
         if index:
-            if self.model.removeRow(index.row()):
-                self.model.select()
+            # TODO: Work around bug in Qt 5.5
+            # if self.proxyModel.removeRow(index.row()):
+            #     self.model.select()
+            self.proxyModel.beginRemoveRows(index, index.row(), index.row())
+            self.proxyModel.removeRow(index.row())
+            self.proxyModel.endRemoveRows()
+            self.model.select()
 
     def isEnabled(self):
         return self.comboBox.currentIndex() >= 0
