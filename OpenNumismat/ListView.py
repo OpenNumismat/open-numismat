@@ -4,6 +4,7 @@ import os.path
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, pyqtSignal, QSortFilterProxyModel
+from PyQt5.QtCore import QCollator, QLocale
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -60,8 +61,11 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         super().__init__(parent)
         self.setDynamicSortFilter(True)
 
+        locale = Settings()['locale']
+        self.collator = QCollator(QLocale(locale))
+        self.collator.setNumericMode(True)
+
     def sort(self, column, order=Qt.AscendingOrder):
-        self.order = order
         self.model = self.sourceModel()
         super().sort(column, order)
 
@@ -69,23 +73,12 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         leftData = self.model.dataDisplayRole(left)
         rightData = self.model.dataDisplayRole(right)
 
-# TODO: Check this after porting to PyQt5
-#         if self.order == Qt.AscendingOrder:
-#             print(leftData, type(leftData))
-#             if leftData == '' or leftData.isNull():
-#                 return False
-#             elif rightData == '' or rightData.isNull():
-#                 return True
-#         else:
-#             if rightData == '' or rightData.isNull():
-#                 return False
-#             elif leftData == '' or leftData.isNull():
-#                 return True
-
         if isinstance(leftData, str):
             rightData = str(rightData)
+            return self.collator.compare(leftData, rightData) < 0
         elif isinstance(rightData, str):
             leftData = str(leftData)
+            return self.collator.compare(leftData, rightData) < 0
 
         return leftData < rightData
 
