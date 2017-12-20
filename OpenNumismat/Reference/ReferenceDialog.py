@@ -226,7 +226,6 @@ class CrossReferenceWidget(ReferenceWidget):
             self.model.setFilter('%s.parentid=%d' % (self.model.tableName(), parentId))
         else:
             self.model.setFilter(None)
-        self.model.select()
 
         self.editButtonBox.setEnabled(index >= 0)
 
@@ -346,7 +345,6 @@ class AllReferenceDialog(QDialog):
             else:
                 widget = ReferenceWidget(section, '', self)
 
-            widget.sortButton.setChecked(section.sort)
             self.widgets[section.name] = widget
             tab.addTab(widget, section.title)
 

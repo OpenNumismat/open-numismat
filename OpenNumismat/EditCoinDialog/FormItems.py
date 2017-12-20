@@ -267,7 +267,6 @@ class LineEditRef(QWidget):
                     reference = dependent.reference
                     reference.model.setFilter(
                         '%s.parentid=%d' % (reference.model.tableName(), parent_id))
-                    reference.model.select()
                     reference.parentIndex = parentIndex
                     dependent.setText(text)
         else:
@@ -278,7 +277,6 @@ class LineEditRef(QWidget):
                     reference.model.setFilter('0')  # nothing select
                 else:
                     reference.model.setFilter(None)
-                reference.model.select()
                 reference.parentIndex = None
                 dependent.setText(text)
 
