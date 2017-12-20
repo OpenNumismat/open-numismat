@@ -5,9 +5,17 @@ from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
+from OpenNumismat.Tools.SortFilterProxyModel import StringSortProxyModel
 
 
 class SqlTableModel(QtSql.QSqlTableModel):
+
+    def __init__(self, parent, db):
+        super().__init__(parent, db)
+
+        self._proxyModel = StringSortProxyModel(self)
+        self._proxyModel.setSourceModel(self)
+
     def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DecorationRole:
             if index.row() < 0:
@@ -21,12 +29,23 @@ class SqlTableModel(QtSql.QSqlTableModel):
 
         return super().data(index, role)
 
+    def proxyModel(self):
+        return self._proxyModel
+
+    def sort(self, sort=True):
+        if sort:
+            self._proxyModel.sort(self.fieldIndex('value'))
+        else:
+            self._proxyModel.sort(-1)
+
 
 class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
     def __init__(self, model, parent, db):
         super().__init__(parent, db)
 
         self.model = model
+        self._proxyModel = StringSortProxyModel(self)
+        self._proxyModel.setSourceModel(self)
 
     def relationModel(self, _column):
         return self.model
@@ -43,6 +62,15 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
             return icon
 
         return super().data(index, role)
+
+    def proxyModel(self):
+        return self._proxyModel
+
+    def sort(self, sort=True):
+        if sort:
+            self._proxyModel.sort(self.fieldIndex('value'))
+        else:
+            self._proxyModel.sort(-1)
 
 
 class BaseReferenceSection(QtCore.QObject):
@@ -86,10 +114,7 @@ class BaseReferenceSection(QtCore.QObject):
                 self.changed.emit(old_text)
 
     def setSort(self):
-        if self.sort:
-            self.model.setSort(self.model.fieldIndex('value'), Qt.AscendingOrder)
-        else:
-            self.model.setSort(0, Qt.AscendingOrder)
+        self.model.sort(self.sort)
 
     def getSort(self):
         query = QSqlQuery(self.db)

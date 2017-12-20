@@ -10,7 +10,6 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.Gui import createIcon
 from OpenNumismat.Tools.Converters import numberWithFraction
-from OpenNumismat.Tools.SortFilterProxyModel import StringSortProxyModel
 
 
 # Reimplementing QDoubleValidator for replace comma with dot
@@ -212,10 +211,7 @@ class LineEditRef(QWidget):
         self.comboBox.setInsertPolicy(QComboBox.NoInsert)
 
         self.model = reference.model
-        self.proxyModel = StringSortProxyModel(self)
-        self.proxyModel.setSourceModel(self.model)
-        if reference.sort:
-            self.proxyModel.sort(self.model.fieldIndex('value'))
+        self.proxyModel = self.model.proxyModel()
         self.comboBox.setModel(self.proxyModel)
         self.comboBox.setModelColumn(self.model.fieldIndex('value'))
 

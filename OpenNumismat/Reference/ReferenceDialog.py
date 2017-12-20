@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
-from OpenNumismat.Tools.SortFilterProxyModel import StringSortProxyModel
 
 
 class ListView(QListView):
@@ -107,12 +106,12 @@ class ListView(QListView):
                 scaledImage.save(buffer, 'png')
 
                 model = self.model()
-                index = model.index(self.selectedIndex().row(), model.fieldIndex('icon'))
+                index = model.index(self.selectedIndex().row(), model.sourceModel().fieldIndex('icon'))
                 model.setData(index, ba)
 
     def _clearIcon(self):
         model = self.model()
-        index = model.index(self.selectedIndex().row(), model.fieldIndex('icon'))
+        index = model.index(self.selectedIndex().row(), model.sourceModel().fieldIndex('icon'))
         model.setData(index, None)
 
 
@@ -125,10 +124,7 @@ class ReferenceWidget(QWidget):
         self.listWidget = ListView(self, parent)
         self.listWidget.setSelectionMode(
                                     QAbstractItemView.SingleSelection)
-        self.proxyModel = StringSortProxyModel(self)
-        self.proxyModel.setSourceModel(self.model)
-        if section.sort:
-            self.proxyModel.sort(self.model.fieldIndex('value'))
+        self.proxyModel = self.model.proxyModel()
         self.listWidget.setModel(self.proxyModel)
         self.listWidget.setModelColumn(self.model.fieldIndex('value'))
 
@@ -170,10 +166,7 @@ class ReferenceWidget(QWidget):
         self.setLayout(layout)
 
     def sortChanged(self, state):
-        if state == Qt.Checked:
-            self.proxyModel.sort(self.model.fieldIndex('value'))
-        else:
-            self.proxyModel.sort(-1)
+        self.model.sort(state == Qt.Checked)
 
     def selectedIndex(self):
         return self.listWidget.selectedIndex()
@@ -211,10 +204,7 @@ class CrossReferenceWidget(ReferenceWidget):
         self.rel = self.model.relationModel(1)
 
         self.comboBox = QComboBox(parent)
-        self.crossProxyModel = StringSortProxyModel(self)
-        self.crossProxyModel.setSourceModel(self.rel)
-        if section.parentRef.sort:
-            self.crossProxyModel.sort(self.rel.fieldIndex('value'))
+        self.crossProxyModel = self.rel.proxyModel()
         self.comboBox.setModel(self.crossProxyModel)
         self.comboBox.setModelColumn(self.rel.fieldIndex('value'))
 
