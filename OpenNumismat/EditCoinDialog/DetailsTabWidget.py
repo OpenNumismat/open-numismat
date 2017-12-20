@@ -162,8 +162,9 @@ class DetailsTabWidget(QTabWidget):
         if not record.isEmpty():
             # Fields with commission dependent on status field and should be
             # filled after it and in right order
-            ordered_item_keys = ['status', 'payprice', 'totalpayprice',
-                                 'saleprice', 'totalsaleprice']
+            ordered_item_keys = ('status', 'payprice', 'totalpayprice',
+                                 'saleprice', 'totalsaleprice',
+                                 'region', 'country')
             for key in ordered_item_keys:
                 if key in self.items:
                     item = self.items[key]
