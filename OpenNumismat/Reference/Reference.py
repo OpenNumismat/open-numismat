@@ -1,11 +1,18 @@
 from PyQt5 import QtCore, QtSql
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtCore import QSortFilterProxyModel
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
-from OpenNumismat.Tools.SortFilterProxyModel import StringSortProxyModel
+
+
+class StringSortProxyModel(QSortFilterProxyModel):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setSortLocaleAware(True)
 
 
 class SqlTableModel(QtSql.QSqlTableModel):
