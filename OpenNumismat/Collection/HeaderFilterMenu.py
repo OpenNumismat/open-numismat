@@ -42,12 +42,6 @@ class FilterMenuButton(QPushButton):
     def prepareMenu(self):
         self.listWidget = QListWidget(self)
 
-        item = QListWidgetItem(self.tr("(Select all)"), self.listWidget,
-                                     FilterMenuButton.SelectAllType)
-        item.setData(Qt.UserRole, self.tr("(Select all)"))
-        item.setCheckState(Qt.PartiallyChecked)
-        self.listWidget.addItem(item)
-
         filters = self.filters.copy()
         appliedValues = []
         columnFilters = None
@@ -86,8 +80,8 @@ class FilterMenuButton(QPushButton):
                     label = self.tr("(Text)")
                 else:
                     label = self.tr("(Data)")
-                item = QListWidgetItem(label, self.listWidget,
-                                             FilterMenuButton.DataType)
+                item = QListWidgetItem(label,
+                                       type=FilterMenuButton.DataType)
                 item.setData(Qt.UserRole, label)
                 item.setCheckState(Qt.Checked)
                 if columnFilters and columnFilters.hasData():
@@ -97,15 +91,14 @@ class FilterMenuButton(QPushButton):
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
-            sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
-            if self.settings['sort_filter']:
-                sql += " ORDER BY %s ASC" % self.columnName
+            sql = "SELECT DISTINCT %s FROM coins %s ORDER BY %s ASC" % (
+                self.columnName, filtersSql, self.columnName)
             query = QSqlQuery(sql, self.db)
 
             while query.next():
                 value = query.record().value(0)
                 label = Statuses[value]
-                item = QListWidgetItem(label, self.listWidget)
+                item = QListWidgetItem(label)
                 item.setData(Qt.UserRole, value)
                 if value in appliedValues:
                     if revert:
@@ -123,8 +116,6 @@ class FilterMenuButton(QPushButton):
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
             sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
-            if self.settings['sort_filter']:
-                sql += " ORDER BY %s ASC" % self.columnName
             query = QSqlQuery(sql, self.db)
 
             while query.next():
@@ -144,7 +135,7 @@ class FilterMenuButton(QPushButton):
                 if not label:
                     hasBlanks = True
                     continue
-                item = QListWidgetItem(label, self.listWidget)
+                item = QListWidgetItem(label)
                 item.setData(Qt.UserRole, data)
                 if icon:
                     item.setIcon(icon)
@@ -160,9 +151,17 @@ class FilterMenuButton(QPushButton):
                         item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
 
+            self.listWidget.sortItems()
+
+        item = QListWidgetItem(self.tr("(Select all)"),
+                               type=FilterMenuButton.SelectAllType)
+        item.setData(Qt.UserRole, self.tr("(Select all)"))
+        item.setCheckState(Qt.PartiallyChecked)
+        self.listWidget.insertItem(0, item)
+
         if hasBlanks:
-            item = QListWidgetItem(self.tr("(Blanks)"), self.listWidget,
-                                         FilterMenuButton.BlanksType)
+            item = QListWidgetItem(self.tr("(Blanks)"),
+                                   type=FilterMenuButton.BlanksType)
             item.setData(Qt.UserRole, self.tr("(Blanks)"))
             item.setCheckState(Qt.Checked)
             if revert:

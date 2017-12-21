@@ -109,11 +109,6 @@ class MainSettingsPage(QWidget):
         self.storeSorting.setChecked(settings['store_sorting'])
         layout.addRow(self.storeSorting)
 
-        self.sortFilter = QCheckBox(
-                            self.tr("Sort items in filters (slow)"), self)
-        self.sortFilter.setChecked(settings['sort_filter'])
-        layout.addRow(self.sortFilter)
-
         self.sortTree = QCheckBox(
                             self.tr("Sort items in tree (slow)"), self)
         self.sortTree.setChecked(settings['sort_tree'])
@@ -182,7 +177,6 @@ class MainSettingsPage(QWidget):
         settings['free_numeric'] = self.freeNumeric.isChecked()
         settings['convert_fraction'] = self.convertFraction.isChecked()
         settings['store_sorting'] = self.storeSorting.isChecked()
-        settings['sort_filter'] = self.sortFilter.isChecked()
         settings['sort_tree'] = self.sortTree.isChecked()
         settings['show_tree_icons'] = self.showTreeIcons.isChecked()
         settings['show_filter_icons'] = self.showFilterIcons.isChecked()
