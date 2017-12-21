@@ -23,7 +23,7 @@ class SummaryDialog(QDialog):
         self.textBox = QTextEdit(self)
         self.textBox.setReadOnly(True)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(self.textBox)
         layout.addWidget(buttonBox)
 

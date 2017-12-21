@@ -36,7 +36,7 @@ class EditCoinDialog(QDialog):
         self.buttonBox.rejected.connect(self.reject)
         self.buttonBox.clicked.connect(self.clicked)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(self.tab)
         layout.addWidget(self.buttonBox)
 

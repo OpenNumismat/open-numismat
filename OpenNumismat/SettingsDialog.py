@@ -219,7 +219,7 @@ class FieldsSettingsPage(QWidget):
         self.defaultFieldsButton.setSizePolicy(QSizePolicy.Fixed,
                                                QSizePolicy.Fixed)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(QLabel(self.tr("Global enabled fields:"), self))
         layout.addWidget(self.listWidget)
 
@@ -282,7 +282,7 @@ class SettingsDialog(QDialog):
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(self.tab)
         layout.addWidget(buttonBox)
 

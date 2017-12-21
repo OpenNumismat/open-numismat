@@ -23,7 +23,7 @@ class ImageView(QWidget):
 
         self.currentIndex = None
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
 
         self.imageLayout = QVBoxLayout()
         self.imageLayout.setContentsMargins(QtCore.QMargins())
@@ -432,7 +432,7 @@ class DetailsView(QWidget):
 
         self.resize(0, 120)
 
-        self.layout = QVBoxLayout(self)
+        self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
     def setModel(self, model):

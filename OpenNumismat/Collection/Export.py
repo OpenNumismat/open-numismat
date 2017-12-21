@@ -84,7 +84,7 @@ class ExportDialog(QDialog):
         buttonBox.accepted.connect(self.start)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addLayout(form)
         layout.addWidget(buttonBox)
 

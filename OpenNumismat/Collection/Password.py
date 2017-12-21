@@ -36,7 +36,7 @@ class PasswordDialog(QDialog):
         buttonBox.accepted.connect(self.apply)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addLayout(mainLayout)
         layout.addWidget(buttonBox)
 
@@ -81,7 +81,7 @@ class PasswordSetDialog(QDialog):
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addLayout(mainLayout)
         layout.addWidget(buttonBox)
 

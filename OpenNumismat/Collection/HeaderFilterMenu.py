@@ -233,7 +233,7 @@ class FilterMenuButton(QPushButton):
         self.buttonBox.accepted.connect(self.apply)
         self.buttonBox.rejected.connect(self.menu().hide)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(self.searchBox)
         layout.addWidget(self.listWidget)
         layout.addWidget(self.buttonBox)

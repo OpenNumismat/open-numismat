@@ -184,9 +184,9 @@ class DetailsTabWidget(QTabWidget):
         for item in self.items.values():
             item.widget().clear()
 
-    def mainDetailsLayout(self, parent=None):
+    def mainDetailsLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Main details")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['title'])
         layout.addRow(self.items['region'])
@@ -202,9 +202,9 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def stateLayout(self, parent=None):
+    def stateLayout(self):
         title = QApplication.translate('DetailsTabWidget', "State")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['status'], self.items['grade'])
         self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
@@ -215,7 +215,7 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def emptyMarketLayout(self, parent=None):
+    def emptyMarketLayout(self):
         text = QApplication.translate('DetailsTabWidget',
                 "Nothing to show. Change the coin status on previous tab")
         label = QLabel(text)
@@ -224,9 +224,9 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def payLayout(self, parent=None):
+    def payLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Buy")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['paydate'], self.items['payprice'])
 
@@ -240,9 +240,9 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def saleLayout(self, parent=None):
+    def saleLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Sale")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['saledate'], self.items['saleprice'])
 
@@ -256,9 +256,9 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def passLayout(self, parent=None):
+    def passLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Pass")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['saledate'], self.items['saleprice'])
 
@@ -278,9 +278,9 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def parametersLayout(self, parent=None):
+    def parametersLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Parameters")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['material'])
         layout.addRow(self.items['fineness'], self.items['weight'])
@@ -290,9 +290,9 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def mintingLayout(self, parent=None):
+    def mintingLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Minting")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['issuedate'], self.items['mintage'])
         layout.addRow(self.items['dateemis'])
@@ -304,49 +304,49 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def noteLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+    def noteLayout(self):
+        layout = BaseFormLayout()
 
         layout.addRow(self.items['note'])
 
         return layout
 
-    def obverseDesignLayout(self, parent=None):
+    def obverseDesignLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Obverse")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['obversedesign'])
         layout.addRow(self.items['obversedesigner'])
 
         return layout
 
-    def reverseDesignLayout(self, parent=None):
+    def reverseDesignLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Reverse")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['reversedesign'])
         layout.addRow(self.items['reversedesigner'])
 
         return layout
 
-    def edgeDesignLayout(self, parent=None):
+    def edgeDesignLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Edge")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['edge'])
         layout.addRow(self.items['edgelabel'])
 
         return layout
 
-    def subjectLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+    def subjectLayout(self):
+        layout = BaseFormLayout()
 
         layout.addRow(self.items['subject'])
 
         return layout
 
-    def rarityLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+    def rarityLayout(self):
+        layout = BaseFormLayout()
 
         item = self.items['rarity']
         layout.addHalfRow(item)
@@ -355,27 +355,27 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def catalogueLayout(self, parent=None):
+    def catalogueLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Catalogue")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['catalognum1'], self.items['catalognum2'])
         layout.addRow(self.items['catalognum3'], self.items['catalognum4'])
 
         return layout
 
-    def priceLayout(self, parent=None):
+    def priceLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Price")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['price1'], self.items['price2'])
         layout.addRow(self.items['price3'], self.items['price4'])
 
         return layout
 
-    def variationLayout(self, parent=None):
+    def variationLayout(self):
         title = QApplication.translate('DetailsTabWidget', "Variation")
-        layout = BaseFormGroupBox(title, parent)
+        layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['variety'])
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
@@ -383,8 +383,8 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def urlLayout(self, parent=None):
-        layout = BaseFormLayout(parent)
+    def urlLayout(self):
+        layout = BaseFormLayout()
 
         layout.addRow(self.items['url'])
 
@@ -554,11 +554,11 @@ class FormDetailsTabWidget(DetailsTabWidget):
             if title:
                 self.items[image_field].widget().setTitle(title)
 
-    def mainDetailsLayout(self, parent=None):
-        layout = BaseFormGroupBox(self.tr("Main details"), parent)
+    def mainDetailsLayout(self):
+        layout = BaseFormGroupBox(self.tr("Main details"))
         layout.layout.columnCount = 6
 
-        btn = QPushButton(self.tr("Generate"), parent)
+        btn = QPushButton(self.tr("Generate"))
         btn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         btn.clicked.connect(self.clickGenerateTitle)
         layout.addRow(self.items['title'], btn)
@@ -576,8 +576,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         return layout
 
-    def obverseDesignLayout(self, parent=None):
-        layout = DesignFormLayout(self.tr("Obverse"), parent)
+    def obverseDesignLayout(self):
+        layout = DesignFormLayout(self.tr("Obverse"))
         layout.minHeight = 120
 
         layout.addImage(self.items['obverseimg'])
@@ -586,8 +586,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         return layout
 
-    def reverseDesignLayout(self, parent=None):
-        layout = DesignFormLayout(self.tr("Reverse"), parent)
+    def reverseDesignLayout(self):
+        layout = DesignFormLayout(self.tr("Reverse"))
         layout.minHeight = 120
 
         layout.addImage(self.items['reverseimg'])
@@ -596,8 +596,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         return layout
 
-    def edgeDesignLayout(self, parent=None):
-        layout = DesignFormLayout(self.tr("Edge"), parent)
+    def edgeDesignLayout(self):
+        layout = DesignFormLayout(self.tr("Edge"))
 
         layout.addImage(self.items['edgeimg'])
         layout.addRow(self.items['edge'])
@@ -605,8 +605,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         return layout
 
-    def imagesLayout(self, parent=None):
-        layout = ImageFormLayout(parent)
+    def imagesLayout(self):
+        layout = ImageFormLayout()
         layout.addImages([self.items['photo1'], self.items['photo2'],
                           self.items['photo3'], self.items['photo4']])
         return layout

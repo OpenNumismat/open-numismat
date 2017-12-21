@@ -153,14 +153,14 @@ class ReferenceWidget(QWidget):
         self.sortButton.setChecked(section.sort)
         self.sortButton.stateChanged.connect(self.sortChanged)
 
-        hlayout = QHBoxLayout(self)
+        hlayout = QHBoxLayout()
         hlayout.addWidget(self.sortButton)
         hlayout.addWidget(self.editButtonBox)
         hlayout.setContentsMargins(0, 0, 0, 0)
         widget = QWidget(self)
         widget.setLayout(hlayout)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(self.listWidget)
         layout.addWidget(widget)
         self.setLayout(layout)
@@ -279,7 +279,7 @@ class ReferenceDialog(QDialog):
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(self.referenceWidget)
         layout.addWidget(buttonBox)
 
@@ -354,7 +354,7 @@ class AllReferenceDialog(QDialog):
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(tab)
         layout.addWidget(buttonBox)
 

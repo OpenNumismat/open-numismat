@@ -80,7 +80,7 @@ class DescriptionDialog(QDialog):
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addLayout(mainLayout)
         layout.addWidget(buttonBox)
 

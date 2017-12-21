@@ -153,7 +153,7 @@ class StatisticsView(QWidget):
 
         self.statisticsParam = statisticsParam
 
-        layout = QHBoxLayout(self)
+        layout = QHBoxLayout()
         layout.setContentsMargins(QtCore.QMargins())
         layout.setAlignment(Qt.AlignTop)
 

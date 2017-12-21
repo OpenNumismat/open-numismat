@@ -179,7 +179,8 @@ class FormItem(object):
 
 
 class BaseFormLayout(QGridLayout):
-    def __init__(self, parent=None):
+
+    def __init__(self):
         super().__init__()
         self.row = 0
         self.columnCount = 5
@@ -259,10 +260,11 @@ class BaseFormLayout(QGridLayout):
 
 
 class BaseFormGroupBox(QGroupBox):
-    def __init__(self, title, parent=None):
-        super().__init__(title, parent)
 
-        self.layout = BaseFormLayout(self)
+    def __init__(self, title):
+        super().__init__(title)
+
+        self.layout = BaseFormLayout()
         self.setLayout(self.layout)
         self.setSizePolicy(QSizePolicy.Preferred,
                            QSizePolicy.Fixed)
@@ -288,8 +290,9 @@ class BaseFormGroupBox(QGroupBox):
 
 
 class ImageFormLayout(BaseFormLayout):
-    def __init__(self, parent=None):
-        super().__init__(parent)
+
+    def __init__(self):
+        super().__init__()
 
         self.imagesCount = 0
 
@@ -317,8 +320,9 @@ class ImageFormLayout(BaseFormLayout):
 
 
 class DesignFormLayout(BaseFormGroupBox):
-    def __init__(self, title, parent=None):
-        super().__init__(title, parent)
+
+    def __init__(self, title):
+        super().__init__(title)
         self.layout.columnCount = 3
         self.imagesCount = 0
         self.defaultHeight = 30

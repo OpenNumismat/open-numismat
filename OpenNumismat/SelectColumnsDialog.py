@@ -55,7 +55,7 @@ class SelectColumnsDialog(QDialog):
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(self.listWidget)
         layout.addWidget(buttonBox)
 

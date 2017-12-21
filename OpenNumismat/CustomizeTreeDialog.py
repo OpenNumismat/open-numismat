@@ -131,7 +131,7 @@ class CustomizeTreeDialog(QDialog):
         buttonBox.rejected.connect(self.reject)
         clearButton.clicked.connect(self.clear)
 
-        layout = QVBoxLayout(self)
+        layout = QVBoxLayout()
         layout.addWidget(QLabel(self.tr("Hold down the Ctrl key to combine two fields (Value + Unit)"), self))
         layout.addWidget(splitter)
         layout.addWidget(buttonBox)
