@@ -80,7 +80,6 @@ class Settings(BaseSettings):
                'free_numeric': False,
                'convert_fraction': False,
                'store_sorting': False,
-               'sort_tree': True,
                'show_tree_icons': True,
                'show_filter_icons': True,
                'show_list_icons': False,
@@ -99,7 +98,7 @@ class Settings(BaseSettings):
 
     def _getValue(self, key):
         if key in ('error', 'updates', 'free_numeric', 'convert_fraction',
-                   'store_sorting', 'sort_tree',
+                   'store_sorting',
                    'show_tree_icons', 'show_filter_icons', 'show_list_icons',
                    'check_coin_title', 'check_coin_duplicate'):
             value = self.settings.value('mainwindow/' + key, self.Default[key], type=bool)

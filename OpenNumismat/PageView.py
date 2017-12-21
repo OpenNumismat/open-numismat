@@ -114,10 +114,33 @@ class ImageView(QWidget):
         return widget
 
 
+class TreeWidgetItem(QTreeWidgetItem):
+
+    def __lt__(self, other):
+        left = self.data(0, Qt.UserRole + 3)
+        right = other.data(0, Qt.UserRole + 3)
+
+        if not left or not right:
+            return super().__lt__(other)
+
+        min_len = len(left)
+        if min_len < len(right):
+            min_len = len(right)
+
+        for i in reversed(range(min_len)):
+            if left[i] == right[i]:
+                pass
+            else:
+                return left[i] < right[i]
+
+        return len(left) < len(right)
+
+
 class TreeView(QTreeWidget):
     FiltersRole = Qt.UserRole
-    FieldsRole = FiltersRole + 1
-    ParamRole = FieldsRole + 1
+    FieldsRole = Qt.UserRole + 1
+    ParamRole = Qt.UserRole + 2
+    SortDataRole = Qt.UserRole + 3
 
     def __init__(self, treeParam, parent=None):
         super().__init__(parent)
@@ -172,20 +195,19 @@ class TreeView(QTreeWidget):
         sql = "SELECT DISTINCT %s FROM coins" % ','.join(fields)
         if filters:
             sql += " WHERE " + filters
-        if self.settings['sort_tree']:
-            sql += " ORDER BY "
-            sql += ','.join([f + ' ASC' for f in reversed(fields)])
         query = QtSql.QSqlQuery(sql, self.db)
         hasEmpty = False
         while query.next():
             record = query.record()
             data = []
+            orig_data = []
             filterSql = []
             for i in range(record.count()):
                 if record.isNull(i):
                     hasEmpty = True
                     continue
 
+                orig_data.append(record.value(i))
                 text = str(record.value(i))
                 if text:
                     if fields[i] == 'status':
@@ -201,12 +223,18 @@ class TreeView(QTreeWidget):
                     hasEmpty = True
 
             if data:
-                text = ' '.join(data)
-                newFilters = ' AND '.join(filterSql)
+                if len(data) > 1:
+                    text = ' '.join(data)
+                    newFilters = ' AND '.join(filterSql)
+                    child = TreeWidgetItem([text, ])
+                    child.setData(0, self.SortDataRole, orig_data)
+                else:
+                    newFilters = filterSql[0]
+                    child = QTreeWidgetItem(data)
+
                 if filters:
                     newFilters = filters + ' AND ' + newFilters
 
-                child = QTreeWidgetItem([text, ])
                 child.setData(0, self.ParamRole, paramIndex)
                 child.setData(0, self.FiltersRole, newFilters)
                 child.setData(0, self.FieldsRole, fields)
@@ -223,6 +251,8 @@ class TreeView(QTreeWidget):
                     self.currentItemChanged.disconnect(self.itemActivatedEvent)
                     self.setCurrentItem(child)
                     self.currentItemChanged.connect(self.itemActivatedEvent)
+
+        item.sortChildren(0, Qt.AscendingOrder)
 
         if hasEmpty and len(fields) == 1 and item.childCount() > 0:
             text = self.tr("Other")
