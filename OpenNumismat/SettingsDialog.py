@@ -203,7 +203,7 @@ class FieldsSettingsPage(QWidget):
 
         self.fields = collection.fields
         for field in self.fields:
-            item = QListWidgetItem(field.title, self.listWidget)
+            item = QListWidgetItem(field.title)
             item.setData(self.DataRole, field)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
                           Qt.ItemIsEnabled | Qt.ItemIsSelectable)

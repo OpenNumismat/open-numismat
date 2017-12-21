@@ -29,7 +29,7 @@ class SelectColumnsDialog(QDialog):
             field = allFields.field(param.fieldid)
             if field in allFields.disabledFields:
                 continue
-            item = QListWidgetItem(field.title, self.listWidget)
+            item = QListWidgetItem(field.title)
             item.setData(SelectColumnsDialog.DataRole, param)
             checked = Qt.Unchecked
             if param.enabled:
@@ -41,7 +41,7 @@ class SelectColumnsDialog(QDialog):
 
         # Process missed columns
         for field in collectionFields:
-            item = QListWidgetItem(field.title, self.listWidget)
+            item = QListWidgetItem(field.title)
             item.setData(SelectColumnsDialog.DataRole,
                          ColumnListParam(field.id, False))
             item.setCheckState(Qt.Unchecked)
