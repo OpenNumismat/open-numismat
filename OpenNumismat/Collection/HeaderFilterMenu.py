@@ -9,6 +9,20 @@ from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Settings import Settings
 
 
+class DenominationListWidgetItem(QListWidgetItem):
+
+    def __lt__(self, other):
+        left = self.data(Qt.UserRole + 1)
+        right = other.data(Qt.UserRole + 1)
+
+        if isinstance(left, str):
+            right = str(right)
+        elif isinstance(right, str):
+            left = str(left)
+
+        return left < right
+
+
 class FilterMenuButton(QPushButton):
     DefaultType = 0
     SelectAllType = 1
@@ -111,6 +125,43 @@ class FilterMenuButton(QPushButton):
                     else:
                         item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
+        elif self.model.columnType(self.fieldid) == Type.Denomination:
+            filtersSql = self.filtersToSql(filters.values())
+            if filtersSql:
+                filtersSql = 'WHERE ' + filtersSql
+            sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
+            query = QSqlQuery(sql, self.db)
+
+            while query.next():
+                icon = None
+                if query.record().isNull(0):
+                    data = None
+                else:
+                    orig_data = query.record().value(0)
+                    data = str(orig_data)
+                    label, _ = numberWithFraction(data, self.settings['convert_fraction'])
+
+                if not data:
+                    hasBlanks = True
+                    continue
+
+                item = DenominationListWidgetItem()
+                item.setData(Qt.DisplayRole, label)
+                item.setData(Qt.UserRole, data)
+                item.setData(Qt.UserRole + 1, orig_data)
+                if data in appliedValues:
+                    if revert:
+                        item.setCheckState(Qt.Checked)
+                    else:
+                        item.setCheckState(Qt.Unchecked)
+                else:
+                    if revert:
+                        item.setCheckState(Qt.Unchecked)
+                    else:
+                        item.setCheckState(Qt.Checked)
+                self.listWidget.addItem(item)
+
+            self.listWidget.sortItems()
         else:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
@@ -122,20 +173,18 @@ class FilterMenuButton(QPushButton):
                 icon = None
                 if query.record().isNull(0):
                     data = None
-                    label = None
                 else:
-                    data = str(query.record().value(0))
-                    if self.columnName == 'value':
-                        label, _ = numberWithFraction(data, self.settings['convert_fraction'])
-                    else:
-                        label = data
-                        if self.settings['show_filter_icons']:
-                            icon = self.reference.getIcon(self.columnName, data)
+                    orig_data = query.record().value(0)
+                    data = str(orig_data)
+                    if self.settings['show_filter_icons']:
+                        icon = self.reference.getIcon(self.columnName, data)
 
-                if not label:
+                if not data:
                     hasBlanks = True
                     continue
-                item = QListWidgetItem(label)
+
+                item = QListWidgetItem()
+                item.setData(Qt.DisplayRole, orig_data)
                 item.setData(Qt.UserRole, data)
                 if icon:
                     item.setIcon(icon)
