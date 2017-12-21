@@ -24,10 +24,10 @@ class DenominationListWidgetItem(QListWidgetItem):
 
 
 class FilterMenuButton(QPushButton):
-    DefaultType = 0
-    SelectAllType = 1
-    BlanksType = 2
-    DataType = 3
+    DefaultType = QListWidgetItem.UserType
+    SelectAllType = QListWidgetItem.UserType + 1
+    BlanksType = QListWidgetItem.UserType + 2
+    DataType = QListWidgetItem.UserType + 3
 
     def __init__(self, columnParam, listParam, model, parent):
         super().__init__(parent)
@@ -205,7 +205,7 @@ class FilterMenuButton(QPushButton):
         item = QListWidgetItem(self.tr("(Select all)"),
                                type=FilterMenuButton.SelectAllType)
         item.setData(Qt.UserRole, self.tr("(Select all)"))
-        item.setCheckState(Qt.PartiallyChecked)
+        item.setCheckState(Qt.Checked)
         self.listWidget.insertItem(0, item)
 
         if hasBlanks:
@@ -247,7 +247,8 @@ class FilterMenuButton(QPushButton):
         self.menu().addAction(widgetAction)
 
         # Fill items
-        self.itemChanged(item)
+        if self.listWidget.count() > 0:
+            self.itemChanged(self.listWidget.item(1))
 
     def itemChanged(self, item):
         self.listWidget.itemChanged.disconnect(self.itemChanged)
