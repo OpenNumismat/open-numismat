@@ -141,8 +141,7 @@ class CustomizeTreeDialog(QDialog):
         self.treeParam = treeParam
         allFields = model.fields
 
-        rootItem = QTreeWidgetItem(self.treeWidget,
-                                   [self.treeParam.rootTitle, ])
+        rootItem = QTreeWidgetItem([self.treeParam.rootTitle, ])
         self.treeWidget.addTopLevelItem(rootItem)
         topItem = rootItem
         for param in self.treeParam:
@@ -185,8 +184,7 @@ class CustomizeTreeDialog(QDialog):
 
     def clear(self):
         self.treeWidget.clear()
-        rootItem = QTreeWidgetItem(self.treeWidget,
-                                   [self.treeParam.rootTitle, ])
+        rootItem = QTreeWidgetItem([self.treeParam.rootTitle, ])
         self.treeWidget.addTopLevelItem(rootItem)
         self.treeWidget.updateFlags()
 

@@ -145,7 +145,7 @@ class TreeView(QTreeWidget):
         self.reference = reference
 
         self.treeParam.rootTitle = model.title
-        rootItem = QTreeWidgetItem(self, [model.title, ])
+        rootItem = QTreeWidgetItem([model.title, ])
         rootItem.setData(0, self.ParamRole, 0)
         rootItem.setData(0, self.FiltersRole, '')
 
