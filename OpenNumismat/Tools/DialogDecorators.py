@@ -14,11 +14,15 @@ def storeDlgSizeDecorator(original_class):
         size = settings.value('%s/size' % orig_class_name)
         if size:
             self.resize(size)
+        if settings.value('%s/maximized' % orig_class_name, False, type=bool):
+            self.showMaximized()
 
     def done(self, r):
         settings = QSettings()
         orig_class_name = self.__class__.__name__
-        settings.setValue('%s/size' % orig_class_name, self.size())
+        settings.setValue('%s/maximized' % orig_class_name, self.isMaximized())
+        if not self.isMaximized():
+            settings.setValue('%s/size' % orig_class_name, self.size())
 
         orig_done(self, r)  # call the original done
 
