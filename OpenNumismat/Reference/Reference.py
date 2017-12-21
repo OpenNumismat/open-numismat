@@ -8,19 +8,13 @@ from PyQt5.QtWidgets import *
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
 
 
-class StringSortProxyModel(QSortFilterProxyModel):
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setSortLocaleAware(True)
-
-
 class SqlTableModel(QtSql.QSqlTableModel):
 
     def __init__(self, parent, db):
         super().__init__(parent, db)
 
-        self._proxyModel = StringSortProxyModel(self)
+        self._proxyModel = QSortFilterProxyModel(self)
+        self._proxyModel.setSortLocaleAware(True)
         self._proxyModel.setSourceModel(self)
 
     def data(self, index, role=Qt.DisplayRole):
@@ -51,7 +45,8 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
         super().__init__(parent, db)
 
         self.model = model
-        self._proxyModel = StringSortProxyModel(self)
+        self._proxyModel = QSortFilterProxyModel(self)
+        self._proxyModel.setSortLocaleAware(True)
         self._proxyModel.setSourceModel(self)
 
     def relationModel(self, _column):
