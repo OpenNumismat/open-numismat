@@ -135,9 +135,6 @@ class DetailsTabWidget(QTabWidget):
     def addTabPage(self, title, parts):
         page = self.createTabPage(parts)
         index = self.addTab(page, title)
-        # Disable if empty
-        if len(parts) == 0:
-            self.setTabEnabled(index, False)
 
     def addItem(self, field):
         # Skip image fields for not a form
@@ -215,6 +212,15 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['quantity'], self.items['barcode'])
         layout.addRow(self.items['defect'])
         layout.addRow(self.items['features'])
+
+        return layout
+
+    def emptyMarketLayout(self, parent=None):
+        text = QApplication.translate('DetailsTabWidget',
+                "Nothing to show. Change the coin status on previous tab")
+        label = QLabel(text)
+        layout = QHBoxLayout()
+        layout.addWidget(label)
 
         return layout
 
@@ -386,9 +392,7 @@ class DetailsTabWidget(QTabWidget):
 
     def _createTrafficParts(self, index=0):
         pageParts = []
-        if index == 0:
-            pass
-        elif index == 1:
+        if index == 1:
             pass_ = self.passLayout()
             pageParts.append(pass_)
         elif index == 2:
@@ -404,8 +408,9 @@ class DetailsTabWidget(QTabWidget):
         elif index == 5:
             pay = self.payLayout()
             pageParts.append(pay)
-        elif index == 6:
-            pass
+        else:
+            layout = self.emptyMarketLayout()
+            pageParts.append(layout)
 
         self.oldTrafficIndex = index
 
@@ -420,14 +425,7 @@ class DetailsTabWidget(QTabWidget):
 
         title = QApplication.translate('DetailsTabWidget', "Market")
         self.insertTab(1, page, title)
-        if len(pageParts) == 0:
-            self.setTabEnabled(1, False)
-#            self.items['grade'].widget().setEnabled(False)
-            if pageIndex == 1:
-                self.setCurrentIndex(pageIndex - 1)
-        else:
-#            self.items['grade'].widget().setEnabled(True)
-            self.setCurrentIndex(pageIndex)
+        self.setCurrentIndex(pageIndex)
 
     def addPayCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
