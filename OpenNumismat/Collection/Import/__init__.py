@@ -45,7 +45,7 @@ class _Import(QtCore.QObject):
             if self._check(connection):
                 QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
                 rows = self._getRows(connection)
-                QApplication.restoreOverrideCursor();
+                QApplication.restoreOverrideCursor()
 
                 self.progressDlg.setMaximum(len(rows))
                 self.progressDlg.setLabelText(QApplication.translate('_Import', "Importing from %s") % src)
