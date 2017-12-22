@@ -76,7 +76,7 @@ class SummaryDialog(QDialog):
 
         if paid and earned:
             total = (paid - earned)
-            lines.append(self.tr("Total (paid - earned): %.2f" % total))
+            lines.append(self.tr("Total (paid - earned): %.2f") % total)
 
         sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
         query = QSqlQuery(sql, model.database())
