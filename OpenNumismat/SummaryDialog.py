@@ -52,7 +52,7 @@ class SummaryDialog(QDialog):
             count = query.record().value(0)
             lines.append(self.tr("Count wish: %d") % count)
 
-        sql = "SELECT count(*) FROM coins WHERE status='sold')"
+        sql = "SELECT count(*) FROM coins WHERE status='sold'"
         query = QSqlQuery(sql, model.database())
         if query.first():
             count = query.record().value(0)
