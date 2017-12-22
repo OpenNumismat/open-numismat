@@ -1,10 +1,10 @@
 {
 	"region": [
-		"Europe",
-		"Americas",
+		"Europa",
+		"America",
 		"Asia",
 		"Africa",
-		"Oceania"
+		"Oceanía"
 	],
 	"country": [
 		"Afganistán",
@@ -52,8 +52,8 @@
 		"Islas Cocos o Islas Keeling",
 		"Colombia",
 		"Comoras",
-		"Congo, Democratic Republic of the",
-		"Congo, Republic of the",
+		"Congo, República Democratica del",
+		"Congo, Republica del",
 		"Islas Cook",
 		"Costa Rica",
 		"Croacia",
@@ -61,7 +61,7 @@
 		"Curazao",
 		"Chipre",
 		"Chequia",
-		"Côte d'Ivoire",
+		"Costa de Marfil",
 		"Dinamarca",
 		"Djibouti",
 		"Dominica",
@@ -112,8 +112,8 @@
 		"Kazajistán",
 		"Kenia",
 		"Kiribati",
-		"Korea, North",
-		"Korea, South",
+		"Corea del Norte",
+		"Corea del Sur",
 		"Kosovo",
 		"Kuwait",
 		"Kirguizistán",
