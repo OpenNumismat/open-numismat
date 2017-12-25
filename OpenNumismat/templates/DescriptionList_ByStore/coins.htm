@@ -1,0 +1,57 @@
+<html>
+<head>
+  <title>{{collection.title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+  <meta charset="utf-8">
+</head>
+<!-- create dictionary of storages names -->
+{% set pdict = {} %}
+{% for t in records|sort(attribute='storage') %}
+{% set _dummy = pdict.update({t.storage[:4]:t.storage[:4]}) %}
+{% endfor %} 
+<!--  HERE - dictionary 'pdict' contains names of storages -->
+<div class="page">
+{% for stor in pdict|sort %}
+<body bgcolor="#FFFFFF">
+<table width="100%">
+<tr>
+<td align="right"><span style="text-decoration:underline;font-size: x-medium;">Storage: {{stor|replace("_", " album, page ")}}, {{date}}</span></td>
+</tr height="24">
+<tr/>
+</table>
+{% for record in records|sort(attribute='storage') %}
+{% if record.storage[:4] == stor %}
+<div class="row">
+<table width="100%">
+<col width="32" />
+<col width="88" />
+<col width="88" />
+<tr>
+<td rowspan="2" align="center" valign="top">{{record.storage[5:]}}</td>
+<td rowspan="2" valign="top"><a href="{{static_files}}/{{record.obverseimg}}" class="image"><img src="{{static_files}}/{{record.obverseimg}}" width="92"></a></td>
+<td rowspan="2" valign="top" style="padding-right: 10px;"><a href="{{static_files}}/{{record.reverseimg}}" class="image"><img src="{{static_files}}/{{record.reverseimg}}" width="92"></a></td>
+<td valign="top"><span style="font-size: medium; text-decoration:underline; font-style:italic">{{record.title}}</span></td>
+</tr>
+<tr><td valign="top"><span style="font-size: small;">{{record.country}}{% if record.period %}, {{record.period}}{% endif %};
+{{record.material}}{% if record.value %} {{record.value}} {{record.unit|lower}}{% else %} {{record.unit}}{% endif %}; 
+{% if record.mint %} {{record.mint}} mint, {% endif %}
+{% if record.note %} {{record.note}},{% endif %}
+{% if record.year %} {{record.year}},{% endif %}
+{{record.weight}} g, {{record.diameter}} mm{% if record.shape != "Round" %}, Shape: {{record.shape|lower}}{% endif %};
+{% if record.obversedesign %}Obv: {{record.obversedesign}}.{% endif %}{% if record.reversedesign %} Rev: {{record.reversedesign}}.{% endif %} {#|{{record.storage}}|#}
+{% if record.catalognum1 %}Ref: {{record.catalognum1}}{% if record.catalognum2 %}; {{record.catalognum2}}{% if record.catalognum3 %}; {{record.catalognum3}}{% if record.catalognum4 %}; {{record.catalognum4}}{% endif %}{% endif %}{% endif %}.{% endif %}
+</span></td></tr>
+</tr>
+</table>
+</div>
+{% endif %}
+{% endfor %}
+{% if loop.last == false %}
+<p class="breakhere"/>
+{% else %}
+<br/><br/><br/><span style="text-decoration:underline;font-size: x-medium;">Number of coins: {{records|length}}</span>
+{% endif %}
+{% endfor %}
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+﻿p.breakhere {
+    page-break-before: always;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+div.row {
+    page-break-inside: avoid;
+    page-break-after:auto
+}
+
+html, body {
+    font-family: sans-serif;
+    font-size: 1em;
+}
+
+.s0 {
+ font-family: Arial;
+ font-size: 13px;
+ color: #000000; font-weight: bold; font-style: italic;
+ background-color: transparent;
+ text-align: Left; vertical-align: Top;
+}
+.s1 {
+ font-family: Arial;
+ font-size: 13px;
+ color: #000000; font-weight: bold; font-style: italic;
+ background-color: transparent;
+ border-color:#000000; border-style: solid;
+ border-left-width: 0px;
+ border-right-width: 0px;
+ border-top-width: 0px;
+ border-bottom-width: 1;
+ text-align: Left; vertical-align: Top;
+}
+.s2 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Right; vertical-align: Top;
+}
+.s3 {
+ font-family: Arial;
+ font-size: 8px;
+ color: #000000; font-style: italic;
+ background-color: transparent;
+ text-align: Left; vertical-align: Middle;
+}
+.s4 {
+ font-family: Arial;
+ font-size: 13px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ text-align: Left; vertical-align: Top;
+}
+.s5 {
+ font-family: Arial;
+ font-size: 13px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Left; vertical-align: Middle;
+}
+.s6 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-style: italic;
+ background-color: transparent;
+ text-align: Left; vertical-align: Middle;
+}
+.s7 {
+ font-family: Arial;
+ font-size: 13px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ border-color:#000000; border-style: solid;
+ border-left-width: 0px;
+ border-right-width: 0px;
+ border-top-width: 0px;
+ border-bottom-width: 1;
+ text-align: Left; vertical-align: Top;
+}
+.s8 {
+ font-family: Arial;
+ font-size: 13px;
+ color: #000000; font-style: normal;
+ background-color: #FFFFFF;
+ text-align: Left; vertical-align: Top;
+}

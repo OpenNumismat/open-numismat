@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>{{collection.title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static_files}}/style.css">
+  <meta charset="utf-8">
+</head>
+
+<body bgcolor="#FFFFFF">
+<table width="100%">
+<tr>
+  <td align="right"><span style="text-decoration:underline;font-size: x-large;">'{{collection.title}}' collection, {{date}}</span></td>
+</tr height="32">
+<tr/>
+</table>
+
+{% for record in records|sort(attribute='catalognum1') %}
+<div class="row">
+<table width="100%">
+<col width="32" />
+<col width="98" />
+<col width="98" />
+<tr>
+<td rowspan="3" align="left" valign="top">{{loop.index}}</td>
+<td rowspan="3" valign="top"><a href="{{static_files}}/{{record.obverseimg}}" class="image"><img src="{{static_files}}/{{record.obverseimg}}" width="96" valign="top"></a></td>
+<td rowspan="3" valign="top" style="padding-right: 10px;"><a href="{{static_files}}/{{record.reverseimg}}" class="image"><img src="{{static_files}}/{{record.reverseimg}}" width="96" valign="top"></a></td>
+<td valign="top"><span style="font-size: medium; text-decoration:underline; font-style:italic" >{{record.title}}</span></td>
+</tr>
+<tr><td valign="top"><span style="font-size: medium;">{{record.country}}{% if record.period %}, {{record.period}}{% endif %};
+{{record.material}}{% if record.value %} {{record.value}} {{record.unit|lower}}{% else %} {{record.unit}}{% endif %};
+{% if record.mint %}{{record.mint}} mint,{% endif %}
+{% if record.note %}{{record.note}},{% endif %}
+{% if record.year %}{{record.year}},{% endif %}
+{{record.weight}} g, {{record.diameter}} mm{% if record.shape != "Round" %}, Shape: {{record.shape|lower}}{% endif %};
+{% if record.obversedesign %}Obv: {{record.obversedesign}}.{% endif %}{% if record.reversedesign %} Rev: {{record.reversedesign}}.{% endif %}
+{% if record.catalognum1 %}Ref: {{record.catalognum1}}{% if record.catalognum2 %}; {{record.catalognum2}}{% if record.catalognum3 %}; {{record.catalognum3}}{% if record.catalognum4 %}; {{record.catalognum4}}{% endif %}{% endif %}{% endif %}.{% endif %}
+</span></td></tr>
+<tr><td><table><tr><td>Grade: {{record.grade}}; </td>
+<td>{{record.saller}}{% if record.payplace %} / {{record.payplace}}{% endif %}; </td>
+<td>{{record.payprice}}, {{record.paydate}}.</td>
+{% if record.features %}<tr><td colspan="3">{{record.features}}</td></tr>{% endif %}
+</table>
+</td>
+</tr>
+</table>
+</div>
+{% endfor %}
+
+</body>
+</html>
