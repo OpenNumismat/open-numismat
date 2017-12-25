@@ -249,7 +249,7 @@ class LineEditRef(QWidget):
 
     def addDependent(self, reference):
         if not self.dependents:
-            self.comboBox.currentIndexChanged.connect(self.updateDependents)
+#            self.comboBox.currentIndexChanged.connect(self.updateDependents)
             self.comboBox.editTextChanged.connect(self.updateDependents)
         self.dependents.append(reference)
 
