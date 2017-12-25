@@ -4,6 +4,7 @@ __pycache__
 /build
 /OpenNumismat.egg-info
 *.exe
+*.deb
 /.pydevproject
 /.project
 /.settings/org.eclipse.core.resources.prefs
