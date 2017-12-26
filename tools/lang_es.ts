@@ -187,7 +187,8 @@ Por favor, actualiza OpenNumismat</translation>
         <location filename="Collection.py" line="848"/>
         <source>Can't create reference:
 %s</source>
-        <translation>No se puede crear referencia</translation>
+        <translation>No se puede crear referencia
+%s</translation>
     </message>
     <message>
         <location filename="Collection.py" line="874"/>
@@ -239,7 +240,8 @@ La aplicación deberá reiniciarse ahora.</translation>
         <location filename="Collection.py" line="1189"/>
         <source>Can't open collection:
 %s</source>
-        <translation>No se puede abrir la colección: %s</translation>
+        <translation>No se puede abrir la colección:
+%s</translation>
     </message>
 </context>
 <context>
@@ -2335,7 +2337,7 @@ Crear una nueva</translation>
     <message>
         <location filename="SummaryDialog.py" line="148"/>
         <source>(calculated for %d coins)</source>
-        <translation>(calculado para% d monedas)</translation>
+        <translation>(calculado para %d monedas)</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="126"/>
@@ -2345,7 +2347,7 @@ Crear una nueva</translation>
     <message>
         <location filename="SummaryDialog.py" line="150"/>
         <source>Estimation wish: %d</source>
-        <translation>Estimación deseada: %</translation>
+        <translation>Estimación deseada: %d</translation>
     </message>
 </context>
 <context>
