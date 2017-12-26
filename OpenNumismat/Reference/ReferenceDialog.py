@@ -339,7 +339,7 @@ class AllReferenceDialog(QDialog):
         tab = QTabWidget(self)
         self.widgets = {}
         for section in self.sections:
-            if section.parentName:
+            if section.parent_name:
                 widget = CrossReferenceWidget(section, None, '', self)
                 widget.comboBox.setEnabled(True)
             else:

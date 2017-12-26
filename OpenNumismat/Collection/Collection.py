@@ -727,7 +727,7 @@ class Collection(QtCore.QObject):
                     data = rel.data(rel.index(i, rel.fieldIndex('value')))
                     parentId = rel.data(rel.index(i, rel.fieldIndex('id')))
                     query = QSqlQuery(self.db)
-                    sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL AND %s=?" % (columnName, columnName, columnName, refSection.parentName)
+                    sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL AND %s=?" % (columnName, columnName, columnName, refSection.parent_name)
                     query.prepare(sql)
                     query.addBindValue(data)
                     query.exec_()

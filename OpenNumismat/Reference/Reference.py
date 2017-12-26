@@ -86,8 +86,7 @@ class BaseReferenceSection(QtCore.QObject):
         self.title = title
         self.letter = letter
         self.sort = sort
-
-        self.parentName = None
+        self.parent_name = None
 
     def reload(self):
         self.getSort()
@@ -231,7 +230,8 @@ class CrossReferenceSection(BaseReferenceSection):
 
         self.parentIndex = None
         self.parentRef = parentRef
-        self.parentName = parentRef.table_name
+        self.parent_name = parentRef.name
+        self.parent_table_name = parentRef.table_name
 
     def load(self, db):
         self.db = db
@@ -245,7 +245,7 @@ class CrossReferenceSection(BaseReferenceSection):
         parentidIndex = self.model.fieldIndex('parentid')
         self.model.parentidIndex = parentidIndex
         self.model.setRelation(
-            parentidIndex, QtSql.QSqlRelation(self.parentName, 'id', 'value'))
+            parentidIndex, QtSql.QSqlRelation(self.parent_table_name, 'id', 'value'))
 
         self.reload()
 
