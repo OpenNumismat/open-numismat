@@ -131,7 +131,10 @@ class TreeWidgetItem(QTreeWidgetItem):
             if left[i] == right[i]:
                 pass
             else:
-                return left[i] < right[i]
+                if isinstance(left[i], str) or isinstance(right[i], str):
+                    return str(left[i]) < str(right[i])
+                else:
+                    return left[i] < right[i]
 
         return len(left) < len(right)
 
