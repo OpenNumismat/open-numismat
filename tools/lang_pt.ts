@@ -1683,12 +1683,12 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <location filename="MainWindow.py" line="680"/>
         <source>%s %s
 
-Copyright (C) 2011-2017 Vitaly Ignatov
+Copyright (C) 2011-2018 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
         <translation>%s %s
 
-Copyright (C) 2011-2017 Vitaly Ignatov
+Copyright (C) 2011-2018 Vitaly Ignatov
 
 %s é freeware licenciado sob a GPLv3.</translation>
     </message>

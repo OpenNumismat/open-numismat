@@ -1675,12 +1675,12 @@ Voleu enviar un missatge a l&apos;autor?</translation>
         <location filename="MainWindow.py" line="680"/>
         <source>%s %s
 
-Copyright (C) 2011-2017 Vitaly Ignatov
+Copyright (C) 2011-2018 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
         <translation>%s %s
 
-Copyright (C) 2011-2017 Vitaly Ignatov
+Copyright (C) 2011-2018 Vitaly Ignatov
 
 %s és programari lliure llicenciat sota GPLv3.</translation>
     </message>

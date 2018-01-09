@@ -561,7 +561,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="199"/>
         <source>Region</source>
-        <translation type="unfinished"/>
+        <translation>Област</translation>
     </message>
 </context>
 <context>
@@ -648,7 +648,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="DetailsTabWidget.py" line="69"/>
         <source>Classification</source>
-        <translation type="unfinished"/>
+        <translation>Класификация</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="188"/>
@@ -731,7 +731,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="EditCoinDialog.py" line="60"/>
         <source>Multi edit</source>
-        <translation type="unfinished"/>
+        <translation>Групова редакция</translation>
     </message>
     <message>
         <location filename="EditCoinDialog.py" line="62"/>
@@ -915,7 +915,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="HeaderFilterMenu.py" line="96"/>
         <source>(Data)</source>
-        <translation type="unfinished"/>
+        <translation>(Данни)</translation>
     </message>
     <message>
         <location filename="HeaderFilterMenu.py" line="214"/>
@@ -1173,7 +1173,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ListView.py" line="369"/>
         <source>Multi edit...</source>
-        <translation type="unfinished"/>
+        <translation>Групова редакция...</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="56"/>
@@ -1316,7 +1316,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="97"/>
         <source>Free format numeric fields</source>
-        <translation type="unfinished"/>
+        <translation>Свободен формат на цифровите полета</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="107"/>
@@ -1351,7 +1351,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="113"/>
         <source>Show icons from reference (slow)</source>
-        <translation type="unfinished"/>
+        <translation>Показване на иконите от базата данни (бавно)</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="114"/>
@@ -1386,7 +1386,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="89"/>
         <source>Acceleration of storage</source>
-        <translation type="unfinished"/>
+        <translation>Ускоряване на съхранението</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="102"/>
@@ -1594,7 +1594,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="488"/>
         <source>Importing</source>
-        <translation type="unfinished"/>
+        <translation>Импортиране</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="419"/>
@@ -1879,7 +1879,7 @@ Copyright (C) 2011-2017 Vitaly Ignatov
     <message>
         <location filename="Preview.py" line="264"/>
         <source>Show overview of all pages</source>
-        <translation type="unfinished"/>
+        <translation>Показване на общия преглед на всички страници</translation>
     </message>
     <message>
         <location filename="Preview.py" line="275"/>
@@ -2204,7 +2204,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="202"/>
         <source>Items:</source>
-        <translation type="unfinished"/>
+        <translation>Предмети:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="205"/>
@@ -2525,7 +2525,7 @@ Add a new one first.</source>
     <message>
         <location filename="__init__.py" line="94"/>
         <source>Importing</source>
-        <translation type="unfinished"/>
+        <translation>Импортиране</translation>
     </message>
     <message>
         <location filename="__init__.py" line="52"/>

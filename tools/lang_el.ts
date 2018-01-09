@@ -731,7 +731,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="DetailsTabWidget.py" line="219"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
-        <translation type="unfinished"/>
+        <translation>Δεν υπάρχει τίποτα για εμφάνιση. Αλλάξτε την κατάσταση του νομίσματος στην προηγούμενη καρτέλα</translation>
     </message>
 </context>
 <context>
@@ -1683,12 +1683,12 @@ Do you want to send an error message to the author?</source>
         <location filename="MainWindow.py" line="680"/>
         <source>%s %s
 
-Copyright (C) 2011-2017 Vitaly Ignatov
+Copyright (C) 2011-2018 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
         <translation>%s %s
 
-Copyright (C) 2011-2017 Vitaly Ignatov
+Copyright (C) 2011-2018 Vitaly Ignatov
 
 Το %s είναι δωρεάν υπό τους όρους της Άδειας GPLv3.
 

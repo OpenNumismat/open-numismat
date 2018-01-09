@@ -1676,12 +1676,12 @@ Chcesz zgłosić błąd autorowi?</translation>
         <location filename="MainWindow.py" line="680"/>
         <source>%s %s
 
-Copyright (C) 2011-2017 Vitaly Ignatov
+Copyright (C) 2011-2018 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
         <translation>%s %s
 
-Wszelkie Prawa Zastrzeżone (C) 2011-2017 Vitaly Ignatov
+Wszelkie Prawa Zastrzeżone (C) 2011-2018 Vitaly Ignatov
 
 %s jest oprogramowaniem wolnym na licencji zgodnej z GPLv3.</translation>
     </message>
