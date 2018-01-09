@@ -43,24 +43,27 @@ class ImportUcoin(_Import):
         return rows
 
     def _setRecord(self, record, row):
-        record.setValue('country', row[0])
-        if ' ' in row[1]:
-            value, unit = row[1].split(' ', 1)
-        else:
-            value = ''
-            unit = row[1]
-        record.setValue('value', value)
-        record.setValue('unit', unit)
-        year = row[2].split(' ', 1)[0]
-        record.setValue('year', year)
-        record.setValue('mintmark', row[3])
-        record.setValue('subjectshort', row[5])
-        record.setValue('grade', row[6])
-        record.setValue('price3', row[7])
-        record.setValue('catalognum1', row[8])
-        record.setValue('features', row[9])
-        record.setValue('payinfo', row[10])
         record.setValue('status', 'owned')
+        try:
+            record.setValue('country', row[0])
+            if ' ' in row[1]:
+                value, unit = row[1].split(' ', 1)
+            else:
+                value = ''
+                unit = row[1]
+            record.setValue('value', value)
+            record.setValue('unit', unit)
+            year = row[2].split(' ', 1)[0]
+            record.setValue('year', year)
+            record.setValue('mintmark', row[3])
+            record.setValue('subjectshort', row[5])
+            record.setValue('grade', row[6])
+            record.setValue('price3', row[7])
+            record.setValue('catalognum1', row[8])
+            record.setValue('features', row[9])
+            record.setValue('payinfo', row[10])
+        except IndexError:
+            pass
 
         record.setValue('title', self.__generateTitle(record))
 
