@@ -1567,7 +1567,7 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="680"/>
+        <location filename="MainWindow.py" line="675"/>
         <source>About %s</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1582,107 +1582,98 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="374"/>
+        <location filename="MainWindow.py" line="371"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="374"/>
+        <location filename="MainWindow.py" line="371"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="502"/>
+        <location filename="MainWindow.py" line="499"/>
         <source>Select file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="488"/>
+        <location filename="MainWindow.py" line="485"/>
         <source>Importing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="419"/>
+        <location filename="MainWindow.py" line="416"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="432"/>
+        <location filename="MainWindow.py" line="429"/>
         <source>Select directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="443"/>
+        <location filename="MainWindow.py" line="440"/>
         <source>Import pre-defined coins?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="457"/>
+        <location filename="MainWindow.py" line="454"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="474"/>
+        <location filename="MainWindow.py" line="471"/>
         <source>Import club catalog?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="488"/>
+        <location filename="MainWindow.py" line="485"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="600"/>
+        <location filename="MainWindow.py" line="597"/>
         <source>Open collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="600"/>
+        <location filename="MainWindow.py" line="597"/>
         <source>Collections (*.db)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="576"/>
+        <location filename="MainWindow.py" line="573"/>
         <source>New collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="648"/>
+        <location filename="MainWindow.py" line="645"/>
         <source>Create new collection or open one of the existing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="714"/>
+        <location filename="MainWindow.py" line="709"/>
         <source>Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="714"/>
+        <location filename="MainWindow.py" line="709"/>
         <source>You already have the latest version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="725"/>
+        <location filename="MainWindow.py" line="720"/>
         <source>New version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="725"/>
+        <location filename="MainWindow.py" line="720"/>
         <source>New version is available. Download it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="155"/>
         <source>Tellico</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="680"/>
-        <source>%s %s
-
-Copyright (C) 2011-2017 Vitaly Ignatov
-
-%s is freeware licensed under a GPLv3.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1696,12 +1687,12 @@ Copyright (C) 2011-2017 Vitaly Ignatov
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="388"/>
+        <location filename="MainWindow.py" line="385"/>
         <source>Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="385"/>
+        <location filename="MainWindow.py" line="382"/>
         <source>Info panel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1713,6 +1704,15 @@ Copyright (C) 2011-2017 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="162"/>
         <source>Synchronize...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="675"/>
+        <source>%s %s
+
+Copyright (C) 2011-2018 Vitaly Ignatov
+
+%s is freeware licensed under a GPLv3.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2324,17 +2324,17 @@ Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="148"/>
+        <location filename="SummaryDialog.py" line="155"/>
         <source>(calculated for %d coins)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="126"/>
+        <location filename="SummaryDialog.py" line="130"/>
         <source>Estimation owned: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="150"/>
+        <location filename="SummaryDialog.py" line="157"/>
         <source>Estimation wish: %d</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2447,32 +2447,32 @@ Add a new one first.</source>
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="314"/>
+        <location filename="PageView.py" line="317"/>
         <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="346"/>
+        <location filename="PageView.py" line="349"/>
         <source>Add new coin...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="349"/>
+        <location filename="PageView.py" line="352"/>
         <source>Edit coins...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="353"/>
+        <location filename="PageView.py" line="356"/>
         <source>Customize tree...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="406"/>
+        <location filename="PageView.py" line="409"/>
         <source>Updating records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="406"/>
+        <location filename="PageView.py" line="409"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
