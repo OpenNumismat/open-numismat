@@ -6,6 +6,7 @@ import sys
 from PyQt5.QtCore import QStandardPaths
 
 from OpenNumismat.Collection.Import import _Import
+from OpenNumismat.Collection.Import.Excel import ImportExcel
 
 
 class ImportUcoin(_Import):
@@ -83,3 +84,65 @@ class ImportUcoin(_Import):
             title += '/' + record.value('variety') + '/'
 
         return title.strip()
+
+
+class ImportUcoin2(ImportExcel):
+
+    def defaultField(self, col, combo):
+        res = 0
+
+        if self.sheet.ncols == 12:
+            if col == 0:
+                res = combo.findText(self.fields.country.title)
+            elif col == 1:
+                res = combo.findText(self.fields.unit.title)
+            elif col == 2:
+                res = combo.findText(self.fields.year.title)
+            elif col == 3:
+                res = combo.findText(self.fields.mintmark.title)
+            elif col == 4:
+                res = combo.findText(self.fields.subjectshort.title)
+            elif col == 5:
+                res = combo.findText(self.fields.grade.title)
+            elif col == 6:
+                res = combo.findText(self.fields.saleprice.title)
+            elif col == 7:
+                res = combo.findText(self.fields.quantity.title)
+            elif col == 8:
+                res = combo.findText(self.fields.catalognum1.title)
+            elif col == 10:
+                res = combo.findText(self.fields.features.title)
+        else:
+            if col == 0:
+                res = combo.findText(self.fields.country.title)
+            elif col == 1:
+                res = combo.findText(self.fields.unit.title)
+            elif col == 2:
+                res = combo.findText(self.fields.year.title)
+            elif col == 3:
+                res = combo.findText(self.fields.mintmark.title)
+            elif col == 4:
+                res = combo.findText(self.fields.subjectshort.title)
+            elif col == 5:
+                res = combo.findText(self.fields.grade.title)
+            elif col == 6:
+                res = combo.findText(self.fields.price3.title)
+            elif col == 7:
+                res = combo.findText(self.fields.catalognum1.title)
+            elif col == 9:
+                res = combo.findText(self.fields.paydate.title)
+            elif col == 11:
+                res = combo.findText(self.fields.payprice.title)
+            elif col == 14:
+                res = combo.findText(self.fields.features.title)
+
+        if res < 0:
+            res = 0
+
+        return res
+
+    def defaultStatus(self):
+        if self.sheet.ncols == 12:
+            return 'sale'
+        else:
+            return 'owned'

@@ -100,6 +100,15 @@ class ImportExcel(_Import2):
     def isAvailable():
         return available
 
+    def defaultField(self, col, _combo):
+        if col < 10:
+            return col + 1
+
+        return 0
+
+    def defaultStatus(self):
+        return 'owned'
+
     def _connect(self, src):
         self.src_path = os.path.dirname(src)
         dialog = TableDialog(self.parent(), self.src_path)
@@ -120,8 +129,7 @@ class ImportExcel(_Import2):
             for f in self.fields.userFields:
                 if f not in self.fields.systemFields:
                     combo.addItem(f.title, f)
-            if col < 10:
-                combo.setCurrentIndex(col + 1)
+            combo.setCurrentIndex(self.defaultField(col, combo))
             combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLength)
             combo.currentIndexChanged.connect(dialog.comboChanged)
             dialog.hlayout.addWidget(combo)
@@ -200,7 +208,7 @@ class ImportExcel(_Import2):
             record.setValue('title', self.__generateTitle(record))
 
         if not self.has_status:
-            record.setValue('status', 'owned')
+            record.setValue('status', self.defaultStatus())
 
     def __generateTitle(self, record):
         title = ""

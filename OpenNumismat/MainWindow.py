@@ -151,7 +151,14 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importNumizmaticRuAct)
             importMenu.addAction(importNumizmaticRuAct)
 
-        if ImportUcoin.isAvailable():
+        if ImportUcoin2.isAvailable():
+            importUcoinAct = QAction(
+                                    createIcon('ucoin.png'),
+                                    self.tr("uCoin.net"), self)
+            importUcoinAct.triggered.connect(self.importUcoin2)
+            self.collectionActs.append(importUcoinAct)
+            importMenu.addAction(importUcoinAct)
+        elif ImportUcoin.isAvailable():
             importUcoinAct = QAction(
                                     createIcon('ucoin.png'),
                                     self.tr("uCoin.net"), self)
@@ -490,17 +497,38 @@ class MainWindow(QMainWindow):
             imp.importData(file, self.viewTab.currentModel())
 
     def importUcoin(self):
-        QMessageBox.information(self, self.tr("Importing"),
-                self.tr("Before importing you should export existing "
-                        "collection from uCoin.net to Comma-Separated (CSV) "
-                        "format."))
+        QMessageBox.information(
+            self, self.tr("Importing"),
+            self.tr("Before importing you should export existing "
+                    "collection from uCoin.net to Comma-Separated (CSV) "
+                    "format."))
 
         defaultDir = ImportUcoin.defaultDir()
-        file, _selectedFilter = QFileDialog.getOpenFileName(self,
-                                self.tr("Select file"), defaultDir, "*.csv")
+        file, _selectedFilter = QFileDialog.getOpenFileName(
+            self, self.tr("Select file"), defaultDir,
+            "Comma-Separated (*.csv)")
         if file:
             imp = ImportUcoin(self)
             imp.importData(file, self.viewTab.currentModel())
+
+    def importUcoin2(self):
+        QMessageBox.information(
+            self, self.tr("Importing"),
+            self.tr("Before importing you should export existing "
+                    "collection from uCoin.net to Microsoft Excel (XLS) or "
+                    "Comma-Separated (CSV) format."))
+
+        defaultDir = ImportUcoin.defaultDir()
+        file, selectedFilter = QFileDialog.getOpenFileName(
+            self, self.tr("Select file"), defaultDir,
+            "Microsoft Excel (*.xlsx);;Comma-Separated (*.csv)")
+        if file:
+            if selectedFilter == "Microsoft Excel (*.xlsx)":
+                imp = ImportUcoin2(self)
+                imp.importData(file, self.viewTab.currentModel())
+            else:
+                imp = ImportUcoin(self)
+                imp.importData(file, self.viewTab.currentModel())
 
     def importTellico(self):
         defaultDir = ImportTellico.defaultDir()
