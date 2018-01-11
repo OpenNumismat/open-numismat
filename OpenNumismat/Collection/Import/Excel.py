@@ -63,8 +63,8 @@ class TableDialog(QDialog):
 
         for i in range(self.hlayout.count()):
             combo = self.hlayout.itemAt(i).widget()
-            type_ = combo.currentData().type
-            if type_ in Type.ImageTypes:
+            field = combo.currentData()
+            if field and field.type in Type.ImageTypes:
                 for row in range(self.table.rowCount()):
                     item = self.table.item(row, i)
                     fileName = item.text()
@@ -105,10 +105,7 @@ class ImportExcel(_Import2):
         dialog = TableDialog(self.parent(), self.src_path)
 
         book = xlrd.open_workbook(src)
-        print("The number of worksheets is {0}".format(book.nsheets))
-        print("Worksheet name(s): {0}".format(book.sheet_names()))
         self.sheet = book.sheet_by_index(0)
-        print("{0} {1} {2}".format(self.sheet.name, self.sheet.nrows, self.sheet.ncols))
 
         rows = self.sheet.nrows
         if rows > 10:
@@ -119,10 +116,12 @@ class ImportExcel(_Import2):
         self.comboBoxes = []
         for col in range(self.sheet.ncols):
             combo = QComboBox()
+            combo.addItem(self.tr("<Ignore>"))
             for f in self.fields.userFields:
                 if f not in self.fields.systemFields:
                     combo.addItem(f.title, f)
-            combo.setCurrentIndex(col)
+            if col < 10:
+                combo.setCurrentIndex(col + 1)
             combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLength)
             combo.currentIndexChanged.connect(dialog.comboChanged)
             dialog.hlayout.addWidget(combo)
@@ -139,10 +138,18 @@ class ImportExcel(_Import2):
         result = dialog.exec_()
         if result == QDialog.Accepted:
             self.selected_fields = []
+            self.has_title = False
+            self.has_status = False
             for i in range(dialog.hlayout.count()):
                 combo = dialog.hlayout.itemAt(i).widget()
                 field = combo.currentData()
                 self.selected_fields.append(field)
+
+                if field:
+                    if field.name == 'title':
+                        self.has_title = True
+                    elif field.name == 'status':
+                        self.has_status = True
 
             return book
 
@@ -153,6 +160,9 @@ class ImportExcel(_Import2):
 
     def _setRecord(self, record, row):
         for i, field in enumerate(self.selected_fields):
+            if not field:
+                continue
+
             val = self.sheet.cell(row, i).value
             if field.type == Type.Date:
                 try:
@@ -186,10 +196,10 @@ class ImportExcel(_Import2):
 
             record.setValue(field.name, val)
 
-        if 'title' not in map(lambda f: f.name, self.selected_fields):
+        if not self.has_title:
             record.setValue('title', self.__generateTitle(record))
 
-        if 'status' not in map(lambda f: f.name, self.selected_fields):
+        if not self.has_status:
             record.setValue('status', 'owned')
 
     def __generateTitle(self, record):
