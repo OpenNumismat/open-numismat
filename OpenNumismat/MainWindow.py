@@ -93,6 +93,14 @@ class MainWindow(QMainWindow):
         importMenu = QMenu(self.tr("Import"), self)
         self.collectionActs.append(importMenu)
 
+        if ImportExcel.isAvailable():
+            importExcelAct = QAction(
+                                    createIcon('excel.png'),
+                                    self.tr("Excel"), self)
+            importExcelAct.triggered.connect(self.importExcel)
+            self.collectionActs.append(importExcelAct)
+            importMenu.addAction(importExcelAct)
+
         if ImportNumizmat.isAvailable():
             importNumizmatAct = QAction(
                                     createIcon('numizmat.ico'),
@@ -501,7 +509,15 @@ class MainWindow(QMainWindow):
         if file:
             imp = ImportTellico(self)
             imp.importData(file, self.viewTab.currentModel())
- 
+
+    def importExcel(self):
+        defaultDir = ImportTellico.defaultDir()
+        file, _selectedFilter = QFileDialog.getOpenFileName(
+            self, self.tr("Select file"), defaultDir, "*.xls *.xlsx")
+        if file:
+            imp = ImportExcel(self)
+            imp.importData(file, self.viewTab.currentModel())
+
     def exportMobile(self):
         dialog = ExportDialog(self.collection, self)
         res = dialog.exec_()
