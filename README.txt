@@ -15,7 +15,7 @@ Requirement:
  * Visual FoxPro ODBC Driver, Microsoft Access Database Engine, Microsoft Access or any other
    software with ODBC {Microsoft Access Driver (*.mdb)} (for importing from CoinManage 2011)
  * cx_Freeze 4.3.4 (for deploy)
- * Inno Setup 5.5.8 (for deploy)
+ * Inno Setup 5.5.9 (for deploy)
  * Delphi Delphi XE2 (for building CdrToXml.dll for importing from CoinsCollector 2.6)
 
 Deploying:
