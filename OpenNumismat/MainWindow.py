@@ -349,11 +349,12 @@ class MainWindow(QMainWindow):
         if pageIndex is not None:
             self.viewTab.setCurrentIndex(int(pageIndex))
 
-        size = settings.value('mainwindow/size')
-        if size:
-            self.resize(size)
-        if settings.value('mainwindow/maximized', False, type=bool):
-            self.showMaximized()
+        geometry = settings.value('mainwindow/geometry')
+        if geometry:
+            self.restoreGeometry(geometry)
+        winState = settings.value('mainwindow/winState')
+        if winState:
+            self.restoreState(winState)
 
         self.autoUpdate()
 
@@ -704,9 +705,8 @@ class MainWindow(QMainWindow):
             settings.setValue('tabwindow/page', self.viewTab.currentIndex())
 
         # Save main window size
-        settings.setValue('mainwindow/maximized', self.isMaximized())
-        if not self.isMaximized():
-            settings.setValue('mainwindow/size', self.size())
+        settings.setValue('mainwindow/geometry', self.saveGeometry())
+        settings.setValue('mainwindow/winState', self.saveState())
 
     def __saveParams(self):
         if self.collection.pages():
