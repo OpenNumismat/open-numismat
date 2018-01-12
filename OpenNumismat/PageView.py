@@ -312,7 +312,9 @@ class TreeView(QTreeWidget):
                 if field == 'status':
                     textPart.append(str(index.data()))
                 else:
-                    textPart.append(str(index.data(Qt.UserRole)))
+                    val = str(index.data(Qt.UserRole))
+                    if val:
+                        textPart.append(val)
             text2 = ' '.join(textPart)
             if text1 == text2 or (not text2 and text1 == self.tr("Other")):
                 self.expandItem(parent)
