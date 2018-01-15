@@ -1124,6 +1124,14 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
 </context>
 <context>
+    <name>ImportExcel</name>
+    <message>
+        <location filename="Excel.py" line="128"/>
+        <source>&lt;Ignore&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ListView</name>
     <message>
         <location filename="ListView.py" line="125"/>
@@ -1447,258 +1455,247 @@ Wilt u een foutmelding te sturen naar de author?</translation>
         <translation>Importeren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="97"/>
+        <location filename="MainWindow.py" line="105"/>
         <source>Numizmat 2.1</source>
         <translation>Numizmat 2.1</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="105"/>
+        <location filename="MainWindow.py" line="113"/>
         <source>Cabinet 2.2.2.1, 2013</source>
         <translation>Cabinet 2.2.2.1, 2013</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="113"/>
+        <location filename="MainWindow.py" line="121"/>
         <source>CoinsCollector 2.6</source>
         <translation>CoinsCollector 2.6</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="122"/>
+        <location filename="MainWindow.py" line="130"/>
         <source>CoinManage 2011</source>
         <translation>CoinManage 2011</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="130"/>
+        <location filename="MainWindow.py" line="138"/>
         <source>Collection Studio 3.65</source>
         <translation>Collection Studio 3.65</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="139"/>
+        <location filename="MainWindow.py" line="147"/>
         <source>Numizmatik_Ru 1.0.0.82</source>
         <translation>Numizmatik_Ru 1.0.0.82</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="147"/>
+        <location filename="MainWindow.py" line="162"/>
         <source>uCoin.net</source>
         <translation>uCoin.net</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="168"/>
+        <location filename="MainWindow.py" line="183"/>
         <source>Export</source>
         <translation>Exporteren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="171"/>
+        <location filename="MainWindow.py" line="186"/>
         <source>For Android version</source>
         <translation>Voor Android versie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="176"/>
+        <location filename="MainWindow.py" line="191"/>
         <source>&amp;File</source>
         <translation>&amp;Bestand</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="200"/>
+        <location filename="MainWindow.py" line="215"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="206"/>
+        <location filename="MainWindow.py" line="221"/>
         <source>Edit...</source>
         <translation>bewerken...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="213"/>
+        <location filename="MainWindow.py" line="228"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="219"/>
+        <location filename="MainWindow.py" line="234"/>
         <source>Copy</source>
         <translation>Kopiëren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="225"/>
+        <location filename="MainWindow.py" line="240"/>
         <source>Paste</source>
         <translation>Plakken</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="231"/>
+        <location filename="MainWindow.py" line="246"/>
         <source>Coin</source>
         <translation>Munt</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="241"/>
+        <location filename="MainWindow.py" line="256"/>
         <source>View in browser</source>
         <translation>Bekijk in de browser</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="249"/>
+        <location filename="MainWindow.py" line="264"/>
         <source>List</source>
         <translation>Lijst</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="261"/>
+        <location filename="MainWindow.py" line="276"/>
         <source>Reference</source>
         <translation>Referentie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="264"/>
+        <location filename="MainWindow.py" line="279"/>
         <source>Report...</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="269"/>
+        <location filename="MainWindow.py" line="284"/>
         <source>Save current list...</source>
         <translation>Sla huidige lijst op</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="274"/>
+        <location filename="MainWindow.py" line="289"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="290"/>
+        <location filename="MainWindow.py" line="305"/>
         <source>Check for updates</source>
         <translation>Controleren op update&apos;s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="680"/>
+        <location filename="MainWindow.py" line="719"/>
         <source>About %s</source>
         <translation>Over %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="295"/>
+        <location filename="MainWindow.py" line="310"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="303"/>
+        <location filename="MainWindow.py" line="318"/>
         <source>Toolbar</source>
         <translation>Toolbar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="374"/>
+        <location filename="MainWindow.py" line="387"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="374"/>
+        <location filename="MainWindow.py" line="387"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>De applicatie moet opnieuw opstarten om de nieuwe instellingen te verwerken. Nu opnieuw starten?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="502"/>
+        <location filename="MainWindow.py" line="544"/>
         <source>Select file</source>
         <translation>Selecteer bestand</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="488"/>
+        <location filename="MainWindow.py" line="516"/>
         <source>Importing</source>
         <translation>Bezig met Importeren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="419"/>
+        <location filename="MainWindow.py" line="432"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Voordat u importeert moet u uw bestaande verzameling exporteren vanuit Cabinet</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="432"/>
+        <location filename="MainWindow.py" line="445"/>
         <source>Select directory</source>
         <translation>Selecteer map</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="443"/>
+        <location filename="MainWindow.py" line="456"/>
         <source>Import pre-defined coins?</source>
         <translation>Importeer voorgedefinieerde munten?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="457"/>
+        <location filename="MainWindow.py" line="470"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Voordat u importeert moet u uw bestaande verzameling exporteren vanuit Collection Studio naar een XML tabel (kies Collection Studio menu Tools &gt; Export...)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="474"/>
+        <location filename="MainWindow.py" line="487"/>
         <source>Import club catalog?</source>
         <translation>Importeer clubcatalogus?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="488"/>
+        <location filename="MainWindow.py" line="501"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Voordat u importeert moet u uw bestaande verzameling exporteren van uCoin.net naar Comma-Separated (CSV) formaat.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="600"/>
+        <location filename="MainWindow.py" line="642"/>
         <source>Open collection</source>
         <translation>Open verzameling</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="600"/>
+        <location filename="MainWindow.py" line="642"/>
         <source>Collections (*.db)</source>
         <translation>verzamelingen (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="576"/>
+        <location filename="MainWindow.py" line="618"/>
         <source>New collection</source>
         <translation>Nieuwe verzameling</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="648"/>
+        <location filename="MainWindow.py" line="690"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Maak een nieuwe verzameling aan of open een bestaande</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="714"/>
+        <location filename="MainWindow.py" line="753"/>
         <source>Updates</source>
         <translation>Updates</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="714"/>
+        <location filename="MainWindow.py" line="753"/>
         <source>You already have the latest version.</source>
         <translation>Je beschikt al over de laatste versie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="725"/>
+        <location filename="MainWindow.py" line="764"/>
         <source>New version</source>
         <translation>nieuwe versie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="725"/>
+        <location filename="MainWindow.py" line="764"/>
         <source>New version is available. Download it now?</source>
         <translation>Nieuwe versie beschikbaar, nu downloaden?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="155"/>
+        <location filename="MainWindow.py" line="170"/>
         <source>Tellico</source>
         <translation>Tellico</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="680"/>
-        <source>%s %s
-
-Copyright (C) 2011-2018 Vitaly Ignatov
-
-%s is freeware licensed under a GPLv3.</source>
-        <translation>%s %s
-Copyright (C) 2011-2018 Vitaly Ignatov
-%s is opensource licentie onder a GPLv3.</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="284"/>
+        <location filename="MainWindow.py" line="299"/>
         <source>User manual</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="288"/>
+        <location filename="MainWindow.py" line="303"/>
         <source>Visit web-site</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="388"/>
+        <location filename="MainWindow.py" line="401"/>
         <source>Statistics</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="385"/>
+        <location filename="MainWindow.py" line="398"/>
         <source>Info panel</source>
         <translation type="unfinished"/>
     </message>
@@ -1708,8 +1705,31 @@ Copyright (C) 2011-2018 Vitaly Ignatov
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="162"/>
+        <location filename="MainWindow.py" line="177"/>
         <source>Synchronize...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="719"/>
+        <source>%s %s
+
+Copyright (C) 2011-2018 Vitaly Ignatov
+
+%s is freeware licensed under a GPLv3.</source>
+        <translation>%s %s
+
+Copyright (C) 2011-2018 Vitaly Ignatov
+
+%s is opensource licentie onder a GPLv3.</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="97"/>
+        <source>Excel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="516"/>
+        <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2324,17 +2344,17 @@ Nieuwe aangemaakt</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="148"/>
+        <location filename="SummaryDialog.py" line="155"/>
         <source>(calculated for %d coins)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="126"/>
+        <location filename="SummaryDialog.py" line="130"/>
         <source>Estimation owned: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="150"/>
+        <location filename="SummaryDialog.py" line="157"/>
         <source>Estimation wish: %d</source>
         <translation type="unfinished"/>
     </message>
@@ -2445,34 +2465,42 @@ Add a new one first.</source>
     </message>
 </context>
 <context>
+    <name>TableDialog</name>
+    <message>
+        <location filename="Excel.py" line="39"/>
+        <source>Select columns</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="314"/>
+        <location filename="PageView.py" line="319"/>
         <source>Other</source>
         <translation>Overig</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="346"/>
+        <location filename="PageView.py" line="351"/>
         <source>Add new coin...</source>
         <translation>nieuwe Ikoon toevoegen</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="349"/>
+        <location filename="PageView.py" line="354"/>
         <source>Edit coins...</source>
         <translation>bewerk munten</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="353"/>
+        <location filename="PageView.py" line="358"/>
         <source>Customize tree...</source>
         <translation>Bewerk zoekboom...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="406"/>
+        <location filename="PageView.py" line="411"/>
         <source>Updating records</source>
         <translation>data bijwerken</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="406"/>
+        <location filename="PageView.py" line="411"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
@@ -2524,7 +2552,7 @@ Add a new one first.</source>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location filename="__init__.py" line="94"/>
+        <location filename="__init__.py" line="181"/>
         <source>Importing</source>
         <translation>Bezig met importeren</translation>
     </message>
@@ -2534,14 +2562,32 @@ Add a new one first.</source>
         <translation>Importeren van %s</translation>
     </message>
     <message>
-        <location filename="__init__.py" line="102"/>
+        <location filename="__init__.py" line="190"/>
         <source>&apos;%s&apos; is not a valid database</source>
         <translation>&apos;%s&apos; is geen geldige database</translation>
     </message>
     <message>
-        <location filename="__init__.py" line="105"/>
+        <location filename="__init__.py" line="193"/>
         <source>DB server connection problem. Check additional software.</source>
         <translation>DB server verbindingsfout. Controleer databasesoftware</translation>
+    </message>
+</context>
+<context>
+    <name>_Import2</name>
+    <message>
+        <location filename="__init__.py" line="140"/>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="__init__.py" line="141"/>
+        <source>Importing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="__init__.py" line="143"/>
+        <source>Importing from %s</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
