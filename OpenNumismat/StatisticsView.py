@@ -27,8 +27,7 @@ except ValueError:
     class FigureCanvas:
         pass
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QPoint, QMargins
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
@@ -47,19 +46,44 @@ class BaseCanvas(FigureCanvas):
                                    QSizePolicy.Expanding,
                                    QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
+        self.mpl_connect("motion_notify_event", self.hover)
 
         self.label = QApplication.translate('BaseCanvas', "Number of coins")
 
     def setLabel(self, text):
         self.label = text
 
+    def setLabelY(self, text):
+        self.label_y = text
+
+    def hover(self, event):
+        if not event.inaxes:
+            QToolTip.showText(QPoint(), "")
+            return
+
+        for pos, figure in enumerate(self.figures):
+            if figure.contains(event)[0]:
+                point = QPoint(event.x, self.parent().height() - event.y)
+                QToolTip.showText(self.parent().mapToGlobal(point), self.tooltip(pos))
+                return
+
+        QToolTip.showText(QPoint(), "")
+
+    def tooltip(self, pos):
+        x = self.xx[pos]
+        y = self.yy[pos]
+        return "%s: %s\n%s: %d" % (self.label_y, x, self.label, y)
+
 
 class BarCanvas(BaseCanvas):
     def setData(self, xx, yy):
+        self.xx = xx
+        self.yy = yy
+
         self.axes.cla()
 
         x = range(len(yy))
-        self.axes.bar(x, yy)
+        self.figures = self.axes.bar(x, yy)
         self.axes.set_xticks(x)
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_xticklabels(keys)
@@ -73,13 +97,16 @@ class BarCanvas(BaseCanvas):
 
 class BarHCanvas(BaseCanvas):
     def setData(self, xx, yy):
+        self.xx = xx
+        self.yy = yy
+
         self.axes.cla()
 
         xx = xx[::-1]  # xx.reverse()
         yy = yy[::-1]  # yy.reverse()
 
         x = range(len(yy))
-        self.axes.barh(x, yy)
+        self.figures = self.axes.barh(x, yy)
         self.axes.set_yticks(x)
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_yticklabels(keys)
@@ -93,25 +120,39 @@ class BarHCanvas(BaseCanvas):
 
 class PieCanvas(BaseCanvas):
     def setData(self, xx, yy):
+        self.xx = xx
+        self.yy = yy
+
         self.axes.cla()
 
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
-        self.axes.pie(yy, labels=keys)
+        self.figures = self.axes.pie(yy, labels=keys)[0]
         self.axes.axis('equal')
 
         self.draw()
 
 
 class StackedBarCanvas(BaseCanvas):
+
+    def setLabelZ(self, text):
+        self.label_z = text
+
     def setData(self, xx, yy, zz):
+        self.xx = xx
+        self.yy = yy
+        self.zz = zz
+
         self.axes.cla()
 
         x = range(len(xx))
 
+        self.figures = []
         lines = []
         prev_y = [0 * len(xx)]
         for y in yy:
             bars = self.axes.barh(x, y, left=prev_y)
+            for bar in bars:
+                self.figures.append(bar)
             prev_y = numpy.add(prev_y, y)
             lines.append(bars[0])
 
@@ -127,13 +168,22 @@ class StackedBarCanvas(BaseCanvas):
 
         self.draw()
 
+    def tooltip(self, pos):
+        x = self.xx[pos % len(self.xx)]
+        y = self.yy[pos // len(self.xx)][pos % len(self.xx)]
+        z = self.zz[pos // len(self.xx)]
+        return "%s: %s\n%s: %s\n%s: %d" % (self.label_y, x, self.label_z, z, self.label, y)
+
 
 class ProgressCanvas(BaseCanvas):
     def setData(self, xx, yy):
+        self.xx = xx
+        self.yy = yy
+
         self.axes.cla()
 
         x = range(len(yy))
-        self.axes.bar(x, yy)
+        self.figures = self.axes.bar(x, yy)
         self.axes.plot(x, numpy.cumsum(yy), color='red')
 
         self.axes.set_xticks(x)
@@ -154,7 +204,7 @@ class StatisticsView(QWidget):
         self.statisticsParam = statisticsParam
 
         layout = QHBoxLayout()
-        layout.setContentsMargins(QtCore.QMargins())
+        layout.setContentsMargins(QMargins())
         layout.setAlignment(Qt.AlignTop)
 
         ctrlLayout = QVBoxLayout()
@@ -165,7 +215,7 @@ class StatisticsView(QWidget):
         layout.addWidget(widget)
 
         self.chartLayout = QVBoxLayout()
-        self.chartLayout.setContentsMargins(QtCore.QMargins())
+        self.chartLayout.setContentsMargins(QMargins())
         layout.addWidget(self.__layoutToWidget(self.chartLayout))
 
         self.chart = QWidget(self)
@@ -331,6 +381,8 @@ class StatisticsView(QWidget):
                         pass
 
             self.chart.setData(xx, yy, zz)
+            self.chart.setLabelY(self.fieldSelector.currentText())
+            self.chart.setLabelZ(self.subfieldSelector.currentText())
         elif chart == 'progress':
             items = self.itemsSelector.currentData()
             if items == 'price':
@@ -377,6 +429,7 @@ class StatisticsView(QWidget):
                 yy.append(count)
 
             self.chart.setData(xx, yy)
+            self.chart.setLabelY(self.periodSelector.currentText())
         else:
             sql = "SELECT count(%s), %s FROM coins %s GROUP BY %s" % (
                 field, field, sql_filter, field)
@@ -394,6 +447,7 @@ class StatisticsView(QWidget):
                 yy.append(count)
 
             self.chart.setData(xx, yy)
+            self.chart.setLabelY(self.fieldSelector.currentText())
 
     def fieldChaged(self, _text):
         fieldId = self.fieldSelector.currentData()
