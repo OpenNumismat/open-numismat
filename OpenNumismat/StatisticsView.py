@@ -1,3 +1,4 @@
+import os.path
 from textwrap import wrap
 
 statisticsAvailable = True
@@ -27,19 +28,20 @@ except ValueError:
     class FigureCanvas:
         pass
 
-from PyQt5.QtCore import Qt, QPoint, QMargins
+from PyQt5.QtCore import Qt, QPoint, QMargins, QSettings, QSize, QDateTime
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Tools.Gui import createIcon
 
 
 class BaseCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
-        fig = Figure(figsize=(width, height), dpi=dpi)
-        self.axes = fig.add_subplot(111)
+        self.fig = Figure(figsize=(width, height), dpi=dpi)
+        self.axes = self.fig.add_subplot(111)
 
-        FigureCanvas.__init__(self, fig)
+        FigureCanvas.__init__(self, self.fig)
         self.setParent(parent)
 
         FigureCanvas.setSizePolicy(self,
@@ -256,6 +258,16 @@ class StatisticsView(QWidget):
         self.itemsSelector.addItem(self.tr("Price"), 'price')
         self.itemsSelector.addItem(self.tr("Total price"), 'totalprice')
         ctrlLayout.addWidget(self.itemsSelector)
+
+        saveButton = QPushButton()
+        icon = createIcon("save.png")
+        saveButton.setIcon(icon)
+        saveButton.setIconSize(QSize(16, 16))
+        saveButton.setToolTip(self.tr("Save chart"))
+        saveButton.setFixedWidth(25)
+        ctrlLayout.addSpacing(1000)
+        ctrlLayout.addWidget(saveButton)
+        saveButton.clicked.connect(self.save)
 
         self.setLayout(layout)
 
@@ -492,3 +504,23 @@ class StatisticsView(QWidget):
         widget = QWidget(self)
         widget.setLayout(layout)
         return widget
+
+    def save(self):
+        filters = (self.tr("PNG image (*.png)"),
+                   self.tr("PDF file (*.pdf)"),
+                   self.tr("SVG image (*.svg)"),
+                   self.tr("PostScript (*.ps)"),
+                   self.tr("Encapsulated PostScript (*.eps)"))
+
+        defaultFileName = "%s_%s" % (self.chartSelector.currentText(),
+                                     QDateTime.currentDateTime().toString('yyyyMMdd'))
+        settings = QSettings()
+        lastExportDir = settings.value('export_statistics/last_dir')
+        if lastExportDir:
+            defaultFileName = os.path.join(lastExportDir, defaultFileName)
+
+        fileName, _selectedFilter = QFileDialog.getSaveFileName(
+            self, self.tr("Save as"),
+            defaultFileName, filter=';;'.join(filters))
+        if fileName:
+            self.chart.fig.savefig(fileName)
