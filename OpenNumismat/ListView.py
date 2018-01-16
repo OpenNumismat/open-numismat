@@ -432,10 +432,10 @@ class ListView(QTableView):
             executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
 
     def saveTable(self):
-        filters = [self.tr("Excel document (*.xls)"),
+        filters = (self.tr("Excel document (*.xls)"),
                    self.tr("Web page (*.htm *.html)"),
                    self.tr("Text file (*.csv)"),
-                   self.tr("Text file UTF-8 (*.csv)")]
+                   self.tr("Text file UTF-8 (*.csv)"))
 
         defaultFileName = self.listParam.page.title
         settings = QtCore.QSettings()
