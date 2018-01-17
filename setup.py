@@ -69,8 +69,6 @@ except ImportError:
     from setuptools import setup
     cx_Freeze_available = False
 
-from OpenNumismat import version
-
 ###############################################################################
 # VALIDATE THE NEEDED MODULES
 ###############################################################################
@@ -107,20 +105,19 @@ for dirname, dirnames, filenames in os.walk('OpenNumismat/templates'):
     if filenames:
         templates_packages.append(dirname)
 
-
 ###############################################################################
 # PRE-SETUP
 ###############################################################################
 
 # Common
 params = {
-    "name": version.AppName,
-    "version": version.Version,
-    "author": version.Author,
-    "author_email": version.EMail,
-    "description": version.AppName,
+    "name": 'OpenNumismat',
+    "version": '1.6.7',
+    "author": 'Vitaly Ignatov',
+    "author_email": 'opennumismat@gmail.com',
+    "description": 'OpenNumismat',
     "long_description": __doc__,
-    "url": version.Web,
+    "url": 'http://opennumismat.github.io/',
     "license": "GPLv3",
     "keywords": "numismatics, coins, qt, pyqt, collecting, cataloging",
     "classifiers": ["Development Status :: 5 - Production/Stable",
@@ -194,7 +191,7 @@ if cx_Freeze_available:
 
     executable = Executable("open-numismat.py", base=base, compress=True,
                             icon='OpenNumismat/icons/main.ico',
-                            targetName=version.AppName + executable_ext)
+                            targetName=params['name'] + executable_ext)
 
     translation_files = []
     f = open('tools/langs')
@@ -254,7 +251,7 @@ setup(**params)
 if sys.platform == "darwin":
     import shutil
 
-    bundleName = version.AppName + '-' + version.Version + '.app'
+    bundleName = params['name'] + '-' + params['version'] + '.app'
     binDir = 'build/' + bundleName + '/Contents/MacOS/'
     shutil.copy("OpenNumismat.icns", "build/" + bundleName + "/Contents/Resources")
     os.remove(binDir + "imageformats/libqsvg.dylib")
