@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import *
 import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import version
-from OpenNumismat.Tools.Gui import createIcon
 
 
 class ImageLabel(QLabel):
