@@ -25,7 +25,7 @@
 <context>
     <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="51"/>
+        <location filename="StatisticsView.py" line="53"/>
         <source>Number of coins</source>
         <translation>Número de monedas</translation>
     </message>
@@ -1136,7 +1136,7 @@ Desea enviar un mensaje de error al autor?</translation>
     <message>
         <location filename="Excel.py" line="128"/>
         <source>&lt;Ignore&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;Ignore&gt;</translation>
     </message>
 </context>
 <context>
@@ -1207,17 +1207,17 @@ Desea enviar un mensaje de error al autor?</translation>
         <translation>Documento Excel (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="436"/>
+        <location filename="ListView.py" line="435"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Página web (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="437"/>
+        <location filename="ListView.py" line="435"/>
         <source>Text file (*.csv)</source>
         <translation>Archivo de texto (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="438"/>
+        <location filename="ListView.py" line="435"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Archivo de texto UTF-8 (*.csv)</translation>
     </message>
@@ -1738,7 +1738,7 @@ Copyright (C) 2011-2018 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="516"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
-        <translation type="unfinished"/>
+        <translation>Antes de importar, debe exportar la colección existente de uCoin.net a Microsoft Excel (XLS) o al formato separado por coma (CSV).</translation>
     </message>
 </context>
 <context>
@@ -2167,104 +2167,139 @@ Crear una nueva</translation>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="175"/>
+        <location filename="StatisticsView.py" line="227"/>
         <source>Bar</source>
         <translation>Barra</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="176"/>
+        <location filename="StatisticsView.py" line="228"/>
         <source>Horizontal bar</source>
         <translation>Barra horizontal</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="177"/>
+        <location filename="StatisticsView.py" line="229"/>
         <source>Pie</source>
         <translation>Tarta</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="178"/>
+        <location filename="StatisticsView.py" line="230"/>
         <source>Stacked bar</source>
         <translation>Barra apilada</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="179"/>
+        <location filename="StatisticsView.py" line="231"/>
         <source>Progress</source>
         <translation>Progreso</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="180"/>
+        <location filename="StatisticsView.py" line="232"/>
         <source>Chart:</source>
         <translation>gráfico:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="183"/>
+        <location filename="StatisticsView.py" line="235"/>
         <source>Field:</source>
         <translation>campo:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="188"/>
+        <location filename="StatisticsView.py" line="240"/>
         <source>Additional field:</source>
         <translation>Campo adiccional:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="193"/>
+        <location filename="StatisticsView.py" line="245"/>
         <source>Sum per:</source>
         <translation>Suma por:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="196"/>
+        <location filename="StatisticsView.py" line="248"/>
         <source>Year</source>
         <translation>Año</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="197"/>
+        <location filename="StatisticsView.py" line="249"/>
         <source>Month</source>
         <translation>Mes</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="198"/>
+        <location filename="StatisticsView.py" line="250"/>
         <source>Week</source>
         <translation>Semana</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="199"/>
+        <location filename="StatisticsView.py" line="251"/>
         <source>Day</source>
         <translation>Día</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="202"/>
+        <location filename="StatisticsView.py" line="254"/>
         <source>Items:</source>
         <translation>Elementos:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="205"/>
+        <location filename="StatisticsView.py" line="257"/>
         <source>Count</source>
         <translation>Contar</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="206"/>
+        <location filename="StatisticsView.py" line="258"/>
         <source>Price</source>
         <translation>Precio</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="207"/>
+        <location filename="StatisticsView.py" line="259"/>
         <source>Total price</source>
         <translation>Precio Total</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="339"/>
+        <location filename="StatisticsView.py" line="403"/>
         <source>Paid</source>
         <translation>Pagado</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="342"/>
+        <location filename="StatisticsView.py" line="406"/>
         <source>Total paid</source>
         <translation>Pago total</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="345"/>
+        <location filename="StatisticsView.py" line="409"/>
         <source>Number of coins</source>
         <translation>Número de monedas</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="266"/>
+        <source>Save chart</source>
+        <translation>Salvar gráfico</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>PNG image (*.png)</source>
+        <translation>Imagen PNG (*.png)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>PDF file (*.pdf)</source>
+        <translation>Archivo PDF (*.pdf)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>SVG image (*.svg)</source>
+        <translation>Imagen SVG (*.svg)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>PostScript (*.ps)</source>
+        <translation>PostScript (*.ps)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>Encapsulated PostScript (*.eps)</source>
+        <translation>PostScript encapsulado (*.eps)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="523"/>
+        <source>Save as</source>
+        <translation>Salvar como</translation>
     </message>
 </context>
 <context>

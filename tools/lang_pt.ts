@@ -25,7 +25,7 @@
 <context>
     <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="51"/>
+        <location filename="StatisticsView.py" line="53"/>
         <source>Number of coins</source>
         <translation>Número de moedas</translation>
     </message>
@@ -1207,17 +1207,17 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Documento Excel (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="436"/>
+        <location filename="ListView.py" line="435"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Página web (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="437"/>
+        <location filename="ListView.py" line="435"/>
         <source>Text file (*.csv)</source>
         <translation>Ficheiro de texto (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="438"/>
+        <location filename="ListView.py" line="435"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Ficheiro de texto UTF-8 (*.csv)</translation>
     </message>
@@ -2167,104 +2167,139 @@ Criada uma nova</translation>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="175"/>
+        <location filename="StatisticsView.py" line="227"/>
         <source>Bar</source>
         <translation>Barra</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="176"/>
+        <location filename="StatisticsView.py" line="228"/>
         <source>Horizontal bar</source>
         <translation>Barra horizontal</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="177"/>
+        <location filename="StatisticsView.py" line="229"/>
         <source>Pie</source>
         <translation>Circular</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="178"/>
+        <location filename="StatisticsView.py" line="230"/>
         <source>Stacked bar</source>
         <translation>Barras empilhadas</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="179"/>
+        <location filename="StatisticsView.py" line="231"/>
         <source>Progress</source>
         <translation>Progresso</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="180"/>
+        <location filename="StatisticsView.py" line="232"/>
         <source>Chart:</source>
         <translation>Gráfico</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="183"/>
+        <location filename="StatisticsView.py" line="235"/>
         <source>Field:</source>
         <translation>Campo:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="188"/>
+        <location filename="StatisticsView.py" line="240"/>
         <source>Additional field:</source>
         <translation>Campo adicional:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="193"/>
+        <location filename="StatisticsView.py" line="245"/>
         <source>Sum per:</source>
         <translation>Soma por:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="196"/>
+        <location filename="StatisticsView.py" line="248"/>
         <source>Year</source>
         <translation>Ano</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="197"/>
+        <location filename="StatisticsView.py" line="249"/>
         <source>Month</source>
         <translation>Mês</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="198"/>
+        <location filename="StatisticsView.py" line="250"/>
         <source>Week</source>
         <translation>Semana</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="199"/>
+        <location filename="StatisticsView.py" line="251"/>
         <source>Day</source>
         <translation>Dia</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="202"/>
+        <location filename="StatisticsView.py" line="254"/>
         <source>Items:</source>
         <translation>Itens:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="205"/>
+        <location filename="StatisticsView.py" line="257"/>
         <source>Count</source>
         <translation>Total</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="206"/>
+        <location filename="StatisticsView.py" line="258"/>
         <source>Price</source>
         <translation>Preço</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="207"/>
+        <location filename="StatisticsView.py" line="259"/>
         <source>Total price</source>
         <translation>Preço total</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="339"/>
+        <location filename="StatisticsView.py" line="403"/>
         <source>Paid</source>
         <translation>Pago</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="342"/>
+        <location filename="StatisticsView.py" line="406"/>
         <source>Total paid</source>
         <translation>Total pago</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="345"/>
+        <location filename="StatisticsView.py" line="409"/>
         <source>Number of coins</source>
         <translation>Número de moedas</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="266"/>
+        <source>Save chart</source>
+        <translation>Gravar gráfico</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>PNG image (*.png)</source>
+        <translation>Imagem PNG (*.png)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>PDF file (*.pdf)</source>
+        <translation>Ficheiro PDF (*.pdf)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>SVG image (*.svg)</source>
+        <translation>Imagem SVG (*.svg)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>PostScript (*.ps)</source>
+        <translation>PostScript (*.ps)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="510"/>
+        <source>Encapsulated PostScript (*.eps)</source>
+        <translation>Encapsulated PostScript (*.eps)</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="523"/>
+        <source>Save as</source>
+        <translation>Gravar como</translation>
     </message>
 </context>
 <context>
