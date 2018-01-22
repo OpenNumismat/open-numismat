@@ -99,13 +99,13 @@ class BarCanvas(BaseCanvas):
 
 class BarHCanvas(BaseCanvas):
     def setData(self, xx, yy):
-        self.xx = xx
-        self.yy = yy
-
         self.axes.cla()
 
         xx = xx[::-1]  # xx.reverse()
         yy = yy[::-1]  # yy.reverse()
+
+        self.xx = xx
+        self.yy = yy
 
         x = range(len(yy))
         self.figures = self.axes.barh(x, yy)
