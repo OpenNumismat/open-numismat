@@ -368,8 +368,8 @@ class DetailsTabWidget(QTabWidget):
         title = QApplication.translate('DetailsTabWidget', "Price")
         layout = BaseFormGroupBox(title)
 
-        layout.addRow(self.items['price1'], self.items['price2'])
-        layout.addRow(self.items['price3'], self.items['price4'])
+        layout.addRow(self.items['price4'], self.items['price3'])
+        layout.addRow(self.items['price2'], self.items['price1'])
 
         return layout
 
