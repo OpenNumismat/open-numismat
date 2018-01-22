@@ -175,7 +175,9 @@ class StackedBarCanvas(BaseCanvas):
         x = self.xx[pos % len(self.xx)]
         y = self.yy[pos // len(self.xx)][pos % len(self.xx)]
         z = self.zz[pos // len(self.xx)]
-        return "%s: %s\n%s: %s\n%s: %d" % (self.label_y, x, self.label_z, z, self.label, y)
+        s = sum([yy[pos % len(self.xx)] for yy in self.yy])
+        return "%s: %s\n%s: %s\n%s: %d/%d" % (self.label_y, x, self.label_z, z,
+                                              self.label, y, s)
 
 
 class ProgressCanvas(BaseCanvas):
