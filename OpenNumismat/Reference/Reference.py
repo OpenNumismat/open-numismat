@@ -285,51 +285,38 @@ class Reference(QtCore.QObject):
         self.userFields = [field.name for field in fields.userFields]
         self.sections = []
 
-        ref_region = self.__createReferenceSection(None, 'region',
-                                                   self.tr("Region"))
-        ref_country = self.__createReferenceSection(ref_region, 'country',
-                                                    self.tr("Country"), self.tr("C"), True)
-        self.__createReferenceSection(ref_country, 'period',
-                                      self.tr("Period"), self.tr("P"), True)
-        self.__createReferenceSection(ref_country, 'ruler',
-                                      self.tr("Ruler"))
-        self.__createReferenceSection(ref_country, 'unit',
-                                      self.tr("Unit"), self.tr("U"))
-        self.__createReferenceSection(ref_country, 'mint',
-                                      self.tr("Mint"))
-        self.__createReferenceSection(ref_country, 'series',
-                                      self.tr("Series"), self.tr("S"), True)
-        self.__createReferenceSection(None, 'grade',
-                                      self.tr("Grade"), self.tr("G"))
-        self.__createReferenceSection(None, 'material',
-                                      self.tr("Material"), self.tr("M"))
-        self.__createReferenceSection(None, 'shape',
-                                      self.tr("Shape"), self.tr("F"))
-        self.__createReferenceSection(None, 'quality',
-                                      self.tr("Quality"), self.tr("Q"))
-        self.__createReferenceSection(None, 'edge',
-                                      self.tr("Edge"), self.tr("E"))
-        self.__createReferenceSection(None, 'rarity',
-                                      self.tr("Rarity"), self.tr("R"))
-        self.__createReferenceSection(None, 'obvrev',
-                                      self.tr("ObvRev"))
-        self.__createReferenceSection(None, 'type',
-                                      self.tr("Type"), self.tr("T"))
-        self.__createReferenceSection(None, 'defect',
-                                      self.tr("Defect"), self.tr("D"))
+        ref_region = self.__createReferenceSection(None, fields.region)
+        ref_country = self.__createReferenceSection(ref_region, fields.country,
+                                                    self.tr("C"), True)
+        self.__createReferenceSection(ref_country, fields.period,
+                                      self.tr("P"), True)
+        self.__createReferenceSection(ref_country, fields.ruler)
+        self.__createReferenceSection(ref_country, fields.unit, self.tr("U"))
+        self.__createReferenceSection(ref_country, fields.mint)
+        self.__createReferenceSection(ref_country, fields.series,
+                                      self.tr("S"), True)
+        self.__createReferenceSection(None, fields.grade, self.tr("G"))
+        self.__createReferenceSection(None, fields.material, self.tr("M"))
+        self.__createReferenceSection(None, fields.shape, self.tr("F"))
+        self.__createReferenceSection(None, fields.quality, self.tr("Q"))
+        self.__createReferenceSection(None, fields.edge, self.tr("E"))
+        self.__createReferenceSection(None, fields.rarity, self.tr("R"))
+        self.__createReferenceSection(None, fields.obvrev)
+        self.__createReferenceSection(None, fields.type, self.tr("T"))
+        self.__createReferenceSection(None, fields.defect, self.tr("D"))
 
         if 'payplace' in self.userFields or 'saleplace' in self.userFields:
             ref_place = ReferenceSection('place', self.tr("Place"))
             self.sections.append(ref_place)
 
-    def __createReferenceSection(self, parentRef, name, title,
+    def __createReferenceSection(self, parentRef, field,
                                  letter='', sort=False):
-        if name in self.userFields:
+        if field.name in self.userFields:
             if parentRef:
-                ref = CrossReferenceSection(name, parentRef, title,
+                ref = CrossReferenceSection(field.name, parentRef, field.title,
                                             letter, sort)
             else:
-                ref = ReferenceSection(name, title, letter, sort)
+                ref = ReferenceSection(field.name, field.title, letter, sort)
             self.sections.append(ref)
 
             return ref
