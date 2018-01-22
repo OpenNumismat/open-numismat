@@ -186,7 +186,7 @@ if cx_Freeze_available:
         executable_ext = '.exe'
     else:
         # Path to Qt on MacPorts
-        qt_dir = '/opt/local/share/qt5'
+        qt_dir = '/opt/local/libexec/qt5'
         executable_ext = ''
 
     executable = Executable("open-numismat.py", base=base, compress=True,
@@ -225,9 +225,9 @@ if cx_Freeze_available:
 
         include_files.append(("/opt/local/lib/libsqlite3.0.dylib", "libsqlite3.0.dylib"))
         include_files.append(("/opt/local/lib/libjpeg.9.dylib", "libjpeg.9.dylib"))
-        include_files.append(("/opt/local/lib/libmng.1.dylib", "libmng.1.dylib"))
+        include_files.append(("/opt/local/lib/libmng.2.dylib", "libmng.2.dylib"))
         include_files.append(("/opt/local/lib/libtiff.5.dylib", "libtiff.5.dylib"))
-        include_files.append(("/opt/local/lib/liblcms.1.dylib", "liblcms.1.dylib"))
+        include_files.append(("/opt/local/lib/liblcms2.dylib", "liblcms2.dylib"))
     build_exe_options = {
             "excludes": [],
             "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork", "PyQt5.QtWebKit"],
@@ -238,7 +238,7 @@ if cx_Freeze_available:
 
     params["executables"] = [executable]
     params["options"] = {"build_exe": build_exe_options,
-                         "bdist_mac": {"bundle_iconfile": "OpenNumismat.icns"}}
+                         "bdist_mac": {"iconfile": "OpenNumismat.icns"}}
 
 
 ###############################################################################
@@ -253,6 +253,7 @@ if sys.platform == "darwin":
 
     bundleName = params['name'] + '-' + params['version'] + '.app'
     binDir = 'build/' + bundleName + '/Contents/MacOS/'
+    shutil.copy("qt.conf", binDir)
     shutil.copy("OpenNumismat.icns", "build/" + bundleName + "/Contents/Resources")
     os.remove(binDir + "imageformats/libqsvg.dylib")
 
