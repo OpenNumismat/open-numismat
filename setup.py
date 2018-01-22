@@ -230,7 +230,8 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/liblcms2.dylib", "liblcms2.dylib"))
     build_exe_options = {
             "excludes": [],
-            "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork", "PyQt5.QtWebKit"],
+            "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
+                         "PyQt5.QtWebKit", "matplotlib.backends.backend_ps"],
             "include_files": include_files,
             "replace_paths": [(os.path.dirname(__file__) + os.sep, '')],
             "include_msvcr": True  # skip error msvcr100.dll missing
