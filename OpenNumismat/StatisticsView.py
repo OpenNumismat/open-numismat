@@ -28,10 +28,11 @@ except ValueError:
     class FigureCanvas:
         pass
 
-from PyQt5.QtCore import Qt, QPoint, QMargins, QSettings, QSize, QDateTime
+from PyQt5.QtCore import Qt, QPoint, QMargins, QSettings, QSize, QDateTime, QFileInfo
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
+import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import createIcon
 
@@ -515,12 +516,19 @@ class StatisticsView(QWidget):
         defaultFileName = "%s_%s" % (self.chartSelector.currentText(),
                                      QDateTime.currentDateTime().toString('yyyyMMdd'))
         settings = QSettings()
-        lastExportDir = settings.value('export_statistics/last_dir')
+        lastExportDir = settings.value('export_statistics/last_dir',
+                                       OpenNumismat.HOME_PATH)
         if lastExportDir:
             defaultFileName = os.path.join(lastExportDir, defaultFileName)
 
-        fileName, _selectedFilter = QFileDialog.getSaveFileName(
+        fileName, selectedFilter = QFileDialog.getSaveFileName(
             self, self.tr("Save as"),
             defaultFileName, filter=';;'.join(filters))
         if fileName:
+            file_info = QFileInfo(fileName)
+            settings.setValue('export_statistics/last_dir', file_info.absolutePath())
+
+            # TODO: Matplotlib 2.1.0 needs file name in latin-1 for PS and EPS
+            if selectedFilter in filters[3:5]:
+                fileName = fileName.encode("latin-1", "ignore")
             self.chart.fig.savefig(fileName)
