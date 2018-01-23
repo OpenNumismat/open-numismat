@@ -35,6 +35,7 @@ from PyQt5.QtWidgets import *
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Tools.Converters import numberWithFraction
 
 
 class BaseCanvas(FigureCanvas):
@@ -294,12 +295,20 @@ class StatisticsView(QWidget):
             if field.name in ('region', 'country', 'year', 'period', 'ruler',
                               'mint', 'type', 'series', 'status', 'material',
                               'grade', 'saller', 'payplace', 'buyer',
-                              'saleplace', 'storage'):
-                self.fieldSelector.addItem(field.title, field.id)
-                self.subfieldSelector.addItem(field.title, field.id)
+                              'saleplace', 'storage', 'fineness', 'unit'):
+                if field.name == 'fineness':
+                    title = self.model.fields.material.title + '+' + field.title
+                    self.fieldSelector.addItem(title, field.id)
+                elif field.name == 'unit':
+                    title = self.model.fields.value.title + '+' + field.title
+                    self.fieldSelector.addItem(title, field.id)
+                else:
+                    self.fieldSelector.addItem(field.title, field.id)
+                    self.subfieldSelector.addItem(field.title, field.id)
                 if field.name == 'status':
                     default_subfieldid = field.id
 
+        # TODO: Store field name instead field ID
         fieldid = self.statisticsParam['fieldid']
         index = self.fieldSelector.findData(fieldid)
         if index >= 0:
@@ -357,6 +366,10 @@ class StatisticsView(QWidget):
 
         fieldId = self.fieldSelector.currentData()
         field = self.model.fields.field(fieldId).name
+        if field == 'fineness':
+            field = 'material,fineness'
+        elif field == 'unit':
+            field = 'value,unit'
         filter_ = self.model.filter()
         if filter_:
             sql_filter = "WHERE %s" % filter_
@@ -367,7 +380,7 @@ class StatisticsView(QWidget):
             subfieldId = self.subfieldSelector.currentData()
             subfield = self.model.fields.field(subfieldId).name
             sql = "SELECT count(%s), %s, %s FROM coins %s GROUP BY %s, %s" % (
-                subfield, field, subfield, sql_filter, field, subfield)
+                subfield, subfield, field, sql_filter, field, subfield)
             query = QSqlQuery(self.model.database())
             query.exec_(sql)
             xx = []
@@ -377,12 +390,17 @@ class StatisticsView(QWidget):
             while query.next():
                 record = query.record()
                 count = record.value(0)
-                val = str(record.value(1))
+                val = str(record.value(2))
                 if field == 'status':
                     val = Statuses[val]
-                subval = str(record.value(2))
+                elif field == 'value,unit':
+                    val = numberWithFraction(val)[0] + ' ' + str(record.value(3))
+                elif ',' in field:
+                    val += ' ' + str(record.value(3))
+                subval = str(record.value(1))
                 if subfield == 'status':
                     subval = Statuses[subval]
+
                 if val not in xx:
                     xx.append(val)
                 if subval not in zz:
@@ -453,8 +471,8 @@ class StatisticsView(QWidget):
             self.chart.setData(xx, yy)
             self.chart.setLabelY(self.periodSelector.currentText())
         else:
-            sql = "SELECT count(%s), %s FROM coins %s GROUP BY %s" % (
-                field, field, sql_filter, field)
+            sql = "SELECT count(*), %s FROM coins %s GROUP BY %s" % (
+                field, sql_filter, field)
             query = QSqlQuery(self.model.database())
             query.exec_(sql)
             xx = []
@@ -465,6 +483,10 @@ class StatisticsView(QWidget):
                 val = str(record.value(1))
                 if field == 'status':
                     val = Statuses[val]
+                elif field == 'value,unit':
+                    val = numberWithFraction(val)[0] + ' ' + str(record.value(2))
+                elif ',' in field:
+                    val += ' ' + str(record.value(2))
                 xx.append(val)
                 yy.append(count)
 
