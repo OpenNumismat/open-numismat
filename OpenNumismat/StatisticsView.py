@@ -53,6 +53,15 @@ class BaseCanvas(FigureCanvas):
 
         self.label = QApplication.translate('BaseCanvas', "Number of coins")
 
+        self.colors = None
+
+    def setMulticolor(self, multicolor=False):
+        if multicolor:
+            prop_cycle = plt.rcParams['axes.prop_cycle']
+            self.colors = prop_cycle.by_key()['color']
+        else:
+            self.colors = None
+
     def setLabel(self, text):
         self.label = text
 
@@ -86,7 +95,7 @@ class BarCanvas(BaseCanvas):
         self.axes.cla()
 
         x = range(len(yy))
-        self.figures = self.axes.bar(x, yy)
+        self.figures = self.axes.bar(x, yy, color=self.colors)
         self.axes.set_xticks(x)
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_xticklabels(keys)
@@ -109,7 +118,7 @@ class BarHCanvas(BaseCanvas):
         self.yy = yy
 
         x = range(len(yy))
-        self.figures = self.axes.barh(x, yy)
+        self.figures = self.axes.barh(x, yy, color=self.colors)
         self.axes.set_yticks(x)
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
         self.axes.set_yticklabels(keys)
@@ -188,7 +197,7 @@ class ProgressCanvas(BaseCanvas):
         self.axes.cla()
 
         x = range(len(yy))
-        self.figures = self.axes.bar(x, yy)
+        self.figures = self.axes.bar(x, yy, color=self.colors)
         self.axes.plot(x, numpy.cumsum(yy), color='red')
 
         self.axes.set_xticks(x)
@@ -262,6 +271,9 @@ class StatisticsView(QWidget):
         self.itemsSelector.addItem(self.tr("Total price"), 'totalprice')
         ctrlLayout.addWidget(self.itemsSelector)
 
+        self.colorCheck = QCheckBox(self.tr("Multicolor"), self)
+        ctrlLayout.addWidget(self.colorCheck)
+
         saveButton = QPushButton()
         icon = createIcon("save.png")
         saveButton.setIcon(icon)
@@ -316,19 +328,13 @@ class StatisticsView(QWidget):
         if index >= 0:
             self.periodSelector.setCurrentIndex(index)
 
+        self.showConfig(chart)
         self.chartSelector.currentIndexChanged.connect(self.chartChaged)
-        self.fieldSelector.setVisible(chart != 'progress')
-        self.fieldLabel.setVisible(chart != 'progress')
         self.fieldSelector.currentIndexChanged.connect(self.fieldChaged)
-        self.subfieldSelector.setVisible(chart == 'stacked')
-        self.subfieldLabel.setVisible(chart == 'stacked')
         self.subfieldSelector.currentIndexChanged.connect(self.subfieldChaged)
-        self.periodSelector.setVisible(chart == 'progress')
-        self.periodLabel.setVisible(chart == 'progress')
         self.periodSelector.currentIndexChanged.connect(self.periodChaged)
-        self.itemsSelector.setVisible(chart == 'progress')
-        self.itemsLabel.setVisible(chart == 'progress')
         self.itemsSelector.currentIndexChanged.connect(self.itemsChaged)
+        self.colorCheck.stateChanged.connect(self.colorChanged)
 
     def clear(self):
         pass
@@ -346,6 +352,7 @@ class StatisticsView(QWidget):
             self.chart = ProgressCanvas(self)
         else:
             self.chart = BarCanvas(self)
+        self.chart.setMulticolor(self.colorCheck.checkState() == Qt.Checked)
         self.chartLayout.addWidget(self.chart)
 
         fieldId = self.fieldSelector.currentData()
@@ -480,6 +487,11 @@ class StatisticsView(QWidget):
         chart = self.chartSelector.currentData()
         self.statisticsParam['chart'] = chart
 
+        self.showConfig(chart)
+
+        self.modelChanged()
+
+    def showConfig(self, chart):
         self.subfieldSelector.setVisible(chart == 'stacked')
         self.subfieldLabel.setVisible(chart == 'stacked')
         self.fieldSelector.setVisible(chart != 'progress')
@@ -488,8 +500,7 @@ class StatisticsView(QWidget):
         self.periodLabel.setVisible(chart == 'progress')
         self.itemsSelector.setVisible(chart == 'progress')
         self.itemsLabel.setVisible(chart == 'progress')
-
-        self.modelChanged()
+        self.colorCheck.setVisible(chart != 'stacked' and chart != 'pie')
 
     def periodChaged(self, _text):
         period = self.periodSelector.currentData()
@@ -501,6 +512,9 @@ class StatisticsView(QWidget):
         items = self.itemsSelector.currentData()
         self.statisticsParam['items'] = items
 
+        self.modelChanged()
+
+    def colorChanged(self, _state):
         self.modelChanged()
 
     def __layoutToWidget(self, layout):
