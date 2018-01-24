@@ -137,7 +137,7 @@ class ExportToCsv(__ExportBase):
     def writeHeader(self, headers):
         encoded_vals = []
         for val in headers:
-            value = __prepareStr(val)
+            value = self.__prepareStr(val)
             encoded_vals.append(value)
 
         self._writer.writerow(encoded_vals)
@@ -145,10 +145,17 @@ class ExportToCsv(__ExportBase):
     def writeRow(self, row):
         encoded_vals = []
         for val in row:
-            value = __prepareStr(str(val))
+            value = self.__prepareStr(str(val))
             encoded_vals.append(value)
 
         self._writer.writerow(encoded_vals)
+
+    # Prepare string for default system encoding (remove or replace extra
+    # characters)
+    def __prepareStr(self, string):
+        encoded_str = string.encode(encoding=sys.stdout.encoding, errors='ignore')
+        decoded_str = encoded_str.decode(sys.stdout.encoding)
+        return decoded_str
 
 
 class ExportToCsvUtf8(__ExportBase):
@@ -168,11 +175,3 @@ class ExportToCsvUtf8(__ExportBase):
 
     def writeRow(self, row):
         self._writer.writerow(row)
-
-
-# Prepare string for default system encoding (remove or replace extra
-# characters)
-def __prepareStr(string):
-    encoded_str = string.encode(encoding=sys.stdout.encoding, errors='ignore')
-    decoded_str = encoded_str.decode(sys.stdout.encoding)
-    return decoded_str
