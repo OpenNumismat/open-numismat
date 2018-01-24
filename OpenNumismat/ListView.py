@@ -9,6 +9,7 @@ from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
+import OpenNumismat
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.SelectColumnsDialog import SelectColumnsDialog
@@ -17,7 +18,7 @@ from OpenNumismat.Tools import Gui, TemporaryDir
 from OpenNumismat.Reports.Report import Report
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportToCsv, ExportToCsvUtf8
-from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
 
 
 def textToClipboard(text):
@@ -438,19 +439,10 @@ class ListView(QTableView):
                    self.tr("Text file UTF-8 (*.csv)"))
 
         defaultFileName = self.listParam.page.title
-        settings = QtCore.QSettings()
-        lastExportDir = settings.value('export_table/last_dir')
-        if lastExportDir:
-            defaultFileName = os.path.join(lastExportDir, defaultFileName)
-
-        fileName, selectedFilter = QFileDialog.getSaveFileName(self,
-                                    self.tr("Save as"),
-                                    defaultFileName,
-                                    filter=';;'.join(filters))
+        fileName, selectedFilter = getSaveFileName(
+            self, 'export_table', defaultFileName,
+            OpenNumismat.HOME_PATH, filters)
         if fileName:
-            file_info = QtCore.QFileInfo(fileName)
-            settings.setValue('export_table/last_dir', file_info.absolutePath())
-
             model = self.model()
             progressDlg = Gui.ProgressDialog(self.tr("Saving list"),
                                     self.tr("Cancel"), model.rowCount(), self)

@@ -4,12 +4,11 @@ from PyQt5.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
+from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat import version
 
 
 class ImageLabel(QLabel):
-    latestDir = OpenNumismat.IMAGE_PATH
-
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -115,17 +114,12 @@ class ImageLabel(QLabel):
         return fileName
 
     def saveImage(self):
-        defaultFileName = QDir(ImageLabel.latestDir).filePath(self.name)
-        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
-                          "All files (*.*)")
+        filters = (self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)"),
+                   self.tr("All files (*.*)"))
         # TODO: Set default name to coin title + field name
-        fileName, _selectedFilter = QFileDialog.getSaveFileName(
-            self, self.tr("Save File"), defaultFileName, filter_)
+        fileName, _selectedFilter = getSaveFileName(
+            self, 'save_image', self.name, OpenNumismat.IMAGE_PATH, filters)
         if fileName:
-            dir_ = QDir(fileName)
-            dir_.cdUp()
-            ImageLabel.latestDir = dir_.absolutePath()
-
             self.image.save(fileName)
 
     def copyImage(self):
@@ -135,6 +129,8 @@ class ImageLabel(QLabel):
 
 
 class ImageEdit(ImageLabel):
+    latestDir = OpenNumismat.IMAGE_PATH
+
     def __init__(self, name, label, parent=None):
         super().__init__(parent)
 

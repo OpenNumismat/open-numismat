@@ -9,13 +9,15 @@ from OpenNumismat import version
 # Getting default path for storing user data
 HOME_PATH = ''
 if sys.platform in ('win32', 'darwin'):
-    __docDirs = QStandardPaths.standardLocations(QStandardPaths.DocumentsLocation)
-    if __docDirs:
-        HOME_PATH = os.path.join(__docDirs[0], version.AppName)
+    __location = QStandardPaths.DocumentsLocation
 else:
-    __homeDirs = QStandardPaths.standardLocations(QStandardPaths.HomeLocation)
-    if __homeDirs:
-        HOME_PATH = os.path.join(__homeDirs[0], version.AppName)
+    __location = QStandardPaths.HomeLocation
+
+__docDirs = QStandardPaths.standardLocations(__location)
+if __docDirs:
+    HOME_PATH = os.path.join(__docDirs[0], version.AppName)
+    if not os.path.exists(HOME_PATH):
+        HOME_PATH = __docDirs[0]
 
 __imgDirs = QStandardPaths.standardLocations(QStandardPaths.PicturesLocation)
 if __imgDirs:

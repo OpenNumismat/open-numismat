@@ -6,11 +6,12 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtPrintSupport import QPrinter, QPrintPreviewWidget, QPrintDialog, QPageSetupDialog
 
+import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Reports import Report
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
@@ -458,31 +459,24 @@ class PreviewDialog(QDialog):
                 self.preview.setLandscapeOrientation()
 
     def _q_export(self, action):
-        settings = QtCore.QSettings()
-        lastExportDir = settings.value('export/last_dir') or ''
-
         if exportToWordAvailable and action == self.wordAction:
-            fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
-                                self.tr("Save as"), lastExportDir,
-                                filter=self.tr("Word documents (*.doc)"))
+            fileName, _selectedFilter = getSaveFileName(
+                self, 'export', '',
+                OpenNumismat.HOME_PATH, self.tr("Word documents (*.doc)"))
             if fileName:
                 self.__exportToWord(self.fileName, fileName)
         elif action == self.htmlAction:
-            fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
-                                self.tr("Save as"), lastExportDir,
-                                filter=self.tr("Web page (*.htm *.html)"))
+            fileName, _selectedFilter = getSaveFileName(
+                self, 'export', '',
+                OpenNumismat.HOME_PATH, self.tr("Web page (*.htm *.html)"))
             if fileName:
                 self.__exportToHtml(fileName)
         elif action == self.pdfAction:
-            fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
-                                self.tr("Save as"), lastExportDir,
-                                filter=self.tr("PDF file (*.pdf)"))
+            fileName, _selectedFilter = getSaveFileName(
+                self, 'export', '',
+                OpenNumismat.HOME_PATH, self.tr("PDF file (*.pdf)"))
             if fileName:
                 self.__exportToPdf(fileName)
-
-        if fileName:
-            file_info = QtCore.QFileInfo(fileName)
-            settings.setValue('export/last_dir', file_info.absolutePath())
 
     @waitCursorDecorator
     def __exportToWord(self, src, dst):
