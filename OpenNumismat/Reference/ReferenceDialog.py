@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer
-from PyQt5.QtGui import QImage, QKeySequence
+from PyQt5.QtGui import QImage, QKeySequence, QColor, QPainter
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -67,6 +67,10 @@ class ListView(QListView):
         if not self.selectedIndex() or not self.widget.isEnabled():
             act.setDisabled(True)
 
+        act = menu.addAction(self.tr("Paste icon"), self._pasteIcon)
+        if not self.selectedIndex() or not self.widget.isEnabled():
+            act.setDisabled(True)
+
         act = menu.addAction(self.tr("Clear icon"), self._clearIcon)
         if not self.selectedIndex() or not self.widget.isEnabled() or \
                 not self.selectedIndex().data(Qt.DecorationRole):
@@ -90,24 +94,46 @@ class ListView(QListView):
             file_info = QFileInfo(fileName)
             self.latestDir = file_info.absolutePath()
 
-            image = QImage()
-            if image.load(fileName):
-                maxWidth = 16
-                maxHeight = 16
-                if image.width() > maxWidth or image.height() > maxHeight:
-                    scaledImage = image.scaled(maxWidth, maxHeight,
-                            Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                else:
-                    scaledImage = image
+            self.loadFromFile(fileName)
 
-                ba = QByteArray()
-                buffer = QBuffer(ba)
-                buffer.open(QIODevice.WriteOnly)
-                scaledImage.save(buffer, 'png')
+    def _pasteIcon(self):
+        mime = QApplication.clipboard().mimeData()
+        if mime.hasImage():
+            image = mime.imageData()
+            # Fill transparent color if present
+            fixedImage = QImage(image.size(), QImage.Format_RGB32)
+            fixedImage.fill(QColor(Qt.white).rgb())
+            painter = QPainter(fixedImage)
+            painter.drawImage(0, 0, image)
+            painter.end()
 
-                model = self.model()
-                index = model.index(self.selectedIndex().row(), model.sourceModel().fieldIndex('icon'))
-                model.setData(index, ba)
+            self._setNewImage(fixedImage)
+        elif mime.hasUrls():
+            url = mime.urls()[0]
+            self.loadFromFile(url.toLocalFile())
+
+    def loadFromFile(self, fileName):
+        image = QImage()
+        if image.load(fileName):
+            self._setNewImage(image)
+
+    def _setNewImage(self, image):
+        maxWidth = 16
+        maxHeight = 16
+        if image.width() > maxWidth or image.height() > maxHeight:
+            scaledImage = image.scaled(maxWidth, maxHeight,
+                    Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        else:
+            scaledImage = image
+
+        ba = QByteArray()
+        buffer = QBuffer(ba)
+        buffer.open(QIODevice.WriteOnly)
+        scaledImage.save(buffer, 'png')
+
+        model = self.model()
+        index = model.index(self.selectedIndex().row(), model.sourceModel().fieldIndex('icon'))
+        model.setData(index, ba)
 
     def _clearIcon(self):
         model = self.model()
