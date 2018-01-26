@@ -2,22 +2,22 @@
 <context>
     <name>AllReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="335"/>
+        <location filename="ReferenceDialog.py" line="361"/>
         <source>Reference</source>
         <translation>Препратка</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="381"/>
+        <location filename="ReferenceDialog.py" line="407"/>
         <source>Save reference</source>
         <translation>Запиши препратка</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="368"/>
+        <location filename="ReferenceDialog.py" line="394"/>
         <source>Something went wrong when saving. Please restart</source>
         <translation>Нещата се объркаха, при записване. Моля, рестартирайте</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="381"/>
+        <location filename="ReferenceDialog.py" line="407"/>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Нещо се обърка при отмяна. Моля, рестартирайте</translation>
     </message>
@@ -25,7 +25,7 @@
 <context>
     <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="53"/>
+        <location filename="StatisticsView.py" line="55"/>
         <source>Number of coins</source>
         <translation>Брой монети</translation>
     </message>
@@ -977,66 +977,74 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
+    <name>GetSaveFileName</name>
+    <message>
+        <location filename="Gui.py" line="44"/>
+        <source>Save as</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ImageEdit</name>
     <message>
-        <location filename="ImageLabel.py" line="163"/>
+        <location filename="ImageLabel.py" line="158"/>
         <source>Load...</source>
         <translation>Зареждане...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="167"/>
+        <location filename="ImageLabel.py" line="162"/>
         <source>Paste</source>
         <translation>Постави</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="171"/>
+        <location filename="ImageLabel.py" line="166"/>
         <source>Copy</source>
         <translation>Копирай</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="177"/>
+        <location filename="ImageLabel.py" line="172"/>
         <source>Delete</source>
         <translation>Изтриване</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="182"/>
+        <location filename="ImageLabel.py" line="177"/>
         <source>Save as...</source>
         <translation>Запиши като...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="211"/>
+        <location filename="ImageLabel.py" line="206"/>
         <source>Open File</source>
         <translation>Отваряне на файл</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="212"/>
+        <location filename="ImageLabel.py" line="207"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</source>
         <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;Всички файлове (*.*)</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="240"/>
+        <location filename="ImageLabel.py" line="235"/>
         <source>No image available
 (right-click to add an image)</source>
         <translation>Изображение не е налично 
 (кликнете с десния бутон, за да добавите изображение)</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="150"/>
+        <location filename="ImageLabel.py" line="145"/>
         <source>Exchange with</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="187"/>
+        <location filename="ImageLabel.py" line="182"/>
         <source>Rename...</source>
         <translation>Преименуване...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="307"/>
+        <location filename="ImageLabel.py" line="302"/>
         <source>Rename image</source>
         <translation>Преименувай изображението</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="307"/>
+        <location filename="ImageLabel.py" line="302"/>
         <source>Enter new image name</source>
         <translation>Въведете ново име на изображение</translation>
     </message>
@@ -1044,29 +1052,29 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ImageLabel</name>
     <message>
-        <location filename="ImageLabel.py" line="31"/>
+        <location filename="ImageLabel.py" line="29"/>
         <source>Open</source>
         <translation>Отваряне</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="34"/>
+        <location filename="ImageLabel.py" line="32"/>
         <source>Copy</source>
         <translation>Копирай</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="38"/>
+        <location filename="ImageLabel.py" line="36"/>
         <source>Save as...</source>
         <translation>Запиши като...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="120"/>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;Всички файлове (*.*)</translation>
+        <location filename="ImageLabel.py" line="117"/>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="123"/>
-        <source>Save File</source>
-        <translation>Записване на файл</translation>
+        <location filename="ImageLabel.py" line="117"/>
+        <source>All files (*.*)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1134,52 +1142,52 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="125"/>
+        <location filename="ListView.py" line="126"/>
         <source>0 coin(s) selected</source>
         <translation>Избрани са 0 монета(и)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="156"/>
+        <location filename="ListView.py" line="157"/>
         <source>Select columns...</source>
         <translation>Избери колони...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="157"/>
+        <location filename="ListView.py" line="158"/>
         <source>Hide</source>
         <translation>Скрий</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="159"/>
+        <location filename="ListView.py" line="160"/>
         <source>Adjust size</source>
         <translation>Регулирайте размера</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="274"/>
+        <location filename="ListView.py" line="275"/>
         <source>%d/%d coins</source>
         <translation>%d/%d монети</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="354"/>
+        <location filename="ListView.py" line="355"/>
         <source>Edit...</source>
         <translation>Редакция...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="361"/>
+        <location filename="ListView.py" line="362"/>
         <source>Copy</source>
         <translation>Копирай</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="363"/>
+        <location filename="ListView.py" line="364"/>
         <source>Paste</source>
         <translation>Постави</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="366"/>
+        <location filename="ListView.py" line="367"/>
         <source>Clone</source>
         <translation>Клониране</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="369"/>
+        <location filename="ListView.py" line="370"/>
         <source>Multi edit...</source>
         <translation>Групова редакция...</translation>
     </message>
@@ -1189,67 +1197,62 @@ Do you want to send an error message to the author?</source>
         <translation>Изтриване</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="393"/>
+        <location filename="ListView.py" line="394"/>
         <source>%n coin(s) selected</source>
         <translation><numerusform>%n избрани монети</numerusform><numerusform>%n избрани монети</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Excel document (*.xls)</source>
         <translation>Excel документ (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web страница (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Text file (*.csv)</source>
         <translation>Text файл (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Text фийл UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="446"/>
-        <source>Save as</source>
-        <translation>Запиши като</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="455"/>
+        <location filename="ListView.py" line="447"/>
         <source>Saving list</source>
         <translation>Запаметяващ списък</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="694"/>
+        <location filename="ListView.py" line="686"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="541"/>
+        <location filename="ListView.py" line="533"/>
         <source>Updating records</source>
         <translation>Актуализиране на записите</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="705"/>
+        <location filename="ListView.py" line="697"/>
         <source>Saving...</source>
         <translation>Записване...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="677"/>
+        <location filename="ListView.py" line="669"/>
         <source>Inserting records</source>
         <translation>Вмъкване на записи</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="688"/>
+        <location filename="ListView.py" line="680"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation><numerusform>Наистина ли искате да премахнете %n монети?</numerusform><numerusform>Наистина ли искате да премахнете %n монети?</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="694"/>
+        <location filename="ListView.py" line="686"/>
         <source>Deleting records</source>
         <translation>Изтриване на записи</translation>
     </message>
@@ -1274,19 +1277,24 @@ Do you want to send an error message to the author?</source>
         <translation>Добави икона...</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="70"/>
+        <location filename="ReferenceDialog.py" line="74"/>
         <source>Clear icon</source>
         <translation>Изчисти икона...</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="86"/>
+        <location filename="ReferenceDialog.py" line="90"/>
         <source>Open File</source>
         <translation>Отваряне на файл</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="84"/>
+        <location filename="ReferenceDialog.py" line="88"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
         <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Всички файлове (*.*)</translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="70"/>
+        <source>Paste icon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1570,7 +1578,7 @@ Do you want to send an error message to the author?</source>
         <translation>Провери за актуализация</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="719"/>
+        <location filename="MainWindow.py" line="720"/>
         <source>About %s</source>
         <translation>Относно %s</translation>
     </message>
@@ -1585,92 +1593,92 @@ Do you want to send an error message to the author?</source>
         <translation>Toolbar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="387"/>
+        <location filename="MainWindow.py" line="388"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="387"/>
+        <location filename="MainWindow.py" line="388"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>Приложението ще трябва да се рестартира, за да приложи новите настройки. Рестартиране сега?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="544"/>
+        <location filename="MainWindow.py" line="545"/>
         <source>Select file</source>
         <translation>Избери файл</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="516"/>
+        <location filename="MainWindow.py" line="517"/>
         <source>Importing</source>
         <translation>Импортиране</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="432"/>
+        <location filename="MainWindow.py" line="433"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Преди да импортирате, трябва да експортирате съществуваща колекция от Cabinet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="445"/>
+        <location filename="MainWindow.py" line="446"/>
         <source>Select directory</source>
         <translation>Избери директория</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="456"/>
+        <location filename="MainWindow.py" line="457"/>
         <source>Import pre-defined coins?</source>
         <translation>Импортиране на предварително дефинирани монети?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="470"/>
+        <location filename="MainWindow.py" line="471"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="487"/>
+        <location filename="MainWindow.py" line="488"/>
         <source>Import club catalog?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="501"/>
+        <location filename="MainWindow.py" line="502"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Преди да импортирате, трябва да експортирате съществуваща колекция от uCoin.net в Comma-Separated (CSV) формат.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="642"/>
+        <location filename="MainWindow.py" line="643"/>
         <source>Open collection</source>
         <translation>Отвори колекция</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="642"/>
+        <location filename="MainWindow.py" line="643"/>
         <source>Collections (*.db)</source>
         <translation>Колекции (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="618"/>
+        <location filename="MainWindow.py" line="619"/>
         <source>New collection</source>
         <translation>Нова колекция</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="690"/>
+        <location filename="MainWindow.py" line="691"/>
         <source>Create new collection or open one of the existing</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="753"/>
+        <location filename="MainWindow.py" line="754"/>
         <source>Updates</source>
         <translation>Актуализации</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="753"/>
+        <location filename="MainWindow.py" line="754"/>
         <source>You already have the latest version.</source>
         <translation>Вие вече имате най-новата версия.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="764"/>
+        <location filename="MainWindow.py" line="765"/>
         <source>New version</source>
         <translation>Нова версия</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="764"/>
+        <location filename="MainWindow.py" line="765"/>
         <source>New version is available. Download it now?</source>
         <translation>Налична е нова версия. Изтегляне сега?</translation>
     </message>
@@ -1690,12 +1698,12 @@ Do you want to send an error message to the author?</source>
         <translation>Посетете уебсайта</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="401"/>
+        <location filename="MainWindow.py" line="402"/>
         <source>Statistics</source>
         <translation>Статистика</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="398"/>
+        <location filename="MainWindow.py" line="399"/>
         <source>Info panel</source>
         <translation>Информационен панел</translation>
     </message>
@@ -1710,7 +1718,7 @@ Do you want to send an error message to the author?</source>
         <translation>Синхронизирам</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="719"/>
+        <location filename="MainWindow.py" line="720"/>
         <source>%s %s
 
 Copyright (C) 2011-2018 Vitaly Ignatov
@@ -1728,7 +1736,7 @@ Copyright (C) 2011-2018 Vitaly Ignatov
         <translation>Excel</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="516"/>
+        <location filename="MainWindow.py" line="517"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
@@ -1792,42 +1800,37 @@ Copyright (C) 2011-2018 Vitaly Ignatov
 <context>
     <name>PreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="213"/>
+        <location filename="Preview.py" line="214"/>
         <source>Report preview</source>
         <translation>Преглед на отчета</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="284"/>
+        <location filename="Preview.py" line="285"/>
         <source>Save as MS Word document</source>
         <translation>Запазване като документ MS Word</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="287"/>
+        <location filename="Preview.py" line="288"/>
         <source>Save as HTML files</source>
         <translation>Запазване като HTML файл</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="290"/>
+        <location filename="Preview.py" line="291"/>
         <source>Save as PDF file</source>
         <translation>Запазване като PDF файл</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="479"/>
-        <source>Save as</source>
-        <translation>Запиши като</translation>
-    </message>
-    <message>
-        <location filename="Preview.py" line="467"/>
+        <location filename="Preview.py" line="464"/>
         <source>Word documents (*.doc)</source>
         <translation>Word документи (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="473"/>
+        <location filename="Preview.py" line="470"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web страница (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="479"/>
+        <location filename="Preview.py" line="476"/>
         <source>PDF file (*.pdf)</source>
         <translation>PDF файл (*.pdf)</translation>
     </message>
@@ -1835,77 +1838,77 @@ Copyright (C) 2011-2018 Vitaly Ignatov
 <context>
     <name>QPrintPreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="223"/>
+        <location filename="Preview.py" line="224"/>
         <source>Next page</source>
         <translation>Следваща страница</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="224"/>
+        <location filename="Preview.py" line="225"/>
         <source>Previous page</source>
         <translation>Предишна страница</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="225"/>
+        <location filename="Preview.py" line="226"/>
         <source>First page</source>
         <translation>Първа страница</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="226"/>
+        <location filename="Preview.py" line="227"/>
         <source>Last page</source>
         <translation>Последна страница</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="234"/>
+        <location filename="Preview.py" line="235"/>
         <source>Fit width</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Preview.py" line="235"/>
+        <location filename="Preview.py" line="236"/>
         <source>Fit page</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Preview.py" line="244"/>
+        <location filename="Preview.py" line="245"/>
         <source>Zoom in</source>
         <translation>Увеличи</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="245"/>
+        <location filename="Preview.py" line="246"/>
         <source>Zoom out</source>
         <translation>Намали</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="251"/>
+        <location filename="Preview.py" line="252"/>
         <source>Portrait</source>
         <translation>Портрет</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="252"/>
+        <location filename="Preview.py" line="253"/>
         <source>Landscape</source>
         <translation>Пейзаж</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="262"/>
+        <location filename="Preview.py" line="263"/>
         <source>Show single page</source>
         <translation>Покажи една страница</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="263"/>
+        <location filename="Preview.py" line="264"/>
         <source>Show facing pages</source>
         <translation>Показване на обърнати страници</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="264"/>
+        <location filename="Preview.py" line="265"/>
         <source>Show overview of all pages</source>
         <translation>Показване на общия преглед на всички страници</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="275"/>
+        <location filename="Preview.py" line="276"/>
         <source>Print</source>
         <translation>Принтиране</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="276"/>
+        <location filename="Preview.py" line="277"/>
         <source>Page setup</source>
         <translation>Настройка на страницата</translation>
     </message>
@@ -1913,175 +1916,95 @@ Copyright (C) 2011-2018 Vitaly Ignatov
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="290"/>
-        <source>Country</source>
-        <translation>Държава</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="290"/>
+        <location filename="Reference.py" line="289"/>
         <source>C</source>
         <translation>Д</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="316"/>
-        <source>Type</source>
-        <translation>Вид</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="316"/>
+        <location filename="Reference.py" line="305"/>
         <source>T</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="302"/>
-        <source>Grade</source>
-        <translation>Качество</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="302"/>
+        <location filename="Reference.py" line="298"/>
         <source>G</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="322"/>
+        <location filename="Reference.py" line="309"/>
         <source>Place</source>
         <translation>Място</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="304"/>
-        <source>Material</source>
-        <translation>Материал</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="304"/>
+        <location filename="Reference.py" line="299"/>
         <source>M</source>
         <translation>М</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="306"/>
-        <source>Shape</source>
-        <translation>Форма</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="306"/>
+        <location filename="Reference.py" line="300"/>
         <source>F</source>
         <translation>F</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="314"/>
-        <source>ObvRev</source>
-        <translation>ЛицОбр</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="310"/>
-        <source>Edge</source>
-        <translation>Гурт</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="310"/>
+        <location filename="Reference.py" line="302"/>
         <source>E</source>
         <translation>Г</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="296"/>
-        <source>Unit</source>
-        <translation>Мерна единица</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="296"/>
+        <location filename="Reference.py" line="294"/>
         <source>U</source>
         <translation>Е</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="298"/>
-        <source>Mint</source>
-        <translation>Монетен двор</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="292"/>
-        <source>Period</source>
-        <translation>Период</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="292"/>
+        <location filename="Reference.py" line="291"/>
         <source>P</source>
         <translation>П</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="300"/>
-        <source>Series</source>
-        <translation>Серия</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="300"/>
+        <location filename="Reference.py" line="296"/>
         <source>S</source>
         <translation>С</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="308"/>
-        <source>Quality</source>
-        <translation>Качество</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="308"/>
+        <location filename="Reference.py" line="301"/>
         <source>Q</source>
         <translation>К</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="318"/>
-        <source>Defect</source>
-        <translation>Дефект</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="318"/>
+        <location filename="Reference.py" line="306"/>
         <source>D</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="312"/>
-        <source>Rarity</source>
-        <translation>Рядкост</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="312"/>
+        <location filename="Reference.py" line="303"/>
         <source>R</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="400"/>
+        <location filename="Reference.py" line="387"/>
         <source>Open reference</source>
         <translation>Отвори препратка</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="366"/>
+        <location filename="Reference.py" line="353"/>
         <source>Can't open reference:
 %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="400"/>
+        <location filename="Reference.py" line="387"/>
         <source>Can't open reference:
 %s
 Created new one</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="288"/>
-        <source>Region</source>
-        <translation>Област</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="294"/>
-        <source>Ruler</source>
-        <translation>Владетел</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="407"/>
+        <location filename="Reference.py" line="394"/>
         <source>Create reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="407"/>
+        <location filename="Reference.py" line="394"/>
         <source>Can't create reference:
 %s</source>
         <translation type="unfinished"/>
@@ -2090,7 +2013,7 @@ Created new one</source>
 <context>
     <name>ReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="291"/>
+        <location filename="ReferenceDialog.py" line="317"/>
         <source>Reference</source>
         <translation>Препратка</translation>
     </message>
@@ -2098,17 +2021,17 @@ Created new one</source>
 <context>
     <name>ReferenceWidget</name>
     <message>
-        <location filename="ReferenceDialog.py" line="140"/>
+        <location filename="ReferenceDialog.py" line="166"/>
         <source>Add</source>
         <translation>Добави</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="144"/>
+        <location filename="ReferenceDialog.py" line="170"/>
         <source>Del</source>
         <translation>Изтриване</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="151"/>
+        <location filename="ReferenceDialog.py" line="177"/>
         <source>Sort</source>
         <translation>Сортиране</translation>
     </message>
@@ -2155,138 +2078,138 @@ Created new one</source>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="227"/>
+        <location filename="StatisticsView.py" line="240"/>
         <source>Bar</source>
         <translation>Колона</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="228"/>
+        <location filename="StatisticsView.py" line="241"/>
         <source>Horizontal bar</source>
         <translation>Хоризонтална колона</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="229"/>
+        <location filename="StatisticsView.py" line="242"/>
         <source>Pie</source>
         <translation>Кръгова</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="230"/>
+        <location filename="StatisticsView.py" line="243"/>
         <source>Stacked bar</source>
         <translation>Колона с наслагване</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="231"/>
+        <location filename="StatisticsView.py" line="244"/>
         <source>Progress</source>
         <translation>Линейна</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="232"/>
+        <location filename="StatisticsView.py" line="245"/>
         <source>Chart:</source>
         <translation>Диаграма</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="235"/>
+        <location filename="StatisticsView.py" line="248"/>
         <source>Field:</source>
         <translation>Поле:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="240"/>
+        <location filename="StatisticsView.py" line="253"/>
         <source>Additional field:</source>
         <translation>Допълнително поле:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="245"/>
+        <location filename="StatisticsView.py" line="258"/>
         <source>Sum per:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="248"/>
+        <location filename="StatisticsView.py" line="261"/>
         <source>Year</source>
         <translation>Година</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="249"/>
+        <location filename="StatisticsView.py" line="262"/>
         <source>Month</source>
         <translation>Месец</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="250"/>
+        <location filename="StatisticsView.py" line="263"/>
         <source>Week</source>
         <translation>Седмица</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="251"/>
+        <location filename="StatisticsView.py" line="264"/>
         <source>Day</source>
         <translation>Ден</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="254"/>
+        <location filename="StatisticsView.py" line="267"/>
         <source>Items:</source>
         <translation>Предмети:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="257"/>
+        <location filename="StatisticsView.py" line="270"/>
         <source>Count</source>
         <translation>Брой</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="258"/>
+        <location filename="StatisticsView.py" line="271"/>
         <source>Price</source>
         <translation>Цена</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="259"/>
+        <location filename="StatisticsView.py" line="272"/>
         <source>Total price</source>
         <translation>Обща цена</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="403"/>
+        <location filename="StatisticsView.py" line="431"/>
         <source>Paid</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="406"/>
+        <location filename="StatisticsView.py" line="434"/>
         <source>Total paid</source>
         <translation>Общо платено</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="409"/>
+        <location filename="StatisticsView.py" line="437"/>
         <source>Number of coins</source>
         <translation>Брой монети</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="266"/>
+        <location filename="StatisticsView.py" line="282"/>
         <source>Save chart</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>PNG image (*.png)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>PDF file (*.pdf)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>SVG image (*.svg)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>PostScript (*.ps)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>Encapsulated PostScript (*.eps)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="523"/>
-        <source>Save as</source>
+        <location filename="StatisticsView.py" line="275"/>
+        <source>Multicolor</source>
         <translation type="unfinished"/>
     </message>
 </context>

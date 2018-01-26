@@ -2,22 +2,22 @@
 <context>
     <name>AllReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="335"/>
+        <location filename="ReferenceDialog.py" line="361"/>
         <source>Reference</source>
         <translation>Odkaz</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="381"/>
+        <location filename="ReferenceDialog.py" line="407"/>
         <source>Save reference</source>
         <translation>Uložit odkaz</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="368"/>
+        <location filename="ReferenceDialog.py" line="394"/>
         <source>Something went wrong when saving. Please restart</source>
         <translation>Něco se při ukládání nepovedlo. Spusťte, prosím, program znovu</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="381"/>
+        <location filename="ReferenceDialog.py" line="407"/>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Něco se při rušení nepovedlo. Spusťte, prosím, program znovu</translation>
     </message>
@@ -25,7 +25,7 @@
 <context>
     <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="53"/>
+        <location filename="StatisticsView.py" line="55"/>
         <source>Number of coins</source>
         <translation type="unfinished"/>
     </message>
@@ -977,66 +977,74 @@ Chcete autorovi poslat hlášení o chybě?</translation>
     </message>
 </context>
 <context>
+    <name>GetSaveFileName</name>
+    <message>
+        <location filename="Gui.py" line="44"/>
+        <source>Save as</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ImageEdit</name>
     <message>
-        <location filename="ImageLabel.py" line="163"/>
+        <location filename="ImageLabel.py" line="158"/>
         <source>Load...</source>
         <translation>Nahrát...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="167"/>
+        <location filename="ImageLabel.py" line="162"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="171"/>
+        <location filename="ImageLabel.py" line="166"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="177"/>
+        <location filename="ImageLabel.py" line="172"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="182"/>
+        <location filename="ImageLabel.py" line="177"/>
         <source>Save as...</source>
         <translation>Uložit jako...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="211"/>
+        <location filename="ImageLabel.py" line="206"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="212"/>
+        <location filename="ImageLabel.py" line="207"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</source>
         <translation>Obrázky (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="240"/>
+        <location filename="ImageLabel.py" line="235"/>
         <source>No image available
 (right-click to add an image)</source>
         <translation>Není dostupný žádný obrázek
 (klepnutí pravým tlačítkem myši pro přidání obrázku)</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="150"/>
+        <location filename="ImageLabel.py" line="145"/>
         <source>Exchange with</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="187"/>
+        <location filename="ImageLabel.py" line="182"/>
         <source>Rename...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="307"/>
+        <location filename="ImageLabel.py" line="302"/>
         <source>Rename image</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="307"/>
+        <location filename="ImageLabel.py" line="302"/>
         <source>Enter new image name</source>
         <translation type="unfinished"/>
     </message>
@@ -1044,29 +1052,29 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>ImageLabel</name>
     <message>
-        <location filename="ImageLabel.py" line="31"/>
+        <location filename="ImageLabel.py" line="29"/>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="34"/>
+        <location filename="ImageLabel.py" line="32"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="38"/>
+        <location filename="ImageLabel.py" line="36"/>
         <source>Save as...</source>
         <translation>Uložit jako...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="120"/>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;All files (*.*)</source>
-        <translation>Obrázky (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;Všechny soubory (*.*)</translation>
+        <location filename="ImageLabel.py" line="117"/>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="123"/>
-        <source>Save File</source>
-        <translation>Uložit soubor</translation>
+        <location filename="ImageLabel.py" line="117"/>
+        <source>All files (*.*)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1134,52 +1142,52 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="125"/>
+        <location filename="ListView.py" line="126"/>
         <source>0 coin(s) selected</source>
         <translation>0 mincí vybráno</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="156"/>
+        <location filename="ListView.py" line="157"/>
         <source>Select columns...</source>
         <translation>Vybrat sloupce...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="157"/>
+        <location filename="ListView.py" line="158"/>
         <source>Hide</source>
         <translation>Skrýt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="159"/>
+        <location filename="ListView.py" line="160"/>
         <source>Adjust size</source>
         <translation>Přizpůsobit velikost</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="274"/>
+        <location filename="ListView.py" line="275"/>
         <source>%d/%d coins</source>
         <translation>%d/%d mincí</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="354"/>
+        <location filename="ListView.py" line="355"/>
         <source>Edit...</source>
         <translation>Upravit...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="361"/>
+        <location filename="ListView.py" line="362"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="363"/>
+        <location filename="ListView.py" line="364"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="366"/>
+        <location filename="ListView.py" line="367"/>
         <source>Clone</source>
         <translation>Klonovat</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="369"/>
+        <location filename="ListView.py" line="370"/>
         <source>Multi edit...</source>
         <translation>Vícenásobné úpravy...</translation>
     </message>
@@ -1189,67 +1197,62 @@ Chcete autorovi poslat hlášení o chybě?</translation>
         <translation>Smazat</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="393"/>
+        <location filename="ListView.py" line="394"/>
         <source>%n coin(s) selected</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Excel document (*.xls)</source>
         <translation>Dokument Excell (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Internetová stránka (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Text file (*.csv)</source>
         <translation>Textový soubor (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="435"/>
+        <location filename="ListView.py" line="436"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Textový soubor UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="446"/>
-        <source>Save as</source>
-        <translation>Uložit jako</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="455"/>
+        <location filename="ListView.py" line="447"/>
         <source>Saving list</source>
         <translation>Ukládá se seznam</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="694"/>
+        <location filename="ListView.py" line="686"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="541"/>
+        <location filename="ListView.py" line="533"/>
         <source>Updating records</source>
         <translation>Obnovují se záznamy</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="705"/>
+        <location filename="ListView.py" line="697"/>
         <source>Saving...</source>
         <translation>Ukládá se...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="677"/>
+        <location filename="ListView.py" line="669"/>
         <source>Inserting records</source>
         <translation>Vkládají se záznamy</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="688"/>
+        <location filename="ListView.py" line="680"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="694"/>
+        <location filename="ListView.py" line="686"/>
         <source>Deleting records</source>
         <translation>Mažou se záznamy</translation>
     </message>
@@ -1274,19 +1277,24 @@ Chcete autorovi poslat hlášení o chybě?</translation>
         <translation>Přidat ikonu...</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="70"/>
+        <location filename="ReferenceDialog.py" line="74"/>
         <source>Clear icon</source>
         <translation>Smazat ikonu</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="86"/>
+        <location filename="ReferenceDialog.py" line="90"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="84"/>
+        <location filename="ReferenceDialog.py" line="88"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
         <translation>Obrázky (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Všechny soubory (*.*)</translation>
+    </message>
+    <message>
+        <location filename="ReferenceDialog.py" line="70"/>
+        <source>Paste icon</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1570,7 +1578,7 @@ Chcete autorovi poslat hlášení o chybě?</translation>
         <translation>Zkontrolovat aktualizace</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="719"/>
+        <location filename="MainWindow.py" line="720"/>
         <source>About %s</source>
         <translation>O programu %s</translation>
     </message>
@@ -1585,92 +1593,92 @@ Chcete autorovi poslat hlášení o chybě?</translation>
         <translation>Nástrojový pruh</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="387"/>
+        <location filename="MainWindow.py" line="388"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="387"/>
+        <location filename="MainWindow.py" line="388"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>Program je potřeba spustit znovu, aby se použila nová nastavení. Spustit jej znovu nyní?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="544"/>
+        <location filename="MainWindow.py" line="545"/>
         <source>Select file</source>
         <translation>Vybrat soubor</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="516"/>
+        <location filename="MainWindow.py" line="517"/>
         <source>Importing</source>
         <translation>Zavádí se</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="432"/>
+        <location filename="MainWindow.py" line="433"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Před zavedením byste měl vyvést stávající sbírku z Cabinetu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="445"/>
+        <location filename="MainWindow.py" line="446"/>
         <source>Select directory</source>
         <translation>Vybrat adresář</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="456"/>
+        <location filename="MainWindow.py" line="457"/>
         <source>Import pre-defined coins?</source>
         <translation>Zavést předem stanovené mince?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="470"/>
+        <location filename="MainWindow.py" line="471"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Před zavedením byste měl vyvést stávající sbírku z Collection Studio do tabulky XML (Vyberte položku nabídky Collection Studio Nástroje &gt; Vyvést...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="487"/>
+        <location filename="MainWindow.py" line="488"/>
         <source>Import club catalog?</source>
         <translation>Zavést katalog kroužku?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="501"/>
+        <location filename="MainWindow.py" line="502"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="642"/>
+        <location filename="MainWindow.py" line="643"/>
         <source>Open collection</source>
         <translation>Otevřít sbírku</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="642"/>
+        <location filename="MainWindow.py" line="643"/>
         <source>Collections (*.db)</source>
         <translation>Sbírky (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="618"/>
+        <location filename="MainWindow.py" line="619"/>
         <source>New collection</source>
         <translation>Nová sbírka</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="690"/>
+        <location filename="MainWindow.py" line="691"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Vytvořit novou sbírku nebo otevřít stávající</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="753"/>
+        <location filename="MainWindow.py" line="754"/>
         <source>Updates</source>
         <translation>Aktualizace</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="753"/>
+        <location filename="MainWindow.py" line="754"/>
         <source>You already have the latest version.</source>
         <translation>Již máte poslední verzi.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="764"/>
+        <location filename="MainWindow.py" line="765"/>
         <source>New version</source>
         <translation>Nová verze</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="764"/>
+        <location filename="MainWindow.py" line="765"/>
         <source>New version is available. Download it now?</source>
         <translation>Je dostupná nová verze. Stáhnout nyní?</translation>
     </message>
@@ -1690,12 +1698,12 @@ Chcete autorovi poslat hlášení o chybě?</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="401"/>
+        <location filename="MainWindow.py" line="402"/>
         <source>Statistics</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="398"/>
+        <location filename="MainWindow.py" line="399"/>
         <source>Info panel</source>
         <translation type="unfinished"/>
     </message>
@@ -1710,7 +1718,7 @@ Chcete autorovi poslat hlášení o chybě?</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="719"/>
+        <location filename="MainWindow.py" line="720"/>
         <source>%s %s
 
 Copyright (C) 2011-2018 Vitaly Ignatov
@@ -1728,7 +1736,7 @@ Autorské právo (C) 2011-2018 Vitaly Ignatov
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="516"/>
+        <location filename="MainWindow.py" line="517"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
@@ -1792,42 +1800,37 @@ Autorské právo (C) 2011-2018 Vitaly Ignatov
 <context>
     <name>PreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="213"/>
+        <location filename="Preview.py" line="214"/>
         <source>Report preview</source>
         <translation>Náhled na zprávu</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="284"/>
+        <location filename="Preview.py" line="285"/>
         <source>Save as MS Word document</source>
         <translation>Uložit jako dokument MS Word</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="287"/>
+        <location filename="Preview.py" line="288"/>
         <source>Save as HTML files</source>
         <translation>Uložit jako soubory HTML</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="290"/>
+        <location filename="Preview.py" line="291"/>
         <source>Save as PDF file</source>
         <translation>Uložit jako soubor PDF</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="479"/>
-        <source>Save as</source>
-        <translation>Uložit jako</translation>
-    </message>
-    <message>
-        <location filename="Preview.py" line="467"/>
+        <location filename="Preview.py" line="464"/>
         <source>Word documents (*.doc)</source>
         <translation>Dokumenty Word (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="473"/>
+        <location filename="Preview.py" line="470"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Internetová stránka (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="479"/>
+        <location filename="Preview.py" line="476"/>
         <source>PDF file (*.pdf)</source>
         <translation>Soubor PDF (*.pdf)</translation>
     </message>
@@ -1835,77 +1838,77 @@ Autorské právo (C) 2011-2018 Vitaly Ignatov
 <context>
     <name>QPrintPreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="223"/>
+        <location filename="Preview.py" line="224"/>
         <source>Next page</source>
         <translation>Další strana</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="224"/>
+        <location filename="Preview.py" line="225"/>
         <source>Previous page</source>
         <translation>Předchozí strana</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="225"/>
+        <location filename="Preview.py" line="226"/>
         <source>First page</source>
         <translation>První strana</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="226"/>
+        <location filename="Preview.py" line="227"/>
         <source>Last page</source>
         <translation>Poslední strana</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="234"/>
+        <location filename="Preview.py" line="235"/>
         <source>Fit width</source>
         <translation>Přizpůsobit šířku</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="235"/>
+        <location filename="Preview.py" line="236"/>
         <source>Fit page</source>
         <translation>Přizpůsobit stranu</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="244"/>
+        <location filename="Preview.py" line="245"/>
         <source>Zoom in</source>
         <translation>Přiblížit</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="245"/>
+        <location filename="Preview.py" line="246"/>
         <source>Zoom out</source>
         <translation>Oddálit</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="251"/>
+        <location filename="Preview.py" line="252"/>
         <source>Portrait</source>
         <translation>Formát na výšku</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="252"/>
+        <location filename="Preview.py" line="253"/>
         <source>Landscape</source>
         <translation>Formát na šířku</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="262"/>
+        <location filename="Preview.py" line="263"/>
         <source>Show single page</source>
         <translation>Ukázat jednotlivé strany</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="263"/>
+        <location filename="Preview.py" line="264"/>
         <source>Show facing pages</source>
         <translation>Ukázat strany ležící naproti</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="264"/>
+        <location filename="Preview.py" line="265"/>
         <source>Show overview of all pages</source>
         <translation>Ukázat přehled všech stran</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="275"/>
+        <location filename="Preview.py" line="276"/>
         <source>Print</source>
         <translation>Tisk</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="276"/>
+        <location filename="Preview.py" line="277"/>
         <source>Page setup</source>
         <translation>Nastavení strany</translation>
     </message>
@@ -1913,154 +1916,84 @@ Autorské právo (C) 2011-2018 Vitaly Ignatov
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="290"/>
-        <source>Country</source>
-        <translation>Země</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="290"/>
+        <location filename="Reference.py" line="289"/>
         <source>C</source>
         <translation>Z</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="316"/>
-        <source>Type</source>
-        <translation>Typ</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="316"/>
+        <location filename="Reference.py" line="305"/>
         <source>T</source>
         <translation>T</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="302"/>
-        <source>Grade</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="Reference.py" line="302"/>
+        <location filename="Reference.py" line="298"/>
         <source>G</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="322"/>
+        <location filename="Reference.py" line="309"/>
         <source>Place</source>
         <translation>Místo</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="304"/>
-        <source>Material</source>
-        <translation>Materiál</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="304"/>
+        <location filename="Reference.py" line="299"/>
         <source>M</source>
         <translation>M</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="306"/>
-        <source>Shape</source>
-        <translation>Tvar</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="306"/>
+        <location filename="Reference.py" line="300"/>
         <source>F</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="314"/>
-        <source>ObvRev</source>
-        <translation>Líc a rub</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="310"/>
-        <source>Edge</source>
-        <translation>Okraj</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="310"/>
+        <location filename="Reference.py" line="302"/>
         <source>E</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="296"/>
-        <source>Unit</source>
-        <translation>Jednotka</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="296"/>
+        <location filename="Reference.py" line="294"/>
         <source>U</source>
         <translation>J</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="298"/>
-        <source>Mint</source>
-        <translation>Mincovna</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="292"/>
-        <source>Period</source>
-        <translation>Období</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="292"/>
+        <location filename="Reference.py" line="291"/>
         <source>P</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="300"/>
-        <source>Series</source>
-        <translation>Série</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="300"/>
+        <location filename="Reference.py" line="296"/>
         <source>S</source>
         <translation>S</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="308"/>
-        <source>Quality</source>
-        <translation>Kvalita</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="308"/>
+        <location filename="Reference.py" line="301"/>
         <source>Q</source>
         <translation>K</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="318"/>
-        <source>Defect</source>
-        <translation>Vada</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="318"/>
+        <location filename="Reference.py" line="306"/>
         <source>D</source>
         <translation>V</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="312"/>
-        <source>Rarity</source>
-        <translation>Vzácnost</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="312"/>
+        <location filename="Reference.py" line="303"/>
         <source>R</source>
         <translation>Vz</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="400"/>
+        <location filename="Reference.py" line="387"/>
         <source>Open reference</source>
         <translation>Otevřít odkaz</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="366"/>
+        <location filename="Reference.py" line="353"/>
         <source>Can't open reference:
 %s</source>
         <translation>Nelze otevřít odkaz:
 %s</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="400"/>
+        <location filename="Reference.py" line="387"/>
         <source>Can't open reference:
 %s
 Created new one</source>
@@ -2069,22 +2002,12 @@ Created new one</source>
 Vytvořen nový</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="288"/>
-        <source>Region</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="Reference.py" line="294"/>
-        <source>Ruler</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="Reference.py" line="407"/>
+        <location filename="Reference.py" line="394"/>
         <source>Create reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="407"/>
+        <location filename="Reference.py" line="394"/>
         <source>Can't create reference:
 %s</source>
         <translation type="unfinished"/>
@@ -2093,7 +2016,7 @@ Vytvořen nový</translation>
 <context>
     <name>ReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="291"/>
+        <location filename="ReferenceDialog.py" line="317"/>
         <source>Reference</source>
         <translation>Odkaz</translation>
     </message>
@@ -2101,17 +2024,17 @@ Vytvořen nový</translation>
 <context>
     <name>ReferenceWidget</name>
     <message>
-        <location filename="ReferenceDialog.py" line="140"/>
+        <location filename="ReferenceDialog.py" line="166"/>
         <source>Add</source>
         <translation>Přidat</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="144"/>
+        <location filename="ReferenceDialog.py" line="170"/>
         <source>Del</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="151"/>
+        <location filename="ReferenceDialog.py" line="177"/>
         <source>Sort</source>
         <translation>Třídit</translation>
     </message>
@@ -2158,138 +2081,138 @@ Vytvořen nový</translation>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="227"/>
+        <location filename="StatisticsView.py" line="240"/>
         <source>Bar</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="228"/>
+        <location filename="StatisticsView.py" line="241"/>
         <source>Horizontal bar</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="229"/>
+        <location filename="StatisticsView.py" line="242"/>
         <source>Pie</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="230"/>
+        <location filename="StatisticsView.py" line="243"/>
         <source>Stacked bar</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="231"/>
+        <location filename="StatisticsView.py" line="244"/>
         <source>Progress</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="232"/>
+        <location filename="StatisticsView.py" line="245"/>
         <source>Chart:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="235"/>
+        <location filename="StatisticsView.py" line="248"/>
         <source>Field:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="240"/>
+        <location filename="StatisticsView.py" line="253"/>
         <source>Additional field:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="245"/>
+        <location filename="StatisticsView.py" line="258"/>
         <source>Sum per:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="248"/>
+        <location filename="StatisticsView.py" line="261"/>
         <source>Year</source>
         <translation>Rok</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="249"/>
+        <location filename="StatisticsView.py" line="262"/>
         <source>Month</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="250"/>
+        <location filename="StatisticsView.py" line="263"/>
         <source>Week</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="251"/>
+        <location filename="StatisticsView.py" line="264"/>
         <source>Day</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="254"/>
+        <location filename="StatisticsView.py" line="267"/>
         <source>Items:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="257"/>
+        <location filename="StatisticsView.py" line="270"/>
         <source>Count</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="258"/>
+        <location filename="StatisticsView.py" line="271"/>
         <source>Price</source>
         <translation>Cena</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="259"/>
+        <location filename="StatisticsView.py" line="272"/>
         <source>Total price</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="403"/>
+        <location filename="StatisticsView.py" line="431"/>
         <source>Paid</source>
         <translation>Zaplaceno</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="406"/>
+        <location filename="StatisticsView.py" line="434"/>
         <source>Total paid</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="409"/>
+        <location filename="StatisticsView.py" line="437"/>
         <source>Number of coins</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="266"/>
+        <location filename="StatisticsView.py" line="282"/>
         <source>Save chart</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>PNG image (*.png)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>PDF file (*.pdf)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>SVG image (*.svg)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>PostScript (*.ps)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="510"/>
+        <location filename="StatisticsView.py" line="549"/>
         <source>Encapsulated PostScript (*.eps)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="523"/>
-        <source>Save as</source>
+        <location filename="StatisticsView.py" line="275"/>
+        <source>Multicolor</source>
         <translation type="unfinished"/>
     </message>
 </context>
