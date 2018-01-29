@@ -208,10 +208,10 @@ class ImageEdit(ImageLabel):
                             "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
                             "All files (*.*)")
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
-                caption, ImageLabel.latestDir, filter_)
+                caption, ImageEdit.latestDir, filter_)
         if fileName:
             file_info = QFileInfo(fileName)
-            ImageLabel.latestDir = file_info.absolutePath()
+            ImageEdit.latestDir = file_info.absolutePath()
 
             self.loadFromFile(fileName)
 
