@@ -126,7 +126,8 @@
         <location filename="Collection.py" line="588"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished"/>
+        <translation>Колекцията %s е по-нова версия.
+Моля, актуализирайте OpenNumismat</translation>
     </message>
     <message>
         <location filename="Collection.py" line="751"/>
@@ -233,7 +234,8 @@ The application will need to restart now.</source>
         <location filename="Collection.py" line="1189"/>
         <source>Can't open collection:
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Не може да се отвори колекцията:
+%s</translation>
     </message>
 </context>
 <context>
@@ -658,7 +660,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="DetailsTabWidget.py" line="206"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Състояние</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="228"/>
@@ -819,7 +821,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="Export.py" line="42"/>
         <source>Denomination</source>
-        <translation type="unfinished"/>
+        <translation>Деноминация</translation>
     </message>
     <message>
         <location filename="Export.py" line="45"/>
@@ -981,7 +983,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="Gui.py" line="44"/>
         <source>Save as</source>
-        <translation type="unfinished"/>
+        <translation>Запиши като</translation>
     </message>
 </context>
 <context>
@@ -1031,7 +1033,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ImageLabel.py" line="145"/>
         <source>Exchange with</source>
-        <translation type="unfinished"/>
+        <translation>Обмен с</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="182"/>
@@ -1069,12 +1071,12 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ImageLabel.py" line="117"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation type="unfinished"/>
+        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="117"/>
         <source>All files (*.*)</source>
-        <translation type="unfinished"/>
+        <translation>Всички файлове (*.*)</translation>
     </message>
 </context>
 <context>
@@ -1214,12 +1216,12 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ListView.py" line="436"/>
         <source>Text file (*.csv)</source>
-        <translation>Text файл (*.csv)</translation>
+        <translation>Текстови файл (*.csv)</translation>
     </message>
     <message>
         <location filename="ListView.py" line="436"/>
         <source>Text file UTF-8 (*.csv)</source>
-        <translation>Text фийл UTF-8 (*.csv)</translation>
+        <translation>Текстови фийл UTF-8 (*.csv)</translation>
     </message>
     <message>
         <location filename="ListView.py" line="447"/>
@@ -1630,7 +1632,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="471"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
-        <translation type="unfinished"/>
+        <translation>Преди да импортирате, трябва да експортирате съществуващата колекции от Collection Studio в таблица XML (изберете Collection Studio от меню Инструменти &gt; Експортиране...).</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="488"/>
@@ -1660,7 +1662,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="691"/>
         <source>Create new collection or open one of the existing</source>
-        <translation type="unfinished"/>
+        <translation>Създайте нова колекция или отворете някоя от съществуващите</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="754"/>
@@ -1738,7 +1740,7 @@ Copyright (C) 2011-2018 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="517"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
-        <translation type="unfinished"/>
+        <translation>Преди да импортирате, трябва да експортирате съществуващата ви колекция от uCoin.net до формат Microsoft Excel (XLS) или Comma-Separated (CSV).</translation>
     </message>
 </context>
 <context>
@@ -2180,37 +2182,37 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="282"/>
         <source>Save chart</source>
-        <translation type="unfinished"/>
+        <translation>Запазване на графиката</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="549"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>PNG изображение (*.png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="549"/>
         <source>PDF file (*.pdf)</source>
-        <translation type="unfinished"/>
+        <translation>PDF файл (*.pdf)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="549"/>
         <source>SVG image (*.svg)</source>
-        <translation type="unfinished"/>
+        <translation>SVG изображение (*.svg)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="549"/>
         <source>PostScript (*.ps)</source>
-        <translation type="unfinished"/>
+        <translation>PostScript (*.ps)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="549"/>
         <source>Encapsulated PostScript (*.eps)</source>
-        <translation type="unfinished"/>
+        <translation>Encapsulated PostScript (*.eps)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="275"/>
         <source>Multicolor</source>
-        <translation type="unfinished"/>
+        <translation>Многоцветна</translation>
     </message>
 </context>
 <context>
@@ -2395,18 +2397,20 @@ Created new one</source>
         <location filename="TabView.py" line="192"/>
         <source>Can't close latest opened page.
 Add a new one first.</source>
-        <translation type="unfinished"/>
+        <translation>Не може да се затвори последната отворена страница.
+Първо добавете нова.</translation>
     </message>
     <message>
         <location filename="TabView.py" line="205"/>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
-        <translation type="unfinished"/>
+        <translation>Не може да се премахне последната отворена страница.
+Първо добавете нова.</translation>
     </message>
     <message>
         <location filename="TabView.py" line="212"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
-        <translation type="unfinished"/>
+        <translation>Да се ​​премахне ли трайно страницата &apos;%s&apos;?</translation>
     </message>
     <message>
         <location filename="TabView.py" line="222"/>
@@ -2424,7 +2428,7 @@ Add a new one first.</source>
     <message>
         <location filename="Excel.py" line="39"/>
         <source>Select columns</source>
-        <translation type="unfinished"/>
+        <translation>Избери колони</translation>
     </message>
 </context>
 <context>
