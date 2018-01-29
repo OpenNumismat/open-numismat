@@ -34,8 +34,9 @@ from PyQt5.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
-from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
+from OpenNumismat.Tools.Gui import createIcon, getSaveFileName, ProgressDialog
 from OpenNumismat.Tools.Converters import numberWithFraction
+from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 
 
 class BaseCanvas(FigureCanvas):
@@ -150,6 +151,7 @@ class StackedBarCanvas(BaseCanvas):
     def setLabelZ(self, text):
         self.label_z = text
 
+    @waitCursorDecorator
     def setData(self, xx, yy, zz):
         self.xx = xx
         self.yy = yy
@@ -162,12 +164,21 @@ class StackedBarCanvas(BaseCanvas):
         self.figures = []
         lines = []
         prev_y = [0 * len(xx)]
+        progressDlg = ProgressDialog(self.tr("Building chart"),
+                                self.tr("Cancel"), len(yy), self)
+        progressDlg.setMinimumDuration(2000)
         for y in yy:
+            progressDlg.step()
+            if progressDlg.wasCanceled():
+                return
+
             bars = self.axes.barh(x, y, left=prev_y)
             for bar in bars:
                 self.figures.append(bar)
             prev_y = numpy.add(prev_y, y)
             lines.append(bars[0])
+
+        progressDlg.setLabelText(self.tr("Drawing chart"))
 
         self.axes.set_yticks(x)
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
@@ -180,6 +191,8 @@ class StackedBarCanvas(BaseCanvas):
         self.axes.legend(lines, zz, frameon=True)
 
         self.draw()
+
+        progressDlg.reset()
 
     def tooltip(self, pos):
         x = self.xx[pos % len(self.xx)]
