@@ -58,6 +58,7 @@ collection.
 ###############################################################################
 
 import os
+import shutil
 import sys
 
 from setuptools import find_packages
@@ -248,10 +249,14 @@ if cx_Freeze_available:
 
 setup(**params)
 
+if sys.platform == "win32":
+    binDir = 'build/exe.win32-3.4/'
+    shutil.rmtree(binDir + "mpl-data/sample_data")
+    shutil.rmtree(binDir + "mpl-data/images")
+    shutil.rmtree(binDir + "mpl-data/fonts")
+
 # Post bdist_mac
 if sys.platform == "darwin":
-    import shutil
-
     bundleName = params['name'] + '-' + params['version'] + '.app'
     binDir = 'build/' + bundleName + '/Contents/MacOS/'
     shutil.copy("qt.conf", binDir)
