@@ -1,4 +1,3 @@
-import os.path
 from textwrap import wrap
 
 statisticsAvailable = True
