@@ -284,6 +284,7 @@ class LineEditRef(QWidget):
 class StatusEdit(QComboBox):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setMinimumWidth(100)
 
         for statusTitle in Statuses.values():
             self.addItem(statusTitle)

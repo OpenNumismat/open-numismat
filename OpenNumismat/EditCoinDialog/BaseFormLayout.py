@@ -218,6 +218,9 @@ class BaseFormLayout(QGridLayout):
                     self.addWidget(item1.label(), self.row, col)
                     col = col + 1
                     self.addWidget(item1.widget(), self.row, col)
+                    if item1.type() in (Type.BigInt, Type.Status):
+                        item1.widget().setSizePolicy(QSizePolicy.Fixed,
+                                                     QSizePolicy.Fixed)
                     col = col + 1
 
                     widget = QWidget()
