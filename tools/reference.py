@@ -31,6 +31,10 @@ app = QApplication(sys.argv)
 fields = CollectionFieldsBase()
 ref = Reference(fields)
 
+file = "ref/colors_en.json"
+json_data = codecs.open(file, "r", "utf-8").read()
+colors = json.loads(json_data)
+
 f = open('langs')
 langs = [x.strip('\n') for x in f.readlines()]
 
@@ -79,6 +83,19 @@ for lang in langs:
         place.addItem('АукционЪ.СПб')
     place.addItem('eBay', convertImage('icons/ebay.png'))
     place.model.submitAll()
+
+    color_file = "ref/colors_%s.json" % lang
+    if not os.path.isfile(color_file):
+        color_file = "ref/colors_en.json"
+    color_json_data = codecs.open(color_file, "r", "utf-8").read()
+    color_translations = json.loads(color_json_data)
+
+    color_section = ref.section('color')
+
+    for pos, color in enumerate(colors['colors']):
+        color_name = color_translations['colors'][pos]
+        icon_file = "ref/colors/%s.png" % color.lower().replace(' ', '-')
+        color_section.addItem(color_name, convertImage(icon_file))
 
     ref.db.commit()
 
