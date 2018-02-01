@@ -208,8 +208,9 @@ class DetailsTabWidget(QTabWidget):
 
         layout.addRow(self.items['status'], self.items['grade'])
         self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
-        layout.addRow(self.items['storage'])
-        layout.addRow(self.items['quantity'], self.items['barcode'])
+        layout.addRow(self.items['quantity'], self.items['format'])
+        layout.addRow(self.items['condition'])
+        layout.addRow(self.items['storage'], self.items['barcode'])
         layout.addRow(self.items['defect'])
         layout.addRow(self.items['features'])
 
@@ -317,6 +318,8 @@ class DetailsTabWidget(QTabWidget):
 
         layout.addRow(self.items['obversedesign'])
         layout.addRow(self.items['obversedesigner'])
+        layout.addRow(self.items['obverseengraver'])
+        layout.addRow(self.items['obversecolor'])
 
         return layout
 
@@ -326,6 +329,8 @@ class DetailsTabWidget(QTabWidget):
 
         layout.addRow(self.items['reversedesign'])
         layout.addRow(self.items['reversedesigner'])
+        layout.addRow(self.items['reverseengraver'])
+        layout.addRow(self.items['reversecolor'])
 
         return layout
 
@@ -378,6 +383,7 @@ class DetailsTabWidget(QTabWidget):
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['variety'])
+        layout.addRow(self.items['varietydesc'])
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
         layout.addHalfRow(self.items['edgevar'])
 
@@ -528,7 +534,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 if self.reference.section('series'):
                     country.addDependent(self.items['series'].widget())
 
-        image_fields = ('obverseimg', 'reverseimg', 'edgeimg',
+        image_fields = ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                         'photo1', 'photo2', 'photo3', 'photo4')
         for image_field_src in image_fields:
             for image_field_dst in image_fields:
@@ -547,7 +553,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 if self.usedFields[record.indexOf(item.field())]:
                     item.label().setCheckState(Qt.Checked)
 
-        image_fields = ('obverseimg', 'reverseimg', 'edgeimg',
+        image_fields = ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                         'photo1', 'photo2', 'photo3', 'photo4')
         for image_field in image_fields:
             title = record.value(image_field + '_title')
@@ -583,6 +589,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addImage(self.items['obverseimg'])
         layout.addRow(self.items['obversedesign'])
         layout.addRow(self.items['obversedesigner'])
+        layout.addRow(self.items['obverseengraver'])
+        layout.addRow(self.items['obversecolor'])
 
         return layout
 
@@ -593,6 +601,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addImage(self.items['reverseimg'])
         layout.addRow(self.items['reversedesign'])
         layout.addRow(self.items['reversedesigner'])
+        layout.addRow(self.items['reverseengraver'])
+        layout.addRow(self.items['reversecolor'])
 
         return layout
 
@@ -602,6 +612,18 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addImage(self.items['edgeimg'])
         layout.addRow(self.items['edge'])
         layout.addRow(self.items['edgelabel'])
+
+        return layout
+
+    def variationLayout(self):
+        layout = DesignFormLayout(self.tr("Variation"))
+        layout.minHeight = 120
+
+        layout.addImage(self.items['varietyimg'])
+        layout.addRow(self.items['variety'])
+        layout.addRow(self.items['varietydesc'])
+        layout.addRow(self.items['obversevar'], self.items['reversevar'])
+        layout.addHalfRow(self.items['edgevar'])
 
         return layout
 

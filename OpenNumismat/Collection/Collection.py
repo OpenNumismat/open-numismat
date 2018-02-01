@@ -145,7 +145,7 @@ class CollectionModel(QSqlTableModel):
         record.setNull('id')  # remove ID value from record
         record.setValue('createdat', record.value('updatedat'))
 
-        for field in ('obverseimg', 'reverseimg', 'edgeimg',
+        for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                       'photo1', 'photo2', 'photo3', 'photo4'):
             value = record.value(field)
             if value:
@@ -181,7 +181,7 @@ class CollectionModel(QSqlTableModel):
     def setRecord(self, row, record):
         self._updateRecord(record)
         # TODO : check that images was realy changed
-        for field in ('obverseimg', 'reverseimg', 'edgeimg',
+        for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                       'photo1', 'photo2', 'photo3', 'photo4'):
             img_id = record.value(field + '_id')
             value = record.value(field)
@@ -256,7 +256,7 @@ class CollectionModel(QSqlTableModel):
         else:
             record = super().record()
 
-        for field in ('obverseimg', 'reverseimg', 'edgeimg',
+        for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                       'photo1', 'photo2', 'photo3', 'photo4'):
             record.append(QSqlField(field + '_title'))
             record.append(QSqlField(field + '_id'))
@@ -285,7 +285,7 @@ class CollectionModel(QSqlTableModel):
         record = super().record(row)
 
         ids = []
-        for field in ('obverseimg', 'reverseimg', 'edgeimg',
+        for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                       'photo1', 'photo2', 'photo3', 'photo4'):
             value = record.value(field)
             if value:
@@ -492,7 +492,7 @@ class CollectionModel(QSqlTableModel):
 
 class CollectionSettings(BaseSettings):
     Default = {
-            'Version': 4,
+            'Version': 5,
             'Type': version.AppName,
             'Password': cryptPassword()
     }
@@ -1251,7 +1251,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             select_query.addBindValue(query.record().value(0))
             select_query.exec_()
             if select_query.first():
-                dst_fields = ('obverseimg', 'reverseimg', 'edgeimg',
+                dst_fields = ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                               'photo1', 'photo2', 'photo3', 'photo4') + \
                              ('id', 'image')
                 sql_dst_fields = ','.join(['coins.%s AS coins_%s' % (f, f) for f in dst_fields])
@@ -1291,7 +1291,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                                 img_id = None
 
                             up_query.addBindValue(img_id)
-                        elif field in ('obverseimg', 'reverseimg', 'edgeimg',
+                        elif field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                                        'photo1', 'photo2', 'photo3', 'photo4'):
                             img_id = sel_query.record().value(field)
                             old_img_id = sel_query.record().value('coins_%s' % field)
@@ -1340,7 +1340,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
 
                             img_id = img_query.lastInsertId()
                             ins_query.addBindValue(img_id)
-                        elif field in ('obverseimg', 'reverseimg', 'edgeimg',
+                        elif field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                                        'photo1', 'photo2', 'photo3', 'photo4'):
                             sql = "INSERT INTO photos (title, image) SELECT title, image FROM src.photos WHERE id=?"
                             img_query = QSqlQuery(sql, self.db)

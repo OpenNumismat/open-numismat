@@ -145,7 +145,7 @@ class EditCoinDialog(QDialog):
                 value = value.strip()
             self.record.setValue(item.field(), value)
 
-        image_fields = ('obverseimg', 'reverseimg', 'edgeimg',
+        image_fields = ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                         'photo1', 'photo2', 'photo3', 'photo4')
         for image_field in image_fields:
             item = self.items[image_field]

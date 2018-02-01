@@ -197,6 +197,14 @@ class CollectionFieldsBase(QObject):
                 ('barcode', self.tr("Barcode"), Type.String),
                 ('ruler', self.tr("Ruler"), Type.String),
                 ('region', self.tr("Region"), Type.String),
+                ('obverseengraver', self.tr("Engraver"), Type.String),
+                ('reverseengraver', self.tr("Engraver"), Type.String),
+                ('obversecolor', self.tr("Color"), Type.String),
+                ('reversecolor', self.tr("Color"), Type.String),
+                ('varietydesc', self.tr("Description"), Type.Text),
+                ('varietyimg', self.tr("Variety"), Type.Image),
+                ('format', self.tr("Format"), Type.String),
+                ('condition', self.tr("Condition"), Type.String),
             ]
 
         self.fields = []

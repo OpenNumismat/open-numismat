@@ -183,8 +183,8 @@ class Report(QtCore.QObject):
         return dstFile
 
     def __recordMapping(self, record):
-        imgFields = ['image', 'obverseimg', 'reverseimg',
-                     'photo1', 'photo2', 'photo3', 'photo4']
+        imgFields = ('image', 'obverseimg', 'reverseimg', 'varietyimg',
+                     'photo1', 'photo2', 'photo3', 'photo4')
 
         record_mapping = {}
         record_mapping['status_raw'] = ''

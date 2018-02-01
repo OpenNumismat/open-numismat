@@ -1,7 +1,8 @@
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtSql import QSqlQuery
 
+from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools import Gui
 
 
@@ -28,6 +29,9 @@ class Updater(QtCore.QObject):
                 updater.update()
             if self.currentVersion < 4:
                 updater = UpdaterTo4(self.collection)
+                updater.update()
+            if self.currentVersion < 5:
+                updater = UpdaterTo5(self.collection)
                 updater.update()
 
             self.__finalize()
@@ -342,6 +346,51 @@ class UpdaterTo4(_Updater):
         QSqlQuery(sql, self.db)
 
         self.collection.settings['Version'] = 4
+        self.collection.settings.save()
+
+        self.db.commit()
+
+        self._finish()
+
+
+class UpdaterTo5(_Updater):
+
+    def __init__(self, collection):
+        super().__init__(collection)
+        self.progressDlg.setMinimumDuration(0)
+
+    def getTotalCount(self):
+        return 2
+
+    def update(self):
+        self._begin()
+
+        self.db.transaction()
+
+        fields = ('obverseengraver', 'reverseengraver', 'obversecolor',
+                  'reversecolor', 'varietydesc', 'varietyimg', 'format',
+                  'condition')
+        for field in fields:
+            self._updateRecord()
+
+            fieldDesc = getattr(self.collection.fields, field)
+            fieldDesc.enabled = False
+            query = QSqlQuery(self.db)
+            query.prepare("INSERT INTO fields (id, title, enabled)"
+                          " VALUES (?, ?, ?)")
+            query.addBindValue(fieldDesc.id)
+            query.addBindValue(fieldDesc.title)
+            query.addBindValue(int(fieldDesc.enabled))
+            query.exec_()
+
+            sql = "ALTER TABLE coins ADD COLUMN %s %s" % (field, Type.toSql(fieldDesc.type))
+            QSqlQuery(sql, self.db)
+
+            self.collection.fields.userFields.append(fieldDesc)
+
+        self.progressDlg.setLabelText(self.tr("Saving..."))
+
+        self.collection.settings['Version'] = 5
         self.collection.settings.save()
 
         self.db.commit()
