@@ -304,10 +304,15 @@ class Reference(QtCore.QObject):
         self.__createReferenceSection(None, fields.obvrev)
         self.__createReferenceSection(None, fields.type, self.tr("T"))
         self.__createReferenceSection(None, fields.defect, self.tr("D"))
+        self.__createReferenceSection(None, fields.format)
+        self.__createReferenceSection(None, fields.condition)
 
         if 'payplace' in self.userFields or 'saleplace' in self.userFields:
             ref_place = ReferenceSection('place', self.tr("Place"))
             self.sections.append(ref_place)
+        if 'obversecolor' in self.userFields or 'reversecolor' in self.userFields:
+            ref_color = ReferenceSection('color', self.tr("Color"))
+            self.sections.append(ref_color)
 
     def __createReferenceSection(self, parentRef, field,
                                  letter='', sort=False):
@@ -423,6 +428,8 @@ class Reference(QtCore.QObject):
         # editing one of it should change another
         if name in ('payplace', 'saleplace'):
             name = 'place'
+        elif name in ('obversecolor', 'reversecolor'):
+            name = 'color'
 
         for section in self.sections:
             if section.name == name:
@@ -435,6 +442,8 @@ class Reference(QtCore.QObject):
         for section in self.sections:
             if section.name == 'place':
                 sectionNames.extend(['payplace', 'saleplace'])
+            elif section.name == 'color':
+                sectionNames.extend(['obversecolor', 'reversecolor'])
             else:
                 sectionNames.append(section.name)
 
@@ -443,6 +452,8 @@ class Reference(QtCore.QObject):
     def getIcon(self, section, value):
         if section in ('payplace', 'saleplace'):
             section = 'place'
+        elif section in ('obversecolor', 'reversecolor'):
+            section = 'color'
 
         table_name = "ref_%s" % section
         if table_name in self.sections_with_icons:

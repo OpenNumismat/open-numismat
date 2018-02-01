@@ -28,7 +28,10 @@
         "Commemorative",
         "Bullion",
         "Restrike",
-        "Pattern",
+        "Pattern"
+    ],
+    "format": [
+        "Single",
         "Set",
         "Roll"
     ],
