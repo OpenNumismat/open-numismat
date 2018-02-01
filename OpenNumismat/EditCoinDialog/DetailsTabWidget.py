@@ -623,7 +623,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['variety'])
         layout.addRow(self.items['varietydesc'])
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
-        layout.addHalfRow(self.items['edgevar'])
+        layout.addRow(self.items['edgevar'])
+        self.items['edgevar'].widget().setSizePolicy(QSizePolicy.Preferred,
+                                                     QSizePolicy.Fixed)
 
         return layout
 

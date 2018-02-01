@@ -347,3 +347,15 @@ class DesignFormLayout(BaseFormGroupBox):
 
     def isEmpty(self):
         return (self.imagesCount == 0) and super().isEmpty()
+
+    def addRow(self, item1, item2=None):
+        if item2 and not item2.isHidden() and not item1.isHidden():
+            self.layout.addWidget(item1.label(), self.layout.row, 0)
+            hlayout = QHBoxLayout()
+            hlayout.addWidget(item1.widget())
+            hlayout.addWidget(item2.label())
+            hlayout.addWidget(item2.widget())
+            self.layout.addLayout(hlayout, self.layout.row, 1, 1, -1)
+            self.layout.row = self.layout.row + 1
+        else:
+            super().addRow(item1, item2)
