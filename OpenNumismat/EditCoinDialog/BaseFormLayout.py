@@ -216,12 +216,12 @@ class BaseFormLayout(QGridLayout):
                 col = 0
                 if not item1.isHidden():
                     self.addWidget(item1.label(), self.row, col)
-                    col = col + 1
+                    col += 1
                     self.addWidget(item1.widget(), self.row, col)
                     if item1.type() in (Type.BigInt, Type.Status):
                         item1.widget().setSizePolicy(QSizePolicy.Fixed,
                                                      QSizePolicy.Fixed)
-                    col = col + 1
+                    col += 1
 
                     widget = QWidget()
                     widget.setMinimumWidth(0)
@@ -229,13 +229,13 @@ class BaseFormLayout(QGridLayout):
                         widget.setSizePolicy(QSizePolicy.Fixed,
                                              QSizePolicy.Fixed)
                     self.addWidget(widget, self.row, col)
-                    col = col + 1
+                    col += 1
 
                 if not item2.isHidden():
                     if item2.widget().sizePolicy().horizontalPolicy() == QSizePolicy.Fixed:
                         item2.label().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
                     self.addWidget(item2.label(), self.row, col)
-                    col = col + 1
+                    col += 1
                     self.addWidget(item2.widget(), self.row, col, 1, self.columnCount - 4)
 
         self.row = self.row + 1
@@ -246,9 +246,9 @@ class BaseFormLayout(QGridLayout):
 
         col = 0
         self.addWidget(item1.label(), self.row, col)
-        col = col + 1
+        col += 1
         self.addWidget(item1.widget(), self.row, col)
-        col = col + 1
+        col += 1
 
         widget = QWidget()
         widget.setMinimumWidth(0)
@@ -256,7 +256,7 @@ class BaseFormLayout(QGridLayout):
             widget.setSizePolicy(QSizePolicy.Fixed,
                                  QSizePolicy.Fixed)
         self.addWidget(widget, self.row, col)
-        col = col + 1
+        col += 1
 
         self.row = self.row + 1
 
@@ -315,7 +315,7 @@ class ImageFormLayout(BaseFormLayout):
                 self.setRowMinimumHeight(row * 2 + 1, 120)
                 self.setColumnMinimumWidth(col, 160)
 
-                self.imagesCount = self.imagesCount + 1
+                self.imagesCount += 1
 
     def isEmpty(self):
         return (self.imagesCount == 0)
@@ -331,18 +331,11 @@ class DesignFormLayout(BaseFormGroupBox):
 
     def addImage(self, image, rowSpan=-1):
         if not image.isHidden():
-            if isinstance(image.label(), QLabel):
-                self.layout.addWidget(image.widget(), 0, 3, rowSpan, 2)
-                self.layout.setColumnMinimumWidth(2, 160)
-                self.layout.setRowMinimumHeight(0, self.defaultHeight)
-            else:
-                image.label().setText("")
-                self.layout.addWidget(image.label(), 0, 3, 1, 1)
-                self.layout.addWidget(image.widget(), 0, 4, 2, 1)
-                self.layout.setColumnMinimumWidth(4, 160)
-                self.layout.setRowMinimumHeight(0, self.defaultHeight)
+            self.layout.addWidget(image.widget(), 0, 3, rowSpan, 2)
+            self.layout.setColumnMinimumWidth(2, 160)
+            self.layout.setRowMinimumHeight(0, self.defaultHeight)
 
-            self.imagesCount = self.imagesCount + 1
+            self.imagesCount += 1
 
     def isEmpty(self):
         return (self.imagesCount == 0) and super().isEmpty()
@@ -355,7 +348,7 @@ class DesignFormLayout(BaseFormGroupBox):
             hlayout.addWidget(item2.label())
             hlayout.addWidget(item2.widget())
             self.layout.addLayout(hlayout, self.layout.row, 1, 1, -1)
-            self.layout.row = self.layout.row + 1
+            self.layout.row += 1
         else:
             super().addRow(item1, item2)
 
@@ -373,4 +366,4 @@ class DesignFormLayout(BaseFormGroupBox):
         hlayout.addWidget(widget)
 
         self.layout.addLayout(hlayout, self.layout.row, 1, 1, -1)
-        self.layout.row = self.layout.row + 1
+        self.layout.row += 1

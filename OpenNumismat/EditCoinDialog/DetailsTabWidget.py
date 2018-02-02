@@ -103,7 +103,7 @@ class DetailsTabWidget(QTabWidget):
                             stretchNeeded = False
                     else:
                         layout.addLayout(part)
-                    count = count + 1
+                    count += 1
             if count > 0:
                 newParts.append(layout)
                 if stretchNeeded:
@@ -584,7 +584,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def obverseDesignLayout(self):
         layout = DesignFormLayout(self.tr("Obverse"))
-        layout.minHeight = 120
 
         layout.addImage(self.items['obverseimg'])
         layout.addRow(self.items['obversedesign'])
@@ -596,7 +595,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def reverseDesignLayout(self):
         layout = DesignFormLayout(self.tr("Reverse"))
-        layout.minHeight = 120
 
         layout.addImage(self.items['reverseimg'])
         layout.addRow(self.items['reversedesign'])
@@ -617,7 +615,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def variationLayout(self):
         layout = DesignFormLayout(self.tr("Variation"))
-        layout.minHeight = 120
 
         layout.addImage(self.items['varietyimg'], 2)
         layout.addRow(self.items['variety'])
