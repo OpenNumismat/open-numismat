@@ -247,7 +247,7 @@ class FilterMenuButton(QPushButton):
         self.menu().addAction(widgetAction)
 
         # Fill items
-        if self.listWidget.count() > 0:
+        if self.listWidget.count() > 1:
             self.itemChanged(self.listWidget.item(1))
 
     def itemChanged(self, item):
