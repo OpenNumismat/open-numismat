@@ -383,7 +383,10 @@ class DetailsTabWidget(QTabWidget):
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['variety'])
-        layout.addRow(self.items['varietydesc'])
+        item = self.items['varietydesc']
+        layout.addRow(item)
+        item.widget().setSizePolicy(QSizePolicy.Preferred,
+                                    QSizePolicy.Minimum)
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
         layout.addHalfRow(self.items['edgevar'])
 
@@ -391,6 +394,7 @@ class DetailsTabWidget(QTabWidget):
 
     def urlLayout(self):
         layout = BaseFormLayout()
+        layout.setAlignment(Qt.AlignTop)
 
         layout.addRow(self.items['url'])
 
@@ -623,7 +627,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         layout.addImage(self.items['varietyimg'], 2)
         layout.addRow(self.items['variety'])
-        layout.addRow(self.items['varietydesc'])
+        item = self.items['varietydesc']
+        layout.addRow(item)
+        item.widget().setSizePolicy(QSizePolicy.Preferred,
+                                    QSizePolicy.Minimum)
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
         layout.addHalfRow(self.items['edgevar'])
 
