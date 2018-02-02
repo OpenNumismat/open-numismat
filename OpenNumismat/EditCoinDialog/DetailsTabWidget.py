@@ -619,13 +619,11 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout = DesignFormLayout(self.tr("Variation"))
         layout.minHeight = 120
 
-        layout.addImage(self.items['varietyimg'])
+        layout.addImage(self.items['varietyimg'], 2)
         layout.addRow(self.items['variety'])
         layout.addRow(self.items['varietydesc'])
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
-        layout.addRow(self.items['edgevar'])
-        self.items['edgevar'].widget().setSizePolicy(QSizePolicy.Preferred,
-                                                     QSizePolicy.Fixed)
+        layout.addHalfRow(self.items['edgevar'])
 
         return layout
 

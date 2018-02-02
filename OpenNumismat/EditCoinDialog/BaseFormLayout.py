@@ -245,19 +245,18 @@ class BaseFormLayout(QGridLayout):
             return
 
         col = 0
-        if not item1.isHidden():
-            self.addWidget(item1.label(), self.row, col)
-            col = col + 1
-            self.addWidget(item1.widget(), self.row, col)
-            col = col + 1
+        self.addWidget(item1.label(), self.row, col)
+        col = col + 1
+        self.addWidget(item1.widget(), self.row, col)
+        col = col + 1
 
-            widget = QWidget()
-            widget.setMinimumWidth(0)
-            if self.columnCount == 6:
-                widget.setSizePolicy(QSizePolicy.Fixed,
-                                     QSizePolicy.Fixed)
-            self.addWidget(widget, self.row, col)
-            col = col + 1
+        widget = QWidget()
+        widget.setMinimumWidth(0)
+        if self.columnCount == 6:
+            widget.setSizePolicy(QSizePolicy.Fixed,
+                                 QSizePolicy.Fixed)
+        self.addWidget(widget, self.row, col)
+        col = col + 1
 
         self.row = self.row + 1
 
@@ -330,10 +329,10 @@ class DesignFormLayout(BaseFormGroupBox):
         self.imagesCount = 0
         self.defaultHeight = 30
 
-    def addImage(self, image):
+    def addImage(self, image, rowSpan=-1):
         if not image.isHidden():
             if isinstance(image.label(), QLabel):
-                self.layout.addWidget(image.widget(), 0, 3, 2, 2)
+                self.layout.addWidget(image.widget(), 0, 3, rowSpan, 2)
                 self.layout.setColumnMinimumWidth(2, 160)
                 self.layout.setRowMinimumHeight(0, self.defaultHeight)
             else:
@@ -359,3 +358,19 @@ class DesignFormLayout(BaseFormGroupBox):
             self.layout.row = self.layout.row + 1
         else:
             super().addRow(item1, item2)
+
+    def addHalfRow(self, item1):
+        if item1.isHidden():
+            return
+
+        self.layout.addWidget(item1.label(), self.layout.row, 0)
+        hlayout = QHBoxLayout()
+        hlayout.addWidget(item1.widget())
+
+        widget = QWidget()
+        widget.setMinimumWidth(0)
+        widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        hlayout.addWidget(widget)
+
+        self.layout.addLayout(hlayout, self.layout.row, 1, 1, -1)
+        self.layout.row = self.layout.row + 1
