@@ -141,7 +141,6 @@ class ImageEdit(ImageLabel):
         self.label.mouseDoubleClickEvent = self.renameImageEvent
 
         self.setFrameStyle(QFrame.Panel | QFrame.Plain)
-        self.setMinimumHeight(120)
 
         text = QApplication.translate('ImageEdit', "Exchange with")
         self.exchangeMenu = QMenu(text, self)
