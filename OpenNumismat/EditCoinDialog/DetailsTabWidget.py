@@ -397,23 +397,26 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def _createTrafficParts(self, index=0):
+        stretch_widget = QWidget()
+        stretch_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+
         pageParts = []
         if index == 1:
             pass_ = self.passLayout()
-            pageParts.append(pass_)
+            pageParts.extend([pass_, self.Stretch, stretch_widget])
         elif index == 2:
             pay = self.payLayout()
-            pageParts.append(pay)
+            pageParts.extend([pay, self.Stretch, stretch_widget])
         elif index == 3:
             pay = self.payLayout()
-            pageParts.append(pay)
+            pageParts.extend([pay, self.Stretch, stretch_widget])
         elif index == 4:
             pay = self.payLayout()
             sale = self.saleLayout()
             pageParts.extend([pay, self.Stretch, sale])
         elif index == 5:
             pay = self.payLayout()
-            pageParts.append(pay)
+            pageParts.extend([pay, self.Stretch, stretch_widget])
         else:
             layout = self.emptyMarketLayout()
             pageParts.append(layout)
