@@ -18,11 +18,20 @@ from OpenNumismat.Settings import Settings
 
 
 class ImageView(QWidget):
-    def __init__(self, parent=None):
+
+    def __init__(self, direction, parent=None):
         super().__init__(parent)
 
         self.currentIndex = None
 
+        if direction == QBoxLayout.LeftToRight:
+            layout = self.__createHorizontalLayout()
+        else:
+            layout = self.__createVerticalLayout()
+
+        self.setLayout(layout)
+
+    def __createVerticalLayout(self):
         layout = QVBoxLayout()
 
         self.imageLayout = QVBoxLayout()
@@ -32,11 +41,25 @@ class ImageView(QWidget):
         self.buttonLayout = QHBoxLayout()
         self.buttonLayout.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
         widget = self.__layoutToWidget(self.buttonLayout)
-        widget.setSizePolicy(QSizePolicy.Preferred,
-                             QSizePolicy.Fixed)
+        widget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         layout.addWidget(widget)
 
-        self.setLayout(layout)
+        return layout
+
+    def __createHorizontalLayout(self):
+        layout = QHBoxLayout()
+
+        self.buttonLayout = QVBoxLayout()
+        self.buttonLayout.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        widget = self.__layoutToWidget(self.buttonLayout)
+        widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        layout.addWidget(widget)
+
+        self.imageLayout = QHBoxLayout()
+        self.imageLayout.setContentsMargins(QtCore.QMargins())
+        layout.addWidget(self.__layoutToWidget(self.imageLayout))
+
+        return layout
 
     def setModel(self, model):
         self.model = model
@@ -432,10 +455,13 @@ class TreeView(QTreeWidget):
 
 
 class DetailsView(QWidget):
-    def __init__(self, parent=None):
+
+    def __init__(self, direction, parent=None):
         super().__init__(parent)
 
-        self.resize(0, 120)
+        self.direction = direction
+
+        self.resize(120, 120)
 
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
@@ -443,7 +469,7 @@ class DetailsView(QWidget):
     def setModel(self, model):
         self.model = model
 
-        self.widget = DetailsTabWidget(model)
+        self.widget = DetailsTabWidget(model, self.direction)
         self.layout.addWidget(self.widget)
 
     def rowChangedEvent(self, current):
@@ -481,13 +507,19 @@ class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
         super().__init__('0', parent=parent)
 
+        imagesAtRight = Settings()['images_at_right']
+
         self._model = None
         self.param = pageParam
         self.id = pageParam.id
         self.treeView = TreeView(pageParam.treeParam, self)
         self.listView = ListView(pageParam.listParam, self)
-        self.imageView = ImageView(self)
-        self.detailsView = DetailsView(self)
+        if imagesAtRight:
+            self.imageView = ImageView(QBoxLayout.TopToBottom, self)
+            self.detailsView = DetailsView(QBoxLayout.LeftToRight, self)
+        else:
+            self.imageView = ImageView(QBoxLayout.LeftToRight, self)
+            self.detailsView = DetailsView(QBoxLayout.TopToBottom, self)
         if statisticsAvailable:
             self.statisticsView = StatisticsView(pageParam.statisticsParam, self)
             self.statisticsView.setMinimumHeight(200)
@@ -497,11 +529,17 @@ class PageView(Splitter):
         splitter2.addWidget(self.treeView)
         splitter2.addWidget(self.listView)
         self.splitter1.addWidget(splitter2)
-        self.splitter1.addWidget(self.detailsView)
-        self.addWidget(self.splitter1)
-        self.addWidget(self.imageView)
         if statisticsAvailable:
             self.splitter1.addWidget(self.statisticsView)
+        if imagesAtRight:
+            self.splitter1.addWidget(self.detailsView)
+        else:
+            self.splitter1.addWidget(self.imageView)
+        self.addWidget(self.splitter1)
+        if imagesAtRight:
+            self.addWidget(self.imageView)
+        else:
+            self.addWidget(self.detailsView)
 
         self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
         self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
@@ -538,20 +576,16 @@ class PageView(Splitter):
 
         sizes = self.splitter1.sizes()
 
-        try:
-            self.listView.rowChanged.disconnect(self.detailsView.rowChangedEvent)
-        except TypeError:
-            pass
-
         if show:
             self.splitter1.insertWidget(1, self.statisticsView)
-            self.detailsView.hide()
+            old_widget = self.splitter1.widget(1)
+            old_widget.hide()
             self.statisticsView.show()
         else:
-            self.splitter1.insertWidget(1, self.detailsView)
+            new_widget = self.splitter1.widget(2)
+            self.splitter1.insertWidget(1, new_widget)
             self.statisticsView.hide()
-            self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
-            self.detailsView.show()
+            new_widget.show()
 
         if self.statisticsShowed != show:
             self.param.statisticsParam['showed'] = show

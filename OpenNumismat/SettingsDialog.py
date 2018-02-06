@@ -109,6 +109,10 @@ class MainSettingsPage(QWidget):
         self.storeSorting.setChecked(settings['store_sorting'])
         layout.addRow(self.storeSorting)
 
+        self.imagesAtRight = QCheckBox(self.tr("Images at right"), self)
+        self.imagesAtRight.setChecked(settings['images_at_right'])
+        layout.addRow(self.imagesAtRight)
+
         vLayout = QVBoxLayout()
         showIcons = QGroupBox(self.tr("Show icons from reference (slow)"), self)
         self.showTreeIcons = QCheckBox(self.tr("in tree"), self)
@@ -179,6 +183,7 @@ class MainSettingsPage(QWidget):
         settings['ImageSideLen'] = int(self.imageSideLen.text())
         settings['check_coin_title'] = self.checkTitle.isChecked()
         settings['check_coin_duplicate'] = self.checkDuplicate.isChecked()
+        settings['images_at_right'] = self.imagesAtRight.isChecked()
 
         settings.save()
 

@@ -11,12 +11,12 @@ from OpenNumismat.Settings import Settings
 
 
 class DetailsTabWidget(QTabWidget):
-    Direction = QBoxLayout.LeftToRight
     Stretch = 'stretch item'
 
-    def __init__(self, model, parent=None):
+    def __init__(self, model, direction, parent=None):
         super().__init__(parent)
 
+        self.direction = direction
         self.model = model
         self.reference = model.reference
 
@@ -82,7 +82,7 @@ class DetailsTabWidget(QTabWidget):
                 if part.isEmpty():
                     parts.remove(part)
 
-        if self.Direction == QBoxLayout.LeftToRight:
+        if self.direction == QBoxLayout.LeftToRight:
             newParts = []
             layout = QVBoxLayout()
             stretchNeeded = True
@@ -114,7 +114,7 @@ class DetailsTabWidget(QTabWidget):
                 if part == self.Stretch:
                     parts.remove(part)
 
-        pageLayout = QBoxLayout(self.Direction, self)
+        pageLayout = QBoxLayout(self.direction, self)
         # Fill layout with it's parts
         stretchNeeded = True
         for part in parts:
@@ -127,7 +127,7 @@ class DetailsTabWidget(QTabWidget):
                 if isinstance(part, ImageFormLayout):
                     stretchNeeded = False
 
-        if self.Direction == QBoxLayout.TopToBottom and stretchNeeded:
+        if self.direction == QBoxLayout.TopToBottom and stretchNeeded:
             pageLayout.insertStretch(-1)
 
         return self._layoutToWidget(pageLayout)
@@ -478,13 +478,11 @@ class DetailsTabWidget(QTabWidget):
 
 
 class FormDetailsTabWidget(DetailsTabWidget):
-    Direction = QBoxLayout.TopToBottom
-
     def __init__(self, model, parent=None, usedFields=None):
         self.usedFields = usedFields
         self.settings = Settings()
 
-        super().__init__(model, parent)
+        super().__init__(model, QBoxLayout.TopToBottom, parent)
 
     def createPages(self):
         self.createCoinPage()

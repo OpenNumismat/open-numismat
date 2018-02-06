@@ -86,7 +86,8 @@ class Settings(BaseSettings):
                'template': 'full',
                'ImageSideLen': 1024,
                'check_coin_title': True,
-               'check_coin_duplicate': True}
+               'check_coin_duplicate': True,
+               'images_at_right': True}
 
     def __init__(self, autoSave=False):
         super().__init__(autoSave)
@@ -100,7 +101,7 @@ class Settings(BaseSettings):
         if key in ('error', 'updates', 'free_numeric', 'convert_fraction',
                    'store_sorting',
                    'show_tree_icons', 'show_filter_icons', 'show_list_icons',
-                   'check_coin_title', 'check_coin_duplicate'):
+                   'check_coin_title', 'check_coin_duplicate', 'images_at_right'):
             value = self.settings.value('mainwindow/' + key, self.Default[key], type=bool)
         elif key in ('speedup', 'ImageSideLen'):
             value = self.settings.value('mainwindow/' + key, self.Default[key], type=int)
