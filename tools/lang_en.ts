@@ -26,7 +26,7 @@
 <context>
     <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="56"/>
+        <location filename="StatisticsView.py" line="55"/>
         <source>Number of coins</source>
         <translation type="unfinished"></translation>
     </message>
@@ -415,7 +415,7 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="160"/>
+        <location filename="CollectionFields.py" line="205"/>
         <source>Variety</source>
         <translation type="unfinished"></translation>
     </message>
@@ -564,6 +564,31 @@ The application will need to restart now.</source>
         <source>Region</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="CollectionFields.py" line="201"/>
+        <source>Engraver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="203"/>
+        <source>Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="204"/>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="206"/>
+        <source>Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="207"/>
+        <source>Condition</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CollectionModel</name>
@@ -637,7 +662,7 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="282"/>
+        <location filename="DetailsTabWidget.py" line="283"/>
         <source>Parameters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -662,67 +687,67 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="228"/>
+        <location filename="DetailsTabWidget.py" line="229"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="244"/>
+        <location filename="DetailsTabWidget.py" line="245"/>
         <source>Sale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="260"/>
+        <location filename="DetailsTabWidget.py" line="261"/>
         <source>Pass</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="294"/>
+        <location filename="DetailsTabWidget.py" line="295"/>
         <source>Minting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="315"/>
+        <location filename="DetailsTabWidget.py" line="316"/>
         <source>Obverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="324"/>
+        <location filename="DetailsTabWidget.py" line="327"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="333"/>
+        <location filename="DetailsTabWidget.py" line="338"/>
         <source>Edge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="359"/>
+        <location filename="DetailsTabWidget.py" line="364"/>
         <source>Catalogue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="368"/>
+        <location filename="DetailsTabWidget.py" line="373"/>
         <source>Price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="377"/>
+        <location filename="DetailsTabWidget.py" line="382"/>
         <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="449"/>
+        <location filename="DetailsTabWidget.py" line="462"/>
         <source>Commission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="426"/>
+        <location filename="DetailsTabWidget.py" line="439"/>
         <source>Market</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="219"/>
+        <location filename="DetailsTabWidget.py" line="220"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation type="unfinished"></translation>
     </message>
@@ -875,17 +900,17 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="215"/>
+        <location filename="SettingsDialog.py" line="220"/>
         <source>Revert to default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="223"/>
+        <location filename="SettingsDialog.py" line="228"/>
         <source>Global enabled fields:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="210"/>
+        <location filename="SettingsDialog.py" line="215"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
@@ -931,48 +956,53 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="490"/>
+        <location filename="DetailsTabWidget.py" line="501"/>
         <source>Design</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="494"/>
+        <location filename="DetailsTabWidget.py" line="505"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="558"/>
+        <location filename="DetailsTabWidget.py" line="569"/>
         <source>Main details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="561"/>
+        <location filename="DetailsTabWidget.py" line="572"/>
         <source>Generate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="580"/>
+        <location filename="DetailsTabWidget.py" line="591"/>
         <source>Obverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="590"/>
+        <location filename="DetailsTabWidget.py" line="603"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="600"/>
+        <location filename="DetailsTabWidget.py" line="615"/>
         <source>Edge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="690"/>
+        <location filename="DetailsTabWidget.py" line="719"/>
         <source>Commission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="692"/>
+        <location filename="DetailsTabWidget.py" line="721"/>
         <source>Available format 12.5 or 10%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="624"/>
+        <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1310,7 +1340,7 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="151"/>
+        <location filename="SettingsDialog.py" line="155"/>
         <source>Backup folder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1345,12 +1375,12 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="146"/>
+        <location filename="SettingsDialog.py" line="150"/>
         <source>Default template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="157"/>
+        <location filename="SettingsDialog.py" line="161"/>
         <source>Select reference</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1360,32 +1390,32 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="126"/>
+        <location filename="SettingsDialog.py" line="130"/>
         <source>Check that coin title present on save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="131"/>
+        <location filename="SettingsDialog.py" line="135"/>
         <source>Check coin duplicates on save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="113"/>
+        <location filename="SettingsDialog.py" line="117"/>
         <source>Show icons from reference (slow)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="114"/>
+        <location filename="SettingsDialog.py" line="118"/>
         <source>in tree</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="117"/>
+        <location filename="SettingsDialog.py" line="121"/>
         <source>in filters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="120"/>
+        <location filename="SettingsDialog.py" line="124"/>
         <source>in list</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1412,6 +1442,11 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="102"/>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="112"/>
+        <source>Images at right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1932,7 +1967,7 @@ Copyright (C) 2011-2018 Vitaly Ignatov
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="309"/>
+        <location filename="Reference.py" line="311"/>
         <source>Place</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1982,32 +2017,37 @@ Copyright (C) 2011-2018 Vitaly Ignatov
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="387"/>
+        <location filename="Reference.py" line="392"/>
         <source>Open reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="353"/>
+        <location filename="Reference.py" line="358"/>
         <source>Can&apos;t open reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="387"/>
+        <location filename="Reference.py" line="392"/>
         <source>Can&apos;t open reference:
 %s
 Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="394"/>
+        <location filename="Reference.py" line="399"/>
         <source>Create reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="394"/>
+        <location filename="Reference.py" line="399"/>
         <source>Can&apos;t create reference:
 %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="314"/>
+        <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2061,17 +2101,17 @@ Created new one</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="271"/>
+        <location filename="SettingsDialog.py" line="276"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="274"/>
+        <location filename="SettingsDialog.py" line="279"/>
         <source>Main</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="275"/>
+        <location filename="SettingsDialog.py" line="280"/>
         <source>Fields</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2079,17 +2119,17 @@ Created new one</source>
 <context>
     <name>StackedBarCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="167"/>
+        <location filename="StatisticsView.py" line="166"/>
         <source>Building chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="167"/>
+        <location filename="StatisticsView.py" line="166"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="181"/>
+        <location filename="StatisticsView.py" line="180"/>
         <source>Drawing chart</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2097,137 +2137,137 @@ Created new one</source>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="253"/>
+        <location filename="StatisticsView.py" line="252"/>
         <source>Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="254"/>
+        <location filename="StatisticsView.py" line="253"/>
         <source>Horizontal bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="255"/>
+        <location filename="StatisticsView.py" line="254"/>
         <source>Pie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="256"/>
+        <location filename="StatisticsView.py" line="255"/>
         <source>Stacked bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="257"/>
+        <location filename="StatisticsView.py" line="256"/>
         <source>Progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="258"/>
+        <location filename="StatisticsView.py" line="257"/>
         <source>Chart:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="261"/>
+        <location filename="StatisticsView.py" line="260"/>
         <source>Field:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="266"/>
+        <location filename="StatisticsView.py" line="265"/>
         <source>Additional field:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="271"/>
+        <location filename="StatisticsView.py" line="270"/>
         <source>Sum per:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="274"/>
+        <location filename="StatisticsView.py" line="273"/>
         <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="275"/>
+        <location filename="StatisticsView.py" line="274"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="276"/>
+        <location filename="StatisticsView.py" line="275"/>
         <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="277"/>
+        <location filename="StatisticsView.py" line="276"/>
         <source>Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="280"/>
+        <location filename="StatisticsView.py" line="279"/>
         <source>Items:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="283"/>
+        <location filename="StatisticsView.py" line="282"/>
         <source>Count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="284"/>
+        <location filename="StatisticsView.py" line="283"/>
         <source>Price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="285"/>
+        <location filename="StatisticsView.py" line="284"/>
         <source>Total price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="444"/>
+        <location filename="StatisticsView.py" line="443"/>
         <source>Paid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="447"/>
+        <location filename="StatisticsView.py" line="446"/>
         <source>Total paid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="450"/>
+        <location filename="StatisticsView.py" line="449"/>
         <source>Number of coins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="295"/>
+        <location filename="StatisticsView.py" line="294"/>
         <source>Save chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="562"/>
+        <location filename="StatisticsView.py" line="561"/>
         <source>PNG image (*.png)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="562"/>
+        <location filename="StatisticsView.py" line="561"/>
         <source>PDF file (*.pdf)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="562"/>
+        <location filename="StatisticsView.py" line="561"/>
         <source>SVG image (*.svg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="562"/>
+        <location filename="StatisticsView.py" line="561"/>
         <source>PostScript (*.ps)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="562"/>
+        <location filename="StatisticsView.py" line="561"/>
         <source>Encapsulated PostScript (*.eps)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="288"/>
+        <location filename="StatisticsView.py" line="287"/>
         <source>Multicolor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2449,32 +2489,32 @@ Add a new one first.</source>
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="319"/>
+        <location filename="PageView.py" line="342"/>
         <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="351"/>
+        <location filename="PageView.py" line="374"/>
         <source>Add new coin...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="354"/>
+        <location filename="PageView.py" line="377"/>
         <source>Edit coins...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="358"/>
+        <location filename="PageView.py" line="381"/>
         <source>Customize tree...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="411"/>
+        <location filename="PageView.py" line="434"/>
         <source>Updating records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="411"/>
+        <location filename="PageView.py" line="434"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2482,12 +2522,12 @@ Add a new one first.</source>
 <context>
     <name>UpdaterTo2</name>
     <message>
-        <location filename="VersionUpdater.py" line="223"/>
+        <location filename="VersionUpdater.py" line="227"/>
         <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="VersionUpdater.py" line="239"/>
+        <location filename="VersionUpdater.py" line="243"/>
         <source>Vacuum...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2495,7 +2535,15 @@ Add a new one first.</source>
 <context>
     <name>UpdaterTo4</name>
     <message>
-        <location filename="VersionUpdater.py" line="339"/>
+        <location filename="VersionUpdater.py" line="343"/>
+        <source>Saving...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdaterTo5</name>
+    <message>
+        <location filename="VersionUpdater.py" line="391"/>
         <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2567,7 +2615,7 @@ Add a new one first.</source>
 <context>
     <name>_Updater</name>
     <message>
-        <location filename="VersionUpdater.py" line="56"/>
+        <location filename="VersionUpdater.py" line="60"/>
         <source>Updating records</source>
         <translation type="unfinished"></translation>
     </message>
