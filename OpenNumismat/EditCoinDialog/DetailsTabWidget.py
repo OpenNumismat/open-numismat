@@ -9,6 +9,119 @@ from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
 
+COIN_PAGE = {
+    'page': "Coin",
+    'parts': [
+        {
+            'title': "Main details",
+            'type': 'GroupBox',
+            'items': [
+                'title',
+                'region',
+                'country',
+                'period',
+                'ruler',
+                ['value', 'unit'],
+                'year',
+                ['mintmark', 'mint'],
+                'type',
+                'series',
+                'subjectshort'
+            ]
+        },
+        {'type': 'Stretch'},
+        {
+            'title': "State",
+            'type': 'GroupBox',
+            'items': [
+                ['status', 'grade'],
+                ['quantity', 'format'],
+                'condition',
+                ['storage', 'barcode'],
+                'defect',
+                'features'
+            ]
+        }
+    ]
+}
+
+PARAMETERS_PAGE = {
+    'page': "Parameters",
+    'parts': [
+        {
+            'title': "Parameters",
+            'type': 'GroupBox',
+            'items': [
+                'material',
+                ['fineness', 'weight'],
+                ['diameter', 'thickness'],
+                'shape',
+                'obvrev'
+            ]
+        },
+        {'type': 'Stretch'},
+        {
+            'title': "Minting",
+            'type': 'GroupBox',
+            'items': [
+                ['issuedate', 'mintage'],
+                'dateemis',
+                'quality'
+            ]
+        },
+        {
+            'type': 'Layout',
+            'items': [
+                'note'
+            ]
+        }
+    ]
+}
+
+DESIGN_PAGE = {
+    'page': "Design",
+    'parts': [
+        {
+            'title': "Obverse",
+            'type': 'DesignFormLayout',
+            'items': [
+                'obverseimg',
+                'obversedesign',
+                'obversedesigner',
+                'obverseengraver',
+                'obversecolor'
+            ]
+        },
+        {
+            'title': "Reverse",
+            'type': 'DesignFormLayout',
+            'items': [
+                'reverseimg',
+                'reversedesign',
+                'reversedesigner',
+                'reverseengraver',
+                'reversecolor'
+            ]
+        },
+        {'type': 'Stretch'},
+        {
+            'title': "Edge",
+            'type': 'DesignFormLayout',
+            'items': [
+                'edgeimg',
+                'edge',
+                'edgelabel'
+            ]
+        },
+        {
+            'type': 'Layout',
+            'items': [
+                'subject'
+            ]
+        }
+    ]
+}
+
 
 class DetailsTabWidget(QTabWidget):
     Direction = QBoxLayout.LeftToRight
@@ -30,11 +143,53 @@ class DetailsTabWidget(QTabWidget):
         self.createDesignPage()
         self.createClassificationPage()
 
+    def createPage(self, settings):
+        title = settings['page']
+        parts = []
+        for part in settings['parts']:
+            if part['type'] == 'Stretch':
+                parts.append(self.Stretch)
+            elif part['type'] == 'GroupBox':
+                layout = BaseFormGroupBox(part['title'])
+
+                for item in part['items']:
+                    if isinstance(item, str):
+                        layout.addRow(self.items[item])
+                    else:
+                        item1 = item[0]
+                        item2 = item[1]
+                        layout.addRow(self.items[item1], self.items[item2])
+
+                parts.append(layout)
+            elif part['type'] == 'DesignFormLayout':
+                layout = DesignFormLayout(part['title'])
+
+                for item in part['items']:
+                    if isinstance(item, str):
+                        if item in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg'):
+                            if isinstance(self, FormDetailsTabWidget):
+                                layout.addImage(self.items[item])
+                        else:
+                            layout.addRow(self.items[item])
+                    else:
+                        item1 = item[0]
+                        item2 = item[1]
+                        layout.addRow(self.items[item1], self.items[item2])
+
+                parts.append(layout)
+            elif part['type'] == 'Layout':
+                layout = BaseFormLayout()
+
+                for item in part['items']:
+                    layout.addRow(self.items[item])
+
+                parts.append(layout)
+
+        self.addTabPage(title, parts)
+
     def createCoinPage(self):
-        main = self.mainDetailsLayout()
-        state = self.stateLayout()
-        title = QApplication.translate('DetailsTabWidget', "Coin")
-        self.addTabPage(title, [main, self.Stretch, state])
+        self.createPage(COIN_PAGE)
+        self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
 
     def createTrafficPage(self):
         self.oldTrafficIndex = 0
@@ -43,21 +198,10 @@ class DetailsTabWidget(QTabWidget):
         self.addTabPage(title, parts)
 
     def createParametersPage(self):
-        parameters = self.parametersLayout()
-        minting = self.mintingLayout()
-        note = self.noteLayout()
-
-        title = QApplication.translate('DetailsTabWidget', "Parameters")
-        self.addTabPage(title, [parameters, self.Stretch, minting, note])
+        self.createPage(PARAMETERS_PAGE)
 
     def createDesignPage(self):
-        obverse = self.obverseDesignLayout()
-        reverse = self.reverseDesignLayout()
-        edge = self.edgeDesignLayout()
-        subject = self.subjectLayout()
-
-        title = QApplication.translate('DetailsTabWidget', "Design")
-        self.addTabPage(title, [obverse, reverse, self.Stretch, edge, subject])
+        self.createPage(DESIGN_PAGE)
 
     def createClassificationPage(self):
         catalogue = self.catalogueLayout()
@@ -184,38 +328,6 @@ class DetailsTabWidget(QTabWidget):
         for item in self.items.values():
             item.widget().clear()
 
-    def mainDetailsLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Main details")
-        layout = BaseFormGroupBox(title)
-
-        layout.addRow(self.items['title'])
-        layout.addRow(self.items['region'])
-        layout.addRow(self.items['country'])
-        layout.addRow(self.items['period'])
-        layout.addRow(self.items['ruler'])
-        layout.addRow(self.items['value'], self.items['unit'])
-        layout.addRow(self.items['year'])
-        layout.addRow(self.items['mintmark'], self.items['mint'])
-        layout.addRow(self.items['type'])
-        layout.addRow(self.items['series'])
-        layout.addRow(self.items['subjectshort'])
-
-        return layout
-
-    def stateLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "State")
-        layout = BaseFormGroupBox(title)
-
-        layout.addRow(self.items['status'], self.items['grade'])
-        self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
-        layout.addRow(self.items['quantity'], self.items['format'])
-        layout.addRow(self.items['condition'])
-        layout.addRow(self.items['storage'], self.items['barcode'])
-        layout.addRow(self.items['defect'])
-        layout.addRow(self.items['features'])
-
-        return layout
-
     def emptyMarketLayout(self):
         text = QApplication.translate('DetailsTabWidget',
                 "Nothing to show. Change the coin status on previous tab")
@@ -276,77 +388,6 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
         layout.addRow(self.items['saleinfo'])
-
-        return layout
-
-    def parametersLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Parameters")
-        layout = BaseFormGroupBox(title)
-
-        layout.addRow(self.items['material'])
-        layout.addRow(self.items['fineness'], self.items['weight'])
-        layout.addRow(self.items['diameter'], self.items['thickness'])
-        layout.addRow(self.items['shape'])
-        layout.addRow(self.items['obvrev'])
-
-        return layout
-
-    def mintingLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Minting")
-        layout = BaseFormGroupBox(title)
-
-        layout.addRow(self.items['issuedate'], self.items['mintage'])
-        layout.addRow(self.items['dateemis'])
-
-        item = self.items['quality']
-        layout.addHalfRow(item)
-        item.widget().setSizePolicy(QSizePolicy.Preferred,
-                                    QSizePolicy.Fixed)
-
-        return layout
-
-    def noteLayout(self):
-        layout = BaseFormLayout()
-
-        layout.addRow(self.items['note'])
-
-        return layout
-
-    def obverseDesignLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Obverse")
-        layout = BaseFormGroupBox(title)
-
-        layout.addRow(self.items['obversedesign'])
-        layout.addRow(self.items['obversedesigner'])
-        layout.addRow(self.items['obverseengraver'])
-        layout.addRow(self.items['obversecolor'])
-
-        return layout
-
-    def reverseDesignLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Reverse")
-        layout = BaseFormGroupBox(title)
-
-        layout.addRow(self.items['reversedesign'])
-        layout.addRow(self.items['reversedesigner'])
-        layout.addRow(self.items['reverseengraver'])
-        layout.addRow(self.items['reversecolor'])
-
-        return layout
-
-    def edgeDesignLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Edge")
-        layout = BaseFormGroupBox(title)
-
-        layout.addRow(self.items['edge'])
-        layout.addRow(self.items['edgelabel'])
-
-        return layout
-
-    def subjectLayout(self):
-        layout = BaseFormLayout()
-
-        layout.addRow(self.items['subject'])
 
         return layout
 
@@ -494,14 +535,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.createClassificationPage()
         self.createImagePage()
 
-    def createDesignPage(self):
-        obverse = self.obverseDesignLayout()
-        reverse = self.reverseDesignLayout()
-        edge = self.edgeDesignLayout()
-        subject = self.subjectLayout()
-
-        self.addTabPage(self.tr("Design"), [obverse, reverse, self.Stretch, edge, subject])
-
     def createImagePage(self):
         images = self.imagesLayout()
         self.addTabPage(self.tr("Images"), [images, ])
@@ -586,39 +619,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['type'])
         layout.addRow(self.items['series'])
         layout.addRow(self.items['subjectshort'])
-
-        return layout
-
-    def obverseDesignLayout(self):
-        layout = DesignFormLayout(self.tr("Obverse"))
-        layout.defaultHeight = 60
-
-        layout.addImage(self.items['obverseimg'])
-        layout.addRow(self.items['obversedesign'])
-        layout.addRow(self.items['obversedesigner'])
-        layout.addRow(self.items['obverseengraver'])
-        layout.addRow(self.items['obversecolor'])
-
-        return layout
-
-    def reverseDesignLayout(self):
-        layout = DesignFormLayout(self.tr("Reverse"))
-        layout.defaultHeight = 60
-
-        layout.addImage(self.items['reverseimg'])
-        layout.addRow(self.items['reversedesign'])
-        layout.addRow(self.items['reversedesigner'])
-        layout.addRow(self.items['reverseengraver'])
-        layout.addRow(self.items['reversecolor'])
-
-        return layout
-
-    def edgeDesignLayout(self):
-        layout = DesignFormLayout(self.tr("Edge"))
-
-        layout.addImage(self.items['edgeimg'])
-        layout.addRow(self.items['edge'])
-        layout.addRow(self.items['edgelabel'])
 
         return layout
 
