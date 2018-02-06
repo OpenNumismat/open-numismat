@@ -327,13 +327,20 @@ class DesignFormLayout(BaseFormGroupBox):
         super().__init__(title)
         self.layout.columnCount = 3
         self.imagesCount = 0
-        self.defaultHeight = 30
+        self.defaultHeight = 25
 
     def addImage(self, image, rowSpan=-1):
         if not image.isHidden():
-            self.layout.addWidget(image.widget(), 0, 3, rowSpan, 2)
-            self.layout.setColumnMinimumWidth(2, 160)
-            self.layout.setRowMinimumHeight(0, self.defaultHeight)
+            if isinstance(image.label(), QLabel):
+                self.layout.addWidget(image.widget(), 0, 3, rowSpan, 2)
+                self.layout.setColumnMinimumWidth(2, 160)
+                self.layout.setRowMinimumHeight(0, self.defaultHeight)
+            else:
+                image.label().setText("")
+                self.layout.addWidget(image.label(), 0, 3, 1, 1)
+                self.layout.addWidget(image.widget(), 0, 4, rowSpan, 1)
+                self.layout.setColumnMinimumWidth(4, 160)
+                self.layout.setRowMinimumHeight(0, self.defaultHeight)
 
             self.imagesCount += 1
 
