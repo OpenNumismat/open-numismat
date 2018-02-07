@@ -11,6 +11,7 @@ class StatisticsParam(BaseSettings):
             'subfieldid': None,
             'items': None,
             'period': None,
+            'color': False
     }
 
     def __init__(self, page):
@@ -45,6 +46,7 @@ class StatisticsParam(BaseSettings):
             self.__setitem__('subfieldid', record.value('subfieldid'))
             self.__setitem__('items', record.value('items'))
             self.__setitem__('period', record.value('period'))
+            self.__setitem__('color', bool(record.value('color')))
 
         self.setAutoSave(True)
 
@@ -54,8 +56,8 @@ class StatisticsParam(BaseSettings):
         self.remove()
 
         query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO statistics (pageid, showed, chart, fieldid, subfieldid, items, period)"
-                      " VALUES (?, ?, ?, ?, ?, ?, ?)")
+        query.prepare("INSERT INTO statistics (pageid, showed, chart, fieldid, subfieldid, items, period, color)"
+                      " VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
         query.addBindValue(self.pageId)
         query.addBindValue(int(self.__getitem__('showed')))
         query.addBindValue(self.__getitem__('chart'))
@@ -63,6 +65,7 @@ class StatisticsParam(BaseSettings):
         query.addBindValue(self.__getitem__('subfieldid'))
         query.addBindValue(self.__getitem__('items'))
         query.addBindValue(self.__getitem__('period'))
+        query.addBindValue(int(self.__getitem__('color')))
         query.exec_()
 
         self.db.commit()
@@ -83,5 +86,6 @@ class StatisticsParam(BaseSettings):
             fieldid INTEGER,
             subfieldid INTEGER,
             items TEXT,
-            period TEXT)"""
+            period TEXT,
+            color INTEGER)"""
         QSqlQuery(sql, db)

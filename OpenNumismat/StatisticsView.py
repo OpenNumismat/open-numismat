@@ -349,6 +349,9 @@ class StatisticsView(QWidget):
         if index >= 0:
             self.periodSelector.setCurrentIndex(index)
 
+        color = self.statisticsParam['color']
+        self.colorCheck.setChecked(color)
+
         self.showConfig(chart)
         self.chartSelector.currentIndexChanged.connect(self.chartChaged)
         self.fieldSelector.currentIndexChanged.connect(self.fieldChaged)
@@ -548,7 +551,9 @@ class StatisticsView(QWidget):
 
         self.modelChanged()
 
-    def colorChanged(self, _state):
+    def colorChanged(self, state):
+        self.statisticsParam['color'] = state
+
         self.modelChanged()
 
     def __layoutToWidget(self, layout):
