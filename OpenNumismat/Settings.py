@@ -77,17 +77,9 @@ class Settings(BaseSettings):
                'error': True,
                'speedup': 0,
                'updates': False,
-               'free_numeric': False,
-               'convert_fraction': False,
-               'store_sorting': False,
-               'show_tree_icons': True,
-               'show_filter_icons': True,
-               'show_list_icons': False,
                'template': 'full',
-               'ImageSideLen': 1024,
                'check_coin_title': True,
-               'check_coin_duplicate': True,
-               'images_at_right': True}
+               'check_coin_duplicate': True}
 
     def __init__(self, autoSave=False):
         super().__init__(autoSave)
@@ -98,13 +90,10 @@ class Settings(BaseSettings):
         return self.Default.keys()
 
     def _getValue(self, key):
-        if key in ('error', 'updates', 'free_numeric', 'convert_fraction',
-                   'store_sorting',
-                   'show_tree_icons', 'show_filter_icons', 'show_list_icons',
-                   'check_coin_title', 'check_coin_duplicate', 'images_at_right'):
-            value = self.settings.value('mainwindow/' + key, self.Default[key], type=bool)
-        elif key in ('speedup', 'ImageSideLen'):
-            value = self.settings.value('mainwindow/' + key, self.Default[key], type=int)
+        if key in ('error', 'updates',
+                   'check_coin_title', 'check_coin_duplicate'):
+            value = self.settings.value('mainwindow/' + key, self.Default[key],
+                                        type=bool)
         else:
             value = self.settings.value('mainwindow/' + key, self.Default[key])
 

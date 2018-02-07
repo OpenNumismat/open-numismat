@@ -39,7 +39,7 @@ class FilterMenuButton(QPushButton):
         self.fieldid = columnParam.fieldid
         self.filters = listParam.filters
         self.listParam = listParam
-        self.settings = Settings()
+        self.settings = model.settings
 
         menu = QMenu()
 

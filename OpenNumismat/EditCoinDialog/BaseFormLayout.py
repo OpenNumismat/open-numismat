@@ -1,16 +1,14 @@
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import *
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit, EdgeImageEdit
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Settings import Settings
 
 
 class FormItem(object):
-    def __init__(self, field, title, itemType, section=None, reference=None, parent=None):
-        settings = Settings()
 
+    def __init__(self, settings, field, title, itemType,
+                 section=None, reference=None, parent=None):
         self.reference = reference
 
         self._field = field
@@ -58,10 +56,10 @@ class FormItem(object):
             else:
                 self._widget = MoneyEdit(parent)
         elif self._type == Type.Denomination:
-            if settings['free_numeric']:
-                self._widget = UserNumericEdit(parent)
-            elif settings['convert_fraction']:
+            if settings['convert_fraction']:
                 self._widget = DenominationEdit(parent)
+            elif settings['free_numeric']:
+                self._widget = UserNumericEdit(parent)
             else:
                 self._widget = MoneyEdit(parent)
         elif self._type == Type.Text:

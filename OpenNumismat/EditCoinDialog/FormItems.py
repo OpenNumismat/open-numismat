@@ -483,7 +483,7 @@ class DenominationEdit(MoneyEdit):
         text = self.text()
         if text:
             if not self.hasFocus() or self.isReadOnly():
-                text, converted = numberWithFraction(text, self.settings['convert_fraction'])
+                text, converted = numberWithFraction(text)
                 if not converted:
                     try:
                         if self._decimals:

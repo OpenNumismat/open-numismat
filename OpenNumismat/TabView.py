@@ -151,6 +151,10 @@ class TabView(QTabWidget):
 
         for pageParam in collection.pages().pagesParam():
             if pageParam.isopen:
+                pageParam.images_at_bottom = collection.settings['images_at_bottom']
+                pageParam.listParam.store_sorting = collection.settings['store_sorting']
+                pageParam.treeParam.show_tree_icons = collection.settings['show_tree_icons']
+                pageParam.treeParam.convert_fraction = collection.settings['convert_fraction']
                 pageView = PageView(pageParam, self)
                 pageView.setModel(self.collection.model(), self.collection.reference)
                 self.addTab(pageView, pageParam.title)

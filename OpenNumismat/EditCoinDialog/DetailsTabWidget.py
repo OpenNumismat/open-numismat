@@ -19,6 +19,7 @@ class DetailsTabWidget(QTabWidget):
         self.direction = direction
         self.model = model
         self.reference = model.reference
+        self.settings = model.settings
 
         self.createItems()
         self.createPages()
@@ -141,8 +142,8 @@ class DetailsTabWidget(QTabWidget):
         if field.type in Type.ImageTypes:
             return
 
-        item = FormItem(field.name, field.title, field.type | Type.Disabled,
-                        reference=self.reference)
+        item = FormItem(self.settings, field.name, field.title,
+                        field.type | Type.Disabled, reference=self.reference)
         if not field.enabled:
             item.setHidden()
         self.items[field.name] = item
@@ -442,7 +443,7 @@ class DetailsTabWidget(QTabWidget):
 
     def addPayCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
-        self.payComission = FormItem(None, title, Type.Money | Type.Disabled)
+        self.payComission = FormItem(self.settings, None, title, Type.Money | Type.Disabled)
 
         self.items['payprice'].widget().textChanged.connect(self.payPriceChanged)
         self.items['totalpayprice'].widget().textChanged.connect(self.payPriceChanged)
@@ -460,7 +461,7 @@ class DetailsTabWidget(QTabWidget):
 
     def addSaleCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
-        self.saleComission = FormItem(None, title, Type.Money | Type.Disabled)
+        self.saleComission = FormItem(self.settings, None, title, Type.Money | Type.Disabled)
 
         self.items['saleprice'].widget().textChanged.connect(self.salePriceChanged)
         self.items['totalsaleprice'].widget().textChanged.connect(self.salePriceChanged)
@@ -480,7 +481,6 @@ class DetailsTabWidget(QTabWidget):
 class FormDetailsTabWidget(DetailsTabWidget):
     def __init__(self, model, parent=None, usedFields=None):
         self.usedFields = usedFields
-        self.settings = Settings()
 
         super().__init__(model, QBoxLayout.TopToBottom, parent)
 
@@ -513,8 +513,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         if self.reference:
             section = self.reference.section(field.name)
 
-        item = FormItem(field.name, field.title, field.type | checkable,
-                        section=section)
+        item = FormItem(self.settings, field.name, field.title,
+                        field.type | checkable, section=section)
         if not field.enabled:
             item.setHidden()
         self.items[field.name] = item
@@ -701,7 +701,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return pageParts
 
     def addPayCommission(self):
-        item = FormItem(None, self.tr("Commission"), Type.Money)
+        item = FormItem(self.settings, None, self.tr("Commission"), Type.Money)
         self.payCommission = item.widget()
         self.payCommission.setToolTip(self.tr("Available format 12.5 or 10%"))
 
@@ -716,7 +716,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return item
 
     def addSaleCommission(self):
-        item = FormItem(None, self.tr("Commission"), Type.Money)
+        item = FormItem(self.settings, None, self.tr("Commission"), Type.Money)
         self.saleCommission = item.widget()
         self.saleCommission.setToolTip(self.tr("Available format 12.5 or 10%"))
 

@@ -1,6 +1,7 @@
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtSql import QSqlQuery
+from PyQt5.QtCore import QSettings
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools import Gui
@@ -11,7 +12,7 @@ class Updater(QtCore.QObject):
         super().__init__(parent)
 
         self.collection = collection
-        self.currentVersion = int(self.collection.settings['Version'])
+        self.currentVersion = self.collection.settings['Version']
 
     def check(self):
         if self.currentVersion < self.collection.settings.Default['Version']:
@@ -389,6 +390,15 @@ class UpdaterTo5(_Updater):
             self.collection.fields.userFields.append(fieldDesc)
 
         self.progressDlg.setLabelText(self.tr("Saving..."))
+
+        settings = QSettings()
+        for key in ('free_numeric', 'convert_fraction', 'store_sorting',
+                    'show_tree_icons', 'show_filter_icons', 'show_list_icons'):
+            default = self.collection.settings.Default[key]
+            value = settings.value('mainwindow/' + key, default, type=bool)
+            self.collection.settings[key] = value
+        value = settings.value('mainwindow/ImageSideLen', 1024, type=int)
+        self.collection.settings['ImageSideLen'] = value
 
         self.collection.settings['Version'] = 5
         self.collection.settings.save()

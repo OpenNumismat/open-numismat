@@ -109,7 +109,7 @@ class ListView(QTableView):
         self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.horizontalHeader().customContextMenuRequested.connect(
                                                 self.headerContextMenuEvent)
-        if Settings()['store_sorting']:
+        if listParam.store_sorting:
             self.horizontalHeader().sortIndicatorChanged.connect(
                                                 self.sortChangedEvent)
         self.horizontalScrollBar().valueChanged.connect(self.scrolled)
@@ -241,7 +241,7 @@ class ListView(QTableView):
         for i in range(model.columnCount()):
             self.hideColumn(i)
 
-        apply_sorting = Settings()['store_sorting']
+        apply_sorting = model.settings['store_sorting']
         for param in self.listParam.columns:
             if param.enabled:
                 self.showColumn(param.fieldid)

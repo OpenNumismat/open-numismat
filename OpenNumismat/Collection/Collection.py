@@ -42,11 +42,10 @@ class CollectionModel(QSqlTableModel):
         self.reference = collection.reference
         self.fields = collection.fields
         self.description = collection.description
+        self.settings = collection.settings
         self.proxy = None
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
-
-        self.settings = Settings()
 
     def rowsInsertedEvent(self, parent, start, end):
         self.insertedRowIndex = self.index(end, 0)
@@ -494,7 +493,15 @@ class CollectionSettings(BaseSettings):
     Default = {
             'Version': 5,
             'Type': version.AppName,
-            'Password': cryptPassword()
+            'Password': cryptPassword(),
+            'ImageSideLen': 1024,
+            'free_numeric': False,
+            'convert_fraction': False,
+            'store_sorting': False,
+            'show_tree_icons': True,
+            'show_filter_icons': True,
+            'show_list_icons': False,
+            'images_at_bottom': False
     }
 
     def __init__(self, db):
@@ -507,8 +514,18 @@ class CollectionSettings(BaseSettings):
         query = QSqlQuery("SELECT * FROM settings", self.db)
         while query.next():
             record = query.record()
-            if record.value('title') in self.keys():
-                self.__setitem__(record.value('title'), record.value('value'))
+            title = record.value('title')
+            if title in self.keys():
+                if title in ('Version', 'ImageSideLen'):
+                    value = int(record.value('value'))
+                elif title in ('free_numeric', 'convert_fraction',
+                               'store_sorting', 'show_tree_icons',
+                               'show_filter_icons', 'show_list_icons',
+                               'images_at_bottom'):
+                    value = record.value('value').lower() in ('true', '1')
+                else:
+                    value = record.value('value')
+                self.__setitem__(title, value)
 
     def keys(self):
         return self.Default.keys()
@@ -522,9 +539,10 @@ class CollectionSettings(BaseSettings):
         for key, value in self.items():
             # TODO: Insert value if currently not present
             query = QSqlQuery(self.db)
-            query.prepare("UPDATE settings SET value=? WHERE title=?")
-            query.addBindValue(str(value))
+            query.prepare("INSERT OR REPLACE INTO settings (title, value)"
+                          " VALUES (?, ?)")
             query.addBindValue(key)
+            query.addBindValue(str(value))
             query.exec_()
 
         self.db.commit()
@@ -540,8 +558,8 @@ class CollectionSettings(BaseSettings):
 
         for key, value in CollectionSettings.Default.items():
             query = QSqlQuery(db)
-            query.prepare("""INSERT INTO settings (title, value)
-                    VALUES (?, ?)""")
+            query.prepare("INSERT INTO settings (title, value)"
+                          " VALUES (?, ?)")
             query.addBindValue(key)
             query.addBindValue(str(value))
             query.exec_()

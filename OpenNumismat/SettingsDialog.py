@@ -88,45 +88,6 @@ class MainSettingsPage(QWidget):
         self.speedup.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         layout.addRow(self.tr("Acceleration of storage"), self.speedup)
 
-        self.imageSideLen = NumberEdit(self)
-        self.imageSideLen.setMaximumWidth(60)
-        layout.addRow(self.tr("Max image side len"), self.imageSideLen)
-        self.imageSideLen.setText(str(settings['ImageSideLen']))
-        self.imageSideLen.setToolTip(self.tr("0 for storing in original size"))
-
-        self.freeNumeric = QCheckBox(
-                            self.tr("Free format numeric fields"), self)
-        self.freeNumeric.setChecked(settings['free_numeric'])
-        layout.addRow(self.freeNumeric)
-
-        self.convertFraction = QCheckBox(
-            self.tr("Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)"), self)
-        self.convertFraction.setChecked(settings['convert_fraction'])
-        layout.addRow(self.convertFraction)
-
-        self.storeSorting = QCheckBox(
-                            self.tr("Store column sorting"), self)
-        self.storeSorting.setChecked(settings['store_sorting'])
-        layout.addRow(self.storeSorting)
-
-        self.imagesAtRight = QCheckBox(self.tr("Images at right"), self)
-        self.imagesAtRight.setChecked(settings['images_at_right'])
-        layout.addRow(self.imagesAtRight)
-
-        vLayout = QVBoxLayout()
-        showIcons = QGroupBox(self.tr("Show icons from reference (slow)"), self)
-        self.showTreeIcons = QCheckBox(self.tr("in tree"), self)
-        self.showTreeIcons.setChecked(settings['show_tree_icons'])
-        vLayout.addWidget(self.showTreeIcons)
-        self.showFilterIcons = QCheckBox(self.tr("in filters"), self)
-        self.showFilterIcons.setChecked(settings['show_filter_icons'])
-        vLayout.addWidget(self.showFilterIcons)
-        self.showListIcons = QCheckBox(self.tr("in list"), self)
-        self.showListIcons.setChecked(settings['show_list_icons'])
-        vLayout.addWidget(self.showListIcons)
-        showIcons.setLayout(vLayout)
-        layout.addRow(showIcons)
-
         self.checkTitle = QCheckBox(
                         self.tr("Check that coin title present on save"), self)
         self.checkTitle.setChecked(settings['check_coin_title'])
@@ -173,19 +134,75 @@ class MainSettingsPage(QWidget):
         settings['error'] = self.errorSending.isChecked()
         settings['updates'] = self.checkUpdates.isChecked()
         settings['speedup'] = self.speedup.currentData()
-        settings['free_numeric'] = self.freeNumeric.isChecked()
-        settings['convert_fraction'] = self.convertFraction.isChecked()
-        settings['store_sorting'] = self.storeSorting.isChecked()
-        settings['show_tree_icons'] = self.showTreeIcons.isChecked()
-        settings['show_filter_icons'] = self.showFilterIcons.isChecked()
-        settings['show_list_icons'] = self.showListIcons.isChecked()
         settings['template'] = self.templateSelector.currentText()
-        settings['ImageSideLen'] = int(self.imageSideLen.text())
         settings['check_coin_title'] = self.checkTitle.isChecked()
         settings['check_coin_duplicate'] = self.checkDuplicate.isChecked()
-        settings['images_at_right'] = self.imagesAtRight.isChecked()
 
         settings.save()
+
+
+class CollectionSettingsPage(QWidget):
+
+    def __init__(self, collection, parent=None):
+        super().__init__(parent)
+
+        self.settings = collection.settings
+
+        layout = QFormLayout()
+        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+
+        self.imageSideLen = NumberEdit(self)
+        self.imageSideLen.setMaximumWidth(60)
+        layout.addRow(self.tr("Max image side len"), self.imageSideLen)
+        self.imageSideLen.setText(str(self.settings['ImageSideLen']))
+        self.imageSideLen.setToolTip(self.tr("0 for storing in original size"))
+
+        self.freeNumeric = QCheckBox(
+                            self.tr("Free format numeric fields"), self)
+        self.freeNumeric.setChecked(self.settings['free_numeric'])
+        layout.addRow(self.freeNumeric)
+
+        self.convertFraction = QCheckBox(
+            self.tr("Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)"), self)
+        self.convertFraction.setChecked(self.settings['convert_fraction'])
+        layout.addRow(self.convertFraction)
+
+        self.storeSorting = QCheckBox(
+                            self.tr("Store column sorting"), self)
+        self.storeSorting.setChecked(self.settings['store_sorting'])
+        layout.addRow(self.storeSorting)
+
+        self.imagesAtBottom = QCheckBox(self.tr("Images at bottom"), self)
+        self.imagesAtBottom.setChecked(self.settings['images_at_bottom'])
+        layout.addRow(self.imagesAtBottom)
+
+        vLayout = QVBoxLayout()
+        showIcons = QGroupBox(self.tr("Show icons from reference (slow)"), self)
+        self.showTreeIcons = QCheckBox(self.tr("in tree"), self)
+        self.showTreeIcons.setChecked(self.settings['show_tree_icons'])
+        vLayout.addWidget(self.showTreeIcons)
+        self.showFilterIcons = QCheckBox(self.tr("in filters"), self)
+        self.showFilterIcons.setChecked(self.settings['show_filter_icons'])
+        vLayout.addWidget(self.showFilterIcons)
+        self.showListIcons = QCheckBox(self.tr("in list"), self)
+        self.showListIcons.setChecked(self.settings['show_list_icons'])
+        vLayout.addWidget(self.showListIcons)
+        showIcons.setLayout(vLayout)
+        layout.addRow(showIcons)
+
+        self.setLayout(layout)
+
+    def save(self):
+        self.settings['free_numeric'] = self.freeNumeric.isChecked()
+        self.settings['convert_fraction'] = self.convertFraction.isChecked()
+        self.settings['store_sorting'] = self.storeSorting.isChecked()
+        self.settings['show_tree_icons'] = self.showTreeIcons.isChecked()
+        self.settings['show_filter_icons'] = self.showFilterIcons.isChecked()
+        self.settings['show_list_icons'] = self.showListIcons.isChecked()
+        self.settings['ImageSideLen'] = int(self.imageSideLen.text())
+        self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
+
+        self.settings.save()
 
 
 class FieldsSettingsPage(QWidget):
@@ -271,12 +288,16 @@ class SettingsDialog(QDialog):
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         mainPage = MainSettingsPage(collection, self)
+        collectionPage = CollectionSettingsPage(collection, self)
         fieldsPage = FieldsSettingsPage(collection, self)
 
         self.setWindowTitle(self.tr("Settings"))
 
         self.tab = QTabWidget(self)
         self.tab.addTab(mainPage, self.tr("Main"))
+        index = self.tab.addTab(collectionPage, self.tr("Collection"))
+        if not collection.isOpen():
+            self.tab.setTabEnabled(index, False)
         index = self.tab.addTab(fieldsPage, self.tr("Fields"))
         if not collection.isOpen():
             self.tab.setTabEnabled(index, False)

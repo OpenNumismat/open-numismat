@@ -171,7 +171,8 @@ class TreeView(QTreeWidget):
     def __init__(self, treeParam, parent=None):
         super().__init__(parent)
 
-        self.settings = Settings()
+        self.show_tree_icons = treeParam.show_tree_icons
+        self.convert_fraction = treeParam.convert_fraction
 
         self.setHeaderHidden(True)
         self.setAutoScroll(False)
@@ -239,7 +240,7 @@ class TreeView(QTreeWidget):
                     if fields[i] == 'status':
                         data.append(Statuses[text])
                     elif fields[i] == 'value':
-                        label, _ = numberWithFraction(text, self.settings['convert_fraction'])
+                        label, _ = numberWithFraction(text, self.convert_fraction)
                         data.append(label)
                     else:
                         data.append(text)
@@ -265,7 +266,7 @@ class TreeView(QTreeWidget):
                 child.setData(0, self.FiltersRole, newFilters)
                 child.setData(0, self.FieldsRole, fields)
 
-                if self.settings['show_tree_icons']:
+                if self.show_tree_icons:
                     icon = self.reference.getIcon(fields[0], data[0])
                     if icon:
                         child.setIcon(0, icon)
@@ -507,19 +508,19 @@ class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
         super().__init__('0', parent=parent)
 
-        imagesAtRight = Settings()['images_at_right']
+        imagesAtBottom = pageParam.images_at_bottom
 
         self._model = None
         self.param = pageParam
         self.id = pageParam.id
         self.treeView = TreeView(pageParam.treeParam, self)
         self.listView = ListView(pageParam.listParam, self)
-        if imagesAtRight:
-            self.imageView = ImageView(QBoxLayout.TopToBottom, self)
-            self.detailsView = DetailsView(QBoxLayout.LeftToRight, self)
-        else:
+        if imagesAtBottom:
             self.imageView = ImageView(QBoxLayout.LeftToRight, self)
             self.detailsView = DetailsView(QBoxLayout.TopToBottom, self)
+        else:
+            self.imageView = ImageView(QBoxLayout.TopToBottom, self)
+            self.detailsView = DetailsView(QBoxLayout.LeftToRight, self)
         if statisticsAvailable:
             self.statisticsView = StatisticsView(pageParam.statisticsParam, self)
             self.statisticsView.setMinimumHeight(200)
@@ -531,15 +532,15 @@ class PageView(Splitter):
         self.splitter1.addWidget(splitter2)
         if statisticsAvailable:
             self.splitter1.addWidget(self.statisticsView)
-        if imagesAtRight:
-            self.splitter1.addWidget(self.detailsView)
-        else:
+        if imagesAtBottom:
             self.splitter1.addWidget(self.imageView)
-        self.addWidget(self.splitter1)
-        if imagesAtRight:
-            self.addWidget(self.imageView)
         else:
+            self.splitter1.addWidget(self.detailsView)
+        self.addWidget(self.splitter1)
+        if imagesAtBottom:
             self.addWidget(self.detailsView)
+        else:
+            self.addWidget(self.imageView)
 
         self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
         self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
