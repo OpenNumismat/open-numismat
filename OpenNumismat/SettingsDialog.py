@@ -165,6 +165,18 @@ class CollectionSettingsPage(QWidget):
         self.imageSideLen.setText(str(self.settings['ImageSideLen']))
         self.imageSideLen.setToolTip(self.tr("0 for storing in original size"))
 
+        self.imageHeight = QComboBox(self)
+        default_height = ('1', '1.5', '1.8', '2.3')
+        for height in default_height:
+            self.imageHeight.addItem(height)
+        height = str(self.settings['image_height'])
+        if height not in default_height:
+            self.imageHeight.addItem(height)
+        self.imageHeight.setCurrentText(height)
+        self.imageHeight.setSizePolicy(QSizePolicy.Fixed,
+                                       QSizePolicy.Fixed)
+        layout.addRow(self.tr("Preview image height"), self.imageHeight)
+
         self.freeNumeric = QCheckBox(
                             self.tr("Free format numeric fields"), self)
         self.freeNumeric.setChecked(self.settings['free_numeric'])
@@ -208,6 +220,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['show_filter_icons'] = self.showFilterIcons.isChecked()
         self.settings['show_list_icons'] = self.showListIcons.isChecked()
         self.settings['ImageSideLen'] = int(self.imageSideLen.text())
+        self.settings['image_height'] = float(self.imageHeight.currentText())
         self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
 
         self.settings.save()

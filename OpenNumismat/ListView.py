@@ -314,7 +314,7 @@ class ListView(QTableView):
             col.append(i)
 
         # Move columns
-        self.verticalHeader().setDefaultSectionSize(self.defaultHeight)
+        height = self.defaultHeight
         for pos, param in enumerate(self.listParam.columns):
             if not param.enabled:
                 continue
@@ -325,8 +325,10 @@ class ListView(QTableView):
 
             type_ = self.model().fields.field(param.fieldid).type
             if type_ in Type.ImageTypes:
-                self.verticalHeader().setDefaultSectionSize(
-                                                    self.defaultHeight * 1.5)
+                height_multiplex = self.model().settings['image_height']
+                height = self.defaultHeight * height_multiplex
+
+        self.verticalHeader().setDefaultSectionSize(height)
 
         self.horizontalHeader().sectionMoved.connect(self.columnMoved)
 

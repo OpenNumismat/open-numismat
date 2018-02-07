@@ -353,7 +353,8 @@ class CollectionModel(QSqlTableModel):
         else:
             # Get height of list view for resizing images
             tmp = QTableView()
-            height = int(tmp.verticalHeader().defaultSectionSize() * 1.5 - 1)
+            height_multiplex = self.settings['image_height']
+            height = int(tmp.verticalHeader().defaultSectionSize() * height_multiplex - 1)
 
             if not record.isNull('obverseimg') and obverseImage.isNull():
                 obverseImage.loadFromData(record.value('obverseimg'))
@@ -495,13 +496,14 @@ class CollectionSettings(BaseSettings):
             'Type': version.AppName,
             'Password': cryptPassword(),
             'ImageSideLen': 1024,
+            'image_height': 1.5,
             'free_numeric': False,
             'convert_fraction': False,
             'store_sorting': False,
             'show_tree_icons': True,
             'show_filter_icons': True,
             'show_list_icons': False,
-            'images_at_bottom': False
+            'images_at_bottom': False,
     }
 
     def __init__(self, db):
@@ -518,6 +520,8 @@ class CollectionSettings(BaseSettings):
             if title in self.keys():
                 if title in ('Version', 'ImageSideLen'):
                     value = int(record.value('value'))
+                elif title in ('image_height',):
+                    value = float(record.value('value'))
                 elif title in ('free_numeric', 'convert_fraction',
                                'store_sorting', 'show_tree_icons',
                                'show_filter_icons', 'show_list_icons',
