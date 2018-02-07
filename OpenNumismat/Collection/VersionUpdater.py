@@ -389,8 +389,9 @@ class UpdaterTo5(_Updater):
 
             self.collection.fields.userFields.append(fieldDesc)
 
-        sql = "ALTER TABLE statistics ADD COLUMN color INTEGER"
-        QSqlQuery(sql, self.db)
+        if 'statistics' in self.db.tables():
+            sql = "ALTER TABLE statistics ADD COLUMN color INTEGER"
+            QSqlQuery(sql, self.db)
 
         self.progressDlg.setLabelText(self.tr("Saving..."))
 
