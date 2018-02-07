@@ -110,6 +110,13 @@ class MainSettingsPage(QWidget):
 
         layout.addRow(self.tr("Default template"), self.templateSelector)
 
+        self.imagesByDefault = QSpinBox(self)
+        self.imagesByDefault.setRange(1, 8)
+        self.imagesByDefault.setValue(settings['images_by_default'])
+        self.imagesByDefault.setSizePolicy(QSizePolicy.Fixed,
+                                           QSizePolicy.Fixed)
+        layout.addRow(self.tr("Show images by default"), self.imagesByDefault)
+
         self.setLayout(layout)
 
     def backupButtonClicked(self):
@@ -137,6 +144,7 @@ class MainSettingsPage(QWidget):
         settings['template'] = self.templateSelector.currentText()
         settings['check_coin_title'] = self.checkTitle.isChecked()
         settings['check_coin_duplicate'] = self.checkDuplicate.isChecked()
+        settings['images_by_default'] = self.imagesByDefault.value()
 
         settings.save()
 

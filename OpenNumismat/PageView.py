@@ -70,7 +70,7 @@ class ImageView(QWidget):
                 self.imageFields.append(field)
 
         # By default show only first 2 images
-        self.showedCount = 2
+        self.showedCount = Settings()['images_by_default']
 
         self.imageButtons = []
         for field in self.imageFields:
