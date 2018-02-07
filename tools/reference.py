@@ -4,25 +4,28 @@
 import codecs
 import json
 import os
-import shutil
 import sys
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtSql import QSqlQuery
 
 from OpenNumismat.Reference.Reference import Reference
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 
 
 def convertImage(fileName):
-    ba = QtCore.QByteArray()
-    buffer = QtCore.QBuffer(ba)
-    buffer.open(QtCore.QIODevice.WriteOnly)
-
     image = QtGui.QImage(fileName)
-    image.save(buffer, 'png')
+    if image.load(fileName):
+        ba = QtCore.QByteArray()
+        buffer = QtCore.QBuffer(ba)
+        buffer.open(QtCore.QIODevice.WriteOnly)
 
-    return ba
+        image.save(buffer, 'png')
+
+        return ba
+    else:
+        return None
 
 
 sys.path.append('..')
@@ -35,26 +38,75 @@ file = "ref/colors_en.json"
 json_data = codecs.open(file, "r", "utf-8").read()
 colors = json.loads(json_data)
 
+file = "ref/countries.json"
+json_data = codecs.open(file, "r", "utf-8").read()
+countries = json.loads(json_data)
+
+file = "ref/countries_en.json"
+json_data = codecs.open(file, "r", "utf-8").read()
+en_translations = json.loads(json_data)
+
 f = open('langs')
 langs = [x.strip('\n') for x in f.readlines()]
 
 for lang in langs:
     print(lang)
 
-    src_file = "ref/reference_%s.ref" % lang
-    if not os.path.isfile(src_file):
-        src_file = "ref/reference_en.ref"
-
     dst_file = "../OpenNumismat/db/reference_%s.ref" % lang
-    shutil.copy(src_file, dst_file)
+    try:
+        os.remove(dst_file)
+    except FileNotFoundError:
+        pass
 
-    ref.open(dst_file)
+    file = "ref/countries_%s.json" % lang
+    json_data = codecs.open(file, "r", "utf-8").read()
+    translations = json.loads(json_data)
+
+    ref.open(dst_file, interactive=False)
     ref.load()
 
-    src_ref_file = "reference_%s.json" % lang
-    if not os.path.isfile(src_ref_file):
-        src_ref_file = "reference_en.json"
-    json_data = codecs.open(src_ref_file, "r", "utf-8").read()
+    region_section = ref.section('region')
+    country_section = ref.section('country')
+    unit_section = ref.section('unit')
+
+    ref.db.transaction()
+
+    for i, region in enumerate(countries['regions'], 1):
+        pos = en_translations['region'].index(region['name'])
+        region_name = translations['region'][pos]
+
+        region_section.addItem(region_name)
+
+        for country in region['countries']:
+            pos = en_translations['country'].index(country['name'])
+            country_name = translations['country'][pos]
+
+            query = QSqlQuery(country_section.db)
+            query.prepare("INSERT INTO ref_country (value, parentid, icon) VALUES (?, ?, ?)")
+            query.addBindValue(country_name)
+            query.addBindValue(i)
+            code = country['code']
+            image = convertImage("ref/flags/%s.png" % code.lower())
+            query.addBindValue(image)
+            query.exec_()
+            country_id = query.lastInsertId()
+
+            for unit in country['units']:
+                pos = en_translations['unit'].index(unit)
+                unit_name = translations['unit'][pos]
+
+                query = QSqlQuery(country_section.db)
+                query.prepare("INSERT INTO ref_unit (value, parentid) VALUES (?, ?)")
+                query.addBindValue(unit_name)
+                query.addBindValue(country_id)
+                query.exec_()
+
+    ref.db.commit()
+
+    file = "reference_%s.json" % lang
+    if not os.path.isfile(file):
+        file = "reference_en.json"
+    json_data = codecs.open(file, "r", "utf-8").read()
     data = json.loads(json_data)
 
     ref.db.transaction()
