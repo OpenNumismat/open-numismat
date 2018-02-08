@@ -214,7 +214,7 @@ class ListView(QTableView):
 
         self.listParam.filters.clear()
         self.listParam.save_filters()
-        self.model().setFilter('')
+        self.model().clearFilters()
 
     def setModel(self, model):
         model.rowInserted.connect(self.rowInserted)
@@ -464,11 +464,11 @@ class ListView(QTableView):
 
             parts = []
             for param in self.listParam.columns:
-                field = model.fields.field(param.fieldid)
-                if field.type in Type.ImageTypes:
+                if not param.enabled:
                     continue
 
-                if not param.enabled:
+                field = model.fields.field(param.fieldid)
+                if field.type in Type.ImageTypes:
                     continue
 
                 parts.append(field.title)
@@ -707,3 +707,37 @@ class ListView(QTableView):
 
         record = self.model().record(index.row())
         self.model().addCoin(record, self)
+
+    def search(self, text):
+        model = self.model()
+
+        if text:
+            val = "'%%%s%%'" % text.replace("'", "''")
+            values = []
+            val_lower = val.lower()
+            values.append(val_lower)
+            val_upper = val.upper()
+            if val_lower != val_upper:
+                values.append(val_upper)
+                values.append(val.title())
+            if val not in values:
+                values.append(val)
+
+            parts = []
+            for param in self.listParam.columns:
+                if not param.enabled:
+                    continue
+
+                field = model.fields.field(param.fieldid)
+                if field.type in Type.ImageTypes:
+                    continue
+
+                parts.append(field.name)
+
+            sql = []
+            for part in parts:
+                for val in values:
+                    sql.append("%s LIKE %s" % (part, val))
+            model.setSearchFilter('(' + ' OR '.join(sql) + ')')
+        else:
+            model.setSearchFilter('')

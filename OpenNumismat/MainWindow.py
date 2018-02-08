@@ -330,6 +330,22 @@ class MainWindow(QMainWindow):
         if statisticsAvailable:
             toolBar.addSeparator()
             toolBar.addAction(self.statisticsAct)
+
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        toolBar.addWidget(spacer)
+
+        self.quickSearch = QLineEdit()
+        self.quickSearch.setMaximumWidth(250)
+        self.quickSearch.setClearButtonEnabled(True)
+        self.quickSearch.setPlaceholderText(self.tr("Quick search"))
+        self.quickSearch.textEdited.connect(self.quickSearchEdited)
+        self.collectionActs.append(self.quickSearch)
+        self.quickSearchTimer = QTimer(self)
+        self.quickSearchTimer.setSingleShot(True)
+        self.quickSearchTimer.timeout.connect(self.quickSearchClicked)
+        toolBar.addWidget(self.quickSearch)
+
         self.addToolBar(toolBar)
 
         self.setWindowTitle(version.AppName)
@@ -378,6 +394,8 @@ class MainWindow(QMainWindow):
         self.__menu.insertSeparator(self.exitAct)
 
     def cancelFilteringEvent(self):
+        self.quickSearch.clear()
+
         listView = self.viewTab.currentListView()
         listView.clearAllFilters()
 
@@ -582,6 +600,13 @@ class MainWindow(QMainWindow):
         listView = self.viewTab.currentListView()
         listView._paste()
 
+    def quickSearchEdited(self, _text):
+        self.quickSearchTimer.start(180)
+
+    def quickSearchClicked(self):
+        listView = self.viewTab.currentListView()
+        listView.search(self.quickSearch.text())
+
     def viewBrowser(self):
         listView = self.viewTab.currentListView()
         listView.viewInBrowser()
@@ -687,6 +712,7 @@ class MainWindow(QMainWindow):
         self.viewTab.clear()
 
         self.referenceMenu.clear()
+        self.quickSearch.clear()
 
         self.collectionFileLabel.setText(
                 self.tr("Create new collection or open one of the existing"))

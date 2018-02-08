@@ -38,6 +38,7 @@ class CollectionModel(QSqlTableModel):
 
         self.intFilter = ''
         self.extFilter = ''
+        self.searchFilter = ''
 
         self.reference = collection.reference
         self.fields = collection.fields
@@ -459,14 +460,6 @@ class CollectionModel(QSqlTableModel):
 
         return self.fields.fields[column].type
 
-    def setFilter(self, filter_):
-        self.intFilter = filter_
-        self.__applyFilter()
-
-    def setAdditionalFilter(self, filter_):
-        self.extFilter = filter_
-        self.__applyFilter()
-
     def getImage(self, img_id):
         query = QSqlQuery(self.database())
         query.prepare("SELECT image FROM photos WHERE id=?")
@@ -491,11 +484,32 @@ class CollectionModel(QSqlTableModel):
         if query.first():
             return query.record().value(0)
 
+    def clearFilters(self):
+        self.intFilter = ''
+        self.searchFilter = ''
+        self.__applyFilter()
+
+    def setFilter(self, filter_):
+        self.intFilter = filter_
+        self.__applyFilter()
+
+    def setAdditionalFilter(self, filter_):
+        self.extFilter = filter_
+        self.__applyFilter()
+
+    def setSearchFilter(self, filter_):
+        self.searchFilter = filter_
+        self.__applyFilter()
+
     def __applyFilter(self):
-        if self.intFilter and self.extFilter:
-            combinedFilter = " AND ".join((self.intFilter, self.extFilter))
-        else:
-            combinedFilter = self.intFilter + self.extFilter
+        filters = []
+        if self.intFilter:
+            filters.append(self.intFilter)
+        if self.extFilter:
+            filters.append(self.extFilter)
+        if self.searchFilter:
+            filters.append(self.searchFilter)
+        combinedFilter = ' AND '.join(filters)
 
         # Checking for SQLITE_MAX_SQL_LENGTH (default value - 1 000 000)
         if len(combinedFilter) > 900000:
