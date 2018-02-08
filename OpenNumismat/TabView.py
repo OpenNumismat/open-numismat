@@ -111,11 +111,7 @@ class TabView(QTabWidget):
         pageParam.listParam.page.id = pageParam.id
         pageParam.listParam.save()
 
-        pageView = PageView(pageParam, self)
-        pageView.setModel(self.collection.model(), self.collection.reference)
-        self.addTab(pageView, pageParam.title)
-        self.setCurrentWidget(pageView)
-
+        pageView = self.__createPage(pageParam)
         self.collection.pages().openPage(pageView)
 
     def activatedPage(self, index):
@@ -154,13 +150,7 @@ class TabView(QTabWidget):
 
         for pageParam in collection.pages().pagesParam():
             if pageParam.isopen:
-                pageParam.images_at_bottom = collection.settings['images_at_bottom']
-                pageParam.listParam.store_sorting = collection.settings['store_sorting']
-                pageParam.treeParam.show_tree_icons = collection.settings['show_tree_icons']
-                pageParam.treeParam.convert_fraction = collection.settings['convert_fraction']
-                pageView = PageView(pageParam, self)
-                pageView.setModel(self.collection.model(), self.collection.reference)
-                self.addTab(pageView, pageParam.title)
+                self.__createPage(pageParam)
 
         # If no pages exists => create default page
         if self.count() == 0:
@@ -245,11 +235,7 @@ class TabView(QTabWidget):
             self.__pages_changed = False
 
     def openPage(self, pageParam):
-        pageView = PageView(pageParam, self)
-        pageView.setModel(self.collection.model(), self.collection.reference)
-        self.addTab(pageView, pageParam.title)
-        self.setCurrentWidget(pageView)
-
+        pageView = self.__createPage(pageParam)
         self.collection.pages().openPage(pageView)
 
     def updateOpenPageMenu(self):
@@ -259,8 +245,8 @@ class TabView(QTabWidget):
         hasClosedPages = len(closedPages)
         menu.setEnabled(hasClosedPages)
         if hasClosedPages:
-            for param in closedPages:
-                act = OpenPageAction(param, self)
+            for pageParam in closedPages:
+                act = OpenPageAction(pageParam, self)
                 act.openPageTriggered.connect(self.openPage)
                 menu.addAction(act)
 
@@ -275,11 +261,21 @@ class TabView(QTabWidget):
 
     def __createListPage(self, title):
         pageParam = self.collection.pages().addPage(title)
+        self.__createPage(pageParam)
+
+    def __createPage(self, pageParam):
+        settings = self.collection.settings
+        pageParam.images_at_bottom = settings['images_at_bottom']
+        pageParam.listParam.store_sorting = settings['store_sorting']
+        pageParam.treeParam.show_tree_icons = settings['show_tree_icons']
+        pageParam.treeParam.convert_fraction = settings['convert_fraction']
 
         pageView = PageView(pageParam, self)
         pageView.setModel(self.collection.model(), self.collection.reference)
-        self.addTab(pageView, title)
+        self.addTab(pageView, pageParam.title)
         self.setCurrentWidget(pageView)
+
+        return pageView
 
 
 class OpenPageAction(QAction):
