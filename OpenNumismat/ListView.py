@@ -92,6 +92,7 @@ class ListView(QTableView):
     def __init__(self, listParam, parent=None):
         super().__init__(parent)
 
+        self.searchText = ''
         self.listParam = listParam
 
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -214,6 +215,7 @@ class ListView(QTableView):
 
         self.listParam.filters.clear()
         self.listParam.save_filters()
+        self.searchText = ''
         self.model().clearFilters()
 
     def setModel(self, model):
@@ -709,6 +711,7 @@ class ListView(QTableView):
         self.model().addCoin(record, self)
 
     def search(self, text):
+        self.searchText = text
         model = self.model()
 
         if text:

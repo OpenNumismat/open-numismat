@@ -142,6 +142,9 @@ class TabView(QTabWidget):
             self.oldPage = page
 
             self.parent().updateStatisticsAct(page.statisticsShowed)
+            self.parent().quickSearch.setText(page.listView.searchText)
+        else:
+            self.parent().quickSearch.clear()
 
     def setCollection(self, collection):
         self.collection = collection
