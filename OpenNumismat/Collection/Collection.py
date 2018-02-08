@@ -312,8 +312,6 @@ class CollectionModel(QSqlTableModel):
         if self.proxy:
             self.proxy.setDynamicSortFilter(False)
 
-        obverseImage = QImage()
-        reverseImage = QImage()
         for field in self.fields.userFields:
             if field.type in (Type.Image, Type.EdgeImage):
                 # Convert image to DB format
@@ -336,17 +334,19 @@ class CollectionModel(QSqlTableModel):
                             image = image.scaled(maxWidth, maxHeight,
                                     Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
-                    if field.name == 'obverseimg':
-                        obverseImage = image
-                    if field.name == 'reverseimg':
-                        reverseImage = image
-
                     image.save(buffer, self.IMAGE_FORMAT)
                     record.setValue(field.name, ba)
                 elif isinstance(image, bytes):
                     ba = QtCore.QByteArray(image)
                     record.setValue(field.name, ba)
 
+        # Creating preview image for list
+        self._recalculateImage(record)
+
+        currentTime = QtCore.QDateTime.currentDateTimeUtc()
+        record.setValue('updatedat', currentTime.toString("yyyy-MM-ddTHH:mm:ss.zzz"))
+
+    def _recalculateImage(self, record):
         # Creating preview image for list
         if record.isNull('obverseimg') and record.isNull('reverseimg'):
             record.setNull('image')
@@ -356,14 +356,15 @@ class CollectionModel(QSqlTableModel):
             height_multiplex = self.settings['image_height']
             height = int(tmp.verticalHeader().defaultSectionSize() * height_multiplex - 1)
 
-            if not record.isNull('obverseimg') and obverseImage.isNull():
+            obverseImage = QImage()
+            reverseImage = QImage()
+
+            if not record.isNull('obverseimg'):
                 obverseImage.loadFromData(record.value('obverseimg'))
-            if not obverseImage.isNull():
                 obverseImage = obverseImage.scaledToHeight(height,
                                                     Qt.SmoothTransformation)
             if not record.isNull('reverseimg') and reverseImage.isNull():
                 reverseImage.loadFromData(record.value('reverseimg'))
-            if not reverseImage.isNull():
                 reverseImage = reverseImage.scaledToHeight(height,
                                                     Qt.SmoothTransformation)
 
@@ -388,8 +389,40 @@ class CollectionModel(QSqlTableModel):
             image.save(buffer, 'png')
             record.setValue('image', ba)
 
-        currentTime = QtCore.QDateTime.currentDateTimeUtc()
-        record.setValue('updatedat', currentTime.toString("yyyy-MM-ddTHH:mm:ss.zzz"))
+    def recalculateAllImages(self, parent=None):
+        while self.canFetchMore():
+            self.fetchMore()
+        rowCount = self.rowCount()
+
+        if not parent:
+            parent = self.parent()
+
+        progressDlg = Gui.ProgressDialog(self.tr("Updating records"),
+                                         self.tr("Cancel"), rowCount, parent)
+
+        self.database().transaction()
+
+        for row in range(rowCount):
+            progressDlg.step()
+            if progressDlg.wasCanceled():
+                break
+
+            record = self.record(row)
+            self._recalculateImage(record)
+            img_id = record.value('image_id')
+            value = record.value('image')
+            if value and img_id:
+                query = QSqlQuery(self.database())
+                query.prepare("UPDATE images SET image=? WHERE id=?")
+                query.addBindValue(record.value('image'))
+                query.addBindValue(img_id)
+                query.exec_()
+
+        progressDlg.setLabelText(self.tr("Saving..."))
+
+        self.database().commit()
+
+        progressDlg.reset()
 
     def submitAll(self):
         ret = super().submitAll()

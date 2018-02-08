@@ -155,6 +155,7 @@ class CollectionSettingsPage(QWidget):
         super().__init__(parent)
 
         self.settings = collection.settings
+        self.model = collection.model()
 
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
@@ -220,10 +221,18 @@ class CollectionSettingsPage(QWidget):
         self.settings['show_filter_icons'] = self.showFilterIcons.isChecked()
         self.settings['show_list_icons'] = self.showListIcons.isChecked()
         self.settings['ImageSideLen'] = int(self.imageSideLen.text())
+        old_image_height = self.settings['image_height']
         self.settings['image_height'] = float(self.imageHeight.currentText())
         self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
 
         self.settings.save()
+
+        if self.settings['image_height'] != old_image_height:
+            result = QMessageBox.question(self, self.tr("Settings"),
+                    self.tr("Preview image height was changed. Recalculate it now?"),
+                    QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+            if result == QMessageBox.Yes:
+                self.model.recalculateAllImages(self)
 
 
 class FieldsSettingsPage(QWidget):
