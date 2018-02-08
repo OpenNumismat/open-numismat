@@ -144,6 +144,7 @@ class CollectionModel(QSqlTableModel):
         record.setNull('id')  # remove ID value from record
         record.setValue('createdat', record.value('updatedat'))
 
+        self.database().transaction()
         for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                       'photo1', 'photo2', 'photo3', 'photo4'):
             value = record.value(field)
@@ -172,6 +173,8 @@ class CollectionModel(QSqlTableModel):
             img_id = query.lastInsertId()
         else:
             img_id = None
+        self.database().commit()
+
         record.setValue('image', img_id)
         record.remove(record.indexOf('image_id'))
 
@@ -179,6 +182,8 @@ class CollectionModel(QSqlTableModel):
 
     def setRecord(self, row, record):
         self._updateRecord(record)
+
+        self.database().transaction()
         # TODO : check that images was realy changed
         for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                       'photo1', 'photo2', 'photo3', 'photo4'):
@@ -240,6 +245,7 @@ class CollectionModel(QSqlTableModel):
                 query.exec_()
 
                 img_id = query.lastInsertId()
+        self.database().commit()
 
         if img_id:
             record.setValue('image', img_id)
