@@ -115,7 +115,7 @@ class MainSettingsPage(QWidget):
         self.imagesByDefault.setValue(settings['images_by_default'])
         self.imagesByDefault.setSizePolicy(QSizePolicy.Fixed,
                                            QSizePolicy.Fixed)
-        layout.addRow(self.tr("Show images by default"), self.imagesByDefault)
+        layout.addRow(self.tr("Images count by default"), self.imagesByDefault)
 
         self.setLayout(layout)
 
