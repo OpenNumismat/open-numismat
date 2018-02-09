@@ -55,7 +55,7 @@ class ListView(QListView):
 
         act = menu.addAction(self.tr("Delete"), self.deleteItem)
         act.setShortcut(QKeySequence.Delete)
-        if not self.selectedIndex() or not self.widget.isEnabled():
+        if not self.selectedIndex():
             act.setDisabled(True)
 
         menu.addSeparator()
@@ -64,15 +64,15 @@ class ListView(QListView):
             act = menu.addAction(self.tr("Change icon..."), self._addIcon)
         else:
             act = menu.addAction(self.tr("Add icon..."), self._addIcon)
-        if not self.selectedIndex() or not self.widget.isEnabled():
+        if not self.selectedIndex():
             act.setDisabled(True)
 
         act = menu.addAction(self.tr("Paste icon"), self._pasteIcon)
-        if not self.selectedIndex() or not self.widget.isEnabled():
+        if not self.selectedIndex():
             act.setDisabled(True)
 
         act = menu.addAction(self.tr("Clear icon"), self._clearIcon)
-        if not self.selectedIndex() or not self.widget.isEnabled() or \
+        if not self.selectedIndex() or \
                 not self.selectedIndex().data(Qt.DecorationRole):
             act.setDisabled(True)
 
@@ -253,7 +253,7 @@ class CrossReferenceWidget(ReferenceWidget):
         else:
             self.model.setFilter(None)
 
-        self.editButtonBox.setEnabled(index >= 0)
+        self.addButton.setEnabled(index >= 0)
 
     def addItem(self):
         self.proxyModel.setDynamicSortFilter(False)
