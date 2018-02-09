@@ -240,7 +240,6 @@ class CrossReferenceWidget(ReferenceWidget):
             row = -1
         self.comboBox.setCurrentIndex(row)
         self.currentIndexChanged(row)
-        self.comboBox.setDisabled(True)
         self.comboBox.currentIndexChanged.connect(self.currentIndexChanged)
 
         self.layout().insertWidget(0, self.comboBox)
@@ -367,7 +366,6 @@ class AllReferenceDialog(QDialog):
         for section in self.sections:
             if section.parent_name:
                 widget = CrossReferenceWidget(section, None, '', self)
-                widget.comboBox.setEnabled(True)
             else:
                 widget = ReferenceWidget(section, '', self)
 
