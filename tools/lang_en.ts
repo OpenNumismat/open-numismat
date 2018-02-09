@@ -657,7 +657,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="186"/>
-        <source>Convert 0.5 to ? (support ?, ?, ?, ?, 1?, 1?, 2?)</source>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
