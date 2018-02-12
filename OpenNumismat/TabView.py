@@ -151,6 +151,7 @@ class TabView(QTabWidget):
         for pageParam in collection.pages().pagesParam():
             if pageParam.isopen:
                 self.__createPage(pageParam)
+        self.setCurrentIndex(0)
 
         # If no pages exists => create default page
         if self.count() == 0:
