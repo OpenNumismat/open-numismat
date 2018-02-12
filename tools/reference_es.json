@@ -28,7 +28,10 @@
         "Conmemorativa",
         "Lingote",
         "Reacuñación",
-        "Patrón",
+        "Patrón"
+    ],
+    "format": [
+        "Sencillo",
         "Conjunto",
         "Rodar"
     ],

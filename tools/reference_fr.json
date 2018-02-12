@@ -28,7 +28,10 @@
         "Commémorative",
         "Bullion",
         "Double frappe",
-        "Essai",
+        "Essai"
+    ],
+    "format": [
+        "Single",
         "Ensemble",
         "Rouleau"
     ],

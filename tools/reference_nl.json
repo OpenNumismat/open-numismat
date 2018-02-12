@@ -28,7 +28,10 @@
         "herdenking",
         "ongemunt goud",
         "Restrike",
-        "Pattern",
+        "Pattern"
+    ],
+    "format": [
+        "Single",
         "Set",
         "Roll"
     ],

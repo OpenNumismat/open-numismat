@@ -28,7 +28,10 @@
         "Commemorativa",
         "Metall preciós",
         "Reencunyada",
-        "Estampat",
+        "Estampat"
+    ],
+    "format": [
+        "Single",
         "Col·lecció",
         "Blíster"
     ],

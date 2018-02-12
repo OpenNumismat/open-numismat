@@ -28,7 +28,10 @@
         "Commemorativa",
         "Metallo prezioso",
         "Riemesso",
-        "Modello",
+        "Modello"
+    ],
+    "format": [
+        "Singolo",
         "Set",
         "Rotolo"
     ],

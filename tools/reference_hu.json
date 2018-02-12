@@ -28,8 +28,11 @@
         "Emlékeztető",
         "Rúdarany",
         "Restrike",
-        "Pattern",
-        "Készlet",
+        "Pattern"
+    ],
+    "format": [
+        "Single",
+        "Set",
         "Roll"
     ],
     "obvrev": [

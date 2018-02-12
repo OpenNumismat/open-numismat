@@ -28,7 +28,10 @@
         "Comemorativa",
         "Lingote",
         "Recunhagem",
-        "Padrão",
+        "Padrão"
+    ],
+    "format": [
+        "Única",
         "Conjunto",
         "Rolo"
     ],

@@ -1,10 +1,10 @@
 {
 	"region": [
 		"Europe",
-		"Americas",
-		"Asia",
-		"Africa",
-		"Oceania"
+		"Amérique",
+		"Asie",
+		"Afrique",
+		"Océanie"
 	],
 	"country": [
 		"Afghanistan",
@@ -52,8 +52,8 @@
 		"Îles Cocos",
 		"Colombie",
 		"Comores",
-		"Congo, Democratic Republic of the",
-		"Congo, Republic of the",
+		"République démocratique du Congo",
+		"République du Congo",
 		"Îles Cook",
 		"Costa Rica",
 		"Croatie",
@@ -112,8 +112,8 @@
 		"Kazakhstan",
 		"Kenya",
 		"Kiribati",
-		"Korea, North",
-		"Korea, South",
+		"Corée du Nord",
+		"Corée du Sud",
 		"Kosovo",
 		"Koweït",
 		"Kirghizistan",
