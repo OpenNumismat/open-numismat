@@ -362,7 +362,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.viewTab)
 
         settings = QSettings()
-        pageIndex = settings.value('tabwindow/page1', 0)
+        pageIndex = settings.value('tabwindow/page', 0)
         if pageIndex is not None:
             self.viewTab.setCurrentIndex(int(pageIndex))
 

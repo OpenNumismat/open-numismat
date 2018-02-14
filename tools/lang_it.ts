@@ -1691,7 +1691,7 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="MainWindow.py" line="535"/>
         <source>Importing</source>
-        <translation>Importa</translation>
+        <translation>Importazione</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="451"/>
@@ -2637,7 +2637,7 @@ Aggiungi una nuova pagina prima.</translation>
     <message>
         <location filename="__init__.py" line="181"/>
         <source>Importing</source>
-        <translation>Importazione in corso</translation>
+        <translation>Importazione</translation>
     </message>
     <message>
         <location filename="__init__.py" line="52"/>
@@ -2665,7 +2665,7 @@ Aggiungi una nuova pagina prima.</translation>
     <message>
         <location filename="__init__.py" line="141"/>
         <source>Importing</source>
-        <translation>Importa</translation>
+        <translation>Importazione</translation>
     </message>
     <message>
         <location filename="__init__.py" line="143"/>
