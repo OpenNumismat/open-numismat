@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import locale
+import re
 
 from PyQt5.QtCore import QMargins, QUrl, QDate, Qt
 from PyQt5.QtGui import *
@@ -503,6 +504,34 @@ class DenominationEdit(MoneyEdit):
 
             if QLineEdit.text(self) != text:
                 QLineEdit.setText(self, text)
+
+
+class TextBrowser(QTextBrowser):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setAcceptRichText(False)
+        self.setTabChangesFocus(True)
+
+        self.setOpenExternalLinks(True)
+
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+    def setText(self, text):
+        urls = re.findall(r'(https?://[^\s]+)', text)
+        if urls:
+            beg = 0
+            new_text = ''
+            for url in urls:
+                i = text.index(url, beg)
+                new_text += text[beg:i] + '<a href="%s">%s</a>' % (url, url)
+                beg = i + len(url)
+            new_text += text[beg:]
+
+            text = new_text.replace('\n', '<br>')
+
+        super().setText(text)
 
 
 class TextEdit(QTextEdit):

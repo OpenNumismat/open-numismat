@@ -63,7 +63,10 @@ class FormItem(object):
             else:
                 self._widget = MoneyEdit(parent)
         elif self._type == Type.Text:
-            self._widget = TextEdit(parent)
+            if itemType & Type.Disabled:
+                self._widget = TextBrowser(parent)
+            else:
+                self._widget = TextEdit(parent)
         elif self._type == Type.Image:
             self._widget = ImageEdit(field, self._label, parent)
         elif self._type == Type.PreviewImage:
@@ -153,6 +156,8 @@ class FormItem(object):
                 lineEdit.setText("")
         elif isinstance(self._widget, StatusEdit):
             self._widget.setCurrentValue(value)
+        elif isinstance(self._widget, TextBrowser):
+            self._widget.setText(str(value))
         elif isinstance(self._widget, TextEdit):
             self._widget.setText(str(value))
         elif isinstance(self._widget, LineEdit):
