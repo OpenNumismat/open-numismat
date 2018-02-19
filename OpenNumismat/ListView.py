@@ -204,10 +204,10 @@ class ListView(QTableView):
             return None
         return self.proxyModel.sourceModel()
 
-    def rowInserted(self, index):
-        insertedRowIndex = self.proxyModel.mapFromSource(index)
-        self.selectRow(insertedRowIndex.row())
-        self.scrollTo(insertedRowIndex)
+    def scrollToIndex(self, index):
+        realRowIndex = self.proxyModel.mapFromSource(index)
+        self.selectRow(realRowIndex.row())
+        self.scrollTo(realRowIndex)
 
     def clearAllFilters(self):
         for btn in self.headerButtons:
@@ -219,7 +219,7 @@ class ListView(QTableView):
         self.model().clearFilters()
 
     def setModel(self, model):
-        model.rowInserted.connect(self.rowInserted)
+        model.rowInserted.connect(self.scrollToIndex)
 
         self.proxyModel = SortFilterProxyModel(self)
         self.proxyModel.setSourceModel(model)
@@ -518,9 +518,7 @@ class ListView(QTableView):
             self.model().submitAll()
 
             if record_id == self.model().record(index.row()).value('id'):
-                updatedRowIndex = self.proxyModel.mapFromSource(index)
-                self.selectRow(updatedRowIndex.row())
-                self.scrollTo(updatedRowIndex)
+                self.scrollToIndex(index)
 
     def _multiEdit(self, indexes=None):
         if not indexes:
