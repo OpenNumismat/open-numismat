@@ -940,6 +940,11 @@ class Collection(QtCore.QObject):
                 res = query.exec_()
 
             if res:
+                query = QSqlQuery(self.db)
+                query.prepare("DROP TABLE ref")
+                res = query.exec_()
+
+            if res:
                 self.db.commit()
                 self.reference = reference
             else:
