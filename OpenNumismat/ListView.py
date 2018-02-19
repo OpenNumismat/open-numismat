@@ -509,12 +509,18 @@ class ListView(QTableView):
             index = self.currentIndex()
 
         record = self.model().record(index.row())
+        record_id = record.value('id')
         dialog = EditCoinDialog(self.model(), record, self)
         result = dialog.exec_()
         if result == QDialog.Accepted:
             updatedRecord = dialog.getRecord()
             self.model().setRecord(index.row(), updatedRecord)
             self.model().submitAll()
+
+            if record_id == self.model().record(index.row()).value('id'):
+                updatedRowIndex = self.proxyModel.mapFromSource(index)
+                self.selectRow(updatedRowIndex.row())
+                self.scrollTo(updatedRowIndex)
 
     def _multiEdit(self, indexes=None):
         if not indexes:
