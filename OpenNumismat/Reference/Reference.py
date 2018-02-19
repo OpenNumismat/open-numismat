@@ -282,6 +282,7 @@ class Reference(QtCore.QObject):
         else:
             self.db = QSqlDatabase.addDatabase('QSQLITE', "reference")
 
+        self.fileName = None
         self.userFields = [field.name for field in fields.userFields]
         self.sections = []
 
@@ -471,7 +472,7 @@ class Reference(QtCore.QObject):
         return None
 
     def backup(self):
-        if self.db.connectionName() == 'reference':
+        if self.fileName:
             file = QtCore.QFileInfo(self.fileName)
             backupDir = file.dir()
             backupFileName = backupDir.filePath("%s_%s.ref" % (file.baseName(),
