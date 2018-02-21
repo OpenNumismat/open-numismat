@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Tools.Gui import createIcon, statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction
 
 
@@ -287,8 +287,8 @@ class StatusEdit(QComboBox):
         super().__init__(parent)
         self.setMinimumWidth(100)
 
-        for statusTitle in Statuses.values():
-            self.addItem(statusTitle)
+        for status, statusTitle in Statuses.items():
+            self.addItem(statusIcon(status), statusTitle)
 
     def data(self):
         currentIndex = self.currentIndex()

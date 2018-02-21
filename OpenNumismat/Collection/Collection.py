@@ -110,9 +110,12 @@ class CollectionModel(QSqlTableModel):
             if self.settings['show_list_icons']:
                 field = self.fields.fields[index.column()]
                 data = super().data(index, Qt.DisplayRole)
-                icon = self.reference.getIcon(field.name, data)
-                if icon:
-                    return icon
+                if field.name == 'status':
+                    return Gui.statusIcon(data)
+                else:
+                    icon = self.reference.getIcon(field.name, data)
+                    if icon:
+                        return icon
         elif role == Qt.TextAlignmentRole:
             field = self.fields.fields[index.column()]
             if field.type == Type.BigInt:
@@ -555,7 +558,7 @@ class CollectionSettings(BaseSettings):
             'store_sorting': False,
             'show_tree_icons': True,
             'show_filter_icons': True,
-            'show_list_icons': False,
+            'show_list_icons': True,
             'images_at_bottom': False,
     }
 

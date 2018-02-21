@@ -5,6 +5,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QProgressDialog, QFileDialog, QApplication
 
 import OpenNumismat
+from OpenNumismat.Collection.CollectionFields import Status
 
 
 class ProgressDialog(QProgressDialog):
@@ -30,6 +31,17 @@ def createIcon(fileTitle=None):
         return QIcon(fileName)
     else:
         return QIcon()
+
+
+__status_icons = {}
+
+
+def statusIcon(status):
+    if not __status_icons:
+        for status in Status.Keys:
+            __status_icons[status] = createIcon("%s.png" % status)
+
+    return __status_icons[status]
 
 
 def getSaveFileName(parent, name, filename, dir_, filters):

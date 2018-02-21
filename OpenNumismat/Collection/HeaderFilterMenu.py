@@ -4,9 +4,8 @@ from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses
-from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Tools.Gui import createIcon, statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction
-from OpenNumismat.Settings import Settings
 
 
 class DenominationListWidgetItem(QListWidgetItem):
@@ -112,8 +111,14 @@ class FilterMenuButton(QPushButton):
             while query.next():
                 value = query.record().value(0)
                 label = Statuses[value]
+
                 item = QListWidgetItem(label)
                 item.setData(Qt.UserRole, value)
+
+                if self.settings['show_filter_icons']:
+                    icon = statusIcon(value)
+                    item.setIcon(icon)
+
                 if value in appliedValues:
                     if revert:
                         item.setCheckState(Qt.Checked)
