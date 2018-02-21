@@ -928,11 +928,12 @@ class Collection(QtCore.QObject):
 
             self.db.transaction()
 
-            for section in self.reference.sections:
-                if res:
-                    query = QSqlQuery(self.db)
-                    query.prepare("DROP TABLE %s" % section.table_name)
-                    res = query.exec_()
+            for table_name in self.db.tables():
+                if 'ref_' in table_name:
+                    if res:
+                        query = QSqlQuery(self.db)
+                        query.prepare("DROP TABLE %s" % table_name)
+                        res = query.exec_()
 
             if res:
                 query = QSqlQuery(self.db)
