@@ -55,11 +55,16 @@ class BaseCanvas(FigureCanvas):
         self.label = QApplication.translate('BaseCanvas', "Number of coins")
 
         self.colors = None
+        self.multicolors = (
+            '#336699', '#99CCFF', '#999933', '#666699', '#CC9933', '#006666',
+            '#3399FF', '#993300', '#CCCC99', '#666666', '#FFCC66', '#6699CC',
+            '#663366', '#9999CC', '#CCCCCC', '#669999', '#CCCC66', '#CC6600',
+            '#9999FF', '#0066CC', '#99CCCC', '#999999', '#FFCC00', '#009999',
+            '#99CC33', '#FF9900', '#999966', '#66CCCC', '#339966', '#CCCC33')
 
     def setMulticolor(self, multicolor=False):
         if multicolor:
-            prop_cycle = plt.rcParams['axes.prop_cycle']
-            self.colors = prop_cycle.by_key()['color']
+            self.colors = self.multicolors
         else:
             self.colors = None
 
@@ -139,7 +144,7 @@ class PieCanvas(BaseCanvas):
         self.axes.cla()
 
         keys = ['\n'.join(wrap(l, 17)) for l in xx]
-        self.figures = self.axes.pie(yy, labels=keys)[0]
+        self.figures = self.axes.pie(yy, labels=keys, colors=self.multicolors)[0]
         self.axes.axis('equal')
 
         self.draw()
@@ -166,12 +171,13 @@ class StackedBarCanvas(BaseCanvas):
         progressDlg = ProgressDialog(self.tr("Building chart"),
                                 self.tr("Cancel"), len(yy), self)
         progressDlg.setMinimumDuration(2000)
-        for y in yy:
+        for i, y in enumerate(yy):
             progressDlg.step()
             if progressDlg.wasCanceled():
                 return
 
-            bars = self.axes.barh(x, y, left=prev_y)
+            color = self.multicolors[i % len(self.multicolors)]
+            bars = self.axes.barh(x, y, left=prev_y, color=color)
             for bar in bars:
                 self.figures.append(bar)
             prev_y = numpy.add(prev_y, y)
