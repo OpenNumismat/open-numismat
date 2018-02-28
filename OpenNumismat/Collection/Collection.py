@@ -636,9 +636,11 @@ class Collection(QtCore.QObject):
         self.fileName = None
 
     def isOpen(self):
-        return self.db.isValid()
+        return self.db.isValid() and self.fileName
 
     def open(self, fileName):
+        self.fileName = None
+
         file = QtCore.QFileInfo(fileName)
         if file.isFile():
             self.db.setDatabaseName(fileName)
@@ -691,6 +693,8 @@ class Collection(QtCore.QObject):
         return True
 
     def create(self, fileName):
+        self.fileName = None
+
         if QtCore.QFileInfo(fileName).exists():
             QMessageBox.critical(self.parent(),
                                     self.tr("Create collection"),
@@ -1011,6 +1015,29 @@ class Collection(QtCore.QObject):
                             self.tr("Can't make a collection backup at %s") %
                                                                 backupFileName)
             return False
+
+        return True
+
+    def isNeedBackup(self):
+        settings = Settings()
+        autobackup_depth = settings['autobackup_depth']
+        filter_ = ('%s_????????????.db' % self.getCollectionName(),)
+        files = QtCore.QDirIterator(settings['backup'], filter_, QtCore.QDir.Files)
+        while files.hasNext():
+            file = files.next()
+            file_info = QtCore.QFileInfo(file)
+            if file_info.completeSuffix() == 'db':
+                file_title = file_info.baseName()
+                file_date = file_title[-12:-6]
+
+                query = QSqlQuery(self.db)
+                query.prepare("SELECT count(*) FROM coins WHERE updatedat > ?")
+                date = "20%s-%s-%sT23:59:59" % (file_date[0:2], file_date[2:4], file_date[4:6])
+                query.addBindValue(date)
+                query.exec_()
+                query.first()
+                if query.record().value(0) < autobackup_depth:
+                    return False
 
         return True
 

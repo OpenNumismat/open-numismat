@@ -736,11 +736,15 @@ class MainWindow(QMainWindow):
         settings.setValue('mainwindow/winState', self.saveState())
 
     def __saveParams(self):
-        if self.collection.pages():
+        if self.collection.isOpen():
             for param in self.collection.pages().pagesParam():
                 param.listParam.save_lists(only_if_changed=True)
 
             self.viewTab.savePagePositions(only_if_changed=True)
+
+            if Settings()['autobackup']:
+                if self.collection.isNeedBackup():
+                    self.collection.backup()
 
     def about(self):
         QMessageBox.about(self, self.tr("About %s") % version.AppName,

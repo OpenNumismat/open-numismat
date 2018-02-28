@@ -73,6 +73,8 @@ def _getLocale():
 class Settings(BaseSettings):
     Default = {'locale': _getLocale(),
                'backup': OpenNumismat.HOME_PATH + "/backup/",
+               'autobackup': True,
+               'autobackup_depth': 25,
                'reference': OpenNumismat.HOME_PATH + "/reference.ref",
                'error': True,
                'speedup': 0,
@@ -91,11 +93,11 @@ class Settings(BaseSettings):
         return self.Default.keys()
 
     def _getValue(self, key):
-        if key in ('error', 'updates',
+        if key in ('error', 'updates', 'autobackup',
                    'check_coin_title', 'check_coin_duplicate'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
-        elif key in ('images_by_default',):
+        elif key in ('images_by_default', 'autobackup_depth'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=int)
         else:

@@ -23,6 +23,8 @@ class MainSettingsPage(QWidget):
 
         settings = Settings()
 
+        style = QApplication.style()
+
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
@@ -37,21 +39,6 @@ class MainSettingsPage(QWidget):
                                             QSizePolicy.Fixed)
 
         layout.addRow(self.tr("Language"), self.languageSelector)
-
-        self.backupFolder = QLineEdit(self)
-        self.backupFolder.setMinimumWidth(120)
-        self.backupFolder.setText(settings['backup'])
-        style = QApplication.style()
-        icon = style.standardIcon(QStyle.SP_DirOpenIcon)
-        self.backupFolderButton = QPushButton(icon, '', self)
-        self.backupFolderButton.clicked.connect(self.backupButtonClicked)
-
-        hLayout = QHBoxLayout()
-        hLayout.addWidget(self.backupFolder)
-        hLayout.addWidget(self.backupFolderButton)
-        hLayout.setContentsMargins(QMargins())
-
-        layout.addRow(self.tr("Backup folder"), hLayout)
 
         self.reference = QLineEdit(self)
         self.reference.setMinimumWidth(120)
@@ -69,6 +56,34 @@ class MainSettingsPage(QWidget):
         hLayout.setContentsMargins(QMargins())
 
         layout.addRow(self.tr("Reference"), hLayout)
+
+        self.backupFolder = QLineEdit(self)
+        self.backupFolder.setMinimumWidth(120)
+        self.backupFolder.setText(settings['backup'])
+        icon = style.standardIcon(QStyle.SP_DirOpenIcon)
+        self.backupFolderButton = QPushButton(icon, '', self)
+        self.backupFolderButton.clicked.connect(self.backupButtonClicked)
+
+        hLayout = QHBoxLayout()
+        hLayout.addWidget(self.backupFolder)
+        hLayout.addWidget(self.backupFolderButton)
+        hLayout.setContentsMargins(QMargins())
+
+        layout.addRow(self.tr("Backup folder"), hLayout)
+
+        self.autobackup = QCheckBox(self.tr("Make autobackup"), self)
+        self.autobackup.setChecked(settings['autobackup'])
+        self.autobackup.stateChanged.connect(self.autobackupClicked)
+        layout.addRow(self.autobackup)
+
+        self.autobackupDepth = QSpinBox(self)
+        self.autobackupDepth.setRange(1, 1000)
+        self.autobackupDepth.setValue(settings['autobackup_depth'])
+        self.autobackupDepth.setSizePolicy(QSizePolicy.Fixed,
+                                           QSizePolicy.Fixed)
+        layout.addRow(self.tr("Coin changes before autobackup"),
+                      self.autobackupDepth)
+        self.autobackupDepth.setEnabled(settings['autobackup'])
 
         self.errorSending = QCheckBox(
                             self.tr("Send error info to author"), self)
@@ -125,6 +140,9 @@ class MainSettingsPage(QWidget):
         if folder:
             self.backupFolder.setText(folder)
 
+    def autobackupClicked(self, state):
+        self.autobackupDepth.setEnabled(state == Qt.Checked)
+
     def referenceButtonClicked(self):
         file, _selectedFilter = QFileDialog.getOpenFileName(
             self, self.tr("Select reference"), self.reference.text(), "*.ref")
@@ -137,6 +155,8 @@ class MainSettingsPage(QWidget):
         current = self.languageSelector.currentIndex()
         settings['locale'] = self.languageSelector.itemData(current)
         settings['backup'] = self.backupFolder.text()
+        settings['autobackup'] = self.autobackup.isChecked()
+        settings['autobackup_depth'] = self.autobackupDepth.value()
         settings['reference'] = self.reference.text()
         settings['error'] = self.errorSending.isChecked()
         settings['updates'] = self.checkUpdates.isChecked()
