@@ -669,8 +669,6 @@ class Collection(QtCore.QObject):
                             "Please update OpenNumismat") % fileName)
             return False
 
-        self.fileName = fileName
-
         if self.settings['Password'] != cryptPassword():
             dialog = PasswordDialog(
                 self.settings['Password'], self.getCollectionName(),
@@ -689,6 +687,8 @@ class Collection(QtCore.QObject):
         self.description = CollectionDescription(self)
 
         self.__speedup()
+
+        self.fileName = fileName
 
         return True
 
@@ -709,8 +709,6 @@ class Collection(QtCore.QObject):
                                        self.tr("Can't open collection"))
             return False
 
-        self.fileName = fileName
-
         self.fields = CollectionFields(self.db)
 
         self.createCoinsTable()
@@ -722,6 +720,8 @@ class Collection(QtCore.QObject):
         self.description = CollectionDescription(self)
 
         self.__speedup()
+
+        self.fileName = fileName
 
         return True
 
