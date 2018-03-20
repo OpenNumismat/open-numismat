@@ -75,19 +75,19 @@ class CollectionModel(QSqlTableModel):
                     text = locale.format("%.3f", float(data), grouping=True)
                     dp = locale.localeconv()['decimal_point']
                     text = text.rstrip('0').rstrip(dp)
-                elif field.type == Type.Date:
-                    date = QtCore.QDate.fromString(data, Qt.ISODate)
-                    text = date.toString(Qt.SystemLocaleShortDate)
-                elif field.type == Type.Image or field.type == Type.EdgeImage:
-                    if data:
-                        return self.getImage(data)
-                    else:
-                        return None
                 elif field.type == Type.PreviewImage:
                     if data:
                         return self.getPreviewImage(data)
                     else:
                         return None
+                elif field.type == Type.Image or field.type == Type.EdgeImage:
+                    if data:
+                        return self.getImage(data)
+                    else:
+                        return None
+                elif field.type == Type.Date:
+                    date = QtCore.QDate.fromString(data, Qt.ISODate)
+                    text = date.toString(Qt.SystemLocaleShortDate)
                 elif field.type == Type.DateTime:
                     date = QtCore.QDateTime.fromString(data, Qt.ISODate)
                     # Timestamp in DB stored in UTC
