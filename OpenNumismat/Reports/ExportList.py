@@ -9,7 +9,7 @@ try:
     import xlwt
 except ImportError:
     print('xlwt module missed. Exporting to Excel not available')
-exportToExcelAvailable = False
+    exportToExcelAvailable = False
 
 
 class __ExportBase():
