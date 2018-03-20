@@ -93,13 +93,14 @@ class TextDocument(QTextDocument):
 
 @storeDlgSizeDecorator
 class PreviewDialog(QDialog):
-    def __init__(self, model, records, parent=None):
+
+    def __init__(self, model, indexes, parent=None):
         super().__init__(parent, Qt.WindowSystemMenuHint |
                          Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
 
         self.started = False
 
-        self.records = records
+        self.indexes = indexes
         self.model = model
 
         if importedQtWebKit:
@@ -313,6 +314,7 @@ class PreviewDialog(QDialog):
         icon.addFile(imagePrefix + name + "-32.png", QtCore.QSize(32, 32))
         action.setIcon(icon)
 
+    @waitCursorDecorator
     def _loadFinished(self, ok):
         self.preview.updatePreview()
         if not self.started:
@@ -323,8 +325,8 @@ class PreviewDialog(QDialog):
     def _templateChanged(self, index):
         template_name = self.templateSelector.currentText()
         dstPath = os.path.join(TemporaryDir.path(), template_name + '.htm')
-        report = Report.Report(self.model, template_name, dstPath)
-        self.fileName = report.generate(self.records, True)
+        report = Report.Report(self.model, template_name, dstPath, self.parent())
+        self.fileName = report.generate(self.indexes, True)
         if not self.fileName:
             return
 

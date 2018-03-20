@@ -13,7 +13,6 @@ from OpenNumismat.SettingsDialog import SettingsDialog
 from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.Gui import createIcon
-from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.StatisticsView import statisticsAvailable
@@ -613,15 +612,7 @@ class MainWindow(QMainWindow):
 
     def report(self):
         listView = self.viewTab.currentListView()
-        indexes = listView.selectedRows()
-        model = listView.model()
-
-        records = []
-        for index in indexes:
-            records.append(model.record(index.row()))
-
-        preview = PreviewDialog(model, records, self)
-        preview.exec_()
+        listView.report()
 
     def saveTable(self):
         listView = self.viewTab.currentListView()

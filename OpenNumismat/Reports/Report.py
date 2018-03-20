@@ -1,59 +1,17 @@
 import codecs
-import locale
 import os
 
 try:
-# TODO: For speedup use additional a http://pypi.python.org/pypi/MarkupSafe
     from jinja2 import Environment, FileSystemLoader
 except ImportError:
     print('jinja2 module missed. Report engine not available')
 
-from PyQt5 import QtGui, QtCore
+from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QImage
 
-from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools import Gui
-from OpenNumismat.Tools.Converters import numberWithFraction
 import OpenNumismat
-
-
-def formatFields(field, data):
-    try:
-        if field.name == 'status':
-            text = Statuses[data]
-        elif field.type == Type.BigInt:
-            text = locale.format("%d", int(data), grouping=True)
-        elif field.type == Type.Number:
-            text = str(data)
-        elif field.type == Type.Money:
-            text = locale.format("%.2f", float(data), grouping=True)
-            dp = locale.localeconv()['decimal_point']
-            text = text.rstrip('0').rstrip(dp)
-        elif field.type == Type.Denomination:
-            text, converted = numberWithFraction(data)
-            if not converted:
-                text = locale.format("%.2f", float(data), grouping=True)
-                dp = locale.localeconv()['decimal_point']
-                text = text.rstrip('0').rstrip(dp)
-        elif field.type == Type.Value:
-            text = locale.format("%.3f", float(data), grouping=True)
-            dp = locale.localeconv()['decimal_point']
-            text = text.rstrip('0').rstrip(dp)
-        elif field.type == Type.Date:
-            date = QtCore.QDate.fromString(data, Qt.ISODate)
-            text = date.toString(Qt.SystemLocaleShortDate)
-        elif field.type == Type.DateTime:
-            date = QtCore.QDateTime.fromString(data, Qt.ISODate)
-            # Timestamp in DB stored in UTC
-            date.setTimeSpec(Qt.UTC)
-            date = date.toLocalTime()
-            text = date.toString(Qt.SystemLocaleShortDate)
-        else:
-            return data
-    except (ValueError, TypeError):
-        return data
-    return text
 
 
 def copyFolder(sourceFolder, destFolder):
@@ -110,7 +68,7 @@ class Report(QtCore.QObject):
             self.dstFolder = fileInfo.dir().path()
             self.fileName = fileInfo.fileName()
 
-    def generate(self, records, single_file=False):
+    def generate(self, indexes, single_file=False):
         if os.path.exists(os.path.join(self.srcFolder, 'coin.htm')):
             has_item_template = True
         else:
@@ -125,8 +83,8 @@ class Report(QtCore.QObject):
                             'author': self.model.description.author}
 
         if not self.fileName:
-            if len(records) == 1 and has_item_template:
-                self.fileName = "coin_%d.htm" % records[0].value('id')
+            if len(indexes) == 1 and has_item_template:
+                self.fileName = "coin_%d.htm" % self.__getId(indexes[0])
             else:
                 self.fileName = "coins.htm"
         static_files = QtCore.QFileInfo(self.fileName).baseName() + '_files'
@@ -144,24 +102,24 @@ class Report(QtCore.QObject):
             titles_mapping[field.name] = field.title
         self.mapping['titles'] = titles_mapping
 
-        if len(records) == 1 and has_item_template:
-            self.mapping['record'] = self.__recordMapping(records[0])
+        if len(indexes) == 1 and has_item_template:
+            self.mapping['record'] = self.__recordMapping(indexes[0])
             dstFile = self.__render('coin.htm', self.fileName)
         else:
             progressDlg = Gui.ProgressDialog(self.tr("Generating report"),
-                            self.tr("Cancel"), len(records), self.parent())
+                            self.tr("Cancel"), len(indexes), self.parent())
 
             record_data = []
-            for record in records:
+            for index in indexes:
                 progressDlg.step()
                 if progressDlg.wasCanceled():
                     return None
 
-                recordMapping = self.__recordMapping(record)
+                recordMapping = self.__recordMapping(index)
                 record_data.append(recordMapping)
                 if not single_file:
                     self.mapping['record'] = recordMapping
-                    self.__render('coin.htm', "coin_%d.htm" % record.value('id'))
+                    self.__render('coin.htm', "coin_%d.htm" % self.__getId(index))
 
             self.mapping['records'] = record_data
 
@@ -182,15 +140,27 @@ class Report(QtCore.QObject):
 
         return dstFile
 
-    def __recordMapping(self, record):
+    def __getId(self, index):
+        field_index = self.model.index(index.row(), self.model.fieldIndex('id'))
+        return self.model.data(field_index, Qt.UserRole)
+
+    def __recordMapping_new(self, index):
+        record = CollectionRecord(self.model, index.row())
+        record.contentDir = self.contentDir
+        return record
+
+    def __recordMapping(self, index):
         imgFields = ('image', 'obverseimg', 'reverseimg', 'varietyimg',
                      'photo1', 'photo2', 'photo3', 'photo4')
 
         record_mapping = {}
         record_mapping['status_raw'] = ''
         record_mapping['issuedate_raw'] = ''
+        row = index.row()
         for field in self.model.fields:
-            value = record.value(field.name)
+            field_index = self.model.index(row, self.model.fieldIndex(field.name))
+            value = self.model.data(field_index, Qt.DisplayRole)
+
             if value is None or value == '':
                 record_mapping[field.name] = ''
             else:
@@ -200,18 +170,67 @@ class Report(QtCore.QObject):
                     else:
                         ext = 'jpg'
 
-                    imgFileTitle = "%s_%d.%s" % (field.name, record.value('id'), ext)
+                    imgFileTitle = "%s_%d.%s" % (field.name, self.__getId(index), ext)
                     imgFile = os.path.join(self.contentDir, imgFileTitle)
 
-                    image = QtGui.QImage()
-                    image.loadFromData(record.value(field.name))
+                    image = QImage()
+                    image.loadFromData(value)
                     image.save(imgFile)
                     record_mapping[field.name] = imgFileTitle
                 else:
-                    record_mapping[field.name] = formatFields(field, value)
+                    record_mapping[field.name] = value
                     if field.name == 'status':
-                        record_mapping['status_raw'] = value
+                        record_mapping['status_raw'] = self.model.data(field_index, Qt.UserRole)
                     elif field.name == 'issuedate':
-                        record_mapping['issuedate_raw'] = value
+                        record_mapping['issuedate_raw'] = self.model.data(field_index, Qt.UserRole)
 
         return record_mapping
+
+
+class CollectionRecord(dict):
+    imgFields = ('image', 'obverseimg', 'reverseimg', 'varietyimg',
+                 'photo1', 'photo2', 'photo3', 'photo4')
+
+    def __init__(self, model, row):
+        self.model = model
+        self.row = row
+        self.data = {}
+
+    def __getitem__(self, key):
+        if key in self.data:
+            return self.data[key]
+
+        if key[-4:] == '_raw':
+            index = self.model.index(self.row, self.model.fieldIndex(key[:-4]))
+            value = self.model.data(index, Qt.UserRole)
+        else:
+            index = self.model.index(self.row, self.model.fieldIndex(key))
+            value = self.model.data(index, Qt.DisplayRole)
+
+        if value is None or value == '':
+            self.data[key] = ''
+            return ''
+        elif key in CollectionRecord.imgFields:
+            if key == 'image':
+                ext = 'png'
+            else:
+                ext = 'jpg'
+
+            field_index = self.model.index(self.row, self.model.fieldIndex('id'))
+            id_ = self.model.data(field_index, Qt.UserRole)
+            imgFileTitle = "%s_%d.%s" % (key, id_, ext)
+            imgFile = os.path.join(self.contentDir, imgFileTitle)
+
+            image = QImage()
+            image.loadFromData(value)
+#            size = 500
+#            if image.width() > size or image.height() > size:
+#                image = image.scaled(size, size,
+#                        Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            image.save(imgFile)
+            self.data[key] = imgFileTitle
+            return imgFileTitle
+        else:
+            self.data[key] = value
+            return value
+

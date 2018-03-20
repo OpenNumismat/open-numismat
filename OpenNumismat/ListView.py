@@ -16,6 +16,7 @@ from OpenNumismat.SelectColumnsDialog import SelectColumnsDialog
 from OpenNumismat.Collection.HeaderFilterMenu import FilterMenuButton
 from OpenNumismat.Tools import Gui, TemporaryDir
 from OpenNumismat.Reports.Report import Report
+from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportToCsv, ExportToCsvUtf8
 from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
@@ -420,17 +421,16 @@ class ListView(QTableView):
 
         return indexes
 
-    def viewInBrowser(self, indexes=None):
-        if not indexes:
-            indexes = self.selectedRows()
+    def report(self):
+        indexes = self.selectedRows()
+        preview = PreviewDialog(self.model(), indexes, self)
+        preview.exec_()
 
-        records = []
-        for index in indexes:
-            records.append(self.model().record(index.row()))
-
+    def viewInBrowser(self):
         dstPath = os.path.join(TemporaryDir.path(), Settings()['template'] + '.htm')
-        report = Report(self.model(), Settings()['template'], dstPath)
-        fileName = report.generate(records)
+        report = Report(self.model(), Settings()['template'], dstPath, self)
+        indexes = self.selectedRows()
+        fileName = report.generate(indexes)
 
         if fileName:
             executor = QDesktopServices()
