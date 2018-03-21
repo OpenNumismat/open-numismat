@@ -25,12 +25,9 @@ class ProgressDialog(QProgressDialog):
         self.step()
 
 
-def createIcon(fileTitle=None):
-    if fileTitle:
-        fileName = os.path.join(OpenNumismat.PRJ_PATH, "icons", fileTitle)
-        return QIcon(fileName)
-    else:
-        return QIcon()
+def createIcon(fileTitle):
+    fileName = os.path.join(OpenNumismat.PRJ_PATH, "icons", fileTitle)
+    return QIcon(fileName)
 
 
 __status_icons = {}

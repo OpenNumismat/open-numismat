@@ -1,4 +1,5 @@
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
@@ -327,7 +328,7 @@ class FilterMenuButton(QPushButton):
             self.setIcon(createIcon('filters.ico'))
             self.filters[self.fieldid] = filters
         else:
-            self.setIcon(createIcon())
+            self.setIcon(QIcon())
             if self.fieldid in self.filters.keys():
                 self.filters.pop(self.fieldid)
 
@@ -339,7 +340,7 @@ class FilterMenuButton(QPushButton):
         self.listParam.save_filters()
 
     def clear(self):
-        self.setIcon(createIcon())
+        self.setIcon(QIcon())
 
     def applySearch(self, text):
         for i in range(self.listWidget.count()):
