@@ -102,7 +102,7 @@ class MainWindow(QMainWindow):
 
         if ImportNumizmat.isAvailable():
             importNumizmatAct = QAction(
-                                    createIcon('numizmat.ico'),
+                                    createIcon('numizmat.png'),
                                     self.tr("Numizmat 2.1"), self)
             importNumizmatAct.triggered.connect(self.importNumizmat)
             self.collectionActs.append(importNumizmatAct)
@@ -110,7 +110,7 @@ class MainWindow(QMainWindow):
 
         if ImportCabinet.isAvailable():
             importCabinetAct = QAction(
-                                    createIcon('cabinet.ico'),
+                                    createIcon('cabinet.png'),
                                     self.tr("Cabinet 2.2.2.1, 2013"), self)
             importCabinetAct.triggered.connect(self.importCabinet)
             self.collectionActs.append(importCabinetAct)
@@ -118,7 +118,7 @@ class MainWindow(QMainWindow):
 
         if ImportCoinsCollector.isAvailable():
             importCoinsCollectorAct = QAction(
-                                    createIcon('CoinsCollector.ico'),
+                                    createIcon('CoinsCollector.png'),
                                     self.tr("CoinsCollector 2.6"), self)
             importCoinsCollectorAct.triggered.connect(
                                                     self.importCoinsCollector)
@@ -127,7 +127,7 @@ class MainWindow(QMainWindow):
 
         if ImportCoinManage.isAvailable():
             importCoinManageAct = QAction(
-                                    createIcon('CoinManage.ico'),
+                                    createIcon('CoinManage.png'),
                                     self.tr("CoinManage 2011"), self)
             importCoinManageAct.triggered.connect(self.importCoinManage)
             self.collectionActs.append(importCoinManageAct)
@@ -135,7 +135,7 @@ class MainWindow(QMainWindow):
 
         if ImportCollectionStudio.isAvailable():
             importCollectionStudioAct = QAction(
-                                    createIcon('CollectionStudio.ico'),
+                                    createIcon('CollectionStudio.png'),
                                     self.tr("Collection Studio 3.65"), self)
             importCollectionStudioAct.triggered.connect(
                                                 self.importCollectionStudio)
@@ -144,7 +144,7 @@ class MainWindow(QMainWindow):
 
         if ImportNumizmatik_Ru.isAvailable():
             importNumizmaticRuAct = QAction(
-                                    createIcon('Numizmatik_Ru.ico'),
+                                    createIcon('Numizmatik_Ru.png'),
                                     self.tr("Numizmatik_Ru 1.0.0.82"), self)
             importNumizmaticRuAct.triggered.connect(self.importNumizmatik_Ru)
             self.collectionActs.append(importNumizmaticRuAct)
