@@ -679,6 +679,8 @@ class Collection(QtCore.QObject):
 
         self.fields = CollectionFields(self.db)
 
+        self.fileName = fileName
+
         if not updateCollection(self):
             return False
 
@@ -687,8 +689,6 @@ class Collection(QtCore.QObject):
         self.description = CollectionDescription(self)
 
         self.__speedup()
-
-        self.fileName = fileName
 
         return True
 
