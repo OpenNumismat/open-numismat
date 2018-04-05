@@ -456,7 +456,7 @@ class StatisticsView(QWidget):
                 sql_field = 'count(*)'
                 self.chart.setLabel(self.tr("Number of coins"))
 
-            sql_filters = ["status IN ('owned', 'ordered', 'sale')"]
+            sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing')"]
             if filter_:
                 sql_filters.append(filter_)
 
