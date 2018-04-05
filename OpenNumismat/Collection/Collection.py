@@ -110,10 +110,11 @@ class CollectionModel(QSqlTableModel):
             if self.settings['show_list_icons']:
                 field = self.fields.fields[index.column()]
                 data = super().data(index, Qt.DisplayRole)
-                if field.name == 'status':
-                    return Gui.statusIcon(data)
-                else:
-                    icon = self.reference.getIcon(field.name, data)
+                if data:
+                    if field.name == 'status':
+                        icon = Gui.statusIcon(data)
+                    else:
+                        icon = self.reference.getIcon(field.name, data)
                     if icon:
                         return icon
         elif role == Qt.TextAlignmentRole:
@@ -560,6 +561,14 @@ class CollectionSettings(BaseSettings):
             'show_filter_icons': True,
             'show_list_icons': True,
             'images_at_bottom': False,
+            'demo_status_used': True,
+            'pass_status_used': True,
+            'owned_status_used': True,
+            'ordered_status_used': True,
+            'sold_status_used': True,
+            'sale_status_used': True,
+            'wish_status_used': True,
+            'missing_status_used': True,
     }
 
     def __init__(self, db):
@@ -583,6 +592,8 @@ class CollectionSettings(BaseSettings):
                                'show_filter_icons', 'show_list_icons',
                                'images_at_bottom'):
                     value = record.value('value').lower() in ('true', '1')
+                elif '_status_used' in title:
+                    value = record.value('value').lower() in ('true', '1')
                 else:
                     value = record.value('value')
                 self.__setitem__(title, value)
@@ -597,7 +608,6 @@ class CollectionSettings(BaseSettings):
         self.db.transaction()
 
         for key, value in self.items():
-            # TODO: Insert value if currently not present
             query = QSqlQuery(self.db)
             query.prepare("INSERT OR REPLACE INTO settings (title, value)"
                           " VALUES (?, ?)")

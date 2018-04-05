@@ -7,7 +7,6 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormG
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
-from OpenNumismat.Settings import Settings
 
 
 class DetailsTabWidget(QTabWidget):
@@ -38,10 +37,8 @@ class DetailsTabWidget(QTabWidget):
         self.addTabPage(title, [main, self.Stretch, state])
 
     def createTrafficPage(self):
-        self.oldTrafficIndex = 0
-        parts = self._createTrafficParts(self.oldTrafficIndex)
         title = QApplication.translate('DetailsTabWidget', "Market")
-        self.addTabPage(title, parts)
+        self.addTabPage(title, [])
 
     def createParametersPage(self):
         parameters = self.parametersLayout()
@@ -135,7 +132,7 @@ class DetailsTabWidget(QTabWidget):
 
     def addTabPage(self, title, parts):
         page = self.createTabPage(parts)
-        index = self.addTab(page, title)
+        self.addTab(page, title)
 
     def addItem(self, field):
         # Skip image fields for not a form
@@ -401,32 +398,24 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def _createTrafficParts(self, index=0):
-        stretch_widget = QWidget()
+    def _createTrafficParts(self, status):
+        stretch_widget = QWidget(self)
         stretch_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
 
         pageParts = []
-        if index == 1:
+        if status == 'pass':
             pass_ = self.passLayout()
             pageParts.extend([pass_, self.Stretch, stretch_widget])
-        elif index == 2:
+        elif status in ('owned', 'ordered', 'sale', 'missing'):
             pay = self.payLayout()
             pageParts.extend([pay, self.Stretch, stretch_widget])
-        elif index == 3:
-            pay = self.payLayout()
-            pageParts.extend([pay, self.Stretch, stretch_widget])
-        elif index == 4:
+        elif status == 'sold':
             pay = self.payLayout()
             sale = self.saleLayout()
             pageParts.extend([pay, self.Stretch, sale])
-        elif index == 5:
-            pay = self.payLayout()
-            pageParts.extend([pay, self.Stretch, stretch_widget])
         else:
             layout = self.emptyMarketLayout()
             pageParts.append(layout)
-
-        self.oldTrafficIndex = index
 
         return pageParts
 
@@ -434,7 +423,8 @@ class DetailsTabWidget(QTabWidget):
         pageIndex = self.currentIndex()
 
         self.removeTab(1)
-        pageParts = self._createTrafficParts(index)
+        status = self.items['status'].widget().currentData()
+        pageParts = self._createTrafficParts(status)
         page = self.createTabPage(pageParts)
 
         title = QApplication.translate('DetailsTabWidget', "Market")
@@ -486,6 +476,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def createPages(self):
         self.createCoinPage()
+        self.oldStatus = 'demo'
         self.createTrafficPage()
         self.createParametersPage()
         self.createDesignPage()
@@ -661,10 +652,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         title = ' '.join(titleParts)
         self.items['title'].setValue(title)
 
-    def _createTrafficParts(self, index=0):
-        if self.oldTrafficIndex == 0:
-            pass
-        elif self.oldTrafficIndex == 1:
+    def _createTrafficParts(self, status):
+        if self.oldStatus == 'pass':
             self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
@@ -672,31 +661,23 @@ class FormDetailsTabWidget(DetailsTabWidget):
             self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
             self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
             self.items['saleprice'].widget().textChanged.disconnect(self.items['payprice'].widget().setText)
-        elif self.oldTrafficIndex == 2:
+        elif self.oldStatus in ('owned', 'ordered', 'sale', 'missing'):
             self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
-        elif self.oldTrafficIndex == 3:
-            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
-            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
-            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
-        elif self.oldTrafficIndex == 4:
+        elif self.oldStatus == 'sold':
             self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
             self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
             self.payCommission.textChanged.disconnect(self.payCommissionChanged)
             self.items['saleprice'].widget().textChanged.disconnect(self.saleCommissionChanged)
             self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
             self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
-        elif self.oldTrafficIndex == 5:
-            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
-            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
-            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
-        elif self.oldTrafficIndex == 6:
+        else:
             pass
 
-        pageParts = super()._createTrafficParts(index)
+        pageParts = super()._createTrafficParts(status)
 
-        self.oldTrafficIndex = index
+        self.oldStatus = status
 
         return pageParts
 

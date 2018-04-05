@@ -283,31 +283,27 @@ class LineEditRef(QWidget):
 
 
 class StatusEdit(QComboBox):
-    def __init__(self, parent=None):
+
+    def __init__(self, settings, parent=None):
         super().__init__(parent)
         self.setMinimumWidth(100)
 
         for status, statusTitle in Statuses.items():
-            self.addItem(statusIcon(status), statusTitle)
+            if settings[status + '_status_used']:
+                self.addItem(statusIcon(status), statusTitle, status)
 
     def data(self):
-        currentIndex = self.currentIndex()
-        if currentIndex < 0:
-            currentIndex = 0
-
-        return Statuses.keys()[currentIndex]
+        return self.currentData()
 
     def clear(self):
         self.setCurrentIndex(-1)
 
     def setCurrentValue(self, value):
-        index = -1
-        for status, statusTitle in Statuses.items():
-            if status == value:
-                index = self.findText(statusTitle)
-
-        if index >= 0:
-            self.setCurrentIndex(index)
+        old_index = self.currentIndex()
+        index = self.findData(value)
+        self.setCurrentIndex(index)
+        if old_index == index:
+            self.currentIndexChanged.emit(index)
 
 
 class ShortLineEdit(QLineEdit):

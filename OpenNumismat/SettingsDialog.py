@@ -8,6 +8,7 @@ from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Reports import Report
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Settings import Settings
+from OpenNumismat.Collection.CollectionFields import Statuses
 
 
 class MainSettingsPage(QWidget):
@@ -231,6 +232,18 @@ class CollectionSettingsPage(QWidget):
         showIcons.setLayout(vLayout)
         layout.addRow(showIcons)
 
+        gLayout = QGridLayout()
+        statuses = QGroupBox(self.tr("Used statuses"), self)
+        self.statusUsed = {}
+        statuses_per_col = len(Statuses.Keys) / 4
+        for i, status in enumerate(Statuses.Keys):
+            statusCheckBox = QCheckBox(Statuses[status], self)
+            statusCheckBox.setChecked(self.settings[status + '_status_used'])
+            self.statusUsed[status] = statusCheckBox
+            gLayout.addWidget(statusCheckBox, i % statuses_per_col, i / statuses_per_col)
+        statuses.setLayout(gLayout)
+        layout.addRow(statuses)
+
         self.setLayout(layout)
 
     def save(self):
@@ -244,6 +257,9 @@ class CollectionSettingsPage(QWidget):
         old_image_height = self.settings['image_height']
         self.settings['image_height'] = float(self.imageHeight.currentText())
         self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
+
+        for status in Statuses.Keys:
+            self.settings[status + '_status_used'] = self.statusUsed[status].isChecked()
 
         self.settings.save()
 
