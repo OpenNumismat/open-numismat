@@ -1,5 +1,16 @@
 from textwrap import wrap
 
+from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QUrl
+from PyQt5.QtSql import QSqlQuery
+from PyQt5.QtWidgets import *
+
+import OpenNumismat
+from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Tools.Gui import createIcon, getSaveFileName, ProgressDialog
+from OpenNumismat.Tools.Converters import numberWithFraction
+from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+from OpenNumismat.Settings import Settings
+
 statisticsAvailable = True
 
 try:
@@ -27,18 +38,15 @@ except ValueError:
     class FigureCanvas:
         pass
 
-from PyQt5.QtWebKitWidgets import QWebView
+importedQtWebKit = True
+try:
+    from PyQt5.QtWebKitWidgets import QWebView
+except ImportError:
+    print('PyQt5.QtWebKitWidgets module missed. GeoChart not available')
+    importedQtWebKit = False
 
-from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QUrl
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import *
-
-import OpenNumismat
-from OpenNumismat.Collection.CollectionFields import Statuses
-from OpenNumismat.Tools.Gui import createIcon, getSaveFileName, ProgressDialog
-from OpenNumismat.Tools.Converters import numberWithFraction
-from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
-from OpenNumismat.Settings import Settings
+    class QWebView:
+        pass
 
 
 class GeoChartCanvas(QWebView):
@@ -338,7 +346,8 @@ class StatisticsView(QWidget):
         self.chartSelector.addItem(self.tr("Pie"), 'pie')
         self.chartSelector.addItem(self.tr("Stacked bar"), 'stacked')
         self.chartSelector.addItem(self.tr("Progress"), 'progress')
-        self.chartSelector.addItem(self.tr("GeoChart"), 'geochart')
+        if importedQtWebKit:
+            self.chartSelector.addItem(self.tr("GeoChart"), 'geochart')
         ctrlLayout.addWidget(QLabel(self.tr("Chart:")))
         ctrlLayout.addWidget(self.chartSelector)
 
