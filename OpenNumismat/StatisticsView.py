@@ -27,7 +27,9 @@ except ValueError:
     class FigureCanvas:
         pass
 
-from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime
+from PyQt5.QtWebKitWidgets import QWebView
+
+from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QUrl
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
@@ -36,6 +38,70 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import createIcon, getSaveFileName, ProgressDialog
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+from OpenNumismat.Settings import Settings
+
+
+class GeoChartCanvas(QWebView):
+    HTML = """
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+        'language': '%s',
+        'mapsApiKey': 'AIzaSyCtPThA7-xGhB54LbcUYlpgOO25ccYegMY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      var data;
+      var chart;
+      var element;
+
+      function drawRegionsMap() {
+        data = google.visualization.arrayToDataTable([
+          %s
+        ]);
+
+        element = document.getElementById('regions_div');
+        chart = new google.visualization.GeoChart(element);
+        chart.draw(data, {});
+      }
+      window.onresize = function(event) {
+        width = element.style.width;
+        height = element.style.height;
+        chart.draw(data, {width: width, height: height});
+      }
+    </script>
+  </head>
+  <body>
+    <div id="regions_div" style="width: 100%%; height: 100%%;"></div>
+  </body>
+</html>
+    """
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def setData(self, xx, yy):
+        data = ','.join(["['%s', %d]" % (x, y) for x, y in zip(xx, yy)])
+        header = "['%s', '%s']" % (self.tr("Country"), self.tr("Number of coins"))
+        data = ','.join((header, data))
+        locale = Settings()['locale']
+        self.html_data = self.HTML % (locale, data)
+        self.setHtml(self.html_data, QUrl.fromLocalFile(OpenNumismat.PRJ_PATH))
+
+    def setMulticolor(self, multicolor=False):
+        pass
+
+    filters = (QApplication.translate('GeoChartCanvas', "Web page (*.htm *.html)"),)
+
+    def save(self, fileName, selectedFilter):
+        if selectedFilter == self.filters[0]:
+            with open(fileName, 'wb') as f:
+                f.write(bytes(self.html_data, 'utf-8'))
 
 
 class BaseCanvas(FigureCanvas):
@@ -91,6 +157,18 @@ class BaseCanvas(FigureCanvas):
         x = self.xx[pos]
         y = self.yy[pos]
         return "%s: %s\n%s: %d" % (self.label_y, x, self.label, y)
+
+    filters = (QApplication.translate('BaseCanvas', "PNG image (*.png)"),
+               QApplication.translate('BaseCanvas', "PDF file (*.pdf)"),
+               QApplication.translate('BaseCanvas', "SVG image (*.svg)"),
+               QApplication.translate('BaseCanvas', "PostScript (*.ps)"),
+               QApplication.translate('BaseCanvas', "Encapsulated PostScript (*.eps)"))
+
+    def save(self, fileName, selectedFilter):
+        # TODO: Matplotlib 2.1.0 needs file name in latin-1 for PS and EPS
+        if selectedFilter in self.filters[3:5]:
+            fileName = fileName.encode("latin-1", "ignore")
+        self.fig.savefig(fileName)
 
 
 class BarCanvas(BaseCanvas):
@@ -243,7 +321,7 @@ class StatisticsView(QWidget):
         ctrlLayout = QVBoxLayout()
         ctrlLayout.setAlignment(Qt.AlignTop)
         widget = self.__layoutToWidget(ctrlLayout)
-        widget.setSizePolicy(QSizePolicy.Preferred,
+        widget.setSizePolicy(QSizePolicy.Fixed,
                              QSizePolicy.Fixed)
         layout.addWidget(widget)
 
@@ -260,6 +338,7 @@ class StatisticsView(QWidget):
         self.chartSelector.addItem(self.tr("Pie"), 'pie')
         self.chartSelector.addItem(self.tr("Stacked bar"), 'stacked')
         self.chartSelector.addItem(self.tr("Progress"), 'progress')
+        self.chartSelector.addItem(self.tr("GeoChart"), 'geochart')
         ctrlLayout.addWidget(QLabel(self.tr("Chart:")))
         ctrlLayout.addWidget(self.chartSelector)
 
@@ -372,7 +451,9 @@ class StatisticsView(QWidget):
     def modelChanged(self):
         self.chartLayout.removeWidget(self.chart)
         chart = self.chartSelector.currentData()
-        if chart == 'barh':
+        if chart == 'geochart':
+            self.chart = GeoChartCanvas(self)
+        elif chart == 'barh':
             self.chart = BarHCanvas(self)
         elif chart == 'pie':
             self.chart = PieCanvas(self)
@@ -397,7 +478,21 @@ class StatisticsView(QWidget):
         else:
             sql_filter = ""
 
-        if chart == 'stacked':
+        if chart == 'geochart':
+            sql = "SELECT count(*), country FROM coins %s GROUP BY country" % sql_filter
+            query = QSqlQuery(self.model.database())
+            query.exec_(sql)
+            xx = []
+            yy = []
+            while query.next():
+                record = query.record()
+                count = record.value(0)
+                val = str(record.value(1))
+                xx.append(val)
+                yy.append(count)
+
+            self.chart.setData(xx, yy)
+        elif chart == 'stacked':
             subfieldId = self.subfieldSelector.currentData()
             subfield = self.model.fields.field(subfieldId).name
             sql = "SELECT count(%s), %s, %s FROM coins %s GROUP BY %s, %s" % (
@@ -537,13 +632,13 @@ class StatisticsView(QWidget):
     def showConfig(self, chart):
         self.subfieldSelector.setVisible(chart == 'stacked')
         self.subfieldLabel.setVisible(chart == 'stacked')
-        self.fieldSelector.setVisible(chart != 'progress')
-        self.fieldLabel.setVisible(chart != 'progress')
+        self.fieldSelector.setVisible(chart != 'progress' and chart != 'geochart')
+        self.fieldLabel.setVisible(chart != 'progress' and chart != 'geochart')
         self.periodSelector.setVisible(chart == 'progress')
         self.periodLabel.setVisible(chart == 'progress')
         self.itemsSelector.setVisible(chart == 'progress')
         self.itemsLabel.setVisible(chart == 'progress')
-        self.colorCheck.setVisible(chart != 'stacked' and chart != 'pie')
+        self.colorCheck.setVisible(chart != 'stacked' and chart != 'pie' and chart != 'geochart')
 
     def periodChaged(self, _text):
         period = self.periodSelector.currentData()
@@ -568,19 +663,11 @@ class StatisticsView(QWidget):
         return widget
 
     def save(self):
-        filters = (self.tr("PNG image (*.png)"),
-                   self.tr("PDF file (*.pdf)"),
-                   self.tr("SVG image (*.svg)"),
-                   self.tr("PostScript (*.ps)"),
-                   self.tr("Encapsulated PostScript (*.eps)"))
         defaultFileName = "%s_%s" % (self.chartSelector.currentText(),
                                      QDateTime.currentDateTime().toString('yyyyMMdd'))
 
         fileName, selectedFilter = getSaveFileName(
             self, 'export_statistics', defaultFileName,
-            OpenNumismat.HOME_PATH, filters)
+            OpenNumismat.HOME_PATH, self.chart.filters)
         if fileName:
-            # TODO: Matplotlib 2.1.0 needs file name in latin-1 for PS and EPS
-            if selectedFilter in filters[3:5]:
-                fileName = fileName.encode("latin-1", "ignore")
-            self.chart.fig.savefig(fileName)
+            self.chart.save(fileName, selectedFilter)
