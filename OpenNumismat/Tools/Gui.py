@@ -5,7 +5,6 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QProgressDialog, QFileDialog, QApplication
 
 import OpenNumismat
-from OpenNumismat.Collection.CollectionFields import Status
 
 
 class ProgressDialog(QProgressDialog):
