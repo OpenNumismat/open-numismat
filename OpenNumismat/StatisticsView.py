@@ -1,6 +1,7 @@
 from textwrap import wrap
 
-from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QUrl
+from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QUrl, QByteArray
+from PyQt5.QtGui import QImage
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
@@ -105,12 +106,26 @@ class GeoChartCanvas(QWebView):
     def setMulticolor(self, multicolor=False):
         pass
 
-    filters = (QApplication.translate('GeoChartCanvas', "Web page (*.htm *.html)"),)
+    filters = (QApplication.translate('GeoChartCanvas', "Web page (*.htm *.html)"),
+               QApplication.translate('GeoChartCanvas', "PNG image (*.png)"))
 
     def save(self, fileName, selectedFilter):
-        if selectedFilter == self.filters[0]:
-            with open(fileName, 'wb') as f:
-                f.write(bytes(self.html_data, 'utf-8'))
+        if selectedFilter == self.filters[1]:
+            img = self.page().mainFrame().evaluateJavaScript("chart.getImageURI()")
+            if img:
+                ba = QByteArray()
+                ba.append(img[22:])
+                by = QByteArray.fromBase64(ba)
+                image = QImage.fromData(by, "PNG")
+                image.save(fileName)
+            else:
+                QMessageBox.warning(self.parent(),
+                            self.tr("Saving"),
+                            self.tr("Image not ready. Please try again later"))
+        else:
+            if selectedFilter == self.filters[0]:
+                with open(fileName, 'wb') as f:
+                    f.write(bytes(self.html_data, 'utf-8'))
 
 
 class BaseCanvas(FigureCanvas):
