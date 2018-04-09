@@ -142,8 +142,18 @@ class TabView(QTabWidget):
         else:
             self.parent().quickSearch.clear()
 
+    def clear(self):
+        self.currentChanged.disconnect(self.activatedPage)
+        for _ in range(self.count()):
+            w = self.widget(0)
+            self.removeTab(0)
+            w.deleteLater()
+        self.currentChanged.connect(self.activatedPage)
+
     def setCollection(self, collection):
         self.collection = collection
+
+        self.currentChanged.disconnect(self.activatedPage)
 
         for _ in range(self.count()):
             self.removeTab(0)
@@ -151,7 +161,12 @@ class TabView(QTabWidget):
         for pageParam in collection.pages().pagesParam():
             if pageParam.isopen:
                 self.__createPage(pageParam)
+
+        self.currentChanged.connect(self.activatedPage)
+
         self.setCurrentIndex(0)
+        if self.count() == 1:
+            self.activatedPage(0)
 
         # If no pages exists => create default page
         if self.count() == 0:
