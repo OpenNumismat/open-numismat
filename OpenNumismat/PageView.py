@@ -521,21 +521,26 @@ class PageView(Splitter):
         else:
             self.imageView = ImageView(QBoxLayout.TopToBottom, self)
             self.detailsView = DetailsView(QBoxLayout.LeftToRight, self)
-        if statisticsAvailable:
-            self.statisticsView = StatisticsView(pageParam.statisticsParam, self)
-            self.statisticsView.setMinimumHeight(200)
 
         self.splitter1 = Splitter('1', Qt.Vertical, self)
         splitter2 = Splitter('2', parent=self.splitter1)
         splitter2.addWidget(self.treeView)
         splitter2.addWidget(self.listView)
         self.splitter1.addWidget(splitter2)
-        if statisticsAvailable:
-            self.splitter1.addWidget(self.statisticsView)
         if imagesAtBottom:
             self.splitter1.addWidget(self.imageView)
         else:
             self.splitter1.addWidget(self.detailsView)
+
+        self.statisticsShowed = pageParam.statisticsParam['showed']
+        if statisticsAvailable:
+            self.statisticsView = StatisticsView(pageParam.statisticsParam, self)
+            self.statisticsView.setMinimumHeight(200)
+            if self.statisticsShowed:
+                self.splitter1.insertWidget(2, self.statisticsView)
+            else:
+                self.splitter1.insertWidget(1, self.statisticsView)
+
         self.addWidget(self.splitter1)
         if imagesAtBottom:
             self.addWidget(self.detailsView)
@@ -546,8 +551,6 @@ class PageView(Splitter):
         self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
         self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
         self.splitterMoved.connect(self.splitterPosChanged)
-
-        self.statisticsShowed = self.param.statisticsParam['showed']
 
     def setModel(self, model, reference):
         self._model = model
@@ -577,16 +580,11 @@ class PageView(Splitter):
 
         sizes = self.splitter1.sizes()
 
-        if show:
-            self.splitter1.insertWidget(1, self.statisticsView)
-            old_widget = self.splitter1.widget(1)
-            old_widget.hide()
-            self.statisticsView.show()
-        else:
-            new_widget = self.splitter1.widget(2)
-            self.splitter1.insertWidget(1, new_widget)
-            self.statisticsView.hide()
-            new_widget.show()
+        old_widget = self.splitter1.widget(1)
+        old_widget.hide()
+        new_widget = self.splitter1.widget(2)
+        new_widget.show()
+        self.splitter1.insertWidget(1, new_widget)
 
         if self.statisticsShowed != show:
             self.param.statisticsParam['showed'] = show
