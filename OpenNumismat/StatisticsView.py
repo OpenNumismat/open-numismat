@@ -67,6 +67,7 @@ class GeoChartCanvas(QWebView):
       var data;
       var chart;
       var element;
+      var region = %s;
 
       function drawRegionsMap() {
         data = google.visualization.arrayToDataTable([
@@ -75,12 +76,12 @@ class GeoChartCanvas(QWebView):
 
         element = document.getElementById('regions_div');
         chart = new google.visualization.GeoChart(element);
-        chart.draw(data, {});
+        chart.draw(data, {region: region});
       }
       window.onresize = function(event) {
         width = element.style.width;
         height = element.style.height;
-        chart.draw(data, {width: width, height: height});
+        chart.draw(data, {width: width, height: height, region: region});
       }
     </script>
   </head>
@@ -93,12 +94,12 @@ class GeoChartCanvas(QWebView):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-    def setData(self, xx, yy):
+    def setData(self, xx, yy, region):
         data = ','.join(["['%s', %d]" % (x, y) for x, y in zip(xx, yy)])
         header = "['%s', '%s']" % (self.tr("Country"), self.tr("Number of coins"))
         data = ','.join((header, data))
         locale = Settings()['locale']
-        self.html_data = self.HTML % (locale, data)
+        self.html_data = self.HTML % (locale, region, data)
         self.setHtml(self.html_data, QUrl.fromLocalFile(OpenNumismat.PRJ_PATH))
 
     def setMulticolor(self, multicolor=False):
@@ -381,6 +382,17 @@ class StatisticsView(QWidget):
         self.colorCheck = QCheckBox(self.tr("Multicolor"), self)
         ctrlLayout.addWidget(self.colorCheck)
 
+        self.regionLabel = QLabel(self.tr("Region:"))
+        ctrlLayout.addWidget(self.regionLabel)
+        self.regionSelector = QComboBox(self)
+        self.regionSelector.addItem(self.tr("All"), 'null')
+        self.regionSelector.addItem(self.tr("Europe"), "'150'")
+        self.regionSelector.addItem(self.tr("Africa"), "'002'")
+        self.regionSelector.addItem(self.tr("Americas"), "'019'")
+        self.regionSelector.addItem(self.tr("Asia"), "'142'")
+        self.regionSelector.addItem(self.tr("Oceania"), "'009'")
+        ctrlLayout.addWidget(self.regionSelector)
+
         saveButton = QPushButton()
         icon = createIcon("save.png")
         saveButton.setIcon(icon)
@@ -453,6 +465,7 @@ class StatisticsView(QWidget):
         self.periodSelector.currentIndexChanged.connect(self.periodChaged)
         self.itemsSelector.currentIndexChanged.connect(self.itemsChaged)
         self.colorCheck.stateChanged.connect(self.colorChanged)
+        self.regionSelector.currentIndexChanged.connect(self.regionChanged)
 
     def clear(self):
         pass
@@ -500,7 +513,7 @@ class StatisticsView(QWidget):
                 xx.append(val)
                 yy.append(count)
 
-            self.chart.setData(xx, yy)
+            self.chart.setData(xx, yy, self.regionSelector.currentData())
         elif chart == 'stacked':
             subfieldId = self.subfieldSelector.currentData()
             subfield = self.model.fields.field(subfieldId).name
@@ -648,6 +661,8 @@ class StatisticsView(QWidget):
         self.itemsSelector.setVisible(chart == 'progress')
         self.itemsLabel.setVisible(chart == 'progress')
         self.colorCheck.setVisible(chart != 'stacked' and chart != 'pie' and chart != 'geochart')
+        self.regionLabel.setVisible(chart == 'geochart')
+        self.regionSelector.setVisible(chart == 'geochart')
 
     def periodChaged(self, _text):
         period = self.periodSelector.currentData()
@@ -663,6 +678,12 @@ class StatisticsView(QWidget):
 
     def colorChanged(self, state):
         self.statisticsParam['color'] = state
+
+        self.modelChanged()
+
+    def regionChanged(self, _text):
+#        region = self.itemsSelector.currentData()
+#        self.statisticsParam['region'] = region
 
         self.modelChanged()
 
