@@ -268,12 +268,18 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['saledate'], self.items['saleprice'])
 
         # Add auxiliary field
-        item = self.addPayCommission()
+        if self.items['saleprice'].hidden or self.items['totalpayprice'].hidden:
+            item = None
+        else:
+            item = self.addPayCommission()
         layout.addRow(self.items['totalpayprice'], item)
         self.items['saleprice'].widget().textChanged.connect(self.items['payprice'].widget().setText)
 
         # Add auxiliary field
-        item = self.addSaleCommission()
+        if self.items['saleprice'].hidden or self.items['totalsaleprice'].hidden:
+            item = None
+        else:
+            item = self.addSaleCommission()
         layout.addRow(self.items['totalsaleprice'], item)
 
         layout.addRow(self.items['saller'])
@@ -408,6 +414,9 @@ class DetailsTabWidget(QTabWidget):
         stretch_widget = QWidget(self)
         stretch_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
 
+        self.payCommission = None
+        self.saleCommission = None
+
         pageParts = []
         if status == 'pass':
             pass_ = self.passLayout()
@@ -439,39 +448,43 @@ class DetailsTabWidget(QTabWidget):
 
     def addPayCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
-        self.payComission = FormItem(self.settings, None, title, Type.Money | Type.Disabled)
+        item = FormItem(self.settings, None, title, Type.Money | Type.Disabled)
+        self.payCommission = item.widget()
 
         self.items['payprice'].widget().textChanged.connect(self.payPriceChanged)
         self.items['totalpayprice'].widget().textChanged.connect(self.payPriceChanged)
 
-        return self.payComission
+        return item
 
     def payPriceChanged(self, text):
-        totalPriceValue = self.items['totalpayprice'].value()
-        if totalPriceValue:
-            price = textToFloat(self.items['payprice'].value())
-            totalPrice = textToFloat(totalPriceValue)
-            self.payComission.widget().setText(floatToText(totalPrice - price))
-        else:
-            self.payComission.widget().setText('')
+        if self.payCommission:
+            totalPriceValue = self.items['totalpayprice'].value()
+            if totalPriceValue:
+                price = textToFloat(self.items['payprice'].value())
+                totalPrice = textToFloat(totalPriceValue)
+                self.payCommission.setText(floatToText(totalPrice - price))
+            else:
+                self.payCommission.setText('')
 
     def addSaleCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
-        self.saleComission = FormItem(self.settings, None, title, Type.Money | Type.Disabled)
+        item = FormItem(self.settings, None, title, Type.Money | Type.Disabled)
+        self.saleCommission = item.widget()
 
         self.items['saleprice'].widget().textChanged.connect(self.salePriceChanged)
         self.items['totalsaleprice'].widget().textChanged.connect(self.salePriceChanged)
 
-        return self.saleComission
+        return item
 
     def salePriceChanged(self, text):
-        totalPriceValue = self.items['totalsaleprice'].value()
-        if totalPriceValue:
-            price = textToFloat(self.items['saleprice'].value())
-            totalPrice = textToFloat(totalPriceValue)
-            self.saleComission.widget().setText(floatToText(price - totalPrice))
-        else:
-            self.saleComission.widget().setText('')
+        if self.saleCommission:
+            totalPriceValue = self.items['totalsaleprice'].value()
+            if totalPriceValue:
+                price = textToFloat(self.items['saleprice'].value())
+                totalPrice = textToFloat(totalPriceValue)
+                self.saleCommission.setText(floatToText(price - totalPrice))
+            else:
+                self.saleCommission.setText('')
 
 
 class FormDetailsTabWidget(DetailsTabWidget):
@@ -660,24 +673,29 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def _createTrafficParts(self, status):
         if self.oldStatus == 'pass':
-            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
-            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
-            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
-            self.items['saleprice'].widget().textChanged.disconnect(self.saleCommissionChanged)
-            self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
-            self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
-            self.items['saleprice'].widget().textChanged.disconnect(self.items['payprice'].widget().setText)
+            if self.payCommission:
+                self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
+                self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
+                self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+            if self.saleCommission:
+                self.items['saleprice'].widget().textChanged.disconnect(self.saleCommissionChanged)
+                self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
+                self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
+                self.items['saleprice'].widget().textChanged.disconnect(self.items['payprice'].widget().setText)
         elif self.oldStatus in ('owned', 'ordered', 'sale', 'missing'):
-            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
-            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
-            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+            if self.payCommission:
+                self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
+                self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
+                self.payCommission.textChanged.disconnect(self.payCommissionChanged)
         elif self.oldStatus == 'sold':
-            self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
-            self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
-            self.payCommission.textChanged.disconnect(self.payCommissionChanged)
-            self.items['saleprice'].widget().textChanged.disconnect(self.saleCommissionChanged)
-            self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
-            self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
+            if self.payCommission:
+                self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
+                self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
+                self.payCommission.textChanged.disconnect(self.payCommissionChanged)
+            if self.saleCommission:
+                self.items['saleprice'].widget().textChanged.disconnect(self.saleCommissionChanged)
+                self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
+                self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
         else:
             pass
 
@@ -686,6 +704,15 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.oldStatus = status
 
         return pageParts
+
+    def indexChangedState(self, index):
+        super().indexChangedState(index)
+
+        if self.oldStatus in ('owned', 'ordered', 'sale', 'missing'):
+            self.payPriceChanged('')
+        elif self.oldStatus in ('sold', 'pass'):
+            self.payPriceChanged('')
+            self.salePriceChanged('')
 
     def addPayCommission(self):
         item = FormItem(self.settings, None, self.tr("Commission"), Type.Money)
