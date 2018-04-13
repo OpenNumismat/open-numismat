@@ -230,7 +230,10 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['paydate'], self.items['payprice'])
 
         # Add auxiliary field
-        item = self.addPayCommission()
+        if self.items['payprice'].hidden or self.items['totalpayprice'].hidden:
+            item = None
+        else:
+            item = self.addPayCommission()
 
         layout.addRow(self.items['totalpayprice'], item)
         layout.addRow(self.items['saller'])
@@ -246,9 +249,12 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['saledate'], self.items['saleprice'])
 
         # Add auxiliary field
-        item = self.addSaleCommission()
-        layout.addRow(self.items['totalsaleprice'], item)
+        if self.items['saleprice'].hidden or self.items['totalsaleprice'].hidden:
+            item = None
+        else:
+            item = self.addSaleCommission()
 
+        layout.addRow(self.items['totalsaleprice'], item)
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
         layout.addRow(self.items['saleinfo'])
