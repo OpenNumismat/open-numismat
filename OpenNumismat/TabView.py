@@ -155,9 +155,6 @@ class TabView(QTabWidget):
 
         self.currentChanged.disconnect(self.activatedPage)
 
-        for _ in range(self.count()):
-            self.removeTab(0)
-
         for pageParam in collection.pages().pagesParam():
             if pageParam.isopen:
                 self.__createPage(pageParam)
