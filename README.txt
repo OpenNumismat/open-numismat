@@ -1,7 +1,7 @@
 Requirement:
  * Python 3.4.4
  * PyQt5 5.5.1
- * Jinja2 2.8 (for reports)
+ * Jinja2 2.10 (for reports)
  * Matplotlib 2.1.0 (for statistics)
  * xlwt-future 0.8.0 (for exporting to Excel)
  * pywin32-219 (for saving report as Word Document)
