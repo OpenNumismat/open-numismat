@@ -15,6 +15,7 @@ class MainSettingsPage(QWidget):
     Languages = [("Български", 'bg'), ("Català", 'ca'), ("Čeština", 'cs'),
                  ("Deutsch", 'de'), ("English", 'en'), ("Ελληνικά", 'el'),
                  ("Español", 'es'), ("Français", 'fr'), ("Italiano", 'it'),
+                 ("Latviešu", 'lv'),
                  ("Magyar", 'hu'), ("Nederlands", 'nl'), ("Polski", 'pl'),
                  ("Português", 'pt'), ("Русский", 'ru'), ("Український", 'uk'),
                  ]
