@@ -97,7 +97,7 @@ class Settings(BaseSettings):
                    'check_coin_title', 'check_coin_duplicate'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
-        elif key in ('images_by_default', 'autobackup_depth'):
+        elif key in ('images_by_default', 'autobackup_depth', 'speedup'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=int)
         else:
