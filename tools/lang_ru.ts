@@ -32,27 +32,27 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>Изображение PNG (*.png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PDF file (*.pdf)</source>
-        <translation type="unfinished"/>
+        <translation>Файл PDF (*.pdf)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>SVG image (*.svg)</source>
-        <translation type="unfinished"/>
+        <translation>Изображение SVG (*.svg)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PostScript (*.ps)</source>
-        <translation type="unfinished"/>
+        <translation>PostScript (*.ps)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>Encapsulated PostScript (*.eps)</source>
-        <translation type="unfinished"/>
+        <translation>Encapsulated PostScript (*.eps)</translation>
     </message>
 </context>
 <context>
@@ -735,7 +735,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="236"/>
         <source>Used statuses</source>
-        <translation type="unfinished"/>
+        <translation>Используемые статусы</translation>
     </message>
 </context>
 <context>
@@ -1132,32 +1132,32 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Страна</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Number of coins</source>
-        <translation type="unfinished"/>
+        <translation>Количество монет</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>Web page (*.htm *.html)</source>
-        <translation type="unfinished"/>
+        <translation>Веб-страница (*.htm *.html)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>Изображение PNG (*.png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Сохранение</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
         <source>Image not ready. Please try again later</source>
-        <translation type="unfinished"/>
+        <translation>Изображение не готово. Попробуйте позже</translation>
     </message>
 </context>
 <context>
@@ -2382,42 +2382,42 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="366"/>
         <source>GeoChart</source>
-        <translation type="unfinished"/>
+        <translation>GeoChart</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="400"/>
         <source>Region:</source>
-        <translation type="unfinished"/>
+        <translation>Регион:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="403"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Все</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="404"/>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>Европа</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="405"/>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>Африка</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="406"/>
         <source>Americas</source>
-        <translation type="unfinished"/>
+        <translation>Америка</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="407"/>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>Азия</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="408"/>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Океания</translation>
     </message>
 </context>
 <context>
@@ -2460,7 +2460,7 @@ Created new one</source>
     <message>
         <location filename="CollectionFields.py" line="67"/>
         <source>Missing</source>
-        <translation type="unfinished"/>
+        <translation>Утеряна</translation>
     </message>
 </context>
 <context>
@@ -2528,7 +2528,7 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="67"/>
         <source>Count missing: %d</source>
-        <translation type="unfinished"/>
+        <translation>Количество утерянных: %d</translation>
     </message>
 </context>
 <context>
