@@ -43,7 +43,8 @@ Main features:
   2015, Collection Studio, Numizmatik_Ru, Tellico (additional software may be
   required), uCoin.net
 - Support languages: English, Russian, Ukrainian, Spanish, French, Hungarian,
-  Portuguese, German, Greek, Czech, Italian, Polish, Catalan, Dutch, Bulgarian
+  Portuguese, German, Greek, Czech, Italian, Polish, Catalan, Dutch, Bulgarian,
+  Latvian
 - Cross-platform: Windows, Linux, MacOS X
 
 .. image:: http://opennumismat.github.io/images/screenMain.png
@@ -91,7 +92,7 @@ for mn, urlm in NEEDED_MODULES:
         sys.exit(1)
 
 dependencies = ['lxml', 'jinja2', 'matplotlib', 'numpy', 'xlrd', 'python-dateutil']
-if sys.platform == 'win32':
+if sys.platform == 'win32' or sys.platform == "darwin":
     dependencies.append("xlwt")
 
 
@@ -138,6 +139,7 @@ params = {
             "Natural Language :: Catalan",
             "Natural Language :: Dutch",
             "Natural Language :: Bulgarian",
+            "Natural Language :: Latvian",
             "Intended Audience :: End Users/Desktop",
             "Operating System :: OS Independent",
             "Operating System :: POSIX :: Linux",
