@@ -239,6 +239,8 @@ if cx_Freeze_available:
             "replace_paths": [(os.path.dirname(__file__) + os.sep, '')],
             "include_msvcr": True  # skip error msvcr100.dll missing
     }
+    if sys.platform == "darwin":
+        build_exe_options["packages"] = ["xlwt", "asyncio"]
 
     params["executables"] = [executable]
     params["options"] = {"build_exe": build_exe_options,
@@ -263,87 +265,6 @@ if sys.platform == "darwin":
     binDir = 'build/' + bundleName + '/Contents/MacOS/'
     shutil.copy("qt.conf", binDir)
     shutil.copy("OpenNumismat.icns", "build/" + bundleName + "/Contents/Resources")
-    os.remove(binDir + "imageformats/libqsvg.dylib")
-
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/QtCore",
-            binDir + "sqldrivers/libqsqlite.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtSql.framework/Versions/4/QtSql",
-            "@executable_path/QtSql",
-            binDir + "sqldrivers/libqsqlite.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/lib/libsqlite3.0.dylib",
-            "@executable_path/libsqlite3.0.dylib",
-            binDir + "sqldrivers/libqsqlite.dylib"]))
-
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/QtCore",
-            binDir + "imageformats/libqgif.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/QtGui",
-            binDir + "imageformats/libqgif.dylib"]))
-
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/QtCore",
-            binDir + "imageformats/libqico.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/QtGui",
-            binDir + "imageformats/libqico.dylib"]))
-
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/QtCore",
-            binDir + "imageformats/libqjpeg.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/QtGui",
-            binDir + "imageformats/libqjpeg.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/lib/libjpeg.9.dylib",
-            "@executable_path/libjpeg.9.dylib",
-            binDir + "imageformats/libqjpeg.dylib"]))
-
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/QtCore",
-            binDir + "imageformats/libqmng.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/QtGui",
-            binDir + "imageformats/libqmng.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/lib/libmng.1.dylib",
-            "@executable_path/libmng.1.dylib",
-            binDir + "imageformats/libqmng.dylib"]))
-
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/QtCore",
-            binDir + "imageformats/libqtga.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/QtGui",
-            binDir + "imageformats/libqtga.dylib"]))
-
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtCore.framework/Versions/4/QtCore",
-            "@executable_path/QtCore",
-            binDir + "imageformats/libqtiff.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/Library/Frameworks/QtGui.framework/Versions/4/QtGui",
-            "@executable_path/QtGui",
-            binDir + "imageformats/libqtiff.dylib"]))
-    os.system(' '.join(["install_name_tool", "-change",
-            "/opt/local/lib/libtiff.5.dylib",
-            "@executable_path/libtiff.5.dylib",
-            binDir + "imageformats/libqtiff.dylib"]))
-
 
 ###############################################################################
 # MAIN
