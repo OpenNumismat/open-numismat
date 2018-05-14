@@ -411,7 +411,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def _createTrafficParts(self, status):
-        stretch_widget = QWidget(self)
+        stretch_widget = QWidget()
         stretch_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
 
         self.payCommission = None
