@@ -105,7 +105,7 @@
     <message>
         <location filename="Collection.py" line="1002"/>
         <source>Fill from collection</source>
-        <translation type="unfinished"/>
+        <translation>Попълнете от колекцията</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1005"/>
@@ -162,7 +162,7 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="846"/>
         <source>Attach current reference to a collection file?</source>
-        <translation type="unfinished"/>
+        <translation>Прикачете текущата номенклатура във файл на колекцията?</translation>
     </message>
     <message>
         <location filename="Collection.py" line="887"/>
@@ -2235,7 +2235,7 @@ Created new one</source>
     <message>
         <location filename="SettingsDialog.py" line="363"/>
         <source>Main</source>
-        <translation>Основен</translation>
+        <translation>Основени</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="367"/>
