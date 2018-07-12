@@ -66,8 +66,15 @@ class SummaryDialog(QDialog):
             if count > 0:
                 lines.append(self.tr("Count missing: %d") % count)
 
+        sql = "SELECT count(*) FROM coins WHERE status='bidding'"
+        query = QSqlQuery(sql, model.database())
+        if query.first():
+            count = query.record().value(0)
+            if count > 0:
+                lines.append(self.tr("Count biddings: %d") % count)
+
         paid = 0
-        sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
+        sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'bidding') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
         query = QSqlQuery(sql, model.database())
         if query.first():
             paid = query.record().value(0)
@@ -86,7 +93,7 @@ class SummaryDialog(QDialog):
             total = (paid - earned)
             lines.append(self.tr("Total (paid - earned): %.2f") % total)
 
-        sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
+        sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'bidding') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
         query = QSqlQuery(sql, model.database())
         if query.first():
             date = QDate.fromString(query.record().value(0), Qt.ISODate)

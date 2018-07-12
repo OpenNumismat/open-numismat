@@ -63,7 +63,7 @@ class FieldTypes():
 
 class Status(dict):
     Keys = ('demo', 'pass', 'owned', 'ordered',
-            'sold', 'sale', 'wish', 'missing')
+            'sold', 'sale', 'wish', 'missing', 'bidding')
     Titles = (
         QT_TRANSLATE_NOOP("Status", "Demo"),
         QT_TRANSLATE_NOOP("Status", "Pass"),
@@ -73,6 +73,7 @@ class Status(dict):
         QT_TRANSLATE_NOOP("Status", "Sale"),
         QT_TRANSLATE_NOOP("Status", "Wish"),
         QT_TRANSLATE_NOOP("Status", "Missing"),
+        QT_TRANSLATE_NOOP("Status", "Bidding"),
     )
 
     def __init__(self):
