@@ -30,11 +30,12 @@ except ImportError:
 @storeDlgSizeDecorator
 class TableDialog(QDialog):
 
-    def __init__(self, parent, path):
+    def __init__(self, parent, path, datemode):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.path = path
+        self.datemode = datemode
 
         self.setWindowTitle(self.tr("Select columns"))
 
@@ -64,7 +65,21 @@ class TableDialog(QDialog):
         for i in range(self.hlayout.count()):
             combo = self.hlayout.itemAt(i).widget()
             field = combo.currentData()
-            if field and field.type in Type.ImageTypes:
+            if not field:
+                continue
+
+            if field.type == Type.Date:
+                for row in range(self.table.rowCount()):
+                    item = self.table.item(row, i)
+                    val = item.text()
+                    try:
+                        y, m, d, _h, _m, _s = xlrd.xldate_as_tuple(float(val),
+                                                                   self.datemode)
+                        date = "%d-%02d-%02d" % (y, m, d)
+                        item.setText(date)
+                    except ValueError:
+                        pass
+            elif field.type in Type.ImageTypes:
                 for row in range(self.table.rowCount()):
                     item = self.table.item(row, i)
                     fileName = item.text()
@@ -110,11 +125,12 @@ class ImportExcel(_Import2):
         return 'owned'
 
     def _connect(self, src):
-        self.src_path = os.path.dirname(src)
-        dialog = TableDialog(self.parent(), self.src_path)
-
         book = xlrd.open_workbook(src)
+        self.datemode = book.datemode
         self.sheet = book.sheet_by_index(0)
+
+        self.src_path = os.path.dirname(src)
+        dialog = TableDialog(self.parent(), self.src_path, self.datemode)
 
         rows = self.sheet.nrows
         if rows > 10:
@@ -173,6 +189,13 @@ class ImportExcel(_Import2):
 
             val = self.sheet.cell(row, i).value
             if field.type == Type.Date:
+                try:
+                    y, m, d, _h, _m, _s = xlrd.xldate_as_tuple(float(val),
+                                                               self.datemode)
+                    val = "%d-%02d-%02d" % (y, m, d)
+                except ValueError:
+                    pass
+
                 try:
                     val = parser.parse(val).date().isoformat()
                 except ValueError:
