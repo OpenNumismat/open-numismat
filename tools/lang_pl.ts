@@ -32,7 +32,7 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>Obraz PNG (*.png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
@@ -231,7 +231,7 @@ Zaktualizuj OpenNumismat</translation>
     <message>
         <location filename="Collection.py" line="1499"/>
         <source>Synchronizing</source>
-        <translation type="unfinished"/>
+        <translation>Synchronizowanie</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1324"/>
@@ -650,12 +650,12 @@ The application will need to restart now.</source>
     <message>
         <location filename="Collection.py" line="414"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <location filename="Collection.py" line="435"/>
         <source>Saving...</source>
-        <translation type="unfinished"/>
+        <translation>Zapisywanie...</translation>
     </message>
 </context>
 <context>
@@ -1125,12 +1125,12 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Państwo</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Number of coins</source>
-        <translation type="unfinished"/>
+        <translation>Ilość monet</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
@@ -1145,7 +1145,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="StatisticsView.py" line="122"/>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Zapisywanie</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
@@ -1218,7 +1218,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ImageLabel.py" line="302"/>
         <source>Rename image</source>
-        <translation type="unfinished"/>
+        <translation>Zmiana nazwy obrazu</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="302"/>
@@ -1321,7 +1321,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ListView.py" line="129"/>
         <source>0 coin(s) selected</source>
-        <translation>Wybrano () monet</translation>
+        <translation>Nie wybrano monet</translation>
     </message>
     <message>
         <location filename="ListView.py" line="160"/>
@@ -1376,7 +1376,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message numerus="yes">
         <location filename="ListView.py" line="401"/>
         <source>%n coin(s) selected</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Wybrano %n monetę</numerusform><numerusform>Wybrano %n monet</numerusform><numerusform>Wybrano %n monet</numerusform><numerusform>Wybrano %n monet</numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="442"/>
@@ -1549,7 +1549,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="SettingsDialog.py" line="75"/>
         <source>Make autobackup</source>
-        <translation type="unfinished"/>
+        <translation>Automatyczna kopia zapasowa</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="85"/>
@@ -1837,12 +1837,12 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="MainWindow.py" line="298"/>
         <source>User manual</source>
-        <translation type="unfinished"/>
+        <translation>Podręcznik użytkownika</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="302"/>
         <source>Visit web-site</source>
-        <translation type="unfinished"/>
+        <translation>Strona domowa</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="419"/>
@@ -1852,17 +1852,17 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="MainWindow.py" line="416"/>
         <source>Info panel</source>
-        <translation type="unfinished"/>
+        <translation>Panel informacyjny</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="42"/>
         <source>Summary</source>
-        <translation type="unfinished"/>
+        <translation>Podsumowanie</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="176"/>
         <source>Synchronize...</source>
-        <translation type="unfinished"/>
+        <translation>Synchronizuj...</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="741"/>
@@ -1890,7 +1890,7 @@ Wszelkie Prawa Zastrzeżone (C) 2011-2018 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="340"/>
         <source>Quick search</source>
-        <translation type="unfinished"/>
+        <translation>Szybkie wyszukiwanie</translation>
     </message>
 </context>
 <context>
@@ -2167,7 +2167,7 @@ Utworzono nowe</translation>
     <message>
         <location filename="Reference.py" line="315"/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Kolor</translation>
     </message>
 </context>
 <context>
@@ -2313,17 +2313,17 @@ Utworzono nowe</translation>
     <message>
         <location filename="StatisticsView.py" line="384"/>
         <source>Month</source>
-        <translation type="unfinished"/>
+        <translation>Miesiąc</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="385"/>
         <source>Week</source>
-        <translation type="unfinished"/>
+        <translation>Tydzień</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="386"/>
         <source>Day</source>
-        <translation type="unfinished"/>
+        <translation>Dzień</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="389"/>
@@ -2343,7 +2343,7 @@ Utworzono nowe</translation>
     <message>
         <location filename="StatisticsView.py" line="394"/>
         <source>Total price</source>
-        <translation type="unfinished"/>
+        <translation>Całkowita cena</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="584"/>
@@ -2388,27 +2388,27 @@ Utworzono nowe</translation>
     <message>
         <location filename="StatisticsView.py" line="404"/>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>Europa</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="405"/>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>Afryka</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="406"/>
         <source>Americas</source>
-        <translation type="unfinished"/>
+        <translation>Ameryki</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="407"/>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>Azja</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="408"/>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Australia i Oceania</translation>
     </message>
 </context>
 <context>
@@ -2459,7 +2459,7 @@ Utworzono nowe</translation>
     <message>
         <location filename="SummaryDialog.py" line="17"/>
         <source>Summary</source>
-        <translation type="unfinished"/>
+        <translation>Podsumowanie</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="41"/>
@@ -2634,7 +2634,7 @@ Dodaj wpierw nową.</translation>
     <message>
         <location filename="Excel.py" line="39"/>
         <source>Select columns</source>
-        <translation type="unfinished"/>
+        <translation>Wybór kolumn</translation>
     </message>
 </context>
 <context>

@@ -32,27 +32,27 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>Εικόνα PNG (*.png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PDF file (*.pdf)</source>
-        <translation type="unfinished"/>
+        <translation>Αρχείο PDF (*.pdf)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>SVG image (*.svg)</source>
-        <translation type="unfinished"/>
+        <translation>Εικόνα SVG (*.svg)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PostScript (*.ps)</source>
-        <translation type="unfinished"/>
+        <translation>PostScript (*.ps)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>Encapsulated PostScript (*.eps)</source>
-        <translation type="unfinished"/>
+        <translation>Συμπυκνωμένη μορφή PostScript (*.eps)</translation>
     </message>
 </context>
 <context>
@@ -604,7 +604,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="203"/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Χρώμα</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="204"/>
@@ -619,7 +619,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="207"/>
         <source>Condition</source>
-        <translation type="unfinished"/>
+        <translation>Κατάσταση</translation>
     </message>
 </context>
 <context>
@@ -680,7 +680,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="200"/>
         <source>Preview image height</source>
-        <translation type="unfinished"/>
+        <translation>Ύψος εικόνας προεπισκόπησης</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="202"/>
@@ -695,7 +695,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="217"/>
         <source>Images at bottom</source>
-        <translation type="unfinished"/>
+        <translation>Εικόνες στο κάτω μέρος</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="222"/>
@@ -725,7 +725,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="267"/>
         <source>Preview image height was changed. Recalculate it now?</source>
-        <translation type="unfinished"/>
+        <translation>Το ύψος της εικόνας προεπισκόπησης άλλαξε. Να ξαναγίνει υπολογισμός τώρα;</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="207"/>
@@ -735,7 +735,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="236"/>
         <source>Used statuses</source>
-        <translation type="unfinished"/>
+        <translation>Χρησιμοποιούμενες καταστάσεις</translation>
     </message>
 </context>
 <context>
@@ -1132,32 +1132,32 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Χώρα</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Number of coins</source>
-        <translation type="unfinished"/>
+        <translation>Αριθμός νομισμάτων</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>Web page (*.htm *.html)</source>
-        <translation type="unfinished"/>
+        <translation>Ιστοσελίδα (*.htm *.html)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>Εικόνα PNG (*.png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Αποθήκευση</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
         <source>Image not ready. Please try again later</source>
-        <translation type="unfinished"/>
+        <translation>Η εικόνα δεν είναι έτοιμη. Δοκιμάστε πάλι αργότερα</translation>
     </message>
 </context>
 <context>
@@ -1478,7 +1478,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ReferenceDialog.py" line="70"/>
         <source>Paste icon</source>
-        <translation type="unfinished"/>
+        <translation>Επικόλληση εικονιδίου</translation>
     </message>
 </context>
 <context>
@@ -1491,7 +1491,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="139"/>
         <source>Backup folder</source>
-        <translation>Φάκελος αντιγρ. ασφαλείας</translation>
+        <translation>Φάκελος αντιγράφου ασφαλείας</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="59"/>
@@ -1551,17 +1551,17 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="134"/>
         <source>Images count by default</source>
-        <translation type="unfinished"/>
+        <translation>Προεπιλεγμένος αριθμός εικόνων</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="75"/>
         <source>Make autobackup</source>
-        <translation type="unfinished"/>
+        <translation>Αυτόματη δημιουργία αντιγράφων ασφαλείας</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="85"/>
         <source>Coin changes before autobackup</source>
-        <translation type="unfinished"/>
+        <translation>Αλλαγές νομίσματος πριν το αυτόματο αντίγραφο ασφαλείας</translation>
     </message>
 </context>
 <context>
@@ -1899,7 +1899,7 @@ Copyright (C) 2011-2018 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="340"/>
         <source>Quick search</source>
-        <translation type="unfinished"/>
+        <translation>Γρήγορη αναζήτηση</translation>
     </message>
 </context>
 <context>
@@ -2177,7 +2177,7 @@ Created new one</source>
     <message>
         <location filename="Reference.py" line="315"/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Χρώμα</translation>
     </message>
 </context>
 <context>
@@ -2255,7 +2255,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="273"/>
         <source>Building chart</source>
-        <translation type="unfinished"/>
+        <translation>Δημιουργία διαγράμματος</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="273"/>
@@ -2265,7 +2265,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="288"/>
         <source>Drawing chart</source>
-        <translation type="unfinished"/>
+        <translation>Σχεδίαση διαγράμματος</translation>
     </message>
 </context>
 <context>
@@ -2383,42 +2383,42 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="366"/>
         <source>GeoChart</source>
-        <translation type="unfinished"/>
+        <translation>GeoChart</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="400"/>
         <source>Region:</source>
-        <translation type="unfinished"/>
+        <translation>Περιοχή:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="403"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Όλες</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="404"/>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>Ευρώπη</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="405"/>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>Αφρική</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="406"/>
         <source>Americas</source>
-        <translation type="unfinished"/>
+        <translation>Αμερική</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="407"/>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>Ασία</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="408"/>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Ωκεανία</translation>
     </message>
 </context>
 <context>
@@ -2461,7 +2461,7 @@ Created new one</source>
     <message>
         <location filename="CollectionFields.py" line="67"/>
         <source>Missing</source>
-        <translation type="unfinished"/>
+        <translation>Λείπει</translation>
     </message>
 </context>
 <context>
@@ -2529,7 +2529,7 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="67"/>
         <source>Count missing: %d</source>
-        <translation type="unfinished"/>
+        <translation>Αριθμός χαμένων: %d</translation>
     </message>
 </context>
 <context>

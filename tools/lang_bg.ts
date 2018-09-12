@@ -14,7 +14,7 @@
     <message>
         <location filename="ReferenceDialog.py" line="392"/>
         <source>Something went wrong when saving. Please restart</source>
-        <translation>Нещата се объркаха, при записване. Моля, рестартирайте</translation>
+        <translation>Нещо се обърка при записване. Моля, рестартирайте</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="405"/>
