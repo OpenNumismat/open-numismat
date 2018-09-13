@@ -343,6 +343,60 @@ class NumberEdit(QLineEdit):
         return self.minimumSizeHint()
 
 
+class YearEdit(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.numberEdit = NumberEdit(parent)
+
+        self.bcBtn = QCheckBox(self.tr("BC"))
+        self.bcBtn.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+
+        self.bcLbl = QLabel()
+        self.bcLbl.hide()
+
+        layout = QHBoxLayout()
+        layout.addWidget(self.numberEdit)
+        layout.addWidget(self.bcBtn)
+        layout.addWidget(self.bcLbl)
+        layout.setContentsMargins(QMargins())
+
+        self.setLayout(layout)
+
+    def clear(self):
+        self.numberEdit.clear()
+        self.bcBtn.setCheckState(Qt.Unchecked)
+
+    def setText(self, text):
+        if text and text[0] == '-':
+            text = text[1:]
+            self.bcBtn.setChecked(True)
+            self.bcLbl.setText(self.tr("BC"))
+        else:
+            self.bcLbl.clear()
+        self.numberEdit.setText(text)
+
+    def text(self):
+        text = self.numberEdit.text()
+        if text and self.bcBtn.isChecked():
+            text = '-' + text
+
+        return text
+
+    def home(self, mark):
+        self.numberEdit.home(mark)
+
+    def setReadOnly(self, b):
+        self.numberEdit.setReadOnly(b)
+
+        if b:
+            self.bcBtn.hide()
+            self.bcLbl.show()
+        else:
+            self.bcBtn.show()
+            self.bcLbl.hide()
+
+
 class _DoubleEdit(QLineEdit):
     def __init__(self, bottom, top, decimals, parent=None):
         super().__init__(parent)

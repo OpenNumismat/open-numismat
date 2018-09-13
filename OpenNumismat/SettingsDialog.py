@@ -219,6 +219,10 @@ class CollectionSettingsPage(QWidget):
         self.imagesAtBottom.setChecked(self.settings['images_at_bottom'])
         layout.addRow(self.imagesAtBottom)
 
+        self.enableBC = QCheckBox(self.tr("Enable BC"), self)
+        self.enableBC.setChecked(self.settings['enable_bc'])
+        layout.addRow(self.enableBC)
+
         vLayout = QVBoxLayout()
         showIcons = QGroupBox(self.tr("Show icons from reference (slow)"), self)
         self.showTreeIcons = QCheckBox(self.tr("in tree"), self)
@@ -258,6 +262,7 @@ class CollectionSettingsPage(QWidget):
         old_image_height = self.settings['image_height']
         self.settings['image_height'] = float(self.imageHeight.currentText())
         self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
+        self.settings['enable_bc'] = self.enableBC.isChecked()
 
         for status in Statuses.Keys:
             self.settings[status + '_status_used'] = self.statusUsed[status].isChecked()

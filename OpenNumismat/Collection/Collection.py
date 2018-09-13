@@ -59,6 +59,12 @@ class CollectionModel(QSqlTableModel):
             try:
                 if field.name == 'status':
                     text = Statuses[data]
+                elif field.name == 'year':
+                    year = int(data)
+                    if year < 0:
+                        text = "%d BC" % -year
+                    else:
+                        text = data
                 elif field.type == Type.BigInt:
                     text = locale.format("%d", int(data), grouping=True)
                 elif field.type == Type.Money:
@@ -464,6 +470,12 @@ class CollectionModel(QSqlTableModel):
 
         return self.fields.fields[column].type
 
+    def columnName(self, column):
+        if isinstance(column, QtCore.QModelIndex):
+            column = column.column()
+
+        return self.fields.fields[column].name
+
     def getImage(self, img_id):
         query = QSqlQuery(self.database())
         query.prepare("SELECT image FROM photos WHERE id=?")
@@ -569,6 +581,7 @@ class CollectionSettings(BaseSettings):
             'sale_status_used': True,
             'wish_status_used': True,
             'missing_status_used': True,
+            'enable_bc': True,
     }
 
     def __init__(self, db):
@@ -590,7 +603,7 @@ class CollectionSettings(BaseSettings):
                 elif title in ('free_numeric', 'convert_fraction',
                                'store_sorting', 'show_tree_icons',
                                'show_filter_icons', 'show_list_icons',
-                               'images_at_bottom'):
+                               'images_at_bottom', 'enable_bc'):
                     value = record.value('value').lower() in ('true', '1')
                 elif '_status_used' in title:
                     value = record.value('value').lower() in ('true', '1')

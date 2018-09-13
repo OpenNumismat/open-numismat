@@ -39,7 +39,10 @@ class FormItem(object):
             if settings['free_numeric']:
                 self._widget = UserNumericEdit(parent)
             else:
-                self._widget = NumberEdit(parent)
+                if settings['enable_bc'] and self._field == 'year':
+                    self._widget = YearEdit(parent)
+                else:
+                    self._widget = NumberEdit(parent)
         elif self._type == Type.BigInt:
             if settings['free_numeric']:
                 self._widget = UserNumericEdit(parent)
@@ -209,9 +212,14 @@ class BaseFormLayout(QGridLayout):
                 if item1.isHidden():
                     return
 
-                self.addWidget(item1.label(), self.row, 0)
-                self.addWidget(item1.widget(), self.row, 1, 1, 4)
-                self.addWidget(item2, self.row, 5)
+                if item2.sizePolicy().horizontalPolicy() == QSizePolicy.Fixed:
+                    self.addWidget(item1.label(), self.row, 0)
+                    self.addWidget(item1.widget(), self.row, 1, 1, 4)
+                    self.addWidget(item2, self.row, 5)
+                else:
+                    self.addWidget(item1.label(), self.row, 0)
+                    self.addWidget(item1.widget(), self.row, 1)
+                    self.addWidget(item2, self.row, 2, 1, self.columnCount - 2)
             else:
                 col = 0
                 if not item1.isHidden():

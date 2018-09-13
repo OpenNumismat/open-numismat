@@ -9,7 +9,7 @@ from OpenNumismat.Tools.Gui import createIcon, statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction
 
 
-class DenominationListWidgetItem(QListWidgetItem):
+class CustomSortListWidgetItem(QListWidgetItem):
 
     def __lt__(self, other):
         left = self.data(Qt.UserRole + 1)
@@ -69,7 +69,50 @@ class FilterMenuButton(QPushButton):
 
         hasBlanks = False
         columnType = self.model.columnType(self.fieldid)
-        if columnType == Type.Text or columnType in Type.ImageTypes:
+        if self.model.columnName(self.fieldid) == 'year':
+            filtersSql = self.filtersToSql(filters.values())
+            if filtersSql:
+                filtersSql = 'WHERE ' + filtersSql
+            sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
+            query = QSqlQuery(sql, self.db)
+
+            while query.next():
+                icon = None
+                if query.record().isNull(0):
+                    data = None
+                else:
+                    orig_data = query.record().value(0)
+                    data = str(orig_data)
+                    label = data
+                    try:
+                        year = int(orig_data)
+                        if year < 0:
+                            label = "%d BC" % -year
+                    except ValueError:
+                        pass
+
+                if not data:
+                    hasBlanks = True
+                    continue
+
+                item = CustomSortListWidgetItem()
+                item.setData(Qt.DisplayRole, label)
+                item.setData(Qt.UserRole, data)
+                item.setData(Qt.UserRole + 1, orig_data)
+                if data in appliedValues:
+                    if revert:
+                        item.setCheckState(Qt.Checked)
+                    else:
+                        item.setCheckState(Qt.Unchecked)
+                else:
+                    if revert:
+                        item.setCheckState(Qt.Unchecked)
+                    else:
+                        item.setCheckState(Qt.Checked)
+                self.listWidget.addItem(item)
+
+            self.listWidget.sortItems()
+        elif columnType == Type.Text or columnType in Type.ImageTypes:
             dataFilter = BlankFilter(self.columnName).toSql()
             blanksFilter = DataFilter(self.columnName).toSql()
 
@@ -101,7 +144,7 @@ class FilterMenuButton(QPushButton):
                 if columnFilters and columnFilters.hasData():
                     item.setCheckState(Qt.Unchecked)
                 self.listWidget.addItem(item)
-        elif self.model.columnType(self.fieldid) == Type.Status:
+        elif columnType == Type.Status:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
@@ -131,7 +174,7 @@ class FilterMenuButton(QPushButton):
                     else:
                         item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
-        elif self.model.columnType(self.fieldid) == Type.Denomination:
+        elif columnType == Type.Denomination:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
@@ -151,7 +194,7 @@ class FilterMenuButton(QPushButton):
                     hasBlanks = True
                     continue
 
-                item = DenominationListWidgetItem()
+                item = CustomSortListWidgetItem()
                 item.setData(Qt.DisplayRole, label)
                 item.setData(Qt.UserRole, data)
                 item.setData(Qt.UserRole + 1, orig_data)

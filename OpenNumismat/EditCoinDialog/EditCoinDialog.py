@@ -1,12 +1,10 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 
 
 @storeDlgSizeDecorator

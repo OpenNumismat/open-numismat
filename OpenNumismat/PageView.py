@@ -239,6 +239,15 @@ class TreeView(QTreeWidget):
                 if text:
                     if fields[i] == 'status':
                         data.append(Statuses[text])
+                    elif fields[i] == 'year':
+                        label = text
+                        try:
+                            year = int(text)
+                            if year < 0:
+                                label = "%d BC" % -year
+                        except ValueError:
+                            pass
+                        data.append(label)
                     elif fields[i] == 'value':
                         label, _ = numberWithFraction(text, self.convert_fraction)
                         data.append(label)
@@ -251,13 +260,14 @@ class TreeView(QTreeWidget):
 
             if data:
                 if len(data) > 1:
-                    text = ' '.join(data)
                     newFilters = ' AND '.join(filterSql)
+                    text = ' '.join(data)
                     child = TreeWidgetItem([text, ])
                     child.setData(0, self.SortDataRole, orig_data)
                 else:
                     newFilters = filterSql[0]
-                    child = QTreeWidgetItem(data)
+                    child = TreeWidgetItem(data)
+                    child.setData(0, self.SortDataRole, orig_data)
 
                 if filters:
                     newFilters = filters + ' AND ' + newFilters
@@ -333,7 +343,7 @@ class TreeView(QTreeWidget):
             for field in fields:
                 index = self.model.index(index.row(),
                                          self.model.fieldIndex(field))
-                if field == 'status':
+                if field in ('status', 'year'):
                     textPart.append(str(index.data()))
                 else:
                     val = str(index.data(Qt.UserRole))
