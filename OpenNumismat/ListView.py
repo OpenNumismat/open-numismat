@@ -441,6 +441,8 @@ class ListView(QTableView):
                    self.tr("Web page (*.htm *.html)"),
                    self.tr("Text file (*.csv)"),
                    self.tr("Text file UTF-8 (*.csv)"))
+        if not ExportToExcel.isAvailable():
+            filters = filters[1:]
 
         defaultFileName = self.listParam.page.title
         fileName, selectedFilter = getSaveFileName(
@@ -453,11 +455,11 @@ class ListView(QTableView):
 
             if filters.index(selectedFilter) == 0:  # Excel documents
                 export = ExportToExcel(fileName, self.listParam.page.title)
-            elif filters.index(selectedFilter) == 1:  # Excel documents
+            elif filters.index(selectedFilter) == 1:  # Web page
                 export = ExportToHtml(fileName, self.listParam.page.title)
-            elif filters.index(selectedFilter) == 2:  # Excel documents
+            elif filters.index(selectedFilter) == 2:  # Text file
                 export = ExportToCsv(fileName, self.listParam.page.title)
-            elif filters.index(selectedFilter) == 3:  # Excel documents
+            elif filters.index(selectedFilter) == 3:  # Text file UTF-8
                 export = ExportToCsvUtf8(fileName, self.listParam.page.title)
             else:
                 raise
