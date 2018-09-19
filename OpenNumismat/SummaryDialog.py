@@ -59,6 +59,13 @@ class SummaryDialog(QDialog):
             if count > 0:
                 lines.append(self.tr("Count sales: %d") % count)
 
+        sql = "SELECT count(*) FROM coins WHERE status='bidding'"
+        query = QSqlQuery(sql, model.database())
+        if query.first():
+            count = query.record().value(0)
+            if count > 0:
+                lines.append(self.tr("Count biddings: %d") % count)
+
         sql = "SELECT count(*) FROM coins WHERE status='missing'"
         query = QSqlQuery(sql, model.database())
         if query.first():

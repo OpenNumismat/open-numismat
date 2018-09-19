@@ -581,6 +581,7 @@ class CollectionSettings(BaseSettings):
             'sale_status_used': True,
             'wish_status_used': True,
             'missing_status_used': True,
+            'bidding_status_used': True,
             'enable_bc': True,
     }
 
