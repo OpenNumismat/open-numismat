@@ -392,6 +392,7 @@ class StatisticsView(QWidget):
         self.itemsSelector.addItem(self.tr("Count"), 'count')
         self.itemsSelector.addItem(self.tr("Price"), 'price')
         self.itemsSelector.addItem(self.tr("Total price"), 'totalprice')
+        self.itemsSelector.addItem(self.tr("Created"), 'created')
         ctrlLayout.addWidget(self.itemsSelector)
 
         self.colorCheck = QCheckBox(self.tr("Multicolor"), self)
@@ -584,32 +585,57 @@ class StatisticsView(QWidget):
             elif items == 'totalprice':
                 sql_field = 'sum(totalpayprice)'
                 self.chart.setLabel(self.tr("Total paid"))
+            elif items == 'count':
+                sql_field = 'count(*)'
+                self.chart.setLabel(self.tr("Number of coins"))
             else:
                 sql_field = 'count(*)'
                 self.chart.setLabel(self.tr("Number of coins"))
 
-            sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing')"]
-            if filter_:
-                sql_filters.append(filter_)
-
             period = self.periodSelector.currentData()
+            if items == 'founded':
+                if period == 'month':
+                    sql_filters = ["createdat >= datetime('now', 'start of month', '-11 months')"]
+                elif period == 'week':
+                    sql_filters = ["createdat > datetime('now', '-11 months')"]
+                elif period == 'day':
+                    sql_filters = ["createdat > datetime('now', '-1 month')"]
+                else:  # year
+                    sql_filters = ["1=1"]
+            else:
+                sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing')"]
+
+                if period == 'month':
+                    sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
+                elif period == 'week':
+                    sql_filters.append("paydate > datetime('now', '-11 months')")
+                elif period == 'day':
+                    sql_filters.append("paydate > datetime('now', '-1 month')")
+
             if period == 'month':
-                sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
                 date_format = '%m'
             elif period == 'week':
-                sql_filters.append("paydate > datetime('now', '-11 months')")
                 date_format = '%W'
             elif period == 'day':
-                sql_filters.append("paydate > datetime('now', '-1 month')")
                 date_format = '%d'
             else:
                 date_format = '%Y'
 
-            sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
-                  " WHERE %s"\
-                  " GROUP BY strftime('%s', paydate) ORDER BY paydate" % (
-                      sql_field, date_format, ' AND '.join(sql_filters),
-                      date_format)
+            if filter_:
+                sql_filters.append(filter_)
+
+            if items == 'created':
+                sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
+                      " WHERE %s"\
+                      " GROUP BY strftime('%s', createdat) ORDER BY createdat" % (
+                          sql_field, date_format, ' AND '.join(sql_filters),
+                          date_format)
+            else:
+                sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
+                      " WHERE %s"\
+                      " GROUP BY strftime('%s', paydate) ORDER BY paydate" % (
+                          sql_field, date_format, ' AND '.join(sql_filters),
+                          date_format)
             query = QSqlQuery(self.model.database())
             query.exec_(sql)
             xx = []
