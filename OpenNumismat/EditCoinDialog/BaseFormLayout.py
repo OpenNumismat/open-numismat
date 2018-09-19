@@ -79,14 +79,17 @@ class FormItem(object):
         elif self._type == Type.Date:
             self._widget = DateEdit(parent)
         elif self._type == Type.Status:
-            self._widget = StatusEdit(settings, parent)
+            if itemType & Type.Disabled:
+                self._widget = StatusBrowser(parent)
+            else:
+                self._widget = StatusEdit(settings, parent)
         elif self._type == Type.DateTime:
             self._widget = DateTimeEdit(parent)
         else:
             raise
 
         if itemType & Type.Disabled:
-            if self._type == Type.Status or self._type in Type.ImageTypes:
+            if self._type in Type.ImageTypes:
                 self._widget.setDisabled(True)
             else:
                 self._widget.setReadOnly(True)
@@ -158,6 +161,8 @@ class FormItem(object):
                 lineEdit = self._widget.findChild(QLineEdit)
                 lineEdit.setText("")
         elif isinstance(self._widget, StatusEdit):
+            self._widget.setCurrentValue(value)
+        elif isinstance(self._widget, StatusBrowser):
             self._widget.setCurrentValue(value)
         elif isinstance(self._widget, TextBrowser):
             self._widget.setText(str(value))

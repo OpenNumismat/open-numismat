@@ -3,7 +3,7 @@
 import locale
 import re
 
-from PyQt5.QtCore import QMargins, QUrl, QDate, Qt
+from PyQt5.QtCore import QMargins, QUrl, QDate, Qt, pyqtSignal
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
@@ -304,6 +304,31 @@ class StatusEdit(QComboBox):
         self.setCurrentIndex(index)
         if old_index == index:
             self.currentIndexChanged.emit(index)
+
+
+class StatusBrowser(QLineEdit):
+    currentIndexChanged = pyqtSignal(object)
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setMinimumWidth(100)
+        self.data = ''
+
+    def setCurrentValue(self, value):
+        self.setText(Statuses[value])
+        self.home(False)
+
+        for act in self.actions():
+            self.removeAction(act)
+        icon = statusIcon(value)
+        self.action = self.addAction(icon, QLineEdit.LeadingPosition)
+
+        self.data = value
+
+        self.currentIndexChanged.emit(-1)
+
+    def currentData(self):
+        return self.data
 
 
 class ShortLineEdit(QLineEdit):
