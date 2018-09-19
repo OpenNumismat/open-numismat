@@ -77,7 +77,7 @@ class Settings(BaseSettings):
                'autobackup_depth': 25,
                'reference': OpenNumismat.HOME_PATH + "/reference.ref",
                'error': True,
-               'speedup': 0,
+               'speedup': 1,
                'updates': False,
                'template': 'full',
                'check_coin_title': True,
