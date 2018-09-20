@@ -36,7 +36,7 @@ class CollectionDescription(QObject):
         self.db.transaction()
 
         sql = """CREATE TABLE description (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY,
             title TEXT,
             description TEXT,
             author TEXT)"""

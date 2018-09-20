@@ -151,12 +151,12 @@ class BaseReferenceSection(QtCore.QObject):
 
         if self.name in cross_ref:
             sql = "CREATE TABLE %s (\
-                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+                id INTEGER PRIMARY KEY,\
                 parentid INTEGER,\
                 value TEXT, icon BLOB)" % self.table_name
         else:
             sql = "CREATE TABLE %s (\
-                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+                id INTEGER PRIMARY KEY,\
                 value TEXT, icon BLOB)" % self.table_name
         QSqlQuery(sql, db)
 
@@ -330,7 +330,7 @@ class Reference(QtCore.QObject):
 
     def create(self):
         sql = "CREATE TABLE IF NOT EXISTS sections (\
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+            id INTEGER PRIMARY KEY,\
             name TEXT,\
             icon BLOB,\
             letter TEXT,\

@@ -32,7 +32,7 @@ class ListPageParam(QtCore.QObject):
 
         if 'lists' not in self.db.tables():
             sql = """CREATE TABLE lists (
-                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                id INTEGER PRIMARY KEY,
                 pageid INTEGER,
                 fieldid INTEGER,
                 position INTEGER,
@@ -64,7 +64,7 @@ class ListPageParam(QtCore.QObject):
 
         if 'filters' not in self.db.tables():
             sql = """CREATE TABLE filters (
-                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                id INTEGER PRIMARY KEY,
                 pageid INTEGER,
                 fieldid INTEGER,
                 value INTEGER,

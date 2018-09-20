@@ -68,12 +68,12 @@ def exportToMobile(model, params):
     QSqlQuery(sql, db)
 
     sql = """CREATE TABLE photos (
-        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY,
         image BLOB)"""
     QSqlQuery(sql, db)
 
     sql = """CREATE TABLE coins (
-        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY,
         description_id INTEGER,
         grade INTEGER,
         createdat STRING)"""
@@ -86,7 +86,7 @@ def exportToMobile(model, params):
     fields = CollectionFieldsBase()
     for field in fields:
         if field.name == 'id':
-            sqlFields.append('id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT')
+            sqlFields.append('id INTEGER PRIMARY KEY')
         elif field.name == 'image':
             sqlFields.append('image INTEGER')
         elif field.name in USED_FIELDS:

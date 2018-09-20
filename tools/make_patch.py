@@ -77,14 +77,14 @@ if json_file_name:
             query.exec_()
 
         sql = """CREATE TABLE patches (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY,
             action CHAR,
             src_id INTEGER,
             dst_id INTEGER)"""
         QSqlQuery(sql, db)
 
         sql = """CREATE TABLE photos (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY,
             image BLOB)"""
         QSqlQuery(sql, db)
 
@@ -92,7 +92,7 @@ if json_file_name:
         fields = CollectionFieldsBase()
         for field in fields:
             if field.name == 'id':
-                sqlFields.append('id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT')
+                sqlFields.append('id INTEGER PRIMARY KEY')
             elif field.name == 'image':
                 sqlFields.append('image INTEGER')
             elif field.name in SKIPPED_FIELDS:

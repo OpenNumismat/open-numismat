@@ -766,17 +766,17 @@ class Collection(QtCore.QObject):
         sqlFields = []
         for field in self.fields:
             if field.name == 'id':
-                sqlFields.append('id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT')
+                sqlFields.append('id INTEGER PRIMARY KEY')
             else:
                 sqlFields.append("%s %s" % (field.name, Type.toSql(field.type)))
 
         sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
         QSqlQuery(sql, self.db)
 
-        sql = "CREATE TABLE photos (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, image BLOB)"
+        sql = "CREATE TABLE photos (id INTEGER PRIMARY KEY, title TEXT, image BLOB)"
         QSqlQuery(sql, self.db)
 
-        sql = "CREATE TABLE images (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, image BLOB)"
+        sql = "CREATE TABLE images (id INTEGER PRIMARY KEY, image BLOB)"
         QSqlQuery(sql, self.db)
 
     def isReferenceAttached(self):
@@ -1117,7 +1117,7 @@ class Collection(QtCore.QObject):
         QSqlQuery(sql, db)
 
         sql = """CREATE TABLE photos (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY,
             image BLOB)"""
         QSqlQuery(sql, db)
 
@@ -1125,7 +1125,7 @@ class Collection(QtCore.QObject):
         fields = CollectionFieldsBase()
         for field in fields:
             if field.name == 'id':
-                sqlFields.append('id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT')
+                sqlFields.append('id INTEGER PRIMARY KEY')
             elif field.name == 'image':
                 sqlFields.append('image INTEGER')
             elif field.name in SKIPPED_FIELDS:

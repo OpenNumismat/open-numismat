@@ -25,7 +25,7 @@ class CollectionPages(QtCore.QObject):
 
         self.db = db
         sql = "CREATE TABLE IF NOT EXISTS pages (\
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\
+            id INTEGER PRIMARY KEY,\
             title TEXT,\
             isopen INTEGER,\
             position INTEGER,\
