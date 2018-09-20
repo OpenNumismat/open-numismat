@@ -111,9 +111,9 @@ for lang in langs:
 
     ref.db.transaction()
 
-    for section_name, values in data.items():
+    for section_name in sorted(data.keys()):
         section = ref.section(section_name)
-        for value in values:
+        for value in data[section_name]:
             section.addItem(value)
 
     grade = ref.section('grade')
