@@ -494,7 +494,7 @@ class PreviewDialog(QDialog):
     def __exportToHtml(self, fileName):
         template_name = self.templateSelector.currentText()
         report = Report.Report(self.model, template_name, fileName)
-        self.fileName = report.generate(self.records, True)
+        self.fileName = report.generate(self.indexes, True)
 
     @waitCursorDecorator
     def __exportToPdf(self, fileName):
