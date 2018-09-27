@@ -67,9 +67,15 @@ class FormItem(object):
                 self._widget = MoneyEdit(parent)
         elif self._type == Type.Text:
             if itemType & Type.Disabled:
-                self._widget = TextBrowser(parent)
+                if settings['rich_text']:
+                    self._widget = RichTextBrowser(parent)
+                else:
+                    self._widget = TextBrowser(parent)
             else:
-                self._widget = TextEdit(parent)
+                if settings['rich_text']:
+                    self._widget = RichTextEdit(parent)
+                else:
+                    self._widget = TextEdit(parent)
         elif self._type == Type.Image:
             self._widget = ImageEdit(field, self._label, parent)
         elif self._type == Type.PreviewImage:
@@ -128,9 +134,7 @@ class FormItem(object):
         self._widget = widget
 
     def value(self):
-        if isinstance(self._widget, QTextEdit):
-            return self._widget.toPlainText()
-        elif isinstance(self._widget, QDateTimeEdit):
+        if isinstance(self._widget, QDateTimeEdit):
             date = self._widget.date()
             if date == self._widget.DEFAULT_DATE:
                 return ''
@@ -164,9 +168,7 @@ class FormItem(object):
             self._widget.setCurrentValue(value)
         elif isinstance(self._widget, StatusBrowser):
             self._widget.setCurrentValue(value)
-        elif isinstance(self._widget, TextBrowser):
-            self._widget.setText(str(value))
-        elif isinstance(self._widget, TextEdit):
+        elif isinstance(self._widget, QTextEdit):
             self._widget.setText(str(value))
         elif isinstance(self._widget, LineEdit):
             self._widget.setText(str(value))

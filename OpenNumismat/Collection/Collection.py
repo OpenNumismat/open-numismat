@@ -24,7 +24,7 @@ from OpenNumismat.Tools import Gui
 from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
-from OpenNumismat.Tools.Converters import numberWithFraction
+from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
 
 
 class CollectionModel(QSqlTableModel):
@@ -67,6 +67,8 @@ class CollectionModel(QSqlTableModel):
                         text = data
                 elif field.type == Type.BigInt:
                     text = locale.format("%d", int(data), grouping=True)
+                elif field.type == Type.Text:
+                    text = htmlToPlainText(data)
                 elif field.type == Type.Money:
                     text = locale.format("%.2f", float(data), grouping=True)
                     dp = locale.localeconv()['decimal_point']
@@ -583,6 +585,7 @@ class CollectionSettings(BaseSettings):
             'missing_status_used': True,
             'bidding_status_used': True,
             'enable_bc': True,
+            'rich_text': False,
     }
 
     def __init__(self, db):
@@ -604,7 +607,7 @@ class CollectionSettings(BaseSettings):
                 elif title in ('free_numeric', 'convert_fraction',
                                'store_sorting', 'show_tree_icons',
                                'show_filter_icons', 'show_list_icons',
-                               'images_at_bottom', 'enable_bc'):
+                               'images_at_bottom', 'enable_bc', 'rich_text'):
                     value = record.value('value').lower() in ('true', '1')
                 elif '_status_used' in title:
                     value = record.value('value').lower() in ('true', '1')

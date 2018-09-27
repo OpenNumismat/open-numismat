@@ -223,6 +223,10 @@ class CollectionSettingsPage(QWidget):
         self.enableBC.setChecked(self.settings['enable_bc'])
         layout.addRow(self.enableBC)
 
+        self.richText = QCheckBox(self.tr("Use RichText format"), self)
+        self.richText.setChecked(self.settings['rich_text'])
+        layout.addRow(self.richText)
+
         vLayout = QVBoxLayout()
         showIcons = QGroupBox(self.tr("Show icons from reference (slow)"), self)
         self.showTreeIcons = QCheckBox(self.tr("in tree"), self)
@@ -263,6 +267,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['image_height'] = float(self.imageHeight.currentText())
         self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
         self.settings['enable_bc'] = self.enableBC.isChecked()
+        self.settings['rich_text'] = self.richText.isChecked()
 
         for status in Statuses.Keys:
             self.settings[status + '_status_used'] = self.statusUsed[status].isChecked()

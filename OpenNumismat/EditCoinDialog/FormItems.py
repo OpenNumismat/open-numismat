@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import *
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.Gui import createIcon, statusIcon
-from OpenNumismat.Tools.Converters import numberWithFraction
+from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
 
 
 # Reimplementing QDoubleValidator for replace comma with dot
@@ -581,6 +581,9 @@ class DenominationEdit(MoneyEdit):
                 QLineEdit.setText(self, text)
 
 
+RICH_PREFIX = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">'
+
+
 class TextBrowser(QTextBrowser):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -594,6 +597,8 @@ class TextBrowser(QTextBrowser):
         return self.minimumSizeHint()
 
     def setText(self, text):
+        text = htmlToPlainText(text)
+
         urls = re.findall(r'(https?://[^\s]+)', text)
         if urls:
             beg = 0
@@ -608,6 +613,38 @@ class TextBrowser(QTextBrowser):
 
         super().setText(text)
 
+    def text(self):
+        return self.toPlainText()
+
+
+class RichTextBrowser(QTextBrowser):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setAcceptRichText(True)
+        self.setTabChangesFocus(True)
+
+        self.setOpenExternalLinks(True)
+
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+    def setText(self, text):
+        if not text.startswith(RICH_PREFIX):
+            urls = re.findall(r'(https?://[^\s]+)', text)
+            if urls:
+                beg = 0
+                new_text = ''
+                for url in urls:
+                    i = text.index(url, beg)
+                    new_text += text[beg:i] + '<a href="%s">%s</a>' % (url, url)
+                    beg = i + len(url)
+                new_text += text[beg:]
+
+                text = new_text.replace('\n', '<br>')
+
+        super().setText(text)
+
 
 class TextEdit(QTextEdit):
     def __init__(self, parent=None):
@@ -618,6 +655,46 @@ class TextEdit(QTextEdit):
 
     def sizeHint(self):
         return self.minimumSizeHint()
+
+    def text(self):
+        return self.toPlainText()
+
+    def setText(self, text):
+        text = htmlToPlainText(text)
+        self.setPlainText(text)
+
+
+class RichTextEdit(QTextEdit):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setAcceptRichText(True)
+        self.setTabChangesFocus(True)
+
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+    def text(self):
+        if self.toPlainText():
+            return self.toHtml()
+        else:
+            return ''
+
+    def setText(self, text):
+        if not text.startswith(RICH_PREFIX):
+            urls = re.findall(r'(https?://[^\s]+)', text)
+            if urls:
+                beg = 0
+                new_text = ''
+                for url in urls:
+                    i = text.index(url, beg)
+                    new_text += text[beg:i] + '<a href="%s">%s</a>' % (url, url)
+                    beg = i + len(url)
+                new_text += text[beg:]
+
+                text = new_text.replace('\n', '<br>')
+
+        super().setText(text)
 
 
 class CalendarWidget(QCalendarWidget):

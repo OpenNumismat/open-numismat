@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from PyQt5.QtGui import QTextDocument
+
 
 def stringToMoney(string):
     value_began = False
@@ -43,3 +45,14 @@ def numberWithFraction(string, enabled=True):
             pass
 
     return string, False
+
+
+def htmlToPlainText(text):
+    RICH_PREFIX = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" '\
+                  '"http://www.w3.org/TR/REC-html40/strict.dtd">'
+    if text.startswith(RICH_PREFIX):
+        document = QTextDocument()
+        document.setHtml(text)
+        text = document.toPlainText()
+
+    return text
