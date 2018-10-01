@@ -138,6 +138,12 @@ class ImportExcel(_Import2):
         dialog.table.setRowCount(rows)
         dialog.table.setColumnCount(self.sheet.ncols)
 
+        for row in range(rows):
+            for col in range(self.sheet.ncols):
+                val = self.sheet.cell(row, col).value
+                item = QTableWidgetItem(str(val))
+                dialog.table.setItem(row, col, item)
+
         self.comboBoxes = []
         for col in range(self.sheet.ncols):
             combo = QComboBox()
@@ -152,12 +158,6 @@ class ImportExcel(_Import2):
 
             self.comboBoxes.append(combo)
         dialog.comboChanged(0)
-
-        for row in range(rows):
-            for col in range(self.sheet.ncols):
-                val = self.sheet.cell(row, col).value
-                item = QTableWidgetItem(str(val))
-                dialog.table.setItem(row, col, item)
 
         result = dialog.exec_()
         if result == QDialog.Accepted:
