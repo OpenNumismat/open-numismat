@@ -57,12 +57,12 @@ class TableDialog(QDialog):
 
     def comboChanged(self, _index):
         labels = []
-        for i in range(self.hlayout.count()):
+        for i in range(1, self.hlayout.count()):
             combo = self.hlayout.itemAt(i).widget()
             labels.append(combo.currentText())
         self.table.setHorizontalHeaderLabels(labels)
 
-        for i in range(self.hlayout.count()):
+        for i in range(1, self.hlayout.count()):
             combo = self.hlayout.itemAt(i).widget()
             field = combo.currentData()
             if not field:
@@ -70,7 +70,7 @@ class TableDialog(QDialog):
 
             if field.type == Type.Date:
                 for row in range(self.table.rowCount()):
-                    item = self.table.item(row, i)
+                    item = self.table.item(row, i - 1)
                     val = item.text()
                     try:
                         y, m, d, _h, _m, _s = xlrd.xldate_as_tuple(float(val),
@@ -81,7 +81,7 @@ class TableDialog(QDialog):
                         pass
             elif field.type in Type.ImageTypes:
                 for row in range(self.table.rowCount()):
-                    item = self.table.item(row, i)
+                    item = self.table.item(row, i - 1)
                     fileName = item.text()
                     image = QImage()
                     if fileName.startswith('http'):
@@ -143,6 +143,8 @@ class ImportExcel(_Import2):
                 val = self.sheet.cell(row, col).value
                 item = QTableWidgetItem(str(val))
                 dialog.table.setItem(row, col, item)
+
+        dialog.hlayout.addSpacing(dialog.table.verticalHeader().width())
 
         self.comboBoxes = []
         for col in range(self.sheet.ncols):
