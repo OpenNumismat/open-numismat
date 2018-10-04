@@ -127,12 +127,12 @@ for lang in langs:
 
     place = ref.section('payplace')
     if lang == 'ru':
-        place.addItem('newAuction', convertImage('icons/newauction.png'))
+        place.addItem('Auction.ru', convertImage('icons/newauction.png'))
         place.addItem('Мешок', convertImage('icons/meshok.ico'))
         place.addItem('Конрос', convertImage('icons/conros.ico'))
         place.addItem('Wolmar', convertImage('icons/wolmar.ico'))
         place.addItem('aucland', convertImage('icons/aucland.ico'))
-        place.addItem('АукционЪ.СПб')
+        place.addItem('АукционЪ.СПб', convertImage('icons/spb.png'))
     place.addItem('eBay', convertImage('icons/ebay.png'))
     place.model.submitAll()
 
