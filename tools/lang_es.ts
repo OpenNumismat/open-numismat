@@ -735,17 +735,17 @@ La aplicación deberá reiniciarse ahora.</translation>
     <message>
         <location filename="SettingsDialog.py" line="222"/>
         <source>Enable BC</source>
-        <translation type="unfinished"/>
+        <translation>Habilitar A.C.</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="208"/>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
-        <translation>Convertir 0.5 a ½ (soporta ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
+        <translation>Convertir 0.5 en ½ (soporta ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="226"/>
         <source>Use RichText format</source>
-        <translation type="unfinished"/>
+        <translation>Usar formato de texto enriquecido</translation>
     </message>
 </context>
 <context>
@@ -2431,7 +2431,7 @@ Crear una nueva</translation>
     <message>
         <location filename="StatisticsView.py" line="395"/>
         <source>Created</source>
-        <translation type="unfinished"/>
+        <translation>Creado</translation>
     </message>
 </context>
 <context>
@@ -2479,7 +2479,7 @@ Crear una nueva</translation>
     <message>
         <location filename="CollectionFields.py" line="67"/>
         <source>Bidding</source>
-        <translation type="unfinished"/>
+        <translation>Pujas</translation>
     </message>
 </context>
 <context>
@@ -2552,7 +2552,7 @@ Crear una nueva</translation>
     <message>
         <location filename="SummaryDialog.py" line="67"/>
         <source>Count biddings: %d</source>
-        <translation type="unfinished"/>
+        <translation>Recuento de pujas: %d</translation>
     </message>
 </context>
 <context>
@@ -2755,7 +2755,7 @@ Añadir una nueva primero.</translation>
     <message>
         <location filename="FormItems.py" line="400"/>
         <source>BC</source>
-        <translation type="unfinished"/>
+        <translation>AC</translation>
     </message>
 </context>
 <context>

@@ -745,7 +745,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="226"/>
         <source>Use RichText format</source>
-        <translation type="unfinished"/>
+        <translation>Използвайте формата RichText</translation>
     </message>
 </context>
 <context>
@@ -2479,7 +2479,7 @@ Created new one</source>
     <message>
         <location filename="CollectionFields.py" line="67"/>
         <source>Bidding</source>
-        <translation type="unfinished"/>
+        <translation>Наддаване</translation>
     </message>
 </context>
 <context>
@@ -2552,7 +2552,7 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="67"/>
         <source>Count biddings: %d</source>
-        <translation type="unfinished"/>
+        <translation>Брой наддавания: %d</translation>
     </message>
 </context>
 <context>
