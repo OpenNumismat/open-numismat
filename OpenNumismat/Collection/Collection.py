@@ -1471,21 +1471,29 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                     ins_query = QSqlQuery(sql, self.db)
                     for field in fields:
                         if field == 'image':
-                            sql = "INSERT INTO images (image) SELECT image FROM src.images WHERE id=?"
-                            img_query = QSqlQuery(sql, self.db)
-                            img_query.addBindValue(sel_query.record().value(field))
-                            img_query.exec_()
+                            old_img_id = sel_query.record().value(field)
+                            if old_img_id:
+                                sql = "INSERT INTO images (image) SELECT image FROM src.images WHERE id=?"
+                                img_query = QSqlQuery(sql, self.db)
+                                img_query.addBindValue(old_img_id)
+                                img_query.exec_()
 
-                            img_id = img_query.lastInsertId()
+                                img_id = img_query.lastInsertId()
+                            else:
+                                img_id = None
                             ins_query.addBindValue(img_id)
                         elif field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                                        'photo1', 'photo2', 'photo3', 'photo4'):
-                            sql = "INSERT INTO photos (title, image) SELECT title, image FROM src.photos WHERE id=?"
-                            img_query = QSqlQuery(sql, self.db)
-                            img_query.addBindValue(sel_query.record().value(field))
-                            img_query.exec_()
+                            old_img_id = sel_query.record().value(field)
+                            if old_img_id:
+                                sql = "INSERT INTO photos (title, image) SELECT title, image FROM src.photos WHERE id=?"
+                                img_query = QSqlQuery(sql, self.db)
+                                img_query.addBindValue(old_img_id)
+                                img_query.exec_()
 
-                            img_id = img_query.lastInsertId()
+                                img_id = img_query.lastInsertId()
+                            else:
+                                img_id = None
                             ins_query.addBindValue(img_id)
                         else:
                             ins_query.addBindValue(sel_query.record().value(field))
