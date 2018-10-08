@@ -150,8 +150,8 @@ class Report(QtCore.QObject):
         return record
 
     def __recordMapping(self, index):
-        imgFields = ('image', 'obverseimg', 'reverseimg', 'varietyimg',
-                     'photo1', 'photo2', 'photo3', 'photo4')
+        imgFields = ('image', 'obverseimg', 'reverseimg', 'edgeimg',
+                     'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4')
 
         record_mapping = {}
         record_mapping['status_raw'] = ''
@@ -188,8 +188,8 @@ class Report(QtCore.QObject):
 
 
 class CollectionRecord(dict):
-    imgFields = ('image', 'obverseimg', 'reverseimg', 'varietyimg',
-                 'photo1', 'photo2', 'photo3', 'photo4')
+    imgFields = ('image', 'obverseimg', 'reverseimg', 'edgeimg',
+                 'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4')
 
     def __init__(self, model, row):
         self.model = model
