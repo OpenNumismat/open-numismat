@@ -10,9 +10,10 @@
 
 <div id="bodyContent">
 
-{% for group in records|groupby('year') %}
+{% for group in records|sort(attribute='year')|groupby('year') %}
+<div class="row">
 <h3>{{ group.grouper }}</h3>
-<table class="standard" border="1" cellpadding="2" cellspacing="0" style="background: #f9f9f9; border: 1px solid #aaaaaa; border-collapse: collapse">
+<table class="standard" border="1" cellpadding="2" cellspacing="0" style="background: #f9f9f9; border: 1px solid #aaaaaa; border-collapse: collapse; width: 100%">
 <thead><tr>
 <th>{{titles.reverseimg}}</th>
 <th>{{titles.country}}</th>
@@ -31,7 +32,7 @@
 <td><span style="white-space: nowrap;">{{record.issuedate}}</span></td>
 </tr>
 <tr>
-<td colspan="5">{{record.subject}}</td>
+<td colspan="4">{{record.subject}}</td>
 </tr>
     {% if not loop.last %}
 <tr>
@@ -40,6 +41,7 @@
     {% endif %}
   {% endfor %}
 </tbody><tfoot></tfoot></table>
+</div>
 {% endfor %}
 
 </div>

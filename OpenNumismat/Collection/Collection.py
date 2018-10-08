@@ -64,7 +64,7 @@ class CollectionModel(QSqlTableModel):
                     if year < 0:
                         text = "%d BC" % -year
                     else:
-                        text = data
+                        text = str(data)
                 elif field.type == Type.BigInt:
                     text = locale.format("%d", int(data), grouping=True)
                 elif field.type == Type.Text:
