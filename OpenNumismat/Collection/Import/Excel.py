@@ -166,7 +166,7 @@ class ImportExcel(_Import2):
             self.selected_fields = []
             self.has_title = False
             self.has_status = False
-            for i in range(dialog.hlayout.count()):
+            for i in range(1, dialog.hlayout.count()):
                 combo = dialog.hlayout.itemAt(i).widget()
                 field = combo.currentData()
                 self.selected_fields.append(field)
