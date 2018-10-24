@@ -118,8 +118,8 @@ class MainSettingsPage(QWidget):
         current = 0
         self.templateSelector = QComboBox(self)
         for i, template in enumerate(Report.scanTemplates()):
-            self.templateSelector.addItem(template)
-            if settings['template'] == template:
+            self.templateSelector.addItem(template[0], template[1])
+            if settings['template'] == template[1]:
                 current = i
         self.templateSelector.setCurrentIndex(current)
         self.templateSelector.setSizePolicy(QSizePolicy.Fixed,
@@ -163,7 +163,7 @@ class MainSettingsPage(QWidget):
         settings['error'] = self.errorSending.isChecked()
         settings['updates'] = self.checkUpdates.isChecked()
         settings['speedup'] = self.speedup.currentData()
-        settings['template'] = self.templateSelector.currentText()
+        settings['template'] = self.templateSelector.currentData()
         settings['check_coin_title'] = self.checkTitle.isChecked()
         settings['check_coin_duplicate'] = self.checkDuplicate.isChecked()
         settings['images_by_default'] = self.imagesByDefault.value()

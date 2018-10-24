@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os.path
+
 from PyQt5.QtCore import QLocale, QSettings
 
 import OpenNumismat
@@ -71,6 +73,7 @@ def _getLocale():
 
 
 class Settings(BaseSettings):
+    default_template = os.path.join(OpenNumismat.PRJ_PATH, 'templates', 'full')
     Default = {'locale': _getLocale(),
                'backup': OpenNumismat.HOME_PATH + "/backup/",
                'autobackup': True,
@@ -79,7 +82,7 @@ class Settings(BaseSettings):
                'error': True,
                'speedup': 1,
                'updates': False,
-               'template': 'full',
+               'template': default_template,
                'check_coin_title': True,
                'check_coin_duplicate': True,
                'images_by_default': 2}
@@ -102,6 +105,10 @@ class Settings(BaseSettings):
                                         type=int)
         else:
             value = self.settings.value('mainwindow/' + key, self.Default[key])
+
+            if key == 'template':
+                if not os.path.isdir(value):
+                    value = self.default_template
 
         return value
 

@@ -427,8 +427,10 @@ class ListView(QTableView):
         preview.exec_()
 
     def viewInBrowser(self):
-        dstPath = os.path.join(TemporaryDir.path(), Settings()['template'] + '.htm')
-        report = Report(self.model(), Settings()['template'], dstPath, self)
+        template = Settings()['template']
+        template_name = os.path.basename(template)
+        dstPath = os.path.join(TemporaryDir.path(), template_name + '.htm')
+        report = Report(self.model(), template, dstPath, self)
         indexes = self.selectedRows()
         fileName = report.generate(indexes)
 

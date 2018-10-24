@@ -40,25 +40,29 @@ def copyFolder(sourceFolder, destFolder):
 def scanTemplates():
     templates = []
 
-    sourceDir = QtCore.QDir(os.path.join(OpenNumismat.PRJ_PATH, Report.BASE_FOLDER))
-    if not sourceDir.exists():
-        return templates
+    path = os.path.join(OpenNumismat.HOME_PATH, 'templates')
+    sourceDir = QtCore.QDir(path)
+    if sourceDir.exists():
+        files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+        for file in files:
+            templates.append((file, os.path.join(path, file)))
 
-    files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
-    for file in files:
-        templates.append(file)
+    path = os.path.join(OpenNumismat.PRJ_PATH, 'templates')
+    sourceDir = QtCore.QDir(path)
+    if sourceDir.exists():
+        files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+        for file in files:
+            templates.append((file, os.path.join(path, file)))
 
     return templates
 
 
 class Report(QtCore.QObject):
-    BASE_FOLDER = 'templates'
-
-    def __init__(self, model, template_name, dstPath, parent=None):
+    def __init__(self, model, template, dstPath, parent=None):
         super().__init__(parent)
 
         self.model = model
-        self.srcFolder = os.path.join(OpenNumismat.PRJ_PATH, self.BASE_FOLDER, template_name)
+        self.srcFolder = template
 
         fileInfo = QtCore.QFileInfo(dstPath)
         if fileInfo.exists() and fileInfo.isDir():

@@ -118,6 +118,7 @@ Source: "..\build\exe.win32-3.4\db\reference_lv.ref"; DestDir: "{userdocs}\OpenN
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat\backup"
+Name: "{userdocs}\OpenNumismat\templates"
 
 [Registry]
 Root: HKCU; Subkey: "Software\Janis"; Flags: uninsdeletekeyifempty

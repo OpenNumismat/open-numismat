@@ -121,8 +121,8 @@ class PreviewDialog(QDialog):
         self.templateSelector = QComboBox(self)
         current = 0
         for i, template in enumerate(Report.scanTemplates()):
-            self.templateSelector.addItem(template)
-            if Settings()['template'] == template:
+            self.templateSelector.addItem(template[0], template[1])
+            if Settings()['template'] == template[1]:
                 current = i
         self.templateSelector.setCurrentIndex(-1)
         self.templateSelector.currentIndexChanged.connect(self._templateChanged)
@@ -324,8 +324,9 @@ class PreviewDialog(QDialog):
 
     def _templateChanged(self, index):
         template_name = self.templateSelector.currentText()
+        template = self.templateSelector.currentData()
         dstPath = os.path.join(TemporaryDir.path(), template_name + '.htm')
-        report = Report.Report(self.model, template_name, dstPath, self.parent())
+        report = Report.Report(self.model, template, dstPath, self.parent())
         self.fileName = report.generate(self.indexes, True)
         if not self.fileName:
             return
@@ -492,8 +493,8 @@ class PreviewDialog(QDialog):
 
     @waitCursorDecorator
     def __exportToHtml(self, fileName):
-        template_name = self.templateSelector.currentText()
-        report = Report.Report(self.model, template_name, fileName)
+        template = self.templateSelector.currentData()
+        report = Report.Report(self.model, template, fileName)
         self.fileName = report.generate(self.indexes, True)
 
     @waitCursorDecorator
