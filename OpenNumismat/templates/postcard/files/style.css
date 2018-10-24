@@ -1,0 +1,47 @@
+p.breakhere {
+    page-break-before: always;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+div.row {
+    page-break-inside: avoid;
+    page-break-after:auto;
+    max-width: 1000;
+    width: 100%;
+    margin: 0 auto;
+}
+
+html, body {
+    font-family: sans-serif;
+    font-size: 1em;
+}
+
+div#bodyContent {
+    line-height: 1.5em;
+    font-size: 0.8em;
+    margin: 0 auto;
+    max-width: 1300px;
+}
+
+img.photo {
+    display: block;
+}
+
+table {
+    font-size: 100%;
+}
+
+table.standard th {
+    border: 1px solid #AAA;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+}
+
+h3 {
+    font-size: 132%;
+    font-weight: bold;
+}
+
+tt {
+  font-size: 15px;
+}
