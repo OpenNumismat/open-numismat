@@ -423,8 +423,14 @@ class ListView(QTableView):
 
     def report(self):
         indexes = self.selectedRows()
-        preview = PreviewDialog(self.model(), indexes, self)
-        preview.exec_()
+        if indexes:
+            preview = PreviewDialog(self.model(), indexes, self)
+            preview.exec_()
+        else:
+            QMessageBox.information(
+                self, self.tr("Report preview"),
+                self.tr("Nothing selected.\nSelect required coins by clicking "
+                        "with Ctrl or Shift, or Ctrl+A for select all coins."))
 
     def viewInBrowser(self):
         template = Settings()['template']
@@ -432,11 +438,16 @@ class ListView(QTableView):
         dstPath = os.path.join(TemporaryDir.path(), template_name + '.htm')
         report = Report(self.model(), template, dstPath, self)
         indexes = self.selectedRows()
-        fileName = report.generate(indexes)
-
-        if fileName:
-            executor = QDesktopServices()
-            executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
+        if indexes:
+            fileName = report.generate(indexes)
+            if fileName:
+                executor = QDesktopServices()
+                executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
+        else:
+            QMessageBox.information(
+                self, self.tr("Report preview"),
+                self.tr("Nothing selected.\nSelect required coins by clicking "
+                        "with Ctrl or Shift, or Ctrl+A for select all coins."))
 
     def saveTable(self):
         filters = (self.tr("Excel document (*.xls)"),
