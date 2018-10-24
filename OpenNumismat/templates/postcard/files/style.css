@@ -25,6 +25,8 @@ div#bodyContent {
 
 img.photo {
     display: block;
+    object-fit: contain;
+    max-height: 644px;
 }
 
 table {
