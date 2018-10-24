@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os.path
 
 from PyQt5.QtCore import QLocale, QSettings
@@ -9,6 +7,8 @@ import OpenNumismat
 
 class BaseSettings(dict):
     def __init__(self, autoSave=False):
+        super().__init__()
+
         self.__autoSave = autoSave
         self.__items = {}
 
