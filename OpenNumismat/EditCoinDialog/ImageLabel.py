@@ -61,10 +61,10 @@ class ImageLabel(QLabel):
         pixmap = QPixmap.fromImage(self.image)
         self.setPixmap(pixmap)
 
-    def resizeEvent(self, e):
+    def resizeEvent(self, _e):
         self._showImage()
 
-    def showEvent(self, e):
+    def showEvent(self, _e):
         self._showImage()
 
     def loadFromData(self, data):
@@ -291,9 +291,9 @@ class ImageEdit(ImageLabel):
             image.changed = False
 
     def connectExchangeAct(self, image, title):
-            act = ExchangeImageAction(image, title, self)
-            act.exchangeImageTriggered.connect(self.exchangeImage)
-            self.exchangeMenu.addAction(act)
+        act = ExchangeImageAction(image, title, self)
+        act.exchangeImageTriggered.connect(self.exchangeImage)
+        self.exchangeMenu.addAction(act)
 
     def renameImageEvent(self, _event):
         self.renameImage()
