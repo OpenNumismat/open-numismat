@@ -432,8 +432,9 @@ class ListView(QTableView):
                 self.tr("Nothing selected.\nSelect required coins by clicking "
                         "with Ctrl or Shift, or Ctrl+A for select all coins."))
 
-    def viewInBrowser(self):
-        template = Settings()['template']
+    def viewInBrowser(self, template=None):
+        if not template:
+            template = Settings()['template']
         template_name = os.path.basename(template)
         dstPath = os.path.join(TemporaryDir.path(), template_name + '.htm')
         report = Report(self.model(), template, dstPath, self)

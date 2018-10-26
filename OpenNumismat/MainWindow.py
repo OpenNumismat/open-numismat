@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import *
 from OpenNumismat.Collection.Collection import Collection
 from OpenNumismat.Collection.Description import DescriptionDialog
 from OpenNumismat.Collection.Password import PasswordSetDialog
+from OpenNumismat.Reports import Report
 from OpenNumismat.TabView import TabView
 from OpenNumismat.Settings import Settings
 from OpenNumismat.SettingsDialog import SettingsDialog
@@ -289,7 +290,17 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(report)
         report.addAction(reportAct)
         report.addAction(saveTableAct)
-        report.addAction(viewBrowserAct)
+        default_template = Settings()['template']
+        viewBrowserMenu = report.addMenu(createIcon('page_white_world.png'),
+                                         self.tr("View in browser"))
+        for template in Report.scanTemplates():
+            act = QAction(template[0], self)
+            act.setData(template[1])
+            act.triggered.connect(self.viewBrowser)
+            viewBrowserMenu.addAction(act)
+            if default_template == template[1]:
+                viewBrowserMenu.setDefaultAction(act)
+        self.collectionActs.append(exportMenu)
         if statisticsAvailable:
             report.addSeparator()
             report.addAction(self.statisticsAct)
@@ -608,7 +619,7 @@ class MainWindow(QMainWindow):
 
     def viewBrowser(self):
         listView = self.viewTab.currentListView()
-        listView.viewInBrowser()
+        listView.viewInBrowser(self.sender().data())
 
     def report(self):
         listView = self.viewTab.currentListView()
