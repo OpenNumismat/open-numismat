@@ -255,7 +255,7 @@ class MainWindow(QMainWindow):
 
         viewBrowserAct = QAction(createIcon('page_white_world.png'),
                                    self.tr("View in browser"), self)
-        viewBrowserAct.triggered.connect(self.viewBrowser)
+        viewBrowserAct.triggered.connect(self.viewBrowserEvent)
         self.collectionActs.append(viewBrowserAct)
 
         self.viewTab = TabView(self)
@@ -296,7 +296,7 @@ class MainWindow(QMainWindow):
         for template in Report.scanTemplates():
             act = QAction(template[0], self)
             act.setData(template[1])
-            act.triggered.connect(self.viewBrowser)
+            act.triggered.connect(self.viewBrowserEvent)
             viewBrowserMenu.addAction(act)
             if default_template == template[1]:
                 viewBrowserMenu.setDefaultAction(act)
@@ -399,7 +399,7 @@ class MainWindow(QMainWindow):
         latest = LatestCollections(self)
         for act in latest.actions():
             self.latestActions.append(act)
-            act.latestTriggered.connect(self.openCollection)
+            act.triggered.connect(self.openLatestCollectionEvent)
             self.__menu.insertAction(self.exitAct, act)
         self.__menu.insertSeparator(self.exitAct)
 
@@ -617,9 +617,10 @@ class MainWindow(QMainWindow):
         listView = self.viewTab.currentListView()
         listView.search(self.quickSearch.text())
 
-    def viewBrowser(self):
+    def viewBrowserEvent(self):
+        template = self.sender().data()
         listView = self.viewTab.currentListView()
-        listView.viewInBrowser(self.sender().data())
+        listView.viewInBrowser(template)
 
     def report(self):
         listView = self.viewTab.currentListView()
@@ -682,6 +683,10 @@ class MainWindow(QMainWindow):
             latest = LatestCollections(self)
             latest.delete(fileName)
             self.__updateLatest()
+
+    def openLatestCollectionEvent(self):
+        fileName = self.sender().data()
+        self.openCollection(fileName)
 
     @waitCursorDecorator
     def setCollection(self, collection):

@@ -6,21 +6,6 @@ import OpenNumismat
 from OpenNumismat.Collection.Collection import Collection
 
 
-class LatestCollectionAction(QAction):
-    latestTriggered = pyqtSignal(str)
-
-    def __init__(self, key, parent=None):
-        super().__init__(parent)
-
-        settings = QtCore.QSettings()
-        self.fileName = settings.value(key)
-        self.setText(Collection.fileNameToCollectionName(self.fileName))
-        self.triggered.connect(self.trigger)
-
-    def trigger(self):
-        self.latestTriggered.emit(self.fileName)
-
-
 class LatestCollections(QtCore.QObject):
     DefaultCollectionName = OpenNumismat.HOME_PATH + "/demo.db"
     SettingsKey = 'collection/latest'
@@ -36,8 +21,12 @@ class LatestCollections(QtCore.QObject):
         actions = []
         for i in range(LatestCollections.LatestCount):
             key = self.__key(i)
-            if self.settings.value(key):
-                actions.append(LatestCollectionAction(key, self))
+            fileName = self.settings.value(key)
+            if fileName:
+                title = Collection.fileNameToCollectionName(fileName)
+                act = QAction(title, self)
+                act.setData(fileName)
+                actions.append(act)
 
         return actions
 

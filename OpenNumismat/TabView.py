@@ -251,6 +251,10 @@ class TabView(QTabWidget):
         pageView = self.__createPage(pageParam)
         self.collection.pages().openPage(pageView)
 
+    def openPageEvent(self):
+        pageParam = self.sender().data()
+        self.openPage(pageParam)
+
     def updateOpenPageMenu(self):
         menu = self.__actions['open']
         menu.clear()
@@ -259,8 +263,9 @@ class TabView(QTabWidget):
         menu.setEnabled(hasClosedPages)
         if hasClosedPages:
             for pageParam in closedPages:
-                act = OpenPageAction(pageParam, self)
-                act.openPageTriggered.connect(self.openPage)
+                act = QAction(pageParam.title, self)
+                act.setData(pageParam)
+                act.triggered.connect(self.openPageEvent)
                 menu.addAction(act)
 
             menu.addSeparator()
@@ -289,16 +294,3 @@ class TabView(QTabWidget):
         self.setCurrentWidget(pageView)
 
         return pageView
-
-
-class OpenPageAction(QAction):
-    openPageTriggered = pyqtSignal(object)
-
-    def __init__(self, pageParam, parent=None):
-        super().__init__(pageParam.title, parent)
-
-        self.pageParam = pageParam
-        self.triggered.connect(self.trigger)
-
-    def trigger(self):
-        self.openPageTriggered.emit(self.pageParam)

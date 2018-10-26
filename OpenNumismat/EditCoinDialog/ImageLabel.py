@@ -267,7 +267,9 @@ class ImageEdit(ImageLabel):
             return self.image
         return self._data
 
-    def exchangeImage(self, image):
+    def exchangeImageEvent(self):
+        image = self.sender().data()
+
         original_data = self.data()
 
         if isinstance(image.data(), QImage):
@@ -291,8 +293,9 @@ class ImageEdit(ImageLabel):
             image.changed = False
 
     def connectExchangeAct(self, image, title):
-        act = ExchangeImageAction(image, title, self)
-        act.exchangeImageTriggered.connect(self.exchangeImage)
+        act = QAction(title, self)
+        act.setData(image)
+        act.triggered.connect(self.exchangeImageEvent)
         self.exchangeMenu.addAction(act)
 
     def renameImageEvent(self, _event):
@@ -330,16 +333,3 @@ class EdgeImageEdit(ImageEdit):
                 image = image.transformed(matrix, Qt.SmoothTransformation)
 
         super()._setImage(image)
-
-
-class ExchangeImageAction(QAction):
-    exchangeImageTriggered = pyqtSignal(object)
-
-    def __init__(self, image, title, parent=None):
-        super().__init__(title, parent)
-        self.image = image
-
-        self.triggered.connect(self.trigger)
-
-    def trigger(self):
-        self.exchangeImageTriggered.emit(self.image)
