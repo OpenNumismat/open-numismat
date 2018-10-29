@@ -9,6 +9,8 @@ from OpenNumismat import version
 
 
 class ImageLabel(QLabel):
+    MimeType = 'num/image'
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -124,8 +126,12 @@ class ImageLabel(QLabel):
 
     def copyImage(self):
         if not self.image.isNull():
+            mime = QMimeData()
+            mime.setImageData(self.image)
+            mime.setData(ImageLabel.MimeType, self._data)
+
             clipboard = QApplication.clipboard()
-            clipboard.setImage(self.image)
+            clipboard.setMimeData(mime)
 
 
 class ImageEdit(ImageLabel):
@@ -217,11 +223,22 @@ class ImageEdit(ImageLabel):
 
     def deleteImage(self):
         self.clear()
-        self.changed = True
+
+    def copyImage(self):
+        if not self.image.isNull():
+            mime = QMimeData()
+            mime.setImageData(self.image)
+            if not self.changed:
+                mime.setData(ImageLabel.MimeType, self._data)
+
+            clipboard = QApplication.clipboard()
+            clipboard.setMimeData(mime)
 
     def pasteImage(self):
         mime = QApplication.clipboard().mimeData()
-        if mime.hasImage():
+        if mime.hasFormat(ImageLabel.MimeType):
+            self.loadFromData(mime.data(ImageLabel.MimeType))
+        elif mime.hasImage():
             self._setNewImage(mime.imageData())
         elif mime.hasUrls():
             url = mime.urls()[0]
@@ -232,6 +249,8 @@ class ImageEdit(ImageLabel):
 
     def clear(self):
         super().clear()
+        self.changed = False
+
         text = QApplication.translate('ImageEdit',
                         "No image available\n(right-click to add an image)")
         self.setText(text)
@@ -278,9 +297,9 @@ class ImageEdit(ImageLabel):
         else:
             if image.data():
                 self.loadFromData(image.data())
+                self.changed = False
             else:
                 self.clear()
-            self.changed = False
 
         if isinstance(original_data, QImage):
             image._setImage(original_data)
@@ -288,9 +307,9 @@ class ImageEdit(ImageLabel):
         else:
             if original_data:
                 image.loadFromData(original_data)
+                image.changed = False
             else:
                 image.clear()
-            image.changed = False
 
     def connectExchangeAct(self, image, title):
         act = QAction(title, self)
@@ -322,9 +341,6 @@ class ImageEdit(ImageLabel):
 
 
 class EdgeImageEdit(ImageEdit):
-    def __init__(self, name, label, parent=None):
-        super().__init__(name, label, parent)
-
     def _setImage(self, image):
         if not image.isNull():
             if image.width() < image.height():
