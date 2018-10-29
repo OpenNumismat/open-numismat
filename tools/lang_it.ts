@@ -32,27 +32,27 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>immagine PNG (*.png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PDF file (*.pdf)</source>
-        <translation type="unfinished"/>
+        <translation>file PDF (*.pdf)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>SVG image (*.svg)</source>
-        <translation type="unfinished"/>
+        <translation>immagine SVG (*.svg)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PostScript (*.ps)</source>
-        <translation type="unfinished"/>
+        <translation>file PostScript (*.ps)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>Encapsulated PostScript (*.eps)</source>
-        <translation type="unfinished"/>
+        <translation>file Encapsulated PostScript (*.eps)</translation>
     </message>
 </context>
 <context>
@@ -233,7 +233,7 @@ Si prega di aggiornare OpenNumismat</translation>
         <translation>Allega riferimento corente</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1516"/>
+        <location filename="Collection.py" line="1524"/>
         <source>Synchronizing</source>
         <translation>Sincronizzazione</translation>
     </message>
@@ -250,14 +250,14 @@ Si prega di aggiornare OpenNumismat</translation>
 (Prova ad aprirlo prima di unire).</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1509"/>
+        <location filename="Collection.py" line="1517"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Monete %d inserite, monete %d aggiornate.
 L&apos;applicazione deve essere riavviata adesso.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1515"/>
+        <location filename="Collection.py" line="1523"/>
         <source>Collections looks like identical</source>
         <translation>Le collezioni sembrano identiche</translation>
     </message>
@@ -1142,27 +1142,27 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Nazione</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Number of coins</source>
-        <translation type="unfinished"/>
+        <translation>Numero delle monete</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>Web page (*.htm *.html)</source>
-        <translation type="unfinished"/>
+        <translation>Pagina Web (*.htm *.html)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>immagine PNG (*.png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Salvataggio</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
@@ -1396,57 +1396,57 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
         <translation><numerusform>%n moneta selezionata</numerusform><numerusform>%n monete selezionate</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Excel document (*.xls)</source>
         <translation>Documento Excel (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Pagina web (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file (*.csv)</source>
         <translation>File di testo (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>File di testo UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="455"/>
+        <location filename="ListView.py" line="468"/>
         <source>Saving list</source>
         <translation>Salvataggio lista</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Cancel</source>
         <translation>Cancella</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="545"/>
+        <location filename="ListView.py" line="558"/>
         <source>Updating records</source>
         <translation>Aggiornamento dati</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="709"/>
+        <location filename="ListView.py" line="722"/>
         <source>Saving...</source>
         <translation>Salvataggio...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="681"/>
+        <location filename="ListView.py" line="694"/>
         <source>Inserting records</source>
         <translation>Inserimento dati</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="692"/>
+        <location filename="ListView.py" line="705"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation><numerusform>Sei sicuro di rimuovere %n moneta?</numerusform><numerusform>Sei sicuro di rimuovere %n monete?</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Deleting records</source>
         <translation>Eliminazione dati</translation>
     </message>
@@ -1489,6 +1489,17 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
         <location filename="ReferenceDialog.py" line="70"/>
         <source>Paste icon</source>
         <translation>Incolla icona</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Report preview</source>
+        <translation>Anteprima resoconto</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Nothing selected.
+Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1989,17 +2000,17 @@ Copyright (C) 2011-2018 Vitaly Ignatov
         <translation>Salva come PDF</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="466"/>
+        <location filename="Preview.py" line="467"/>
         <source>Word documents (*.doc)</source>
         <translation>Documento Word (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="472"/>
+        <location filename="Preview.py" line="473"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Pagina Web (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="478"/>
+        <location filename="Preview.py" line="479"/>
         <source>PDF file (*.pdf)</source>
         <translation>File PDF (*.pdf)</translation>
     </message>
@@ -2217,12 +2228,12 @@ Creane uno nuovo</translation>
 <context>
     <name>Report</name>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Generating report</source>
         <translation>Genera resoconto</translation>
     </message>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Cancel</source>
         <translation>Cancella</translation>
     </message>
@@ -2401,32 +2412,32 @@ Creane uno nuovo</translation>
     <message>
         <location filename="StatisticsView.py" line="404"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Tutto</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="405"/>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>Europa</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="406"/>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>Africa</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="407"/>
         <source>Americas</source>
-        <translation type="unfinished"/>
+        <translation>Americhe</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="408"/>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>Asia</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="409"/>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Oceania</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="395"/>

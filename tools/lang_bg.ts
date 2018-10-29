@@ -233,7 +233,7 @@ Please update OpenNumismat</source>
         <translation>Прикачете текущата номенклатура</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1516"/>
+        <location filename="Collection.py" line="1524"/>
         <source>Synchronizing</source>
         <translation>Синхронизиране</translation>
     </message>
@@ -250,14 +250,14 @@ Please update OpenNumismat</source>
 (Опитайте се да я отворите преди сливането.)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1509"/>
+        <location filename="Collection.py" line="1517"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Вмъкнати %d монети, актуализирани %d монети.
 Трябва да рестартирате приложението.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1515"/>
+        <location filename="Collection.py" line="1523"/>
         <source>Collections looks like identical</source>
         <translation>Колекциите изглеждат идентични</translation>
     </message>
@@ -1033,7 +1033,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="314"/>
         <source>Revert to default</source>
-        <translation>Връщане към по подразбиране</translation>
+        <translation>Възстанови по подразбиране</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="322"/>
@@ -1396,57 +1396,57 @@ Do you want to send an error message to the author?</source>
         <translation><numerusform>%n избрани монети</numerusform><numerusform>%n избрани монети</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Excel document (*.xls)</source>
         <translation>Excel документ (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web страница (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file (*.csv)</source>
         <translation>Текстови файл (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Текстови фийл UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="455"/>
+        <location filename="ListView.py" line="468"/>
         <source>Saving list</source>
         <translation>Запаметяващ списък</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="545"/>
+        <location filename="ListView.py" line="558"/>
         <source>Updating records</source>
         <translation>Актуализиране на записите</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="709"/>
+        <location filename="ListView.py" line="722"/>
         <source>Saving...</source>
         <translation>Записване...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="681"/>
+        <location filename="ListView.py" line="694"/>
         <source>Inserting records</source>
         <translation>Вмъкване на записи</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="692"/>
+        <location filename="ListView.py" line="705"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation><numerusform>Наистина ли искате да премахнете %n монети?</numerusform><numerusform>Наистина ли искате да премахнете %n монета/и?</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Deleting records</source>
         <translation>Изтриване на записи</translation>
     </message>
@@ -1489,6 +1489,18 @@ Do you want to send an error message to the author?</source>
         <location filename="ReferenceDialog.py" line="70"/>
         <source>Paste icon</source>
         <translation>Постави икона</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Report preview</source>
+        <translation>Преглед на отчета</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Nothing selected.
+Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
+        <translation>Нищо не е избрано.
+Изберете необходимите монети, като кликнете с Ctrl или Shift, или Ctrl + A, за да изберете всички монети.</translation>
     </message>
 </context>
 <context>
@@ -1989,17 +2001,17 @@ Copyright (C) 2011-2018 Vitaly Ignatov
         <translation>Запазване като PDF файл</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="466"/>
+        <location filename="Preview.py" line="467"/>
         <source>Word documents (*.doc)</source>
         <translation>Word документи (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="472"/>
+        <location filename="Preview.py" line="473"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web страница (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="478"/>
+        <location filename="Preview.py" line="479"/>
         <source>PDF file (*.pdf)</source>
         <translation>PDF файл (*.pdf)</translation>
     </message>
@@ -2217,12 +2229,12 @@ Created new one</source>
 <context>
     <name>Report</name>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Generating report</source>
         <translation>Генериране на отчет</translation>
     </message>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
@@ -2431,7 +2443,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="395"/>
         <source>Created</source>
-        <translation type="unfinished"/>
+        <translation>Създаден</translation>
     </message>
 </context>
 <context>

@@ -27,7 +27,7 @@
     <message>
         <location filename="StatisticsView.py" line="145"/>
         <source>Number of coins</source>
-        <translation type="unfinished"/>
+        <translation>Ilość monet</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
@@ -37,7 +37,7 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PDF file (*.pdf)</source>
-        <translation type="unfinished"/>
+        <translation>Plik PDF (*.pdf)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
@@ -229,7 +229,7 @@ Zaktualizuj OpenNumismat</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1516"/>
+        <location filename="Collection.py" line="1524"/>
         <source>Synchronizing</source>
         <translation>Synchronizowanie</translation>
     </message>
@@ -245,13 +245,13 @@ Zaktualizuj OpenNumismat</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1509"/>
+        <location filename="Collection.py" line="1517"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1515"/>
+        <location filename="Collection.py" line="1523"/>
         <source>Collections looks like identical</source>
         <translation type="unfinished"/>
     </message>
@@ -597,7 +597,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="204"/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Kolor</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="205"/>
@@ -645,7 +645,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Collection.py" line="422"/>
         <source>Updating records</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizuję rekordy</translation>
     </message>
     <message>
         <location filename="Collection.py" line="422"/>
@@ -663,7 +663,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="187"/>
         <source>Max image side len</source>
-        <translation type="unfinished"/>
+        <translation>Przekroczono maksymalny rozmiar obrazu</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="189"/>
@@ -678,12 +678,12 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="203"/>
         <source>Free format numeric fields</source>
-        <translation type="unfinished"/>
+        <translation>Wolny format pól numerycznych</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="213"/>
         <source>Store column sorting</source>
-        <translation type="unfinished"/>
+        <translation>Zachowaj sortowanie kolumn</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="218"/>
@@ -1145,12 +1145,12 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>Web page (*.htm *.html)</source>
-        <translation type="unfinished"/>
+        <translation>Strona Internetowa (*.htm *.html)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>Obraz PNG (*.png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
@@ -1389,57 +1389,57 @@ Chcesz zgłosić błąd autorowi?</translation>
         <translation><numerusform>Wybrano %n monetę</numerusform><numerusform>Wybrano %n monet</numerusform><numerusform>Wybrano %n monet</numerusform><numerusform>Wybrano %n monet</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Excel document (*.xls)</source>
         <translation>Plik programu Excel (*xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Strona Internetowa (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file (*.csv)</source>
         <translation>Plik tekstowy (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Plik tekstowy UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="455"/>
+        <location filename="ListView.py" line="468"/>
         <source>Saving list</source>
         <translation>Zapisz listę</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="545"/>
+        <location filename="ListView.py" line="558"/>
         <source>Updating records</source>
         <translation>Aktualizuje rekordy</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="709"/>
+        <location filename="ListView.py" line="722"/>
         <source>Saving...</source>
         <translation>Zapisuje...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="681"/>
+        <location filename="ListView.py" line="694"/>
         <source>Inserting records</source>
         <translation>Dodaje rekordy</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="692"/>
+        <location filename="ListView.py" line="705"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Deleting records</source>
         <translation>Usuwam rekordy</translation>
     </message>
@@ -1481,6 +1481,17 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ReferenceDialog.py" line="70"/>
         <source>Paste icon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Report preview</source>
+        <translation>Pogląd raportu</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Nothing selected.
+Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1857,7 +1868,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="MainWindow.py" line="419"/>
         <source>Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Statystyki</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="416"/>
@@ -1982,17 +1993,17 @@ Wszelkie Prawa Zastrzeżone (C) 2011-2018 Vitaly Ignatov
         <translation>Zapisz jako plik PDF</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="466"/>
+        <location filename="Preview.py" line="467"/>
         <source>Word documents (*.doc)</source>
         <translation>Plik programu Word (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="472"/>
+        <location filename="Preview.py" line="473"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Strona Internetowa (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="478"/>
+        <location filename="Preview.py" line="479"/>
         <source>PDF file (*.pdf)</source>
         <translation>Plik PDF (*.pdf)</translation>
     </message>
@@ -2209,12 +2220,12 @@ Utworzono nowe</translation>
 <context>
     <name>Report</name>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Generating report</source>
         <translation>Generuję raport</translation>
     </message>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
@@ -2368,7 +2379,7 @@ Utworzono nowe</translation>
     <message>
         <location filename="StatisticsView.py" line="594"/>
         <source>Number of coins</source>
-        <translation type="unfinished"/>
+        <translation>Ilość monet</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="416"/>
@@ -2788,12 +2799,12 @@ Dodaj wpierw nową.</translation>
     <message>
         <location filename="__init__.py" line="141"/>
         <source>Importing</source>
-        <translation type="unfinished"/>
+        <translation>Importuję</translation>
     </message>
     <message>
         <location filename="__init__.py" line="143"/>
         <source>Importing from %s</source>
-        <translation type="unfinished"/>
+        <translation>Importowanie z %s</translation>
     </message>
 </context>
 <context>

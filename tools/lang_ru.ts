@@ -233,7 +233,7 @@ Please update OpenNumismat</source>
         <translation>Прикрепить текущий справочник</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1516"/>
+        <location filename="Collection.py" line="1524"/>
         <source>Synchronizing</source>
         <translation>Синхронизация</translation>
     </message>
@@ -250,14 +250,14 @@ Please update OpenNumismat</source>
 (Попробуйте открыть ее перед объединением.)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1509"/>
+        <location filename="Collection.py" line="1517"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Вставлено %d монет, обновлено %d монет.
 Необходимо перезапустить приложение.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1515"/>
+        <location filename="Collection.py" line="1523"/>
         <source>Collections looks like identical</source>
         <translation>Коллекции выглядят одинаковыми</translation>
     </message>
@@ -1397,57 +1397,57 @@ Do you want to send an error message to the author?</source>
         <translation><numerusform>%n монета выбрана</numerusform><numerusform>%n монеты выбрано</numerusform><numerusform>%n монет выбрано</numerusform><numerusform>%n монет выбрано</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Excel document (*.xls)</source>
         <translation>Документ Excel (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Веб-страница (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file (*.csv)</source>
         <translation>Текстовый файл (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Текстовый файл UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="455"/>
+        <location filename="ListView.py" line="468"/>
         <source>Saving list</source>
         <translation>Сохранение списка</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="545"/>
+        <location filename="ListView.py" line="558"/>
         <source>Updating records</source>
         <translation>Обновление записей</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="709"/>
+        <location filename="ListView.py" line="722"/>
         <source>Saving...</source>
         <translation>Сохранение...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="681"/>
+        <location filename="ListView.py" line="694"/>
         <source>Inserting records</source>
         <translation>Вставка записей</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="692"/>
+        <location filename="ListView.py" line="705"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation><numerusform>Удалить %n монету?</numerusform><numerusform>Удалить %n монеты?</numerusform><numerusform>Удалить %n монет?</numerusform><numerusform>Удалить %n монет?</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Deleting records</source>
         <translation>Удаление записей</translation>
     </message>
@@ -1490,6 +1490,18 @@ Do you want to send an error message to the author?</source>
         <location filename="ReferenceDialog.py" line="70"/>
         <source>Paste icon</source>
         <translation>Вставить иконку</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Report preview</source>
+        <translation>Предпросмотр отчета</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Nothing selected.
+Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
+        <translation>Ничего не выбрано.
+Выберите нужные монеты щелчком мыши с Ctrl или Shift, или Ctrl+A для выбора всех монет.</translation>
     </message>
 </context>
 <context>
@@ -1990,17 +2002,17 @@ Copyright (C) 2011-2018 Игнатов Виталий
         <translation>Сохранить как PDF файл</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="466"/>
+        <location filename="Preview.py" line="467"/>
         <source>Word documents (*.doc)</source>
         <translation>Документ Word (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="472"/>
+        <location filename="Preview.py" line="473"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Веб-страница (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="478"/>
+        <location filename="Preview.py" line="479"/>
         <source>PDF file (*.pdf)</source>
         <translation>Файл PDF (*.pdf)</translation>
     </message>
@@ -2218,12 +2230,12 @@ Created new one</source>
 <context>
     <name>Report</name>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Generating report</source>
         <translation>Генерация отчета</translation>
     </message>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>

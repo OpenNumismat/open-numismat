@@ -37,7 +37,7 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PDF file (*.pdf)</source>
-        <translation type="unfinished"/>
+        <translation>Fichier PDF (*.pdf)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
@@ -151,7 +151,7 @@
         <location filename="Collection.py" line="698"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished"/>
+        <translation>Collection %s a une nouvelle version. Mettez à jour OpenNumismat, svp.</translation>
     </message>
     <message>
         <location filename="Collection.py" line="863"/>
@@ -228,7 +228,7 @@ Please update OpenNumismat</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1516"/>
+        <location filename="Collection.py" line="1524"/>
         <source>Synchronizing</source>
         <translation type="unfinished"/>
     </message>
@@ -244,13 +244,13 @@ Please update OpenNumismat</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1509"/>
+        <location filename="Collection.py" line="1517"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1515"/>
+        <location filename="Collection.py" line="1523"/>
         <source>Collections looks like identical</source>
         <translation type="unfinished"/>
     </message>
@@ -601,7 +601,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="205"/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>Description</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="207"/>
@@ -644,7 +644,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Collection.py" line="422"/>
         <source>Updating records</source>
-        <translation type="unfinished"/>
+        <translation>Mise à jour des enregistrements</translation>
     </message>
     <message>
         <location filename="Collection.py" line="422"/>
@@ -662,7 +662,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="187"/>
         <source>Max image side len</source>
-        <translation type="unfinished"/>
+        <translation>Largeur maximale de l&apos;image</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="189"/>
@@ -677,12 +677,12 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="203"/>
         <source>Free format numeric fields</source>
-        <translation type="unfinished"/>
+        <translation>Champ numérique au format libre</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="213"/>
         <source>Store column sorting</source>
-        <translation type="unfinished"/>
+        <translation>Conserver le tri des colonnes</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="218"/>
@@ -712,7 +712,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="278"/>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Paramètres</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="278"/>
@@ -1125,7 +1125,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="DetailsTabWidget.py" line="634"/>
         <source>Variation</source>
-        <translation type="unfinished"/>
+        <translation>Variation</translation>
     </message>
 </context>
 <context>
@@ -1133,7 +1133,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Pays</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="100"/>
@@ -1143,7 +1143,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>Web page (*.htm *.html)</source>
-        <translation type="unfinished"/>
+        <translation>Page web (*.htm *.html)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
@@ -1153,7 +1153,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="StatisticsView.py" line="122"/>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Enregistrement</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
@@ -1386,57 +1386,57 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Excel document (*.xls)</source>
         <translation>Document Excel (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Page WEB (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file (*.csv)</source>
         <translation>Fichier texte (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Fichier texte UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="455"/>
+        <location filename="ListView.py" line="468"/>
         <source>Saving list</source>
         <translation>Liste enregistrée</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="545"/>
+        <location filename="ListView.py" line="558"/>
         <source>Updating records</source>
         <translation>Mise à jour des enregistrements</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="709"/>
+        <location filename="ListView.py" line="722"/>
         <source>Saving...</source>
         <translation>Enregistrement...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="681"/>
+        <location filename="ListView.py" line="694"/>
         <source>Inserting records</source>
         <translation>Insérer des enregistrements</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="692"/>
+        <location filename="ListView.py" line="705"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Deleting records</source>
         <translation>Effacer des enregistrements</translation>
     </message>
@@ -1478,6 +1478,17 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ReferenceDialog.py" line="70"/>
         <source>Paste icon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Report preview</source>
+        <translation>Prévisualisation du rapport</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Nothing selected.
+Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1980,17 +1991,17 @@ Copyright (C) 2011-2018 Vitaly Ignatov
         <translation>Enregistrer au format PDF</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="466"/>
+        <location filename="Preview.py" line="467"/>
         <source>Word documents (*.doc)</source>
         <translation>Documents Word (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="472"/>
+        <location filename="Preview.py" line="473"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Page web (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="478"/>
+        <location filename="Preview.py" line="479"/>
         <source>PDF file (*.pdf)</source>
         <translation>Fichier PDF (*.pdf)</translation>
     </message>
@@ -2207,12 +2218,12 @@ Création d&apos;une nouvelle</translation>
 <context>
     <name>Report</name>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Generating report</source>
         <translation>Générer un rappport</translation>
     </message>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Cancel</source>
         <translation>Abandonner</translation>
     </message>
@@ -2258,7 +2269,7 @@ Création d&apos;une nouvelle</translation>
     <message>
         <location filename="StatisticsView.py" line="273"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="288"/>
@@ -2346,7 +2357,7 @@ Création d&apos;une nouvelle</translation>
     <message>
         <location filename="StatisticsView.py" line="393"/>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Prix</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="394"/>
@@ -2356,7 +2367,7 @@ Création d&apos;une nouvelle</translation>
     <message>
         <location filename="StatisticsView.py" line="585"/>
         <source>Paid</source>
-        <translation type="unfinished"/>
+        <translation>Payé</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="588"/>
@@ -2391,32 +2402,32 @@ Création d&apos;une nouvelle</translation>
     <message>
         <location filename="StatisticsView.py" line="404"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Tous</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="405"/>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>Europe</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="406"/>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>Afrique</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="407"/>
         <source>Americas</source>
-        <translation type="unfinished"/>
+        <translation>Amérique</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="408"/>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>Asie</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="409"/>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Océanie</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="395"/>
@@ -2789,7 +2800,7 @@ Add a new one first.</source>
     <message>
         <location filename="__init__.py" line="143"/>
         <source>Importing from %s</source>
-        <translation type="unfinished"/>
+        <translation>Importation de %s</translation>
     </message>
 </context>
 <context>

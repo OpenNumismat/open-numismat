@@ -37,7 +37,7 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PDF file (*.pdf)</source>
-        <translation type="unfinished"/>
+        <translation>PDF bestand (*.pdf)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
@@ -151,7 +151,8 @@
         <location filename="Collection.py" line="698"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished"/>
+        <translation>De verzameling %s heeft een nieuwere versie.
+Update OpenNumismat naar de laatste versie</translation>
     </message>
     <message>
         <location filename="Collection.py" line="863"/>
@@ -228,7 +229,7 @@ Please update OpenNumismat</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1516"/>
+        <location filename="Collection.py" line="1524"/>
         <source>Synchronizing</source>
         <translation type="unfinished"/>
     </message>
@@ -244,13 +245,13 @@ Please update OpenNumismat</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1509"/>
+        <location filename="Collection.py" line="1517"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1515"/>
+        <location filename="Collection.py" line="1523"/>
         <source>Collections looks like identical</source>
         <translation type="unfinished"/>
     </message>
@@ -601,7 +602,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="205"/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>Omschrijving</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="207"/>
@@ -677,12 +678,12 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="203"/>
         <source>Free format numeric fields</source>
-        <translation type="unfinished"/>
+        <translation>Vrij format voor numerieke velden</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="213"/>
         <source>Store column sorting</source>
-        <translation type="unfinished"/>
+        <translation>Opslaan van de kolomsortering</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="218"/>
@@ -712,7 +713,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="278"/>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="278"/>
@@ -1126,7 +1127,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="634"/>
         <source>Variation</source>
-        <translation type="unfinished"/>
+        <translation>Variatie</translation>
     </message>
 </context>
 <context>
@@ -1134,7 +1135,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Land</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="100"/>
@@ -1144,7 +1145,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>Web page (*.htm *.html)</source>
-        <translation type="unfinished"/>
+        <translation>Web pagina (*.htm *.html)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
@@ -1154,7 +1155,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <message>
         <location filename="StatisticsView.py" line="122"/>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Opslaan</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
@@ -1222,7 +1223,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <message>
         <location filename="ImageLabel.py" line="182"/>
         <source>Rename...</source>
-        <translation type="unfinished"/>
+        <translation>Hernoemen</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="302"/>
@@ -1388,57 +1389,57 @@ Wilt u een foutmelding te sturen naar de author?</translation>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Excel document (*.xls)</source>
         <translation>Excel document (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web pagina (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file (*.csv)</source>
         <translation>Tekst bestand (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Tekst bestand UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="455"/>
+        <location filename="ListView.py" line="468"/>
         <source>Saving list</source>
         <translation>Lijst opslaan</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="545"/>
+        <location filename="ListView.py" line="558"/>
         <source>Updating records</source>
         <translation>data bijwerken</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="709"/>
+        <location filename="ListView.py" line="722"/>
         <source>Saving...</source>
         <translation>Opslaan...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="681"/>
+        <location filename="ListView.py" line="694"/>
         <source>Inserting records</source>
         <translation>data toevoegen</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="692"/>
+        <location filename="ListView.py" line="705"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Deleting records</source>
         <translation>data verwijderen</translation>
     </message>
@@ -1480,6 +1481,17 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <message>
         <location filename="ReferenceDialog.py" line="70"/>
         <source>Paste icon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Report preview</source>
+        <translation>Voorbeeldrapport</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Nothing selected.
+Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1856,7 +1868,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <message>
         <location filename="MainWindow.py" line="419"/>
         <source>Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Statistieken</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="416"/>
@@ -1981,17 +1993,17 @@ Copyright (C) 2011-2018 Vitaly Ignatov
         <translation>Opslaan als PDF bestand</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="466"/>
+        <location filename="Preview.py" line="467"/>
         <source>Word documents (*.doc)</source>
         <translation>Word document (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="472"/>
+        <location filename="Preview.py" line="473"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web pagina (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="478"/>
+        <location filename="Preview.py" line="479"/>
         <source>PDF file (*.pdf)</source>
         <translation>PDF bestand (*.pdf)</translation>
     </message>
@@ -2208,12 +2220,12 @@ Nieuwe aangemaakt</translation>
 <context>
     <name>Report</name>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Generating report</source>
         <translation>Rapport genereren</translation>
     </message>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
@@ -2392,7 +2404,7 @@ Nieuwe aangemaakt</translation>
     <message>
         <location filename="StatisticsView.py" line="404"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Alle</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="405"/>
@@ -2785,12 +2797,12 @@ Add a new one first.</source>
     <message>
         <location filename="__init__.py" line="141"/>
         <source>Importing</source>
-        <translation type="unfinished"/>
+        <translation>Bezig met importeren</translation>
     </message>
     <message>
         <location filename="__init__.py" line="143"/>
         <source>Importing from %s</source>
-        <translation type="unfinished"/>
+        <translation>Importeren van %s</translation>
     </message>
 </context>
 <context>

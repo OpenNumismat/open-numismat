@@ -44,7 +44,7 @@ it.sendReport=Invia un rapporto al sito web dell'autore se e avvenuto un errore
 pl.sendReport=Wyslij raport do Autorow w przypadku problemow
 ca.sendReport=Envieu un informe a la pagina web de l'autor si hi ha cap error
 nl.sendReport=Stuur een rapport naar de auteur als er een fout is opgetreden
-bg.sendReport=Изпращане на доклади до уебсайта на авторска, ако е настъпила някаква грешка
+bg.sendReport=Изпращане на отчети до уеб сайта на автора, ако възникне някаква грешка
 lv.sendReport=Nosūtīt ziņojumu uz autora tīmekļvietni, ja radusies kāda kļūda
 
 en.checkUpdate=Automatically check for updates

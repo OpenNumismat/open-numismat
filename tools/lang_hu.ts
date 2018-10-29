@@ -37,7 +37,7 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PDF file (*.pdf)</source>
-        <translation type="unfinished"/>
+        <translation>PDF fájlok (*.pdf)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
@@ -228,7 +228,7 @@ Please update OpenNumismat</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1516"/>
+        <location filename="Collection.py" line="1524"/>
         <source>Synchronizing</source>
         <translation type="unfinished"/>
     </message>
@@ -244,13 +244,13 @@ Please update OpenNumismat</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1509"/>
+        <location filename="Collection.py" line="1517"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1515"/>
+        <location filename="Collection.py" line="1523"/>
         <source>Collections looks like identical</source>
         <translation type="unfinished"/>
     </message>
@@ -601,7 +601,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="205"/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>Leírás</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="207"/>
@@ -644,17 +644,17 @@ The application will need to restart now.</source>
     <message>
         <location filename="Collection.py" line="422"/>
         <source>Updating records</source>
-        <translation type="unfinished"/>
+        <translation>Bejegyzések frissítése</translation>
     </message>
     <message>
         <location filename="Collection.py" line="422"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Mégse</translation>
     </message>
     <message>
         <location filename="Collection.py" line="443"/>
         <source>Saving...</source>
-        <translation type="unfinished"/>
+        <translation>Mentés...</translation>
     </message>
 </context>
 <context>
@@ -662,7 +662,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="187"/>
         <source>Max image side len</source>
-        <translation type="unfinished"/>
+        <translation>Max képek száma</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="189"/>
@@ -677,7 +677,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="203"/>
         <source>Free format numeric fields</source>
-        <translation type="unfinished"/>
+        <translation>Szabad formátumú numerikus mezők</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="213"/>
@@ -712,7 +712,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="278"/>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Beállítások</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="278"/>
@@ -1126,7 +1126,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="634"/>
         <source>Variation</source>
-        <translation type="unfinished"/>
+        <translation>Variáció</translation>
     </message>
 </context>
 <context>
@@ -1134,7 +1134,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
     <message>
         <location filename="StatisticsView.py" line="100"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>Ország</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="100"/>
@@ -1144,7 +1144,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>Web page (*.htm *.html)</source>
-        <translation type="unfinished"/>
+        <translation>Weboldalak (*.htm, *.html)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="109"/>
@@ -1154,7 +1154,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
     <message>
         <location filename="StatisticsView.py" line="122"/>
         <source>Saving</source>
-        <translation type="unfinished"/>
+        <translation>Mentés</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
@@ -1167,7 +1167,7 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
     <message>
         <location filename="Gui.py" line="50"/>
         <source>Save as</source>
-        <translation type="unfinished"/>
+        <translation>Mentés másként</translation>
     </message>
 </context>
 <context>
@@ -1388,57 +1388,57 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Excel document (*.xls)</source>
         <translation>Excel dokumentum (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Weboldalak (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file (*.csv)</source>
         <translation>Szöveges fájlok (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="442"/>
+        <location filename="ListView.py" line="455"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Szöveges UTL-8 fájlok (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="455"/>
+        <location filename="ListView.py" line="468"/>
         <source>Saving list</source>
         <translation>Mentési lista</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Cancel</source>
         <translation>Mégse</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="545"/>
+        <location filename="ListView.py" line="558"/>
         <source>Updating records</source>
         <translation>Bejegyzések frissítése</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="709"/>
+        <location filename="ListView.py" line="722"/>
         <source>Saving...</source>
         <translation>Mentés...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="681"/>
+        <location filename="ListView.py" line="694"/>
         <source>Inserting records</source>
         <translation>Bejegyzés beszúrása</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="692"/>
+        <location filename="ListView.py" line="705"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="698"/>
+        <location filename="ListView.py" line="711"/>
         <source>Deleting records</source>
         <translation>Bejegyzések törlése</translation>
     </message>
@@ -1480,6 +1480,17 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
     <message>
         <location filename="ReferenceDialog.py" line="70"/>
         <source>Paste icon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Report preview</source>
+        <translation>Jelentés megtekintése</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="449"/>
+        <source>Nothing selected.
+Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1977,17 +1988,17 @@ Copyright (C) 2011-2018 Vitaly Ignatov
         <translation>Mentés PDF fájlként</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="466"/>
+        <location filename="Preview.py" line="467"/>
         <source>Word documents (*.doc)</source>
         <translation>Word dokumentumok (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="472"/>
+        <location filename="Preview.py" line="473"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Weboldalak (*.htm, *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="478"/>
+        <location filename="Preview.py" line="479"/>
         <source>PDF file (*.pdf)</source>
         <translation>PDF fájlok (*.pdf)</translation>
     </message>
@@ -2202,12 +2213,12 @@ Created new one</source>
 <context>
     <name>Report</name>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Generating report</source>
         <translation>Jelentés készítése</translation>
     </message>
     <message>
-        <location filename="Report.py" line="109"/>
+        <location filename="Report.py" line="113"/>
         <source>Cancel</source>
         <translation>Mégse</translation>
     </message>
@@ -2240,7 +2251,7 @@ Created new one</source>
     <message>
         <location filename="SettingsDialog.py" line="375"/>
         <source>Collection</source>
-        <translation type="unfinished"/>
+        <translation>Gyűjtemény</translation>
     </message>
 </context>
 <context>
@@ -2253,7 +2264,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="273"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Mégse</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="288"/>
@@ -2712,7 +2723,7 @@ Add a new one first.</source>
     <message>
         <location filename="VersionUpdater.py" line="396"/>
         <source>Saving...</source>
-        <translation type="unfinished"/>
+        <translation>Mentés...</translation>
     </message>
 </context>
 <context>
@@ -2774,17 +2785,17 @@ Add a new one first.</source>
     <message>
         <location filename="__init__.py" line="140"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Mégse</translation>
     </message>
     <message>
         <location filename="__init__.py" line="141"/>
         <source>Importing</source>
-        <translation type="unfinished"/>
+        <translation>Importálás</translation>
     </message>
     <message>
         <location filename="__init__.py" line="143"/>
         <source>Importing from %s</source>
-        <translation type="unfinished"/>
+        <translation>Importálás %s-ból/ből</translation>
     </message>
 </context>
 <context>
