@@ -192,7 +192,7 @@ if cx_Freeze_available:
         qt_dir = '/opt/local/libexec/qt5'
         executable_ext = ''
 
-    executable = Executable("open-numismat.py", base=base, compress=True,
+    executable = Executable("open-numismat.py", base=base,
                             icon='OpenNumismat/icons/main.ico',
                             targetName=params['name'] + executable_ext)
 
