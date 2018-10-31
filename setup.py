@@ -234,7 +234,9 @@ if cx_Freeze_available:
     build_exe_options = {
             "excludes": [],
             "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
-                         "PyQt5.QtWebKit", "matplotlib.backends.backend_ps"],
+                         "PyQt5.QtWebKit", "numpy.core._methods", "numpy.lib.format",
+                         "matplotlib.backends.backend_ps", "matplotlib.backends.backend_pdf",
+                         "matplotlib.backends.backend_svg"],
             "include_files": include_files,
             "replace_paths": [(os.path.dirname(__file__) + os.sep, '')],
             "include_msvcr": True  # skip error msvcr100.dll missing
