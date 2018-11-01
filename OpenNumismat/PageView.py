@@ -146,9 +146,7 @@ class TreeWidgetItem(QTreeWidgetItem):
         if not left or not right:
             return super().__lt__(other)
 
-        min_len = len(left)
-        if min_len < len(right):
-            min_len = len(right)
+        min_len = min(len(left), len(right))
 
         for i in reversed(range(min_len)):
             if left[i] == right[i]:
