@@ -40,11 +40,12 @@ class SummaryDialog(QDialog):
             totalCount = query.record().value(0)
             lines.append(self.tr("Total count: %d") % totalCount)
 
+        count_owned = 0
         sql = "SELECT count(*) FROM coins WHERE status IN ('owned', 'ordered', 'sale')"
         query = QSqlQuery(sql, model.database())
         if query.first():
-            count = query.record().value(0)
-            lines.append(self.tr("Count owned: %d") % count)
+            count_owned = query.record().value(0)
+            lines.append(self.tr("Count owned: %d") % count_owned)
 
         sql = "SELECT count(*) FROM coins WHERE status='wish'"
         query = QSqlQuery(sql, model.database())
@@ -52,12 +53,13 @@ class SummaryDialog(QDialog):
             count = query.record().value(0)
             lines.append(self.tr("Count wish: %d") % count)
 
+        count_sold = 0
         sql = "SELECT count(*) FROM coins WHERE status='sold'"
         query = QSqlQuery(sql, model.database())
         if query.first():
-            count = query.record().value(0)
-            if count > 0:
-                lines.append(self.tr("Count sales: %d") % count)
+            count_sold = query.record().value(0)
+            if count_sold > 0:
+                lines.append(self.tr("Count sales: %d") % count_sold)
 
         sql = "SELECT count(*) FROM coins WHERE status='bidding'"
         query = QSqlQuery(sql, model.database())
@@ -81,6 +83,9 @@ class SummaryDialog(QDialog):
             if paid:
                 lines.append(self.tr("Paid: %.2f") % paid)
 
+        if paid:
+            lines.append(self.tr("Average paid per item: %.2f") % (paid / count_owned))
+
         earned = 0
         sql = "SELECT SUM(totalsaleprice) FROM coins WHERE status='sold' AND totalsaleprice<>'' AND totalsaleprice IS NOT NULL"
         query = QSqlQuery(sql, model.database())
@@ -88,6 +93,9 @@ class SummaryDialog(QDialog):
             earned = query.record().value(0)
             if earned:
                 lines.append(self.tr("Earned: %.2f") % earned)
+
+        if earned:
+            lines.append(self.tr("Average earn per item: %.2f") % (earned / count_sold))
 
         if paid and earned:
             total = (paid - earned)
@@ -168,5 +176,11 @@ class SummaryDialog(QDialog):
             comment = self.tr("(calculated for %d coins)") % count
 
         lines.append(' '.join((self.tr("Estimation wish: %d") % est_wish, comment)))
+
+        sql = "SELECT count(*) FROM photos"
+        query = QSqlQuery(sql, model.database())
+        if query.first():
+            count = query.record().value(0)
+            lines.append(self.tr("Count images: %d") % count)
 
         self.textBox.setText('\n'.join(lines))
