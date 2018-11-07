@@ -53,10 +53,13 @@ def main():
                 src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
                                            'demo_%s.db' % settings['locale'])
                 if not os.path.exists(src_demo_db):
-                    src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
+                    src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
                                        'demo_en.ref')
 
                 shutil.copy(src_demo_db, dst_demo_db)
+
+            templates_path = os.path.join(OpenNumismat.HOME_PATH, 'templates')
+            os.makedirs(templates_path, exist_ok=True)
         except:
             pass
 
