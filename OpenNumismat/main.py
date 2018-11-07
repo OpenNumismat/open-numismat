@@ -108,8 +108,8 @@ def exceptHook(type_, value, tback):
         # errorMessage.append('')
         errorMessage.append("%s: %s" % (version.AppName, version.Version))
         errorMessage.append("OS: %s %s (%s)" % (platform.system(),
-                                                   platform.release(),
-                                                   platform.version()))
+                                                platform.release(),
+                                                platform.version()))
         errorMessage.append("Python: %s (%s)" % (platform.python_version(),
                                                  platform.architecture()[0]))
         errorMessage.append("Qt: %s" % PYQT_VERSION_STR)
