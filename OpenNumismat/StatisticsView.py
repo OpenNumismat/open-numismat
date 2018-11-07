@@ -593,7 +593,7 @@ class StatisticsView(QWidget):
                 self.chart.setLabel(self.tr("Number of coins"))
 
             period = self.periodSelector.currentData()
-            if items == 'founded':
+            if items == 'created':
                 if period == 'month':
                     sql_filters = ["createdat >= datetime('now', 'start of month', '-11 months')"]
                 elif period == 'week':
