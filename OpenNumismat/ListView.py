@@ -335,7 +335,7 @@ class ListView(QTableView):
 
         self._updateHeaderButtons()
 
-    def itemDClicked(self, index):
+    def itemDClicked(self, _index):
         self._edit(self.currentIndex())
 
     def keyPressEvent(self, event):
@@ -348,6 +348,12 @@ class ListView(QTableView):
             self._paste()
         elif event.matches(QKeySequence.Delete):
             self._delete(self.selectedRows())
+        elif event.matches(QKeySequence.MoveToStartOfDocument):
+            self.selectRow(0)
+            self.clearSelection()
+        elif event.matches(QKeySequence.MoveToEndOfDocument):
+            self.selectRow(self.model().rowCount() - 1)
+            self.clearSelection()
         else:
             return super().keyPressEvent(event)
 
