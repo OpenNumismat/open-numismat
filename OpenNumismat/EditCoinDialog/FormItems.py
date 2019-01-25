@@ -591,7 +591,12 @@ class TextBrowser(QTextBrowser):
         self.setAcceptRichText(False)
         self.setTabChangesFocus(True)
 
-        self.setOpenExternalLinks(True)
+        self.setOpenLinks(False)
+        self.anchorClicked.connect(self.anchorClickedEvent)
+
+    def anchorClickedEvent(self, link):
+        executor = QDesktopServices()
+        executor.openUrl(link)
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -599,7 +604,7 @@ class TextBrowser(QTextBrowser):
     def setText(self, text):
         text = htmlToPlainText(text)
 
-        urls = re.findall(r'(https?://[^\s]+)', text)
+        urls = re.findall(r'(https?://[^\s]+|file:///[^\s]+)', text)
         if urls:
             beg = 0
             new_text = ''
@@ -624,14 +629,19 @@ class RichTextBrowser(QTextBrowser):
         self.setAcceptRichText(True)
         self.setTabChangesFocus(True)
 
-        self.setOpenExternalLinks(True)
+        self.setOpenLinks(False)
+        self.anchorClicked.connect(self.anchorClickedEvent)
+
+    def anchorClickedEvent(self, link):
+        executor = QDesktopServices()
+        executor.openUrl(link)
 
     def sizeHint(self):
         return self.minimumSizeHint()
 
     def setText(self, text):
         if not text.startswith(RICH_PREFIX):
-            urls = re.findall(r'(https?://[^\s]+)', text)
+            urls = re.findall(r'(https?://[^\s]+|file:///[^\s]+)', text)
             if urls:
                 beg = 0
                 new_text = ''
@@ -682,7 +692,7 @@ class RichTextEdit(QTextEdit):
 
     def setText(self, text):
         if not text.startswith(RICH_PREFIX):
-            urls = re.findall(r'(https?://[^\s]+)', text)
+            urls = re.findall(r'(https?://[^\s]+|file:///[^\s]+)', text)
             if urls:
                 beg = 0
                 new_text = ''
