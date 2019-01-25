@@ -1,0 +1,85 @@
+{
+    "rarity": [
+        "Yaygın",
+        "Normal",
+        "Scarce",
+        "Nadir",
+        "Emsalsiz",
+        "In sets only"
+    ],
+    "quality": [
+        "Çil",
+        "Brilliant uncirculated",
+        "Proof",
+        "Proof like",
+        "Reverse frosted"
+    ],
+    "defect": [
+        "Clipped planchet",
+        "Lamination",
+        "Off center strike",
+        "Multiple strike",
+        "Mule",
+        "Doubled die",
+        "Brockage"
+    ],
+    "type": [
+        "Tedavül",
+        "Hatıra",
+        "Bullion",
+        "Restrike",
+        "Pattern"
+    ],
+    "format": [
+        "Single",
+        "Set",
+        "Roll"
+    ],
+    "obvrev": [
+        "Medallic (0°)",
+        "Coin (180°)"
+    ],
+    "edge": [
+        "Tırtıllı",
+        "Decorated",
+        "Interrupted milled",
+        "Düz",
+        "Lettered"
+    ],
+    "shape": [
+        "Yuvarlak",
+        "Kare",
+        "Çokgen",
+        "Spanish flower",
+        "Ortası delikli"
+    ],
+    "material": [
+        "Acmonital",
+        "Alüminyum",
+        "Alüminyum Bronzu",
+        "Antimon",
+        "Pirinç",
+        "Bronz",
+        "Kobalt",
+        "Bakır",
+        "Cupronikel",
+        "Altın",
+        "Demir",
+        "Magnezyum",
+        "Manganez",
+        "Melchior",
+        "Nikel",
+        "Nikel gümüşü",
+        "Kuzey Altını",
+        "Paladyum",
+        "Platin",
+        "Gümüş",
+        "Çelik",
+        "Tantal",
+        "Tombak",
+        "Tellür",
+        "Kalay",
+        "Çinko",
+        "Bimetal"
+    ]
+}
