@@ -312,9 +312,7 @@ class ListView(QTableView):
             index = self.horizontalHeader().visualIndex(pos)
             self.horizontalHeader().moveSection(index, pos)
 
-        col = []
-        for i in range(self.model().columnCount()):
-            col.append(i)
+        col = list(range(self.model().columnCount()))
 
         # Move columns
         height = self.defaultHeight
