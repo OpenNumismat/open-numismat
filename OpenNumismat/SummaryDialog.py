@@ -76,7 +76,7 @@ class SummaryDialog(QDialog):
                 lines.append(self.tr("Count missing: %d") % count)
 
         paid = 0
-        comission = ""
+        commission = ""
         sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
         query = QSqlQuery(sql, model.database())
         if query.first():
@@ -87,14 +87,14 @@ class SummaryDialog(QDialog):
                 if query.first():
                     paid_without_commission = query.record().value(0)
                     if paid_without_commission:
-                        comission = self.tr("(comission %d%%)") % ((paid - paid_without_commission) / paid_without_commission * 100)
-                lines.append(' '.join((self.tr("Paid: %.2f") % paid, comission)))
+                        commission = self.tr("(commission %d%%)") % ((paid - paid_without_commission) / paid_without_commission * 100)
+                lines.append(' '.join((self.tr("Paid: %.2f") % paid, commission)))
 
         if paid:
             lines.append(self.tr("Average paid per item: %.2f") % (paid / count_owned))
 
         earned = 0
-        comission = ""
+        commission = ""
         sql = "SELECT SUM(totalsaleprice) FROM coins WHERE status='sold' AND totalsaleprice<>'' AND totalsaleprice IS NOT NULL"
         query = QSqlQuery(sql, model.database())
         if query.first():
@@ -105,8 +105,8 @@ class SummaryDialog(QDialog):
                 if query.first():
                     earn_without_commission = query.record().value(0)
                     if earn_without_commission:
-                        comission = self.tr("(comission %d%%)") % ((earn_without_commission - earned) / earn_without_commission * 100)
-                lines.append(' '.join((self.tr("Earned: %.2f") % earned, comission)))
+                        commission = self.tr("(commission %d%%)") % ((earn_without_commission - earned) / earn_without_commission * 100)
+                lines.append(' '.join((self.tr("Earned: %.2f") % earned, commission)))
 
         if earned:
             lines.append(self.tr("Average earn per item: %.2f") % (earned / count_sold))
