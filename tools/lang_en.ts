@@ -731,13 +731,13 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="226"/>
-        <source>Use RichText format</source>
+        <location filename="SettingsDialog.py" line="208"/>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="208"/>
-        <source>Convert 0.5 to &#xc2;&#xbd; (support &#xc2;&#xbc;, &#xe2;&#x85;&#x93;, &#xc2;&#xbd;, &#xc2;&#xbe;, 1&#xc2;&#xbc;, 1&#xc2;&#xbd;, 2&#xc2;&#xbd;)</source>
+        <location filename="SettingsDialog.py" line="226"/>
+        <source>Use RichText format</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1385,7 +1385,8 @@ Do you want to send an error message to the author?</source>
         <location filename="ListView.py" line="405"/>
         <source>%n coin(s) selected</source>
         <translation>
-            <numerusform></numerusform>
+            <numerusform>%n coin selected</numerusform>
+            <numerusform>%n coins selected</numerusform>
         </translation>
     </message>
     <message>
@@ -1437,7 +1438,8 @@ Do you want to send an error message to the author?</source>
         <location filename="ListView.py" line="710"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation>
-            <numerusform></numerusform>
+            <numerusform>Are you sure to remove a %n coin?</numerusform>
+            <numerusform>Are you sure to remove a %n coins?</numerusform>
         </translation>
     </message>
     <message>
