@@ -599,7 +599,8 @@ class PageView(Splitter):
 
         self.statisticsShowed = show
 
-        self.splitter1.setSizes(sizes)
+        if sizes[1] > 0:
+            self.splitter1.setSizes(sizes)
 
     def showStatistics(self, show):
         self.prepareStatistics(show)
