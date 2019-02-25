@@ -90,8 +90,8 @@ class SummaryDialog(QDialog):
                         commission = self.tr("(commission %d%%)") % ((paid - paid_without_commission) / paid_without_commission * 100)
                 lines.append(' '.join((self.tr("Paid: %.2f") % paid, commission)))
 
-        if paid:
-            lines.append(self.tr("Average paid per item: %.2f") % (paid / count_owned))
+                if count_owned:
+                    lines.append(self.tr("Average paid per item: %.2f") % (paid / count_owned))
 
         earned = 0
         commission = ""
@@ -108,8 +108,8 @@ class SummaryDialog(QDialog):
                         commission = self.tr("(commission %d%%)") % ((earn_without_commission - earned) / earn_without_commission * 100)
                 lines.append(' '.join((self.tr("Earned: %.2f") % earned, commission)))
 
-        if earned:
-            lines.append(self.tr("Average earn per item: %.2f") % (earned / count_sold))
+                if count_sold:
+                    lines.append(self.tr("Average earn per item: %.2f") % (earned / count_sold))
 
         if paid and earned:
             total = (paid - earned)
