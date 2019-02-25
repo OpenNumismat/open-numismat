@@ -1,5 +1,5 @@
-open-numismat (1.7.8) oneiric; urgency=low
+open-numismat (1.7.9) oneiric; urgency=low
 
   * Add Dutch.
 
- -- Vitaly Ignatov <opennumismat@gmail.com>  Mon, 29 Jan 2019 22:41:51 -0800
+ -- Vitaly Ignatov <opennumismat@gmail.com>  Mon, 28 Feb 2019 22:41:51 -0800
