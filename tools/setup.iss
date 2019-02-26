@@ -123,6 +123,7 @@ Source: "..\build\exe.win32-3.4\db\reference_lv.ref"; DestDir: "{userdocs}\OpenN
 Source: "..\build\exe.win32-3.4\db\reference_tr.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: tr; Flags: onlyifdoesntexist
 
 [Dirs]
+Name: "{userdocs}\OpenNumismat"
 Name: "{userdocs}\OpenNumismat\backup"
 Name: "{userdocs}\OpenNumismat\templates"
 
