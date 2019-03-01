@@ -747,8 +747,9 @@ class ListView(QTableView):
 
         model = self.model()
 
-        column_name = model.columnName(index.column())
-        column_type = model.columnType(index.column())
+        column = index.column()
+        column_name = model.columnName(column)
+        column_type = model.columnType(column)
         data = index.data(Qt.UserRole)
         if column_type == Type.Text or column_type in Type.ImageTypes:
             if data:
@@ -765,8 +766,10 @@ class ListView(QTableView):
 
         filters = ColumnFilters(column_name)
         filters.addFilter(filter_)
-        column = self.horizontalHeader().visualIndex(index.column())
-        self.headerButtons[column].applyFilters(filters)
+        for btn in self.headerButtons:
+            if btn.fieldid == column:
+                btn.applyFilters(filters)
+                break
 
     def search(self, text):
         self.searchText = text
