@@ -367,6 +367,11 @@ class FilterMenuButton(QPushButton):
 
                     filters.addFilter(filter_)
 
+        self.applyFilters(filters)
+
+        self.menu().hide()
+
+    def applyFilters(self, filters):
         if filters.filters():
             self.setIcon(createIcon('filters.ico'))
             self.filters[self.fieldid] = filters
@@ -377,8 +382,6 @@ class FilterMenuButton(QPushButton):
 
         filtersSql = self.filtersToSql(self.filters.values())
         self.model.setFilter(filtersSql)
-
-        self.menu().hide()
 
         self.listParam.save_filters()
 

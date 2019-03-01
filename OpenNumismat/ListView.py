@@ -20,6 +20,7 @@ from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportToCsv, ExportToCsvUtf8
 from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
+from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
 
 
 def textToClipboard(text):
@@ -372,6 +373,12 @@ class ListView(QTableView):
                        self.tr("Copy"), self._copy, QKeySequence.Copy)
         menu.addAction(createIcon('page_paste.png'),
                        self.tr("Paste"), self._paste, QKeySequence.Paste)
+
+        menu.addSeparator()
+        act = menu.addAction(createIcon('funnel.png'),
+                             self.tr("Filter in"), self._filter)
+        act.setEnabled(selected_count == 1)
+
         menu.addSeparator()
         act = menu.addAction(self.tr("Clone"), self._clone)
         # Disable Clone when more than one record selected
@@ -379,8 +386,8 @@ class ListView(QTableView):
         act = menu.addAction(self.tr("Multi edit..."), self._multiEdit)
         # Disable Multi edit when only one record selected
         act.setEnabled(selected_count > 1)
-        menu.addSeparator()
 
+        menu.addSeparator()
         style = QApplication.style()
         icon = style.standardIcon(QStyle.SP_TrashIcon)
         menu.addAction(icon, self.tr("Delete"),
@@ -733,6 +740,33 @@ class ListView(QTableView):
 
         record = self.model().record(index.row())
         self.model().addCoin(record, self)
+
+    def _filter(self, index=None):
+        if not index:
+            index = self.currentIndex()
+
+        model = self.model()
+
+        column_name = model.columnName(index.column())
+        column_type = model.columnType(index.column())
+        data = index.data(Qt.UserRole)
+        if column_type == Type.Text or column_type in Type.ImageTypes:
+            if data:
+                filter_ = DataFilter(column_name)
+            else:
+                filter_ = BlankFilter(column_name)
+        else:
+            value = str(data)
+            if value:
+                filter_ = ValueFilter(column_name, value)
+            else:
+                filter_ = BlankFilter(column_name)
+        filter_.revert = True
+
+        filters = ColumnFilters(column_name)
+        filters.addFilter(filter_)
+        column = self.horizontalHeader().visualIndex(index.column())
+        self.headerButtons[column].applyFilters(filters)
 
     def search(self, text):
         self.searchText = text

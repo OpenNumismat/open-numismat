@@ -49,7 +49,7 @@ class MainWindow(QMainWindow):
         settingsAct.triggered.connect(self.settingsEvent)
         self.collectionActs.append(settingsAct)
 
-        cancelFilteringAct = QAction(createIcon('funnel.png'),
+        cancelFilteringAct = QAction(createIcon('funnel_clear.png'),
                                     self.tr("Clear all filters"), self)
         cancelFilteringAct.triggered.connect(self.cancelFilteringEvent)
         self.collectionActs.append(cancelFilteringAct)
