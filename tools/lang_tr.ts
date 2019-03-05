@@ -135,7 +135,7 @@
     <message>
         <location filename="Collection.py" line="1291"/>
         <source>Saving...</source>
-        <translation>Kaydediyor...</translation>
+        <translation>Kaydediliyor...</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1294"/>
@@ -732,14 +732,14 @@ The application will need to restart now.</source>
         <translation>MÖ&apos;yü aktifleştir</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="208"/>
-        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
-        <translation>0.5&apos;leri ½&apos;ye çevir (¼, ⅓, ½, ¾, 1¼, 1½, 2½ destekleniyor)</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.py" line="226"/>
         <source>Use RichText format</source>
         <translation>Zengin metin biçimi kullan</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="208"/>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <translation>0.5&apos;leri ½&apos;ye çevir (¼, ⅓, ½, ¾, 1¼, 1½, 2½ destekleniyor)</translation>
     </message>
 </context>
 <context>
@@ -1329,52 +1329,52 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="129"/>
+        <location filename="ListView.py" line="130"/>
         <source>0 coin(s) selected</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="160"/>
+        <location filename="ListView.py" line="161"/>
         <source>Select columns...</source>
         <translation>Sütunları Seç...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="161"/>
+        <location filename="ListView.py" line="162"/>
         <source>Hide</source>
         <translation>Gizle</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="163"/>
+        <location filename="ListView.py" line="164"/>
         <source>Adjust size</source>
         <translation>Boyutu ayarla</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="280"/>
+        <location filename="ListView.py" line="281"/>
         <source>%d/%d coins</source>
         <translation>%d/%d madeni para</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="366"/>
+        <location filename="ListView.py" line="367"/>
         <source>Edit...</source>
         <translation>Düzenle...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="373"/>
+        <location filename="ListView.py" line="374"/>
         <source>Copy</source>
         <translation>Kopyala</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="375"/>
+        <location filename="ListView.py" line="376"/>
         <source>Paste</source>
         <translation>Yapıştır</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="380"/>
+        <location filename="ListView.py" line="385"/>
         <source>Clone</source>
         <translation>Çoğalt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="383"/>
+        <location filename="ListView.py" line="388"/>
         <source>Multi edit...</source>
         <translation>Çoklu Düzenle...</translation>
     </message>
@@ -1384,62 +1384,62 @@ Do you want to send an error message to the author?</source>
         <translation>Sil</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="407"/>
+        <location filename="ListView.py" line="412"/>
         <source>%n coin(s) selected</source>
         <translation><numerusform>%n madeni para seçildi</numerusform><numerusform>%n madeni para seçildi</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Excel document (*.xls)</source>
         <translation>Excel dokümanı (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web Sayfası (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Text file (*.csv)</source>
         <translation>Metin Dosyası (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>UTF-8 Metin dosyası (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="475"/>
+        <location filename="ListView.py" line="480"/>
         <source>Saving list</source>
         <translation>Liste kaydediliyor</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="722"/>
+        <location filename="ListView.py" line="723"/>
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="569"/>
+        <location filename="ListView.py" line="570"/>
         <source>Updating records</source>
         <translation>Kayıtlar güncelleniyor</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="733"/>
+        <location filename="ListView.py" line="734"/>
         <source>Saving...</source>
-        <translation>Kaydediyor...</translation>
+        <translation>Kaydediliyor...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="705"/>
+        <location filename="ListView.py" line="706"/>
         <source>Inserting records</source>
         <translation type="unfinished"/>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="716"/>
+        <location filename="ListView.py" line="717"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="722"/>
+        <location filename="ListView.py" line="723"/>
         <source>Deleting records</source>
         <translation>Kayıtlar siliniyor</translation>
     </message>
@@ -1484,14 +1484,19 @@ Do you want to send an error message to the author?</source>
         <translation>Simge yapıştır</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="456"/>
+        <location filename="ListView.py" line="461"/>
         <source>Report preview</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="456"/>
+        <location filename="ListView.py" line="461"/>
         <source>Nothing selected.
 Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="380"/>
+        <source>Filter in</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1728,7 +1733,7 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
     <message>
         <location filename="MainWindow.py" line="279"/>
         <source>Report...</source>
-        <translation type="unfinished"/>
+        <translation>Raporla...</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="284"/>
@@ -2087,12 +2092,12 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="290"/>
         <source>C</source>
-        <translation type="unfinished"/>
+        <translation>Ü</translation>
     </message>
     <message>
         <location filename="Reference.py" line="306"/>
         <source>T</source>
-        <translation type="unfinished"/>
+        <translation>T</translation>
     </message>
     <message>
         <location filename="Reference.py" line="299"/>
@@ -2107,7 +2112,7 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="300"/>
         <source>M</source>
-        <translation type="unfinished"/>
+        <translation>M</translation>
     </message>
     <message>
         <location filename="Reference.py" line="301"/>
@@ -2122,7 +2127,7 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="295"/>
         <source>U</source>
-        <translation type="unfinished"/>
+        <translation>B</translation>
     </message>
     <message>
         <location filename="Reference.py" line="292"/>
@@ -2137,17 +2142,17 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="Reference.py" line="302"/>
         <source>Q</source>
-        <translation type="unfinished"/>
+        <translation>K</translation>
     </message>
     <message>
         <location filename="Reference.py" line="307"/>
         <source>D</source>
-        <translation type="unfinished"/>
+        <translation>K</translation>
     </message>
     <message>
         <location filename="Reference.py" line="304"/>
         <source>R</source>
-        <translation type="unfinished"/>
+        <translation>N</translation>
     </message>
     <message>
         <location filename="Reference.py" line="393"/>
@@ -2279,32 +2284,32 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="360"/>
         <source>Bar</source>
-        <translation type="unfinished"/>
+        <translation>Çubuk</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="361"/>
         <source>Horizontal bar</source>
-        <translation type="unfinished"/>
+        <translation>Yatay Çubuk</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="362"/>
         <source>Pie</source>
-        <translation type="unfinished"/>
+        <translation>Pasta</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="363"/>
         <source>Stacked bar</source>
-        <translation type="unfinished"/>
+        <translation>İstifli Çubuk</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="364"/>
         <source>Progress</source>
-        <translation type="unfinished"/>
+        <translation>İlerleme</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="367"/>
         <source>Chart:</source>
-        <translation type="unfinished"/>
+        <translation>Çizelge:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="370"/>
@@ -2344,7 +2349,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="389"/>
         <source>Items:</source>
-        <translation type="unfinished"/>
+        <translation>Ögeler:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="392"/>
@@ -2490,12 +2495,12 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="41"/>
         <source>Total count: %d</source>
-        <translation type="unfinished"/>
+        <translation>Toplam Sayı: %d</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="48"/>
         <source>Count owned: %d</source>
-        <translation type="unfinished"/>
+        <translation>Sahip Olunan Sayısı: %d</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="54"/>
@@ -2505,7 +2510,7 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="62"/>
         <source>Count sales: %d</source>
-        <translation type="unfinished"/>
+        <translation>Satılıkların Sayısı: %d</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="92"/>
@@ -2553,11 +2558,6 @@ Created new one</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="110"/>
-        <source>(comission %d%%)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="SummaryDialog.py" line="95"/>
         <source>Average paid per item: %.2f</source>
         <translation type="unfinished"/>
@@ -2570,6 +2570,11 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="202"/>
         <source>Count images: %d</source>
+        <translation>Görsellerin Sayısı: %d</translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="110"/>
+        <source>(commission %d%%)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2724,7 +2729,7 @@ Add a new one first.</source>
     <message>
         <location filename="VersionUpdater.py" line="228"/>
         <source>Saving...</source>
-        <translation>Kaydediyor...</translation>
+        <translation>Kaydediliyor...</translation>
     </message>
     <message>
         <location filename="VersionUpdater.py" line="244"/>
@@ -2737,7 +2742,7 @@ Add a new one first.</source>
     <message>
         <location filename="VersionUpdater.py" line="344"/>
         <source>Saving...</source>
-        <translation>Kaydediyor...</translation>
+        <translation>Kaydediliyor...</translation>
     </message>
 </context>
 <context>
@@ -2745,7 +2750,7 @@ Add a new one first.</source>
     <message>
         <location filename="VersionUpdater.py" line="396"/>
         <source>Saving...</source>
-        <translation>Kaydediyor...</translation>
+        <translation>Kaydediliyor...</translation>
     </message>
 </context>
 <context>

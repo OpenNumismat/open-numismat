@@ -32,7 +32,7 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>Зображення PNG (* .png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
@@ -42,17 +42,17 @@
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>SVG image (*.svg)</source>
-        <translation type="unfinished"/>
+        <translation>Зображення SVG (* .svg)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>PostScript (*.ps)</source>
-        <translation type="unfinished"/>
+        <translation>PostScript (* .ps)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="185"/>
         <source>Encapsulated PostScript (*.eps)</source>
-        <translation type="unfinished"/>
+        <translation>Encapsulated PostScript (* .eps)</translation>
     </message>
 </context>
 <context>
@@ -157,28 +157,29 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="863"/>
         <source>Attach</source>
-        <translation type="unfinished"/>
+        <translation>Прикріпити</translation>
     </message>
     <message>
         <location filename="Collection.py" line="863"/>
         <source>Attach current reference to a collection file?</source>
-        <translation type="unfinished"/>
+        <translation>Приєднати поточне посилання до файлу колекції?</translation>
     </message>
     <message>
         <location filename="Collection.py" line="904"/>
         <source>Attaching reference</source>
-        <translation type="unfinished"/>
+        <translation>Додавання посилання</translation>
     </message>
     <message>
         <location filename="Collection.py" line="904"/>
         <source>Can't attach reference:
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Не вдається додати посилання:
+% s</translation>
     </message>
     <message>
         <location filename="Collection.py" line="918"/>
         <source>Save reference as</source>
-        <translation type="unfinished"/>
+        <translation>Зберегти посилання як</translation>
     </message>
     <message>
         <location filename="Collection.py" line="918"/>
@@ -188,23 +189,24 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="925"/>
         <source>Detaching reference</source>
-        <translation type="unfinished"/>
+        <translation>Від&apos;єднання посилання</translation>
     </message>
     <message>
         <location filename="Collection.py" line="939"/>
         <source>Detach reference</source>
-        <translation type="unfinished"/>
+        <translation>Від&apos;єднати посилання</translation>
     </message>
     <message>
         <location filename="Collection.py" line="939"/>
         <source>Can't detach reference:
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Не вдається від&apos;єднати посилання:
+% s</translation>
     </message>
     <message>
         <location filename="Collection.py" line="992"/>
         <source>Create reference</source>
-        <translation type="unfinished"/>
+        <translation>Створити посилання</translation>
     </message>
     <message>
         <location filename="Collection.py" line="960"/>
@@ -221,17 +223,17 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="1012"/>
         <source>Detach current reference</source>
-        <translation type="unfinished"/>
+        <translation>Від&apos;єднати поточне посилання</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1015"/>
         <source>Attach current reference</source>
-        <translation type="unfinished"/>
+        <translation>Приєднати поточну довідку</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1524"/>
         <source>Synchronizing</source>
-        <translation type="unfinished"/>
+        <translation>Синхронізація</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1341"/>
@@ -253,7 +255,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Collection.py" line="1523"/>
         <source>Collections looks like identical</source>
-        <translation type="unfinished"/>
+        <translation>Колекції виглядають однаково</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1330"/>
@@ -582,7 +584,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="199"/>
         <source>Ruler</source>
-        <translation type="unfinished"/>
+        <translation>Лінійка</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="200"/>
@@ -688,17 +690,17 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="218"/>
         <source>Images at bottom</source>
-        <translation type="unfinished"/>
+        <translation>Зображення внизу</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="231"/>
         <source>Show icons from reference (slow)</source>
-        <translation type="unfinished"/>
+        <translation>Показувати піктограми з посиланням (повільно)</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="232"/>
         <source>in tree</source>
-        <translation type="unfinished"/>
+        <translation>в дереві</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="235"/>
@@ -731,13 +733,13 @@ The application will need to restart now.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="208"/>
-        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <location filename="SettingsDialog.py" line="226"/>
+        <source>Use RichText format</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="226"/>
-        <source>Use RichText format</source>
+        <location filename="SettingsDialog.py" line="208"/>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1150,7 +1152,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="StatisticsView.py" line="109"/>
         <source>PNG image (*.png)</source>
-        <translation type="unfinished"/>
+        <translation>Зображення PNG (* .png)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="122"/>
@@ -1330,52 +1332,52 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="129"/>
+        <location filename="ListView.py" line="130"/>
         <source>0 coin(s) selected</source>
         <translation>Не вибрано жодної монети</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="160"/>
+        <location filename="ListView.py" line="161"/>
         <source>Select columns...</source>
         <translation>Вибрати стовпчики...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="161"/>
+        <location filename="ListView.py" line="162"/>
         <source>Hide</source>
         <translation>Приховати</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="163"/>
+        <location filename="ListView.py" line="164"/>
         <source>Adjust size</source>
         <translation>Пдігнати розмір</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="280"/>
+        <location filename="ListView.py" line="281"/>
         <source>%d/%d coins</source>
         <translation>%d/%d монет</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="366"/>
+        <location filename="ListView.py" line="367"/>
         <source>Edit...</source>
         <translation>Редагувати...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="373"/>
+        <location filename="ListView.py" line="374"/>
         <source>Copy</source>
         <translation>Копіювати</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="375"/>
+        <location filename="ListView.py" line="376"/>
         <source>Paste</source>
         <translation>Вставити</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="380"/>
+        <location filename="ListView.py" line="385"/>
         <source>Clone</source>
         <translation>Дублювати</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="383"/>
+        <location filename="ListView.py" line="388"/>
         <source>Multi edit...</source>
         <translation>Редагувати все...</translation>
     </message>
@@ -1385,62 +1387,62 @@ Do you want to send an error message to the author?</source>
         <translation>Видалити</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="407"/>
+        <location filename="ListView.py" line="412"/>
         <source>%n coin(s) selected</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Excel document (*.xls)</source>
         <translation>Документ Excel (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Веб-сторінка (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Text file (*.csv)</source>
         <translation>Текстовий файл (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Текстовий файл UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="475"/>
+        <location filename="ListView.py" line="480"/>
         <source>Saving list</source>
         <translation>Збереження списку</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="722"/>
+        <location filename="ListView.py" line="723"/>
         <source>Cancel</source>
         <translation>Відміна</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="569"/>
+        <location filename="ListView.py" line="570"/>
         <source>Updating records</source>
         <translation>Оновлення записів</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="733"/>
+        <location filename="ListView.py" line="734"/>
         <source>Saving...</source>
         <translation>Збереження...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="705"/>
+        <location filename="ListView.py" line="706"/>
         <source>Inserting records</source>
         <translation>Вставка записів</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="716"/>
+        <location filename="ListView.py" line="717"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="722"/>
+        <location filename="ListView.py" line="723"/>
         <source>Deleting records</source>
         <translation>Видалення записів</translation>
     </message>
@@ -1485,14 +1487,19 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="456"/>
+        <location filename="ListView.py" line="461"/>
         <source>Report preview</source>
         <translation>Попередній перегляд звіту</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="456"/>
+        <location filename="ListView.py" line="461"/>
         <source>Nothing selected.
 Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="380"/>
+        <source>Filter in</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1859,7 +1866,7 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
     <message>
         <location filename="MainWindow.py" line="309"/>
         <source>User manual</source>
-        <translation type="unfinished"/>
+        <translation>Посібник користувача</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="313"/>
@@ -1874,7 +1881,7 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
     <message>
         <location filename="MainWindow.py" line="427"/>
         <source>Info panel</source>
-        <translation type="unfinished"/>
+        <translation>Інформаційна панель</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="43"/>
@@ -2174,7 +2181,7 @@ Created new one</source>
     <message>
         <location filename="Reference.py" line="400"/>
         <source>Create reference</source>
-        <translation type="unfinished"/>
+        <translation>Створити посилання</translation>
     </message>
     <message>
         <location filename="Reference.py" line="400"/>
@@ -2555,11 +2562,6 @@ Created new one</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="110"/>
-        <source>(comission %d%%)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="SummaryDialog.py" line="95"/>
         <source>Average paid per item: %.2f</source>
         <translation type="unfinished"/>
@@ -2572,6 +2574,11 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="202"/>
         <source>Count images: %d</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="110"/>
+        <source>(commission %d%%)</source>
         <translation type="unfinished"/>
     </message>
 </context>

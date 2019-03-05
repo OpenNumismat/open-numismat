@@ -730,13 +730,13 @@ The application will need to restart now.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="208"/>
-        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <location filename="SettingsDialog.py" line="226"/>
+        <source>Use RichText format</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="226"/>
-        <source>Use RichText format</source>
+        <location filename="SettingsDialog.py" line="208"/>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1326,52 +1326,52 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="129"/>
+        <location filename="ListView.py" line="130"/>
         <source>0 coin(s) selected</source>
         <translation>0 pièce(s) sélectionnée(s)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="160"/>
+        <location filename="ListView.py" line="161"/>
         <source>Select columns...</source>
         <translation>Sélectionner les colonnes...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="161"/>
+        <location filename="ListView.py" line="162"/>
         <source>Hide</source>
         <translation>Cacher</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="163"/>
+        <location filename="ListView.py" line="164"/>
         <source>Adjust size</source>
         <translation>Ajuster la taille</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="280"/>
+        <location filename="ListView.py" line="281"/>
         <source>%d/%d coins</source>
         <translation>%d/%d pièces</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="366"/>
+        <location filename="ListView.py" line="367"/>
         <source>Edit...</source>
         <translation>Editer...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="373"/>
+        <location filename="ListView.py" line="374"/>
         <source>Copy</source>
         <translation>Copier</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="375"/>
+        <location filename="ListView.py" line="376"/>
         <source>Paste</source>
         <translation>Coller</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="380"/>
+        <location filename="ListView.py" line="385"/>
         <source>Clone</source>
         <translation>Cloner</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="383"/>
+        <location filename="ListView.py" line="388"/>
         <source>Multi edit...</source>
         <translation>Edition multiple</translation>
     </message>
@@ -1381,62 +1381,62 @@ Do you want to send an error message to the author?</source>
         <translation>Effacer</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="407"/>
+        <location filename="ListView.py" line="412"/>
         <source>%n coin(s) selected</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Excel document (*.xls)</source>
         <translation>Document Excel (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Page WEB (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Text file (*.csv)</source>
         <translation>Fichier texte (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="462"/>
+        <location filename="ListView.py" line="467"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Fichier texte UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="475"/>
+        <location filename="ListView.py" line="480"/>
         <source>Saving list</source>
         <translation>Liste enregistrée</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="722"/>
+        <location filename="ListView.py" line="723"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="569"/>
+        <location filename="ListView.py" line="570"/>
         <source>Updating records</source>
         <translation>Mise à jour des enregistrements</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="733"/>
+        <location filename="ListView.py" line="734"/>
         <source>Saving...</source>
         <translation>Enregistrement...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="705"/>
+        <location filename="ListView.py" line="706"/>
         <source>Inserting records</source>
         <translation>Insérer des enregistrements</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="716"/>
+        <location filename="ListView.py" line="717"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="722"/>
+        <location filename="ListView.py" line="723"/>
         <source>Deleting records</source>
         <translation>Effacer des enregistrements</translation>
     </message>
@@ -1481,14 +1481,19 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="456"/>
+        <location filename="ListView.py" line="461"/>
         <source>Report preview</source>
         <translation>Prévisualisation du rapport</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="456"/>
+        <location filename="ListView.py" line="461"/>
         <source>Nothing selected.
 Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="380"/>
+        <source>Filter in</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2552,11 +2557,6 @@ Création d&apos;une nouvelle</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="110"/>
-        <source>(comission %d%%)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="SummaryDialog.py" line="95"/>
         <source>Average paid per item: %.2f</source>
         <translation type="unfinished"/>
@@ -2569,6 +2569,11 @@ Création d&apos;une nouvelle</translation>
     <message>
         <location filename="SummaryDialog.py" line="202"/>
         <source>Count images: %d</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="110"/>
+        <source>(commission %d%%)</source>
         <translation type="unfinished"/>
     </message>
 </context>
