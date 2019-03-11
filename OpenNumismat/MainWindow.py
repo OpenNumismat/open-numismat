@@ -774,13 +774,12 @@ class MainWindow(QMainWindow):
 
     def autoUpdate(self):
         if Settings()['updates']:
-            currentDate = QDate.currentDate()
-
             settings = QSettings()
             lastUpdateDateStr = settings.value('mainwindow/last_update')
             if lastUpdateDateStr:
                 lastUpdateDate = QDate.fromString(lastUpdateDateStr,
-                                                         Qt.ISODate)
+                                                  Qt.ISODate)
+                currentDate = QDate.currentDate()
                 if lastUpdateDate.addDays(10) < currentDate:
                     self.checkUpdates()
             else:
