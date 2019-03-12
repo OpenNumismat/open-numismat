@@ -30,7 +30,7 @@ class MainSettingsPage(QWidget):
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
-        current = 0
+        current = 4
         self.languageSelector = QComboBox(self)
         for i, lang in enumerate(self.Languages):
             self.languageSelector.addItem(lang[0], lang[1])
