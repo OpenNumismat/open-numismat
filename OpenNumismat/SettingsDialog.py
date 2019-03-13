@@ -9,6 +9,7 @@ from OpenNumismat.Reports import Report
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.Import.Colnect import ColnectCache
 
 
 class MainSettingsPage(QWidget):
@@ -154,8 +155,7 @@ class MainSettingsPage(QWidget):
     def save(self):
         settings = Settings()
 
-        current = self.languageSelector.currentIndex()
-        settings['locale'] = self.languageSelector.itemData(current)
+        settings['locale'] = self.languageSelector.currentData()
         settings['backup'] = self.backupFolder.text()
         settings['autobackup'] = self.autobackup.isChecked()
         settings['autobackup_depth'] = self.autobackupDepth.value()
@@ -358,6 +358,82 @@ class FieldsSettingsPage(QWidget):
         self.fields.save()
 
 
+class ColnectSettingsPage(QWidget):
+    Languages = [
+        ('ar', 'العربية'), ('az', 'Azərbaycanca'), ('be', 'Беларуская'),
+        ('bg', 'Български'), ('ca', 'Català'), ('cs', 'Česky'),
+        ('da', 'Dansk'), ('de', 'Deutsch'), ('el', 'Ελληνικά'),
+        ('en', 'English'), ('es', 'Español'), ('et', 'Eesti'), ('fa', 'فارسی'),
+        ('fr', 'Français'), ('ko', '한국어'), ('hr', 'Hrvatski'),
+        ('id', 'Bahasa Indonesia'), ('it', 'Italiano'), ('he', 'עברית'),
+        ('ka', 'ქართული '), ('lv', 'Latviešu'), ('lt', 'Lietuvių'),
+        ('hu', 'Magyar'), ('nl', 'Nederlands'), ('ja', '日本語'),
+        ('no', 'Norsk'), ('pl', 'Polski'), ('pt', 'Português'),
+        ('br', 'Português BR'), ('ro', 'Română'), ('ru', 'Русский'),
+        ('sk', 'Slovenčina'), ('sl', 'Slovenščina'), ('sr', 'Српски'),
+        ('fi', 'Suomi'), ('sv', 'Svenska'), ('th', 'ภาษาไทย '),
+        ('tr', 'Türkçe'), ('uk', 'Українська'), ('vi', 'Tiếng Việt'),
+        ('zh', '中文（简体）'), ('zt', '中文 (繁體)'),
+        # ('ky', 'Кыргызча'), ('ta', 'தமிழ்'), ('hy', 'Հայերեն'),
+        # ('sw', 'Kiswahili'), ('bn', 'বাংলা'), ('si', 'සිංහල'), ('gu', 'ગુજરાતી'),
+        # ('ht', 'Kreyòl ayisyen'), ('mn', 'Монгол'), ('sq', 'Shqip'),
+        # ('af', 'Afrikaans'), ('te', 'తెలుగు'), ('ml', 'മലയാളം'), ('hi', 'हिन्दी'),
+        # ('tl', 'Filipino'), ('ms', 'Melayu'), ('pa', 'پنجابی'),
+        # ('kk', 'Қазақша'), ('ur', 'اردو'), ('mk', 'Македонски'),
+        # ('fy', 'Frysk'),
+    ]
+
+    def __init__(self, collection, parent=None):
+        super().__init__(parent)
+
+        settings = Settings()
+
+        layout = QFormLayout()
+        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+
+        default_locale = settings['colnect_locale']
+        current = 9
+        self.languageSelector = QComboBox(self)
+        for i, lang in enumerate(self.Languages):
+            self.languageSelector.addItem(lang[1], lang[0])
+            if default_locale == lang[0]:
+                current = i
+        self.languageSelector.setCurrentIndex(current)
+        self.languageSelector.setSizePolicy(QSizePolicy.Fixed,
+                                            QSizePolicy.Fixed)
+
+        layout.addRow(self.tr("Language"), self.languageSelector)
+
+        self.autoclose = QCheckBox(self.tr("Close dialog after adding item"),
+                                   self)
+        self.autoclose.setChecked(settings['colnect_autoclose'])
+        layout.addRow(self.autoclose)
+
+        clearCacheBtn = QPushButton(self.tr("Clear cache"), self)
+        clearCacheBtn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        clearCacheBtn.clicked.connect(self.clearCache)
+
+        hLayout = QHBoxLayout()
+        hLayout.addWidget(clearCacheBtn, alignment=Qt.AlignRight)
+
+        vLayout = QVBoxLayout()
+        vLayout.addLayout(layout)
+        vLayout.addLayout(hLayout)
+
+        self.setLayout(vLayout)
+
+    def clearCache(self):
+        ColnectCache.clear()
+
+    def save(self):
+        settings = Settings()
+
+        settings['colnect_locale'] = self.languageSelector.currentData()
+        settings['colnect_autoclose'] = self.autoclose.isChecked()
+
+        settings.save()
+
+
 @storeDlgSizeDecorator
 class SettingsDialog(QDialog):
     def __init__(self, collection, parent=None):
@@ -367,6 +443,7 @@ class SettingsDialog(QDialog):
         mainPage = MainSettingsPage(collection, self)
         collectionPage = CollectionSettingsPage(collection, self)
         fieldsPage = FieldsSettingsPage(collection, self)
+        colnectPage = ColnectSettingsPage(collection, self)
 
         self.setWindowTitle(self.tr("Settings"))
 
@@ -376,6 +453,9 @@ class SettingsDialog(QDialog):
         if not collection.isOpen():
             self.tab.setTabEnabled(index, False)
         index = self.tab.addTab(fieldsPage, self.tr("Fields"))
+        if not collection.isOpen():
+            self.tab.setTabEnabled(index, False)
+        index = self.tab.addTab(colnectPage, "Colnect")
         if not collection.isOpen():
             self.tab.setTabEnabled(index, False)
 

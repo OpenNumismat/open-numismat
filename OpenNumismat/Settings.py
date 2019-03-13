@@ -85,7 +85,9 @@ class Settings(BaseSettings):
                'template': default_template,
                'check_coin_title': True,
                'check_coin_duplicate': True,
-               'images_by_default': 2}
+               'images_by_default': 2,
+               'colnect_locale': _getLocale(),
+               'colnect_autoclose': True}
 
     def __init__(self, autoSave=False):
         super().__init__(autoSave)
