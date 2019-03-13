@@ -18,6 +18,7 @@ from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.StatisticsView import statisticsAvailable
 from OpenNumismat.SummaryDialog import SummaryDialog
+from OpenNumismat.Collection.Import.Colnect import ColnectDialog
 
 from OpenNumismat.Collection.Import import *
 
@@ -33,6 +34,11 @@ class MainWindow(QMainWindow):
         menubar = self.menuBar()
 
         self.collectionActs = []
+
+        colnectAct = QAction(createIcon('colnect.ico'),
+                             self.tr("Colnect..."), self)
+        colnectAct.triggered.connect(self.colnectEvent)
+        self.collectionActs.append(colnectAct)
 
         if statisticsAvailable:
             self.statisticsAct = QAction(self)
@@ -248,6 +254,8 @@ class MainWindow(QMainWindow):
         coin.addAction(addCoinAct)
         coin.addAction(editCoinAct)
         coin.addSeparator()
+        coin.addAction(colnectAct)
+        coin.addSeparator()
         coin.addAction(copyCoinAct)
         coin.addAction(pasteCoinAct)
         coin.addSeparator()
@@ -340,6 +348,7 @@ class MainWindow(QMainWindow):
         if statisticsAvailable:
             toolBar.addSeparator()
             toolBar.addAction(self.statisticsAct)
+        toolBar.addAction(colnectAct)
 
         spacer = QWidget()
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
@@ -420,6 +429,12 @@ class MainWindow(QMainWindow):
                         QMessageBox.Yes)
             if result == QMessageBox.Yes:
                 self.restart()
+
+    def colnectEvent(self):
+        dialog = ColnectDialog(self)
+        res = dialog.exec_()
+        if res == QDialog.Accepted:
+            pass
 
     def updateStatisticsAct(self, showed):
         if statisticsAvailable:
