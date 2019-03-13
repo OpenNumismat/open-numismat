@@ -51,17 +51,17 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(summaryAct)
 
         settingsAct = QAction(createIcon('cog.png'),
-                                    self.tr("Settings..."), self)
+                              self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
         self.collectionActs.append(settingsAct)
 
         cancelFilteringAct = QAction(createIcon('funnel_clear.png'),
-                                    self.tr("Clear all filters"), self)
+                                     self.tr("Clear all filters"), self)
         cancelFilteringAct.triggered.connect(self.cancelFilteringEvent)
         self.collectionActs.append(cancelFilteringAct)
 
         self.exitAct = QAction(createIcon('door_in.png'),
-                                self.tr("E&xit"), self)
+                               self.tr("E&xit"), self)
         self.exitAct.setShortcut(QKeySequence.Quit)
         self.exitAct.triggered.connect(self.close)
 
@@ -92,7 +92,7 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(descriptionCollectionAct)
 
         passwordCollectionAct = QAction(createIcon('key.png'),
-                                              self.tr("Set password..."), self)
+                                        self.tr("Set password..."), self)
         passwordCollectionAct.triggered.connect(self.passwordCollectionEvent)
         self.collectionActs.append(passwordCollectionAct)
 
@@ -219,32 +219,32 @@ class MainWindow(QMainWindow):
         file.addAction(self.exitAct)
 
         addCoinAct = QAction(createIcon('add.png'),
-                                   self.tr("Add"), self)
+                             self.tr("Add"), self)
         addCoinAct.setShortcut('Insert')
         addCoinAct.triggered.connect(self.addCoin)
         self.collectionActs.append(addCoinAct)
 
         editCoinAct = QAction(createIcon('pencil.png'),
-                                   self.tr("Edit..."), self)
+                              self.tr("Edit..."), self)
         editCoinAct.triggered.connect(self.editCoin)
         self.collectionActs.append(editCoinAct)
 
         style = QApplication.style()
         icon = style.standardIcon(QStyle.SP_TrashIcon)
         deleteCoinAct = QAction(icon,
-                                   self.tr("Delete"), self)
+                                self.tr("Delete"), self)
         deleteCoinAct.setShortcut(QKeySequence.Delete)
         deleteCoinAct.triggered.connect(self.deleteCoin)
         self.collectionActs.append(deleteCoinAct)
 
         copyCoinAct = QAction(createIcon('page_copy.png'),
-                                   self.tr("Copy"), self)
+                              self.tr("Copy"), self)
         copyCoinAct.setShortcut(QKeySequence.Copy)
         copyCoinAct.triggered.connect(self.copyCoin)
         self.collectionActs.append(copyCoinAct)
 
         pasteCoinAct = QAction(createIcon('page_paste.png'),
-                                   self.tr("Paste"), self)
+                               self.tr("Paste"), self)
         pasteCoinAct.setShortcut(QKeySequence.Paste)
         pasteCoinAct.triggered.connect(self.pasteCoin)
         self.collectionActs.append(pasteCoinAct)
@@ -262,7 +262,7 @@ class MainWindow(QMainWindow):
         coin.addAction(deleteCoinAct)
 
         viewBrowserAct = QAction(createIcon('page_white_world.png'),
-                                   self.tr("View in browser"), self)
+                                 self.tr("View in browser"), self)
         viewBrowserAct.triggered.connect(self.viewBrowserEvent)
         self.collectionActs.append(viewBrowserAct)
 
@@ -290,7 +290,7 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(reportAct)
 
         saveTableAct = QAction(createIcon('table.png'),
-                                     self.tr("Save current list..."), self)
+                               self.tr("Save current list..."), self)
         saveTableAct.triggered.connect(self.saveTable)
         self.collectionActs.append(saveTableAct)
 
