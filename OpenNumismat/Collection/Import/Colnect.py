@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
-
 import json
 import re
+import os
+import tempfile
 import urllib.request
 
 from PyQt5 import QtCore
@@ -34,7 +34,7 @@ class ColnectCache(QObject):
 
     def open(self):
         db = QSqlDatabase.addDatabase('QSQLITE', 'cache')
-        db.setDatabaseName(self.FILE_NAME)
+        db.setDatabaseName(self._file_name())
         if not db.open():
             QMessageBox.warning(self,
                                 "Colnect",
@@ -96,7 +96,27 @@ class ColnectCache(QObject):
 
     def _compact(self):
         if self.db:
-            pass
+            query = QSqlQuery(self.db)
+            query.prepare("DELETE FROM cache WHERE"
+                          " (createdat < ? AND type = 1) OR"
+                          " (createdat < ? AND type = 2) OR"
+                          " (createdat < ? AND type = 3)")
+            currentDate = QDate.currentDate()
+            days = QDate(2000, 1, 1).daysTo(currentDate)
+            query.addBindValue(days - 30)  # actions older month
+            query.addBindValue(days - 14)  # items older 2 weeks
+            query.addBindValue(days - 7)  # images older week
+            query.exec_()
+
+    @staticmethod
+    def _file_name():
+        return os.path.join(tempfile.gettempdir(), ColnectCache.FILE_NAME)
+
+    @staticmethod
+    def clear():
+        file_name = ColnectCache._file_name()
+        if os.path.exists(file_name):
+            os.remove(file_name)
 
 
 @storeDlgSizeDecorator
