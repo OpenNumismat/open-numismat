@@ -12,6 +12,8 @@ from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
 
+from OpenNumismat.private_keys import MAPS_API_KEY
+
 statisticsAvailable = True
 
 try:
@@ -61,7 +63,7 @@ class GeoChartCanvas(QWebView):
       google.charts.load('current', {
         'packages':['geochart'],
         'language': '%s',
-        'mapsApiKey': 'AIzaSyCtPThA7-xGhB54LbcUYlpgOO25ccYegMY'
+        'mapsApiKey': '%s'
       });
       google.charts.setOnLoadCallback(drawRegionsMap);
 
@@ -100,7 +102,7 @@ class GeoChartCanvas(QWebView):
         header = "['%s', '%s']" % (self.tr("Country"), self.tr("Number of coins"))
         data = ','.join((header, data))
         locale = Settings()['locale']
-        self.html_data = self.HTML % (locale, region, data)
+        self.html_data = self.HTML % (locale, MAPS_API_KEY, region, data)
         self.setHtml(self.html_data, QUrl.fromLocalFile(OpenNumismat.PRJ_PATH))
 
     def setMulticolor(self, multicolor=False):
