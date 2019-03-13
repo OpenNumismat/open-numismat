@@ -14,7 +14,7 @@ from OpenNumismat import version
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
-from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Tools.Gui import createIcon, ProgressDialog
 
 from OpenNumismat.private_keys import COLNECT_KEY
 
@@ -130,7 +130,7 @@ class ColnectDialog(QDialog):
         self.setWindowTitle("Colnect")
 
         settings = Settings()
-        self.lang = settings['locale']
+        self.lang = settings['colnect_locale']
 
         self.cache = ColnectCache()
 
@@ -262,8 +262,16 @@ class ColnectDialog(QDialog):
             print(len(item_ids))
 
             if (series and year and value and currency) or (len(item_ids) < 50):
+                progressDlg = ProgressDialog(
+                            self.tr("Downloading"),
+                            self.tr("Cancel"), len(item_ids), self)
+
                 self.table.setRowCount(len(item_ids))
                 for i, item_id in enumerate(item_ids):
+                    progressDlg.step()
+                    if progressDlg.wasCanceled():
+                        break
+
                     action = "item/cat/coins/producer/%d/id/%d" % (country, item_id)
                     data = self._getData(action)
 
@@ -293,6 +301,8 @@ class ColnectDialog(QDialog):
                     self.table.setItem(i, 7, item)
                     item = QTableWidgetItem(str(data[12]))
                     self.table.setItem(i, 8, item)
+
+                progressDlg.reset()
 
     def getCountries(self):
         action = "countries/cat/coins"
@@ -340,7 +350,6 @@ class ColnectDialog(QDialog):
 
         return data
 
-    @waitCursorDecorator
     def _getImage(self, image_id, name):
         image = QImage()
 
@@ -377,7 +386,7 @@ class ColnectDialog(QDialog):
 
     def _imageUrl(self, image_id, name):
         name = self._urlize(name)
-        url = "https://i.colnect.net/t/%d/%d/%s.jpg" % (image_id / 1000, image_id % 1000, name)
+        url = "https://i.colnect.net/t/%d/%03d/%s.jpg" % (image_id / 1000, image_id % 1000, name)
         print(url)
         return url
 
