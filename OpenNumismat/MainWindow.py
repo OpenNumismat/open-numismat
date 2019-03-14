@@ -254,7 +254,8 @@ class MainWindow(QMainWindow):
         coin.addAction(addCoinAct)
         coin.addAction(editCoinAct)
         coin.addSeparator()
-        coin.addAction(colnectAct)
+        if Settings()['colnect_enabled']:
+            coin.addAction(colnectAct)
         coin.addSeparator()
         coin.addAction(copyCoinAct)
         coin.addAction(pasteCoinAct)
@@ -348,7 +349,8 @@ class MainWindow(QMainWindow):
         if statisticsAvailable:
             toolBar.addSeparator()
             toolBar.addAction(self.statisticsAct)
-        toolBar.addAction(colnectAct)
+        if Settings()['colnect_enabled']:
+            toolBar.addAction(colnectAct)
 
         spacer = QWidget()
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)

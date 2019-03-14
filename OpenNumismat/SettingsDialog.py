@@ -388,8 +388,8 @@ class ColnectSettingsPage(QWidget):
 
         settings = Settings()
 
-        layout = QFormLayout()
-        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        fLayout = QFormLayout()
+        fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
         default_locale = settings['colnect_locale']
         current = 9
@@ -402,12 +402,12 @@ class ColnectSettingsPage(QWidget):
         self.languageSelector.setSizePolicy(QSizePolicy.Fixed,
                                             QSizePolicy.Fixed)
 
-        layout.addRow(self.tr("Language"), self.languageSelector)
+        fLayout.addRow(self.tr("Language"), self.languageSelector)
 
         self.autoclose = QCheckBox(self.tr("Close dialog after adding item"),
                                    self)
         self.autoclose.setChecked(settings['colnect_autoclose'])
-        layout.addRow(self.autoclose)
+        fLayout.addRow(self.autoclose)
 
         clearCacheBtn = QPushButton(self.tr("Clear cache"), self)
         clearCacheBtn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -417,10 +417,18 @@ class ColnectSettingsPage(QWidget):
         hLayout.addWidget(clearCacheBtn, alignment=Qt.AlignRight)
 
         vLayout = QVBoxLayout()
-        vLayout.addLayout(layout)
+        vLayout.addLayout(fLayout)
         vLayout.addLayout(hLayout)
 
-        self.setLayout(vLayout)
+        self.enabledGroup = QGroupBox(self.tr("Use Colnect"), self)
+        self.enabledGroup.setCheckable(True)
+        self.enabledGroup.setChecked(settings['colnect_enabled'])
+        self.enabledGroup.setLayout(vLayout)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.enabledGroup)
+
+        self.setLayout(layout)
 
     def clearCache(self):
         ColnectCache.clear()
@@ -428,6 +436,7 @@ class ColnectSettingsPage(QWidget):
     def save(self):
         settings = Settings()
 
+        settings['colnect_enabled'] = self.enabledGroup.isChecked()
         settings['colnect_locale'] = self.languageSelector.currentData()
         settings['colnect_autoclose'] = self.autoclose.isChecked()
 
