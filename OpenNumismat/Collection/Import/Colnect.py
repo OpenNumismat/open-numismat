@@ -129,6 +129,8 @@ class ColnectDialog(QDialog):
         self.setWindowIcon(createIcon('colnect.ico'))
         self.setWindowTitle("Colnect")
 
+        fields = model.fields
+
         settings = Settings()
         self.lang = settings['colnect_locale']
         self.autoclose = settings['colnect_autoclose']
@@ -157,32 +159,34 @@ class ColnectDialog(QDialog):
         countries = self.getCountries()
         for country in countries:
             self.countrySelector.addItem(country[1], country[0])
-        self.countrySelector.currentIndexChanged.connect(self.countyChanged)
-        layout.addRow(self.tr("Country"), self.countrySelector)
+        self.countrySelector.currentIndexChanged.connect(self.countryChanged)
+        layout.addRow(fields.getCustomTitle('country'), self.countrySelector)
 
         self.seriesSelector = QComboBox()
-        self.seriesSelector.setSizePolicy(QSizePolicy.Preferred,
+        self.seriesSelector.setSizePolicy(QSizePolicy.Fixed,
                                           QSizePolicy.Fixed)
+        self.seriesSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.seriesSelector.currentIndexChanged.connect(self.partChanged)
-        layout.addRow(self.tr("Series"), self.seriesSelector)
+        layout.addRow(fields.getCustomTitle('series'), self.seriesSelector)
 
         self.yearSelector = QComboBox()
         self.yearSelector.setSizePolicy(QSizePolicy.Fixed,
                                         QSizePolicy.Fixed)
         self.yearSelector.currentIndexChanged.connect(self.partChanged)
-        layout.addRow(self.tr("Year"), self.yearSelector)
+        layout.addRow(fields.getCustomTitle('year'), self.yearSelector)
 
         self.valueSelector = QComboBox()
         self.valueSelector.setSizePolicy(QSizePolicy.Fixed,
                                          QSizePolicy.Fixed)
         self.valueSelector.currentIndexChanged.connect(self.partChanged)
-        layout.addRow(self.tr("Value"), self.valueSelector)
+        layout.addRow(fields.getCustomTitle('value'), self.valueSelector)
 
         self.currencySelector = QComboBox()
-        self.currencySelector.setSizePolicy(QSizePolicy.Preferred,
+        self.currencySelector.setSizePolicy(QSizePolicy.Fixed,
                                             QSizePolicy.Fixed)
+        self.currencySelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.currencySelector.currentIndexChanged.connect(self.partChanged)
-        layout.addRow(self.tr("Unit"), self.currencySelector)
+        layout.addRow(fields.getCustomTitle('unit'), self.currencySelector)
 
         self.parts = (self.seriesSelector, self.yearSelector,
                       self.valueSelector, self.currencySelector)
@@ -194,10 +198,21 @@ class ColnectDialog(QDialog):
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.horizontalHeader().sectionDoubleClicked.connect(
                                                 self.sectionDoubleClicked)
+        font = self.table.horizontalHeader().font()
+        font.setBold(True)
+        self.table.horizontalHeader().setFont(font)
         self.table.verticalHeader().setVisible(False)
         self.table.verticalHeader().setDefaultSectionSize(self.HEIGHT + 2)
         self.table.setColumnWidth(0, self.HEIGHT + 6)
         self.table.setColumnWidth(1, self.HEIGHT + 6)
+
+        field_names = ('obverseimg', 'reverseimg', 'title', 'series',
+                       'year', 'type', 'material', 'value', 'unit')
+        field_titles = []
+        for field_name in field_names:
+            title = fields.getCustomTitle(field_name)
+            field_titles.append(title)
+        self.table.setHorizontalHeaderLabels(field_titles)
 
         buttonBox = QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QDialogButtonBox.Ok)
@@ -205,9 +220,13 @@ class ColnectDialog(QDialog):
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
+        self.table.hide()
+        self.label = QLabel("Specify more parameters")
+
         vlayout = QVBoxLayout()
         vlayout.addLayout(layout)
         vlayout.addWidget(self.table)
+        vlayout.addWidget(self.label)
         vlayout.addWidget(buttonBox)
 
         self.setLayout(vlayout)
@@ -258,10 +277,14 @@ class ColnectDialog(QDialog):
 
         self.model.addCoin(newRecord, self)
 
-    def countyChanged(self, _index):
-        self.table.clear()
+    def _clearTable(self):
+        self.table.hide()
+        self.label.show()
         self.table.setRowCount(0)
         self.items = []
+
+    def countryChanged(self, _index):
+        self._clearTable()
 
         country = self.countrySelector.currentData()
 
@@ -292,9 +315,7 @@ class ColnectDialog(QDialog):
             self.currencySelector.addItem(str(currency[1]), currency[0])
 
     def partChanged(self, _index):
-        self.table.clear()
-        self.table.setRowCount(0)
-        self.items = []
+        self._clearTable()
 
         series = self.seriesSelector.currentData()
         year = self.yearSelector.currentData()
@@ -319,6 +340,9 @@ class ColnectDialog(QDialog):
             print(len(item_ids))
 
             if (series and year and value and currency) or (len(item_ids) < 50):
+                self.table.show()
+                self.label.hide()
+
                 progressDlg = ProgressDialog(
                             self.tr("Downloading"),
                             self.tr("Cancel"), len(item_ids), self)

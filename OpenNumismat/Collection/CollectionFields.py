@@ -255,6 +255,11 @@ class CollectionFields(CollectionFieldsBase):
                 self.userFields.append(field)
             else:
                 self.disabledFields.append(field)
+    
+    def getCustomTitle(self, name):
+        for field in self.fields:
+            if field.name == name:
+                return field.title
 
     def save(self):
         self.db.transaction()
