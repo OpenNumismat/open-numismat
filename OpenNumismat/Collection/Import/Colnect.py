@@ -123,7 +123,7 @@ class ColnectCache(QObject):
 class ColnectDialog(QDialog):
     HEIGHT = 62
 
-    def __init__(self, parent=None):
+    def __init__(self, model, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
         self.setWindowIcon(createIcon('colnect.ico'))
@@ -131,6 +131,7 @@ class ColnectDialog(QDialog):
 
         settings = Settings()
         self.lang = settings['colnect_locale']
+        self.autoclose = settings['colnect_autoclose']
 
         self.cache = ColnectCache()
 
@@ -174,13 +175,14 @@ class ColnectDialog(QDialog):
                       self.valueSelector, self.currencySelector)
 
         self.table = QTableWidget(self)
+        self.table.doubleClicked.connect(self.addCoin)
         self.table.setColumnCount(9)
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.horizontalHeader().sectionDoubleClicked.connect(
                                                 self.sectionDoubleClicked)
         self.table.verticalHeader().setVisible(False)
-        self.table.verticalHeader().setDefaultSectionSize(self.HEIGHT)
+        self.table.verticalHeader().setDefaultSectionSize(self.HEIGHT + 2)
         self.table.setColumnWidth(0, self.HEIGHT + 6)
         self.table.setColumnWidth(1, self.HEIGHT + 6)
 
@@ -199,6 +201,9 @@ class ColnectDialog(QDialog):
 
         self._partsEnable(False)
 
+        self.model = model
+        self.items = []
+
     def sectionDoubleClicked(self, index):
         self.table.resizeColumnToContents(index)
 
@@ -206,9 +211,44 @@ class ColnectDialog(QDialog):
         for part in self.parts:
             part.setEnabled(enabled)
 
+    def addCoin(self, index):
+        if not index:
+            return
+
+        columns = (
+            ('title', 0), ('country', 1), ('series', 2), ('year', 4),
+            ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
+            ('diameter', 21), ('weight', 20), ('subject', 25), ('type', 14),
+            ('issuedate', 4), ('edge', 15), ('shape', 17), ('obvrev', 16),
+            ('catalognum1', 3),
+            # ('subjectshort', 24)
+        )
+
+        data = self.items[index.row()]
+
+        newRecord = self.model.record()
+        for column in columns:
+            value = data[column[1]]
+            if column[0] == 'year' and isinstance(value, str):
+                value = value[:4]
+            newRecord.setValue(column[0], value)
+
+        image = self._getFullImage(int(data[8]), data[0])
+        newRecord.setValue('obverseimg', image)
+        image = self._getFullImage(int(data[9]), data[0])
+        newRecord.setValue('reverseimg', image)
+        image = self._getFullImage(int(data[22]), data[0])
+        newRecord.setValue('photo1', image)
+
+        if self.autoclose:
+            self.accept()
+
+        self.model.addCoin(newRecord, self)
+
     def countyChanged(self, _index):
         self.table.clear()
         self.table.setRowCount(0)
+        self.items = []
 
         country = self.countrySelector.currentData()
 
@@ -241,11 +281,15 @@ class ColnectDialog(QDialog):
     def partChanged(self, _index):
         self.table.clear()
         self.table.setRowCount(0)
+        self.items = []
 
         series = self.seriesSelector.currentData()
         year = self.yearSelector.currentData()
         value = self.valueSelector.currentData()
         currency = self.currencySelector.currentData()
+        # TODO:
+        # distribution (https://api.colnect.net/en/api/8xZqcX3b/distributions/cat/coins/producer/922/)
+        # mint_year (https://api.colnect.net/en/api/8xZqcX3b/list/cat/coins/producer/922/mint_year/2000)
 
         if series or year or value or currency:
             country = self.countrySelector.currentData()
@@ -274,6 +318,7 @@ class ColnectDialog(QDialog):
 
                     action = "item/cat/coins/producer/%d/id/%d" % (country, item_id)
                     data = self._getData(action)
+                    self.items.append(data)
 
                     image = self._getImage(int(data[8]), data[0])
                     pixmap = QPixmap.fromImage(image)
@@ -356,7 +401,7 @@ class ColnectDialog(QDialog):
         if not image_id:
             return image
 
-        url = self._imageUrl(image_id, name)
+        url = self._imageUrl(image_id, name, False)
         raw_data = self.cache.get(ColnectCache.Image, url)
         if raw_data:
             result = image.loadFromData(raw_data)
@@ -384,9 +429,28 @@ class ColnectDialog(QDialog):
 
         return image
 
-    def _imageUrl(self, image_id, name):
+    @waitCursorDecorator
+    def _getFullImage(self, image_id, name):
+        data = None
+
+        if not image_id:
+            return data
+
+        url = self._imageUrl(image_id, name, True)
+        req = urllib.request.Request(url,
+                                     headers={'User-Agent': version.AppName})
+        try:
+            data = urllib.request.urlopen(req).read()
+        except:
+            pass
+
+        return data
+
+    def _imageUrl(self, image_id, name, full):
         name = self._urlize(name)
-        url = "https://i.colnect.net/t/%d/%03d/%s.jpg" % (image_id / 1000, image_id % 1000, name)
+        url = "https://i.colnect.net/%s/%d/%03d/%s.jpg" % (
+            ('f' if full else 't'), image_id / 1000, image_id % 1000, name)
+#            ('b' if full else 't'), image_id / 1000, image_id % 1000, name)
         print(url)
         return url
 

@@ -433,10 +433,9 @@ class MainWindow(QMainWindow):
                 self.restart()
 
     def colnectEvent(self):
-        dialog = ColnectDialog(self)
-        res = dialog.exec_()
-        if res == QDialog.Accepted:
-            pass
+        model = self.viewTab.currentModel()
+        dialog = ColnectDialog(model, self)
+        dialog.exec_()
 
     def updateStatisticsAct(self, showed):
         if statisticsAvailable:
