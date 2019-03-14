@@ -253,6 +253,16 @@ class CollectionSettingsPage(QWidget):
         statuses.setLayout(gLayout)
         layout.addRow(statuses)
 
+        self.defaultStatus = QComboBox(self)
+        for status in Statuses.Keys:
+            self.defaultStatus.addItem(Statuses[status], status)
+        index = self.defaultStatus.findData(self.settings['default_status'])
+        self.defaultStatus.setCurrentIndex(index)
+        self.defaultStatus.setSizePolicy(QSizePolicy.Fixed,
+                                         QSizePolicy.Fixed)
+        layout.addRow(self.tr("Default status for new coin"),
+                      self.defaultStatus)
+
         self.setLayout(layout)
 
     def save(self):
@@ -268,6 +278,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
         self.settings['enable_bc'] = self.enableBC.isChecked()
         self.settings['rich_text'] = self.richText.isChecked()
+        self.settings['default_status'] = self.defaultStatus.currentData()
 
         for status in Statuses.Keys:
             self.settings[status + '_status_used'] = self.statusUsed[status].isChecked()

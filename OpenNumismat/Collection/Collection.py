@@ -137,6 +137,9 @@ class CollectionModel(QSqlTableModel):
 
     def addCoin(self, record, parent=None):
         record.setNull('id')  # remove ID value from record
+        if not record.value('status'):
+            record.setValue('status', self.settings['default_status'])
+
         dialog = EditCoinDialog(self, record, parent)
         result = dialog.exec_()
         if result == QDialog.Accepted:
@@ -586,6 +589,7 @@ class CollectionSettings(BaseSettings):
             'bidding_status_used': True,
             'enable_bc': True,
             'rich_text': False,
+            'default_status': 'demo',
     }
 
     def __init__(self, db):
