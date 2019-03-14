@@ -88,7 +88,8 @@ class Settings(BaseSettings):
                'images_by_default': 2,
                'colnect_enabled': True,
                'colnect_locale': _getLocale(),
-               'colnect_autoclose': False}
+               'colnect_autoclose': False,
+               'colnect_skip_currency': True}
 
     def __init__(self, autoSave=False):
         super().__init__(autoSave)
@@ -101,7 +102,8 @@ class Settings(BaseSettings):
     def _getValue(self, key):
         if key in ('error', 'updates', 'autobackup',
                    'check_coin_title', 'check_coin_duplicate',
-                   'colnect_enabled', 'colnect_autoclose'):
+                   'colnect_enabled', 'colnect_autoclose',
+                   'colnect_skip_currency'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
         elif key in ('images_by_default', 'autobackup_depth', 'speedup'):

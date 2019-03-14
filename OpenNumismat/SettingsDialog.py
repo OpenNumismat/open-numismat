@@ -409,6 +409,11 @@ class ColnectSettingsPage(QWidget):
         self.autoclose.setChecked(settings['colnect_autoclose'])
         fLayout.addRow(self.autoclose)
 
+        self.skip_currency = QCheckBox(self.tr("Skip currency symbol"),
+                                       self)
+        self.skip_currency.setChecked(settings['colnect_skip_currency'])
+        fLayout.addRow(self.skip_currency)
+
         clearCacheBtn = QPushButton(self.tr("Clear cache"), self)
         clearCacheBtn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         clearCacheBtn.clicked.connect(self.clearCache)
@@ -439,6 +444,7 @@ class ColnectSettingsPage(QWidget):
         settings['colnect_enabled'] = self.enabledGroup.isChecked()
         settings['colnect_locale'] = self.languageSelector.currentData()
         settings['colnect_autoclose'] = self.autoclose.isChecked()
+        settings['colnect_skip_currency'] = self.skip_currency.isChecked()
 
         settings.save()
 

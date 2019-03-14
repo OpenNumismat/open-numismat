@@ -70,7 +70,6 @@ class ColnectCache(QObject):
         query.exec_()
         if query.next():
             record = query.record()
-            print('get', url, record.value('data'))
             return record.value('data')
 
         return None
@@ -92,7 +91,6 @@ class ColnectCache(QObject):
         days = QDate(2000, 1, 1).daysTo(currentDate)
         query.addBindValue(days)
         query.exec_()
-        print('set', days, url)
 
     def _compact(self):
         if self.db:
@@ -134,6 +132,7 @@ class ColnectDialog(QDialog):
         settings = Settings()
         self.lang = settings['colnect_locale']
         self.autoclose = settings['colnect_autoclose']
+        self.skip_currency = settings['colnect_skip_currency']
 
         self.cache = ColnectCache()
 
@@ -191,7 +190,7 @@ class ColnectDialog(QDialog):
         self.parts = (self.seriesSelector, self.yearSelector,
                       self.valueSelector, self.currencySelector)
 
-        self.table = QTableWidget()
+        self.table = QTableWidget(self)
         self.table.doubleClicked.connect(self.addCoin)
         self.table.setColumnCount(9)
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -214,14 +213,14 @@ class ColnectDialog(QDialog):
             field_titles.append(title)
         self.table.setHorizontalHeaderLabels(field_titles)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
+        buttonBox = QDialogButtonBox(Qt.Horizontal, self)
         buttonBox.addButton(QDialogButtonBox.Ok)
         buttonBox.addButton(QDialogButtonBox.Cancel)
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
         self.table.hide()
-        self.label = QLabel("Specify more parameters")
+        self.label = QLabel("Specify more parameters", self)
 
         vlayout = QVBoxLayout()
         vlayout.addLayout(layout)
@@ -263,6 +262,8 @@ class ColnectDialog(QDialog):
             value = data[column[1]]
             if column[0] == 'year' and isinstance(value, str):
                 value = value[:4]
+            elif column[0] == 'unit' and self.skip_currency:
+                value = value.split('-', 1)[-1].strip()
             newRecord.setValue(column[0], value)
 
         image = self._getFullImage(int(data[8]), data[0])
@@ -337,7 +338,6 @@ class ColnectDialog(QDialog):
             if currency:
                 action += "/currency/%s" % currency
             item_ids = self._getData(action)
-            print(len(item_ids))
 
             if (series and year and value and currency) or (len(item_ids) < 50):
                 self.table.show()
@@ -381,7 +381,7 @@ class ColnectDialog(QDialog):
                     self.table.setItem(i, 6, item)
                     item = QTableWidgetItem(str(data[13]))
                     self.table.setItem(i, 7, item)
-                    item = QTableWidgetItem(str(data[12]))
+                    item = QTableWidgetItem(data[12])
                     self.table.setItem(i, 8, item)
 
                 progressDlg.reset()
@@ -426,7 +426,6 @@ class ColnectDialog(QDialog):
             raw_data = urllib.request.urlopen(req).read().decode()
             self.cache.set(ColnectCache.Action, url, raw_data)
             data = json.loads(raw_data)
-            print(data)
         except:
             pass
 
@@ -488,7 +487,6 @@ class ColnectDialog(QDialog):
         url = "https://i.colnect.net/%s/%d/%03d/%s.jpg" % (
             ('f' if full else 't'), image_id / 1000, image_id % 1000, name)
 #            ('b' if full else 't'), image_id / 1000, image_id % 1000, name)
-        print(url)
         return url
 
     def _urlize(self, name):
