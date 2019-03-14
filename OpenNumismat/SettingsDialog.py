@@ -13,13 +13,13 @@ from OpenNumismat.Collection.Import.Colnect import ColnectCache
 
 
 class MainSettingsPage(QWidget):
-    Languages = [("Български", 'bg'), ("Català", 'ca'), ("Čeština", 'cs'),
+    Languages = (("Български", 'bg'), ("Català", 'ca'), ("Čeština", 'cs'),
                  ("Deutsch", 'de'), ("English", 'en'), ("Ελληνικά", 'el'),
                  ("Español", 'es'), ("Français", 'fr'), ("Italiano", 'it'),
                  ("Latviešu", 'lv'), ("Magyar", 'hu'), ("Nederlands", 'nl'),
                  ("Polski", 'pl'), ("Português", 'pt'), ("Русский", 'ru'),
                  ("Türkçe", 'tr'), ("Український", 'uk'),
-                 ]
+                 )
 
     def __init__(self, collection, parent=None):
         super().__init__(parent)
@@ -359,7 +359,7 @@ class FieldsSettingsPage(QWidget):
 
 
 class ColnectSettingsPage(QWidget):
-    Languages = [
+    Languages = (
         ('ar', 'العربية'), ('az', 'Azərbaycanca'), ('be', 'Беларуская'),
         ('bg', 'Български'), ('ca', 'Català'), ('cs', 'Česky'),
         ('da', 'Dansk'), ('de', 'Deutsch'), ('el', 'Ελληνικά'),
@@ -381,7 +381,7 @@ class ColnectSettingsPage(QWidget):
         # ('tl', 'Filipino'), ('ms', 'Melayu'), ('pa', 'پنجابی'),
         # ('kk', 'Қазақша'), ('ur', 'اردو'), ('mk', 'Македонски'),
         # ('fy', 'Frysk'),
-    ]
+    )
 
     def __init__(self, collection, parent=None):
         super().__init__(parent)
