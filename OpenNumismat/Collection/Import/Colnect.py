@@ -138,7 +138,20 @@ class ColnectDialog(QDialog):
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
-        self.countrySelector = QComboBox(self)
+        self.colnectLabel = QLabel(self.tr(
+            "Catalog information courtesy of"
+            " <a href=\"https://colnect.com/\">Colnect</a>,"
+            " an online collectors community."))
+        self.colnectLabel.setTextFormat(Qt.RichText)
+        self.colnectLabel.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        self.colnectLabel.setOpenExternalLinks(True)
+        font = self.colnectLabel.font()
+        font.setPointSize(11)
+        self.colnectLabel.setFont(font)
+        layout.addRow(self.colnectLabel)
+        layout.addRow(QWidget())
+
+        self.countrySelector = QComboBox()
         self.countrySelector.setSizePolicy(QSizePolicy.Fixed,
                                            QSizePolicy.Fixed)
         countries = self.getCountries()
@@ -147,25 +160,25 @@ class ColnectDialog(QDialog):
         self.countrySelector.currentIndexChanged.connect(self.countyChanged)
         layout.addRow(self.tr("Country"), self.countrySelector)
 
-        self.seriesSelector = QComboBox(self)
+        self.seriesSelector = QComboBox()
         self.seriesSelector.setSizePolicy(QSizePolicy.Preferred,
                                           QSizePolicy.Fixed)
         self.seriesSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(self.tr("Series"), self.seriesSelector)
 
-        self.yearSelector = QComboBox(self)
+        self.yearSelector = QComboBox()
         self.yearSelector.setSizePolicy(QSizePolicy.Fixed,
                                         QSizePolicy.Fixed)
         self.yearSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(self.tr("Year"), self.yearSelector)
 
-        self.valueSelector = QComboBox(self)
+        self.valueSelector = QComboBox()
         self.valueSelector.setSizePolicy(QSizePolicy.Fixed,
                                          QSizePolicy.Fixed)
         self.valueSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(self.tr("Value"), self.valueSelector)
 
-        self.currencySelector = QComboBox(self)
+        self.currencySelector = QComboBox()
         self.currencySelector.setSizePolicy(QSizePolicy.Preferred,
                                             QSizePolicy.Fixed)
         self.currencySelector.currentIndexChanged.connect(self.partChanged)
@@ -174,7 +187,7 @@ class ColnectDialog(QDialog):
         self.parts = (self.seriesSelector, self.yearSelector,
                       self.valueSelector, self.currencySelector)
 
-        self.table = QTableWidget(self)
+        self.table = QTableWidget()
         self.table.doubleClicked.connect(self.addCoin)
         self.table.setColumnCount(9)
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
