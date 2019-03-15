@@ -166,12 +166,12 @@ class ReferenceWidget(QWidget):
         self.addButton = QPushButton(
                             QApplication.translate('ReferenceWidget', "Add"))
         self.editButtonBox.addButton(self.addButton,
-                                QDialogButtonBox.ActionRole)
+                                     QDialogButtonBox.ActionRole)
         self.delButton = QPushButton(
                             QApplication.translate('ReferenceWidget', "Del"))
         self.delButton.setShortcut(QKeySequence.Delete)
         self.editButtonBox.addButton(self.delButton,
-                                QDialogButtonBox.ActionRole)
+                                     QDialogButtonBox.ActionRole)
         self.editButtonBox.clicked.connect(self.clicked)
 
         self.sortButton = QCheckBox(

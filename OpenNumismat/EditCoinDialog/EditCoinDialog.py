@@ -41,8 +41,8 @@ class EditCoinDialog(QDialog):
         self.setLayout(layout)
 
     def clicked(self, button):
-        buttons = [QDialogButtonBox.Save, QDialogButtonBox.SaveAll,
-                   QDialogButtonBox.Cancel, QDialogButtonBox.Abort]
+        buttons = (QDialogButtonBox.Save, QDialogButtonBox.SaveAll,
+                   QDialogButtonBox.Cancel, QDialogButtonBox.Abort)
         for btn in buttons:
             if self.buttonBox.button(btn) == button:
                 self.clickedButton = btn
