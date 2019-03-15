@@ -191,7 +191,7 @@ class ColnectDialog(QDialog):
                       self.valueSelector, self.currencySelector)
 
         self.table = QTableWidget(self)
-        self.table.doubleClicked.connect(self.addCoin)
+        self.table.doubleClicked.connect(self.tableClicked)
         self.table.setColumnCount(9)
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -213,11 +213,19 @@ class ColnectDialog(QDialog):
             field_titles.append(title)
         self.table.setHorizontalHeaderLabels(field_titles)
 
+        self.addButton = QPushButton(self.tr("Add"))
+        self.addButton.setEnabled(False)
+        self.addCloseButton = QPushButton(self.tr("Add and close"))
+        self.addCloseButton.setEnabled(False)
+        if self.autoclose:
+            self.addCloseButton.setDefault(True)
+        else:
+            self.addButton.setDefault(True)
         buttonBox = QDialogButtonBox(Qt.Horizontal, self)
-        buttonBox.addButton(QDialogButtonBox.Ok)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
-        buttonBox.accepted.connect(self.accept)
-        buttonBox.rejected.connect(self.reject)
+        buttonBox.addButton(self.addButton, QDialogButtonBox.ActionRole)
+        buttonBox.addButton(self.addCloseButton, QDialogButtonBox.ActionRole)
+        buttonBox.addButton(QDialogButtonBox.Close)
+        buttonBox.clicked.connect(self.clicked)
 
         self.table.hide()
         self.label = QLabel("Specify more parameters", self)
@@ -242,10 +250,13 @@ class ColnectDialog(QDialog):
         for part in self.parts:
             part.setEnabled(enabled)
 
-    def addCoin(self, index):
+    def tableClicked(self, index):
         if not index:
             return
 
+        self.addCoin(index, self.autoclose)
+
+    def addCoin(self, index, close):
         columns = (
             ('title', 0), ('country', 1), ('series', 2), ('year', 4),
             ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
@@ -273,12 +284,15 @@ class ColnectDialog(QDialog):
         image = self._getFullImage(int(data[22]), data[0])
         newRecord.setValue('photo1', image)
 
-        if self.autoclose:
+        if close:
             self.accept()
 
         self.model.addCoin(newRecord, self)
 
     def _clearTable(self):
+        self.addButton.setEnabled(False)
+        self.addCloseButton.setEnabled(False)
+
         self.table.hide()
         self.label.show()
         self.table.setRowCount(0)
@@ -340,6 +354,9 @@ class ColnectDialog(QDialog):
             item_ids = self._getData(action)
 
             if (series and year and value and currency) or (len(item_ids) < 50):
+                if item_ids:
+                    self.addButton.setEnabled(True)
+                    self.addCloseButton.setEnabled(True)
                 self.table.show()
                 self.label.hide()
 
@@ -503,10 +520,18 @@ class ColnectDialog(QDialog):
 
         return name
 
+    def clicked(self, button):
+        if button == self.addButton:
+            index = self.table.currentIndex()
+            self.addCoin(index, False)
+        elif button == self.addCloseButton:
+            index = self.table.currentIndex()
+            self.addCoin(index, True)
+
+            self.accept()
+        else:
+            self.accept()
+
     def accept(self):
         self.cache.close()
         super().accept()
-
-    def reject(self):
-        self.cache.close()
-        super().reject()
