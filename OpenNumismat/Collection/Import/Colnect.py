@@ -152,12 +152,22 @@ class ColnectDialog(QDialog):
         layout.addRow(self.colnectLabel)
         layout.addRow(QWidget())
 
+        categories = (('coins', self.tr("Coins")),
+                      ('banknotes', self.tr("Bankotes")),
+                      ('stamps', self.tr("Stamps")))
+
+        self.categorySelector = QComboBox()
+        self.categorySelector.setSizePolicy(QSizePolicy.Fixed,
+                                            QSizePolicy.Fixed)
+        for category in categories:
+            self.categorySelector.addItem(category[1], category[0])
+        layout.addRow(self.tr("Category"), self.categorySelector)
+        self.categorySelector.currentIndexChanged.connect(self.categoryChanged)
+
         self.countrySelector = QComboBox()
         self.countrySelector.setSizePolicy(QSizePolicy.Fixed,
                                            QSizePolicy.Fixed)
-        countries = self.getCountries()
-        for country in countries:
-            self.countrySelector.addItem(country[1], country[0])
+        self.countrySelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.countrySelector.currentIndexChanged.connect(self.countryChanged)
         layout.addRow(fields.getCustomTitle('country'), self.countrySelector)
 
@@ -172,11 +182,13 @@ class ColnectDialog(QDialog):
         self.yearSelector.setSizePolicy(QSizePolicy.Fixed,
                                         QSizePolicy.Fixed)
         self.yearSelector.currentIndexChanged.connect(self.partChanged)
+        self.yearSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         layout.addRow(fields.getCustomTitle('year'), self.yearSelector)
 
         self.valueSelector = QComboBox()
         self.valueSelector.setSizePolicy(QSizePolicy.Fixed,
                                          QSizePolicy.Fixed)
+        self.valueSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.valueSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('value'), self.valueSelector)
 
@@ -243,6 +255,8 @@ class ColnectDialog(QDialog):
         self.model = model
         self.items = []
 
+        self.categoryChanged(0)
+
     def sectionDoubleClicked(self, index):
         self.table.resizeColumnToContents(index)
 
@@ -257,19 +271,36 @@ class ColnectDialog(QDialog):
         self.addCoin(index, self.autoclose)
 
     def addCoin(self, index, close):
-        columns = (
+        columns = {'coins': (
             ('title', 0), ('country', 1), ('series', 2), ('year', 4),
             ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
             ('diameter', 21), ('weight', 20), ('subject', 25), ('type', 14),
             ('issuedate', 4), ('edge', 15), ('shape', 17), ('obvrev', 16),
             ('catalognum1', 3),
             # ('subjectshort', 24)
-        )
+            ),
+                'banknotes': (
+            ('title', 0), ('country', 1), ('series', 2), ('year', 4),
+            ('mintage', 6), ('unit', 12), ('value', 13), ('material', 17),
+            ('diameter', 14), ('thickness', 15), ('subject', 20), ('mint', 18),
+            ('issuedate', 4), ('catalognum1', 3),
+            # ('subjectshort', 24)
+            ),
+                'stamps': (
+            ('title', 0), ('country', 1), ('series', 2), ('year', 4),
+            ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
+            ('diameter', 21), ('thickness', 22), ('subject', 25), ('type', 15),
+            ('quality', 17), ('obvrev', 18), ('edgelabel', 20),
+            ('issuedate', 4), ('edge', 16), ('obversecolor', 23),
+            ('format', 14), ('catalognum1', 3),
+            # ('subjectshort', 24)
+            )}
 
+        category = self.categorySelector.currentData()
         data = self.items[index.row()]
 
         newRecord = self.model.record()
-        for column in columns:
+        for column in columns[category]:
             value = data[column[1]]
             if column[0] == 'year' and isinstance(value, str):
                 value = value[:4]
@@ -281,8 +312,15 @@ class ColnectDialog(QDialog):
         newRecord.setValue('obverseimg', image)
         image = self._getFullImage(int(data[9]), data[0])
         newRecord.setValue('reverseimg', image)
-        image = self._getFullImage(int(data[22]), data[0])
-        newRecord.setValue('photo1', image)
+        if category == 'coins':
+            ext_image_pos = 22
+        elif category == 'banknotes':
+            ext_image_pos = 16
+        else:
+            ext_image_pos = None
+        if ext_image_pos:
+            image = self._getFullImage(int(data[ext_image_pos]), data[0])
+            newRecord.setValue('photo1', image)
 
         if close:
             self.accept()
@@ -298,32 +336,44 @@ class ColnectDialog(QDialog):
         self.table.setRowCount(0)
         self.items = []
 
+    def categoryChanged(self, _index):
+        self._clearTable()
+        self.countrySelector.clear()
+
+        category = self.categorySelector.currentData()
+        countries = self.getCountries(category)
+        for country in countries:
+            self.countrySelector.addItem(country[1], country[0])
+
     def countryChanged(self, _index):
         self._clearTable()
 
-        country = self.countrySelector.currentData()
-
         self._partsEnable(True)
 
-        series = self.getSeries(country)
+        category = self.categorySelector.currentData()
+        country = self.countrySelector.currentData()
+        if not country:
+            return
+
+        series = self.getSeries(category, country)
         self.seriesSelector.clear()
         self.seriesSelector.addItem(self.tr("(All)"), None)
         for ser in series:
             self.seriesSelector.addItem(str(ser[1]), ser[0])
 
-        years = self.getYears(country)
+        years = self.getYears(category, country)
         self.yearSelector.clear()
         self.yearSelector.addItem(self.tr("(All)"), None)
         for year in years:
             self.yearSelector.addItem(str(year[0]), year[0])
 
-        values = self.getValues(country)
+        values = self.getValues(category, country)
         self.valueSelector.clear()
         self.valueSelector.addItem(self.tr("(All)"), None)
         for value in values:
             self.valueSelector.addItem(str(value[1]), value[0])
 
-        currencies = self.getCurrencies(country)
+        currencies = self.getCurrencies(category, country)
         self.currencySelector.clear()
         self.currencySelector.addItem(self.tr("(All)"), None)
         for currency in currencies:
@@ -338,11 +388,13 @@ class ColnectDialog(QDialog):
         currency = self.currencySelector.currentData()
         # TODO:
         # distribution (https://api.colnect.net/en/api/8xZqcX3b/distributions/cat/coins/producer/922/)
+        # emissions (https://api.colnect.net/en/api/8xZqcX3b/emissions/cat/stamps/producer/8147)
         # mint_year (https://api.colnect.net/en/api/8xZqcX3b/list/cat/coins/producer/922/mint_year/2000)
 
         if series or year or value or currency:
+            category = self.categorySelector.currentData()
             country = self.countrySelector.currentData()
-            action = "list_id/cat/coins/producer/%d" % country
+            action = "list_id/cat/%s/producer/%d" % (category, country)
             if series:
                 action += "/series/%s" % series
             if year:
@@ -370,7 +422,7 @@ class ColnectDialog(QDialog):
                     if progressDlg.wasCanceled():
                         break
 
-                    action = "item/cat/coins/producer/%d/id/%d" % (country, item_id)
+                    action = "item/cat/%s/producer/%d/id/%d" % (category, country, item_id)
                     data = self._getData(action)
                     self.items.append(data)
 
@@ -403,24 +455,24 @@ class ColnectDialog(QDialog):
 
                 progressDlg.reset()
 
-    def getCountries(self):
-        action = "countries/cat/coins"
+    def getCountries(self, category):
+        action = "countries/cat/%s" % category
         return self._getData(action)
 
-    def getYears(self, country):
-        action = "years/cat/coins/producer/%d" % country
+    def getYears(self, category, country):
+        action = "years/cat/%s/producer/%d" % (category, country)
         return self._getData(action)
 
-    def getSeries(self, country):
-        action = "series/cat/coins/producer/%d" % country
+    def getSeries(self, category, country):
+        action = "series/cat/%s/producer/%d" % (category, country)
         return self._getData(action)
 
-    def getValues(self, country):
-        action = "face_values/cat/coins/producer/%d" % country
+    def getValues(self, category, country):
+        action = "face_values/cat/%s/producer/%d" % (category, country)
         return self._getData(action)
 
-    def getCurrencies(self, country):
-        action = "currencies/cat/coins/producer/%d" % country
+    def getCurrencies(self, category, country):
+        action = "currencies/cat/%s/producer/%d" % (category, country)
         return self._getData(action)
 
     def _baseUrl(self):
