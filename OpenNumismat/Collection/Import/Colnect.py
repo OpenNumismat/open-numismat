@@ -253,9 +253,20 @@ class ColnectDialog(QDialog):
         self._partsEnable(False)
 
         self.model = model
+        self.settings = model.settings
         self.items = []
 
+        default_category = self.settings['colnect_category']
+        default_country = self.settings['colnect_country']
+
+        index = self.categorySelector.findData(default_category)
+        self.categorySelector.setCurrentIndex(index)
         self.categoryChanged(0)
+
+        index = self.countrySelector.findData(default_country)
+        if index >= 0:
+            self.countrySelector.setCurrentIndex(index)
+        self.countryChanged(0)
 
     def sectionDoubleClicked(self, index):
         self.table.resizeColumnToContents(index)
@@ -345,6 +356,8 @@ class ColnectDialog(QDialog):
         for country in countries:
             self.countrySelector.addItem(country[1], country[0])
 
+        self.settings['colnect_category'] = category
+
     def countryChanged(self, _index):
         self._clearTable()
 
@@ -378,6 +391,8 @@ class ColnectDialog(QDialog):
         self.currencySelector.addItem(self.tr("(All)"), None)
         for currency in currencies:
             self.currencySelector.addItem(str(currency[1]), currency[0])
+
+        self.settings['colnect_country'] = country
 
     def partChanged(self, _index):
         self._clearTable()
@@ -585,5 +600,6 @@ class ColnectDialog(QDialog):
             self.accept()
 
     def accept(self):
+        self.settings.save()
         self.cache.close()
         super().accept()

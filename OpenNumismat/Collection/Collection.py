@@ -590,6 +590,8 @@ class CollectionSettings(BaseSettings):
             'enable_bc': True,
             'rich_text': False,
             'default_status': 'demo',
+            'colnect_category': 'coins',
+            'colnect_country': 0,
     }
 
     def __init__(self, db):
@@ -604,7 +606,7 @@ class CollectionSettings(BaseSettings):
             record = query.record()
             title = record.value('title')
             if title in self.keys():
-                if title in ('Version', 'ImageSideLen'):
+                if title in ('Version', 'ImageSideLen', 'colnect_country'):
                     value = int(record.value('value'))
                 elif title in ('image_height',):
                     value = float(record.value('value'))
