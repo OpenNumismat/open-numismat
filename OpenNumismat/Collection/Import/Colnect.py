@@ -420,7 +420,7 @@ class ColnectDialog(QDialog):
                 action += "/currency/%s" % currency
             item_ids = self._getData(action)
 
-            if (series and year and value and currency) or (len(item_ids) < 50):
+            if (series and year and value and currency) or (len(item_ids) < 100):
                 if item_ids:
                     self.addButton.setEnabled(True)
                     self.addCloseButton.setEnabled(True)
