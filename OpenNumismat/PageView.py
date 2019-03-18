@@ -3,7 +3,7 @@ from PyQt5 import QtSql
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
-from OpenNumismat.ListView import ListView
+from OpenNumismat.ListView import ListView, CardView
 from OpenNumismat.StatisticsView import statisticsAvailable
 from OpenNumismat.StatisticsView import StatisticsView
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
@@ -522,7 +522,7 @@ class PageView(Splitter):
         self.param = pageParam
         self.id = pageParam.id
         self.treeView = TreeView(pageParam.treeParam, self)
-        self.listView = ListView(pageParam.listParam, self)
+        self.listView = CardView(pageParam.listParam, self)
         if imagesAtBottom:
             self.imageView = ImageView(QBoxLayout.LeftToRight, self)
             self.detailsView = DetailsView(QBoxLayout.TopToBottom, self)
