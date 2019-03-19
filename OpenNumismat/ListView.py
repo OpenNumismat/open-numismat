@@ -822,7 +822,7 @@ class CardDelegate(QStyledItemDelegate):
             title = title_index.data()
 
             palette = QPalette()
-            if option.state & QStyle.State_HasFocus:
+            if option.state & QStyle.State_HasFocus or option.state & QStyle.State_Selected:
                 color = palette.color(QPalette.HighlightedText)
                 back_color = palette.color(QPalette.Highlight)
             else:
@@ -887,6 +887,10 @@ class CardModel(QAbstractTableModel):
     def mapToSource(self, index):
         num = index.row() * self.columns + index.column()
         return self.model.index(num, 0)
+
+    def mapFromSource(self, index):
+        return self.model.index(index.row() / self.columns,
+                                index.row() % self.columns)
 
     def repaint(self, immediately=False):
         width = self.parent().width()
@@ -956,13 +960,11 @@ class CardView(QTableView):
 
     def scrollToIndex(self, index):
         realRowIndex = self.proxyModel.mapFromSource(index)
-        self.selectRow(realRowIndex.row())
+        self.selectionModel().setCurrentIndex(realRowIndex,
+                                              QItemSelectionModel.Select)
         self.scrollTo(realRowIndex)
 
     def clearAllFilters(self):
-        for btn in self.headerButtons:
-            btn.clear()
-
         self.listParam.filters.clear()
         self.listParam.save_filters()
         self.searchText = ''
@@ -1020,11 +1022,6 @@ class CardView(QTableView):
                        self.tr("Copy"), self._copy, QKeySequence.Copy)
         menu.addAction(createIcon('page_paste.png'),
                        self.tr("Paste"), self._paste, QKeySequence.Paste)
-
-        menu.addSeparator()
-        act = menu.addAction(createIcon('funnel.png'),
-                             self.tr("Filter in"), self._filter)
-        act.setEnabled(selected_count == 1)
 
         menu.addSeparator()
         act = menu.addAction(self.tr("Clone"), self._clone)
@@ -1384,36 +1381,6 @@ class CardView(QTableView):
 
         record = self.model().record(index.row())
         self.model().addCoin(record, self)
-
-    def _filter(self, index=None):
-        if not index:
-            index = self.currentIndex()
-
-        model = self.model()
-
-        column = index.column()
-        column_name = model.columnName(column)
-        column_type = model.columnType(column)
-        data = index.data(Qt.UserRole)
-        if column_type == Type.Text or column_type in Type.ImageTypes:
-            if data:
-                filter_ = DataFilter(column_name)
-            else:
-                filter_ = BlankFilter(column_name)
-        else:
-            value = str(data)
-            if value:
-                filter_ = ValueFilter(column_name, value)
-            else:
-                filter_ = BlankFilter(column_name)
-        filter_.revert = True
-
-        filters = ColumnFilters(column_name)
-        filters.addFilter(filter_)
-        for btn in self.headerButtons:
-            if btn.fieldid == column:
-                btn.applyFilters(filters)
-                break
 
     def search(self, text):
         self.searchText = text
