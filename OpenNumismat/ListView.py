@@ -5,9 +5,12 @@ import os.path
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, pyqtSignal, QSortFilterProxyModel
 from PyQt5.QtCore import QCollator, QLocale
+from PyQt5.QtCore import QAbstractTableModel, QModelIndex, QItemSelectionModel
+from PyQt5.QtCore import QRectF, QRect
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from PyQt5.Qt import QMargins
 
 import OpenNumismat
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
@@ -807,7 +810,54 @@ class ListView(QTableView):
             model.setSearchFilter('')
 
 
-from PyQt5.QtCore import QAbstractTableModel, QModelIndex, QItemSelectionModel
+class CardDelegate(QStyledItemDelegate):
+
+    def paint(self, painter, option, index):
+        model = index.model().model
+        orig_index = index.model().mapToSource(index)
+        if orig_index.isValid():
+            image_index = model.index(orig_index.row(), model.fields.image.id)
+            image_data = image_index.data()
+            title_index = model.index(orig_index.row(), model.fields.title.id)
+            title = title_index.data()
+
+            palette = QPalette()
+            if option.state & QStyle.State_HasFocus:
+                color = palette.color(QPalette.HighlightedText)
+                back_color = palette.color(QPalette.Highlight)
+            else:
+                color = palette.color(QPalette.Text)
+                back_color = palette.color(QPalette.Midlight)
+
+            painter.setPen(back_color)
+            rect = option.rect.marginsRemoved(QMargins(1, 1, 1, 1))
+            painter.drawRect(rect)
+
+            text_rect = QRect(rect)
+            text_rect.setHeight(30 + 4)
+            painter.fillRect(text_rect, back_color)
+
+            text_rect = rect.marginsRemoved(QMargins(3, 2, 2, 2))
+            text_rect.setHeight(30)
+
+            painter.setPen(color)
+            text_option = QTextOption()
+            text_option.setWrapMode(QTextOption.WrapAtWordBoundaryOrAnywhere)
+            painter.drawText(QRectF(text_rect), title, text_option)
+
+            image = QImage()
+            image.loadFromData(image_data)
+            if rect.width() - 1 < image.width():
+                scaledImage = image.scaledToWidth(rect.width() - 2,
+                                                  Qt.SmoothTransformation)
+            else:
+                scaledImage = image
+            pixmap = QPixmap.fromImage(scaledImage)
+            # Set rect at center of item
+            rect.translate((rect.width() - pixmap.width()) / 2,
+                           (rect.height() + 35 - pixmap.height()) / 2)
+            rect.setSize(pixmap.size())
+            painter.drawPixmap(rect, pixmap)
 
 
 class CardModel(QAbstractTableModel):
@@ -832,12 +882,7 @@ class CardModel(QAbstractTableModel):
         return self.columns
 
     def data(self, index, role=Qt.DisplayRole):
-        if role == Qt.DisplayRole:
-            num = index.row() * self.columns + index.column()
-            index = self.model.index(num, 1)
-            return self.model.data(index)
-        else:
-            return None
+        return None
 
     def mapToSource(self, index):
         num = index.row() * self.columns + index.column()
@@ -869,6 +914,7 @@ class CardView(QTableView):
         self.searchText = ''
         self.listParam = listParam
 
+        self.setShowGrid(False)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.doubleClicked.connect(self.itemDClicked)
@@ -881,10 +927,7 @@ class CardView(QTableView):
         self.listCountLabel = QLabel()
         self.listSelectedLabel = QLabel(self.tr("0 coin(s) selected"))
 
-        # Show image data as images
-        for field in listParam.fields:
-            if field.type in Type.ImageTypes:
-                self.setItemDelegateForColumn(field.id, ImageDelegate(self))
+        self.setItemDelegate(CardDelegate(self))
 
         self.selectedRowId = None
 
@@ -898,6 +941,12 @@ class CardView(QTableView):
         return self.proxyModel.model
 
     def setModel(self, model):
+        defaultHeight = self.verticalHeader().defaultSectionSize()
+        height_multiplex = model.settings['image_height']
+        height = defaultHeight * height_multiplex
+        self.verticalHeader().setDefaultSectionSize(height + 39)
+        self.horizontalHeader().setDefaultSectionSize(height * 2 + 6 * height_multiplex)
+
         model.rowInserted.connect(self.scrollToIndex)
 
         self.proxyModel = CardModel(model, self)
