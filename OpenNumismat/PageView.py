@@ -15,6 +15,7 @@ from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import DetailsTabWidget
 from OpenNumismat.Settings import Settings
+from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 
 
 class ImageView(QWidget):
@@ -511,6 +512,15 @@ class Splitter(QSplitter):
             self.setSizes(sizes)
             self.splitterMoved.connect(self.splitterPosChanged)
 
+    def replaceWidget(self, index, widget):
+        old = self.widget(index)
+        if old:
+            old.setParent(None)
+            old.deleteLater()
+        self.insertWidget(index, widget)
+
+        self.showEvent(None)
+
 
 class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
@@ -522,7 +532,10 @@ class PageView(Splitter):
         self.param = pageParam
         self.id = pageParam.id
         self.treeView = TreeView(pageParam.treeParam, self)
-        self.listView = CardView(pageParam.listParam, self)
+        if self.param.type == CollectionPageTypes.Card:
+            self.listView = CardView(self.param.listParam, self)
+        else:
+            self.listView = ListView(self.param.listParam, self)
         if imagesAtBottom:
             self.imageView = ImageView(QBoxLayout.LeftToRight, self)
             self.detailsView = DetailsView(QBoxLayout.TopToBottom, self)
@@ -606,3 +619,22 @@ class PageView(Splitter):
         self.prepareStatistics(show)
         if show:
             self.statisticsView.modelChanged()
+
+    def changeView(self, type_):
+        self.param.type = type_
+        if self.param.type == CollectionPageTypes.Card:
+            listView = CardView(self.param.listParam, self)
+            self._model.setFilter('')
+        else:
+            listView = ListView(self.param.listParam, self)
+
+        splitter2 = self.splitter1.widget(0)
+        splitter2.replaceWidget(1, listView)
+        self.listView = listView
+
+        self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
+        self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
+        self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
+
+        self.listView.setModel(self._model)
+        self.listView.modelChanged()

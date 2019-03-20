@@ -965,8 +965,6 @@ class CardView(QTableView):
         self.scrollTo(realRowIndex)
 
     def clearAllFilters(self):
-        self.listParam.filters.clear()
-        self.listParam.save_filters()
         self.searchText = ''
         self.model().clearFilters()
 

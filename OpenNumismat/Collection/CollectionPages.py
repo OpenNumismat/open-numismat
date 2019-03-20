@@ -9,6 +9,7 @@ from OpenNumismat.Collection.StatisticsParam import StatisticsParam
 
 class CollectionPageTypes:
     List = 0
+    Card = 1
 
 
 class CollectionPageParam(QtCore.QObject):
@@ -100,6 +101,13 @@ class CollectionPages(QtCore.QObject):
         query.exec_()
         return self.__queryToParam(query)
 
+    def changeView(self, page, type_):
+        query = QSqlQuery(self.db)
+        query.prepare("UPDATE pages SET type=? WHERE id=?")
+        query.addBindValue(type_)
+        query.addBindValue(page.id)
+        query.exec_()
+
     def __queryToParam(self, query):
         pagesParam = []
         while query.next():
@@ -108,8 +116,10 @@ class CollectionPages(QtCore.QObject):
             param.db = self.db
             if param.type == CollectionPageTypes.List:
                 param.listParam = ListPageParam(param)
-                param.treeParam = TreeParam(param)
-                param.statisticsParam = StatisticsParam(param)
+            elif param.type == CollectionPageTypes.Card:
+                param.listParam = ListPageParam(param)
+            param.treeParam = TreeParam(param)
+            param.statisticsParam = StatisticsParam(param)
             pagesParam.append(param)
 
         return pagesParam

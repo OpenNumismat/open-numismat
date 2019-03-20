@@ -19,6 +19,7 @@ from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.StatisticsView import statisticsAvailable
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog
+from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 
 from OpenNumismat.Collection.Import import *
 
@@ -34,6 +35,27 @@ class MainWindow(QMainWindow):
         menubar = self.menuBar()
 
         self.collectionActs = []
+
+        self.tableViewAct = QAction(createIcon('application_view_list.png'),
+                                    self.tr("Table view"), self)
+        self.tableViewAct.setData(CollectionPageTypes.List)
+        self.tableViewAct.triggered.connect(self.changeViewEvent)
+        self.collectionActs.append(self.tableViewAct)
+
+        self.cardViewAct = QAction(createIcon('application_view_icons.png'),
+                                   self.tr("Card view"), self)
+        self.cardViewAct.setData(CollectionPageTypes.Card)
+        self.cardViewAct.triggered.connect(self.changeViewEvent)
+        self.collectionActs.append(self.cardViewAct)
+
+        viewMenu = QMenu()
+        viewMenu.addAction(self.tableViewAct)
+        viewMenu.addAction(self.cardViewAct)
+
+        self.viewButton = QToolButton()
+        self.viewButton.setPopupMode(QToolButton.InstantPopup)
+        self.viewButton.setMenu(viewMenu)
+        self.viewButton.setDefaultAction(self.tableViewAct)
 
         colnectAct = QAction(createIcon('colnect.ico'),
                              self.tr("Colnect..."), self)
@@ -351,6 +373,8 @@ class MainWindow(QMainWindow):
             toolBar.addAction(self.statisticsAct)
         if Settings()['colnect_enabled']:
             toolBar.addAction(colnectAct)
+        toolBar.addSeparator()
+        toolBar.addWidget(self.viewButton)
 
         spacer = QWidget()
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
@@ -431,6 +455,18 @@ class MainWindow(QMainWindow):
                         QMessageBox.Yes)
             if result == QMessageBox.Yes:
                 self.restart()
+
+    def changeViewEvent(self):
+        type_ = self.sender().data()
+        page = self.viewTab.currentPageView().param
+        self.viewTab.collection.pages().changeView(page, type_)
+        if type_ == CollectionPageTypes.Card:
+            self.viewButton.setDefaultAction(self.cardViewAct)
+        else:
+            self.viewButton.setDefaultAction(self.tableViewAct)
+
+        page = self.viewTab.currentPageView()
+        page.changeView(type_)
 
     def colnectEvent(self):
         model = self.viewTab.currentModel()
