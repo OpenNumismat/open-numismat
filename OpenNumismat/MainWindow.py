@@ -640,7 +640,7 @@ class MainWindow(QMainWindow):
 
     def editCoin(self):
         listView = self.viewTab.currentListView()
-        indexes = listView.selectedRows()
+        indexes = listView.selectedCoins()
         if len(indexes) == 1:
             listView._edit(indexes[0])
         elif len(indexes) > 1:
@@ -648,13 +648,13 @@ class MainWindow(QMainWindow):
 
     def deleteCoin(self):
         listView = self.viewTab.currentListView()
-        indexes = listView.selectedRows()
+        indexes = listView.selectedCoins()
         if len(indexes):
             listView._delete(indexes)
 
     def copyCoin(self):
         listView = self.viewTab.currentListView()
-        indexes = listView.selectedRows()
+        indexes = listView.selectedCoins()
         if len(indexes):
             listView._copy(indexes)
 
@@ -755,6 +755,12 @@ class MainWindow(QMainWindow):
         self.__updateLatest()
 
         self.viewTab.setCollection(collection)
+
+        type_ = self.viewTab.currentPageView().param.type
+        if type_ == CollectionPageTypes.Card:
+            self.viewButton.setDefaultAction(self.cardViewAct)
+        else:
+            self.viewButton.setDefaultAction(self.tableViewAct)
 
         self.referenceMenu.clear()
         for action in self.collection.referenceMenu(self):
