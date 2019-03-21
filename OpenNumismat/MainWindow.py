@@ -705,21 +705,21 @@ class MainWindow(QMainWindow):
             if self.collection.create(fileName):
                 self.setCollection(self.collection)
 
-    def descriptionCollectionEvent(self, checked):
+    def descriptionCollectionEvent(self):
         dialog = DescriptionDialog(self.collection.getDescription(), self)
         dialog.exec_()
 
-    def passwordCollectionEvent(self, checked):
+    def passwordCollectionEvent(self):
         dialog = PasswordSetDialog(self.collection.settings, self)
         dialog.exec_()
 
-    def backupCollectionEvent(self, checked):
+    def backupCollectionEvent(self):
         self.collection.backup()
 
-    def vacuumCollectionEvent(self, checked):
+    def vacuumCollectionEvent(self):
         self.collection.vacuum()
 
-    def mergeCollectionEvent(self, checked):
+    def mergeCollectionEvent(self):
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 self.tr("Open collection"), self.__workingDir(),
                 self.tr("Collections (*.db)"))
