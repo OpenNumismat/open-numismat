@@ -5,7 +5,7 @@ import os.path
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, pyqtSignal, QSortFilterProxyModel
 from PyQt5.QtCore import QCollator, QLocale
-from PyQt5.QtCore import QAbstractTableModel, QModelIndex, QItemSelectionModel
+from PyQt5.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
 from PyQt5.QtCore import QRectF, QRect
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtGui import *
@@ -455,8 +455,13 @@ class ImageDelegate(QStyledItemDelegate):
 
 
 class SortFilterProxyModel(QSortFilterProxyModel):
-    def __init__(self, parent=None):
+
+    def __init__(self, model, parent=None):
         super().__init__(parent)
+
+        self.model = model
+        self.setSourceModel(model)
+
         self.setDynamicSortFilter(True)
 
         locale = Settings()['locale']
@@ -464,7 +469,6 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         self.collator.setNumericMode(True)
 
     def sort(self, column, order=Qt.AscendingOrder):
-        self.model = self.sourceModel()
         super().sort(column, order)
 
     def lessThan(self, left, right):
@@ -607,8 +611,7 @@ class ListView(BaseTableView):
     def setModel(self, model):
         model.rowInserted.connect(self.scrollToIndex)
 
-        self.proxyModel = SortFilterProxyModel(self)
-        self.proxyModel.setSourceModel(model)
+        self.proxyModel = SortFilterProxyModel(model, self)
         super().setModel(self.proxyModel)
         model.proxy = self.proxyModel
 
@@ -882,19 +885,31 @@ class CardDelegate(QStyledItemDelegate):
             painter.drawPixmap(rect, pixmap)
 
 
-class CardModel(QAbstractTableModel):
+class CardModel(QAbstractProxyModel):
 
     def __init__(self, model, parent):
         super().__init__(parent)
 
+        self.parent_widget = parent
+
         self.columns = 1
 
         self.model = model
-
+        self.setSourceModel(model)
         self.model.modelChanged.connect(self.modelChanged)
 
-    def match(self, start, role, value, hits, flags):
-        return self.model(start, role, value, hits, flags)
+    def parent(self, index):
+        return QModelIndex()
+
+    # def data(self, index, role):
+    #    index = self.mapToSource(index)
+    #    return super().data(index, role)
+
+    def flags(self, index):
+        return Qt.ItemIsSelectable | Qt.ItemIsEnabled
+
+    def index(self, row, column, parent=QModelIndex()):
+        return self.createIndex(row, column)
 
     def modelChanged(self):
         self.repaint(True)
@@ -906,9 +921,6 @@ class CardModel(QAbstractTableModel):
     def columnCount(self, parent=QModelIndex()):
         return self.columns
 
-    def data(self, index, role=Qt.DisplayRole):
-        return None
-
     def mapToSource(self, index):
         num = index.row() * self.columns + index.column()
         return self.model.index(num, 0)
@@ -918,8 +930,8 @@ class CardModel(QAbstractTableModel):
                                 index.row() % self.columns)
 
     def repaint(self, immediately=False):
-        width = self.parent().width()
-        col_width = self.parent().columnWidth(0)
+        width = self.parent_widget.width()
+        col_width = self.parent_widget.columnWidth(0)
         old = self.columns
         new = int(width / col_width)
         if new == 0:
@@ -951,23 +963,22 @@ class CardView(BaseTableView):
             self.proxyModel.repaint()
 
     def model(self):
-        if not self.proxyModel:
+        if not super().model():
             return None
-        return self.proxyModel.model
+        return self.proxyModel.sourceModel()
 
     def setModel(self, model):
+        model.rowInserted.connect(self.scrollToIndex)
+
+        self.proxyModel = CardModel(model, self)
+        super().setModel(self.proxyModel)
+        # model.proxy = self.proxyModel
+
         defaultHeight = self.verticalHeader().defaultSectionSize()
         height_multiplex = model.settings['image_height']
         height = defaultHeight * height_multiplex
         self.verticalHeader().setDefaultSectionSize(height + 39)
         self.horizontalHeader().setDefaultSectionSize(height * 2 + 6 * height_multiplex)
-
-        model.rowInserted.connect(self.scrollToIndex)
-
-        self.proxyModel = CardModel(model, self)
-#        self.proxyModel.setSourceModel(model)
-        super().setModel(self.proxyModel)
-#        model.proxy = self.proxyModel
 
     def modelChanged(self):
         super().modelChanged()
@@ -987,7 +998,7 @@ class CardView(BaseTableView):
     def scrollToIndex(self, index):
         realRowIndex = self.proxyModel.mapFromSource(index)
         self.selectionModel().setCurrentIndex(realRowIndex,
-                                              QItemSelectionModel.Select)
+                                              QItemSelectionModel.ClearAndSelect)
         self.scrollTo(realRowIndex)
 
     def clearAllFilters(self):
