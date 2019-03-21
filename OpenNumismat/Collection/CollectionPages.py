@@ -9,7 +9,8 @@ from OpenNumismat.Collection.StatisticsParam import StatisticsParam
 
 class CollectionPageTypes:
     List = 0
-    Card = 1
+    Icon = 1
+    Card = 2
 
 
 class CollectionPageParam(QtCore.QObject):
@@ -114,9 +115,12 @@ class CollectionPages(QtCore.QObject):
             param = CollectionPageParam(query.record())
             param.fields = self.fields
             param.db = self.db
+            # TODO: Improve code
             if param.type == CollectionPageTypes.List:
                 param.listParam = ListPageParam(param)
             elif param.type == CollectionPageTypes.Card:
+                param.listParam = ListPageParam(param)
+            elif param.type == CollectionPageTypes.Icon:
                 param.listParam = ListPageParam(param)
             param.treeParam = TreeParam(param)
             param.statisticsParam = StatisticsParam(param)

@@ -841,7 +841,7 @@ class ListView(BaseTableView):
             model.setSearchFilter('')
 
 
-class CardDelegate(QStyledItemDelegate):
+class IconDelegate(QStyledItemDelegate):
 
     def paint(self, painter, option, index):
         model = index.model().model
@@ -889,6 +889,83 @@ class CardDelegate(QStyledItemDelegate):
                            (rect.height() + 35 - pixmap.height()) / 2)
             rect.setSize(pixmap.size())
             painter.drawPixmap(rect, pixmap)
+
+
+class CardDelegate(QStyledItemDelegate):
+
+    def paint(self, painter, option, index):
+        model = index.model().model
+        orig_index = index.model().mapToSource(index)
+        if orig_index.isValid():
+            obverse_index = model.index(orig_index.row(), model.fields.obverseimg.id)
+            obverse_data = obverse_index.data()
+            reverse_index = model.index(orig_index.row(), model.fields.reverseimg.id)
+            reverse_data = reverse_index.data()
+            title_index = model.index(orig_index.row(), model.fields.title.id)
+            title = title_index.data()
+
+            palette = QPalette()
+            if option.state & QStyle.State_HasFocus or option.state & QStyle.State_Selected:
+                color = palette.color(QPalette.HighlightedText)
+                back_color = palette.color(QPalette.Highlight)
+            else:
+                color = palette.color(QPalette.Text)
+                back_color = palette.color(QPalette.Midlight)
+
+            painter.setPen(back_color)
+            rect = option.rect.marginsRemoved(QMargins(1, 1, 1, 1))
+            painter.drawRect(rect)
+
+            text_rect = QRect(rect)
+            text_rect.setHeight(30 + 4)
+            painter.fillRect(text_rect, back_color)
+
+            text_rect = rect.marginsRemoved(QMargins(3, 2, 2, 2))
+            text_rect.setHeight(30)
+
+            painter.setPen(color)
+            text_option = QTextOption()
+            text_option.setWrapMode(QTextOption.WrapAtWordBoundaryOrAnywhere)
+            painter.drawText(QRectF(text_rect), title, text_option)
+
+            rect.setY(rect.y() + 30 + 4 + 1)
+            rect.setHeight(rect.height() - 1)
+            obverse_rect = QRect(rect.x(), rect.y(),
+                                 rect.width(), rect.height() / 2)
+
+            maxWidth = obverse_rect.width() - 4
+            maxHeight = obverse_rect.height() - 4
+
+            image = QImage()
+            image.loadFromData(obverse_data)
+            if image.width() > maxWidth or image.height() > maxHeight:
+                scaledImage = image.scaled(maxWidth, maxHeight,
+                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            else:
+                scaledImage = image
+            pixmap = QPixmap.fromImage(scaledImage)
+            # Set rect at center of item
+            obverse_rect.translate((obverse_rect.width() - pixmap.width()) / 2,
+                                   (obverse_rect.height() - pixmap.height()) / 2)
+            obverse_rect.setSize(pixmap.size())
+            painter.drawPixmap(obverse_rect, pixmap)
+
+            reverse_rect = QRect(rect.x(), rect.y() + rect.height() / 2,
+                                 rect.width(), rect.height() / 2)
+
+            image = QImage()
+            image.loadFromData(reverse_data)
+            if image.width() > maxWidth or image.height() > maxHeight:
+                scaledImage = image.scaled(maxWidth, maxHeight,
+                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            else:
+                scaledImage = image
+            pixmap = QPixmap.fromImage(scaledImage)
+            # Set rect at center of item
+            reverse_rect.translate((reverse_rect.width() - pixmap.width()) / 2,
+                                   (reverse_rect.height() - pixmap.height()) / 2)
+            reverse_rect.setSize(pixmap.size())
+            painter.drawPixmap(reverse_rect, pixmap)
 
 
 class CardModel(QAbstractProxyModel):
@@ -951,7 +1028,7 @@ class CardModel(QAbstractProxyModel):
             self.endResetModel()
 
 
-class CardView(BaseTableView):
+class IconView(BaseTableView):
     def __init__(self, listParam, parent=None):
         super().__init__(listParam, parent)
 
@@ -965,7 +1042,7 @@ class CardView(BaseTableView):
         self.horizontalHeader().setVisible(False)
         self.verticalHeader().setVisible(False)
 
-        self.setItemDelegate(CardDelegate(self))
+        self.setItemDelegate(IconDelegate(self))
 
     def resizeEvent(self, e):
         if self.proxyModel:
@@ -976,6 +1053,13 @@ class CardView(BaseTableView):
             return None
         return self.proxyModel.sourceModel()
 
+    def _updateSizes(self):
+        defaultHeight = self.verticalHeader().defaultSectionSize()
+        height_multiplex = self.model().settings['image_height']
+        height = defaultHeight * height_multiplex
+        self.verticalHeader().setDefaultSectionSize(height + 41)
+        self.horizontalHeader().setDefaultSectionSize(height * 2 + 10 * height_multiplex)
+
     def setModel(self, model):
         model.rowInserted.connect(self.scrollToIndex)
 
@@ -983,11 +1067,7 @@ class CardView(BaseTableView):
         super().setModel(self.proxyModel)
         # model.proxy = self.proxyModel
 
-        defaultHeight = self.verticalHeader().defaultSectionSize()
-        height_multiplex = model.settings['image_height']
-        height = defaultHeight * height_multiplex
-        self.verticalHeader().setDefaultSectionSize(height + 39)
-        self.horizontalHeader().setDefaultSectionSize(height * 2 + 6 * height_multiplex)
+        self._updateSizes()
 
     def modelChanged(self):
         super().modelChanged()
@@ -1088,3 +1168,18 @@ class CardView(BaseTableView):
             model.setSearchFilter('(' + ' OR '.join(sql) + ')')
         else:
             model.setSearchFilter('')
+
+
+class CardView(IconView):
+
+    def __init__(self, listParam, parent=None):
+        super().__init__(listParam, parent)
+
+        self.setItemDelegate(CardDelegate(self))
+
+    def _updateSizes(self):
+        defaultHeight = self.verticalHeader().defaultSectionSize()
+        height_multiplex = self.model().settings['image_height']
+        height = defaultHeight * height_multiplex * 2
+        self.verticalHeader().setDefaultSectionSize(height * 2 + 42)
+        self.horizontalHeader().setDefaultSectionSize(height + 10 * height_multiplex)

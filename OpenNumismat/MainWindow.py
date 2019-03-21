@@ -42,7 +42,13 @@ class MainWindow(QMainWindow):
         self.tableViewAct.triggered.connect(self.changeViewEvent)
         self.collectionActs.append(self.tableViewAct)
 
-        self.cardViewAct = QAction(createIcon('application_view_icons.png'),
+        self.iconViewAct = QAction(createIcon('application_view_icons.png'),
+                                   self.tr("Icon view"), self)
+        self.iconViewAct.setData(CollectionPageTypes.Icon)
+        self.iconViewAct.triggered.connect(self.changeViewEvent)
+        self.collectionActs.append(self.iconViewAct)
+
+        self.cardViewAct = QAction(createIcon('application_view_tile.png'),
                                    self.tr("Card view"), self)
         self.cardViewAct.setData(CollectionPageTypes.Card)
         self.cardViewAct.triggered.connect(self.changeViewEvent)
@@ -50,6 +56,7 @@ class MainWindow(QMainWindow):
 
         viewMenu = QMenu()
         viewMenu.addAction(self.tableViewAct)
+        viewMenu.addAction(self.iconViewAct)
         viewMenu.addAction(self.cardViewAct)
 
         self.viewButton = QToolButton()
@@ -462,6 +469,8 @@ class MainWindow(QMainWindow):
         self.viewTab.collection.pages().changeView(page, type_)
         if type_ == CollectionPageTypes.Card:
             self.viewButton.setDefaultAction(self.cardViewAct)
+        elif type_ == CollectionPageTypes.Icon:
+            self.viewButton.setDefaultAction(self.iconViewAct)
         else:
             self.viewButton.setDefaultAction(self.tableViewAct)
 
@@ -759,6 +768,8 @@ class MainWindow(QMainWindow):
         type_ = self.viewTab.currentPageView().param.type
         if type_ == CollectionPageTypes.Card:
             self.viewButton.setDefaultAction(self.cardViewAct)
+        elif type_ == CollectionPageTypes.Icon:
+            self.viewButton.setDefaultAction(self.iconViewAct)
         else:
             self.viewButton.setDefaultAction(self.tableViewAct)
 

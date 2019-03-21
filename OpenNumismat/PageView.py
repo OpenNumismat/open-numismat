@@ -3,7 +3,7 @@ from PyQt5 import QtSql
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
-from OpenNumismat.ListView import ListView, CardView
+from OpenNumismat.ListView import ListView, CardView, IconView
 from OpenNumismat.StatisticsView import statisticsAvailable
 from OpenNumismat.StatisticsView import StatisticsView
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
@@ -534,6 +534,8 @@ class PageView(Splitter):
         self.treeView = TreeView(pageParam.treeParam, self)
         if self.param.type == CollectionPageTypes.Card:
             self.listView = CardView(self.param.listParam, self)
+        elif self.param.type == CollectionPageTypes.Icon:
+            self.listView = IconView(self.param.listParam, self)
         else:
             self.listView = ListView(self.param.listParam, self)
         if imagesAtBottom:
@@ -624,6 +626,9 @@ class PageView(Splitter):
         self.param.type = type_
         if self.param.type == CollectionPageTypes.Card:
             listView = CardView(self.param.listParam, self)
+            self._model.setFilter('')
+        elif self.param.type == CollectionPageTypes.Icon:
+            listView = IconView(self.param.listParam, self)
             self._model.setFilter('')
         else:
             listView = ListView(self.param.listParam, self)
