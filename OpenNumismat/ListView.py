@@ -81,7 +81,11 @@ class BaseTableView(QTableView):
     def keyPressEvent(self, event):
         key = event.key()
         if (key == Qt.Key_Return) or (key == Qt.Key_Enter):
-            self._edit(self.currentIndex())
+            indexes = self.selectedCoins()
+            if len(indexes) == 1:
+                self._edit(indexes[0])
+            elif len(indexes) > 1:
+                self._multiEdit(indexes)
         elif event.matches(QKeySequence.Copy):
             self._copy(self.selectedCoins())
         elif event.matches(QKeySequence.Paste):
@@ -715,6 +719,8 @@ class ListView(BaseTableView):
 
     def contextMenuEvent(self, pos):
         selected_count = len(self.selectedCoins())
+        if not selected_count:
+            return
 
         menu = QMenu(self)
         act = menu.addAction(createIcon('pencil.png'),
@@ -931,6 +937,9 @@ class CardModel(QAbstractProxyModel):
 
     def repaint(self, immediately=False):
         width = self.parent_widget.width()
+        vertical_bar = self.parent_widget.verticalScrollBar()
+        if vertical_bar.isVisible():
+            width -= vertical_bar.width() + 2
         col_width = self.parent_widget.columnWidth(0)
         old = self.columns
         new = int(width / col_width)
@@ -1007,6 +1016,8 @@ class CardView(BaseTableView):
 
     def contextMenuEvent(self, pos):
         selected_count = len(self.selectedCoins())
+        if not selected_count:
+            return
 
         menu = QMenu(self)
         act = menu.addAction(createIcon('pencil.png'),
