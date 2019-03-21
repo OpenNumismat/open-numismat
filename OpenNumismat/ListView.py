@@ -659,9 +659,9 @@ class ListView(BaseTableView):
             indexes = self.proxyModel.match(startIndex, Qt.DisplayRole,
                                         self.selectedId, 1, Qt.MatchExactly)
             if indexes:
-                realRowIndex = self.proxyModel.mapFromSource(indexes[0])
-                self.selectRow(indexes[0].row())
-                self.scrollTo(realRowIndex)
+                index = self.proxyModel.index(indexes[0].row(), 1)
+                self.selectRow(index.row())
+                self.scrollTo(index)
             else:
                 self.selectedId = None
 
