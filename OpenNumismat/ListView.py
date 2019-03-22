@@ -58,7 +58,7 @@ class BaseTableView(QTableView):
         self.selectedId = None
 
         self.listCountLabel = QLabel()
-        self.listSelectedLabel = QLabel(self.tr("0 coin(s) selected"))
+        self.listSelectedLabel = QLabel(QApplication.translate('BaseTableView', "0 coins selected"))
 
     def modelChanged(self):
         # Fetch all selected records
@@ -72,7 +72,7 @@ class BaseTableView(QTableView):
         query.first()
         totalCount = query.record().value(0)
 
-        labelText = self.tr("%d/%d coins") % (newCount, totalCount)
+        labelText = QApplication.translate('BaseTableView', "%d/%d coins") % (newCount, totalCount)
         self.listCountLabel.setText(labelText)
 
     def itemDClicked(self, _index):
@@ -114,8 +114,10 @@ class BaseTableView(QTableView):
         return super().currentChanged(current, previous)
 
     def selectionChanged(self, selected, deselected):
-        self.listSelectedLabel.setText(self.tr("%n coin(s) selected", '',
-                                               len(self.selectedCoins())))
+        count = len(self.selectedCoins())
+        label = QApplication.translate('BaseTableView', "%n coin(s) selected",
+                                       '', count)
+        self.listSelectedLabel.setText(label)
         return super().selectionChanged(selected, deselected)
 
     def _mapToSource(self, index):
@@ -135,8 +137,9 @@ class BaseTableView(QTableView):
             preview.exec_()
         else:
             QMessageBox.information(
-                self, self.tr("Report preview"),
-                self.tr("Nothing selected.\nSelect required coins by clicking "
+                self, QApplication.translate('BaseTableView', "Report preview"),
+                QApplication.translate('BaseTableView',
+                        "Nothing selected.\nSelect required coins by clicking "
                         "with Ctrl or Shift, or Ctrl+A for select all coins."))
 
     def viewInBrowser(self, template=None):
@@ -153,15 +156,16 @@ class BaseTableView(QTableView):
                 executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
         else:
             QMessageBox.information(
-                self, self.tr("Report preview"),
-                self.tr("Nothing selected.\nSelect required coins by clicking "
+                self, QApplication.translate('BaseTableView', "Report preview"),
+                QApplication.translate('BaseTableView',
+                        "Nothing selected.\nSelect required coins by clicking "
                         "with Ctrl or Shift, or Ctrl+A for select all coins."))
 
     def saveTable(self):
-        filters = (self.tr("Excel document (*.xls)"),
-                   self.tr("Web page (*.htm *.html)"),
-                   self.tr("Text file (*.csv)"),
-                   self.tr("Text file UTF-8 (*.csv)"))
+        filters = (QApplication.translate('BaseTableView', "Excel document (*.xls)"),
+                   QApplication.translate('BaseTableView', "Web page (*.htm *.html)"),
+                   QApplication.translate('BaseTableView', "Text file (*.csv)"),
+                   QApplication.translate('BaseTableView', "Text file UTF-8 (*.csv)"))
         if not ExportToExcel.isAvailable():
             filters = filters[1:]
 
@@ -171,8 +175,10 @@ class BaseTableView(QTableView):
             OpenNumismat.HOME_PATH, filters)
         if fileName:
             model = self.model()
-            progressDlg = Gui.ProgressDialog(self.tr("Saving list"),
-                                    self.tr("Cancel"), model.rowCount(), self)
+            progressDlg = Gui.ProgressDialog(
+                QApplication.translate('BaseTableView', "Saving list"),
+                QApplication.translate('BaseTableView', "Cancel"),
+                model.rowCount(), self)
 
             if filters.index(selectedFilter) == 0:  # Excel documents
                 export = ExportToExcel(fileName, self.listParam.page.title)
@@ -261,8 +267,10 @@ class BaseTableView(QTableView):
         dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QDialog.Accepted:
-            progressDlg = Gui.ProgressDialog(self.tr("Updating records"),
-                                        self.tr("Cancel"), len(indexes), self)
+            progressDlg = Gui.ProgressDialog(
+                QApplication.translate('BaseTableView', "Updating records"),
+                QApplication.translate('BaseTableView', "Cancel"),
+                len(indexes), self)
 
             # Fill records by used fields in multi record
             multiRecord = dialog.getRecord()
@@ -283,7 +291,8 @@ class BaseTableView(QTableView):
                         record.setValue(i, multiRecord.value(i))
                 self.model().setRecord(index.row(), record)
 
-            progressDlg.setLabelText(self.tr("Saving..."))
+            progressDlg.setLabelText(
+                QApplication.translate('BaseTableView', "Saving..."))
             self.model().submitAll()
 
             progressDlg.reset()
@@ -364,8 +373,9 @@ class BaseTableView(QTableView):
                         break
                     if btn == QDialogButtonBox.SaveAll:
                         progressDlg = Gui.ProgressDialog(
-                                    self.tr("Inserting records"),
-                                    self.tr("Cancel"), len(pickleData), self)
+                            QApplication.translate('BaseTableView', "Inserting records"),
+                            QApplication.translate('BaseTableView', "Cancel"),
+                            len(pickleData), self)
 
             if progressDlg:
                 progressDlg.reset()
@@ -398,8 +408,9 @@ class BaseTableView(QTableView):
                         break
                     if btn == QDialogButtonBox.SaveAll:
                         progressDlg = Gui.ProgressDialog(
-                                    self.tr("Inserting records"),
-                                    self.tr("Cancel"), len(pickleData), self)
+                            QApplication.translate('BaseTableView', "Inserting records"),
+                            QApplication.translate('BaseTableView', "Cancel"),
+                            len(pickleData), self)
 
             if progressDlg:
                 progressDlg.reset()
@@ -408,14 +419,17 @@ class BaseTableView(QTableView):
         if not indexes:
             indexes = self.selectedCoins()
 
-        result = QMessageBox.information(self, self.tr("Delete"),
-                    self.tr("Are you sure to remove a %n coin(s)?", '',
-                                                                 len(indexes)),
-                    QMessageBox.Yes | QMessageBox.Cancel,
-                    QMessageBox.Cancel)
+        result = QMessageBox.information(
+            self, QApplication.translate('BaseTableView', "Delete"),
+            QApplication.translate('BaseTableView', "Are you sure to remove a %n coin(s)?",
+                                   '', len(indexes)),
+            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.Cancel)
         if result == QMessageBox.Yes:
-            progressDlg = Gui.ProgressDialog(self.tr("Deleting records"),
-                                        self.tr("Cancel"), len(indexes), self)
+            progressDlg = Gui.ProgressDialog(
+                QApplication.translate('BaseTableView', "Deleting records"),
+                QApplication.translate('BaseTableView', "Cancel"),
+                len(indexes), self)
 
             model = self.model()
             for index in indexes:
@@ -425,7 +439,8 @@ class BaseTableView(QTableView):
 
                 model.removeRow(index.row())
 
-            progressDlg.setLabelText(self.tr("Saving..."))
+            progressDlg.setLabelText(
+                QApplication.translate('BaseTableView', "Saving..."))
             model.submitAll()
 
             progressDlg.reset()
@@ -1101,29 +1116,34 @@ class IconView(BaseTableView):
 
         menu = QMenu(self)
         act = menu.addAction(createIcon('pencil.png'),
-                             self.tr("Edit..."), self._edit)
+                             QApplication.translate('IconView', "Edit..."),
+                             self._edit)
         act.setShortcut('Enter')
         # Disable Edit when more than one record selected
         act.setEnabled(selected_count == 1)
         menu.setDefaultAction(act)
 
         menu.addAction(createIcon('page_copy.png'),
-                       self.tr("Copy"), self._copy, QKeySequence.Copy)
+                       QApplication.translate('IconView', "Copy"),
+                       self._copy, QKeySequence.Copy)
         menu.addAction(createIcon('page_paste.png'),
-                       self.tr("Paste"), self._paste, QKeySequence.Paste)
+                       QApplication.translate('IconView', "Paste"),
+                       self._paste, QKeySequence.Paste)
 
         menu.addSeparator()
-        act = menu.addAction(self.tr("Clone"), self._clone)
+        act = menu.addAction(QApplication.translate('IconView', "Clone"),
+                             self._clone)
         # Disable Clone when more than one record selected
         act.setEnabled(selected_count == 1)
-        act = menu.addAction(self.tr("Multi edit..."), self._multiEdit)
+        act = menu.addAction(QApplication.translate('IconView', "Multi edit..."),
+                             self._multiEdit)
         # Disable Multi edit when only one record selected
         act.setEnabled(selected_count > 1)
 
         menu.addSeparator()
         style = QApplication.style()
         icon = style.standardIcon(QStyle.SP_TrashIcon)
-        menu.addAction(icon, self.tr("Delete"),
+        menu.addAction(icon, QApplication.translate('IconView', "Delete"),
                        self._delete, QKeySequence.Delete)
         menu.exec_(self.mapToGlobal(pos))
 
