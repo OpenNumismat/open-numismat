@@ -191,20 +191,15 @@ class _Import2(QtCore.QObject):
         self.__errorMessage(QApplication.translate('_Import', "DB server connection problem. Check additional software."), text)
 
 
-from OpenNumismat.Collection.Import.Numizmat import ImportNumizmat
 from OpenNumismat.Collection.Import.Cabinet import ImportCabinet
-from OpenNumismat.Collection.Import.CoinsCollector import ImportCoinsCollector
 from OpenNumismat.Collection.Import.CoinManage import ImportCoinManage
 from OpenNumismat.Collection.Import.CoinManagePredefined import ImportCoinManagePredefined
 from OpenNumismat.Collection.Import.CollectionStudio import ImportCollectionStudio
-from OpenNumismat.Collection.Import.Numizmatik_Ru import ImportNumizmatik_Ru
-from OpenNumismat.Collection.Import.Numizmatik_RuPredefined import ImportNumizmatik_RuPredefined
 from OpenNumismat.Collection.Import.Ucoin import ImportUcoin, ImportUcoin2
 from OpenNumismat.Collection.Import.Tellico import ImportTellico
 from OpenNumismat.Collection.Import.Excel import ImportExcel
 
-__all__ = ("ImportNumizmat", "ImportCabinet", "ImportCoinsCollector",
+__all__ = ("ImportCabinet",
            "ImportCoinManage", "ImportCoinManagePredefined",
-           "ImportCollectionStudio", "ImportNumizmatik_Ru",
-           "ImportNumizmatik_RuPredefined", "ImportUcoin", "ImportUcoin2",
+           "ImportCollectionStudio", "ImportUcoin", "ImportUcoin2",
            "ImportTellico", "ImportExcel")

@@ -136,14 +136,6 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importExcelAct)
             importMenu.addAction(importExcelAct)
 
-        if ImportNumizmat.isAvailable():
-            importNumizmatAct = QAction(
-                                    createIcon('numizmat.png'),
-                                    self.tr("Numizmat 2.1"), self)
-            importNumizmatAct.triggered.connect(self.importNumizmat)
-            self.collectionActs.append(importNumizmatAct)
-            importMenu.addAction(importNumizmatAct)
-
         if ImportCabinet.isAvailable():
             importCabinetAct = QAction(
                                     createIcon('cabinet.png'),
@@ -151,15 +143,6 @@ class MainWindow(QMainWindow):
             importCabinetAct.triggered.connect(self.importCabinet)
             self.collectionActs.append(importCabinetAct)
             importMenu.addAction(importCabinetAct)
-
-        if ImportCoinsCollector.isAvailable():
-            importCoinsCollectorAct = QAction(
-                                    createIcon('CoinsCollector.png'),
-                                    self.tr("CoinsCollector 2.6"), self)
-            importCoinsCollectorAct.triggered.connect(
-                                                    self.importCoinsCollector)
-            self.collectionActs.append(importCoinsCollectorAct)
-            importMenu.addAction(importCoinsCollectorAct)
 
         if ImportCoinManage.isAvailable():
             importCoinManageAct = QAction(
@@ -177,14 +160,6 @@ class MainWindow(QMainWindow):
                                                 self.importCollectionStudio)
             self.collectionActs.append(importCollectionStudioAct)
             importMenu.addAction(importCollectionStudioAct)
-
-        if ImportNumizmatik_Ru.isAvailable():
-            importNumizmaticRuAct = QAction(
-                                    createIcon('Numizmatik_Ru.png'),
-                                    self.tr("Numizmatik_Ru 1.0.0.82"), self)
-            importNumizmaticRuAct.triggered.connect(self.importNumizmatik_Ru)
-            self.collectionActs.append(importNumizmaticRuAct)
-            importMenu.addAction(importNumizmaticRuAct)
 
         if ImportUcoin2.isAvailable():
             importUcoinAct = QAction(
@@ -510,14 +485,6 @@ class MainWindow(QMainWindow):
             argv.append(sys.argv[0])
         QProcess.startDetached(program, argv)
 
-    def importNumizmat(self):
-        defaultDir = ImportNumizmat.defaultDir()
-        file, _selectedFilter = QFileDialog.getOpenFileName(self,
-                                self.tr("Select file"), defaultDir, "*.fdb")
-        if file:
-            imp = ImportNumizmat(self)
-            imp.importData(file, self.viewTab.currentModel())
-
     def importCabinet(self):
         QMessageBox.information(self, self.tr("Importing"),
                 self.tr("Before importing you should export existing "
@@ -528,14 +495,6 @@ class MainWindow(QMainWindow):
                                 self.tr("Select directory"), defaultDir)
         if directory:
             imp = ImportCabinet(self)
-            imp.importData(directory, self.viewTab.currentModel())
-
-    def importCoinsCollector(self):
-        defaultDir = ImportCoinsCollector.defaultDir()
-        directory = QFileDialog.getExistingDirectory(self,
-                                self.tr("Select directory"), defaultDir)
-        if directory:
-            imp = ImportCoinsCollector(self)
             imp.importData(directory, self.viewTab.currentModel())
 
     def importCoinManage(self):
@@ -567,24 +526,6 @@ class MainWindow(QMainWindow):
                                 self.tr("Select file"), defaultDir, "*.xml")
         if file:
             imp = ImportCollectionStudio(self)
-            imp.importData(file, self.viewTab.currentModel())
-
-    def importNumizmatik_Ru(self):
-        defaultDir = ImportNumizmatik_Ru.defaultDir()
-        file, _selectedFilter = QFileDialog.getOpenFileName(self,
-                                self.tr("Select file"), defaultDir, "*.mdb")
-        if file:
-            btn = QMessageBox.question(self, self.tr("Importing"),
-                                self.tr("Import club catalog?"),
-                                QMessageBox.Yes | QMessageBox.No,
-                                QMessageBox.Yes)
-            if btn == QMessageBox.Yes:
-                imp = ImportNumizmatik_RuPredefined(self)
-                res = imp.importData(file, self.viewTab.currentModel())
-                if not res:
-                    return
-
-            imp = ImportNumizmatik_Ru(self)
             imp.importData(file, self.viewTab.currentModel())
 
     def importUcoin(self):

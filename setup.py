@@ -39,9 +39,8 @@ Main features:
 - Batch edit coins
 - Ability to add and customize the lists to display the required data
 - Does not require additional software to work with a database
-- Importing from CoinsCollector, Numizmat 2, Cabinet, CoinManage 2011, 2013,
-  2015, Collection Studio, Numizmatik_Ru, Tellico (additional software may be
-  required), uCoin.net
+- Importing from Cabinet, CoinManage 2011, 2013, 2015, Collection Studio,
+  Tellico (additional software may be required), uCoin.net
 - Support languages: English, Russian, Ukrainian, Spanish, French, Hungarian,
   Portuguese, German, Greek, Czech, Italian, Polish, Catalan, Dutch, Bulgarian,
   Latvian
@@ -218,8 +217,6 @@ if cx_Freeze_available:
             ("OpenNumismat/opennumismat.mplstyle", "opennumismat.mplstyle"),
         ]
     if sys.platform == "win32":
-        include_files.append(
-                ("OpenNumismat/Collection/Import/CdrToXml/Cdr2Xml.dll", "Cdr2Xml.dll"))
         include_files.append(
                 (qt_dir + "/plugins/sqldrivers/qsqlite.dll", "sqldrivers/qsqlite.dll"))
     elif sys.platform == "darwin":
