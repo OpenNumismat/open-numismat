@@ -2,7 +2,7 @@
     "rarity": [
         "Yaygın",
         "Normal",
-        "Scarce",
+        "Az bulunur",
         "Nadir",
         "Emsalsiz",
         "In sets only"
@@ -36,8 +36,8 @@
         "Roll"
     ],
     "obvrev": [
-        "Medallic (0°)",
-        "Coin (180°)"
+        "Madalyon (0°)",
+        "Madeni para (180°)"
     ],
     "edge": [
         "Tırtıllı",

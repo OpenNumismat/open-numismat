@@ -15,10 +15,11 @@ from OpenNumismat.Collection.Import.Colnect import ColnectCache
 class MainSettingsPage(QWidget):
     Languages = (("Български", 'bg'), ("Català", 'ca'), ("Čeština", 'cs'),
                  ("Deutsch", 'de'), ("English", 'en'), ("Ελληνικά", 'el'),
-                 ("Español", 'es'), ("Français", 'fr'), ("Italiano", 'it'),
-                 ("Latviešu", 'lv'), ("Magyar", 'hu'), ("Nederlands", 'nl'),
-                 ("Polski", 'pl'), ("Português", 'pt'), ("Русский", 'ru'),
-                 ("Türkçe", 'tr'), ("Український", 'uk'),
+                 ("Español", 'es'), ("فارسی", 'fa'), ("Français", 'fr'),
+                 ("Italiano", 'it'), ("Latviešu", 'lv'), ("Magyar", 'hu'),
+                 ("Nederlands", 'nl'), ("Polski", 'pl'), ("Português", 'pt'),
+                 ("Русский", 'ru'), ("Svenska", 'sv'), ("Türkçe", 'tr'),
+                 ("Український", 'uk'),
                  )
 
     def __init__(self, collection, parent=None):

@@ -8,7 +8,7 @@
         "In sets only"
     ],
     "quality": [
-        "Uncirculated",
+        "bankfrisch",
         "Brilliant uncirculated",
         "Proof",
         "Proof like",
@@ -24,15 +24,15 @@
         "Brockage"
     ],
     "type": [
-        "Regular kérdés",
-        "Emlékeztető",
-        "Rúdarany",
+        "Regular issue",
+        "Commemorative",
+        "Bullion",
         "Restrike",
         "Pattern"
     ],
     "format": [
         "Single",
-        "Készlet",
+        "Set",
         "Roll"
     ],
     "obvrev": [
@@ -43,43 +43,43 @@
         "Reeded",
         "Decorated",
         "Interrupted milled",
-        "Sima",
-        "Feliratos"
+        "Smooth",
+        "Lettered"
     ],
     "shape": [
-        "Kerek",
-        "Négyzet",
+        "Round",
+        "Square",
         "Polygon",
-        "Spanish flower",
+        "Spanische Blume",
         "Circle with hole"
     ],
     "material": [
         "Acmonital",
         "Aluminium",
-        "Aluminium bronze",
-        "Antimony",
-        "Brass",
+        "Aluminiumbronze",
+        "Antimon",
+        "Messing",
         "Bronze",
-        "Cobalt",
-        "Réz",
-        "Cupronickel",
-        "Arany",
-        "Vas",
+        "Kobalt",
+        "Kupfer",
+        "Kupfer-Nickel",
+        "Gold",
+        "Eisen",
         "Magnesium",
-        "Manganese",
-        "Melchior",
-        "Nikkel",
-        "Nickel silver",
-        "Nordic gold",
+        "Mangan",
+        "Neusilber",
+        "Nickel",
+        "Neusilber",
+        "Nordisches Gold",
         "Palladium",
-        "Platinum",
-        "Ezüst",
-        "Steel",
-        "Tantalum",
-        "Tombac",
-        "Tellurium",
-        "Tin",
-        "Zinc",
-        "Bimetal"
+        "Platin",
+        "Silber",
+        "Stahl",
+        "Tantal",
+        "Tombak",
+        "Tellur",
+        "Zinn",
+        "Zink",
+        "Bimetall"
     ]
 }

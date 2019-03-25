@@ -1,5 +1,5 @@
-﻿OpenNumismat är en fri mjukvara: du kan vidaredistribuera den och/eller modifiera den om du följer reglerna hos "GNU General Public License"  publicerade hos Free Software Foundation, antingen version 3 av licensen, eller någon senare version.
+﻿OpenNumismat är fri programvara: Du kan sprida den och / eller ändra den enligt villkoren i GNU General Public License som publicerad av Free Software Foundation, antingen version 3 i Licensen eller (eventuellt) senare version.
 
-OpenNumismat är distribuerat med förhoppningen om att vara användbart, men UTAN NÅGON GARANTI; även utan indirekt garanti avseende SÄLJBARHET eller LÄMPLIGHET FÖR ETT VISST SYFTE. Se "GNU General Public License" för ytterligare detaljer.
+OpenNumismat distribueras i hopp om att det kommer att vara användbart, men UTAN NÅGOT GARANTI. utan även den underförstådda garantin för SÄLJBARHET eller EGNETHET FÖR ETT SÄRSKILT SYFTE. Se GNU General Public License för mer information.
 
-Du skall ha fått en kopia av "GNU General Public License" tillsammans med OpenNumismat. Om inte, se http://www.gnu.org/licenses/.
+Du borde ha fått en kopia av GNU General Public License tillsammans med OpenNumismat. Om inte, se http://www.gnu.org/licenses/.

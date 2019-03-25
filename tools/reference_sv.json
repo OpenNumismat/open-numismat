@@ -1,0 +1,85 @@
+{
+    "rarity": [
+        "Vanlig",
+        "Normal",
+        "Scarce",
+        "Sällsynt",
+        "Unik",
+        "I set endast"
+    ],
+    "quality": [
+        "Ocirkulerad",
+        "Brilliant ocirkulerad",
+        "Äkthet",
+        "Äkthets bevis",
+        "Omvänd frostat"
+    ],
+    "defect": [
+        "Clipped planchet",
+        "Lamination",
+        "Av center slag",
+        "Flera slag",
+        "Mule",
+        "Doubled die",
+        "Brockage"
+    ],
+    "type": [
+        "Vanlig utgåva",
+        "Minnes",
+        "Bullion",
+        "Restrike",
+        "Mönster"
+    ],
+    "format": [
+        "Enda",
+        "Set",
+        "Rulle"
+    ],
+    "obvrev": [
+        "Medallic (0°)",
+        "Mynt (180°)"
+    ],
+    "edge": [
+        "Reeded",
+        "Dekoration",
+        "Avbruten fräst",
+        "Slät",
+        "Lettered"
+    ],
+    "shape": [
+        "Rund",
+        "Fyrkant",
+        "Polygon",
+        "Spansk blomma",
+        "Cirkel med hål"
+    ],
+    "material": [
+        "Acmonital",
+        "Aluminium",
+        "Aluminium brons",
+        "Antimon",
+        "Mässing",
+        "Brons",
+        "Cobalt",
+        "Koppar",
+        "Koppar nickel",
+        "Guld",
+        "Järn",
+        "Magnesium",
+        "Mangan",
+        "Melchior",
+        "Nickel",
+        "Nickel Silver",
+        "Nordiskt guld",
+        "Paladium",
+        "Platinum",
+        "Silver",
+        "Stål",
+        "Tantalum",
+        "Tombac",
+        "Tellur",
+        "Teen",
+        "Zink",
+        "Bimetall"
+    ]
+}

@@ -24,62 +24,62 @@
         "Brockage"
     ],
     "type": [
-        "Regular kérdés",
-        "Emlékeztető",
-        "Rúdarany",
+        "Regular issue",
+        "Commemorative",
+        "شمش",
         "Restrike",
         "Pattern"
     ],
     "format": [
         "Single",
-        "Készlet",
-        "Roll"
+        "Set",
+        "رول"
     ],
     "obvrev": [
-        "Medallic (0°)",
-        "Coin (180°)"
+        "مدالیک (0 درجه)",
+        "سکه (180 درجه)"
     ],
     "edge": [
         "Reeded",
         "Decorated",
         "Interrupted milled",
-        "Sima",
-        "Feliratos"
+        "صاف",
+        "Lettered"
     ],
     "shape": [
-        "Kerek",
-        "Négyzet",
-        "Polygon",
+        "گرد",
+        "مربع",
+        "چند گوشه",
         "Spanish flower",
         "Circle with hole"
     ],
     "material": [
         "Acmonital",
-        "Aluminium",
+        "آلومینیوم",
         "Aluminium bronze",
         "Antimony",
-        "Brass",
-        "Bronze",
+        "برنجی",
+        "برنز",
         "Cobalt",
-        "Réz",
+        "مس",
         "Cupronickel",
-        "Arany",
-        "Vas",
-        "Magnesium",
-        "Manganese",
+        "طلا",
+        "آهن",
+        "منیزیم",
+        "منگنز",
         "Melchior",
-        "Nikkel",
+        "نیکل",
         "Nickel silver",
         "Nordic gold",
-        "Palladium",
-        "Platinum",
-        "Ezüst",
-        "Steel",
+        "پالادیوم",
+        "پلاتین",
+        "نقره",
+        "فولاد",
         "Tantalum",
         "Tombac",
         "Tellurium",
         "Tin",
-        "Zinc",
+        "روی",
         "Bimetal"
     ]
 }

@@ -17,7 +17,7 @@
     "defect": [
         "geknipt planchet",
         "Lamineren",
-        "Off center strike",
+        "Misslag",
         "meerder slagen",
         "Mule",
         "Doubled die",
@@ -27,27 +27,27 @@
         "normaal",
         "herdenking",
         "ongemunt goud",
-        "Restrike",
+        "Herslag",
         "Pattern"
     ],
     "format": [
-        "Single",
+        "Enkel",
         "Set",
-        "Roll"
+        "Rol"
     ],
     "obvrev": [
-        "Medallic (0°)",
-        "Coin (180°)"
+        "Medailleslag (0°)",
+        "Muntslag (180°)"
     ],
     "edge": [
-        "Reeded",
+        "Geribbeld",
         "Decorated",
         "Interrupted milled",
         "Smooth",
         "Lettered"
     ],
     "shape": [
-        "Round",
+        "Rond",
         "Square",
         "Polygon",
         "Spanish flower",
@@ -58,18 +58,18 @@
         "Aluminium",
         "Aluminium bronze",
         "Antimony",
-        "Brass",
+        "Messing",
         "Brons",
         "Cobalt",
         "Koper",
         "Cupronickel",
         "Goud",
-        "Iron",
+        "IJzer",
         "Magnesium",
         "Manganese",
         "Melchior",
-        "Nickel",
-        "Nickel silver",
+        "Nikkel",
+        "Nikkel zilver",
         "Nordic gold",
         "Palladium",
         "Platina",

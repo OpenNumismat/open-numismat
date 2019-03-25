@@ -29,6 +29,8 @@ Name: nl; MessagesFile: "compiler:Languages\Dutch.isl"; InfoBeforeFile: license_
 Name: bg; MessagesFile: "compiler:Languages\Bulgarian.isl"; InfoBeforeFile: license_bg.txt
 Name: lv; MessagesFile: "compiler:Languages\Latvian.isl"; InfoBeforeFile: license_lv.txt
 Name: tr; MessagesFile: "compiler:Languages\Turkish.isl"; InfoBeforeFile: license_tr.txt
+Name: fa; MessagesFile: "compiler:Languages\Farsi.isl"; InfoBeforeFile: license_fa.txt
+Name: sv; MessagesFile: "compiler:Languages\Swedish.isl"; InfoBeforeFile: license_sv.txt
 
 [CustomMessages]
 en.sendReport=Send a reports to author's web-site if any error occurred
@@ -48,6 +50,8 @@ nl.sendReport=Stuur een rapport naar de auteur als er een fout is opgetreden
 bg.sendReport=Изпращане на отчети до уеб сайта на автора, ако възникне някаква грешка
 lv.sendReport=Nosūtīt ziņojumu uz autora tīmekļvietni, ja radusies kāda kļūda
 tr.sendReport=Herhangi bir hata durumunda geliştirici web sitesine rapor gönder
+fa.sendReport=Send a reports to author's web-site if any error occurred
+sv.sendReport=Skicka rapporter till Utvecklarens webbplats om något fel inträffade
 
 en.checkUpdate=Automatically check for updates
 ru.checkUpdate=Проверять обновления автоматически
@@ -66,6 +70,8 @@ nl.checkUpdate=Automatisch controleren op update's
 bg.checkUpdate=Автоматична проверка за актуализации
 lv.checkUpdate=Automātiski meklēt atjauninājumus
 tr.checkUpdate=Güncellemeleri otomatik olarak kontrol et
+fa.checkUpdate=به صورت خودکار به‌روزرسانی‌ها بررسی شود
+sv.checkUpdate=Sök efter uppdateringar
 
 en.associate=Associate *.db files with OpenNumismat
 ru.associate=Связать *.db файлы с OpenNumismat
@@ -84,6 +90,8 @@ nl.associate=Associate *.db files with OpenNumismat
 bg.associate=Асоциирай *.db файлове с OpenNumismat
 lv.associate=Saistīt *.db failus ar OpenNumismat
 tr.associate=*.db dosyalarını OpenNumismat'la ilişkilendir
+fa.associate=Associate *.db files with OpenNumismat
+sv.associate=Associera *.db-filer med OpenNumismat
 
 [Files]
 Source: "..\build\exe.win32-3.4\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
@@ -104,6 +112,8 @@ Source: "..\build\exe.win32-3.4\db\demo_nl.db"; DestDir: "{userdocs}\OpenNumisma
 Source: "..\build\exe.win32-3.4\db\demo_bg.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: bg; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\demo_lv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: lv; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\demo_tr.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: tr; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_fa.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: fa; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\demo_sv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: sv; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_uk.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: uk; Flags: onlyifdoesntexist
@@ -121,6 +131,8 @@ Source: "..\build\exe.win32-3.4\db\reference_nl.ref"; DestDir: "{userdocs}\OpenN
 Source: "..\build\exe.win32-3.4\db\reference_bg.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: bg; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_lv.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: lv; Flags: onlyifdoesntexist
 Source: "..\build\exe.win32-3.4\db\reference_tr.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: tr; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\reference_fa.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: fa; Flags: onlyifdoesntexist
+Source: "..\build\exe.win32-3.4\db\reference_sv.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: sv; Flags: onlyifdoesntexist
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat"
