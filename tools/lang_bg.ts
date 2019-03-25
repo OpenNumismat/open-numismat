@@ -25,248 +25,338 @@
 <context>
     <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="145"/>
+        <location filename="StatisticsView.py" line="147"/>
         <source>Number of coins</source>
         <translation>Брой монети</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="185"/>
+        <location filename="StatisticsView.py" line="187"/>
         <source>PNG image (*.png)</source>
         <translation>PNG изображение (*.png)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="185"/>
+        <location filename="StatisticsView.py" line="187"/>
         <source>PDF file (*.pdf)</source>
         <translation>PDF файл (*.pdf)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="185"/>
+        <location filename="StatisticsView.py" line="187"/>
         <source>SVG image (*.svg)</source>
         <translation>SVG изображение (*.svg)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="185"/>
+        <location filename="StatisticsView.py" line="187"/>
         <source>PostScript (*.ps)</source>
         <translation>PostScript (*.ps)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="185"/>
+        <location filename="StatisticsView.py" line="187"/>
         <source>Encapsulated PostScript (*.eps)</source>
         <translation>Encapsulated PostScript (*.eps)</translation>
     </message>
 </context>
 <context>
-    <name>Collection</name>
+    <name>BaseTableView</name>
     <message>
-        <location filename="Collection.py" line="698"/>
-        <source>Open collection</source>
-        <translation>Отвори колекция</translation>
+        <location filename="ListView.py" line="76"/>
+        <source>%d/%d coins</source>
+        <translation>%d/%d монетa/и</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="681"/>
-        <source>Can&apos;t open collection %s</source>
-        <translation>Не може да се отвори колекция %s</translation>
+        <location filename="ListView.py" line="159"/>
+        <source>Report preview</source>
+        <translation>Преглед на отчета</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="686"/>
-        <source>Collection %s not exists</source>
-        <translation>Колекция %s не съществува</translation>
+        <location filename="ListView.py" line="159"/>
+        <source>Nothing selected.
+Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
+        <translation>Нищо не е избрано.
+Изберете необходимите монети, като кликнете с Ctrl или Shift, или Ctrl + A, за да изберете всички монети.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="693"/>
-        <source>Collection %s in wrong format %s</source>
-        <translation>Колекцията %s е в грешен формат %s</translation>
+        <location filename="ListView.py" line="166"/>
+        <source>Excel document (*.xls)</source>
+        <translation>Excel документ (*.xls)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="739"/>
-        <source>Create collection</source>
-        <translation>Създаване на колекция</translation>
+        <location filename="ListView.py" line="166"/>
+        <source>Web page (*.htm *.html)</source>
+        <translation>Web страница (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="731"/>
-        <source>Specified file already exists</source>
-        <translation>Посоченият файл вече съществува</translation>
+        <location filename="ListView.py" line="166"/>
+        <source>Text file (*.csv)</source>
+        <translation>Текстови файл (*.csv)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1100"/>
-        <source>Can&apos;t open collection</source>
-        <translation>Не може да се отвори колекцията</translation>
+        <location filename="ListView.py" line="166"/>
+        <source>Text file UTF-8 (*.csv)</source>
+        <translation>Текстови фийл UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="829"/>
-        <source>Updating reference</source>
-        <translation>Обновяване на номенклатурите</translation>
+        <location filename="ListView.py" line="179"/>
+        <source>Saving list</source>
+        <translation>Запаметяващ списък</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1371"/>
+        <location filename="ListView.py" line="430"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1019"/>
-        <source>Fill from collection</source>
-        <translation>Попълнете от колекцията</translation>
+        <location filename="ListView.py" line="271"/>
+        <source>Updating records</source>
+        <translation>Актуализиране на записите</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1022"/>
-        <source>Edit...</source>
-        <translation>Редакция...</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="1045"/>
-        <source>Backup collection</source>
-        <translation>Резервно копие на колекцията</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="1045"/>
-        <source>Can&apos;t make a collection backup at %s</source>
-        <translation>Не може да се направи резервно копие на %s</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="1100"/>
-        <source>Create mobile collection</source>
-        <translation>Създаване на мобилна колекция</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="1172"/>
-        <source>Exporting records</source>
-        <translation>Екпортиране на записите</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="1291"/>
+        <location filename="ListView.py" line="443"/>
         <source>Saving...</source>
         <translation>Записване...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1294"/>
-        <source>Compact...</source>
-        <translation>Compact...</translation>
+        <location filename="ListView.py" line="411"/>
+        <source>Inserting records</source>
+        <translation>Вмъкване на записи</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1312"/>
-        <source>Vacuum...</source>
-        <translation>Vacuum...</translation>
+        <location filename="ListView.py" line="423"/>
+        <source>Delete</source>
+        <translation>Изтриване</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="ListView.py" line="423"/>
+        <source>Are you sure to remove a %n coin(s)?</source>
+        <translation><numerusform>Наистина ли искате да премахнете %n монета/и?</numerusform><numerusform>Наистина ли искате да премахнете %n монета/и?</numerusform></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="698"/>
+        <location filename="ListView.py" line="430"/>
+        <source>Deleting records</source>
+        <translation>Изтриване на записи</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="62"/>
+        <source>0 coins selected</source>
+        <translation>Не са избрани монети</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="ListView.py" line="119"/>
+        <source>%n coin(s) selected</source>
+        <translation><numerusform>Избрани са %n</numerusform><numerusform>Избрани са %n</numerusform></translation>
+    </message>
+</context>
+<context>
+    <name>Collection</name>
+    <message>
+        <location filename="Collection.py" line="704"/>
+        <source>Open collection</source>
+        <translation>Отвори колекция</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="687"/>
+        <source>Can&apos;t open collection %s</source>
+        <translation>Не може да се отвори колекция %s</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="692"/>
+        <source>Collection %s not exists</source>
+        <translation>Колекция %s не съществува</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="699"/>
+        <source>Collection %s in wrong format %s</source>
+        <translation>Колекцията %s е в грешен формат %s</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="704"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
         <translation>Колекцията %s е по-нова версия.
 Моля, актуализирайте OpenNumismat</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="863"/>
+        <location filename="Collection.py" line="745"/>
+        <source>Create collection</source>
+        <translation>Създаване на колекция</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="737"/>
+        <source>Specified file already exists</source>
+        <translation>Посоченият файл вече съществува</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1106"/>
+        <source>Can&apos;t open collection</source>
+        <translation>Не може да се отвори колекцията</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="835"/>
+        <source>Updating reference</source>
+        <translation>Обновяване на номенклатурите</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1377"/>
+        <source>Cancel</source>
+        <translation>Отказ</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="869"/>
         <source>Attach</source>
         <translation>Прикачване</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="863"/>
+        <location filename="Collection.py" line="869"/>
         <source>Attach current reference to a collection file?</source>
         <translation>Прикачете текущата номенклатура във файл на колекцията?</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="904"/>
+        <location filename="Collection.py" line="910"/>
         <source>Attaching reference</source>
         <translation>Прикачи номенклатура</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="904"/>
+        <location filename="Collection.py" line="910"/>
         <source>Can't attach reference:
 %s</source>
         <translation>Номенклатурата не може да се прикачи:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="918"/>
+        <location filename="Collection.py" line="924"/>
         <source>Save reference as</source>
         <translation>Запиши номенклатурата като</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="918"/>
+        <location filename="Collection.py" line="924"/>
         <source>Reference (*.ref)</source>
         <translation>Номенклатури (*.ref)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="925"/>
+        <location filename="Collection.py" line="931"/>
         <source>Detaching reference</source>
         <translation>Откачи номенклатурата</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="939"/>
+        <location filename="Collection.py" line="945"/>
         <source>Detach reference</source>
         <translation>Откачи номенклатурата</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="939"/>
+        <location filename="Collection.py" line="945"/>
         <source>Can't detach reference:
 %s</source>
         <translation>Не може да се откачи номенклатурата:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="992"/>
+        <location filename="Collection.py" line="998"/>
         <source>Create reference</source>
         <translation>Създай номенклатури</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="960"/>
+        <location filename="Collection.py" line="966"/>
         <source>Can't create reference:
 %s</source>
         <translation>Не може да се създаде номенклатура:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="992"/>
+        <location filename="Collection.py" line="998"/>
         <source>Can't clear attached reference:
 %s</source>
         <translation>Не може да се изчисти прикачената номенклатура:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1012"/>
+        <location filename="Collection.py" line="1018"/>
         <source>Detach current reference</source>
         <translation>Откачи текущата номенклатура</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1015"/>
+        <location filename="Collection.py" line="1021"/>
         <source>Attach current reference</source>
         <translation>Прикачете текущата номенклатура</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1524"/>
+        <location filename="Collection.py" line="1025"/>
+        <source>Fill from collection</source>
+        <translation>Попълнете от колекцията</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1028"/>
+        <source>Edit...</source>
+        <translation>Редакция...</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1051"/>
+        <source>Backup collection</source>
+        <translation>Резервно копие на колекцията</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1051"/>
+        <source>Can&apos;t make a collection backup at %s</source>
+        <translation>Не може да се направи резервно копие на %s</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1106"/>
+        <source>Create mobile collection</source>
+        <translation>Създаване на мобилна колекция</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1178"/>
+        <source>Exporting records</source>
+        <translation>Екпортиране на записите</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1297"/>
+        <source>Saving...</source>
+        <translation>Записване...</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1300"/>
+        <source>Compact...</source>
+        <translation>Compact...</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1318"/>
+        <source>Vacuum...</source>
+        <translation>Vacuum...</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1530"/>
         <source>Synchronizing</source>
         <translation>Синхронизиране</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1341"/>
+        <location filename="Collection.py" line="1336"/>
+        <source>Can't open collection:
+%s</source>
+        <translation>Не може да се отвори колекцията:
+%s</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1347"/>
         <source>Collection %s in wrong format</source>
         <translation>Колекцията %s е в грешен формат</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1351"/>
+        <location filename="Collection.py" line="1357"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation>Оригинална колекция %s в стария формат.
 (Опитайте се да я отворите преди сливането.)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1517"/>
+        <location filename="Collection.py" line="1523"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Вмъкнати %d монети, актуализирани %d монети.
 Трябва да рестартирате приложението.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1523"/>
+        <location filename="Collection.py" line="1529"/>
         <source>Collections looks like identical</source>
         <translation>Колекциите изглеждат идентични</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="1330"/>
-        <source>Can't open collection:
-%s</source>
-        <translation>Не може да се отвори колекцията:
-%s</translation>
     </message>
 </context>
 <context>
@@ -482,6 +572,11 @@ The application will need to restart now.</source>
         <translation>Платено</translation>
     </message>
     <message>
+        <location filename="CollectionFields.py" line="168"/>
+        <source>Seller</source>
+        <translation>Продавач</translation>
+    </message>
+    <message>
         <location filename="CollectionFields.py" line="175"/>
         <source>Place</source>
         <translation>Място</translation>
@@ -582,11 +677,6 @@ The application will need to restart now.</source>
         <translation>Баркод</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="168"/>
-        <source>Seller</source>
-        <translation>Продавач</translation>
-    </message>
-    <message>
         <location filename="CollectionFields.py" line="199"/>
         <source>Ruler</source>
         <translation>Владетел</translation>
@@ -625,44 +715,44 @@ The application will need to restart now.</source>
 <context>
     <name>CollectionModel</name>
     <message>
-        <location filename="Collection.py" line="539"/>
-        <source>Filtering</source>
-        <translation>Филтриране</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="539"/>
-        <source>Filter is too complex. Will be ignored</source>
-        <translation>Филтър е твърде сложен. Ще бъде игнориран</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="453"/>
-        <source>file is readonly</source>
-        <translation>Файлът е само за четене</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="456"/>
-        <source>Can&apos;t save data: %s</source>
-        <translation>Данните не могат да бъдат запазени: %s</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="456"/>
-        <source>Saving</source>
-        <translation>Записване</translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="422"/>
+        <location filename="Collection.py" line="425"/>
         <source>Updating records</source>
         <translation>Актуализиране на записите</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="422"/>
+        <location filename="Collection.py" line="425"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="443"/>
+        <location filename="Collection.py" line="446"/>
         <source>Saving...</source>
         <translation>Записване...</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="456"/>
+        <source>file is readonly</source>
+        <translation>Файлът е само за четене</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="459"/>
+        <source>Saving</source>
+        <translation>Записване</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="459"/>
+        <source>Can&apos;t save data: %s</source>
+        <translation>Данните не могат да бъдат запазени: %s</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="542"/>
+        <source>Filtering</source>
+        <translation>Филтриране</translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="542"/>
+        <source>Filter is too complex. Will be ignored</source>
+        <translation>Филтър е твърде сложен. Ще бъде игнориран</translation>
     </message>
 </context>
 <context>
@@ -688,6 +778,11 @@ The application will need to restart now.</source>
         <translation>Свободен формат на цифровите полета</translation>
     </message>
     <message>
+        <location filename="SettingsDialog.py" line="208"/>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <translation>Превръщам 0.5 в ½ (поддържа ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
+    </message>
+    <message>
         <location filename="SettingsDialog.py" line="213"/>
         <source>Store column sorting</source>
         <translation>Съхраняване на сортиращата колона</translation>
@@ -696,6 +791,16 @@ The application will need to restart now.</source>
         <location filename="SettingsDialog.py" line="218"/>
         <source>Images at bottom</source>
         <translation>Изображенията на дъното</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="222"/>
+        <source>Enable BC</source>
+        <translation>Активиране &quot;пр. Хр.&quot;</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="226"/>
+        <source>Use RichText format</source>
+        <translation>Използвайте формата RichText</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="231"/>
@@ -718,34 +823,113 @@ The application will need to restart now.</source>
         <translation>в списъка</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="278"/>
-        <source>Settings</source>
-        <translation>Настройки</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="278"/>
-        <source>Preview image height was changed. Recalculate it now?</source>
-        <translation>Височината на изображението в предварителен преглед беше променена. Преизчисляване сега?</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.py" line="245"/>
         <source>Used statuses</source>
         <translation>Използвани състояния</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="222"/>
-        <source>Enable BC</source>
-        <translation>Активиране &quot;пр. Хр.&quot;</translation>
+        <location filename="SettingsDialog.py" line="263"/>
+        <source>Default status for new coin</source>
+        <translation>Статус по подразбиране за нова монета</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="226"/>
-        <source>Use RichText format</source>
-        <translation>Използвайте формата RichText</translation>
+        <location filename="SettingsDialog.py" line="289"/>
+        <source>Settings</source>
+        <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="208"/>
-        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
-        <translation>Превръщам 0.5 в ½ (поддържа ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
+        <location filename="SettingsDialog.py" line="289"/>
+        <source>Preview image height was changed. Recalculate it now?</source>
+        <translation>Височината на изображението в предварителен преглед беше променена. Преизчисляване сега?</translation>
+    </message>
+</context>
+<context>
+    <name>ColnectCache</name>
+    <message>
+        <location filename="Colnect.py" line="39"/>
+        <source>Can&apos;t open Colnect cache</source>
+        <translation>Не може да се отвори кеша на Colnect</translation>
+    </message>
+</context>
+<context>
+    <name>ColnectDialog</name>
+    <message>
+        <location filename="Colnect.py" line="142"/>
+        <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
+        <translation>Информация за каталога с любезното съдействие на &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, онлайн колекционерска общност.</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="155"/>
+        <source>Coins</source>
+        <translation>Монети</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="155"/>
+        <source>Bankotes</source>
+        <translation>Банкноти</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="155"/>
+        <source>Stamps</source>
+        <translation>Пощенски марки</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="164"/>
+        <source>Category</source>
+        <translation>Категория</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="228"/>
+        <source>Add</source>
+        <translation>Добави</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="230"/>
+        <source>Add and close</source>
+        <translation>Добави и затвори</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="391"/>
+        <source>(All)</source>
+        <translation>(Всичко)</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="430"/>
+        <source>Downloading</source>
+        <translation>Изтегляне</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="430"/>
+        <source>Cancel</source>
+        <translation>Отказ</translation>
+    </message>
+</context>
+<context>
+    <name>ColnectSettingsPage</name>
+    <message>
+        <location filename="SettingsDialog.py" line="416"/>
+        <source>Language</source>
+        <translation>Език</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="418"/>
+        <source>Close dialog after adding item</source>
+        <translation>Затваряне на диалоговия прозорец след добавяне на елемент</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="423"/>
+        <source>Skip currency symbol</source>
+        <translation>Пропуснете символа на валутата</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="428"/>
+        <source>Clear cache</source>
+        <translation>Изчистване на кеш</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="439"/>
+        <source>Use Colnect</source>
+        <translation>Използвай Colnect</translation>
     </message>
 </context>
 <context>
@@ -792,6 +976,11 @@ The application will need to restart now.</source>
         <translation>Монета</translation>
     </message>
     <message>
+        <location filename="DetailsTabWidget.py" line="445"/>
+        <source>Market</source>
+        <translation>Пазар</translation>
+    </message>
+    <message>
         <location filename="DetailsTabWidget.py" line="293"/>
         <source>Parameters</source>
         <translation>Параметри</translation>
@@ -815,6 +1004,11 @@ The application will need to restart now.</source>
         <location filename="DetailsTabWidget.py" line="204"/>
         <source>State</source>
         <translation>Състояние</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="218"/>
+        <source>Nothing to show. Change the coin status on previous tab</source>
+        <translation>Няма нищо за показване. Променете статуса на монетите в предишния раздел</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="227"/>
@@ -870,16 +1064,6 @@ The application will need to restart now.</source>
         <location filename="DetailsTabWidget.py" line="470"/>
         <source>Commission</source>
         <translation>Комисионна</translation>
-    </message>
-    <message>
-        <location filename="DetailsTabWidget.py" line="445"/>
-        <source>Market</source>
-        <translation>Пазар</translation>
-    </message>
-    <message>
-        <location filename="DetailsTabWidget.py" line="218"/>
-        <source>Nothing to show. Change the coin status on previous tab</source>
-        <translation>Няма нищо за показване. Променете статуса на монетите в предишния раздел</translation>
     </message>
 </context>
 <context>
@@ -1003,6 +1187,11 @@ Do you want to send an error message to the author?</source>
         <translation>И двете</translation>
     </message>
     <message>
+        <location filename="Export.py" line="63"/>
+        <source>Export a full-sized image</source>
+        <translation>Експорт на оригиналното изображение</translation>
+    </message>
+    <message>
         <location filename="Export.py" line="78"/>
         <source>Destination</source>
         <translation>Дестинация</translation>
@@ -1022,28 +1211,23 @@ Do you want to send an error message to the author?</source>
         <source>Destination file not specified</source>
         <translation>Местоназначението на файла не е посочено</translation>
     </message>
-    <message>
-        <location filename="Export.py" line="63"/>
-        <source>Export a full-sized image</source>
-        <translation>Експорт на оригиналното изображение</translation>
-    </message>
 </context>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="314"/>
+        <location filename="SettingsDialog.py" line="320"/>
+        <source>Rename</source>
+        <translation>Преименуване</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="325"/>
         <source>Revert to default</source>
         <translation>Възстанови по подразбиране</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="322"/>
+        <location filename="SettingsDialog.py" line="333"/>
         <source>Global enabled fields:</source>
         <translation>Глобални активирани полета:</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="309"/>
-        <source>Rename</source>
-        <translation>Преименуване</translation>
     </message>
 </context>
 <context>
@@ -1052,11 +1236,6 @@ Do you want to send an error message to the author?</source>
         <location filename="HeaderFilterMenu.py" line="46"/>
         <source>Filter items</source>
         <translation>Филтриране на елементи</translation>
-    </message>
-    <message>
-        <location filename="HeaderFilterMenu.py" line="256"/>
-        <source>(Select all)</source>
-        <translation>(Изберете всички)</translation>
     </message>
     <message>
         <location filename="HeaderFilterMenu.py" line="135"/>
@@ -1072,6 +1251,11 @@ Do you want to send an error message to the author?</source>
         <location filename="HeaderFilterMenu.py" line="139"/>
         <source>(Data)</source>
         <translation>(Данни)</translation>
+    </message>
+    <message>
+        <location filename="HeaderFilterMenu.py" line="256"/>
+        <source>(Select all)</source>
+        <translation>(Изберете всички)</translation>
     </message>
     <message>
         <location filename="HeaderFilterMenu.py" line="263"/>
@@ -1122,6 +1306,11 @@ Do you want to send an error message to the author?</source>
         <translation>Гурт</translation>
     </message>
     <message>
+        <location filename="DetailsTabWidget.py" line="634"/>
+        <source>Variation</source>
+        <translation>Вариация</translation>
+    </message>
+    <message>
         <location filename="DetailsTabWidget.py" line="733"/>
         <source>Commission</source>
         <translation>Комисионна</translation>
@@ -1131,41 +1320,36 @@ Do you want to send an error message to the author?</source>
         <source>Available format 12.5 or 10%</source>
         <translation>Наличен формат 12.5 или 10%</translation>
     </message>
-    <message>
-        <location filename="DetailsTabWidget.py" line="634"/>
-        <source>Variation</source>
-        <translation>Вариация</translation>
-    </message>
 </context>
 <context>
     <name>GeoChartCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="100"/>
+        <location filename="StatisticsView.py" line="102"/>
         <source>Country</source>
         <translation>Държава</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="100"/>
+        <location filename="StatisticsView.py" line="102"/>
         <source>Number of coins</source>
         <translation>Брой монети</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="109"/>
+        <location filename="StatisticsView.py" line="111"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web страница (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="109"/>
+        <location filename="StatisticsView.py" line="111"/>
         <source>PNG image (*.png)</source>
         <translation>PNG изображение (*.png)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="122"/>
+        <location filename="StatisticsView.py" line="124"/>
         <source>Saving</source>
         <translation>Записване</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="122"/>
+        <location filename="StatisticsView.py" line="124"/>
         <source>Image not ready. Please try again later</source>
         <translation>Изображението не е готово. Моля, опитайте отново по-късно</translation>
     </message>
@@ -1179,7 +1363,45 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
+    <name>IconView</name>
+    <message>
+        <location filename="ListView.py" line="1121"/>
+        <source>Edit...</source>
+        <translation>Редакция...</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="1129"/>
+        <source>Copy</source>
+        <translation>Копирай</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="1132"/>
+        <source>Paste</source>
+        <translation>Постави</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="1137"/>
+        <source>Clone</source>
+        <translation>Клониране</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="1141"/>
+        <source>Multi edit...</source>
+        <translation>Групова редакция...</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="1149"/>
+        <source>Delete</source>
+        <translation>Изтриване</translation>
+    </message>
+</context>
+<context>
     <name>ImageEdit</name>
+    <message>
+        <location filename="ImageLabel.py" line="151"/>
+        <source>Exchange with</source>
+        <translation>Обмен с</translation>
+    </message>
     <message>
         <location filename="ImageLabel.py" line="164"/>
         <source>Load...</source>
@@ -1206,6 +1428,11 @@ Do you want to send an error message to the author?</source>
         <translation>Запиши като...</translation>
     </message>
     <message>
+        <location filename="ImageLabel.py" line="188"/>
+        <source>Rename...</source>
+        <translation>Преименуване...</translation>
+    </message>
+    <message>
         <location filename="ImageLabel.py" line="212"/>
         <source>Open File</source>
         <translation>Отваряне на файл</translation>
@@ -1221,16 +1448,6 @@ Do you want to send an error message to the author?</source>
 (right-click to add an image)</source>
         <translation>Изображение не е налично 
 (кликнете с десния бутон, за да добавите изображение)</translation>
-    </message>
-    <message>
-        <location filename="ImageLabel.py" line="151"/>
-        <source>Exchange with</source>
-        <translation>Обмен с</translation>
-    </message>
-    <message>
-        <location filename="ImageLabel.py" line="188"/>
-        <source>Rename...</source>
-        <translation>Преименуване...</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="324"/>
@@ -1313,19 +1530,6 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
-    <name>ImportCoinsCollector</name>
-    <message>
-        <location filename="CoinsCollector.py" line="295"/>
-        <source>Certified by: %s</source>
-        <translation>Сертифициран от: %s</translation>
-    </message>
-    <message>
-        <location filename="CoinsCollector.py" line="298"/>
-        <source>Price note: %s</source>
-        <translation>Бележка за цената: %s</translation>
-    </message>
-</context>
-<context>
     <name>ImportExcel</name>
     <message>
         <location filename="Excel.py" line="152"/>
@@ -1336,52 +1540,47 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="130"/>
-        <source>0 coin(s) selected</source>
-        <translation>Избрани са 0 монета(и)</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="161"/>
+        <location filename="ListView.py" line="568"/>
         <source>Select columns...</source>
         <translation>Избери колони...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="162"/>
+        <location filename="ListView.py" line="569"/>
         <source>Hide</source>
         <translation>Скрий</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="164"/>
+        <location filename="ListView.py" line="571"/>
         <source>Adjust size</source>
         <translation>Регулирайте размера</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="281"/>
-        <source>%d/%d coins</source>
-        <translation>%d/%d монетa/и</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="367"/>
+        <location filename="ListView.py" line="743"/>
         <source>Edit...</source>
         <translation>Редакция...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="374"/>
+        <location filename="ListView.py" line="750"/>
         <source>Copy</source>
         <translation>Копирай</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="376"/>
+        <location filename="ListView.py" line="752"/>
         <source>Paste</source>
         <translation>Постави</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="385"/>
+        <location filename="ListView.py" line="756"/>
+        <source>Filter in</source>
+        <translation>Филтрирайте</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="761"/>
         <source>Clone</source>
         <translation>Клониране</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="388"/>
+        <location filename="ListView.py" line="764"/>
         <source>Multi edit...</source>
         <translation>Групова редакция...</translation>
     </message>
@@ -1389,66 +1588,6 @@ Do you want to send an error message to the author?</source>
         <location filename="ReferenceDialog.py" line="56"/>
         <source>Delete</source>
         <translation>Изтриване</translation>
-    </message>
-    <message numerus="yes">
-        <location filename="ListView.py" line="412"/>
-        <source>%n coin(s) selected</source>
-        <translation><numerusform>%n избрани монети</numerusform><numerusform>%n избрана/и монета/и</numerusform></translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="467"/>
-        <source>Excel document (*.xls)</source>
-        <translation>Excel документ (*.xls)</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="467"/>
-        <source>Web page (*.htm *.html)</source>
-        <translation>Web страница (*.htm *.html)</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="467"/>
-        <source>Text file (*.csv)</source>
-        <translation>Текстови файл (*.csv)</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="467"/>
-        <source>Text file UTF-8 (*.csv)</source>
-        <translation>Текстови фийл UTF-8 (*.csv)</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="480"/>
-        <source>Saving list</source>
-        <translation>Запаметяващ списък</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="723"/>
-        <source>Cancel</source>
-        <translation>Отказ</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="570"/>
-        <source>Updating records</source>
-        <translation>Актуализиране на записите</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="734"/>
-        <source>Saving...</source>
-        <translation>Записване...</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="706"/>
-        <source>Inserting records</source>
-        <translation>Вмъкване на записи</translation>
-    </message>
-    <message numerus="yes">
-        <location filename="ListView.py" line="717"/>
-        <source>Are you sure to remove a %n coin(s)?</source>
-        <translation><numerusform>Наистина ли искате да премахнете %n монети?</numerusform><numerusform>Наистина ли искате да премахнете %n монета/и?</numerusform></translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="723"/>
-        <source>Deleting records</source>
-        <translation>Изтриване на записи</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="40"/>
@@ -1471,14 +1610,14 @@ Do you want to send an error message to the author?</source>
         <translation>Добави икона...</translation>
     </message>
     <message>
+        <location filename="ReferenceDialog.py" line="70"/>
+        <source>Paste icon</source>
+        <translation>Постави икона</translation>
+    </message>
+    <message>
         <location filename="ReferenceDialog.py" line="74"/>
         <source>Clear icon</source>
         <translation>Изчисти икона...</translation>
-    </message>
-    <message>
-        <location filename="ReferenceDialog.py" line="90"/>
-        <source>Open File</source>
-        <translation>Отваряне на файл</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="88"/>
@@ -1486,435 +1625,398 @@ Do you want to send an error message to the author?</source>
         <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Всички файлове (*.*)</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="70"/>
-        <source>Paste icon</source>
-        <translation>Постави икона</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="461"/>
-        <source>Report preview</source>
-        <translation>Преглед на отчета</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="461"/>
-        <source>Nothing selected.
-Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
-        <translation>Нищо не е избрано.
-Изберете необходимите монети, като кликнете с Ctrl или Shift, или Ctrl + A, за да изберете всички монети.</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="380"/>
-        <source>Filter in</source>
-        <translation>Филтрирайте</translation>
+        <location filename="ReferenceDialog.py" line="90"/>
+        <source>Open File</source>
+        <translation>Отваряне на файл</translation>
     </message>
 </context>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="43"/>
+        <location filename="SettingsDialog.py" line="44"/>
         <source>Language</source>
         <translation>Език</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="140"/>
-        <source>Backup folder</source>
-        <translation>Папка за резервно копие</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="60"/>
+        <location filename="SettingsDialog.py" line="61"/>
         <source>Reference</source>
         <translation>Номенклатури</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="90"/>
-        <source>Send error info to author</source>
-        <translation>Изпрати информация за грешка на автора</translation>
+        <location filename="SettingsDialog.py" line="141"/>
+        <source>Backup folder</source>
+        <translation>Папка за резервно копие</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="95"/>
-        <source>Automatically check for updates</source>
-        <translation>Автоматична проверка за актуализации</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="128"/>
-        <source>Default template</source>
-        <translation>Шаблон по подразбиране</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="149"/>
-        <source>Select reference</source>
-        <translation>Избери номенклатури</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="108"/>
-        <source>Check that coin title present on save</source>
-        <translation>Проверете дали заглавието на монетата е налице при запаметяване</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="113"/>
-        <source>Check coin duplicates on save</source>
-        <translation>Проверка за дублирана монете при запазване</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="101"/>
-        <source>Reliable</source>
-        <translation>Надежден</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="102"/>
-        <source>Fast</source>
-        <translation>Бързо</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="103"/>
-        <source>Extra fast (dangerous)</source>
-        <translation>Допълнително бързо (опасно)</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="106"/>
-        <source>Acceleration of storage</source>
-        <translation>Ускоряване на съхранението</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="135"/>
-        <source>Images count by default</source>
-        <translation>Брой снимки по подразбиране</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="76"/>
+        <location filename="SettingsDialog.py" line="77"/>
         <source>Make autobackup</source>
         <translation>Прави автоматично резервно копие</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="86"/>
+        <location filename="SettingsDialog.py" line="87"/>
         <source>Coin changes before autobackup</source>
         <translation>Променени монети преди aвтом. резервно копие</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="91"/>
+        <source>Send error info to author</source>
+        <translation>Изпрати информация за грешка на автора</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="96"/>
+        <source>Automatically check for updates</source>
+        <translation>Автоматична проверка за актуализации</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="102"/>
+        <source>Reliable</source>
+        <translation>Надежден</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="103"/>
+        <source>Fast</source>
+        <translation>Бързо</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="104"/>
+        <source>Extra fast (dangerous)</source>
+        <translation>Допълнително бързо (опасно)</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="107"/>
+        <source>Acceleration of storage</source>
+        <translation>Ускоряване на съхранението</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="109"/>
+        <source>Check that coin title present on save</source>
+        <translation>Проверете дали заглавието на монетата е налице при запаметяване</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="114"/>
+        <source>Check coin duplicates on save</source>
+        <translation>Проверка за дублирана монете при запазване</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="129"/>
+        <source>Default template</source>
+        <translation>Шаблон по подразбиране</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="136"/>
+        <source>Images count by default</source>
+        <translation>Брой снимки по подразбиране</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="150"/>
+        <source>Select reference</source>
+        <translation>Избери номенклатури</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.py" line="47"/>
-        <source>Settings...</source>
-        <translation>Настройки...</translation>
+        <location filename="MainWindow.py" line="39"/>
+        <source>Table view</source>
+        <translation>Табличен изглед</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="52"/>
-        <source>Clear all filters</source>
-        <translation>Изчистване на всички филтри</translation>
+        <location filename="MainWindow.py" line="45"/>
+        <source>Icon view</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="57"/>
-        <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="62"/>
-        <source>&amp;New...</source>
-        <translation>&amp;Нов...</translation>
+        <location filename="MainWindow.py" line="51"/>
+        <source>Card view</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="MainWindow.py" line="67"/>
-        <source>&amp;Open...</source>
-        <translation>&amp;Отваряне...</translation>
+        <source>Colnect...</source>
+        <translation>Colnect...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="71"/>
-        <source>Backup</source>
-        <translation>Резервно копие</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="77"/>
-        <source>Vacuum</source>
-        <translation>Vacuum</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="83"/>
-        <source>Description</source>
-        <translation>Описание</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="88"/>
-        <source>Set password...</source>
-        <translation>Задайте парола...</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="93"/>
-        <source>Import</source>
-        <translation>Импортиране</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="105"/>
-        <source>Numizmat 2.1</source>
-        <translation>Numizmat 2.1</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="113"/>
-        <source>Cabinet 2.2.2.1, 2013</source>
-        <translation>Cabinet 2.2.2.1, 2013</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="121"/>
-        <source>CoinsCollector 2.6</source>
-        <translation>CoinsCollector 2.6</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="130"/>
-        <source>CoinManage 2011</source>
-        <translation>CoinManage 2011</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="138"/>
-        <source>Collection Studio 3.65</source>
-        <translation>Collection Studio 3.65</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="147"/>
-        <source>Numizmatik_Ru 1.0.0.82</source>
-        <translation>Numizmatik_Ru 1.0.0.82</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="162"/>
-        <source>uCoin.net</source>
-        <translation>uCoin.net</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="183"/>
-        <source>Export</source>
-        <translation>Експорт</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="186"/>
-        <source>For Android version</source>
-        <translation>За Android версия</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="191"/>
-        <source>&amp;File</source>
-        <translation>&amp;Файл</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="215"/>
-        <source>Add</source>
-        <translation>Добави</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="221"/>
-        <source>Edit...</source>
-        <translation>Редакция...</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="228"/>
-        <source>Delete</source>
-        <translation>Изтриване</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="234"/>
-        <source>Copy</source>
-        <translation>Копирай</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="240"/>
-        <source>Paste</source>
-        <translation>Постави</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="246"/>
-        <source>Coin</source>
-        <translation>Монета</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="294"/>
-        <source>View in browser</source>
-        <translation>Виж в браузър</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="264"/>
-        <source>List</source>
-        <translation>Списък</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="276"/>
-        <source>Reference</source>
-        <translation>Номенклатури</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="279"/>
-        <source>Report...</source>
-        <translation>Отчет...</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="284"/>
-        <source>Save current list...</source>
-        <translation>Запазване на текущия списък...</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="289"/>
-        <source>Report</source>
-        <translation>Отчет</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="315"/>
-        <source>Check for updates</source>
-        <translation>Провери за актуализация</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="757"/>
-        <source>About %s</source>
-        <translation>Относно %s</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="320"/>
-        <source>&amp;Help</source>
-        <translation>&amp;Помощ</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="328"/>
-        <source>Toolbar</source>
-        <translation>Toolbar</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="416"/>
-        <source>Settings</source>
-        <translation>Настройки</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="416"/>
-        <source>The application will need to restart to apply the new settings. Restart it now?</source>
-        <translation>Приложението ще трябва да се рестартира, за да приложи новите настройки. Рестартиране сега?</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="573"/>
-        <source>Select file</source>
-        <translation>Избери файл</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="545"/>
-        <source>Importing</source>
-        <translation>Импортиране</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="461"/>
-        <source>Before importing you should export existing collection from Cabinet.</source>
-        <translation>Преди да импортирате, трябва да експортирате съществуваща колекция от Cabinet.</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="474"/>
-        <source>Select directory</source>
-        <translation>Избери директория</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="485"/>
-        <source>Import pre-defined coins?</source>
-        <translation>Импортиране на предварително дефинирани монети?</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="499"/>
-        <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
-        <translation>Преди да импортирате, трябва да експортирате съществуващата колекции от Collection Studio в таблица XML (изберете Collection Studio от меню Инструменти &gt; Експортиране...).</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="516"/>
-        <source>Import club catalog?</source>
-        <translation>Импортирайте клубния каталог?</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="530"/>
-        <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation>Преди да импортирате, трябва да експортирате съществуваща колекция от uCoin.net в Comma-Separated (CSV) формат.</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="671"/>
-        <source>Open collection</source>
-        <translation>Отвори колекция</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="671"/>
-        <source>Collections (*.db)</source>
-        <translation>Колекции (*.db)</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="647"/>
-        <source>New collection</source>
-        <translation>Нова колекция</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="724"/>
-        <source>Create new collection or open one of the existing</source>
-        <translation>Създайте нова колекция или отворете някоя от съществуващите</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="791"/>
-        <source>Updates</source>
-        <translation>Актуализации</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="791"/>
-        <source>You already have the latest version.</source>
-        <translation>Вие вече имате най-новата версия.</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="802"/>
-        <source>New version</source>
-        <translation>Нова версия</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="802"/>
-        <source>New version is available. Download it now?</source>
-        <translation>Налична е нова версия. Изтегляне сега?</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="170"/>
-        <source>Tellico</source>
-        <translation>Tellico</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="309"/>
-        <source>User manual</source>
-        <translation>Ръководство за употреба</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="313"/>
-        <source>Visit web-site</source>
-        <translation>Посетете уебсайта</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="430"/>
-        <source>Statistics</source>
-        <translation>Статистика</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="427"/>
-        <source>Info panel</source>
-        <translation>Информационен панел</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="43"/>
+        <location filename="MainWindow.py" line="78"/>
         <source>Summary</source>
         <translation>Oбобщение</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="177"/>
-        <source>Synchronize...</source>
-        <translation>Синхронизирам</translation>
+        <location filename="MainWindow.py" line="82"/>
+        <source>Settings...</source>
+        <translation>Настройки...</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="87"/>
+        <source>Clear all filters</source>
+        <translation>Изчистване на всички филтри</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="92"/>
+        <source>E&amp;xit</source>
+        <translation>E&amp;xit</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="97"/>
+        <source>&amp;New...</source>
+        <translation>&amp;Нов...</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="102"/>
+        <source>&amp;Open...</source>
+        <translation>&amp;Отваряне...</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="106"/>
+        <source>Backup</source>
+        <translation>Резервно копие</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="112"/>
+        <source>Vacuum</source>
+        <translation>Vacuum</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="118"/>
+        <source>Description</source>
+        <translation>Описание</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="123"/>
+        <source>Set password...</source>
+        <translation>Задайте парола...</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="128"/>
+        <source>Import</source>
+        <translation>Импортиране</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="132"/>
         <source>Excel</source>
         <translation>Excel</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="545"/>
-        <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
-        <translation>Преди да импортирате, трябва да експортирате съществуващата ви колекция от uCoin.net до формат Microsoft Excel (XLS) или Comma-Separated (CSV).</translation>
+        <location filename="MainWindow.py" line="140"/>
+        <source>Cabinet 2.2.2.1, 2013</source>
+        <translation>Cabinet 2.2.2.1, 2013</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="351"/>
+        <location filename="MainWindow.py" line="148"/>
+        <source>CoinManage 2011</source>
+        <translation>CoinManage 2011</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="156"/>
+        <source>Collection Studio 3.65</source>
+        <translation>Collection Studio 3.65</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="172"/>
+        <source>uCoin.net</source>
+        <translation>uCoin.net</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="180"/>
+        <source>Tellico</source>
+        <translation>Tellico</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="187"/>
+        <source>Synchronize...</source>
+        <translation>Синхронизирам</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="193"/>
+        <source>Export</source>
+        <translation>Експорт</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="196"/>
+        <source>For Android version</source>
+        <translation>За Android версия</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="201"/>
+        <source>&amp;File</source>
+        <translation>&amp;Файл</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="225"/>
+        <source>Add</source>
+        <translation>Добави</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="231"/>
+        <source>Edit...</source>
+        <translation>Редакция...</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="238"/>
+        <source>Delete</source>
+        <translation>Изтриване</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="244"/>
+        <source>Copy</source>
+        <translation>Копирай</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="250"/>
+        <source>Paste</source>
+        <translation>Постави</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="256"/>
+        <source>Coin</source>
+        <translation>Монета</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="307"/>
+        <source>View in browser</source>
+        <translation>Виж в браузър</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="277"/>
+        <source>List</source>
+        <translation>Списък</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="289"/>
+        <source>Reference</source>
+        <translation>Номенклатури</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="292"/>
+        <source>Report...</source>
+        <translation>Отчет...</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="297"/>
+        <source>Save current list...</source>
+        <translation>Запазване на текущия списък...</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="302"/>
+        <source>Report</source>
+        <translation>Отчет</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="322"/>
+        <source>User manual</source>
+        <translation>Ръководство за употреба</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="326"/>
+        <source>Visit web-site</source>
+        <translation>Посетете уебсайта</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="328"/>
+        <source>Check for updates</source>
+        <translation>Провери за актуализация</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="767"/>
+        <source>About %s</source>
+        <translation>Относно %s</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="333"/>
+        <source>&amp;Help</source>
+        <translation>&amp;Помощ</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="341"/>
+        <source>Toolbar</source>
+        <translation>Toolbar</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="368"/>
         <source>Quick search</source>
         <translation>Бързо търсене</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="757"/>
+        <location filename="MainWindow.py" line="433"/>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="433"/>
+        <source>The application will need to restart to apply the new settings. Restart it now?</source>
+        <translation>Приложението ще трябва да се рестартира, за да приложи новите настройки. Рестартиране сега?</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="463"/>
+        <source>Info panel</source>
+        <translation>Информационен панел</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="466"/>
+        <source>Statistics</source>
+        <translation>Статистика</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="547"/>
+        <source>Importing</source>
+        <translation>Импортиране</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="489"/>
+        <source>Before importing you should export existing collection from Cabinet.</source>
+        <translation>Преди да импортирате, трябва да експортирате съществуваща колекция от Cabinet.</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="494"/>
+        <source>Select directory</source>
+        <translation>Избери директория</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="575"/>
+        <source>Select file</source>
+        <translation>Избери файл</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="505"/>
+        <source>Import pre-defined coins?</source>
+        <translation>Импортиране на предварително дефинирани монети?</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="519"/>
+        <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
+        <translation>Преди да импортирате, трябва да експортирате съществуващата колекции от Collection Studio в таблица XML (изберете Collection Studio от меню Инструменти &gt; Експортиране...).</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="532"/>
+        <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
+        <translation>Преди да импортирате, трябва да експортирате съществуваща колекция от uCoin.net в Comma-Separated (CSV) формат.</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="547"/>
+        <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
+        <translation>Преди да импортирате, трябва да експортирате съществуващата ви колекция от uCoin.net до формат Microsoft Excel (XLS) или Comma-Separated (CSV).</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="673"/>
+        <source>Open collection</source>
+        <translation>Отвори колекция</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="673"/>
+        <source>Collections (*.db)</source>
+        <translation>Колекции (*.db)</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="649"/>
+        <source>New collection</source>
+        <translation>Нова колекция</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="734"/>
+        <source>Create new collection or open one of the existing</source>
+        <translation>Създайте нова колекция или отворете някоя от съществуващите</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="767"/>
         <source>%s %s
 
 Copyright (C) 2011-2019 Vitaly Ignatov
@@ -1925,6 +2027,26 @@ Copyright (C) 2011-2019 Vitaly Ignatov
 Copyright (C) 2011-2019 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="800"/>
+        <source>Updates</source>
+        <translation>Актуализации</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="800"/>
+        <source>You already have the latest version.</source>
+        <translation>Вие вече имате най-новата версия.</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="811"/>
+        <source>New version</source>
+        <translation>Нова версия</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="811"/>
+        <source>New version is available. Download it now?</source>
+        <translation>Налична е нова версия. Изтегляне сега?</translation>
     </message>
 </context>
 <context>
@@ -2107,19 +2229,24 @@ Copyright (C) 2011-2019 Vitaly Ignatov
         <translation>Д</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="306"/>
-        <source>T</source>
-        <translation>В</translation>
+        <location filename="Reference.py" line="292"/>
+        <source>P</source>
+        <translation>П</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="295"/>
+        <source>U</source>
+        <translation>Е</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="297"/>
+        <source>S</source>
+        <translation>С</translation>
     </message>
     <message>
         <location filename="Reference.py" line="299"/>
         <source>G</source>
         <translation>G</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="312"/>
-        <source>Place</source>
-        <translation>Място</translation>
     </message>
     <message>
         <location filename="Reference.py" line="300"/>
@@ -2132,29 +2259,24 @@ Copyright (C) 2011-2019 Vitaly Ignatov
         <translation>Ф</translation>
     </message>
     <message>
+        <location filename="Reference.py" line="302"/>
+        <source>Q</source>
+        <translation>К</translation>
+    </message>
+    <message>
         <location filename="Reference.py" line="303"/>
         <source>E</source>
         <translation>Г</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="295"/>
-        <source>U</source>
-        <translation>Е</translation>
+        <location filename="Reference.py" line="304"/>
+        <source>R</source>
+        <translation>Р</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="292"/>
-        <source>P</source>
-        <translation>П</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="297"/>
-        <source>S</source>
-        <translation>С</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="302"/>
-        <source>Q</source>
-        <translation>К</translation>
+        <location filename="Reference.py" line="306"/>
+        <source>T</source>
+        <translation>В</translation>
     </message>
     <message>
         <location filename="Reference.py" line="307"/>
@@ -2162,9 +2284,14 @@ Copyright (C) 2011-2019 Vitaly Ignatov
         <translation>Д</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="304"/>
-        <source>R</source>
-        <translation>Р</translation>
+        <location filename="Reference.py" line="312"/>
+        <source>Place</source>
+        <translation>Място</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="315"/>
+        <source>Color</source>
+        <translation>Цвят</translation>
     </message>
     <message>
         <location filename="Reference.py" line="393"/>
@@ -2198,11 +2325,6 @@ Created new one</source>
 %s</source>
         <translation>Не може да се създаде номенклатура:
 %s</translation>
-    </message>
-    <message>
-        <location filename="Reference.py" line="315"/>
-        <source>Color</source>
-        <translation>Цвят</translation>
     </message>
 </context>
 <context>
@@ -2255,40 +2377,40 @@ Created new one</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="371"/>
+        <location filename="SettingsDialog.py" line="474"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="374"/>
+        <location filename="SettingsDialog.py" line="477"/>
         <source>Main</source>
         <translation>Основени</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="378"/>
-        <source>Fields</source>
-        <translation>Полета</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="375"/>
+        <location filename="SettingsDialog.py" line="478"/>
         <source>Collection</source>
         <translation>Колекция</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="481"/>
+        <source>Fields</source>
+        <translation>Полета</translation>
     </message>
 </context>
 <context>
     <name>StackedBarCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="273"/>
+        <location filename="StatisticsView.py" line="275"/>
         <source>Building chart</source>
         <translation>Създадена е графика</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="273"/>
+        <location filename="StatisticsView.py" line="275"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="288"/>
+        <location filename="StatisticsView.py" line="290"/>
         <source>Drawing chart</source>
         <translation>Изчертава се графика</translation>
     </message>
@@ -2296,159 +2418,159 @@ Created new one</source>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="360"/>
+        <location filename="StatisticsView.py" line="362"/>
         <source>Bar</source>
         <translation>Колона</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="361"/>
+        <location filename="StatisticsView.py" line="363"/>
         <source>Horizontal bar</source>
         <translation>Хоризонтална колона</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="362"/>
+        <location filename="StatisticsView.py" line="364"/>
         <source>Pie</source>
         <translation>Кръгова</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="363"/>
+        <location filename="StatisticsView.py" line="365"/>
         <source>Stacked bar</source>
         <translation>Колона с наслагване</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="364"/>
+        <location filename="StatisticsView.py" line="366"/>
         <source>Progress</source>
         <translation>Линейна</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="367"/>
-        <source>Chart:</source>
-        <translation>Диаграма</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="370"/>
-        <source>Field:</source>
-        <translation>Поле:</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="375"/>
-        <source>Additional field:</source>
-        <translation>Допълнително поле:</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="380"/>
-        <source>Sum per:</source>
-        <translation>Сума на:</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="383"/>
-        <source>Year</source>
-        <translation>Година</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="384"/>
-        <source>Month</source>
-        <translation>Месец</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="385"/>
-        <source>Week</source>
-        <translation>Седмица</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="386"/>
-        <source>Day</source>
-        <translation>Ден</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="389"/>
-        <source>Items:</source>
-        <translation>Предмети:</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="392"/>
-        <source>Count</source>
-        <translation>Брой</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="393"/>
-        <source>Price</source>
-        <translation>Цена</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="394"/>
-        <source>Total price</source>
-        <translation>Обща цена</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="585"/>
-        <source>Paid</source>
-        <translation>Платено</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="588"/>
-        <source>Total paid</source>
-        <translation>Общо платено</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="594"/>
-        <source>Number of coins</source>
-        <translation>Брой монети</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="416"/>
-        <source>Save chart</source>
-        <translation>Запазване на диаграмата</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="398"/>
-        <source>Multicolor</source>
-        <translation>Многоцветна</translation>
-    </message>
-    <message>
-        <location filename="StatisticsView.py" line="366"/>
+        <location filename="StatisticsView.py" line="368"/>
         <source>GeoChart</source>
         <translation>GeoChart</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="401"/>
+        <location filename="StatisticsView.py" line="369"/>
+        <source>Chart:</source>
+        <translation>Диаграма</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="372"/>
+        <source>Field:</source>
+        <translation>Поле:</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="377"/>
+        <source>Additional field:</source>
+        <translation>Допълнително поле:</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="382"/>
+        <source>Sum per:</source>
+        <translation>Сума на:</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="385"/>
+        <source>Year</source>
+        <translation>Година</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="386"/>
+        <source>Month</source>
+        <translation>Месец</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="387"/>
+        <source>Week</source>
+        <translation>Седмица</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="388"/>
+        <source>Day</source>
+        <translation>Ден</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="391"/>
+        <source>Items:</source>
+        <translation>Предмети:</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="394"/>
+        <source>Count</source>
+        <translation>Брой</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="395"/>
+        <source>Price</source>
+        <translation>Цена</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="396"/>
+        <source>Total price</source>
+        <translation>Обща цена</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="397"/>
+        <source>Created</source>
+        <translation>Създаден</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="400"/>
+        <source>Multicolor</source>
+        <translation>Многоцветна</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="403"/>
         <source>Region:</source>
         <translation>Регион:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="404"/>
+        <location filename="StatisticsView.py" line="406"/>
         <source>All</source>
         <translation>Всички</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="405"/>
+        <location filename="StatisticsView.py" line="407"/>
         <source>Europe</source>
         <translation>Европа</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="406"/>
+        <location filename="StatisticsView.py" line="408"/>
         <source>Africa</source>
         <translation>Африка</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="407"/>
+        <location filename="StatisticsView.py" line="409"/>
         <source>Americas</source>
         <translation>Северна и Южна Америка</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="408"/>
+        <location filename="StatisticsView.py" line="410"/>
         <source>Asia</source>
         <translation>Азия</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="409"/>
+        <location filename="StatisticsView.py" line="411"/>
         <source>Oceania</source>
         <translation>Океания</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="395"/>
-        <source>Created</source>
-        <translation>Създаден</translation>
+        <location filename="StatisticsView.py" line="418"/>
+        <source>Save chart</source>
+        <translation>Запазване на диаграмата</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="587"/>
+        <source>Paid</source>
+        <translation>Платено</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="590"/>
+        <source>Total paid</source>
+        <translation>Общо платено</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="596"/>
+        <source>Number of coins</source>
+        <translation>Брой монети</translation>
     </message>
 </context>
 <context>
@@ -2475,6 +2597,11 @@ Created new one</source>
     </message>
     <message>
         <location filename="CollectionFields.py" line="67"/>
+        <source>Bidding</source>
+        <translation>Наддаване</translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="67"/>
         <source>Sold</source>
         <translation>Продадена</translation>
     </message>
@@ -2492,11 +2619,6 @@ Created new one</source>
         <location filename="CollectionFields.py" line="67"/>
         <source>Missing</source>
         <translation>Липсва</translation>
-    </message>
-    <message>
-        <location filename="CollectionFields.py" line="67"/>
-        <source>Bidding</source>
-        <translation>Наддаване</translation>
     </message>
 </context>
 <context>
@@ -2527,14 +2649,39 @@ Created new one</source>
         <translation>Брой продажби: %d</translation>
     </message>
     <message>
+        <location filename="SummaryDialog.py" line="69"/>
+        <source>Count biddings: %d</source>
+        <translation>Брой наддавания: %d</translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="76"/>
+        <source>Count missing: %d</source>
+        <translation>Брой липсващи: %d</translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="110"/>
+        <source>(commission %d%%)</source>
+        <translation>(комисионна %d%%)</translation>
+    </message>
+    <message>
         <location filename="SummaryDialog.py" line="92"/>
         <source>Paid: %.2f</source>
         <translation>Платени: %.2f</translation>
     </message>
     <message>
+        <location filename="SummaryDialog.py" line="95"/>
+        <source>Average paid per item: %.2f</source>
+        <translation>Средно заплащане за бройка: %.2f</translation>
+    </message>
+    <message>
         <location filename="SummaryDialog.py" line="111"/>
         <source>Earned: %.2f</source>
         <translation>Спечелени: %.2f</translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="114"/>
+        <source>Average earn per item: %.2f</source>
+        <translation>Среден доход за бройка: %.2f</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="118"/>
@@ -2562,34 +2709,9 @@ Created new one</source>
         <translation>Оценка на необходимите: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="76"/>
-        <source>Count missing: %d</source>
-        <translation>Брой липсващи: %d</translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="69"/>
-        <source>Count biddings: %d</source>
-        <translation>Брой наддавания: %d</translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="95"/>
-        <source>Average paid per item: %.2f</source>
-        <translation>Средно заплащане за бройка: %.2f</translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="114"/>
-        <source>Average earn per item: %.2f</source>
-        <translation>Среден доход за бройка: %.2f</translation>
-    </message>
-    <message>
         <location filename="SummaryDialog.py" line="202"/>
         <source>Count images: %d</source>
         <translation>Брой изображения: %d</translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="110"/>
-        <source>(commission %d%%)</source>
-        <translation>(комисионна %d%%)</translation>
     </message>
 </context>
 <context>
@@ -2710,32 +2832,32 @@ Add a new one first.</source>
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="351"/>
+        <location filename="PageView.py" line="352"/>
         <source>Other</source>
         <translation>Друг</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="383"/>
+        <location filename="PageView.py" line="384"/>
         <source>Add new coin...</source>
         <translation>Добавяне на монета</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="386"/>
+        <location filename="PageView.py" line="387"/>
         <source>Edit coins...</source>
         <translation>Редакция на монети</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="390"/>
+        <location filename="PageView.py" line="391"/>
         <source>Customize tree...</source>
         <translation>Персонализиране на дървото</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="443"/>
+        <location filename="PageView.py" line="444"/>
         <source>Updating records</source>
         <translation>Актуализиране на записите</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="443"/>
+        <location filename="PageView.py" line="444"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
