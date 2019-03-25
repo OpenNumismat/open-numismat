@@ -89,6 +89,11 @@ class MainWindow(QMainWindow):
         cancelFilteringAct.triggered.connect(self.cancelFilteringEvent)
         self.collectionActs.append(cancelFilteringAct)
 
+        cancelSortingAct = QAction(createIcon('sort_clear.png'),
+                                   self.tr("Clear sort order"), self)
+        cancelSortingAct.triggered.connect(self.cancelSortingEvent)
+        self.collectionActs.append(cancelSortingAct)
+
         self.exitAct = QAction(createIcon('door_in.png'),
                                self.tr("E&xit"), self)
         self.exitAct.setShortcut(QKeySequence.Quit)
@@ -348,6 +353,7 @@ class MainWindow(QMainWindow):
         toolBar.addAction(viewBrowserAct)
         toolBar.addSeparator()
         toolBar.addAction(cancelFilteringAct)
+        toolBar.addAction(cancelSortingAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
         if statisticsAvailable:
@@ -425,6 +431,10 @@ class MainWindow(QMainWindow):
 
         listView = self.viewTab.currentListView()
         listView.clearAllFilters()
+
+    def cancelSortingEvent(self):
+        listView = self.viewTab.currentListView()
+        listView.clearSorting()
 
     def settingsEvent(self):
         dialog = SettingsDialog(self.collection, self)

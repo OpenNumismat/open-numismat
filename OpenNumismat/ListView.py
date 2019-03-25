@@ -130,6 +130,10 @@ class BaseTableView(QTableView):
     def selectedCoins(self):
         raise NotImplementedError
 
+    def clearSorting(self):
+        sort_column_id = self.model().fields.sort_id.id
+        self.sortByColumn(sort_column_id, Qt.AscendingOrder)
+
     def report(self):
         indexes = self.selectedCoins()
         if indexes:
@@ -506,6 +510,8 @@ class ListView(BaseTableView):
     def __init__(self, listParam, parent=None):
         super().__init__(listParam, parent)
 
+        self.sortingChanged = False
+
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -521,8 +527,7 @@ class ListView(BaseTableView):
         self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.horizontalHeader().customContextMenuRequested.connect(
                                                 self.headerContextMenuEvent)
-        if listParam.store_sorting:
-            self.horizontalHeader().sortIndicatorChanged.connect(
+        self.horizontalHeader().sortIndicatorChanged.connect(
                                                 self.sortChangedEvent)
         self.horizontalScrollBar().valueChanged.connect(self.scrolled)
         self.horizontalHeader().setDefaultAlignment(Qt.AlignLeft)
@@ -540,15 +545,22 @@ class ListView(BaseTableView):
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
 
     def sortChangedEvent(self, logicalIndex, order):
-        # Clear all sort orders
-        for column in self.listParam.columns:
-            column.sortorder = None
+        sort_column_id = self.model().fields.sort_id.id
+        if logicalIndex == sort_column_id and order == Qt.AscendingOrder:
+            self.sortingChanged = False
+        else:
+            self.sortingChanged = True
 
-        visualIndex = self.horizontalHeader().visualIndex(logicalIndex)
-        # Set sort order only in required column
-        column = self.listParam.columns[visualIndex]
-        column.sortorder = order
-        self.listParam.save_lists()
+        if self.listParam.store_sorting:
+            # Clear all sort orders
+            for column in self.listParam.columns:
+                column.sortorder = None
+
+            visualIndex = self.horizontalHeader().visualIndex(logicalIndex)
+            # Set sort order only in required column
+            column = self.listParam.columns[visualIndex]
+            column.sortorder = order
+            self.listParam.save_lists()
 
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
         column = self.listParam.columns[oldVisualIndex]
@@ -648,8 +660,7 @@ class ListView(BaseTableView):
         for i in range(model.columnCount()):
             self.hideColumn(i)
 
-        sort_column_id = model.fields.sort_id.id
-        self.sortByColumn(sort_column_id, Qt.AscendingOrder)
+        self.clearSorting()
 
         apply_sorting = model.settings['store_sorting']
         for param in self.listParam.columns:
@@ -834,6 +845,19 @@ class ListView(BaseTableView):
                 break
 
     def _moveUp(self):
+        if self.sortingChanged:
+            result = QMessageBox.information(
+                self, self.tr("Custom sorting"),
+                self.tr("Default sort order changed.\n"
+                        "Changing item position avalaible only on default "
+                        "sort order. Clear sort order now?"),
+                QMessageBox.Yes | QMessageBox.Cancel,
+                QMessageBox.Cancel)
+            if result == QMessageBox.Yes:
+                self.clearSorting()
+
+            return
+
         index = QTableView.currentIndex(self)
         if index.row() == 0:
             return
@@ -847,6 +871,19 @@ class ListView(BaseTableView):
         self.model().swapRows(index1.row(), index2.row())
 
     def _moveDown(self):
+        if self.sortingChanged:
+            result = QMessageBox.information(
+                self, self.tr("Custom sorting"),
+                self.tr("Default sort order changed.\n"
+                        "Changing item position avalaible only on default "
+                        "sort order. Clear sort order now?"),
+                QMessageBox.Yes | QMessageBox.Cancel,
+                QMessageBox.Cancel)
+            if result == QMessageBox.Yes:
+                self.clearSorting()
+
+            return
+
         index = QTableView.currentIndex(self)
         if index.row() == self.model().rowCount() - 1:
             return
@@ -1120,8 +1157,7 @@ class IconView(BaseTableView):
         super().setModel(self.proxyModel)
         # model.proxy = self.proxyModel
 
-        sort_column_id = model.fields.sort_id.id
-        self.sortByColumn(sort_column_id, Qt.AscendingOrder)
+        self.clearSorting()
 
         self._updateSizes()
 
@@ -1182,6 +1218,19 @@ class IconView(BaseTableView):
         act.setEnabled(selected_count > 1)
 
         menu.addSeparator()
+        index = self.currentIndex()
+        row = index.row()
+        act = menu.addAction(createIcon('bullet_arrow_up.png'),
+                             self.tr("Move up"), self._moveUp)
+        if (selected_count > 1) or (row == 0):
+            act.setEnabled(False)
+
+        act = menu.addAction(createIcon('bullet_arrow_down.png'),
+                             self.tr("Move down"), self._moveDown)
+        if (selected_count > 1) or (row == self.model().rowCount() - 1):
+            act.setEnabled(False)
+
+        menu.addSeparator()
         style = QApplication.style()
         icon = style.standardIcon(QStyle.SP_TrashIcon)
         menu.addAction(icon, QApplication.translate('IconView', "Delete"),
@@ -1204,6 +1253,24 @@ class IconView(BaseTableView):
             indexes = list(self._mapToSource(index) for index in indexes)
 
         return indexes
+
+    def _moveUp(self):
+        index1 = self.currentIndex()
+        if index1.row() == 0:
+            return
+
+        index2 = self.proxyModel.index(index1.row() - 1, 0)
+
+        self.model().swapRows(index1.row(), index2.row())
+
+    def _moveDown(self):
+        index1 = self.currentIndex()
+        if index1.row() == self.model().rowCount() - 1:
+            return
+
+        index2 = self.proxyModel.index(index1.row() + 1, 0)
+
+        self.model().swapRows(index1.row(), index2.row())
 
     def search(self, text):
         self.searchText = text
