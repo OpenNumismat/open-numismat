@@ -418,6 +418,19 @@ class CollectionModel(QSqlTableModel):
             image.save(buffer, 'png')
             record.setValue('image', ba)
 
+    def swapRows(self, row1, row2):
+        record1 = super().record(row1)
+        sort_id1 = record1.value('sort_id')
+
+        record2 = super().record(row2)
+        sort_id2 = record2.value('sort_id')
+
+        record1.setValue('sort_id', sort_id2)
+        record2.setValue('sort_id', sort_id1)
+        super().setRecord(row1, record1)
+        super().setRecord(row2, record2)
+        self.submitAll()
+
     def recalculateAllImages(self, parent=None):
         while self.canFetchMore():
             self.fetchMore()

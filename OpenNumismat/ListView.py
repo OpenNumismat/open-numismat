@@ -487,9 +487,6 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         self.collator = QCollator(QLocale(locale))
         self.collator.setNumericMode(True)
 
-    def sort(self, column, order=Qt.AscendingOrder):
-        super().sort(column, order)
-
     def lessThan(self, left, right):
         leftData = self.model.dataDisplayRole(left)
         rightData = self.model.dataDisplayRole(right)
@@ -651,6 +648,9 @@ class ListView(BaseTableView):
         for i in range(model.columnCount()):
             self.hideColumn(i)
 
+        sort_column_id = model.fields.sort_id.id
+        self.sortByColumn(sort_column_id, Qt.AscendingOrder)
+
         apply_sorting = model.settings['store_sorting']
         for param in self.listParam.columns:
             if param.enabled:
@@ -751,17 +751,30 @@ class ListView(BaseTableView):
                        self.tr("Paste"), self._paste, QKeySequence.Paste)
 
         menu.addSeparator()
-        act = menu.addAction(createIcon('funnel.png'),
-                             self.tr("Filter in"), self._filter)
-        act.setEnabled(selected_count == 1)
-
-        menu.addSeparator()
         act = menu.addAction(self.tr("Clone"), self._clone)
         # Disable Clone when more than one record selected
         act.setEnabled(selected_count == 1)
         act = menu.addAction(self.tr("Multi edit..."), self._multiEdit)
         # Disable Multi edit when only one record selected
         act.setEnabled(selected_count > 1)
+
+        menu.addSeparator()
+        act = menu.addAction(createIcon('funnel.png'),
+                             self.tr("Filter in"), self._filter)
+        act.setEnabled(selected_count == 1)
+
+        menu.addSeparator()
+        index = QTableView.currentIndex(self)
+        row = index.row()
+        act = menu.addAction(createIcon('bullet_arrow_up.png'),
+                             self.tr("Move up"), self._moveUp)
+        if (selected_count > 1) or (row == 0):
+            act.setEnabled(False)
+
+        act = menu.addAction(createIcon('bullet_arrow_down.png'),
+                             self.tr("Move down"), self._moveDown)
+        if (selected_count > 1) or (row == self.model().rowCount() - 1):
+            act.setEnabled(False)
 
         menu.addSeparator()
         style = QApplication.style()
@@ -819,6 +832,31 @@ class ListView(BaseTableView):
             if btn.fieldid == column:
                 btn.applyFilters(filters)
                 break
+
+    def _moveUp(self):
+        index = QTableView.currentIndex(self)
+        if index.row() == 0:
+            return
+
+        index1 = self._mapToSource(index)
+
+        index = self.proxyModel.index(index.row() - 1, 0)
+
+        index2 = self._mapToSource(index)
+
+        self.model().swapRows(index1.row(), index2.row())
+
+    def _moveDown(self):
+        index = QTableView.currentIndex(self)
+        if index.row() == self.model().rowCount() - 1:
+            return
+
+        index1 = self._mapToSource(index)
+
+        index = self.proxyModel.index(index.row() + 1, 0)
+        index2 = self._mapToSource(index)
+
+        self.model().swapRows(index1.row(), index2.row())
 
     def search(self, text):
         self.searchText = text
@@ -1081,6 +1119,9 @@ class IconView(BaseTableView):
         self.proxyModel = CardModel(model, self)
         super().setModel(self.proxyModel)
         # model.proxy = self.proxyModel
+
+        sort_column_id = model.fields.sort_id.id
+        self.sortByColumn(sort_column_id, Qt.AscendingOrder)
 
         self._updateSizes()
 
