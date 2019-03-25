@@ -205,6 +205,8 @@ class CollectionFieldsBase(QObject):
                 ('varietyimg', QApplication.translate('CollectionFieldsBase', "Variety"), Type.Image),
                 ('format', QApplication.translate('CollectionFieldsBase', "Format"), Type.String),
                 ('condition', QApplication.translate('CollectionFieldsBase', "Condition"), Type.String),
+                ('category', QApplication.translate('CollectionFieldsBase', "Category"), Type.String),
+                ('sort_id', QApplication.translate('CollectionFieldsBase', "Position"), Type.BigInt),
             ]
 
         self.fields = []
@@ -213,9 +215,10 @@ class CollectionFieldsBase(QObject):
                             CollectionField(id_, field[0], field[1], field[2]))
             setattr(self, self.fields[id_].name, self.fields[id_])
 
-        self.systemFields = [self.id, self.createdat, self.updatedat, self.image]
+        self.systemFields = (self.id, self.createdat, self.updatedat,
+                             self.image, self.sort_id)
         self.userFields = list(self.fields)
-        for item in (self.id, self.createdat, self.updatedat):
+        for item in (self.id, self.createdat, self.updatedat, self.sort_id):
             self.userFields.remove(item)
 
     def field(self, id_):

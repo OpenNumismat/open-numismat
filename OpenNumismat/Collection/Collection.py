@@ -160,6 +160,13 @@ class CollectionModel(QSqlTableModel):
         record.setNull('id')  # remove ID value from record
         record.setValue('createdat', record.value('updatedat'))
 
+        query = QSqlQuery("SELECT MAX(sort_id) FROM coins", self.database())
+        query.first()
+        sort_id = query.record().value(0)
+        if not sort_id:
+            sort_id = 0
+        record.setValue('sort_id', sort_id + 1)
+
         self.database().transaction()
         for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                       'photo1', 'photo2', 'photo3', 'photo4'):
@@ -566,7 +573,7 @@ class CollectionModel(QSqlTableModel):
 
 class CollectionSettings(BaseSettings):
     Default = {
-            'Version': 5,
+            'Version': 6,
             'Type': version.AppName,
             'Password': cryptPassword(),
             'ImageSideLen': 1024,
