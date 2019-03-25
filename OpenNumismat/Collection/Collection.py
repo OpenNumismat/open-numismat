@@ -1404,7 +1404,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             if select_query.first():
                 dst_fields = ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
                               'photo1', 'photo2', 'photo3', 'photo4') + \
-                             ('id', 'image')
+                             ('id', 'image', 'sort_id')
                 sql_dst_fields = ','.join(['coins.%s AS coins_%s' % (f, f) for f in dst_fields])
                 sql_src_fields = ','.join(['src_coins.%s' % f for f in fields])
                 sql = "SELECT %s, %s FROM coins\
@@ -1468,6 +1468,8 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                                 img_id = None
 
                             up_query.addBindValue(img_id)
+                        elif field == 'sort_id':
+                            up_query.addBindValue(sel_query.record().value('coins_sort_id'))
                         else:
                             up_query.addBindValue(sel_query.record().value(field))
                     up_query.addBindValue(sel_query.record().value('coins_id'))
@@ -1508,6 +1510,13 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                             else:
                                 img_id = None
                             ins_query.addBindValue(img_id)
+                        elif field == 'sort_id':
+                            sort_query = QSqlQuery("SELECT MAX(sort_id) FROM coins", self.db)
+                            sort_query.first()
+                            sort_id = sort_query.record().value(0)
+                            if not sort_id:
+                                sort_id = 0
+                            ins_query.addBindValue(sort_id + 1)
                         else:
                             ins_query.addBindValue(sel_query.record().value(field))
 
