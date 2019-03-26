@@ -453,6 +453,7 @@ class MainWindow(QMainWindow):
         page = self.viewTab.currentPageView().param
         self.viewTab.collection.pages().changeView(page, type_)
 
+        self.viewTab.clearStatusBar()
         page = self.viewTab.currentPageView()
         page.changeView(type_)
         self.viewTab.updatePage(page)

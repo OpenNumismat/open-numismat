@@ -115,30 +115,27 @@ class TabView(QTabWidget):
         pageView = self.__createPage(pageParam)
         self.collection.pages().openPage(pageView)
 
-    def updatePage(self, page):
-        parent = self.parent()
-
-        statusBar = parent.statusBar()
-
+    def clearStatusBar(self):
         if self.oldPage:
+            statusBar = self.parent().statusBar()
             statusBar.removeWidget(self.oldPage.listView.listCountLabel)
             statusBar.removeWidget(self.oldPage.listView.listSelectedLabel)
 
-        if page:
-            statusBar.addPermanentWidget(page.listView.listCountLabel)
-            page.listView.listCountLabel.show()
-            statusBar.addPermanentWidget(page.listView.listSelectedLabel)
-            page.listView.listSelectedLabel.show()
+    def updatePage(self, page):
+        parent = self.parent()
+        statusBar = parent.statusBar()
+        statusBar.addPermanentWidget(page.listView.listCountLabel)
+        page.listView.listCountLabel.show()
+        statusBar.addPermanentWidget(page.listView.listSelectedLabel)
+        page.listView.listSelectedLabel.show()
 
-            type_ = page.param.type
-            if type_ == CollectionPageTypes.Card:
-                parent.viewButton.setDefaultAction(parent.cardViewAct)
-            elif type_ == CollectionPageTypes.Icon:
-                parent.viewButton.setDefaultAction(parent.iconViewAct)
-            else:
-                parent.viewButton.setDefaultAction(parent.tableViewAct)
-
-        self.oldPage = page
+        type_ = page.param.type
+        if type_ == CollectionPageTypes.Card:
+            parent.viewButton.setDefaultAction(parent.cardViewAct)
+        elif type_ == CollectionPageTypes.Icon:
+            parent.viewButton.setDefaultAction(parent.iconViewAct)
+        else:
+            parent.viewButton.setDefaultAction(parent.tableViewAct)
 
     def activatedPage(self, index):
         enabled = (index >= 0)
@@ -153,9 +150,13 @@ class TabView(QTabWidget):
             self.parent().updateStatisticsAct(page.statisticsShowed)
             self.parent().quickSearch.setText(page.listView.searchText)
 
+            self.clearStatusBar()
             self.updatePage(page)
+
+            self.oldPage = page
         else:
             self.parent().quickSearch.clear()
+            self.oldPage = None
 
     def clear(self):
         self.currentChanged.disconnect(self.activatedPage)

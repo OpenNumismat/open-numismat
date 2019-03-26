@@ -1167,6 +1167,7 @@ class IconView(BaseTableView):
         self.proxyModel = CardModel(model, self)
         super().setModel(self.proxyModel)
         # model.proxy = self.proxyModel
+        model.proxy = None
 
         self.clearSorting()
 
