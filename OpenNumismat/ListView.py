@@ -546,8 +546,9 @@ class ListView(BaseTableView):
 
     def sortChangedEvent(self, logicalIndex, order):
         sort_column_id = self.model().fields.sort_id.id
-        if logicalIndex == sort_column_id and order == Qt.AscendingOrder:
+        if logicalIndex == sort_column_id:
             self.sortingChanged = False
+            # return
         else:
             self.sortingChanged = True
 
@@ -558,8 +559,9 @@ class ListView(BaseTableView):
 
             visualIndex = self.horizontalHeader().visualIndex(logicalIndex)
             # Set sort order only in required column
-            column = self.listParam.columns[visualIndex]
-            column.sortorder = order
+            if visualIndex in self.listParam.columns:
+                column = self.listParam.columns[visualIndex]
+                column.sortorder = order
             self.listParam.save_lists()
 
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
@@ -654,6 +656,8 @@ class ListView(BaseTableView):
         self.model().setFilter(filtersSql)
 
         self.horizontalHeader().sectionResized.disconnect(self.columnResized)
+        self.horizontalHeader().sortIndicatorChanged.disconnect(
+                                                self.sortChangedEvent)
 
         self._moveColumns()
 
@@ -661,6 +665,7 @@ class ListView(BaseTableView):
             self.hideColumn(i)
 
         self.clearSorting()
+        self.sortingChanged = False
 
         apply_sorting = model.settings['store_sorting']
         for param in self.listParam.columns:
@@ -669,14 +674,20 @@ class ListView(BaseTableView):
 
                 if apply_sorting:
                     if param.sortorder in (Qt.AscendingOrder, Qt.DescendingOrder):
-                        self.horizontalHeader().setSortIndicator(param.fieldid, param.sortorder)
-                        self.sortByColumn(param.fieldid, Qt.AscendingOrder)
+                        self.sortByColumn(param.fieldid, param.sortorder)
 
-        for param in self.listParam.columns:
+                        sort_column_id = model.fields.sort_id.id
+                        if param.fieldid == sort_column_id:
+                            self.sortingChanged = False
+                        else:
+                            self.sortingChanged = True
+
             if param.width:
                 self.horizontalHeader().resizeSection(param.fieldid,
                                                       param.width)
 
+        self.horizontalHeader().sortIndicatorChanged.connect(
+                                                self.sortChangedEvent)
         self.horizontalHeader().sectionResized.connect(self.columnResized)
 
         self._updateHeaderButtons()
