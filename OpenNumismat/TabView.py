@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import *
 
 from OpenNumismat.PageView import PageView
 from OpenNumismat.Tools.Gui import createIcon
+from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 
 
 class TabBar(QTabBar):
@@ -114,31 +115,45 @@ class TabView(QTabWidget):
         pageView = self.__createPage(pageParam)
         self.collection.pages().openPage(pageView)
 
+    def updatePage(self, page):
+        parent = self.parent()
+
+        statusBar = parent.statusBar()
+
+        if self.oldPage:
+            statusBar.removeWidget(self.oldPage.listView.listCountLabel)
+            statusBar.removeWidget(self.oldPage.listView.listSelectedLabel)
+
+        if page:
+            statusBar.addPermanentWidget(page.listView.listCountLabel)
+            page.listView.listCountLabel.show()
+            statusBar.addPermanentWidget(page.listView.listSelectedLabel)
+            page.listView.listSelectedLabel.show()
+
+            type_ = page.param.type
+            if type_ == CollectionPageTypes.Card:
+                parent.viewButton.setDefaultAction(parent.cardViewAct)
+            elif type_ == CollectionPageTypes.Icon:
+                parent.viewButton.setDefaultAction(parent.iconViewAct)
+            else:
+                parent.viewButton.setDefaultAction(parent.tableViewAct)
+
+        self.oldPage = page
+
     def activatedPage(self, index):
         enabled = (index >= 0)
         self.__actions['rename'].setEnabled(enabled)
         self.__actions['close'].setEnabled(enabled)
         self.__actions['remove'].setEnabled(enabled)
 
-        statusBar = self.parent().statusBar()
-
-        if self.oldPage:
-            statusBar.removeWidget(self.oldPage.listView.listCountLabel)
-            statusBar.removeWidget(self.oldPage.listView.listSelectedLabel)
-
         if index >= 0:
             page = self.widget(index)
             page.model().select()
 
-            statusBar.addPermanentWidget(page.listView.listCountLabel)
-            page.listView.listCountLabel.show()
-            statusBar.addPermanentWidget(page.listView.listSelectedLabel)
-            page.listView.listSelectedLabel.show()
-
-            self.oldPage = page
-
             self.parent().updateStatisticsAct(page.statisticsShowed)
             self.parent().quickSearch.setText(page.listView.searchText)
+
+            self.updatePage(page)
         else:
             self.parent().quickSearch.clear()
 

@@ -452,15 +452,10 @@ class MainWindow(QMainWindow):
         type_ = self.sender().data()
         page = self.viewTab.currentPageView().param
         self.viewTab.collection.pages().changeView(page, type_)
-        if type_ == CollectionPageTypes.Card:
-            self.viewButton.setDefaultAction(self.cardViewAct)
-        elif type_ == CollectionPageTypes.Icon:
-            self.viewButton.setDefaultAction(self.iconViewAct)
-        else:
-            self.viewButton.setDefaultAction(self.tableViewAct)
 
         page = self.viewTab.currentPageView()
         page.changeView(type_)
+        self.viewTab.updatePage(page)
 
     def colnectEvent(self):
         model = self.viewTab.currentModel()
@@ -715,14 +710,6 @@ class MainWindow(QMainWindow):
         self.__updateLatest()
 
         self.viewTab.setCollection(collection)
-
-        type_ = self.viewTab.currentPageView().param.type
-        if type_ == CollectionPageTypes.Card:
-            self.viewButton.setDefaultAction(self.cardViewAct)
-        elif type_ == CollectionPageTypes.Icon:
-            self.viewButton.setDefaultAction(self.iconViewAct)
-        else:
-            self.viewButton.setDefaultAction(self.tableViewAct)
 
         self.referenceMenu.clear()
         for action in self.collection.referenceMenu(self):
