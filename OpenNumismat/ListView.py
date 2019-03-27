@@ -1085,12 +1085,13 @@ class CardModel(QAbstractProxyModel):
     def parent(self, index):
         return QModelIndex()
 
-    # def data(self, index, role):
-    #    index = self.mapToSource(index)
-    #    return super().data(index, role)
-
     def flags(self, index):
-        return Qt.ItemIsSelectable | Qt.ItemIsEnabled
+        count = self.model.rowCount()
+        num = index.row() * self.columns + index.column()
+        if num >= count:
+            return Qt.ItemIsEnabled
+        else:
+            return Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
     def index(self, row, column, parent=QModelIndex()):
         return self.createIndex(row, column)
