@@ -63,74 +63,74 @@
         <translation>%d/%d moedas</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="159"/>
+        <location filename="ListView.py" line="163"/>
         <source>Report preview</source>
         <translation>Antever relatório</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="159"/>
+        <location filename="ListView.py" line="163"/>
         <source>Nothing selected.
 Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
         <translation>Nada seleccionado.
 Escolha as moedas requeridas clicando em Ctrl, Shift ou Ctrl+A para seleccionar todas.</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="166"/>
+        <location filename="ListView.py" line="170"/>
         <source>Excel document (*.xls)</source>
         <translation>Documento Excel (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="166"/>
+        <location filename="ListView.py" line="170"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Página web (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="166"/>
+        <location filename="ListView.py" line="170"/>
         <source>Text file (*.csv)</source>
         <translation>Ficheiro de texto (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="166"/>
+        <location filename="ListView.py" line="170"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Ficheiro de texto UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="179"/>
+        <location filename="ListView.py" line="183"/>
         <source>Saving list</source>
         <translation>A gravar a lista</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="430"/>
+        <location filename="ListView.py" line="434"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="271"/>
+        <location filename="ListView.py" line="275"/>
         <source>Updating records</source>
         <translation>A actualizar registos</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="443"/>
+        <location filename="ListView.py" line="447"/>
         <source>Saving...</source>
         <translation>A gravar...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="411"/>
+        <location filename="ListView.py" line="415"/>
         <source>Inserting records</source>
         <translation>A inserir registos</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="423"/>
+        <location filename="ListView.py" line="427"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="423"/>
+        <location filename="ListView.py" line="427"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation><numerusform>De certeza que deseja remover %n moeda?</numerusform><numerusform>De certeza que deseja remover %n moedas?</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="430"/>
+        <location filename="ListView.py" line="434"/>
         <source>Deleting records</source>
         <translation>A eliminar registos</translation>
     </message>
@@ -148,213 +148,213 @@ Escolha as moedas requeridas clicando em Ctrl, Shift ou Ctrl+A para seleccionar 
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="704"/>
+        <location filename="Collection.py" line="724"/>
         <source>Open collection</source>
         <translation>Abrir colecção</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="687"/>
+        <location filename="Collection.py" line="707"/>
         <source>Can&apos;t open collection %s</source>
         <translation>Impossível abrir colecção %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="692"/>
+        <location filename="Collection.py" line="712"/>
         <source>Collection %s not exists</source>
         <translation>A colecção %s não existe</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="699"/>
+        <location filename="Collection.py" line="719"/>
         <source>Collection %s in wrong format %s</source>
         <translation>A colecção %s tem o formato errado %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="704"/>
+        <location filename="Collection.py" line="724"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
         <translation>A colecção %s é uma versão nova.
 Por favor, actualize o OpenNumismat</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="745"/>
+        <location filename="Collection.py" line="765"/>
         <source>Create collection</source>
         <translation>Criar colecção</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="737"/>
+        <location filename="Collection.py" line="757"/>
         <source>Specified file already exists</source>
         <translation>O ficheiro especificado já existe</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1106"/>
+        <location filename="Collection.py" line="1126"/>
         <source>Can&apos;t open collection</source>
         <translation>Impossível abrir a colecção</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="835"/>
+        <location filename="Collection.py" line="855"/>
         <source>Updating reference</source>
         <translation>A actualizar a referência</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1377"/>
+        <location filename="Collection.py" line="1397"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="869"/>
+        <location filename="Collection.py" line="889"/>
         <source>Attach</source>
         <translation>Anexar</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="869"/>
+        <location filename="Collection.py" line="889"/>
         <source>Attach current reference to a collection file?</source>
         <translation>Anexar a referência actual a uma colecção?</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="910"/>
+        <location filename="Collection.py" line="930"/>
         <source>Attaching reference</source>
         <translation>A anexar referência</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="910"/>
+        <location filename="Collection.py" line="930"/>
         <source>Can't attach reference:
 %s</source>
         <translation>Impossível anexar referência:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="924"/>
+        <location filename="Collection.py" line="944"/>
         <source>Save reference as</source>
         <translation>Gravar referência como</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="924"/>
+        <location filename="Collection.py" line="944"/>
         <source>Reference (*.ref)</source>
         <translation>Referência (*.ref)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="931"/>
+        <location filename="Collection.py" line="951"/>
         <source>Detaching reference</source>
         <translation>A desanexar referência</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="945"/>
+        <location filename="Collection.py" line="965"/>
         <source>Detach reference</source>
         <translation>Desanexar referência</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="945"/>
+        <location filename="Collection.py" line="965"/>
         <source>Can't detach reference:
 %s</source>
         <translation>Impossível desanexar referência:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="998"/>
+        <location filename="Collection.py" line="1018"/>
         <source>Create reference</source>
         <translation>Criar referência</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="966"/>
+        <location filename="Collection.py" line="986"/>
         <source>Can't create reference:
 %s</source>
         <translation>Impossível criar referência:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="998"/>
+        <location filename="Collection.py" line="1018"/>
         <source>Can't clear attached reference:
 %s</source>
         <translation>Impossível limpar referência anexada:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1018"/>
+        <location filename="Collection.py" line="1038"/>
         <source>Detach current reference</source>
         <translation>Desanexar referência actual</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1021"/>
+        <location filename="Collection.py" line="1041"/>
         <source>Attach current reference</source>
         <translation>Anexar referência actual</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1025"/>
+        <location filename="Collection.py" line="1045"/>
         <source>Fill from collection</source>
         <translation>Preencher de colecção</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1028"/>
+        <location filename="Collection.py" line="1048"/>
         <source>Edit...</source>
         <translation>Editar...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1051"/>
+        <location filename="Collection.py" line="1071"/>
         <source>Backup collection</source>
         <translation>Cópia de segurança da colecção</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1051"/>
+        <location filename="Collection.py" line="1071"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation>Impossível fazer cópia de segurança em %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1106"/>
+        <location filename="Collection.py" line="1126"/>
         <source>Create mobile collection</source>
         <translation>Criar colecção móvel</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1178"/>
+        <location filename="Collection.py" line="1198"/>
         <source>Exporting records</source>
         <translation>Exportar registos</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1297"/>
+        <location filename="Collection.py" line="1317"/>
         <source>Saving...</source>
         <translation>A gravar...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1300"/>
+        <location filename="Collection.py" line="1320"/>
         <source>Compact...</source>
         <translation>Comprimir...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1318"/>
+        <location filename="Collection.py" line="1338"/>
         <source>Vacuum...</source>
         <translation>Vácuo...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1530"/>
+        <location filename="Collection.py" line="1559"/>
         <source>Synchronizing</source>
         <translation>A sincronizar</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1336"/>
+        <location filename="Collection.py" line="1356"/>
         <source>Can't open collection:
 %s</source>
         <translation>Impossível abrir colecção:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1347"/>
+        <location filename="Collection.py" line="1367"/>
         <source>Collection %s in wrong format</source>
         <translation>Colecção %s em formato errado</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1357"/>
+        <location filename="Collection.py" line="1377"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation>Colecção %s em formato antigo
 (tente abrir antes de unir).</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1523"/>
+        <location filename="Collection.py" line="1552"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Inseridas %d moedas, actualizadas %d moedas.
 A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1529"/>
+        <location filename="Collection.py" line="1558"/>
         <source>Collections looks like identical</source>
         <translation>As colecções parecem iguais</translation>
     </message>
@@ -711,46 +711,56 @@ A aplicação tem de reiniciar agora.</translation>
         <source>Condition</source>
         <translation>Condição</translation>
     </message>
+    <message>
+        <location filename="CollectionFields.py" line="209"/>
+        <source>Category</source>
+        <translation>Categoria</translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="210"/>
+        <source>Position</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CollectionModel</name>
     <message>
-        <location filename="Collection.py" line="425"/>
+        <location filename="Collection.py" line="445"/>
         <source>Updating records</source>
         <translation>A actualizar registos</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="425"/>
+        <location filename="Collection.py" line="445"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="446"/>
+        <location filename="Collection.py" line="466"/>
         <source>Saving...</source>
         <translation>A gravar...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="456"/>
+        <location filename="Collection.py" line="476"/>
         <source>file is readonly</source>
         <translation>ficheiro só de leitura</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="459"/>
+        <location filename="Collection.py" line="479"/>
         <source>Saving</source>
         <translation>A gravar</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="459"/>
+        <location filename="Collection.py" line="479"/>
         <source>Can&apos;t save data: %s</source>
         <translation>Impossível gravar dados: %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="542"/>
+        <location filename="Collection.py" line="562"/>
         <source>Filtering</source>
         <translation>A filtrar</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="542"/>
+        <location filename="Collection.py" line="562"/>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Filtro muito complexo. Será ignorado</translation>
     </message>
@@ -758,89 +768,89 @@ A aplicação tem de reiniciar agora.</translation>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="187"/>
+        <location filename="SettingsDialog.py" line="188"/>
         <source>Max image side len</source>
         <translation>Tamanho máximo da imagem</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="189"/>
+        <location filename="SettingsDialog.py" line="190"/>
         <source>0 for storing in original size</source>
         <translation>0 para gravar no tamanho original</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="201"/>
+        <location filename="SettingsDialog.py" line="202"/>
         <source>Preview image height</source>
         <translation>Antever altura da imagem</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="203"/>
+        <location filename="SettingsDialog.py" line="204"/>
         <source>Free format numeric fields</source>
         <translation>Formato livre em campos numéricos</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="208"/>
-        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
-        <translation>Converter 0.5 para ½ (suporta ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="213"/>
+        <location filename="SettingsDialog.py" line="214"/>
         <source>Store column sorting</source>
         <translation>Gravar ordem das colunas</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="218"/>
+        <location filename="SettingsDialog.py" line="219"/>
         <source>Images at bottom</source>
         <translation>Imagens no fundo</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="222"/>
+        <location filename="SettingsDialog.py" line="223"/>
         <source>Enable BC</source>
         <translation>Activar BC</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="226"/>
+        <location filename="SettingsDialog.py" line="227"/>
         <source>Use RichText format</source>
         <translation>Usar formato RichText</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="231"/>
+        <location filename="SettingsDialog.py" line="232"/>
         <source>Show icons from reference (slow)</source>
         <translation>Mostrar ícones da referência (lento)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="232"/>
+        <location filename="SettingsDialog.py" line="233"/>
         <source>in tree</source>
         <translation>na árvore</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="235"/>
+        <location filename="SettingsDialog.py" line="236"/>
         <source>in filters</source>
         <translation>nos filtros</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="238"/>
+        <location filename="SettingsDialog.py" line="239"/>
         <source>in list</source>
         <translation>na lista</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="245"/>
+        <location filename="SettingsDialog.py" line="246"/>
         <source>Used statuses</source>
         <translation>Estados usados</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="263"/>
+        <location filename="SettingsDialog.py" line="264"/>
         <source>Default status for new coin</source>
         <translation>Estado predefinido da nova moeda</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="289"/>
+        <location filename="SettingsDialog.py" line="290"/>
         <source>Settings</source>
         <translation>Definições</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="289"/>
+        <location filename="SettingsDialog.py" line="290"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Antever altura da imagem foi alterado. Recalcular agora?</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="209"/>
+        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <translation>Converter 0.5 para ½ (suporta ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
 </context>
 <context>
@@ -907,27 +917,27 @@ A aplicação tem de reiniciar agora.</translation>
 <context>
     <name>ColnectSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="416"/>
+        <location filename="SettingsDialog.py" line="417"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="418"/>
+        <location filename="SettingsDialog.py" line="419"/>
         <source>Close dialog after adding item</source>
         <translation>Fechar diálogo após adicionar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="423"/>
+        <location filename="SettingsDialog.py" line="424"/>
         <source>Skip currency symbol</source>
         <translation>Saltar símbolo monetário</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="428"/>
+        <location filename="SettingsDialog.py" line="429"/>
         <source>Clear cache</source>
         <translation>Limpar memória</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="439"/>
+        <location filename="SettingsDialog.py" line="440"/>
         <source>Use Colnect</source>
         <translation>Usar Colnect</translation>
     </message>
@@ -1215,17 +1225,17 @@ Quer enviar uma mensagem de erro ao autor?</translation>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="320"/>
+        <location filename="SettingsDialog.py" line="321"/>
         <source>Rename</source>
         <translation>Renomear</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="325"/>
+        <location filename="SettingsDialog.py" line="326"/>
         <source>Revert to default</source>
         <translation>Reverter para predefinição</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="333"/>
+        <location filename="SettingsDialog.py" line="334"/>
         <source>Global enabled fields:</source>
         <translation>Campos globais activos:</translation>
     </message>
@@ -1365,34 +1375,44 @@ Quer enviar uma mensagem de erro ao autor?</translation>
 <context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1121"/>
+        <location filename="ListView.py" line="1198"/>
         <source>Edit...</source>
         <translation>Editar...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1129"/>
+        <location filename="ListView.py" line="1206"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1132"/>
+        <location filename="ListView.py" line="1209"/>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1137"/>
+        <location filename="ListView.py" line="1214"/>
         <source>Clone</source>
         <translation>Clonar</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1141"/>
+        <location filename="ListView.py" line="1218"/>
         <source>Multi edit...</source>
         <translation>Editar várias...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1149"/>
+        <location filename="ListView.py" line="1239"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="1226"/>
+        <source>Move up</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="1231"/>
+        <source>Move down</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1540,47 +1560,47 @@ Quer enviar uma mensagem de erro ao autor?</translation>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="568"/>
+        <location filename="ListView.py" line="577"/>
         <source>Select columns...</source>
         <translation>Seleccionar colunas...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="569"/>
+        <location filename="ListView.py" line="578"/>
         <source>Hide</source>
         <translation>Ocultar</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="571"/>
+        <location filename="ListView.py" line="580"/>
         <source>Adjust size</source>
         <translation>Ajustar tamanho</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="743"/>
+        <location filename="ListView.py" line="754"/>
         <source>Edit...</source>
         <translation>Editar...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="750"/>
+        <location filename="ListView.py" line="761"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="752"/>
+        <location filename="ListView.py" line="763"/>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="756"/>
+        <location filename="ListView.py" line="775"/>
         <source>Filter in</source>
         <translation>Filtrar</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="761"/>
+        <location filename="ListView.py" line="767"/>
         <source>Clone</source>
         <translation>Clonar</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="764"/>
+        <location filename="ListView.py" line="770"/>
         <source>Multi edit...</source>
         <translation>Editar várias...</translation>
     </message>
@@ -1629,86 +1649,107 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <source>Open File</source>
         <translation>Abrir ficheiro</translation>
     </message>
+    <message>
+        <location filename="ListView.py" line="782"/>
+        <source>Move up</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="787"/>
+        <source>Move down</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="877"/>
+        <source>Custom sorting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="877"/>
+        <source>Default sort order changed.
+Changing item position avalaible only on default sort order. Clear sort order now?</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="44"/>
+        <location filename="SettingsDialog.py" line="45"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="61"/>
+        <location filename="SettingsDialog.py" line="62"/>
         <source>Reference</source>
         <translation>Referência</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="141"/>
+        <location filename="SettingsDialog.py" line="142"/>
         <source>Backup folder</source>
         <translation>Pasta de segurança</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="77"/>
+        <location filename="SettingsDialog.py" line="78"/>
         <source>Make autobackup</source>
         <translation>Fazer segurança automática</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="87"/>
+        <location filename="SettingsDialog.py" line="88"/>
         <source>Coin changes before autobackup</source>
         <translation>Alterações da moeda antes da segurança automática</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="91"/>
+        <location filename="SettingsDialog.py" line="92"/>
         <source>Send error info to author</source>
         <translation>Enviar informação do erro para o autor</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="96"/>
+        <location filename="SettingsDialog.py" line="97"/>
         <source>Automatically check for updates</source>
         <translation>Procurar actualizações automaticamente</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="102"/>
+        <location filename="SettingsDialog.py" line="103"/>
         <source>Reliable</source>
         <translation>De confiança</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="103"/>
+        <location filename="SettingsDialog.py" line="104"/>
         <source>Fast</source>
         <translation>Rápido</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="104"/>
+        <location filename="SettingsDialog.py" line="105"/>
         <source>Extra fast (dangerous)</source>
         <translation>Extra-rápido (perigoso)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="107"/>
+        <location filename="SettingsDialog.py" line="108"/>
         <source>Acceleration of storage</source>
         <translation>Aceleração do armazenamento</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="109"/>
+        <location filename="SettingsDialog.py" line="110"/>
         <source>Check that coin title present on save</source>
         <translation>Verificar título da moeda ao gravar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="114"/>
+        <location filename="SettingsDialog.py" line="115"/>
         <source>Check coin duplicates on save</source>
         <translation>Verificar duplicados da moeda ao gravar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="129"/>
+        <location filename="SettingsDialog.py" line="130"/>
         <source>Default template</source>
         <translation>Modelo predefinido</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="136"/>
+        <location filename="SettingsDialog.py" line="137"/>
         <source>Images count by default</source>
         <translation>Total de imagens predefinido</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="150"/>
+        <location filename="SettingsDialog.py" line="151"/>
         <source>Select reference</source>
         <translation>Seleccionar referência</translation>
     </message>
@@ -1751,272 +1792,272 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Limpar todos os filtros</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="92"/>
+        <location filename="MainWindow.py" line="97"/>
         <source>E&amp;xit</source>
         <translation>&amp;Sair</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="97"/>
+        <location filename="MainWindow.py" line="102"/>
         <source>&amp;New...</source>
         <translation>&amp;Nova...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="102"/>
+        <location filename="MainWindow.py" line="107"/>
         <source>&amp;Open...</source>
         <translation>&amp;Abrir...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="106"/>
+        <location filename="MainWindow.py" line="111"/>
         <source>Backup</source>
         <translation>Cópia de segurança</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="112"/>
+        <location filename="MainWindow.py" line="117"/>
         <source>Vacuum</source>
         <translation>Vácuo</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="118"/>
+        <location filename="MainWindow.py" line="123"/>
         <source>Description</source>
         <translation>Descrição</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="123"/>
+        <location filename="MainWindow.py" line="128"/>
         <source>Set password...</source>
         <translation>Definir senha...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="128"/>
+        <location filename="MainWindow.py" line="133"/>
         <source>Import</source>
         <translation>Importar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="132"/>
+        <location filename="MainWindow.py" line="137"/>
         <source>Excel</source>
         <translation>Excel</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="140"/>
+        <location filename="MainWindow.py" line="145"/>
         <source>Cabinet 2.2.2.1, 2013</source>
         <translation>Cabinet 2.2.2.1, 2013</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="148"/>
+        <location filename="MainWindow.py" line="153"/>
         <source>CoinManage 2011</source>
         <translation>CoinManage 2011</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="156"/>
+        <location filename="MainWindow.py" line="161"/>
         <source>Collection Studio 3.65</source>
         <translation>Collection Studio 3.65</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="172"/>
+        <location filename="MainWindow.py" line="177"/>
         <source>uCoin.net</source>
         <translation>uCoin.net</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="180"/>
+        <location filename="MainWindow.py" line="185"/>
         <source>Tellico</source>
         <translation>Tellico</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="187"/>
+        <location filename="MainWindow.py" line="192"/>
         <source>Synchronize...</source>
         <translation>Sincronizar...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="193"/>
+        <location filename="MainWindow.py" line="198"/>
         <source>Export</source>
         <translation>Exportar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="196"/>
+        <location filename="MainWindow.py" line="201"/>
         <source>For Android version</source>
         <translation>Para versão Android</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="201"/>
+        <location filename="MainWindow.py" line="206"/>
         <source>&amp;File</source>
         <translation>&amp;Ficheiro</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="225"/>
+        <location filename="MainWindow.py" line="230"/>
         <source>Add</source>
         <translation>Adicionar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="231"/>
+        <location filename="MainWindow.py" line="236"/>
         <source>Edit...</source>
         <translation>Editar...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="238"/>
+        <location filename="MainWindow.py" line="243"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="244"/>
+        <location filename="MainWindow.py" line="249"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="250"/>
+        <location filename="MainWindow.py" line="255"/>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="256"/>
+        <location filename="MainWindow.py" line="261"/>
         <source>Coin</source>
         <translation>Moeda</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="307"/>
+        <location filename="MainWindow.py" line="312"/>
         <source>View in browser</source>
         <translation>Ver no navegador</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="277"/>
+        <location filename="MainWindow.py" line="282"/>
         <source>List</source>
         <translation>Lista</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="289"/>
+        <location filename="MainWindow.py" line="294"/>
         <source>Reference</source>
         <translation>Referência</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="292"/>
+        <location filename="MainWindow.py" line="297"/>
         <source>Report...</source>
         <translation>Relatório...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="297"/>
+        <location filename="MainWindow.py" line="302"/>
         <source>Save current list...</source>
         <translation>Gravar lista actual...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="302"/>
+        <location filename="MainWindow.py" line="307"/>
         <source>Report</source>
         <translation>Relatório</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="322"/>
+        <location filename="MainWindow.py" line="327"/>
         <source>User manual</source>
         <translation>Manual do utilizador</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="326"/>
+        <location filename="MainWindow.py" line="331"/>
         <source>Visit web-site</source>
         <translation>Visitar a página web</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="328"/>
+        <location filename="MainWindow.py" line="333"/>
         <source>Check for updates</source>
         <translation>Procurar actualizações</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="767"/>
+        <location filename="MainWindow.py" line="777"/>
         <source>About %s</source>
         <translation>Sobre o %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="333"/>
+        <location filename="MainWindow.py" line="338"/>
         <source>&amp;Help</source>
         <translation>Aj&amp;uda</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="341"/>
+        <location filename="MainWindow.py" line="346"/>
         <source>Toolbar</source>
         <translation>Barra de ferramentas</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="368"/>
+        <location filename="MainWindow.py" line="374"/>
         <source>Quick search</source>
         <translation>Procura rápida</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="433"/>
+        <location filename="MainWindow.py" line="443"/>
         <source>Settings</source>
         <translation>Definições</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="433"/>
+        <location filename="MainWindow.py" line="443"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>A aplicação tem de reiniciar para aplicar as novas definições. Reiniciar agora?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="463"/>
+        <location filename="MainWindow.py" line="473"/>
         <source>Info panel</source>
         <translation>Painel informativo</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="466"/>
+        <location filename="MainWindow.py" line="476"/>
         <source>Statistics</source>
         <translation>Estatísticas</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="547"/>
+        <location filename="MainWindow.py" line="557"/>
         <source>Importing</source>
         <translation>A importar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="489"/>
+        <location filename="MainWindow.py" line="499"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Antes de importar deve exportar a colecção existente do Cabinet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="494"/>
+        <location filename="MainWindow.py" line="504"/>
         <source>Select directory</source>
         <translation>Seleccionar pasta</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="575"/>
+        <location filename="MainWindow.py" line="585"/>
         <source>Select file</source>
         <translation>Seleccionar ficheiro</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="505"/>
+        <location filename="MainWindow.py" line="515"/>
         <source>Import pre-defined coins?</source>
         <translation>Importar moedas predefinidas?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="519"/>
+        <location filename="MainWindow.py" line="529"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Antes de importar deve exportar a colecção existente do Collection Studio para tabela XML (escolha Collection Studio menu Ferramentas &gt; Exportar...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="532"/>
+        <location filename="MainWindow.py" line="542"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Antes de importar, deve exportar a sua colecção de uCoin.net para o formato CSV (valores separados por vírgulas).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="547"/>
+        <location filename="MainWindow.py" line="557"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation>Antes de importar, exporte a colecção existente de uCoin.net para Microsoft Excel (XLS) ou para Comma-Separated (CSV).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="673"/>
+        <location filename="MainWindow.py" line="683"/>
         <source>Open collection</source>
         <translation>Abrir colecção</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="673"/>
+        <location filename="MainWindow.py" line="683"/>
         <source>Collections (*.db)</source>
         <translation>Colecções (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="649"/>
+        <location filename="MainWindow.py" line="659"/>
         <source>New collection</source>
         <translation>Nova colecção</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="734"/>
+        <location filename="MainWindow.py" line="744"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Criar nova colecção ou abrir uma das existentes</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="767"/>
+        <location filename="MainWindow.py" line="777"/>
         <source>%s %s
 
 Copyright (C) 2011-2019 Vitaly Ignatov
@@ -2029,24 +2070,29 @@ Copyright (C) 2011-2019 Vitaly Ignatov
 %s é freeware licenciado sob a GPLv3.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="800"/>
+        <location filename="MainWindow.py" line="810"/>
         <source>Updates</source>
         <translation>Actualizações</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="800"/>
+        <location filename="MainWindow.py" line="810"/>
         <source>You already have the latest version.</source>
         <translation>Já tem a última versão.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="811"/>
+        <location filename="MainWindow.py" line="821"/>
         <source>New version</source>
         <translation>Nova versão</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="811"/>
+        <location filename="MainWindow.py" line="821"/>
         <source>New version is available. Download it now?</source>
         <translation>Nova versão disponível. Transferir agora?</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="92"/>
+        <source>Clear sort order</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2377,22 +2423,22 @@ Criada uma nova</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="474"/>
+        <location filename="SettingsDialog.py" line="475"/>
         <source>Settings</source>
         <translation>Definições</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="477"/>
+        <location filename="SettingsDialog.py" line="478"/>
         <source>Main</source>
         <translation>Principal</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="478"/>
+        <location filename="SettingsDialog.py" line="479"/>
         <source>Collection</source>
         <translation>Coleção</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="481"/>
+        <location filename="SettingsDialog.py" line="482"/>
         <source>Fields</source>
         <translation>Campos</translation>
     </message>
@@ -2865,12 +2911,12 @@ Adicione uma nova primeiro.</translation>
 <context>
     <name>UpdaterTo2</name>
     <message>
-        <location filename="VersionUpdater.py" line="228"/>
+        <location filename="VersionUpdater.py" line="231"/>
         <source>Saving...</source>
         <translation>A gravar...</translation>
     </message>
     <message>
-        <location filename="VersionUpdater.py" line="244"/>
+        <location filename="VersionUpdater.py" line="247"/>
         <source>Vacuum...</source>
         <translation>Vácuo...</translation>
     </message>
@@ -2878,7 +2924,7 @@ Adicione uma nova primeiro.</translation>
 <context>
     <name>UpdaterTo4</name>
     <message>
-        <location filename="VersionUpdater.py" line="344"/>
+        <location filename="VersionUpdater.py" line="347"/>
         <source>Saving...</source>
         <translation>A gravar...</translation>
     </message>
@@ -2886,7 +2932,7 @@ Adicione uma nova primeiro.</translation>
 <context>
     <name>UpdaterTo5</name>
     <message>
-        <location filename="VersionUpdater.py" line="396"/>
+        <location filename="VersionUpdater.py" line="399"/>
         <source>Saving...</source>
         <translation>A Guardar...</translation>
     </message>
@@ -2966,7 +3012,7 @@ Adicione uma nova primeiro.</translation>
 <context>
     <name>_Updater</name>
     <message>
-        <location filename="VersionUpdater.py" line="61"/>
+        <location filename="VersionUpdater.py" line="64"/>
         <source>Updating records</source>
         <translation>A actualizar registos</translation>
     </message>
