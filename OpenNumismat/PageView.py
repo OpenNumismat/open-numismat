@@ -651,4 +651,5 @@ class PageView(Splitter):
         self.listView.modelChanged()
 
         if index.isValid():
+            self.listView.setFocus()
             self.listView.scrollToIndex(index)
