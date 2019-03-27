@@ -623,6 +623,12 @@ class PageView(Splitter):
             self.statisticsView.modelChanged()
 
     def changeView(self, type_):
+        index = self.listView.currentIndex()
+
+        self.listView.rowChanged.disconnect(self.imageView.rowChangedEvent)
+        self.listView.rowChanged.disconnect(self.treeView.rowChangedEvent)
+        self.listView.rowChanged.disconnect(self.detailsView.rowChangedEvent)
+
         self.param.type = type_
         if self.param.type == CollectionPageTypes.Card:
             listView = CardView(self.param.listParam, self)
@@ -643,3 +649,6 @@ class PageView(Splitter):
 
         self.listView.setModel(self._model)
         self.listView.modelChanged()
+
+        if index.isValid():
+            self.listView.scrollToIndex(index)
