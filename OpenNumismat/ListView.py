@@ -61,16 +61,19 @@ class BaseTableView(QTableView):
         self.listCountLabel = QLabel()
         self.listSelectedLabel = QLabel(QApplication.translate('BaseTableView', "0 coins selected"))
 
+    def _sortChangedMessage(self):
+        return QMessageBox.information(
+            self, QApplication.translate('BaseTableView', "Custom sorting"),
+            QApplication.translate('BaseTableView',
+                    "Default sort order changed.\n"
+                    "Changing item position avalaible only on default "
+                    "sort order. Clear sort order now?"),
+            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.Cancel)
+
     def tryDragMode(self):
         if self.sortingChanged:
-            result = QMessageBox.information(
-                self, QApplication.translate('BaseTableView', "Custom sorting"),
-                QApplication.translate('BaseTableView',
-                        "Default sort order changed.\n"
-                        "Changing item position avalaible only on default "
-                        "sort order. Clear sort order now?"),
-                QMessageBox.Yes | QMessageBox.Cancel,
-                QMessageBox.Cancel)
+            result = self._sortChangedMessage()
             if result == QMessageBox.Yes:
                 self.clearSorting()
             else:
@@ -582,7 +585,6 @@ class ListView(BaseTableView):
         sort_column_id = self.model().fields.sort_id.id
         if logicalIndex == sort_column_id:
             self.sortingChanged = False
-            # return
         else:
             self.sortingChanged = True
 
@@ -890,6 +892,13 @@ class ListView(BaseTableView):
                 break
 
     def dropEvent(self, e):
+        if self.sortingChanged:
+            result = self._sortChangedMessage()
+            if result == QMessageBox.Yes:
+                self.clearSorting()
+
+            return
+
         if e.source() == self:
             if self.viewport().rect().contains(e.pos()):
                 index = self.indexAt(e.pos())
@@ -905,13 +914,7 @@ class ListView(BaseTableView):
 
     def _moveUp(self):
         if self.sortingChanged:
-            result = QMessageBox.information(
-                self, self.tr("Custom sorting"),
-                self.tr("Default sort order changed.\n"
-                        "Changing item position avalaible only on default "
-                        "sort order. Clear sort order now?"),
-                QMessageBox.Yes | QMessageBox.Cancel,
-                QMessageBox.Cancel)
+            result = self._sortChangedMessage()
             if result == QMessageBox.Yes:
                 self.clearSorting()
 
@@ -927,13 +930,7 @@ class ListView(BaseTableView):
 
     def _moveDown(self):
         if self.sortingChanged:
-            result = QMessageBox.information(
-                self, self.tr("Custom sorting"),
-                self.tr("Default sort order changed.\n"
-                        "Changing item position avalaible only on default "
-                        "sort order. Clear sort order now?"),
-                QMessageBox.Yes | QMessageBox.Cancel,
-                QMessageBox.Cancel)
+            result = self._sortChangedMessage()
             if result == QMessageBox.Yes:
                 self.clearSorting()
 
