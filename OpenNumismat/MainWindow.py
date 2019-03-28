@@ -64,7 +64,7 @@ class MainWindow(QMainWindow):
         self.viewButton.setMenu(viewMenu)
         self.viewButton.setDefaultAction(self.tableViewAct)
 
-        colnectAct = QAction(createIcon('colnect.ico'),
+        colnectAct = QAction(createIcon('colnect.png'),
                              self.tr("Colnect..."), self)
         colnectAct.triggered.connect(self.colnectEvent)
         self.collectionActs.append(colnectAct)

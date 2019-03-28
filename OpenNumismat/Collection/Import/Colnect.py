@@ -124,7 +124,7 @@ class ColnectDialog(QDialog):
     def __init__(self, model, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
-        self.setWindowIcon(createIcon('colnect.ico'))
+        self.setWindowIcon(createIcon('colnect.png'))
         self.setWindowTitle("Colnect")
 
         fields = model.fields
