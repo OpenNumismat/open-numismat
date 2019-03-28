@@ -52,6 +52,7 @@ class BaseTableView(QTableView):
 
         self.proxyModel = None
 
+        self.sortingChanged = False
         self.searchText = ''
         self.listParam = listParam
 
@@ -59,6 +60,38 @@ class BaseTableView(QTableView):
 
         self.listCountLabel = QLabel()
         self.listSelectedLabel = QLabel(QApplication.translate('BaseTableView', "0 coins selected"))
+
+    def tryDragMode(self):
+        if self.sortingChanged:
+            result = QMessageBox.information(
+                self, QApplication.translate('BaseTableView', "Custom sorting"),
+                QApplication.translate('BaseTableView',
+                        "Default sort order changed.\n"
+                        "Changing item position avalaible only on default "
+                        "sort order. Clear sort order now?"),
+                QMessageBox.Yes | QMessageBox.Cancel,
+                QMessageBox.Cancel)
+            if result == QMessageBox.Yes:
+                self.clearSorting()
+            else:
+                return False
+
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setDragDropMode(QAbstractItemView.InternalMove)
+        self.setDragEnabled(True)
+        self.setAcceptDrops(True)
+        self.setDragDropOverwriteMode(False)
+        self.setDropIndicatorShown(True)
+
+        return True
+
+    def selectMode(self):
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setDragEnabled(False)
+        self.setAcceptDrops(False)
+
+    def isDragMode(self):
+        return self.dragDropMode() == QAbstractItemView.InternalMove
 
     def modelChanged(self):
         # Fetch all selected records
@@ -504,13 +537,14 @@ class SortFilterProxyModel(QSortFilterProxyModel):
 
         return leftData < rightData
 
+    def flags(self, index):
+        return super().flags(index) | Qt.ItemIsDragEnabled | Qt.ItemIsDropEnabled
+
 
 class ListView(BaseTableView):
 
     def __init__(self, listParam, parent=None):
         super().__init__(listParam, parent)
-
-        self.sortingChanged = False
 
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
@@ -855,6 +889,20 @@ class ListView(BaseTableView):
                 btn.applyFilters(filters)
                 break
 
+    def dropEvent(self, e):
+        if e.source() == self:
+            if self.viewport().rect().contains(e.pos()):
+                index = self.indexAt(e.pos())
+                if index.isValid():
+                    index1 = QTableView.currentIndex(self)
+
+                    self.model().moveRows(index1.row(), index.row())
+
+                    e.accept()
+                    return
+
+        super().dropEvent(e)
+
     def _moveUp(self):
         if self.sortingChanged:
             result = QMessageBox.information(
@@ -869,17 +917,13 @@ class ListView(BaseTableView):
 
             return
 
-        index = QTableView.currentIndex(self)
-        if index.row() == 0:
+        index1 = QTableView.currentIndex(self)
+        if index1.row() == 0:
             return
 
-        index1 = self._mapToSource(index)
+        index2 = self.proxyModel.index(index1.row() - 1, 0)
 
-        index = self.proxyModel.index(index.row() - 1, 0)
-
-        index2 = self._mapToSource(index)
-
-        self.model().swapRows(index1.row(), index2.row())
+        self.model().moveRows(index1.row(), index2.row())
 
     def _moveDown(self):
         if self.sortingChanged:
@@ -895,16 +939,13 @@ class ListView(BaseTableView):
 
             return
 
-        index = QTableView.currentIndex(self)
-        if index.row() == self.model().rowCount() - 1:
+        index1 = QTableView.currentIndex(self)
+        if index1.row() == self.model().rowCount() - 1:
             return
 
-        index1 = self._mapToSource(index)
+        index2 = self.proxyModel.index(index1.row() + 1, 0)
 
-        index = self.proxyModel.index(index.row() + 1, 0)
-        index2 = self._mapToSource(index)
-
-        self.model().swapRows(index1.row(), index2.row())
+        self.model().moveRows(index1.row(), index2.row())
 
     def search(self, text):
         self.searchText = text
@@ -1091,7 +1132,7 @@ class CardModel(QAbstractProxyModel):
         if num >= count:
             return Qt.ItemIsEnabled
         else:
-            return Qt.ItemIsSelectable | Qt.ItemIsEnabled
+            return Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsDropEnabled
 
     def index(self, row, column, parent=QModelIndex()):
         return self.createIndex(row, column)
@@ -1267,6 +1308,22 @@ class IconView(BaseTableView):
 
         return indexes
 
+    def dropEvent(self, e):
+        if e.source() == self:
+            if self.viewport().rect().contains(e.pos()):
+                index = self.indexAt(e.pos())
+                if index.isValid():
+                    index1 = self.currentIndex()
+
+                    index2 = self._mapToSource(index)
+
+                    self.model().moveRows(index1.row(), index2.row())
+
+                    e.accept()
+                    return
+
+        super().dropEvent(e)
+
     def _moveUp(self):
         index1 = self.currentIndex()
         if index1.row() == 0:
@@ -1274,7 +1331,7 @@ class IconView(BaseTableView):
 
         index2 = self.proxyModel.index(index1.row() - 1, 0)
 
-        self.model().swapRows(index1.row(), index2.row())
+        self.model().moveRows(index1.row(), index2.row())
 
     def _moveDown(self):
         index1 = self.currentIndex()
@@ -1283,7 +1340,7 @@ class IconView(BaseTableView):
 
         index2 = self.proxyModel.index(index1.row() + 1, 0)
 
-        self.model().swapRows(index1.row(), index2.row())
+        self.model().moveRows(index1.row(), index2.row())
 
     def search(self, text):
         self.searchText = text

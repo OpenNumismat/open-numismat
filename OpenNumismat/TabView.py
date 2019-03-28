@@ -137,6 +137,9 @@ class TabView(QTabWidget):
         else:
             parent.viewButton.setDefaultAction(parent.tableViewAct)
 
+        mode = page.listView.isDragMode()
+        parent.enableDragAct.setChecked(mode)
+
     def activatedPage(self, index):
         enabled = (index >= 0)
         self.__actions['rename'].setEnabled(enabled)

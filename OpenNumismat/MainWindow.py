@@ -94,6 +94,12 @@ class MainWindow(QMainWindow):
         cancelSortingAct.triggered.connect(self.cancelSortingEvent)
         self.collectionActs.append(cancelSortingAct)
 
+        self.enableDragAct = QAction(createIcon('arrow_switch.png'),
+                                     self.tr("Sort by drag-n-drop mode"), self)
+        self.enableDragAct.setCheckable(True)
+        self.enableDragAct.triggered.connect(self.enableDragEvent)
+        self.collectionActs.append(self.enableDragAct)
+
         self.exitAct = QAction(createIcon('door_in.png'),
                                self.tr("E&xit"), self)
         self.exitAct.setShortcut(QKeySequence.Quit)
@@ -354,6 +360,7 @@ class MainWindow(QMainWindow):
         toolBar.addSeparator()
         toolBar.addAction(cancelFilteringAct)
         toolBar.addAction(cancelSortingAct)
+        toolBar.addAction(self.enableDragAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
         if statisticsAvailable:
@@ -435,6 +442,15 @@ class MainWindow(QMainWindow):
     def cancelSortingEvent(self):
         listView = self.viewTab.currentListView()
         listView.clearSorting()
+
+    def enableDragEvent(self):
+        listView = self.viewTab.currentListView()
+        if self.enableDragAct.isChecked():
+            res = listView.tryDragMode()
+            self.enableDragAct.setChecked(res)
+        else:
+            self.enableDragAct.setChecked(False)
+            listView.selectMode()
 
     def settingsEvent(self):
         dialog = SettingsDialog(self.collection, self)

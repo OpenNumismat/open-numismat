@@ -48,6 +48,9 @@ class CollectionModel(QSqlTableModel):
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
 
+    def supportedDropActions(self):
+        return Qt.MoveAction
+
     def rowsInsertedEvent(self, parent, start, end):
         self.insertedRowIndex = self.index(end, 0)
 
@@ -418,18 +421,37 @@ class CollectionModel(QSqlTableModel):
             image.save(buffer, 'png')
             record.setValue('image', ba)
 
-    def swapRows(self, row1, row2):
-        record1 = super().record(row1)
-        sort_id1 = record1.value('sort_id')
+    def moveRows(self, row1, row2):
+        if self.proxy:
+            self.proxy.setDynamicSortFilter(False)
 
-        record2 = super().record(row2)
-        sort_id2 = record2.value('sort_id')
+            sort_column_id = self.fields.sort_id.id
+            self.sort(sort_column_id, Qt.AscendingOrder)
 
-        record1.setValue('sort_id', sort_id2)
-        record2.setValue('sort_id', sort_id1)
-        super().setRecord(row1, record1)
-        super().setRecord(row2, record2)
+        row_rang = []
+        if row2 == -1:
+            row_rang = range(row1 + 1, self.rowCount())
+        elif row1 > row2:
+            row_rang = range(row1 - 1, row2 - 1, -1)
+        elif row1 < row2:
+            row_rang = range(row1 + 1, row2 + 1)
+
+        if row_rang:
+            record = super().record(row1)
+            old_sort_id = record.value('sort_id')
+            for row in row_rang:
+                record1 = super().record(row)
+                sort_id = record1.value('sort_id')
+                record1.setValue('sort_id', old_sort_id)
+                super().setRecord(row, record1)
+                old_sort_id = sort_id
+            record.setValue('sort_id', old_sort_id)
+            super().setRecord(row1, record)
+
         self.submitAll()
+
+        if self.proxy:
+            self.sort(-1, Qt.AscendingOrder)
 
     def recalculateAllImages(self, parent=None):
         while self.canFetchMore():
