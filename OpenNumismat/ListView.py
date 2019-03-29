@@ -1118,7 +1118,6 @@ class CardModel(QAbstractProxyModel):
 
         self.model = model
         self.setSourceModel(model)
-        self.model.modelChanged.connect(self.modelChanged)
 
     def parent(self, index):
         return QModelIndex()
@@ -1133,9 +1132,6 @@ class CardModel(QAbstractProxyModel):
 
     def index(self, row, column, parent=QModelIndex()):
         return self.createIndex(row, column)
-
-    def modelChanged(self):
-        self.repaint(True)
 
     def rowCount(self, parent=QModelIndex()):
         count = self.model.rowCount()
@@ -1226,6 +1222,8 @@ class IconView(BaseTableView):
                 self.scrollToIndex(indexes[0])
             else:
                 self.selectedId = None
+
+        self.proxyModel.repaint(True)
 
     def scrollToIndex(self, index):
         realRowIndex = self.proxyModel.mapFromSource(index)
