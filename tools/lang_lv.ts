@@ -58,305 +58,316 @@
 <context>
     <name>BaseTableView</name>
     <message>
-        <location filename="ListView.py" line="76"/>
+        <location filename="ListView.py" line="112"/>
         <source>%d/%d coins</source>
         <translation>%d/%d monētas</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="163"/>
+        <location filename="ListView.py" line="199"/>
         <source>Report preview</source>
         <translation>Atskaites priekšskatījums</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="163"/>
+        <location filename="ListView.py" line="199"/>
         <source>Nothing selected.
 Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="170"/>
+        <location filename="ListView.py" line="206"/>
         <source>Excel document (*.xls)</source>
         <translation>Excel dokuments (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="170"/>
+        <location filename="ListView.py" line="206"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Tīmekļlapa (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="170"/>
+        <location filename="ListView.py" line="206"/>
         <source>Text file (*.csv)</source>
         <translation>Teksta fails (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="170"/>
+        <location filename="ListView.py" line="206"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Teksta fails UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="183"/>
+        <location filename="ListView.py" line="219"/>
         <source>Saving list</source>
         <translation>Saglabā sarakstu</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="434"/>
+        <location filename="ListView.py" line="470"/>
         <source>Cancel</source>
         <translation>Atcelt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="275"/>
+        <location filename="ListView.py" line="311"/>
         <source>Updating records</source>
         <translation>Atjaunina ierakstus</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="447"/>
+        <location filename="ListView.py" line="483"/>
         <source>Saving...</source>
         <translation>Saglabā...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="415"/>
+        <location filename="ListView.py" line="451"/>
         <source>Inserting records</source>
         <translation>Ievieto ierakstus</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="427"/>
+        <location filename="ListView.py" line="463"/>
         <source>Delete</source>
         <translation>Dzēst</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="427"/>
+        <location filename="ListView.py" line="463"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="434"/>
+        <location filename="ListView.py" line="470"/>
         <source>Deleting records</source>
         <translation>Dzēš ierakstus</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="62"/>
+        <location filename="ListView.py" line="63"/>
         <source>0 coins selected</source>
         <translation>0 atlasītas</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="119"/>
+        <location filename="ListView.py" line="155"/>
         <source>%n coin(s) selected</source>
         <translation><numerusform>0 atlasītas</numerusform><numerusform>%n atlasīta</numerusform><numerusform>%n atlasītas</numerusform></translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="66"/>
+        <source>Custom sorting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="66"/>
+        <source>Default sort order changed.
+Changing item position avalaible only on default sort order. Clear sort order now?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="724"/>
+        <location filename="Collection.py" line="746"/>
         <source>Open collection</source>
         <translation>Atvērt kolekciju</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="707"/>
+        <location filename="Collection.py" line="729"/>
         <source>Can&apos;t open collection %s</source>
         <translation>Nevar atvērt kolekciju
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="712"/>
+        <location filename="Collection.py" line="734"/>
         <source>Collection %s not exists</source>
         <translation>Nevar atrast kolekciju
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="719"/>
+        <location filename="Collection.py" line="741"/>
         <source>Collection %s in wrong format %s</source>
         <translation>Kolekcijai %s ir nepareizs formāts %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="724"/>
+        <location filename="Collection.py" line="746"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
         <translation>Kolekcija %s ir jaunākas versijas.
 Lūdzu, atjauniniet OpenNumismat</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="765"/>
+        <location filename="Collection.py" line="787"/>
         <source>Create collection</source>
         <translation>Izveidot kolekciju</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="757"/>
+        <location filename="Collection.py" line="779"/>
         <source>Specified file already exists</source>
         <translation>Norādītais fails jau pastāv</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1126"/>
+        <location filename="Collection.py" line="1148"/>
         <source>Can&apos;t open collection</source>
         <translation>Nevar atvērt kolekciju</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="855"/>
+        <location filename="Collection.py" line="877"/>
         <source>Updating reference</source>
         <translation>Atjaunina kartotēku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1397"/>
+        <location filename="Collection.py" line="1419"/>
         <source>Cancel</source>
         <translation>Atcelt</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="889"/>
+        <location filename="Collection.py" line="911"/>
         <source>Attach</source>
         <translation>Pievienot</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="889"/>
+        <location filename="Collection.py" line="911"/>
         <source>Attach current reference to a collection file?</source>
         <translation>Vai pievienot pašreizējo kartotēku kolekcijas failam?</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="930"/>
+        <location filename="Collection.py" line="952"/>
         <source>Attaching reference</source>
         <translation>Pievieno kartotēku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="930"/>
+        <location filename="Collection.py" line="952"/>
         <source>Can't attach reference:
 %s</source>
         <translation>Nevar pievienot kartotēku:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="944"/>
+        <location filename="Collection.py" line="966"/>
         <source>Save reference as</source>
         <translation>Saglabāt kartotēku kā</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="944"/>
+        <location filename="Collection.py" line="966"/>
         <source>Reference (*.ref)</source>
         <translation>Kartotēka (*.ref)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="951"/>
+        <location filename="Collection.py" line="973"/>
         <source>Detaching reference</source>
         <translation>Atdala kartotēku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="965"/>
+        <location filename="Collection.py" line="987"/>
         <source>Detach reference</source>
         <translation>Atdalīt kartotēku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="965"/>
+        <location filename="Collection.py" line="987"/>
         <source>Can't detach reference:
 %s</source>
         <translation>Nevar atdalīt kartotēku:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1018"/>
+        <location filename="Collection.py" line="1040"/>
         <source>Create reference</source>
         <translation>Izveidot kartotēku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="986"/>
+        <location filename="Collection.py" line="1008"/>
         <source>Can't create reference:
 %s</source>
         <translation>Nevar izveidot kartotēku:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1018"/>
+        <location filename="Collection.py" line="1040"/>
         <source>Can't clear attached reference:
 %s</source>
         <translation>Nevar notīrīt pievienoto kartotēku:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1038"/>
+        <location filename="Collection.py" line="1060"/>
         <source>Detach current reference</source>
         <translation>Atdalīt pašreizējo kartotēku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1041"/>
+        <location filename="Collection.py" line="1063"/>
         <source>Attach current reference</source>
         <translation>Pievienot pašreizējo kartotēku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1045"/>
+        <location filename="Collection.py" line="1067"/>
         <source>Fill from collection</source>
         <translation>Aizpildīt no kolekcijas</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1048"/>
+        <location filename="Collection.py" line="1070"/>
         <source>Edit...</source>
         <translation>Rediģēt...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1071"/>
+        <location filename="Collection.py" line="1093"/>
         <source>Backup collection</source>
         <translation>Dublēt kolekciju</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1071"/>
+        <location filename="Collection.py" line="1093"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation>Nevar izveidot kolekcijas dublējumkopiju
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1126"/>
+        <location filename="Collection.py" line="1148"/>
         <source>Create mobile collection</source>
         <translation>Izveidot mobilo kolekciju</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1198"/>
+        <location filename="Collection.py" line="1220"/>
         <source>Exporting records</source>
         <translation>Eksportē ierakstus</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1317"/>
+        <location filename="Collection.py" line="1339"/>
         <source>Saving...</source>
         <translation>Saglabā...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1320"/>
+        <location filename="Collection.py" line="1342"/>
         <source>Compact...</source>
         <translation>Saspiest...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1338"/>
+        <location filename="Collection.py" line="1360"/>
         <source>Vacuum...</source>
         <translation>Saspiest...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1559"/>
+        <location filename="Collection.py" line="1581"/>
         <source>Synchronizing</source>
         <translation>Sinhronizē</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1356"/>
+        <location filename="Collection.py" line="1378"/>
         <source>Can't open collection:
 %s</source>
         <translation>Nevar atvērt kolekciju:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1367"/>
+        <location filename="Collection.py" line="1389"/>
         <source>Collection %s in wrong format</source>
         <translation>Kolekcija %s ir nepareizā formātā</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1377"/>
+        <location filename="Collection.py" line="1399"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation>Kolekcija %s ir vecāka formāta.
 (Mēģiniet to atvērt pirms apvienošanas.)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1552"/>
+        <location filename="Collection.py" line="1574"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Ievietotas %d un atjauninātas %d monētas.
 Nepieciešams restartēt OpenNumismat.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1558"/>
+        <location filename="Collection.py" line="1580"/>
         <source>Collections looks like identical</source>
         <translation>Kolekcijas izskatās identiskas</translation>
     </message>
@@ -727,43 +738,43 @@ Nepieciešams restartēt OpenNumismat.</translation>
 <context>
     <name>CollectionModel</name>
     <message>
-        <location filename="Collection.py" line="445"/>
+        <location filename="Collection.py" line="467"/>
         <source>Updating records</source>
         <translation>Ierakstu atjaunināšana</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="445"/>
+        <location filename="Collection.py" line="467"/>
         <source>Cancel</source>
         <translation>Atcelt</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="466"/>
+        <location filename="Collection.py" line="488"/>
         <source>Saving...</source>
         <translation>Saglabā...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="476"/>
+        <location filename="Collection.py" line="498"/>
         <source>file is readonly</source>
         <translation>fails ir tikai lasāms</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="479"/>
+        <location filename="Collection.py" line="501"/>
         <source>Saving</source>
         <translation>Saglabā</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="479"/>
+        <location filename="Collection.py" line="501"/>
         <source>Can&apos;t save data: %s</source>
         <translation>Nevar saglabāt datus:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="562"/>
+        <location filename="Collection.py" line="584"/>
         <source>Filtering</source>
         <translation>Filtrēšana</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="562"/>
+        <location filename="Collection.py" line="584"/>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Filtrs ir pārāk sarežģīts un tiks ignorēts</translation>
     </message>
@@ -1378,42 +1389,42 @@ Vai vēlaties nosūtīt kļūdas ziņojumu autoram?</translation>
 <context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1198"/>
+        <location filename="ListView.py" line="1249"/>
         <source>Edit...</source>
         <translation>Rediģēt...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1206"/>
+        <location filename="ListView.py" line="1257"/>
         <source>Copy</source>
         <translation>Kopēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1209"/>
+        <location filename="ListView.py" line="1260"/>
         <source>Paste</source>
         <translation>Ielīmēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1214"/>
+        <location filename="ListView.py" line="1265"/>
         <source>Clone</source>
         <translation>Klonēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1218"/>
+        <location filename="ListView.py" line="1269"/>
         <source>Multi edit...</source>
         <translation>Rediģēt atlasītās...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1239"/>
+        <location filename="ListView.py" line="1290"/>
         <source>Delete</source>
         <translation>Dzēst</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1226"/>
+        <location filename="ListView.py" line="1277"/>
         <source>Move up</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="1231"/>
+        <location filename="ListView.py" line="1282"/>
         <source>Move down</source>
         <translation type="unfinished"/>
     </message>
@@ -1564,47 +1575,47 @@ lai pievienotu attēlu)</translation>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="577"/>
+        <location filename="ListView.py" line="615"/>
         <source>Select columns...</source>
         <translation>Atlasīt kolonnas...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="578"/>
+        <location filename="ListView.py" line="616"/>
         <source>Hide</source>
         <translation>Slēpt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="580"/>
+        <location filename="ListView.py" line="618"/>
         <source>Adjust size</source>
         <translation>Pielāgot izmēru</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="754"/>
+        <location filename="ListView.py" line="801"/>
         <source>Edit...</source>
         <translation>Rediģēt...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="761"/>
+        <location filename="ListView.py" line="808"/>
         <source>Copy</source>
         <translation>Kopēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="763"/>
+        <location filename="ListView.py" line="810"/>
         <source>Paste</source>
         <translation>Ielīmēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="775"/>
+        <location filename="ListView.py" line="822"/>
         <source>Filter in</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="767"/>
+        <location filename="ListView.py" line="814"/>
         <source>Clone</source>
         <translation>Klonēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="770"/>
+        <location filename="ListView.py" line="817"/>
         <source>Multi edit...</source>
         <translation>Rediģēt atlasītās...</translation>
     </message>
@@ -1654,24 +1665,13 @@ lai pievienotu attēlu)</translation>
         <translation>Atvērt failu</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="782"/>
+        <location filename="ListView.py" line="829"/>
         <source>Move up</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="787"/>
+        <location filename="ListView.py" line="834"/>
         <source>Move down</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="ListView.py" line="877"/>
-        <source>Custom sorting</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="ListView.py" line="877"/>
-        <source>Default sort order changed.
-Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1796,272 +1796,272 @@ Changing item position avalaible only on default sort order. Clear sort order no
         <translation>Notīrīt visus filtrus</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="97"/>
+        <location filename="MainWindow.py" line="103"/>
         <source>E&amp;xit</source>
         <translation>I&amp;ziet</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="102"/>
+        <location filename="MainWindow.py" line="108"/>
         <source>&amp;New...</source>
         <translation>&amp;Jauna...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="107"/>
+        <location filename="MainWindow.py" line="113"/>
         <source>&amp;Open...</source>
         <translation>&amp;Atvērt...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="111"/>
+        <location filename="MainWindow.py" line="117"/>
         <source>Backup</source>
         <translation>Dublēšana</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="117"/>
+        <location filename="MainWindow.py" line="123"/>
         <source>Vacuum</source>
         <translation>Saspiest</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="123"/>
+        <location filename="MainWindow.py" line="129"/>
         <source>Description</source>
         <translation>Apraksts</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="128"/>
+        <location filename="MainWindow.py" line="134"/>
         <source>Set password...</source>
         <translation>Iestatīt paroli...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="133"/>
+        <location filename="MainWindow.py" line="139"/>
         <source>Import</source>
         <translation>Importēt</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="137"/>
+        <location filename="MainWindow.py" line="143"/>
         <source>Excel</source>
         <translation>Excel</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="145"/>
+        <location filename="MainWindow.py" line="151"/>
         <source>Cabinet 2.2.2.1, 2013</source>
         <translation>Cabinet 2.2.2.1, 2013</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="153"/>
+        <location filename="MainWindow.py" line="159"/>
         <source>CoinManage 2011</source>
         <translation>CoinManage 2011</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="161"/>
+        <location filename="MainWindow.py" line="167"/>
         <source>Collection Studio 3.65</source>
         <translation>Collection Studio 3.65</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="177"/>
+        <location filename="MainWindow.py" line="183"/>
         <source>uCoin.net</source>
         <translation>uCoin.net</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="185"/>
+        <location filename="MainWindow.py" line="191"/>
         <source>Tellico</source>
         <translation>Tellico</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="192"/>
+        <location filename="MainWindow.py" line="198"/>
         <source>Synchronize...</source>
         <translation>Sinhronizēt...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="198"/>
+        <location filename="MainWindow.py" line="204"/>
         <source>Export</source>
         <translation>Eksportēt</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="201"/>
+        <location filename="MainWindow.py" line="207"/>
         <source>For Android version</source>
         <translation>Android versijai</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="206"/>
+        <location filename="MainWindow.py" line="212"/>
         <source>&amp;File</source>
         <translation>&amp;Fails</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="230"/>
+        <location filename="MainWindow.py" line="236"/>
         <source>Add</source>
         <translation>Pievienot</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="236"/>
+        <location filename="MainWindow.py" line="242"/>
         <source>Edit...</source>
         <translation>Rediģēt...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="243"/>
+        <location filename="MainWindow.py" line="249"/>
         <source>Delete</source>
         <translation>Dzēst</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="249"/>
+        <location filename="MainWindow.py" line="255"/>
         <source>Copy</source>
         <translation>Kopēt</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="255"/>
+        <location filename="MainWindow.py" line="261"/>
         <source>Paste</source>
         <translation>Ielīmēt</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="261"/>
+        <location filename="MainWindow.py" line="267"/>
         <source>Coin</source>
         <translation>Monēta</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="312"/>
+        <location filename="MainWindow.py" line="318"/>
         <source>View in browser</source>
         <translation>Skatīt pārlūkā</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="282"/>
+        <location filename="MainWindow.py" line="288"/>
         <source>List</source>
         <translation>Saraksts</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="294"/>
+        <location filename="MainWindow.py" line="300"/>
         <source>Reference</source>
         <translation>Kartotēka</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="297"/>
+        <location filename="MainWindow.py" line="303"/>
         <source>Report...</source>
         <translation>Atskaite...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="302"/>
+        <location filename="MainWindow.py" line="308"/>
         <source>Save current list...</source>
         <translation>Saglabāt esošo sarakstu...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="307"/>
+        <location filename="MainWindow.py" line="313"/>
         <source>Report</source>
         <translation>Atskaite</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="327"/>
+        <location filename="MainWindow.py" line="333"/>
         <source>User manual</source>
         <translation>Rokasgrāmata</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="331"/>
+        <location filename="MainWindow.py" line="337"/>
         <source>Visit web-site</source>
         <translation>Mājaslapa</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="333"/>
+        <location filename="MainWindow.py" line="339"/>
         <source>Check for updates</source>
         <translation>Meklēt atjauninājumus</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="777"/>
+        <location filename="MainWindow.py" line="781"/>
         <source>About %s</source>
         <translation>Par %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="338"/>
+        <location filename="MainWindow.py" line="344"/>
         <source>&amp;Help</source>
         <translation>&amp;Palīdzība</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="346"/>
+        <location filename="MainWindow.py" line="352"/>
         <source>Toolbar</source>
         <translation>Rīkjosla</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="374"/>
+        <location filename="MainWindow.py" line="381"/>
         <source>Quick search</source>
         <translation>Ātrā meklēšana</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="443"/>
+        <location filename="MainWindow.py" line="459"/>
         <source>Settings</source>
         <translation>Iestatījumi</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="443"/>
+        <location filename="MainWindow.py" line="459"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>Lai izmaiņas stātos spēkā, programma būs jārestartē. Vai restartēt to tūlīt?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="473"/>
+        <location filename="MainWindow.py" line="485"/>
         <source>Info panel</source>
         <translation>Informācijas panelis</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="476"/>
+        <location filename="MainWindow.py" line="488"/>
         <source>Statistics</source>
         <translation>Statistika</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="557"/>
+        <location filename="MainWindow.py" line="569"/>
         <source>Importing</source>
         <translation>Importē</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="499"/>
+        <location filename="MainWindow.py" line="511"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Pirms importēšanas jāeksportē esošā kolekcija no Cabinet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="504"/>
+        <location filename="MainWindow.py" line="516"/>
         <source>Select directory</source>
         <translation>Atlasīt mapi</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="585"/>
+        <location filename="MainWindow.py" line="597"/>
         <source>Select file</source>
         <translation>Atlasīt failu</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="515"/>
+        <location filename="MainWindow.py" line="527"/>
         <source>Import pre-defined coins?</source>
         <translation>Vai importēt iepriekš definētās monētas?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="529"/>
+        <location filename="MainWindow.py" line="541"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Pirms importēšanas jāeksportē esošā kolekcija no Collection Studio uz XML Table (izmantojot Collection Studio izvēlni Tools &gt; Export...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="542"/>
+        <location filename="MainWindow.py" line="554"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Pirms importēšanas jāeksportē esošā kolekcija no  uCoin.net uz Comma-Separated (CSV) formātu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="557"/>
+        <location filename="MainWindow.py" line="569"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation>Pirms importēšanas jāeksportē esošā kolekcija no uCoin.net uz Microsoft Excel (XLS) vai Comma-Separated (CSV) formātu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="683"/>
+        <location filename="MainWindow.py" line="695"/>
         <source>Open collection</source>
         <translation>Atvērt kolekciju</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="683"/>
+        <location filename="MainWindow.py" line="695"/>
         <source>Collections (*.db)</source>
         <translation>Kolekcijas (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="659"/>
+        <location filename="MainWindow.py" line="671"/>
         <source>New collection</source>
         <translation>Jauna kolekcija</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="744"/>
+        <location filename="MainWindow.py" line="748"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Izveidot jaunu vai atvērt esošu kolekciju</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="777"/>
+        <location filename="MainWindow.py" line="781"/>
         <source>%s %s
 
 Copyright (C) 2011-2019 Vitaly Ignatov
@@ -2070,28 +2070,33 @@ Copyright (C) 2011-2019 Vitaly Ignatov
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="810"/>
+        <location filename="MainWindow.py" line="814"/>
         <source>Updates</source>
         <translation>Atjauninājumi</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="810"/>
+        <location filename="MainWindow.py" line="814"/>
         <source>You already have the latest version.</source>
         <translation>Šī ir jaunākā versija</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="821"/>
+        <location filename="MainWindow.py" line="825"/>
         <source>New version</source>
         <translation>Jauna versija</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="821"/>
+        <location filename="MainWindow.py" line="825"/>
         <source>New version is available. Download it now?</source>
         <translation>Pieejama jauna versija. Vai vēlaties to lejupielādēt?</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="92"/>
         <source>Clear sort order</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="97"/>
+        <source>Sort by drag-n-drop mode</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2763,106 +2768,106 @@ Izveidota jauna</translation>
 <context>
     <name>TabView</name>
     <message>
-        <location filename="TabView.py" line="57"/>
+        <location filename="TabView.py" line="58"/>
         <source>&amp;New...</source>
         <translation>&amp;Jauns...</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="61"/>
+        <location filename="TabView.py" line="62"/>
         <source>Clone</source>
         <translation>Klonēt</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="65"/>
+        <location filename="TabView.py" line="66"/>
         <source>Open</source>
         <translation>Atvērt</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="68"/>
+        <location filename="TabView.py" line="69"/>
         <source>Remove all</source>
         <translation>Noņemt visas</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="73"/>
+        <location filename="TabView.py" line="74"/>
         <source>Rename...</source>
         <translation>Pārdēvēt...</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="77"/>
+        <location filename="TabView.py" line="78"/>
         <source>Select columns...</source>
         <translation>Atlasīt kolonnas...</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="81"/>
+        <location filename="TabView.py" line="82"/>
         <source>Close</source>
         <translation>Aizvērt</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="86"/>
+        <location filename="TabView.py" line="87"/>
         <source>Remove</source>
         <translation>Noņemt</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="108"/>
+        <location filename="TabView.py" line="109"/>
         <source> (clone)</source>
         <translation> (klonēta)</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="170"/>
+        <location filename="TabView.py" line="189"/>
         <source>Coins</source>
         <translation>Monētas</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="178"/>
+        <location filename="TabView.py" line="197"/>
         <source>New list</source>
         <translation>Jauns saraksts</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="178"/>
+        <location filename="TabView.py" line="197"/>
         <source>Enter list title</source>
         <translation>Ievadiet saraksta nosaukumu</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="187"/>
+        <location filename="TabView.py" line="206"/>
         <source>Rename list</source>
         <translation>Pārdēvēt sarakstu</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="187"/>
+        <location filename="TabView.py" line="206"/>
         <source>Enter new list title</source>
         <translation>Ievadiet jauno nosaukumu</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="222"/>
+        <location filename="TabView.py" line="241"/>
         <source>Remove page</source>
         <translation>Noņemt lapu</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="202"/>
+        <location filename="TabView.py" line="221"/>
         <source>Can't close latest opened page.
 Add a new one first.</source>
         <translation>Nevar aizvērt pēdējo cilni.
 Vispirms pievienojiet jaunu.</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="215"/>
+        <location filename="TabView.py" line="234"/>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
         <translation>Nevar noņemt pēdējo cilni.
 Vispirms pievienojiet jaunu.</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="222"/>
+        <location filename="TabView.py" line="241"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
         <translation>Vai noņemt lapu &apos;%s&apos; neatgriezeniski?</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="232"/>
+        <location filename="TabView.py" line="251"/>
         <source>Remove pages</source>
         <translation>Noņemt lapas</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="232"/>
+        <location filename="TabView.py" line="251"/>
         <source>Remove all closed pages permanently?</source>
         <translation>Vai neatgriezeniski noņemt visas aizvērtās lapas?</translation>
     </message>
