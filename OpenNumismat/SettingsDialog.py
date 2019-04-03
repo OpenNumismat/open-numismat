@@ -189,14 +189,11 @@ class CollectionSettingsPage(QWidget):
         self.imageSideLen.setText(str(self.settings['ImageSideLen']))
         self.imageSideLen.setToolTip(self.tr("0 for storing in original size"))
 
-        self.imageHeight = QComboBox(self)
-        default_height = ('1', '1.5', '1.8', '2.3')
-        for height in default_height:
-            self.imageHeight.addItem(height)
-        height = str(self.settings['image_height'])
-        if height not in default_height:
-            self.imageHeight.addItem(height)
-        self.imageHeight.setCurrentText(height)
+        self.imageHeight = QDoubleSpinBox(self)
+        self.imageHeight.setRange(1, 3)
+        self.imageHeight.setDecimals(1)
+        self.imageHeight.setSingleStep(0.1)
+        self.imageHeight.setValue(self.settings['image_height'])
         self.imageHeight.setSizePolicy(QSizePolicy.Fixed,
                                        QSizePolicy.Fixed)
         layout.addRow(self.tr("Preview image height"), self.imageHeight)
@@ -275,7 +272,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['show_list_icons'] = self.showListIcons.isChecked()
         self.settings['ImageSideLen'] = int(self.imageSideLen.text())
         old_image_height = self.settings['image_height']
-        self.settings['image_height'] = float(self.imageHeight.currentText())
+        self.settings['image_height'] = self.imageHeight.value()
         self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
         self.settings['enable_bc'] = self.enableBC.isChecked()
         self.settings['rich_text'] = self.richText.isChecked()
