@@ -104,6 +104,8 @@ class Status(dict):
 
 
 Statuses = Status()
+StatusesOrder = {'demo': 0, 'pass': 8, 'owned': 3, 'ordered': 2, 'bidding': 1,
+                 'sold': 6, 'sale': 5, 'wish': 4, 'missing': 7}
 
 
 class CollectionField():

@@ -4,7 +4,7 @@ from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.CollectionFields import Statuses, StatusesOrder
 from OpenNumismat.Tools.Gui import createIcon, statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction
 
@@ -21,6 +21,14 @@ class CustomSortListWidgetItem(QListWidgetItem):
             left = str(left)
 
         return left < right
+
+
+class StatusSortListWidgetItem(QListWidgetItem):
+
+    def __lt__(self, other):
+        left = self.data(Qt.UserRole)
+        right = other.data(Qt.UserRole)
+        return StatusesOrder[left] < StatusesOrder[right]
 
 
 class FilterMenuButton(QPushButton):
@@ -156,7 +164,7 @@ class FilterMenuButton(QPushButton):
                 value = query.record().value(0)
                 label = Statuses[value]
 
-                item = QListWidgetItem(label)
+                item = StatusSortListWidgetItem(label)
                 item.setData(Qt.UserRole, value)
 
                 if self.settings['show_filter_icons']:
@@ -174,6 +182,8 @@ class FilterMenuButton(QPushButton):
                     else:
                         item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
+
+            self.listWidget.sortItems()
         elif columnType == Type.Denomination:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:

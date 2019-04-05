@@ -15,6 +15,7 @@ from PyQt5.Qt import QMargins
 import OpenNumismat
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.Collection.CollectionFields import StatusesOrder
 from OpenNumismat.SelectColumnsDialog import SelectColumnsDialog
 from OpenNumismat.Collection.HeaderFilterMenu import FilterMenuButton
 from OpenNumismat.Tools import Gui, TemporaryDir
@@ -520,6 +521,7 @@ class SortFilterProxyModel(QSortFilterProxyModel):
 
         self.model = model
         self.setSourceModel(model)
+        self.status_id = model.fields.status.id
 
         self.setDynamicSortFilter(True)
 
@@ -528,17 +530,22 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         self.collator.setNumericMode(True)
 
     def lessThan(self, left, right):
-        leftData = self.model.dataDisplayRole(left)
-        rightData = self.model.dataDisplayRole(right)
+        if left.column() == self.status_id:
+            leftData = self.model.dataDisplayRole(left)
+            rightData = self.model.dataDisplayRole(right)
+            return StatusesOrder[leftData] < StatusesOrder[rightData]
+        else:
+            leftData = self.model.dataDisplayRole(left)
+            rightData = self.model.dataDisplayRole(right)
 
-        if isinstance(leftData, str):
-            rightData = str(rightData)
-            return self.collator.compare(leftData, rightData) < 0
-        elif isinstance(rightData, str):
-            leftData = str(leftData)
-            return self.collator.compare(leftData, rightData) < 0
+            if isinstance(leftData, str):
+                rightData = str(rightData)
+                return self.collator.compare(leftData, rightData) < 0
+            elif isinstance(rightData, str):
+                leftData = str(leftData)
+                return self.collator.compare(leftData, rightData) < 0
 
-        return leftData < rightData
+            return leftData < rightData
 
     def flags(self, index):
         return super().flags(index) | Qt.ItemIsDragEnabled | Qt.ItemIsDropEnabled
