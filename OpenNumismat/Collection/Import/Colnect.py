@@ -171,6 +171,13 @@ class ColnectDialog(QDialog):
         self.countrySelector.currentIndexChanged.connect(self.countryChanged)
         layout.addRow(fields.getCustomTitle('country'), self.countrySelector)
 
+        self.distributionSelector = QComboBox()
+        self.distributionSelector.setSizePolicy(QSizePolicy.Fixed,
+                                                QSizePolicy.Fixed)
+        self.distributionSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.distributionSelector.currentIndexChanged.connect(self.partChanged)
+        layout.addRow(fields.getCustomTitle('type'), self.distributionSelector)
+
         self.seriesSelector = QComboBox()
         self.seriesSelector.setSizePolicy(QSizePolicy.Fixed,
                                           QSizePolicy.Fixed)
@@ -199,7 +206,8 @@ class ColnectDialog(QDialog):
         self.currencySelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('unit'), self.currencySelector)
 
-        self.parts = (self.seriesSelector, self.yearSelector,
+        self.parts = (self.seriesSelector, self.distributionSelector,
+                      self.yearSelector,
                       self.valueSelector, self.currencySelector)
 
         self.table = QTableWidget(self)
@@ -380,6 +388,12 @@ class ColnectDialog(QDialog):
         for ser in series:
             self.seriesSelector.addItem(str(ser[1]), ser[0])
 
+        distributions = self.getDistributions(category, country)
+        self.distributionSelector.clear()
+        self.distributionSelector.addItem(self.tr("(All)"), None)
+        for distr in distributions:
+            self.distributionSelector.addItem(str(distr[1]), distr[0])
+
         years = self.getYears(category, country)
         self.yearSelector.clear()
         self.yearSelector.addItem(self.tr("(All)"), None)
@@ -403,21 +417,33 @@ class ColnectDialog(QDialog):
     def partChanged(self, _index):
         self._clearTable()
 
+        category = self.categorySelector.currentData()
+        if category in ('coins', 'stamps'):
+            self.distributionSelector.setVisible(True)
+        else:
+            self.distributionSelector.setVisible(False)
+
         series = self.seriesSelector.currentData()
         year = self.yearSelector.currentData()
         value = self.valueSelector.currentData()
         currency = self.currencySelector.currentData()
+        if self.distributionSelector.isVisible():
+            distribution = self.distributionSelector.currentData()
+        else:
+            distribution = None
         # TODO:
-        # distribution (https://api.colnect.net/en/api/8xZqcX3b/distributions/cat/coins/producer/922/)
-        # emissions (https://api.colnect.net/en/api/8xZqcX3b/emissions/cat/stamps/producer/8147)
         # mint_year (https://api.colnect.net/en/api/8xZqcX3b/list/cat/coins/producer/922/mint_year/2000)
 
-        if series or year or value or currency:
-            category = self.categorySelector.currentData()
+        if series or distribution or year or value or currency:
             country = self.countrySelector.currentData()
             action = "list_id/cat/%s/producer/%d" % (category, country)
             if series:
                 action += "/series/%s" % series
+            if distribution:
+                if category == 'coins':
+                    action += "/distribution/%s" % distribution
+                elif category == 'stamps':
+                    action += "/emission/%s" % distribution
             if year:
                 action += "/year/%s" % year
             if value:
@@ -426,7 +452,7 @@ class ColnectDialog(QDialog):
                 action += "/currency/%s" % currency
             item_ids = self._getData(action)
 
-            if (series and year and value and currency) or (len(item_ids) < 100):
+            if ((series or distribution) and year and value and currency) or (len(item_ids) < 100):
                 if item_ids:
                     self.addButton.setEnabled(True)
                     self.addCloseButton.setEnabled(True)
@@ -487,6 +513,16 @@ class ColnectDialog(QDialog):
 
     def getSeries(self, category, country):
         action = "series/cat/%s/producer/%d" % (category, country)
+        return self._getData(action)
+
+    def getDistributions(self, category, country):
+        if category == 'coins':
+            action = "distributions/cat/%s/producer/%d" % (category, country)
+        elif category == 'stamps':
+            action = "emissions/cat/%s/producer/%d" % (category, country)
+        else:
+            return []
+
         return self._getData(action)
 
     def getValues(self, category, country):
