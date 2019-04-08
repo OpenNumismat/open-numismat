@@ -317,6 +317,12 @@ class ColnectDialog(QDialog):
                 value = value[:4]
             elif column[0] == 'unit' and self.skip_currency:
                 value = value.split('-', 1)[-1].strip()
+            elif column[0] == 'catalognum1':
+                codes = value.split(',', 3)
+                for i, code in enumerate(codes):
+                    field = 'catalognum%d' % (i + 1)
+                    newRecord.setValue(field, code.strip())
+                continue
             newRecord.setValue(column[0], value)
 
         image = self._getFullImage(int(data[8]), data[0])
