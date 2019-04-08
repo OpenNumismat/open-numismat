@@ -287,14 +287,14 @@ class ColnectDialog(QDialog):
             ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
             ('diameter', 21), ('weight', 20), ('subject', 25), ('type', 14),
             ('issuedate', 4), ('edge', 15), ('shape', 17), ('obvrev', 16),
-            ('catalognum1', 3),
+            ('catalognum1', 3), ('url', -1),
             # ('subjectshort', 24)
             ),
                 'banknotes': (
             ('title', 0), ('country', 1), ('series', 2), ('year', 4),
             ('mintage', 6), ('unit', 12), ('value', 13), ('material', 17),
             ('diameter', 14), ('thickness', 15), ('subject', 20), ('mint', 18),
-            ('issuedate', 4), ('catalognum1', 3),
+            ('issuedate', 4), ('catalognum1', 3), ('url', -1),
             # ('subjectshort', 24)
             ),
                 'stamps': (
@@ -303,7 +303,7 @@ class ColnectDialog(QDialog):
             ('diameter', 21), ('thickness', 22), ('subject', 25), ('type', 15),
             ('quality', 17), ('obvrev', 18), ('edgelabel', 20),
             ('issuedate', 4), ('edge', 16), ('obversecolor', 23),
-            ('format', 14), ('catalognum1', 3),
+            ('format', 14), ('catalognum1', 3), ('url', -1),
             # ('subjectshort', 24)
             )}
 
@@ -439,6 +439,7 @@ class ColnectDialog(QDialog):
 
                     action = "item/cat/%s/producer/%d/id/%d" % (category, country, item_id)
                     data = self._getData(action)
+                    data.append(self._itemUrl(category, item_id))
                     self.items.append(data)
 
                     image = self._getImage(int(data[8]), data[0])
@@ -571,6 +572,11 @@ class ColnectDialog(QDialog):
         url = "https://i.colnect.net/%s/%d/%03d/%s.jpg" % (
             ('f' if full else 't'), image_id / 1000, image_id % 1000, name)
 #            ('b' if full else 't'), image_id / 1000, image_id % 1000, name)
+        return url
+
+    def _itemUrl(self, category, item_id):
+        url = "https://colnect.com/%s/%s/%s/%d" % (self.lang, category,
+                                                   category[:-1], item_id)
         return url
 
     def _urlize(self, name):
