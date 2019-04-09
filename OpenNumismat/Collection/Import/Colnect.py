@@ -612,8 +612,8 @@ class ColnectDialog(QDialog):
     def _imageUrl(self, image_id, name, full):
         name = self._urlize(name)
         url = "https://i.colnect.net/%s/%d/%03d/%s.jpg" % (
-            ('f' if full else 't'), image_id / 1000, image_id % 1000, name)
-#            ('b' if full else 't'), image_id / 1000, image_id % 1000, name)
+            ('b' if full else 't'), image_id / 1000, image_id % 1000, name)
+            # ('f' if full else 't'), image_id / 1000, image_id % 1000, name)
         return url
 
     def _itemUrl(self, category, item_id):
