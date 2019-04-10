@@ -209,6 +209,13 @@ class CollectionFieldsBase(QObject):
                 ('condition', QApplication.translate('CollectionFieldsBase', "Condition"), Type.String),
                 ('category', QApplication.translate('CollectionFieldsBase', "Category"), Type.String),
                 ('sort_id', QApplication.translate('CollectionFieldsBase', "Position"), Type.BigInt),
+                ('emitent', QApplication.translate('CollectionFieldsBase', "Emitent"), Type.String),
+                ('signaturetype', QApplication.translate('CollectionFieldsBase', "Type"), Type.String),
+                ('signature', QApplication.translate('CollectionFieldsBase', "Signature"), Type.String),
+                ('signatureimg', QApplication.translate('CollectionFieldsBase', "Signature"), Type.EdgeImage),
+                ('address', QApplication.translate('CollectionFieldsBase', "Address"), Type.String),
+                ('latitude', QApplication.translate('CollectionFieldsBase', "Latitude"), Type.Value),
+                ('longitude', QApplication.translate('CollectionFieldsBase', "Longitude"), Type.Value),
             ]
 
         self.fields = []
