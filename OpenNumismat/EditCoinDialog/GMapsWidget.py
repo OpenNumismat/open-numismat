@@ -59,6 +59,7 @@ function initialize() {
       qtWidget.markerMoved(lat, lng)
     }
   });
+  qtWidget.mapReady();
 }
 function gmap_addMarker(lat, lng) {
   var position = {lat: lat, lng: lng};
@@ -104,6 +105,7 @@ function gmap_moveMarker(lat, lng) {
 
 
 class GMapsWidget(QWebView):
+    mapReady = pyqtSignal()
     mapMoved = pyqtSignal(float, float)
     mapClicked = pyqtSignal(float, float)
     mapRightClicked = pyqtSignal(float, float)
@@ -117,15 +119,31 @@ class GMapsWidget(QWebView):
 
         self.language = Settings()['locale']
 
+        self.lat = None
+        self.lng = None
         self.initialized = False
         self.loadFinished.connect(self.onLoadFinished)
         self.page().mainFrame().addToJavaScriptWindowObject(
             "qtWidget", self)
-        html = HTML.replace("API_KEY", MAPS_API_KEY).replace("LANGUAGE", self.language)
-        self.setHtml(html)
-        self.mapMoved.connect(self.mapIsMoved)
 
-    def onLoadFinished(self):
+    def activate(self):
+        if not self.initialized:
+            self.mapMoved.connect(self.mapIsMoved)
+            self.mapReady.connect(self.mapIsReady)
+
+            html = HTML.replace("API_KEY", MAPS_API_KEY).replace("LANGUAGE", self.language)
+            self.setHtml(html)
+
+    def showEvent(self, e):
+        self.activate()
+        super().showEvent(e)
+
+    def onLoadFinished(self, ok):
+        if not ok:
+            self.initialized = True
+
+    def mapIsReady(self):
+        self.moveMarker(self.lat, self.lng)
         self.initialized = True
 
     @waitCursorDecorator
@@ -145,14 +163,26 @@ class GMapsWidget(QWebView):
         while not self.initialized:
             QApplication.processEvents()
 
-    def moveMarker(self, lat, lng):
-        self.runScript("gmap_moveMarker(%f, %f)" % (lat, lng))
-
     def mapIsMoved(self, lat, lng):
         print('mapIsMoved', lat, lng)
 
     def runScript(self, script):
         return self.page().mainFrame().evaluateJavaScript(script)
+
+    def moveMarker(self, lat, lng):
+        if lat and lng:
+            self.lat = lat
+            self.lng = lng
+            self.runScript("gmap_moveMarker(%f, %f)" % (self.lat, self.lng))
+        else:
+            self.runScript("gmap_deleteMarker()")
+
+    def setMarker(self, lat, lng):
+        self.lat = lat
+        self.lng = lng
+
+        if self.initialized:
+            self.moveMarker(self.lat, self.lng)
 
 
 STATIC_HTML = '''
@@ -191,6 +221,30 @@ function initialize() {
     var center = map.getCenter();
     qtWidget.mapMoved(center.lat(), center.lng());
   });
+  qtWidget.mapReady();
+}
+function gmap_addMarker(lat, lng) {
+  var position = {lat: lat, lng: lng};
+  marker = new google.maps.Marker({
+    position: position,
+    map: map,
+    draggable: true
+  });
+}
+function gmap_deleteMarker() {
+  marker.setMap(null);
+  delete marker;
+  marker = null;
+}
+function gmap_moveMarker(lat, lng) {
+  var coords = new google.maps.LatLng(lat, lng);
+  if (marker === null) {
+    gmap_addMarker(lat, lng);
+  }
+  else {
+    marker.setPosition(coords);
+  }
+  map.setCenter(coords);
 }
     </script>
     <script async defer
@@ -205,6 +259,7 @@ function initialize() {
 
 
 class GStaticMapsWidget(QWebView):
+    mapReady = pyqtSignal()
     mapMoved = pyqtSignal(float, float)
 
     def __init__(self, parent=None):
@@ -212,15 +267,31 @@ class GStaticMapsWidget(QWebView):
 
         self.language = Settings()['locale']
 
+        self.lat = None
+        self.lng = None
         self.initialized = False
         self.loadFinished.connect(self.onLoadFinished)
         self.page().mainFrame().addToJavaScriptWindowObject(
             "qtWidget", self)
-        html = STATIC_HTML.replace("API_KEY", MAPS_API_KEY).replace("LANGUAGE", self.language)
-        self.setHtml(html)
-        self.mapMoved.connect(self.mapIsMoved)
 
-    def onLoadFinished(self):
+    def activate(self):
+        if not self.initialized:
+            self.mapMoved.connect(self.mapIsMoved)
+            self.mapReady.connect(self.mapIsReady)
+
+            html = STATIC_HTML.replace("API_KEY", MAPS_API_KEY).replace("LANGUAGE", self.language)
+            self.setHtml(html)
+
+    def showEvent(self, e):
+        self.activate()
+        super().showEvent(e)
+
+    def onLoadFinished(self, ok):
+        if not ok:
+            self.initialized = True
+
+    def mapIsReady(self):
+        self.moveMarker(self.lat, self.lng)
         self.initialized = True
 
     @waitCursorDecorator
@@ -233,3 +304,18 @@ class GStaticMapsWidget(QWebView):
 
     def runScript(self, script):
         return self.page().mainFrame().evaluateJavaScript(script)
+
+    def moveMarker(self, lat, lng):
+        if lat and lng:
+            self.lat = lat
+            self.lng = lng
+            self.runScript("gmap_moveMarker(%f, %f)" % (self.lat, self.lng))
+        else:
+            self.runScript("gmap_deleteMarker()")
+
+    def setMarker(self, lat, lng):
+        self.lat = lat
+        self.lng = lng
+
+        if self.initialized:
+            self.moveMarker(self.lat, self.lng)

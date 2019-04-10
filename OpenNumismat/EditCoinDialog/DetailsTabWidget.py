@@ -20,6 +20,7 @@ class DetailsTabWidget(QTabWidget):
         self.model = model
         self.reference = model.reference
         self.settings = model.settings
+        self.map_item = None
 
         self.createItems()
         self.createPages()
@@ -178,6 +179,11 @@ class DetailsTabWidget(QTabWidget):
                     continue
 
                 self._fillItem(record, item)
+
+            if self.map_item:
+                lat = record.value('latitude')
+                lng = record.value('longitude')
+                self.map_item.setMarker(lat, lng)
 
     def _fillItem(self, record, item):
         if not record.isNull(item.field()):
@@ -430,7 +436,6 @@ class DetailsTabWidget(QTabWidget):
         layout = BaseFormLayout()
 
         self.map_item = GStaticMapsWidget(self)
-        self.map_item.waitUntilReady()
         layout.addWidget(self.map_item)
 
         return layout
@@ -681,7 +686,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['latitude'], self.items['longitude'])
 
         self.map_item = GMapsWidget(self)
-        self.map_item.waitUntilReady()
         self.map_item.markerMoved.connect(self.mapMarkerMoved)
         self.map_item.markerRemoved.connect(self.mapMarkerRemoved)
         layout.addWidget(self.map_item, layout.row, 0, 1, layout.columnCount)
@@ -691,7 +695,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         return layout
 
-    def mapChanged(self, text):
+    def mapChanged(self):
         lat = self.items['latitude'].value()
         lng = self.items['longitude'].value()
         if lat and lng:
