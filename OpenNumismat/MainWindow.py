@@ -785,16 +785,10 @@ class MainWindow(QMainWindow):
                         (version.AppName, version.Version, version.AppName))
 
     def onlineHelp(self):
-        url = QUrl("http://opennumismat.github.io/open-numismat/manual.html")
-
-        executor = QDesktopServices()
-        executor.openUrl(url)
+        self._openUrl("http://opennumismat.github.io/open-numismat/manual.html")
 
     def visitWeb(self):
-        url = QUrl(version.Web)
-
-        executor = QDesktopServices()
-        executor.openUrl(url)
+        self._openUrl(version.Web)
 
     def autoUpdate(self):
         if Settings()['updates']:
@@ -827,14 +821,15 @@ class MainWindow(QMainWindow):
                         QMessageBox.Yes | QMessageBox.No,
                         QMessageBox.Yes)
             if result == QMessageBox.Yes:
-                url = QUrl(version.Web)
-
-                executor = QDesktopServices()
-                executor.openUrl(url)
+                self._openUrl(version.Web)
 
             return True
         else:
             return False
+
+    def _openUrl(self, url):
+        executor = QDesktopServices()
+        executor.openUrl(QUrl(url))
 
     @waitCursorDecorator
     def __getNewVersion(self):
