@@ -1,19 +1,19 @@
-from PyQt5 import QtCore
+from PyQt5.QtCore import QObject, QSettings
 from PyQt5.QtWidgets import QAction
 
 import OpenNumismat
 from OpenNumismat.Collection.Collection import Collection
 
 
-class LatestCollections(QtCore.QObject):
+class LatestCollections(QObject):
     DefaultCollectionName = OpenNumismat.HOME_PATH + "/demo.db"
     SettingsKey = 'collection/latest'
-    LatestCount = 5
+    LatestCount = 7
 
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.settings = QtCore.QSettings()
+        self.settings = QSettings()
 
     # Create menu actions
     def actions(self):
