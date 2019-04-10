@@ -94,9 +94,6 @@ class GeoChartCanvas(QWebView):
 </html>
     """
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
     def setData(self, xx, yy, region):
         data = ','.join(["['%s', %d]" % (x, y) for x, y in zip(xx, yy)])
         header = "['%s', '%s']" % (self.tr("Country"), self.tr("Number of coins"))
