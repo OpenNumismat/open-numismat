@@ -153,3 +153,83 @@ class GMapsWidget(QWebView):
 
     def runScript(self, script):
         return self.page().mainFrame().evaluateJavaScript(script)
+
+
+STATIC_HTML = '''
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0
+        }
+        #map {
+            height: 100%
+        }
+    </style>
+    <script>
+var map;
+var marker = null;
+
+function initialize() {
+  var position = {lat: 0, lng: 0};
+  map = new google.maps.Map(
+  document.getElementById('map'), {
+    zoom: 4,
+    center: position,
+    streetViewControl: false,
+    fullscreenControl: false
+  });
+
+  google.maps.event.addListener(map, 'dragend', function () {
+    var center = map.getCenter();
+    qtWidget.mapMoved(center.lat(), center.lng());
+  });
+}
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initialize&language=LANGUAGE"
+            type="text/javascript"></script>
+</head>
+<body>
+<div id="map"></div>
+</body>
+</html>
+'''
+
+
+class GStaticMapsWidget(QWebView):
+    mapMoved = pyqtSignal(float, float)
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.language = Settings()['locale']
+
+        self.initialized = False
+        self.loadFinished.connect(self.onLoadFinished)
+        self.page().mainFrame().addToJavaScriptWindowObject(
+            "qtWidget", self)
+        html = STATIC_HTML.replace("API_KEY", MAPS_API_KEY).replace("LANGUAGE", self.language)
+        self.setHtml(html)
+        self.mapMoved.connect(self.mapIsMoved)
+
+    def onLoadFinished(self):
+        self.initialized = True
+
+    @waitCursorDecorator
+    def waitUntilReady(self):
+        while not self.initialized:
+            QApplication.processEvents()
+
+    def mapIsMoved(self, lat, lng):
+        print('mapIsMoved', lat, lng)
+
+    def runScript(self, script):
+        return self.page().mainFrame().evaluateJavaScript(script)

@@ -7,7 +7,7 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormG
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
-from OpenNumismat.EditCoinDialog.GMapsWidget import GMapsWidget
+from OpenNumismat.EditCoinDialog.GMapsWidget import GStaticMapsWidget, GMapsWidget
 
 
 class DetailsTabWidget(QTabWidget):
@@ -39,8 +39,10 @@ class DetailsTabWidget(QTabWidget):
         self.addTabPage(title, [main, self.Stretch, state])
 
     def createMapPage(self):
+        coordinates = self.coordinatesLayout()
+        map_ = self.mapLayout()
         title = QApplication.translate('DetailsTabWidget', "Map")
-        self.addTabPage(title, [])
+        self.addTabPage(title, [coordinates, self.Stretch, map_])
 
     def createTrafficPage(self):
         title = QApplication.translate('DetailsTabWidget', "Market")
@@ -413,6 +415,23 @@ class DetailsTabWidget(QTabWidget):
         layout.setAlignment(Qt.AlignTop)
 
         layout.addRow(self.items['url'])
+
+        return layout
+
+    def coordinatesLayout(self):
+        layout = BaseFormLayout()
+
+        layout.addRow(self.items['address'])
+        layout.addRow(self.items['latitude'], self.items['longitude'])
+
+        return layout
+
+    def mapLayout(self):
+        layout = BaseFormLayout()
+
+        self.map_item = GStaticMapsWidget(self)
+        self.map_item.waitUntilReady()
+        layout.addWidget(self.map_item)
 
         return layout
 
