@@ -7,6 +7,7 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormG
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
+from OpenNumismat.EditCoinDialog.GMapsWidget import GMapsWidget
 
 
 class DetailsTabWidget(QTabWidget):
@@ -26,6 +27,7 @@ class DetailsTabWidget(QTabWidget):
     def createPages(self):
         self.createCoinPage()
         self.createTrafficPage()
+        self.createMapPage()
         self.createParametersPage()
         self.createDesignPage()
         self.createClassificationPage()
@@ -35,6 +37,10 @@ class DetailsTabWidget(QTabWidget):
         state = self.stateLayout()
         title = QApplication.translate('DetailsTabWidget', "Coin")
         self.addTabPage(title, [main, self.Stretch, state])
+
+    def createMapPage(self):
+        title = QApplication.translate('DetailsTabWidget', "Map")
+        self.addTabPage(title, [])
 
     def createTrafficPage(self):
         title = QApplication.translate('DetailsTabWidget', "Market")
@@ -497,10 +503,15 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.createCoinPage()
         self.oldStatus = 'demo'
         self.createTrafficPage()
+        self.createMapPage()
         self.createParametersPage()
         self.createDesignPage()
         self.createClassificationPage()
         self.createImagePage()
+
+    def createMapPage(self):
+        map_ = self.mapLayout()
+        self.addTabPage(self.tr("Map"), [map_, ])
 
     def createDesignPage(self):
         obverse = self.obverseDesignLayout()
@@ -643,6 +654,51 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addHalfRow(self.items['edgevar'])
 
         return layout
+
+    def mapLayout(self):
+        layout = BaseFormLayout()
+
+        layout.addRow(self.items['address'])
+        layout.addRow(self.items['latitude'], self.items['longitude'])
+
+        self.map_item = GMapsWidget(self)
+        self.map_item.waitUntilReady()
+        self.map_item.markerMoved.connect(self.mapMarkerMoved)
+        self.map_item.markerRemoved.connect(self.mapMarkerRemoved)
+        layout.addWidget(self.map_item, layout.row, 0, 1, layout.columnCount)
+
+        self.items['latitude'].widget().textChanged.connect(self.mapChanged)
+        self.items['longitude'].widget().textChanged.connect(self.mapChanged)
+
+        return layout
+
+    def mapChanged(self, text):
+        lat = self.items['latitude'].value()
+        lng = self.items['longitude'].value()
+        if lat and lng:
+            self.map_item.moveMarker(float(lat), float(lng))
+
+    def mapMarkerMoved(self, lat, lng):
+        self.items['latitude'].widget().textChanged.disconnect(self.mapChanged)
+        self.items['longitude'].widget().textChanged.disconnect(self.mapChanged)
+
+        self.items['latitude'].setValue("%.4f" % lat)
+        self.items['longitude'].setValue("%.4f" % lng)
+        address = self.map_item.reverseGeocode(lat, lng)
+        self.items['address'].setValue(address)
+
+        self.items['latitude'].widget().textChanged.connect(self.mapChanged)
+        self.items['longitude'].widget().textChanged.connect(self.mapChanged)
+
+    def mapMarkerRemoved(self):
+        self.items['latitude'].widget().textChanged.disconnect(self.mapChanged)
+        self.items['longitude'].widget().textChanged.disconnect(self.mapChanged)
+
+        self.items['latitude'].clear()
+        self.items['longitude'].clear()
+
+        self.items['latitude'].widget().textChanged.connect(self.mapChanged)
+        self.items['longitude'].widget().textChanged.connect(self.mapChanged)
 
     def imagesLayout(self):
         layout = ImageFormLayout()
