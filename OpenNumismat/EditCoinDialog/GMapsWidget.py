@@ -15,6 +15,9 @@ except ImportError:
     print('PyQt5.QtWebKitWidgets module missed. Google Maps not available')
     importedQtWebKit = False
 
+    class QWebView:
+        pass
+
 HTML = '''
 <!DOCTYPE html>
 <html>

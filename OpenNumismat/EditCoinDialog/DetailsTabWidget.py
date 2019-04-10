@@ -7,7 +7,7 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormG
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
-from OpenNumismat.EditCoinDialog.GMapsWidget import GStaticMapsWidget, GMapsWidget
+from OpenNumismat.EditCoinDialog.GMapsWidget import GStaticMapsWidget, GMapsWidget, importedQtWebKit
 
 
 class DetailsTabWidget(QTabWidget):
@@ -435,8 +435,9 @@ class DetailsTabWidget(QTabWidget):
     def mapLayout(self):
         layout = BaseFormLayout()
 
-        self.map_item = GStaticMapsWidget(self)
-        layout.addWidget(self.map_item)
+        if importedQtWebKit:
+            self.map_item = GStaticMapsWidget(self)
+            layout.addWidget(self.map_item)
 
         return layout
 
@@ -685,13 +686,14 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['address'])
         layout.addRow(self.items['latitude'], self.items['longitude'])
 
-        self.map_item = GMapsWidget(self)
-        self.map_item.markerMoved.connect(self.mapMarkerMoved)
-        self.map_item.markerRemoved.connect(self.mapMarkerRemoved)
-        layout.addWidget(self.map_item, layout.row, 0, 1, layout.columnCount)
+        if importedQtWebKit:
+            self.map_item = GMapsWidget(self)
+            self.map_item.markerMoved.connect(self.mapMarkerMoved)
+            self.map_item.markerRemoved.connect(self.mapMarkerRemoved)
+            layout.addWidget(self.map_item, layout.row, 0, 1, layout.columnCount)
 
-        self.items['latitude'].widget().textChanged.connect(self.mapChanged)
-        self.items['longitude'].widget().textChanged.connect(self.mapChanged)
+            self.items['latitude'].widget().textChanged.connect(self.mapChanged)
+            self.items['longitude'].widget().textChanged.connect(self.mapChanged)
 
         return layout
 
