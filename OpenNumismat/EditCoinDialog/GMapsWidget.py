@@ -1,7 +1,7 @@
 import json
 import urllib.request
 
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, QSettings
 from PyQt5.QtWidgets import QApplication
 
 from OpenNumismat.private_keys import MAPS_API_KEY
@@ -41,10 +41,10 @@ var map;
 var marker = null;
 
 function initialize() {
-  var position = {lat: 0, lng: 0};
+  var position = {lat: LATITUDE, lng: LONGITUDE};
   map = new google.maps.Map(
   document.getElementById('map'), {
-    zoom: 4,
+    zoom: ZOOM,
     center: position,
     streetViewControl: false,
     fullscreenControl: false
@@ -113,6 +113,8 @@ function gmap_moveMarker(lat, lng) {
 
 
 class BaseGMapsWidget(QWebView):
+    ZOOM_KEY = 'gmaps/zoom'
+    POSITION_KEY = 'gmaps/position'
     DRAGGABLE = 'false'
     mapReady = pyqtSignal()
     mapMoved = pyqtSignal(float, float)
@@ -140,7 +142,19 @@ class BaseGMapsWidget(QWebView):
             self.mapZoomed.connect(self.mapIsZoomed)
             self.mapReady.connect(self.mapIsReady)
 
-            html = HTML.replace("API_KEY", MAPS_API_KEY).replace("LANGUAGE", self.language).replace("DRAGGABLE", self.DRAGGABLE)
+            zoom = QSettings().value(self.ZOOM_KEY, 4, type=int)
+            position = QSettings().value(self.POSITION_KEY)
+            if not position:
+                position = (59.957, 30.375)
+            params = {"API_KEY": MAPS_API_KEY,
+                      "LANGUAGE": self.language,
+                      "DRAGGABLE": self.DRAGGABLE,
+                      "ZOOM": str(zoom),
+                      "LATITUDE": str(position[0]),
+                      "LONGITUDE": str(position[1])}
+            html = HTML
+            for key, val in params.items():
+                html = html.replace(key, val)
             self.setHtml(html)
 
     def showEvent(self, e):
@@ -164,16 +178,22 @@ class BaseGMapsWidget(QWebView):
         self.initialized = True
 
     def mapIsMoved(self, lat, lng):
-        print('mapIsMoved', lat, lng)
+        QSettings().setValue(self.POSITION_KEY, (lat, lng))
 
     def mapIsZoomed(self, zoom):
-        print('mapIsZoomed', zoom)
+        if zoom < 2:
+            zoom = 2
+        elif zoom > 15:
+            zoom = 15
+
+        QSettings().setValue(self.ZOOM_KEY, zoom)
 
     def moveMarker(self, lat, lng):
         if lat and lng:
             self.lat = lat
             self.lng = lng
             self.runScript("gmap_moveMarker(%f, %f)" % (self.lat, self.lng))
+            self.mapIsMoved(self.lat, self.lng)
         else:
             self.runScript("gmap_deleteMarker()")
 
