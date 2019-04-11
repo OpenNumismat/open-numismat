@@ -7,7 +7,7 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormG
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
-from OpenNumismat.EditCoinDialog.GMapsWidget import GStaticMapsWidget, GMapsWidget, importedQtWebKit
+from OpenNumismat.EditCoinDialog.GMapsWidget import StaticGMapsWidget, GMapsWidget, importedQtWebKit
 
 
 class DetailsTabWidget(QTabWidget):
@@ -436,7 +436,7 @@ class DetailsTabWidget(QTabWidget):
         layout = BaseFormLayout()
 
         if importedQtWebKit:
-            self.map_item = GStaticMapsWidget(self)
+            self.map_item = StaticGMapsWidget(self)
             layout.addWidget(self.map_item)
 
         return layout
