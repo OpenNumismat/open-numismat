@@ -41,9 +41,10 @@ class DetailsTabWidget(QTabWidget):
 
     def createMapPage(self):
         coordinates = self.coordinatesLayout()
-        map_ = self.mapLayout()
-        title = QApplication.translate('DetailsTabWidget', "Map")
-        self.addTabPage(title, [coordinates, self.Stretch, map_])
+        if not coordinates.isEmpty():
+            map_ = self.mapLayout()
+            title = QApplication.translate('DetailsTabWidget', "Map")
+            self.addTabPage(title, [coordinates, self.Stretch, map_])
 
     def createTrafficPage(self):
         title = QApplication.translate('DetailsTabWidget', "Market")
@@ -435,7 +436,10 @@ class DetailsTabWidget(QTabWidget):
     def mapLayout(self):
         layout = BaseFormLayout()
 
-        if importedQtWebKit:
+        coordinates_enabled = not (self.items['latitude'].isHidden() or
+                                   self.items['longitude'].isHidden())
+
+        if importedQtWebKit and coordinates_enabled:
             self.map_item = StaticGMapsWidget(self)
             layout.addWidget(self.map_item)
 
@@ -536,7 +540,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def createMapPage(self):
         map_ = self.mapLayout()
-        self.addTabPage(self.tr("Map"), [map_, ])
+        if not map_.isEmpty():
+            self.addTabPage(self.tr("Map"), [map_, ])
 
     def createDesignPage(self):
         obverse = self.obverseDesignLayout()
@@ -686,7 +691,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['address'])
         layout.addRow(self.items['latitude'], self.items['longitude'])
 
-        if importedQtWebKit:
+        coordinates_enabled = not (self.items['latitude'].isHidden() or
+                                   self.items['longitude'].isHidden())
+
+        if importedQtWebKit and coordinates_enabled:
             self.map_item = GMapsWidget(self)
             self.map_item.markerMoved.connect(self.mapMarkerMoved)
             self.map_item.markerRemoved.connect(self.mapMarkerRemoved)

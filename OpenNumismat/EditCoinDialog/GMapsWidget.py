@@ -78,6 +78,9 @@ function gmap_addMarker(lat, lng) {
   marker.addListener('dragend', function () {
     qtWidget.markerMoved(marker.position.lat(), marker.position.lng());
   });
+  marker.addListener('click', function () {
+    qtWidget.markerMoved(marker.position.lat(), marker.position.lng());
+  });
   marker.addListener('rightclick', function () {
     qtWidget.markerRemoved();
   });
