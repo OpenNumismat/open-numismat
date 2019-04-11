@@ -147,7 +147,8 @@ class BaseReferenceSection(QtCore.QObject):
     def create(self, db=QSqlDatabase()):
         in_transaction = db.transaction()
 
-        cross_ref = ('country', 'period', 'ruler', 'unit', 'mint', 'series')
+        cross_ref = ('country', 'period', 'emitent', 'ruler',
+                     'unit', 'mint', 'series')
 
         if self.name in cross_ref:
             sql = "CREATE TABLE %s (\
@@ -291,6 +292,7 @@ class Reference(QtCore.QObject):
                                                     self.tr("C"), True)
         self.__createReferenceSection(ref_country, fields.period,
                                       self.tr("P"), True)
+        self.__createReferenceSection(ref_country, fields.emitent)
         self.__createReferenceSection(ref_country, fields.ruler)
         self.__createReferenceSection(ref_country, fields.unit, self.tr("U"))
         self.__createReferenceSection(ref_country, fields.mint)

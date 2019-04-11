@@ -205,6 +205,7 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['region'])
         layout.addRow(self.items['country'])
         layout.addRow(self.items['period'])
+        layout.addRow(self.items['emitent'])
         layout.addRow(self.items['ruler'])
         layout.addRow(self.items['value'], self.items['unit'])
         layout.addRow(self.items['year'])
@@ -581,6 +582,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
                     region.addDependent(country)
                 if self.reference.section('period'):
                     country.addDependent(self.items['period'].widget())
+                if self.reference.section('emitent'):
+                    country.addDependent(self.items['emitent'].widget())
                 if self.reference.section('ruler'):
                     country.addDependent(self.items['ruler'].widget())
                 if self.reference.section('unit'):
@@ -628,6 +631,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['region'])
         layout.addRow(self.items['country'])
         layout.addRow(self.items['period'])
+        layout.addRow(self.items['emitent'])
         layout.addRow(self.items['ruler'])
         layout.addRow(self.items['value'], self.items['unit'])
         layout.addRow(self.items['year'])
