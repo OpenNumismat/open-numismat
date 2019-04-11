@@ -55,6 +55,10 @@ class DoubleValidator(QDoubleValidator):
                 elif c in ts:
                     if not lastWasDigit or decPointFound:
                         return QValidator.Invalid, input_, pos
+                elif c == '-' and value == '0':
+                    if self.bottom() > 0:
+                        return QValidator.Invalid, input_, pos
+                    value = '-0'
                 else:
                     return QValidator.Invalid, input_, pos
 
@@ -512,6 +516,18 @@ class ValueEdit(_DoubleEdit):
     def __init__(self, parent=None):
         super().__init__(0, 9999999999, 3, parent)
         self.setMaxLength(17)
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
+
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+
+class CoordEdit(_DoubleEdit):
+    def __init__(self, parent=None):
+        super().__init__(-180, 180, 4, parent)
+        self.setMaxLength(9)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
                                        QSizePolicy.Fixed, QSizePolicy.SpinBox))

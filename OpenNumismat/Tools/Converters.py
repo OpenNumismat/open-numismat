@@ -5,11 +5,13 @@ from PyQt5.QtGui import QTextDocument
 
 def stringToMoney(string):
     value_began = False
-    money = ''
+    money = '0'
     for c in string:
         if c in '0123456789':
             money = money + c
             value_began = True
+        elif c == '-' and not value_began:
+            money = '-0'
         elif c in '.,':
             money += '.'
         elif c in ' \t\n\r':
@@ -17,9 +19,6 @@ def stringToMoney(string):
         else:
             if value_began:
                 break
-
-    if money == '.' or not money:
-        return 0
 
     return float(money)
 

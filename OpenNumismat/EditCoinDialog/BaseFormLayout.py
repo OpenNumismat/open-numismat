@@ -49,10 +49,13 @@ class FormItem(object):
             else:
                 self._widget = BigIntEdit(parent)
         elif self._type == Type.Value:
-            if settings['free_numeric']:
-                self._widget = UserNumericEdit(parent)
+            if self._field in ('latitude', 'longitude'):
+                self._widget = CoordEdit(parent)
             else:
-                self._widget = ValueEdit(parent)
+                if settings['free_numeric']:
+                    self._widget = UserNumericEdit(parent)
+                else:
+                    self._widget = ValueEdit(parent)
         elif self._type == Type.Money:
             if settings['free_numeric']:
                 self._widget = UserNumericEdit(parent)

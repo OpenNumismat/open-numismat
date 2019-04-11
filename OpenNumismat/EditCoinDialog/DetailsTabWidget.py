@@ -698,10 +698,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def mapChanged(self):
-        lat = self.items['latitude'].value()
-        lng = self.items['longitude'].value()
-        if lat and lng:
-            self.map_item.moveMarker(float(lat), float(lng))
+        lat = textToFloat(self.items['latitude'].value())
+        lng = textToFloat(self.items['longitude'].value())
+        self.map_item.moveMarker(lat, lng)
 
     def mapMarkerMoved(self, lat, lng):
         self.items['latitude'].widget().textChanged.disconnect(self.mapChanged)
