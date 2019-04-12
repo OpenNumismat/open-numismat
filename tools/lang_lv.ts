@@ -25,32 +25,32 @@
 <context>
     <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="147"/>
+        <location filename="StatisticsView.py" line="144"/>
         <source>Number of coins</source>
         <translation>Monētu skaits</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="187"/>
+        <location filename="StatisticsView.py" line="184"/>
         <source>PNG image (*.png)</source>
         <translation>PNG attēls (*.png)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="187"/>
+        <location filename="StatisticsView.py" line="184"/>
         <source>PDF file (*.pdf)</source>
         <translation>PDF fails (*.pdf)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="187"/>
+        <location filename="StatisticsView.py" line="184"/>
         <source>SVG image (*.svg)</source>
         <translation>SVG attēls (*.svg)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="187"/>
+        <location filename="StatisticsView.py" line="184"/>
         <source>PostScript (*.ps)</source>
         <translation>PostScript (*.ps)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="187"/>
+        <location filename="StatisticsView.py" line="184"/>
         <source>Encapsulated PostScript (*.eps)</source>
         <translation>Iekapsulētais PostScript (*.eps)</translation>
     </message>
@@ -58,98 +58,98 @@
 <context>
     <name>BaseTableView</name>
     <message>
-        <location filename="ListView.py" line="112"/>
+        <location filename="ListView.py" line="113"/>
         <source>%d/%d coins</source>
         <translation>%d/%d monētas</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="199"/>
+        <location filename="ListView.py" line="200"/>
         <source>Report preview</source>
         <translation>Atskaites priekšskatījums</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="199"/>
+        <location filename="ListView.py" line="200"/>
         <source>Nothing selected.
 Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="206"/>
+        <location filename="ListView.py" line="207"/>
         <source>Excel document (*.xls)</source>
         <translation>Excel dokuments (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="206"/>
+        <location filename="ListView.py" line="207"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Tīmekļlapa (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="206"/>
+        <location filename="ListView.py" line="207"/>
         <source>Text file (*.csv)</source>
         <translation>Teksta fails (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="206"/>
+        <location filename="ListView.py" line="207"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Teksta fails UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="219"/>
+        <location filename="ListView.py" line="220"/>
         <source>Saving list</source>
         <translation>Saglabā sarakstu</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="470"/>
+        <location filename="ListView.py" line="471"/>
         <source>Cancel</source>
         <translation>Atcelt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="311"/>
+        <location filename="ListView.py" line="312"/>
         <source>Updating records</source>
         <translation>Atjaunina ierakstus</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="483"/>
+        <location filename="ListView.py" line="484"/>
         <source>Saving...</source>
         <translation>Saglabā...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="451"/>
+        <location filename="ListView.py" line="452"/>
         <source>Inserting records</source>
         <translation>Ievieto ierakstus</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="463"/>
+        <location filename="ListView.py" line="464"/>
         <source>Delete</source>
         <translation>Dzēst</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="463"/>
+        <location filename="ListView.py" line="464"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="470"/>
+        <location filename="ListView.py" line="471"/>
         <source>Deleting records</source>
         <translation>Dzēš ierakstus</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="63"/>
+        <location filename="ListView.py" line="64"/>
         <source>0 coins selected</source>
         <translation>0 atlasītas</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="155"/>
+        <location filename="ListView.py" line="156"/>
         <source>%n coin(s) selected</source>
         <translation><numerusform>0 atlasītas</numerusform><numerusform>%n atlasīta</numerusform><numerusform>%n atlasītas</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="66"/>
+        <location filename="ListView.py" line="67"/>
         <source>Custom sorting</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="66"/>
+        <location filename="ListView.py" line="67"/>
         <source>Default sort order changed.
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation type="unfinished"/>
@@ -375,363 +375,388 @@ Nepieciešams restartēt OpenNumismat.</translation>
 <context>
     <name>CollectionFieldsBase</name>
     <message>
-        <location filename="CollectionFields.py" line="124"/>
+        <location filename="CollectionFields.py" line="126"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="126"/>
+        <location filename="CollectionFields.py" line="128"/>
         <source>Name</source>
         <translation>Nosaukums</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="127"/>
+        <location filename="CollectionFields.py" line="129"/>
         <source>Value</source>
         <translation>Nomināls</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="128"/>
+        <location filename="CollectionFields.py" line="130"/>
         <source>Unit</source>
         <translation>Valūta</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="129"/>
+        <location filename="CollectionFields.py" line="131"/>
         <source>Country</source>
         <translation>Valsts</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="130"/>
+        <location filename="CollectionFields.py" line="132"/>
         <source>Year</source>
         <translation>Gads</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="131"/>
+        <location filename="CollectionFields.py" line="133"/>
         <source>Period</source>
         <translation>Periods</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="132"/>
+        <location filename="CollectionFields.py" line="134"/>
         <source>Mint</source>
         <translation>Kaltuve</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="133"/>
+        <location filename="CollectionFields.py" line="135"/>
         <source>Mint mark</source>
         <translation>Kaltuves zīme</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="134"/>
+        <location filename="CollectionFields.py" line="136"/>
         <source>Date of issue</source>
         <translation>Izdošanas datums</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="146"/>
+        <location filename="CollectionFields.py" line="214"/>
         <source>Type</source>
         <translation>Tips</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="136"/>
+        <location filename="CollectionFields.py" line="138"/>
         <source>Series</source>
         <translation>Sērija</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="186"/>
+        <location filename="CollectionFields.py" line="188"/>
         <source>Subject</source>
         <translation>Tēma</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="138"/>
+        <location filename="CollectionFields.py" line="140"/>
         <source>Status</source>
         <translation>Statuss</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="139"/>
+        <location filename="CollectionFields.py" line="141"/>
         <source>Material</source>
         <translation>Materiāls</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="140"/>
+        <location filename="CollectionFields.py" line="142"/>
         <source>Fineness</source>
         <translation>Raudze</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="141"/>
+        <location filename="CollectionFields.py" line="143"/>
         <source>Shape</source>
         <translation>Forma</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="142"/>
+        <location filename="CollectionFields.py" line="144"/>
         <source>Diameter</source>
         <translation>Diametrs</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="143"/>
+        <location filename="CollectionFields.py" line="145"/>
         <source>Thickness</source>
         <translation>Biezums</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="144"/>
+        <location filename="CollectionFields.py" line="146"/>
         <source>Weight</source>
         <translation>Svars</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="145"/>
+        <location filename="CollectionFields.py" line="147"/>
         <source>Grade</source>
         <translation>Kvalitāte</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="147"/>
+        <location filename="CollectionFields.py" line="149"/>
         <source>Label</source>
         <translation>Uzraksts</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="148"/>
+        <location filename="CollectionFields.py" line="150"/>
         <source>ObvRev</source>
         <translation>AvRev</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="149"/>
+        <location filename="CollectionFields.py" line="151"/>
         <source>Quality</source>
         <translation>Kvalitāte</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="150"/>
+        <location filename="CollectionFields.py" line="152"/>
         <source>Mintage</source>
         <translation>Tirāža</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="151"/>
+        <location filename="CollectionFields.py" line="153"/>
         <source>Emission period</source>
         <translation>Emisijas periods</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="152"/>
+        <location filename="CollectionFields.py" line="154"/>
         <source>1#</source>
         <translation>1#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="153"/>
+        <location filename="CollectionFields.py" line="155"/>
         <source>2#</source>
         <translation>2#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="154"/>
+        <location filename="CollectionFields.py" line="156"/>
         <source>3#</source>
         <translation>3#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="155"/>
+        <location filename="CollectionFields.py" line="157"/>
         <source>4#</source>
         <translation>4#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="156"/>
+        <location filename="CollectionFields.py" line="158"/>
         <source>Rarity</source>
         <translation>Retums</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="157"/>
+        <location filename="CollectionFields.py" line="159"/>
         <source>Fine</source>
         <translation>Fine</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="158"/>
+        <location filename="CollectionFields.py" line="160"/>
         <source>VF</source>
         <translation>VF</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="159"/>
+        <location filename="CollectionFields.py" line="161"/>
         <source>XF</source>
         <translation>XF</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="160"/>
+        <location filename="CollectionFields.py" line="162"/>
         <source>Unc</source>
         <translation>Unc</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="206"/>
+        <location filename="CollectionFields.py" line="208"/>
         <source>Variety</source>
         <translation>Variācija</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="179"/>
+        <location filename="CollectionFields.py" line="181"/>
         <source>Obverse</source>
         <translation>Averss</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="182"/>
+        <location filename="CollectionFields.py" line="184"/>
         <source>Reverse</source>
         <translation>Reverss</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="185"/>
+        <location filename="CollectionFields.py" line="187"/>
         <source>Edge</source>
         <translation>Mala</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="171"/>
+        <location filename="CollectionFields.py" line="173"/>
         <source>Date</source>
         <translation>Datums</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="172"/>
+        <location filename="CollectionFields.py" line="174"/>
         <source>Price</source>
         <translation>Cena</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="167"/>
+        <location filename="CollectionFields.py" line="169"/>
         <source>Paid</source>
         <translation>Samaksāts</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="168"/>
+        <location filename="CollectionFields.py" line="170"/>
         <source>Seller</source>
         <translation>Pārdevējs</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="175"/>
+        <location filename="CollectionFields.py" line="177"/>
         <source>Place</source>
         <translation>Vieta</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="176"/>
+        <location filename="CollectionFields.py" line="178"/>
         <source>Info</source>
         <translation>Informācija</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="173"/>
+        <location filename="CollectionFields.py" line="175"/>
         <source>Bailed</source>
         <translation>Saņemts</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="174"/>
+        <location filename="CollectionFields.py" line="176"/>
         <source>Buyer</source>
         <translation>Pircējs</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="177"/>
+        <location filename="CollectionFields.py" line="179"/>
         <source>Note</source>
         <translation>Piezīme</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="178"/>
+        <location filename="CollectionFields.py" line="180"/>
         <source>Image</source>
         <translation>Attēls</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="183"/>
+        <location filename="CollectionFields.py" line="185"/>
         <source>Design</source>
         <translation>Dizains</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="184"/>
+        <location filename="CollectionFields.py" line="186"/>
         <source>Designer</source>
         <translation>Mākslinieks</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="187"/>
+        <location filename="CollectionFields.py" line="189"/>
         <source>Photo 1</source>
         <translation>Attēls 1</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="188"/>
+        <location filename="CollectionFields.py" line="190"/>
         <source>Photo 2</source>
         <translation>Attēls 2</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="189"/>
+        <location filename="CollectionFields.py" line="191"/>
         <source>Photo 3</source>
         <translation>Attēls 3</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="190"/>
+        <location filename="CollectionFields.py" line="192"/>
         <source>Photo 4</source>
         <translation>Attēls 4</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="191"/>
+        <location filename="CollectionFields.py" line="193"/>
         <source>Defect</source>
         <translation>Defekts</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="192"/>
+        <location filename="CollectionFields.py" line="194"/>
         <source>Storage</source>
         <translation>Glabātuve</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="193"/>
+        <location filename="CollectionFields.py" line="195"/>
         <source>Features</source>
         <translation>Īpašības</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="194"/>
+        <location filename="CollectionFields.py" line="196"/>
         <source>Created at</source>
         <translation>Izveidota</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="195"/>
+        <location filename="CollectionFields.py" line="197"/>
         <source>Updated at</source>
         <translation>Atjaunināta</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="196"/>
+        <location filename="CollectionFields.py" line="198"/>
         <source>Quantity</source>
         <translation>Skaits</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="197"/>
+        <location filename="CollectionFields.py" line="199"/>
         <source>URL</source>
         <translation>Adrese</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="198"/>
+        <location filename="CollectionFields.py" line="200"/>
         <source>Barcode</source>
         <translation>Svītrkods</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="199"/>
+        <location filename="CollectionFields.py" line="201"/>
         <source>Ruler</source>
         <translation>Valdnieks</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="200"/>
+        <location filename="CollectionFields.py" line="202"/>
         <source>Region</source>
         <translation>Reģions</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="202"/>
+        <location filename="CollectionFields.py" line="204"/>
         <source>Engraver</source>
         <translation>Gravieris</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="204"/>
+        <location filename="CollectionFields.py" line="206"/>
         <source>Color</source>
         <translation>Krāsa</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="205"/>
+        <location filename="CollectionFields.py" line="207"/>
         <source>Description</source>
         <translation>Apraksts</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="207"/>
+        <location filename="CollectionFields.py" line="209"/>
         <source>Format</source>
         <translation>Formāts</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="208"/>
+        <location filename="CollectionFields.py" line="210"/>
         <source>Condition</source>
         <translation>Stāvoklis</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="209"/>
+        <location filename="CollectionFields.py" line="211"/>
         <source>Category</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="210"/>
+        <location filename="CollectionFields.py" line="212"/>
         <source>Position</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="213"/>
+        <source>Emitent</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="216"/>
+        <source>Signature</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="217"/>
+        <source>Address</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="218"/>
+        <source>Latitude</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="219"/>
+        <source>Longitude</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -792,77 +817,77 @@ Nepieciešams restartēt OpenNumismat.</translation>
         <translation>0, lai saglabātu oriģinālo izmēru</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="202"/>
+        <location filename="SettingsDialog.py" line="199"/>
         <source>Preview image height</source>
         <translation>Priekšskatījuma attēla augstums</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="204"/>
+        <location filename="SettingsDialog.py" line="201"/>
         <source>Free format numeric fields</source>
         <translation>Skaitļu lauku brīvais formāts</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="214"/>
+        <location filename="SettingsDialog.py" line="211"/>
         <source>Store column sorting</source>
         <translation>Saglabāt kolonnu kārtojumu</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="219"/>
+        <location filename="SettingsDialog.py" line="216"/>
         <source>Images at bottom</source>
         <translation>Attēli apakšpusē</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="223"/>
+        <location filename="SettingsDialog.py" line="220"/>
         <source>Enable BC</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="227"/>
+        <location filename="SettingsDialog.py" line="224"/>
         <source>Use RichText format</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="232"/>
+        <location filename="SettingsDialog.py" line="229"/>
         <source>Show icons from reference (slow)</source>
         <translation>Rādīt ikonas no kartotēkas (lēni)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="233"/>
+        <location filename="SettingsDialog.py" line="230"/>
         <source>in tree</source>
         <translation>kokā</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="236"/>
+        <location filename="SettingsDialog.py" line="233"/>
         <source>in filters</source>
         <translation>filtros</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="239"/>
+        <location filename="SettingsDialog.py" line="236"/>
         <source>in list</source>
         <translation>sarakstā</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="246"/>
+        <location filename="SettingsDialog.py" line="243"/>
         <source>Used statuses</source>
         <translation>Izmantotie statusi</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="264"/>
+        <location filename="SettingsDialog.py" line="261"/>
         <source>Default status for new coin</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="290"/>
+        <location filename="SettingsDialog.py" line="287"/>
         <source>Settings</source>
         <translation>Iestatījumi</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="290"/>
+        <location filename="SettingsDialog.py" line="287"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Priekšskatījuma attēla augstums ir mainīts.. Vai pārrēķināt to tūlīt?</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="209"/>
+        <location filename="SettingsDialog.py" line="206"/>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation>Konvertēt 0.5 uz ½ (atbalstīti ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
@@ -903,27 +928,27 @@ Nepieciešams restartēt OpenNumismat.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="228"/>
+        <location filename="Colnect.py" line="236"/>
         <source>Add</source>
         <translation>Pievienot</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="230"/>
+        <location filename="Colnect.py" line="238"/>
         <source>Add and close</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="391"/>
+        <location filename="Colnect.py" line="411"/>
         <source>(All)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="430"/>
+        <location filename="Colnect.py" line="462"/>
         <source>Downloading</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="430"/>
+        <location filename="Colnect.py" line="462"/>
         <source>Cancel</source>
         <translation>Atcelt</translation>
     </message>
@@ -931,27 +956,27 @@ Nepieciešams restartēt OpenNumismat.</translation>
 <context>
     <name>ColnectSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="417"/>
+        <location filename="SettingsDialog.py" line="414"/>
         <source>Language</source>
         <translation>Valoda</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="419"/>
+        <location filename="SettingsDialog.py" line="416"/>
         <source>Close dialog after adding item</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="424"/>
+        <location filename="SettingsDialog.py" line="421"/>
         <source>Skip currency symbol</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="429"/>
+        <location filename="SettingsDialog.py" line="426"/>
         <source>Clear cache</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="440"/>
+        <location filename="SettingsDialog.py" line="437"/>
         <source>Use Colnect</source>
         <translation type="unfinished"/>
     </message>
@@ -995,99 +1020,104 @@ Nepieciešams restartēt OpenNumismat.</translation>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="36"/>
+        <location filename="DetailsTabWidget.py" line="38"/>
         <source>Coin</source>
         <translation>Monēta</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="445"/>
+        <location filename="DetailsTabWidget.py" line="451"/>
         <source>Market</source>
         <translation>Tirgus</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="293"/>
+        <location filename="DetailsTabWidget.py" line="299"/>
         <source>Parameters</source>
         <translation>Parametri</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="57"/>
+        <location filename="DetailsTabWidget.py" line="63"/>
         <source>Design</source>
         <translation>Dizains</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="67"/>
+        <location filename="DetailsTabWidget.py" line="73"/>
         <source>Classification</source>
         <translation>Klasifikācija</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="186"/>
+        <location filename="DetailsTabWidget.py" line="192"/>
         <source>Main details</source>
         <translation>Galvenā informācija</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="204"/>
+        <location filename="DetailsTabWidget.py" line="210"/>
         <source>State</source>
         <translation>Stāvoklis</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="218"/>
+        <location filename="DetailsTabWidget.py" line="224"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Nav ko parādīt. Mainiet monētas statusu iepriekšējā cilnē</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="227"/>
+        <location filename="DetailsTabWidget.py" line="233"/>
         <source>Buy</source>
         <translation>Pirkšana</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="246"/>
+        <location filename="DetailsTabWidget.py" line="252"/>
         <source>Sale</source>
         <translation>Pārdošana</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="265"/>
+        <location filename="DetailsTabWidget.py" line="271"/>
         <source>Pass</source>
         <translation>Pāreja</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="305"/>
+        <location filename="DetailsTabWidget.py" line="311"/>
         <source>Minting</source>
         <translation>Kalums</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="326"/>
+        <location filename="DetailsTabWidget.py" line="332"/>
         <source>Obverse</source>
         <translation>Averss</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="337"/>
+        <location filename="DetailsTabWidget.py" line="343"/>
         <source>Reverse</source>
         <translation>Reverss</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="348"/>
+        <location filename="DetailsTabWidget.py" line="354"/>
         <source>Edge</source>
         <translation>Mala</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="374"/>
+        <location filename="DetailsTabWidget.py" line="380"/>
         <source>Catalogue</source>
         <translation>Katalogs</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="383"/>
+        <location filename="DetailsTabWidget.py" line="389"/>
         <source>Price</source>
         <translation>Cena</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="392"/>
+        <location filename="DetailsTabWidget.py" line="398"/>
         <source>Variation</source>
         <translation>Variācija</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="470"/>
+        <location filename="DetailsTabWidget.py" line="476"/>
         <source>Commission</source>
         <translation>Komisija</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="42"/>
+        <source>Map</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1239,17 +1269,17 @@ Vai vēlaties nosūtīt kļūdas ziņojumu autoram?</translation>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="321"/>
+        <location filename="SettingsDialog.py" line="318"/>
         <source>Rename</source>
         <translation>Pārdēvēt</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="326"/>
+        <location filename="SettingsDialog.py" line="323"/>
         <source>Revert to default</source>
         <translation>  Atjaunot noklusējumus  </translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="334"/>
+        <location filename="SettingsDialog.py" line="331"/>
         <source>Global enabled fields:</source>
         <translation>Parādāmie lauki:</translation>
     </message>
@@ -1257,37 +1287,37 @@ Vai vēlaties nosūtīt kļūdas ziņojumu autoram?</translation>
 <context>
     <name>FilterMenuButton</name>
     <message>
-        <location filename="HeaderFilterMenu.py" line="46"/>
+        <location filename="HeaderFilterMenu.py" line="54"/>
         <source>Filter items</source>
         <translation>Filtrēt</translation>
     </message>
     <message>
-        <location filename="HeaderFilterMenu.py" line="135"/>
+        <location filename="HeaderFilterMenu.py" line="143"/>
         <source>(Images)</source>
         <translation>(Attēli)</translation>
     </message>
     <message>
-        <location filename="HeaderFilterMenu.py" line="137"/>
+        <location filename="HeaderFilterMenu.py" line="145"/>
         <source>(Text)</source>
         <translation>(Teksts)</translation>
     </message>
     <message>
-        <location filename="HeaderFilterMenu.py" line="139"/>
+        <location filename="HeaderFilterMenu.py" line="147"/>
         <source>(Data)</source>
         <translation>(Dati)</translation>
     </message>
     <message>
-        <location filename="HeaderFilterMenu.py" line="256"/>
+        <location filename="HeaderFilterMenu.py" line="266"/>
         <source>(Select all)</source>
         <translation>(Atlasīt visu)</translation>
     </message>
     <message>
-        <location filename="HeaderFilterMenu.py" line="263"/>
+        <location filename="HeaderFilterMenu.py" line="273"/>
         <source>(Blanks)</source>
         <translation>(tukšs)</translation>
     </message>
     <message>
-        <location filename="HeaderFilterMenu.py" line="276"/>
+        <location filename="HeaderFilterMenu.py" line="286"/>
         <source>Filter</source>
         <translation>Filtrs</translation>
     </message>
@@ -1295,85 +1325,90 @@ Vai vēlaties nosūtīt kļūdas ziņojumu autoram?</translation>
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="511"/>
+        <location filename="DetailsTabWidget.py" line="522"/>
         <source>Design</source>
         <translation>Dizains</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="515"/>
+        <location filename="DetailsTabWidget.py" line="526"/>
         <source>Images</source>
         <translation>Attēli</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="579"/>
+        <location filename="DetailsTabWidget.py" line="590"/>
         <source>Main details</source>
         <translation>Galvenā informācija</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="582"/>
+        <location filename="DetailsTabWidget.py" line="593"/>
         <source>Generate</source>
         <translation>Izveidot</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="601"/>
+        <location filename="DetailsTabWidget.py" line="612"/>
         <source>Obverse</source>
         <translation>Averss</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="613"/>
+        <location filename="DetailsTabWidget.py" line="624"/>
         <source>Reverse</source>
         <translation>Reverss</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="625"/>
+        <location filename="DetailsTabWidget.py" line="636"/>
         <source>Edge</source>
         <translation>Mala</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="634"/>
+        <location filename="DetailsTabWidget.py" line="645"/>
         <source>Variation</source>
         <translation>Variācija</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="733"/>
+        <location filename="DetailsTabWidget.py" line="789"/>
         <source>Commission</source>
         <translation>Komisija</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="735"/>
+        <location filename="DetailsTabWidget.py" line="791"/>
         <source>Available format 12.5 or 10%</source>
         <translation>Pieejamais formāts 12.5 vai 10%</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="514"/>
+        <source>Map</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>GeoChartCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="102"/>
+        <location filename="StatisticsView.py" line="99"/>
         <source>Country</source>
         <translation>Valsts</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="102"/>
+        <location filename="StatisticsView.py" line="99"/>
         <source>Number of coins</source>
         <translation>Monētu skaits</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="111"/>
+        <location filename="StatisticsView.py" line="108"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Tīmekļlapa (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="111"/>
+        <location filename="StatisticsView.py" line="108"/>
         <source>PNG image (*.png)</source>
         <translation>PNG attēls (*.png)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="124"/>
+        <location filename="StatisticsView.py" line="121"/>
         <source>Saving</source>
         <translation>Saglabā</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="124"/>
+        <location filename="StatisticsView.py" line="121"/>
         <source>Image not ready. Please try again later</source>
         <translation>Attēls nav gatavs. Lūdzu, vēlāk mēģiniet vēlreiz</translation>
     </message>
@@ -1389,42 +1424,42 @@ Vai vēlaties nosūtīt kļūdas ziņojumu autoram?</translation>
 <context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1249"/>
+        <location filename="ListView.py" line="1254"/>
         <source>Edit...</source>
         <translation>Rediģēt...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1257"/>
+        <location filename="ListView.py" line="1262"/>
         <source>Copy</source>
         <translation>Kopēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1260"/>
+        <location filename="ListView.py" line="1265"/>
         <source>Paste</source>
         <translation>Ielīmēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1265"/>
+        <location filename="ListView.py" line="1270"/>
         <source>Clone</source>
         <translation>Klonēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1269"/>
+        <location filename="ListView.py" line="1274"/>
         <source>Multi edit...</source>
         <translation>Rediģēt atlasītās...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1290"/>
+        <location filename="ListView.py" line="1295"/>
         <source>Delete</source>
         <translation>Dzēst</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1277"/>
+        <location filename="ListView.py" line="1282"/>
         <source>Move up</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="1282"/>
+        <location filename="ListView.py" line="1287"/>
         <source>Move down</source>
         <translation type="unfinished"/>
     </message>
@@ -1575,47 +1610,47 @@ lai pievienotu attēlu)</translation>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="615"/>
+        <location filename="ListView.py" line="622"/>
         <source>Select columns...</source>
         <translation>Atlasīt kolonnas...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="616"/>
+        <location filename="ListView.py" line="623"/>
         <source>Hide</source>
         <translation>Slēpt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="618"/>
+        <location filename="ListView.py" line="625"/>
         <source>Adjust size</source>
         <translation>Pielāgot izmēru</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="801"/>
+        <location filename="ListView.py" line="808"/>
         <source>Edit...</source>
         <translation>Rediģēt...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="808"/>
+        <location filename="ListView.py" line="815"/>
         <source>Copy</source>
         <translation>Kopēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="810"/>
+        <location filename="ListView.py" line="817"/>
         <source>Paste</source>
         <translation>Ielīmēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="822"/>
+        <location filename="ListView.py" line="829"/>
         <source>Filter in</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="814"/>
+        <location filename="ListView.py" line="821"/>
         <source>Clone</source>
         <translation>Klonēt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="817"/>
+        <location filename="ListView.py" line="824"/>
         <source>Multi edit...</source>
         <translation>Rediģēt atlasītās...</translation>
     </message>
@@ -1665,12 +1700,12 @@ lai pievienotu attēlu)</translation>
         <translation>Atvērt failu</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="829"/>
+        <location filename="ListView.py" line="836"/>
         <source>Move up</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="834"/>
+        <location filename="ListView.py" line="841"/>
         <source>Move down</source>
         <translation type="unfinished"/>
     </message>
@@ -2070,22 +2105,22 @@ Copyright (C) 2011-2019 Vitaly Ignatov
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="814"/>
+        <location filename="MainWindow.py" line="808"/>
         <source>Updates</source>
         <translation>Atjauninājumi</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="814"/>
+        <location filename="MainWindow.py" line="808"/>
         <source>You already have the latest version.</source>
         <translation>Šī ir jaunākā versija</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="825"/>
+        <location filename="MainWindow.py" line="819"/>
         <source>New version</source>
         <translation>Jauna versija</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="825"/>
+        <location filename="MainWindow.py" line="819"/>
         <source>New version is available. Download it now?</source>
         <translation>Pieejama jauna versija. Vai vēlaties to lejupielādēt?</translation>
     </message>
@@ -2428,22 +2463,22 @@ Izveidota jauna</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="475"/>
+        <location filename="SettingsDialog.py" line="472"/>
         <source>Settings</source>
         <translation>Iestatījumi</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="478"/>
+        <location filename="SettingsDialog.py" line="475"/>
         <source>Main</source>
         <translation>Galvenais</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="479"/>
+        <location filename="SettingsDialog.py" line="476"/>
         <source>Collection</source>
         <translation>Kolekcija</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="482"/>
+        <location filename="SettingsDialog.py" line="479"/>
         <source>Fields</source>
         <translation>Lauki</translation>
     </message>
@@ -2451,17 +2486,17 @@ Izveidota jauna</translation>
 <context>
     <name>StackedBarCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="275"/>
+        <location filename="StatisticsView.py" line="272"/>
         <source>Building chart</source>
         <translation>Izveido diagrammu</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="275"/>
+        <location filename="StatisticsView.py" line="272"/>
         <source>Cancel</source>
         <translation>Atcelt</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="290"/>
+        <location filename="StatisticsView.py" line="287"/>
         <source>Drawing chart</source>
         <translation>Zīmē diagrammu</translation>
     </message>
@@ -2469,157 +2504,157 @@ Izveidota jauna</translation>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="362"/>
+        <location filename="StatisticsView.py" line="359"/>
         <source>Bar</source>
         <translation>Stabiņu</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="363"/>
+        <location filename="StatisticsView.py" line="360"/>
         <source>Horizontal bar</source>
         <translation>Joslu</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="364"/>
+        <location filename="StatisticsView.py" line="361"/>
         <source>Pie</source>
         <translation>Sektoru</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="365"/>
+        <location filename="StatisticsView.py" line="362"/>
         <source>Stacked bar</source>
         <translation>Joslu grēdu</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="366"/>
+        <location filename="StatisticsView.py" line="363"/>
         <source>Progress</source>
         <translation>Progresa</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="368"/>
+        <location filename="StatisticsView.py" line="365"/>
         <source>GeoChart</source>
         <translation>GeoChart</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="369"/>
+        <location filename="StatisticsView.py" line="366"/>
         <source>Chart:</source>
         <translation>Diagramma:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="372"/>
+        <location filename="StatisticsView.py" line="369"/>
         <source>Field:</source>
         <translation>Lauks:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="377"/>
+        <location filename="StatisticsView.py" line="374"/>
         <source>Additional field:</source>
         <translation>Papildlauks:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="382"/>
+        <location filename="StatisticsView.py" line="379"/>
         <source>Sum per:</source>
         <translation>Kopā par:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="385"/>
+        <location filename="StatisticsView.py" line="382"/>
         <source>Year</source>
         <translation>Gadu</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="386"/>
+        <location filename="StatisticsView.py" line="383"/>
         <source>Month</source>
         <translation>Mēnesi</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="387"/>
+        <location filename="StatisticsView.py" line="384"/>
         <source>Week</source>
         <translation>Nedēļu</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="388"/>
+        <location filename="StatisticsView.py" line="385"/>
         <source>Day</source>
         <translation>Dienu</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="391"/>
+        <location filename="StatisticsView.py" line="388"/>
         <source>Items:</source>
         <translation>Vienumi:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="394"/>
+        <location filename="StatisticsView.py" line="391"/>
         <source>Count</source>
         <translation>Skaits</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="395"/>
+        <location filename="StatisticsView.py" line="392"/>
         <source>Price</source>
         <translation>Cena</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="396"/>
+        <location filename="StatisticsView.py" line="393"/>
         <source>Total price</source>
         <translation>Kopējā cena</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="397"/>
+        <location filename="StatisticsView.py" line="394"/>
         <source>Created</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="400"/>
+        <location filename="StatisticsView.py" line="397"/>
         <source>Multicolor</source>
         <translation>Daudzkrāsaina</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="403"/>
+        <location filename="StatisticsView.py" line="400"/>
         <source>Region:</source>
         <translation>Reģions:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="406"/>
+        <location filename="StatisticsView.py" line="403"/>
         <source>All</source>
         <translation>Visi</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="407"/>
+        <location filename="StatisticsView.py" line="404"/>
         <source>Europe</source>
         <translation>Eiropa</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="408"/>
+        <location filename="StatisticsView.py" line="405"/>
         <source>Africa</source>
         <translation>Āfrika</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="409"/>
+        <location filename="StatisticsView.py" line="406"/>
         <source>Americas</source>
         <translation>Amerika</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="410"/>
+        <location filename="StatisticsView.py" line="407"/>
         <source>Asia</source>
         <translation>Āzija</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="411"/>
+        <location filename="StatisticsView.py" line="408"/>
         <source>Oceania</source>
         <translation>Okeānija</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="418"/>
+        <location filename="StatisticsView.py" line="415"/>
         <source>Save chart</source>
         <translation>Saglabāt diagrammu</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="587"/>
+        <location filename="StatisticsView.py" line="584"/>
         <source>Paid</source>
         <translation>Samaksāts</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="590"/>
+        <location filename="StatisticsView.py" line="587"/>
         <source>Total paid</source>
         <translation>Kopā samaksāts</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="596"/>
+        <location filename="StatisticsView.py" line="593"/>
         <source>Number of coins</source>
         <translation>Monētu skaits</translation>
     </message>
@@ -2916,12 +2951,12 @@ Vispirms pievienojiet jaunu.</translation>
 <context>
     <name>UpdaterTo2</name>
     <message>
-        <location filename="VersionUpdater.py" line="231"/>
+        <location filename="VersionUpdater.py" line="234"/>
         <source>Saving...</source>
         <translation>Saglabā...</translation>
     </message>
     <message>
-        <location filename="VersionUpdater.py" line="247"/>
+        <location filename="VersionUpdater.py" line="250"/>
         <source>Vacuum...</source>
         <translation>Saspiest...</translation>
     </message>
@@ -2929,7 +2964,7 @@ Vispirms pievienojiet jaunu.</translation>
 <context>
     <name>UpdaterTo4</name>
     <message>
-        <location filename="VersionUpdater.py" line="347"/>
+        <location filename="VersionUpdater.py" line="350"/>
         <source>Saving...</source>
         <translation>Saglabā...</translation>
     </message>
@@ -2937,7 +2972,7 @@ Vispirms pievienojiet jaunu.</translation>
 <context>
     <name>UpdaterTo5</name>
     <message>
-        <location filename="VersionUpdater.py" line="399"/>
+        <location filename="VersionUpdater.py" line="402"/>
         <source>Saving...</source>
         <translation>Saglabā...</translation>
     </message>
@@ -3017,7 +3052,7 @@ Vispirms pievienojiet jaunu.</translation>
 <context>
     <name>_Updater</name>
     <message>
-        <location filename="VersionUpdater.py" line="64"/>
+        <location filename="VersionUpdater.py" line="67"/>
         <source>Updating records</source>
         <translation>Atjaunina ierakstus</translation>
     </message>
