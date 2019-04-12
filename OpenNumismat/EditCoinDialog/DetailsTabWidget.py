@@ -708,6 +708,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
             self.map_item.markerRemoved.connect(self.mapMarkerRemoved)
             layout.addWidget(self.map_item, layout.row, 0, 1, layout.columnCount)
 
+            self.items['address'].widget().findClicked.connect(self.map_item.geocode)
             self.items['latitude'].widget().textChanged.connect(self.mapChanged)
             self.items['longitude'].widget().textChanged.connect(self.mapChanged)
 
@@ -718,14 +719,15 @@ class FormDetailsTabWidget(DetailsTabWidget):
         lng = textToFloat(self.items['longitude'].value())
         self.map_item.moveMarker(lat, lng)
 
-    def mapMarkerMoved(self, lat, lng):
+    def mapMarkerMoved(self, lat, lng, address_changed):
         self.items['latitude'].widget().textChanged.disconnect(self.mapChanged)
         self.items['longitude'].widget().textChanged.disconnect(self.mapChanged)
 
         self.items['latitude'].setValue("%.4f" % lat)
         self.items['longitude'].setValue("%.4f" % lng)
-        address = self.map_item.reverseGeocode(lat, lng)
-        self.items['address'].setValue(address)
+        if address_changed:
+            address = self.map_item.reverseGeocode(lat, lng)
+            self.items['address'].setValue(address)
 
         self.items['latitude'].widget().textChanged.connect(self.mapChanged)
         self.items['longitude'].widget().textChanged.connect(self.mapChanged)

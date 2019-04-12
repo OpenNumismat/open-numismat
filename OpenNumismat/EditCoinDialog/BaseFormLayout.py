@@ -31,6 +31,8 @@ class FormItem(object):
             else:
                 if self._field == 'url':
                     self._widget = UrlLineEdit(parent)
+                elif self._field == 'address':
+                    self._widget = AddressLineEdit(parent)
                 else:
                     self._widget = LineEdit(parent)
         elif self._type == Type.ShortString:

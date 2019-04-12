@@ -38,6 +38,7 @@ HTML = '''
     </style>
     <script>
 var map;
+var geocoder;
 var marker = null;
 
 function initialize() {
@@ -49,6 +50,8 @@ function initialize() {
     streetViewControl: false,
     fullscreenControl: false
   });
+
+  geocoder = new google.maps.Geocoder();
 
   map.addListener('dragend', function () {
     var center = map.getCenter();
@@ -76,10 +79,10 @@ function gmap_addMarker(lat, lng) {
   });
 
   marker.addListener('dragend', function () {
-    qtWidget.markerMoved(marker.position.lat(), marker.position.lng());
+    qtWidget.markerMoved(marker.position.lat(), marker.position.lng(), true);
   });
   marker.addListener('click', function () {
-    qtWidget.markerMoved(marker.position.lat(), marker.position.lng());
+    qtWidget.markerMoved(marker.position.lat(), marker.position.lng(), true);
   });
   marker.addListener('rightclick', function () {
     qtWidget.markerRemoved();
@@ -99,6 +102,16 @@ function gmap_moveMarker(lat, lng) {
     marker.setPosition(coords);
   }
   map.setCenter(coords);
+}
+function gmap_geocode(address) {
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === 'OK') {
+      lat = results[0].geometry.location.lat();
+      lng = results[0].geometry.location.lng();
+      gmap_moveMarker(lat, lng);
+      qtWidget.markerMoved(lat, lng, false);
+    }
+  });
 }
     </script>
     <script async defer
@@ -120,7 +133,7 @@ class BaseGMapsWidget(QWebView):
     mapMoved = pyqtSignal(float, float)
     mapZoomed = pyqtSignal(int)
     mapClicked = pyqtSignal(float, float)
-    markerMoved = pyqtSignal(float, float)
+    markerMoved = pyqtSignal(float, float, bool)
     markerRemoved = pyqtSignal()
 
     def __init__(self, parent):
@@ -219,7 +232,7 @@ class GMapsWidget(BaseGMapsWidget):
         self.lat = lat
         self.lng = lng
         self.runScript("gmap_addMarker(%f, %f)" % (self.lat, self.lng))
-        self.markerMoved.emit(self.lat, self.lng)
+        self.markerMoved.emit(self.lat, self.lng, True)
 
     def markerIsRemoved(self):
         self.lat = None
@@ -237,6 +250,10 @@ class GMapsWidget(BaseGMapsWidget):
             return json_data['results'][0]['formatted_address']
         except:
             return ''
+
+    @waitCursorDecorator
+    def geocode(self, address):
+        self.runScript('gmap_geocode("{}")'.format(address))
 
 
 class StaticGMapsWidget(BaseGMapsWidget):

@@ -147,9 +147,9 @@ class UrlLineEdit(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.lineEdit = LineEdit(parent)
+        self.lineEdit = LineEdit(self)
 
-        buttonLoad = QPushButton(createIcon('world.png'), '', parent)
+        buttonLoad = QPushButton(createIcon('world.png'), '', self)
         buttonLoad.setFixedWidth(25)
         buttonLoad.setToolTip(self.tr("Open specified URL"))
         buttonLoad.clicked.connect(self.clickedButtonLoad)
@@ -171,10 +171,8 @@ class UrlLineEdit(QWidget):
         self.setLayout(layout)
 
     def clickedButtonOpen(self):
-        file, _selectedFilter = QFileDialog.getOpenFileName(self,
-                                                 self.tr("Select file"),
-                                                 self.text(),
-                                                 "*.*")
+        file, _selectedFilter = QFileDialog.getOpenFileName(
+            self, self.tr("Select file"), self.text(), "*.*")
         if file:
             self.setText(file)
 
@@ -203,6 +201,53 @@ class UrlLineEdit(QWidget):
             self.buttonOpen.hide()
         else:
             self.buttonOpen.show()
+
+
+class AddressLineEdit(QWidget):
+    findClicked = pyqtSignal(str)
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.lineEdit = LineEdit(self)
+        self.lineEdit.returnPressed.connect(self.clickedButtonAddress)
+
+        self.buttonAddress = QPushButton(createIcon('find.png'), '', self)
+        self.buttonAddress.setFixedWidth(25)
+        self.buttonAddress.setToolTip(self.tr("Find address"))
+        self.buttonAddress.clicked.connect(self.clickedButtonAddress)
+
+        layout = QHBoxLayout()
+        layout.addWidget(self.lineEdit)
+        layout.addWidget(self.buttonAddress)
+        layout.setContentsMargins(QMargins())
+
+        self.setLayout(layout)
+
+    def clickedButtonAddress(self):
+        text = self.text().strip()
+        if text:
+            self.findClicked.emit(text)
+
+    def clear(self):
+        self.lineEdit.clear()
+
+    def setText(self, text):
+        self.lineEdit.setText(text)
+
+    def text(self):
+        return self.lineEdit.text()
+
+    def home(self, mark):
+        self.lineEdit.home(mark)
+
+    def setReadOnly(self, b):
+        self.lineEdit.setReadOnly(b)
+
+        if b:
+            self.buttonAddress.hide()
+        else:
+            self.buttonAddress.show()
 
 
 class LineEditRef(QWidget):
