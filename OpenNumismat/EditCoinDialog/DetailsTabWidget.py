@@ -6,6 +6,7 @@ from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.EditCoinDialog.GMapsWidget import StaticGMapsWidget, GMapsWidget, importedQtWebKit
 
@@ -367,6 +368,9 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['edge'])
         layout.addRow(self.items['edgelabel'])
 
+        layout.addRow(self.items['signaturetype'])
+        layout.addRow(self.items['signature'])
+
         return layout
 
     def subjectLayout(self):
@@ -593,10 +597,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 if self.reference.section('series'):
                     country.addDependent(self.items['series'].widget())
 
-        image_fields = ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                        'photo1', 'photo2', 'photo3', 'photo4')
-        for image_field_src in image_fields:
-            for image_field_dst in image_fields:
+        for image_field_src in ImageFields:
+            for image_field_dst in ImageFields:
                 if image_field_dst != image_field_src:
                     if not self.items[image_field_dst].isHidden():
                         src = self.items[image_field_src].widget()
@@ -612,9 +614,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 if self.usedFields[record.indexOf(item.field())]:
                     item.label().setCheckState(Qt.Checked)
 
-        image_fields = ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                        'photo1', 'photo2', 'photo3', 'photo4')
-        for image_field in image_fields:
+        for image_field in ImageFields:
             title = record.value(image_field + '_title')
             if title:
                 self.items[image_field].widget().setTitle(title)
@@ -669,9 +669,13 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def edgeDesignLayout(self):
         layout = DesignFormLayout(self.tr("Edge"))
 
-        layout.addImage(self.items['edgeimg'])
+        layout.addImage(self.items['edgeimg'], 2)
         layout.addRow(self.items['edge'])
         layout.addRow(self.items['edgelabel'])
+
+        layout.addImage(self.items['signatureimg'], 2)
+        layout.addRow(self.items['signaturetype'])
+        layout.addRow(self.items['signature'])
 
         return layout
 

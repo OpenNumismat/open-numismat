@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
+from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
@@ -143,9 +144,7 @@ class EditCoinDialog(QDialog):
                 value = value.strip()
             self.record.setValue(item.field(), value)
 
-        image_fields = ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                        'photo1', 'photo2', 'photo3', 'photo4')
-        for image_field in image_fields:
+        for image_field in ImageFields:
             item = self.items[image_field]
             value = item.widget().title
             if isinstance(value, str):

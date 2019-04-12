@@ -10,6 +10,7 @@ from PyQt5.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import CollectionFields
+from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.Collection.CollectionPages import CollectionPages
 from OpenNumismat.Collection.Password import cryptPassword, PasswordDialog
 from OpenNumismat.Collection.Description import CollectionDescription
@@ -171,8 +172,7 @@ class CollectionModel(QSqlTableModel):
         record.setValue('sort_id', sort_id + 1)
 
         self.database().transaction()
-        for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                      'photo1', 'photo2', 'photo3', 'photo4'):
+        for field in ImageFields:
             value = record.value(field)
             if value:
                 query = QSqlQuery(self.database())
@@ -211,8 +211,7 @@ class CollectionModel(QSqlTableModel):
 
         self.database().transaction()
         # TODO : check that images was realy changed
-        for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                      'photo1', 'photo2', 'photo3', 'photo4'):
+        for field in ImageFields:
             img_id = record.value(field + '_id')
             value = record.value(field)
             if not value:
@@ -287,8 +286,7 @@ class CollectionModel(QSqlTableModel):
         else:
             record = super().record()
 
-        for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                      'photo1', 'photo2', 'photo3', 'photo4'):
+        for field in ImageFields:
             record.append(QSqlField(field + '_title'))
             record.append(QSqlField(field + '_id'))
 
@@ -316,8 +314,7 @@ class CollectionModel(QSqlTableModel):
         record = super().record(row)
 
         ids = []
-        for field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                      'photo1', 'photo2', 'photo3', 'photo4'):
+        for field in ImageFields:
             value = record.value(field)
             if value:
                 ids.append(value)
@@ -1127,7 +1124,7 @@ class Collection(QtCore.QObject):
 
     def exportToMobile(self, params):
         IMAGE_FORMAT = 'jpg'
-        SKIPPED_FIELDS = ('edgeimg', 'photo1', 'photo2', 'photo3', 'photo4',
+        SKIPPED_FIELDS = ('signatureimg', 'varietyimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4',
             'obversedesigner', 'reversedesigner', 'catalognum2', 'catalognum3', 'catalognum4',
             'saledate', 'saleprice', 'totalsaleprice', 'buyer', 'saleplace', 'saleinfo',
             'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace', 'payinfo',
@@ -1437,8 +1434,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             select_query.addBindValue(query.record().value(0))
             select_query.exec_()
             if select_query.first():
-                dst_fields = ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                              'photo1', 'photo2', 'photo3', 'photo4') + \
+                dst_fields = ImageFields + \
                              ('id', 'image', 'sort_id')
                 sql_dst_fields = ','.join(['coins.%s AS coins_%s' % (f, f) for f in dst_fields])
                 sql_src_fields = ','.join(['src_coins.%s' % f for f in fields])
@@ -1477,8 +1473,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                                 img_id = None
 
                             up_query.addBindValue(img_id)
-                        elif field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                                       'photo1', 'photo2', 'photo3', 'photo4'):
+                        elif field in ImageFields:
                             img_id = sel_query.record().value(field)
                             old_img_id = sel_query.record().value('coins_%s' % field)
                             if img_id and old_img_id:
@@ -1532,8 +1527,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                             else:
                                 img_id = None
                             ins_query.addBindValue(img_id)
-                        elif field in ('obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                                       'photo1', 'photo2', 'photo3', 'photo4'):
+                        elif field in ImageFields:
                             old_img_id = sel_query.record().value(field)
                             if old_img_id:
                                 sql = "INSERT INTO photos (title, image) SELECT title, image FROM src.photos WHERE id=?"

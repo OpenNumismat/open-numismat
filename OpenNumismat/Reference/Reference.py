@@ -302,7 +302,6 @@ class Reference(QtCore.QObject):
         self.__createReferenceSection(None, fields.material, self.tr("M"))
         self.__createReferenceSection(None, fields.shape, self.tr("F"))
         self.__createReferenceSection(None, fields.quality, self.tr("Q"))
-        self.__createReferenceSection(None, fields.edge, self.tr("E"))
         self.__createReferenceSection(None, fields.rarity, self.tr("R"))
         self.__createReferenceSection(None, fields.obvrev)
         self.__createReferenceSection(None, fields.type, self.tr("T"))
@@ -316,6 +315,9 @@ class Reference(QtCore.QObject):
         if 'obversecolor' in self.userFields or 'reversecolor' in self.userFields:
             ref_color = ReferenceSection('color', self.tr("Color"))
             self.sections.append(ref_color)
+        if 'edge' in self.userFields or 'signaturetype' in self.userFields:
+            ref_edge = ReferenceSection('edge', self.tr("Edge"))
+            self.sections.append(ref_edge)
 
     def __createReferenceSection(self, parentRef, field,
                                  letter='', sort=False):
@@ -433,6 +435,8 @@ class Reference(QtCore.QObject):
             name = 'place'
         elif name in ('obversecolor', 'reversecolor'):
             name = 'color'
+        elif name in ('edge', 'signaturetype'):
+            name = 'edge'
 
         for section in self.sections:
             if section.name == name:
@@ -447,6 +451,8 @@ class Reference(QtCore.QObject):
                 sectionNames.extend(['payplace', 'saleplace'])
             elif section.name == 'color':
                 sectionNames.extend(['obversecolor', 'reversecolor'])
+            elif section.name == 'edge':
+                sectionNames.extend(['edge', 'signaturetype'])
             else:
                 sectionNames.append(section.name)
 
@@ -457,6 +463,8 @@ class Reference(QtCore.QObject):
             section = 'place'
         elif section in ('obversecolor', 'reversecolor'):
             section = 'color'
+        elif section in ('edge', 'signaturetype'):
+            section = 'edge'
 
         table_name = "ref_%s" % section
         if table_name in self.sections_with_icons:

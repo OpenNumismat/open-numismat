@@ -254,7 +254,8 @@ class BaseFormLayout(QGridLayout):
                         item2.label().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
                     self.addWidget(item2.label(), self.row, col)
                     col += 1
-                    self.addWidget(item2.widget(), self.row, col, 1, self.columnCount - 4)
+                    self.addWidget(item2.widget(),
+                                   self.row, col, 1, self.columnCount - 4)
 
         self.row = self.row + 1
 
@@ -350,7 +351,8 @@ class DesignFormLayout(BaseFormGroupBox):
     def addImage(self, image, rowSpan=-1):
         if not image.isHidden():
             if isinstance(image.label(), QLabel):
-                self.layout.addWidget(image.widget(), 0, 3, rowSpan, 2)
+                self.layout.addWidget(image.widget(),
+                                      self.imagesCount * 2, 3, rowSpan, 2)
                 self.layout.setColumnMinimumWidth(2, 160)
                 self.layout.setRowMinimumHeight(0, self.defaultHeight)
             else:
