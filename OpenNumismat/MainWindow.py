@@ -593,7 +593,7 @@ class MainWindow(QMainWindow):
             imp.importData(file, self.viewTab.currentModel())
 
     def importExcel(self):
-        defaultDir = ImportTellico.defaultDir()
+        defaultDir = ImportExcel.defaultDir()
         file, _selectedFilter = QFileDialog.getOpenFileName(
             self, self.tr("Select file"), defaultDir, "*.xls *.xlsx")
         if file:
