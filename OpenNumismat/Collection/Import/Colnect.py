@@ -474,7 +474,7 @@ class ColnectDialog(QDialog):
                     if progressDlg.wasCanceled():
                         break
 
-                    action = "item/cat/%s/producer/%d/id/%d" % (category, country, item_id)
+                    action = "item/cat/%s/id/%d" % (category, item_id)
                     data = self._getData(action)
                     data.append(self._itemUrl(category, item_id))
                     self.items.append(data)
