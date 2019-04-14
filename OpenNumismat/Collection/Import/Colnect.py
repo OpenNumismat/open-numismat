@@ -2,7 +2,7 @@ import json
 import re
 import os
 import tempfile
-import urllib.request
+import requests
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QObject, QDate
@@ -276,6 +276,11 @@ class ColnectDialog(QDialog):
             self.countrySelector.setCurrentIndex(index)
         self.countryChanged(0)
 
+        self.apiSession = requests.Session()
+        self.apiSession.headers.update({'User-Agent': version.AppName})
+        self.imgSession = requests.Session()
+        self.imgSession.headers.update({'User-Agent': version.AppName})
+
     def sectionDoubleClicked(self, index):
         self.table.resizeColumnToContents(index)
 
@@ -548,13 +553,13 @@ class ColnectDialog(QDialog):
             return data
 
         try:
-            req = urllib.request.Request(url,
-                                    headers={'User-Agent': version.AppName})
-            raw_data = urllib.request.urlopen(req).read().decode()
-            self.cache.set(ColnectCache.Action, url, raw_data)
-            data = json.loads(raw_data)
-        except:
+            resp = self.apiSession.get(url)
+        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
+            #raise Exception('Error getting info from' + action + ':' + type(_e).__name__)
             pass
+        raw_data = resp.text
+        self.cache.set(ColnectCache.Action, url, raw_data)
+        data = json.loads(raw_data)
 
         return data
 
@@ -572,23 +577,22 @@ class ColnectDialog(QDialog):
                 return image
 
         try:
-            req = urllib.request.Request(url,
-                                    headers={'User-Agent': version.AppName})
-            raw_data = urllib.request.urlopen(req).read()
-            result = image.loadFromData(raw_data)
-            if result:
-                ba = QtCore.QByteArray()
-                buffer = QtCore.QBuffer(ba)
-                buffer.open(QtCore.QIODevice.WriteOnly)
-
-                if image.height() > self.HEIGHT:
-                    image = image.scaled(self.HEIGHT, self.HEIGHT,
-                            Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                image.save(buffer, 'png')
-
-                self.cache.set(ColnectCache.Image, url, ba)
-        except:
+            resp = self.imgSession.get(url)
+        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
+            #raise Exception('Error getting image' + name + ':' + type(_e).__name__)
             pass
+        result = image.loadFromData(resp.content)
+        if result:
+            ba = QtCore.QByteArray()
+            buffer = QtCore.QBuffer(ba)
+            buffer.open(QtCore.QIODevice.WriteOnly)
+
+            if image.height() > self.HEIGHT:
+                image = image.scaled(self.HEIGHT, self.HEIGHT,
+                        Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            image.save(buffer, 'png')
+
+            self.cache.set(ColnectCache.Image, url, ba)
 
         return image
 
@@ -600,11 +604,10 @@ class ColnectDialog(QDialog):
             return data
 
         url = self._imageUrl(image_id, name, True)
-        req = urllib.request.Request(url,
-                                     headers={'User-Agent': version.AppName})
         try:
-            data = urllib.request.urlopen(req).read()
-        except:
+            data = self.imgSession.get(url).content
+        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
+            #raise Exception('Error getting full image' + name + ':' + type(_e).__name__)
             pass
 
         return data
