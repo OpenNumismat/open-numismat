@@ -248,7 +248,7 @@ class ColnectDialog(QDialog):
         buttonBox.clicked.connect(self.clicked)
 
         self.table.hide()
-        self.label = QLabel("Specify more parameters", self)
+        self.label = QLabel(self.tr("Specify more parameters"), self)
 
         vlayout = QVBoxLayout()
         vlayout.addLayout(layout)
