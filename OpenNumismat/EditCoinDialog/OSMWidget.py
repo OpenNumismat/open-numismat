@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QApplication
 from OpenNumismat.private_keys import MAPS_API_KEY
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
+from OpenNumismat import version
 
 importedQtWebKit = True
 try:
@@ -23,6 +24,8 @@ HTML = '''
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
     <style type="text/css">
         html {
             height: 100%;
@@ -38,94 +41,85 @@ HTML = '''
     </style>
     <script>
 var map;
-var geocoder;
 var marker = null;
 
 function initialize() {
-  var position = {lat: LATITUDE, lng: LONGITUDE};
-  map = new google.maps.Map(
-  document.getElementById('map'), {
-    zoom: ZOOM,
-    center: position,
-    streetViewControl: false,
-    fullscreenControl: false
-  });
+  var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      osmAttrib = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      osm = L.tileLayer(osmUrl, {attribution: osmAttrib});
 
-  geocoder = new google.maps.Geocoder();
+  map = L.map('map').setView([LATITUDE, LONGITUDE], ZOOM).addLayer(osm);
 
-  map.addListener('dragend', function () {
+  map.on('moveend', function (e) {
     var center = map.getCenter();
-    qtWidget.mapMoved(center.lat(), center.lng());
+    qtWidget.mapMoved(center.lat, center.lng);
   });
-  map.addListener('zoom_changed', function() {
+  map.on('zoomend', function() {
     zoom = map.getZoom();
     qtWidget.mapZoomed(zoom);
   });
-  map.addListener('click', function (ev) {
+  map.on('click', function (ev) {
     if (marker === null) {
-      lat = ev.latLng.lat();
-      lng = ev.latLng.lng();
+      lat = ev.latlng.lat;
+      lng = ev.latlng.lng;
       qtWidget.mapClicked(lat, lng)
     }
   });
   qtWidget.mapReady();
 }
 function gmap_addMarker(lat, lng) {
-  var position = {lat: lat, lng: lng};
-  marker = new google.maps.Marker({
-    position: position,
-    map: map,
-    draggable: DRAGGABLE
-  });
+  marker = L.marker([lat, lng], {draggable: DRAGGABLE}).addTo(map);
 
-  marker.addListener('dragend', function () {
-    qtWidget.markerMoved(marker.position.lat(), marker.position.lng(), true);
+  marker.on('dragend', function () {
+    position = marker.getLatLng();
+    qtWidget.markerMoved(position.lat, position.lng, true);
   });
-  marker.addListener('click', function () {
-    qtWidget.markerMoved(marker.position.lat(), marker.position.lng(), true);
+  marker.on('click', function () {
+    position = marker.getLatLng();
+    qtWidget.markerMoved(position.lat, position.lng, true);
   });
-  marker.addListener('rightclick', function () {
+  marker.on('contextmenu', function () {
     qtWidget.markerRemoved();
   });
 }
 function gmap_deleteMarker() {
-  marker.setMap(null);
+  map.removeLayer(marker);
   delete marker;
   marker = null;
 }
 function gmap_moveMarker(lat, lng) {
-  var coords = new google.maps.LatLng(lat, lng);
+  var coords = new L.LatLng(lat, lng);
   if (marker === null) {
     gmap_addMarker(lat, lng);
   }
   else {
-    marker.setPosition(coords);
+    marker.setLatLng(coords);
   }
-  map.setCenter(coords);
+  map.panTo(coords);
 }
 function gmap_geocode(address) {
-  geocoder.geocode({'address': address}, function(results, status) {
-    if (status === 'OK') {
-      lat = results[0].geometry.location.lat();
-      lng = results[0].geometry.location.lng();
+  url = "https://nominatim.openstreetmap.org/?addressdetails=1&format=json&limit=1&q=" + address;
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("GET", url, false);
+  xmlHttp.send(null);
+  if (xmlHttp.status == 200) {
+      results = JSON.parse(xmlHttp.responseText);
+      lat = parseFloat(results[0]['lat']);
+      lng = parseFloat(results[0]['lon']);
       gmap_moveMarker(lat, lng);
       qtWidget.markerMoved(lat, lng, false);
-    }
-  });
+  }
 }
     </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initialize&language=LANGUAGE"
-            type="text/javascript"></script>
 </head>
-<body>
+<body onload="initialize()">
 <div id="map"></div>
 </body>
 </html>
 '''
 
 
-class BaseGMapsWidget(QWebView):
+class BaseOSMWidget(QWebView):
     ZOOM_KEY = 'maps/zoom'
     POSITION_KEY = 'maps/position'
     DRAGGABLE = 'false'
@@ -158,9 +152,7 @@ class BaseGMapsWidget(QWebView):
             position = QSettings().value(self.POSITION_KEY)
             if not position:
                 position = (59.957, 30.375)
-            params = {"API_KEY": MAPS_API_KEY,
-                      "LANGUAGE": self.language,
-                      "DRAGGABLE": self.DRAGGABLE,
+            params = {"DRAGGABLE": self.DRAGGABLE,
                       "ZOOM": str(zoom),
                       "LATITUDE": str(position[0]),
                       "LONGITUDE": str(position[1])}
@@ -217,7 +209,7 @@ class BaseGMapsWidget(QWebView):
             self.moveMarker(self.lat, self.lng)
 
 
-class GMapsWidget(BaseGMapsWidget):
+class OSMWidget(BaseOSMWidget):
     DRAGGABLE = 'true'
 
     def activate(self):
@@ -240,13 +232,14 @@ class GMapsWidget(BaseGMapsWidget):
 
     @waitCursorDecorator
     def reverseGeocode(self, lat, lng):
-        url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&key=%s&language=%s" % (lat, lng, MAPS_API_KEY, self.language)
+        url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=%f&lon=%f&zoom=18&addressdetails=0&accept-language=%s" % (lat, lng, self.language)
 
         try:
-            req = urllib.request.Request(url)
+            req = urllib.request.Request(url,
+                                    headers={'User-Agent': version.AppName})
             data = urllib.request.urlopen(req).read()
             json_data = json.loads(data.decode())
-            return json_data['results'][0]['formatted_address']
+            return json_data['display_name']
         except:
             return ''
 
@@ -255,5 +248,5 @@ class GMapsWidget(BaseGMapsWidget):
         self.runScript('gmap_geocode("{}")'.format(address))
 
 
-class StaticGMapsWidget(BaseGMapsWidget):
+class StaticOSMWidget(BaseOSMWidget):
     pass

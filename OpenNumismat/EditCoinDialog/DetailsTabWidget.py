@@ -8,7 +8,10 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormIte
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
-from OpenNumismat.EditCoinDialog.GMapsWidget import StaticGMapsWidget, GMapsWidget, importedQtWebKit
+from OpenNumismat.Settings import Settings
+from OpenNumismat.EditCoinDialog.OSMWidget import importedQtWebKit
+from OpenNumismat.EditCoinDialog.OSMWidget import StaticOSMWidget, OSMWidget
+from OpenNumismat.EditCoinDialog.GMapsWidget import StaticGMapsWidget, GMapsWidget
 
 
 class DetailsTabWidget(QTabWidget):
@@ -445,7 +448,11 @@ class DetailsTabWidget(QTabWidget):
                                    self.items['longitude'].isHidden())
 
         if importedQtWebKit and coordinates_enabled:
-            self.map_item = StaticGMapsWidget(self)
+            settings = Settings()
+            if settings['map_type'] == 0:
+                self.map_item = StaticOSMWidget(self)
+            else:
+                self.map_item = StaticGMapsWidget(self)
             layout.addWidget(self.map_item)
 
         return layout
@@ -703,7 +710,11 @@ class FormDetailsTabWidget(DetailsTabWidget):
                                    self.items['longitude'].isHidden())
 
         if importedQtWebKit and coordinates_enabled:
-            self.map_item = GMapsWidget(self)
+            settings = Settings()
+            if settings['map_type'] == 0:
+                self.map_item = OSMWidget(self)
+            else:
+                self.map_item = GMapsWidget(self)
             self.map_item.markerMoved.connect(self.mapMarkerMoved)
             self.map_item.markerRemoved.connect(self.mapMarkerRemoved)
             layout.addWidget(self.map_item, layout.row, 0, 1, layout.columnCount)

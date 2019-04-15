@@ -89,7 +89,8 @@ class Settings(BaseSettings):
                'colnect_enabled': True,
                'colnect_locale': _getLocale(),
                'colnect_autoclose': False,
-               'colnect_skip_currency': True}
+               'colnect_skip_currency': True,
+               'map_type': 0}
 
     def __init__(self, autoSave=False):
         super().__init__(autoSave)
@@ -106,7 +107,8 @@ class Settings(BaseSettings):
                    'colnect_skip_currency'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
-        elif key in ('images_by_default', 'autobackup_depth', 'speedup'):
+        elif key in ('images_by_default', 'autobackup_depth',
+                     'speedup', 'map_type'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=int)
         else:

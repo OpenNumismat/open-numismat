@@ -136,6 +136,15 @@ class MainSettingsPage(QWidget):
                                            QSizePolicy.Fixed)
         layout.addRow(self.tr("Images count by default"), self.imagesByDefault)
 
+        current = 0
+        self.mapSelector = QComboBox(self)
+        self.mapSelector.addItem('OpenStreetMap')
+        self.mapSelector.addItem('Google Maps')
+        self.mapSelector.setCurrentIndex(settings['map_type'])
+        self.mapSelector.setSizePolicy(QSizePolicy.Fixed,
+                                       QSizePolicy.Fixed)
+        layout.addRow(self.tr("Maps"), self.mapSelector)
+
         self.setLayout(layout)
 
     def backupButtonClicked(self):
@@ -168,6 +177,7 @@ class MainSettingsPage(QWidget):
         settings['check_coin_title'] = self.checkTitle.isChecked()
         settings['check_coin_duplicate'] = self.checkDuplicate.isChecked()
         settings['images_by_default'] = self.imagesByDefault.value()
+        settings['map_type'] = self.mapSelector.currentIndex()
 
         settings.save()
 
