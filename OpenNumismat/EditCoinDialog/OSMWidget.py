@@ -1,17 +1,17 @@
 import json
 import urllib.request
 
-from PyQt5.QtCore import pyqtSignal, QSettings
+from PyQt5.QtCore import pyqtSignal, QSettings, QUrl
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtGui import QDesktopServices
 
-from OpenNumismat.private_keys import MAPS_API_KEY
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
 from OpenNumismat import version
 
 importedQtWebKit = True
 try:
-    from PyQt5.QtWebKitWidgets import QWebView
+    from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 except ImportError:
     print('PyQt5.QtWebKitWidgets module missed. Google Maps not available')
     importedQtWebKit = False
@@ -141,6 +141,13 @@ class BaseOSMWidget(QWebView):
         self.loadFinished.connect(self.onLoadFinished)
         self.page().mainFrame().addToJavaScriptWindowObject(
             "qtWidget", self)
+
+        self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
+        self.page().linkClicked.connect(self.linkClicked)
+
+    def linkClicked(self, url):
+        executor = QDesktopServices()
+        executor.openUrl(QUrl(url))
 
     def activate(self):
         if not self.initialized:
