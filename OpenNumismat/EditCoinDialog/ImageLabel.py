@@ -209,10 +209,16 @@ class ImageEdit(ImageLabel):
             super().mouseDoubleClickEvent(_e)
 
     def loadImage(self):
+        supported_formats = QImageReader.supportedImageFormats()
+        formats = "*.jpg *.jpeg *.bmp *.png *.tif *.tiff *.gif"
+        if b'webp' in supported_formats:
+            formats += " *.webp"
+        if b'jp2' in supported_formats:
+            formats += " *.jp2"
+
         caption = QApplication.translate('ImageEdit', "Open File")
         filter_ = QApplication.translate('ImageEdit',
-                            "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif);;"
-                            "All files (*.*)")
+                            "Images (%s);;All files (*.*)" % formats)
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 caption, ImageEdit.latestDir, filter_)
         if fileName:
