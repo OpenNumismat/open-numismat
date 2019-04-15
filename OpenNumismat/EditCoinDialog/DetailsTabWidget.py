@@ -9,7 +9,7 @@ from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
-from OpenNumismat.EditCoinDialog.OSMWidget import importedQtWebKit
+from OpenNumismat.EditCoinDialog.MapWidget import importedQtWebKit
 from OpenNumismat.EditCoinDialog.OSMWidget import StaticOSMWidget, OSMWidget
 from OpenNumismat.EditCoinDialog.GMapsWidget import StaticGMapsWidget, GMapsWidget
 
