@@ -5,20 +5,35 @@ from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.ListPageParam import ListPageParam
 from OpenNumismat.Collection.TreeParam import TreeParam
 from OpenNumismat.Collection.StatisticsParam import StatisticsParam
+from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
 
 
 class CollectionPageTypes:
+    Default = 0
+    TypeMask = 0x0F
     List = 0
     Icon = 1
     Card = 2
+    InfoTypeMask = 0xF0
+    Details = 0
+    Statistics = 0x10
+    Map = 0x20
 
 
 class CollectionPageParam(QtCore.QObject):
     def __init__(self, record, parent=None):
         QtCore.QObject.__init__(self, parent)
 
-        for name in ('id', 'title', 'isopen', 'type'):
+        for name in ('id', 'title', 'isopen'):
             setattr(self, name, record.value(name))
+        setattr(self, 'type',
+                record.value('type') & CollectionPageTypes.TypeMask)
+        info_type = record.value('type') & CollectionPageTypes.InfoTypeMask
+        if info_type == CollectionPageTypes.Statistics and not statisticsAvailable:
+            info_type = CollectionPageTypes.Details
+        if info_type == CollectionPageTypes.Map and not importedQtWebKit:
+            info_type = CollectionPageTypes.Details
+        setattr(self, 'info_type', info_type)
 
 
 class CollectionPages(QtCore.QObject):
@@ -49,7 +64,7 @@ class CollectionPages(QtCore.QObject):
                       "VALUES (?, ?, ?, (SELECT COUNT(*) FROM pages))")
         query.addBindValue(title)
         query.addBindValue(int(True))
-        query.addBindValue(CollectionPageTypes.List)
+        query.addBindValue(CollectionPageTypes.Default)
         query.exec_()
 
         query = QSqlQuery("SELECT * FROM pages WHERE id=last_insert_rowid()",
@@ -105,7 +120,14 @@ class CollectionPages(QtCore.QObject):
     def changeView(self, page, type_):
         query = QSqlQuery(self.db)
         query.prepare("UPDATE pages SET type=? WHERE id=?")
-        query.addBindValue(type_)
+        query.addBindValue(type_ | page.info_type)
+        query.addBindValue(page.id)
+        query.exec_()
+
+    def changeInfoType(self, page, info_type):
+        query = QSqlQuery(self.db)
+        query.prepare("UPDATE pages SET type=? WHERE id=?")
+        query.addBindValue(info_type | page.type)
         query.addBindValue(page.id)
         query.exec_()
 

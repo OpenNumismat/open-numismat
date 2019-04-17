@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.ListView import ListView, CardView, IconView
-from OpenNumismat.StatisticsView import statisticsAvailable
+from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
 from OpenNumismat.StatisticsView import StatisticsView
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -16,6 +16,8 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import DetailsTabWidget
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
+from OpenNumismat.EditCoinDialog.OSMWidget import GlobalOSMWidget
+from OpenNumismat.EditCoinDialog.GMapsWidget import GlobalGMapsWidget
 
 
 class ImageView(QWidget):
@@ -521,6 +523,14 @@ class Splitter(QSplitter):
 
         self.showEvent(None)
 
+    def switchWidget(self, index, widget):
+        old = self.widget(index)
+        if old:
+            old.setParent(None)
+        self.insertWidget(index, widget)
+
+        self.showEvent(None)
+
 
 class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
@@ -555,14 +565,16 @@ class PageView(Splitter):
         else:
             self.splitter1.addWidget(self.detailsView)
 
-        self.statisticsShowed = pageParam.statisticsParam['showed']
         if statisticsAvailable:
-            self.statisticsView = StatisticsView(pageParam.statisticsParam, self)
+            self.statisticsView = StatisticsView(pageParam.statisticsParam)
             self.statisticsView.setMinimumHeight(200)
-            if self.statisticsShowed:
-                self.splitter1.insertWidget(2, self.statisticsView)
+
+        if importedQtWebKit:
+            settings = Settings()
+            if settings['map_type'] == 0:
+                self.mapView = GlobalOSMWidget(self)
             else:
-                self.splitter1.insertWidget(1, self.statisticsView)
+                self.mapView = GlobalGMapsWidget(self)
 
         self.addWidget(self.splitter1)
         if imagesAtBottom:
@@ -584,7 +596,10 @@ class PageView(Splitter):
         self.detailsView.setModel(model)
         if statisticsAvailable:
             self.statisticsView.setModel(model)
-            self.prepareStatistics(self.statisticsShowed)
+        if importedQtWebKit:
+            self.mapView.setModel(model)
+        if statisticsAvailable or importedQtWebKit:
+            self.prepareInfo()
 
         self._model.modelChanged.connect(self.modelChanged)
 
@@ -594,33 +609,31 @@ class PageView(Splitter):
     def modelChanged(self):
         self.treeView.modelChanged()
         self.listView.modelChanged()
-        if statisticsAvailable and self.statisticsShowed:
+        if self.param.info_type == CollectionPageTypes.Statistics:
             self.statisticsView.modelChanged()
+        elif self.param.info_type == CollectionPageTypes.Map:
+            self.mapView.modelChanged()
 
-    def prepareStatistics(self, show):
-        if not statisticsAvailable:
-            return
-
+    def prepareInfo(self):
         sizes = self.splitter1.sizes()
 
-        old_widget = self.splitter1.widget(1)
-        old_widget.hide()
-        new_widget = self.splitter1.widget(2)
-        new_widget.show()
-        self.splitter1.insertWidget(1, new_widget)
-
-        if self.statisticsShowed != show:
-            self.param.statisticsParam['showed'] = show
-
-        self.statisticsShowed = show
+        if self.param.info_type == CollectionPageTypes.Map:
+            self.splitter1.switchWidget(1, self.mapView)
+        elif self.param.info_type == CollectionPageTypes.Statistics:
+            self.splitter1.switchWidget(1, self.statisticsView)
+        else:
+            self.splitter1.switchWidget(1, self.detailsView)
 
         if sizes[1] > 0:
             self.splitter1.setSizes(sizes)
 
-    def showStatistics(self, show):
-        self.prepareStatistics(show)
-        if show:
+    def showInfo(self, info_type):
+        self.param.info_type = info_type
+        self.prepareInfo()
+        if self.param.info_type == CollectionPageTypes.Statistics:
             self.statisticsView.modelChanged()
+        elif self.param.info_type == CollectionPageTypes.Map:
+            self.mapView.modelChanged()
 
     def changeView(self, type_):
         index = self.listView.currentIndex()

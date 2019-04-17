@@ -16,7 +16,7 @@ from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.Gui import createIcon
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
-from OpenNumismat.StatisticsView import statisticsAvailable
+from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
@@ -69,11 +69,26 @@ class MainWindow(QMainWindow):
         colnectAct.triggered.connect(self.colnectEvent)
         self.collectionActs.append(colnectAct)
 
-        if statisticsAvailable:
-            self.statisticsAct = QAction(self)
-            self.updateStatisticsAct(False)
-            self.statisticsAct.triggered.connect(self.statisticsEvent)
-            self.collectionActs.append(self.statisticsAct)
+        if statisticsAvailable or importedQtWebKit:
+            self.detailsAct = QAction(createIcon('application-form.png'),
+                                      self.tr("Info panel"), self)
+            self.detailsAct.setCheckable(True)
+            self.detailsAct.triggered.connect(self.detailsEvent)
+            self.collectionActs.append(self.detailsAct)
+
+            if statisticsAvailable:
+                self.statisticsAct = QAction(createIcon('chart-bar.png'),
+                                             self.tr("Statistics"), self)
+                self.statisticsAct.setCheckable(True)
+                self.statisticsAct.triggered.connect(self.statisticsEvent)
+                self.collectionActs.append(self.statisticsAct)
+
+            if importedQtWebKit:
+                self.mapAct = QAction(createIcon('world.png'),
+                                      self.tr("Map"), self)
+                self.mapAct.setCheckable(True)
+                self.mapAct.triggered.connect(self.mapEvent)
+                self.collectionActs.append(self.mapAct)
 
         summaryAct = QAction(self.tr("Summary"), self)
         summaryAct.triggered.connect(self.summaryEvent)
@@ -363,10 +378,15 @@ class MainWindow(QMainWindow):
         toolBar.addAction(self.enableDragAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
-        if statisticsAvailable:
+        if statisticsAvailable or importedQtWebKit:
             toolBar.addSeparator()
-            toolBar.addAction(self.statisticsAct)
+            toolBar.addAction(self.detailsAct)
+            if statisticsAvailable:
+                toolBar.addAction(self.statisticsAct)
+            if importedQtWebKit:
+                toolBar.addAction(self.mapAct)
         if Settings()['colnect_enabled']:
+            toolBar.addSeparator()
             toolBar.addAction(colnectAct)
         toolBar.addSeparator()
         toolBar.addWidget(self.viewButton)
@@ -479,19 +499,40 @@ class MainWindow(QMainWindow):
         dialog = ColnectDialog(model, self)
         dialog.exec_()
 
-    def updateStatisticsAct(self, showed):
-        if statisticsAvailable:
-            if showed:
-                self.statisticsAct.setText(self.tr("Info panel"))
-                self.statisticsAct.setIcon(createIcon('application-form.png'))
-            else:
-                self.statisticsAct.setText(self.tr("Statistics"))
-                self.statisticsAct.setIcon(createIcon('chart-bar.png'))
+    def updateInfoType(self, info_type):
+        self.detailsAct.setChecked(False)
+        self.statisticsAct.setChecked(False)
+        self.mapAct.setChecked(False)
+        if info_type == CollectionPageTypes.Statistics:
+            self.statisticsAct.setChecked(True)
+        elif info_type == CollectionPageTypes.Map:
+            self.mapAct.setChecked(True)
+        else:
+            self.detailsAct.setChecked(True)
 
-    def statisticsEvent(self):
-        page = self.viewTab.currentPageView()
-        self.updateStatisticsAct(not page.statisticsShowed)
-        page.showStatistics(not page.statisticsShowed)
+    def detailsEvent(self, checked):
+        self.updateInfoType(CollectionPageTypes.Details)
+        if checked:
+            page = self.viewTab.currentPageView()
+            self.collection.pages().changeInfoType(page.param,
+                                                   CollectionPageTypes.Details)
+            page.showInfo(CollectionPageTypes.Details)
+
+    def statisticsEvent(self, checked):
+        self.updateInfoType(CollectionPageTypes.Statistics)
+        if checked:
+            page = self.viewTab.currentPageView()
+            self.collection.pages().changeInfoType(page.param,
+                                                   CollectionPageTypes.Statistics)
+            page.showInfo(CollectionPageTypes.Statistics)
+
+    def mapEvent(self, checked):
+        self.updateInfoType(CollectionPageTypes.Map)
+        if checked:
+            page = self.viewTab.currentPageView()
+            self.collection.pages().changeInfoType(page.param,
+                                                   CollectionPageTypes.Map)
+            page.showInfo(CollectionPageTypes.Map)
 
     def summaryEvent(self):
         model = self.viewTab.currentModel()

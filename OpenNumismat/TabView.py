@@ -150,7 +150,7 @@ class TabView(QTabWidget):
             page = self.widget(index)
             page.model().select()
 
-            self.parent().updateStatisticsAct(page.statisticsShowed)
+            self.parent().updateInfoType(page.param.info_type)
             self.parent().quickSearch.setText(page.listView.searchText)
 
             self.clearStatusBar()

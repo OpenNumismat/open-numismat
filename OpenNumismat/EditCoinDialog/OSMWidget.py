@@ -30,6 +30,7 @@ class OSMWidget(BaseMapWidget):
     <script>
 var map;
 var marker = null;
+var markers = [];
 
 function initialize() {
   var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -85,6 +86,27 @@ function gmap_moveMarker(lat, lng) {
   }
   map.panTo(coords);
 }
+function gmap_addStaticMarker(lat, lng) {
+  var coords = new L.LatLng(lat, lng);
+  var marker = L.marker(coords).addTo(map);
+  markers.push(marker);
+}
+function gmap_clearStaticMarkers() {
+  for (var i = 0; i < markers.length; i++ ) {
+    map.removeLayer(markers[i]);
+  }
+  markers.length = 0;
+}
+function gmap_fitBounds() {
+  var bounds = new L.latLngBounds();
+  for (var i = 0; i < markers.length; i++) {
+    bounds.extend(markers[i].getLatLng());
+  }
+  map.fitBounds(bounds);
+  var zoom = map.getZoom();
+  if (zoom > 15)
+    map.setZoom(15);
+}
 function gmap_geocode(address) {
   url = "https://nominatim.openstreetmap.org/?addressdetails=1&format=json&limit=1&q=" + address;
   var xmlHttp = new XMLHttpRequest();
@@ -127,3 +149,44 @@ class StaticOSMWidget(OSMWidget):
 
     def __init__(self, parent):
         super(OSMWidget, self).__init__(True, parent)
+
+
+from PyQt5.QtSql import QSqlQuery
+
+
+class GlobalOSMWidget(OSMWidget):
+
+    def __init__(self, parent=None):
+        super(OSMWidget, self).__init__(True, parent)
+
+    def mapIsMoved(self, lat, lng):
+        pass
+
+    def mapIsZoomed(self, zoom):
+        pass
+
+    def setModel(self, model):
+        self.model = model
+
+    def clear(self):
+        pass
+
+    def modelChanged(self):
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filter = "WHERE %s" % filter_
+        else:
+            sql_filter = ""
+
+        self.points = []
+        sql = "SELECT latitude, longitude FROM coins %s" % sql_filter
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        while query.next():
+            record = query.record()
+            lat = record.value(0)
+            lng = record.value(1)
+            if lat and lng:
+                self.addMarker(lat, lng)
+
+        self.showMarkers()

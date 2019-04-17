@@ -29,6 +29,7 @@ class GMapsWidget(BaseMapWidget):
 var map;
 var geocoder;
 var marker = null;
+var markers = [];
 
 function initialize() {
   var position = {lat: LATITUDE, lng: LONGITUDE};
@@ -103,6 +104,30 @@ function gmap_moveMarker(lat, lng) {
   }
   map.setCenter(coords);
 }
+function gmap_addStaticMarker(lat, lng) {
+  var position = new google.maps.LatLng(lat, lng);
+  var marker = new google.maps.Marker({
+    position: position,
+    map: map
+  });
+  markers.push(marker);
+}
+function gmap_clearStaticMarkers() {
+  for (var i = 0; i < markers.length; i++ ) {
+    markers[i].setMap(null);
+  }
+  markers.length = 0;
+}
+function gmap_fitBounds() {
+  var bounds = new google.maps.LatLngBounds();
+  for (var i = 0; i < markers.length; i++) {
+    bounds.extend(markers[i].getPosition());
+  }
+  map.fitBounds(bounds);
+  var zoom = map.getZoom();
+  if (zoom > 15)
+    map.setZoom(15);
+}
 function gmap_geocode(address) {
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === 'OK') {
@@ -150,3 +175,44 @@ class StaticGMapsWidget(GMapsWidget):
 
     def __init__(self, parent):
         super(GMapsWidget, self).__init__(True, parent)
+
+
+from PyQt5.QtSql import QSqlQuery
+
+
+class GlobalGMapsWidget(GMapsWidget):
+
+    def __init__(self, parent=None):
+        super(GMapsWidget, self).__init__(True, parent)
+
+    def mapIsMoved(self, lat, lng):
+        pass
+
+    def mapIsZoomed(self, zoom):
+        pass
+
+    def setModel(self, model):
+        self.model = model
+
+    def clear(self):
+        pass
+
+    def modelChanged(self):
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filter = "WHERE %s" % filter_
+        else:
+            sql_filter = ""
+
+        self.points = []
+        sql = "SELECT latitude, longitude FROM coins %s" % sql_filter
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        while query.next():
+            record = query.record()
+            lat = record.value(0)
+            lng = record.value(1)
+            if lat and lng:
+                self.addMarker(lat, lng)
+
+        self.showMarkers()

@@ -38,6 +38,8 @@ class BaseMapWidget(QWebView):
         self.is_static = is_static
         self.lat = None
         self.lng = None
+        self.points = []
+        self.activated = False
         self.initialized = False
         self.loadFinished.connect(self.onLoadFinished)
         self.page().mainFrame().addToJavaScriptWindowObject(
@@ -66,7 +68,7 @@ class BaseMapWidget(QWebView):
         return params
 
     def activate(self):
-        if not self.initialized:
+        if not self.activated:
             self.mapMoved.connect(self.mapIsMoved)
             self.mapZoomed.connect(self.mapIsZoomed)
             self.mapReady.connect(self.mapIsReady)
@@ -80,6 +82,8 @@ class BaseMapWidget(QWebView):
             for key, val in params.items():
                 html = html.replace(key, val)
             self.setHtml(html)
+
+            self.activated = True
 
     def showEvent(self, e):
         self.activate()
@@ -98,8 +102,9 @@ class BaseMapWidget(QWebView):
         return self.page().mainFrame().evaluateJavaScript(script)
 
     def mapIsReady(self):
-        self.moveMarker(self.lat, self.lng)
         self.initialized = True
+        self.moveMarker(self.lat, self.lng)
+        self.showMarkers()
 
     def mapIsMoved(self, lat, lng):
         QSettings().setValue(self.POSITION_KEY, (lat, lng))
@@ -127,6 +132,17 @@ class BaseMapWidget(QWebView):
 
         if self.initialized:
             self.moveMarker(self.lat, self.lng)
+
+    def addMarker(self, lat, lng):
+        self.points.append((lat, lng))
+
+    def showMarkers(self):
+        if self.initialized:
+            self.runScript("gmap_clearStaticMarkers()")
+            if self.points:
+                for point in self.points:
+                    self.runScript("gmap_addStaticMarker(%f, %f)" % (point[0], point[1]))
+                self.runScript("gmap_fitBounds()")
 
     def mapIsClicked(self, lat, lng):
         self.lat = lat
