@@ -1,9 +1,10 @@
 import json
 import urllib.request
 
-from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat import version
+from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.EditCoinDialog.MapWidget import BaseMapWidget
+from PyQt5.QtSql import QSqlQuery
 
 
 class OSMWidget(BaseMapWidget):
@@ -149,9 +150,6 @@ class StaticOSMWidget(OSMWidget):
 
     def __init__(self, parent):
         super(OSMWidget, self).__init__(True, parent)
-
-
-from PyQt5.QtSql import QSqlQuery
 
 
 class GlobalOSMWidget(OSMWidget):

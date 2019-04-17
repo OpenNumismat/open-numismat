@@ -1,13 +1,9 @@
-import json
-import urllib.request
-
 from PyQt5.QtCore import pyqtSignal, QSettings, QUrl
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QDesktopServices
 
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
-from OpenNumismat import version
 
 importedQtWebKit = True
 try:

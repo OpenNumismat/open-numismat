@@ -572,9 +572,9 @@ class PageView(Splitter):
         if importedQtWebKit:
             settings = Settings()
             if settings['map_type'] == 0:
-                self.mapView = GlobalOSMWidget(self)
+                self.mapView = GlobalOSMWidget()
             else:
-                self.mapView = GlobalGMapsWidget(self)
+                self.mapView = GlobalGMapsWidget()
 
         self.addWidget(self.splitter1)
         if imagesAtBottom:

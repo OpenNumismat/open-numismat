@@ -4,6 +4,7 @@ import urllib.request
 from OpenNumismat.private_keys import MAPS_API_KEY
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.EditCoinDialog.MapWidget import BaseMapWidget
+from PyQt5.QtSql import QSqlQuery
 
 
 class GMapsWidget(BaseMapWidget):
@@ -175,9 +176,6 @@ class StaticGMapsWidget(GMapsWidget):
 
     def __init__(self, parent):
         super(GMapsWidget, self).__init__(True, parent)
-
-
-from PyQt5.QtSql import QSqlQuery
 
 
 class GlobalGMapsWidget(GMapsWidget):
