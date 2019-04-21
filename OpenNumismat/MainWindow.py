@@ -501,8 +501,10 @@ class MainWindow(QMainWindow):
 
     def updateInfoType(self, info_type):
         self.detailsAct.setChecked(False)
-        self.statisticsAct.setChecked(False)
-        self.mapAct.setChecked(False)
+        if statisticsAvailable:
+            self.statisticsAct.setChecked(False)
+        if importedQtWebKit:
+            self.mapAct.setChecked(False)
         if info_type == CollectionPageTypes.Statistics:
             self.statisticsAct.setChecked(True)
         elif info_type == CollectionPageTypes.Map:
