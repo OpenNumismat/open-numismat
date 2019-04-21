@@ -40,9 +40,7 @@ class ColnectCache(QObject):
         db = QSqlDatabase.addDatabase('QSQLITE', 'cache')
         db.setDatabaseName(self._file_name())
         if not db.open():
-            QMessageBox.warning(self,
-                                "Colnect",
-                                self.tr("Can't open Colnect cache"))
+            QMessageBox.warning(self, "Colnect", self.tr("Can't open Colnect cache"))
             return None
 
         QSqlQuery("PRAGMA synchronous=OFF", db)
@@ -132,30 +130,27 @@ class ColnectConnector():
 
     def makeItem(self, category, data, record):
         # construct Record object from data json
-        columns = {'coins': (
-                ('title', 0), ('country', 1), ('series', 2), ('year', 4),
-                ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
-                ('diameter', 21), ('weight', 20), ('subject', 25), ('type', 14),
-                ('issuedate', 4), ('edge', 15), ('shape', 17), ('obvrev', 16),
-                ('catalognum1', 3), ('url', -1),
-                # ('subjectshort', 24)
-                ),
-                    'banknotes': (
-                ('title', 0), ('country', 1), ('series', 2), ('year', 4),
-                ('mintage', 6), ('unit', 12), ('value', 13), ('material', 17),
-                ('diameter', 14), ('thickness', 15), ('subject', 20), ('mint', 18),
-                ('issuedate', 4), ('catalognum1', 3), ('url', -1),
-                # ('subjectshort', 24)
-                ),
-                    'stamps': (
-                ('title', 0), ('country', 1), ('series', 2), ('year', 4),
-                ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
-                ('diameter', 21), ('thickness', 22), ('subject', 25), ('type', 15),
-                ('quality', 17), ('obvrev', 18), ('edgelabel', 20),
-                ('issuedate', 4), ('edge', 16), ('obversecolor', 23),
-                ('format', 14), ('catalognum1', 3), ('url', -1),
-                # ('subjectshort', 24)
-                )}
+        columns = {'coins': (('title', 0), ('country', 1), ('series', 2), ('year', 4),
+                             ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
+                             ('diameter', 21), ('weight', 20), ('subject', 25), ('type', 14),
+                             ('issuedate', 4), ('edge', 15), ('shape', 17), ('obvrev', 16),
+                             ('catalognum1', 3), ('url', -1),
+                             # ('subjectshort', 24)
+                            ),
+                   'banknotes': (('title', 0), ('country', 1), ('series', 2), ('year', 4),
+                                 ('mintage', 6), ('unit', 12), ('value', 13), ('material', 17),
+                                 ('diameter', 14), ('thickness', 15), ('subject', 20), ('mint', 18),
+                                 ('issuedate', 4), ('catalognum1', 3), ('url', -1),
+                                 # ('subjectshort', 24)
+                                ),
+                   'stamps': (('title', 0), ('country', 1), ('series', 2), ('year', 4),
+                              ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
+                              ('diameter', 21), ('thickness', 22), ('subject', 25), ('type', 15),
+                              ('quality', 17), ('obvrev', 18), ('edgelabel', 20),
+                              ('issuedate', 4), ('edge', 16), ('obversecolor', 23),
+                              ('format', 14), ('catalognum1', 3), ('url', -1),
+                              # ('subjectshort', 24)
+                             )}
 
         for column in columns[category]:
             value = data[column[1]]
@@ -384,8 +379,7 @@ class ColnectDialog(QDialog):
         self.table.setColumnCount(9)
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.table.horizontalHeader().sectionDoubleClicked.connect(
-                                                self.sectionDoubleClicked)
+        self.table.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
         font = self.table.horizontalHeader().font()
         font.setBold(True)
         self.table.horizontalHeader().setFont(font)
@@ -576,9 +570,8 @@ class ColnectDialog(QDialog):
                 self.table.show()
                 self.label.hide()
 
-                progressDlg = ProgressDialog(
-                            self.tr("Downloading"),
-                            self.tr("Cancel"), len(item_ids), self)
+                progressDlg = ProgressDialog(self.tr("Downloading"), self.tr("Cancel"),
+                                             len(item_ids), self)
 
                 self.table.setRowCount(len(item_ids))
                 for i, item_id in enumerate(item_ids):
@@ -633,8 +626,8 @@ class ColnectDialog(QDialog):
             buffer.open(QtCore.QIODevice.WriteOnly)
 
             if image.height() > self.HEIGHT:
-                image = image.scaled(self.HEIGHT, self.HEIGHT,
-                        Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                image = image.scaled(self.HEIGHT, self.HEIGHT, Qt.KeepAspectRatio,
+                                     Qt.SmoothTransformation)
             image.save(buffer, 'png')
         return image
 
