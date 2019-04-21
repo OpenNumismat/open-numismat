@@ -116,6 +116,174 @@ class ColnectCache(QObject):
         if os.path.exists(file_name):
             os.remove(file_name)
 
+class ColnectConnector():
+    def __init__(self):
+        self.cache = ColnectCache()
+        self.apiSession = requests.Session()
+        self.apiSession.headers.update({'User-Agent': version.AppName})
+        self.imgSession = requests.Session()
+        self.imgSession.headers.update({'User-Agent': version.AppName})
+        self.skip_currency = Settings()['colnect_skip_currency']
+        self.lang = Settings()['colnect_locale']
+
+    def makeItem(self, category, data, record):
+        # construct Record object from data json
+        columns = {'coins': (
+                ('title', 0), ('country', 1), ('series', 2), ('year', 4),
+                ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
+                ('diameter', 21), ('weight', 20), ('subject', 25), ('type', 14),
+                ('issuedate', 4), ('edge', 15), ('shape', 17), ('obvrev', 16),
+                ('catalognum1', 3), ('url', -1),
+                # ('subjectshort', 24)
+                ),
+                    'banknotes': (
+                ('title', 0), ('country', 1), ('series', 2), ('year', 4),
+                ('mintage', 6), ('unit', 12), ('value', 13), ('material', 17),
+                ('diameter', 14), ('thickness', 15), ('subject', 20), ('mint', 18),
+                ('issuedate', 4), ('catalognum1', 3), ('url', -1),
+                # ('subjectshort', 24)
+                ),
+                    'stamps': (
+                ('title', 0), ('country', 1), ('series', 2), ('year', 4),
+                ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
+                ('diameter', 21), ('thickness', 22), ('subject', 25), ('type', 15),
+                ('quality', 17), ('obvrev', 18), ('edgelabel', 20),
+                ('issuedate', 4), ('edge', 16), ('obversecolor', 23),
+                ('format', 14), ('catalognum1', 3), ('url', -1),
+                # ('subjectshort', 24)
+                )}
+
+        for column in columns[category]:
+            value = data[column[1]]
+            if column[0] == 'year' and isinstance(value, str):
+                value = value[:4]
+            elif column[0] == 'unit' and self.skip_currency:
+                value = value.split('-', 1)[-1].strip()
+            elif column[0] == 'catalognum1':
+                codes = value.split(',', 3)
+                for i, code in enumerate(codes):
+                    field = 'catalognum%d' % (i + 1)
+                    record.setValue(field, code.strip())
+                continue
+            record.setValue(column[0], value)
+
+        image = self.getImage(int(data[8]), data[0], True)
+        record.setValue('obverseimg', image)
+        image = self.getImage(int(data[9]), data[0], True)
+        record.setValue('reverseimg', image)
+        if category == 'coins':
+            ext_image_pos = 22
+        elif category == 'banknotes':
+            ext_image_pos = 16
+        else:
+            ext_image_pos = None
+        if ext_image_pos:
+            image = self.getImage(int(data[ext_image_pos]), data[0], True)
+            record.setValue('photo1', image)
+
+    @waitCursorDecorator
+    def getImage(self, image_id, name, full):
+        data = None
+
+        if not image_id:
+            return data
+
+        url = self._imageUrl(image_id, name, full)
+
+        if not full:
+            # full images was not cached - store previous behaviour
+            data = self.cache.get(ColnectCache.Image, url)
+            if data:
+                return data
+        try:
+            data = self.imgSession.get(url).content
+        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
+            #raise Exception('Error getting full image' + name + ':' + type(_e).__name__)
+            pass
+
+        if not full:
+            self.cache.set(ColnectCache.Image, url, data)
+
+        return data
+
+    def _imageUrl(self, image_id, name, full):
+        name = self._urlize(name)
+        url = "https://i.colnect.net/%s/%d/%03d/%s.jpg" % (
+            ('b' if full else 't'), image_id / 1000, image_id % 1000, name)
+            # ('f' if full else 't'), image_id / 1000, image_id % 1000, name)
+        return url
+
+    def _urlize(self, name):
+        # change HTML elements to underscore
+        name = re.sub(r"&[^;]+;", '_', name)
+
+        name = re.sub(r"[.\"><\\:/?#\[\]@!$&'()\*\+,;=]", '', name)
+        name = re.sub(r"[^\x00-\x7F]", '', name)
+
+        # any space sequence becomes a single underscore
+        name = re.sub(r"[\s_]+", '_', name)
+
+        name = name.strip('_')
+
+        return name
+
+    def _baseUrl(self):
+        url = "https://api.colnect.net/%s/api/%s/" % (self.lang, COLNECT_KEY)
+        return url
+
+    @waitCursorDecorator
+    def getData(self, action):
+        data = []
+
+        url = self._baseUrl() + action
+        raw_data = self.cache.get(ColnectCache.Action, url)
+        if raw_data:
+            data = json.loads(raw_data)
+            return data
+
+        try:
+            resp = self.apiSession.get(url)
+        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
+            #raise Exception('Error getting info from' + action + ':' + type(_e).__name__)
+            pass
+        raw_data = resp.text
+        self.cache.set(ColnectCache.Action, url, raw_data)
+        data = json.loads(raw_data)
+
+        return data
+
+    def getCountries(self, category):
+        action = "countries/cat/%s" % category
+        return self.getData(action)
+
+    def getYears(self, category, country):
+        action = "years/cat/%s/producer/%d" % (category, country)
+        return self.getData(action)
+
+    def getSeries(self, category, country):
+        action = "series/cat/%s/producer/%d" % (category, country)
+        return self.getData(action)
+
+    def getDistributions(self, category, country):
+        if category == 'coins':
+            action = "distributions/cat/%s/producer/%d" % (category, country)
+        elif category == 'stamps':
+            action = "emissions/cat/%s/producer/%d" % (category, country)
+        else:
+            return []
+
+        return self.getData(action)
+
+    def getValues(self, category, country):
+        action = "face_values/cat/%s/producer/%d" % (category, country)
+        return self.getData(action)
+
+    def getCurrencies(self, category, country):
+        action = "currencies/cat/%s/producer/%d" % (category, country)
+        return self.getData(action)
+
+    def close(self):
+        self.cache.close()
 
 @storeDlgSizeDecorator
 class ColnectDialog(QDialog):
@@ -132,9 +300,6 @@ class ColnectDialog(QDialog):
         settings = Settings()
         self.lang = settings['colnect_locale']
         self.autoclose = settings['colnect_autoclose']
-        self.skip_currency = settings['colnect_skip_currency']
-
-        self.cache = ColnectCache()
 
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
@@ -267,6 +432,8 @@ class ColnectDialog(QDialog):
         default_category = self.settings['colnect_category']
         default_country = self.settings['colnect_country']
 
+        self.colnect = ColnectConnector()
+
         index = self.categorySelector.findData(default_category)
         self.categorySelector.setCurrentIndex(index)
         self.categoryChanged(0)
@@ -275,11 +442,6 @@ class ColnectDialog(QDialog):
         if index >= 0:
             self.countrySelector.setCurrentIndex(index)
         self.countryChanged(0)
-
-        self.apiSession = requests.Session()
-        self.apiSession.headers.update({'User-Agent': version.AppName})
-        self.imgSession = requests.Session()
-        self.imgSession.headers.update({'User-Agent': version.AppName})
 
     def sectionDoubleClicked(self, index):
         self.table.resizeColumnToContents(index)
@@ -295,66 +457,12 @@ class ColnectDialog(QDialog):
         self.addCoin(index, self.autoclose)
 
     def addCoin(self, index, close):
-        columns = {'coins': (
-            ('title', 0), ('country', 1), ('series', 2), ('year', 4),
-            ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
-            ('diameter', 21), ('weight', 20), ('subject', 25), ('type', 14),
-            ('issuedate', 4), ('edge', 15), ('shape', 17), ('obvrev', 16),
-            ('catalognum1', 3), ('url', -1),
-            # ('subjectshort', 24)
-            ),
-                'banknotes': (
-            ('title', 0), ('country', 1), ('series', 2), ('year', 4),
-            ('mintage', 6), ('unit', 12), ('value', 13), ('material', 17),
-            ('diameter', 14), ('thickness', 15), ('subject', 20), ('mint', 18),
-            ('issuedate', 4), ('catalognum1', 3), ('url', -1),
-            # ('subjectshort', 24)
-            ),
-                'stamps': (
-            ('title', 0), ('country', 1), ('series', 2), ('year', 4),
-            ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
-            ('diameter', 21), ('thickness', 22), ('subject', 25), ('type', 15),
-            ('quality', 17), ('obvrev', 18), ('edgelabel', 20),
-            ('issuedate', 4), ('edge', 16), ('obversecolor', 23),
-            ('format', 14), ('catalognum1', 3), ('url', -1),
-            # ('subjectshort', 24)
-            )}
-
         category = self.categorySelector.currentData()
         data = self.items[index.row()]
-
         newRecord = self.model.record()
-        for column in columns[category]:
-            value = data[column[1]]
-            if column[0] == 'year' and isinstance(value, str):
-                value = value[:4]
-            elif column[0] == 'unit' and self.skip_currency:
-                value = value.split('-', 1)[-1].strip()
-            elif column[0] == 'catalognum1':
-                codes = value.split(',', 3)
-                for i, code in enumerate(codes):
-                    field = 'catalognum%d' % (i + 1)
-                    newRecord.setValue(field, code.strip())
-                continue
-            newRecord.setValue(column[0], value)
-
-        image = self._getFullImage(int(data[8]), data[0])
-        newRecord.setValue('obverseimg', image)
-        image = self._getFullImage(int(data[9]), data[0])
-        newRecord.setValue('reverseimg', image)
-        if category == 'coins':
-            ext_image_pos = 22
-        elif category == 'banknotes':
-            ext_image_pos = 16
-        else:
-            ext_image_pos = None
-        if ext_image_pos:
-            image = self._getFullImage(int(data[ext_image_pos]), data[0])
-            newRecord.setValue('photo1', image)
-
+        self.colnect.makeItem(category, data, newRecord)
         if close:
             self.accept()
-
         self.model.addCoin(newRecord, self)
 
     def _clearTable(self):
@@ -371,7 +479,7 @@ class ColnectDialog(QDialog):
         self.countrySelector.clear()
 
         category = self.categorySelector.currentData()
-        countries = self.getCountries(category)
+        countries = self.colnect.getCountries(category)
         for country in countries:
             self.countrySelector.addItem(country[1], country[0])
 
@@ -387,31 +495,31 @@ class ColnectDialog(QDialog):
         if not country:
             return
 
-        series = self.getSeries(category, country)
+        series = self.colnect.getSeries(category, country)
         self.seriesSelector.clear()
         self.seriesSelector.addItem(self.tr("(All)"), None)
         for ser in series:
             self.seriesSelector.addItem(str(ser[1]), ser[0])
 
-        distributions = self.getDistributions(category, country)
+        distributions = self.colnect.getDistributions(category, country)
         self.distributionSelector.clear()
         self.distributionSelector.addItem(self.tr("(All)"), None)
         for distr in distributions:
             self.distributionSelector.addItem(str(distr[1]), distr[0])
 
-        years = self.getYears(category, country)
+        years = self.colnect.getYears(category, country)
         self.yearSelector.clear()
         self.yearSelector.addItem(self.tr("(All)"), None)
         for year in years:
             self.yearSelector.addItem(str(year[0]), year[0])
 
-        values = self.getValues(category, country)
+        values = self.colnect.getValues(category, country)
         self.valueSelector.clear()
         self.valueSelector.addItem(self.tr("(All)"), None)
         for value in values:
             self.valueSelector.addItem(str(value[1]), value[0])
 
-        currencies = self.getCurrencies(category, country)
+        currencies = self.colnect.getCurrencies(category, country)
         self.currencySelector.clear()
         self.currencySelector.addItem(self.tr("(All)"), None)
         for currency in currencies:
@@ -455,7 +563,7 @@ class ColnectDialog(QDialog):
                 action += "/face_value/%s" % value
             if currency:
                 action += "/currency/%s" % currency
-            item_ids = self._getData(action)
+            item_ids = self.colnect.getData(action)
 
             if ((series or distribution) and year and value and currency) or (len(item_ids) < 100):
                 if item_ids:
@@ -475,7 +583,7 @@ class ColnectDialog(QDialog):
                         break
 
                     action = "item/cat/%s/id/%d" % (category, item_id)
-                    data = self._getData(action)
+                    data = self.colnect.getData(action)
                     data.append(self._itemUrl(category, item_id))
                     self.items.append(data)
 
@@ -508,80 +616,13 @@ class ColnectDialog(QDialog):
 
                 progressDlg.reset()
 
-    def getCountries(self, category):
-        action = "countries/cat/%s" % category
-        return self._getData(action)
-
-    def getYears(self, category, country):
-        action = "years/cat/%s/producer/%d" % (category, country)
-        return self._getData(action)
-
-    def getSeries(self, category, country):
-        action = "series/cat/%s/producer/%d" % (category, country)
-        return self._getData(action)
-
-    def getDistributions(self, category, country):
-        if category == 'coins':
-            action = "distributions/cat/%s/producer/%d" % (category, country)
-        elif category == 'stamps':
-            action = "emissions/cat/%s/producer/%d" % (category, country)
-        else:
-            return []
-
-        return self._getData(action)
-
-    def getValues(self, category, country):
-        action = "face_values/cat/%s/producer/%d" % (category, country)
-        return self._getData(action)
-
-    def getCurrencies(self, category, country):
-        action = "currencies/cat/%s/producer/%d" % (category, country)
-        return self._getData(action)
-
-    def _baseUrl(self):
-        url = "https://api.colnect.net/%s/api/%s/" % (self.lang, COLNECT_KEY)
-        return url
-
-    @waitCursorDecorator
-    def _getData(self, action):
-        data = []
-
-        url = self._baseUrl() + action
-        raw_data = self.cache.get(ColnectCache.Action, url)
-        if raw_data:
-            data = json.loads(raw_data)
-            return data
-
-        try:
-            resp = self.apiSession.get(url)
-        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
-            #raise Exception('Error getting info from' + action + ':' + type(_e).__name__)
-            pass
-        raw_data = resp.text
-        self.cache.set(ColnectCache.Action, url, raw_data)
-        data = json.loads(raw_data)
-
-        return data
-
     def _getImage(self, image_id, name):
         image = QImage()
 
         if not image_id:
             return image
 
-        url = self._imageUrl(image_id, name, False)
-        raw_data = self.cache.get(ColnectCache.Image, url)
-        if raw_data:
-            result = image.loadFromData(raw_data)
-            if result:
-                return image
-
-        try:
-            resp = self.imgSession.get(url)
-        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
-            #raise Exception('Error getting image' + name + ':' + type(_e).__name__)
-            pass
-        result = image.loadFromData(resp.content)
+        result = image.loadFromData(self.colnect.getImage(image_id, name, False))
         if result:
             ba = QtCore.QByteArray()
             buffer = QtCore.QBuffer(ba)
@@ -591,52 +632,12 @@ class ColnectDialog(QDialog):
                 image = image.scaled(self.HEIGHT, self.HEIGHT,
                         Qt.KeepAspectRatio, Qt.SmoothTransformation)
             image.save(buffer, 'png')
-
-            self.cache.set(ColnectCache.Image, url, ba)
-
         return image
-
-    @waitCursorDecorator
-    def _getFullImage(self, image_id, name):
-        data = None
-
-        if not image_id:
-            return data
-
-        url = self._imageUrl(image_id, name, True)
-        try:
-            data = self.imgSession.get(url).content
-        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
-            #raise Exception('Error getting full image' + name + ':' + type(_e).__name__)
-            pass
-
-        return data
-
-    def _imageUrl(self, image_id, name, full):
-        name = self._urlize(name)
-        url = "https://i.colnect.net/%s/%d/%03d/%s.jpg" % (
-            ('b' if full else 't'), image_id / 1000, image_id % 1000, name)
-            # ('f' if full else 't'), image_id / 1000, image_id % 1000, name)
-        return url
 
     def _itemUrl(self, category, item_id):
         url = "https://colnect.com/%s/%s/%s/%d" % (self.lang, category,
                                                    category[:-1], item_id)
         return url
-
-    def _urlize(self, name):
-        # change HTML elements to underscore
-        name = re.sub(r"&[^;]+;", '_', name)
-
-        name = re.sub(r"[.\"><\\:/?#\[\]@!$&'()\*\+,;=]", '', name)
-        name = re.sub(r"[^\x00-\x7F]", '', name)
-
-        # any space sequence becomes a single underscore
-        name = re.sub(r"[\s_]+", '_', name)
-
-        name = name.strip('_')
-
-        return name
 
     def clicked(self, button):
         if button == self.addButton:
@@ -652,5 +653,5 @@ class ColnectDialog(QDialog):
 
     def accept(self):
         self.settings.save()
-        self.cache.close()
+        self.colnect.close()
         super().accept()
