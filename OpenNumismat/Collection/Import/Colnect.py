@@ -9,7 +9,9 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QObject, QDate
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import (QAbstractItemView, QComboBox, QDialog, QDialogButtonBox, QFormLayout,
+                             QLabel, QMessageBox, QSizePolicy, QTableWidget, QTableWidgetItem,
+                             QPushButton, QVBoxLayout, QWidget)
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
