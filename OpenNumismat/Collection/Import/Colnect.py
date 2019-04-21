@@ -1,3 +1,4 @@
+import csv
 import json
 import re
 import os
@@ -11,6 +12,7 @@ from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import *
 
 from OpenNumismat import version
+from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
@@ -655,3 +657,43 @@ class ColnectDialog(QDialog):
         self.settings.save()
         self.colnect.close()
         super().accept()
+
+class ImportColnect(_Import2):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.colnect = ColnectConnector()
+        self.urls = []
+
+    @staticmethod
+    def isAvailable():
+        return True
+
+    def _connect(self, src):
+        csvFile = open(src)
+        cur_line = 0
+        for row in csv.reader(csvFile):
+            cur_line += 1
+            if cur_line <= 7: # skip 7 header lines
+                continue
+            for field in row:
+                # Can't rely on hardcoded column number because different export files have url in
+                # diferent columns depending on type of collection (i.e. stamps/coins/etc).
+                # Can't rely on hardcoded column name because of possible inconsistences
+                # with translations.
+                if field.startswith('https://colnect.com/'):
+                    self.urls.append(field)
+        csvFile.close()
+        return True
+
+    def _getRowsCount(self, connection):
+        return len(self.urls)
+
+    def _setRecord(self, record, row):
+        url = self.urls[row]
+        url_parts = url.rsplit('/', maxsplit=3)
+        category = url_parts[1]
+        item_id = url_parts[3]
+        action = "item/cat/%s/id/%s" % (category, item_id)
+        data = self.colnect.getData(action)
+        data.append(url)
+        self.colnect.makeItem(category, data, record)
