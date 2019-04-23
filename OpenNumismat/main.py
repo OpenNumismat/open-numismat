@@ -2,6 +2,7 @@ import locale
 import os
 import platform
 import shutil
+import ssl
 import sys
 import traceback
 
@@ -74,6 +75,9 @@ def main():
     translatorQt = QTranslator()
     translatorQt.load('qtbase_' + lang, OpenNumismat.PRJ_PATH)
     app.installTranslator(translatorQt)
+
+    if not settings['verify_ssl']:
+        ssl._create_default_https_context = ssl._create_unverified_context
 
     mainWindow = MainWindow()
     mainWindow.show()
