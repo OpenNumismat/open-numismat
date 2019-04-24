@@ -813,82 +813,82 @@ A aplicação tem de reiniciar agora.</translation>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="198"/>
+        <location filename="SettingsDialog.py" line="204"/>
         <source>Max image side len</source>
         <translation>Tamanho máximo da imagem</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="200"/>
+        <location filename="SettingsDialog.py" line="206"/>
         <source>0 for storing in original size</source>
         <translation>0 para gravar no tamanho original</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="209"/>
+        <location filename="SettingsDialog.py" line="215"/>
         <source>Preview image height</source>
         <translation>Antever altura da imagem</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="211"/>
+        <location filename="SettingsDialog.py" line="217"/>
         <source>Free format numeric fields</source>
         <translation>Formato livre em campos numéricos</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="221"/>
+        <location filename="SettingsDialog.py" line="227"/>
         <source>Store column sorting</source>
         <translation>Gravar ordem das colunas</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="226"/>
+        <location filename="SettingsDialog.py" line="232"/>
         <source>Images at bottom</source>
         <translation>Imagens no fundo</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="230"/>
+        <location filename="SettingsDialog.py" line="236"/>
         <source>Enable BC</source>
         <translation>Activar BC</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="234"/>
+        <location filename="SettingsDialog.py" line="240"/>
         <source>Use RichText format</source>
         <translation>Usar formato RichText</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="239"/>
+        <location filename="SettingsDialog.py" line="245"/>
         <source>Show icons from reference (slow)</source>
         <translation>Mostrar ícones da referência (lento)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="240"/>
+        <location filename="SettingsDialog.py" line="246"/>
         <source>in tree</source>
         <translation>na árvore</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="243"/>
+        <location filename="SettingsDialog.py" line="249"/>
         <source>in filters</source>
         <translation>nos filtros</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="246"/>
+        <location filename="SettingsDialog.py" line="252"/>
         <source>in list</source>
         <translation>na lista</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="253"/>
+        <location filename="SettingsDialog.py" line="259"/>
         <source>Used statuses</source>
         <translation>Estados usados</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="271"/>
+        <location filename="SettingsDialog.py" line="277"/>
         <source>Default status for new coin</source>
         <translation>Estado predefinido da nova moeda</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="297"/>
+        <location filename="SettingsDialog.py" line="303"/>
         <source>Settings</source>
         <translation>Definições</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="297"/>
+        <location filename="SettingsDialog.py" line="303"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Antever altura da imagem foi alterado. Recalcular agora?</translation>
     </message>
@@ -968,27 +968,27 @@ Especifique mais parâmetros</translation>
 <context>
     <name>ColnectSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="424"/>
+        <location filename="SettingsDialog.py" line="430"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="426"/>
+        <location filename="SettingsDialog.py" line="432"/>
         <source>Close dialog after adding item</source>
         <translation>Fechar diálogo após adicionar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="431"/>
+        <location filename="SettingsDialog.py" line="437"/>
         <source>Skip currency symbol</source>
         <translation>Saltar símbolo monetário</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="436"/>
+        <location filename="SettingsDialog.py" line="442"/>
         <source>Clear cache</source>
         <translation>Limpar memória</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="447"/>
+        <location filename="SettingsDialog.py" line="453"/>
         <source>Use Colnect</source>
         <translation>Usar Colnect</translation>
     </message>
@@ -1188,12 +1188,12 @@ Especifique mais parâmetros</translation>
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="92"/>
+        <location filename="main.py" line="96"/>
         <source>System error</source>
         <translation>Erro de sistema</translation>
     </message>
     <message>
-        <location filename="main.py" line="93"/>
+        <location filename="main.py" line="97"/>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Ocorreu um erro de sistema.
@@ -1281,17 +1281,17 @@ Quer enviar uma mensagem de erro ao autor?</translation>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="328"/>
+        <location filename="SettingsDialog.py" line="334"/>
         <source>Rename</source>
         <translation>Renomear</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="333"/>
+        <location filename="SettingsDialog.py" line="339"/>
         <source>Revert to default</source>
         <translation>Reverter para predefinição</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="341"/>
+        <location filename="SettingsDialog.py" line="347"/>
         <source>Global enabled fields:</source>
         <translation>Campos globais activos:</translation>
     </message>
@@ -1729,7 +1729,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Referência</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="151"/>
+        <location filename="SettingsDialog.py" line="156"/>
         <source>Backup folder</source>
         <translation>Pasta de segurança</translation>
     </message>
@@ -1794,7 +1794,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Total de imagens predefinido</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="160"/>
+        <location filename="SettingsDialog.py" line="165"/>
         <source>Select reference</source>
         <translation>Seleccionar referência</translation>
     </message>
@@ -1802,6 +1802,11 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <location filename="SettingsDialog.py" line="146"/>
         <source>Maps</source>
         <translation>Mapas</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="148"/>
+        <source>Verify SSL certifiacte</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2007,7 +2012,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Procurar actualizações</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="822"/>
+        <location filename="MainWindow.py" line="824"/>
         <source>About %s</source>
         <translation>Sobre o %s</translation>
     </message>
@@ -2047,67 +2052,67 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Estatísticas</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="610"/>
+        <location filename="MainWindow.py" line="612"/>
         <source>Importing</source>
         <translation>A importar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="552"/>
+        <location filename="MainWindow.py" line="554"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Antes de importar deve exportar a colecção existente do Cabinet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="557"/>
+        <location filename="MainWindow.py" line="559"/>
         <source>Select directory</source>
         <translation>Seleccionar pasta</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="638"/>
+        <location filename="MainWindow.py" line="640"/>
         <source>Select file</source>
         <translation>Seleccionar ficheiro</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="568"/>
+        <location filename="MainWindow.py" line="570"/>
         <source>Import pre-defined coins?</source>
         <translation>Importar moedas predefinidas?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="582"/>
+        <location filename="MainWindow.py" line="584"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Antes de importar deve exportar a colecção existente do Collection Studio para tabela XML (escolha Collection Studio menu Ferramentas &gt; Exportar...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="595"/>
+        <location filename="MainWindow.py" line="597"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Antes de importar, deve exportar a sua colecção de uCoin.net para o formato CSV (valores separados por vírgulas).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="610"/>
+        <location filename="MainWindow.py" line="612"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation>Antes de importar, exporte a colecção existente de uCoin.net para Microsoft Excel (XLS) ou para Comma-Separated (CSV).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="736"/>
+        <location filename="MainWindow.py" line="738"/>
         <source>Open collection</source>
         <translation>Abrir colecção</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="736"/>
+        <location filename="MainWindow.py" line="738"/>
         <source>Collections (*.db)</source>
         <translation>Colecções (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="712"/>
+        <location filename="MainWindow.py" line="714"/>
         <source>New collection</source>
         <translation>Nova colecção</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="789"/>
+        <location filename="MainWindow.py" line="791"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Criar nova colecção ou abrir uma das existentes</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="822"/>
+        <location filename="MainWindow.py" line="824"/>
         <source>%s %s
 
 Copyright (C) 2011-2019 Vitaly Ignatov
@@ -2120,22 +2125,22 @@ Copyright (C) 2011-2019 Vitaly Ignatov
 %s é freeware licenciado sob a GPLv3.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="849"/>
+        <location filename="MainWindow.py" line="851"/>
         <source>Updates</source>
         <translation>Actualizações</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="849"/>
+        <location filename="MainWindow.py" line="851"/>
         <source>You already have the latest version.</source>
         <translation>Já tem a última versão.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="860"/>
+        <location filename="MainWindow.py" line="862"/>
         <source>New version</source>
         <translation>Nova versão</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="860"/>
+        <location filename="MainWindow.py" line="862"/>
         <source>New version is available. Download it now?</source>
         <translation>Nova versão disponível. Transferir agora?</translation>
     </message>
@@ -2483,22 +2488,22 @@ Criada uma nova</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="482"/>
+        <location filename="SettingsDialog.py" line="488"/>
         <source>Settings</source>
         <translation>Definições</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="485"/>
+        <location filename="SettingsDialog.py" line="491"/>
         <source>Main</source>
         <translation>Principal</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="486"/>
+        <location filename="SettingsDialog.py" line="492"/>
         <source>Collection</source>
         <translation>Coleção</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="489"/>
+        <location filename="SettingsDialog.py" line="495"/>
         <source>Fields</source>
         <translation>Campos</translation>
     </message>

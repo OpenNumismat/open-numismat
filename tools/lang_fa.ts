@@ -805,82 +805,82 @@ The application will need to restart now.</source>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="198"/>
+        <location filename="SettingsDialog.py" line="204"/>
         <source>Max image side len</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="200"/>
+        <location filename="SettingsDialog.py" line="206"/>
         <source>0 for storing in original size</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="209"/>
+        <location filename="SettingsDialog.py" line="215"/>
         <source>Preview image height</source>
         <translation>پیش‌نمایش ارتفاع تصویر</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="211"/>
+        <location filename="SettingsDialog.py" line="217"/>
         <source>Free format numeric fields</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="221"/>
+        <location filename="SettingsDialog.py" line="227"/>
         <source>Store column sorting</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="226"/>
+        <location filename="SettingsDialog.py" line="232"/>
         <source>Images at bottom</source>
         <translation>تصاویر در پایین</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="230"/>
+        <location filename="SettingsDialog.py" line="236"/>
         <source>Enable BC</source>
         <translation>فعال کردن گزینه قبل از میلاد مسیح</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="234"/>
+        <location filename="SettingsDialog.py" line="240"/>
         <source>Use RichText format</source>
         <translation>استفاده از قالب Rich Text</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="239"/>
+        <location filename="SettingsDialog.py" line="245"/>
         <source>Show icons from reference (slow)</source>
         <translation>نمایش شمایل‌ها از مرجع (آهسته)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="240"/>
+        <location filename="SettingsDialog.py" line="246"/>
         <source>in tree</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="243"/>
+        <location filename="SettingsDialog.py" line="249"/>
         <source>in filters</source>
         <translation>در فیلترها</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="246"/>
+        <location filename="SettingsDialog.py" line="252"/>
         <source>in list</source>
         <translation>در فهرست</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="253"/>
+        <location filename="SettingsDialog.py" line="259"/>
         <source>Used statuses</source>
         <translation>وضعیت‌های مورد استفاده</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="271"/>
+        <location filename="SettingsDialog.py" line="277"/>
         <source>Default status for new coin</source>
         <translation>وضعیت پیش‌فرض سکه جدید</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="297"/>
+        <location filename="SettingsDialog.py" line="303"/>
         <source>Settings</source>
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="297"/>
+        <location filename="SettingsDialog.py" line="303"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation type="unfinished"/>
     </message>
@@ -959,27 +959,27 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="424"/>
+        <location filename="SettingsDialog.py" line="430"/>
         <source>Language</source>
         <translation>زبان</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="426"/>
+        <location filename="SettingsDialog.py" line="432"/>
         <source>Close dialog after adding item</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="431"/>
+        <location filename="SettingsDialog.py" line="437"/>
         <source>Skip currency symbol</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="436"/>
+        <location filename="SettingsDialog.py" line="442"/>
         <source>Clear cache</source>
         <translation>پاک کردن حافظه نهان کش</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="447"/>
+        <location filename="SettingsDialog.py" line="453"/>
         <source>Use Colnect</source>
         <translation type="unfinished"/>
     </message>
@@ -1179,12 +1179,12 @@ The application will need to restart now.</source>
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="92"/>
+        <location filename="main.py" line="96"/>
         <source>System error</source>
         <translation>خطای سیستم</translation>
     </message>
     <message>
-        <location filename="main.py" line="93"/>
+        <location filename="main.py" line="97"/>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation type="unfinished"/>
@@ -1271,17 +1271,17 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="328"/>
+        <location filename="SettingsDialog.py" line="334"/>
         <source>Rename</source>
         <translation>تغییر نام</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="333"/>
+        <location filename="SettingsDialog.py" line="339"/>
         <source>Revert to default</source>
         <translation>بازگشت به پیش‌فرض</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="341"/>
+        <location filename="SettingsDialog.py" line="347"/>
         <source>Global enabled fields:</source>
         <translation type="unfinished"/>
     </message>
@@ -1719,7 +1719,7 @@ Do you want to send an error message to the author?</source>
         <translation>مرجع</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="151"/>
+        <location filename="SettingsDialog.py" line="156"/>
         <source>Backup folder</source>
         <translation>پوشه پشتیبان‌گیری</translation>
     </message>
@@ -1784,13 +1784,18 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="160"/>
+        <location filename="SettingsDialog.py" line="165"/>
         <source>Select reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="146"/>
         <source>Maps</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="148"/>
+        <source>Verify SSL certifiacte</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1997,7 +2002,7 @@ Do you want to send an error message to the author?</source>
         <translation>بررسی برای به‌روز رسانی‌ها</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="822"/>
+        <location filename="MainWindow.py" line="824"/>
         <source>About %s</source>
         <translation>درباره %s</translation>
     </message>
@@ -2037,67 +2042,67 @@ Do you want to send an error message to the author?</source>
         <translation>آمار</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="610"/>
+        <location filename="MainWindow.py" line="612"/>
         <source>Importing</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="552"/>
+        <location filename="MainWindow.py" line="554"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="557"/>
+        <location filename="MainWindow.py" line="559"/>
         <source>Select directory</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="638"/>
+        <location filename="MainWindow.py" line="640"/>
         <source>Select file</source>
         <translation>انتخاب پرونده</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="568"/>
+        <location filename="MainWindow.py" line="570"/>
         <source>Import pre-defined coins?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="582"/>
+        <location filename="MainWindow.py" line="584"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="595"/>
+        <location filename="MainWindow.py" line="597"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="610"/>
+        <location filename="MainWindow.py" line="612"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="736"/>
+        <location filename="MainWindow.py" line="738"/>
         <source>Open collection</source>
         <translation>بازکردن مجموعه</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="736"/>
+        <location filename="MainWindow.py" line="738"/>
         <source>Collections (*.db)</source>
         <translation>مجموعه‌ها (* .db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="712"/>
+        <location filename="MainWindow.py" line="714"/>
         <source>New collection</source>
         <translation>مجموعه جدید</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="789"/>
+        <location filename="MainWindow.py" line="791"/>
         <source>Create new collection or open one of the existing</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="822"/>
+        <location filename="MainWindow.py" line="824"/>
         <source>%s %s
 
 Copyright (C) 2011-2019 Vitaly Ignatov
@@ -2106,22 +2111,22 @@ Copyright (C) 2011-2019 Vitaly Ignatov
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="849"/>
+        <location filename="MainWindow.py" line="851"/>
         <source>Updates</source>
         <translation>به‌روز رسانی‌ها</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="849"/>
+        <location filename="MainWindow.py" line="851"/>
         <source>You already have the latest version.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="860"/>
+        <location filename="MainWindow.py" line="862"/>
         <source>New version</source>
         <translation>نسخه جدید</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="860"/>
+        <location filename="MainWindow.py" line="862"/>
         <source>New version is available. Download it now?</source>
         <translation type="unfinished"/>
     </message>
@@ -2465,22 +2470,22 @@ Created new one</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="482"/>
+        <location filename="SettingsDialog.py" line="488"/>
         <source>Settings</source>
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="485"/>
+        <location filename="SettingsDialog.py" line="491"/>
         <source>Main</source>
         <translation>اصلی</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="486"/>
+        <location filename="SettingsDialog.py" line="492"/>
         <source>Collection</source>
         <translation>مجموعه</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="489"/>
+        <location filename="SettingsDialog.py" line="495"/>
         <source>Fields</source>
         <translation>اجزاء</translation>
     </message>

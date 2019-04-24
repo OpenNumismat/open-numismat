@@ -813,82 +813,82 @@ Applikationen måste starta om nu.</translation>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="198"/>
+        <location filename="SettingsDialog.py" line="204"/>
         <source>Max image side len</source>
         <translation>Max bild storlek</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="200"/>
+        <location filename="SettingsDialog.py" line="206"/>
         <source>0 for storing in original size</source>
         <translation>0 för lagring i originalstorlek</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="209"/>
+        <location filename="SettingsDialog.py" line="215"/>
         <source>Preview image height</source>
         <translation>Förhandsgranska bildhöjd</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="211"/>
+        <location filename="SettingsDialog.py" line="217"/>
         <source>Free format numeric fields</source>
         <translation>Gratis format numeriska fält</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="221"/>
+        <location filename="SettingsDialog.py" line="227"/>
         <source>Store column sorting</source>
         <translation>Spara kolumn sortering</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="226"/>
+        <location filename="SettingsDialog.py" line="232"/>
         <source>Images at bottom</source>
         <translation>Bilder längst ner</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="230"/>
+        <location filename="SettingsDialog.py" line="236"/>
         <source>Enable BC</source>
         <translation>Aktivera BC</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="234"/>
+        <location filename="SettingsDialog.py" line="240"/>
         <source>Use RichText format</source>
         <translation>Använd RichText-format</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="239"/>
+        <location filename="SettingsDialog.py" line="245"/>
         <source>Show icons from reference (slow)</source>
         <translation>Visa ikoner från referens (långsam)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="240"/>
+        <location filename="SettingsDialog.py" line="246"/>
         <source>in tree</source>
         <translation>i träd</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="243"/>
+        <location filename="SettingsDialog.py" line="249"/>
         <source>in filters</source>
         <translation>i filter</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="246"/>
+        <location filename="SettingsDialog.py" line="252"/>
         <source>in list</source>
         <translation>i listan</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="253"/>
+        <location filename="SettingsDialog.py" line="259"/>
         <source>Used statuses</source>
         <translation>Använda statuser</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="271"/>
+        <location filename="SettingsDialog.py" line="277"/>
         <source>Default status for new coin</source>
         <translation>Standardstatus för nytt mynt</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="297"/>
+        <location filename="SettingsDialog.py" line="303"/>
         <source>Settings</source>
         <translation>Inställningar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="297"/>
+        <location filename="SettingsDialog.py" line="303"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Förhandsgranskning av bildhöjd ändrades. Räkna om det nu?</translation>
     </message>
@@ -967,27 +967,27 @@ Applikationen måste starta om nu.</translation>
 <context>
     <name>ColnectSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="424"/>
+        <location filename="SettingsDialog.py" line="430"/>
         <source>Language</source>
         <translation>Språk</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="426"/>
+        <location filename="SettingsDialog.py" line="432"/>
         <source>Close dialog after adding item</source>
         <translation>Stäng dialogrutan efter att du har lagt till objekt</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="431"/>
+        <location filename="SettingsDialog.py" line="437"/>
         <source>Skip currency symbol</source>
         <translation>Hoppa över valutasymbolen</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="436"/>
+        <location filename="SettingsDialog.py" line="442"/>
         <source>Clear cache</source>
         <translation>Rensa cacheminnet</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="447"/>
+        <location filename="SettingsDialog.py" line="453"/>
         <source>Use Colnect</source>
         <translation>Använd Colnect</translation>
     </message>
@@ -1187,12 +1187,12 @@ Applikationen måste starta om nu.</translation>
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="92"/>
+        <location filename="main.py" line="96"/>
         <source>System error</source>
         <translation>Systemfel</translation>
     </message>
     <message>
-        <location filename="main.py" line="93"/>
+        <location filename="main.py" line="97"/>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Ett systemfel inträffade. 
@@ -1280,17 +1280,17 @@ Vill du skicka ett felmeddelande till författaren?</translation>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="328"/>
+        <location filename="SettingsDialog.py" line="334"/>
         <source>Rename</source>
         <translation>Byt namn</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="333"/>
+        <location filename="SettingsDialog.py" line="339"/>
         <source>Revert to default</source>
         <translation>Återgå till standard</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="341"/>
+        <location filename="SettingsDialog.py" line="347"/>
         <source>Global enabled fields:</source>
         <translation>Globala aktiverade fält:</translation>
     </message>
@@ -1728,7 +1728,7 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Referens</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="151"/>
+        <location filename="SettingsDialog.py" line="156"/>
         <source>Backup folder</source>
         <translation>Backup mapp</translation>
     </message>
@@ -1793,13 +1793,18 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Bilder räknas som standard</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="160"/>
+        <location filename="SettingsDialog.py" line="165"/>
         <source>Select reference</source>
         <translation>Välj refererns</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="146"/>
         <source>Maps</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="148"/>
+        <source>Verify SSL certifiacte</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2006,7 +2011,7 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Sök efter uppdateringar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="822"/>
+        <location filename="MainWindow.py" line="824"/>
         <source>About %s</source>
         <translation>Om %s</translation>
     </message>
@@ -2046,67 +2051,67 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Statistik</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="610"/>
+        <location filename="MainWindow.py" line="612"/>
         <source>Importing</source>
         <translation>importera</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="552"/>
+        <location filename="MainWindow.py" line="554"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Innan du importerar bör du exportera befintlig samling från kabinett.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="557"/>
+        <location filename="MainWindow.py" line="559"/>
         <source>Select directory</source>
         <translation>Välj mapp</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="638"/>
+        <location filename="MainWindow.py" line="640"/>
         <source>Select file</source>
         <translation>Välj fil</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="568"/>
+        <location filename="MainWindow.py" line="570"/>
         <source>Import pre-defined coins?</source>
         <translation>Importera fördefinierade mynt?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="582"/>
+        <location filename="MainWindow.py" line="584"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Innan du importerar ska du exportera befintlig samling från Collection Studio till XML-tabell (välj Samling Studio-menyn Verktyg&gt; Exportera ...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="595"/>
+        <location filename="MainWindow.py" line="597"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Innan du exporterar bör du exportera befintlig samling från uCoin.net till kommaseparerad (CSV) -format.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="610"/>
+        <location filename="MainWindow.py" line="612"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation>nnan du importerar bör du exportera befintlig samling från uCoin.net till Microsoft Excel (XLS) eller Komma-Separerat (CSV) format.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="736"/>
+        <location filename="MainWindow.py" line="738"/>
         <source>Open collection</source>
         <translation>Öppen samling</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="736"/>
+        <location filename="MainWindow.py" line="738"/>
         <source>Collections (*.db)</source>
         <translation>Samlingar (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="712"/>
+        <location filename="MainWindow.py" line="714"/>
         <source>New collection</source>
         <translation>Ny samling</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="789"/>
+        <location filename="MainWindow.py" line="791"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Skapa ny samling eller öppna en av de befintliga</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="822"/>
+        <location filename="MainWindow.py" line="824"/>
         <source>%s %s
 
 Copyright (C) 2011-2019 Vitaly Ignatov
@@ -2119,22 +2124,22 @@ Upphovsrätt (C) 2011-2019 Vitaly Ignatov
 % s är freeware licensierat under en GPLv3.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="849"/>
+        <location filename="MainWindow.py" line="851"/>
         <source>Updates</source>
         <translation>Uppdateringar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="849"/>
+        <location filename="MainWindow.py" line="851"/>
         <source>You already have the latest version.</source>
         <translation>Du har redan den senaste versionen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="860"/>
+        <location filename="MainWindow.py" line="862"/>
         <source>New version</source>
         <translation>Ny version</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="860"/>
+        <location filename="MainWindow.py" line="862"/>
         <source>New version is available. Download it now?</source>
         <translation>Ny version är tillgänglig. Ladda ner nu?</translation>
     </message>
@@ -2482,22 +2487,22 @@ Skapade nytt</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="482"/>
+        <location filename="SettingsDialog.py" line="488"/>
         <source>Settings</source>
         <translation>Inställningar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="485"/>
+        <location filename="SettingsDialog.py" line="491"/>
         <source>Main</source>
         <translation>Huvud</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="486"/>
+        <location filename="SettingsDialog.py" line="492"/>
         <source>Collection</source>
         <translation>Samling</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="489"/>
+        <location filename="SettingsDialog.py" line="495"/>
         <source>Fields</source>
         <translation>Fält</translation>
     </message>
