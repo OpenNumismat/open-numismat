@@ -536,7 +536,7 @@ class PageView(Splitter):
     def __init__(self, pageParam, parent=None):
         super().__init__('0', parent=parent)
 
-        imagesAtBottom = pageParam.images_at_bottom
+        self.imagesAtBottom = pageParam.images_at_bottom
 
         self._model = None
         self.param = pageParam
@@ -548,7 +548,7 @@ class PageView(Splitter):
             self.listView = IconView(self.param.listParam, self)
         else:
             self.listView = ListView(self.param.listParam, self)
-        if imagesAtBottom:
+        if self.imagesAtBottom:
             self.imageView = ImageView(QBoxLayout.LeftToRight, self)
             self.detailsView = DetailsView(QBoxLayout.TopToBottom, self)
         else:
@@ -560,7 +560,7 @@ class PageView(Splitter):
         splitter2.addWidget(self.treeView)
         splitter2.addWidget(self.listView)
         self.splitter1.addWidget(splitter2)
-        if imagesAtBottom:
+        if self.imagesAtBottom:
             self.splitter1.addWidget(self.imageView)
         else:
             self.splitter1.addWidget(self.detailsView)
@@ -577,7 +577,7 @@ class PageView(Splitter):
                 self.mapView = GlobalGMapsWidget()
 
         self.addWidget(self.splitter1)
-        if imagesAtBottom:
+        if self.imagesAtBottom:
             self.addWidget(self.detailsView)
         else:
             self.addWidget(self.imageView)
@@ -622,7 +622,10 @@ class PageView(Splitter):
         elif self.param.info_type == CollectionPageTypes.Statistics:
             self.splitter1.switchWidget(1, self.statisticsView)
         else:
-            self.splitter1.switchWidget(1, self.detailsView)
+            if self.imagesAtBottom:
+                self.splitter1.switchWidget(1, self.imageView)
+            else:
+                self.splitter1.switchWidget(1, self.detailsView)
 
         if sizes[1] > 0:
             self.splitter1.setSizes(sizes)
