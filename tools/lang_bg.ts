@@ -150,7 +150,7 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
     <message numerus="yes">
         <location filename="ListView.py" line="156"/>
         <source>%n coin(s) selected</source>
-        <translation><numerusform>Избрани са %n</numerusform><numerusform>Избрани са %n</numerusform></translation>
+        <translation><numerusform>Избрани са %n</numerusform><numerusform>Избрана/и е/са %n монета/и</numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="67"/>
@@ -1522,7 +1522,8 @@ Do you want to send an error message to the author?</source>
         <source>No image available
 (right-click to add an image)</source>
         <translation>Изображение не е налично 
-(кликнете с десния бутон, за да добавите изображение)</translation>
+(кликнете с десния бутон, 
+за да добавите изображение)</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="330"/>
@@ -2038,7 +2039,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="479"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
-        <translation>Приложението ще трябва да се рестартира, за да приложи новите настройки. Рестартиране сега?</translation>
+        <translation>Приложението ще трябва да се рестартира, за да се приложат новите настройки. Да се рестартира ли сега?</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="73"/>
@@ -2131,7 +2132,7 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="851"/>
         <source>You already have the latest version.</source>
-        <translation>Вие вече имате най-новата версия.</translation>
+        <translation>Вече имате най-новата версия.</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="862"/>

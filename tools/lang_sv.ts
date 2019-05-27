@@ -4,7 +4,7 @@
     <message>
         <location filename="FormItems.py" line="217"/>
         <source>Find address</source>
-        <translation type="unfinished"/>
+        <translation>Hitta adreee</translation>
     </message>
 </context>
 <context>
@@ -340,7 +340,7 @@ Vänligen uppdatera OpenNumismat</translation>
     <message>
         <location filename="Collection.py" line="1357"/>
         <source>Vacuum...</source>
-        <translation>Vakuum...</translation>
+        <translation>Packa...</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1575"/>
@@ -754,17 +754,17 @@ Applikationen måste starta om nu.</translation>
     <message>
         <location filename="CollectionFields.py" line="219"/>
         <source>Address</source>
-        <translation type="unfinished"/>
+        <translation>Adress</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="220"/>
         <source>Latitude</source>
-        <translation type="unfinished"/>
+        <translation>Latitude</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="221"/>
         <source>Longitude</source>
-        <translation type="unfinished"/>
+        <translation>Longitude</translation>
     </message>
 </context>
 <context>
@@ -961,7 +961,7 @@ Applikationen måste starta om nu.</translation>
     <message>
         <location filename="Colnect.py" line="251"/>
         <source>Specify more parameters</source>
-        <translation type="unfinished"/>
+        <translation>VG ange mera parametrar</translation>
     </message>
 </context>
 <context>
@@ -1128,7 +1128,7 @@ Applikationen måste starta om nu.</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="50"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Karta</translation>
     </message>
 </context>
 <context>
@@ -1388,7 +1388,7 @@ Vill du skicka ett felmeddelande till författaren?</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="556"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Karta</translation>
     </message>
 </context>
 <context>
@@ -1800,7 +1800,7 @@ Vill du skicka ett felmeddelande till författaren?</translation>
     <message>
         <location filename="SettingsDialog.py" line="146"/>
         <source>Maps</source>
-        <translation type="unfinished"/>
+        <translation>Kartor</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="148"/>
@@ -2156,7 +2156,7 @@ Upphovsrätt (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="87"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Karta</translation>
     </message>
 </context>
 <context>

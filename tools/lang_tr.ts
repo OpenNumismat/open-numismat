@@ -4,7 +4,7 @@
     <message>
         <location filename="FormItems.py" line="217"/>
         <source>Find address</source>
-        <translation type="unfinished"/>
+        <translation>Adres bul</translation>
     </message>
 </context>
 <context>
@@ -135,7 +135,7 @@ Gerekli madeni paraları Ctrl veya Shift ile tıklayarak seçin veya tüm madeni
     <message numerus="yes">
         <location filename="ListView.py" line="464"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n madeni parayı kaldırmak istediğinize emin misiniz?</numerusform><numerusform>%n madeni parayı kaldırmak istediğinize emin misiniz?</numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="471"/>
@@ -732,7 +732,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="214"/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Konum</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="215"/>
@@ -742,22 +742,22 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="218"/>
         <source>Signature</source>
-        <translation type="unfinished"/>
+        <translation>İmza</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="219"/>
         <source>Address</source>
-        <translation type="unfinished"/>
+        <translation>Adres</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="220"/>
         <source>Latitude</source>
-        <translation type="unfinished"/>
+        <translation>Enlem</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="221"/>
         <source>Longitude</source>
-        <translation type="unfinished"/>
+        <translation>Boylam</translation>
     </message>
 </context>
 <context>
@@ -954,7 +954,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="251"/>
         <source>Specify more parameters</source>
-        <translation type="unfinished"/>
+        <translation>Daha fazla parametre belirle</translation>
     </message>
 </context>
 <context>
@@ -1121,7 +1121,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="DetailsTabWidget.py" line="50"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Harita</translation>
     </message>
 </context>
 <context>
@@ -1298,12 +1298,12 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     <message>
         <location filename="HeaderFilterMenu.py" line="143"/>
         <source>(Images)</source>
-        <translation type="unfinished"/>
+        <translation>(Görseller)</translation>
     </message>
     <message>
         <location filename="HeaderFilterMenu.py" line="145"/>
         <source>(Text)</source>
-        <translation type="unfinished"/>
+        <translation>(Metin)</translation>
     </message>
     <message>
         <location filename="HeaderFilterMenu.py" line="147"/>
@@ -1381,7 +1381,7 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="556"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Harita</translation>
     </message>
 </context>
 <context>
@@ -1793,12 +1793,12 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     <message>
         <location filename="SettingsDialog.py" line="146"/>
         <source>Maps</source>
-        <translation type="unfinished"/>
+        <translation>Haritalar</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="148"/>
         <source>Verify SSL certifiacte</source>
-        <translation type="unfinished"/>
+        <translation>SSL sertifikasını doğrula</translation>
     </message>
 </context>
 <context>
@@ -2101,7 +2101,7 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     <message>
         <location filename="MainWindow.py" line="791"/>
         <source>Create new collection or open one of the existing</source>
-        <translation type="unfinished"/>
+        <translation>Yeni bir koleksiyon oluştur veya mevcut bir koleksiyonu aç</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="824"/>
@@ -2149,7 +2149,7 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="87"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Harita</translation>
     </message>
 </context>
 <context>

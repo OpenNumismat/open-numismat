@@ -1806,7 +1806,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     <message>
         <location filename="SettingsDialog.py" line="148"/>
         <source>Verify SSL certifiacte</source>
-        <translation type="unfinished"/>
+        <translation>Verificar certificado SSL</translation>
     </message>
 </context>
 <context>

@@ -4,7 +4,7 @@
     <message>
         <location filename="FormItems.py" line="217"/>
         <source>Find address</source>
-        <translation type="unfinished"/>
+        <translation>Cerca indirizzo</translation>
     </message>
 </context>
 <context>
@@ -35,7 +35,7 @@
     <message>
         <location filename="StatisticsView.py" line="144"/>
         <source>Number of coins</source>
-        <translation>Numero delle monete</translation>
+        <translation>Numero di monete</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="184"/>
@@ -73,13 +73,14 @@
     <message>
         <location filename="ListView.py" line="200"/>
         <source>Report preview</source>
-        <translation>Anteprima resoconto</translation>
+        <translation>Anteprima report</translation>
     </message>
     <message>
         <location filename="ListView.py" line="200"/>
         <source>Nothing selected.
 Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
-        <translation type="unfinished"/>
+        <translation>Nessuna selezione.
+Seleziona le monete richieste cliccando mentre tieni premuto Ctrl, Shift, oppure premi Ctrl-A per selezionare tutte le monete.</translation>
     </message>
     <message>
         <location filename="ListView.py" line="207"/>
@@ -144,23 +145,24 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
     <message>
         <location filename="ListView.py" line="64"/>
         <source>0 coins selected</source>
-        <translation>Nessuna moneta selezionata</translation>
+        <translation>0 monete selezionate</translation>
     </message>
     <message numerus="yes">
         <location filename="ListView.py" line="156"/>
         <source>%n coin(s) selected</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>% moneta selezionata</numerusform><numerusform>%n monete selezionate</numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="67"/>
         <source>Custom sorting</source>
-        <translation type="unfinished"/>
+        <translation>Ordinamento personalizzato</translation>
     </message>
     <message>
         <location filename="ListView.py" line="67"/>
         <source>Default sort order changed.
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;ordinamento predefinito è stato modificato.
+La modifica della posizione di un elemento è disponibile solamente nell&apos;ordinamento predefinito. Cancellare l&apos;ordinamento?</translation>
     </message>
 </context>
 <context>
@@ -183,13 +185,13 @@ Changing item position avalaible only on default sort order. Clear sort order no
     <message>
         <location filename="Collection.py" line="738"/>
         <source>Collection %s in wrong format %s</source>
-        <translation>Collezione %s in formato errato %s</translation>
+        <translation>Collezione %s è in un formato errato %s</translation>
     </message>
     <message>
         <location filename="Collection.py" line="743"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation>Collezione %s una versione più recente.
+        <translation>La collezione %s è in una versione più recente.
 Si prega di aggiornare OpenNumismat</translation>
     </message>
     <message>
@@ -200,17 +202,17 @@ Si prega di aggiornare OpenNumismat</translation>
     <message>
         <location filename="Collection.py" line="776"/>
         <source>Specified file already exists</source>
-        <translation>Il file specificato è gia esistente</translation>
+        <translation>Il file specificato esiste già</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1145"/>
         <source>Can&apos;t open collection</source>
-        <translation>Impossibile aprire collezione</translation>
+        <translation>Impossibile aprire la collezione</translation>
     </message>
     <message>
         <location filename="Collection.py" line="874"/>
         <source>Updating reference</source>
-        <translation>Aggiornamento riferimenti</translation>
+        <translation>Aggiornamento dei riferimenti</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1416"/>
@@ -225,7 +227,7 @@ Si prega di aggiornare OpenNumismat</translation>
     <message>
         <location filename="Collection.py" line="908"/>
         <source>Attach current reference to a collection file?</source>
-        <translation>Allegare il riferimento corrente a un file di collezione?</translation>
+        <translation>Allegare il riferimento corrente al file di una collezione?</translation>
     </message>
     <message>
         <location filename="Collection.py" line="949"/>
@@ -236,7 +238,7 @@ Si prega di aggiornare OpenNumismat</translation>
         <location filename="Collection.py" line="949"/>
         <source>Can't attach reference:
 %s</source>
-        <translation>Impossibile allegare riferimento:
+        <translation>Impossibile allegare il riferimento:
 %s</translation>
     </message>
     <message>
@@ -263,7 +265,7 @@ Si prega di aggiornare OpenNumismat</translation>
         <location filename="Collection.py" line="984"/>
         <source>Can't detach reference:
 %s</source>
-        <translation>Impossibile staccare il riferimento:
+        <translation>Impossibile scollegare il riferimento:
 %s</translation>
     </message>
     <message>
@@ -308,7 +310,7 @@ Si prega di aggiornare OpenNumismat</translation>
     <message>
         <location filename="Collection.py" line="1090"/>
         <source>Backup collection</source>
-        <translation>Backup collezione</translation>
+        <translation>Backup della collezione</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1090"/>
@@ -368,8 +370,8 @@ Si prega di aggiornare OpenNumismat</translation>
         <location filename="Collection.py" line="1568"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
-        <translation>Monete %d inserite, monete %d aggiornate.
-L&apos;applicazione deve essere riavviata adesso.</translation>
+        <translation>Inserite %d monete, aggiornate %d monete.
+L&apos;applicazione deve essere riavviata.</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1574"/>
@@ -732,37 +734,37 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="CollectionFields.py" line="213"/>
         <source>Category</source>
-        <translation type="unfinished"/>
+        <translation>Categoria</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="214"/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Posizione</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="215"/>
         <source>Emitent</source>
-        <translation type="unfinished"/>
+        <translation>Emittente</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="218"/>
         <source>Signature</source>
-        <translation type="unfinished"/>
+        <translation>Firma</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="219"/>
         <source>Address</source>
-        <translation type="unfinished"/>
+        <translation>Indirizzo</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="220"/>
         <source>Latitude</source>
-        <translation type="unfinished"/>
+        <translation>Latitudine</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="221"/>
         <source>Longitude</source>
-        <translation type="unfinished"/>
+        <translation>Longitudine</translation>
     </message>
 </context>
 <context>
@@ -843,12 +845,12 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="SettingsDialog.py" line="236"/>
         <source>Enable BC</source>
-        <translation type="unfinished"/>
+        <translation>Abilita le date avanti Cristo</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="240"/>
         <source>Use RichText format</source>
-        <translation type="unfinished"/>
+        <translation>Utilizza il formato RichText</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="245"/>
@@ -873,12 +875,12 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="SettingsDialog.py" line="259"/>
         <source>Used statuses</source>
-        <translation type="unfinished"/>
+        <translation>Stati utilizzati</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="277"/>
         <source>Default status for new coin</source>
-        <translation type="unfinished"/>
+        <translation>Stato predefinito per una nuova moneta</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="303"/>
@@ -901,7 +903,7 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="Colnect.py" line="39"/>
         <source>Can&apos;t open Colnect cache</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile aprire la cache di Colnect </translation>
     </message>
 </context>
 <context>
@@ -909,7 +911,7 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="Colnect.py" line="142"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
-        <translation type="unfinished"/>
+        <translation>Informazioni sul catalogo cortesemente fornite da &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, una comunità online di collezionisti.</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="155"/>
@@ -919,17 +921,17 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="Colnect.py" line="155"/>
         <source>Bankotes</source>
-        <translation type="unfinished"/>
+        <translation>Banconote</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="155"/>
         <source>Stamps</source>
-        <translation type="unfinished"/>
+        <translation>Francobolli</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="164"/>
         <source>Category</source>
-        <translation type="unfinished"/>
+        <translation>Categoria</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="236"/>
@@ -939,12 +941,12 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="Colnect.py" line="238"/>
         <source>Add and close</source>
-        <translation type="unfinished"/>
+        <translation>Aggiungi e chiudi</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="411"/>
         <source>(All)</source>
-        <translation type="unfinished"/>
+        <translation>(Tutti)</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="462"/>
@@ -959,7 +961,7 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="Colnect.py" line="251"/>
         <source>Specify more parameters</source>
-        <translation type="unfinished"/>
+        <translation>Indicare più parametri</translation>
     </message>
 </context>
 <context>
@@ -972,22 +974,22 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="SettingsDialog.py" line="432"/>
         <source>Close dialog after adding item</source>
-        <translation type="unfinished"/>
+        <translation>Chiudi la finestra dopo aver aggiunto l&apos;elemento</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="437"/>
         <source>Skip currency symbol</source>
-        <translation type="unfinished"/>
+        <translation>Salta il simbolo della valuta</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="442"/>
         <source>Clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Cancella la cache</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="453"/>
         <source>Use Colnect</source>
-        <translation type="unfinished"/>
+        <translation>Utilizza Colnect</translation>
     </message>
 </context>
 <context>
@@ -1126,7 +1128,7 @@ L&apos;applicazione deve essere riavviata adesso.</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="50"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Mappa</translation>
     </message>
 </context>
 <context>
@@ -1386,7 +1388,7 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="556"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Mappa</translation>
     </message>
 </context>
 <context>
@@ -1419,7 +1421,7 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="StatisticsView.py" line="121"/>
         <source>Image not ready. Please try again later</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;immagine non è pronta, riprova più tardi.</translation>
     </message>
 </context>
 <context>
@@ -1465,12 +1467,12 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="ListView.py" line="1282"/>
         <source>Move up</source>
-        <translation type="unfinished"/>
+        <translation>Sposta su</translation>
     </message>
     <message>
         <location filename="ListView.py" line="1287"/>
         <source>Move down</source>
-        <translation type="unfinished"/>
+        <translation>Sposta giù</translation>
     </message>
 </context>
 <context>
@@ -1705,12 +1707,12 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="ListView.py" line="836"/>
         <source>Move up</source>
-        <translation type="unfinished"/>
+        <translation>Sposta su</translation>
     </message>
     <message>
         <location filename="ListView.py" line="841"/>
         <source>Move down</source>
-        <translation type="unfinished"/>
+        <translation>Sposta giù</translation>
     </message>
 </context>
 <context>
@@ -1733,12 +1735,12 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="SettingsDialog.py" line="78"/>
         <source>Make autobackup</source>
-        <translation type="unfinished"/>
+        <translation>Effettua un autobackup</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="88"/>
         <source>Coin changes before autobackup</source>
-        <translation type="unfinished"/>
+        <translation>Numero di modifiche prima dell&apos;autobackup</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="92"/>
@@ -1798,12 +1800,12 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="SettingsDialog.py" line="146"/>
         <source>Maps</source>
-        <translation type="unfinished"/>
+        <translation>Mappe</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="148"/>
         <source>Verify SSL certifiacte</source>
-        <translation type="unfinished"/>
+        <translation>Verifica il certificato SSL</translation>
     </message>
 </context>
 <context>
@@ -1811,17 +1813,17 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="MainWindow.py" line="39"/>
         <source>Table view</source>
-        <translation type="unfinished"/>
+        <translation>Vista come tabella</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="45"/>
         <source>Icon view</source>
-        <translation type="unfinished"/>
+        <translation>Vista come icona</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="51"/>
         <source>Card view</source>
-        <translation type="unfinished"/>
+        <translation>Vista come scheda</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="67"/>
@@ -2011,7 +2013,7 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     <message>
         <location filename="MainWindow.py" line="824"/>
         <source>About %s</source>
-        <translation>Riguardo a %s</translation>
+        <translation>Informazioni su %s</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="359"/>
@@ -2115,7 +2117,11 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
 Copyright (C) 2011-2019 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished"/>
+        <translation>%s %s
+
+Copyright (C) 2011-2019 Vitaly Ignatov
+
+%s è un software gratuito distribuito secondo la licenza GPLv3.</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="851"/>
@@ -2140,7 +2146,7 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="107"/>
         <source>Clear sort order</source>
-        <translation type="unfinished"/>
+        <translation>Cancella l&apos;ordinamento</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="112"/>
@@ -2150,7 +2156,7 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="87"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Mappa</translation>
     </message>
 </context>
 <context>
@@ -2624,7 +2630,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="StatisticsView.py" line="400"/>
         <source>Region:</source>
-        <translation type="unfinished"/>
+        <translation>Regione:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="403"/>
@@ -2702,7 +2708,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="CollectionFields.py" line="67"/>
         <source>Bidding</source>
-        <translation type="unfinished"/>
+        <translation>Offerto</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="67"/>
@@ -2722,7 +2728,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="CollectionFields.py" line="67"/>
         <source>Missing</source>
-        <translation type="unfinished"/>
+        <translation>Mancata</translation>
     </message>
 </context>
 <context>
@@ -2755,17 +2761,17 @@ Creane uno nuovo</translation>
     <message>
         <location filename="SummaryDialog.py" line="69"/>
         <source>Count biddings: %d</source>
-        <translation type="unfinished"/>
+        <translation>Conteggio offerte: %d</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="76"/>
         <source>Count missing: %d</source>
-        <translation type="unfinished"/>
+        <translation>Conteggio mancate: %d</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="110"/>
         <source>(commission %d%%)</source>
-        <translation type="unfinished"/>
+        <translation>(commissione %d%%)</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="92"/>
@@ -2775,7 +2781,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="SummaryDialog.py" line="95"/>
         <source>Average paid per item: %.2f</source>
-        <translation type="unfinished"/>
+        <translation>Costo medio per elemento: %.2f</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="111"/>
@@ -2785,7 +2791,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="SummaryDialog.py" line="114"/>
         <source>Average earn per item: %.2f</source>
-        <translation type="unfinished"/>
+        <translation>Guadagno medio per elemento: %.2f</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="118"/>
@@ -2815,7 +2821,7 @@ Creane uno nuovo</translation>
     <message>
         <location filename="SummaryDialog.py" line="202"/>
         <source>Count images: %d</source>
-        <translation type="unfinished"/>
+        <translation>Numero di immagini: %d</translation>
     </message>
 </context>
 <context>
@@ -3018,7 +3024,7 @@ Aggiungi una nuova pagina prima.</translation>
     <message>
         <location filename="FormItems.py" line="449"/>
         <source>BC</source>
-        <translation type="unfinished"/>
+        <translation>a.C.</translation>
     </message>
 </context>
 <context>

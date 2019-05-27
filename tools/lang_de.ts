@@ -4,7 +4,7 @@
     <message>
         <location filename="FormItems.py" line="217"/>
         <source>Find address</source>
-        <translation type="unfinished"/>
+        <translation>Finde Adresse</translation>
     </message>
 </context>
 <context>
@@ -742,22 +742,22 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="218"/>
         <source>Signature</source>
-        <translation type="unfinished"/>
+        <translation>Unterschrift</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="219"/>
         <source>Address</source>
-        <translation type="unfinished"/>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="220"/>
         <source>Latitude</source>
-        <translation type="unfinished"/>
+        <translation>Breitengrad</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="221"/>
         <source>Longitude</source>
-        <translation type="unfinished"/>
+        <translation>Längengrad</translation>
     </message>
 </context>
 <context>

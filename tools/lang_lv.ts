@@ -4,7 +4,7 @@
     <message>
         <location filename="FormItems.py" line="217"/>
         <source>Find address</source>
-        <translation type="unfinished"/>
+        <translation>Atrast adresi</translation>
     </message>
 </context>
 <context>
@@ -134,7 +134,7 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
     <message numerus="yes">
         <location filename="ListView.py" line="464"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Vai tiešām vēlaties noņemt %n monētas?</numerusform><numerusform>Vai tiešām vēlaties noņemt %n monētu?</numerusform><numerusform>Vai tiešām vēlaties noņemt %n monētas?</numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="471"/>
@@ -943,7 +943,7 @@ Nepieciešams restartēt OpenNumismat.</translation>
     <message>
         <location filename="Colnect.py" line="238"/>
         <source>Add and close</source>
-        <translation type="unfinished"/>
+        <translation>Pievienot un aizvērt</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="411"/>
