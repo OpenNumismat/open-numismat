@@ -1294,7 +1294,8 @@ class IconView(BaseTableView):
         menu.exec_(self.mapToGlobal(pos))
 
     def currentChanged(self, current, previous):
-        self.rowChanged.emit(self.currentIndex())
+        if (current.row() != previous.row()) or (current.column() != previous.column()):
+            self.rowChanged.emit(self.currentIndex())
 
         return super().currentChanged(current, previous)
 
