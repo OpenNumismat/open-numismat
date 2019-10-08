@@ -9,9 +9,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QObject, QDate
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from PyQt5.QtWidgets import (QAbstractItemView, QComboBox, QDialog, QDialogButtonBox, QFormLayout,
-                             QLabel, QMessageBox, QSizePolicy, QTableWidget, QTableWidgetItem,
-                             QPushButton, QVBoxLayout, QWidget)
+from PyQt5.QtWidgets import *
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
@@ -404,6 +402,19 @@ class ColnectDialog(QDialog):
             self.addCloseButton.setDefault(True)
         else:
             self.addButton.setDefault(True)
+
+        self.previewButton = QPushButton(self.tr("Preview"))
+        self.previewButton.setEnabled(False)
+        self.previewButton.clicked.connect(self.preview)
+        self.label = QLabel(self.tr("Specify more parameters"), self)
+        self.label_empty = QLabel(self.tr("Nothing found"), self)
+        self.label_empty.hide()
+        previewBox = QHBoxLayout()
+        previewBox.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+        previewBox.addWidget(self.previewButton)
+        previewBox.addWidget(self.label)
+        previewBox.addWidget(self.label_empty)
+
         buttonBox = QDialogButtonBox(Qt.Horizontal, self)
         buttonBox.addButton(self.addButton, QDialogButtonBox.ActionRole)
         buttonBox.addButton(self.addCloseButton, QDialogButtonBox.ActionRole)
@@ -411,12 +422,11 @@ class ColnectDialog(QDialog):
         buttonBox.clicked.connect(self.clicked)
 
         self.table.hide()
-        self.label = QLabel(self.tr("Specify more parameters"), self)
 
         vlayout = QVBoxLayout()
         vlayout.addLayout(layout)
+        vlayout.addLayout(previewBox)
         vlayout.addWidget(self.table)
-        vlayout.addWidget(self.label)
         vlayout.addWidget(buttonBox)
 
         self.setLayout(vlayout)
@@ -469,6 +479,8 @@ class ColnectDialog(QDialog):
 
         self.table.hide()
         self.label.show()
+        self.label_empty.hide()
+        self.previewButton.setEnabled(False)
         self.table.setRowCount(0)
         self.items = []
 
@@ -561,55 +573,94 @@ class ColnectDialog(QDialog):
                 action += "/currency/%s" % currency
             item_ids = self.colnect.getData(action)
 
-            if ((series or distribution) and year and value and currency) or (len(item_ids) < 100):
-                if item_ids:
-                    self.addButton.setEnabled(True)
-                    self.addCloseButton.setEnabled(True)
-                self.table.show()
+            if len(item_ids) == 0:
+                self.label_empty.show()
+                self.label.hide()
+            elif ((series or distribution) and year and value and currency) or (len(item_ids) < 100):
+                self.previewButton.setEnabled(True)
                 self.label.hide()
 
-                progressDlg = ProgressDialog(self.tr("Downloading"), self.tr("Cancel"),
-                                             len(item_ids), self)
+    def preview(self):
+        self.table.show()
 
-                self.table.setRowCount(len(item_ids))
-                for i, item_id in enumerate(item_ids):
-                    progressDlg.step()
-                    if progressDlg.wasCanceled():
-                        break
+        category = self.categorySelector.currentData()
+        if category in ('coins', 'stamps'):
+            self.distributionSelector.setVisible(True)
+        else:
+            self.distributionSelector.setVisible(False)
 
-                    action = "item/cat/%s/id/%d" % (category, item_id)
-                    data = self.colnect.getData(action)
-                    data.append(self._itemUrl(category, item_id))
-                    self.items.append(data)
+        series = self.seriesSelector.currentData()
+        year = self.yearSelector.currentData()
+        value = self.valueSelector.currentData()
+        currency = self.currencySelector.currentData()
+        if self.distributionSelector.isVisible():
+            distribution = self.distributionSelector.currentData()
+        else:
+            distribution = None
 
-                    image = self._getImage(int(data[8]), data[0])
-                    pixmap = QPixmap.fromImage(image)
-                    item = QTableWidgetItem()
-                    item.setData(Qt.DecorationRole, pixmap)
-                    self.table.setItem(i, 0, item)
+        country = self.countrySelector.currentData()
+        action = "list_id/cat/%s/producer/%d" % (category, country)
+        if series:
+            action += "/series/%s" % series
+        if distribution:
+            if category == 'coins':
+                action += "/distribution/%s" % distribution
+            elif category == 'stamps':
+                action += "/emission/%s" % distribution
+        if year:
+            action += "/year/%s" % year
+        if value:
+            action += "/face_value/%s" % value
+        if currency:
+            action += "/currency/%s" % currency
+        item_ids = self.colnect.getData(action)
 
-                    image = self._getImage(int(data[9]), data[0])
-                    pixmap = QPixmap.fromImage(image)
-                    item = QTableWidgetItem()
-                    item.setData(Qt.DecorationRole, pixmap)
-                    self.table.setItem(i, 1, item)
+        progressDlg = ProgressDialog(self.tr("Downloading"), self.tr("Cancel"),
+                                     len(item_ids), self)
 
-                    item = QTableWidgetItem(data[0])
-                    self.table.setItem(i, 2, item)
-                    item = QTableWidgetItem(data[2])
-                    self.table.setItem(i, 3, item)
-                    item = QTableWidgetItem(str(data[4]))
-                    self.table.setItem(i, 4, item)
-                    item = QTableWidgetItem(data[14])
-                    self.table.setItem(i, 5, item)
-                    item = QTableWidgetItem(data[19])
-                    self.table.setItem(i, 6, item)
-                    item = QTableWidgetItem(str(data[13]))
-                    self.table.setItem(i, 7, item)
-                    item = QTableWidgetItem(data[12])
-                    self.table.setItem(i, 8, item)
+        self.table.setRowCount(len(item_ids))
+        for i, item_id in enumerate(item_ids):
+            progressDlg.step()
+            if progressDlg.wasCanceled():
+                break
 
-                progressDlg.reset()
+            action = "item/cat/%s/id/%d" % (category, item_id)
+            data = self.colnect.getData(action)
+            data.append(self._itemUrl(category, item_id))
+            self.items.append(data)
+
+            image = self._getImage(int(data[8]), data[0])
+            pixmap = QPixmap.fromImage(image)
+            item = QTableWidgetItem()
+            item.setData(Qt.DecorationRole, pixmap)
+            self.table.setItem(i, 0, item)
+
+            image = self._getImage(int(data[9]), data[0])
+            pixmap = QPixmap.fromImage(image)
+            item = QTableWidgetItem()
+            item.setData(Qt.DecorationRole, pixmap)
+            self.table.setItem(i, 1, item)
+
+            item = QTableWidgetItem(data[0])
+            self.table.setItem(i, 2, item)
+            item = QTableWidgetItem(data[2])
+            self.table.setItem(i, 3, item)
+            item = QTableWidgetItem(str(data[4]))
+            self.table.setItem(i, 4, item)
+            item = QTableWidgetItem(data[14])
+            self.table.setItem(i, 5, item)
+            item = QTableWidgetItem(data[19])
+            self.table.setItem(i, 6, item)
+            item = QTableWidgetItem(str(data[13]))
+            self.table.setItem(i, 7, item)
+            item = QTableWidgetItem(data[12])
+            self.table.setItem(i, 8, item)
+
+        progressDlg.reset()
+
+        if item_ids:
+            self.addButton.setEnabled(True)
+            self.addCloseButton.setEnabled(True)
 
     def _getImage(self, image_id, name):
         image = QImage()
