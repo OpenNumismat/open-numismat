@@ -20,7 +20,7 @@ from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import createIcon, ProgressDialog
 
-from OpenNumismat.private_keys import COLNECT_KEY
+from OpenNumismat.private_keys import COLNECT_PROXY
 
 
 class ColnectCache(QObject):
@@ -227,7 +227,7 @@ class ColnectConnector():
         return name
 
     def _baseUrl(self):
-        url = "https://api.colnect.net/%s/api/%s/" % (self.lang, COLNECT_KEY)
+        url = "https://%s/%s/api/COLNECT_KEY/" % (COLNECT_PROXY, self.lang)
         return url
 
     @waitCursorDecorator
