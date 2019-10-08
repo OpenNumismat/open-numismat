@@ -150,7 +150,7 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
     <message numerus="yes">
         <location filename="ListView.py" line="156"/>
         <source>%n coin(s) selected</source>
-        <translation><numerusform>Избрани са %n</numerusform><numerusform>Избрана/и е/са %n монета/и</numerusform></translation>
+        <translation><numerusform>Избрани са %n</numerusform><numerusform>Избрани са %n монети</numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="67"/>

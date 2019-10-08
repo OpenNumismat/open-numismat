@@ -1308,7 +1308,7 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     <message>
         <location filename="HeaderFilterMenu.py" line="147"/>
         <source>(Data)</source>
-        <translation type="unfinished"/>
+        <translation>(Veri)</translation>
     </message>
     <message>
         <location filename="HeaderFilterMenu.py" line="266"/>

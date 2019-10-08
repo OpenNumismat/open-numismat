@@ -737,7 +737,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="215"/>
         <source>Emitent</source>
-        <translation type="unfinished"/>
+        <translation>Emittent</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="218"/>
@@ -873,7 +873,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="277"/>
         <source>Default status for new coin</source>
-        <translation type="unfinished"/>
+        <translation>Standard Status für eine neue Münze</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="303"/>
@@ -883,7 +883,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="303"/>
         <source>Preview image height was changed. Recalculate it now?</source>
-        <translation type="unfinished"/>
+        <translation>Vorschaugröße geändert. Neuberechnung?</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="206"/>
@@ -954,7 +954,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="251"/>
         <source>Specify more parameters</source>
-        <translation type="unfinished"/>
+        <translation>Spezifiziere mehr Parameter</translation>
     </message>
 </context>
 <context>
@@ -1121,7 +1121,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="DetailsTabWidget.py" line="50"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Karte</translation>
     </message>
 </context>
 <context>
@@ -1222,7 +1222,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <message>
         <location filename="Export.py" line="45"/>
         <source>Default filter by</source>
-        <translation type="unfinished"/>
+        <translation>Standarmäßig filtern nach</translation>
     </message>
     <message>
         <location filename="Export.py" line="48"/>
@@ -1381,7 +1381,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="556"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Karte</translation>
     </message>
 </context>
 <context>
@@ -1793,12 +1793,12 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <message>
         <location filename="SettingsDialog.py" line="146"/>
         <source>Maps</source>
-        <translation type="unfinished"/>
+        <translation>Karten</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="148"/>
         <source>Verify SSL certifiacte</source>
-        <translation type="unfinished"/>
+        <translation>Verifiziere SSL Zertifikat</translation>
     </message>
 </context>
 <context>
@@ -2149,7 +2149,7 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="87"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Karte</translation>
     </message>
 </context>
 <context>
@@ -2549,7 +2549,7 @@ Created new one</source>
     <message>
         <location filename="StatisticsView.py" line="366"/>
         <source>Chart:</source>
-        <translation type="unfinished"/>
+        <translation>Chart:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="369"/>
@@ -2760,7 +2760,7 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="110"/>
         <source>(commission %d%%)</source>
-        <translation type="unfinished"/>
+        <translation>(Kommission %d%%)</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="92"/>
