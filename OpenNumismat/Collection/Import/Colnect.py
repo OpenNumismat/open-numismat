@@ -118,6 +118,7 @@ class ColnectCache(QObject):
         if os.path.exists(file_name):
             os.remove(file_name)
 
+
 class ColnectConnector():
     def __init__(self):
         self.cache = ColnectCache()
@@ -197,7 +198,6 @@ class ColnectConnector():
         try:
             data = self.imgSession.get(url).content
         except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
-            #raise Exception('Error getting full image' + name + ':' + type(_e).__name__)
             pass
 
         if not full:
@@ -243,7 +243,6 @@ class ColnectConnector():
         try:
             resp = self.apiSession.get(url)
         except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
-            #raise Exception('Error getting info from' + action + ':' + type(_e).__name__)
             pass
         raw_data = resp.text
         self.cache.set(ColnectCache.Action, url, raw_data)
@@ -283,6 +282,7 @@ class ColnectConnector():
 
     def close(self):
         self.cache.close()
+
 
 @storeDlgSizeDecorator
 class ColnectDialog(QDialog):
@@ -542,8 +542,6 @@ class ColnectDialog(QDialog):
             distribution = self.distributionSelector.currentData()
         else:
             distribution = None
-        # TODO:
-        # mint_year (https://api.colnect.net/en/api/8xZqcX3b/list/cat/coins/producer/922/mint_year/2000)
 
         if series or distribution or year or value or currency:
             country = self.countrySelector.currentData()
@@ -626,8 +624,8 @@ class ColnectDialog(QDialog):
             buffer.open(QtCore.QIODevice.WriteOnly)
 
             if image.height() > self.HEIGHT:
-                image = image.scaled(self.HEIGHT, self.HEIGHT, Qt.KeepAspectRatio,
-                                     Qt.SmoothTransformation)
+                image = image.scaled(self.HEIGHT, self.HEIGHT,
+                                     Qt.KeepAspectRatio, Qt.SmoothTransformation)
             image.save(buffer, 'png')
         return image
 
@@ -653,6 +651,7 @@ class ColnectDialog(QDialog):
         self.colnect.close()
         super().accept()
 
+
 class ImportColnect(_Import2):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -668,7 +667,7 @@ class ImportColnect(_Import2):
         cur_line = 0
         for row in csv.reader(csvFile):
             cur_line += 1
-            if cur_line <= 7: # skip 7 header lines
+            if cur_line <= 7:  # skip 7 header lines
                 continue
             for field in row:
                 # Can't rely on hardcoded column number because different export files have url in
