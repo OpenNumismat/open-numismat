@@ -162,6 +162,14 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importExcelAct)
             importMenu.addAction(importExcelAct)
 
+        if ImportColnect.isAvailable():
+            importColnectAct = QAction(
+                                    createIcon('colnect.png'),
+                                    self.tr("Colnect"), self)
+            importColnectAct.triggered.connect(self.importColnect)
+            self.collectionActs.append(importColnectAct)
+            importMenu.addAction(importColnectAct)
+
         if ImportCabinet.isAvailable():
             importCabinetAct = QAction(
                                     createIcon('cabinet.png'),
@@ -636,11 +644,19 @@ class MainWindow(QMainWindow):
             imp.importData(file, self.viewTab.currentModel())
 
     def importExcel(self):
-        defaultDir = ImportTellico.defaultDir()
+        defaultDir = ImportExcel.defaultDir()
         file, _selectedFilter = QFileDialog.getOpenFileName(
             self, self.tr("Select file"), defaultDir, "*.xls *.xlsx")
         if file:
             imp = ImportExcel(self)
+            imp.importData(file, self.viewTab.currentModel())
+
+    def importColnect(self):
+        defaultDir = ImportColnect.defaultDir()
+        file, _selectedFilter = QFileDialog.getOpenFileName(
+            self, self.tr("Select file"), defaultDir, "*.csv")
+        if file:
+            imp = ImportColnect(self)
             imp.importData(file, self.viewTab.currentModel())
 
     def exportMobile(self):
