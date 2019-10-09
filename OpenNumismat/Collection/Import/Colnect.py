@@ -1,4 +1,5 @@
 import csv
+import io
 import json
 import re
 import os
@@ -714,7 +715,7 @@ class ImportColnect(_Import2):
         return True
 
     def _connect(self, src):
-        csvFile = open(src)
+        csvFile = io.open(src, "r", encoding='utf-8-sig')
         cur_line = 0
         for row in csv.reader(csvFile):
             cur_line += 1
