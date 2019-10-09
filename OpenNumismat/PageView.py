@@ -1,6 +1,6 @@
 from PyQt5 import QtCore
 from PyQt5 import QtSql
-from PyQt5.QtCore import Qt, QCollator, QLocale
+from PyQt5.QtCore import Qt, QCollator, QLocale, QEvent
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.ListView import ListView, CardView, IconView
@@ -164,6 +164,30 @@ class TreeWidgetItem(QTreeWidgetItem):
         return len(left) < len(right)
 
 
+class AutoToolTipDelegate(QStyledItemDelegate):
+
+    def helpEvent(self, event, view, option, index):
+        if not event or not view:
+            return False
+
+        if event.type() == QEvent.ToolTip:
+            rect = view.visualRect(index)
+            size = self.sizeHint(option, index)
+            width = view.frameRect().width()
+            if view.verticalScrollBar().isVisible():
+                width -= view.verticalScrollBar().width()
+            if rect.x() <= -5 or rect.x() + size.width() > width:
+                tooltip = index.data(Qt.DisplayRole)
+                QToolTip.showText(event.globalPos(), tooltip, view)
+                return True
+
+            if not super().helpEvent(event, view, option, index):
+                QToolTip.hideText()
+            return True
+
+        return super().helpEvent(event, view, option, index)
+
+
 class TreeView(QTreeWidget):
     FiltersRole = Qt.UserRole
     FieldsRole = Qt.UserRole + 1
@@ -194,6 +218,8 @@ class TreeView(QTreeWidget):
         locale = Settings()['locale']
         self.collator = QCollator(QLocale(locale))
         self.collator.setNumericMode(True)
+
+        self.setItemDelegate(AutoToolTipDelegate())
 
     def setModel(self, model, reference):
         self.db = model.database()
