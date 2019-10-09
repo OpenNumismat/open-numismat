@@ -113,7 +113,7 @@ for dirname, dirnames, filenames in os.walk('OpenNumismat/templates'):
 # Common
 params = {
     "name": 'OpenNumismat',
-    "version": '1.8.2',
+    "version": '1.8.3',
     "author": 'Vitaly Ignatov',
     "author_email": 'opennumismat@gmail.com',
     "description": 'OpenNumismat',
