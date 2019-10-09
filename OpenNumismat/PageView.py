@@ -1,6 +1,6 @@
 from PyQt5 import QtCore
 from PyQt5 import QtSql
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QCollator, QLocale
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.ListView import ListView, CardView, IconView
@@ -150,13 +150,14 @@ class TreeWidgetItem(QTreeWidgetItem):
             return super().__lt__(other)
 
         min_len = min(len(left), len(right))
+        collator = self.treeWidget().collator
 
         for i in reversed(range(min_len)):
             if left[i] == right[i]:
                 pass
             else:
                 if isinstance(left[i], str) or isinstance(right[i], str):
-                    return str(left[i]) < str(right[i])
+                    return collator.compare(str(left[i]), str(right[i])) < 0
                 else:
                     return left[i] < right[i]
 
@@ -189,6 +190,10 @@ class TreeView(QTreeWidget):
 
         # Changing of TreeView is enabled (by signals from model or ListView)
         self.changingEnabled = True
+
+        locale = Settings()['locale']
+        self.collator = QCollator(QLocale(locale))
+        self.collator.setNumericMode(True)
 
     def setModel(self, model, reference):
         self.db = model.database()
