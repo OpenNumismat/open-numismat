@@ -898,7 +898,7 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectCache</name>
     <message>
-        <location filename="Colnect.py" line="43"/>
+        <location filename="Colnect.py" line="42"/>
         <source>Can&apos;t open Colnect cache</source>
         <translation type="unfinished"></translation>
     </message>
@@ -906,58 +906,68 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectDialog</name>
     <message>
-        <location filename="Colnect.py" line="306"/>
+        <location filename="Colnect.py" line="305"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="319"/>
+        <location filename="Colnect.py" line="318"/>
         <source>Coins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="319"/>
+        <location filename="Colnect.py" line="318"/>
         <source>Bankotes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="319"/>
+        <location filename="Colnect.py" line="318"/>
         <source>Stamps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="328"/>
+        <location filename="Colnect.py" line="327"/>
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="399"/>
+        <location filename="Colnect.py" line="398"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="401"/>
+        <location filename="Colnect.py" line="400"/>
         <source>Add and close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="522"/>
+        <location filename="Colnect.py" line="535"/>
         <source>(All)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="573"/>
+        <location filename="Colnect.py" line="619"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="573"/>
+        <location filename="Colnect.py" line="619"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="414"/>
+        <location filename="Colnect.py" line="410"/>
         <source>Specify more parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="407"/>
+        <source>Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="411"/>
+        <source>Nothing found</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2892,32 +2902,32 @@ Add a new one first.</source>
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="354"/>
+        <location filename="PageView.py" line="385"/>
         <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="386"/>
+        <location filename="PageView.py" line="417"/>
         <source>Add new coin...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="389"/>
+        <location filename="PageView.py" line="420"/>
         <source>Edit coins...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="393"/>
+        <location filename="PageView.py" line="424"/>
         <source>Customize tree...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="446"/>
+        <location filename="PageView.py" line="477"/>
         <source>Updating records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PageView.py" line="446"/>
+        <location filename="PageView.py" line="477"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
