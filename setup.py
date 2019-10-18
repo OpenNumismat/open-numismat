@@ -178,6 +178,7 @@ params = {
 
 if cx_Freeze_available:
     import PyQt5
+    import requests.certs
 
     base = None
     if sys.platform == "win32":
@@ -219,6 +220,8 @@ if cx_Freeze_available:
     if sys.platform == "win32":
         include_files.append(
                 (qt_dir + "/plugins/sqldrivers/qsqlite.dll", "sqldrivers/qsqlite.dll"))
+        include_files.append(
+                (requests.certs.where(), "cacert.pem"))
     elif sys.platform == "darwin":
         include_files.append(
                 (qt_dir + "/plugins/sqldrivers/libqsqlite.dylib", "sqldrivers/libqsqlite.dylib"))

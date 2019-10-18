@@ -3,6 +3,7 @@ import io
 import json
 import re
 import os
+import sys
 import tempfile
 import requests
 
@@ -12,6 +13,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import *
 
+import OpenNumismat
 from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Settings import Settings
@@ -20,6 +22,9 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import createIcon, ProgressDialog
 
 from OpenNumismat.private_keys import COLNECT_PROXY
+
+if sys.platform == 'win32':
+    os.environ['REQUESTS_CA_BUNDLE'] = os.path.join(OpenNumismat.PRJ_PATH, "cacert.pem")
 
 
 class ColnectCache(QObject):
