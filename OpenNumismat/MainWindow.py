@@ -69,26 +69,25 @@ class MainWindow(QMainWindow):
         colnectAct.triggered.connect(self.colnectEvent)
         self.collectionActs.append(colnectAct)
 
-        if statisticsAvailable or importedQtWebKit:
-            self.detailsAct = QAction(createIcon('application-form.png'),
-                                      self.tr("Info panel"), self)
-            self.detailsAct.setCheckable(True)
-            self.detailsAct.triggered.connect(self.detailsEvent)
-            self.collectionActs.append(self.detailsAct)
+        self.detailsAct = QAction(createIcon('application-form.png'),
+                                  self.tr("Info panel"), self)
+        self.detailsAct.setCheckable(True)
+        self.detailsAct.triggered.connect(self.detailsEvent)
+        self.collectionActs.append(self.detailsAct)
 
-            if statisticsAvailable:
-                self.statisticsAct = QAction(createIcon('chart-bar.png'),
-                                             self.tr("Statistics"), self)
-                self.statisticsAct.setCheckable(True)
-                self.statisticsAct.triggered.connect(self.statisticsEvent)
-                self.collectionActs.append(self.statisticsAct)
+        if statisticsAvailable:
+            self.statisticsAct = QAction(createIcon('chart-bar.png'),
+                                         self.tr("Statistics"), self)
+            self.statisticsAct.setCheckable(True)
+            self.statisticsAct.triggered.connect(self.statisticsEvent)
+            self.collectionActs.append(self.statisticsAct)
 
-            if importedQtWebKit:
-                self.mapAct = QAction(createIcon('world.png'),
-                                      self.tr("Map"), self)
-                self.mapAct.setCheckable(True)
-                self.mapAct.triggered.connect(self.mapEvent)
-                self.collectionActs.append(self.mapAct)
+        if importedQtWebKit:
+            self.mapAct = QAction(createIcon('world.png'),
+                                  self.tr("Map"), self)
+            self.mapAct.setCheckable(True)
+            self.mapAct.triggered.connect(self.mapEvent)
+            self.collectionActs.append(self.mapAct)
 
         summaryAct = QAction(self.tr("Summary"), self)
         summaryAct.triggered.connect(self.summaryEvent)
@@ -514,6 +513,7 @@ class MainWindow(QMainWindow):
             self.statisticsAct.setChecked(False)
         if importedQtWebKit:
             self.mapAct.setChecked(False)
+
         if info_type == CollectionPageTypes.Statistics:
             self.statisticsAct.setChecked(True)
         elif info_type == CollectionPageTypes.Map:
