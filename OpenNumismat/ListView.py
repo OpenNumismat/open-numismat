@@ -208,12 +208,12 @@ class BaseTableView(QTableView):
                    QApplication.translate('BaseTableView', "Text file (*.csv)"),
                    QApplication.translate('BaseTableView', "Text file UTF-8 (*.csv)"))
         if not ExportToExcel.isAvailable():
-            filters = filters[1:]
+            availableFilters = filters[1:]
 
         defaultFileName = self.listParam.page.title
         fileName, selectedFilter = getSaveFileName(
             self, 'export_table', defaultFileName,
-            OpenNumismat.HOME_PATH, filters)
+            OpenNumismat.HOME_PATH, availableFilters)
         if fileName:
             model = self.model()
             progressDlg = Gui.ProgressDialog(
