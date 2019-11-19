@@ -129,8 +129,11 @@ class ColnectCache(QObject):
             os.remove(file_name)
 
 
-class ColnectConnector():
-    def __init__(self):
+class ColnectConnector(QObject):
+
+    def __init__(self, parent):
+        super().__init__(parent)
+
         self.cache = ColnectCache()
         self.apiSession = requests.Session()
         self.apiSession.headers.update({'User-Agent': version.AppName})
@@ -253,10 +256,20 @@ class ColnectConnector():
         try:
             resp = self.apiSession.get(url)
         except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
-            pass
+            return []
+
+        if resp.text.startswith('Invalid key'):
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Colnect service not available"))
+            return []
+        elif resp.text.startswith('Visit colnect.com'):
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Colnect data not recognised"))
+            return []
+
         raw_data = resp.text
-        self.cache.set(ColnectCache.Action, url, raw_data)
         data = json.loads(raw_data)
+        self.cache.set(ColnectCache.Action, url, raw_data)
 
         return data
 
@@ -452,7 +465,7 @@ class ColnectDialog(QDialog):
         default_category = self.settings['colnect_category']
         default_country = self.settings['colnect_country']
 
-        self.colnect = ColnectConnector()
+        self.colnect = ColnectConnector(self)
 
         index = self.categorySelector.findData(default_category)
         self.categorySelector.setCurrentIndex(index)
@@ -718,7 +731,7 @@ class ColnectDialog(QDialog):
 class ImportColnect(_Import2):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.colnect = ColnectConnector()
+        self.colnect = ColnectConnector(parent)
         self.urls = []
 
     @staticmethod
