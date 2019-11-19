@@ -54,7 +54,7 @@ class MainWindow(QMainWindow):
         self.cardViewAct.triggered.connect(self.changeViewEvent)
         self.collectionActs.append(self.cardViewAct)
 
-        viewMenu = QMenu()
+        viewMenu = QMenu(self.tr("Change view"), self)
         viewMenu.addAction(self.tableViewAct)
         viewMenu.addAction(self.iconViewAct)
         viewMenu.addAction(self.cardViewAct)
@@ -309,16 +309,17 @@ class MainWindow(QMainWindow):
 
         actions = self.viewTab.actions()
         listMenu = menubar.addMenu(self.tr("List"))
-        self.collectionActs.append(listMenu)
         listMenu.addAction(actions['new'])
         listMenu.addMenu(actions['open'])
         listMenu.aboutToShow.connect(self.viewTab.updateOpenPageMenu)
         listMenu.addAction(actions['rename'])
         listMenu.addSeparator()
         listMenu.addAction(actions['select'])
+        listMenu.addMenu(viewMenu)
         listMenu.addSeparator()
         listMenu.addAction(actions['close'])
         listMenu.addAction(actions['remove'])
+        self.collectionActs.append(listMenu)
 
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
         self.collectionActs.append(self.referenceMenu)
