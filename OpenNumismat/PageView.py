@@ -17,7 +17,7 @@ from OpenNumismat.EditCoinDialog.DetailsTabWidget import DetailsTabWidget
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 from OpenNumismat.EditCoinDialog.OSMWidget import GlobalOSMWidget
-from OpenNumismat.EditCoinDialog.GMapsWidget import GlobalGMapsWidget
+from OpenNumismat.EditCoinDialog.GMapsWidget import GlobalGMapsWidget, gmapsAvailable
 
 
 class ImageView(QWidget):
@@ -602,7 +602,7 @@ class PageView(Splitter):
 
         if importedQtWebKit:
             settings = Settings()
-            if settings['map_type'] == 0:
+            if settings['map_type'] == 0 or not gmapsAvailable:
                 self.mapView = GlobalOSMWidget()
             else:
                 self.mapView = GlobalGMapsWidget()

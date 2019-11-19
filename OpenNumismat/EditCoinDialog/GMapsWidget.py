@@ -1,10 +1,16 @@
 import json
 import urllib.request
 
-from OpenNumismat.private_keys import MAPS_API_KEY
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.EditCoinDialog.MapWidget import BaseMapWidget
 from PyQt5.QtSql import QSqlQuery
+
+gmapsAvailable = True
+
+try:
+    from OpenNumismat.private_keys import MAPS_API_KEY
+except ImportError:
+    gmapsAvailable = False
 
 
 class GMapsWidget(BaseMapWidget):

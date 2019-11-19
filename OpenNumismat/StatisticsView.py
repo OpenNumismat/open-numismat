@@ -12,7 +12,13 @@ from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
 
-from OpenNumismat.private_keys import MAPS_API_KEY
+gmapsAvailable = True
+
+try:
+    from OpenNumismat.private_keys import MAPS_API_KEY
+except ImportError:
+    print('GMaps not available')
+    gmapsAvailable = False
 
 statisticsAvailable = True
 
@@ -361,7 +367,7 @@ class StatisticsView(QWidget):
         self.chartSelector.addItem(self.tr("Pie"), 'pie')
         self.chartSelector.addItem(self.tr("Stacked bar"), 'stacked')
         self.chartSelector.addItem(self.tr("Progress"), 'progress')
-        if importedQtWebKit:
+        if importedQtWebKit and gmapsAvailable:
             self.chartSelector.addItem(self.tr("GeoChart"), 'geochart')
         ctrlLayout.addWidget(QLabel(self.tr("Chart:")))
         ctrlLayout.addWidget(self.chartSelector)

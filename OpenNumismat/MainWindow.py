@@ -18,7 +18,7 @@ from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
 from OpenNumismat.SummaryDialog import SummaryDialog
-from OpenNumismat.Collection.Import.Colnect import ColnectDialog
+from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 
 from OpenNumismat.Collection.Import import *
@@ -292,7 +292,7 @@ class MainWindow(QMainWindow):
         coin.addAction(addCoinAct)
         coin.addAction(editCoinAct)
         coin.addSeparator()
-        if Settings()['colnect_enabled']:
+        if Settings()['colnect_enabled'] and colnectAvailable:
             coin.addAction(colnectAct)
         coin.addSeparator()
         coin.addAction(copyCoinAct)
@@ -393,7 +393,7 @@ class MainWindow(QMainWindow):
                 toolBar.addAction(self.statisticsAct)
             if importedQtWebKit:
                 toolBar.addAction(self.mapAct)
-        if Settings()['colnect_enabled']:
+        if Settings()['colnect_enabled'] and colnectAvailable:
             toolBar.addSeparator()
             toolBar.addAction(colnectAct)
         toolBar.addSeparator()

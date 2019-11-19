@@ -21,7 +21,13 @@ from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import createIcon, ProgressDialog
 
-from OpenNumismat.private_keys import COLNECT_PROXY
+colnectAvailable = True
+
+try:
+    from OpenNumismat.private_keys import COLNECT_PROXY
+except ImportError:
+    print('Importing from Colnect not available')
+    colnectAvailable = False
 
 if sys.platform == 'win32':
     os.environ['REQUESTS_CA_BUNDLE'] = os.path.join(OpenNumismat.PRJ_PATH, "cacert.pem")
