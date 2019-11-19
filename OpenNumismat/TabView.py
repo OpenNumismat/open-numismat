@@ -137,6 +137,8 @@ class TabView(QTabWidget):
         else:
             parent.viewButton.setDefaultAction(parent.tableViewAct)
 
+        self.__actions['select'].setEnabled(type_ == CollectionPageTypes.List)
+
         mode = page.listView.isDragMode()
         parent.enableDragAct.setChecked(mode)
 
@@ -212,7 +214,7 @@ class TabView(QTabWidget):
             self.collection.pages().renamePage(page, label)
             self.setCurrentIndex(index)
 
-    def selectColumns(self, index=None):
+    def selectColumns(self):
         listView = self.currentListView()
         listView.selectColumns()
 
