@@ -335,12 +335,15 @@ class ImageEdit(ImageLabel):
             self.label.setText(title)
 
     def _setNewImage(self, image):
-        # Fill transparent color if present
-        fixedImage = QImage(image.size(), QImage.Format_RGB32)
-        fixedImage.fill(QColor(Qt.white).rgb())
-        painter = QPainter(fixedImage)
-        painter.drawImage(0, 0, image)
-        painter.end()
+        if image.hasAlphaChannel():
+            # Fill transparent color if present
+            fixedImage = QImage(image.size(), QImage.Format_RGB32)
+            fixedImage.fill(QColor(Qt.white).rgb())
+            painter = QPainter(fixedImage)
+            painter.drawImage(0, 0, image)
+            painter.end()
+        else:
+            fixedImage = image
 
         self._setImage(fixedImage)
         self.changed = True
