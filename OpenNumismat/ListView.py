@@ -209,6 +209,8 @@ class BaseTableView(QTableView):
                    QApplication.translate('BaseTableView', "Text file UTF-8 (*.csv)"))
         if not ExportToExcel.isAvailable():
             availableFilters = filters[1:]
+        else:
+            availableFilters = filters
 
         defaultFileName = self.listParam.page.title
         fileName, selectedFilter = getSaveFileName(
