@@ -754,6 +754,7 @@ class Collection(QtCore.QObject):
         self.fileName = fileName
 
         if not updateCollection(self):
+            self.fileName = None
             return False
 
         self._pages = CollectionPages(self.db)
