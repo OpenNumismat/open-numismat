@@ -10,22 +10,22 @@
 <context>
     <name>AllReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="360"/>
+        <location filename="ReferenceDialog.py" line="363"/>
         <source>Reference</source>
         <translation>Referans</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="405"/>
+        <location filename="ReferenceDialog.py" line="408"/>
         <source>Save reference</source>
         <translation>Referansı kaydet</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="392"/>
+        <location filename="ReferenceDialog.py" line="395"/>
         <source>Something went wrong when saving. Please restart</source>
         <translation>Kaydedilirken bir şeyler ters gitti. Lütfen yeniden başlatın</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="405"/>
+        <location filename="ReferenceDialog.py" line="408"/>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>İptal edilirken bir şeyler ters gitti. Lütfen yeniden başlatın</translation>
     </message>
@@ -33,32 +33,32 @@
 <context>
     <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="144"/>
+        <location filename="StatisticsView.py" line="150"/>
         <source>Number of coins</source>
         <translation>Madeni Para Sayısı</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="184"/>
+        <location filename="StatisticsView.py" line="190"/>
         <source>PNG image (*.png)</source>
         <translation>PNG (*.png)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="184"/>
+        <location filename="StatisticsView.py" line="190"/>
         <source>PDF file (*.pdf)</source>
         <translation>PDF dosyası (*.pdf)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="184"/>
+        <location filename="StatisticsView.py" line="190"/>
         <source>SVG image (*.svg)</source>
         <translation>SVG görseli (*.svg)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="184"/>
+        <location filename="StatisticsView.py" line="190"/>
         <source>PostScript (*.ps)</source>
         <translation>PostScript (*.ps)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="184"/>
+        <location filename="StatisticsView.py" line="190"/>
         <source>Encapsulated PostScript (*.eps)</source>
         <translation>Encapsulated PostScript (*.eps)</translation>
     </message>
@@ -335,7 +335,7 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="1357"/>
         <source>Vacuum...</source>
-        <translation type="unfinished"/>
+        <translation>Sıkıştırılıyor...</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1575"/>
@@ -352,7 +352,7 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="1386"/>
         <source>Collection %s in wrong format</source>
-        <translation type="unfinished"/>
+        <translation>%s konumundaki koleksiyon hatalı formatta</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1396"/>
@@ -502,7 +502,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="155"/>
         <source>Emission period</source>
-        <translation type="unfinished"/>
+        <translation>Tedavül Dönemi</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="156"/>
@@ -795,12 +795,12 @@ The application will need to restart now.</source>
     <message>
         <location filename="Collection.py" line="581"/>
         <source>Filtering</source>
-        <translation type="unfinished"/>
+        <translation>Filtreleniyor</translation>
     </message>
     <message>
         <location filename="Collection.py" line="581"/>
         <source>Filter is too complex. Will be ignored</source>
-        <translation type="unfinished"/>
+        <translation>Filtre çok karışık. Yok sayılacak</translation>
     </message>
 </context>
 <context>
@@ -823,7 +823,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="217"/>
         <source>Free format numeric fields</source>
-        <translation type="unfinished"/>
+        <translation>Nümerik alanlar için özgür format</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="227"/>
@@ -833,7 +833,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="232"/>
         <source>Images at bottom</source>
-        <translation type="unfinished"/>
+        <translation>Görseller altta</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="236"/>
@@ -848,7 +848,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="245"/>
         <source>Show icons from reference (slow)</source>
-        <translation type="unfinished"/>
+        <translation>Referanstan simgeleri göster (yavaş)</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="246"/>
@@ -894,77 +894,90 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectCache</name>
     <message>
-        <location filename="Colnect.py" line="42"/>
+        <location filename="Colnect.py" line="53"/>
         <source>Can&apos;t open Colnect cache</source>
         <translation>Colnect önbelleği açılamıyor</translation>
     </message>
 </context>
 <context>
+    <name>ColnectConnector</name>
+    <message>
+        <location filename="Colnect.py" line="262"/>
+        <source>Colnect service not available</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="266"/>
+        <source>Colnect data not recognised</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ColnectDialog</name>
     <message>
-        <location filename="Colnect.py" line="305"/>
+        <location filename="Colnect.py" line="329"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="318"/>
+        <location filename="Colnect.py" line="342"/>
         <source>Coins</source>
         <translation>Madeni paralar</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="318"/>
+        <location filename="Colnect.py" line="342"/>
         <source>Bankotes</source>
         <translation>Kağıt Paralar</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="318"/>
+        <location filename="Colnect.py" line="342"/>
         <source>Stamps</source>
         <translation>Pullar</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="327"/>
+        <location filename="Colnect.py" line="351"/>
         <source>Category</source>
         <translation>Kategori</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="398"/>
+        <location filename="Colnect.py" line="422"/>
         <source>Add</source>
         <translation>Ekle</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="400"/>
+        <location filename="Colnect.py" line="424"/>
         <source>Add and close</source>
         <translation>Ekle ve kapat</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="535"/>
+        <location filename="Colnect.py" line="559"/>
         <source>(All)</source>
         <translation>(Tümü)</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="619"/>
+        <location filename="Colnect.py" line="643"/>
         <source>Downloading</source>
         <translation>İndiriliyor</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="619"/>
+        <location filename="Colnect.py" line="643"/>
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="410"/>
+        <location filename="Colnect.py" line="434"/>
         <source>Specify more parameters</source>
         <translation>Daha fazla parametre belirle</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="407"/>
+        <location filename="Colnect.py" line="431"/>
         <source>Preview</source>
-        <translation type="unfinished"/>
+        <translation>Önizleme</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="411"/>
+        <location filename="Colnect.py" line="435"/>
         <source>Nothing found</source>
-        <translation type="unfinished"/>
+        <translation>Hiçbir şey bulunamadı</translation>
     </message>
 </context>
 <context>
@@ -1121,7 +1134,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="DetailsTabWidget.py" line="415"/>
         <source>Variation</source>
-        <translation type="unfinished"/>
+        <translation>Varyasyon</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="517"/>
@@ -1257,7 +1270,7 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     <message>
         <location filename="Export.py" line="63"/>
         <source>Export a full-sized image</source>
-        <translation type="unfinished"/>
+        <translation>Tam boyutlu bir görseli dışa aktar</translation>
     </message>
     <message>
         <location filename="Export.py" line="78"/>
@@ -1376,7 +1389,7 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     <message>
         <location filename="DetailsTabWidget.py" line="690"/>
         <source>Variation</source>
-        <translation type="unfinished"/>
+        <translation>Varyasyon</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="842"/>
@@ -1397,32 +1410,32 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
 <context>
     <name>GeoChartCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="99"/>
+        <location filename="StatisticsView.py" line="105"/>
         <source>Country</source>
         <translation>Ülke</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="99"/>
+        <location filename="StatisticsView.py" line="105"/>
         <source>Number of coins</source>
         <translation>Madeni Para Sayısı</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="108"/>
+        <location filename="StatisticsView.py" line="114"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web Sayfası (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="108"/>
+        <location filename="StatisticsView.py" line="114"/>
         <source>PNG image (*.png)</source>
         <translation>PNG (*.png)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="121"/>
+        <location filename="StatisticsView.py" line="127"/>
         <source>Saving</source>
         <translation>Kaydediliyor</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="121"/>
+        <location filename="StatisticsView.py" line="127"/>
         <source>Image not ready. Please try again later</source>
         <translation>Görsel hazır değil. Lütfen daha sonra tekrar deneyin</translation>
     </message>
@@ -1829,107 +1842,107 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
         <translation>Kart Görünümü</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="93"/>
+        <location filename="MainWindow.py" line="92"/>
         <source>Summary</source>
         <translation>Özet</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="97"/>
+        <location filename="MainWindow.py" line="96"/>
         <source>Settings...</source>
         <translation>Ayarlar...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="102"/>
+        <location filename="MainWindow.py" line="101"/>
         <source>Clear all filters</source>
         <translation>Tüm filtreleri temizle</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="118"/>
+        <location filename="MainWindow.py" line="117"/>
         <source>E&amp;xit</source>
         <translation>&amp;Çıkış</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="123"/>
+        <location filename="MainWindow.py" line="122"/>
         <source>&amp;New...</source>
         <translation>&amp;Yeni...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="128"/>
+        <location filename="MainWindow.py" line="127"/>
         <source>&amp;Open...</source>
         <translation>&amp;Aç...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="132"/>
+        <location filename="MainWindow.py" line="131"/>
         <source>Backup</source>
         <translation>Yedekle</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="138"/>
+        <location filename="MainWindow.py" line="137"/>
         <source>Vacuum</source>
-        <translation type="unfinished"/>
+        <translation>Sıkıştır</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="144"/>
+        <location filename="MainWindow.py" line="143"/>
         <source>Description</source>
         <translation>Açıklama</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="149"/>
+        <location filename="MainWindow.py" line="148"/>
         <source>Set password...</source>
         <translation>Şifre belirle...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="154"/>
+        <location filename="MainWindow.py" line="153"/>
         <source>Import</source>
         <translation>İçe aktar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="221"/>
+        <location filename="MainWindow.py" line="220"/>
         <source>Synchronize...</source>
         <translation>Eşitle...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="227"/>
+        <location filename="MainWindow.py" line="226"/>
         <source>Export</source>
         <translation>Dışa aktar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="230"/>
+        <location filename="MainWindow.py" line="229"/>
         <source>For Android version</source>
         <translation>Android sürüm için</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="235"/>
+        <location filename="MainWindow.py" line="234"/>
         <source>&amp;File</source>
         <translation>&amp;Dosya</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="259"/>
+        <location filename="MainWindow.py" line="258"/>
         <source>Add</source>
         <translation>Ekle</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="265"/>
+        <location filename="MainWindow.py" line="264"/>
         <source>Edit...</source>
         <translation>Düzenle...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="272"/>
+        <location filename="MainWindow.py" line="271"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="278"/>
+        <location filename="MainWindow.py" line="277"/>
         <source>Copy</source>
         <translation>Kopyala</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="284"/>
+        <location filename="MainWindow.py" line="283"/>
         <source>Paste</source>
         <translation>Yapıştır</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="290"/>
+        <location filename="MainWindow.py" line="289"/>
         <source>Coin</source>
         <translation>Madeni Para</translation>
     </message>
@@ -1939,7 +1952,7 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
         <translation>Tarayıcıda görüntüle</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="311"/>
+        <location filename="MainWindow.py" line="310"/>
         <source>List</source>
         <translation>Liste</translation>
     </message>
@@ -1979,7 +1992,7 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
         <translation>Güncellemeleri kontrol et</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="840"/>
+        <location filename="MainWindow.py" line="841"/>
         <source>About %s</source>
         <translation>%s Hakkında</translation>
     </message>
@@ -2009,77 +2022,77 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
         <translation>Yeni ayarları uygulamak için programın yeniden başlatılması gerekiyor. Yeniden başlatılsın mı?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="73"/>
+        <location filename="MainWindow.py" line="72"/>
         <source>Info panel</source>
         <translation>Bilgi paneli</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="80"/>
+        <location filename="MainWindow.py" line="79"/>
         <source>Statistics</source>
         <translation>İstatistik</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="620"/>
+        <location filename="MainWindow.py" line="621"/>
         <source>Importing</source>
         <translation>İçe aktarılıyor</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="562"/>
+        <location filename="MainWindow.py" line="563"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="567"/>
+        <location filename="MainWindow.py" line="568"/>
         <source>Select directory</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="656"/>
+        <location filename="MainWindow.py" line="657"/>
         <source>Select file</source>
         <translation>Dosya seç</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="578"/>
+        <location filename="MainWindow.py" line="579"/>
         <source>Import pre-defined coins?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="592"/>
+        <location filename="MainWindow.py" line="593"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="605"/>
+        <location filename="MainWindow.py" line="606"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="620"/>
+        <location filename="MainWindow.py" line="621"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="754"/>
+        <location filename="MainWindow.py" line="755"/>
         <source>Open collection</source>
         <translation>Koleksiyon aç</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="754"/>
+        <location filename="MainWindow.py" line="755"/>
         <source>Collections (*.db)</source>
         <translation>Koleksiyonlar (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="730"/>
+        <location filename="MainWindow.py" line="731"/>
         <source>New collection</source>
         <translation>Yeni koleksiyon</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="807"/>
+        <location filename="MainWindow.py" line="808"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Yeni bir koleksiyon oluştur veya mevcut bir koleksiyonu aç</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="840"/>
+        <location filename="MainWindow.py" line="841"/>
         <source>%s %s
 
 Copyright (C) 2011-2019 Vitaly Ignatov
@@ -2092,39 +2105,44 @@ Copyright (C) 2011-2019 Vitaly Ignatov
 %s is freeware licensed under a GPLv3.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="867"/>
+        <location filename="MainWindow.py" line="868"/>
         <source>Updates</source>
         <translation>Güncellemeler</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="867"/>
+        <location filename="MainWindow.py" line="868"/>
         <source>You already have the latest version.</source>
         <translation>En son sürümü kullanıyorsunuz.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="878"/>
+        <location filename="MainWindow.py" line="879"/>
         <source>New version</source>
         <translation>Yeni sürüm</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="878"/>
+        <location filename="MainWindow.py" line="879"/>
         <source>New version is available. Download it now?</source>
         <translation>Yeni sürüm mevcut. İndirilsin mi?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="107"/>
+        <location filename="MainWindow.py" line="106"/>
         <source>Clear sort order</source>
         <translation>Sıralama düzenini temizle</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="112"/>
+        <location filename="MainWindow.py" line="111"/>
         <source>Sort by drag-n-drop mode</source>
         <translation>Sürükle-Bırak moduna göre sırala</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="87"/>
+        <location filename="MainWindow.py" line="86"/>
         <source>Map</source>
         <translation>Harita</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="57"/>
+        <source>Change view</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2406,7 +2424,7 @@ Created new one</source>
 <context>
     <name>ReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="316"/>
+        <location filename="ReferenceDialog.py" line="319"/>
         <source>Reference</source>
         <translation>Referans</translation>
     </message>
@@ -2414,17 +2432,17 @@ Created new one</source>
 <context>
     <name>ReferenceWidget</name>
     <message>
-        <location filename="ReferenceDialog.py" line="166"/>
+        <location filename="ReferenceDialog.py" line="169"/>
         <source>Add</source>
         <translation>Ekle</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="170"/>
+        <location filename="ReferenceDialog.py" line="173"/>
         <source>Del</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="177"/>
+        <location filename="ReferenceDialog.py" line="180"/>
         <source>Sort</source>
         <translation>Sırala</translation>
     </message>
@@ -2476,17 +2494,17 @@ Created new one</source>
 <context>
     <name>StackedBarCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="272"/>
+        <location filename="StatisticsView.py" line="278"/>
         <source>Building chart</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="272"/>
+        <location filename="StatisticsView.py" line="278"/>
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="287"/>
+        <location filename="StatisticsView.py" line="293"/>
         <source>Drawing chart</source>
         <translation type="unfinished"/>
     </message>
@@ -2494,157 +2512,157 @@ Created new one</source>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="359"/>
+        <location filename="StatisticsView.py" line="365"/>
         <source>Bar</source>
         <translation>Çubuk</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="360"/>
+        <location filename="StatisticsView.py" line="366"/>
         <source>Horizontal bar</source>
         <translation>Yatay Çubuk</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="361"/>
+        <location filename="StatisticsView.py" line="367"/>
         <source>Pie</source>
         <translation>Pasta</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="362"/>
+        <location filename="StatisticsView.py" line="368"/>
         <source>Stacked bar</source>
         <translation>İstifli Çubuk</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="363"/>
+        <location filename="StatisticsView.py" line="369"/>
         <source>Progress</source>
         <translation>İlerleme</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="365"/>
+        <location filename="StatisticsView.py" line="371"/>
         <source>GeoChart</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="366"/>
+        <location filename="StatisticsView.py" line="372"/>
         <source>Chart:</source>
         <translation>Çizelge:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="369"/>
+        <location filename="StatisticsView.py" line="375"/>
         <source>Field:</source>
         <translation>Alan:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="374"/>
+        <location filename="StatisticsView.py" line="380"/>
         <source>Additional field:</source>
         <translation>Ek Alan:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="379"/>
+        <location filename="StatisticsView.py" line="385"/>
         <source>Sum per:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="382"/>
+        <location filename="StatisticsView.py" line="388"/>
         <source>Year</source>
         <translation>Yıl</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="383"/>
+        <location filename="StatisticsView.py" line="389"/>
         <source>Month</source>
         <translation>Ay</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="384"/>
+        <location filename="StatisticsView.py" line="390"/>
         <source>Week</source>
         <translation>Hafta</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="385"/>
+        <location filename="StatisticsView.py" line="391"/>
         <source>Day</source>
         <translation>Gün</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="388"/>
+        <location filename="StatisticsView.py" line="394"/>
         <source>Items:</source>
         <translation>Ögeler:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="391"/>
+        <location filename="StatisticsView.py" line="397"/>
         <source>Count</source>
         <translation>Sayı</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="392"/>
+        <location filename="StatisticsView.py" line="398"/>
         <source>Price</source>
         <translation>Fiyat</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="393"/>
+        <location filename="StatisticsView.py" line="399"/>
         <source>Total price</source>
         <translation>Toplam fiyat</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="394"/>
+        <location filename="StatisticsView.py" line="400"/>
         <source>Created</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="397"/>
+        <location filename="StatisticsView.py" line="403"/>
         <source>Multicolor</source>
         <translation>Çok Renkli</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="400"/>
+        <location filename="StatisticsView.py" line="406"/>
         <source>Region:</source>
         <translation>Bölge:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="403"/>
+        <location filename="StatisticsView.py" line="409"/>
         <source>All</source>
         <translation>Tümü</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="404"/>
+        <location filename="StatisticsView.py" line="410"/>
         <source>Europe</source>
         <translation>Avrupa</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="405"/>
+        <location filename="StatisticsView.py" line="411"/>
         <source>Africa</source>
         <translation>Afrika</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="406"/>
+        <location filename="StatisticsView.py" line="412"/>
         <source>Americas</source>
         <translation>Kuzey ve Güney Amerika</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="407"/>
+        <location filename="StatisticsView.py" line="413"/>
         <source>Asia</source>
         <translation>Asya</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="408"/>
+        <location filename="StatisticsView.py" line="414"/>
         <source>Oceania</source>
         <translation>Okyanusya</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="415"/>
+        <location filename="StatisticsView.py" line="421"/>
         <source>Save chart</source>
         <translation>Çizelgeyi kaydet</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="584"/>
+        <location filename="StatisticsView.py" line="590"/>
         <source>Paid</source>
         <translation>Ödenen</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="587"/>
+        <location filename="StatisticsView.py" line="593"/>
         <source>Total paid</source>
         <translation>Toplam ödenen</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="593"/>
+        <location filename="StatisticsView.py" line="599"/>
         <source>Number of coins</source>
         <translation>Madeni Para Sayısı</translation>
     </message>
@@ -2838,61 +2856,61 @@ Created new one</source>
         <translation>(Çoğalt)</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="189"/>
+        <location filename="TabView.py" line="191"/>
         <source>Coins</source>
         <translation>Madeni paralar</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="197"/>
+        <location filename="TabView.py" line="199"/>
         <source>New list</source>
         <translation>Yeni liste</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="197"/>
+        <location filename="TabView.py" line="199"/>
         <source>Enter list title</source>
         <translation>Liste başlığı gir</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="206"/>
+        <location filename="TabView.py" line="208"/>
         <source>Rename list</source>
         <translation>Listeyi yeniden adlandır</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="206"/>
+        <location filename="TabView.py" line="208"/>
         <source>Enter new list title</source>
         <translation>Yeni liste başlığı gir</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="241"/>
+        <location filename="TabView.py" line="243"/>
         <source>Remove page</source>
         <translation>Sayfayı kaldır</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="221"/>
+        <location filename="TabView.py" line="223"/>
         <source>Can't close latest opened page.
 Add a new one first.</source>
         <translation>Son açılan sayfa kapatılamıyor.
 Önce yeni bir sayfa ekleyin.</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="234"/>
+        <location filename="TabView.py" line="236"/>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
         <translation>Son açılan sayfa kaldırılamıyor.
 Önce yeni bir sayfa ekleyin.</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="241"/>
+        <location filename="TabView.py" line="243"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
         <translation>&apos;%s&apos; sayfasını kalıcı olarak kaldırmak istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="251"/>
+        <location filename="TabView.py" line="253"/>
         <source>Remove pages</source>
         <translation>Tüm sayfaları kaldır</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="251"/>
+        <location filename="TabView.py" line="253"/>
         <source>Remove all closed pages permanently?</source>
         <translation>Kapatılan tüm sayfaları kalıcı olarak kaldırmak istiyor musunuz?</translation>
     </message>
@@ -2948,7 +2966,7 @@ Add a new one first.</source>
     <message>
         <location filename="VersionUpdater.py" line="250"/>
         <source>Vacuum...</source>
-        <translation type="unfinished"/>
+        <translation>Sıkıştırılıyor...</translation>
     </message>
 </context>
 <context>
