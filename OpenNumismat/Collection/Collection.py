@@ -728,11 +728,17 @@ class Collection(QtCore.QObject):
                                 self.tr("Collection %s not exists") % fileName)
             return False
 
+        if ('coins' not in self.db.tables()) or ('settings' not in self.db.tables()):
+            QMessageBox.critical(self.parent(),
+                    self.tr("Open collection"),
+                    self.tr("Collection %s in wrong format") % fileName)
+            return False
+
         self.settings = CollectionSettings(self.db)
         if self.settings['Type'] != version.AppName:
             QMessageBox.critical(self.parent(),
                     self.tr("Open collection"),
-                    self.tr("Collection %s in wrong format %s") % (fileName, version.AppName))
+                    self.tr("Collection %s in wrong format") % fileName)
             return False
         if int(self.settings['Version']) > self.settings.Default['Version']:
             QMessageBox.critical(self.parent(),
