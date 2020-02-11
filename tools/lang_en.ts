@@ -103,37 +103,37 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="220"/>
+        <location filename="ListView.py" line="222"/>
         <source>Saving list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="471"/>
+        <location filename="ListView.py" line="473"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="312"/>
+        <location filename="ListView.py" line="314"/>
         <source>Updating records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="484"/>
+        <location filename="ListView.py" line="486"/>
         <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="452"/>
+        <location filename="ListView.py" line="454"/>
         <source>Inserting records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="464"/>
+        <location filename="ListView.py" line="466"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="464"/>
+        <location filename="ListView.py" line="466"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation>
             <numerusform>Are you sure to remove a %n coin?</numerusform>
@@ -141,7 +141,7 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
         </translation>
     </message>
     <message>
-        <location filename="ListView.py" line="471"/>
+        <location filename="ListView.py" line="473"/>
         <source>Deleting records</source>
         <translation type="unfinished"></translation>
     </message>
@@ -173,7 +173,7 @@ Changing item position avalaible only on default sort order. Clear sort order no
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="743"/>
+        <location filename="Collection.py" line="749"/>
         <source>Open collection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -188,190 +188,185 @@ Changing item position avalaible only on default sort order. Clear sort order no
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="738"/>
-        <source>Collection %s in wrong format %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Collection.py" line="743"/>
+        <location filename="Collection.py" line="749"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="784"/>
+        <location filename="Collection.py" line="791"/>
         <source>Create collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="776"/>
+        <location filename="Collection.py" line="783"/>
         <source>Specified file already exists</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1145"/>
+        <location filename="Collection.py" line="1152"/>
         <source>Can&apos;t open collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="874"/>
+        <location filename="Collection.py" line="881"/>
         <source>Updating reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1416"/>
+        <location filename="Collection.py" line="1423"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="908"/>
+        <location filename="Collection.py" line="915"/>
         <source>Attach</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="908"/>
+        <location filename="Collection.py" line="915"/>
         <source>Attach current reference to a collection file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="949"/>
+        <location filename="Collection.py" line="956"/>
         <source>Attaching reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="949"/>
+        <location filename="Collection.py" line="956"/>
         <source>Can&apos;t attach reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="963"/>
+        <location filename="Collection.py" line="970"/>
         <source>Save reference as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="963"/>
+        <location filename="Collection.py" line="970"/>
         <source>Reference (*.ref)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="970"/>
+        <location filename="Collection.py" line="977"/>
         <source>Detaching reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="984"/>
+        <location filename="Collection.py" line="991"/>
         <source>Detach reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="984"/>
+        <location filename="Collection.py" line="991"/>
         <source>Can&apos;t detach reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1037"/>
+        <location filename="Collection.py" line="1044"/>
         <source>Create reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1005"/>
+        <location filename="Collection.py" line="1012"/>
         <source>Can&apos;t create reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1037"/>
+        <location filename="Collection.py" line="1044"/>
         <source>Can&apos;t clear attached reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1057"/>
+        <location filename="Collection.py" line="1064"/>
         <source>Detach current reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1060"/>
+        <location filename="Collection.py" line="1067"/>
         <source>Attach current reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1064"/>
+        <location filename="Collection.py" line="1071"/>
         <source>Fill from collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1067"/>
+        <location filename="Collection.py" line="1074"/>
         <source>Edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1090"/>
+        <location filename="Collection.py" line="1097"/>
         <source>Backup collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1090"/>
+        <location filename="Collection.py" line="1097"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1145"/>
+        <location filename="Collection.py" line="1152"/>
         <source>Create mobile collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1217"/>
+        <location filename="Collection.py" line="1224"/>
         <source>Exporting records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1336"/>
+        <location filename="Collection.py" line="1343"/>
         <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1339"/>
+        <location filename="Collection.py" line="1346"/>
         <source>Compact...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1357"/>
+        <location filename="Collection.py" line="1364"/>
         <source>Vacuum...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1575"/>
+        <location filename="Collection.py" line="1582"/>
         <source>Synchronizing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1375"/>
+        <location filename="Collection.py" line="1382"/>
         <source>Can&apos;t open collection:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1386"/>
+        <location filename="Collection.py" line="1393"/>
         <source>Collection %s in wrong format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1396"/>
+        <location filename="Collection.py" line="1403"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1568"/>
+        <location filename="Collection.py" line="1575"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1574"/>
+        <location filename="Collection.py" line="1581"/>
         <source>Collections looks like identical</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1454,42 +1449,42 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1254"/>
+        <location filename="ListView.py" line="1256"/>
         <source>Edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1262"/>
+        <location filename="ListView.py" line="1264"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1265"/>
+        <location filename="ListView.py" line="1267"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1270"/>
+        <location filename="ListView.py" line="1272"/>
         <source>Clone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1274"/>
+        <location filename="ListView.py" line="1276"/>
         <source>Multi edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1295"/>
+        <location filename="ListView.py" line="1297"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1282"/>
+        <location filename="ListView.py" line="1284"/>
         <source>Move up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1287"/>
+        <location filename="ListView.py" line="1289"/>
         <source>Move down</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1633,47 +1628,47 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="622"/>
+        <location filename="ListView.py" line="624"/>
         <source>Select columns...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="623"/>
+        <location filename="ListView.py" line="625"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="625"/>
+        <location filename="ListView.py" line="627"/>
         <source>Adjust size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="808"/>
+        <location filename="ListView.py" line="810"/>
         <source>Edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="815"/>
+        <location filename="ListView.py" line="817"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="817"/>
+        <location filename="ListView.py" line="819"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="829"/>
+        <location filename="ListView.py" line="831"/>
         <source>Filter in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="821"/>
+        <location filename="ListView.py" line="823"/>
         <source>Clone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="824"/>
+        <location filename="ListView.py" line="826"/>
         <source>Multi edit...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1723,12 +1718,12 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="836"/>
+        <location filename="ListView.py" line="838"/>
         <source>Move up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="841"/>
+        <location filename="ListView.py" line="843"/>
         <source>Move down</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2094,15 +2089,6 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="841"/>
-        <source>%s %s
-
-Copyright (C) 2011-2019 Vitaly Ignatov
-
-%s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="MainWindow.py" line="868"/>
         <source>Updates</source>
         <translation type="unfinished"></translation>
@@ -2140,6 +2126,15 @@ Copyright (C) 2011-2019 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="57"/>
         <source>Change view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="841"/>
+        <source>%s %s
+
+Copyright (C) 2011-2020 Vitaly Ignatov
+
+%s is freeware licensed under a GPLv3.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
