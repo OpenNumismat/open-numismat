@@ -130,10 +130,12 @@ class BaseTableView(QTableView):
         elif event.matches(QKeySequence.Delete):
             self._delete(self.selectedCoins())
         elif event.matches(QKeySequence.MoveToStartOfDocument):
-            self.selectRow(0)
+            index = self.model().index(0, 0)
+            self.scrollToIndex(index)
             self.clearSelection()
         elif event.matches(QKeySequence.MoveToEndOfDocument):
-            self.selectRow(self.model().rowCount() - 1)
+            index = self.model().index(self.model().rowCount() - 1, 0)
+            self.scrollToIndex(index)
             self.clearSelection()
         else:
             return super().keyPressEvent(event)
