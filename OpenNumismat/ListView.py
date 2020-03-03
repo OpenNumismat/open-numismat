@@ -915,10 +915,7 @@ class ListView(BaseTableView):
                 index = self.indexAt(e.pos())
                 if index.isValid():
                     index1 = QTableView.currentIndex(self)
-
                     self.model().moveRows(index1.row(), index.row())
-
-                    e.accept()
                     return
 
         super().dropEvent(e)
@@ -1321,12 +1318,8 @@ class IconView(BaseTableView):
                 index = self.indexAt(e.pos())
                 if index.isValid():
                     index1 = self.currentIndex()
-
                     index2 = self._mapToSource(index)
-
                     self.model().moveRows(index1.row(), index2.row())
-
-                    e.accept()
                     return
 
         super().dropEvent(e)
