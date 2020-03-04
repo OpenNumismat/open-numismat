@@ -69,11 +69,11 @@ def main():
     lang = settings['locale']
 
     translator = QTranslator()
-    translator.load('lang_' + lang, OpenNumismat.PRJ_PATH)
+    translator.load('translations/lang_' + lang, OpenNumismat.PRJ_PATH)
     app.installTranslator(translator)
 
     translatorQt = QTranslator()
-    translatorQt.load('qtbase_' + lang, OpenNumismat.PRJ_PATH)
+    translatorQt.load('translations/qtbase_' + lang, OpenNumismat.PRJ_PATH)
     app.installTranslator(translatorQt)
 
     if not settings['verify_ssl']:

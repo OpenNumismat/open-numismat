@@ -196,22 +196,10 @@ if cx_Freeze_available:
                             icon='OpenNumismat/icons/main.ico',
                             targetName=params['name'] + executable_ext)
 
-    translation_files = []
-    f = open('tools/langs')
-    langs = [x.strip('\n') for x in f.readlines()]
-
-    for lang in langs:
-        if lang == 'en':
-            continue
-
-        translation_files.append(("OpenNumismat/lang_%s.qm" % lang,
-                                  "lang_%s.qm" % lang))
-        if os.path.isfile("OpenNumismat/qtbase_%s.qm" % lang):
-            translation_files.append(("OpenNumismat/qtbase_%s.qm" % lang,
-                                  "qtbase_%s.qm" % lang))
     include_files = translation_files + [
             "COPYING",
             ("OpenNumismat/icons", "icons"),
+            ("OpenNumismat/translations", "translations"),
             ("OpenNumismat/templates", "templates"),
             ("OpenNumismat/db", "db"),
             (qt_dir + "/plugins/imageformats", "imageformats"),

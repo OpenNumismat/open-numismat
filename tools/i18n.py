@@ -29,9 +29,9 @@ for lang in langs:
 
     outputfile = 'lang_%s.ts' % lang
     if os.path.isfile(outputfile):
-        dst_file = '../OpenNumismat/lang_%s.qm' % lang
+        dst_file = '../OpenNumismat/translations/lang_%s.qm' % lang
         os.system(' '.join([lreleasePath, outputfile, '-qm', dst_file]))
 
     src_file = os.path.join(translationsPath, "qtbase_%s.qm" % lang)
     if os.path.isfile(src_file):
-        shutil.copy(src_file, "../OpenNumismat")
+        shutil.copy(src_file, "../OpenNumismat/translations")
