@@ -1,7 +1,6 @@
 import codecs
 import csv
 import html
-import sys
 
 exportToExcelAvailable = True
 
@@ -128,6 +127,7 @@ class ExportToCsv(__ExportBase):
 
     def open(self):
         self._file = open(self.fileName, 'w', newline='')
+        self._encoding = self._file.encoding
         self._file.truncate()
         self._writer = csv.writer(self._file, delimiter=';')
 
@@ -153,8 +153,8 @@ class ExportToCsv(__ExportBase):
     # Prepare string for default system encoding (remove or replace extra
     # characters)
     def __prepareStr(self, string):
-        encoded_str = string.encode(encoding=sys.stdout.encoding, errors='ignore')
-        decoded_str = encoded_str.decode(sys.stdout.encoding)
+        encoded_str = string.encode(encoding=self._encoding, errors='ignore')
+        decoded_str = encoded_str.decode(self._encoding)
         return decoded_str
 
 
