@@ -313,23 +313,80 @@ class FieldsSettingsPage(QWidget):
     def __init__(self, collection, parent=None):
         super().__init__(parent)
 
-        self.listWidget = QListWidget(self)
-        self.listWidget.setWrapping(True)
-        self.listWidget.setMinimumWidth(330)
-        self.listWidget.setMinimumHeight(180)
-        self.listWidget.itemSelectionChanged.connect(self.itemSelectionChanged)
+        self.treeWidget = QTreeWidget(self)
+        self.treeWidget.setHeaderHidden(True)
+        self.treeWidget.itemSelectionChanged.connect(self.itemSelectionChanged)
+
+        image_item = QTreeWidgetItem((self.tr("Images"),))
+        main_item = QTreeWidgetItem((self.tr("Main details"),))
+        state_item = QTreeWidgetItem((self.tr("State"),))
+        buy_item = QTreeWidgetItem((self.tr("Buy"),))
+        sale_item = QTreeWidgetItem((self.tr("Sale"),))
+        map_item = QTreeWidgetItem((self.tr("Map"),))
+        parameters_item = QTreeWidgetItem((self.tr("Parameters"),))
+        design_item = QTreeWidgetItem((self.tr("Design"),))
+        classification_item = QTreeWidgetItem((self.tr("Classification"),))
+        system_item = QTreeWidgetItem((self.tr("System"),))
+        other_item = QTreeWidgetItem((self.tr("Other"),))
 
         self.fields = collection.fields
         for field in self.fields:
-            item = QListWidgetItem(field.title)
-            item.setData(self.DataRole, field)
+            item = QTreeWidgetItem((field.title,))
+            item.setData(0, self.DataRole, field)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
                           Qt.ItemIsEnabled | Qt.ItemIsSelectable)
             checked = Qt.Unchecked
             if field.enabled:
                 checked = Qt.Checked
-            item.setCheckState(checked)
-            self.listWidget.addItem(item)
+            item.setCheckState(0, checked)
+
+            if field.name in ('id', 'createdat', 'updatedat', 'sort_id'):
+                system_item.addChild(item)
+            elif field.name in ('image', 'obverseimg', 'reverseimg', 'edgeimg',
+                                'photo1', 'photo2', 'photo3', 'photo4',
+                                'varietyimg', 'signatureimg'):
+                image_item.addChild(item)
+            elif field.name in ('title', 'region', 'country', 'period',
+                                'emitent', 'ruler', 'value', 'unit', 'year',
+                                'mintmark', 'mint', 'type', 'series', 'subjectshort'):
+                main_item.addChild(item)
+            elif field.name in ('status', 'grade', 'quantity', 'format',
+                                'condition', 'storage', 'barcode', 'defect',
+                                'features'):
+                state_item.addChild(item)
+            elif field.name in ('paydate', 'payprice', 'totalpayprice',
+                                'saller', 'payplace', 'payinfo'):
+                buy_item.addChild(item)
+            elif field.name in ('saledate', 'saleprice', 'totalsaleprice',
+                                'buyer', 'saleplace', 'saleinfo'):
+                sale_item.addChild(item)
+            elif field.name in ('address', 'latitude', 'longitude'):
+                map_item.addChild(item)
+            elif field.name in ('material', 'fineness', 'weight', 'diameter',
+                                'thickness', 'shape', 'obvrev', 'issuedate',
+                                'mintage', 'dateemis', 'quality', 'note'):
+                parameters_item.addChild(item)
+            elif field.name in ('obversedesign', 'obversedesigner', 'obverseengraver',
+                                'obversecolor', 'reversedesign', 'reversedesigner',
+                                'reverseengraver', 'reversecolor', 'edge', 'edgelabel',
+                                'signaturetype', 'signature', 'subject'):
+                design_item.addChild(item)
+            elif field.name in ('catalognum1', 'catalognum2', 'catalognum3', 'catalognum4',
+                                'rarity', 'price4', 'price3', 'price2', 'price1',
+                                'variety', 'varietydesc', 'obversevar',
+                                'reversevar', 'edgevar', 'url'):
+                classification_item.addChild(item)
+            elif field.name in ('address', 'latitude', 'longitude'):
+                map_item.addChild(item)
+            else:
+                other_item.addChild(item)
+
+        for item in (image_item, main_item, state_item, buy_item, sale_item,
+                     map_item, parameters_item, design_item,
+                     classification_item, system_item, other_item):
+            if item.childCount() > 0:
+                self.treeWidget.addTopLevelItem(item)
+                item.setExpanded(True)
 
         self.renameButton = QPushButton(self.tr("Rename"), self)
         self.renameButton.clicked.connect(self.renameButtonClicked)
@@ -345,7 +402,7 @@ class FieldsSettingsPage(QWidget):
 
         layout = QVBoxLayout()
         layout.addWidget(QLabel(self.tr("Global enabled fields:"), self))
-        layout.addWidget(self.listWidget)
+        layout.addWidget(self.treeWidget)
 
         hLayout = QHBoxLayout()
         hLayout.addWidget(self.renameButton, alignment=Qt.AlignLeft)
@@ -355,30 +412,31 @@ class FieldsSettingsPage(QWidget):
         self.setLayout(layout)
 
     def itemSelectionChanged(self):
-        self.renameButton.setEnabled(len(self.listWidget.selectedItems()) > 0)
-
-    def resizeEvent(self, _):
-        self.listWidget.setWrapping(True)
+        self.renameButton.setEnabled(len(self.treeWidget.selectedItems()) > 0)
 
     def defaultFieldsButtonClicked(self):
         defaultFields = CollectionFieldsBase()
-        for i in range(self.listWidget.count()):
-            item = self.listWidget.item(i)
-            field = item.data(self.DataRole)
-            defaultField = defaultFields.field(field.id)
-            item.setText(defaultField.title)
+        for i in range(self.treeWidget.topLevelItemCount()):
+            top_item = self.treeWidget.topLevelItem(i)
+            for j in range(top_item.childCount()):
+                item = top_item.child(j)
+                field = item.data(0, self.DataRole)
+                defaultField = defaultFields.field(field.id)
+                item.setText(0, defaultField.title)
 
     def renameButtonClicked(self):
-        items = self.listWidget.selectedItems()
+        items = self.treeWidget.selectedItems()
         if len(items) > 0:
-            self.listWidget.editItem(items[0])
+            self.treeWidget.editItem(items[0])
 
     def save(self):
-        for i in range(self.listWidget.count()):
-            item = self.listWidget.item(i)
-            field = item.data(self.DataRole)
-            field.enabled = (item.checkState() == Qt.Checked)
-            field.title = item.text()
+        for i in range(self.treeWidget.topLevelItemCount()):
+            top_item = self.treeWidget.topLevelItem(i)
+            for j in range(top_item.childCount()):
+                item = top_item.child(j)
+                field = item.data(0, self.DataRole)
+                field.enabled = (item.checkState(0) == Qt.Checked)
+                field.title = item.text(0)
 
         self.fields.save()
 
