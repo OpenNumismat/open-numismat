@@ -5,6 +5,7 @@ from PyQt5.QtCore import QStandardPaths
 
 from OpenNumismat import version
 
+PORTABLE = False
 
 # Getting default path for storing user data
 HOME_PATH = ''
@@ -30,8 +31,3 @@ PRJ_PATH = os.path.abspath(os.path.dirname(__file__))
 # sys.frozen is True when running from cx_Freeze executable
 if getattr(sys, 'frozen', False):
     PRJ_PATH = os.path.dirname(sys.executable)
-
-
-from OpenNumismat.main import main
-
-__all__ = ["main"]

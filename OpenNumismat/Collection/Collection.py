@@ -1084,7 +1084,7 @@ class Collection(QtCore.QObject):
     def backup(self):
         backupDir = QtCore.QDir(Settings()['backup'])
         if not backupDir.exists():
-            backupDir.mkpath(backupDir.path())
+            backupDir.mkpath(backupDir.absolutePath())
 
         backupFileName = backupDir.filePath("%s_%s.db" % (self.getCollectionName(), QtCore.QDateTime.currentDateTime().toString('yyMMddhhmmss')))
         srcFile = QtCore.QFile(self.fileName)

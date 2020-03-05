@@ -6,7 +6,7 @@ import ssl
 import sys
 import traceback
 
-from PyQt5.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, PYQT_VERSION_STR
+from PyQt5.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, PYQT_VERSION_STR, QSettings
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from PyQt5.QtGui import QDesktopServices
 
@@ -28,6 +28,12 @@ def main():
 
     QCoreApplication.setOrganizationName(version.Company)
     QCoreApplication.setApplicationName(version.AppName)
+
+    if OpenNumismat.PORTABLE:
+        QCoreApplication.setOrganizationName('.')
+        QSettings.setDefaultFormat(QSettings.IniFormat)
+        QSettings.setPath(QSettings.IniFormat, QSettings.UserScope,
+                          OpenNumismat.PRJ_PATH)
 
     settings = Settings()
     if settings['error']:

@@ -192,7 +192,12 @@ if cx_Freeze_available:
         qt_dir = '/opt/local/libexec/qt5'
         executable_ext = ''
 
-    executable = Executable("open-numismat.py", base=base,
+    if os.environ.get('PORTABLE'):
+        start_script = "open-numismat-portable.py"
+    else:
+        start_script = "open-numismat.py"
+
+    executable = Executable(start_script, base=base,
                             icon='OpenNumismat/icons/main.ico',
                             targetName=params['name'] + executable_ext)
 
@@ -220,6 +225,7 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/libtiff.5.dylib", "libtiff.5.dylib"))
         include_files.append(("/opt/local/lib/liblcms2.dylib", "liblcms2.dylib"))
     build_exe_options = {
+            "build_exe": 'build/' + params['name'],
             "excludes": [],
             "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
                          "PyQt5.QtWebKit", "numpy.core._methods", "numpy.lib.format",
@@ -244,10 +250,14 @@ if cx_Freeze_available:
 setup(**params)
 
 if sys.platform == "win32":
-    binDir = 'build/exe.win32-3.4/'
+    binDir = 'build/OpenNumismat/'
     shutil.rmtree(binDir + "mpl-data/sample_data")
     shutil.rmtree(binDir + "mpl-data/images")
     shutil.rmtree(binDir + "mpl-data/fonts")
+    if os.environ.get('PORTABLE'):
+        if os.path.exists(params['name'] + '-' + params['version'] + '.zip'):
+            os.remove(params['name'] + '-' + params['version'] + '.zip')
+        shutil.make_archive(params['name'] + '-' + params['version'], 'zip', 'build/')
 
 # Post bdist_mac
 if sys.platform == "darwin":
