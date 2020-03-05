@@ -196,7 +196,7 @@ if cx_Freeze_available:
                             icon='OpenNumismat/icons/main.ico',
                             targetName=params['name'] + executable_ext)
 
-    include_files = translation_files + [
+    include_files = [
             "COPYING",
             ("OpenNumismat/icons", "icons"),
             ("OpenNumismat/translations", "translations"),
