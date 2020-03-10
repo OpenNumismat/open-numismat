@@ -1,3 +1,5 @@
+import urllib.request
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -272,7 +274,6 @@ class ImageEdit(ImageLabel):
     def loadFromUrl(self, url):
         result = False
 
-        import urllib.request
         try:
             # Wikipedia require any header
             req = urllib.request.Request(url,

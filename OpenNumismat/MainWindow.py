@@ -1,4 +1,5 @@
 import sys
+import urllib.request
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -893,7 +894,6 @@ class MainWindow(QMainWindow):
 
     @waitCursorDecorator
     def __getNewVersion(self):
-        import urllib.request
         from xml.dom.minidom import parseString
 
         newVersion = version.Version
