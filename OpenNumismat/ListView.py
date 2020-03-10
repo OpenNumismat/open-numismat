@@ -274,7 +274,18 @@ class BaseTableView(QTableView):
 
                 export.writeRow(parts)
 
-            export.close()
+            while True:
+                try:
+                    export.close()
+                    break
+                except PermissionError:
+                    progressDlg.close()
+                    btn = QMessageBox.warning(self, self.tr("Saving list"),
+                                        self.tr("File is open in another programm or permission required.\nClose the file and try again."),
+                                        QMessageBox.Retry | QMessageBox.Cancel,
+                                        QMessageBox.Retry)
+                    if btn != QMessageBox.Retry:
+                        break
 
             progressDlg.reset()
 
