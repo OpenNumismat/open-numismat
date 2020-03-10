@@ -225,7 +225,6 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/libtiff.5.dylib", "libtiff.5.dylib"))
         include_files.append(("/opt/local/lib/liblcms2.dylib", "liblcms2.dylib"))
     build_exe_options = {
-            "build_exe": 'build/' + params['name'],
             "excludes": [],
             "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
                          "PyQt5.QtWebKit", "numpy.core._methods", "numpy.lib.format",
@@ -235,7 +234,9 @@ if cx_Freeze_available:
             "replace_paths": [(os.path.dirname(__file__) + os.sep, '')],
             "include_msvcr": True  # skip error msvcr100.dll missing
     }
-    if sys.platform == "darwin":
+    if sys.platform == "win32":
+        build_exe_options["build_exe"] = 'build/' + params['name']
+    elif sys.platform == "darwin":
         build_exe_options["packages"] = ["xlwt", "asyncio"]
 
     params["executables"] = [executable]
