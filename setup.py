@@ -228,7 +228,7 @@ if cx_Freeze_available:
                          "matplotlib.backends.backend_ps", "matplotlib.backends.backend_pdf",
                          "matplotlib.backends.backend_svg"],
             "include_files": include_files,
-            "replace_paths": [(os.path.dirname(__file__) + os.sep, '')],
+            "replace_paths": [(os.path.dirname(os.path.abspath(__file__)) + os.sep, '')],
             "include_msvcr": True  # skip error msvcr100.dll missing
     }
     if sys.platform == "win32":
