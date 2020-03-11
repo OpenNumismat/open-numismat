@@ -103,42 +103,42 @@ Välj obligatoriska mynt genom att klicka med Ctrl eller Shift eller Ctrl + A f�
         <translation>Text fil UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="224"/>
+        <location filename="ListView.py" line="284"/>
         <source>Saving list</source>
         <translation>Spara lista</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="475"/>
+        <location filename="ListView.py" line="486"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="316"/>
+        <location filename="ListView.py" line="327"/>
         <source>Updating records</source>
         <translation>Uppdaterar poster</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="488"/>
+        <location filename="ListView.py" line="499"/>
         <source>Saving...</source>
         <translation>Sparar...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="456"/>
+        <location filename="ListView.py" line="467"/>
         <source>Inserting records</source>
         <translation>Infoga poster</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="468"/>
+        <location filename="ListView.py" line="479"/>
         <source>Delete</source>
         <translation>Radera</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="468"/>
+        <location filename="ListView.py" line="479"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="475"/>
+        <location filename="ListView.py" line="486"/>
         <source>Deleting records</source>
         <translation>Radera poster</translation>
     </message>
@@ -163,6 +163,12 @@ Välj obligatoriska mynt genom att klicka med Ctrl eller Shift eller Ctrl + A f�
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>Standard sorteringsorder har ändrats.
 Ändrar objektpositionen endast tillgänglig vid standard sorteringsordning. Rensa sorteringsordning nu?</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="284"/>
+        <source>File is open in another programm or permission required.
+Close the file and try again.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1205,12 +1211,12 @@ Applikationen måste starta om nu.</translation>
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="96"/>
+        <location filename="main.py" line="102"/>
         <source>System error</source>
         <translation>Systemfel</translation>
     </message>
     <message>
-        <location filename="main.py" line="97"/>
+        <location filename="main.py" line="103"/>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Ett systemfel inträffade. 
@@ -1508,42 +1514,42 @@ Vill du skicka ett felmeddelande till författaren?</translation>
 <context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1255"/>
+        <location filename="ListView.py" line="1266"/>
         <source>Edit...</source>
         <translation>Redigera...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1263"/>
+        <location filename="ListView.py" line="1274"/>
         <source>Copy</source>
         <translation>Kopiera</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1266"/>
+        <location filename="ListView.py" line="1277"/>
         <source>Paste</source>
         <translation>Klistra in</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1271"/>
+        <location filename="ListView.py" line="1282"/>
         <source>Clone</source>
         <translation>Klona</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1275"/>
+        <location filename="ListView.py" line="1286"/>
         <source>Multi edit...</source>
         <translation>Multi redigera...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1296"/>
+        <location filename="ListView.py" line="1307"/>
         <source>Delete</source>
         <translation>Radera</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1283"/>
+        <location filename="ListView.py" line="1294"/>
         <source>Move up</source>
         <translation>Flytta upp</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1288"/>
+        <location filename="ListView.py" line="1299"/>
         <source>Move down</source>
         <translation>Flytta ned</translation>
     </message>
@@ -1688,47 +1694,47 @@ Vill du skicka ett felmeddelande till författaren?</translation>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="626"/>
+        <location filename="ListView.py" line="637"/>
         <source>Select columns...</source>
         <translation>Välj kolumner ...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="627"/>
+        <location filename="ListView.py" line="638"/>
         <source>Hide</source>
         <translation>Göm</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="629"/>
+        <location filename="ListView.py" line="640"/>
         <source>Adjust size</source>
         <translation>Justera storlek</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="812"/>
+        <location filename="ListView.py" line="823"/>
         <source>Edit...</source>
         <translation>Redigera...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="819"/>
+        <location filename="ListView.py" line="830"/>
         <source>Copy</source>
         <translation>Kopiera</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="821"/>
+        <location filename="ListView.py" line="832"/>
         <source>Paste</source>
         <translation>Klistra in</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="833"/>
+        <location filename="ListView.py" line="844"/>
         <source>Filter in</source>
         <translation>Filtrera i</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="825"/>
+        <location filename="ListView.py" line="836"/>
         <source>Clone</source>
         <translation>Klona</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="828"/>
+        <location filename="ListView.py" line="839"/>
         <source>Multi edit...</source>
         <translation>Multi redigera...</translation>
     </message>
@@ -1778,12 +1784,12 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Öppna fil</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="840"/>
+        <location filename="ListView.py" line="851"/>
         <source>Move up</source>
         <translation>Flytta upp</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="845"/>
+        <location filename="ListView.py" line="856"/>
         <source>Move down</source>
         <translation>Flytta ned</translation>
     </message>

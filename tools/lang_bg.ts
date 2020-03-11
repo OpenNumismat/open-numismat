@@ -103,42 +103,42 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
         <translation>Текстови фийл UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="224"/>
+        <location filename="ListView.py" line="284"/>
         <source>Saving list</source>
         <translation>Запаметяване на списъка</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="475"/>
+        <location filename="ListView.py" line="486"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="316"/>
+        <location filename="ListView.py" line="327"/>
         <source>Updating records</source>
         <translation>Актуализиране на записите</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="488"/>
+        <location filename="ListView.py" line="499"/>
         <source>Saving...</source>
         <translation>Записване...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="456"/>
+        <location filename="ListView.py" line="467"/>
         <source>Inserting records</source>
         <translation>Вмъкване на записи</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="468"/>
+        <location filename="ListView.py" line="479"/>
         <source>Delete</source>
         <translation>Изтриване</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="468"/>
+        <location filename="ListView.py" line="479"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation><numerusform>Наистина ли искате да премахнете %n монета/и?</numerusform><numerusform>Наистина ли искате да премахнете %n монета/и?</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="475"/>
+        <location filename="ListView.py" line="486"/>
         <source>Deleting records</source>
         <translation>Изтриване на записи</translation>
     </message>
@@ -163,6 +163,12 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>Реда на сортиране по подразбиране е променен.
 Промяната на позицията на елемента е достъпна само при подреждане по подразбиране. Изчисти реда на сортиране сега?</translation>
+    </message>
+    <message>
+        <location filename="ListView.py" line="284"/>
+        <source>File is open in another programm or permission required.
+Close the file and try again.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -489,7 +495,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="152"/>
         <source>ObvRev</source>
-        <translation>ЛицОбр</translation>
+        <translation>Ориентация</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="153"/>
@@ -919,7 +925,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="329"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
-        <translation>Информация за каталога, предоставена от &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;. Онлайн колекционерска общност.</translation>
+        <translation>Каталожната информация е предоставена от &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;. Онлайн колекционерска общност.</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="342"/>
@@ -1205,12 +1211,12 @@ The application will need to restart now.</source>
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="96"/>
+        <location filename="main.py" line="102"/>
         <source>System error</source>
         <translation>Системна грешка</translation>
     </message>
     <message>
-        <location filename="main.py" line="97"/>
+        <location filename="main.py" line="103"/>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Възникна системна грешка.
@@ -1508,42 +1514,42 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1255"/>
+        <location filename="ListView.py" line="1266"/>
         <source>Edit...</source>
         <translation>Редакция...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1263"/>
+        <location filename="ListView.py" line="1274"/>
         <source>Copy</source>
         <translation>Копирай</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1266"/>
+        <location filename="ListView.py" line="1277"/>
         <source>Paste</source>
         <translation>Постави</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1271"/>
+        <location filename="ListView.py" line="1282"/>
         <source>Clone</source>
         <translation>Клониране</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1275"/>
+        <location filename="ListView.py" line="1286"/>
         <source>Multi edit...</source>
         <translation>Групова редакция...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1296"/>
+        <location filename="ListView.py" line="1307"/>
         <source>Delete</source>
         <translation>Изтриване</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1283"/>
+        <location filename="ListView.py" line="1294"/>
         <source>Move up</source>
         <translation>Премести нагоре</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1288"/>
+        <location filename="ListView.py" line="1299"/>
         <source>Move down</source>
         <translation>Премести надолу</translation>
     </message>
@@ -1553,7 +1559,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ImageLabel.py" line="151"/>
         <source>Exchange with</source>
-        <translation>Обмен с</translation>
+        <translation>Размяна с</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="164"/>
@@ -1689,47 +1695,47 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="626"/>
+        <location filename="ListView.py" line="637"/>
         <source>Select columns...</source>
         <translation>Избери колони...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="627"/>
+        <location filename="ListView.py" line="638"/>
         <source>Hide</source>
         <translation>Скрий</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="629"/>
+        <location filename="ListView.py" line="640"/>
         <source>Adjust size</source>
         <translation>Регулирайте размера</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="812"/>
+        <location filename="ListView.py" line="823"/>
         <source>Edit...</source>
         <translation>Редакция...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="819"/>
+        <location filename="ListView.py" line="830"/>
         <source>Copy</source>
         <translation>Копирай</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="821"/>
+        <location filename="ListView.py" line="832"/>
         <source>Paste</source>
         <translation>Постави</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="833"/>
+        <location filename="ListView.py" line="844"/>
         <source>Filter in</source>
         <translation>Филтрирайте</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="825"/>
+        <location filename="ListView.py" line="836"/>
         <source>Clone</source>
         <translation>Клониране</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="828"/>
+        <location filename="ListView.py" line="839"/>
         <source>Multi edit...</source>
         <translation>Групова редакция...</translation>
     </message>
@@ -1779,12 +1785,12 @@ Do you want to send an error message to the author?</source>
         <translation>Отваряне на файл</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="840"/>
+        <location filename="ListView.py" line="851"/>
         <source>Move up</source>
         <translation>Премести нагоре</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="845"/>
+        <location filename="ListView.py" line="856"/>
         <source>Move down</source>
         <translation>Премести надолу</translation>
     </message>

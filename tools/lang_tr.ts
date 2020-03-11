@@ -103,42 +103,42 @@ Gerekli madeni paraları Ctrl veya Shift ile tıklayarak seçin veya tüm madeni
         <translation>UTF-8 Metin dosyası (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="224"/>
+        <location filename="ListView.py" line="284"/>
         <source>Saving list</source>
         <translation>Liste kaydediliyor</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="475"/>
+        <location filename="ListView.py" line="486"/>
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="316"/>
+        <location filename="ListView.py" line="327"/>
         <source>Updating records</source>
         <translation>Kayıtlar güncelleniyor</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="488"/>
+        <location filename="ListView.py" line="499"/>
         <source>Saving...</source>
         <translation>Kaydediliyor...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="456"/>
+        <location filename="ListView.py" line="467"/>
         <source>Inserting records</source>
         <translation>Kayıtlar ekleniyor</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="468"/>
+        <location filename="ListView.py" line="479"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="468"/>
+        <location filename="ListView.py" line="479"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation><numerusform>%n madeni parayı kaldırmak istediğinize emin misiniz?</numerusform><numerusform>%n madeni parayı kaldırmak istediğinize emin misiniz?</numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="475"/>
+        <location filename="ListView.py" line="486"/>
         <source>Deleting records</source>
         <translation>Kayıtlar siliniyor</translation>
     </message>
@@ -161,6 +161,12 @@ Gerekli madeni paraları Ctrl veya Shift ile tıklayarak seçin veya tüm madeni
         <location filename="ListView.py" line="67"/>
         <source>Default sort order changed.
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="284"/>
+        <source>File is open in another programm or permission required.
+Close the file and try again.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1198,12 +1204,12 @@ The application will need to restart now.</source>
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="96"/>
+        <location filename="main.py" line="102"/>
         <source>System error</source>
         <translation>Sistem Hatası</translation>
     </message>
     <message>
-        <location filename="main.py" line="97"/>
+        <location filename="main.py" line="103"/>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Bir sistem hatası oluştu.
@@ -1501,42 +1507,42 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
 <context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1255"/>
+        <location filename="ListView.py" line="1266"/>
         <source>Edit...</source>
         <translation>Düzenle...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1263"/>
+        <location filename="ListView.py" line="1274"/>
         <source>Copy</source>
         <translation>Kopyala</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1266"/>
+        <location filename="ListView.py" line="1277"/>
         <source>Paste</source>
         <translation>Yapıştır</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1271"/>
+        <location filename="ListView.py" line="1282"/>
         <source>Clone</source>
         <translation>Çoğalt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1275"/>
+        <location filename="ListView.py" line="1286"/>
         <source>Multi edit...</source>
         <translation>Çoklu Düzenle...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1296"/>
+        <location filename="ListView.py" line="1307"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1283"/>
+        <location filename="ListView.py" line="1294"/>
         <source>Move up</source>
         <translation>Yukarı Taşı</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1288"/>
+        <location filename="ListView.py" line="1299"/>
         <source>Move down</source>
         <translation>Aşağı Taşı</translation>
     </message>
@@ -1681,47 +1687,47 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="626"/>
+        <location filename="ListView.py" line="637"/>
         <source>Select columns...</source>
         <translation>Sütunları Seç...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="627"/>
+        <location filename="ListView.py" line="638"/>
         <source>Hide</source>
         <translation>Gizle</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="629"/>
+        <location filename="ListView.py" line="640"/>
         <source>Adjust size</source>
         <translation>Boyutu ayarla</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="812"/>
+        <location filename="ListView.py" line="823"/>
         <source>Edit...</source>
         <translation>Düzenle...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="819"/>
+        <location filename="ListView.py" line="830"/>
         <source>Copy</source>
         <translation>Kopyala</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="821"/>
+        <location filename="ListView.py" line="832"/>
         <source>Paste</source>
         <translation>Yapıştır</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="833"/>
+        <location filename="ListView.py" line="844"/>
         <source>Filter in</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="825"/>
+        <location filename="ListView.py" line="836"/>
         <source>Clone</source>
         <translation>Çoğalt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="828"/>
+        <location filename="ListView.py" line="839"/>
         <source>Multi edit...</source>
         <translation>Çoklu Düzenle...</translation>
     </message>
@@ -1771,12 +1777,12 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
         <translation>Dosya aç</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="840"/>
+        <location filename="ListView.py" line="851"/>
         <source>Move up</source>
         <translation>Yukarı Taşı</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="845"/>
+        <location filename="ListView.py" line="856"/>
         <source>Move down</source>
         <translation>Aşağı Taşı</translation>
     </message>
