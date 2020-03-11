@@ -3,9 +3,8 @@ import io
 import json
 import re
 import os
-import sys
 import tempfile
-import requests
+import urllib.request
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QObject, QDate
@@ -13,7 +12,6 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import *
 
-import OpenNumismat
 from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Settings import Settings
@@ -28,9 +26,6 @@ try:
 except ImportError:
     print('Importing from Colnect not available')
     colnectAvailable = False
-
-if sys.platform == 'win32':
-    os.environ['REQUESTS_CA_BUNDLE'] = os.path.join(OpenNumismat.PRJ_PATH, "cacert.pem")
 
 
 class ColnectCache(QObject):
@@ -135,10 +130,6 @@ class ColnectConnector(QObject):
         super().__init__(parent)
 
         self.cache = ColnectCache()
-        self.apiSession = requests.Session()
-        self.apiSession.headers.update({'User-Agent': version.AppName})
-        self.imgSession = requests.Session()
-        self.imgSession.headers.update({'User-Agent': version.AppName})
         self.skip_currency = Settings()['colnect_skip_currency']
         self.lang = Settings()['colnect_locale']
 
@@ -209,8 +200,10 @@ class ColnectConnector(QObject):
             if data:
                 return data
         try:
-            data = self.imgSession.get(url).content
-        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
+            req = urllib.request.Request(url,
+                                    headers={'User-Agent': version.AppName})
+            data = urllib.request.urlopen(req).read()
+        except:
             pass
 
         if not full:
@@ -254,20 +247,21 @@ class ColnectConnector(QObject):
             return data
 
         try:
-            resp = self.apiSession.get(url)
-        except (requests.exceptions.RequestException, requests.exceptions.BaseHTTPError) as _e:
+            req = urllib.request.Request(url,
+                                    headers={'User-Agent': version.AppName})
+            raw_data = urllib.request.urlopen(req).read().decode()
+        except:
             return []
 
-        if resp.text.startswith('Invalid key'):
+        if raw_data.startswith('Invalid key'):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect service not available"))
             return []
-        elif resp.text.startswith('Visit colnect.com'):
+        elif raw_data.startswith('Visit colnect.com'):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect data not recognised"))
             return []
 
-        raw_data = resp.text
         data = json.loads(raw_data)
         self.cache.set(ColnectCache.Action, url, raw_data)
 
