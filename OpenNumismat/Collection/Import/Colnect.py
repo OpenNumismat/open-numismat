@@ -334,7 +334,7 @@ class ColnectDialog(QDialog):
         layout.addRow(QWidget())
 
         categories = (('coins', self.tr("Coins")),
-                      ('banknotes', self.tr("Bankotes")),
+                      ('banknotes', self.tr("Banknotes")),
                       ('stamps', self.tr("Stamps")))
 
         self.categorySelector = QComboBox()
