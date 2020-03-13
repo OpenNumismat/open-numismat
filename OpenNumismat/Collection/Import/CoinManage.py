@@ -122,9 +122,22 @@ class ImportCoinManage(_Import):
 
         return dir_.absolutePath()
 
+    def _find_odbc_driver(self):
+        try:
+            dlist = pyodbc.drivers()
+            for d in dlist:
+                if "*.mdb" in d:
+                    return d
+            return None
+        except pyodbc.Error as error:
+            raise _DatabaseServerError(error.__str__())
+
     def _connect(self, src):
         try:
-            self.cnxn = pyodbc.connect(driver='{Microsoft Access Driver (*.mdb)}', DBQ=src)
+            d = self._find_odbc_driver()
+            if d is None:
+                raise RuntimeError("Failed to find appropriate ODBC driver")
+            self.cnxn = pyodbc.connect(driver='{'+d+'}', DBQ=src)
         except pyodbc.Error as error:
             raise _DatabaseServerError(error.__str__())
 
