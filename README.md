@@ -31,6 +31,6 @@ To run it after installing requirements, just do:
 
 ## Deploying
 
-    python setup.py build_exe`
+    python setup.py build_exe
 
 Compile setup*.iss with Inno Setup
