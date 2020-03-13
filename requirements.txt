@@ -1,0 +1,8 @@
+pyqt5
+jinja2
+matplotlib
+lxml
+xlwt-future
+xlrd
+python-dateutil
+pyodbc
