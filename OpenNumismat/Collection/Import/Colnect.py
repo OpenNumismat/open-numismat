@@ -181,7 +181,7 @@ class ColnectConnector(QObject):
             ext_image_pos = 16
         else:
             ext_image_pos = None
-        if ext_image_pos:
+        if ext_image_pos and data[ext_image_pos]:
             image = self.getImage(int(data[ext_image_pos]), data[0], True)
             record.setValue('photo1', image)
 
