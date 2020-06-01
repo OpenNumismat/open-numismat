@@ -1367,7 +1367,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="329"/>
         <source>System</source>
-        <translation>Система</translation>
+        <translation>Системни</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="330"/>
@@ -2995,7 +2995,7 @@ Add a new one first.</source>
     <message>
         <location filename="PageView.py" line="385"/>
         <source>Other</source>
-        <translation>Друг</translation>
+        <translation>Други</translation>
     </message>
     <message>
         <location filename="PageView.py" line="417"/>

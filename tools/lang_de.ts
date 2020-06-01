@@ -168,7 +168,7 @@ Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreih
         <location filename="ListView.py" line="284"/>
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
-        <translation type="unfinished"/>
+        <translation>Die Datei ist in einer anderen Anwendung geöffnet oder die nötigen Rechte fehlen. Schließe die Datei und versuche es noch einmal.</translation>
     </message>
 </context>
 <context>
@@ -979,7 +979,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="336"/>
         <source>Banknotes</source>
-        <translation type="unfinished"/>
+        <translation>Banknoten</translation>
     </message>
 </context>
 <context>
@@ -1360,7 +1360,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <message>
         <location filename="SettingsDialog.py" line="329"/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>System</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="330"/>
@@ -2176,7 +2176,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <message>
         <location filename="MainWindow.py" line="112"/>
         <source>Sort by drag-n-drop mode</source>
-        <translation type="unfinished"/>
+        <translation>Sortiere durch drag-n-drop</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="87"/>
@@ -2195,7 +2195,11 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
 Copyright (C) 2011-2020 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished"/>
+        <translation>%s %s
+
+Copyright (C) 2011-2020 Vitaly Ignatov
+
+%s ist Freeware lizensiert unter GPLv3.</translation>
     </message>
 </context>
 <context>
