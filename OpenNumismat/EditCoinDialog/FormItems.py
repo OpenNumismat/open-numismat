@@ -298,8 +298,13 @@ class LineEditRef(QWidget):
         self.comboBox.lineEdit().home(mark)
 
     def addDependent(self, reference):
+        # Clear reference
+        reference.reference.model.setFilter(None)
+        reference.reference.parentIndex = None
+
         if not self.dependents:
-#            self.comboBox.currentIndexChanged.connect(self.updateDependents)
+            # TODO: For support nonunique values uncomment next line
+            # self.comboBox.currentIndexChanged.connect(self.updateDependents)
             self.comboBox.editTextChanged.connect(self.updateDependents)
         self.dependents.append(reference)
 
@@ -326,7 +331,7 @@ class LineEditRef(QWidget):
                 if self.comboBox.currentText():
                     reference.model.setFilter('0')  # nothing select
                 else:
-                    reference.model.setFilter(None)
+                    reference.model.setFilter(None)  # select all
                 reference.parentIndex = None
                 dependent.setText(text)
 
