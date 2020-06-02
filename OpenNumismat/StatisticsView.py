@@ -106,7 +106,7 @@ class GeoChartCanvas(QWebView):
         data = ','.join((header, data))
         locale = Settings()['locale']
         self.html_data = self.HTML % (locale, MAPS_API_KEY, region, data)
-        self.setHtml(self.html_data, QUrl.fromLocalFile(OpenNumismat.PRJ_PATH))
+        self.setHtml(self.html_data)
 
     def setMulticolor(self, multicolor=False):
         pass
@@ -406,7 +406,7 @@ class StatisticsView(QWidget):
         self.regionLabel = QLabel(self.tr("Region:"))
         ctrlLayout.addWidget(self.regionLabel)
         self.regionSelector = QComboBox(self)
-        self.regionSelector.addItem(self.tr("All"), 'null')
+        self.regionSelector.addItem(self.tr("All"), "'world'")
         self.regionSelector.addItem(self.tr("Europe"), "'150'")
         self.regionSelector.addItem(self.tr("Africa"), "'002'")
         self.regionSelector.addItem(self.tr("Americas"), "'019'")
