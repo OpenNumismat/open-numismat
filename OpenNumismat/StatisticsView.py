@@ -1,6 +1,6 @@
 from textwrap import wrap
 
-from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QUrl, QByteArray
+from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
 from PyQt5.QtGui import QImage
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
