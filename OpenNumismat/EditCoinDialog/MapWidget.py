@@ -1,6 +1,6 @@
-from PyQt5.QtCore import pyqtSignal, QSettings, QUrl
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import pyqtSlot, pyqtSignal, QSettings, QUrl
 from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtWidgets import QSizePolicy
 
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
@@ -9,11 +9,24 @@ importedQtWebKit = True
 try:
     from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 except ImportError:
-    print('PyQt5.QtWebKitWidgets module missed. Google Maps not available')
-    importedQtWebKit = False
+    try:
+        from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
+        from PyQt5.QtWebEngineWidgets import QWebEnginePage
+        from PyQt5.QtWebChannel import QWebChannel
 
-    class QWebView:
-        pass
+        class WebEnginePage(QWebEnginePage):
+            def acceptNavigationRequest(self, url, type_, isMainFrame):
+                if type_ == QWebEnginePage.NavigationTypeLinkClicked:
+                    executor = QDesktopServices()
+                    executor.openUrl(QUrl(url))
+                    return False
+                return super().acceptNavigationRequest(url, type_, isMainFrame)
+    except ImportError:
+        print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. Maps not available')
+        importedQtWebKit = False
+
+        class QWebView:
+            pass
 
 
 class BaseMapWidget(QWebView):
@@ -38,11 +51,16 @@ class BaseMapWidget(QWebView):
         self.activated = False
         self.initialized = False
         self.loadFinished.connect(self.onLoadFinished)
-        self.page().mainFrame().addToJavaScriptWindowObject(
-            "qtWidget", self)
 
-        self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
-        self.page().linkClicked.connect(self.linkClicked)
+        self.setPage(WebEnginePage(self))
+#        self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
+#        self.page().linkClicked.connect(self.linkClicked)
+
+        channel = QWebChannel(self.page())
+        channel.registerObject("qtWidget", self)
+        self.page().setWebChannel(channel)
+#        self.page().mainFrame().addToJavaScriptWindowObject(
+#            "qtWidget", self)
 
     def linkClicked(self, url):
         executor = QDesktopServices()
@@ -71,7 +89,7 @@ class BaseMapWidget(QWebView):
 
             if not self.is_static:
                 self.mapClicked.connect(self.mapIsClicked)
-                self.markerRemoved.connect(self.markerIsRemoved)
+#                self.markerRemoved.connect(self.markerIsRemoved)
 
             params = self._getParams()
             html = self.HTML
@@ -89,22 +107,22 @@ class BaseMapWidget(QWebView):
         if not ok:
             self.initialized = True
 
-    @waitCursorDecorator
-    def waitUntilReady(self):
-        while not self.initialized:
-            QApplication.processEvents()
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
     def runScript(self, script):
-        return self.page().mainFrame().evaluateJavaScript(script)
+        return self.page().runJavaScript(script)
 
+    @pyqtSlot()
     def mapIsReady(self):
         self.initialized = True
         self.moveMarker(self.lat, self.lng)
         self.showMarkers()
 
+    @pyqtSlot(float, float)
     def mapIsMoved(self, lat, lng):
         QSettings().setValue(self.POSITION_KEY, (lat, lng))
 
+    @pyqtSlot(int)
     def mapIsZoomed(self, zoom):
         if zoom < 2:
             zoom = 2
@@ -140,16 +158,27 @@ class BaseMapWidget(QWebView):
                     self.runScript("gmap_addStaticMarker(%f, %f)" % (point[0], point[1]))
                 self.runScript("gmap_fitBounds()")
 
+    @pyqtSlot(float, float)
     def mapIsClicked(self, lat, lng):
+        if not self.is_static:
+            self.lat = lat
+            self.lng = lng
+            self.runScript("gmap_addMarker(%f, %f)" % (self.lat, self.lng))
+            self.markerMoved.emit(self.lat, self.lng, True)
+
+    @pyqtSlot(float, float, bool)
+    def markerIsMoved(self, lat, lng, address_changed):
         self.lat = lat
         self.lng = lng
-        self.runScript("gmap_addMarker(%f, %f)" % (self.lat, self.lng))
-        self.markerMoved.emit(self.lat, self.lng, True)
+        self.markerMoved.emit(lat, lng, address_changed)
 
+    @pyqtSlot()
     def markerIsRemoved(self):
-        self.lat = None
-        self.lng = None
-        self.runScript("gmap_deleteMarker()")
+        if not self.is_static:
+            self.lat = None
+            self.lng = None
+            self.runScript("gmap_deleteMarker()")
+            self.markerRemoved.emit()
 
     @waitCursorDecorator
     def geocode(self, address):

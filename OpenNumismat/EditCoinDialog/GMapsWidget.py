@@ -32,7 +32,12 @@ class GMapsWidget(BaseMapWidget):
             height: 100%
         }
     </style>
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
     <script>
+new QWebChannel(qt.webChannelTransport, function(channel) {
+    window.qtWidget = channel.objects.qtWidget;
+});
+
 var map;
 var geocoder;
 var marker = null;
@@ -63,20 +68,20 @@ function initialize() {
 
   map.addListener('dragend', function () {
     var center = map.getCenter();
-    qtWidget.mapMoved(center.lat(), center.lng());
+    qtWidget.mapIsMoved(center.lat(), center.lng());
   });
   map.addListener('zoom_changed', function() {
     zoom = map.getZoom();
-    qtWidget.mapZoomed(zoom);
+    qtWidget.mapIsZoomed(zoom);
   });
   map.addListener('click', function (ev) {
     if (marker === null) {
       lat = ev.latLng.lat();
       lng = ev.latLng.lng();
-      qtWidget.mapClicked(lat, lng)
+      qtWidget.mapIsClicked(lat, lng)
     }
   });
-  qtWidget.mapReady();
+  qtWidget.mapIsReady();
 }
 function gmap_addMarker(lat, lng) {
   var position = {lat: lat, lng: lng};
@@ -87,13 +92,13 @@ function gmap_addMarker(lat, lng) {
   });
 
   marker.addListener('dragend', function () {
-    qtWidget.markerMoved(marker.position.lat(), marker.position.lng(), true);
+    qtWidget.markerIsMoved(marker.position.lat(), marker.position.lng(), true);
   });
   marker.addListener('click', function () {
-    qtWidget.markerMoved(marker.position.lat(), marker.position.lng(), true);
+    qtWidget.markerIsMoved(marker.position.lat(), marker.position.lng(), true);
   });
   marker.addListener('rightclick', function () {
-    qtWidget.markerRemoved();
+    qtWidget.markerIsRemoved();
   });
 }
 function gmap_deleteMarker() {
@@ -141,7 +146,7 @@ function gmap_geocode(address) {
       lat = results[0].geometry.location.lat();
       lng = results[0].geometry.location.lng();
       gmap_moveMarker(lat, lng);
-      qtWidget.markerMoved(lat, lng, false);
+      qtWidget.markerIsMoved(lat, lng, false);
     }
   });
 }

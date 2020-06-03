@@ -28,7 +28,12 @@ class OSMWidget(BaseMapWidget):
             height: 100%
         }
     </style>
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
     <script>
+new QWebChannel(qt.webChannelTransport, function(channel) {
+    window.qtWidget = channel.objects.qtWidget;
+});
+
 var map;
 var marker = null;
 var markers = [];
@@ -42,34 +47,34 @@ function initialize() {
 
   map.on('moveend', function (e) {
     var center = map.getCenter();
-    qtWidget.mapMoved(center.lat, center.lng);
+    qtWidget.mapIsMoved(center.lat, center.lng);
   });
   map.on('zoomend', function() {
     zoom = map.getZoom();
-    qtWidget.mapZoomed(zoom);
+    qtWidget.mapIsZoomed(zoom);
   });
   map.on('click', function (ev) {
     if (marker === null) {
       lat = ev.latlng.lat;
       lng = ev.latlng.lng;
-      qtWidget.mapClicked(lat, lng)
+      qtWidget.mapIsClicked(lat, lng)
     }
   });
-  qtWidget.mapReady();
+  qtWidget.mapIsReady();
 }
 function gmap_addMarker(lat, lng) {
   marker = L.marker([lat, lng], {draggable: DRAGGABLE}).addTo(map);
 
   marker.on('dragend', function () {
     position = marker.getLatLng();
-    qtWidget.markerMoved(position.lat, position.lng, true);
+    qtWidget.markerIsMoved(position.lat, position.lng, true);
   });
   marker.on('click', function () {
     position = marker.getLatLng();
-    qtWidget.markerMoved(position.lat, position.lng, true);
+    qtWidget.markerIsMoved(position.lat, position.lng, true);
   });
   marker.on('contextmenu', function () {
-    qtWidget.markerRemoved();
+    qtWidget.markerIsRemoved();
   });
 }
 function gmap_deleteMarker() {
@@ -118,7 +123,7 @@ function gmap_geocode(address) {
       lat = parseFloat(results[0]['lat']);
       lng = parseFloat(results[0]['lon']);
       gmap_moveMarker(lat, lng);
-      qtWidget.markerMoved(lat, lng, false);
+      qtWidget.markerIsMoved(lat, lng, false);
   }
 }
     </script>

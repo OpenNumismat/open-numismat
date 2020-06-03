@@ -51,11 +51,14 @@ importedQtWebKit = True
 try:
     from PyQt5.QtWebKitWidgets import QWebView
 except ImportError:
-    print('PyQt5.QtWebKitWidgets module missed. GeoChart not available')
-    importedQtWebKit = False
+    try:
+        from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
+    except ImportError:
+        print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. GeoChart not available')
+        importedQtWebKit = False
 
-    class QWebView:
-        pass
+        class QWebView:
+            pass
 
 
 class GeoChartCanvas(QWebView):
