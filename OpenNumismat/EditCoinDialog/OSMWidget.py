@@ -30,13 +30,16 @@ class OSMWidget(BaseMapWidget):
     </style>
     <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
     <script>
-new QWebChannel(qt.webChannelTransport, function(channel) {
-    window.qtWidget = channel.objects.qtWidget;
-});
-
 var map;
 var marker = null;
 var markers = [];
+
+function onload() {
+  new QWebChannel(qt.webChannelTransport, function(channel) {
+    window.qtWidget = channel.objects.qtWidget;
+    initialize();
+  });
+}
 
 function initialize() {
   var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -128,7 +131,7 @@ function gmap_geocode(address) {
 }
     </script>
 </head>
-<body onload="initialize()">
+<body onload="onload()">
 <div id="map"></div>
 </body>
 </html>

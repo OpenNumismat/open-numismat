@@ -34,14 +34,17 @@ class GMapsWidget(BaseMapWidget):
     </style>
     <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
     <script>
-new QWebChannel(qt.webChannelTransport, function(channel) {
-    window.qtWidget = channel.objects.qtWidget;
-});
-
 var map;
 var geocoder;
 var marker = null;
 var markers = [];
+
+function onload() {
+  new QWebChannel(qt.webChannelTransport, function(channel) {
+    window.qtWidget = channel.objects.qtWidget;
+    initialize();
+  });
+}
 
 function initialize() {
   var position = {lat: LATITUDE, lng: LONGITUDE};
@@ -152,7 +155,7 @@ function gmap_geocode(address) {
 }
     </script>
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initialize&language=LANGUAGE"
+            src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=onload&language=LANGUAGE"
             type="text/javascript"></script>
 </head>
 <body>
