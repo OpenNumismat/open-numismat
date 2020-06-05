@@ -62,6 +62,8 @@ class BaseMapWidget(QWebView):
 #        self.page().mainFrame().addToJavaScriptWindowObject(
 #            "qtWidget", self)
 
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
     def linkClicked(self, url):
         executor = QDesktopServices()
         executor.openUrl(QUrl(url))
@@ -106,8 +108,6 @@ class BaseMapWidget(QWebView):
     def onLoadFinished(self, ok):
         if not ok:
             self.initialized = True
-
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
     def runScript(self, script):
         return self.page().runJavaScript(script)

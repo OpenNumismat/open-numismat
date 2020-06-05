@@ -46,9 +46,12 @@ class DetailsTabWidget(QTabWidget):
     def createMapPage(self):
         coordinates = self.coordinatesLayout()
         if not coordinates.isEmpty():
-            map_ = self.mapLayout()
             title = QApplication.translate('DetailsTabWidget', "Map")
-            self.addTabPage(title, [coordinates, self.Stretch, map_])
+            map_ = self.mapLayout()
+            if map_:
+                self.addTabPage(title, [coordinates, self.Stretch, map_])
+            else:
+                self.addTabPage(title, [coordinates, ])
 
     def createTrafficPage(self):
         title = QApplication.translate('DetailsTabWidget', "Market")
@@ -111,7 +114,7 @@ class DetailsTabWidget(QTabWidget):
                 else:
                     if isinstance(part, QWidget):
                         layout.addWidget(part)
-                        if part.sizePolicy().verticalPolicy() == QSizePolicy.Preferred:
+                        if part.sizePolicy().verticalPolicy() in (QSizePolicy.Preferred, QSizePolicy.Expanding):
                             stretchNeeded = False
                     else:
                         layout.addLayout(part)
@@ -132,7 +135,7 @@ class DetailsTabWidget(QTabWidget):
         for part in parts:
             if isinstance(part, QWidget):
                 pageLayout.addWidget(part)
-                if part.sizePolicy().verticalPolicy() == QSizePolicy.Preferred:
+                if part.sizePolicy().verticalPolicy() in (QSizePolicy.Preferred, QSizePolicy.Expanding):
                     stretchNeeded = False
             else:
                 pageLayout.addLayout(part)
@@ -442,7 +445,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def mapLayout(self):
-        layout = BaseFormLayout()
+        self.map_item = None
 
         coordinates_enabled = not (self.items['latitude'].isHidden() or
                                    self.items['longitude'].isHidden())
@@ -453,9 +456,8 @@ class DetailsTabWidget(QTabWidget):
                 self.map_item = StaticOSMWidget(self)
             else:
                 self.map_item = StaticGMapsWidget(self)
-            layout.addWidget(self.map_item)
 
-        return layout
+        return self.map_item
 
     def _createTrafficParts(self, status):
         stretch_widget = QWidget()
@@ -549,11 +551,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.createDesignPage()
         self.createClassificationPage()
         self.createImagePage()
-
-    def createMapPage(self):
-        map_ = self.mapLayout()
-        if not map_.isEmpty():
-            self.addTabPage(self.tr("Map"), [map_, ])
 
     def createDesignPage(self):
         obverse = self.obverseDesignLayout()
@@ -701,10 +698,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def mapLayout(self):
-        layout = BaseFormLayout()
-
-        layout.addRow(self.items['address'])
-        layout.addRow(self.items['latitude'], self.items['longitude'])
+        self.map_item = None
 
         coordinates_enabled = not (self.items['latitude'].isHidden() or
                                    self.items['longitude'].isHidden())
@@ -715,15 +709,14 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 self.map_item = OSMWidget(self)
             else:
                 self.map_item = GMapsWidget(self)
+
             self.map_item.markerMoved.connect(self.mapMarkerMoved)
             self.map_item.markerRemoved.connect(self.mapMarkerRemoved)
-            layout.addWidget(self.map_item, layout.row, 0, 1, layout.columnCount)
-
             self.items['address'].widget().findClicked.connect(self.map_item.geocode)
             self.items['latitude'].widget().textChanged.connect(self.mapChanged)
             self.items['longitude'].widget().textChanged.connect(self.mapChanged)
 
-        return layout
+        return self.map_item
 
     def mapChanged(self):
         lat = textToFloat(self.items['latitude'].value())
