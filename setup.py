@@ -178,7 +178,8 @@ params = {
 }
 
 if cx_Freeze_available:
-    from PyQt5.QtCore import QLibraryInfo
+    import PyQt5
+    from PyQt5.QtCore import QLibraryInfo, PYQT_VERSION_STR
 
     importedQtWebEngine = False
     try:
@@ -193,7 +194,10 @@ if cx_Freeze_available:
         base = "Win32GUI"
 
     if sys.platform == "win32":
-        qt_plugin_dir = QLibraryInfo.location(QLibraryInfo.PluginsPath)
+        if PYQT_VERSION_STR == "5.5.1":
+            qt_plugin_dir = PyQt5.__path__[0] + '/plugins'
+        else:
+            qt_plugin_dir = QLibraryInfo.location(QLibraryInfo.PluginsPath)
         executable_ext = '.exe'
     else:
         # Path to Qt on MacPorts
