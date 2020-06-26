@@ -65,6 +65,7 @@ from setuptools import find_packages
 
 try:
     from cx_Freeze import setup, Executable
+    from cx_Freeze import version as cx_Freeze_version
     cx_Freeze_available = True
 except ImportError:
     from setuptools import setup
@@ -177,18 +178,26 @@ params = {
 }
 
 if cx_Freeze_available:
-    import PyQt5
+    from PyQt5.QtCore import QLibraryInfo
+
+    importedQtWebEngine = False
+    try:
+        from PyQt5 import QtWebEngineWidgets
+        importedQtWebEngine = True
+    except ImportError:
+        pass
+        
 
     base = None
     if sys.platform == "win32":
         base = "Win32GUI"
 
     if sys.platform == "win32":
-        qt_dir = PyQt5.__path__[0]
+        qt_plugin_dir = QLibraryInfo.location(QLibraryInfo.PluginsPath)
         executable_ext = '.exe'
     else:
         # Path to Qt on MacPorts
-        qt_dir = '/opt/local/libexec/qt5'
+        qt_plugin_dir = '/opt/local/libexec/qt5/plugins'
         executable_ext = ''
 
     if os.environ.get('PORTABLE'):
@@ -206,15 +215,15 @@ if cx_Freeze_available:
             ("OpenNumismat/translations", "translations"),
             ("OpenNumismat/templates", "templates"),
             ("OpenNumismat/db", "db"),
-            (qt_dir + "/plugins/imageformats", "imageformats"),
+            (qt_plugin_dir + "/imageformats", "imageformats"),
             ("OpenNumismat/opennumismat.mplstyle", "opennumismat.mplstyle"),
         ]
     if sys.platform == "win32":
         include_files.append(
-                (qt_dir + "/plugins/sqldrivers/qsqlite.dll", "sqldrivers/qsqlite.dll"))
+                (qt_plugin_dir + "/sqldrivers/qsqlite.dll", "sqldrivers/qsqlite.dll"))
     elif sys.platform == "darwin":
         include_files.append(
-                (qt_dir + "/plugins/sqldrivers/libqsqlite.dylib", "sqldrivers/libqsqlite.dylib"))
+                (qt_plugin_dir + "/sqldrivers/libqsqlite.dylib", "sqldrivers/libqsqlite.dylib"))
 
         include_files.append(("/opt/local/lib/libsqlite3.0.dylib", "libsqlite3.0.dylib"))
         include_files.append(("/opt/local/lib/libjpeg.9.dylib", "libjpeg.9.dylib"))
@@ -223,17 +232,23 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/liblcms2.dylib", "liblcms2.dylib"))
     build_exe_options = {
             "excludes": [],
-            "includes": ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
-                         "PyQt5.QtWebKit", "numpy.core._methods", "numpy.lib.format",
-                         "matplotlib.backends.backend_ps", "matplotlib.backends.backend_pdf",
-                         "matplotlib.backends.backend_svg"],
             "include_files": include_files,
             "replace_paths": [(os.path.dirname(os.path.abspath(__file__)) + os.sep, '')],
             "include_msvcr": True  # skip error msvcr100.dll missing
     }
     if sys.platform == "win32":
+        build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
+                             "numpy.core._methods", "numpy.lib.format",
+                             "matplotlib.backends.backend_ps", "matplotlib.backends.backend_pdf",
+                             "matplotlib.backends.backend_svg"]
+        if importedQtWebEngine:
+            build_exe_options["includes"].append("PyQt5.QtWebEngine")
+        else:
+            build_exe_options["includes"].append("PyQt5.QtWebKit")
         build_exe_options["build_exe"] = 'build/' + params['name']
     elif sys.platform == "darwin":
+        build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
+                         "PyQt5.QtWebKit"]
         build_exe_options["packages"] = ["xlwt", "asyncio"]
 
     params["executables"] = [executable]
@@ -249,6 +264,8 @@ setup(**params)
 
 if sys.platform == "win32":
     binDir = 'build/OpenNumismat/'
+    if cx_Freeze_version >= "6.0":
+        binDir += 'lib/matplotlib/'
     shutil.rmtree(binDir + "mpl-data/sample_data")
     shutil.rmtree(binDir + "mpl-data/images")
     shutil.rmtree(binDir + "mpl-data/fonts")
