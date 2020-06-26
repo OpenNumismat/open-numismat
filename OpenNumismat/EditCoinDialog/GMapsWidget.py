@@ -40,10 +40,15 @@ var marker = null;
 var markers = [];
 
 function onload() {
-  new QWebChannel(qt.webChannelTransport, function(channel) {
-    window.qtWidget = channel.objects.qtWidget;
+  if (typeof qtWidget !== 'undefined') {
     initialize();
-  });
+  }
+  else {
+    new QWebChannel(qt.webChannelTransport, function(channel) {
+      window.qtWidget = channel.objects.qtWidget;
+      initialize();
+    });
+  }
 }
 
 function initialize() {
@@ -102,6 +107,7 @@ function gmap_addMarker(lat, lng) {
   });
   marker.addListener('rightclick', function () {
     qtWidget.markerIsRemoved();
+    gmap_deleteMarker();
   });
 }
 function gmap_deleteMarker() {

@@ -6,6 +6,7 @@ from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
 
 importedQtWebKit = True
+importedQtWebEngine = False
 try:
     from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 except ImportError:
@@ -13,6 +14,8 @@ except ImportError:
         from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
         from PyQt5.QtWebEngineWidgets import QWebEnginePage
         from PyQt5.QtWebChannel import QWebChannel
+
+        importedQtWebEngine = True
 
         class WebEnginePage(QWebEnginePage):
             def acceptNavigationRequest(self, url, type_, isMainFrame):
@@ -32,10 +35,6 @@ except ImportError:
 class BaseMapWidget(QWebView):
     ZOOM_KEY = 'maps/zoom'
     POSITION_KEY = 'maps/position'
-    mapReady = pyqtSignal()
-    mapMoved = pyqtSignal(float, float)
-    mapZoomed = pyqtSignal(int)
-    mapClicked = pyqtSignal(float, float)
     markerMoved = pyqtSignal(float, float, bool)
     markerRemoved = pyqtSignal()
 
@@ -52,15 +51,18 @@ class BaseMapWidget(QWebView):
         self.initialized = False
         self.loadFinished.connect(self.onLoadFinished)
 
-        self.setPage(WebEnginePage(self))
-#        self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
-#        self.page().linkClicked.connect(self.linkClicked)
+        if importedQtWebEngine:
+            self.setPage(WebEnginePage(self))
 
-        channel = QWebChannel(self.page())
-        channel.registerObject("qtWidget", self)
-        self.page().setWebChannel(channel)
-#        self.page().mainFrame().addToJavaScriptWindowObject(
-#            "qtWidget", self)
+            channel = QWebChannel(self.page())
+            channel.registerObject("qtWidget", self)
+            self.page().setWebChannel(channel)
+        else:
+            self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
+            self.page().linkClicked.connect(self.linkClicked)
+
+            self.page().mainFrame().addToJavaScriptWindowObject(
+                "qtWidget", self)
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
@@ -85,14 +87,6 @@ class BaseMapWidget(QWebView):
 
     def activate(self):
         if not self.activated:
-            self.mapMoved.connect(self.mapIsMoved)
-            self.mapZoomed.connect(self.mapIsZoomed)
-            self.mapReady.connect(self.mapIsReady)
-
-            if not self.is_static:
-                self.mapClicked.connect(self.mapIsClicked)
-#                self.markerRemoved.connect(self.markerIsRemoved)
-
             params = self._getParams()
             html = self.HTML
             for key, val in params.items():
@@ -110,7 +104,10 @@ class BaseMapWidget(QWebView):
             self.initialized = True
 
     def runScript(self, script):
-        return self.page().runJavaScript(script)
+        if importedQtWebEngine:
+            return self.page().runJavaScript(script)
+        else:
+            return self.page().mainFrame().evaluateJavaScript(script)
 
     @pyqtSlot()
     def mapIsReady(self):
@@ -177,7 +174,6 @@ class BaseMapWidget(QWebView):
         if not self.is_static:
             self.lat = None
             self.lng = None
-            self.runScript("gmap_deleteMarker()")
             self.markerRemoved.emit()
 
     @waitCursorDecorator
