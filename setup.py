@@ -253,7 +253,7 @@ if cx_Freeze_available:
 
     params["executables"] = [executable]
     params["options"] = {"build_exe": build_exe_options,
-                         "bdist_mac": {"iconfile": "OpenNumismat.icns"}}
+                         "bdist_mac": {"iconfile": "OpenNumismat.icns", "custom_info_plist": "Info.plist"}}
 
 
 ###############################################################################
