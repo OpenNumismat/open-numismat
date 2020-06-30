@@ -29,7 +29,15 @@ class ImportUcoin(_Import):
         return src
 
     def _getRows(self, srcFile):
-        csv.field_size_limit(sys.maxsize)
+        maxInt = sys.maxsize
+        while True:
+            # decrease the maxInt value by factor 10
+            # as long as the OverflowError occurs.
+            try:
+                csv.field_size_limit(maxInt)
+                break
+            except OverflowError:
+                maxInt = int(maxInt / 10)
 
         rows = []
         with open(srcFile, 'r', encoding='utf-8') as f:
