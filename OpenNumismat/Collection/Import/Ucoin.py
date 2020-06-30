@@ -40,7 +40,7 @@ class ImportUcoin(_Import):
                 maxInt = int(maxInt / 10)
 
         rows = []
-        with open(srcFile, 'r', encoding='utf-8') as f:
+        with open(srcFile, 'r', encoding='utf-8', errors='ignore') as f:
             first_line = True
             reader = csv.reader(f, delimiter=',')
             for row in reader:
