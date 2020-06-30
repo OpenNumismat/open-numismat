@@ -61,7 +61,7 @@
 
     {% if single_file %}
       {% for record in records %}
-        <p class="breakhere"><a name="id_{{record.id}}"></p>
+        <p class="breakhere"><a name="id_{{record.id}}"></a></p>
         {% include 'coin_body.htm' %}
       {% endfor %}
     {% endif %}
