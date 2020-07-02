@@ -746,11 +746,13 @@ class ColnectDialog(QDialog):
 
     def clicked(self, button):
         if button == self.addButton:
-            index = self.table.currentIndex()
-            self.addCoin(index, False)
+            for index in self.table.selectedIndexes():
+                if index.column() == 0:
+                    self.addCoin(index, False)
         elif button == self.addCloseButton:
-            index = self.table.currentIndex()
-            self.addCoin(index, True)
+            for index in self.table.selectedIndexes():
+                if index.column() == 0:
+                    self.addCoin(index, True)
 
             self.accept()
         else:
