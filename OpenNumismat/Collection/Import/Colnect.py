@@ -134,31 +134,31 @@ class ColnectConnector(QObject):
         self.lang = Settings()['colnect_locale']
 
     def makeItem(self, category, data, record):
+        fields = self.getFields(category)
+
         # construct Record object from data json
-        columns = {'coins': (('title', 0), ('country', 1), ('series', 2), ('year', 4),
-                             ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
-                             ('diameter', 21), ('weight', 20), ('subject', 25), ('type', 14),
-                             ('issuedate', 4), ('edge', 15), ('shape', 17), ('obvrev', 16),
-                             ('catalognum1', 3), ('url', -1),
-                             # ('subjectshort', 24)
+        columns = {'coins': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
+                             ('mintage', 'Known mintage'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Composition'),
+                             ('diameter', 'Diameter'), ('weight', 'Weight'), ('subject', 'Description'), ('type', 'Distribution'),
+                             ('issuedate', 'Issued on'), ('edge', 'EdgeVariety'), ('shape', 'Shape'), ('obvrev', 'Orientation'),
+                             ('catalognum1', 'Catalog Codes'),
                             ),
-                   'banknotes': (('title', 0), ('country', 1), ('series', 2), ('year', 4),
-                                 ('mintage', 6), ('unit', 12), ('value', 13), ('material', 17),
-                                 ('diameter', 14), ('thickness', 15), ('subject', 20), ('mint', 18),
-                                 ('issuedate', 4), ('catalognum1', 3), ('url', -1),
-                                 # ('subjectshort', 24)
+                   'banknotes': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
+                                 ('mintage', 'Mintage'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Composition'),
+                                 ('diameter', 'Width'), ('thickness', 'Height'), ('subject', 'Description'), ('mint', 'Printer'),
+                                 ('issuedate', 'Issued on'), ('catalognum1', 'Catalog Codes'),
                                 ),
-                   'stamps': (('title', 0), ('country', 1), ('series', 2), ('year', 4),
-                              ('mintage', 6), ('unit', 12), ('value', 13), ('material', 19),
-                              ('diameter', 21), ('thickness', 22), ('subject', 25), ('type', 15),
-                              ('quality', 17), ('obvrev', 18), ('edgelabel', 20),
-                              ('issuedate', 4), ('edge', 16), ('obversecolor', 23),
-                              ('format', 14), ('catalognum1', 3), ('url', -1),
-                              # ('subjectshort', 24)
+                   'stamps': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
+                              ('mintage', 'Print run'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Paper'),
+                              ('diameter', 'Width'), ('thickness', 'Height'), ('subject', 'Description'), ('type', 'Emission'),
+                              ('quality', 'Printing'), ('obvrev', 'Gum'), ('edgelabel', 'Watermark'),
+                              ('issuedate', 'Issued on'), ('edge', 'Perforation'), ('obversecolor', 'Colors'),
+                              ('format', 'Format'), ('catalognum1', 'Catalog Codes'),
                              )}
 
         for column in columns[category]:
-            value = data[column[1]]
+            pos = fields.index(column[1])
+            value = data[pos]
             if column[0] == 'year' and isinstance(value, str):
                 value = value[:4]
             elif column[0] == 'unit' and self.skip_currency:
@@ -170,20 +170,41 @@ class ColnectConnector(QObject):
                     record.setValue(field, code.strip())
                 continue
             record.setValue(column[0], value)
+        # Add URL
+        record.setValue('url', data[-1])
 
-        image = self.getImage(int(data[8]), data[0], True)
+        img_pos = fields.index('FrontPicture')
+        image = self.getImage(int(data[img_pos]), data[0], True)
         record.setValue('obverseimg', image)
-        image = self.getImage(int(data[9]), data[0], True)
+        img_pos = fields.index('BackPicture')
+        image = self.getImage(int(data[img_pos]), data[0], True)
         record.setValue('reverseimg', image)
-        if category == 'coins':
-            ext_image_pos = 22
-        elif category == 'banknotes':
-            ext_image_pos = 16
-        else:
-            ext_image_pos = None
-        if ext_image_pos and data[ext_image_pos]:
-            image = self.getImage(int(data[ext_image_pos]), data[0], True)
-            record.setValue('photo1', image)
+        if 'ExtPicture' in fields:
+            img_pos = fields.index('ExtPicture')
+            if data[img_pos]:
+                image = self.getImage(int(data[img_pos]), data[0], True)
+                record.setValue('photo1', image)
+
+    @waitCursorDecorator
+    def getFields(self, category):
+        url = "https://%s/en/api/COLNECT_KEY/fields/cat/%s" % (COLNECT_PROXY, category)
+
+        raw_data = self.cache.get(ColnectCache.Image, url)
+        if raw_data:
+            data = json.loads(raw_data)
+            return data
+
+        try:
+            req = urllib.request.Request(url,
+                                    headers={'User-Agent': version.AppName})
+            raw_data = urllib.request.urlopen(req).read().decode()
+        except:
+            return []
+
+        data = json.loads(raw_data)
+        self.cache.set(ColnectCache.Image, url, raw_data)
+
+        return data
 
     @waitCursorDecorator
     def getImage(self, image_id, name, full):
@@ -199,12 +220,13 @@ class ColnectConnector(QObject):
             data = self.cache.get(ColnectCache.Image, url)
             if data:
                 return data
+
         try:
             req = urllib.request.Request(url,
                                     headers={'User-Agent': version.AppName})
             data = urllib.request.urlopen(req).read()
         except:
-            pass
+            return None
 
         if not full:
             self.cache.set(ColnectCache.Image, url, data)
@@ -238,8 +260,6 @@ class ColnectConnector(QObject):
 
     @waitCursorDecorator
     def getData(self, action):
-        data = []
-
         url = self._baseUrl() + action
         raw_data = self.cache.get(ColnectCache.Action, url)
         if raw_data:
@@ -634,52 +654,72 @@ class ColnectDialog(QDialog):
             action += "/currency/%s" % currency
         item_ids = self.colnect.getData(action)
 
-        progressDlg = ProgressDialog(self.tr("Downloading"), self.tr("Cancel"),
-                                     len(item_ids), self)
-
-        self.table.setRowCount(len(item_ids))
-        for i, item_id in enumerate(item_ids):
-            progressDlg.step()
-            if progressDlg.wasCanceled():
-                break
-
-            action = "item/cat/%s/id/%d" % (category, item_id)
-            data = self.colnect.getData(action)
-            data.append(self._itemUrl(category, item_id))
-            self.items.append(data)
-
-            image = self._getImage(int(data[8]), data[0])
-            pixmap = QPixmap.fromImage(image)
-            item = QTableWidgetItem()
-            item.setData(Qt.DecorationRole, pixmap)
-            self.table.setItem(i, 0, item)
-
-            image = self._getImage(int(data[9]), data[0])
-            pixmap = QPixmap.fromImage(image)
-            item = QTableWidgetItem()
-            item.setData(Qt.DecorationRole, pixmap)
-            self.table.setItem(i, 1, item)
-
-            item = QTableWidgetItem(data[0])
-            self.table.setItem(i, 2, item)
-            item = QTableWidgetItem(data[2])
-            self.table.setItem(i, 3, item)
-            item = QTableWidgetItem(str(data[4]))
-            self.table.setItem(i, 4, item)
-            item = QTableWidgetItem(data[14])
-            self.table.setItem(i, 5, item)
-            item = QTableWidgetItem(data[19])
-            self.table.setItem(i, 6, item)
-            item = QTableWidgetItem(str(data[13]))
-            self.table.setItem(i, 7, item)
-            item = QTableWidgetItem(data[12])
-            self.table.setItem(i, 8, item)
-
-        progressDlg.reset()
-
         if item_ids:
+            progressDlg = ProgressDialog(self.tr("Downloading"), self.tr("Cancel"),
+                                         len(item_ids), self)
+
+            action = "fields/cat/%s" % category
+            fields = self.colnect.getFields(action)
+
+            self.table.setRowCount(len(item_ids))
+            for i, item_id in enumerate(item_ids):
+                progressDlg.step()
+                if progressDlg.wasCanceled():
+                    break
+
+                action = "item/cat/%s/id/%d" % (category, item_id)
+                data = self.colnect.getData(action)
+                data.append(self._itemUrl(category, item_id))
+                self.items.append(data)
+
+                name_val = self._getFieldData(data, fields, 'Name')
+                img_pos = fields.index('FrontPicture')
+                image = self._getImage(int(data[img_pos]), name_val)
+                pixmap = QPixmap.fromImage(image)
+                item = QTableWidgetItem()
+                item.setData(Qt.DecorationRole, pixmap)
+                self.table.setItem(i, 0, item)
+
+                img_pos = fields.index('BackPicture')
+                image = self._getImage(int(data[img_pos]), name_val)
+                pixmap = QPixmap.fromImage(image)
+                item = QTableWidgetItem()
+                item.setData(Qt.DecorationRole, pixmap)
+                self.table.setItem(i, 1, item)
+
+                value = self._getFieldData(data, fields, 'Name')
+                item = QTableWidgetItem(value)
+                self.table.setItem(i, 2, item)
+                value = self._getFieldData(data, fields, 'Series')
+                item = QTableWidgetItem(value)
+                self.table.setItem(i, 3, item)
+                value = self._getFieldData(data, fields, 'Issued on')
+                item = QTableWidgetItem(str(value))
+                self.table.setItem(i, 4, item)
+                value = self._getFieldData(data, fields, 'Distribution')
+                item = QTableWidgetItem(value)
+                self.table.setItem(i, 5, item)
+                value = self._getFieldData(data, fields, 'Composition')
+                item = QTableWidgetItem(value)
+                self.table.setItem(i, 6, item)
+                value = self._getFieldData(data, fields, 'FaceValue')
+                item = QTableWidgetItem(str(value))
+                self.table.setItem(i, 7, item)
+                value = self._getFieldData(data, fields, 'Currency')
+                item = QTableWidgetItem(value)
+                self.table.setItem(i, 8, item)
+
+            progressDlg.reset()
+
             self.addButton.setEnabled(True)
             self.addCloseButton.setEnabled(True)
+
+    def _getFieldData(self, data, fields, field_name):
+        try:
+            pos = fields.index(field_name)
+            return data[pos]
+        except ValueError:
+            return None
 
     def _getImage(self, image_id, name):
         image = QImage()
