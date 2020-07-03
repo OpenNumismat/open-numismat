@@ -2192,7 +2192,7 @@ Desea enviar un mensaje de error al autor?</translation>
     <message>
         <location filename="MainWindow.py" line="58"/>
         <source>Change view</source>
-        <translation type="unfinished"/>
+        <translation>Cambiar vista</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="842"/>
