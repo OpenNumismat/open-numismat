@@ -170,6 +170,14 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importColnectAct)
             importMenu.addAction(importColnectAct)
 
+        if ImportNumista.isAvailable():
+            importNumistaAct = QAction(
+                                    createIcon('numista.png'),
+                                    "Numista", self)
+            importNumistaAct.triggered.connect(self.importNumista)
+            self.collectionActs.append(importNumistaAct)
+            importMenu.addAction(importNumistaAct)
+
         if ImportCabinet.isAvailable():
             importCabinetAct = QAction(
                                     createIcon('cabinet.png'),
@@ -660,6 +668,10 @@ class MainWindow(QMainWindow):
         if file:
             imp = ImportColnect(self)
             imp.importData(file, self.viewTab.currentModel())
+
+    def importNumista(self):
+        imp = ImportNumista(self)
+        imp.importData(None, self.viewTab.currentModel())
 
     def exportMobile(self):
         dialog = ExportDialog(self.collection, self)
