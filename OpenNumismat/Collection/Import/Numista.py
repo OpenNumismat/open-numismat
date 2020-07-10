@@ -5,6 +5,7 @@ from PyQt5.QtCore import Qt, QUrl, QMargins
 from PyQt5.QtGui import QImage, QPixmap, QDesktopServices
 from PyQt5.QtWidgets import *
 
+from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
@@ -82,6 +83,14 @@ class NumistaAuthentication(QDialog):
 
 
 class ImportNumista(_Import2):
+    ENDPOINT = 'https://api.numista.com/api/v1'
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        if Settings()['locale'] == 'fr':
+            self.language = Settings()['locale']
+        else:
+            self.language = 'en'
 
     @staticmethod
     def isAvailable():
@@ -92,9 +101,7 @@ class ImportNumista(_Import2):
 
         result = dialog.exec_()
         if result == QDialog.Accepted:
-            endpoint = 'https://api.numista.com/api/v1'
-
-            url = endpoint + '/oauth_token?' + \
+            url = self.ENDPOINT + '/oauth_token?' + \
                 'code=' + dialog.authorization_code + \
                 '&client_id=opennumismat' + \
                 '&client_secret=' + NUMISTA_API_KEY + \
@@ -102,7 +109,6 @@ class ImportNumista(_Import2):
             try:
                 req = urllib.request.Request(url)
                 raw_data = urllib.request.urlopen(req).read().decode()
-                print(raw_data)
             except:
                 return False
 
@@ -110,33 +116,27 @@ class ImportNumista(_Import2):
             access_token = data['access_token']
             user_id = data['user_id']
 
-            if Settings()['locale'] == 'fr':
-                language = Settings()['locale']
-            else:
-                language = 'en'
-
-            url = endpoint + '/users/' + str(user_id) + '/collected_coins?' +\
-                'lang=' + language
+            url = self.ENDPOINT + '/users/' + str(user_id) + '/collected_coins?' + \
+                'lang=' + self.language
             try:
                 req = urllib.request.Request(url,
                         headers={'Numista-API-Key': NUMISTA_API_KEY,
                                  'Authorization': 'Bearer ' + access_token})
                 raw_data = urllib.request.urlopen(req).read().decode()
-                print(raw_data)
             except:
                 return False
 
-            self.coin_data = json.loads(raw_data)
+            self.coins_data = json.loads(raw_data)
 
             return True
 
         return False
 
     def _getRowsCount(self, connection):
-        return len(self.coin_data['collected_coins'])
+        return len(self.coins_data['collected_coins'])
 
     def _setRecord(self, record, row):
-        item = self.coin_data['collected_coins'][row]
+        item = self.coins_data['collected_coins'][row]
 
         if 'issue' not in item:
             item['issue'] = {}
@@ -144,6 +144,10 @@ class ImportNumista(_Import2):
             item['issue']['mintLetter'] = ''
         if 'comment' not in item['issue']:
             item['issue']['comment'] = ''
+        if 'year' not in item['issue']:
+            item['issue']['year'] = ''
+        if 'mintLetter' not in item['issue']:
+            item['issue']['mintLetter'] = ''
         if 'private_comment' not in item:
             item['private_comment'] = ''
         if 'public_comment' not in item:
@@ -169,3 +173,83 @@ class ImportNumista(_Import2):
         record.setValue('mintmark', item['issue']['mintLetter'])
         record.setValue('quantity', item['quantity'])
         record.setValue('payprice', item['price']['value'])
+
+        coin_id = item['coin']['id']
+        url = self.ENDPOINT + '/coins/' + str(coin_id) + '?' + \
+            'lang=' + self.language
+        try:
+            req = urllib.request.Request(url,
+                    headers={'Numista-API-Key': NUMISTA_API_KEY})
+            raw_data = urllib.request.urlopen(req).read().decode()
+        except:
+            return
+
+        item_data = json.loads(raw_data)
+
+        record.setValue('value', item_data['value']['value'])
+        record.setValue('unit', item_data['value']['currency']['name'])
+        record.setValue('url', item_data['url'])
+        record.setValue('type', item_data['type'])
+        if 'ruler' in item:
+            record.setValue('period', item_data['ruler'][0]['name'])
+        if 'shape' in item:
+            record.setValue('shape', item_data['shape'])
+        if 'material' in item:
+            record.setValue('material', item_data['composition']['text'])
+        if 'weight' in item:
+            record.setValue('weight', item_data['weight'])
+        if 'diameter' in item:
+            record.setValue('diameter', item_data['size'])
+        if 'thickness' in item:
+            record.setValue('thickness', item_data['thickness'])
+        if 'obvrev' in item:
+            record.setValue('obvrev', item_data['orientation'])
+        if 'mints' in item:
+            record.setValue('mint', item_data['mints'][0]['name'])
+        record.setValue('dateemis', ' - '.join((str(item_data['minYear']), str(item_data['maxYear']))))
+        catalog_nums = item_data['references']
+        for i, catalog_num in enumerate(catalog_nums[:3]):
+            field = 'catalognum%d' % (i + 1)
+            code = catalog_num['catalogue']['code'] + '# ' + catalog_num['number']
+            record.setValue(field, code)
+
+        if 'obverse' in item_data:
+            if 'engravers' in item_data['obverse']:
+                record.setValue('obversedesigner', ', '.join(item_data['obverse']['engravers']))
+            if 'description' in item_data['obverse']:
+                record.setValue('obversedesign', item_data['obverse']['description'])
+            if 'picture' in item_data['obverse']:
+                img_url = item_data['obverse']['picture']
+                try:
+                    req = urllib.request.Request(img_url,
+                                        headers={'User-Agent': version.AppName})
+                    data = urllib.request.urlopen(req).read()
+                    record.setValue('obverseimg', data)
+                except:
+                    pass
+        if 'reverse' in item_data:
+            if 'engravers' in item_data['reverse']:
+                record.setValue('reversedesigner', ', '.join(item_data['reverse']['engravers']))
+            if 'description' in item_data['reverse']:
+                record.setValue('reversedesign', item_data['reverse']['description'])
+            if 'picture' in item_data['reverse']:
+                img_url = item_data['reverse']['picture']
+                try:
+                    req = urllib.request.Request(img_url,
+                                        headers={'User-Agent': version.AppName})
+                    data = urllib.request.urlopen(req).read()
+                    record.setValue('reverseimg', data)
+                except:
+                    pass
+        if 'edge' in item_data:
+            if 'description' in item_data['edge']:
+                record.setValue('edgevar', item_data['edge']['description'])
+            if 'picture' in item_data['edge']:
+                img_url = item_data['edge']['picture']
+                try:
+                    req = urllib.request.Request(img_url,
+                                        headers={'User-Agent': version.AppName})
+                    data = urllib.request.urlopen(req).read()
+                    record.setValue('edgeimg', data)
+                except:
+                    pass

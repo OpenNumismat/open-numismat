@@ -671,7 +671,7 @@ class MainWindow(QMainWindow):
 
     def importNumista(self):
         imp = ImportNumista(self)
-        imp.importData(None, self.viewTab.currentModel())
+        imp.importData('Numista', self.viewTab.currentModel())
 
     def exportMobile(self):
         dialog = ExportDialog(self.collection, self)
