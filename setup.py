@@ -65,7 +65,6 @@ from setuptools import find_packages
 
 try:
     from cx_Freeze import setup, Executable
-    from cx_Freeze import version as cx_Freeze_version
     cx_Freeze_available = True
 except ImportError:
     from setuptools import setup
@@ -268,8 +267,6 @@ setup(**params)
 
 if sys.platform == "win32":
     binDir = 'build/OpenNumismat/'
-    if cx_Freeze_version >= "6.0":
-        binDir += 'lib/matplotlib/'
     shutil.rmtree(binDir + "mpl-data/sample_data")
     shutil.rmtree(binDir + "mpl-data/images")
     shutil.rmtree(binDir + "mpl-data/fonts")
