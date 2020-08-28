@@ -135,7 +135,7 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
     <message numerus="yes">
         <location filename="ListView.py" line="479"/>
         <source>Are you sure to remove a %n coin(s)?</source>
-        <translation><numerusform>Наистина ли искате да премахнете %n монета/и?</numerusform><numerusform>Наистина ли искате да премахнете %n монета/и?</numerusform></translation>
+        <translation><numerusform>Наистина ли искате да премахнете %n монета/и?</numerusform><numerusform>Сигурни ли сте, че искате да изтриете избраната/ите %n монета/и?</numerusform></translation>
     </message>
     <message>
         <location filename="ListView.py" line="486"/>
