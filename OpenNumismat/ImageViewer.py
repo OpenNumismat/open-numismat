@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QMargins
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QKeySequence
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -52,21 +52,22 @@ class ImageViewer(QDialog):
 
         self.menuBar = QMenuBar()
 
-        self.status = QStatusBar()
+        self.statusBar = QStatusBar()
 
         self.sizeLabel = QLabel()
-        self.status.addWidget(self.sizeLabel)
+        self.statusBar.addWidget(self.sizeLabel)
 
         self.zoomLabel = QLabel()
-        self.status.addWidget(self.zoomLabel)
+        self.statusBar.addWidget(self.zoomLabel)
 
         layout = QVBoxLayout()
         layout.setMenuBar(self.menuBar)
         layout.addWidget(self.viewer)
-        layout.addWidget(self.status)
+        layout.addWidget(self.statusBar)
         layout.setContentsMargins(QMargins())
         self.setLayout(layout)
 
+        self.isFullScreen = False
         self.name = 'photo'
         self._pixmapHandle = None
         self.scale = 1
@@ -80,9 +81,11 @@ class ImageViewer(QDialog):
         self.saveAct = QAction(self.tr("&Save As..."), self, shortcut="Ctrl+S", triggered=self.save)
 #        self.printAct = QAction(self.tr("&Print..."), self, shortcut="Ctrl+P", enabled=False, triggered=self.print_)
         self.exitAct = QAction(self.tr("E&xit"), self, shortcut="Ctrl+Q", triggered=self.close)
-#        self.fullScreenAct = QAction(self.tr("Full Screen"), self, shortcut="F11", triggered=self.fullScreen)
-        self.zoomInAct = QAction(self.tr("Zoom &In (25%)"), self, shortcut="+", triggered=self.zoomIn)
-        self.zoomOutAct = QAction(self.tr("Zoom &Out (25%)"), self, shortcut="-", triggered=self.zoomOut)
+        self.fullScreenAct = QAction(self.tr("Full Screen"), self, shortcut="F11", triggered=self.fullScreen)
+        self.zoomInAct = QAction(self.tr("Zoom &In (25%)"), self, triggered=self.zoomIn)
+        self.zoomInShortcut = QShortcut(Qt.Key_Plus, self, self.zoomIn)
+        self.zoomOutAct = QAction(self.tr("Zoom &Out (25%)"), self, triggered=self.zoomOut)
+        self.zoomOutShortcut = QShortcut(Qt.Key_Minus, self, self.zoomOut)
         self.normalSizeAct = QAction(self.tr("&Normal Size"), self, triggered=self.normalSize)
         self.fitToWindowAct = QAction(self.tr("&Fit to Window"), self, triggered=self.fitToWindow)
 #        self.showTabBarAct = QAction(self.tr("Show Tab Bar"), self, checkable=True, triggered=self.showTabBar)
@@ -95,8 +98,8 @@ class ImageViewer(QDialog):
         self.fileMenu.addAction(self.exitAct)
 
         self.viewMenu = QMenu(self.tr("&View"), self)
-#        self.viewMenu.addAction(self.fullScreenAct)
-#        self.viewMenu.addSeparator()
+        self.viewMenu.addAction(self.fullScreenAct)
+        self.viewMenu.addSeparator()
         self.viewMenu.addAction(self.zoomInAct)
         self.viewMenu.addAction(self.zoomOutAct)
         self.viewMenu.addAction(self.normalSizeAct)
@@ -144,6 +147,25 @@ class ImageViewer(QDialog):
             self, 'save_image', self.name, OpenNumismat.IMAGE_PATH, filters)
         if fileName:
             self._pixmapHandle.pixmap().save(fileName)
+
+    def done(self, r):
+        if self.isFullScreen:
+            self.isFullScreen = False
+
+            self.menuBar.show()
+            self.statusBar.show()
+
+            self.showNormal()
+        else:
+            super().done(r)
+
+    def fullScreen(self):
+        self.isFullScreen = True
+
+        self.menuBar.hide()
+        self.statusBar.hide()
+
+        self.showFullScreen()
 
     def normalSize(self):
         self.viewer.setTransformationAnchor(QGraphicsView.AnchorViewCenter)
