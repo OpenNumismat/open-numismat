@@ -5,6 +5,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
+from OpenNumismat.ImageViewer import ImageViewer
+from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat import version
@@ -50,10 +52,15 @@ class ImageLabel(QLabel):
         menu.exec_(self.mapToGlobal(pos))
 
     def openImage(self):
-        fileName = self._saveTmpImage()
+        if Settings()['built_in_viewer']:
+            viewer = ImageViewer(self)
+            viewer.setImage(self.image)
+            viewer.exec_()
+        else:
+            fileName = self._saveTmpImage()
 
-        executor = QDesktopServices()
-        executor.openUrl(QUrl.fromLocalFile(fileName))
+            executor = QDesktopServices()
+            executor.openUrl(QUrl.fromLocalFile(fileName))
 
     def mouseDoubleClickEvent(self, _e):
         self.openImage()

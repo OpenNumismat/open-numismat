@@ -136,6 +136,11 @@ class MainSettingsPage(QWidget):
                                            QSizePolicy.Fixed)
         layout.addRow(self.tr("Images count by default"), self.imagesByDefault)
 
+        self.builtInViewer = QCheckBox(
+                        self.tr("Use built-in image viewer"), self)
+        self.builtInViewer.setChecked(settings['built_in_viewer'])
+        layout.addRow(self.builtInViewer)
+
         current = 0
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap')
@@ -184,6 +189,7 @@ class MainSettingsPage(QWidget):
         settings['images_by_default'] = self.imagesByDefault.value()
         settings['map_type'] = self.mapSelector.currentIndex()
         settings['verify_ssl'] = self.verifySsl.isChecked()
+        settings['built_in_viewer'] = self.builtInViewer.isChecked()
 
         settings.save()
 

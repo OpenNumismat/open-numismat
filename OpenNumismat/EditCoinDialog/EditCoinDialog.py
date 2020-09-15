@@ -66,7 +66,7 @@ class EditCoinDialog(QDialog):
             title.insert(0, text)
         self.setWindowTitle(' - '.join(title))
 
-    def keyPressEvent(self, event):
+    def keyPressEvent111(self, event):
         if event.key() == Qt.Key_Escape:
             self.reject()
 
