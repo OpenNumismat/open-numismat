@@ -195,6 +195,7 @@ class ImageViewer(QDialog):
         self.isFullScreen = True
 
         self.menuBar.hide()
+        self.toolBar.hide()
         self.statusBar.hide()
 
         self.showFullScreen()
@@ -253,6 +254,9 @@ class ImageViewer(QDialog):
             self.zoomLabel.setText("%d%%" % (self.scale * 100 + 0.5))
 
     def updateViewer(self):
+        if not self.hasImage():
+            return
+
         self.minScale = (self.viewer.height() - 4) / self.viewer.sceneRect().height()
         if self.minScale > 1:
             self.minScale = 1
