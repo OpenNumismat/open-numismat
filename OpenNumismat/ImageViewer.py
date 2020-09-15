@@ -1,10 +1,10 @@
-from PyQt5.QtCore import Qt, QMargins
+from PyQt5.QtCore import Qt, QMargins, QSettings
 from PyQt5.QtGui import QPixmap, QKeySequence
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
-from OpenNumismat.Tools.Gui import getSaveFileName
+from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
 
 ZOOM_IN_FACTOR = 1.25
 
@@ -52,6 +52,8 @@ class ImageViewer(QDialog):
 
         self.menuBar = QMenuBar()
 
+        self.toolBar = QToolBar()
+
         self.statusBar = QStatusBar()
 
         self.sizeLabel = QLabel()
@@ -62,9 +64,11 @@ class ImageViewer(QDialog):
 
         layout = QVBoxLayout()
         layout.setMenuBar(self.menuBar)
+        layout.addWidget(self.toolBar)
         layout.addWidget(self.viewer)
         layout.addWidget(self.statusBar)
         layout.setContentsMargins(QMargins())
+        layout.setSpacing(0)
         self.setLayout(layout)
 
         self.isFullScreen = False
@@ -76,19 +80,29 @@ class ImageViewer(QDialog):
 
         self.createActions()
         self.createMenus()
+        self.createToolBar()
 
     def createActions(self):
         self.saveAct = QAction(self.tr("&Save As..."), self, shortcut="Ctrl+S", triggered=self.save)
 #        self.printAct = QAction(self.tr("&Print..."), self, shortcut="Ctrl+P", enabled=False, triggered=self.print_)
         self.exitAct = QAction(self.tr("E&xit"), self, shortcut="Ctrl+Q", triggered=self.close)
         self.fullScreenAct = QAction(self.tr("Full Screen"), self, shortcut="F11", triggered=self.fullScreen)
-        self.zoomInAct = QAction(self.tr("Zoom &In (25%)"), self, triggered=self.zoomIn)
+        self.zoomInAct = QAction(createIcon('zoom_in.png'), self.tr("Zoom &In (25%)"), self, triggered=self.zoomIn)
         self.zoomInShortcut = QShortcut(Qt.Key_Plus, self, self.zoomIn)
-        self.zoomOutAct = QAction(self.tr("Zoom &Out (25%)"), self, triggered=self.zoomOut)
+        self.zoomOutAct = QAction(createIcon('zoom_out.png'), self.tr("Zoom &Out (25%)"), self, triggered=self.zoomOut)
         self.zoomOutShortcut = QShortcut(Qt.Key_Minus, self, self.zoomOut)
-        self.normalSizeAct = QAction(self.tr("&Normal Size"), self, triggered=self.normalSize)
-        self.fitToWindowAct = QAction(self.tr("&Fit to Window"), self, triggered=self.fitToWindow)
-#        self.showTabBarAct = QAction(self.tr("Show Tab Bar"), self, checkable=True, triggered=self.showTabBar)
+        self.normalSizeAct = QAction(createIcon('arrow_out.png'), self.tr("&Normal Size"), self, triggered=self.normalSize)
+        self.fitToWindowAct = QAction(createIcon('arrow_in.png'), self.tr("&Fit to Window"), self, triggered=self.fitToWindow)
+        self.showToolBarAct = QAction(self.tr("Show Tool Bar"), self, checkable=True, triggered=self.showToolBar)
+        self.showStatusBarAct = QAction(self.tr("Show Status Bar"), self, checkable=True, triggered=self.showStatusBar)
+
+        settings = QSettings()
+        toolBarShown = settings.value('image_viewer/tool_bar', True, type=bool)
+        self.showToolBarAct.setChecked(toolBarShown)
+        self.toolBar.setVisible(toolBarShown)
+        statusBarShown = settings.value('image_viewer/status_bar', True, type=bool)
+        self.showStatusBarAct.setChecked(statusBarShown)
+        self.statusBar.setVisible(statusBarShown)
 
     def createMenus(self):
         self.fileMenu = QMenu(self.tr("&File"), self)
@@ -104,11 +118,28 @@ class ImageViewer(QDialog):
         self.viewMenu.addAction(self.zoomOutAct)
         self.viewMenu.addAction(self.normalSizeAct)
         self.viewMenu.addAction(self.fitToWindowAct)
-#        self.viewMenu.addSeparator()
-#        self.viewMenu.addAction(self.showTabBarAct)
+        self.viewMenu.addSeparator()
+        self.viewMenu.addAction(self.showToolBarAct)
+        self.viewMenu.addAction(self.showStatusBarAct)
 
         self.menuBar.addMenu(self.fileMenu)
         self.menuBar.addMenu(self.viewMenu)
+
+    def createToolBar(self):
+        self.toolBar.addAction(self.zoomInAct)
+        self.toolBar.addAction(self.zoomOutAct)
+        self.toolBar.addAction(self.normalSizeAct)
+        self.toolBar.addAction(self.fitToWindowAct)
+
+    def showToolBar(self, status):
+        settings = QSettings()
+        settings.setValue('image_viewer/tool_bar', status)
+        self.toolBar.setVisible(status)
+
+    def showStatusBar(self, status):
+        settings = QSettings()
+        settings.setValue('image_viewer/status_bar', status)
+        self.statusBar.setVisible(status)
 
     def hasImage(self):
         return self._pixmapHandle is not None
@@ -153,7 +184,8 @@ class ImageViewer(QDialog):
             self.isFullScreen = False
 
             self.menuBar.show()
-            self.statusBar.show()
+            self.toolBar.setVisible(self.showToolBarAct.isChecked())
+            self.statusBar.setVisible(self.showStatusBarAct.isChecked())
 
             self.showNormal()
         else:
