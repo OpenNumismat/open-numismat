@@ -245,13 +245,6 @@ class ImageViewer(QDialog):
             self.scale = need_scale
             self.viewer.scale(scale, scale)
 
-            sceneRect = self.viewer.sceneRect()
-            imageRect = self.viewer.mapToScene(self.viewer.rect()).boundingRect()
-            if imageRect.contains(sceneRect):
-                self.viewer.setDragMode(QGraphicsView.NoDrag)
-            else:
-                self.viewer.setDragMode(QGraphicsView.ScrollHandDrag)
-
         self._updateZoomActions()
 
     def updateViewer(self):
@@ -266,6 +259,13 @@ class ImageViewer(QDialog):
             self.fitToWindow()
 
     def _updateZoomActions(self):
+        sceneRect = self.viewer.sceneRect()
+        imageRect = self.viewer.mapToScene(self.viewer.rect()).boundingRect()
+        if imageRect.contains(sceneRect):
+            self.viewer.setDragMode(QGraphicsView.NoDrag)
+        else:
+            self.viewer.setDragMode(QGraphicsView.ScrollHandDrag)
+
         self.zoomInAct.setDisabled(self.scale >= ZOOM_MAX)
         self.zoomOutAct.setDisabled(self.scale <= self.minScale)
         self.fitToWindowAct.setDisabled(self.isFitToWindow)
