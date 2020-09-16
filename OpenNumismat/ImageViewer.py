@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QMargins, QSettings
-from PyQt5.QtGui import QPixmap, QKeySequence
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -208,16 +208,18 @@ class ImageViewer(QDialog):
 
     def fitToWindow(self):
         self.isFitToWindow = True
+        self.fitToWindowAct.setDisabled(self.isFitToWindow)
 
         sceneRect = self.viewer.sceneRect()
         if sceneRect.width() > self.viewer.width() or \
-                                sceneRect.height() > self.viewer.height():
+                sceneRect.height() > self.viewer.height():
             self.viewer.fitInView(sceneRect, Qt.KeepAspectRatio)
             self.scale = (self.viewer.height() - 4) / sceneRect.height()
         else:
             self.viewer.resetTransform()
             self.scale = 1
 
+        self.normalSizeAct.setDisabled(self.scale == 1)
         self.zoomLabel.setText("%d%%" % (self.scale * 100 + 0.5))
 
     def zoomIn(self):
@@ -239,6 +241,7 @@ class ImageViewer(QDialog):
             self.isFitToWindow = False
         else:
             self.isFitToWindow = True
+        self.fitToWindowAct.setDisabled(self.isFitToWindow)
 
         if need_scale != self.scale:
             self.scale = need_scale
@@ -251,6 +254,7 @@ class ImageViewer(QDialog):
             else:
                 self.viewer.setDragMode(QGraphicsView.ScrollHandDrag)
 
+            self.normalSizeAct.setDisabled(self.scale == 1)
             self.zoomLabel.setText("%d%%" % (self.scale * 100 + 0.5))
 
     def updateViewer(self):
