@@ -7,6 +7,7 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
 
 ZOOM_IN_FACTOR = 1.25
+ZOOM_MAX = 5
 
 
 class GraphicsView(QGraphicsView):
@@ -208,7 +209,6 @@ class ImageViewer(QDialog):
 
     def fitToWindow(self):
         self.isFitToWindow = True
-        self.fitToWindowAct.setDisabled(self.isFitToWindow)
 
         sceneRect = self.viewer.sceneRect()
         if sceneRect.width() > self.viewer.width() or \
@@ -219,8 +219,7 @@ class ImageViewer(QDialog):
             self.viewer.resetTransform()
             self.scale = 1
 
-        self.normalSizeAct.setDisabled(self.scale == 1)
-        self.zoomLabel.setText("%d%%" % (self.scale * 100 + 0.5))
+        self._updateZoomActions()
 
     def zoomIn(self):
         self.zoom(ZOOM_IN_FACTOR)
@@ -233,15 +232,14 @@ class ImageViewer(QDialog):
         if need_scale < self.minScale:
             need_scale = self.minScale
             scale = need_scale / self.scale
-        if need_scale > 5:
-            need_scale = 5
+        if need_scale > ZOOM_MAX:
+            need_scale = ZOOM_MAX
             scale = need_scale / self.scale
 
         if need_scale > self.minScale:
             self.isFitToWindow = False
         else:
             self.isFitToWindow = True
-        self.fitToWindowAct.setDisabled(self.isFitToWindow)
 
         if need_scale != self.scale:
             self.scale = need_scale
@@ -254,8 +252,7 @@ class ImageViewer(QDialog):
             else:
                 self.viewer.setDragMode(QGraphicsView.ScrollHandDrag)
 
-            self.normalSizeAct.setDisabled(self.scale == 1)
-            self.zoomLabel.setText("%d%%" % (self.scale * 100 + 0.5))
+        self._updateZoomActions()
 
     def updateViewer(self):
         if not self.hasImage():
@@ -267,3 +264,11 @@ class ImageViewer(QDialog):
 
         if self.isFitToWindow:
             self.fitToWindow()
+
+    def _updateZoomActions(self):
+        self.zoomInAct.setDisabled(self.scale >= ZOOM_MAX)
+        self.zoomOutAct.setDisabled(self.scale <= self.minScale)
+        self.fitToWindowAct.setDisabled(self.isFitToWindow)
+        self.normalSizeAct.setDisabled(self.scale == 1)
+
+        self.zoomLabel.setText("%d%%" % (self.scale * 100 + 0.5))
