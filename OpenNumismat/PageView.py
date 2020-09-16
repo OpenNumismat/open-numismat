@@ -106,7 +106,7 @@ class ImageView(QWidget):
                 image.setToolTip(title)
                 self.imageLayout.addWidget(image)
 
-                self.showedCount = self.showedCount + 1
+                self.showedCount += 1
 
     def rowChangedEvent(self, current):
         self.currentIndex = current
@@ -243,7 +243,7 @@ class TreeView(QTreeWidget):
 
         self.resizeColumnToContents(0)
 
-    def collapsedEvent(self, parentItem):
+    def collapsedEvent(self, _parentItem):
         self.resizeColumnToContents(0)
 
     def __updateChilds(self, item, paramIndex=0, filters=''):
@@ -403,7 +403,7 @@ class TreeView(QTreeWidget):
                 itemWidth = itemRect.width()
                 self.horizontalScrollBar().setValue(itemRect.x())
 
-    def itemActivatedEvent(self, current, previous):
+    def itemActivatedEvent(self, current, _previous):
         self.scrollToItem(current)
         self.resizeColumnToContents(0)
 
