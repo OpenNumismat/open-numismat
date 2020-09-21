@@ -66,10 +66,6 @@ class EditCoinDialog(QDialog):
             title.insert(0, text)
         self.setWindowTitle(' - '.join(title))
 
-    def keyPressEvent111(self, event):
-        if event.key() == Qt.Key_Escape:
-            self.reject()
-
     def save(self):
         # Clear unused fields
         status = self.items['status'].widget().data()
