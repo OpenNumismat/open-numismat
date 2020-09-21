@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt, QMargins, QSettings, QObject, QPointF, QRectF, QRect, pyqtSignal
-from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage
+from PyQt5.QtCore import Qt, QMargins, QSettings, QObject, QPointF, QRectF, QRect, pyqtSignal, QMimeData
+from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage, QKeySequence
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -274,10 +274,10 @@ class ImageViewer(QDialog):
         self.createToolBar()
 
     def createActions(self):
-        self.saveAsAct = QAction(self.tr("&Save As..."), self, shortcut="Ctrl+S", triggered=self.saveAs)
-#        self.printAct = QAction(self.tr("&Print..."), self, shortcut="Ctrl+P", enabled=False, triggered=self.print_)
-        self.exitAct = QAction(self.tr("E&xit"), self, shortcut="Ctrl+Q", triggered=self.close)
-        self.fullScreenAct = QAction(self.tr("Full Screen"), self, shortcut="F11", triggered=self.fullScreen)
+        self.saveAsAct = QAction(self.tr("&Save As..."), self, shortcut=QKeySequence.SaveAs, triggered=self.saveAs)
+#        self.printAct = QAction(self.tr("&Print..."), self, shortcut=QKeySequence.Print, enabled=False, triggered=self.print_)
+        self.exitAct = QAction(self.tr("E&xit"), self, shortcut=QKeySequence.Quit, triggered=self.close)
+        self.fullScreenAct = QAction(self.tr("Full Screen"), self, shortcut=QKeySequence.FullScreen, triggered=self.fullScreen)
         self.zoomInAct = QAction(createIcon('zoom_in.png'), self.tr("Zoom &In (25%)"), self, triggered=self.zoomIn)
         self.zoomInShortcut = QShortcut(Qt.Key_Plus, self, self.zoomIn)
         self.zoomOutAct = QAction(createIcon('zoom_out.png'), self.tr("Zoom &Out (25%)"), self, triggered=self.zoomOut)
@@ -289,8 +289,9 @@ class ImageViewer(QDialog):
         self.rotateLeftAct = QAction(createIcon('arrow_rotate_anticlockwise.png'), self.tr("Rotate to Left"), self, triggered=self.rotateLeft)
         self.rotateRightAct = QAction(createIcon('arrow_rotate_clockwise.png'), self.tr("Rotate to Right"), self, triggered=self.rotateRight)
         self.cropAct = QAction(createIcon('shape_handles.png'), self.tr("Crop"), self, checkable=True, triggered=self.crop)
-        self.saveAct = QAction(createIcon('save.png'), self.tr("Save"), self, triggered=self.save)
+        self.saveAct = QAction(createIcon('save.png'), self.tr("Save"), self, shortcut=QKeySequence.Save, triggered=self.save)
         self.saveAct.setDisabled(True)
+        self.copyAct = QAction(createIcon('page_copy.png'), self.tr("Copy"), self, shortcut=QKeySequence.Copy, triggered=self.copy)
 
         settings = QSettings()
         toolBarShown = settings.value('image_viewer/tool_bar', True, type=bool)
@@ -302,10 +303,18 @@ class ImageViewer(QDialog):
 
     def createMenus(self):
         self.fileMenu = QMenu(self.tr("&File"), self)
+        self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.saveAsAct)
 #        self.fileMenu.addAction(self.printAct)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
+
+        self.editMenu = QMenu(self.tr("&Edit"), self)
+        self.editMenu.addAction(self.copyAct)
+        self.editMenu.addSeparator()
+        self.editMenu.addAction(self.rotateLeftAct)
+        self.editMenu.addAction(self.rotateRightAct)
+        self.editMenu.addAction(self.cropAct)
 
         self.viewMenu = QMenu(self.tr("&View"), self)
         self.viewMenu.addAction(self.fullScreenAct)
@@ -319,6 +328,7 @@ class ImageViewer(QDialog):
         self.viewMenu.addAction(self.showStatusBarAct)
 
         self.menuBar.addMenu(self.fileMenu)
+        self.menuBar.addMenu(self.editMenu)
         self.menuBar.addMenu(self.viewMenu)
 
     def createToolBar(self):
@@ -433,6 +443,14 @@ class ImageViewer(QDialog):
             self.scale = 1
 
         self._updateZoomActions()
+
+    def copy(self):
+        image = self._pixmapHandle.pixmap().toImage()
+        mime = QMimeData()
+        mime.setImageData(image)
+
+        clipboard = QApplication.clipboard()
+        clipboard.setMimeData(mime)
 
     def zoomIn(self):
         self.zoom(ZOOM_IN_FACTOR)
@@ -557,11 +575,10 @@ class ImageViewer(QDialog):
     def save(self):
         if self.isChanged:
             self._origPixmap = self._pixmapHandle.pixmap()
+            self.imageSaved.emit(self.getImage())
 
         self.isChanged = False
         self._updateEditActions()
-
-        self.imageSaved.emit(self.getImage())
 
     def getImage(self):
         return self._origPixmap.toImage()
