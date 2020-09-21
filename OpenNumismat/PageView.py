@@ -100,10 +100,13 @@ class ImageView(QWidget):
                 index = self.model.index(current.row(), field.id)
                 data = index.data(Qt.UserRole)
                 img = self.model.getImage(data)
-                image = ImageLabel(self)
+
+                image = ImageLabel(field.name, self)
                 image.loadFromData(img)
                 title = self.model.getImageTitle(data)
                 image.setToolTip(title)
+
+                image.imageEdited.connect(self.imageEdited)
                 self.imageLayout.addWidget(image)
 
                 self.showedCount += 1
@@ -122,10 +125,12 @@ class ImageView(QWidget):
             img = self.model.getImage(data)
             if img and not img.isNull():
                 if self.imageLayout.count() < self.showedCount:
-                    image = ImageLabel(self)
+                    image = ImageLabel(field.name, self)
                     image.loadFromData(img)
                     title = self.model.getImageTitle(data)
                     image.setToolTip(title)
+
+                    image.imageEdited.connect(self.imageEdited)
                     self.imageLayout.addWidget(image)
 
                     self.imageButtons[i].setCheckState(Qt.Checked)
@@ -133,6 +138,12 @@ class ImageView(QWidget):
                 self.imageButtons[i].setDisabled(False)
 
             self.imageButtons[i].stateChanged.connect(self.buttonClicked)
+
+    def imageEdited(self, image):
+        record = self.model.record(self.currentIndex.row())
+        record.setValue(image.field, image.image)
+        self.model.setRecord(self.currentIndex.row(), record)
+#        self.model.submitAll()
 
     def __layoutToWidget(self, layout):
         widget = QWidget(self)

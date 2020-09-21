@@ -14,11 +14,14 @@ from OpenNumismat import version
 
 class ImageLabel(QLabel):
     MimeType = 'num/image'
+    imageEdited = pyqtSignal(QLabel)
 
-    def __init__(self, parent=None):
+    def __init__(self, field, parent=None):
         super().__init__(parent)
 
-        self.name = 'photo'
+        self.field = field or 'photo'
+        self._data = None
+        self.image = QImage()
 
         self.clear()
 
@@ -54,6 +57,7 @@ class ImageLabel(QLabel):
     def openImage(self):
         if Settings()['built_in_viewer']:
             viewer = ImageViewer(self)
+            viewer.imageSaved.connect(self.imageSaved)
             viewer.setImage(self.image)
             viewer.exec_()
         else:
@@ -61,6 +65,10 @@ class ImageLabel(QLabel):
 
             executor = QDesktopServices()
             executor.openUrl(QUrl.fromLocalFile(fileName))
+
+    def imageSaved(self, image):
+        self._setImage(image)
+        self.imageEdited.emit(self)
 
     def mouseDoubleClickEvent(self, _e):
         self.openImage()
@@ -129,7 +137,7 @@ class ImageLabel(QLabel):
                    self.tr("All files (*.*)"))
         # TODO: Set default name to coin title + field name
         fileName, _selectedFilter = getSaveFileName(
-            self, 'save_image', self.name, OpenNumismat.IMAGE_PATH, filters)
+            self, 'save_image', self.field, OpenNumismat.IMAGE_PATH, filters)
         if fileName:
             self.image.save(fileName)
 
@@ -146,10 +154,9 @@ class ImageLabel(QLabel):
 class ImageEdit(ImageLabel):
     latestDir = OpenNumismat.IMAGE_PATH
 
-    def __init__(self, name, label, parent=None):
-        super().__init__(parent)
+    def __init__(self, field, label, parent=None):
+        super().__init__(field, parent)
 
-        self.name = name or 'photo'
         self.label = label
         self.title = None
 
@@ -341,6 +348,10 @@ class ImageEdit(ImageLabel):
         if ok:
             self.title = title
             self.label.setText(title)
+
+    def imageSaved(self, image):
+        self._setNewImage(image)
+        self.imageEdited.emit(self)
 
     def _setNewImage(self, image):
         if image.hasAlphaChannel():
