@@ -90,8 +90,6 @@ class BoundingPointItem(QGraphicsRectItem):
                 self.bounding.points[self.TOP_RIGHT].setY(newPos.y())
                 self.bounding.points[self.BOTTOM_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
                 self.bounding.points[self.TOP_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-
-                self.bounding.rect.setRect(QRectF(newPos, oppositePos).normalized())
             elif self.corner == self.TOP_RIGHT:
                 if newPos.x() > self.width:
                     newPos.setX(self.width)
@@ -111,8 +109,6 @@ class BoundingPointItem(QGraphicsRectItem):
                 self.bounding.points[self.TOP_LEFT].setY(newPos.y())
                 self.bounding.points[self.BOTTOM_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
                 self.bounding.points[self.TOP_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-
-                self.bounding.rect.setRect(QRectF(newPos, oppositePos).normalized())
             elif self.corner == self.BOTTOM_RIGHT:
                 if newPos.x() > self.width:
                     newPos.setX(self.width)
@@ -132,8 +128,6 @@ class BoundingPointItem(QGraphicsRectItem):
                 self.bounding.points[self.TOP_RIGHT].setX(newPos.x())
                 self.bounding.points[self.BOTTOM_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
                 self.bounding.points[self.TOP_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-
-                self.bounding.rect.setRect(QRectF(newPos, oppositePos).normalized())
             else:  # self.corner == self.BOTTOM_LEFT
                 if newPos.x() < 0:
                     newPos.setX(0)
@@ -154,7 +148,7 @@ class BoundingPointItem(QGraphicsRectItem):
                 self.bounding.points[self.BOTTOM_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
                 self.bounding.points[self.TOP_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
 
-                self.bounding.rect.setRect(QRectF(newPos, oppositePos).normalized())
+            self.bounding.updateRect()
 
             return newPos
 
@@ -171,28 +165,51 @@ class BoundingPointItem(QGraphicsRectItem):
 
 class GraphicsBoundingItem(QObject):
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, scale):
         super().__init__()
 
         self.width = width
         self.height = height
+        self.scale = scale
 
         point1 = BoundingPointItem(self, self.width, self.height,
                                    BoundingPointItem.TOP_LEFT)
+        point1.setFlag(QGraphicsItem.ItemIgnoresTransformations)
         point2 = BoundingPointItem(self, self.width, self.height,
                                    BoundingPointItem.TOP_RIGHT)
+        point2.setFlag(QGraphicsItem.ItemIgnoresTransformations)
         point3 = BoundingPointItem(self, self.width, self.height,
                                    BoundingPointItem.BOTTOM_RIGHT)
+        point3.setFlag(QGraphicsItem.ItemIgnoresTransformations)
         point4 = BoundingPointItem(self, self.width, self.height,
                                    BoundingPointItem.BOTTOM_LEFT)
-
-        self.rect = QGraphicsRectItem(0, 0, self.width, self.height)
-        self.rect.setPen(QPen(Qt.DashLine))
+        point4.setFlag(QGraphicsItem.ItemIgnoresTransformations)
 
         self.points = [point1, point2, point3, point4]
 
+        self.rect = QGraphicsRectItem()
+        self.rect.setPen(QPen(Qt.DashLine))
+        self.rect.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+        self.updateRect()
+
+    def updateRect(self):
+        p1 = self.points[BoundingPointItem.TOP_LEFT].scenePos()
+        p2 = self.points[BoundingPointItem.BOTTOM_RIGHT].scenePos()
+        rect = QRectF(p1 * self.scale, p2 * self.scale)
+        self.rect.setRect(rect)
+
+    def setScale(self, scale):
+        self.scale = scale
+
+        self.updateRect()
+
     def items(self):
         return [self.rect] + self.points
+
+    def cropRect(self):
+        rect = QRectF(self.rect.rect().topLeft() / self.scale,
+                      self.rect.rect().bottomRight() / self.scale)
+        return rect.toRect()
 
 
 class GraphicsView(QGraphicsView):
@@ -385,6 +402,9 @@ class ImageViewer(QDialog):
             self._origPixmap = pixmap
             self._pixmapHandle = self.scene.addPixmap(pixmap)
 
+        self.viewer.setSceneRect(QRectF(pixmap.rect()))
+        self.updateViewer()
+
         self.sizeLabel.setText("%dx%d" % (image.width(), image.height()))
 
     def saveAs(self):
@@ -476,6 +496,9 @@ class ImageViewer(QDialog):
             self.scale = need_scale
             self.viewer.scale(scale, scale)
 
+            if self.bounding:
+                self.bounding.setScale(self.scale)
+
         self._updateZoomActions()
 
     def updateViewer(self):
@@ -512,7 +535,6 @@ class ImageViewer(QDialog):
         pixmap = self._pixmapHandle.pixmap()
         pixmap = QPixmap(pixmap.transformed(trans))
         self.setImage(pixmap)
-        self.viewer.setSceneRect(QRectF(pixmap.rect()))
 
         self.isChanged = True
         self._updateEditActions()
@@ -523,7 +545,6 @@ class ImageViewer(QDialog):
         pixmap = self._pixmapHandle.pixmap()
         pixmap = QPixmap(pixmap.transformed(trans))
         self.setImage(pixmap)
-        self.viewer.setSceneRect(QRectF(pixmap.rect()))
 
         self.isChanged = True
         self._updateEditActions()
@@ -534,7 +555,7 @@ class ImageViewer(QDialog):
             w = sceneRect.width()
             h = sceneRect.height()
 
-            self.bounding = GraphicsBoundingItem(w, h)
+            self.bounding = GraphicsBoundingItem(w, h, self.scale)
             for item in self.bounding.items():
                 self.scene.addItem(item)
 
@@ -548,19 +569,18 @@ class ImageViewer(QDialog):
             self.cropDlg = None
 
     def closeCrop(self, result):
-        pixmap = self._pixmapHandle.pixmap()
-        if result:
-            rect = self.bounding.rect.rect().toRect()
-            pixmap = pixmap.copy(rect)
-            self.setImage(pixmap)
-
-            self.isChanged = True
+        rect = self.bounding.cropRect()
 
         for item in self.bounding.items():
             self.scene.removeItem(item)
         self.bounding = None
 
-        self.viewer.setSceneRect(QRectF(pixmap.rect()))
+        if result:
+            pixmap = self._pixmapHandle.pixmap()
+            pixmap = pixmap.copy(rect)
+            self.setImage(pixmap)
+
+            self.isChanged = True
 
         self.cropAct.setChecked(False)
         self._updateEditActions()
