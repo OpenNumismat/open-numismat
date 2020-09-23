@@ -586,6 +586,10 @@ class ImageViewer(QDialog):
             self.viewer.resetTransform()
             self.scale = 1
 
+        self._updateGrid()
+        if self.bounding:
+            self.bounding.setScale(self.scale)
+
         self._updateZoomActions()
 
     def copy(self):
@@ -716,9 +720,14 @@ class ImageViewer(QDialog):
         trans = transform.rotate(value)
         pixmap = self._startPixmap.transformed(trans, Qt.SmoothTransformation)
         if self.rotateDlg.isAutoCrop():
-            xoffset = (pixmap.width() - self._startPixmap.width()) / 2
-            yoffset = (pixmap.height() - self._startPixmap.height()) / 2
-            rect = QRect(xoffset, yoffset, self._startPixmap.width(), self._startPixmap.height())
+            if (-45 < value and value < 45) or value < -135 or 135 < value:
+                xoffset = (pixmap.width() - self._startPixmap.width()) / 2
+                yoffset = (pixmap.height() - self._startPixmap.height()) / 2
+                rect = QRect(xoffset, yoffset, self._startPixmap.width(), self._startPixmap.height())
+            else:
+                xoffset = (pixmap.width() - self._startPixmap.height()) / 2
+                yoffset = (pixmap.height() - self._startPixmap.width()) / 2
+                rect = QRect(xoffset, yoffset, self._startPixmap.height(), self._startPixmap.width())
             pixmap = pixmap.copy(rect)
 
         self.setImage(pixmap)
@@ -726,10 +735,7 @@ class ImageViewer(QDialog):
         self._updateGrid()
 
     def closeRotate(self, result):
-        if self.grid:
-            for item in self.grid.items():
-                self.scene.removeItem(item)
-            self.grid = None
+        self._updateGrid()
 
         if result:
             self.isChanged = True
