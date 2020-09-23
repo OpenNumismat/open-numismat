@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QMargins, QSettings, QObject, QPointF, QRectF, QRect, pyqtSignal, QMimeData
-from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage, QKeySequence
+from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage, QKeySequence, QColor
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -31,6 +31,85 @@ class CropDialog(QDialog):
 
     def showEvent(self, _e):
         self.setFixedSize(self.size())
+
+
+@storeDlgPositionDecorator
+class RotateDialog(QDialog):
+    valueChanged = pyqtSignal(float)
+
+    def __init__(self, parent):
+        super().__init__(parent, Qt.WindowCloseButtonHint)
+        self.setWindowTitle(self.tr("Rotate"))
+
+        angelLabel = QLabel(self.tr("Angel:"))
+
+        angelSlider = QSlider(Qt.Horizontal)
+        angelSlider.setRange(-180, 180)
+        angelSlider.setTickInterval(10)
+        angelSlider.setTickPosition(QSlider.TicksAbove)
+        angelSlider.setMinimumWidth(200)
+
+        self.angelSpin = QDoubleSpinBox()
+        self.angelSpin.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.angelSpin.setRange(-180, 180)
+        self.angelSpin.setSingleStep(0.1)
+        self.angelSpin.setAccelerated(True)
+        self.angelSpin.setKeyboardTracking(False)
+
+        angelSlider.valueChanged.connect(self.angelSpin.setValue)
+        self.angelSpin.valueChanged.connect(angelSlider.setValue)
+        self.angelSpin.valueChanged.connect(self.valueChanged.emit)
+
+        angelLayout = QHBoxLayout()
+        angelLayout.addWidget(angelLabel)
+        angelLayout.addWidget(angelSlider)
+        angelLayout.addWidget(self.angelSpin)
+
+        settings = QSettings()
+        autoCropEnabled = settings.value('rotate_dialog/auto_crop', False, type=bool)
+        self.autoCrop = QCheckBox(self.tr("Auto crop"))
+        self.autoCrop.stateChanged.connect(self.autoCropChanged)
+        self.autoCrop.setChecked(autoCropEnabled)
+
+        gridEnabled = settings.value('rotate_dialog/grid', False, type=bool)
+        self.gridShown = QCheckBox(self.tr("Show grid"))
+        self.gridShown.stateChanged.connect(self.gridChanged)
+        self.gridShown.setChecked(gridEnabled)
+
+        buttonBox = QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.Ok)
+        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox.accepted.connect(self.accept)
+        buttonBox.rejected.connect(self.reject)
+
+        layout = QVBoxLayout()
+        layout.addLayout(angelLayout)
+        layout.addWidget(self.autoCrop)
+        layout.addWidget(self.gridShown)
+        layout.addWidget(buttonBox)
+
+        self.setLayout(layout)
+
+    def showEvent(self, _e):
+        self.setFixedSize(self.size())
+
+    def autoCropChanged(self, state):
+        settings = QSettings()
+        settings.setValue('rotate_dialog/auto_crop', state)
+
+        self.valueChanged.emit(self.angelSpin.value())
+
+    def isAutoCrop(self):
+        return self.autoCrop.isChecked()
+
+    def gridChanged(self, state):
+        settings = QSettings()
+        settings.setValue('rotate_dialog/grid', state)
+
+        self.valueChanged.emit(self.angelSpin.value())
+
+    def isGridShown(self):
+        return self.gridShown.isChecked()
 
 
 class BoundingPointItem(QGraphicsRectItem):
@@ -212,6 +291,39 @@ class GraphicsBoundingItem(QObject):
         return rect.toRect()
 
 
+class GraphicsGridItem(QObject):
+    STEP = 40
+
+    def __init__(self, width, height, scale):
+        super().__init__()
+
+        self.width = width * scale - 1
+        self.height = height * scale - 1
+
+        self.v_lines = []
+        for i in range(int(self.width / self.STEP) + 1):
+            line = QGraphicsLineItem()
+            line.setPen(QPen(QColor(Qt.red)))
+            line.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+
+            line.setLine(i * self.STEP, 0, i * self.STEP, self.height)
+
+            self.v_lines.append(line)
+
+        self.h_lines = []
+        for i in range(int(self.height / self.STEP) + 1):
+            line = QGraphicsLineItem()
+            line.setPen(QPen(QColor(Qt.red)))
+            line.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+
+            self.h_lines.append(line)
+
+            line.setLine(0, i * self.STEP, self.width, i * self.STEP)
+
+    def items(self):
+        return self.v_lines + self.h_lines
+
+
 class GraphicsView(QGraphicsView):
 
     def __init__(self, scene, parent):
@@ -277,11 +389,14 @@ class ImageViewer(QDialog):
 
         self.isChanged = False
         self.cropDlg = None
+        self.rotateDlg = None
+        self.grid = None
         self.bounding = None
         self.isFullScreen = False
         self.name = 'photo'
         self._pixmapHandle = None
         self._origPixmap = None
+        self._startPixmap = None
         self.scale = 1
         self.minScale = 0.2
         self.isFitToWindow = True
@@ -305,6 +420,7 @@ class ImageViewer(QDialog):
         self.showStatusBarAct = QAction(self.tr("Show Status Bar"), self, checkable=True, triggered=self.showStatusBar)
         self.rotateLeftAct = QAction(createIcon('arrow_rotate_anticlockwise.png'), self.tr("Rotate to Left"), self, triggered=self.rotateLeft)
         self.rotateRightAct = QAction(createIcon('arrow_rotate_clockwise.png'), self.tr("Rotate to Right"), self, triggered=self.rotateRight)
+        self.rotateAct = QAction(self.tr("Rotate..."), self, checkable=True, triggered=self.rotate)
         self.cropAct = QAction(createIcon('shape_handles.png'), self.tr("Crop"), self, checkable=True, triggered=self.crop)
         self.saveAct = QAction(createIcon('save.png'), self.tr("Save"), self, shortcut=QKeySequence.Save, triggered=self.save)
         self.saveAct.setDisabled(True)
@@ -331,6 +447,7 @@ class ImageViewer(QDialog):
         self.editMenu.addSeparator()
         self.editMenu.addAction(self.rotateLeftAct)
         self.editMenu.addAction(self.rotateRightAct)
+        self.editMenu.addAction(self.rotateAct)
         self.editMenu.addAction(self.cropAct)
 
         self.viewMenu = QMenu(self.tr("&View"), self)
@@ -416,6 +533,13 @@ class ImageViewer(QDialog):
             self._pixmapHandle.pixmap().save(fileName)
 
     def done(self, r):
+        if self.cropDlg and self.cropDlg.isVisible():
+            self.cropDlg.close()
+            return
+        if self.rotateDlg and self.rotateDlg.isVisible():
+            self.rotateDlg.close()
+            return
+
         if self.isFullScreen:
             self.isFullScreen = False
 
@@ -496,6 +620,7 @@ class ImageViewer(QDialog):
             self.scale = need_scale
             self.viewer.scale(scale, scale)
 
+            self._updateGrid()
             if self.bounding:
                 self.bounding.setScale(self.scale)
 
@@ -511,6 +636,10 @@ class ImageViewer(QDialog):
 
         if self.isFitToWindow:
             self.fitToWindow()
+
+        self._updateGrid()
+        if self.bounding:
+            self.bounding.setScale(self.scale)
 
         self._updateZoomActions()
 
@@ -533,7 +662,7 @@ class ImageViewer(QDialog):
         transform = QTransform()
         trans = transform.rotate(-90)
         pixmap = self._pixmapHandle.pixmap()
-        pixmap = QPixmap(pixmap.transformed(trans))
+        pixmap = pixmap.transformed(trans)
         self.setImage(pixmap)
 
         self.isChanged = True
@@ -543,10 +672,73 @@ class ImageViewer(QDialog):
         transform = QTransform()
         trans = transform.rotate(90)
         pixmap = self._pixmapHandle.pixmap()
-        pixmap = QPixmap(pixmap.transformed(trans))
+        pixmap = pixmap.transformed(trans)
         self.setImage(pixmap)
 
         self.isChanged = True
+        self._updateEditActions()
+
+    def _updateGrid(self):
+        if self.grid:
+            for item in self.grid.items():
+                self.scene.removeItem(item)
+
+        if self.rotateDlg and self.rotateDlg.isVisible():
+            if self.rotateDlg.isGridShown():
+                sceneRect = self.viewer.sceneRect()
+                w = sceneRect.width()
+                h = sceneRect.height()
+                self.grid = GraphicsGridItem(w, h, self.scale)
+                for item in self.grid.items():
+                    self.scene.addItem(item)
+            else:
+                self.grid = None
+        else:
+            self.grid = None
+
+    def rotate(self, checked):
+        if checked:
+            self.rotateDlg = RotateDialog(self)
+            self.rotateDlg.valueChanged.connect(self.rotateChanged)
+            self.rotateDlg.finished.connect(self.closeRotate)
+            self.rotateDlg.show()
+            self._startPixmap = self._pixmapHandle.pixmap()
+
+            self._updateEditActions()
+        else:
+            self.rotateDlg.close()
+            self.rotateDlg = None
+
+        self._updateGrid()
+
+    def rotateChanged(self, value):
+        transform = QTransform()
+        trans = transform.rotate(value)
+        pixmap = self._startPixmap.transformed(trans, Qt.SmoothTransformation)
+        if self.rotateDlg.isAutoCrop():
+            xoffset = (pixmap.width() - self._startPixmap.width()) / 2
+            yoffset = (pixmap.height() - self._startPixmap.height()) / 2
+            rect = QRect(xoffset, yoffset, self._startPixmap.width(), self._startPixmap.height())
+            pixmap = pixmap.copy(rect)
+
+        self.setImage(pixmap)
+
+        self._updateGrid()
+
+    def closeRotate(self, result):
+        if self.grid:
+            for item in self.grid.items():
+                self.scene.removeItem(item)
+            self.grid = None
+
+        if result:
+            self.isChanged = True
+        else:
+            self.setImage(self._startPixmap)
+
+        self._startPixmap = None
+
+        self.rotateAct.setChecked(False)
         self._updateEditActions()
 
     def crop(self, checked):
@@ -587,8 +779,11 @@ class ImageViewer(QDialog):
 
     def _updateEditActions(self):
         inCrop = self.cropAct.isChecked()
-        self.rotateLeftAct.setDisabled(inCrop)
-        self.rotateRightAct.setDisabled(inCrop)
+        inRotate = self.rotateAct.isChecked()
+        self.rotateLeftAct.setDisabled(inCrop or inRotate)
+        self.rotateRightAct.setDisabled(inCrop or inRotate)
+        self.rotateAct.setDisabled(inCrop)
+        self.cropAct.setDisabled(inRotate)
 
         self.saveAct.setEnabled(self.isChanged)
 
