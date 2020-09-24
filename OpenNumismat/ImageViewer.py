@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QMargins, QSettings, QObject, QPointF, QRectF, QRect, pyqtSignal, QMimeData
-from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage, QKeySequence, QColor
+from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage, QKeySequence, QColor, QPolygonF
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -119,11 +119,12 @@ class BoundingPointItem(QGraphicsRectItem):
     BOTTOM_RIGHT = 2
     BOTTOM_LEFT = 3
 
-    def __init__(self, bounding, width, height, corner):
+    def __init__(self, bounding, width, height, corner, fixed):
         self.bounding = bounding
         self.width = width
         self.height = height
         self.corner = corner
+        self.fixed = fixed
 
         if corner == self.TOP_LEFT:
             x = 0
@@ -142,6 +143,7 @@ class BoundingPointItem(QGraphicsRectItem):
         self.setPos(QPointF(x, y))
 
         self.setBrush(Qt.white)
+        self.setFlag(QGraphicsItem.ItemIgnoresTransformations)
         self.setFlag(QGraphicsItem.ItemIsMovable)
         self.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
 #        self.setFlag(QGraphicsItem.ItemSendsScenePositionChanges)
@@ -149,87 +151,7 @@ class BoundingPointItem(QGraphicsRectItem):
 
     def itemChange(self, change, value):
         if change == QGraphicsItem.ItemPositionChange:
-            newPos = value
-            if self.corner == self.TOP_LEFT:
-                if newPos.x() < 0:
-                    newPos.setX(0)
-                if newPos.y() < 0:
-                    newPos.setY(0)
-
-                oppositePoint = self.bounding.points[self.BOTTOM_RIGHT]
-                oppositePos = oppositePoint.scenePos()
-                if newPos.x() > oppositePos.x() - self.SIZE:
-                    newPos.setX(oppositePos.x() - self.SIZE)
-                if newPos.y() > oppositePos.y() - self.SIZE:
-                    newPos.setY(oppositePos.y() - self.SIZE)
-
-                self.bounding.points[self.BOTTOM_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
-                self.bounding.points[self.TOP_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
-                self.bounding.points[self.BOTTOM_LEFT].setX(newPos.x())
-                self.bounding.points[self.TOP_RIGHT].setY(newPos.y())
-                self.bounding.points[self.BOTTOM_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-                self.bounding.points[self.TOP_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-            elif self.corner == self.TOP_RIGHT:
-                if newPos.x() > self.width:
-                    newPos.setX(self.width)
-                if newPos.y() < 0:
-                    newPos.setY(0)
-
-                oppositePoint = self.bounding.points[self.BOTTOM_LEFT]
-                oppositePos = oppositePoint.scenePos()
-                if newPos.x() < oppositePos.x() + self.SIZE:
-                    newPos.setX(oppositePos.x() + self.SIZE)
-                if newPos.y() > oppositePos.y() - self.SIZE:
-                    newPos.setY(oppositePos.y() - self.SIZE)
-
-                self.bounding.points[self.BOTTOM_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
-                self.bounding.points[self.TOP_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
-                self.bounding.points[self.BOTTOM_RIGHT].setX(newPos.x())
-                self.bounding.points[self.TOP_LEFT].setY(newPos.y())
-                self.bounding.points[self.BOTTOM_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-                self.bounding.points[self.TOP_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-            elif self.corner == self.BOTTOM_RIGHT:
-                if newPos.x() > self.width:
-                    newPos.setX(self.width)
-                if newPos.y() > self.height:
-                    newPos.setY(self.height)
-
-                oppositePoint = self.bounding.points[self.TOP_LEFT]
-                oppositePos = oppositePoint.scenePos()
-                if newPos.x() < oppositePos.x() + self.SIZE:
-                    newPos.setX(oppositePos.x() + self.SIZE)
-                if newPos.y() < oppositePos.y() + self.SIZE:
-                    newPos.setY(oppositePos.y() + self.SIZE)
-
-                self.bounding.points[self.BOTTOM_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
-                self.bounding.points[self.TOP_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
-                self.bounding.points[self.BOTTOM_LEFT].setY(newPos.y())
-                self.bounding.points[self.TOP_RIGHT].setX(newPos.x())
-                self.bounding.points[self.BOTTOM_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-                self.bounding.points[self.TOP_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-            else:  # self.corner == self.BOTTOM_LEFT
-                if newPos.x() < 0:
-                    newPos.setX(0)
-                if newPos.y() > self.height:
-                    newPos.setY(self.height)
-
-                oppositePoint = self.bounding.points[self.TOP_RIGHT]
-                oppositePos = oppositePoint.scenePos()
-                if newPos.x() > oppositePos.x() - self.SIZE:
-                    newPos.setX(oppositePos.x() - self.SIZE)
-                if newPos.y() < oppositePos.y() + self.SIZE:
-                    newPos.setY(oppositePos.y() + self.SIZE)
-
-                self.bounding.points[self.BOTTOM_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
-                self.bounding.points[self.TOP_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
-                self.bounding.points[self.BOTTOM_RIGHT].setY(newPos.y())
-                self.bounding.points[self.TOP_LEFT].setX(newPos.x())
-                self.bounding.points[self.BOTTOM_RIGHT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-                self.bounding.points[self.TOP_LEFT].setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-
-            self.bounding.updateRect()
-
-            return newPos
+            return self.bounding.update(self, value)
 
         return super().itemChange(change, value)
 
@@ -242,40 +164,247 @@ class BoundingPointItem(QGraphicsRectItem):
         super().hoverEnterEvent(event)
 
 
+class BoundingLineItem(QGraphicsLineItem):
+
+    def __init__(self, bounding, fixed):
+        self.bounding = bounding
+        self.fixed = fixed
+
+        super().__init__()
+
+        self.setPen(QPen(Qt.DashLine))
+        self.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+        if self.fixed:
+            self.setFlag(QGraphicsItem.ItemIsMovable)
+            self.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
+#            self.setFlag(QGraphicsItem.ItemSendsScenePositionChanges)
+            self.setAcceptHoverEvents(True)
+
+    def _isHorizontal(self):
+        angle = self.line().angle()
+        return (angle in (0, 180))
+
+    def itemChange(self, change, value):
+        if change == QGraphicsItem.ItemPositionChange:
+            return self.bounding.update(self, value)
+
+        return super().itemChange(change, value)
+
+    def hoverEnterEvent(self, event):
+        if self._isHorizontal():
+            self.setCursor(Qt.SizeVerCursor)
+        else:
+            self.setCursor(Qt.SizeHorCursor)
+
+        super().hoverEnterEvent(event)
+
+
 class GraphicsBoundingItem(QObject):
 
-    def __init__(self, width, height, scale):
+    def __init__(self, width, height, scale, fixed):
         super().__init__()
 
         self.width = width
         self.height = height
         self.scale = scale
+        self.fixed = fixed
 
         point1 = BoundingPointItem(self, self.width, self.height,
-                                   BoundingPointItem.TOP_LEFT)
-        point1.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+                                   BoundingPointItem.TOP_LEFT, self.fixed)
         point2 = BoundingPointItem(self, self.width, self.height,
-                                   BoundingPointItem.TOP_RIGHT)
-        point2.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+                                   BoundingPointItem.TOP_RIGHT, self.fixed)
         point3 = BoundingPointItem(self, self.width, self.height,
-                                   BoundingPointItem.BOTTOM_RIGHT)
-        point3.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+                                   BoundingPointItem.BOTTOM_RIGHT, self.fixed)
         point4 = BoundingPointItem(self, self.width, self.height,
-                                   BoundingPointItem.BOTTOM_LEFT)
-        point4.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+                                   BoundingPointItem.BOTTOM_LEFT, self.fixed)
 
         self.points = [point1, point2, point3, point4]
 
-        self.rect = QGraphicsRectItem()
-        self.rect.setPen(QPen(Qt.DashLine))
-        self.rect.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+        line1 = BoundingLineItem(self, self.fixed)
+        line2 = BoundingLineItem(self, self.fixed)
+        line3 = BoundingLineItem(self, self.fixed)
+        line4 = BoundingLineItem(self, self.fixed)
+
+        self.lines = [line1, line2, line3, line4]
+
         self.updateRect()
 
+    def update(self, obj, pos):
+        p1 = self.points[BoundingPointItem.TOP_LEFT]
+        p2 = self.points[BoundingPointItem.TOP_RIGHT]
+        p3 = self.points[BoundingPointItem.BOTTOM_RIGHT]
+        p4 = self.points[BoundingPointItem.BOTTOM_LEFT]
+
+        for item in self.items():
+            item.setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
+
+        if obj in self.lines:
+            line = obj
+            if line in (self.lines[0], self.lines[2]):
+                pos.setX(0)
+            else:
+                pos.setY(0)
+
+            newPos = line.line().p1() / self.scale + pos
+            if line == self.lines[0]:  # --
+                if newPos.y() < 0:
+                    newPos.setY(0)
+                oppositePos = p3.pos()
+                if newPos.y() > oppositePos.y() - BoundingPointItem.SIZE:
+                    newPos.setY(oppositePos.y() - BoundingPointItem.SIZE)
+
+                p1.setY(newPos.y())
+                p2.setY(newPos.y())
+                x1 = self.lines[1].line().x1()
+                x2 = self.lines[1].line().x2()
+                self.lines[1].setLine(x1, p2.y() * self.scale,
+                                      x2, p3.y() * self.scale)
+                x1 = self.lines[3].line().x1()
+                x2 = self.lines[3].line().x2()
+                self.lines[3].setLine(x1, p4.y() * self.scale,
+                                      x2, p1.y() * self.scale)
+            elif line == self.lines[1]:  # |
+                if newPos.x() > self.width:
+                    newPos.setX(self.width)
+                oppositePos = p1.pos()
+                if newPos.x() < oppositePos.x() + BoundingPointItem.SIZE:
+                    newPos.setX(oppositePos.x() + BoundingPointItem.SIZE)
+
+                p2.setX(newPos.x())
+                p3.setX(newPos.x())
+                y1 = self.lines[0].line().y1()
+                y2 = self.lines[0].line().y2()
+                self.lines[0].setLine(p1.x() * self.scale, y1,
+                                      p2.x() * self.scale, y2)
+                y1 = self.lines[2].line().y1()
+                y2 = self.lines[2].line().y2()
+                self.lines[2].setLine(p3.x() * self.scale, y1,
+                                      p4.x() * self.scale, y2)
+            elif line == self.lines[2]:  # --
+                if newPos.y() > self.height:
+                    newPos.setY(self.height)
+                oppositePos = p1.pos()
+                if newPos.y() < oppositePos.y() + BoundingPointItem.SIZE:
+                    newPos.setY(oppositePos.y() + BoundingPointItem.SIZE)
+
+                p3.setY(newPos.y())
+                p4.setY(newPos.y())
+                x1 = self.lines[1].line().x1()
+                x2 = self.lines[1].line().x2()
+                self.lines[1].setLine(x1, p2.y() * self.scale,
+                                      x2, p3.y() * self.scale)
+                x1 = self.lines[3].line().x1()
+                x2 = self.lines[3].line().x2()
+                self.lines[3].setLine(x1, p4.y() * self.scale,
+                                      x2, p1.y() * self.scale)
+            else:
+                if newPos.x() < 0:
+                    newPos.setX(0)
+                oppositePos = p2.pos()
+                if newPos.x() > oppositePos.x() - BoundingPointItem.SIZE:
+                    newPos.setX(oppositePos.x() - BoundingPointItem.SIZE)
+
+                p1.setX(newPos.x())
+                p4.setX(newPos.x())
+                y1 = self.lines[0].line().y1()
+                y2 = self.lines[0].line().y2()
+                self.lines[0].setLine(p1.x() * self.scale, y1,
+                                      p2.x() * self.scale, y2)
+                y1 = self.lines[2].line().y1()
+                y2 = self.lines[2].line().y2()
+                self.lines[2].setLine(p3.x() * self.scale, y1,
+                                      p4.x() * self.scale, y2)
+
+            pos = newPos - line.line().p1() / self.scale
+        elif obj in self.points:
+            point = obj
+            newPos = pos
+            if point.corner == point.TOP_LEFT:
+                if newPos.x() < 0:
+                    newPos.setX(0)
+                if newPos.y() < 0:
+                    newPos.setY(0)
+
+                oppositePos = p2.scenePos()
+                if newPos.x() > oppositePos.x() - point.SIZE:
+                    newPos.setX(oppositePos.x() - point.SIZE)
+                oppositePos = p4.scenePos()
+                if newPos.y() > oppositePos.y() - point.SIZE:
+                    newPos.setY(oppositePos.y() - point.SIZE)
+
+                if self.fixed:
+                    self.points[point.BOTTOM_LEFT].setX(newPos.x())
+                    self.points[point.TOP_RIGHT].setY(newPos.y())
+            elif point.corner == point.TOP_RIGHT:
+                if newPos.x() > self.width:
+                    newPos.setX(self.width)
+                if newPos.y() < 0:
+                    newPos.setY(0)
+
+                oppositePos = p1.scenePos()
+                if newPos.x() < oppositePos.x() + point.SIZE:
+                    newPos.setX(oppositePos.x() + point.SIZE)
+                oppositePos = p3.scenePos()
+                if newPos.y() > oppositePos.y() - point.SIZE:
+                    newPos.setY(oppositePos.y() - point.SIZE)
+
+                if self.fixed:
+                    self.points[point.BOTTOM_RIGHT].setX(newPos.x())
+                    self.points[point.TOP_LEFT].setY(newPos.y())
+            elif point.corner == point.BOTTOM_RIGHT:
+                if newPos.x() > self.width:
+                    newPos.setX(self.width)
+                if newPos.y() > self.height:
+                    newPos.setY(self.height)
+
+                oppositePos = p4.scenePos()
+                if newPos.x() < oppositePos.x() + point.SIZE:
+                    newPos.setX(oppositePos.x() + point.SIZE)
+                oppositePos = p2.scenePos()
+                if newPos.y() < oppositePos.y() + point.SIZE:
+                    newPos.setY(oppositePos.y() + point.SIZE)
+
+                if self.fixed:
+                    self.points[point.BOTTOM_LEFT].setY(newPos.y())
+                    self.points[point.TOP_RIGHT].setX(newPos.x())
+            else:  # self.corner == self.BOTTOM_LEFT
+                if newPos.x() < 0:
+                    newPos.setX(0)
+                if newPos.y() > self.height:
+                    newPos.setY(self.height)
+
+                oppositePos = p3.scenePos()
+                if newPos.x() > oppositePos.x() - point.SIZE:
+                    newPos.setX(oppositePos.x() - point.SIZE)
+                oppositePos = p1.scenePos()
+                if newPos.y() < oppositePos.y() + point.SIZE:
+                    newPos.setY(oppositePos.y() + point.SIZE)
+
+                if self.fixed:
+                    self.points[point.BOTTOM_RIGHT].setY(newPos.y())
+                    self.points[point.TOP_LEFT].setX(newPos.x())
+
+            self.updateRect()
+            pos = newPos
+
+        for item in self.items():
+            item.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
+
+        return pos
+
     def updateRect(self):
-        p1 = self.points[BoundingPointItem.TOP_LEFT].scenePos()
-        p2 = self.points[BoundingPointItem.BOTTOM_RIGHT].scenePos()
-        rect = QRectF(p1 * self.scale, p2 * self.scale)
-        self.rect.setRect(rect)
+        p1 = self.points[BoundingPointItem.TOP_LEFT]
+        p2 = self.points[BoundingPointItem.TOP_RIGHT]
+        p3 = self.points[BoundingPointItem.BOTTOM_RIGHT]
+        p4 = self.points[BoundingPointItem.BOTTOM_LEFT]
+        self.lines[0].setLine(p1.x() * self.scale, p1.y() * self.scale,
+                              p2.x() * self.scale, p2.y() * self.scale)
+        self.lines[1].setLine(p2.x() * self.scale, p2.y() * self.scale,
+                              p3.x() * self.scale, p3.y() * self.scale)
+        self.lines[2].setLine(p3.x() * self.scale, p3.y() * self.scale,
+                              p4.x() * self.scale, p4.y() * self.scale)
+        self.lines[3].setLine(p4.x() * self.scale, p4.y() * self.scale,
+                              p1.x() * self.scale, p1.y() * self.scale)
 
     def setScale(self, scale):
         self.scale = scale
@@ -283,11 +412,12 @@ class GraphicsBoundingItem(QObject):
         self.updateRect()
 
     def items(self):
-        return [self.rect] + self.points
+        return self.lines + self.points
 
     def cropRect(self):
-        rect = QRectF(self.rect.rect().topLeft() / self.scale,
-                      self.rect.rect().bottomRight() / self.scale)
+        p1 = self.points[BoundingPointItem.TOP_LEFT]
+        p3 = self.points[BoundingPointItem.BOTTOM_RIGHT]
+        rect = QRectF(p1.pos(), p3.pos())
         return rect.toRect()
 
 
@@ -753,7 +883,7 @@ class ImageViewer(QDialog):
             w = sceneRect.width()
             h = sceneRect.height()
 
-            self.bounding = GraphicsBoundingItem(w, h, self.scale)
+            self.bounding = GraphicsBoundingItem(w, h, self.scale, True)
             for item in self.bounding.items():
                 self.scene.addItem(item)
 
