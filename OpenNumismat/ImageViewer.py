@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt, QMargins, QSettings, QObject, QPointF, QRectF, QRect, pyqtSignal, QMimeData
+from PyQt5.QtCore import Qt, QMargins, QSettings, QObject, QPointF, QRectF, QRect, pyqtSignal, QMimeData, QLineF, QPoint
 from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage, QKeySequence, QColor, QPolygonF
 from PyQt5.QtWidgets import *
 
@@ -12,10 +12,19 @@ ZOOM_MAX = 5
 
 @storeDlgPositionDecorator
 class CropDialog(QDialog):
+    currentToolChanged = pyqtSignal(int)
 
     def __init__(self, parent):
         super().__init__(parent, Qt.WindowCloseButtonHint)
         self.setWindowTitle(self.tr("Crop"))
+
+        settings = QSettings()
+        cropTool = settings.value('crop_dialog/crop_tool', 0)
+        self.tab = QTabWidget(self)
+        self.tab.addTab(QWidget(), createIcon('shape_handles.png'), '')
+        self.tab.addTab(QWidget(), createIcon('shape_handles_free.png'), '')
+        self.tab.currentChanged.connect(self.tabChanged)
+        self.tab.setCurrentIndex(cropTool)
 
         buttonBox = QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QDialogButtonBox.Ok)
@@ -24,13 +33,22 @@ class CropDialog(QDialog):
         buttonBox.rejected.connect(self.reject)
 
         layout = QVBoxLayout()
-#        layout.addWidget(tab)
+        layout.addWidget(self.tab)
         layout.addWidget(buttonBox)
 
         self.setLayout(layout)
 
     def showEvent(self, _e):
         self.setFixedSize(self.size())
+
+    def tabChanged(self, index):
+        settings = QSettings()
+        settings.setValue('crop_dialog/crop_tool', self.currentTool())
+
+        self.currentToolChanged.emit(index)
+
+    def currentTool(self):
+        return self.tab.currentIndex()
 
 
 @storeDlgPositionDecorator
@@ -414,11 +432,8 @@ class GraphicsBoundingItem(QObject):
     def items(self):
         return self.lines + self.points
 
-    def cropRect(self):
-        p1 = self.points[BoundingPointItem.TOP_LEFT]
-        p3 = self.points[BoundingPointItem.BOTTOM_RIGHT]
-        rect = QRectF(p1.pos(), p3.pos())
-        return rect.toRect()
+    def cropPoints(self):
+        return [p.pos() for p in self.points]
 
 
 class GraphicsGridItem(QObject):
@@ -879,36 +894,95 @@ class ImageViewer(QDialog):
 
     def crop(self, checked):
         if checked:
-            sceneRect = self.viewer.sceneRect()
-            w = sceneRect.width()
-            h = sceneRect.height()
-
-            self.bounding = GraphicsBoundingItem(w, h, self.scale, True)
-            for item in self.bounding.items():
-                self.scene.addItem(item)
-
             self.cropDlg = CropDialog(self)
             self.cropDlg.finished.connect(self.closeCrop)
+            self.cropDlg.currentToolChanged.connect(self.cropToolChanged)
             self.cropDlg.show()
+
+            self.cropToolChanged(self.cropDlg.currentTool())
 
             self._updateEditActions()
         else:
             self.cropDlg.close()
             self.cropDlg = None
 
+    def cropToolChanged(self, _index):
+        if self.bounding:
+            for item in self.bounding.items():
+                self.scene.removeItem(item)
+            self.bounding = None
+
+        sceneRect = self.viewer.sceneRect()
+        w = sceneRect.width()
+        h = sceneRect.height()
+
+        fixed_bounding = (self.cropDlg.currentTool() == 0)
+        self.bounding = GraphicsBoundingItem(w, h, self.scale, fixed_bounding)
+        for item in self.bounding.items():
+            self.scene.addItem(item)
+
     def closeCrop(self, result):
-        rect = self.bounding.cropRect()
+        points = self.bounding.cropPoints()
 
         for item in self.bounding.items():
             self.scene.removeItem(item)
         self.bounding = None
 
         if result:
-            pixmap = self._pixmapHandle.pixmap()
-            pixmap = pixmap.copy(rect)
-            self.setImage(pixmap)
+            if self.cropDlg.currentTool() == 0:
+                rect = QRectF(points[0], points[2]).toRect()
 
-            self.isChanged = True
+                pixmap = self._pixmapHandle.pixmap()
+                pixmap = pixmap.copy(rect)
+                self.setImage(pixmap)
+
+                self.isChanged = True
+            else:
+                topLine = QLineF(points[0], points[1])
+                bottomLine = QLineF(points[2], points[3])
+                leftLine = QLineF(points[1], points[2])
+                rightLine = QLineF(points[3], points[0])
+
+                if topLine.length() > bottomLine.length():
+                    width = topLine.length()
+                else:
+                    width = bottomLine.length()
+                if leftLine.length() > rightLine.length():
+                    height = leftLine.length()
+                else:
+                    height = rightLine.length()
+
+                poly1 = QPolygonF(points)
+
+                poly2 = QPolygonF()
+                poly2.append(QPointF(0, 0))
+                poly2.append(QPointF(width, 0))
+                poly2.append(QPointF(width, height))
+                poly2.append(QPointF(0, height))
+
+                transform = QTransform()
+                res = QTransform.quadToQuad(poly1, poly2, transform)
+                if res:
+                    rect = self._pixmapHandle.pixmap().rect()
+                    tl = transform.map(QPoint(0, 0))
+                    bl = transform.map(QPoint(0, rect.height()))
+                    tr = transform.map(QPoint(rect.width(), 0))
+
+                    if -tl.x() > -bl.x():
+                        x = -tl.x()
+                    else:
+                        x = -bl.x()
+
+                    if -tr.y() > -tl.y():
+                        y = -tr.y()
+                    else:
+                        y = -tl.y()
+
+                    pixmap = self._pixmapHandle.pixmap().transformed(transform, Qt.SmoothTransformation)
+                    pixmap = pixmap.copy(x, y, width, height)
+                    self.setImage(pixmap)
+
+                    self.isChanged = True
 
         self.cropAct.setChecked(False)
         self._updateEditActions()
