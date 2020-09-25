@@ -13,16 +13,89 @@ ZOOM_MAX = 5
 @storeDlgPositionDecorator
 class CropDialog(QDialog):
     currentToolChanged = pyqtSignal(int)
+    cropChanged = pyqtSignal()
 
-    def __init__(self, parent):
+    def __init__(self, width, height, parent):
         super().__init__(parent, Qt.WindowCloseButtonHint)
         self.setWindowTitle(self.tr("Crop"))
+
+        self.xSpin = QSpinBox()
+        self.xSpin.setRange(0, width)
+        self.xSpin.valueChanged.connect(self.cropChanged.emit)
+        self.ySpin = QSpinBox()
+        self.ySpin.setRange(0, height)
+        self.ySpin.valueChanged.connect(self.cropChanged.emit)
+        self.widthSpin = QSpinBox()
+        self.widthSpin.setRange(0, width)
+        self.widthSpin.valueChanged.connect(self.cropChanged.emit)
+        self.heightSpin = QSpinBox()
+        self.heightSpin.setRange(0, height)
+        self.heightSpin.valueChanged.connect(self.cropChanged.emit)
+
+        rectLayout = QGridLayout()
+        rectLayout.addWidget(QLabel(self.tr("X")), 0, 0)
+        rectLayout.addWidget(self.xSpin, 0, 1)
+        rectLayout.addWidget(QLabel(self.tr("Y")), 0, 2)
+        rectLayout.addWidget(self.ySpin, 0, 3)
+        rectLayout.addWidget(QLabel(self.tr("Width")), 1, 0)
+        rectLayout.addWidget(self.widthSpin, 1, 1)
+        rectLayout.addWidget(QLabel(self.tr("Height")), 1, 2)
+        rectLayout.addWidget(self.heightSpin, 1, 3)
+
+        rectWidget = QWidget()
+        rectWidget.setLayout(rectLayout)
+
+        self.x1Spin = QSpinBox()
+        self.x1Spin.setRange(0, width)
+        self.x1Spin.valueChanged.connect(self.cropChanged.emit)
+        self.y1Spin = QSpinBox()
+        self.y1Spin.setRange(0, height)
+        self.y1Spin.valueChanged.connect(self.cropChanged.emit)
+        self.x2Spin = QSpinBox()
+        self.x2Spin.setRange(0, width)
+        self.x2Spin.valueChanged.connect(self.cropChanged.emit)
+        self.y2Spin = QSpinBox()
+        self.y2Spin.setRange(0, height)
+        self.y2Spin.valueChanged.connect(self.cropChanged.emit)
+        self.x3Spin = QSpinBox()
+        self.x3Spin.setRange(0, width)
+        self.x3Spin.valueChanged.connect(self.cropChanged.emit)
+        self.y3Spin = QSpinBox()
+        self.y3Spin.setRange(0, height)
+        self.y3Spin.valueChanged.connect(self.cropChanged.emit)
+        self.x4Spin = QSpinBox()
+        self.x4Spin.setRange(0, width)
+        self.x4Spin.valueChanged.connect(self.cropChanged.emit)
+        self.y4Spin = QSpinBox()
+        self.y4Spin.setRange(0, height)
+        self.y4Spin.valueChanged.connect(self.cropChanged.emit)
+
+        freeLayout = QGridLayout()
+        freeLayout.addWidget(QLabel(self.tr("X1")), 0, 0)
+        freeLayout.addWidget(self.x1Spin, 0, 1)
+        freeLayout.addWidget(QLabel(self.tr("Y1")), 0, 2)
+        freeLayout.addWidget(self.y1Spin, 0, 3)
+        freeLayout.addWidget(QLabel(self.tr("X2")), 0, 4)
+        freeLayout.addWidget(self.x2Spin, 0, 5)
+        freeLayout.addWidget(QLabel(self.tr("Y2")), 0, 6)
+        freeLayout.addWidget(self.y2Spin, 0, 7)
+        freeLayout.addWidget(QLabel(self.tr("X3")), 1, 0)
+        freeLayout.addWidget(self.x3Spin, 1, 1)
+        freeLayout.addWidget(QLabel(self.tr("Y3")), 1, 2)
+        freeLayout.addWidget(self.y3Spin, 1, 3)
+        freeLayout.addWidget(QLabel(self.tr("X4")), 1, 4)
+        freeLayout.addWidget(self.x4Spin, 1, 5)
+        freeLayout.addWidget(QLabel(self.tr("Y4")), 1, 6)
+        freeLayout.addWidget(self.y4Spin, 1, 7)
+
+        freeWidget = QWidget()
+        freeWidget.setLayout(freeLayout)
 
         settings = QSettings()
         cropTool = settings.value('crop_dialog/crop_tool', 0)
         self.tab = QTabWidget(self)
-        self.tab.addTab(QWidget(), createIcon('shape_handles.png'), '')
-        self.tab.addTab(QWidget(), createIcon('shape_handles_free.png'), '')
+        self.tab.addTab(rectWidget, createIcon('shape_handles.png'), '')
+        self.tab.addTab(freeWidget, createIcon('shape_handles_free.png'), '')
         self.tab.currentChanged.connect(self.tabChanged)
         self.tab.setCurrentIndex(cropTool)
 
@@ -59,7 +132,7 @@ class RotateDialog(QDialog):
         super().__init__(parent, Qt.WindowCloseButtonHint)
         self.setWindowTitle(self.tr("Rotate"))
 
-        angelLabel = QLabel(self.tr("Angel:"))
+        angelLabel = QLabel(self.tr("Angel"))
 
         angelSlider = QSlider(Qt.Horizontal)
         angelSlider.setRange(-180, 180)
@@ -218,6 +291,7 @@ class BoundingLineItem(QGraphicsLineItem):
 
 
 class GraphicsBoundingItem(QObject):
+    rectChanged = pyqtSignal()
 
     def __init__(self, width, height, scale, fixed):
         super().__init__()
@@ -407,6 +481,8 @@ class GraphicsBoundingItem(QObject):
 
         for item in self.items():
             item.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
+
+        self.rectChanged.emit()
 
         return pos
 
@@ -849,7 +925,7 @@ class ImageViewer(QDialog):
         if checked:
             self.rotateDlg = RotateDialog(self)
             self.rotateDlg.valueChanged.connect(self.rotateChanged)
-            self.rotateDlg.finished.connect(self.closeRotate)
+            self.rotateDlg.finished.connect(self.rotateClose)
             self.rotateDlg.show()
             self._startPixmap = self._pixmapHandle.pixmap()
 
@@ -879,7 +955,7 @@ class ImageViewer(QDialog):
 
         self._updateGrid()
 
-    def closeRotate(self, result):
+    def rotateClose(self, result):
         self._updateGrid()
 
         if result:
@@ -894,9 +970,14 @@ class ImageViewer(QDialog):
 
     def crop(self, checked):
         if checked:
-            self.cropDlg = CropDialog(self)
-            self.cropDlg.finished.connect(self.closeCrop)
+            sceneRect = self.viewer.sceneRect()
+            w = sceneRect.width()
+            h = sceneRect.height()
+
+            self.cropDlg = CropDialog(w, h, self)
+            self.cropDlg.finished.connect(self.cropClose)
             self.cropDlg.currentToolChanged.connect(self.cropToolChanged)
+            self.cropDlg.cropChanged.connect(self.cropDlgChanged)
             self.cropDlg.show()
 
             self.cropToolChanged(self.cropDlg.currentTool())
@@ -921,7 +1002,54 @@ class ImageViewer(QDialog):
         for item in self.bounding.items():
             self.scene.addItem(item)
 
-    def closeCrop(self, result):
+        self.bounding.rectChanged.connect(self.cropChanged)
+        self.cropChanged()
+
+    def cropChanged(self):
+        points = self.bounding.cropPoints()
+
+        if self.cropDlg.currentTool() == 0:
+            self.cropDlg.cropChanged.disconnect(self.cropDlgChanged)
+            self.cropDlg.xSpin.setValue(points[0].x())
+            self.cropDlg.ySpin.setValue(points[0].y())
+            self.cropDlg.widthSpin.setValue(points[2].x() - points[0].x())
+            self.cropDlg.heightSpin.setValue(points[2].y() - points[0].y())
+            self.cropDlg.cropChanged.connect(self.cropDlgChanged)
+        else:
+            self.cropDlg.cropChanged.disconnect(self.cropDlgChanged)
+            self.cropDlg.x1Spin.setValue(points[0].x())
+            self.cropDlg.y1Spin.setValue(points[0].y())
+            self.cropDlg.x2Spin.setValue(points[1].x())
+            self.cropDlg.y2Spin.setValue(points[1].y())
+            self.cropDlg.x3Spin.setValue(points[2].x())
+            self.cropDlg.y3Spin.setValue(points[2].y())
+            self.cropDlg.x4Spin.setValue(points[3].x())
+            self.cropDlg.y4Spin.setValue(points[3].y())
+            self.cropDlg.cropChanged.connect(self.cropDlgChanged)
+
+    def cropDlgChanged(self):
+        if self.cropDlg.currentTool() == 0:
+            self.bounding.rectChanged.disconnect(self.cropChanged)
+            self.bounding.points[0].setX(self.cropDlg.xSpin.value())
+            self.bounding.points[0].setY(self.cropDlg.ySpin.value())
+            self.bounding.points[2].setX(self.cropDlg.xSpin.value() + self.cropDlg.widthSpin.value())
+            self.bounding.points[2].setY(self.cropDlg.ySpin.value() + self.cropDlg.heightSpin.value())
+            self.cropChanged()
+            self.bounding.rectChanged.connect(self.cropChanged)
+        else:
+            self.bounding.rectChanged.disconnect(self.cropChanged)
+            self.bounding.points[0].setX(self.cropDlg.x1Spin.value())
+            self.bounding.points[0].setY(self.cropDlg.y1Spin.value())
+            self.bounding.points[1].setX(self.cropDlg.x2Spin.value())
+            self.bounding.points[1].setY(self.cropDlg.y2Spin.value())
+            self.bounding.points[2].setX(self.cropDlg.x3Spin.value())
+            self.bounding.points[2].setY(self.cropDlg.y3Spin.value())
+            self.bounding.points[3].setX(self.cropDlg.x4Spin.value())
+            self.bounding.points[3].setY(self.cropDlg.y4Spin.value())
+            self.cropChanged()
+            self.bounding.rectChanged.connect(self.cropChanged)
+
+    def cropClose(self, result):
         points = self.bounding.cropPoints()
 
         for item in self.bounding.items():
@@ -990,12 +1118,18 @@ class ImageViewer(QDialog):
     def _updateEditActions(self):
         inCrop = self.cropAct.isChecked()
         inRotate = self.rotateAct.isChecked()
+        self.exitAct.setDisabled(inCrop or inRotate)
+        self.saveAsAct.setDisabled(inCrop or inRotate)
+        self.copyAct.setDisabled(inCrop or inRotate)
         self.rotateLeftAct.setDisabled(inCrop or inRotate)
         self.rotateRightAct.setDisabled(inCrop or inRotate)
         self.rotateAct.setDisabled(inCrop)
         self.cropAct.setDisabled(inRotate)
 
-        self.saveAct.setEnabled(self.isChanged)
+        if inCrop or inRotate:
+            self.saveAct.setDisabled(True)
+        else:
+            self.saveAct.setEnabled(self.isChanged)
 
     def save(self):
         if self.isChanged:
