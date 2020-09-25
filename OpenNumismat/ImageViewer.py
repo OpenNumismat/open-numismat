@@ -494,14 +494,22 @@ class GraphicsBoundingItem(QObject):
         p2 = self.points[BoundingPointItem.TOP_RIGHT]
         p3 = self.points[BoundingPointItem.BOTTOM_RIGHT]
         p4 = self.points[BoundingPointItem.BOTTOM_LEFT]
-        self.lines[0].setLine(p1.x() * self.scale, p1.y() * self.scale,
-                              p2.x() * self.scale, p2.y() * self.scale)
-        self.lines[1].setLine(p2.x() * self.scale, p2.y() * self.scale,
-                              p3.x() * self.scale, p3.y() * self.scale)
-        self.lines[2].setLine(p3.x() * self.scale, p3.y() * self.scale,
-                              p4.x() * self.scale, p4.y() * self.scale)
-        self.lines[3].setLine(p4.x() * self.scale, p4.y() * self.scale,
-                              p1.x() * self.scale, p1.y() * self.scale)
+        self.lines[0].setLine(p1.x() * self.scale,
+                              (p1.y() - self.lines[0].pos().y()) * self.scale,
+                              p2.x() * self.scale,
+                              (p2.y() - self.lines[0].pos().y()) * self.scale)
+        self.lines[1].setLine((p2.x() - self.lines[1].pos().x()) * self.scale,
+                              p2.y() * self.scale,
+                              (p3.x() - self.lines[1].pos().x()) * self.scale,
+                              p3.y() * self.scale)
+        self.lines[2].setLine(p3.x() * self.scale,
+                              (p3.y() - self.lines[2].pos().y()) * self.scale,
+                              p4.x() * self.scale,
+                              (p4.y() - self.lines[2].pos().y()) * self.scale)
+        self.lines[3].setLine((p4.x() - self.lines[3].pos().x()) * self.scale,
+                              p4.y() * self.scale,
+                              (p1.x() - self.lines[3].pos().x()) * self.scale,
+                              p1.y() * self.scale)
 
     def setScale(self, scale):
         self.scale = scale
