@@ -38,6 +38,11 @@ class ImageLabel(QLabel):
         open_ = QAction(self.tr("Open"), self)
         open_.triggered.connect(self.openImage)
 
+        use_external_viewer = not Settings()['built_in_viewer']
+        if use_external_viewer:
+            edit = QAction(self.tr("Edit..."), self)
+            edit.triggered.connect(self.editImage)
+
         copy = QAction(self.tr("Copy"), self)
         copy.triggered.connect(self.copyImage)
         copy.setDisabled(self.image.isNull())
@@ -49,6 +54,8 @@ class ImageLabel(QLabel):
         menu = QMenu()
         menu.addAction(open_)
         menu.setDefaultAction(open_)
+        if use_external_viewer:
+            menu.addAction(edit)
         menu.addAction(save)
         menu.addSeparator()
         menu.addAction(copy)
@@ -56,15 +63,18 @@ class ImageLabel(QLabel):
 
     def openImage(self):
         if Settings()['built_in_viewer']:
-            viewer = ImageViewer(self)
-            viewer.imageSaved.connect(self.imageSaved)
-            viewer.setImage(self.image)
-            viewer.exec_()
+            self.editImage()
         else:
             fileName = self._saveTmpImage()
 
             executor = QDesktopServices()
             executor.openUrl(QUrl.fromLocalFile(fileName))
+
+    def editImage(self):
+        viewer = ImageViewer(self)
+        viewer.imageSaved.connect(self.imageSaved)
+        viewer.setImage(self.image)
+        viewer.exec_()
 
     def imageSaved(self, image):
         self._setImage(image)
