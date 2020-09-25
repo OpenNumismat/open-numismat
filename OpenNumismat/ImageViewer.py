@@ -649,6 +649,7 @@ class ImageViewer(QDialog):
         self.saveAct = QAction(createIcon('save.png'), self.tr("Save"), self, shortcut=QKeySequence.Save, triggered=self.save)
         self.saveAct.setDisabled(True)
         self.copyAct = QAction(createIcon('page_copy.png'), self.tr("Copy"), self, shortcut=QKeySequence.Copy, triggered=self.copy)
+        self.pasteAct = QAction(createIcon('page_paste.png'), self.tr("Paste"), self, shortcut=QKeySequence.Paste, triggered=self.paste)
 
         settings = QSettings()
         toolBarShown = settings.value('image_viewer/tool_bar', True, type=bool)
@@ -668,6 +669,7 @@ class ImageViewer(QDialog):
 
         self.editMenu = QMenu(self.tr("&Edit"), self)
         self.editMenu.addAction(self.copyAct)
+        self.editMenu.addAction(self.pasteAct)
         self.editMenu.addSeparator()
         self.editMenu.addAction(self.rotateLeftAct)
         self.editMenu.addAction(self.rotateRightAct)
@@ -823,6 +825,20 @@ class ImageViewer(QDialog):
 
         clipboard = QApplication.clipboard()
         clipboard.setMimeData(mime)
+
+    def paste(self):
+        mime = QApplication.clipboard().mimeData()
+        if mime.hasImage():
+            self.setImage(mime.imageData())
+            self.isChanged = True
+        elif mime.hasUrls():
+            url = mime.urls()[0]
+            image = QImage()
+            result = image.load(url.toLocalFile())
+            if result:
+                self.setImage(image)
+                self.isChanged = True
+        self._updateEditActions()
 
     def zoomIn(self):
         self.zoom(ZOOM_IN_FACTOR)
@@ -1120,6 +1136,7 @@ class ImageViewer(QDialog):
         self.exitAct.setDisabled(inCrop or inRotate)
         self.saveAsAct.setDisabled(inCrop or inRotate)
         self.copyAct.setDisabled(inCrop or inRotate)
+        self.pasteAct.setDisabled(inCrop or inRotate)
         self.rotateLeftAct.setDisabled(inCrop or inRotate)
         self.rotateRightAct.setDisabled(inCrop or inRotate)
         self.rotateAct.setDisabled(inCrop)
