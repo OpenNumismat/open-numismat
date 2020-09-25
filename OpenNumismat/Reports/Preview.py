@@ -14,14 +14,19 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
-
-importedQtWebKit = False
+importedQtWebKit = True
+importedQtWebEngine = False
 try:
     from PyQt5.QtWebKitWidgets import QWebView
-    importedQtWebKit = True
 except ImportError:
-    print('PyQt5.QtWebKitWidgets module missed. Report preview may be corrupted')
+    try:
+        from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
 
+        importedQtWebEngine = True
+
+    except ImportError:
+        print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. Maps not available')
+        importedQtWebKit = False
 
 exportToWordAvailable = True
 try:
@@ -37,22 +42,23 @@ class QPrintPreviewMainWindow(QMainWindow):
 
 
 class ZoomFactorValidator(QDoubleValidator):
-    def validate(self, input, pos):
+
+    def validate(self, input_, pos):
         replacePercent = False
-        if len(input) and input[-1] == '%':
-            input = input[:-1]
+        if len(input_) and input_[-1] == '%':
+            input_ = input_[:-1]
             replacePercent = True
-        state, _1, _2 = super().validate(input, pos)
+        state, _1, _2 = super().validate(input_, pos)
         if replacePercent:
-            input += '%'
+            input_ += '%'
         num_size = 4
         if state == QDoubleValidator.Intermediate:
-            i = input.find(QtCore.QLocale.system().decimalPoint())
-            if (i == -1 and len(input) > num_size) \
+            i = input_.find(QtCore.QLocale.system().decimalPoint())
+            if (i == -1 and len(input_) > num_size) \
                     or (i != -1 and i > num_size):
-                return QDoubleValidator.Invalid, input, pos
+                return QDoubleValidator.Invalid, input_, pos
 
-        return state, input, pos
+        return state, input_, pos
 
 
 class LineEdit(QLineEdit):
@@ -105,17 +111,19 @@ class PreviewDialog(QDialog):
 
         if importedQtWebKit:
             self.webView = QWebView(self)
-            self.webView.setVisible(False)
+            self.webView.setVisible(importedQtWebEngine)
             self.webView.loadFinished.connect(self._loadFinished)
         else:
             self.webView = TextDocument()
 
-        self.printer = QPrinter()
+        self.printer = QPrinter(QPrinter.HighResolution)
         self.printer.setPageMargins(12.7, 10, 10, 10, QPrinter.Millimeter)
-        self.preview = QPrintPreviewWidget(self.printer, self)
 
-        self.preview.paintRequested.connect(self.paintRequested)
-        self.preview.previewChanged.connect(self._q_previewChanged)
+        if not importedQtWebEngine:
+            self.preview = QPrintPreviewWidget(self.printer, self)
+            self.preview.paintRequested.connect(self.paintRequested)
+            self.preview.previewChanged.connect(self._q_previewChanged)
+
         self.setupActions()
 
         self.templateSelector = QComboBox(self)
@@ -127,27 +135,27 @@ class PreviewDialog(QDialog):
         self.templateSelector.setCurrentIndex(-1)
         self.templateSelector.currentIndexChanged.connect(self._templateChanged)
 
-        self.pageNumEdit = LineEdit()
-        self.pageNumEdit.setAlignment(Qt.AlignRight)
-        self.pageNumEdit.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.pageNumLabel = QLabel()
-        self.pageNumEdit.editingFinished.connect(self._q_pageNumEdited)
+        if not importedQtWebEngine:
+            self.pageNumEdit = LineEdit()
+            self.pageNumEdit.setAlignment(Qt.AlignRight)
+            self.pageNumEdit.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+            self.pageNumLabel = QLabel()
+            self.pageNumEdit.editingFinished.connect(self._q_pageNumEdited)
 
-        self.zoomFactor = QComboBox()
-        self.zoomFactor.setEditable(True)
-        self.zoomFactor.setMinimumContentsLength(7)
-        self.zoomFactor.setInsertPolicy(QComboBox.NoInsert)
-        zoomEditor = LineEdit()
-        zoomEditor.setValidator(ZoomFactorValidator(1, 1000, 1, zoomEditor))
-        self.zoomFactor.setLineEdit(zoomEditor)
-        factorsX2 = [25, 50, 100, 200, 250, 300, 400, 800, 1600]
-        for factor in factorsX2:
-            self.zoomFactor.addItem("%g%%" % (factor / 2.0))
-        self.zoomFactor.lineEdit().editingFinished.connect(self._q_zoomFactorChanged)
-        self.zoomFactor.currentIndexChanged.connect(self._q_zoomFactorChanged)
+            self.zoomFactor = QComboBox()
+            self.zoomFactor.setEditable(True)
+            self.zoomFactor.setMinimumContentsLength(7)
+            self.zoomFactor.setInsertPolicy(QComboBox.NoInsert)
+            zoomEditor = LineEdit()
+            zoomEditor.setValidator(ZoomFactorValidator(1, 1000, 1, zoomEditor))
+            self.zoomFactor.setLineEdit(zoomEditor)
+            factorsX2 = [25, 50, 100, 200, 250, 300, 400, 800, 1600]
+            for factor in factorsX2:
+                self.zoomFactor.addItem("%g%%" % (factor / 2.0))
+            self.zoomFactor.lineEdit().editingFinished.connect(self._q_zoomFactorChanged)
+            self.zoomFactor.currentIndexChanged.connect(self._q_zoomFactorChanged)
 
-        mw = QPrintPreviewMainWindow(self)
-        toolbar = QToolBar(mw)
+        toolbar = QToolBar()
 
         toolbar.addWidget(self.templateSelector)
         toolbar.addSeparator()
@@ -156,129 +164,89 @@ class PreviewDialog(QDialog):
         toolbar.addAction(self.pdfAction)
         if exportToWordAvailable:
             toolbar.addAction(self.wordAction)
-        toolbar.addSeparator()
-        toolbar.addAction(self.fitWidthAction)
-        toolbar.addAction(self.fitPageAction)
-        toolbar.addSeparator()
-        toolbar.addWidget(self.zoomFactor)
-        toolbar.addAction(self.zoomOutAction)
-        toolbar.addAction(self.zoomInAction)
-        toolbar.addSeparator()
-        toolbar.addAction(self.portraitAction)
-        toolbar.addAction(self.landscapeAction)
-        toolbar.addSeparator()
-        toolbar.addAction(self.firstPageAction)
-        toolbar.addAction(self.prevPageAction)
 
-        pageEdit = QWidget(toolbar)
-        vboxLayout = QVBoxLayout()
-        vboxLayout.setContentsMargins(0, 0, 0, 0)
-        formLayout = QFormLayout()
-        formLayout.setWidget(0, QFormLayout.LabelRole, self.pageNumEdit)
-        formLayout.setWidget(0, QFormLayout.FieldRole, self.pageNumLabel)
-        vboxLayout.addLayout(formLayout)
-        vboxLayout.setAlignment(Qt.AlignVCenter)
-        pageEdit.setLayout(vboxLayout)
-        toolbar.addWidget(pageEdit)
+        if not importedQtWebEngine:
+            toolbar.addSeparator()
+            toolbar.addAction(self.fitWidthAction)
+            toolbar.addAction(self.fitPageAction)
+            toolbar.addSeparator()
+            toolbar.addWidget(self.zoomFactor)
+            toolbar.addAction(self.zoomOutAction)
+            toolbar.addAction(self.zoomInAction)
+            toolbar.addSeparator()
+            toolbar.addAction(self.portraitAction)
+            toolbar.addAction(self.landscapeAction)
+            toolbar.addSeparator()
+            toolbar.addAction(self.firstPageAction)
+            toolbar.addAction(self.prevPageAction)
 
-        toolbar.addAction(self.nextPageAction)
-        toolbar.addAction(self.lastPageAction)
-        toolbar.addSeparator()
-        toolbar.addAction(self.singleModeAction)
-        toolbar.addAction(self.facingModeAction)
-        toolbar.addAction(self.overviewModeAction)
+            pageEdit = QWidget(toolbar)
+            vboxLayout = QVBoxLayout()
+            vboxLayout.setContentsMargins(0, 0, 0, 0)
+            formLayout = QFormLayout()
+            formLayout.setWidget(0, QFormLayout.LabelRole, self.pageNumEdit)
+            formLayout.setWidget(0, QFormLayout.FieldRole, self.pageNumLabel)
+            vboxLayout.addLayout(formLayout)
+            vboxLayout.setAlignment(Qt.AlignVCenter)
+            pageEdit.setLayout(vboxLayout)
+            toolbar.addWidget(pageEdit)
+
+            toolbar.addAction(self.nextPageAction)
+            toolbar.addAction(self.lastPageAction)
+            toolbar.addSeparator()
+            toolbar.addAction(self.singleModeAction)
+            toolbar.addAction(self.facingModeAction)
+            toolbar.addAction(self.overviewModeAction)
+
         toolbar.addSeparator()
         toolbar.addAction(self.pageSetupAction)
 
-        # Cannot use the actions' triggered signal here, since it doesn't autorepeat
-        zoomInButton = toolbar.widgetForAction(self.zoomInAction)
-        zoomOutButton = toolbar.widgetForAction(self.zoomOutAction)
-        zoomInButton.setAutoRepeat(True)
-        zoomInButton.setAutoRepeatInterval(200)
-        zoomInButton.setAutoRepeatDelay(200)
-        zoomOutButton.setAutoRepeat(True)
-        zoomOutButton.setAutoRepeatInterval(200)
-        zoomOutButton.setAutoRepeatDelay(200)
-        zoomInButton.clicked.connect(self._q_zoomIn)
-        zoomOutButton.clicked.connect(self._q_zoomOut)
+        if not importedQtWebEngine:
+            # Cannot use the actions' triggered signal here, since it doesn't autorepeat
+            zoomInButton = toolbar.widgetForAction(self.zoomInAction)
+            zoomOutButton = toolbar.widgetForAction(self.zoomOutAction)
+            zoomInButton.setAutoRepeat(True)
+            zoomInButton.setAutoRepeatInterval(200)
+            zoomInButton.setAutoRepeatDelay(200)
+            zoomOutButton.setAutoRepeat(True)
+            zoomOutButton.setAutoRepeatInterval(200)
+            zoomOutButton.setAutoRepeatDelay(200)
+            zoomInButton.clicked.connect(self._q_zoomIn)
+            zoomOutButton.clicked.connect(self._q_zoomOut)
 
-        mw.addToolBar(toolbar)
-        mw.setCentralWidget(self.preview)
-        mw.setParent(self, Qt.Widget)
+            mw = QPrintPreviewMainWindow(self)
+            mw.addToolBar(toolbar)
+            mw.setCentralWidget(self.preview)
+            mw.setParent(self, Qt.Widget)
 
         topLayout = QVBoxLayout()
-        topLayout.addWidget(mw)
+        if not importedQtWebEngine:
+            topLayout.addWidget(mw)
+        else:
+            topLayout.addWidget(toolbar)
+            topLayout.addWidget(self.webView)
         topLayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(topLayout)
 
         self.setWindowTitle(self.tr("Report preview"))
 
-        self.preview.setFocus()
+        if not importedQtWebEngine:
+            self.preview.setFocus()
+        else:
+            self.webView.setFocus()
 
         self.templateSelector.setCurrentIndex(current)
 
     def setupActions(self):
-        # Navigation
-        self.navGroup = QActionGroup(self)
-        self.navGroup.setExclusive(False)
-        self.nextPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Next page"))
-        self.prevPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Previous page"))
-        self.firstPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "First page"))
-        self.lastPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Last page"))
-        self.qt_setupActionIcon(self.nextPageAction, "go-next")
-        self.qt_setupActionIcon(self.prevPageAction, "go-previous")
-        self.qt_setupActionIcon(self.firstPageAction, "go-first")
-        self.qt_setupActionIcon(self.lastPageAction, "go-last")
-        self.navGroup.triggered.connect(self._q_navigate)
-
-        self.fitGroup = QActionGroup(self)
-        self.fitWidthAction = self.fitGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Fit width"))
-        self.fitPageAction = self.fitGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Fit page"))
-        self.fitWidthAction.setCheckable(True)
-        self.fitPageAction.setCheckable(True)
-        self.qt_setupActionIcon(self.fitWidthAction, "fit-width")
-        self.qt_setupActionIcon(self.fitPageAction, "fit-page")
-        self.fitGroup.triggered.connect(self._q_fit)
-
-        # Zoom
-        self.zoomGroup = QActionGroup(self)
-        self.zoomInAction = self.zoomGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Zoom in"))
-        self.zoomOutAction = self.zoomGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Zoom out"))
-        self.qt_setupActionIcon(self.zoomInAction, "zoom-in")
-        self.qt_setupActionIcon(self.zoomOutAction, "zoom-out")
-
-        # Portrait/Landscape
-        self.orientationGroup = QActionGroup(self)
-        self.portraitAction = self.orientationGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Portrait"))
-        self.landscapeAction = self.orientationGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Landscape"))
-        self.portraitAction.setCheckable(True)
-        self.landscapeAction.setCheckable(True)
-        self.qt_setupActionIcon(self.portraitAction, "layout-portrait")
-        self.qt_setupActionIcon(self.landscapeAction, "layout-landscape")
-        self.portraitAction.triggered.connect(self.preview.setPortraitOrientation)
-        self.landscapeAction.triggered.connect(self.preview.setLandscapeOrientation)
-
-        # Display mode
-        self.modeGroup = QActionGroup(self)
-        self.singleModeAction = self.modeGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Show single page"))
-        self.facingModeAction = self.modeGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Show facing pages"))
-        self.overviewModeAction = self.modeGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Show overview of all pages"))
-        self.singleModeAction.setCheckable(True)
-        self.facingModeAction.setCheckable(True)
-        self.overviewModeAction.setCheckable(True)
-        self.qt_setupActionIcon(self.singleModeAction, "view-page-one")
-        self.qt_setupActionIcon(self.facingModeAction, "view-page-sided")
-        self.qt_setupActionIcon(self.overviewModeAction, "view-page-multi")
-        self.modeGroup.triggered.connect(self._q_setMode)
-
         # Print
         self.printerGroup = QActionGroup(self)
         self.printAction = self.printerGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Print"))
-        self.pageSetupAction = self.printerGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Page setup"))
         self.qt_setupActionIcon(self.printAction, "print")
-        self.qt_setupActionIcon(self.pageSetupAction, "page-setup")
         self.printAction.triggered.connect(self._q_print)
+        self.pageSetupAction = self.printerGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Page setup"))
+        self.qt_setupActionIcon(self.pageSetupAction, "page-setup")
         self.pageSetupAction.triggered.connect(self._q_pageSetup)
+
         # Export
         self.exportGroup = QActionGroup(self)
         if exportToWordAvailable:
@@ -293,13 +261,66 @@ class PreviewDialog(QDialog):
                         self.tr("Save as PDF file"))
         self.exportGroup.triggered.connect(self._q_export)
 
-        # Initial state:
-        self.fitPageAction.setChecked(True)
-        self.singleModeAction.setChecked(True)
-        if self.preview.orientation() == QPrinter.Portrait:
-            self.portraitAction.setChecked(True)
-        else:
-            self.landscapeAction.setChecked(True)
+        if not importedQtWebEngine:
+            # Navigation
+            self.navGroup = QActionGroup(self)
+            self.navGroup.setExclusive(False)
+            self.nextPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Next page"))
+            self.prevPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Previous page"))
+            self.firstPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "First page"))
+            self.lastPageAction = self.navGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Last page"))
+            self.qt_setupActionIcon(self.nextPageAction, "go-next")
+            self.qt_setupActionIcon(self.prevPageAction, "go-previous")
+            self.qt_setupActionIcon(self.firstPageAction, "go-first")
+            self.qt_setupActionIcon(self.lastPageAction, "go-last")
+            self.navGroup.triggered.connect(self._q_navigate)
+
+            self.fitGroup = QActionGroup(self)
+            self.fitWidthAction = self.fitGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Fit width"))
+            self.fitPageAction = self.fitGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Fit page"))
+            self.fitWidthAction.setCheckable(True)
+            self.fitPageAction.setCheckable(True)
+            self.qt_setupActionIcon(self.fitWidthAction, "fit-width")
+            self.qt_setupActionIcon(self.fitPageAction, "fit-page")
+            self.fitGroup.triggered.connect(self._q_fit)
+
+            # Zoom
+            self.zoomGroup = QActionGroup(self)
+            self.zoomInAction = self.zoomGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Zoom in"))
+            self.zoomOutAction = self.zoomGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Zoom out"))
+            self.qt_setupActionIcon(self.zoomInAction, "zoom-in")
+            self.qt_setupActionIcon(self.zoomOutAction, "zoom-out")
+
+            # Portrait/Landscape
+            self.orientationGroup = QActionGroup(self)
+            self.portraitAction = self.orientationGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Portrait"))
+            self.landscapeAction = self.orientationGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Landscape"))
+            self.portraitAction.setCheckable(True)
+            self.landscapeAction.setCheckable(True)
+            self.qt_setupActionIcon(self.portraitAction, "layout-portrait")
+            self.qt_setupActionIcon(self.landscapeAction, "layout-landscape")
+            self.portraitAction.triggered.connect(self.preview.setPortraitOrientation)
+            self.landscapeAction.triggered.connect(self.preview.setLandscapeOrientation)
+
+            # Display mode
+            self.modeGroup = QActionGroup(self)
+            self.singleModeAction = self.modeGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Show single page"))
+            self.facingModeAction = self.modeGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Show facing pages"))
+            self.overviewModeAction = self.modeGroup.addAction(QApplication.translate("QPrintPreviewDialog", "Show overview of all pages"))
+            self.singleModeAction.setCheckable(True)
+            self.facingModeAction.setCheckable(True)
+            self.overviewModeAction.setCheckable(True)
+            self.qt_setupActionIcon(self.singleModeAction, "view-page-one")
+            self.qt_setupActionIcon(self.facingModeAction, "view-page-sided")
+            self.qt_setupActionIcon(self.overviewModeAction, "view-page-multi")
+            self.modeGroup.triggered.connect(self._q_setMode)
+            # Initial state:
+            self.fitPageAction.setChecked(True)
+            self.singleModeAction.setChecked(True)
+            if self.preview.orientation() == QPrinter.Portrait:
+                self.portraitAction.setChecked(True)
+            else:
+                self.landscapeAction.setChecked(True)
 
     def exec_(self):
         pass
@@ -315,14 +336,15 @@ class PreviewDialog(QDialog):
         action.setIcon(icon)
 
     @waitCursorDecorator
-    def _loadFinished(self, ok):
-        self.preview.updatePreview()
+    def _loadFinished(self, _ok):
+        if not importedQtWebEngine:
+            self.preview.updatePreview()
         if not self.started:
             # Fist rendering is done - show dialog
             self.started = True
             self.setVisible(True)
 
-    def _templateChanged(self, index):
+    def _templateChanged(self, _index):
         template_name = self.templateSelector.currentText()
         template = self.templateSelector.currentData()
         dstPath = os.path.join(TemporaryDir.path(), template_name + '.htm')
@@ -444,22 +466,30 @@ class PreviewDialog(QDialog):
             self.pageNumLabel.setEnabled(True)
             self.setFitting(True)
 
+    def _dummy(self, _):
+        pass
+
     def _q_print(self):
         printDialog = QPrintDialog(self.printer, self)
         if printDialog.exec_() == QDialog.Accepted:
-            self.preview.print_()
+            if not importedQtWebEngine:
+                self.preview.print_()
+            else:
+                self.webView.page().print(self.printer, self._dummy)
+
             self.accept()
 
     def _q_pageSetup(self):
         pageSetup = QPageSetupDialog(self.printer, self)
         if pageSetup.exec_() == QDialog.Accepted:
-            # update possible orientation changes
-            if self.preview.orientation() == QPrinter.Portrait:
-                self.portraitAction.setChecked(True)
-                self.preview.setPortraitOrientation()
-            else:
-                self.landscapeAction.setChecked(True)
-                self.preview.setLandscapeOrientation()
+            if not importedQtWebEngine:
+                # update possible orientation changes
+                if self.preview.orientation() == QPrinter.Portrait:
+                    self.portraitAction.setChecked(True)
+                    self.preview.setPortraitOrientation()
+                else:
+                    self.landscapeAction.setChecked(True)
+                    self.preview.setLandscapeOrientation()
 
     def _q_export(self, action):
         if exportToWordAvailable and action == self.wordAction:
@@ -499,10 +529,14 @@ class PreviewDialog(QDialog):
 
     @waitCursorDecorator
     def __exportToPdf(self, fileName):
-        self.printer.setOutputFormat(QPrinter.PdfFormat)
-        self.printer.setOutputFileName(fileName)
-        self.preview.print_()
-        self.printer.setOutputFormat(QPrinter.NativeFormat)
+        if not importedQtWebEngine:
+            self.printer.setOutputFormat(QPrinter.PdfFormat)
+            self.printer.setOutputFileName(fileName)
+            self.preview.print_()
+            self.printer.setOutputFormat(QPrinter.NativeFormat)
+        else:
+            pageParams = self.printer.pageLayout()
+            self.webView.page().printToPdf(fileName, pageParams)
 
     def _q_previewChanged(self):
         self.updateNavActions()
