@@ -162,6 +162,7 @@ params = {
 
     "packages": find_packages() + [
         'OpenNumismat/icons',
+        'OpenNumismat/translations',
         'OpenNumismat/db'] +
           templates_packages,
 
