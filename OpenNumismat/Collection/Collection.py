@@ -399,7 +399,7 @@ class CollectionModel(QSqlTableModel):
 
             image = QImage(obverseImage.width() + reverseImage.width(),
                                  height, QImage.Format_RGB32)
-            image.fill(QColor(Qt.white).rgb())
+            image.fill(Qt.white)
 
             paint = QPainter(image)
             if not record.isNull('obverseimg'):
@@ -1314,7 +1314,7 @@ class Collection(QtCore.QObject):
 
                 image = QImage(obverseImage.width() + reverseImage.width(),
                                      height, QImage.Format_RGB32)
-                image.fill(QColor(Qt.white).rgb())
+                image.fill(Qt.white)
 
                 paint = QPainter(image)
                 if is_obverse_present and is_obverse_enabled:

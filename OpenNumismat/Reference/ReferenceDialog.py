@@ -103,7 +103,7 @@ class ListView(QListView):
             if image.hasAlphaChannel():
                 # Fill transparent color if present
                 fixedImage = QImage(image.size(), QImage.Format_RGB32)
-                fixedImage.fill(QColor(Qt.white).rgb())
+                fixedImage.fill(Qt.white)
                 painter = QPainter(fixedImage)
                 painter.drawImage(0, 0, image)
                 painter.end()
