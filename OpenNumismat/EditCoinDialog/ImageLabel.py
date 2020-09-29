@@ -77,7 +77,17 @@ class ImageLabel(QLabel):
         viewer.exec_()
 
     def imageSaved(self, image):
-        self._setImage(image)
+        if image.hasAlphaChannel():
+            # Fill transparent color if present
+            fixedImage = QImage(image.size(), QImage.Format_RGB32)
+            fixedImage.fill(Qt.white)
+            painter = QPainter(fixedImage)
+            painter.drawImage(0, 0, image)
+            painter.end()
+        else:
+            fixedImage = image
+
+        self._setImage(fixedImage)
         self.imageEdited.emit(self)
 
     def mouseDoubleClickEvent(self, _e):

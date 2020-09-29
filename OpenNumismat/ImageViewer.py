@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QMargins, QSettings, QObject, QPointF, QRectF, QRect, pyqtSignal, QMimeData, QLineF, QPoint
-from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage, QKeySequence, QColor, QPolygonF
+from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage, QKeySequence, QColor, QPolygonF, QPainter, QBitmap
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -70,34 +70,62 @@ class CropDialog(QDialog):
         self.y4Spin.setMaximum(height)
         self.y4Spin.valueChanged.connect(self.cropChanged.emit)
 
-        freeLayout = QGridLayout()
-        freeLayout.addWidget(QLabel(self.tr("X1")), 0, 0)
-        freeLayout.addWidget(self.x1Spin, 0, 1)
-        freeLayout.addWidget(QLabel(self.tr("Y1")), 0, 2)
-        freeLayout.addWidget(self.y1Spin, 0, 3)
-        freeLayout.addWidget(QLabel(self.tr("X2")), 0, 4)
-        freeLayout.addWidget(self.x2Spin, 0, 5)
-        freeLayout.addWidget(QLabel(self.tr("Y2")), 0, 6)
-        freeLayout.addWidget(self.y2Spin, 0, 7)
-        freeLayout.addWidget(QLabel(self.tr("X3")), 1, 0)
-        freeLayout.addWidget(self.x3Spin, 1, 1)
-        freeLayout.addWidget(QLabel(self.tr("Y3")), 1, 2)
-        freeLayout.addWidget(self.y3Spin, 1, 3)
-        freeLayout.addWidget(QLabel(self.tr("X4")), 1, 4)
-        freeLayout.addWidget(self.x4Spin, 1, 5)
-        freeLayout.addWidget(QLabel(self.tr("Y4")), 1, 6)
-        freeLayout.addWidget(self.y4Spin, 1, 7)
+        quadLayout = QGridLayout()
+        quadLayout.addWidget(QLabel(self.tr("X1")), 0, 0)
+        quadLayout.addWidget(self.x1Spin, 0, 1)
+        quadLayout.addWidget(QLabel(self.tr("Y1")), 0, 2)
+        quadLayout.addWidget(self.y1Spin, 0, 3)
+        quadLayout.addWidget(QLabel(self.tr("X2")), 0, 4)
+        quadLayout.addWidget(self.x2Spin, 0, 5)
+        quadLayout.addWidget(QLabel(self.tr("Y2")), 0, 6)
+        quadLayout.addWidget(self.y2Spin, 0, 7)
+        quadLayout.addWidget(QLabel(self.tr("X3")), 1, 0)
+        quadLayout.addWidget(self.x3Spin, 1, 1)
+        quadLayout.addWidget(QLabel(self.tr("Y3")), 1, 2)
+        quadLayout.addWidget(self.y3Spin, 1, 3)
+        quadLayout.addWidget(QLabel(self.tr("X4")), 1, 4)
+        quadLayout.addWidget(self.x4Spin, 1, 5)
+        quadLayout.addWidget(QLabel(self.tr("Y4")), 1, 6)
+        quadLayout.addWidget(self.y4Spin, 1, 7)
 
-        freeWidget = QWidget()
-        freeWidget.setLayout(freeLayout)
+        quadWidget = QWidget()
+        quadWidget.setLayout(quadLayout)
+
+        self.xCircleSpin = QSpinBox()
+        self.xCircleSpin.setMaximum(width)
+        self.xCircleSpin.valueChanged.connect(self.cropChanged.emit)
+        self.yCircleSpin = QSpinBox()
+        self.yCircleSpin.setMaximum(height)
+        self.yCircleSpin.valueChanged.connect(self.cropChanged.emit)
+        self.widthCircleSpin = QSpinBox()
+        self.widthCircleSpin.setMaximum(width)
+        self.widthCircleSpin.valueChanged.connect(self.cropChanged.emit)
+        self.heightCircleSpin = QSpinBox()
+        self.heightCircleSpin.setMaximum(height)
+        self.heightCircleSpin.valueChanged.connect(self.cropChanged.emit)
+
+        circleLayout = QGridLayout()
+        circleLayout.addWidget(QLabel(self.tr("X")), 0, 0)
+        circleLayout.addWidget(self.xCircleSpin, 0, 1)
+        circleLayout.addWidget(QLabel(self.tr("Y")), 0, 2)
+        circleLayout.addWidget(self.yCircleSpin, 0, 3)
+        circleLayout.addWidget(QLabel(self.tr("Width")), 1, 0)
+        circleLayout.addWidget(self.widthCircleSpin, 1, 1)
+        circleLayout.addWidget(QLabel(self.tr("Height")), 1, 2)
+        circleLayout.addWidget(self.heightCircleSpin, 1, 3)
+
+        circleWidget = QWidget()
+        circleWidget.setLayout(circleLayout)
 
         settings = QSettings()
         cropTool = settings.value('crop_dialog/crop_tool', 0)
         self.tab = QTabWidget(self)
         self.tab.addTab(rectWidget, createIcon('shape_handles.png'), None)
         self.tab.setTabToolTip(0, self.tr("Rect"))
-        self.tab.addTab(freeWidget, createIcon('shape_handles_free.png'), None)
-        self.tab.setTabToolTip(1, self.tr("Free form"))
+        self.tab.addTab(circleWidget, createIcon('shape_handles_free.png'), None)
+        self.tab.setTabToolTip(1, self.tr("Circle"))
+        self.tab.addTab(quadWidget, createIcon('shape_handles_free.png'), None)
+        self.tab.setTabToolTip(2, self.tr("Quad"))
         self.tab.currentChanged.connect(self.tabChanged)
         self.tab.setCurrentIndex(cropTool)
 
@@ -211,13 +239,16 @@ class BoundingPointItem(QGraphicsRectItem):
     TOP_RIGHT = 1
     BOTTOM_RIGHT = 2
     BOTTOM_LEFT = 3
+    TOP = 4
+    RIGHT = 5
+    BOTTOM = 6
+    LEFT = 7
 
-    def __init__(self, bounding, width, height, corner, fixed):
+    def __init__(self, bounding, width, height, corner):
         self.bounding = bounding
         self.width = width
         self.height = height
         self.corner = corner
-        self.fixed = fixed
 
         if corner == self.TOP_LEFT:
             x = 0
@@ -228,9 +259,21 @@ class BoundingPointItem(QGraphicsRectItem):
         elif corner == self.BOTTOM_RIGHT:
             x = width
             y = height
-        else:  # corner == self.BOTTOM_LEFT
+        elif corner == self.BOTTOM_LEFT:
             x = 0
             y = height
+        elif corner == self.TOP:
+            x = width / 2
+            y = 0
+        elif corner == self.RIGHT:
+            x = width
+            y = height / 2
+        elif corner == self.BOTTOM:
+            x = width / 2
+            y = height
+        else:
+            x = 0
+            y = height / 2
 
         super().__init__(-self.SIZE / 2, -self.SIZE / 2, self.SIZE, self.SIZE)
         self.setPos(QPointF(x, y))
@@ -253,8 +296,12 @@ class BoundingPointItem(QGraphicsRectItem):
     def hoverEnterEvent(self, event):
         if self.corner in (self.TOP_LEFT, self.BOTTOM_RIGHT):
             self.setCursor(Qt.SizeFDiagCursor)
-        else:
+        elif self.corner in (self.TOP_RIGHT, self.BOTTOM_LEFT):
             self.setCursor(Qt.SizeBDiagCursor)
+        elif self.corner in (self.TOP, self.BOTTOM):
+            self.setCursor(Qt.SizeVerCursor)
+        else:
+            self.setCursor(Qt.SizeHorCursor)
 
         super().hoverEnterEvent(event)
 
@@ -306,13 +353,13 @@ class GraphicsBoundingItem(QObject):
         self.fixed = fixed
 
         point1 = BoundingPointItem(self, self.width, self.height,
-                                   BoundingPointItem.TOP_LEFT, self.fixed)
+                                   BoundingPointItem.TOP_LEFT)
         point2 = BoundingPointItem(self, self.width, self.height,
-                                   BoundingPointItem.TOP_RIGHT, self.fixed)
+                                   BoundingPointItem.TOP_RIGHT)
         point3 = BoundingPointItem(self, self.width, self.height,
-                                   BoundingPointItem.BOTTOM_RIGHT, self.fixed)
+                                   BoundingPointItem.BOTTOM_RIGHT)
         point4 = BoundingPointItem(self, self.width, self.height,
-                                   BoundingPointItem.BOTTOM_LEFT, self.fixed)
+                                   BoundingPointItem.BOTTOM_LEFT)
 
         self.points = [point1, point2, point3, point4]
 
@@ -518,6 +565,157 @@ class GraphicsBoundingItem(QObject):
 
     def items(self):
         return self.lines + self.points
+
+    def cropPoints(self):
+        return [p.pos() for p in self.points]
+
+
+class BoundingCircleItem(QGraphicsEllipseItem):
+
+    def __init__(self, bounding):
+        self.bounding = bounding
+
+        super().__init__()
+
+        self.setPen(QPen(Qt.DashLine))
+        self.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+
+
+class GraphicsCircleBoundingItem(QObject):
+    rectChanged = pyqtSignal()
+
+    def __init__(self, width, height, scale, _fixed):
+        super().__init__()
+
+        self.width = width
+        self.height = height
+        self.scale = scale
+
+        point1 = BoundingPointItem(self, self.width, self.height,
+                                   BoundingPointItem.TOP)
+        point2 = BoundingPointItem(self, self.width, self.height,
+                                   BoundingPointItem.RIGHT)
+        point3 = BoundingPointItem(self, self.width, self.height,
+                                   BoundingPointItem.BOTTOM)
+        point4 = BoundingPointItem(self, self.width, self.height,
+                                   BoundingPointItem.LEFT)
+
+        self.points = [point1, point2, point3, point4]
+
+        self.circle = BoundingCircleItem(self)
+
+        self.updateRect()
+
+    def update(self, obj, pos):
+        p1 = self.points[0]
+        p2 = self.points[1]
+        p3 = self.points[2]
+        p4 = self.points[3]
+
+        for item in self.items():
+            item.setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
+
+        if obj in self.points:
+            point = obj
+            newPos = pos
+            if point.corner == point.TOP:
+                newPos.setX(point.x())
+                if newPos.y() < 0:
+                    newPos.setY(0)
+
+                oppositePos = p3.scenePos()
+                if newPos.y() > oppositePos.y() - point.SIZE:
+                    newPos.setY(oppositePos.y() - point.SIZE)
+                oppositePos = p2.scenePos()
+                if newPos.x() > oppositePos.x() - point.SIZE:
+                    newPos.setX(oppositePos.x() - point.SIZE)
+                oppositePos = p4.scenePos()
+                if newPos.x() < oppositePos.x() + point.SIZE:
+                    newPos.setX(oppositePos.x() + point.SIZE)
+
+                halfY = newPos.y() + (p3.y() - newPos.y()) / 2
+                p2.setY(halfY)
+                p4.setY(halfY)
+            elif point.corner == point.RIGHT:
+                newPos.setY(point.y())
+                if newPos.x() > self.width:
+                    newPos.setX(self.width)
+
+                oppositePos = p4.scenePos()
+                if newPos.x() < oppositePos.x() + point.SIZE:
+                    newPos.setX(oppositePos.x() + point.SIZE)
+                oppositePos = p1.scenePos()
+                if newPos.y() < oppositePos.y() + point.SIZE:
+                    newPos.setY(oppositePos.y() + point.SIZE)
+                oppositePos = p3.scenePos()
+                if newPos.y() > oppositePos.y() - point.SIZE:
+                    newPos.setY(oppositePos.y() - point.SIZE)
+
+                halfX = newPos.x() - (newPos.x() - p4.x()) / 2
+                p1.setX(halfX)
+                p3.setX(halfX)
+            elif point.corner == point.BOTTOM:
+                newPos.setX(point.x())
+                if newPos.y() > self.height:
+                    newPos.setY(self.height)
+
+                oppositePos = p1.scenePos()
+                if newPos.y() < oppositePos.y() + point.SIZE:
+                    newPos.setY(oppositePos.y() + point.SIZE)
+                oppositePos = p2.scenePos()
+                if newPos.x() > oppositePos.x() - point.SIZE:
+                    newPos.setX(oppositePos.x() - point.SIZE)
+                oppositePos = p4.scenePos()
+                if newPos.x() < oppositePos.x() + point.SIZE:
+                    newPos.setX(oppositePos.x() + point.SIZE)
+
+                halfY = newPos.y() - (newPos.y() - p1.y()) / 2
+                p2.setY(halfY)
+                p4.setY(halfY)
+            else:  # self.corner == self.LEFT
+                newPos.setY(point.y())
+                if newPos.x() < 0:
+                    newPos.setX(0)
+
+                oppositePos = p2.scenePos()
+                if newPos.x() > oppositePos.x() - point.SIZE:
+                    newPos.setX(oppositePos.x() - point.SIZE)
+                oppositePos = p1.scenePos()
+                if newPos.y() < oppositePos.y() + point.SIZE:
+                    newPos.setY(oppositePos.y() + point.SIZE)
+                oppositePos = p3.scenePos()
+                if newPos.y() > oppositePos.y() - point.SIZE:
+                    newPos.setY(oppositePos.y() - point.SIZE)
+
+                halfX = newPos.x() + (p2.x() - newPos.x()) / 2
+                p1.setX(halfX)
+                p3.setX(halfX)
+
+            pos = newPos
+
+        for item in self.items():
+            item.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
+
+        self.rectChanged.emit()
+
+        return pos
+
+    def updateRect(self):
+        p1 = self.points[0]
+        p2 = self.points[1]
+        p3 = self.points[2]
+        p4 = self.points[3]
+
+        self.circle.setRect(p4.x() * self.scale, p1.y() * self.scale,
+                            (p2.x() - p4.x()) * self.scale, (p3.y() - p1.y()) * self.scale)
+
+    def setScale(self, scale):
+        self.scale = scale
+
+        self.updateRect()
+
+    def items(self):
+        return [self.circle] + self.points
 
     def cropPoints(self):
         return [p.pos() for p in self.points]
@@ -1024,8 +1222,11 @@ class ImageViewer(QDialog):
         w = sceneRect.width()
         h = sceneRect.height()
 
-        fixed_bounding = (self.cropDlg.currentTool() == 0)
-        self.bounding = GraphicsBoundingItem(w, h, self.scale, fixed_bounding)
+        if self.cropDlg.currentTool() in (0, 2):
+            fixed_bounding = (self.cropDlg.currentTool() == 0)
+            self.bounding = GraphicsBoundingItem(w, h, self.scale, fixed_bounding)
+        else:
+            self.bounding = GraphicsCircleBoundingItem(w, h, self.scale, False)
         for item in self.bounding.items():
             self.scene.addItem(item)
 
@@ -1041,6 +1242,11 @@ class ImageViewer(QDialog):
             self.cropDlg.ySpin.setValue(points[0].y())
             self.cropDlg.widthSpin.setValue(points[2].x() - points[0].x())
             self.cropDlg.heightSpin.setValue(points[2].y() - points[0].y())
+        elif self.cropDlg.currentTool() == 1:
+            self.cropDlg.xCircleSpin.setValue(points[3].x())
+            self.cropDlg.yCircleSpin.setValue(points[0].y())
+            self.cropDlg.widthCircleSpin.setValue(points[1].x() - points[3].x())
+            self.cropDlg.heightCircleSpin.setValue(points[2].y() - points[0].y())
         else:
             self.cropDlg.x1Spin.setValue(points[0].x())
             self.cropDlg.y1Spin.setValue(points[0].y())
@@ -1059,6 +1265,12 @@ class ImageViewer(QDialog):
             self.bounding.points[0].setY(self.cropDlg.ySpin.value())
             self.bounding.points[2].setX(self.cropDlg.xSpin.value() + self.cropDlg.widthSpin.value())
             self.bounding.points[2].setY(self.cropDlg.ySpin.value() + self.cropDlg.heightSpin.value())
+            self.cropChanged()
+        elif self.cropDlg.currentTool() == 1:
+            self.bounding.points[3].setX(self.cropDlg.xCircleSpin.value())
+            self.bounding.points[0].setY(self.cropDlg.yCircleSpin.value())
+            self.bounding.points[1].setX(self.cropDlg.xCircleSpin.value() + self.cropDlg.widthCircleSpin.value())
+            self.bounding.points[2].setY(self.cropDlg.yCircleSpin.value() + self.cropDlg.heightCircleSpin.value())
             self.cropChanged()
         else:
             self.bounding.points[0].setX(self.cropDlg.x1Spin.value())
@@ -1084,6 +1296,25 @@ class ImageViewer(QDialog):
                 rect = QRectF(points[0], points[2]).toRect()
 
                 pixmap = self._pixmapHandle.pixmap()
+                pixmap = pixmap.copy(rect)
+                self.setImage(pixmap)
+
+                self.isChanged = True
+            elif self.cropDlg.currentTool() == 1:
+                rect = QRectF(points[3].x(), points[0].y(),
+                              points[1].x() - points[3].x(),
+                              points[2].y() - points[0].y()).toRect()
+
+                pixmap = self._pixmapHandle.pixmap()
+                mask = QBitmap(pixmap.size())
+                mask.fill(Qt.white)
+                painter = QPainter()
+                painter.begin(mask)
+                painter.setBrush(Qt.black)
+                painter.drawEllipse(rect)
+                painter.end()
+                pixmap.setMask(mask)
+
                 pixmap = pixmap.copy(rect)
                 self.setImage(pixmap)
 
