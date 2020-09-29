@@ -2,7 +2,7 @@ import json
 import urllib.request
 
 from PyQt5.QtCore import Qt, QUrl, QMargins
-from PyQt5.QtGui import QImage, QPixmap, QDesktopServices
+from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import *
 
 from OpenNumismat import version
@@ -11,16 +11,29 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 importedQtWebKit = True
+importedQtWebEngine = False
 numistaAvailable = True
 try:
     from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 except ImportError:
-    print('PyQt5.QtWebKitWidgets module missed. Importing from Numista not available')
-    importedQtWebKit = False
-    numistaAvailable = False
+    try:
+        from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
+        from PyQt5.QtWebEngineWidgets import QWebEnginePage
 
-    class QWebView:
-        pass
+        importedQtWebEngine = True
+
+        class WebEnginePage(QWebEnginePage):
+
+            def acceptNavigationRequest(self, url, type_, isMainFrame):
+                if type_ == QWebEnginePage.NavigationTypeLinkClicked:
+                    executor = QDesktopServices()
+                    executor.openUrl(QUrl(url))
+                    return False
+                return super().acceptNavigationRequest(url, type_, isMainFrame)
+    except ImportError:
+        print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. Importing from Numista not available')
+        importedQtWebKit = False
+        numistaAvailable = False
 
 try:
     from OpenNumismat.private_keys import NUMISTA_API_KEY
@@ -42,9 +55,12 @@ class NumistaAuthentication(QDialog):
             self.language = 'en'
 
         self.page = QWebView(self)
-        self.page.linkClicked.connect(self.onLinkClicked)
+        if importedQtWebEngine:
+            self.page.setPage(WebEnginePage(self))
+        else:
+            self.page.linkClicked.connect(self.onLinkClicked)
+            self.page.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
         self.page.urlChanged.connect(self.onUrlChanged)
-        self.page.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
 
         redirect_uri = 'local'  # Should normally be a URL to your application
         url_template = ('https://{language}.numista.com/api/oauth_authorize.php'
