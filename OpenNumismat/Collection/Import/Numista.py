@@ -207,11 +207,12 @@ class ImportNumista(_Import2):
         if 'mints' in item:
             record.setValue('mint', item_data['mints'][0]['name'])
         record.setValue('dateemis', ' - '.join((str(item_data['minYear']), str(item_data['maxYear']))))
-        catalog_nums = item_data['references']
-        for i, catalog_num in enumerate(catalog_nums[:3]):
-            field = 'catalognum%d' % (i + 1)
-            code = catalog_num['catalogue']['code'] + '# ' + catalog_num['number']
-            record.setValue(field, code)
+        if 'references' in item_data:
+            catalog_nums = item_data['references']
+            for i, catalog_num in enumerate(catalog_nums[:3]):
+                field = 'catalognum%d' % (i + 1)
+                code = catalog_num['catalogue']['code'] + '# ' + catalog_num['number']
+                record.setValue(field, code)
 
         if 'obverse' in item_data:
             if 'engravers' in item_data['obverse']:
