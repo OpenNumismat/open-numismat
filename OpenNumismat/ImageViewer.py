@@ -122,7 +122,7 @@ class CropDialog(QDialog):
         self.tab = QTabWidget(self)
         self.tab.addTab(rectWidget, createIcon('shape_handles.png'), None)
         self.tab.setTabToolTip(0, self.tr("Rect"))
-        self.tab.addTab(circleWidget, createIcon('shape_handles_free.png'), None)
+        self.tab.addTab(circleWidget, createIcon('shape_circle.png'), None)
         self.tab.setTabToolTip(1, self.tr("Circle"))
         self.tab.addTab(quadWidget, createIcon('shape_handles_free.png'), None)
         self.tab.setTabToolTip(2, self.tr("Quad"))
