@@ -1,7 +1,11 @@
+import os
+import pathlib
+
 from PyQt5.QtCore import pyqtSlot, pyqtSignal, QSettings, QUrl
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QSizePolicy
 
+import OpenNumismat
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
 
@@ -80,10 +84,13 @@ class BaseMapWidget(QWebView):
             draggable = 'false'
         else:
             draggable = 'true'
+        path = os.path.join(OpenNumismat.PRJ_PATH, "icons")
+        markerPath = pathlib.Path(path).as_uri()
         params = {"DRAGGABLE": draggable,
                   "ZOOM": str(zoom),
                   "LATITUDE": str(position[0]),
-                  "LONGITUDE": str(position[1])}
+                  "LONGITUDE": str(position[1]),
+                  "MARKER_PATH": markerPath}
         return params
 
     def activate(self):
@@ -145,15 +152,15 @@ class BaseMapWidget(QWebView):
         if self.initialized:
             self.moveMarker(self.lat, self.lng)
 
-    def addMarker(self, lat, lng, coin_id):
-        self.points.append((lat, lng, coin_id))
+    def addMarker(self, lat, lng, coin_id, status):
+        self.points.append((lat, lng, coin_id, status))
 
     def showMarkers(self):
         if self.initialized:
             self.runScript("gmap_clearStaticMarkers()")
             if self.points:
                 for point in self.points:
-                    self.runScript("gmap_addStaticMarker(%f, %f, %d)" % (point[0], point[1], point[2]))
+                    self.runScript("gmap_addStaticMarker(%f, %f, %d, '%s')" % (point[0], point[1], point[2], point[3]))
                 self.runScript("gmap_fitBounds()")
 
     @pyqtSlot(float, float)

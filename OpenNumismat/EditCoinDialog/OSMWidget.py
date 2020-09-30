@@ -1,11 +1,11 @@
 import json
 import urllib.request
 
+from PyQt5.QtSql import QSqlQuery
+
 from OpenNumismat import version
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.EditCoinDialog.MapWidget import BaseMapWidget
-from PyQt5.QtSql import QSqlQuery
-
 
 class OSMWidget(BaseMapWidget):
     HTML = '''
@@ -101,9 +101,14 @@ function gmap_moveMarker(lat, lng) {
   }
   map.panTo(coords);
 }
-function gmap_addStaticMarker(lat, lng, coin_id) {
+function gmap_addStaticMarker(lat, lng, coin_id, status) {
   var coords = new L.LatLng(lat, lng);
-  var marker = L.marker(coords).addTo(map);
+  var icon = L.icon({
+    iconUrl: 'MARKER_PATH/' + status + '.png',
+    iconSize: [16, 16],
+    iconAnchor: [8, 8]
+  });
+  var marker = L.marker(coords, {icon: icon}).addTo(map);
   marker.coin_id = coin_id;
   marker.on('click', function () {
     qtWidget.markerIsClicked(marker.coin_id);
@@ -195,15 +200,16 @@ class GlobalOSMWidget(OSMWidget):
             sql_filter = ""
 
         self.points = []
-        sql = "SELECT latitude, longitude, id FROM coins %s" % sql_filter
+        sql = "SELECT latitude, longitude, id, status FROM coins %s" % sql_filter
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         while query.next():
             record = query.record()
             lat = record.value(0)
             lng = record.value(1)
-            coin_id = record.value(2)
             if lat and lng:
-                self.addMarker(lat, lng, coin_id)
+                coin_id = record.value(2)
+                status = record.value(3)
+                self.addMarker(lat, lng, coin_id, status)
 
         self.showMarkers()

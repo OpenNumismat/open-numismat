@@ -1,9 +1,10 @@
 import json
 import urllib.request
 
+from PyQt5.QtSql import QSqlQuery
+
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.EditCoinDialog.MapWidget import BaseMapWidget
-from PyQt5.QtSql import QSqlQuery
 
 gmapsAvailable = True
 
@@ -125,11 +126,12 @@ function gmap_moveMarker(lat, lng) {
   }
   map.setCenter(coords);
 }
-function gmap_addStaticMarker(lat, lng, coin_id) {
+function gmap_addStaticMarker(lat, lng, coin_id, status) {
   var position = new google.maps.LatLng(lat, lng);
   var marker = new google.maps.Marker({
     position: position,
-    map: map
+    map: map,
+    icon: 'MARKER_PATH/' + status + '.png',
   });
   marker.coin_id = coin_id;
   marker.addListener('click', function () {
@@ -227,15 +229,16 @@ class GlobalGMapsWidget(GMapsWidget):
             sql_filter = ""
 
         self.points = []
-        sql = "SELECT latitude, longitude, id FROM coins %s" % sql_filter
+        sql = "SELECT latitude, longitude, id, status FROM coins %s" % sql_filter
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         while query.next():
             record = query.record()
             lat = record.value(0)
             lng = record.value(1)
-            coin_id = record.value(2)
             if lat and lng:
-                self.addMarker(lat, lng, coin_id)
+                coin_id = record.value(2)
+                status = record.value(3)
+                self.addMarker(lat, lng, coin_id, status)
 
         self.showMarkers()
