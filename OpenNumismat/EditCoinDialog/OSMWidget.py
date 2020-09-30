@@ -101,9 +101,13 @@ function gmap_moveMarker(lat, lng) {
   }
   map.panTo(coords);
 }
-function gmap_addStaticMarker(lat, lng) {
+function gmap_addStaticMarker(lat, lng, coin_id) {
   var coords = new L.LatLng(lat, lng);
   var marker = L.marker(coords).addTo(map);
+  marker.coin_id = coin_id;
+  marker.on('click', function () {
+    qtWidget.markerIsClicked(marker.coin_id);
+  });
   markers.push(marker);
 }
 function gmap_clearStaticMarkers() {
@@ -191,14 +195,15 @@ class GlobalOSMWidget(OSMWidget):
             sql_filter = ""
 
         self.points = []
-        sql = "SELECT latitude, longitude FROM coins %s" % sql_filter
+        sql = "SELECT latitude, longitude, id FROM coins %s" % sql_filter
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         while query.next():
             record = query.record()
             lat = record.value(0)
             lng = record.value(1)
+            coin_id = record.value(2)
             if lat and lng:
-                self.addMarker(lat, lng)
+                self.addMarker(lat, lng, coin_id)
 
         self.showMarkers()

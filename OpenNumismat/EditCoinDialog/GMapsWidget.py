@@ -125,11 +125,15 @@ function gmap_moveMarker(lat, lng) {
   }
   map.setCenter(coords);
 }
-function gmap_addStaticMarker(lat, lng) {
+function gmap_addStaticMarker(lat, lng, coin_id) {
   var position = new google.maps.LatLng(lat, lng);
   var marker = new google.maps.Marker({
     position: position,
     map: map
+  });
+  marker.coin_id = coin_id;
+  marker.addListener('click', function () {
+    qtWidget.markerIsClicked(marker.coin_id);
   });
   markers.push(marker);
 }
@@ -223,14 +227,15 @@ class GlobalGMapsWidget(GMapsWidget):
             sql_filter = ""
 
         self.points = []
-        sql = "SELECT latitude, longitude FROM coins %s" % sql_filter
+        sql = "SELECT latitude, longitude, id FROM coins %s" % sql_filter
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         while query.next():
             record = query.record()
             lat = record.value(0)
             lng = record.value(1)
+            coin_id = record.value(2)
             if lat and lng:
-                self.addMarker(lat, lng)
+                self.addMarker(lat, lng, coin_id)
 
         self.showMarkers()

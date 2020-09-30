@@ -617,6 +617,7 @@ class PageView(Splitter):
                 self.mapView = GlobalOSMWidget()
             else:
                 self.mapView = GlobalGMapsWidget()
+            self.mapView.markerClicked.connect(self.setCurrentCoin)
 
         self.addWidget(self.splitter1)
         if self.imagesAtBottom:
@@ -711,3 +712,7 @@ class PageView(Splitter):
         if index.isValid():
             self.listView.setFocus()
             self.listView.scrollToIndex(index)
+
+    def setCurrentCoin(self, coin_id):
+        self.listView.selectedId = coin_id
+        self.listView.modelChanged()

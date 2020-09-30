@@ -37,6 +37,7 @@ class BaseMapWidget(QWebView):
     POSITION_KEY = 'maps/position'
     markerMoved = pyqtSignal(float, float, bool)
     markerRemoved = pyqtSignal()
+    markerClicked = pyqtSignal(int)
 
     def __init__(self, is_static, parent):
         super().__init__(parent)
@@ -144,15 +145,15 @@ class BaseMapWidget(QWebView):
         if self.initialized:
             self.moveMarker(self.lat, self.lng)
 
-    def addMarker(self, lat, lng):
-        self.points.append((lat, lng))
+    def addMarker(self, lat, lng, coin_id):
+        self.points.append((lat, lng, coin_id))
 
     def showMarkers(self):
         if self.initialized:
             self.runScript("gmap_clearStaticMarkers()")
             if self.points:
                 for point in self.points:
-                    self.runScript("gmap_addStaticMarker(%f, %f)" % (point[0], point[1]))
+                    self.runScript("gmap_addStaticMarker(%f, %f, %d)" % (point[0], point[1], point[2]))
                 self.runScript("gmap_fitBounds()")
 
     @pyqtSlot(float, float)
@@ -168,6 +169,10 @@ class BaseMapWidget(QWebView):
         self.lat = lat
         self.lng = lng
         self.markerMoved.emit(lat, lng, address_changed)
+
+    @pyqtSlot(int)
+    def markerIsClicked(self, coin_id):
+        self.markerClicked.emit(coin_id)
 
     @pyqtSlot()
     def markerIsRemoved(self):
