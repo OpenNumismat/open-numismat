@@ -308,9 +308,9 @@ class BoundingPointItem(QGraphicsRectItem):
 
 class BoundingLineItem(QGraphicsLineItem):
 
-    def __init__(self, bounding, fixed):
+    def __init__(self, bounding, fixed_):
         self.bounding = bounding
-        self.fixed = fixed
+        self.fixed = fixed_
 
         super().__init__()
 
@@ -344,13 +344,13 @@ class BoundingLineItem(QGraphicsLineItem):
 class GraphicsBoundingItem(QObject):
     rectChanged = pyqtSignal()
 
-    def __init__(self, width, height, scale, fixed):
+    def __init__(self, width, height, scale, fixed_):
         super().__init__()
 
         self.width = width
         self.height = height
         self.scale = scale
-        self.fixed = fixed
+        self.fixed = fixed_
 
         point1 = BoundingPointItem(self, self.width, self.height,
                                    BoundingPointItem.TOP_LEFT)
@@ -1153,7 +1153,8 @@ class ImageViewer(QDialog):
             self.rotateDlg.finished.connect(self.rotateClose)
             self.rotateDlg.show()
             self._startPixmap = self._pixmapHandle.pixmap()
-            self._startCenter = self.viewer.mapToScene(self.viewer.viewport().rect().center())
+            center = self.viewer.viewport().rect().center()
+            self._startCenter = self.viewer.mapToScene(center)
 
             self._updateEditActions()
         else:
@@ -1166,24 +1167,28 @@ class ImageViewer(QDialog):
         transform = QTransform()
         trans = transform.rotate(value)
         pixmap = self._startPixmap.transformed(trans, Qt.SmoothTransformation)
+
+        w = self._startPixmap.width()
+        h = self._startPixmap.height()
         if self.rotateDlg.isAutoCrop():
             if (-45 < value and value < 45) or value < -135 or 135 < value:
-                xoffset = (pixmap.width() - self._startPixmap.width()) / 2
-                yoffset = (pixmap.height() - self._startPixmap.height()) / 2
-                rect = QRect(xoffset, yoffset, self._startPixmap.width(), self._startPixmap.height())
+                xoffset = (pixmap.width() - w) / 2
+                yoffset = (pixmap.height() - h) / 2
+                rect = QRect(xoffset, yoffset, w, h)
             else:
-                xoffset = (pixmap.width() - self._startPixmap.height()) / 2
-                yoffset = (pixmap.height() - self._startPixmap.width()) / 2
-                rect = QRect(xoffset, yoffset, self._startPixmap.height(), self._startPixmap.width())
+                xoffset = (pixmap.width() - h) / 2
+                yoffset = (pixmap.height() - w) / 2
+                rect = QRect(xoffset, yoffset, h, w)
             pixmap = pixmap.copy(rect)
         else:
-            xoffset = (pixmap.width() - self._startPixmap.width()) / 2
-            yoffset = (pixmap.height() - self._startPixmap.height()) / 2
+            xoffset = (pixmap.width() - w) / 2
+            yoffset = (pixmap.height() - h) / 2
 
         self.setImage(pixmap)
 
         if not self.rotateDlg.isAutoCrop():
-            self.viewer.centerOn(self._startCenter.x() + xoffset, self._startCenter.y() + yoffset)
+            self.viewer.centerOn(self._startCenter.x() + xoffset,
+                                 self._startCenter.y() + yoffset)
 
         self._updateGrid()
 
