@@ -1,0 +1,13 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file alias="demo.png">OpenNumismat/icons/demo.png</file>
+    <file alias="pass.png">OpenNumismat/icons/pass.png</file>
+    <file alias="owned.png">OpenNumismat/icons/owned.png</file>
+    <file alias="ordered.png">OpenNumismat/icons/ordered.png</file>
+    <file alias="bidding.png">OpenNumismat/icons/bidding.png</file>
+    <file alias="sold.png">OpenNumismat/icons/sold.png</file>
+    <file alias="sale.png">OpenNumismat/icons/sale.png</file>
+    <file alias="wish.png">OpenNumismat/icons/wish.png</file>
+    <file alias="missing.png">OpenNumismat/icons/missing.png</file>
+</qresource>
+</RCC>

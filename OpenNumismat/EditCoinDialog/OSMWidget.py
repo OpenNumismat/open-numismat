@@ -104,7 +104,7 @@ function gmap_moveMarker(lat, lng) {
 function gmap_addStaticMarker(lat, lng, coin_id, status) {
   var coords = new L.LatLng(lat, lng);
   var icon = L.icon({
-    iconUrl: 'MARKER_PATH/' + status + '.png',
+    iconUrl: 'qrc:/' + status + '.png',
     iconSize: [16, 16],
     iconAnchor: [8, 8]
   });

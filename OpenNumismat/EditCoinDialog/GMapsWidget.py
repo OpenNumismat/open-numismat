@@ -131,7 +131,7 @@ function gmap_addStaticMarker(lat, lng, coin_id, status) {
   var marker = new google.maps.Marker({
     position: position,
     map: map,
-    icon: 'MARKER_PATH/' + status + '.png',
+    icon: 'qrc:/' + status + '.png',
   });
   marker.coin_id = coin_id;
   marker.addListener('click', function () {

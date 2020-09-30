@@ -35,7 +35,7 @@ def createIcon(fileTitle):
 
 
 def statusIcon(status):
-    return createIcon("%s.png" % status)
+    return QIcon(":/%s.png" % status)
 
 
 def getSaveFileName(parent, name, filename, dir_, filters):

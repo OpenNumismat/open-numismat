@@ -1,6 +1,3 @@
-import os
-import pathlib
-
 from PyQt5.QtCore import pyqtSlot, pyqtSignal, QSettings, QUrl
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QSizePolicy
@@ -84,13 +81,10 @@ class BaseMapWidget(QWebView):
             draggable = 'false'
         else:
             draggable = 'true'
-        path = os.path.join(OpenNumismat.PRJ_PATH, "icons")
-        markerPath = pathlib.Path(path).as_uri()
         params = {"DRAGGABLE": draggable,
                   "ZOOM": str(zoom),
                   "LATITUDE": str(position[0]),
-                  "LONGITUDE": str(position[1]),
-                  "MARKER_PATH": markerPath}
+                  "LONGITUDE": str(position[1])}
         return params
 
     def activate(self):
