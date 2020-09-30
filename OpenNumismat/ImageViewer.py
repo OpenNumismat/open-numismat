@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt, QMargins, QSettings, QObject, QPointF, QRectF, QRect, pyqtSignal, QMimeData, QLineF, QPoint
-from PyQt5.QtGui import QPixmap, QPen, QTransform, QImage, QKeySequence, QColor, QPolygonF, QPainter, QBitmap
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -1153,6 +1153,7 @@ class ImageViewer(QDialog):
             self.rotateDlg.finished.connect(self.rotateClose)
             self.rotateDlg.show()
             self._startPixmap = self._pixmapHandle.pixmap()
+            self._startCenter = self.viewer.mapToScene(self.viewer.viewport().rect().center())
 
             self._updateEditActions()
         else:
@@ -1175,8 +1176,14 @@ class ImageViewer(QDialog):
                 yoffset = (pixmap.height() - self._startPixmap.width()) / 2
                 rect = QRect(xoffset, yoffset, self._startPixmap.height(), self._startPixmap.width())
             pixmap = pixmap.copy(rect)
+        else:
+            xoffset = (pixmap.width() - self._startPixmap.width()) / 2
+            yoffset = (pixmap.height() - self._startPixmap.height()) / 2
 
         self.setImage(pixmap)
+
+        if not self.rotateDlg.isAutoCrop():
+            self.viewer.centerOn(self._startCenter.x() + xoffset, self._startCenter.y() + yoffset)
 
         self._updateGrid()
 
@@ -1187,6 +1194,7 @@ class ImageViewer(QDialog):
             self.isChanged = True
         else:
             self.setImage(self._startPixmap)
+            self.viewer.centerOn(self._startCenter)
 
         self._startPixmap = None
 
