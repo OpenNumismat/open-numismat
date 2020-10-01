@@ -15,7 +15,6 @@ class FieldTypes():
     Value = 9
     Status = 10
     DateTime = 11
-    EdgeImage = 12
     PreviewImage = 13
     Denomination = 14
 
@@ -23,7 +22,7 @@ class FieldTypes():
     Checkable = 0x100
     Disabled = 0x200
 
-    ImageTypes = (Image, EdgeImage, PreviewImage)
+    ImageTypes = (Image, PreviewImage)
 
     @staticmethod
     def toSql(type_):
@@ -53,8 +52,6 @@ class FieldTypes():
             sql_type = 'TEXT'
         elif type_ == FieldTypes.DateTime:
             sql_type = 'TEXT'
-        elif type_ == FieldTypes.EdgeImage:
-            sql_type = 'INTEGER'
         else:
             raise
 
@@ -185,7 +182,7 @@ class CollectionFieldsBase(QObject):
                 ('reverseimg', QApplication.translate('CollectionFieldsBase', "Reverse"), Type.Image),
                 ('reversedesign', QApplication.translate('CollectionFieldsBase', "Design"), Type.Text),
                 ('reversedesigner', QApplication.translate('CollectionFieldsBase', "Designer"), Type.String),
-                ('edgeimg', QApplication.translate('CollectionFieldsBase', "Edge"), Type.EdgeImage),
+                ('edgeimg', QApplication.translate('CollectionFieldsBase', "Edge"), Type.Image),
                 ('subject', QApplication.translate('CollectionFieldsBase', "Subject"), Type.Text),
                 ('photo1', QApplication.translate('CollectionFieldsBase', "Photo 1"), Type.Image),
                 ('photo2', QApplication.translate('CollectionFieldsBase', "Photo 2"), Type.Image),
@@ -214,7 +211,7 @@ class CollectionFieldsBase(QObject):
                 ('emitent', QApplication.translate('CollectionFieldsBase', "Emitent"), Type.String),
                 ('signaturetype', QApplication.translate('CollectionFieldsBase', "Type"), Type.String),
                 ('signature', QApplication.translate('CollectionFieldsBase', "Signature"), Type.String),
-                ('signatureimg', QApplication.translate('CollectionFieldsBase', "Signature"), Type.EdgeImage),
+                ('signatureimg', QApplication.translate('CollectionFieldsBase', "Signature"), Type.Image),
                 ('address', QApplication.translate('CollectionFieldsBase', "Address"), Type.String),
                 ('latitude', QApplication.translate('CollectionFieldsBase', "Latitude"), Type.Value),
                 ('longitude', QApplication.translate('CollectionFieldsBase', "Longitude"), Type.Value),

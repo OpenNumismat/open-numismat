@@ -63,7 +63,7 @@ if file_name:
             if field.name in ('saledate', 'paydate', 'issuedate') and val == '2000-01-01':
                 continue
 
-            if field.type in (Type.Image, Type.EdgeImage):
+            if field.type == Type.Image:
                 img_file_title = "%d_%s.jpg" % (i + 1, field.name)
                 img_file_name = os.path.join(image_path, img_file_title)
                 img_file = open(img_file_name, 'wb')

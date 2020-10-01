@@ -386,14 +386,3 @@ class ImageEdit(ImageLabel):
 
         self._setImage(fixedImage)
         self.changed = True
-
-
-class EdgeImageEdit(ImageEdit):
-    def _setImage(self, image):
-        if not image.isNull():
-            if image.width() < image.height():
-                matrix = QTransform()
-                matrix.rotate(90)
-                image = image.transformed(matrix, Qt.SmoothTransformation)
-
-        super()._setImage(image)

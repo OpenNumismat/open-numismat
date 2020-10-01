@@ -69,7 +69,7 @@ class ImageView(QWidget):
 
         self.imageFields = []
         for field in self.model.fields.userFields:
-            if field.type in (Type.Image, Type.EdgeImage):
+            if field.type == Type.Image:
                 self.imageFields.append(field)
 
         # By default show only first 2 images

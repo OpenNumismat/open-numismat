@@ -92,7 +92,7 @@ class CollectionModel(QSqlTableModel):
                         return self.getPreviewImage(data)
                     else:
                         return None
-                elif field.type == Type.Image or field.type == Type.EdgeImage:
+                elif field.type == Type.Image:
                     if data:
                         return self.getImage(data)
                     else:
@@ -342,7 +342,7 @@ class CollectionModel(QSqlTableModel):
             self.proxy.setDynamicSortFilter(False)
 
         for field in self.fields.userFields:
-            if field.type in (Type.Image, Type.EdgeImage):
+            if field.type == Type.Image:
                 # Convert image to DB format
                 image = record.value(field.name)
                 if isinstance(image, str):

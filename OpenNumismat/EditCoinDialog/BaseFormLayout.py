@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import *
-from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit, EdgeImageEdit
+from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 
 
@@ -83,10 +83,6 @@ class FormItem(object):
                     self._widget = TextEdit(parent)
         elif self._type == Type.Image:
             self._widget = ImageEdit(field, self._label, parent)
-        elif self._type == Type.PreviewImage:
-            self._widget = ImageEdit(field, self._label, parent)
-        elif self._type == Type.EdgeImage:
-            self._widget = EdgeImageEdit(field, self._label, parent)
         elif self._type == Type.Date:
             self._widget = DateEdit(parent)
         elif self._type == Type.Status:
@@ -100,7 +96,7 @@ class FormItem(object):
             raise
 
         if itemType & Type.Disabled:
-            if self._type in Type.ImageTypes:
+            if self._type == Type.Image:
                 self._widget.setDisabled(True)
             else:
                 self._widget.setReadOnly(True)
