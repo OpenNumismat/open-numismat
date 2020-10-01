@@ -8,7 +8,7 @@ import urllib.request
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QObject, QDate
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtGui import QImage, QPixmap, QIcon
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import *
 
@@ -17,7 +17,7 @@ from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
-from OpenNumismat.Tools.Gui import createIcon, ProgressDialog
+from OpenNumismat.Tools.Gui import ProgressDialog
 
 colnectAvailable = True
 
@@ -328,7 +328,7 @@ class ColnectDialog(QDialog):
     def __init__(self, model, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
-        self.setWindowIcon(createIcon('colnect.png'))
+        self.setWindowIcon(QIcon(':/colnect.png'))
         self.setWindowTitle("Colnect")
 
         fields = model.fields

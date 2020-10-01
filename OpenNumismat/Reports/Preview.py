@@ -11,7 +11,7 @@ from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Reports import Report
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
+from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 importedQtWebKit = True
@@ -251,13 +251,13 @@ class PreviewDialog(QDialog):
         self.exportGroup = QActionGroup(self)
         if exportToWordAvailable:
             self.wordAction = self.exportGroup.addAction(
-                            createIcon('Document_Microsoft_Word.png'),
+                            QIcon(':/Document_Microsoft_Word.png'),
                             self.tr("Save as MS Word document"))
         self.htmlAction = self.exportGroup.addAction(
-                        createIcon('Web_HTML.png'),
+                        QIcon(':/Web_HTML.png'),
                         self.tr("Save as HTML files"))
         self.pdfAction = self.exportGroup.addAction(
-                        createIcon('Adobe_PDF_Document.png'),
+                        QIcon(':/Adobe_PDF_Document.png'),
                         self.tr("Save as PDF file"))
         self.exportGroup.triggered.connect(self._q_export)
 

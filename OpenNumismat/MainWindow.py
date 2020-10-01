@@ -14,7 +14,6 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.SettingsDialog import SettingsDialog
 from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
-from OpenNumismat.Tools.Gui import createIcon
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
@@ -30,26 +29,26 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.setAttribute(Qt.WA_DeleteOnClose)
 
-        self.setWindowIcon(createIcon('main.ico'))
+        self.setWindowIcon(QIcon(':/main.ico'))
 
         self.createStatusBar()
         menubar = self.menuBar()
 
         self.collectionActs = []
 
-        self.tableViewAct = QAction(createIcon('application_view_list.png'),
+        self.tableViewAct = QAction(QIcon(':/application_view_list.png'),
                                     self.tr("Table view"), self)
         self.tableViewAct.setData(CollectionPageTypes.List)
         self.tableViewAct.triggered.connect(self.changeViewEvent)
         self.collectionActs.append(self.tableViewAct)
 
-        self.iconViewAct = QAction(createIcon('application_view_icons.png'),
+        self.iconViewAct = QAction(QIcon(':/application_view_icons.png'),
                                    self.tr("Icon view"), self)
         self.iconViewAct.setData(CollectionPageTypes.Icon)
         self.iconViewAct.triggered.connect(self.changeViewEvent)
         self.collectionActs.append(self.iconViewAct)
 
-        self.cardViewAct = QAction(createIcon('application_view_tile.png'),
+        self.cardViewAct = QAction(QIcon(':/application_view_tile.png'),
                                    self.tr("Card view"), self)
         self.cardViewAct.setData(CollectionPageTypes.Card)
         self.cardViewAct.triggered.connect(self.changeViewEvent)
@@ -65,26 +64,26 @@ class MainWindow(QMainWindow):
         self.viewButton.setMenu(viewMenu)
         self.viewButton.setDefaultAction(self.tableViewAct)
 
-        colnectAct = QAction(createIcon('colnect.png'),
+        colnectAct = QAction(QIcon(':/colnect.png'),
                              "Colnect...", self)
         colnectAct.triggered.connect(self.colnectEvent)
         self.collectionActs.append(colnectAct)
 
-        self.detailsAct = QAction(createIcon('application-form.png'),
+        self.detailsAct = QAction(QIcon(':/application-form.png'),
                                   self.tr("Info panel"), self)
         self.detailsAct.setCheckable(True)
         self.detailsAct.triggered.connect(self.detailsEvent)
         self.collectionActs.append(self.detailsAct)
 
         if statisticsAvailable:
-            self.statisticsAct = QAction(createIcon('chart-bar.png'),
+            self.statisticsAct = QAction(QIcon(':/chart-bar.png'),
                                          self.tr("Statistics"), self)
             self.statisticsAct.setCheckable(True)
             self.statisticsAct.triggered.connect(self.statisticsEvent)
             self.collectionActs.append(self.statisticsAct)
 
         if importedQtWebKit:
-            self.mapAct = QAction(createIcon('world.png'),
+            self.mapAct = QAction(QIcon(':/world.png'),
                                   self.tr("Map"), self)
             self.mapAct.setCheckable(True)
             self.mapAct.triggered.connect(self.mapEvent)
@@ -94,28 +93,28 @@ class MainWindow(QMainWindow):
         summaryAct.triggered.connect(self.summaryEvent)
         self.collectionActs.append(summaryAct)
 
-        settingsAct = QAction(createIcon('cog.png'),
+        settingsAct = QAction(QIcon(':/cog.png'),
                               self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
         self.collectionActs.append(settingsAct)
 
-        cancelFilteringAct = QAction(createIcon('funnel_clear.png'),
+        cancelFilteringAct = QAction(QIcon(':/funnel_clear.png'),
                                      self.tr("Clear all filters"), self)
         cancelFilteringAct.triggered.connect(self.cancelFilteringEvent)
         self.collectionActs.append(cancelFilteringAct)
 
-        cancelSortingAct = QAction(createIcon('sort_clear.png'),
+        cancelSortingAct = QAction(QIcon(':/sort_clear.png'),
                                    self.tr("Clear sort order"), self)
         cancelSortingAct.triggered.connect(self.cancelSortingEvent)
         self.collectionActs.append(cancelSortingAct)
 
-        self.enableDragAct = QAction(createIcon('arrow_switch.png'),
+        self.enableDragAct = QAction(QIcon(':/arrow_switch.png'),
                                      self.tr("Sort by drag-n-drop mode"), self)
         self.enableDragAct.setCheckable(True)
         self.enableDragAct.triggered.connect(self.enableDragEvent)
         self.collectionActs.append(self.enableDragAct)
 
-        self.exitAct = QAction(createIcon('door_in.png'),
+        self.exitAct = QAction(QIcon(':/door_in.png'),
                                self.tr("E&xit"), self)
         self.exitAct.setShortcut(QKeySequence.Quit)
         self.exitAct.triggered.connect(self.close)
@@ -130,13 +129,13 @@ class MainWindow(QMainWindow):
         openCollectionAct.triggered.connect(self.openCollectionEvent)
 
         backupCollectionAct = QAction(
-                                    createIcon('database_backup.png'),
+                                    QIcon(':/database_backup.png'),
                                     self.tr("Backup"), self)
         backupCollectionAct.triggered.connect(self.backupCollectionEvent)
         self.collectionActs.append(backupCollectionAct)
 
         vacuumCollectionAct = QAction(
-                                    createIcon('compress.png'),
+                                    QIcon(':/compress.png'),
                                     self.tr("Vacuum"), self)
         vacuumCollectionAct.triggered.connect(self.vacuumCollectionEvent)
         self.collectionActs.append(vacuumCollectionAct)
@@ -146,7 +145,7 @@ class MainWindow(QMainWindow):
                                             self.descriptionCollectionEvent)
         self.collectionActs.append(descriptionCollectionAct)
 
-        passwordCollectionAct = QAction(createIcon('key.png'),
+        passwordCollectionAct = QAction(QIcon(':/key.png'),
                                         self.tr("Set password..."), self)
         passwordCollectionAct.triggered.connect(self.passwordCollectionEvent)
         self.collectionActs.append(passwordCollectionAct)
@@ -156,7 +155,7 @@ class MainWindow(QMainWindow):
 
         if ImportExcel.isAvailable():
             importExcelAct = QAction(
-                                    createIcon('excel.png'),
+                                    QIcon(':/excel.png'),
                                     "Excel", self)
             importExcelAct.triggered.connect(self.importExcel)
             self.collectionActs.append(importExcelAct)
@@ -164,7 +163,7 @@ class MainWindow(QMainWindow):
 
         if ImportColnect.isAvailable():
             importColnectAct = QAction(
-                                    createIcon('colnect.png'),
+                                    QIcon(':/colnect.png'),
                                     "Colnect", self)
             importColnectAct.triggered.connect(self.importColnect)
             self.collectionActs.append(importColnectAct)
@@ -172,7 +171,7 @@ class MainWindow(QMainWindow):
 
         if ImportNumista.isAvailable():
             importNumistaAct = QAction(
-                                    createIcon('numista.png'),
+                                    QIcon(':/numista.png'),
                                     "Numista", self)
             importNumistaAct.triggered.connect(self.importNumista)
             self.collectionActs.append(importNumistaAct)
@@ -180,7 +179,7 @@ class MainWindow(QMainWindow):
 
         if ImportCabinet.isAvailable():
             importCabinetAct = QAction(
-                                    createIcon('cabinet.png'),
+                                    QIcon(':/cabinet.png'),
                                     "Cabinet 2.2.2.1, 2013", self)
             importCabinetAct.triggered.connect(self.importCabinet)
             self.collectionActs.append(importCabinetAct)
@@ -188,7 +187,7 @@ class MainWindow(QMainWindow):
 
         if ImportCoinManage.isAvailable():
             importCoinManageAct = QAction(
-                                    createIcon('CoinManage.png'),
+                                    QIcon(':/CoinManage.png'),
                                     "CoinManage 2011", self)
             importCoinManageAct.triggered.connect(self.importCoinManage)
             self.collectionActs.append(importCoinManageAct)
@@ -196,7 +195,7 @@ class MainWindow(QMainWindow):
 
         if ImportCollectionStudio.isAvailable():
             importCollectionStudioAct = QAction(
-                                    createIcon('CollectionStudio.png'),
+                                    QIcon(':/CollectionStudio.png'),
                                     "Collection Studio 3.65", self)
             importCollectionStudioAct.triggered.connect(
                                                 self.importCollectionStudio)
@@ -205,14 +204,14 @@ class MainWindow(QMainWindow):
 
         if ImportUcoin2.isAvailable():
             importUcoinAct = QAction(
-                                    createIcon('ucoin.png'),
+                                    QIcon(':/ucoin.png'),
                                     "uCoin.net", self)
             importUcoinAct.triggered.connect(self.importUcoin2)
             self.collectionActs.append(importUcoinAct)
             importMenu.addAction(importUcoinAct)
         elif ImportUcoin.isAvailable():
             importUcoinAct = QAction(
-                                    createIcon('ucoin.png'),
+                                    QIcon(':/ucoin.png'),
                                     "uCoin.net", self)
             importUcoinAct.triggered.connect(self.importUcoin)
             self.collectionActs.append(importUcoinAct)
@@ -220,14 +219,14 @@ class MainWindow(QMainWindow):
 
         if ImportTellico.isAvailable():
             importTellicoAct = QAction(
-                                    createIcon('tellico.png'),
+                                    QIcon(':/tellico.png'),
                                     "Tellico", self)
             importTellicoAct.triggered.connect(self.importTellico)
             self.collectionActs.append(importTellicoAct)
             importMenu.addAction(importTellicoAct)
 
         mergeCollectionAct = QAction(
-                                    createIcon('refresh.png'),
+                                    QIcon(':/refresh.png'),
                                     self.tr("Synchronize..."), self)
         mergeCollectionAct.triggered.connect(self.mergeCollectionEvent)
         self.collectionActs.append(mergeCollectionAct)
@@ -264,13 +263,13 @@ class MainWindow(QMainWindow):
 
         file.addAction(self.exitAct)
 
-        addCoinAct = QAction(createIcon('add.png'),
+        addCoinAct = QAction(QIcon(':/add.png'),
                              self.tr("Add"), self)
         addCoinAct.setShortcut('Insert')
         addCoinAct.triggered.connect(self.addCoin)
         self.collectionActs.append(addCoinAct)
 
-        editCoinAct = QAction(createIcon('pencil.png'),
+        editCoinAct = QAction(QIcon(':/pencil.png'),
                               self.tr("Edit..."), self)
         editCoinAct.triggered.connect(self.editCoin)
         self.collectionActs.append(editCoinAct)
@@ -283,13 +282,13 @@ class MainWindow(QMainWindow):
         deleteCoinAct.triggered.connect(self.deleteCoin)
         self.collectionActs.append(deleteCoinAct)
 
-        copyCoinAct = QAction(createIcon('page_copy.png'),
+        copyCoinAct = QAction(QIcon(':/page_copy.png'),
                               self.tr("Copy"), self)
         copyCoinAct.setShortcut(QKeySequence.Copy)
         copyCoinAct.triggered.connect(self.copyCoin)
         self.collectionActs.append(copyCoinAct)
 
-        pasteCoinAct = QAction(createIcon('page_paste.png'),
+        pasteCoinAct = QAction(QIcon(':/page_paste.png'),
                                self.tr("Paste"), self)
         pasteCoinAct.setShortcut(QKeySequence.Paste)
         pasteCoinAct.triggered.connect(self.pasteCoin)
@@ -308,7 +307,7 @@ class MainWindow(QMainWindow):
         coin.addSeparator()
         coin.addAction(deleteCoinAct)
 
-        viewBrowserAct = QAction(createIcon('page_white_world.png'),
+        viewBrowserAct = QAction(QIcon(':/page_white_world.png'),
                                  self.tr("View in browser"), self)
         viewBrowserAct.triggered.connect(self.viewBrowserEvent)
         self.collectionActs.append(viewBrowserAct)
@@ -337,7 +336,7 @@ class MainWindow(QMainWindow):
         reportAct.triggered.connect(self.report)
         self.collectionActs.append(reportAct)
 
-        saveTableAct = QAction(createIcon('table.png'),
+        saveTableAct = QAction(QIcon(':/table.png'),
                                self.tr("Save current list..."), self)
         saveTableAct.triggered.connect(self.saveTable)
         self.collectionActs.append(saveTableAct)
@@ -347,7 +346,7 @@ class MainWindow(QMainWindow):
         report.addAction(reportAct)
         report.addAction(saveTableAct)
         default_template = Settings()['template']
-        viewBrowserMenu = report.addMenu(createIcon('page_white_world.png'),
+        viewBrowserMenu = report.addMenu(QIcon(':/page_white_world.png'),
                                          self.tr("View in browser"))
         for template in Report.scanTemplates():
             act = QAction(template[0], self)
@@ -362,7 +361,7 @@ class MainWindow(QMainWindow):
             report.addAction(self.statisticsAct)
         report.addAction(summaryAct)
 
-        helpAct = QAction(createIcon('help.png'),
+        helpAct = QAction(QIcon(':/help.png'),
                           self.tr("User manual"), self)
         helpAct.setShortcut(QKeySequence.HelpContents)
         helpAct.triggered.connect(self.onlineHelp)

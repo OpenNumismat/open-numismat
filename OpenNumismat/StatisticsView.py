@@ -1,13 +1,13 @@
 from textwrap import wrap
 
 from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
-from PyQt5.QtGui import QImage
+from PyQt5.QtGui import QImage, QIcon
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
-from OpenNumismat.Tools.Gui import createIcon, getSaveFileName, ProgressDialog
+from OpenNumismat.Tools.Gui import getSaveFileName, ProgressDialog
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
@@ -418,7 +418,7 @@ class StatisticsView(QWidget):
         ctrlLayout.addWidget(self.regionSelector)
 
         saveButton = QPushButton()
-        icon = createIcon("save.png")
+        icon = QIcon(':/save.png')
         saveButton.setIcon(icon)
         saveButton.setIconSize(QSize(16, 16))
         saveButton.setToolTip(self.tr("Save chart"))

@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses, StatusesOrder
-from OpenNumismat.Tools.Gui import createIcon, statusIcon
+from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction
 
 
@@ -57,7 +57,7 @@ class FilterMenuButton(QPushButton):
         self.setFixedWidth(self.height())
         self.setMenu(menu)
         if self.fieldid in self.filters.keys():
-            self.setIcon(createIcon('filters.ico'))
+            self.setIcon(QIcon(':/filters.ico'))
 
         menu.aboutToShow.connect(self.prepareMenu)
 
@@ -383,7 +383,7 @@ class FilterMenuButton(QPushButton):
 
     def applyFilters(self, filters):
         if filters.filters():
-            self.setIcon(createIcon('filters.ico'))
+            self.setIcon(QIcon(':/filters.ico'))
             self.filters[self.fieldid] = filters
         else:
             self.setIcon(QIcon())

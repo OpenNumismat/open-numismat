@@ -23,7 +23,7 @@ from OpenNumismat.Reports.Report import Report
 from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportToCsv, ExportToCsvUtf8
-from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
+from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
 
 
@@ -818,16 +818,16 @@ class ListView(BaseTableView):
             return
 
         menu = QMenu(self)
-        act = menu.addAction(createIcon('pencil.png'),
+        act = menu.addAction(QIcon(':/pencil.png'),
                              self.tr("Edit..."), self._edit)
         act.setShortcut('Enter')
         # Disable Edit when more than one record selected
         act.setEnabled(selected_count == 1)
         menu.setDefaultAction(act)
 
-        menu.addAction(createIcon('page_copy.png'),
+        menu.addAction(QIcon(':/page_copy.png'),
                        self.tr("Copy"), self._copy, QKeySequence.Copy)
-        menu.addAction(createIcon('page_paste.png'),
+        menu.addAction(QIcon(':/page_paste.png'),
                        self.tr("Paste"), self._paste, QKeySequence.Paste)
 
         menu.addSeparator()
@@ -839,19 +839,19 @@ class ListView(BaseTableView):
         act.setEnabled(selected_count > 1)
 
         menu.addSeparator()
-        act = menu.addAction(createIcon('funnel.png'),
+        act = menu.addAction(QIcon(':/funnel.png'),
                              self.tr("Filter in"), self._filter)
         act.setEnabled(selected_count == 1)
 
         menu.addSeparator()
         index = QTableView.currentIndex(self)
         row = index.row()
-        act = menu.addAction(createIcon('bullet_arrow_up.png'),
+        act = menu.addAction(QIcon(':/bullet_arrow_up.png'),
                              self.tr("Move up"), self._moveUp)
         if (selected_count > 1) or (row == 0):
             act.setEnabled(False)
 
-        act = menu.addAction(createIcon('bullet_arrow_down.png'),
+        act = menu.addAction(QIcon(':/bullet_arrow_down.png'),
                              self.tr("Move down"), self._moveDown)
         if (selected_count > 1) or (row == self.model().rowCount() - 1):
             act.setEnabled(False)
@@ -1260,7 +1260,7 @@ class IconView(BaseTableView):
             return
 
         menu = QMenu(self)
-        act = menu.addAction(createIcon('pencil.png'),
+        act = menu.addAction(QIcon(':/pencil.png'),
                              QApplication.translate('IconView', "Edit..."),
                              self._edit)
         act.setShortcut('Enter')
@@ -1268,10 +1268,10 @@ class IconView(BaseTableView):
         act.setEnabled(selected_count == 1)
         menu.setDefaultAction(act)
 
-        menu.addAction(createIcon('page_copy.png'),
+        menu.addAction(QIcon(':/page_copy.png'),
                        QApplication.translate('IconView', "Copy"),
                        self._copy, QKeySequence.Copy)
-        menu.addAction(createIcon('page_paste.png'),
+        menu.addAction(QIcon(':/page_paste.png'),
                        QApplication.translate('IconView', "Paste"),
                        self._paste, QKeySequence.Paste)
 
@@ -1288,12 +1288,12 @@ class IconView(BaseTableView):
         menu.addSeparator()
         index = self.currentIndex()
         row = index.row()
-        act = menu.addAction(createIcon('bullet_arrow_up.png'),
+        act = menu.addAction(QIcon(':/bullet_arrow_up.png'),
                              self.tr("Move up"), self._moveUp)
         if (selected_count > 1) or (row == 0):
             act.setEnabled(False)
 
-        act = menu.addAction(createIcon('bullet_arrow_down.png'),
+        act = menu.addAction(QIcon(':/bullet_arrow_down.png'),
                              self.tr("Move down"), self._moveDown)
         if (selected_count > 1) or (row == self.model().rowCount() - 1):
             act.setEnabled(False)

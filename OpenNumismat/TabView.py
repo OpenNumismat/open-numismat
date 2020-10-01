@@ -1,9 +1,8 @@
 from PyQt5.QtCore import pyqtSignal, Qt
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QKeySequence, QIcon
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.PageView import PageView
-from OpenNumismat.Tools.Gui import createIcon
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 
 
@@ -66,7 +65,7 @@ class TabView(QTabWidget):
         openPageMenu = QMenu(self.tr("Open"), self)
         self.__actions['open'] = openPageMenu
 
-        removeAllAct = QAction(createIcon('cross.png'),
+        removeAllAct = QAction(QIcon(':/cross.png'),
                                self.tr("Remove all"), self)
         removeAllAct.triggered.connect(self.removeClosedPages)
         self.__actions['removeAll'] = removeAllAct
@@ -84,7 +83,7 @@ class TabView(QTabWidget):
         closeListAct.triggered.connect(self.closePage)
         self.__actions['close'] = closeListAct
 
-        removeListAct = QAction(createIcon('cross.png'),
+        removeListAct = QAction(QIcon(':/cross.png'),
                                 self.tr("Remove"), self)
         removeListAct.triggered.connect(self.removePage)
         self.__actions['remove'] = removeListAct

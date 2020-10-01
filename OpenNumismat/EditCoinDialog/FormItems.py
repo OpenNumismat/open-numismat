@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Tools.Gui import createIcon, statusIcon
+from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
 
 
@@ -149,7 +149,7 @@ class UrlLineEdit(QWidget):
 
         self.lineEdit = LineEdit(self)
 
-        buttonLoad = QPushButton(createIcon('world.png'), '', self)
+        buttonLoad = QPushButton(QIcon(':/world.png'), '', self)
         buttonLoad.setFixedWidth(25)
         buttonLoad.setToolTip(self.tr("Open specified URL"))
         buttonLoad.clicked.connect(self.clickedButtonLoad)
@@ -212,7 +212,7 @@ class AddressLineEdit(QWidget):
         self.lineEdit = LineEdit(self)
         self.lineEdit.returnPressed.connect(self.clickedButtonAddress)
 
-        self.buttonAddress = QPushButton(createIcon('find.png'), '', self)
+        self.buttonAddress = QPushButton(QIcon(':/find.png'), '', self)
         self.buttonAddress.setFixedWidth(25)
         self.buttonAddress.setToolTip(self.tr("Find address"))
         self.buttonAddress.clicked.connect(self.clickedButtonAddress)

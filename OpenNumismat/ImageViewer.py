@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator, storeDlgPositionDecorator
-from OpenNumismat.Tools.Gui import createIcon, getSaveFileName
+from OpenNumismat.Tools.Gui import getSaveFileName
 
 ZOOM_IN_FACTOR = 1.25
 ZOOM_MAX = 5
@@ -120,11 +120,11 @@ class CropDialog(QDialog):
         settings = QSettings()
         cropTool = settings.value('crop_dialog/crop_tool', 0)
         self.tab = QTabWidget(self)
-        self.tab.addTab(rectWidget, createIcon('shape_handles.png'), None)
+        self.tab.addTab(rectWidget, QIcon(':/shape_handles.png'), None)
         self.tab.setTabToolTip(0, self.tr("Rect"))
-        self.tab.addTab(circleWidget, createIcon('shape_circle.png'), None)
+        self.tab.addTab(circleWidget, QIcon(':/shape_circle.png'), None)
         self.tab.setTabToolTip(1, self.tr("Circle"))
-        self.tab.addTab(quadWidget, createIcon('shape_handles_free.png'), None)
+        self.tab.addTab(quadWidget, QIcon(':/shape_handles_free.png'), None)
         self.tab.setTabToolTip(2, self.tr("Quad"))
         self.tab.currentChanged.connect(self.tabChanged)
         self.tab.setCurrentIndex(cropTool)
@@ -840,22 +840,22 @@ class ImageViewer(QDialog):
 #        self.printAct = QAction(self.tr("&Print..."), self, shortcut=QKeySequence.Print, enabled=False, triggered=self.print_)
         self.exitAct = QAction(self.tr("E&xit"), self, shortcut=QKeySequence.Quit, triggered=self.close)
         self.fullScreenAct = QAction(self.tr("Full Screen"), self, shortcut=QKeySequence.FullScreen, triggered=self.fullScreen)
-        self.zoomInAct = QAction(createIcon('zoom_in.png'), self.tr("Zoom &In (25%)"), self, triggered=self.zoomIn)
+        self.zoomInAct = QAction(QIcon(':/zoom_in.png'), self.tr("Zoom &In (25%)"), self, triggered=self.zoomIn)
         self.zoomInShortcut = QShortcut(Qt.Key_Plus, self, self.zoomIn)
-        self.zoomOutAct = QAction(createIcon('zoom_out.png'), self.tr("Zoom &Out (25%)"), self, triggered=self.zoomOut)
+        self.zoomOutAct = QAction(QIcon(':/zoom_out.png'), self.tr("Zoom &Out (25%)"), self, triggered=self.zoomOut)
         self.zoomOutShortcut = QShortcut(Qt.Key_Minus, self, self.zoomOut)
-        self.normalSizeAct = QAction(createIcon('arrow_out.png'), self.tr("&Normal Size"), self, triggered=self.normalSize)
-        self.fitToWindowAct = QAction(createIcon('arrow_in.png'), self.tr("&Fit to Window"), self, triggered=self.fitToWindow)
+        self.normalSizeAct = QAction(QIcon(':/arrow_out.png'), self.tr("&Normal Size"), self, triggered=self.normalSize)
+        self.fitToWindowAct = QAction(QIcon(':/arrow_in.png'), self.tr("&Fit to Window"), self, triggered=self.fitToWindow)
         self.showToolBarAct = QAction(self.tr("Show Tool Bar"), self, checkable=True, triggered=self.showToolBar)
         self.showStatusBarAct = QAction(self.tr("Show Status Bar"), self, checkable=True, triggered=self.showStatusBar)
-        self.rotateLeftAct = QAction(createIcon('arrow_rotate_anticlockwise.png'), self.tr("Rotate to Left"), self, triggered=self.rotateLeft)
-        self.rotateRightAct = QAction(createIcon('arrow_rotate_clockwise.png'), self.tr("Rotate to Right"), self, triggered=self.rotateRight)
+        self.rotateLeftAct = QAction(QIcon(':/arrow_rotate_anticlockwise.png'), self.tr("Rotate to Left"), self, triggered=self.rotateLeft)
+        self.rotateRightAct = QAction(QIcon(':/arrow_rotate_clockwise.png'), self.tr("Rotate to Right"), self, triggered=self.rotateRight)
         self.rotateAct = QAction(self.tr("Rotate..."), self, checkable=True, triggered=self.rotate)
-        self.cropAct = QAction(createIcon('shape_handles.png'), self.tr("Crop"), self, checkable=True, triggered=self.crop)
-        self.saveAct = QAction(createIcon('save.png'), self.tr("Save"), self, shortcut=QKeySequence.Save, triggered=self.save)
+        self.cropAct = QAction(QIcon(':/shape_handles.png'), self.tr("Crop"), self, checkable=True, triggered=self.crop)
+        self.saveAct = QAction(QIcon(':/save.png'), self.tr("Save"), self, shortcut=QKeySequence.Save, triggered=self.save)
         self.saveAct.setDisabled(True)
-        self.copyAct = QAction(createIcon('page_copy.png'), self.tr("Copy"), self, shortcut=QKeySequence.Copy, triggered=self.copy)
-        self.pasteAct = QAction(createIcon('page_paste.png'), self.tr("Paste"), self, shortcut=QKeySequence.Paste, triggered=self.paste)
+        self.copyAct = QAction(QIcon(':/page_copy.png'), self.tr("Copy"), self, shortcut=QKeySequence.Copy, triggered=self.copy)
+        self.pasteAct = QAction(QIcon(':/page_paste.png'), self.tr("Paste"), self, shortcut=QKeySequence.Paste, triggered=self.paste)
 
         settings = QSettings()
         toolBarShown = settings.value('image_viewer/tool_bar', True, type=bool)

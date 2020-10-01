@@ -161,7 +161,6 @@ params = {
     "py_modules": ['open-numismat', ],
 
     "packages": find_packages() + [
-        'OpenNumismat/icons',
         'OpenNumismat/translations',
         'OpenNumismat/db'] +
           templates_packages,
@@ -215,7 +214,6 @@ if cx_Freeze_available:
 
     include_files = [
             "COPYING",
-            ("OpenNumismat/icons", "icons"),
             ("OpenNumismat/translations", "translations"),
             ("OpenNumismat/templates", "templates"),
             ("OpenNumismat/db", "db"),
