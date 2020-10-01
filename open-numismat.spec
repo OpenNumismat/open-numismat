@@ -4,7 +4,6 @@ block_cipher = None
 
 include_files = [
             ("COPYING", "."),
-            ("OpenNumismat/icons", "icons"),
             ("OpenNumismat/translations", "translations"),
             ("OpenNumismat/templates", "templates"),
             ("OpenNumismat/db", "db"),
@@ -35,7 +34,7 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False,
-          icon='OpenNumismat/icons/main.ico')
+          icon='icons/main.ico')
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,

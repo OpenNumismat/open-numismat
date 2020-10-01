@@ -209,7 +209,7 @@ if cx_Freeze_available:
         start_script = "open-numismat.py"
 
     executable = Executable(start_script, base=base,
-                            icon='OpenNumismat/icons/main.ico',
+                            icon='icons/main.ico',
                             targetName=params['name'] + executable_ext)
 
     include_files = [
