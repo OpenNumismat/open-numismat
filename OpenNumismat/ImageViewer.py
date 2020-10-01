@@ -584,7 +584,7 @@ class BoundingCircleItem(QGraphicsEllipseItem):
 class GraphicsCircleBoundingItem(QObject):
     rectChanged = pyqtSignal()
 
-    def __init__(self, width, height, scale, _fixed):
+    def __init__(self, width, height, scale):
         super().__init__()
 
         self.width = width
@@ -1236,10 +1236,10 @@ class ImageViewer(QDialog):
         h = sceneRect.height()
 
         if self.cropDlg.currentTool() in (0, 2):
-            fixed_bounding = (self.cropDlg.currentTool() == 0)
-            self.bounding = GraphicsBoundingItem(w, h, self.scale, fixed_bounding)
+            fixed_rect = (self.cropDlg.currentTool() == 0)
+            self.bounding = GraphicsBoundingItem(w, h, self.scale, fixed_rect)
         else:
-            self.bounding = GraphicsCircleBoundingItem(w, h, self.scale, False)
+            self.bounding = GraphicsCircleBoundingItem(w, h, self.scale)
         for item in self.bounding.items():
             self.scene.addItem(item)
 
@@ -1274,16 +1274,24 @@ class ImageViewer(QDialog):
     def cropDlgChanged(self):
         self.bounding.rectChanged.disconnect(self.cropChanged)
         if self.cropDlg.currentTool() == 0:
-            self.bounding.points[0].setX(self.cropDlg.xSpin.value())
-            self.bounding.points[0].setY(self.cropDlg.ySpin.value())
-            self.bounding.points[2].setX(self.cropDlg.xSpin.value() + self.cropDlg.widthSpin.value())
-            self.bounding.points[2].setY(self.cropDlg.ySpin.value() + self.cropDlg.heightSpin.value())
+            x = self.cropDlg.xSpin.value()
+            y = self.cropDlg.ySpin.value()
+            w = self.cropDlg.widthSpin.value()
+            h = self.cropDlg.heightSpin.value()
+            self.bounding.points[0].setX(x)
+            self.bounding.points[0].setY(y)
+            self.bounding.points[2].setX(x + w)
+            self.bounding.points[2].setY(y + h)
             self.cropChanged()
         elif self.cropDlg.currentTool() == 1:
-            self.bounding.points[3].setX(self.cropDlg.xCircleSpin.value())
-            self.bounding.points[0].setY(self.cropDlg.yCircleSpin.value())
-            self.bounding.points[1].setX(self.cropDlg.xCircleSpin.value() + self.cropDlg.widthCircleSpin.value())
-            self.bounding.points[2].setY(self.cropDlg.yCircleSpin.value() + self.cropDlg.heightCircleSpin.value())
+            x = self.cropDlg.xCircleSpin.value()
+            y = self.cropDlg.yCircleSpin.value()
+            w = self.cropDlg.widthCircleSpin.value()
+            h = self.cropDlg.heightCircleSpin.value()
+            self.bounding.points[3].setX(x)
+            self.bounding.points[0].setY(y)
+            self.bounding.points[1].setX(x + w)
+            self.bounding.points[2].setY(y + h)
             self.cropChanged()
         else:
             self.bounding.points[0].setX(self.cropDlg.x1Spin.value())
@@ -1338,14 +1346,8 @@ class ImageViewer(QDialog):
                 leftLine = QLineF(points[1], points[2])
                 rightLine = QLineF(points[3], points[0])
 
-                if topLine.length() > bottomLine.length():
-                    width = topLine.length()
-                else:
-                    width = bottomLine.length()
-                if leftLine.length() > rightLine.length():
-                    height = leftLine.length()
-                else:
-                    height = rightLine.length()
+                width = max(topLine.length(), bottomLine.length())
+                height = max(leftLine.length(), rightLine.length())
 
                 poly1 = QPolygonF(points)
 
@@ -1363,15 +1365,8 @@ class ImageViewer(QDialog):
                     bl = transform.map(QPoint(0, rect.height()))
                     tr = transform.map(QPoint(rect.width(), 0))
 
-                    if -tl.x() > -bl.x():
-                        x = -tl.x()
-                    else:
-                        x = -bl.x()
-
-                    if -tr.y() > -tl.y():
-                        y = -tr.y()
-                    else:
-                        y = -tl.y()
+                    x = max(-tl.x(), -bl.x())
+                    y = max(-tr.y(), -tl.y())
 
                     pixmap = self._pixmapHandle.pixmap().transformed(transform, Qt.SmoothTransformation)
                     pixmap = pixmap.copy(x, y, width, height)
