@@ -758,7 +758,7 @@ class ListView(BaseTableView):
             idIndex = self.model().fieldIndex('id')
             startIndex = self.model().index(0, idIndex)
 
-            indexes = self.proxyModel.match(startIndex, Qt.DisplayRole,
+            indexes = self.proxyModel.match(startIndex, Qt.UserRole,
                                         self.selectedId, 1, Qt.MatchExactly)
             if indexes:
                 index = self.proxyModel.index(indexes[0].row(), 1)
