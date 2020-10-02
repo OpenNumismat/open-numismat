@@ -162,29 +162,29 @@ class RotateDialog(QDialog):
         super().__init__(parent, Qt.WindowCloseButtonHint)
         self.setWindowTitle(self.tr("Rotate"))
 
-        angelLabel = QLabel(self.tr("Angel"))
+        angleLabel = QLabel(self.tr("Angle"))
 
-        angelSlider = QSlider(Qt.Horizontal)
-        angelSlider.setRange(-180, 180)
-        angelSlider.setTickInterval(10)
-        angelSlider.setTickPosition(QSlider.TicksAbove)
-        angelSlider.setMinimumWidth(200)
+        angleSlider = QSlider(Qt.Horizontal)
+        angleSlider.setRange(-180, 180)
+        angleSlider.setTickInterval(10)
+        angleSlider.setTickPosition(QSlider.TicksAbove)
+        angleSlider.setMinimumWidth(200)
 
-        self.angelSpin = QDoubleSpinBox()
-        self.angelSpin.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        self.angelSpin.setRange(-180, 180)
-        self.angelSpin.setSingleStep(0.1)
-        self.angelSpin.setAccelerated(True)
-        self.angelSpin.setKeyboardTracking(False)
+        self.angleSpin = QDoubleSpinBox()
+        self.angleSpin.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.angleSpin.setRange(-180, 180)
+        self.angleSpin.setSingleStep(0.1)
+        self.angleSpin.setAccelerated(True)
+        self.angleSpin.setKeyboardTracking(False)
 
-        angelSlider.valueChanged.connect(self.angelSpin.setValue)
-        self.angelSpin.valueChanged.connect(angelSlider.setValue)
-        self.angelSpin.valueChanged.connect(self.valueChanged.emit)
+        angleSlider.valueChanged.connect(self.angleSpin.setValue)
+        self.angleSpin.valueChanged.connect(angleSlider.setValue)
+        self.angleSpin.valueChanged.connect(self.valueChanged.emit)
 
-        angelLayout = QHBoxLayout()
-        angelLayout.addWidget(angelLabel)
-        angelLayout.addWidget(angelSlider)
-        angelLayout.addWidget(self.angelSpin)
+        angleLayout = QHBoxLayout()
+        angleLayout.addWidget(angleLabel)
+        angleLayout.addWidget(angleSlider)
+        angleLayout.addWidget(self.angleSpin)
 
         settings = QSettings()
         autoCropEnabled = settings.value('rotate_dialog/auto_crop', False, type=bool)
@@ -204,7 +204,7 @@ class RotateDialog(QDialog):
         buttonBox.rejected.connect(self.reject)
 
         layout = QVBoxLayout()
-        layout.addLayout(angelLayout)
+        layout.addLayout(angleLayout)
         layout.addWidget(self.autoCrop)
         layout.addWidget(self.gridShown)
         layout.addWidget(buttonBox)
@@ -218,7 +218,7 @@ class RotateDialog(QDialog):
         settings = QSettings()
         settings.setValue('rotate_dialog/auto_crop', state)
 
-        self.valueChanged.emit(self.angelSpin.value())
+        self.valueChanged.emit(self.angleSpin.value())
 
     def isAutoCrop(self):
         return self.autoCrop.isChecked()
@@ -227,7 +227,7 @@ class RotateDialog(QDialog):
         settings = QSettings()
         settings.setValue('rotate_dialog/grid', state)
 
-        self.valueChanged.emit(self.angelSpin.value())
+        self.valueChanged.emit(self.angleSpin.value())
 
     def isGridShown(self):
         return self.gridShown.isChecked()
