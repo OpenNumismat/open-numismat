@@ -6,7 +6,6 @@ import os
 import tempfile
 import urllib.request
 
-from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QObject, QDate
 from PyQt5.QtGui import QImage, QPixmap, QIcon
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
@@ -729,14 +728,9 @@ class ColnectDialog(QDialog):
 
         result = image.loadFromData(self.colnect.getImage(image_id, name, False))
         if result:
-            ba = QtCore.QByteArray()
-            buffer = QtCore.QBuffer(ba)
-            buffer.open(QtCore.QIODevice.WriteOnly)
-
             if image.height() > self.HEIGHT:
                 image = image.scaled(self.HEIGHT, self.HEIGHT,
                                      Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            image.save(buffer, 'png')
         return image
 
     def _itemUrl(self, category, item_id):
