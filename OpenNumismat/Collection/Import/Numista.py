@@ -2,7 +2,7 @@ import json
 import urllib.request
 
 from PyQt5.QtCore import Qt, QUrl, QMargins
-from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtGui import QDesktopServices, QImage
 from PyQt5.QtWidgets import *
 
 from OpenNumismat import version
@@ -237,13 +237,8 @@ class ImportNumista(_Import2):
                 record.setValue('obversedesign', item_data['obverse']['description'])
             if 'picture' in item_data['obverse']:
                 img_url = item_data['obverse']['picture']
-                try:
-                    req = urllib.request.Request(img_url,
-                                        headers={'User-Agent': version.AppName})
-                    data = urllib.request.urlopen(req).read()
-                    record.setValue('obverseimg', data)
-                except:
-                    pass
+                image = self._getImage(img_url)
+                record.setValue('obverseimg', image)
         if 'reverse' in item_data:
             if 'engravers' in item_data['reverse']:
                 record.setValue('reversedesigner', ', '.join(item_data['reverse']['engravers']))
@@ -251,22 +246,22 @@ class ImportNumista(_Import2):
                 record.setValue('reversedesign', item_data['reverse']['description'])
             if 'picture' in item_data['reverse']:
                 img_url = item_data['reverse']['picture']
-                try:
-                    req = urllib.request.Request(img_url,
-                                        headers={'User-Agent': version.AppName})
-                    data = urllib.request.urlopen(req).read()
-                    record.setValue('reverseimg', data)
-                except:
-                    pass
+                image = self._getImage(img_url)
+                record.setValue('reverseimg', image)
         if 'edge' in item_data:
             if 'description' in item_data['edge']:
                 record.setValue('edgevar', item_data['edge']['description'])
             if 'picture' in item_data['edge']:
                 img_url = item_data['edge']['picture']
-                try:
-                    req = urllib.request.Request(img_url,
-                                        headers={'User-Agent': version.AppName})
-                    data = urllib.request.urlopen(req).read()
-                    record.setValue('edgeimg', data)
-                except:
-                    pass
+                image = self._getImage(img_url)
+                record.setValue('edgeimg', image)
+
+    def _getImage(self, url):
+        try:
+            image = QImage()
+            req = urllib.request.Request(url, headers={'User-Agent': version.AppName})
+            data = urllib.request.urlopen(req).read()
+            image.loadFromData(data)
+            return image
+        except:
+            return None
