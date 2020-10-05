@@ -229,7 +229,7 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="915"/>
         <source>Attach current reference to a collection file?</source>
-        <translation>Прикачете текущата номенклатура във файл на колекцията?</translation>
+        <translation>Искате ли да прикачите текущата номенклатура към файла на колекцията?</translation>
     </message>
     <message>
         <location filename="Collection.py" line="956"/>
@@ -297,12 +297,12 @@ Please update OpenNumismat</source>
     <message>
         <location filename="Collection.py" line="1067"/>
         <source>Attach current reference</source>
-        <translation>Прикачете текущата номенклатура</translation>
+        <translation>Прикачване на текущата номенклатура</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1071"/>
         <source>Fill from collection</source>
-        <translation>Попълнете от колекцията</translation>
+        <translation>Попълване от колекцията</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1074"/>
@@ -903,7 +903,7 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectCache</name>
     <message>
-        <location filename="Colnect.py" line="48"/>
+        <location filename="Colnect.py" line="47"/>
         <source>Can&apos;t open Colnect cache</source>
         <translation>Не може да се отвори кеша на Colnect</translation>
     </message>
@@ -911,12 +911,12 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectConnector</name>
     <message>
-        <location filename="Colnect.py" line="277"/>
+        <location filename="Colnect.py" line="276"/>
         <source>Colnect service not available</source>
         <translation>Colnect услугата не е налична</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="281"/>
+        <location filename="Colnect.py" line="280"/>
         <source>Colnect data not recognised</source>
         <translation>Данните от Colnect не се разпознават</translation>
     </message>
@@ -924,67 +924,67 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectDialog</name>
     <message>
-        <location filename="Colnect.py" line="343"/>
+        <location filename="Colnect.py" line="342"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
         <translation>Каталожната информация е предоставена от &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;. Онлайн колекционерска общност.</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="356"/>
+        <location filename="Colnect.py" line="355"/>
         <source>Coins</source>
         <translation>Монети</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="356"/>
+        <location filename="Colnect.py" line="355"/>
         <source>Stamps</source>
         <translation>Пощенски марки</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="365"/>
+        <location filename="Colnect.py" line="364"/>
         <source>Category</source>
         <translation>Категория</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="436"/>
+        <location filename="Colnect.py" line="435"/>
         <source>Add</source>
         <translation>Добави</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="438"/>
+        <location filename="Colnect.py" line="437"/>
         <source>Add and close</source>
         <translation>Добави и затвори</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="573"/>
+        <location filename="Colnect.py" line="572"/>
         <source>(All)</source>
         <translation>(Всичко)</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="658"/>
+        <location filename="Colnect.py" line="657"/>
         <source>Downloading</source>
         <translation>Изтегляне</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="658"/>
+        <location filename="Colnect.py" line="657"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="448"/>
+        <location filename="Colnect.py" line="447"/>
         <source>Specify more parameters</source>
         <translation>Посочете повече параметри</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="445"/>
+        <location filename="Colnect.py" line="444"/>
         <source>Preview</source>
         <translation>Предварителен преглед</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="449"/>
+        <location filename="Colnect.py" line="448"/>
         <source>Nothing found</source>
         <translation>Нищо не е намерено</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="356"/>
+        <location filename="Colnect.py" line="355"/>
         <source>Banknotes</source>
         <translation>Банкноти</translation>
     </message>
@@ -1732,12 +1732,12 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ImageViewer.py" line="839"/>
         <source>&amp;Save As...</source>
-        <translation>&amp;Запиши като...</translation>
+        <translation>Запиши &amp;като...</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="841"/>
         <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <translation>И&amp;зход</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="842"/>
@@ -1747,12 +1747,12 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ImageViewer.py" line="843"/>
         <source>Zoom &amp;In (25%)</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Увеличаване (25%)</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="845"/>
         <source>Zoom &amp;Out (25%)</source>
-        <translation type="unfinished"/>
+        <translation>Н&amp;амаляване (25%)</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="847"/>
@@ -1969,7 +1969,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ReferenceDialog.py" line="74"/>
         <source>Clear icon</source>
-        <translation>Изчисти икона...</translation>
+        <translation>Изчисти икона</translation>
     </message>
     <message>
         <location filename="ReferenceDialog.py" line="88"/>
@@ -2125,7 +2125,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="117"/>
         <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <translation>И&amp;зход</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="122"/>
@@ -2250,12 +2250,12 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="368"/>
         <source>Visit web-site</source>
-        <translation>Посетете уебсайта</translation>
+        <translation>Посетете сайта</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="370"/>
         <source>Check for updates</source>
-        <translation>Провери за актуализация</translation>
+        <translation>Проверка за актуализации</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="853"/>
@@ -2756,7 +2756,7 @@ Created new one</source>
     <message>
         <location filename="ImageViewer.py" line="165"/>
         <source>Angle</source>
-        <translation type="unfinished"/>
+        <translation>Ъгъл</translation>
     </message>
 </context>
 <context>
@@ -3132,7 +3132,7 @@ Created new one</source>
     <message>
         <location filename="TabView.py" line="73"/>
         <source>Rename...</source>
-        <translation>Преименуване</translation>
+        <translation>Преименуване...</translation>
     </message>
     <message>
         <location filename="TabView.py" line="77"/>
@@ -3232,17 +3232,17 @@ Add a new one first.</source>
     <message>
         <location filename="PageView.py" line="428"/>
         <source>Add new coin...</source>
-        <translation>Добавяне на монета</translation>
+        <translation>Добавяне на монета...</translation>
     </message>
     <message>
         <location filename="PageView.py" line="431"/>
         <source>Edit coins...</source>
-        <translation>Редакция на монети</translation>
+        <translation>Редакция на монети...</translation>
     </message>
     <message>
         <location filename="PageView.py" line="435"/>
         <source>Customize tree...</source>
-        <translation>Персонализиране на дървото</translation>
+        <translation>Персонализиране на дървото...</translation>
     </message>
     <message>
         <location filename="PageView.py" line="488"/>
