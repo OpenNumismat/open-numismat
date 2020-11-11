@@ -48,7 +48,7 @@ class StatisticsParam(BaseSettings):
             self.__setitem__('period', record.value('period'))
             self.__setitem__('color', bool(record.value('color')))
 
-        self.setAutoSave(True)
+        self.autoSave = True
 
     def save(self):
         self.db.transaction()

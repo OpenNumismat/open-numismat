@@ -10,8 +10,7 @@ class BaseSettings(dict):
     def __init__(self, autoSave=False):
         super().__init__()
 
-        self.__autoSave = autoSave
-        self.__items = {}
+        self.autoSave = autoSave
 
     def keys(self):
         raise NotImplementedError
@@ -29,12 +28,12 @@ class BaseSettings(dict):
         return result
 
     def __getitem__(self, key):
-        if key in self.__items:
-            return self.__items[key]
+        if key in self.__dict__:
+            return self.__dict__[key]
 
         if key in self.keys():
             value = self._getValue(key)
-            self.__items[key] = value
+            self.__dict__[key] = value
 
             return value
         else:
@@ -42,17 +41,11 @@ class BaseSettings(dict):
 
     def __setitem__(self, key, val):
         if key in self.keys():
-            self.__items[key] = val
-            if self.__autoSave:
+            self.__dict__[key] = val
+            if self.autoSave:
                 self._saveValue(key, val)
         else:
             raise KeyError(key)
-
-    def setAutoSave(self, autoSave):
-        self.__autoSave = autoSave
-
-    def autoSave(self):
-        return self.__autoSave
 
     def save(self):
         for key in self.keys():
