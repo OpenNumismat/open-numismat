@@ -71,7 +71,7 @@ for p in Path("dist/OpenNumismat/").glob("Qt5Quick3D*.dll"):
 
 import os
 for f in ("opengl32sw.dll", "Qt5Bluetooth.dll", "Qt5DBus.dll", "Qt5Designer.dll",
-          "Qt5Location.dll", "Qt5Multimedia.dll", "Qt5MultimediaWidgets.dll", "Qt5Network.dll",
+          "Qt5Location.dll", "Qt5Multimedia.dll", "Qt5MultimediaWidgets.dll",
           "Qt5Nfc.dll", "Qt5OpenGL.dll", "Qt5QuickParticles.dll", "Qt5QuickTemplates2.dll",
           "Qt5QmlWorkerScript.dll"
           ):
@@ -79,7 +79,7 @@ for f in ("opengl32sw.dll", "Qt5Bluetooth.dll", "Qt5DBus.dll", "Qt5Designer.dll"
     os.remove(f)
 
 for f in ("QtBluetooth.pyd", "QtDBus.pyd", "QtDesigner.pyd",
-          "QtLocation.pyd", "QtMultimedia.pyd", "QtMultimediaWidgets.pyd", "QtNetwork.pyd",
+          "QtLocation.pyd", "QtMultimedia.pyd", "QtMultimediaWidgets.pyd",
           "QtNfc.pyd", "QtOpenGL.pyd", "QtPositioning.pyd",
           "QtQml.pyd", "QtQuick.pyd", "QtQuick3D.pyd", "QtQuickWidgets.pyd"):
     f = "dist/OpenNumismat/PyQt5/" + f
