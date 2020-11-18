@@ -10,12 +10,12 @@ from PyQt5.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, PYQT_VE
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from PyQt5.QtGui import QDesktopServices
 
-import resources
 import OpenNumismat
 from OpenNumismat.Settings import Settings
 from OpenNumismat.MainWindow import MainWindow
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import version
+from OpenNumismat import resources
 
 
 def main():
