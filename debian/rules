@@ -2,10 +2,10 @@
 # -*- makefile -*-
 
 # These commands build the list of supported Python 3 versions
-# The last version should be just “python3” so that the scripts
+# The last version should be just "python3" so that the scripts
 # get a correct shebang.
-# Use just “PYTHON3 := $(shell py3versions -r)” if your package
-# doesn’t contain scripts
+# Use just "PYTHON3 := $(shell py3versions -r)" if your package
+# doesn't contain scripts
 PY3REQUESTED := $(shell py3versions -r)
 PY3DEFAULT := $(shell py3versions -d)
 PYTHON3 := $(filter-out $(PY3DEFAULT),$(PY3REQUESTED)) python3
