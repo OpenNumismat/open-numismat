@@ -162,7 +162,7 @@ function gmap_geocode(address) {
         try:
             req = urllib.request.Request(url,
                                          headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req).read()
+            data = urllib.request.urlopen(req, timeout=10).read()
             json_data = json.loads(data.decode())
             return json_data['display_name']
         except:

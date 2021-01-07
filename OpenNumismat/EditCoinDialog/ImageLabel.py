@@ -312,7 +312,7 @@ class ImageEdit(ImageLabel):
             # Wikipedia require any header
             req = urllib.request.Request(url,
                                     headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req).read()
+            data = urllib.request.urlopen(req, timeout=30).read()
             image = QImage()
             result = image.loadFromData(data)
             if result:

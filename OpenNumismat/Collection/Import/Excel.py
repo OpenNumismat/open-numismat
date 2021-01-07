@@ -89,7 +89,7 @@ class TableDialog(QDialog):
                             # Wikipedia require any header
                             req = urllib.request.Request(fileName,
                                     headers={'User-Agent': version.AppName})
-                            data = urllib.request.urlopen(req).read()
+                            data = urllib.request.urlopen(req, timeout=30).read()
                             result = image.loadFromData(data)
                             if result:
                                 pixmap = QPixmap.fromImage(image)
@@ -209,7 +209,7 @@ class ImportExcel(_Import2):
                         # Wikipedia require any header
                         req = urllib.request.Request(val,
                                 headers={'User-Agent': version.AppName})
-                        data = urllib.request.urlopen(req).read()
+                        data = urllib.request.urlopen(req, timeout=30).read()
                         if image.loadFromData(data):
                             val = image
                         else:

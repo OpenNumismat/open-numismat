@@ -5,6 +5,7 @@ import re
 import os
 import tempfile
 import urllib.request
+from socket import timeout
 
 from PyQt5.QtCore import Qt, QObject, QDate
 from PyQt5.QtGui import QImage, QPixmap, QIcon
@@ -196,7 +197,11 @@ class ColnectConnector(QObject):
         try:
             req = urllib.request.Request(url,
                                     headers={'User-Agent': version.AppName})
-            raw_data = urllib.request.urlopen(req).read().decode()
+            raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+        except timeout:
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Colnect proxy-server not response"))
+            return []
         except:
             return []
 
@@ -223,7 +228,7 @@ class ColnectConnector(QObject):
         try:
             req = urllib.request.Request(url,
                                     headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req).read()
+            data = urllib.request.urlopen(req, timeout=30).read()
         except:
             return None
 
@@ -268,7 +273,11 @@ class ColnectConnector(QObject):
         try:
             req = urllib.request.Request(url,
                                     headers={'User-Agent': version.AppName})
-            raw_data = urllib.request.urlopen(req).read().decode()
+            raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+        except timeout:
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Colnect proxy-server not response"))
+            return []
         except:
             return []
 

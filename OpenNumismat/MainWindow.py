@@ -912,7 +912,7 @@ class MainWindow(QMainWindow):
         try:
             url = "http://opennumismat.github.io/data/pad.xml"
             req = urllib.request.Request(url)
-            data = urllib.request.urlopen(req).read()
+            data = urllib.request.urlopen(req, timeout=10).read()
             xml = parseString(data)
             tag = xml.getElementsByTagName('Program_Version')[0]
             newVersion = tag.firstChild.nodeValue

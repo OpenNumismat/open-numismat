@@ -124,7 +124,7 @@ class ImportNumista(_Import2):
                 '&redirect_uri=local'
             try:
                 req = urllib.request.Request(url)
-                raw_data = urllib.request.urlopen(req).read().decode()
+                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
             except:
                 return False
 
@@ -138,7 +138,7 @@ class ImportNumista(_Import2):
                 req = urllib.request.Request(url,
                         headers={'Numista-API-Key': NUMISTA_API_KEY,
                                  'Authorization': 'Bearer ' + access_token})
-                raw_data = urllib.request.urlopen(req).read().decode()
+                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
             except:
                 return False
 
@@ -196,7 +196,7 @@ class ImportNumista(_Import2):
         try:
             req = urllib.request.Request(url,
                     headers={'Numista-API-Key': NUMISTA_API_KEY})
-            raw_data = urllib.request.urlopen(req).read().decode()
+            raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
         except:
             return
 
@@ -260,7 +260,7 @@ class ImportNumista(_Import2):
         try:
             image = QImage()
             req = urllib.request.Request(url, headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req).read()
+            data = urllib.request.urlopen(req, timeout=30).read()
             image.loadFromData(data)
             return image
         except:
