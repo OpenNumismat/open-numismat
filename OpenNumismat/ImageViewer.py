@@ -118,7 +118,7 @@ class CropDialog(QDialog):
         circleWidget.setLayout(circleLayout)
 
         settings = QSettings()
-        cropTool = settings.value('crop_dialog/crop_tool', 0)
+        cropTool = settings.value('crop_dialog/crop_tool', 0, type=int)
         self.tab = QTabWidget(self)
         self.tab.addTab(rectWidget, QIcon(':/shape_handles.png'), None)
         self.tab.setTabToolTip(0, self.tr("Rect"))
