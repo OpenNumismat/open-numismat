@@ -903,7 +903,7 @@ La aplicación deberá reiniciarse ahora.</translation>
 <context>
     <name>ColnectCache</name>
     <message>
-        <location filename="Colnect.py" line="47"/>
+        <location filename="Colnect.py" line="48"/>
         <source>Can&apos;t open Colnect cache</source>
         <translation>No se puede abrir el caché de Colnect</translation>
     </message>
@@ -911,80 +911,85 @@ La aplicación deberá reiniciarse ahora.</translation>
 <context>
     <name>ColnectConnector</name>
     <message>
-        <location filename="Colnect.py" line="276"/>
+        <location filename="Colnect.py" line="285"/>
         <source>Colnect service not available</source>
         <translation>Servicio Colnect no disponible</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="280"/>
+        <location filename="Colnect.py" line="289"/>
         <source>Colnect data not recognised</source>
         <translation>Datos de Colnect no reconocidos</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="278"/>
+        <source>Colnect proxy-server not response</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ColnectDialog</name>
     <message>
-        <location filename="Colnect.py" line="342"/>
+        <location filename="Colnect.py" line="351"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
         <translation>Información del catálogo cortesía de&lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, una comunidad de coleccionistas online.</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="355"/>
+        <location filename="Colnect.py" line="364"/>
         <source>Coins</source>
         <translation>Monedas</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="355"/>
+        <location filename="Colnect.py" line="364"/>
         <source>Stamps</source>
         <translation>Sellos</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="364"/>
+        <location filename="Colnect.py" line="373"/>
         <source>Category</source>
         <translation>Categoría</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="435"/>
+        <location filename="Colnect.py" line="444"/>
         <source>Add</source>
         <translation>Agregar</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="437"/>
+        <location filename="Colnect.py" line="446"/>
         <source>Add and close</source>
         <translation>Añadir y cerrar</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="572"/>
+        <location filename="Colnect.py" line="581"/>
         <source>(All)</source>
         <translation>(Todo)</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="657"/>
+        <location filename="Colnect.py" line="666"/>
         <source>Downloading</source>
         <translation>Descargando</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="657"/>
+        <location filename="Colnect.py" line="666"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="447"/>
+        <location filename="Colnect.py" line="456"/>
         <source>Specify more parameters</source>
         <translation>Especifique más parámetros</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="444"/>
+        <location filename="Colnect.py" line="453"/>
         <source>Preview</source>
         <translation>Vista previa</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="448"/>
+        <location filename="Colnect.py" line="457"/>
         <source>Nothing found</source>
         <translation>No se encontró nada</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="355"/>
+        <location filename="Colnect.py" line="364"/>
         <source>Banknotes</source>
         <translation>Billetes</translation>
     </message>

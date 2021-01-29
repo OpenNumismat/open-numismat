@@ -896,7 +896,7 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectCache</name>
     <message>
-        <location filename="Colnect.py" line="47"/>
+        <location filename="Colnect.py" line="48"/>
         <source>Can&apos;t open Colnect cache</source>
         <translation>Kann Colnect Cache nicht öffnen</translation>
     </message>
@@ -904,80 +904,85 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectConnector</name>
     <message>
-        <location filename="Colnect.py" line="276"/>
+        <location filename="Colnect.py" line="285"/>
         <source>Colnect service not available</source>
         <translation>Colnect Service nicht erreichbar</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="280"/>
+        <location filename="Colnect.py" line="289"/>
         <source>Colnect data not recognised</source>
         <translation>Colnect Daten nicht erkannt</translation>
+    </message>
+    <message>
+        <location filename="Colnect.py" line="278"/>
+        <source>Colnect proxy-server not response</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ColnectDialog</name>
     <message>
-        <location filename="Colnect.py" line="342"/>
+        <location filename="Colnect.py" line="351"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
         <translation>Kataloginformation durch freundliche Unterstützung von &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, einer Online Sammlercommunity.</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="355"/>
+        <location filename="Colnect.py" line="364"/>
         <source>Coins</source>
         <translation>Münzen</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="355"/>
+        <location filename="Colnect.py" line="364"/>
         <source>Stamps</source>
         <translation>Briefmarken</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="364"/>
+        <location filename="Colnect.py" line="373"/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="435"/>
+        <location filename="Colnect.py" line="444"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="437"/>
+        <location filename="Colnect.py" line="446"/>
         <source>Add and close</source>
         <translation>Hinzufügen und schließen</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="572"/>
+        <location filename="Colnect.py" line="581"/>
         <source>(All)</source>
         <translation>(Alle)</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="657"/>
+        <location filename="Colnect.py" line="666"/>
         <source>Downloading</source>
         <translation>Herunterladen</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="657"/>
+        <location filename="Colnect.py" line="666"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="447"/>
+        <location filename="Colnect.py" line="456"/>
         <source>Specify more parameters</source>
         <translation>Spezifiziere mehr Parameter</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="444"/>
+        <location filename="Colnect.py" line="453"/>
         <source>Preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="448"/>
+        <location filename="Colnect.py" line="457"/>
         <source>Nothing found</source>
         <translation>Nichts gefunden</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="355"/>
+        <location filename="Colnect.py" line="364"/>
         <source>Banknotes</source>
         <translation>Banknoten</translation>
     </message>
@@ -1015,82 +1020,82 @@ The application will need to restart now.</source>
     <message>
         <location filename="ImageViewer.py" line="20"/>
         <source>Crop</source>
-        <translation type="unfinished"/>
+        <translation>Zuschneiden</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="108"/>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="110"/>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="112"/>
         <source>Width</source>
-        <translation type="unfinished"/>
+        <translation>Breite</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="114"/>
         <source>Height</source>
-        <translation type="unfinished"/>
+        <translation>Höhe</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="74"/>
         <source>X1</source>
-        <translation type="unfinished"/>
+        <translation>X1</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="76"/>
         <source>Y1</source>
-        <translation type="unfinished"/>
+        <translation>Y1</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="78"/>
         <source>X2</source>
-        <translation type="unfinished"/>
+        <translation>X2</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="80"/>
         <source>Y2</source>
-        <translation type="unfinished"/>
+        <translation>Y2</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="82"/>
         <source>X3</source>
-        <translation type="unfinished"/>
+        <translation>X3</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="84"/>
         <source>Y3</source>
-        <translation type="unfinished"/>
+        <translation>Y3</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="86"/>
         <source>X4</source>
-        <translation type="unfinished"/>
+        <translation>X4</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="88"/>
         <source>Y4</source>
-        <translation type="unfinished"/>
+        <translation>Y4</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="124"/>
         <source>Rect</source>
-        <translation type="unfinished"/>
+        <translation>Rechteck</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="126"/>
         <source>Circle</source>
-        <translation type="unfinished"/>
+        <translation>Kreis</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="128"/>
         <source>Quad</source>
-        <translation type="unfinished"/>
+        <translation>Quadrat</translation>
     </message>
 </context>
 <context>
@@ -1784,7 +1789,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <message>
         <location filename="ImageViewer.py" line="854"/>
         <source>Crop</source>
-        <translation type="unfinished"/>
+        <translation>Zuschneiden</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="985"/>
