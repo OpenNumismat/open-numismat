@@ -2402,7 +2402,7 @@ Do you want to send an error message to the author?</source>
         <location filename="MainWindow.py" line="853"/>
         <source>%s %s
 
-Copyright (C) 2011-2020 Vitaly Ignatov
+Copyright (C) 2011-2021 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
         <translation type="unfinished"/>
