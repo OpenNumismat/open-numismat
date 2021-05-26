@@ -256,8 +256,6 @@ class BaseTableView(QTableView):
                 if progressDlg.wasCanceled():
                     break
 
-                index = self._mapToSource(self.proxyModel.index(i, 0))
-                record = model.record(index.row())
                 parts = []
                 for param in self.listParam.columns:
                     field = model.fields.field(param.fieldid)
@@ -267,10 +265,13 @@ class BaseTableView(QTableView):
                     if not param.enabled:
                         continue
 
-                    if record.isNull(param.fieldid):
+                    field_index = model.index(i, model.fieldIndex(field.name))
+                    value = model.data(field_index, Qt.DisplayRole)
+
+                    if value is None:
                         parts.append('')
                     else:
-                        parts.append(record.value(param.fieldid))
+                        parts.append(value)
 
                 export.writeRow(parts)
 
