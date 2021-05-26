@@ -611,7 +611,7 @@ class StatisticsView(QWidget):
                 else:  # year
                     sql_filters = ["1=1"]
             else:
-                sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing')"]
+                sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate')"]
 
                 if period == 'month':
                     sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")

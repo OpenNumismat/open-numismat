@@ -9,6 +9,7 @@
     <file alias="sale.png">icons/sale.png</file>
     <file alias="wish.png">icons/wish.png</file>
     <file alias="missing.png">icons/missing.png</file>
+    <file alias="duplicate.png">icons/duplicate.png</file>
     <file alias="add.png">icons/add.png</file>
     <file alias="Adobe_PDF_Document.png">icons/Adobe_PDF_Document.png</file>
     <file alias="application-form.png">icons/application-form.png</file>

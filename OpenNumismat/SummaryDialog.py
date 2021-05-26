@@ -41,7 +41,7 @@ class SummaryDialog(QDialog):
             lines.append(self.tr("Total count: %d") % totalCount)
 
         count_owned = 0
-        sql = "SELECT count(*) FROM coins WHERE status IN ('owned', 'ordered', 'sale')"
+        sql = "SELECT count(*) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate')"
         query = QSqlQuery(sql, model.database())
         if query.first():
             count_owned = query.record().value(0)
@@ -77,12 +77,12 @@ class SummaryDialog(QDialog):
 
         paid = 0
         commission = ""
-        sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
+        sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
         query = QSqlQuery(sql, model.database())
         if query.first():
             paid = query.record().value(0)
             if paid:
-                sql = "SELECT SUM(payprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing') AND payprice<>'' AND payprice IS NOT NULL"
+                sql = "SELECT SUM(payprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND payprice<>'' AND payprice IS NOT NULL"
                 query = QSqlQuery(sql, model.database())
                 if query.first():
                     paid_without_commission = query.record().value(0)
@@ -115,14 +115,14 @@ class SummaryDialog(QDialog):
             total = (paid - earned)
             lines.append(self.tr("Total (paid - earned): %.2f") % total)
 
-        sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
+        sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
         query = QSqlQuery(sql, model.database())
         if query.first():
             date = QDate.fromString(query.record().value(0), Qt.ISODate)
             paydate = date.toString(Qt.SystemLocaleShortDate)
             lines.append(self.tr("First purchase: %s") % paydate)
 
-        sql = "SELECT UPPER(grade), price1, price2, price3, price4 FROM coins WHERE status IN ('owned', 'ordered', 'sale') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
+        sql = "SELECT UPPER(grade), price1, price2, price3, price4 FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
         query = QSqlQuery(sql, model.database())
         est_owned = 0
         count = 0

@@ -60,7 +60,7 @@ class FieldTypes():
 
 class Status(dict):
     Keys = ('demo', 'pass', 'owned', 'ordered', 'bidding',
-            'sold', 'sale', 'wish', 'missing')
+            'sold', 'sale', 'wish', 'missing', 'duplicate')
     Titles = (
         QT_TRANSLATE_NOOP("Status", "Demo"),
         QT_TRANSLATE_NOOP("Status", "Pass"),
@@ -71,6 +71,7 @@ class Status(dict):
         QT_TRANSLATE_NOOP("Status", "Sale"),
         QT_TRANSLATE_NOOP("Status", "Wish"),
         QT_TRANSLATE_NOOP("Status", "Missing"),
+        QT_TRANSLATE_NOOP("Status", "Duplicate"),
     )
 
     def __init__(self):
@@ -101,8 +102,9 @@ class Status(dict):
 
 
 Statuses = Status()
-StatusesOrder = {'': 0, 'demo': 0, 'pass': 8, 'owned': 3, 'ordered': 2,
-                 'bidding': 1, 'sold': 6, 'sale': 5, 'wish': 4, 'missing': 7}
+StatusesOrder = {'': 0, 'demo': 0, 'pass': 9, 'owned': 3, 'ordered': 2,
+                 'bidding': 1, 'sold': 7, 'sale': 6, 'wish': 5, 'missing': 8,
+                 'duplicate': 4}
 ImageFields = ('obverseimg', 'reverseimg', 'edgeimg', 'signatureimg',
                'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4')
 
