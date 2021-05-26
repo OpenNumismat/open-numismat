@@ -513,7 +513,7 @@ class PreviewDialog(QDialog):
 
     @waitCursorDecorator
     def __exportToWord(self, src, dst):
-        word = win32com.client.Dispatch('Word.Application')
+        word = win32com.client.DispatchEx('Word.Application')
 
         doc = word.Documents.Add(src)
         doc.SaveAs(dst, FileFormat=0)
