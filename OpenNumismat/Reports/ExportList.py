@@ -108,7 +108,7 @@ background: #ecf0f6;
             self._file.write(html.escape(val))
             self._file.write("</th>")
 
-        self._file.write("</tr></thead>\n")
+        self._file.write("</tr></thead>\n<tbody>")
 
     def writeRow(self, row):
         self._file.write("<tr>")
