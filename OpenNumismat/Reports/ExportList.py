@@ -66,11 +66,10 @@ class ExportToHtml(__ExportBase):
         self._file = codecs.open(self.fileName, 'w', 'utf-8')
         self._file.truncate()
         self._file.write("""
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta charset=utf-8">
 <title>""" + self.title + """</title>
 <style>
 td {
