@@ -40,6 +40,9 @@ class Updater(QtCore.QObject):
             if self.currentVersion < 7:
                 updater = UpdaterTo7(self.collection)
                 updater.update()
+            if self.currentVersion < 8:
+                updater = UpdaterTo8(self.collection)
+                updater.update()
 
             self.__finalize()
 
@@ -501,6 +504,49 @@ class UpdaterTo7(_Updater):
         self._updateRecord()
 
         self.collection.settings['Version'] = 7
+        self.collection.settings.save()
+
+        self.db.commit()
+
+        self._finish()
+
+
+class UpdaterTo8(_Updater):
+
+    def __init__(self, collection):
+        super().__init__(collection)
+        self.progressDlg.setMinimumDuration(0)
+
+    def getTotalCount(self):
+        return 6
+
+    def update(self):
+        self._begin()
+
+        self.db.transaction()
+
+        fields = ('photo5', 'photo6', 'grader', 'seat', 'native_year')
+        for field in fields:
+            self._updateRecord()
+
+            fieldDesc = getattr(self.collection.fields, field)
+            fieldDesc.enabled = False
+            query = QSqlQuery(self.db)
+            query.prepare("INSERT INTO fields (id, title, enabled)"
+                          " VALUES (?, ?, ?)")
+            query.addBindValue(fieldDesc.id)
+            query.addBindValue(fieldDesc.title)
+            query.addBindValue(int(False))
+            query.exec_()
+
+            sql = "ALTER TABLE coins ADD COLUMN %s %s" % (field, Type.toSql(fieldDesc.type))
+            QSqlQuery(sql, self.db)
+
+            self.collection.fields.userFields.append(fieldDesc)
+
+        self._updateRecord()
+
+        self.collection.settings['Version'] = 8
         self.collection.settings.save()
 
         self.db.commit()

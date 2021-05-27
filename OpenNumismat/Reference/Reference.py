@@ -308,6 +308,8 @@ class Reference(QtCore.QObject):
         self.__createReferenceSection(None, fields.defect, self.tr("D"))
         self.__createReferenceSection(None, fields.format)
         self.__createReferenceSection(None, fields.condition)
+        self.__createReferenceSection(None, fields.grader)
+        self.__createReferenceSection(None, fields.storage)
 
         if 'payplace' in self.userFields or 'saleplace' in self.userFields:
             ref_place = ReferenceSection('place', self.tr("Place"))

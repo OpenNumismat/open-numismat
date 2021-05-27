@@ -350,15 +350,17 @@ class FieldsSettingsPage(QWidget):
                 system_item.addChild(item)
             elif field.name in ('image', 'obverseimg', 'reverseimg', 'edgeimg',
                                 'photo1', 'photo2', 'photo3', 'photo4',
+                                'photo5', 'photo6',
                                 'varietyimg', 'signatureimg'):
                 image_item.addChild(item)
             elif field.name in ('title', 'region', 'country', 'period',
                                 'emitent', 'ruler', 'value', 'unit', 'year',
-                                'mintmark', 'mint', 'type', 'series', 'subjectshort'):
+                                'mintmark', 'mint', 'type', 'series',
+                                'subjectshort', 'native_year'):
                 main_item.addChild(item)
             elif field.name in ('status', 'grade', 'quantity', 'format',
                                 'condition', 'storage', 'barcode', 'defect',
-                                'features'):
+                                'features', 'grader', 'seat'):
                 state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
                                 'saller', 'payplace', 'payinfo'):

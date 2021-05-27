@@ -106,7 +106,8 @@ StatusesOrder = {'': 0, 'demo': 0, 'pass': 9, 'owned': 3, 'ordered': 2,
                  'bidding': 1, 'sold': 7, 'sale': 6, 'wish': 5, 'missing': 8,
                  'duplicate': 4}
 ImageFields = ('obverseimg', 'reverseimg', 'edgeimg', 'signatureimg',
-               'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4')
+               'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4',
+               'photo5', 'photo6')
 
 
 class CollectionField():
@@ -217,6 +218,11 @@ class CollectionFieldsBase(QObject):
                 ('address', QApplication.translate('CollectionFieldsBase', "Address"), Type.String),
                 ('latitude', QApplication.translate('CollectionFieldsBase', "Latitude"), Type.Value),
                 ('longitude', QApplication.translate('CollectionFieldsBase', "Longitude"), Type.Value),
+                ('photo5', QApplication.translate('CollectionFieldsBase', "Photo 5"), Type.Image),
+                ('photo6', QApplication.translate('CollectionFieldsBase', "Photo 6"), Type.Image),
+                ('grader', QApplication.translate('CollectionFieldsBase', "Grader"), Type.String),
+                ('seat', QApplication.translate('CollectionFieldsBase', "Seat"), Type.String),
+                ('native_year', QApplication.translate('CollectionFieldsBase', "Year on coin"), Type.String),
             ]
 
         self.fields = []

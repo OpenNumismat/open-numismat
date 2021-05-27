@@ -605,7 +605,7 @@ class CollectionModel(QSqlTableModel):
 
 class CollectionSettings(BaseSettings):
     Default = {
-            'Version': 7,
+            'Version': 8,
             'Type': version.AppName,
             'Password': cryptPassword(),
             'ImageSideLen': 1024,
@@ -1132,7 +1132,7 @@ class Collection(QtCore.QObject):
 
     def exportToMobile(self, params):
         IMAGE_FORMAT = 'jpg'
-        SKIPPED_FIELDS = ('signatureimg', 'varietyimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4',
+        SKIPPED_FIELDS = ('signatureimg', 'varietyimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4', 'photo5', 'photo6',
             'obversedesigner', 'reversedesigner', 'catalognum2', 'catalognum3', 'catalognum4',
             'saledate', 'saleprice', 'totalsaleprice', 'buyer', 'saleplace', 'saleinfo',
             'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace', 'payinfo',

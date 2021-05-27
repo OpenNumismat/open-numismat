@@ -215,7 +215,7 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['emitent'])
         layout.addRow(self.items['ruler'])
         layout.addRow(self.items['value'], self.items['unit'])
-        layout.addRow(self.items['year'])
+        layout.addRow(self.items['year'], self.items['native_year'])
         layout.addRow(self.items['mintmark'], self.items['mint'])
         layout.addRow(self.items['type'])
         layout.addRow(self.items['series'])
@@ -231,7 +231,8 @@ class DetailsTabWidget(QTabWidget):
         self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
         layout.addRow(self.items['quantity'], self.items['format'])
         layout.addRow(self.items['condition'])
-        layout.addRow(self.items['storage'], self.items['barcode'])
+        layout.addRow(self.items['storage'], self.items['seat'])
+        layout.addRow(self.items['barcode'], self.items['grader'])
         layout.addRow(self.items['defect'])
         layout.addRow(self.items['features'])
 
@@ -749,7 +750,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def imagesLayout(self):
         layout = ImageFormLayout()
         layout.addImages([self.items['photo1'], self.items['photo2'],
-                          self.items['photo3'], self.items['photo4']])
+                          self.items['photo3'], self.items['photo4'],
+                          self.items['photo5'], self.items['photo6']])
         return layout
 
     def clickGenerateTitle(self):
