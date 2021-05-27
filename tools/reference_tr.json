@@ -5,7 +5,7 @@
         "Az bulunur",
         "Nadir",
         "Emsalsiz",
-        "In sets only"
+        "Sadece set içerisinde"
     ],
     "quality": [
         "Çil",
@@ -15,8 +15,8 @@
         "Reverse frosted"
     ],
     "defect": [
-        "Clipped planchet",
-        "Lamination",
+        "Kesik Pul",
+        "Kaplama",
         "Off center strike",
         "Multiple strike",
         "Mule",
@@ -44,7 +44,7 @@
         "Decorated",
         "Interrupted milled",
         "Düz",
-        "Lettered"
+        "Yazılı"
     ],
     "shape": [
         "Yuvarlak",
