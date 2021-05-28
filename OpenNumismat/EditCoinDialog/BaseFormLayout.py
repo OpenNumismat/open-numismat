@@ -173,7 +173,7 @@ class FormItem(object):
             self._widget.setCurrentValue(value)
         elif isinstance(self._widget, QTextEdit):
             self._widget.setText(str(value))
-        elif isinstance(self._widget, LineEdit):
+        elif isinstance(self._widget, LineEdit) or isinstance(self._widget, GraderLineEdit):
             self._widget.setText(str(value))
             self._widget.home(False)
 

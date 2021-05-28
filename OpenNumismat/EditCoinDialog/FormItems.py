@@ -285,6 +285,15 @@ class GraderLineEdit(QWidget):
     def setReadOnly(self, b):
         self.lineEdit.setReadOnly(b)
 
+    def addAction(self, icon, position):
+        return self.lineEdit.addAction(icon, position)
+    
+    def actions(self):
+        return self.lineEdit.actions()
+    
+    def removeAction(self, act):
+        return self.lineEdit.removeAction(act)
+
 
 class LineEditRef(QWidget):
     def __init__(self, reference, parent=None):
