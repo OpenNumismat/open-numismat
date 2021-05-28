@@ -1,8 +1,8 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QDoubleValidator
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtGui import QDoubleValidator, QDesktopServices
 from PyQt5.QtWidgets import *
 
-from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator
+from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdit
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -233,6 +233,8 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['condition'])
         layout.addRow(self.items['seat'], self.items['storage'])
         layout.addRow(self.items['barcode'], self.items['grader'])
+        if isinstance(self.items['grader'].widget(), GraderLineEdit):
+            self.items['grader'].widget().clickedButton.connect(self.clickedButtonGrader)
         layout.addRow(self.items['defect'])
         layout.addRow(self.items['features'])
 
@@ -495,6 +497,31 @@ class DetailsTabWidget(QTabWidget):
         title = QApplication.translate('DetailsTabWidget', "Market")
         self.insertTab(1, page, title)
         self.setCurrentIndex(pageIndex)
+        
+    def clickedButtonGrader(self):
+        grader = self.items['grader'].value().upper()
+        barcode = self.items['barcode'].value()
+        grade = self.items['grade'].value()
+        grade = ''.join(filter(lambda i: i.isdigit(), grade))
+        if grader == 'ANACS':
+            url = 'https://www.anacs.com/Verify/CertVerification.aspx?cert=%s' % barcode
+        elif grader == 'ICCS':
+            url = 'https://iccscoin.ca'
+        elif grader == 'ICG':
+            url = 'https://www.icgcoin.com/load_SNSearch.php?ctn=%s' % barcode
+        elif grader == 'NGC':
+            url = 'https://www.ngccoin.com/certlookup/%s/%s/' % (barcode, grade)
+        elif grader == 'PCGS':
+            url = 'https://www.pcgs.com/cert/%s' % barcode
+        elif grader == 'PMG':
+            url = 'https://www.pmgnotes.com/certlookup/%s/%s' % (barcode, grade)
+        elif grader == 'RNGA':
+            url = 'https://rngacoin.ru/rnga-data-base/%s.html' % barcode
+        else:
+            return
+
+        executor = QDesktopServices()
+        executor.openUrl(QUrl(url))
 
     def addPayCommission(self):
         title = QApplication.translate('DetailsTabWidget', "Commission")
