@@ -250,6 +250,62 @@ class AddressLineEdit(QWidget):
             self.buttonAddress.show()
 
 
+class GraderLineEdit(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.lineEdit = LineEdit(self)
+
+        buttonLoad = QPushButton(QIcon(':/world.png'), '', self)
+        buttonLoad.setFixedWidth(25)
+        buttonLoad.setToolTip(self.tr("View on grader site"))
+        buttonLoad.clicked.connect(self.clickedButtonLoad)
+
+        layout = QHBoxLayout()
+        layout.addWidget(self.lineEdit)
+        layout.addWidget(buttonLoad)
+        layout.setContentsMargins(QMargins())
+
+        self.setLayout(layout)
+
+    def clickedButtonLoad(self):
+        grader = self.text().upper()
+        if grader == 'ANACS':
+            url = 'https://www.anacs.com/Verify/CertVerification.aspx'
+        elif grader == 'ICCS':
+            url = 'https://iccscoin.ca'
+        elif grader == 'ICG':
+            url = 'https://www.icgcoin.com'
+        elif grader == 'NGC':
+            url = 'https://www.ngccoin.com/certlookup/'
+        elif grader == 'PCGS':
+            url = 'https://www.pcgs.com/cert/'
+        elif grader == 'PMG':
+            url = 'https://www.pmgnotes.com/certlookup/'
+        elif grader == 'RNGA':
+            url = 'https://rngacoin.ru/rnga-data-base/'
+        else:
+            return
+
+        executor = QDesktopServices()
+        executor.openUrl(QUrl(url))
+
+    def clear(self):
+        self.lineEdit.clear()
+
+    def setText(self, text):
+        self.lineEdit.setText(text)
+
+    def text(self):
+        return self.lineEdit.text()
+
+    def home(self, mark):
+        self.lineEdit.home(mark)
+
+    def setReadOnly(self, b):
+        self.lineEdit.setReadOnly(b)
+
+
 class LineEditRef(QWidget):
     def __init__(self, reference, parent=None):
         super().__init__(parent)
