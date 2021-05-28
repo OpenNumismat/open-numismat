@@ -6,6 +6,8 @@ import json
 import os
 import sys
 
+sys.path.append('..')
+
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtSql import QSqlQuery
@@ -27,8 +29,6 @@ def convertImage(fileName):
     else:
         return None
 
-
-sys.path.append('..')
 
 app = QApplication(sys.argv)
 fields = CollectionFieldsBase()
@@ -124,6 +124,16 @@ for lang in langs:
     grade.addItem('F')
     grade.addItem('VG')
     grade.model.submitAll()
+
+    grader = ref.section('grader')
+    grader.addItem('ANACS', convertImage('icons/anacs.png'))
+    grader.addItem('ICCS', convertImage('icons/iccs.png'))
+    grader.addItem('ICG', convertImage('icons/icg.ico'))
+    grader.addItem('NGC', convertImage('icons/ngc.png'))
+    grader.addItem('PCGS', convertImage('icons/pcgs.png'))
+    grader.addItem('PMG', convertImage('icons/pmg.png'))
+    grader.addItem('RNGA', convertImage('icons/rnga.png'))
+    grader.model.submitAll()
 
     place = ref.section('payplace')
     if lang == 'ru':
