@@ -154,7 +154,8 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
         <location filename="ListView.py" line="158"/>
         <source>%n coin(s) selected</source>
         <translation>
-            <numerusform></numerusform>
+            <numerusform>%n coin selected</numerusform>
+            <numerusform>%n coins selected</numerusform>
         </translation>
     </message>
     <message>
