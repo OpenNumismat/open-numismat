@@ -154,8 +154,7 @@ Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all c
         <location filename="ListView.py" line="158"/>
         <source>%n coin(s) selected</source>
         <translation>
-            <numerusform>%n coin selected</numerusform>
-            <numerusform>%n coins selected</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1170,12 +1169,12 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="495"/>
+        <location filename="DetailsTabWidget.py" line="497"/>
         <source>Market</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="317"/>
+        <location filename="DetailsTabWidget.py" line="319"/>
         <source>Parameters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1200,62 +1199,62 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="242"/>
+        <location filename="DetailsTabWidget.py" line="244"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="251"/>
+        <location filename="DetailsTabWidget.py" line="253"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="270"/>
+        <location filename="DetailsTabWidget.py" line="272"/>
         <source>Sale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="289"/>
+        <location filename="DetailsTabWidget.py" line="291"/>
         <source>Pass</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="329"/>
+        <location filename="DetailsTabWidget.py" line="331"/>
         <source>Minting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="350"/>
+        <location filename="DetailsTabWidget.py" line="352"/>
         <source>Obverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="361"/>
+        <location filename="DetailsTabWidget.py" line="363"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="372"/>
+        <location filename="DetailsTabWidget.py" line="374"/>
         <source>Edge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="401"/>
+        <location filename="DetailsTabWidget.py" line="403"/>
         <source>Catalogue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="410"/>
+        <location filename="DetailsTabWidget.py" line="412"/>
         <source>Price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="419"/>
+        <location filename="DetailsTabWidget.py" line="421"/>
         <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="520"/>
+        <location filename="DetailsTabWidget.py" line="547"/>
         <source>Commission</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1524,52 +1523,52 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="562"/>
+        <location filename="DetailsTabWidget.py" line="589"/>
         <source>Design</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="566"/>
+        <location filename="DetailsTabWidget.py" line="593"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="628"/>
+        <location filename="DetailsTabWidget.py" line="655"/>
         <source>Main details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="631"/>
+        <location filename="DetailsTabWidget.py" line="658"/>
         <source>Generate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="651"/>
+        <location filename="DetailsTabWidget.py" line="678"/>
         <source>Obverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="663"/>
+        <location filename="DetailsTabWidget.py" line="690"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="675"/>
+        <location filename="DetailsTabWidget.py" line="702"/>
         <source>Edge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="688"/>
+        <location filename="DetailsTabWidget.py" line="715"/>
         <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="837"/>
+        <location filename="DetailsTabWidget.py" line="864"/>
         <source>Commission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="839"/>
+        <location filename="DetailsTabWidget.py" line="866"/>
         <source>Available format 12.5 or 10%</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1612,6 +1611,14 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="Gui.py" line="40"/>
         <source>Save as</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GraderLineEdit</name>
+    <message>
+        <location filename="FormItems.py" line="263"/>
+        <source>View on grader site</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3323,7 +3330,7 @@ Add a new one first.</source>
 <context>
     <name>YearEdit</name>
     <message>
-        <location filename="FormItems.py" line="454"/>
+        <location filename="FormItems.py" line="499"/>
         <source>BC</source>
         <translation type="unfinished"></translation>
     </message>

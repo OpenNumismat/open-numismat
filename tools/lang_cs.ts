@@ -103,42 +103,42 @@ Vybrat jednotlivé mince lze kliknutím s Ctrl nebo Shift, případně Ctrl+A pr
         <translation>Textový soubor UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="284"/>
+        <location filename="ListView.py" line="285"/>
         <source>Saving list</source>
         <translation>Ukládá se seznam</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="486"/>
+        <location filename="ListView.py" line="487"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="327"/>
+        <location filename="ListView.py" line="328"/>
         <source>Updating records</source>
         <translation>Obnovují se záznamy</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="499"/>
+        <location filename="ListView.py" line="500"/>
         <source>Saving...</source>
         <translation>Ukládá se...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="467"/>
+        <location filename="ListView.py" line="468"/>
         <source>Inserting records</source>
         <translation>Vkládají se záznamy</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="479"/>
+        <location filename="ListView.py" line="480"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="479"/>
+        <location filename="ListView.py" line="480"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="486"/>
+        <location filename="ListView.py" line="487"/>
         <source>Deleting records</source>
         <translation>Mažou se záznamy</translation>
     </message>
@@ -164,7 +164,7 @@ Changing item position avalaible only on default sort order. Clear sort order no
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="284"/>
+        <location filename="ListView.py" line="285"/>
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
         <translation type="unfinished"/>
@@ -173,202 +173,202 @@ Close the file and try again.</source>
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="749"/>
+        <location filename="Collection.py" line="750"/>
         <source>Open collection</source>
         <translation>Otevřít sbírku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="726"/>
+        <location filename="Collection.py" line="727"/>
         <source>Can&apos;t open collection %s</source>
         <translation>Nelze otevřít sbírku %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="731"/>
+        <location filename="Collection.py" line="732"/>
         <source>Collection %s not exists</source>
         <translation>Sbírka %s neexistuje</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="749"/>
+        <location filename="Collection.py" line="750"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
         <translation>Sbírka %s má novější verzi.
 Aktualizujte, prosím, OpenNumismat</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="791"/>
+        <location filename="Collection.py" line="792"/>
         <source>Create collection</source>
         <translation>Vytvořit sbírku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="783"/>
+        <location filename="Collection.py" line="784"/>
         <source>Specified file already exists</source>
         <translation>Daný soubor již existuje</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1152"/>
+        <location filename="Collection.py" line="1153"/>
         <source>Can&apos;t open collection</source>
         <translation>Nelze otevřít sbírku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="881"/>
+        <location filename="Collection.py" line="882"/>
         <source>Updating reference</source>
         <translation>Akrualizuje se odkaz</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1423"/>
+        <location filename="Collection.py" line="1424"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="915"/>
+        <location filename="Collection.py" line="916"/>
         <source>Attach</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="915"/>
+        <location filename="Collection.py" line="916"/>
         <source>Attach current reference to a collection file?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="956"/>
+        <location filename="Collection.py" line="957"/>
         <source>Attaching reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="956"/>
+        <location filename="Collection.py" line="957"/>
         <source>Can't attach reference:
 %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="970"/>
+        <location filename="Collection.py" line="971"/>
         <source>Save reference as</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="970"/>
+        <location filename="Collection.py" line="971"/>
         <source>Reference (*.ref)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="977"/>
+        <location filename="Collection.py" line="978"/>
         <source>Detaching reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="991"/>
+        <location filename="Collection.py" line="992"/>
         <source>Detach reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="991"/>
+        <location filename="Collection.py" line="992"/>
         <source>Can't detach reference:
 %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1044"/>
+        <location filename="Collection.py" line="1045"/>
         <source>Create reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1012"/>
+        <location filename="Collection.py" line="1013"/>
         <source>Can't create reference:
 %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1044"/>
+        <location filename="Collection.py" line="1045"/>
         <source>Can't clear attached reference:
 %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1064"/>
+        <location filename="Collection.py" line="1065"/>
         <source>Detach current reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1067"/>
+        <location filename="Collection.py" line="1068"/>
         <source>Attach current reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1071"/>
+        <location filename="Collection.py" line="1072"/>
         <source>Fill from collection</source>
         <translation>Vyplnit ze sbírky</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1074"/>
+        <location filename="Collection.py" line="1075"/>
         <source>Edit...</source>
         <translation>Upravit...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1097"/>
+        <location filename="Collection.py" line="1098"/>
         <source>Backup collection</source>
         <translation>Zálohovat sbírku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1097"/>
+        <location filename="Collection.py" line="1098"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation>Nelze udělat zálohu sbírky v %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1152"/>
+        <location filename="Collection.py" line="1153"/>
         <source>Create mobile collection</source>
         <translation>Vytvořit mobilní sbírku</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1224"/>
+        <location filename="Collection.py" line="1225"/>
         <source>Exporting records</source>
         <translation>Vyvádí se záznamy</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1343"/>
+        <location filename="Collection.py" line="1344"/>
         <source>Saving...</source>
         <translation>Ukládá se...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1346"/>
+        <location filename="Collection.py" line="1347"/>
         <source>Compact...</source>
         <translation>Malý...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1364"/>
+        <location filename="Collection.py" line="1365"/>
         <source>Vacuum...</source>
         <translation>Prázdné místo...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1582"/>
+        <location filename="Collection.py" line="1583"/>
         <source>Synchronizing</source>
         <translation>Synchronizuji</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1382"/>
+        <location filename="Collection.py" line="1383"/>
         <source>Can't open collection:
 %s</source>
         <translation>Nelze otevřít sbírku:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1393"/>
+        <location filename="Collection.py" line="1394"/>
         <source>Collection %s in wrong format</source>
         <translation>Sbírka %s je ve špatném formátu</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1403"/>
+        <location filename="Collection.py" line="1404"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1575"/>
+        <location filename="Collection.py" line="1576"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Collection.py" line="1581"/>
+        <location filename="Collection.py" line="1582"/>
         <source>Collections looks like identical</source>
         <translation>Sbírky vypadají identicky</translation>
     </message>
@@ -376,388 +376,413 @@ The application will need to restart now.</source>
 <context>
     <name>CollectionFieldsBase</name>
     <message>
-        <location filename="CollectionFields.py" line="125"/>
+        <location filename="CollectionFields.py" line="128"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="127"/>
+        <location filename="CollectionFields.py" line="130"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="128"/>
+        <location filename="CollectionFields.py" line="131"/>
         <source>Value</source>
         <translation>Hodnota</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="129"/>
+        <location filename="CollectionFields.py" line="132"/>
         <source>Unit</source>
         <translation>Jednotka</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="130"/>
+        <location filename="CollectionFields.py" line="133"/>
         <source>Country</source>
         <translation>Země</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="131"/>
+        <location filename="CollectionFields.py" line="134"/>
         <source>Year</source>
         <translation>Rok</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="132"/>
+        <location filename="CollectionFields.py" line="135"/>
         <source>Period</source>
         <translation>Období</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="133"/>
+        <location filename="CollectionFields.py" line="136"/>
         <source>Mint</source>
         <translation>Mincovna</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="134"/>
+        <location filename="CollectionFields.py" line="137"/>
         <source>Mint mark</source>
         <translation>Značka mincovny</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="135"/>
+        <location filename="CollectionFields.py" line="138"/>
         <source>Date of issue</source>
         <translation>Datum vystavení</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="213"/>
+        <location filename="CollectionFields.py" line="216"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="137"/>
+        <location filename="CollectionFields.py" line="140"/>
         <source>Series</source>
         <translation>Série</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="187"/>
+        <location filename="CollectionFields.py" line="190"/>
         <source>Subject</source>
         <translation>Předmět</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="139"/>
+        <location filename="CollectionFields.py" line="142"/>
         <source>Status</source>
         <translation>Stav</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="140"/>
+        <location filename="CollectionFields.py" line="143"/>
         <source>Material</source>
         <translation>Materiál</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="141"/>
+        <location filename="CollectionFields.py" line="144"/>
         <source>Fineness</source>
         <translation>Jemnost</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="142"/>
+        <location filename="CollectionFields.py" line="145"/>
         <source>Shape</source>
         <translation>Tvar</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="143"/>
+        <location filename="CollectionFields.py" line="146"/>
         <source>Diameter</source>
         <translation>Průměr</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="144"/>
+        <location filename="CollectionFields.py" line="147"/>
         <source>Thickness</source>
         <translation>Tloušťka</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="145"/>
+        <location filename="CollectionFields.py" line="148"/>
         <source>Weight</source>
         <translation>Váha</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="146"/>
+        <location filename="CollectionFields.py" line="149"/>
         <source>Grade</source>
         <translation>Jakost</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="148"/>
+        <location filename="CollectionFields.py" line="151"/>
         <source>Label</source>
         <translation>Označení</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="149"/>
+        <location filename="CollectionFields.py" line="152"/>
         <source>ObvRev</source>
         <translation>Líc a rub</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="150"/>
+        <location filename="CollectionFields.py" line="153"/>
         <source>Quality</source>
         <translation>Kvalita</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="151"/>
+        <location filename="CollectionFields.py" line="154"/>
         <source>Mintage</source>
         <translation>Mincovní značka</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="152"/>
+        <location filename="CollectionFields.py" line="155"/>
         <source>Emission period</source>
         <translation>Doba emise</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="153"/>
+        <location filename="CollectionFields.py" line="156"/>
         <source>1#</source>
         <translation>1#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="154"/>
+        <location filename="CollectionFields.py" line="157"/>
         <source>2#</source>
         <translation>2#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="155"/>
+        <location filename="CollectionFields.py" line="158"/>
         <source>3#</source>
         <translation>3#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="156"/>
+        <location filename="CollectionFields.py" line="159"/>
         <source>4#</source>
         <translation>4#</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="157"/>
+        <location filename="CollectionFields.py" line="160"/>
         <source>Rarity</source>
         <translation>Vzácnost</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="158"/>
+        <location filename="CollectionFields.py" line="161"/>
         <source>Fine</source>
         <translation>Fine</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="159"/>
+        <location filename="CollectionFields.py" line="162"/>
         <source>VF</source>
         <translation>VF</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="160"/>
+        <location filename="CollectionFields.py" line="163"/>
         <source>XF</source>
         <translation>XF</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="161"/>
+        <location filename="CollectionFields.py" line="164"/>
         <source>Unc</source>
         <translation>UNC</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="207"/>
+        <location filename="CollectionFields.py" line="210"/>
         <source>Variety</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="180"/>
+        <location filename="CollectionFields.py" line="183"/>
         <source>Obverse</source>
         <translation>Líc</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="183"/>
+        <location filename="CollectionFields.py" line="186"/>
         <source>Reverse</source>
         <translation>Rub</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="186"/>
+        <location filename="CollectionFields.py" line="189"/>
         <source>Edge</source>
         <translation>Okraj</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="172"/>
+        <location filename="CollectionFields.py" line="175"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="173"/>
+        <location filename="CollectionFields.py" line="176"/>
         <source>Price</source>
         <translation>Cena</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="168"/>
+        <location filename="CollectionFields.py" line="171"/>
         <source>Paid</source>
         <translation>Zaplaceno</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="169"/>
+        <location filename="CollectionFields.py" line="172"/>
         <source>Seller</source>
         <translation>Prodejce</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="176"/>
+        <location filename="CollectionFields.py" line="179"/>
         <source>Place</source>
         <translation>Místo</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="177"/>
+        <location filename="CollectionFields.py" line="180"/>
         <source>Info</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="174"/>
+        <location filename="CollectionFields.py" line="177"/>
         <source>Bailed</source>
         <translation>Kauce</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="175"/>
+        <location filename="CollectionFields.py" line="178"/>
         <source>Buyer</source>
         <translation>Kupující</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="178"/>
+        <location filename="CollectionFields.py" line="181"/>
         <source>Note</source>
         <translation>Poznámka</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="179"/>
+        <location filename="CollectionFields.py" line="182"/>
         <source>Image</source>
         <translation>Obrázek</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="184"/>
+        <location filename="CollectionFields.py" line="187"/>
         <source>Design</source>
         <translation>Návrh</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="185"/>
+        <location filename="CollectionFields.py" line="188"/>
         <source>Designer</source>
         <translation>Návrhář</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="188"/>
+        <location filename="CollectionFields.py" line="191"/>
         <source>Photo 1</source>
         <translation>Fotografie 1</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="189"/>
+        <location filename="CollectionFields.py" line="192"/>
         <source>Photo 2</source>
         <translation>Fotografie 2</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="190"/>
+        <location filename="CollectionFields.py" line="193"/>
         <source>Photo 3</source>
         <translation>Fotografie 3</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="191"/>
+        <location filename="CollectionFields.py" line="194"/>
         <source>Photo 4</source>
         <translation>Fotografie 4</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="192"/>
+        <location filename="CollectionFields.py" line="195"/>
         <source>Defect</source>
         <translation>Vada</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="193"/>
+        <location filename="CollectionFields.py" line="196"/>
         <source>Storage</source>
         <translation>Uskladnění</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="194"/>
+        <location filename="CollectionFields.py" line="197"/>
         <source>Features</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="195"/>
+        <location filename="CollectionFields.py" line="198"/>
         <source>Created at</source>
         <translation>Vytvořeno</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="196"/>
+        <location filename="CollectionFields.py" line="199"/>
         <source>Updated at</source>
         <translation>Aktualizováno</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="197"/>
+        <location filename="CollectionFields.py" line="200"/>
         <source>Quantity</source>
         <translation>Množství</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="198"/>
+        <location filename="CollectionFields.py" line="201"/>
         <source>URL</source>
         <translation>Adresa (URL)</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="199"/>
+        <location filename="CollectionFields.py" line="202"/>
         <source>Barcode</source>
         <translation>Čárový kód</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="200"/>
+        <location filename="CollectionFields.py" line="203"/>
         <source>Ruler</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="201"/>
+        <location filename="CollectionFields.py" line="204"/>
         <source>Region</source>
         <translation>Region</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="203"/>
+        <location filename="CollectionFields.py" line="206"/>
         <source>Engraver</source>
         <translation>Rytec</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="205"/>
+        <location filename="CollectionFields.py" line="208"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="206"/>
+        <location filename="CollectionFields.py" line="209"/>
         <source>Description</source>
         <translation>Popis</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="208"/>
+        <location filename="CollectionFields.py" line="211"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="209"/>
+        <location filename="CollectionFields.py" line="212"/>
         <source>Condition</source>
         <translation>Stav</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="210"/>
+        <location filename="CollectionFields.py" line="213"/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="211"/>
+        <location filename="CollectionFields.py" line="214"/>
         <source>Position</source>
         <translation>Pozice</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="212"/>
+        <location filename="CollectionFields.py" line="215"/>
         <source>Emitent</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="215"/>
+        <location filename="CollectionFields.py" line="218"/>
         <source>Signature</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="216"/>
+        <location filename="CollectionFields.py" line="219"/>
         <source>Address</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="217"/>
+        <location filename="CollectionFields.py" line="220"/>
         <source>Latitude</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="218"/>
+        <location filename="CollectionFields.py" line="221"/>
         <source>Longitude</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="222"/>
+        <source>Photo 5</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="223"/>
+        <source>Photo 6</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="224"/>
+        <source>Grader</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="225"/>
+        <source>Seat</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="226"/>
+        <source>Year on coin</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -989,27 +1014,27 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="494"/>
+        <location filename="SettingsDialog.py" line="496"/>
         <source>Language</source>
         <translation>Jazyk</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="496"/>
+        <location filename="SettingsDialog.py" line="498"/>
         <source>Close dialog after adding item</source>
         <translation>Zavřit dialog po přidání položky</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="501"/>
+        <location filename="SettingsDialog.py" line="503"/>
         <source>Skip currency symbol</source>
         <translation>Přeskakovat symbol měny</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="506"/>
+        <location filename="SettingsDialog.py" line="508"/>
         <source>Clear cache</source>
         <translation>Vyčistit cache</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="517"/>
+        <location filename="SettingsDialog.py" line="519"/>
         <source>Use Colnect</source>
         <translation>Používat Colnect</translation>
     </message>
@@ -1141,12 +1166,12 @@ The application will need to restart now.</source>
         <translation>Mince</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="494"/>
+        <location filename="DetailsTabWidget.py" line="495"/>
         <source>Market</source>
         <translation>Trh</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="316"/>
+        <location filename="DetailsTabWidget.py" line="317"/>
         <source>Parameters</source>
         <translation>Parametry</translation>
     </message>
@@ -1171,62 +1196,62 @@ The application will need to restart now.</source>
         <translation>Stav</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="241"/>
+        <location filename="DetailsTabWidget.py" line="242"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Nic k zobrazení. Změň stav mince na předchozí záložce.</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="250"/>
+        <location filename="DetailsTabWidget.py" line="251"/>
         <source>Buy</source>
         <translation>Koupit</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="269"/>
+        <location filename="DetailsTabWidget.py" line="270"/>
         <source>Sale</source>
         <translation>Prodat</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="288"/>
+        <location filename="DetailsTabWidget.py" line="289"/>
         <source>Pass</source>
         <translation>Projít</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="328"/>
+        <location filename="DetailsTabWidget.py" line="329"/>
         <source>Minting</source>
         <translation>Ražba</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="349"/>
+        <location filename="DetailsTabWidget.py" line="350"/>
         <source>Obverse</source>
         <translation>Líc</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="360"/>
+        <location filename="DetailsTabWidget.py" line="361"/>
         <source>Reverse</source>
         <translation>Rub</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="371"/>
+        <location filename="DetailsTabWidget.py" line="372"/>
         <source>Edge</source>
         <translation>Okraj</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="400"/>
+        <location filename="DetailsTabWidget.py" line="401"/>
         <source>Catalogue</source>
         <translation>Katalog</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="409"/>
+        <location filename="DetailsTabWidget.py" line="410"/>
         <source>Price</source>
         <translation>Cena</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="418"/>
+        <location filename="DetailsTabWidget.py" line="419"/>
         <source>Variation</source>
         <translation>Obměna</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="519"/>
+        <location filename="DetailsTabWidget.py" line="520"/>
         <source>Commission</source>
         <translation type="unfinished"/>
     </message>
@@ -1254,37 +1279,37 @@ The application will need to restart now.</source>
         <translation>Upravit</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="153"/>
+        <location filename="EditCoinDialog.py" line="154"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="86"/>
+        <location filename="EditCoinDialog.py" line="87"/>
         <source>Coin title not set. Save without title?</source>
         <translation>Název mince nenastaven. Uložit bez názvu?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="99"/>
+        <location filename="EditCoinDialog.py" line="100"/>
         <source>Total paid price is negative. Save?</source>
         <translation>Celková placená cena je záporná. Uložit?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="108"/>
+        <location filename="EditCoinDialog.py" line="109"/>
         <source>Pay price is great than total paid price. Save?</source>
         <translation>Cena k zaplacení je větší než celková placená cena. Uložit?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="120"/>
+        <location filename="EditCoinDialog.py" line="121"/>
         <source>Total bailed price is negative. Save?</source>
         <translation>Celková cena kauce je záporná. Uložit?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="129"/>
+        <location filename="EditCoinDialog.py" line="130"/>
         <source>Sale price is less than total bailed price. Save?</source>
         <translation>Cena prodeje je menší než celková cena kauce. Uložit?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="153"/>
+        <location filename="EditCoinDialog.py" line="154"/>
         <source>Similar coin already exists. Save?</source>
         <translation>Podobná mince již existuje. Uložit?</translation>
     </message>
@@ -1385,17 +1410,17 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="397"/>
+        <location filename="SettingsDialog.py" line="399"/>
         <source>Rename</source>
         <translation>Přejmenovat</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="402"/>
+        <location filename="SettingsDialog.py" line="404"/>
         <source>Revert to default</source>
         <translation>Vrátit na výchozí</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="410"/>
+        <location filename="SettingsDialog.py" line="412"/>
         <source>Global enabled fields:</source>
         <translation>Celkově povolená pole:</translation>
     </message>
@@ -1496,52 +1521,52 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="561"/>
+        <location filename="DetailsTabWidget.py" line="562"/>
         <source>Design</source>
         <translation>Návrh</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="565"/>
+        <location filename="DetailsTabWidget.py" line="566"/>
         <source>Images</source>
         <translation>Obrázky</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="627"/>
+        <location filename="DetailsTabWidget.py" line="628"/>
         <source>Main details</source>
         <translation>Hlavní podrobnosti</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="630"/>
+        <location filename="DetailsTabWidget.py" line="631"/>
         <source>Generate</source>
         <translation>Vytvořit</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="650"/>
+        <location filename="DetailsTabWidget.py" line="651"/>
         <source>Obverse</source>
         <translation>Líc</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="662"/>
+        <location filename="DetailsTabWidget.py" line="663"/>
         <source>Reverse</source>
         <translation>Rub</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="674"/>
+        <location filename="DetailsTabWidget.py" line="675"/>
         <source>Edge</source>
         <translation>Okraj</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="687"/>
+        <location filename="DetailsTabWidget.py" line="688"/>
         <source>Variation</source>
         <translation>Obměna</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="835"/>
+        <location filename="DetailsTabWidget.py" line="837"/>
         <source>Commission</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="837"/>
+        <location filename="DetailsTabWidget.py" line="839"/>
         <source>Available format 12.5 or 10%</source>
         <translation type="unfinished"/>
     </message>
@@ -1590,42 +1615,42 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1266"/>
+        <location filename="ListView.py" line="1267"/>
         <source>Edit...</source>
         <translation>Upravit...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1274"/>
+        <location filename="ListView.py" line="1275"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1277"/>
+        <location filename="ListView.py" line="1278"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1282"/>
+        <location filename="ListView.py" line="1283"/>
         <source>Clone</source>
         <translation>Klonovat</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1286"/>
+        <location filename="ListView.py" line="1287"/>
         <source>Multi edit...</source>
         <translation>Vícenásobné úpravy...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1307"/>
+        <location filename="ListView.py" line="1308"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1294"/>
+        <location filename="ListView.py" line="1295"/>
         <source>Move up</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="1299"/>
+        <location filename="ListView.py" line="1300"/>
         <source>Move down</source>
         <translation type="unfinished"/>
     </message>
@@ -1888,47 +1913,47 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="637"/>
+        <location filename="ListView.py" line="638"/>
         <source>Select columns...</source>
         <translation>Vybrat sloupce...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="638"/>
+        <location filename="ListView.py" line="639"/>
         <source>Hide</source>
         <translation>Skrýt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="640"/>
+        <location filename="ListView.py" line="641"/>
         <source>Adjust size</source>
         <translation>Přizpůsobit velikost</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="823"/>
+        <location filename="ListView.py" line="824"/>
         <source>Edit...</source>
         <translation>Upravit...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="830"/>
+        <location filename="ListView.py" line="831"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="832"/>
+        <location filename="ListView.py" line="833"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="844"/>
+        <location filename="ListView.py" line="845"/>
         <source>Filter in</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="836"/>
+        <location filename="ListView.py" line="837"/>
         <source>Clone</source>
         <translation>Klonovat</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="839"/>
+        <location filename="ListView.py" line="840"/>
         <source>Multi edit...</source>
         <translation>Vícenásobné úpravy...</translation>
     </message>
@@ -1978,12 +2003,12 @@ Chcete autorovi poslat hlášení o chybě?</translation>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="851"/>
+        <location filename="ListView.py" line="852"/>
         <source>Move up</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="856"/>
+        <location filename="ListView.py" line="857"/>
         <source>Move down</source>
         <translation type="unfinished"/>
     </message>
@@ -2641,29 +2666,29 @@ Copyright (C) 2011-2021 Vitaly Ignatov
         <translation>V</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="313"/>
+        <location filename="Reference.py" line="315"/>
         <source>Place</source>
         <translation>Místo</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="316"/>
+        <location filename="Reference.py" line="318"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="397"/>
+        <location filename="Reference.py" line="399"/>
         <source>Open reference</source>
         <translation>Otevřít odkaz</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="363"/>
+        <location filename="Reference.py" line="365"/>
         <source>Can't open reference:
 %s</source>
         <translation>Nelze otevřít odkaz:
 %s</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="397"/>
+        <location filename="Reference.py" line="399"/>
         <source>Can't open reference:
 %s
 Created new one</source>
@@ -2672,18 +2697,18 @@ Created new one</source>
 Vytvořen nový</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="404"/>
+        <location filename="Reference.py" line="406"/>
         <source>Create reference</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="404"/>
+        <location filename="Reference.py" line="406"/>
         <source>Can't create reference:
 %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Reference.py" line="319"/>
+        <location filename="Reference.py" line="321"/>
         <source>Edge</source>
         <translation>Okraj</translation>
     </message>
@@ -2761,22 +2786,22 @@ Vytvořen nový</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="552"/>
+        <location filename="SettingsDialog.py" line="554"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="555"/>
+        <location filename="SettingsDialog.py" line="557"/>
         <source>Main</source>
         <translation>Hlavní</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="556"/>
+        <location filename="SettingsDialog.py" line="558"/>
         <source>Collection</source>
         <translation>Sbírka</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="559"/>
+        <location filename="SettingsDialog.py" line="561"/>
         <source>Fields</source>
         <translation>Pole</translation>
     </message>
@@ -3002,6 +3027,11 @@ Vytvořen nový</translation>
     <message>
         <location filename="CollectionFields.py" line="64"/>
         <source>Missing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="64"/>
+        <source>Duplicate</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3249,12 +3279,12 @@ Nejprve přidejte novou.</translation>
 <context>
     <name>UpdaterTo2</name>
     <message>
-        <location filename="VersionUpdater.py" line="234"/>
+        <location filename="VersionUpdater.py" line="237"/>
         <source>Saving...</source>
         <translation>Ukládá se...</translation>
     </message>
     <message>
-        <location filename="VersionUpdater.py" line="250"/>
+        <location filename="VersionUpdater.py" line="253"/>
         <source>Vacuum...</source>
         <translation>Prázdné místo...</translation>
     </message>
@@ -3262,7 +3292,7 @@ Nejprve přidejte novou.</translation>
 <context>
     <name>UpdaterTo4</name>
     <message>
-        <location filename="VersionUpdater.py" line="350"/>
+        <location filename="VersionUpdater.py" line="353"/>
         <source>Saving...</source>
         <translation>Ukládá se...</translation>
     </message>
@@ -3270,7 +3300,7 @@ Nejprve přidejte novou.</translation>
 <context>
     <name>UpdaterTo5</name>
     <message>
-        <location filename="VersionUpdater.py" line="402"/>
+        <location filename="VersionUpdater.py" line="405"/>
         <source>Saving...</source>
         <translation>Ukládá se...</translation>
     </message>
@@ -3350,7 +3380,7 @@ Nejprve přidejte novou.</translation>
 <context>
     <name>_Updater</name>
     <message>
-        <location filename="VersionUpdater.py" line="67"/>
+        <location filename="VersionUpdater.py" line="70"/>
         <source>Updating records</source>
         <translation>Obnovují se záznamy</translation>
     </message>
