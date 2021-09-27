@@ -60,7 +60,6 @@ class ImportTellico(_Import):
         'obvrev': None,
         'quality': None,
         'mintage': 'mintage',
-        'dateemis': None,
         'catalognum1': 'km',
         'catalognum2': 'y',
         'catalognum3': 'pcgs',
