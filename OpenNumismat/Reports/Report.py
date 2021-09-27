@@ -239,4 +239,3 @@ class CollectionRecord(dict):
         else:
             self.data[key] = value
             return value
-
