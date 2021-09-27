@@ -33,9 +33,9 @@ html, body {
  color: #000000; font-weight: bold; font-style: italic;
  background-color: transparent;
  border-color:#000000; border-style: solid;
- border-left-width: 0px;
- border-right-width: 0px;
- border-top-width: 0px;
+ border-left-width: 0;
+ border-right-width: 0;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Top;
 }
@@ -47,7 +47,7 @@ html, body {
  border-color:#C0C0C0; border-style: solid;
  border-left-width: 1;
  border-right-width: 1;
- border-top-width: 0px;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
 }
@@ -57,7 +57,7 @@ html, body {
  color: #000000; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
+ border-left-width: 0;
  border-right-width: 1;
  border-top-width: 1;
  border-bottom-width: 1;
@@ -69,8 +69,8 @@ html, body {
  color: #000000; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
- border-right-width: 0px;
+ border-left-width: 0;
+ border-right-width: 0;
  border-top-width: 1;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
@@ -95,7 +95,7 @@ html, body {
  color: #000000; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
+ border-left-width: 0;
  border-right-width: 1;
  border-top-width: 1;
  border-bottom-width: 1;
@@ -107,10 +107,10 @@ html, body {
  color: #000000; font-weight: bold; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
+ border-left-width: 0;
  border-right-width: 1;
  border-top-width: 1;
- border-bottom-width: 0px;
+ border-bottom-width: 0;
  text-align: Left; vertical-align: Middle;
 }
 .s10 {
@@ -120,7 +120,7 @@ html, body {
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
  border-left-width: 1;
- border-right-width: 0px;
+ border-right-width: 0;
  border-top-width: 1;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
@@ -132,7 +132,7 @@ html, body {
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
  border-left-width: 1;
- border-right-width: 0px;
+ border-right-width: 0;
  border-top-width: 1;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Top;
@@ -144,9 +144,9 @@ html, body {
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
  border-left-width: 1;
- border-right-width: 0px;
+ border-right-width: 0;
  border-top-width: 1;
- border-bottom-width: 0px;
+ border-bottom-width: 0;
  text-align: Left; vertical-align: Middle;
 }
 .s13 {
@@ -155,9 +155,9 @@ html, body {
  color: #000000; font-style: normal;
  background-color: transparent;
  border-color:#000000; border-style: solid;
- border-left-width: 0px;
- border-right-width: 0px;
- border-top-width: 0px;
+ border-left-width: 0;
+ border-right-width: 0;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
 }
@@ -168,9 +168,9 @@ html, body {
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
  border-left-width: 1;
- border-right-width: 0px;
+ border-right-width: 0;
  border-top-width: 1;
- border-bottom-width: 0px;
+ border-bottom-width: 0;
  text-align: Left; vertical-align: Top;
 }
 .s15 {
@@ -179,10 +179,10 @@ html, body {
  color: #000000; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
+ border-left-width: 0;
  border-right-width: 1;
  border-top-width: 1;
- border-bottom-width: 0px;
+ border-bottom-width: 0;
  text-align: Left; vertical-align: Top;
 }
 .s16 {
@@ -191,10 +191,10 @@ html, body {
  color: #000000; font-weight: bold; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
- border-right-width: 0px;
+ border-left-width: 0;
+ border-right-width: 0;
  border-top-width: 1;
- border-bottom-width: 0px;
+ border-bottom-width: 0;
  text-align: Left; vertical-align: Middle;
 }
 .s17 {
@@ -203,9 +203,9 @@ html, body {
  color: #000000; font-weight: bold; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
+ border-left-width: 0;
  border-right-width: 1;
- border-top-width: 0px;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
 }
@@ -216,8 +216,8 @@ html, body {
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
  border-left-width: 1;
- border-right-width: 0px;
- border-top-width: 0px;
+ border-right-width: 0;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
 }
@@ -227,9 +227,9 @@ html, body {
  color: #000000; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
+ border-left-width: 0;
  border-right-width: 1;
- border-top-width: 0px;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
 }
@@ -239,9 +239,9 @@ html, body {
  color: #000000; font-style: italic;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
- border-right-width: 0px;
- border-top-width: 0px;
+ border-left-width: 0;
+ border-right-width: 0;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
 }
@@ -251,9 +251,9 @@ html, body {
  color: #000000; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
- border-right-width: 0px;
- border-top-width: 0px;
+ border-left-width: 0;
+ border-right-width: 0;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
 }
@@ -264,9 +264,9 @@ html, body {
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
  border-left-width: 1;
- border-right-width: 0px;
- border-top-width: 0px;
- border-bottom-width: 0px;
+ border-right-width: 0;
+ border-top-width: 0;
+ border-bottom-width: 0;
  text-align: Left; vertical-align: Top;
 }
 .s23 {
@@ -275,10 +275,10 @@ html, body {
  color: #000000; font-style: normal;
  background-color: transparent;
  border-color:#C0C0C0; border-style: solid;
- border-left-width: 0px;
+ border-left-width: 0;
  border-right-width: 1;
- border-top-width: 0px;
- border-bottom-width: 0px;
+ border-top-width: 0;
+ border-bottom-width: 0;
  text-align: Left; vertical-align: Top;
 }
 .s24 {
