@@ -289,7 +289,7 @@ class ImportTellico(_Import):
                                 value = rawData + 'error=' + rawData2
                         elif dstColumn == 'mintage':
                             if rawData == '':
-                                value == row.find("./t:proofs", namespaces=NAMESPACES).text
+                                value = row.find("./t:proofs", namespaces=NAMESPACES).text
                             else:
                                 if row.find("./t:X10e", namespaces=NAMESPACES):
                                     rawData2 = row.find("./t:X10e", namespaces=NAMESPACES).text
