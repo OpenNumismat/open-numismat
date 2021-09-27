@@ -454,8 +454,8 @@ class BaseTableView(QTableView):
                     return
 
                 record = self.model().record()
-                for i in range(len(data)):
-                    record.setValue(i, clipboardToText(data[i]))
+                for i, val in enumerate(data):
+                    record.setValue(i, clipboardToText(val))
 
                 if progressDlg:
                     self.model().appendRecord(record)

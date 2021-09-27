@@ -549,8 +549,8 @@ class Splitter(QSplitter):
         settings = QtCore.QSettings()
         sizes = settings.value('pageview/splittersizes' + self.title)
         if sizes:
-            for i in range(len(sizes)):
-                sizes[i] = int(sizes[i])
+            for i, size in enumerate(sizes):
+                sizes[i] = int(size)
 
             self.splitterMoved.disconnect(self.splitterPosChanged)
             self.setSizes(sizes)

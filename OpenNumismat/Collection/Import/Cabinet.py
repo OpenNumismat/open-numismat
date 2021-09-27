@@ -194,8 +194,8 @@ class ImportCabinet(_Import):
                     titles = row
                 else:
                     r = {}
-                    for i in range(len(titles)):
-                        r[titles[i]] = row[i]
+                    for i, title in enumerate(titles):
+                        r[title] = row[i]
 
                     rows.append(r)
 

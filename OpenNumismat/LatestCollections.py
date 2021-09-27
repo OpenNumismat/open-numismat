@@ -54,8 +54,8 @@ class LatestCollections(QObject):
         values = checked
 
         # Store updated latest collections
-        for i in range(len(values)):
-            self.settings.setValue(self.__key(i), values[i])
+        for i, value in enumerate(values):
+            self.settings.setValue(self.__key(i), value)
 
         # Remove unused settings entries
         for i in range(len(values), LatestCollections.LatestCount):
