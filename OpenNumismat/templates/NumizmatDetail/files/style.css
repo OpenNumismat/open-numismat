@@ -26,9 +26,9 @@ html, body {
  color: #000000; font-weight: bold; font-style: italic;
  background-color: transparent;
  border-color:#000000; border-style: solid;
- border-left-width: 0px;
- border-right-width: 0px;
- border-top-width: 0px;
+ border-left-width: 0;
+ border-right-width: 0;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Top;
 }
@@ -73,9 +73,9 @@ html, body {
  color: #000000; font-style: normal;
  background-color: transparent;
  border-color:#000000; border-style: solid;
- border-left-width: 0px;
- border-right-width: 0px;
- border-top-width: 0px;
+ border-left-width: 0;
+ border-right-width: 0;
+ border-top-width: 0;
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
 }

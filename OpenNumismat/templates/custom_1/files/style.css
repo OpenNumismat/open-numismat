@@ -25,9 +25,8 @@ td {
   border-color: #000000;
   border-style: solid;
   border-width: 0;
-  table-layout: fixed;
   word-wrap: break-word;
-  padding: 2 4 2 4;
+  padding: 2 4;
 }
 td.cell_full {
   border-top-width: 1;
