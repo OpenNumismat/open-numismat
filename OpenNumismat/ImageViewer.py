@@ -1010,10 +1010,11 @@ class ImageViewer(QDialog):
         self.isFitToWindow = True
 
         sceneRect = self.viewer.sceneRect()
-        if sceneRect.width() > self.viewer.width() or \
-                sceneRect.height() > self.viewer.height():
+        scaleH = (self.viewer.height() - 4) / sceneRect.height()
+        scaleW = (self.viewer.width() - 4) / sceneRect.width()
+        if scaleH < 1 or scaleW < 1:
             self.viewer.fitInView(sceneRect, Qt.KeepAspectRatio)
-            self.scale = (self.viewer.height() - 4) / sceneRect.height()
+            self.scale = min(scaleH, scaleW)
         else:
             self.viewer.resetTransform()
             self.scale = 1
@@ -1080,7 +1081,10 @@ class ImageViewer(QDialog):
         if not self.hasImage():
             return
 
-        self.minScale = (self.viewer.height() - 4) / self.viewer.sceneRect().height()
+        sceneRect = self.viewer.sceneRect()
+        minHeightScale = (self.viewer.height() - 4) / sceneRect.height()
+        minWidthScale = (self.viewer.width() - 4) / sceneRect.width()
+        self.minScale = min(minHeightScale, minWidthScale)
         if self.minScale > 1:
             self.minScale = 1
 
