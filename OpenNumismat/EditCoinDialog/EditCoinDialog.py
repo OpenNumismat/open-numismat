@@ -165,6 +165,3 @@ class EditCoinDialog(QDialog):
             index = self.record.indexOf(item.field())
             self.usedFields[index] = item.label().checkState()
         return self.usedFields
-
-    def getRecord(self):
-        return self.record

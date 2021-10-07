@@ -489,7 +489,7 @@ class TreeView(QTreeWidget):
                                 self.tr("Cancel"), self.model.rowCount(), self)
 
             # Fill records by used fields in multi record
-            multiRecord = dialog.getRecord()
+            multiRecord = dialog.record
             usedFields = dialog.getUsedFields()
             for i in range(self.model.rowCount()):
                 progressDlg.setValue(i)

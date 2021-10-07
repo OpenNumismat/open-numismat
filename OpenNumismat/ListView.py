@@ -299,7 +299,7 @@ class BaseTableView(QTableView):
         dialog = EditCoinDialog(self.model(), record, self)
         result = dialog.exec_()
         if result == QDialog.Accepted:
-            updatedRecord = dialog.getRecord()
+            updatedRecord = dialog.record
             self.model().setRecord(index.row(), updatedRecord)
             self.model().submitAll()
 
@@ -330,7 +330,7 @@ class BaseTableView(QTableView):
                 len(indexes), self)
 
             # Fill records by used fields in multi record
-            multiRecord = dialog.getRecord()
+            multiRecord = dialog.record
             usedFields = dialog.getUsedFields()
 
             # Sort and reverse indexes for updating records that out
