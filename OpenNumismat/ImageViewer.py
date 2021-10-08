@@ -1485,12 +1485,11 @@ class ImageViewer(QDialog):
 
         k3 = ((m1y - m4y)*m2x - (m1x - m4x)*m2y + m1x*m4y - m1y*m4x) / ((m3y - m4y)*m2x - (m3x - m4x)*m2y + m3x*m4y - m3y*m4x)
 
-        f_squared = -((k3*m3y - m1y)*(k2*m2y - m1y) + (k3*m3x - m1x)*(k2*m2x - m1x)) / ((k3 - 1)*(k2 - 1))
-
-        whRatio = math.sqrt((pow((k2 - 1),2) + pow((k2*m2y - m1y),2)/f_squared + pow((k2*m2x - m1x),2)/f_squared) / (pow((k3 - 1),2) + pow((k3*m3y - m1y),2)/f_squared + pow((k3*m3x - m1x),2)/f_squared) )
-
-        if k2==1 and k3==1:
+        if k2 == 1 or k3 == 1:
             whRatio = math.sqrt( (pow((m2y-m1y),2) + pow((m2x-m1x),2)) / (pow((m3y-m1y),2) + pow((m3x-m1x),2)))
+        else:
+            f_squared = -((k3*m3y - m1y)*(k2*m2y - m1y) + (k3*m3x - m1x)*(k2*m2x - m1x)) / ((k3 - 1)*(k2 - 1))
+            whRatio = math.sqrt((pow((k2 - 1),2) + pow((k2*m2y - m1y),2)/f_squared + pow((k2*m2x - m1x),2)/f_squared) / (pow((k3 - 1),2) + pow((k3*m3y - m1y),2)/f_squared + pow((k3*m3x - m1x),2)/f_squared) )
 
         leftLine = QLineF(points[1], points[2])
         rightLine = QLineF(points[3], points[0])
