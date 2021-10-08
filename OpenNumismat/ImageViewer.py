@@ -11,6 +11,7 @@ from OpenNumismat.Tools.Gui import getSaveFileName
 
 ZOOM_IN_FACTOR = 1.25
 ZOOM_MAX = 5
+UNDO_STACK_SIZE = 3
 
 
 @storeDlgPositionDecorator
@@ -837,6 +838,9 @@ class ImageViewer(QDialog):
         self.createActions()
         self.createMenus()
         self.createToolBar()
+        
+        self.undo_stack = []
+        self.redo_stack = []
 
     def createActions(self):
         self.openAct = QAction(self.tr("Browse in viewer"), self, triggered=self.open)
@@ -858,6 +862,10 @@ class ImageViewer(QDialog):
         self.saveAct.setDisabled(True)
         self.copyAct = QAction(QIcon(':/page_copy.png'), self.tr("Copy"), self, shortcut=QKeySequence.Copy, triggered=self.copy)
         self.pasteAct = QAction(QIcon(':/page_paste.png'), self.tr("Paste"), self, shortcut=QKeySequence.Paste, triggered=self.paste)
+        self.undoAct = QAction(QIcon(':/undo.png'), self.tr("Undo"), self, shortcut=QKeySequence.Undo, triggered=self.undo)
+        self.undoAct.setDisabled(True)
+        self.redoAct = QAction(QIcon(':/redo.png'), self.tr("Redo"), self, shortcut=QKeySequence.Redo, triggered=self.redo)
+        self.redoAct.setDisabled(True)
 
         settings = QSettings()
         toolBarShown = settings.value('image_viewer/tool_bar', True, type=bool)
@@ -877,6 +885,9 @@ class ImageViewer(QDialog):
         self.fileMenu.addAction(self.exitAct)
 
         self.editMenu = QMenu(self.tr("&Edit"), self)
+        self.editMenu.addAction(self.undoAct)
+        self.editMenu.addAction(self.redoAct)
+        self.editMenu.addSeparator()
         self.editMenu.addAction(self.copyAct)
         self.editMenu.addAction(self.pasteAct)
         self.editMenu.addSeparator()
@@ -1136,6 +1147,7 @@ class ImageViewer(QDialog):
         transform = QTransform()
         trans = transform.rotate(-90)
         pixmap = self._pixmapHandle.pixmap()
+        self.pushUndo(pixmap)
         pixmap = pixmap.transformed(trans)
         self.setImage(pixmap)
 
@@ -1146,6 +1158,7 @@ class ImageViewer(QDialog):
         transform = QTransform()
         trans = transform.rotate(90)
         pixmap = self._pixmapHandle.pixmap()
+        self.pushUndo(pixmap)
         pixmap = pixmap.transformed(trans)
         self.setImage(pixmap)
 
@@ -1221,6 +1234,7 @@ class ImageViewer(QDialog):
 
         if result:
             self.isChanged = True
+            self.pushUndo(self._startPixmap)
         else:
             self.setImage(self._startPixmap)
             self.viewer.centerOn(self._startCenter)
@@ -1337,10 +1351,12 @@ class ImageViewer(QDialog):
         self.bounding = None
 
         if result:
+            pixmap = self._pixmapHandle.pixmap()
+            self.pushUndo(pixmap)
+
             if self.cropDlg.currentTool() == 0:
                 rect = QRectF(points[0], points[2]).toRect()
 
-                pixmap = self._pixmapHandle.pixmap()
                 pixmap = pixmap.copy(rect)
                 self.setImage(pixmap)
 
@@ -1350,7 +1366,6 @@ class ImageViewer(QDialog):
                               points[1].x() - points[3].x(),
                               points[2].y() - points[0].y()).toRect()
 
-                pixmap = self._pixmapHandle.pixmap()
                 mask = QBitmap(pixmap.size())
                 mask.fill(Qt.white)
                 painter = QPainter()
@@ -1365,7 +1380,7 @@ class ImageViewer(QDialog):
 
                 self.isChanged = True
             else:
-                orig_rect = self._pixmapHandle.pixmap().rect()
+                orig_rect = pixmap.rect()
 
                 width, height = self._perspectiveTransformation(points, orig_rect)
 
@@ -1387,7 +1402,7 @@ class ImageViewer(QDialog):
                     x = max(-tl.x(), -bl.x())
                     y = max(-tr.y(), -tl.y())
 
-                    pixmap = self._pixmapHandle.pixmap().transformed(transform, Qt.SmoothTransformation)
+                    pixmap = pixmap.transformed(transform, Qt.SmoothTransformation)
                     pixmap = pixmap.copy(x, y, width, height)
                     self.setImage(pixmap)
 
@@ -1423,6 +1438,35 @@ class ImageViewer(QDialog):
 
     def getImage(self):
         return self._origPixmap.toImage()
+
+    def pushUndo(self, pixmap):
+        self.undo_stack.append(pixmap)
+        if len(self.undo_stack) > UNDO_STACK_SIZE:
+            self.undo_stack.pop(0)
+        self.redo_stack.clear()
+
+        self.undoAct.setDisabled(False)
+        self.redoAct.setDisabled(True)
+
+    def undo(self):
+        pixmap = self.undo_stack.pop()
+        self.redo_stack.append(self._pixmapHandle.pixmap())
+
+        if not self.undo_stack:
+            self.undoAct.setDisabled(True)
+        self.redoAct.setDisabled(False)
+
+        self.setImage(pixmap)
+
+    def redo(self):
+        pixmap = self.redo_stack.pop()
+        self.undo_stack.append(self._pixmapHandle.pixmap())
+
+        if not self.redo_stack:
+            self.redoAct.setDisabled(True)
+        self.undoAct.setDisabled(False)
+
+        self.setImage(pixmap)
 
     # Based on https://stackoverflow.com/questions/38285229/calculating-aspect-ratio-of-perspective-transform-destination-image
     def _perspectiveTransformation(self, points, rect):
