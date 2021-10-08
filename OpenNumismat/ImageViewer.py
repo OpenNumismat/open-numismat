@@ -1,3 +1,5 @@
+import math
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -5,6 +7,12 @@ from PyQt5.QtWidgets import *
 import OpenNumismat
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator, storeDlgPositionDecorator
 from OpenNumismat.Tools.Gui import getSaveFileName
+
+numpyAvailable = True
+try:
+    import numpy as np
+except ImportError:
+    numpyAvailable = False
 
 ZOOM_IN_FACTOR = 1.25
 ZOOM_MAX = 5
@@ -1345,13 +1353,12 @@ class ImageViewer(QDialog):
 
                 self.isChanged = True
             else:
-                topLine = QLineF(points[0], points[1])
-                bottomLine = QLineF(points[2], points[3])
-                leftLine = QLineF(points[1], points[2])
-                rightLine = QLineF(points[3], points[0])
+                orig_rect = self._pixmapHandle.pixmap().rect()
 
-                width = max(topLine.length(), bottomLine.length())
-                height = max(leftLine.length(), rightLine.length())
+                if numpyAvailable:
+                    width, height = self._perspectiveTransformationMath(points, orig_rect)
+                else:
+                    width, height = self._perspectiveTransformation_1_3(points)
 
                 poly1 = QPolygonF(points)
 
@@ -1364,10 +1371,9 @@ class ImageViewer(QDialog):
                 transform = QTransform()
                 res = QTransform.quadToQuad(poly1, poly2, transform)
                 if res:
-                    rect = self._pixmapHandle.pixmap().rect()
                     tl = transform.map(QPoint(0, 0))
-                    bl = transform.map(QPoint(0, rect.height()))
-                    tr = transform.map(QPoint(rect.width(), 0))
+                    bl = transform.map(QPoint(0, orig_rect.height()))
+                    tr = transform.map(QPoint(orig_rect.width(), 0))
 
                     x = max(-tl.x(), -bl.x())
                     y = max(-tr.y(), -tl.y())
@@ -1408,3 +1414,89 @@ class ImageViewer(QDialog):
 
     def getImage(self):
         return self._origPixmap.toImage()
+
+    # Based on https://stackoverflow.com/questions/38285229/calculating-aspect-ratio-of-perspective-transform-destination-image
+    def _perspectiveTransformationMath(self, points, rect):
+        # image center
+        u0 = (rect.width())/2.0
+        v0 = (rect.height())/2.0
+
+        # detected corners on the original image
+        p = []
+        p.append((points[0].x(), points[0].y()))
+        p.append((points[1].x(), points[1].y()))
+        p.append((points[3].x(), points[3].y()))
+        p.append((points[2].x(), points[2].y()))
+
+        # heights of the projected image
+        leftLine = QLineF(points[1], points[2])
+        rightLine = QLineF(points[3], points[0])
+
+        h1 = leftLine.length()
+        h2 = rightLine.length()
+
+        h = max(h1,h2)
+
+        # make numpy arrays and append 1 for linear algebra
+        m1 = np.array((p[0][0],p[0][1],1)).astype('float32')
+        m2 = np.array((p[1][0],p[1][1],1)).astype('float32')
+        m3 = np.array((p[2][0],p[2][1],1)).astype('float32')
+        m4 = np.array((p[3][0],p[3][1],1)).astype('float32')
+        
+        # calculate the focal disrance
+        k2 = np.dot(np.cross(m1,m4),m3) / np.dot(np.cross(m2,m4),m3)
+        k3 = np.dot(np.cross(m1,m4),m2) / np.dot(np.cross(m3,m4),m2)
+
+        n2 = k2 * m2 - m1
+        n3 = k3 * m3 - m1
+
+        n21 = n2[0]
+        n22 = n2[1]
+        n23 = n2[2]
+
+        n31 = n3[0]
+        n32 = n3[1]
+        n33 = n3[2]
+
+        f = math.sqrt(np.abs( (1.0/(n23*n33)) * ((n21*n31 - (n21*n33 + n23*n31)*u0 + n23*n33*u0*u0) + (n22*n32 - (n22*n33+n23*n32)*v0 + n23*n33*v0*v0))))
+
+        A = np.array([[f,0,u0],[0,f,v0],[0,0,1]]).astype('float32')
+
+        At = np.transpose(A)
+        Ati = np.linalg.inv(At)
+        Ai = np.linalg.inv(A)
+
+        # calculate the real aspect ratio
+        ar_real = math.sqrt(np.dot(np.dot(np.dot(n2,Ati),Ai),n2)/np.dot(np.dot(np.dot(n3,Ati),Ai),n3))
+
+        height = int(h)
+        width = int(ar_real * height)
+
+        return (width, height)
+
+    def _perspectiveTransformation_1_2(self, points):
+        topLine = QLineF(points[0], points[1])
+        bottomLine = QLineF(points[2], points[3])
+        leftLine = QLineF(points[1], points[2])
+        rightLine = QLineF(points[3], points[0])
+
+        width = (topLine.length() + bottomLine.length()) / 2
+        height = (leftLine.length() + rightLine.length()) / 2
+
+        return (width, height)
+
+    def _perspectiveTransformation_1_3(self, points):
+        topLine = QLineF(points[0], points[1])
+        bottomLine = QLineF(points[2], points[3])
+        leftLine = QLineF(points[1], points[2])
+        rightLine = QLineF(points[3], points[0])
+
+        min_w = min(topLine.length(), bottomLine.length())
+        max_w = max(topLine.length(), bottomLine.length())
+        min_h = min(leftLine.length(), rightLine.length())
+        max_h = max(leftLine.length(), rightLine.length())
+
+        width = (min_w*2 + max_w) / 3
+        height = (min_h*2 + max_h) / 3
+
+        return (width, height)
