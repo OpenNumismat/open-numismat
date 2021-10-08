@@ -1046,82 +1046,82 @@ The application will need to restart now.</source>
 <context>
     <name>CropDialog</name>
     <message>
-        <location filename="ImageViewer.py" line="20"/>
+        <location filename="ImageViewer.py" line="24"/>
         <source>Crop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="108"/>
+        <location filename="ImageViewer.py" line="112"/>
         <source>X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="110"/>
+        <location filename="ImageViewer.py" line="114"/>
         <source>Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="112"/>
+        <location filename="ImageViewer.py" line="116"/>
         <source>Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="114"/>
+        <location filename="ImageViewer.py" line="118"/>
         <source>Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="74"/>
+        <location filename="ImageViewer.py" line="78"/>
         <source>X1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="76"/>
+        <location filename="ImageViewer.py" line="80"/>
         <source>Y1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="78"/>
+        <location filename="ImageViewer.py" line="82"/>
         <source>X2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="80"/>
+        <location filename="ImageViewer.py" line="84"/>
         <source>Y2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="82"/>
+        <location filename="ImageViewer.py" line="86"/>
         <source>X3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="84"/>
+        <location filename="ImageViewer.py" line="88"/>
         <source>Y3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="86"/>
+        <location filename="ImageViewer.py" line="90"/>
         <source>X4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="88"/>
+        <location filename="ImageViewer.py" line="92"/>
         <source>Y4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="124"/>
+        <location filename="ImageViewer.py" line="128"/>
         <source>Rect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="126"/>
+        <location filename="ImageViewer.py" line="130"/>
         <source>Circle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="128"/>
+        <location filename="ImageViewer.py" line="132"/>
         <source>Quad</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1679,49 +1679,54 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="204"/>
+        <location filename="ImageLabel.py" line="209"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="208"/>
+        <location filename="ImageLabel.py" line="213"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="214"/>
+        <location filename="ImageLabel.py" line="219"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="219"/>
+        <location filename="ImageLabel.py" line="224"/>
         <source>Save as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="224"/>
+        <location filename="ImageLabel.py" line="229"/>
         <source>Rename...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="255"/>
+        <location filename="ImageLabel.py" line="264"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="296"/>
+        <location filename="ImageLabel.py" line="305"/>
         <source>No image available
 (right-click to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="365"/>
+        <location filename="ImageLabel.py" line="374"/>
         <source>Rename image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="365"/>
+        <location filename="ImageLabel.py" line="374"/>
         <source>Enter new image name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImageLabel.py" line="204"/>
+        <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1761,113 +1766,128 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ImageViewer</name>
     <message>
-        <location filename="ImageViewer.py" line="839"/>
+        <location filename="ImageViewer.py" line="847"/>
         <source>&amp;Save As...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="841"/>
+        <location filename="ImageViewer.py" line="849"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="842"/>
+        <location filename="ImageViewer.py" line="850"/>
         <source>Full Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="843"/>
+        <location filename="ImageViewer.py" line="851"/>
         <source>Zoom &amp;In (25%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="845"/>
+        <location filename="ImageViewer.py" line="852"/>
         <source>Zoom &amp;Out (25%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="847"/>
+        <location filename="ImageViewer.py" line="853"/>
         <source>&amp;Normal Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="848"/>
+        <location filename="ImageViewer.py" line="854"/>
         <source>&amp;Fit to Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="849"/>
+        <location filename="ImageViewer.py" line="855"/>
         <source>Show Tool Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="850"/>
+        <location filename="ImageViewer.py" line="856"/>
         <source>Show Status Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="851"/>
+        <location filename="ImageViewer.py" line="857"/>
         <source>Rotate to Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="852"/>
+        <location filename="ImageViewer.py" line="858"/>
         <source>Rotate to Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="853"/>
+        <location filename="ImageViewer.py" line="859"/>
         <source>Rotate...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="854"/>
+        <location filename="ImageViewer.py" line="860"/>
         <source>Crop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="985"/>
+        <location filename="ImageViewer.py" line="1016"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="857"/>
+        <location filename="ImageViewer.py" line="863"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="858"/>
+        <location filename="ImageViewer.py" line="864"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="869"/>
+        <location filename="ImageViewer.py" line="879"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="876"/>
+        <location filename="ImageViewer.py" line="887"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="885"/>
+        <location filename="ImageViewer.py" line="899"/>
         <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="960"/>
+        <location filename="ImageViewer.py" line="991"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="960"/>
+        <location filename="ImageViewer.py" line="991"/>
         <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="985"/>
+        <location filename="ImageViewer.py" line="1016"/>
         <source>Image was changed. Save changes?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="846"/>
+        <source>Browse in viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="865"/>
+        <source>Undo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="867"/>
+        <source>Redo</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2762,22 +2782,22 @@ Created new one</source>
 <context>
     <name>RotateDialog</name>
     <message>
-        <location filename="ImageViewer.py" line="163"/>
+        <location filename="ImageViewer.py" line="167"/>
         <source>Rotate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="191"/>
+        <location filename="ImageViewer.py" line="195"/>
         <source>Auto crop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="196"/>
+        <location filename="ImageViewer.py" line="200"/>
         <source>Show grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="165"/>
+        <location filename="ImageViewer.py" line="169"/>
         <source>Angle</source>
         <translation type="unfinished"></translation>
     </message>
