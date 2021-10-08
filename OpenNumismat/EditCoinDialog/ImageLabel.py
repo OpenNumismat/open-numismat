@@ -201,6 +201,11 @@ class ImageEdit(ImageLabel):
         load = QAction(icon, text, self)
         load.triggered.connect(self.loadImage)
 
+        text = QApplication.translate('ImageEdit', "Open")
+        open = QAction(text, self)
+        open.triggered.connect(self.openImage)
+        open.setDisabled(self.image.isNull())
+
         text = QApplication.translate('ImageEdit', "Paste")
         paste = QAction(text, self)
         paste.triggered.connect(self.pasteImage)
@@ -227,7 +232,11 @@ class ImageEdit(ImageLabel):
 
         menu = QMenu()
         menu.addAction(load)
-        menu.setDefaultAction(load)
+        menu.addAction(open)
+        if self.image.isNull():
+            menu.setDefaultAction(load)
+        else:
+            menu.setDefaultAction(open)
         menu.addAction(save)
         menu.addSeparator()
         menu.addAction(rename)
@@ -242,7 +251,7 @@ class ImageEdit(ImageLabel):
         if self.image.isNull():
             self.loadImage()
         else:
-            super().mouseDoubleClickEvent(_e)
+            self.openImage()
 
     def loadImage(self):
         supported_formats = QImageReader.supportedImageFormats()
