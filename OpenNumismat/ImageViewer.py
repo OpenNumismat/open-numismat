@@ -5,6 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
+from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator, storeDlgPositionDecorator
 from OpenNumismat.Tools.Gui import getSaveFileName
 
@@ -838,6 +839,7 @@ class ImageViewer(QDialog):
         self.createToolBar()
 
     def createActions(self):
+        self.openAct = QAction(self.tr("Browse in viewer"), self, triggered=self.open)
         self.saveAsAct = QAction(self.tr("&Save As..."), self, shortcut=QKeySequence.SaveAs, triggered=self.saveAs)
 #        self.printAct = QAction(self.tr("&Print..."), self, shortcut=QKeySequence.Print, enabled=False, triggered=self.print_)
         self.exitAct = QAction(self.tr("E&xit"), self, shortcut=QKeySequence.Quit, triggered=self.close)
@@ -867,6 +869,7 @@ class ImageViewer(QDialog):
 
     def createMenus(self):
         self.fileMenu = QMenu(self.tr("&File"), self)
+        self.fileMenu.addAction(self.openAct)
         self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.saveAsAct)
 #        self.fileMenu.addAction(self.printAct)
@@ -955,6 +958,23 @@ class ImageViewer(QDialog):
         self.updateViewer()
 
         self.sizeLabel.setText("%dx%d" % (image.width(), image.height()))
+
+    def open(self):
+        fileName = self._saveTmpImage()
+
+        executor = QDesktopServices()
+        executor.openUrl(QUrl.fromLocalFile(fileName))
+
+    def _saveTmpImage(self):
+        tmpDir = QDir(TemporaryDir.path())
+        file = QTemporaryFile(tmpDir.absoluteFilePath("img_XXXXXX.jpg"))
+        file.setAutoRemove(False)
+        file.open()
+
+        fileName = QFileInfo(file).absoluteFilePath()
+        self._pixmapHandle.pixmap().save(fileName)
+
+        return fileName
 
     def saveAs(self):
         filters = (self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)"),
