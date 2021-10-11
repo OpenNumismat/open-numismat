@@ -29,12 +29,26 @@ class SummaryDialog(QDialog):
 
         self.setLayout(layout)
 
-        self.__fillSummary(model)
+        lines_all = self.fillSummary(model)
+        lines_selected = self.fillSummary(model, model.filter())
 
-    def __fillSummary(self, model):
+        lines = [self.tr("[Selected]")] + lines_selected + ["", self.tr("[All]")] + lines_all
+        self.textBox.setText('\n'.join(lines))
+
+    def makeSql(self, sql, filter_):
+        if filter_:
+            if 'WHERE' in sql:
+                sql = "%s AND %s" % (sql, filter_)
+            else:
+                sql = "%s WHERE %s" % (sql, filter_)
+
+        return sql
+
+    def fillSummary(self, model, filter_=None):
         lines = []
 
         sql = "SELECT count(*) FROM coins"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             totalCount = query.record().value(0)
@@ -42,12 +56,14 @@ class SummaryDialog(QDialog):
 
         count_owned = 0
         sql = "SELECT count(*) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate')"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             count_owned = query.record().value(0)
             lines.append(self.tr("Count owned: %d") % count_owned)
 
         sql = "SELECT count(*) FROM coins WHERE status='wish'"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             count = query.record().value(0)
@@ -55,6 +71,7 @@ class SummaryDialog(QDialog):
 
         count_sold = 0
         sql = "SELECT count(*) FROM coins WHERE status='sold'"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             count_sold = query.record().value(0)
@@ -62,6 +79,7 @@ class SummaryDialog(QDialog):
                 lines.append(self.tr("Count sales: %d") % count_sold)
 
         sql = "SELECT count(*) FROM coins WHERE status='bidding'"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             count = query.record().value(0)
@@ -69,6 +87,7 @@ class SummaryDialog(QDialog):
                 lines.append(self.tr("Count biddings: %d") % count)
 
         sql = "SELECT count(*) FROM coins WHERE status='missing'"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             count = query.record().value(0)
@@ -78,11 +97,13 @@ class SummaryDialog(QDialog):
         paid = 0
         commission = ""
         sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             paid = query.record().value(0)
             if paid:
                 sql = "SELECT SUM(payprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND payprice<>'' AND payprice IS NOT NULL"
+                sql = self.makeSql(sql, filter_)
                 query = QSqlQuery(sql, model.database())
                 if query.first():
                     paid_without_commission = query.record().value(0)
@@ -96,11 +117,13 @@ class SummaryDialog(QDialog):
         earned = 0
         commission = ""
         sql = "SELECT SUM(totalsaleprice) FROM coins WHERE status='sold' AND totalsaleprice<>'' AND totalsaleprice IS NOT NULL"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             earned = query.record().value(0)
             if earned:
                 sql = "SELECT SUM(saleprice) FROM coins WHERE status='sold' AND saleprice<>'' AND saleprice IS NOT NULL"
+                sql = self.makeSql(sql, filter_)
                 query = QSqlQuery(sql, model.database())
                 if query.first():
                     earn_without_commission = query.record().value(0)
@@ -116,6 +139,7 @@ class SummaryDialog(QDialog):
             lines.append(self.tr("Total (paid - earned): %.2f") % total)
 
         sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             date = QDate.fromString(query.record().value(0), Qt.ISODate)
@@ -123,6 +147,7 @@ class SummaryDialog(QDialog):
             lines.append(self.tr("First purchase: %s") % paydate)
 
         sql = "SELECT UPPER(grade), price1, price2, price3, price4 FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         est_owned = 0
         count = 0
@@ -166,6 +191,7 @@ class SummaryDialog(QDialog):
         lines.append(' '.join((self.tr("Estimation owned: %d") % est_owned, comment)))
 
         sql = "SELECT price1, price2, price3, price4 FROM coins WHERE status='wish' AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         est_wish = 0
         count = 0
@@ -192,9 +218,10 @@ class SummaryDialog(QDialog):
         lines.append(' '.join((self.tr("Estimation wish: %d") % est_wish, comment)))
 
         sql = "SELECT count(*) FROM photos"
+        sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             count = query.record().value(0)
             lines.append(self.tr("Count images: %d") % count)
 
-        self.textBox.setText('\n'.join(lines))
+        return lines
