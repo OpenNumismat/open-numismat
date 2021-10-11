@@ -174,16 +174,18 @@ class BaseTableView(QTableView):
         self.sortByColumn(sort_column_id, Qt.AscendingOrder)
 
     def report(self):
-        indexes = self.selectedCoins()
+        indexes = []
+        for i in range(self.model().rowCount()):
+            field_index = self.model().index(i, 0)
+            indexes.append(field_index)
+
         if indexes:
             preview = PreviewDialog(self.model(), indexes, self)
             preview.exec_()
         else:
             QMessageBox.information(
                 self, QApplication.translate('BaseTableView', "Report preview"),
-                QApplication.translate('BaseTableView',
-                        "Nothing selected.\nSelect required coins by clicking "
-                        "with Ctrl or Shift, or Ctrl+A for select all coins."))
+                QApplication.translate('BaseTableView', "Nothing selected."))
 
     def viewInBrowser(self, template=None):
         if not template:
@@ -191,7 +193,12 @@ class BaseTableView(QTableView):
         template_name = os.path.basename(template)
         dstPath = os.path.join(TemporaryDir.path(), template_name + '.htm')
         report = Report(self.model(), template, dstPath, self)
-        indexes = self.selectedCoins()
+
+        indexes = []
+        for i in range(self.model().rowCount()):
+            field_index = self.model().index(i, 0)
+            indexes.append(field_index)
+
         if indexes:
             fileName = report.generate(indexes)
             if fileName:
@@ -200,9 +207,7 @@ class BaseTableView(QTableView):
         else:
             QMessageBox.information(
                 self, QApplication.translate('BaseTableView', "Report preview"),
-                QApplication.translate('BaseTableView',
-                        "Nothing selected.\nSelect required coins by clicking "
-                        "with Ctrl or Shift, or Ctrl+A for select all coins."))
+                QApplication.translate('BaseTableView', "Nothing selected."))
 
     def saveTable(self):
         filters = (QApplication.translate('BaseTableView', "Excel document (*.xls)"),
