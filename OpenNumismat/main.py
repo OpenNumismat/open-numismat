@@ -37,6 +37,11 @@ def main():
                           OpenNumismat.PRJ_PATH)
 
     settings = Settings()
+    if settings['font_size'] == 1:
+        app.setStyleSheet("QWidget{font-size: 11pt;}")
+    elif settings['font_size'] == 2:
+        app.setStyleSheet("QWidget{font-size: 13pt;}")
+
     if settings['error']:
         sys.excepthook = exceptHook
 

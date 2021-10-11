@@ -141,7 +141,6 @@ class MainSettingsPage(QWidget):
         self.builtInViewer.setChecked(settings['built_in_viewer'])
         layout.addRow(self.builtInViewer)
 
-        current = 0
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap')
         self.mapSelector.addItem('Google Maps')
@@ -154,6 +153,15 @@ class MainSettingsPage(QWidget):
                         self.tr("Verify SSL certifiacte"), self)
         self.verifySsl.setChecked(settings['verify_ssl'])
         layout.addRow(self.verifySsl)
+
+        self.fontSizeSelector = QComboBox(self)
+        self.fontSizeSelector.addItem(self.tr("Normal"))
+        self.fontSizeSelector.addItem(self.tr("Large"))
+        self.fontSizeSelector.addItem(self.tr("Huge"))
+        self.fontSizeSelector.setCurrentIndex(settings['font_size'])
+        self.fontSizeSelector.setSizePolicy(QSizePolicy.Fixed,
+                                            QSizePolicy.Fixed)
+        layout.addRow(self.tr("Font size"), self.fontSizeSelector)
 
         self.setLayout(layout)
 
@@ -190,6 +198,7 @@ class MainSettingsPage(QWidget):
         settings['map_type'] = self.mapSelector.currentIndex()
         settings['verify_ssl'] = self.verifySsl.isChecked()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
+        settings['font_size'] = self.fontSizeSelector.currentIndex()
 
         settings.save()
 
