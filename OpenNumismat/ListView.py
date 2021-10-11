@@ -185,7 +185,7 @@ class BaseTableView(QTableView):
         else:
             QMessageBox.information(
                 self, QApplication.translate('BaseTableView', "Report preview"),
-                QApplication.translate('BaseTableView', "Nothing selected."))
+                QApplication.translate('BaseTableView', "Nothing selected"))
 
     def viewInBrowser(self, template=None):
         if not template:
@@ -207,7 +207,7 @@ class BaseTableView(QTableView):
         else:
             QMessageBox.information(
                 self, QApplication.translate('BaseTableView', "Report preview"),
-                QApplication.translate('BaseTableView', "Nothing selected."))
+                QApplication.translate('BaseTableView', "Nothing selected"))
 
     def saveTable(self):
         filters = (QApplication.translate('BaseTableView', "Excel document (*.xls)"),
