@@ -304,7 +304,6 @@ class TabView(QTabWidget):
     def __createPage(self, pageParam):
         settings = self.collection.settings
         pageParam.images_at_bottom = settings['images_at_bottom']
-        pageParam.listParam.store_sorting = settings['store_sorting']
         pageParam.treeParam.convert_fraction = settings['convert_fraction']
 
         pageView = PageView(pageParam, self)

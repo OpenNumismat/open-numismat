@@ -8,7 +8,7 @@ class ColumnListParam:
     def __init__(self, arg1, arg2=None, arg3=None):
         if isinstance(arg1, QSqlRecord):
             record = arg1
-            for name in ('fieldid', 'enabled', 'width', 'sortorder'):
+            for name in ('fieldid', 'enabled', 'width'):
                 if record.isNull(name):
                     value = None
                 else:
@@ -19,7 +19,6 @@ class ColumnListParam:
             self.fieldid = fieldId
             self.enabled = enabled
             self.width = width
-            self.sortorder = None
 
 
 class ListPageParam(QtCore.QObject):
@@ -122,8 +121,8 @@ class ListPageParam(QtCore.QObject):
             for position, param in enumerate(self.columns):
                 query = QSqlQuery(self.db)
                 query.prepare("INSERT INTO lists (pageid, fieldid, position,"
-                              " enabled, width, sortorder)"
-                              " VALUES (?, ?, ?, ?, ?, ?)")
+                              " enabled, width)"
+                              " VALUES (?, ?, ?, ?, ?)")
                 query.addBindValue(self.page.id)
                 query.addBindValue(param.fieldid)
                 query.addBindValue(position)
@@ -131,7 +130,6 @@ class ListPageParam(QtCore.QObject):
                 if not param.enabled:
                     param.width = None
                 query.addBindValue(param.width)
-                query.addBindValue(param.sortorder)
                 query.exec_()
 
             self.db.commit()

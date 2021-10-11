@@ -230,11 +230,6 @@ class CollectionSettingsPage(QWidget):
         self.convertFraction.setChecked(self.settings['convert_fraction'])
         layout.addRow(self.convertFraction)
 
-        self.storeSorting = QCheckBox(
-                            self.tr("Store column sorting"), self)
-        self.storeSorting.setChecked(self.settings['store_sorting'])
-        layout.addRow(self.storeSorting)
-
         self.imagesAtBottom = QCheckBox(self.tr("Images at bottom"), self)
         self.imagesAtBottom.setChecked(self.settings['images_at_bottom'])
         layout.addRow(self.imagesAtBottom)
@@ -274,7 +269,6 @@ class CollectionSettingsPage(QWidget):
     def save(self):
         self.settings['free_numeric'] = self.freeNumeric.isChecked()
         self.settings['convert_fraction'] = self.convertFraction.isChecked()
-        self.settings['store_sorting'] = self.storeSorting.isChecked()
         self.settings['ImageSideLen'] = int(self.imageSideLen.text())
         old_image_height = self.settings['image_height']
         self.settings['image_height'] = self.imageHeight.value()

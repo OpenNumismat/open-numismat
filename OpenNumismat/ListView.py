@@ -611,18 +611,6 @@ class ListView(BaseTableView):
         else:
             self.sortingChanged = True
 
-        if self.listParam.store_sorting:
-            # Clear all sort orders
-            for column in self.listParam.columns:
-                column.sortorder = None
-
-            visualIndex = self.horizontalHeader().visualIndex(logicalIndex)
-            # Set sort order only in required column
-            if visualIndex in self.listParam.columns:
-                column = self.listParam.columns[visualIndex]
-                column.sortorder = order
-            self.listParam.save_lists()
-
     def columnMoved(self, logicalIndex, oldVisualIndex, newVisualIndex):
         column = self.listParam.columns[oldVisualIndex]
         self.listParam.columns.remove(column)
@@ -726,20 +714,9 @@ class ListView(BaseTableView):
         self.clearSorting()
         self.sortingChanged = False
 
-        apply_sorting = model.settings['store_sorting']
         for param in self.listParam.columns:
             if param.enabled:
                 self.showColumn(param.fieldid)
-
-                if apply_sorting:
-                    if param.sortorder in (Qt.AscendingOrder, Qt.DescendingOrder):
-                        self.sortByColumn(param.fieldid, param.sortorder)
-
-                        sort_column_id = model.fields.sort_id.id
-                        if param.fieldid == sort_column_id:
-                            self.sortingChanged = False
-                        else:
-                            self.sortingChanged = True
 
             if param.width:
                 self.horizontalHeader().resizeSection(param.fieldid,
