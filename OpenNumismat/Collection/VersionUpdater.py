@@ -405,8 +405,7 @@ class UpdaterTo5(_Updater):
         self.progressDlg.setLabelText(self.tr("Saving..."))
 
         settings = QSettings()
-        for key in ('free_numeric', 'convert_fraction', 'store_sorting',
-                    'show_tree_icons', 'show_filter_icons', 'show_list_icons'):
+        for key in ('free_numeric', 'convert_fraction', 'store_sorting'):
             default = self.collection.settings.Default[key]
             value = settings.value('mainwindow/' + key, default, type=bool)
             self.collection.settings[key] = value

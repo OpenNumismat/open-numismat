@@ -208,7 +208,6 @@ class TreeView(QTreeWidget):
     def __init__(self, treeParam, parent=None):
         super().__init__(parent)
 
-        self.show_tree_icons = treeParam.show_tree_icons
         self.convert_fraction = treeParam.convert_fraction
 
         self.setHeaderHidden(True)
@@ -319,10 +318,9 @@ class TreeView(QTreeWidget):
                 child.setData(0, self.FiltersRole, newFilters)
                 child.setData(0, self.FieldsRole, fields)
 
-                if self.show_tree_icons:
-                    icon = self.reference.getIcon(fields[0], data[0])
-                    if icon:
-                        child.setIcon(0, icon)
+                icon = self.reference.getIcon(fields[0], data[0])
+                if icon:
+                    child.setIcon(0, icon)
 
                 item.addChild(child)
 

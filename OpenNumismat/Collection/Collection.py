@@ -119,16 +119,15 @@ class CollectionModel(QSqlTableModel):
                 return data
             return super().data(index, Qt.DisplayRole)
         elif role == Qt.DecorationRole:
-            if self.settings['show_list_icons']:
-                field = self.fields.fields[index.column()]
-                data = super().data(index, Qt.DisplayRole)
-                if data:
-                    if field.name == 'status':
-                        icon = Gui.statusIcon(data)
-                    else:
-                        icon = self.reference.getIcon(field.name, data)
-                    if icon:
-                        return icon
+            field = self.fields.fields[index.column()]
+            data = super().data(index, Qt.DisplayRole)
+            if data:
+                if field.name == 'status':
+                    icon = Gui.statusIcon(data)
+                else:
+                    icon = self.reference.getIcon(field.name, data)
+
+                return icon
         elif role == Qt.TextAlignmentRole:
             field = self.fields.fields[index.column()]
             if field.type == Type.BigInt:
@@ -613,9 +612,6 @@ class CollectionSettings(BaseSettings):
             'free_numeric': False,
             'convert_fraction': False,
             'store_sorting': False,
-            'show_tree_icons': True,
-            'show_filter_icons': True,
-            'show_list_icons': True,
             'images_at_bottom': False,
             'demo_status_used': True,
             'pass_status_used': True,
@@ -651,8 +647,7 @@ class CollectionSettings(BaseSettings):
                 elif title in ('image_height',):
                     value = float(record.value('value'))
                 elif title in ('free_numeric', 'convert_fraction',
-                               'store_sorting', 'show_tree_icons',
-                               'show_filter_icons', 'show_list_icons',
+                               'store_sorting',
                                'images_at_bottom', 'enable_bc', 'rich_text'):
                     value = record.value('value').lower() in ('true', '1')
                 elif '_status_used' in title:

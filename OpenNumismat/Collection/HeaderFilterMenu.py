@@ -167,9 +167,8 @@ class FilterMenuButton(QPushButton):
                 item = StatusSortListWidgetItem(label)
                 item.setData(Qt.UserRole, value)
 
-                if self.settings['show_filter_icons']:
-                    icon = statusIcon(value)
-                    item.setIcon(icon)
+                icon = statusIcon(value)
+                item.setIcon(icon)
 
                 if value in appliedValues:
                     if revert:
@@ -235,8 +234,7 @@ class FilterMenuButton(QPushButton):
                 else:
                     orig_data = query.record().value(0)
                     data = str(orig_data)
-                    if self.settings['show_filter_icons']:
-                        icon = self.reference.getIcon(self.columnName, data)
+                    icon = self.reference.getIcon(self.columnName, data)
 
                 if not data:
                     hasBlanks = True

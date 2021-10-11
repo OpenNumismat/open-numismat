@@ -247,20 +247,6 @@ class CollectionSettingsPage(QWidget):
         self.richText.setChecked(self.settings['rich_text'])
         layout.addRow(self.richText)
 
-        vLayout = QVBoxLayout()
-        showIcons = QGroupBox(self.tr("Show icons from reference (slow)"), self)
-        self.showTreeIcons = QCheckBox(self.tr("in tree"), self)
-        self.showTreeIcons.setChecked(self.settings['show_tree_icons'])
-        vLayout.addWidget(self.showTreeIcons)
-        self.showFilterIcons = QCheckBox(self.tr("in filters"), self)
-        self.showFilterIcons.setChecked(self.settings['show_filter_icons'])
-        vLayout.addWidget(self.showFilterIcons)
-        self.showListIcons = QCheckBox(self.tr("in list"), self)
-        self.showListIcons.setChecked(self.settings['show_list_icons'])
-        vLayout.addWidget(self.showListIcons)
-        showIcons.setLayout(vLayout)
-        layout.addRow(showIcons)
-
         gLayout = QGridLayout()
         statuses = QGroupBox(self.tr("Used statuses"), self)
         self.statusUsed = {}
@@ -289,9 +275,6 @@ class CollectionSettingsPage(QWidget):
         self.settings['free_numeric'] = self.freeNumeric.isChecked()
         self.settings['convert_fraction'] = self.convertFraction.isChecked()
         self.settings['store_sorting'] = self.storeSorting.isChecked()
-        self.settings['show_tree_icons'] = self.showTreeIcons.isChecked()
-        self.settings['show_filter_icons'] = self.showFilterIcons.isChecked()
-        self.settings['show_list_icons'] = self.showListIcons.isChecked()
         self.settings['ImageSideLen'] = int(self.imageSideLen.text())
         old_image_height = self.settings['image_height']
         self.settings['image_height'] = self.imageHeight.value()
