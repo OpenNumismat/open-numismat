@@ -3,7 +3,7 @@ import os
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QImage, QPainter, QColor
+from PyQt5.QtGui import QImage, QPainter
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 
@@ -26,7 +26,6 @@ from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
-from _operator import index
 
 
 class CollectionModel(QSqlTableModel):
