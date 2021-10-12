@@ -6,13 +6,14 @@ import json
 import os
 import sys
 
-from PyQt5.QtCore import QStandardPaths
+from PyQt5.QtCore import Qt, QStandardPaths
 from PyQt5.QtWidgets import QApplication, QFileDialog
-from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 
 sys.path.append('..')
+from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.Collection import Collection
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
+from OpenNumismat.Settings import Settings
 
 app = QApplication(sys.argv)
 
@@ -25,8 +26,9 @@ file_name, _selectedFilter = QFileDialog.getOpenFileName(None,
                 "Open collection", HOME_PATH,
                 "Collections (*.db)")
 if file_name:
-    collection = Collection(None)
+    collection = Collection()
     collection.open(file_name)
+    collection.loadReference(Settings()['reference'])
 
     json_file_name = file_name.replace('.db', '.json')
     json_file = codecs.open(json_file_name, "w", "utf-8")
@@ -40,6 +42,10 @@ if file_name:
     json_file.write('{"description": ')
 
     model = collection.model()
+
+    sort_column_id = model.fields.sort_id.id
+    model.sort(sort_column_id, Qt.AscendingOrder)
+
     while model.canFetchMore():
         model.fetchMore()
 
@@ -58,7 +64,7 @@ if file_name:
             if val is None or val == '':
                 continue
 
-            if field.name in ('id', 'createdat', 'updatedat') or field.type == Type.PreviewImage:
+            if field.name in ('id', 'createdat', 'updatedat', 'sort_id') or field.type == Type.PreviewImage:
                 continue
             if field.name in ('saledate', 'paydate', 'issuedate') and val == '2000-01-01':
                 continue
