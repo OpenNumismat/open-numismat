@@ -108,6 +108,11 @@ class MainWindow(QMainWindow):
         cancelSortingAct.triggered.connect(self.cancelSortingEvent)
         self.collectionActs.append(cancelSortingAct)
 
+        saveSortingAct = QAction(QIcon(':/sort_save.png'),
+                                   self.tr("Save sort order"), self)
+        saveSortingAct.triggered.connect(self.saveSortingEvent)
+        self.collectionActs.append(saveSortingAct)
+
         self.enableDragAct = QAction(QIcon(':/arrow_switch.png'),
                                      self.tr("Sort by drag-n-drop mode"), self)
         self.enableDragAct.setCheckable(True)
@@ -391,6 +396,7 @@ class MainWindow(QMainWindow):
         toolBar.addSeparator()
         toolBar.addAction(cancelFilteringAct)
         toolBar.addAction(cancelSortingAct)
+        toolBar.addAction(saveSortingAct)
         toolBar.addAction(self.enableDragAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
@@ -478,6 +484,10 @@ class MainWindow(QMainWindow):
     def cancelSortingEvent(self):
         listView = self.viewTab.currentListView()
         listView.clearSorting()
+
+    def saveSortingEvent(self):
+        listView = self.viewTab.currentListView()
+        listView.saveSorting()
 
     def enableDragEvent(self):
         listView = self.viewTab.currentListView()

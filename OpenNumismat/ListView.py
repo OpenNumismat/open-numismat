@@ -172,6 +172,10 @@ class BaseTableView(QTableView):
     def clearSorting(self):
         sort_column_id = self.model().fields.sort_id.id
         self.sortByColumn(sort_column_id, Qt.AscendingOrder)
+        self.sortingChanged = False
+
+    def saveSorting(self):
+        pass
 
     def report(self):
         indexes = []
@@ -719,7 +723,6 @@ class ListView(BaseTableView):
             self.hideColumn(i)
 
         self.clearSorting()
-        self.sortingChanged = False
 
         for param in self.listParam.columns:
             if param.enabled:
@@ -982,6 +985,18 @@ class ListView(BaseTableView):
             model.setSearchFilter('(' + ' OR '.join(sql) + ')')
         else:
             model.setSearchFilter('')
+
+    def saveSorting(self):
+        sort_column_id = self.model().fields.sort_id.id
+        indexes = []
+        for i in range(self.model().rowCount()):
+            index = self.proxyModel.index(i, sort_column_id)
+            real_index = self.proxyModel.mapToSource(index)
+            indexes.append(real_index)
+
+        if indexes:
+            self.model().setRowsPos(indexes)
+            self.clearSorting()
 
 
 class IconDelegate(QStyledItemDelegate):

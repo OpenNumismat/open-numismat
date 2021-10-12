@@ -26,6 +26,7 @@ from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
+from _operator import index
 
 
 class CollectionModel(QSqlTableModel):
@@ -448,6 +449,16 @@ class CollectionModel(QSqlTableModel):
 
         if self.proxy:
             self.sort(-1, Qt.AscendingOrder)
+
+    @waitCursorDecorator
+    def setRowsPos(self, indexes):
+        sorted_ids = sorted([index.data(Qt.UserRole) for index in indexes])
+        for index, sort_id in zip(indexes, sorted_ids):
+            record = super().record(index.row())
+            record.setValue('sort_id', sort_id)
+            super().setRecord(index.row(), record)
+
+        self.submitAll()
 
     def recalculateAllImages(self, parent=None):
         while self.canFetchMore():

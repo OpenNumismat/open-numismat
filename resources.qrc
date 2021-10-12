@@ -53,6 +53,7 @@
     <file alias="shape_handles.png">icons/shape_handles.png</file>
     <file alias="shape_handles_free.png">icons/shape_handles_free.png</file>
     <file alias="sort_clear.png">icons/sort_clear.png</file>
+    <file alias="sort_save.png">icons/sort_save.png</file>
     <file alias="table.png">icons/table.png</file>
     <file alias="tellico.png">icons/tellico.png</file>
     <file alias="ucoin.png">icons/ucoin.png</file>
