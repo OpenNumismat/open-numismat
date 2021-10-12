@@ -611,7 +611,7 @@ class ListView(BaseTableView):
 
     def sortChangedEvent(self, logicalIndex, order):
         sort_column_id = self.model().fields.sort_id.id
-        if logicalIndex == sort_column_id:
+        if logicalIndex == sort_column_id and order == Qt.AscendingOrder:
             self.sortingChanged = False
         else:
             self.sortingChanged = True
