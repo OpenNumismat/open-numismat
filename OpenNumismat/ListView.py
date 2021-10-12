@@ -176,8 +176,9 @@ class BaseTableView(QTableView):
     def report(self):
         indexes = []
         for i in range(self.model().rowCount()):
-            field_index = self.model().index(i, 0)
-            indexes.append(field_index)
+            index = self.proxyModel.index(i, 0)
+            real_index = self.proxyModel.mapToSource(index)
+            indexes.append(real_index)
 
         if indexes:
             preview = PreviewDialog(self.model(), indexes, self)
@@ -196,8 +197,9 @@ class BaseTableView(QTableView):
 
         indexes = []
         for i in range(self.model().rowCount()):
-            field_index = self.model().index(i, 0)
-            indexes.append(field_index)
+            index = self.proxyModel.index(i, 0)
+            real_index = self.proxyModel.mapToSource(index)
+            indexes.append(real_index)
 
         if indexes:
             fileName = report.generate(indexes)
