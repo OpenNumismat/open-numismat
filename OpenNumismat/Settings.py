@@ -85,7 +85,6 @@ class Settings(BaseSettings):
                'colnect_autoclose': False,
                'colnect_skip_currency': True,
                'map_type': 0,
-               'verify_ssl': (sys.platform != "darwin"),
                'built_in_viewer': True,
                'font_size': 0}
 
@@ -101,7 +100,7 @@ class Settings(BaseSettings):
         if key in ('error', 'updates', 'autobackup',
                    'check_coin_title', 'check_coin_duplicate',
                    'colnect_enabled', 'colnect_autoclose',
-                   'colnect_skip_currency', 'verify_ssl', 'built_in_viewer'):
+                   'colnect_skip_currency', 'built_in_viewer'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
         elif key in ('images_by_default', 'autobackup_depth',

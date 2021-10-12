@@ -149,11 +149,6 @@ class MainSettingsPage(QWidget):
                                        QSizePolicy.Fixed)
         layout.addRow(self.tr("Maps"), self.mapSelector)
 
-        self.verifySsl = QCheckBox(
-                        self.tr("Verify SSL certifiacte"), self)
-        self.verifySsl.setChecked(settings['verify_ssl'])
-        layout.addRow(self.verifySsl)
-
         self.fontSizeSelector = QComboBox(self)
         self.fontSizeSelector.addItem(self.tr("Normal"))
         self.fontSizeSelector.addItem(self.tr("Large"))
@@ -196,7 +191,6 @@ class MainSettingsPage(QWidget):
         settings['check_coin_duplicate'] = self.checkDuplicate.isChecked()
         settings['images_by_default'] = self.imagesByDefault.value()
         settings['map_type'] = self.mapSelector.currentIndex()
-        settings['verify_ssl'] = self.verifySsl.isChecked()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
 

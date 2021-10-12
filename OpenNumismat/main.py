@@ -88,8 +88,8 @@ def main():
     translatorQt.load('translations/qtbase_' + lang, OpenNumismat.PRJ_PATH)
     app.installTranslator(translatorQt)
 
-    if not settings['verify_ssl']:
-        ssl._create_default_https_context = ssl._create_unverified_context
+    # TODO: Enable SSL verification
+    ssl._create_default_https_context = ssl._create_unverified_context
 
     mainWindow = MainWindow()
     mainWindow.show()
