@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import codecs
+import filecmp
 import json
 import os
+import shutil
 import sys
 
 from PyQt5.QtCore import Qt, QStandardPaths
@@ -34,7 +36,8 @@ if file_name:
     json_file = codecs.open(json_file_name, "w", "utf-8")
 
     image_path = file_name.replace('.db', '_images')
-    os.makedirs(image_path, exist_ok=True)
+    shutil.rmtree(image_path, ignore_errors=True)
+    os.makedirs(image_path)
 
     desc = collection.getDescription()
     data = {'title': desc.title, 'description': desc.description,
@@ -54,6 +57,8 @@ if file_name:
     data['count'] = count
     json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
     json_file.write(',\n"coins": [\n')
+    
+    img_file_titles = []
 
     fields = CollectionFieldsBase()
     for i in range(count):
@@ -75,6 +80,16 @@ if file_name:
                 img_file = open(img_file_name, 'wb')
                 img_file.write(val)
                 img_file.close()
+                
+                for title in img_file_titles:
+                    file_name = os.path.join(image_path, title)
+                    if filecmp.cmp(file_name, img_file_name):
+                        img_file_title = title
+                        os.remove(img_file_name)
+                        break
+                if img_file_title not in img_file_titles:
+                    img_file_titles.append(img_file_title)
+                
                 data[field.name] = img_file_title
             else:
                 data[field.name] = val
