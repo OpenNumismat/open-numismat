@@ -71,74 +71,67 @@
         <translation>%d/%d mynt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="202"/>
+        <location filename="ListView.py" line="215"/>
         <source>Report preview</source>
         <translation>Förhandsgranska rapport</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="202"/>
-        <source>Nothing selected.
-Select required coins by clicking with Ctrl or Shift, or Ctrl+A for select all coins.</source>
-        <translation>Inget valt.
-Välj obligatoriska mynt genom att klicka med Ctrl eller Shift eller Ctrl + A för att välja alla mynt.</translation>
-    </message>
-    <message>
-        <location filename="ListView.py" line="209"/>
+        <location filename="ListView.py" line="220"/>
         <source>Excel document (*.xls)</source>
         <translation>Excel dokument (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="209"/>
+        <location filename="ListView.py" line="220"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Webbsida (* .htm * .html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="209"/>
+        <location filename="ListView.py" line="220"/>
         <source>Text file (*.csv)</source>
         <translation>Text fil (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="209"/>
+        <location filename="ListView.py" line="220"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Text fil UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="285"/>
+        <location filename="ListView.py" line="296"/>
         <source>Saving list</source>
         <translation>Spara lista</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="487"/>
+        <location filename="ListView.py" line="498"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="328"/>
+        <location filename="ListView.py" line="339"/>
         <source>Updating records</source>
         <translation>Uppdaterar poster</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="500"/>
+        <location filename="ListView.py" line="511"/>
         <source>Saving...</source>
         <translation>Sparar...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="468"/>
+        <location filename="ListView.py" line="479"/>
         <source>Inserting records</source>
         <translation>Infoga poster</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="480"/>
+        <location filename="ListView.py" line="491"/>
         <source>Delete</source>
         <translation>Radera</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="480"/>
+        <location filename="ListView.py" line="491"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="487"/>
+        <location filename="ListView.py" line="492"/>
         <source>Deleting records</source>
         <translation>Radera poster</translation>
     </message>
@@ -165,217 +158,222 @@ Changing item position avalaible only on default sort order. Clear sort order no
 Ändrar objektpositionen endast tillgänglig vid standard sorteringsordning. Rensa sorteringsordning nu?</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="285"/>
+        <location filename="ListView.py" line="296"/>
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ListView.py" line="215"/>
+        <source>Nothing selected</source>
         <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="750"/>
+        <location filename="Collection.py" line="754"/>
         <source>Open collection</source>
         <translation>Öppen samling</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="727"/>
+        <location filename="Collection.py" line="731"/>
         <source>Can&apos;t open collection %s</source>
         <translation>Kan inte öppnasamling  %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="732"/>
+        <location filename="Collection.py" line="736"/>
         <source>Collection %s not exists</source>
         <translation>Samling %s existerar inte</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="750"/>
+        <location filename="Collection.py" line="754"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
         <translation>Samlingen %s är en nyare version.
 Vänligen uppdatera OpenNumismat</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="792"/>
+        <location filename="Collection.py" line="796"/>
         <source>Create collection</source>
         <translation>Skapa samling</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="784"/>
+        <location filename="Collection.py" line="788"/>
         <source>Specified file already exists</source>
         <translation>Den angivna filen finns redan</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1153"/>
+        <location filename="Collection.py" line="1157"/>
         <source>Can&apos;t open collection</source>
         <translation>Kan inte öppna samling</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="882"/>
+        <location filename="Collection.py" line="886"/>
         <source>Updating reference</source>
         <translation>Uppdatera referens</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1424"/>
+        <location filename="Collection.py" line="1428"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="916"/>
+        <location filename="Collection.py" line="920"/>
         <source>Attach</source>
         <translation>Bifoga</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="916"/>
+        <location filename="Collection.py" line="920"/>
         <source>Attach current reference to a collection file?</source>
         <translation>Bifoga aktuell referens till en samlings fil?</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="957"/>
+        <location filename="Collection.py" line="961"/>
         <source>Attaching reference</source>
         <translation>Bifoga referens</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="957"/>
+        <location filename="Collection.py" line="961"/>
         <source>Can't attach reference:
 %s</source>
         <translation>Kan inte bifoga referens:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="971"/>
+        <location filename="Collection.py" line="975"/>
         <source>Save reference as</source>
         <translation>Spara referens som</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="971"/>
+        <location filename="Collection.py" line="975"/>
         <source>Reference (*.ref)</source>
         <translation>Referens (*.ref)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="978"/>
+        <location filename="Collection.py" line="982"/>
         <source>Detaching reference</source>
         <translation>Ta bort referens</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="992"/>
+        <location filename="Collection.py" line="996"/>
         <source>Detach reference</source>
         <translation>Ta bort referens</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="992"/>
+        <location filename="Collection.py" line="996"/>
         <source>Can't detach reference:
 %s</source>
         <translation>Kan inte ta bort referens:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1045"/>
+        <location filename="Collection.py" line="1049"/>
         <source>Create reference</source>
         <translation>Skapa referens</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1013"/>
+        <location filename="Collection.py" line="1017"/>
         <source>Can't create reference:
 %s</source>
         <translation>Kan inte skapa referens:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1045"/>
+        <location filename="Collection.py" line="1049"/>
         <source>Can't clear attached reference:
 %s</source>
         <translation>Kan inte rensa bifogad referens:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1065"/>
+        <location filename="Collection.py" line="1069"/>
         <source>Detach current reference</source>
         <translation>Ta bort nuvarande referens</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1068"/>
+        <location filename="Collection.py" line="1072"/>
         <source>Attach current reference</source>
         <translation>Bifoga nuvarande referens</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1072"/>
+        <location filename="Collection.py" line="1076"/>
         <source>Fill from collection</source>
         <translation>Fyll i från samlingen</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1075"/>
+        <location filename="Collection.py" line="1079"/>
         <source>Edit...</source>
         <translation>Redigera...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1098"/>
+        <location filename="Collection.py" line="1102"/>
         <source>Backup collection</source>
         <translation>Gör backup av samling</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1098"/>
+        <location filename="Collection.py" line="1102"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation>Det går inte att göra en backup på %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1153"/>
+        <location filename="Collection.py" line="1157"/>
         <source>Create mobile collection</source>
         <translation>Skapa mobil samling</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1225"/>
+        <location filename="Collection.py" line="1229"/>
         <source>Exporting records</source>
         <translation>Exporterar poster</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1344"/>
+        <location filename="Collection.py" line="1348"/>
         <source>Saving...</source>
         <translation>Sparar...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1347"/>
+        <location filename="Collection.py" line="1351"/>
         <source>Compact...</source>
         <translation>Kompakt...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1365"/>
+        <location filename="Collection.py" line="1369"/>
         <source>Vacuum...</source>
         <translation>Packa...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1583"/>
+        <location filename="Collection.py" line="1587"/>
         <source>Synchronizing</source>
         <translation>Synkroniserar</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1383"/>
+        <location filename="Collection.py" line="1387"/>
         <source>Can't open collection:
 %s</source>
         <translation>Kan inte öppna samling:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1394"/>
+        <location filename="Collection.py" line="1398"/>
         <source>Collection %s in wrong format</source>
         <translation>samlingen är %s i fel format</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1404"/>
+        <location filename="Collection.py" line="1408"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation>Samlingen är %s i gammalt format.
 (Försök öppna den innan du slår samman den.)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1576"/>
+        <location filename="Collection.py" line="1580"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Infogade %d mynt, är uppdaterade% d mynt.
 Applikationen måste starta om nu.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1582"/>
+        <location filename="Collection.py" line="1586"/>
         <source>Collections looks like identical</source>
         <translation>Samlingen ser likadan ut</translation>
     </message>
@@ -796,42 +794,42 @@ Applikationen måste starta om nu.</translation>
 <context>
     <name>CollectionModel</name>
     <message>
-        <location filename="Collection.py" line="464"/>
+        <location filename="Collection.py" line="474"/>
         <source>Updating records</source>
         <translation>Uppdaterar poster</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="464"/>
+        <location filename="Collection.py" line="474"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="485"/>
+        <location filename="Collection.py" line="495"/>
         <source>Saving...</source>
         <translation>Sparar...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="495"/>
+        <location filename="Collection.py" line="505"/>
         <source>file is readonly</source>
         <translation>Filen är lässkyddad</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="498"/>
+        <location filename="Collection.py" line="508"/>
         <source>Saving</source>
         <translation>Sparar</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="498"/>
+        <location filename="Collection.py" line="508"/>
         <source>Can&apos;t save data: %s</source>
         <translation>Kan inte spara data: %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="581"/>
+        <location filename="Collection.py" line="591"/>
         <source>Filtering</source>
         <translation>Filter</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="581"/>
+        <location filename="Collection.py" line="591"/>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Filtret är för komplext  och sparas inte</translation>
     </message>
@@ -839,87 +837,62 @@ Applikationen måste starta om nu.</translation>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="210"/>
+        <location filename="SettingsDialog.py" line="219"/>
         <source>Max image side len</source>
         <translation>Max bild storlek</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="212"/>
+        <location filename="SettingsDialog.py" line="221"/>
         <source>0 for storing in original size</source>
         <translation>0 för lagring i originalstorlek</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="221"/>
+        <location filename="SettingsDialog.py" line="230"/>
         <source>Preview image height</source>
         <translation>Förhandsgranska bildhöjd</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="223"/>
+        <location filename="SettingsDialog.py" line="232"/>
         <source>Free format numeric fields</source>
         <translation>Gratis format numeriska fält</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="233"/>
-        <source>Store column sorting</source>
-        <translation>Spara kolumn sortering</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="238"/>
+        <location filename="SettingsDialog.py" line="242"/>
         <source>Images at bottom</source>
         <translation>Bilder längst ner</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="242"/>
+        <location filename="SettingsDialog.py" line="246"/>
         <source>Enable BC</source>
         <translation>Aktivera BC</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="246"/>
+        <location filename="SettingsDialog.py" line="250"/>
         <source>Use RichText format</source>
         <translation>Använd RichText-format</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="251"/>
-        <source>Show icons from reference (slow)</source>
-        <translation>Visa ikoner från referens (långsam)</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="252"/>
-        <source>in tree</source>
-        <translation>i träd</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.py" line="255"/>
-        <source>in filters</source>
-        <translation>i filter</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="258"/>
-        <source>in list</source>
-        <translation>i listan</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="265"/>
         <source>Used statuses</source>
         <translation>Använda statuser</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="283"/>
+        <location filename="SettingsDialog.py" line="273"/>
         <source>Default status for new coin</source>
         <translation>Standardstatus för nytt mynt</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="309"/>
+        <location filename="SettingsDialog.py" line="295"/>
         <source>Settings</source>
         <translation>Inställningar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="309"/>
+        <location filename="SettingsDialog.py" line="295"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Förhandsgranskning av bildhöjd ändrades. Räkna om det nu?</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="228"/>
+        <location filename="SettingsDialog.py" line="237"/>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation>Konvertera 0,5 till ½ (stöd ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
@@ -1021,27 +994,27 @@ Applikationen måste starta om nu.</translation>
 <context>
     <name>ColnectSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="496"/>
+        <location filename="SettingsDialog.py" line="482"/>
         <source>Language</source>
         <translation>Språk</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="498"/>
+        <location filename="SettingsDialog.py" line="484"/>
         <source>Close dialog after adding item</source>
         <translation>Stäng dialogrutan efter att du har lagt till objekt</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="503"/>
+        <location filename="SettingsDialog.py" line="489"/>
         <source>Skip currency symbol</source>
         <translation>Hoppa över valutasymbolen</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="508"/>
+        <location filename="SettingsDialog.py" line="494"/>
         <source>Clear cache</source>
         <translation>Rensa cacheminnet</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="519"/>
+        <location filename="SettingsDialog.py" line="505"/>
         <source>Use Colnect</source>
         <translation>Använd Colnect</translation>
     </message>
@@ -1049,82 +1022,82 @@ Applikationen måste starta om nu.</translation>
 <context>
     <name>CropDialog</name>
     <message>
-        <location filename="ImageViewer.py" line="20"/>
+        <location filename="ImageViewer.py" line="24"/>
         <source>Crop</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="108"/>
+        <location filename="ImageViewer.py" line="112"/>
         <source>X</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="110"/>
+        <location filename="ImageViewer.py" line="114"/>
         <source>Y</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="112"/>
+        <location filename="ImageViewer.py" line="116"/>
         <source>Width</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="114"/>
+        <location filename="ImageViewer.py" line="118"/>
         <source>Height</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="74"/>
+        <location filename="ImageViewer.py" line="78"/>
         <source>X1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="76"/>
+        <location filename="ImageViewer.py" line="80"/>
         <source>Y1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="78"/>
+        <location filename="ImageViewer.py" line="82"/>
         <source>X2</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="80"/>
+        <location filename="ImageViewer.py" line="84"/>
         <source>Y2</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="82"/>
+        <location filename="ImageViewer.py" line="86"/>
         <source>X3</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="84"/>
+        <location filename="ImageViewer.py" line="88"/>
         <source>Y3</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="86"/>
+        <location filename="ImageViewer.py" line="90"/>
         <source>X4</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="88"/>
+        <location filename="ImageViewer.py" line="92"/>
         <source>Y4</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="124"/>
+        <location filename="ImageViewer.py" line="128"/>
         <source>Rect</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="126"/>
+        <location filename="ImageViewer.py" line="130"/>
         <source>Circle</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="128"/>
+        <location filename="ImageViewer.py" line="132"/>
         <source>Quad</source>
         <translation type="unfinished"/>
     </message>
@@ -1173,12 +1146,12 @@ Applikationen måste starta om nu.</translation>
         <translation>Mynt</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="495"/>
+        <location filename="DetailsTabWidget.py" line="497"/>
         <source>Market</source>
         <translation>Marknadsföra</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="317"/>
+        <location filename="DetailsTabWidget.py" line="319"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
@@ -1203,62 +1176,62 @@ Applikationen måste starta om nu.</translation>
         <translation>Ange</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="242"/>
+        <location filename="DetailsTabWidget.py" line="244"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Inget att visa. Ändra myntstatus på föregående flik</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="251"/>
+        <location filename="DetailsTabWidget.py" line="253"/>
         <source>Buy</source>
         <translation>Köp</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="270"/>
+        <location filename="DetailsTabWidget.py" line="272"/>
         <source>Sale</source>
         <translation>Försäljning</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="289"/>
+        <location filename="DetailsTabWidget.py" line="291"/>
         <source>Pass</source>
         <translation>Passera</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="329"/>
+        <location filename="DetailsTabWidget.py" line="331"/>
         <source>Minting</source>
         <translation>Mint</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="350"/>
+        <location filename="DetailsTabWidget.py" line="352"/>
         <source>Obverse</source>
         <translation>Framsida</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="361"/>
+        <location filename="DetailsTabWidget.py" line="363"/>
         <source>Reverse</source>
         <translation>Baksida</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="372"/>
+        <location filename="DetailsTabWidget.py" line="374"/>
         <source>Edge</source>
         <translation>Kant</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="401"/>
+        <location filename="DetailsTabWidget.py" line="403"/>
         <source>Catalogue</source>
         <translation>Katalog</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="410"/>
+        <location filename="DetailsTabWidget.py" line="412"/>
         <source>Price</source>
         <translation>Pris</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="419"/>
+        <location filename="DetailsTabWidget.py" line="421"/>
         <source>Variation</source>
         <translation>Variation</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="520"/>
+        <location filename="DetailsTabWidget.py" line="547"/>
         <source>Commission</source>
         <translation>Provision</translation>
     </message>
@@ -1324,12 +1297,12 @@ Applikationen måste starta om nu.</translation>
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="103"/>
+        <location filename="main.py" line="108"/>
         <source>System error</source>
         <translation>Systemfel</translation>
     </message>
     <message>
-        <location filename="main.py" line="104"/>
+        <location filename="main.py" line="109"/>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Ett systemfel inträffade. 
@@ -1417,72 +1390,72 @@ Vill du skicka ett felmeddelande till författaren?</translation>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="399"/>
+        <location filename="SettingsDialog.py" line="385"/>
         <source>Rename</source>
         <translation>Byt namn</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="404"/>
+        <location filename="SettingsDialog.py" line="390"/>
         <source>Revert to default</source>
         <translation>Återgå till standard</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="412"/>
+        <location filename="SettingsDialog.py" line="398"/>
         <source>Global enabled fields:</source>
         <translation>Globala aktiverade fält:</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="326"/>
+        <location filename="SettingsDialog.py" line="312"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="327"/>
+        <location filename="SettingsDialog.py" line="313"/>
         <source>Main details</source>
         <translation>Huvuduppgifter</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="328"/>
+        <location filename="SettingsDialog.py" line="314"/>
         <source>State</source>
         <translation>Ange</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="329"/>
+        <location filename="SettingsDialog.py" line="315"/>
         <source>Buy</source>
         <translation>Köp</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="330"/>
+        <location filename="SettingsDialog.py" line="316"/>
         <source>Sale</source>
         <translation>Försäljning</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="331"/>
+        <location filename="SettingsDialog.py" line="317"/>
         <source>Map</source>
         <translation>Karta</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="332"/>
+        <location filename="SettingsDialog.py" line="318"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="333"/>
+        <location filename="SettingsDialog.py" line="319"/>
         <source>Design</source>
         <translation>Design</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="334"/>
+        <location filename="SettingsDialog.py" line="320"/>
         <source>Classification</source>
         <translation>Klassificering</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="335"/>
+        <location filename="SettingsDialog.py" line="321"/>
         <source>System</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="336"/>
+        <location filename="SettingsDialog.py" line="322"/>
         <source>Other</source>
         <translation>Andra</translation>
     </message>
@@ -1510,17 +1483,17 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>(Data)</translation>
     </message>
     <message>
-        <location filename="HeaderFilterMenu.py" line="266"/>
+        <location filename="HeaderFilterMenu.py" line="264"/>
         <source>(Select all)</source>
         <translation>(Välj alla)</translation>
     </message>
     <message>
-        <location filename="HeaderFilterMenu.py" line="273"/>
+        <location filename="HeaderFilterMenu.py" line="271"/>
         <source>(Blanks)</source>
         <translation>(Tomma)</translation>
     </message>
     <message>
-        <location filename="HeaderFilterMenu.py" line="286"/>
+        <location filename="HeaderFilterMenu.py" line="284"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
@@ -1528,52 +1501,52 @@ Vill du skicka ett felmeddelande till författaren?</translation>
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="562"/>
+        <location filename="DetailsTabWidget.py" line="589"/>
         <source>Design</source>
         <translation>Design</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="566"/>
+        <location filename="DetailsTabWidget.py" line="593"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="628"/>
+        <location filename="DetailsTabWidget.py" line="655"/>
         <source>Main details</source>
         <translation>Huvuduppgifter</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="631"/>
+        <location filename="DetailsTabWidget.py" line="658"/>
         <source>Generate</source>
         <translation>Generera</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="651"/>
+        <location filename="DetailsTabWidget.py" line="678"/>
         <source>Obverse</source>
         <translation>Framsida</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="663"/>
+        <location filename="DetailsTabWidget.py" line="690"/>
         <source>Reverse</source>
         <translation>Baksida</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="675"/>
+        <location filename="DetailsTabWidget.py" line="702"/>
         <source>Edge</source>
         <translation>Kant</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="688"/>
+        <location filename="DetailsTabWidget.py" line="715"/>
         <source>Variation</source>
         <translation>Variation</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="837"/>
+        <location filename="DetailsTabWidget.py" line="864"/>
         <source>Commission</source>
         <translation>(Provision% d %%)</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="839"/>
+        <location filename="DetailsTabWidget.py" line="866"/>
         <source>Available format 12.5 or 10%</source>
         <translation>Tillgängligt format 12,5 eller 10%</translation>
     </message>
@@ -1620,44 +1593,52 @@ Vill du skicka ett felmeddelande till författaren?</translation>
     </message>
 </context>
 <context>
+    <name>GraderLineEdit</name>
+    <message>
+        <location filename="FormItems.py" line="263"/>
+        <source>View on grader site</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1267"/>
+        <location filename="ListView.py" line="1266"/>
         <source>Edit...</source>
         <translation>Redigera...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1275"/>
+        <location filename="ListView.py" line="1274"/>
         <source>Copy</source>
         <translation>Kopiera</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1278"/>
+        <location filename="ListView.py" line="1277"/>
         <source>Paste</source>
         <translation>Klistra in</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1283"/>
+        <location filename="ListView.py" line="1282"/>
         <source>Clone</source>
         <translation>Klona</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1287"/>
+        <location filename="ListView.py" line="1286"/>
         <source>Multi edit...</source>
         <translation>Multi redigera...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1308"/>
+        <location filename="ListView.py" line="1307"/>
         <source>Delete</source>
         <translation>Radera</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1295"/>
+        <location filename="ListView.py" line="1294"/>
         <source>Move up</source>
         <translation>Flytta upp</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1300"/>
+        <location filename="ListView.py" line="1299"/>
         <source>Move down</source>
         <translation>Flytta ned</translation>
     </message>
@@ -1675,51 +1656,56 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Ladda..</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="204"/>
+        <location filename="ImageLabel.py" line="209"/>
         <source>Paste</source>
         <translation>Klistra in</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="208"/>
+        <location filename="ImageLabel.py" line="213"/>
         <source>Copy</source>
         <translation>Kopiera</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="214"/>
+        <location filename="ImageLabel.py" line="219"/>
         <source>Delete</source>
         <translation>Radera</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="219"/>
+        <location filename="ImageLabel.py" line="224"/>
         <source>Save as...</source>
         <translation>Spara som...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="224"/>
+        <location filename="ImageLabel.py" line="229"/>
         <source>Rename...</source>
         <translation>Döpa om...</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="255"/>
+        <location filename="ImageLabel.py" line="264"/>
         <source>Open File</source>
         <translation>Öppna fil</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="296"/>
+        <location filename="ImageLabel.py" line="305"/>
         <source>No image available
 (right-click to add an image)</source>
         <translation> Ingen bild tillgänglig
  (högerklicka för att lägga till en bild)</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="365"/>
+        <location filename="ImageLabel.py" line="374"/>
         <source>Rename image</source>
         <translation>Döp om bild</translation>
     </message>
     <message>
-        <location filename="ImageLabel.py" line="365"/>
+        <location filename="ImageLabel.py" line="374"/>
         <source>Enter new image name</source>
         <translation>Skriv nytt bildnamn</translation>
+    </message>
+    <message>
+        <location filename="ImageLabel.py" line="204"/>
+        <source>Open</source>
+        <translation>Öppna</translation>
     </message>
 </context>
 <context>
@@ -1758,113 +1744,128 @@ Vill du skicka ett felmeddelande till författaren?</translation>
 <context>
     <name>ImageViewer</name>
     <message>
-        <location filename="ImageViewer.py" line="839"/>
+        <location filename="ImageViewer.py" line="847"/>
         <source>&amp;Save As...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="841"/>
+        <location filename="ImageViewer.py" line="849"/>
         <source>E&amp;xit</source>
         <translation>A&amp;vsluta</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="842"/>
+        <location filename="ImageViewer.py" line="850"/>
         <source>Full Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="843"/>
+        <location filename="ImageViewer.py" line="851"/>
         <source>Zoom &amp;In (25%)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="845"/>
+        <location filename="ImageViewer.py" line="852"/>
         <source>Zoom &amp;Out (25%)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="847"/>
+        <location filename="ImageViewer.py" line="853"/>
         <source>&amp;Normal Size</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="848"/>
+        <location filename="ImageViewer.py" line="854"/>
         <source>&amp;Fit to Window</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="849"/>
+        <location filename="ImageViewer.py" line="855"/>
         <source>Show Tool Bar</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="850"/>
+        <location filename="ImageViewer.py" line="856"/>
         <source>Show Status Bar</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="851"/>
+        <location filename="ImageViewer.py" line="857"/>
         <source>Rotate to Left</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="852"/>
+        <location filename="ImageViewer.py" line="858"/>
         <source>Rotate to Right</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="853"/>
+        <location filename="ImageViewer.py" line="859"/>
         <source>Rotate...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="854"/>
+        <location filename="ImageViewer.py" line="860"/>
         <source>Crop</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="985"/>
+        <location filename="ImageViewer.py" line="1016"/>
         <source>Save</source>
         <translation>Spara</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="857"/>
+        <location filename="ImageViewer.py" line="863"/>
         <source>Copy</source>
         <translation>Kopiera</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="858"/>
+        <location filename="ImageViewer.py" line="864"/>
         <source>Paste</source>
         <translation>Klistra in</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="869"/>
+        <location filename="ImageViewer.py" line="879"/>
         <source>&amp;File</source>
         <translation>&amp;Fil</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="876"/>
+        <location filename="ImageViewer.py" line="887"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="885"/>
+        <location filename="ImageViewer.py" line="899"/>
         <source>&amp;View</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="960"/>
+        <location filename="ImageViewer.py" line="991"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation>Bilder (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="960"/>
+        <location filename="ImageViewer.py" line="991"/>
         <source>All files (*.*)</source>
         <translation>Alla filer (*.*)</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="985"/>
+        <location filename="ImageViewer.py" line="1016"/>
         <source>Image was changed. Save changes?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="846"/>
+        <source>Browse in viewer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="865"/>
+        <source>Undo</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="867"/>
+        <source>Redo</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1920,47 +1921,47 @@ Vill du skicka ett felmeddelande till författaren?</translation>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="638"/>
+        <location filename="ListView.py" line="637"/>
         <source>Select columns...</source>
         <translation>Välj kolumner ...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="639"/>
+        <location filename="ListView.py" line="638"/>
         <source>Hide</source>
         <translation>Göm</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="641"/>
+        <location filename="ListView.py" line="640"/>
         <source>Adjust size</source>
         <translation>Justera storlek</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="824"/>
+        <location filename="ListView.py" line="811"/>
         <source>Edit...</source>
         <translation>Redigera...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="831"/>
+        <location filename="ListView.py" line="818"/>
         <source>Copy</source>
         <translation>Kopiera</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="833"/>
+        <location filename="ListView.py" line="820"/>
         <source>Paste</source>
         <translation>Klistra in</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="845"/>
+        <location filename="ListView.py" line="832"/>
         <source>Filter in</source>
         <translation>Filtrera i</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="837"/>
+        <location filename="ListView.py" line="824"/>
         <source>Clone</source>
         <translation>Klona</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="840"/>
+        <location filename="ListView.py" line="827"/>
         <source>Multi edit...</source>
         <translation>Multi redigera...</translation>
     </message>
@@ -2010,12 +2011,12 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Öppna fil</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="852"/>
+        <location filename="ListView.py" line="839"/>
         <source>Move up</source>
         <translation>Flytta upp</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="857"/>
+        <location filename="ListView.py" line="844"/>
         <source>Move down</source>
         <translation>Flytta ned</translation>
     </message>
@@ -2033,7 +2034,7 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Referens</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="161"/>
+        <location filename="SettingsDialog.py" line="169"/>
         <source>Backup folder</source>
         <translation>Backup mapp</translation>
     </message>
@@ -2098,23 +2099,43 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Bilder räknas som standard</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="170"/>
+        <location filename="SettingsDialog.py" line="178"/>
         <source>Select reference</source>
         <translation>Välj refererns</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="151"/>
+        <location filename="SettingsDialog.py" line="150"/>
         <source>Maps</source>
         <translation>Kartor</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="153"/>
+        <location filename="SettingsDialog.py" line="152"/>
         <source>Verify SSL certifiacte</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="139"/>
         <source>Use built-in image viewer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="158"/>
+        <source>Normal</source>
+        <translation>Normal</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="159"/>
+        <source>Large</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="160"/>
+        <source>Huge</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="164"/>
+        <source>Font size</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2151,167 +2172,167 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Rensa alla filter</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="117"/>
+        <location filename="MainWindow.py" line="122"/>
         <source>E&amp;xit</source>
         <translation>A&amp;vsluta</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="122"/>
+        <location filename="MainWindow.py" line="127"/>
         <source>&amp;New...</source>
         <translation>&amp;Ny...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="127"/>
+        <location filename="MainWindow.py" line="132"/>
         <source>&amp;Open...</source>
         <translation>&amp;Öppna...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="131"/>
+        <location filename="MainWindow.py" line="136"/>
         <source>Backup</source>
         <translation>Backup</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="137"/>
+        <location filename="MainWindow.py" line="142"/>
         <source>Vacuum</source>
         <translation>Vakuum...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="143"/>
+        <location filename="MainWindow.py" line="148"/>
         <source>Description</source>
         <translation>Beskrivning</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="148"/>
+        <location filename="MainWindow.py" line="153"/>
         <source>Set password...</source>
         <translation>Ange lösenord...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="153"/>
+        <location filename="MainWindow.py" line="158"/>
         <source>Import</source>
         <translation>importera</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="228"/>
+        <location filename="MainWindow.py" line="233"/>
         <source>Synchronize...</source>
         <translation>Synkronisera...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="234"/>
+        <location filename="MainWindow.py" line="239"/>
         <source>Export</source>
         <translation>Exportera</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="237"/>
+        <location filename="MainWindow.py" line="242"/>
         <source>For Android version</source>
         <translation>För android version</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="242"/>
+        <location filename="MainWindow.py" line="247"/>
         <source>&amp;File</source>
         <translation>&amp;Fil</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="266"/>
+        <location filename="MainWindow.py" line="271"/>
         <source>Add</source>
         <translation>Lägg till</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="272"/>
+        <location filename="MainWindow.py" line="277"/>
         <source>Edit...</source>
         <translation>Redigera...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="279"/>
+        <location filename="MainWindow.py" line="284"/>
         <source>Delete</source>
         <translation>Radera</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="285"/>
+        <location filename="MainWindow.py" line="290"/>
         <source>Copy</source>
         <translation>Kopiera</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="291"/>
+        <location filename="MainWindow.py" line="296"/>
         <source>Paste</source>
         <translation>Klistra in</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="297"/>
+        <location filename="MainWindow.py" line="302"/>
         <source>Coin</source>
         <translation>Mynt</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="349"/>
+        <location filename="MainWindow.py" line="354"/>
         <source>View in browser</source>
         <translation>Visa i webbläsare</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="318"/>
+        <location filename="MainWindow.py" line="323"/>
         <source>List</source>
         <translation>Lista</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="331"/>
+        <location filename="MainWindow.py" line="336"/>
         <source>Reference</source>
         <translation>Referens</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="334"/>
+        <location filename="MainWindow.py" line="339"/>
         <source>Report...</source>
         <translation>Rapportera...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="339"/>
+        <location filename="MainWindow.py" line="344"/>
         <source>Save current list...</source>
         <translation>Spara aktuell lista ...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="344"/>
+        <location filename="MainWindow.py" line="349"/>
         <source>Report</source>
         <translation>Rapportera...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="364"/>
+        <location filename="MainWindow.py" line="369"/>
         <source>User manual</source>
         <translation>Användar manual</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="368"/>
+        <location filename="MainWindow.py" line="373"/>
         <source>Visit web-site</source>
         <translation>Besök websida</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="370"/>
+        <location filename="MainWindow.py" line="375"/>
         <source>Check for updates</source>
         <translation>Sök efter uppdateringar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="853"/>
+        <location filename="MainWindow.py" line="863"/>
         <source>About %s</source>
         <translation>Om %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="375"/>
+        <location filename="MainWindow.py" line="380"/>
         <source>&amp;Help</source>
         <translation>&amp;Hjälp</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="383"/>
+        <location filename="MainWindow.py" line="388"/>
         <source>Toolbar</source>
         <translation>Verktygs fält</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="417"/>
+        <location filename="MainWindow.py" line="423"/>
         <source>Quick search</source>
         <translation>Snabb sök</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="495"/>
+        <location filename="MainWindow.py" line="505"/>
         <source>Settings</source>
         <translation>Inställningar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="495"/>
+        <location filename="MainWindow.py" line="505"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>Applikationen måste startas om för att tillämpa de nya inställningarna. Starta om den nu?</translation>
     </message>
@@ -2326,82 +2347,82 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Statistik</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="629"/>
+        <location filename="MainWindow.py" line="639"/>
         <source>Importing</source>
         <translation>importera</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="571"/>
+        <location filename="MainWindow.py" line="581"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Innan du importerar bör du exportera befintlig samling från kabinett.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="576"/>
+        <location filename="MainWindow.py" line="586"/>
         <source>Select directory</source>
         <translation>Välj mapp</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="665"/>
+        <location filename="MainWindow.py" line="675"/>
         <source>Select file</source>
         <translation>Välj fil</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="587"/>
+        <location filename="MainWindow.py" line="597"/>
         <source>Import pre-defined coins?</source>
         <translation>Importera fördefinierade mynt?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="601"/>
+        <location filename="MainWindow.py" line="611"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Innan du importerar ska du exportera befintlig samling från Collection Studio till XML-tabell (välj Samling Studio-menyn Verktyg&gt; Exportera ...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="614"/>
+        <location filename="MainWindow.py" line="624"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Innan du exporterar bör du exportera befintlig samling från uCoin.net till kommaseparerad (CSV) -format.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="629"/>
+        <location filename="MainWindow.py" line="639"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation>nnan du importerar bör du exportera befintlig samling från uCoin.net till Microsoft Excel (XLS) eller Komma-Separerat (CSV) format.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="767"/>
+        <location filename="MainWindow.py" line="777"/>
         <source>Open collection</source>
         <translation>Öppen samling</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="767"/>
+        <location filename="MainWindow.py" line="777"/>
         <source>Collections (*.db)</source>
         <translation>Samlingar (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="743"/>
+        <location filename="MainWindow.py" line="753"/>
         <source>New collection</source>
         <translation>Ny samling</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="820"/>
+        <location filename="MainWindow.py" line="830"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Skapa ny samling eller öppna en av de befintliga</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="880"/>
+        <location filename="MainWindow.py" line="890"/>
         <source>Updates</source>
         <translation>Uppdateringar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="880"/>
+        <location filename="MainWindow.py" line="890"/>
         <source>You already have the latest version.</source>
         <translation>Du har redan den senaste versionen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="891"/>
+        <location filename="MainWindow.py" line="901"/>
         <source>New version</source>
         <translation>Ny version</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="891"/>
+        <location filename="MainWindow.py" line="901"/>
         <source>New version is available. Download it now?</source>
         <translation>Ny version är tillgänglig. Ladda ner nu?</translation>
     </message>
@@ -2411,7 +2432,7 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Rensa sorteringsordning</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="111"/>
+        <location filename="MainWindow.py" line="116"/>
         <source>Sort by drag-n-drop mode</source>
         <translation>Sortera efter drag-n-drop-läge</translation>
     </message>
@@ -2426,12 +2447,17 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="853"/>
+        <location filename="MainWindow.py" line="863"/>
         <source>%s %s
 
 Copyright (C) 2011-2021 Vitaly Ignatov
 
 %s is freeware licensed under a GPLv3.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="111"/>
+        <source>Save sort order</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2763,22 +2789,22 @@ Skapade nytt</translation>
 <context>
     <name>RotateDialog</name>
     <message>
-        <location filename="ImageViewer.py" line="163"/>
+        <location filename="ImageViewer.py" line="167"/>
         <source>Rotate</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="191"/>
+        <location filename="ImageViewer.py" line="195"/>
         <source>Auto crop</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="196"/>
+        <location filename="ImageViewer.py" line="200"/>
         <source>Show grid</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="165"/>
+        <location filename="ImageViewer.py" line="169"/>
         <source>Angle</source>
         <translation type="unfinished"/>
     </message>
@@ -2794,22 +2820,22 @@ Skapade nytt</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="554"/>
+        <location filename="SettingsDialog.py" line="540"/>
         <source>Settings</source>
         <translation>Inställningar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="557"/>
+        <location filename="SettingsDialog.py" line="543"/>
         <source>Main</source>
         <translation>Huvud</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="558"/>
+        <location filename="SettingsDialog.py" line="544"/>
         <source>Collection</source>
         <translation>Samling</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="561"/>
+        <location filename="SettingsDialog.py" line="547"/>
         <source>Fields</source>
         <translation>Fält</translation>
     </message>
@@ -3051,89 +3077,99 @@ Skapade nytt</translation>
         <translation>Sammanfattning</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="41"/>
+        <location filename="SummaryDialog.py" line="55"/>
         <source>Total count: %d</source>
         <translation>Totalt antal:% d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="48"/>
+        <location filename="SummaryDialog.py" line="63"/>
         <source>Count owned: %d</source>
         <translation>Antal ägda:% d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="54"/>
+        <location filename="SummaryDialog.py" line="70"/>
         <source>Count wish: %d</source>
         <translation>Räkning önskar:% d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="62"/>
+        <location filename="SummaryDialog.py" line="79"/>
         <source>Count sales: %d</source>
         <translation>Räkna försäljningen:% d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="69"/>
+        <location filename="SummaryDialog.py" line="87"/>
         <source>Count biddings: %d</source>
         <translation>Räkna bud:% d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="76"/>
+        <location filename="SummaryDialog.py" line="95"/>
         <source>Count missing: %d</source>
         <translation>Antal saknas:% d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="110"/>
+        <location filename="SummaryDialog.py" line="133"/>
         <source>(commission %d%%)</source>
         <translation>(Provision% d %%)</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="92"/>
+        <location filename="SummaryDialog.py" line="113"/>
         <source>Paid: %.2f</source>
         <translation>Betald:% .2f</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="95"/>
+        <location filename="SummaryDialog.py" line="116"/>
         <source>Average paid per item: %.2f</source>
         <translation>Genomsnittligt betalat per objekt:% .2f</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="111"/>
+        <location filename="SummaryDialog.py" line="134"/>
         <source>Earned: %.2f</source>
         <translation>Tjänade:% .2f</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="114"/>
+        <location filename="SummaryDialog.py" line="137"/>
         <source>Average earn per item: %.2f</source>
         <translation>Genomsnittlig tjänat per objekt:% .2f</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="118"/>
+        <location filename="SummaryDialog.py" line="141"/>
         <source>Total (paid - earned): %.2f</source>
         <translation>Summa (betalda):% .2f</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="125"/>
+        <location filename="SummaryDialog.py" line="149"/>
         <source>First purchase: %s</source>
         <translation>Första köp:% s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="194"/>
+        <location filename="SummaryDialog.py" line="220"/>
         <source>(calculated for %d coins)</source>
         <translation>(beräknad för% d mynt)</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="169"/>
+        <location filename="SummaryDialog.py" line="194"/>
         <source>Estimation owned: %d</source>
         <translation>Uppskattning ägd:% d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="196"/>
+        <location filename="SummaryDialog.py" line="222"/>
         <source>Estimation wish: %d</source>
         <translation>Beräkning önskan:% d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="202"/>
+        <location filename="SummaryDialog.py" line="229"/>
         <source>Count images: %d</source>
         <translation>Räkna bilder:% d</translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="35"/>
+        <source>[Selected]</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="35"/>
+        <source>[All]</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3254,32 +3290,32 @@ Lägg till en ny först.</translation>
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="396"/>
+        <location filename="PageView.py" line="394"/>
         <source>Other</source>
         <translation>Andra</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="428"/>
+        <location filename="PageView.py" line="426"/>
         <source>Add new coin...</source>
         <translation>Lägg till nytt mynt ...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="431"/>
+        <location filename="PageView.py" line="429"/>
         <source>Edit coins...</source>
         <translation>Redigera mynt ...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="435"/>
+        <location filename="PageView.py" line="433"/>
         <source>Customize tree...</source>
         <translation>Anpassa träd ...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="488"/>
+        <location filename="PageView.py" line="486"/>
         <source>Updating records</source>
         <translation>Uppdaterar poster</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="488"/>
+        <location filename="PageView.py" line="486"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
@@ -3334,7 +3370,7 @@ Lägg till en ny först.</translation>
 <context>
     <name>YearEdit</name>
     <message>
-        <location filename="FormItems.py" line="454"/>
+        <location filename="FormItems.py" line="499"/>
         <source>BC</source>
         <translation>före Kristus</translation>
     </message>
