@@ -386,7 +386,6 @@ class MainWindow(QMainWindow):
         help_.addAction(aboutAct)
 
         toolBar = QToolBar(self.tr("Toolbar"), self)
-        toolBar.setContextMenuPolicy(Qt.NoContextMenu)
         toolBar.setObjectName("Toolbar")
         toolBar.setMovable(False)
         toolBar.addAction(openCollectionAct)
