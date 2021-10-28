@@ -1,13 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import datetime, decimal
-
-try:
-    import pyodbc
-except ImportError:
-    pass
-
 from PyQt5 import QtCore, QtGui
+from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import QFileDialog
 
 import OpenNumismat
@@ -85,10 +79,12 @@ class ImportCoinManagePredefined(_Import):
         super(ImportCoinManagePredefined, self).__init__(parent)
 
     def _connect(self, src):
-        try:
-            self.cnxn = pyodbc.connect(driver='{Microsoft Access Driver (*.mdb)}', DBQ=src)
-        except pyodbc.Error as error:
-            raise _DatabaseServerError(error.__str__())
+        db = QSqlDatabase.addDatabase('QODBC', 'CoinManage')
+        db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=%s" % src)
+        if not db.open():
+            db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb)};DBQ=%s" % src)
+            if not db.open():
+                raise _DatabaseServerError(db.lastError().text())
 
         # Check images folder
         self.imgDir = QtCore.QDir(src)
@@ -101,13 +97,13 @@ class ImportCoinManagePredefined(_Import):
             else:
                 return False
 
-        return self.cnxn.cursor()
+        return db
 
-    def _check(self, cursor):
+    def _check(self, db):
         self.priceTable = None
-        tables = [row.table_name.lower() for row in cursor.tables()]
+        tables = [row.lower() for row in db.tables()]
 
-        for requiredTables in ['coinattributes', 'cointypes']:
+        for requiredTables in ('coinattributes', 'cointypes'):
             if requiredTables not in tables:
                 return False
 
@@ -121,7 +117,7 @@ class ImportCoinManagePredefined(_Import):
 
         return True
 
-    def _getRows(self, cursor):
+    def _getRows(self, db):
         priceFields = ['F-12', 'F-16', 'VF-20', 'VF-30', 'XF-40', 'XF-45',
                        'AU-50', 'AU-55', 'AU-57', 'AU-58', 'AU-59', 'MS-60',
                        'MS-61', 'MS-62', 'MS-63', 'MS-64', 'MS-65', 'MS-66',
@@ -136,21 +132,21 @@ class ImportCoinManagePredefined(_Import):
             LEFT JOIN coinattributes ON cointypes.[type id] = coinattributes.[type id]) \
             LEFT JOIN [%s] ON cointypes.[coin id] = [%s].[coin id]" % (','.join(priceSql), self.priceTable, self.priceTable)
 
-        cursor.execute(sql)
-        return cursor.fetchall()
+        query = QSqlQuery(sql, db)
+        records = []
+        while query.next():
+            records.append(query.record())
+
+        return records
 
     def _setRecord(self, record, row):
         for dstColumn, srcColumn in self.Columns.items():
-            if srcColumn and hasattr(row, srcColumn):
-                rawData = getattr(row, srcColumn)
-                if isinstance(rawData, bytearray):
-                    value = QtCore.QByteArray(rawData)
-                elif isinstance(rawData, str):
+            if srcColumn:
+                rawData = row.value(srcColumn)
+                if isinstance(rawData, str):
                     if srcColumn == 'Mintage':
                         rawData = rawData.replace(',', '').replace('(', '').replace(')', '')
                     value = rawData.strip()
-                elif isinstance(rawData, datetime.date):
-                    value = QtCore.QDate.fromString(rawData.isoformat(), QtCore.Qt.ISODate)
                 else:
                     value = rawData
 
@@ -170,25 +166,24 @@ class ImportCoinManagePredefined(_Import):
                      'MS-66', 'MS-67', 'MS-68', 'MS-69', 'MS-70', 'Unc', 'BU']
         self.__processPrices(row, record, uncFields, 'price4')
 
-        if hasattr(row, 'UseGraphic') and hasattr(row, 'Country') and hasattr(row, 'Type ID'):
-            value = getattr(row, 'UseGraphic')
-            country = getattr(row, 'Country')
-            typeId = getattr(row, 'Type ID')
-            if value and country:
-                dir_ = QtCore.QDir(self.imgDir)
-                dir_.cd(country)
-                image = QtGui.QImage()
-                if image.load(dir_.absoluteFilePath(value)):
+        value = row.value('UseGraphic')
+        country = row.value('Country')
+        typeId = row.value('Type ID')
+        if value and country:
+            dir_ = QtCore.QDir(self.imgDir)
+            dir_.cd(country)
+            image = QtGui.QImage()
+            if image.load(dir_.absoluteFilePath(value)):
+                record.setValue('obverseimg', image)
+        if typeId and country:
+            dir_ = QtCore.QDir(self.imgDir)
+            dir_.cd(country)
+            image = QtGui.QImage()
+            if image.load(dir_.absoluteFilePath(str(typeId))):
+                if record.isNull('obverseimg'):
                     record.setValue('obverseimg', image)
-            if typeId and country:
-                dir_ = QtCore.QDir(self.imgDir)
-                dir_.cd(country)
-                image = QtGui.QImage()
-                if image.load(dir_.absoluteFilePath(str(typeId))):
-                    if record.isNull('obverseimg'):
-                        record.setValue('obverseimg', image)
-                    else:
-                        record.setValue('photo1', image)
+                else:
+                    record.setValue('photo1', image)
 
         # Make a coin title (1673 Charles II Farthing - Brittania)
         year = record.value('year')
@@ -200,18 +195,12 @@ class ImportCoinManagePredefined(_Import):
         record.setValue('title', title)
 
     def _close(self, connection):
-        self.cnxn.close()
-
-    def __getColumns(self, cursor):
-        columns = [row.column_name for row in cursor.columns('coins')]
-        return columns
+        connection.close()
+        QSqlDatabase.removeDatabase('CoinManage')
 
     def __processPrices(self, row, record, srcFields, dstField):
         for field in srcFields:
-            if hasattr(row, field):
-                rawData = getattr(row, field)
-                if isinstance(rawData, decimal.Decimal):
-                    value = float(rawData)
-                    if value > 0:
-                        record.setValue(dstField, value)
-                        break
+            value = row.value(field)
+            if isinstance(value, float) and value > 0:
+                record.setValue(dstField, value)
+                break

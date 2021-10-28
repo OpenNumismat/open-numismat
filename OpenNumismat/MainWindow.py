@@ -193,7 +193,7 @@ class MainWindow(QMainWindow):
         if ImportCoinManage.isAvailable():
             importCoinManageAct = QAction(
                                     QIcon(':/CoinManage.png'),
-                                    "CoinManage 2011", self)
+                                    "CoinManage 2021", self)
             importCoinManageAct.triggered.connect(self.importCoinManage)
             self.collectionActs.append(importCoinManageAct)
             importMenu.addAction(importCoinManageAct)
@@ -598,7 +598,7 @@ class MainWindow(QMainWindow):
             btn = QMessageBox.question(self, self.tr("Importing"),
                                 self.tr("Import pre-defined coins?"),
                                 QMessageBox.Yes | QMessageBox.No,
-                                QMessageBox.Yes)
+                                QMessageBox.No)
             if btn == QMessageBox.Yes:
                 imp = ImportCoinManagePredefined(self)
                 res = imp.importData(file, self.viewTab.currentModel())
