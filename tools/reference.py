@@ -144,6 +144,7 @@ for lang in langs:
         place.addItem('aucland', convertImage('icons/aucland.ico'))
         place.addItem('АукционЪ.СПб', convertImage('icons/spb.png'))
     place.addItem('eBay', convertImage('icons/ebay.png'))
+    place.addItem('Heritage', convertImage('icons/heritage.png'))
     place.model.submitAll()
 
     color_file = "ref/colors_%s.json" % lang
