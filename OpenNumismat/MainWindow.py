@@ -600,18 +600,18 @@ class MainWindow(QMainWindow):
         file, _selectedFilter = QFileDialog.getOpenFileName(self,
                                 self.tr("Select file"), defaultDir, "*.mdb")
         if file:
+            imp = ImportCoinManage(self)
+            res = imp.importData(file, self.viewTab.currentModel())
+            if not res:
+                return
+
             btn = QMessageBox.question(self, self.tr("Importing"),
                                 self.tr("Import pre-defined coins?"),
                                 QMessageBox.Yes | QMessageBox.No,
                                 QMessageBox.No)
             if btn == QMessageBox.Yes:
                 imp = ImportCoinManagePredefined(self)
-                res = imp.importData(file, self.viewTab.currentModel())
-                if not res:
-                    return
-
-            imp = ImportCoinManage(self)
-            imp.importData(file, self.viewTab.currentModel())
+                imp.importData(file, self.viewTab.currentModel())
 
     def importCollectionStudio(self):
         QMessageBox.information(self, self.tr("Importing"),
