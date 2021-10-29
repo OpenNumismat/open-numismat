@@ -1067,6 +1067,8 @@ class ImageViewer(QDialog):
     def paste(self):
         mime = QApplication.clipboard().mimeData()
         if mime.hasImage():
+            pixmap = self._pixmapHandle.pixmap()
+            self.pushUndo(pixmap)
             self.setImage(mime.imageData())
             self.isChanged = True
         elif mime.hasUrls():
@@ -1074,6 +1076,8 @@ class ImageViewer(QDialog):
             image = QImage()
             result = image.load(url.toLocalFile())
             if result:
+                pixmap = self._pixmapHandle.pixmap()
+                self.pushUndo(pixmap)
                 self.setImage(image)
                 self.isChanged = True
         self._updateEditActions()
