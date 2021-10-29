@@ -1,5 +1,9 @@
+import codecs
+import filecmp
+import json
 import locale
 import os
+import shutil
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
@@ -1371,6 +1375,84 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         QSqlDatabase.removeDatabase('mobile')
 
         progressDlg.reset()
+        
+    def exportToJson(self):
+        file = self.getFileName()
+        json_file_name = '.json'.join(file.rsplit('.db', 1))
+        json_file_name, _selectedFilter = QFileDialog.getSaveFileName(
+            self.parent(), self.tr("Save as"), json_file_name, "*.json")
+        if json_file_name:
+            json_file = codecs.open(json_file_name, "w", "utf-8")
+
+            image_path = '_images'.join(file.rsplit('.db', 1))
+            shutil.rmtree(image_path, ignore_errors=True)
+            os.makedirs(image_path)
+        
+            model = self.model()
+    
+            sort_column_id = model.fields.sort_id.id
+            model.sort(sort_column_id, Qt.AscendingOrder)
+        
+            while model.canFetchMore():
+                model.fetchMore()
+            count = model.rowCount()
+
+            desc = self.getDescription()
+            data = {'title': desc.title, 'description': desc.description,
+                    'author': desc.author, 'type': "OpenNumismat", 'count': count}
+            json_file.write('{"description": ')
+            json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
+            json_file.write(',\n"coins": [\n')
+            
+            img_file_titles = []
+            
+            progressDlg = Gui.ProgressDialog(self.tr("Exporting records"),
+                                            self.tr("Cancel"), count, self.parent())
+
+            fields = CollectionFieldsBase()
+            for i in range(count):
+                progressDlg.step()
+                
+                data = {}
+                coin = model.record(i)
+                for field in fields:
+                    val = coin.value(field.name)
+                    if val is None or val == '':
+                        continue
+        
+                    if field.name in ('id', 'createdat', 'updatedat', 'sort_id') or field.type == Type.PreviewImage:
+                        continue
+                    if field.name in ('saledate', 'paydate', 'issuedate') and val == '2000-01-01':
+                        continue
+        
+                    if field.type == Type.Image:
+                        img_file_title = "%d_%s.jpg" % (i + 1, field.name)
+                        img_file_name = os.path.join(image_path, img_file_title)
+                        img_file = open(img_file_name, 'wb')
+                        img_file.write(val)
+                        img_file.close()
+                        
+                        for title in img_file_titles:
+                            file_name = os.path.join(image_path, title)
+                            if filecmp.cmp(file_name, img_file_name):
+                                img_file_title = title
+                                os.remove(img_file_name)
+                                break
+                        if img_file_title not in img_file_titles:
+                            img_file_titles.append(img_file_title)
+                        
+                        data[field.name] = img_file_title
+                    else:
+                        data[field.name] = val
+        
+                json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
+                if i < count - 1:
+                    json_file.write(',\n')
+            
+            json_file.write(']\n}')
+            json_file.close()
+
+            progressDlg.reset()
 
     def merge(self, fileName):
         query = QSqlQuery(self.db)

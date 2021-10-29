@@ -63,5 +63,6 @@
     <file alias="zoom_out.png">icons/zoom_out.png</file>
     <file alias="undo.png">icons/undo.png</file>
     <file alias="redo.png">icons/redo.png</file>
+    <file alias="json.png">icons/json.png</file>
 </qresource>
 </RCC>

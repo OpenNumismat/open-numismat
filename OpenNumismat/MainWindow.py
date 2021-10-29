@@ -244,6 +244,11 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(exportMobileAct)
         exportMenu.addAction(exportMobileAct)
 
+        exportJsonAct = QAction(QIcon(':/json.png'), self.tr("JSON"), self)
+        exportJsonAct.triggered.connect(self.exportJson)
+        self.collectionActs.append(exportJsonAct)
+        exportMenu.addAction(exportJsonAct)
+
         file = menubar.addMenu(self.tr("&File"))
 
         file.addAction(newCollectionAct)
@@ -688,6 +693,9 @@ class MainWindow(QMainWindow):
         res = dialog.exec_()
         if res == QDialog.Accepted:
             self.collection.exportToMobile(dialog.params)
+
+    def exportJson(self):
+        self.collection.exportToJson()
 
     def addCoin(self):
         model = self.viewTab.currentModel()
