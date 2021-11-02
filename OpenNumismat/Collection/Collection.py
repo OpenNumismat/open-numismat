@@ -1,5 +1,4 @@
 import codecs
-import filecmp
 import json
 import locale
 import os

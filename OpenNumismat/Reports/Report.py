@@ -7,7 +7,7 @@ except ImportError:
     print('jinja2 module missed. Report engine not available')
 
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QCryptographicHash
 from PyQt5.QtGui import QImage
 
 from OpenNumismat.Tools import Gui
@@ -63,6 +63,7 @@ class Report(QtCore.QObject):
 
         self.model = model
         self.srcFolder = template
+        self.img_file_dict = {}
 
         fileInfo = QtCore.QFileInfo(dstPath)
         if fileInfo.exists() and fileInfo.isDir():
@@ -148,11 +149,6 @@ class Report(QtCore.QObject):
         field_index = self.model.index(index.row(), self.model.fieldIndex('id'))
         return self.model.data(field_index, Qt.UserRole)
 
-    def __recordMapping_new(self, index):
-        record = CollectionRecord(self.model, index.row())
-        record.contentDir = self.contentDir
-        return record
-
     def __recordMapping(self, index):
         imgFields = ('image', 'obverseimg', 'reverseimg', 'edgeimg',
                      'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4',
@@ -174,14 +170,20 @@ class Report(QtCore.QObject):
                         ext = 'png'
                     else:
                         ext = 'jpg'
+                    
+                    hash_ = QCryptographicHash.hash(value, QCryptographicHash.Sha1)
+                    if hash_ in self.img_file_dict:
+                        img_file_title = self.img_file_dict[hash_]
+                    else:
+                        img_file_title = "%s_%d.%s" % (field.name, self.__getId(index), ext)
+                        self.img_file_dict[hash_] = img_file_title
 
-                    imgFileTitle = "%s_%d.%s" % (field.name, self.__getId(index), ext)
-                    imgFile = os.path.join(self.contentDir, imgFileTitle)
+                        imgFile = os.path.join(self.contentDir, img_file_title)
+                        image = QImage()
+                        image.loadFromData(value)
+                        image.save(imgFile)
 
-                    image = QImage()
-                    image.loadFromData(value)
-                    image.save(imgFile)
-                    record_mapping[field.name] = imgFileTitle
+                    record_mapping[field.name] = img_file_title
                 else:
                     record_mapping[field.name] = value
                     if field.name == 'status':
@@ -190,52 +192,3 @@ class Report(QtCore.QObject):
                         record_mapping['issuedate_raw'] = self.model.data(field_index, Qt.UserRole)
 
         return record_mapping
-
-
-class CollectionRecord(dict):
-    imgFields = ('image', 'obverseimg', 'reverseimg', 'edgeimg', 'varietyimg',
-                 'photo1', 'photo2', 'photo3', 'photo4', 'photo5', 'photo6',
-                 'signatureimg')
-
-    def __init__(self, model, row):
-        self.model = model
-        self.row = row
-        self.data = {}
-
-    def __getitem__(self, key):
-        if key in self.data:
-            return self.data[key]
-
-        if key[-4:] == '_raw':
-            index = self.model.index(self.row, self.model.fieldIndex(key[:-4]))
-            value = self.model.data(index, Qt.UserRole)
-        else:
-            index = self.model.index(self.row, self.model.fieldIndex(key))
-            value = self.model.data(index, Qt.DisplayRole)
-
-        if value is None or value == '':
-            self.data[key] = ''
-            return ''
-        elif key in CollectionRecord.imgFields:
-            if key == 'image':
-                ext = 'png'
-            else:
-                ext = 'jpg'
-
-            field_index = self.model.index(self.row, self.model.fieldIndex('id'))
-            id_ = self.model.data(field_index, Qt.UserRole)
-            imgFileTitle = "%s_%d.%s" % (key, id_, ext)
-            imgFile = os.path.join(self.contentDir, imgFileTitle)
-
-            image = QImage()
-            image.loadFromData(value)
-#            size = 500
-#            if image.width() > size or image.height() > size:
-#                image = image.scaled(size, size,
-#                        Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            image.save(imgFile)
-            self.data[key] = imgFileTitle
-            return imgFileTitle
-        else:
-            self.data[key] = value
-            return value
