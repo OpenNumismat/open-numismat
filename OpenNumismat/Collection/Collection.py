@@ -8,7 +8,7 @@ import shutil
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QImage, QPainter
-from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtCore import Qt, pyqtSignal, QCryptographicHash
 from PyQt5.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
@@ -1404,7 +1404,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
             json_file.write(',\n"coins": [\n')
             
-            img_file_titles = []
+            img_file_dict = {}
             
             progressDlg = Gui.ProgressDialog(self.tr("Exporting records"),
                                             self.tr("Cancel"), count, self.parent())
@@ -1412,6 +1412,8 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             fields = CollectionFieldsBase()
             for i in range(count):
                 progressDlg.step()
+                if progressDlg.wasCanceled():
+                    break
                 
                 data = {}
                 coin = model.record(i)
@@ -1426,21 +1428,18 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                         continue
         
                     if field.type == Type.Image:
-                        img_file_title = "%d_%s.jpg" % (i + 1, field.name)
-                        img_file_name = os.path.join(image_path, img_file_title)
-                        img_file = open(img_file_name, 'wb')
-                        img_file.write(val)
-                        img_file.close()
-                        
-                        for title in img_file_titles:
-                            file_name = os.path.join(image_path, title)
-                            if filecmp.cmp(file_name, img_file_name):
-                                img_file_title = title
-                                os.remove(img_file_name)
-                                break
-                        if img_file_title not in img_file_titles:
-                            img_file_titles.append(img_file_title)
-                        
+                        hash_ = QCryptographicHash.hash(val, QCryptographicHash.Sha1)
+                        if hash_ in img_file_dict:
+                            img_file_title = img_file_dict[hash_]
+                        else:
+                            img_file_title = "%d_%s.jpg" % (i + 1, field.name)
+                            img_file_name = os.path.join(image_path, img_file_title)
+                            img_file = open(img_file_name, 'wb')
+                            img_file.write(val)
+                            img_file.close()
+                            
+                            img_file_dict[hash_] = img_file_title
+
                         data[field.name] = img_file_title
                     else:
                         data[field.name] = val
