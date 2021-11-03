@@ -1,0 +1,9 @@
+pyqt5
+jinja2
+matplotlib
+numpy
+xlwt
+xlrd
+lxml
+python-dateutil
+pywin32; sys_platform == 'win32'
