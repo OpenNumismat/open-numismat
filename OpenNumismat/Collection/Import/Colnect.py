@@ -175,6 +175,18 @@ class ColnectConnector(QObject):
                     field = 'catalognum%d' % (i + 1)
                     record.setValue(field, code.strip())
                 continue
+            elif column[0] == 'obversecolor':
+                if type(value) is str:
+                    color = int(value.split(',', 1))
+                else:
+                    color = value
+                value = ''
+                colors = self.getColors(category)
+                for color_set in colors:
+                    if color_set[0] == color:
+                        value = color_set[1]
+                        break
+                
             record.setValue(column[0], value)
         # Add URL
         record.setValue('url', data[-1])
@@ -311,6 +323,10 @@ class ColnectConnector(QObject):
 
     def getSeries(self, category, country):
         action = "series/cat/%s/producer/%d" % (category, country)
+        return self.getData(action)
+
+    def getColors(self, category):
+        action = "colors/cat/%s/producer/252" % category    # TODO: Remove producer filter
         return self.getData(action)
 
     def getDistributions(self, category, country):
