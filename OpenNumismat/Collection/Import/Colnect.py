@@ -154,7 +154,13 @@ class ColnectConnector(QObject):
                               ('quality', 'Printing'), ('obvrev', 'Gum'), ('edgelabel', 'Watermark'),
                               ('issuedate', 'Issued on'), ('edge', 'Perforation'), ('obversecolor', 'Colors'),
                               ('format', 'Format'), ('catalognum1', 'Catalog Codes'),
-                             )}
+                             ),
+                   'philatelic_products': (('title', 'Name'), ('country', 'Country'), ('subjectshort', 'Series'), ('year', 'Issued on'),
+                              ('mintage', 'Print run'), ('unit', 'Currency'), ('value', 'FaceValue'),
+                              ('subject', 'Description'), ('mint', 'Issuer'),
+                              ('issuedate', 'Issued on'), ('type', 'Subformat'),
+                              ('series', 'Format'), ('catalognum1', 'Catalog Codes'),
+                            )}
 
         for column in columns[category]:
             pos = fields.index(column[1])
@@ -363,7 +369,8 @@ class ColnectDialog(QDialog):
 
         categories = (('coins', self.tr("Coins")),
                       ('banknotes', self.tr("Banknotes")),
-                      ('stamps', self.tr("Stamps")))
+                      ('stamps', self.tr("Stamps")),
+                      ('philatelic_products', self.tr("Philatelic products")))
 
         self.categorySelector = QComboBox()
         self.categorySelector.setSizePolicy(QSizePolicy.Fixed,
@@ -704,7 +711,14 @@ class ColnectDialog(QDialog):
                 value = self._getFieldData(data, fields, 'Issued on')
                 item = QTableWidgetItem(str(value))
                 self.table.setItem(i, 4, item)
-                value = self._getFieldData(data, fields, 'Distribution')
+                if category == 'philatelic_products':
+                    value = self._getFieldData(data, fields, 'Subformat')
+                elif category == 'stamps':
+                    value = self._getFieldData(data, fields, 'Emission')
+                elif category == 'coins':
+                    value = self._getFieldData(data, fields, 'Distribution')
+                else:
+                    value = ''
                 item = QTableWidgetItem(value)
                 self.table.setItem(i, 5, item)
                 value = self._getFieldData(data, fields, 'Composition')
