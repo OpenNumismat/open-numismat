@@ -19,10 +19,14 @@ class CropDialog(QDialog):
     currentToolChanged = pyqtSignal(int)
     cropChanged = pyqtSignal()
 
-    def __init__(self, width, height, parent):
+    def __init__(self, width, height, auto_rect, parent):
         super().__init__(parent, Qt.WindowCloseButtonHint)
         self.setWindowTitle(self.tr("Crop"))
-
+        
+        self.auto_rect = auto_rect
+        
+        self.rectAutoButton = QPushButton(self.tr("Auto"))
+        self.rectAutoButton.clicked.connect(self.setAutoBorders)
         self.xSpin = QSpinBox()
         self.xSpin.setMaximum(width)
         self.xSpin.valueChanged.connect(self.cropChanged.emit)
@@ -45,6 +49,7 @@ class CropDialog(QDialog):
         rectLayout.addWidget(self.widthSpin, 1, 1)
         rectLayout.addWidget(QLabel(self.tr("Height")), 1, 2)
         rectLayout.addWidget(self.heightSpin, 1, 3)
+        rectLayout.addWidget(self.rectAutoButton, 2, 3)
 
         rectWidget = QWidget()
         rectWidget.setLayout(rectLayout)
@@ -95,6 +100,8 @@ class CropDialog(QDialog):
         quadWidget = QWidget()
         quadWidget.setLayout(quadLayout)
 
+        self.circleAutoButton = QPushButton(self.tr("Auto"))
+        self.circleAutoButton.clicked.connect(self.setAutoBorders)
         self.xCircleSpin = QSpinBox()
         self.xCircleSpin.setMaximum(width)
         self.xCircleSpin.valueChanged.connect(self.cropChanged.emit)
@@ -117,6 +124,7 @@ class CropDialog(QDialog):
         circleLayout.addWidget(self.widthCircleSpin, 1, 1)
         circleLayout.addWidget(QLabel(self.tr("Height")), 1, 2)
         circleLayout.addWidget(self.heightCircleSpin, 1, 3)
+        circleLayout.addWidget(self.circleAutoButton, 2, 3)
 
         circleWidget = QWidget()
         circleWidget.setLayout(circleLayout)
@@ -156,7 +164,18 @@ class CropDialog(QDialog):
 
     def currentTool(self):
         return self.tab.currentIndex()
-
+    
+    def setAutoBorders(self):
+        if self.currentTool() == 0:
+            self.xSpin.setValue(self.auto_rect[0])
+            self.ySpin.setValue(self.auto_rect[1])
+            self.widthSpin.setValue(self.auto_rect[2])
+            self.heightSpin.setValue(self.auto_rect[3])
+        elif self.currentTool() == 1:
+            self.xCircleSpin.setValue(self.auto_rect[0])
+            self.yCircleSpin.setValue(self.auto_rect[1])
+            self.widthCircleSpin.setValue(self.auto_rect[2])
+            self.heightCircleSpin.setValue(self.auto_rect[3])
 
 @storeDlgPositionDecorator
 class RotateDialog(QDialog):
@@ -1247,14 +1266,46 @@ class ImageViewer(QDialog):
 
         self.rotateAct.setChecked(False)
         self._updateEditActions()
+    
+    COLOR_THRESHOLD = 20
+    
+    def __findBorderH(self, image, range_v, range_h):
+        c = image.pixel(0, 0)
+        start_r, start_g, start_b, _ = QColor(c).getRgb()
+        for i in range_v:
+            for j in range_h:
+                c = image.pixel(j, i)
+                r, g, b, _ = QColor(c).getRgb()
+                if abs(r - start_r) > self.COLOR_THRESHOLD or \
+                        abs(g - start_g) > self.COLOR_THRESHOLD or \
+                        abs(b - start_b) > self.COLOR_THRESHOLD:
+                    return i
+
+    def __findBorderV(self, image, range_h, range_v):
+        c = image.pixel(0, 0)
+        start_r, start_g, start_b, _ = QColor(c).getRgb()
+        for i in range_h:
+            for j in range_v:
+                c = image.pixel(i, j)
+                r, g, b, _ = QColor(c).getRgb()
+                if abs(r - start_r) > self.COLOR_THRESHOLD or \
+                        abs(g - start_g) > self.COLOR_THRESHOLD or \
+                        abs(b - start_b) > self.COLOR_THRESHOLD:
+                    return i
 
     def crop(self, checked):
         if checked:
             sceneRect = self.viewer.sceneRect()
-            w = sceneRect.width()
-            h = sceneRect.height()
+            w = int(sceneRect.width())
+            h = int(sceneRect.height())
 
-            self.cropDlg = CropDialog(w, h, self)
+            image = self._pixmapHandle.pixmap().toImage()
+            x1 = self.__findBorderV(image, range(int(w/2)), range(h))
+            x2 = self.__findBorderV(image, range(w-1, int(w/2), -1), range(h)) + 1
+            y1 = self.__findBorderH(image, range(int(h/2)), range(w))
+            y2 = self.__findBorderH(image, range(h-1, int(h/2), -1), range(w)) + 1
+
+            self.cropDlg = CropDialog(w, h, (x1, y1, x2-x1, y2-y1), self)
             self.cropDlg.finished.connect(self.cropClose)
             self.cropDlg.currentToolChanged.connect(self.cropToolChanged)
             self.cropDlg.cropChanged.connect(self.cropDlgChanged)
