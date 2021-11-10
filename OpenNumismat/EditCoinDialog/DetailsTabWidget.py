@@ -11,6 +11,7 @@ from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
 from OpenNumismat.EditCoinDialog.MapWidget import importedQtWebKit
 from OpenNumismat.EditCoinDialog.OSMWidget import StaticOSMWidget, OSMWidget
+from OpenNumismat.EditCoinDialog.DAREWidget import StaticDAREWidget, DAREWidget
 from OpenNumismat.EditCoinDialog.GMapsWidget import StaticGMapsWidget, GMapsWidget, gmapsAvailable
 
 
@@ -455,10 +456,12 @@ class DetailsTabWidget(QTabWidget):
 
         if importedQtWebKit and coordinates_enabled:
             settings = Settings()
-            if settings['map_type'] == 0 or not gmapsAvailable:
-                self.map_item = StaticOSMWidget(self)
-            else:
+            if settings['map_type'] == 1 and gmapsAvailable:
                 self.map_item = StaticGMapsWidget(self)
+            elif settings['map_type'] == 2:
+                self.map_item = StaticDAREWidget(self)
+            else:
+                self.map_item = StaticOSMWidget(self)
 
         return self.map_item
 
@@ -733,10 +736,12 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         if importedQtWebKit and coordinates_enabled:
             settings = Settings()
-            if settings['map_type'] == 0 or not gmapsAvailable:
-                self.map_item = OSMWidget(self)
-            else:
+            if settings['map_type'] == 1 and gmapsAvailable:
                 self.map_item = GMapsWidget(self)
+            elif settings['map_type'] == 2:
+                self.map_item = DAREWidget(self)
+            else:
+                self.map_item = OSMWidget(self)
 
             self.map_item.markerMoved.connect(self.mapMarkerMoved)
             self.map_item.markerRemoved.connect(self.mapMarkerRemoved)

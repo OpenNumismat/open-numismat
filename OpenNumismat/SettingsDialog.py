@@ -144,6 +144,7 @@ class MainSettingsPage(QWidget):
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap')
         self.mapSelector.addItem('Google Maps')
+        self.mapSelector.addItem('Roman Empire (DARE)')
         self.mapSelector.setCurrentIndex(settings['map_type'])
         self.mapSelector.setSizePolicy(QSizePolicy.Fixed,
                                        QSizePolicy.Fixed)
