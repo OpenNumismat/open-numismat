@@ -10,7 +10,6 @@ from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
-importedQtWebKit = True
 importedQtWebEngine = False
 numistaAvailable = True
 try:
@@ -32,7 +31,6 @@ except ImportError:
                 return super().acceptNavigationRequest(url, type_, isMainFrame)
     except ImportError:
         print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. Importing from Numista not available')
-        importedQtWebKit = False
         numistaAvailable = False
 
 try:
@@ -60,6 +58,7 @@ class NumistaAuthentication(QDialog):
         else:
             self.page.linkClicked.connect(self.onLinkClicked)
             self.page.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
+            self.page.page().networkAccessManager().sslErrors.connect(self.onSslErrors)
         self.page.urlChanged.connect(self.onUrlChanged)
 
         redirect_uri = 'local'  # Should normally be a URL to your application
@@ -97,6 +96,10 @@ class NumistaAuthentication(QDialog):
         elif 'api/local?state' in url:
             self.close()
 
+    def onSslErrors(self, reply, errors):
+        for e in errors:
+            print(e.error(), e.errorString())
+        reply.ignoreSslErrors()
 
 class ImportNumista(_Import2):
     ENDPOINT = 'https://api.numista.com/api/v1'
