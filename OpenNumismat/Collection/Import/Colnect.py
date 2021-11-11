@@ -557,13 +557,14 @@ class ColnectDialog(QDialog):
         self.addCoin(index, self.autoclose)
 
     def addCoin(self, index, close):
-        category = self.categorySelector.currentData()
-        data = self.items[index.row()]
-        newRecord = self.model.record()
-        self.colnect.makeItem(category, data, newRecord)
-        if close:
-            self.accept()
-        self.model.addCoin(newRecord, self)
+        if index.row() < len(self.items):
+            data = self.items[index.row()]
+            category = self.categorySelector.currentData()
+            newRecord = self.model.record()
+            self.colnect.makeItem(category, data, newRecord)
+            if close:
+                self.accept()
+            self.model.addCoin(newRecord, self)
 
     def _clearTable(self):
         self.addButton.setEnabled(False)
