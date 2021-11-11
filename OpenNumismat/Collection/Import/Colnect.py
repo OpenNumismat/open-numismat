@@ -187,14 +187,27 @@ class ColnectConnector(QObject):
                         value = color_set[1]
                         break
             elif column[0] == 'fineness':
-                pos = 0
-                value = str(value)
-                while pos >= 0:
-                    pos = value.find('.')
-                    if pos >= 0 and value[pos+1].isdigit():
-                        value = value[pos+1:pos+1+4]
-                        break
-                    value = value[pos+1:]
+                if type(value) is float:
+                    value = int(value*1000)
+                elif type(value) is str:
+                    if '/1000' in value:
+                        pos = value.find('/1000')
+                        value = value[pos-3:pos]
+                        if value == 'xxx':
+                            value = ''
+                    elif '0.' in value:
+                        pos = value.find('0.')
+                        value = value[pos+2:pos+2+4]
+                    elif '0,' in value:
+                        pos = value.find('0,')
+                        value = value[pos+2:pos+2+4]
+                    elif '%' in value:
+                        pos = value.find('%')
+                        value = value[pos-5:pos]
+                    elif '.' in value:
+                        pos = value.find('.')
+                        if value[pos+1].isdigit():
+                            value = value[pos+1:pos+1+4]
                 
             record.setValue(column[0], value)
         # Add URL
