@@ -141,7 +141,7 @@ class ColnectConnector(QObject):
                              ('mintage', 'Known mintage'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Composition'),
                              ('diameter', 'Diameter'), ('weight', 'Weight'), ('subject', 'Description'), ('type', 'Distribution'),
                              ('issuedate', 'Issued on'), ('edge', 'EdgeVariety'), ('shape', 'Shape'), ('obvrev', 'Orientation'),
-                             ('catalognum1', 'Catalog Codes'),
+                             ('catalognum1', 'Catalog Codes'), ('thickness', 'Thickness'), ('fineness', 'Composition Details'),
                             ),
                    'banknotes': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
                                  ('mintage', 'Mintage'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Composition'),
@@ -186,6 +186,15 @@ class ColnectConnector(QObject):
                     if color_set[0] == color:
                         value = color_set[1]
                         break
+            elif column[0] == 'fineness':
+                pos = 0
+                value = str(value)
+                while pos >= 0:
+                    pos = value.find('.')
+                    if pos >= 0 and value[pos+1].isdigit():
+                        value = value[pos+1:pos+1+4]
+                        break
+                    value = value[pos+1:]
                 
             record.setValue(column[0], value)
         # Add URL
