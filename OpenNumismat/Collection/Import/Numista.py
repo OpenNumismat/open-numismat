@@ -97,12 +97,10 @@ class NumistaAuthentication(QDialog):
             self.close()
 
     def onSslErrors(self, reply, errors):
-        for e in errors:
-            print(e.error(), e.errorString())
         reply.ignoreSslErrors()
 
 class ImportNumista(_Import2):
-    ENDPOINT = 'https://api.numista.com/api/v1'
+    ENDPOINT = 'https://api.numista.com/api/v2'
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -159,18 +157,16 @@ class ImportNumista(_Import2):
 
         if 'issue' not in item:
             item['issue'] = {}
-        if 'mintLetter' not in item['issue']:
-            item['issue']['mintLetter'] = ''
+        if 'mintage' not in item['issue']:
+            item['issue']['mintage'] = ''
         if 'comment' not in item['issue']:
             item['issue']['comment'] = ''
         if 'year' not in item['issue']:
             item['issue']['year'] = ''
-        if 'mintLetter' not in item['issue']:
-            item['issue']['mintLetter'] = ''
+        if 'mint_letter' not in item['issue']:
+            item['issue']['mint_letter'] = ''
         if 'private_comment' not in item:
             item['private_comment'] = ''
-        if 'public_comment' not in item:
-            item['public_comment'] = ''
         if 'public_comment' not in item:
             item['public_comment'] = ''
         if 'grade' not in item:
@@ -189,7 +185,8 @@ class ImportNumista(_Import2):
             record.setValue('status', 'owned')
         record.setValue('grade', item['grade'])
         record.setValue('year', item['issue']['year'])
-        record.setValue('mintmark', item['issue']['mintLetter'])
+        record.setValue('mintmark', item['issue']['mint_letter'])
+        record.setValue('mintage', item['issue']['mintage'])
         record.setValue('quantity', item['quantity'])
         record.setValue('payprice', item['price']['value'])
 
@@ -205,30 +202,38 @@ class ImportNumista(_Import2):
 
         item_data = json.loads(raw_data)
 
-        record.setValue('value', item_data['value']['value'])
+        record.setValue('value', item_data['value']['numeric_value'])
         record.setValue('unit', item_data['value']['currency']['name'])
         record.setValue('url', item_data['url'])
         record.setValue('type', item_data['type'])
-        if 'ruler' in item:
-            record.setValue('period', item_data['ruler'][0]['name'])
-        if 'shape' in item:
+        record.setValue('period', item_data['value']['currency']['full_name'])
+        if 'ruler' in item_data:
+            record.setValue('ruler', item_data['ruler'][0]['name'])
+        if 'shape' in item_data:
             record.setValue('shape', item_data['shape'])
-        if 'material' in item:
-            record.setValue('material', item_data['composition']['text'])
-        if 'weight' in item:
+        if 'composition' in item_data:
+            value = item_data['composition']['text']
+            if '(.' in value:
+                pos = value.find('(.')
+                fineness = value[pos+2:-1]
+                record.setValue('fineness', fineness)
+                value = value[:pos]
+            record.setValue('material', value)
+        if 'weight' in item_data:
             record.setValue('weight', item_data['weight'])
-        if 'diameter' in item:
+        if 'size' in item_data:
             record.setValue('diameter', item_data['size'])
-        if 'thickness' in item:
+        if 'thickness' in item_data:
             record.setValue('thickness', item_data['thickness'])
-        if 'obvrev' in item:
+        if 'orientation' in item_data:
             record.setValue('obvrev', item_data['orientation'])
-        if 'mints' in item:
+        if 'mints' in item_data:
             record.setValue('mint', item_data['mints'][0]['name'])
-        record.setValue('dateemis', ' - '.join((str(item_data['minYear']), str(item_data['maxYear']))))
+        if item_data['min_year'] != item_data['max_year']:
+            record.setValue('dateemis', ' - '.join((str(item_data['min_year']), str(item_data['max_year']))))
         if 'references' in item_data:
             catalog_nums = item_data['references']
-            for i, catalog_num in enumerate(catalog_nums[:3]):
+            for i, catalog_num in enumerate(catalog_nums[:4]):
                 field = 'catalognum%d' % (i + 1)
                 code = catalog_num['catalogue']['code'] + '# ' + catalog_num['number']
                 record.setValue(field, code)
@@ -253,7 +258,7 @@ class ImportNumista(_Import2):
                 record.setValue('reverseimg', image)
         if 'edge' in item_data:
             if 'description' in item_data['edge']:
-                record.setValue('edgevar', item_data['edge']['description'])
+                record.setValue('edge', item_data['edge']['description'])
             if 'picture' in item_data['edge']:
                 img_url = item_data['edge']['picture']
                 image = self._getImage(img_url)
