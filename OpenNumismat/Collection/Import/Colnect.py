@@ -190,24 +190,36 @@ class ColnectConnector(QObject):
                 if type(value) is float:
                     value = int(value*1000)
                 elif type(value) is str:
+                    result = ''
                     if '/1000' in value:
-                        pos = value.find('/1000')
-                        value = value[pos-3:pos]
-                        if value == 'xxx':
-                            value = ''
+                        pos = value.find('/1000') - 1
+                        while pos >= 0 and value[pos].isdigit():
+                            result = value[pos] + result
+                            pos -= 1
                     elif '0.' in value:
-                        pos = value.find('0.')
-                        value = value[pos+2:pos+2+4]
+                        pos = value.find('0.') + 2
+                        while pos < len(value) and value[pos].isdigit():
+                            result += value[pos]
+                            pos += 1
                     elif '0,' in value:
-                        pos = value.find('0,')
-                        value = value[pos+2:pos+2+4]
+                        pos = value.find('0,') + 2
+                        while pos < len(value) and value[pos].isdigit():
+                            result += value[pos]
+                            pos += 1
                     elif '%' in value:
-                        pos = value.find('%')
-                        value = value[pos-5:pos]
+                        pos = value.find('%') - 1
+                        while pos >= 0 and value[pos].isdigit():
+                            result = value[pos] + result
+                            pos -= 1
                     elif '.' in value:
-                        pos = value.find('.')
-                        if value[pos+1].isdigit():
-                            value = value[pos+1:pos+1+4]
+                        pos = value.find('.') + 1
+                        while pos < len(value) and value[pos].isdigit():
+                            result += value[pos]
+                            pos += 1
+                    try:
+                        value = int(result)
+                    except:
+                        value = ''
                 
             record.setValue(column[0], value)
         # Add URL
