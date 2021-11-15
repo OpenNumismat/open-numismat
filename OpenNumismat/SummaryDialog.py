@@ -55,12 +55,108 @@ class SummaryDialog(QDialog):
             lines.append(self.tr("Total count: %d") % totalCount)
 
         count_owned = 0
-        sql = "SELECT count(*) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate')"
+        quantity_owned = 0
+        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate')"
+        sql = self.makeSql(sql, filter_)
+        query = QSqlQuery(sql, model.database())
+        while query.next():
+            record = query.record()
+            quantity = int(record.value('quantity') or 1)
+            count_owned += 1
+            quantity_owned += quantity
+        if count_owned == quantity_owned:
+            lines.append(self.tr("Count owned: %d") % count_owned)
+        else:
+            lines.append(self.tr("Count owned: %d/%d") % (quantity_owned, count_owned))
+
+        count_gold = 0
+        quantity_gold = 0
+        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
+                "(material='gold' OR material='Gold' OR material='%s' OR material='%s')" % (self.tr("Gold").lower(), self.tr("Gold").capitalize())
+        sql = self.makeSql(sql, filter_)
+        query = QSqlQuery(sql, model.database())
+        while query.next():
+            record = query.record()
+            quantity = int(record.value('quantity') or 1)
+            count_gold += 1
+            quantity_gold += quantity
+        if count_gold:
+            if count_gold == quantity_gold:
+                lines.append(self.tr("Gold coins: %d") % count_gold)
+            else:
+                lines.append(self.tr("Gold coins: %d/%d") % (quantity_gold, count_gold))
+        
+        if count_gold:
+            sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
+                    "(material='gold' OR material='Gold' OR material='%s' OR material='%s') AND " \
+                    "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % (self.tr("Gold").lower(), self.tr("Gold").capitalize())
+            sql = self.makeSql(sql, filter_)
+            query = QSqlQuery(sql, model.database())
+            gold_weight = 0
+            gold_count = 0
+            gold_quantity = 0
+            while query.next():
+                record = query.record()
+                fineness = record.value('fineness')
+                weight = record.value('weight')
+                quantity = int(record.value('quantity') or 1)
+                gold_weight += float(weight) * float("0.%s" % fineness) * quantity
+                gold_count += 1
+                gold_quantity += quantity
+            if gold_weight:
+                if gold_count == gold_quantity:
+                    comment = self.tr("(calculated for %d coins)") % gold_quantity
+                else:
+                    comment = self.tr("(calculated for %d/%d coins)") % (gold_quantity, gold_count)
+                lines.append(' '.join((self.tr("Gold weight: %.2f gramm") % gold_weight, comment)))
+
+        sql = "SELECT count(*) FROM coins WHERE status='wish'"
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
-            count_owned = query.record().value(0)
-            lines.append(self.tr("Count owned: %d") % count_owned)
+            count = query.record().value(0)
+            lines.append(self.tr("Count wish: %d") % count)
+
+        count_silver = 0
+        quantity_silver = 0
+        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
+                "(material='silver' OR material='Silver' OR material='%s' OR material='%s')" % (self.tr("Silver").lower(), self.tr("Silver").capitalize())
+        sql = self.makeSql(sql, filter_)
+        query = QSqlQuery(sql, model.database())
+        while query.next():
+            record = query.record()
+            quantity = int(record.value('quantity') or 1)
+            count_silver += 1
+            quantity_silver += quantity
+        if count_silver:
+            if count_silver == quantity_silver:
+                lines.append(self.tr("Silver coins: %d") % count_silver)
+            else:
+                lines.append(self.tr("Silver coins: %d/%d") % (quantity_silver, count_silver))
+        
+        if count_silver:
+            sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
+                    "(material='silver' OR material='Silver' OR material='%s' OR material='%s') AND " \
+                    "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % (self.tr("Silver").lower(), self.tr("Silver").capitalize())
+            sql = self.makeSql(sql, filter_)
+            query = QSqlQuery(sql, model.database())
+            silver_weight = 0
+            silver_count = 0
+            silver_quantity = 0
+            while query.next():
+                record = query.record()
+                fineness = record.value('fineness')
+                weight = record.value('weight')
+                quantity = int(record.value('quantity') or 1)
+                silver_weight += float(weight) * float("0.%s" % fineness) * quantity
+                silver_count += 1
+                silver_quantity += quantity
+            if silver_weight:
+                if silver_count == silver_quantity:
+                    comment = self.tr("(calculated for %d coins)") % silver_quantity
+                else:
+                    comment = self.tr("(calculated for %d/%d coins)") % (silver_quantity, silver_count)
+                lines.append(' '.join((self.tr("Silver weight: %.2f gramm") % silver_weight, comment)))
 
         sql = "SELECT count(*) FROM coins WHERE status='wish'"
         sql = self.makeSql(sql, filter_)
@@ -146,11 +242,12 @@ class SummaryDialog(QDialog):
             paydate = date.toString(Qt.SystemLocaleShortDate)
             lines.append(self.tr("First purchase: %s") % paydate)
 
-        sql = "SELECT UPPER(grade), price1, price2, price3, price4 FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
+        sql = "SELECT UPPER(grade), price1, price2, price3, price4, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         est_owned = 0
         count = 0
+        coins_quantity = 0
         comment = ""
         while query.next():
             record = query.record()
@@ -159,6 +256,7 @@ class SummaryDialog(QDialog):
             price2 = record.value(2)
             price3 = record.value(3)
             price4 = record.value(4)
+            quantity = int(record.value(5) or 1)
 
             try:
                 if grade[:2] in ('UN', 'MS'):
@@ -179,14 +277,18 @@ class SummaryDialog(QDialog):
                     price = price4 if price4 else price3 if price3 else price2 if price2 else price1 if price1 else 0
 
                 if price:
-                    est_owned += price
+                    est_owned += price * quantity
                     count += 1
+                    coins_quantity += quantity
 
             except TypeError:
                 continue
 
         if count:
-            comment = self.tr("(calculated for %d coins)") % count
+            if count == coins_quantity:
+                comment = self.tr("(calculated for %d coins)") % count
+            else:
+                comment = self.tr("(calculated for %d/%d coins)") % (coins_quantity, count)
 
         lines.append(' '.join((self.tr("Estimation owned: %d") % est_owned, comment)))
 

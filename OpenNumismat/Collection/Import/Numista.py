@@ -217,7 +217,7 @@ class ImportNumista(_Import2):
                 pos = value.find('(.')
                 fineness = value[pos+2:-1]
                 record.setValue('fineness', fineness)
-                value = value[:pos]
+                value = value[:pos].strip()
             record.setValue('material', value)
         if 'weight' in item_data:
             record.setValue('weight', item_data['weight'])
