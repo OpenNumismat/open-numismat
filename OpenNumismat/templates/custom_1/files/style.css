@@ -6,7 +6,7 @@ p.breakhere {
 div.row {
     page-break-inside: avoid;
     page-break-after:auto;
-    max-width: 1000;
+    max-width: 1000px;
     width: 100%;
     margin: 0 auto;
 }
@@ -26,35 +26,35 @@ td {
   border-style: solid;
   border-width: 0;
   word-wrap: break-word;
-  padding: 2 4;
+  padding: 2px 4px;
 }
 td.cell_full {
-  border-top-width: 1;
-  border-left-width: 1;
-  border-right-width: 1;
-  max-width: 1000;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  max-width: 1000px;
 }
 td.cell_left {
-  border-top-width: 1;
-  border-left-width: 1;
-  border-right-width: 1;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-right-width: 1px;
 }
 td.cell_mid {
-  border-top-width: 1;
-  border-right-width: 1;
+  border-top-width: 1px;
+  border-right-width: 1px;
 }
 td.cell_right {
-  border-top-width: 1;
-  border-right-width: 1;
+  border-top-width: 1px;
+  border-right-width: 1px;
 }
 td.cell_bottom {
-  border-top-width: 1;
-  max-width: 1000;
-  height: 1;
+  border-top-width: 1px;
+  max-width: 1000px;
+  height: 1px;
   padding: 0;
 }
 td.cell_top {
-  border-top-width: 1;
+  border-top-width: 1px;
 }
 td.title {
   font-style: italic;
