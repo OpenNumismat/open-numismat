@@ -244,7 +244,7 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(exportMobileAct)
         exportMenu.addAction(exportMobileAct)
 
-        exportJsonAct = QAction(QIcon(':/json.png'), self.tr("JSON"), self)
+        exportJsonAct = QAction(QIcon(':/json.png'), "JSON", self)
         exportJsonAct.triggered.connect(self.exportJson)
         self.collectionActs.append(exportJsonAct)
         exportMenu.addAction(exportJsonAct)
