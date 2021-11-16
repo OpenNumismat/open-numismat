@@ -1383,7 +1383,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         if json_file_name:
             json_file = codecs.open(json_file_name, "w", "utf-8")
 
-            image_path = '_images'.join(file.rsplit('.db', 1))
+            image_path = '_images'.join(json_file_name.rsplit('.json', 1))
             shutil.rmtree(image_path, ignore_errors=True)
             os.makedirs(image_path)
         
