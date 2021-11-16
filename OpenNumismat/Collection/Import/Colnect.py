@@ -177,7 +177,7 @@ class ColnectConnector(QObject):
                 continue
             elif column[0] == 'obversecolor':
                 if type(value) is str:
-                    color = int(value.split(',', 1))
+                    color = int(value.split(',', 1)[0])
                 else:
                     color = value
                 value = ''
