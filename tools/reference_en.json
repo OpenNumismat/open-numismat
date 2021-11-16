@@ -33,6 +33,7 @@
     "format": [
         "Single",
         "Set",
+        "Coincard",
         "Roll"
     ],
     "obvrev": [
