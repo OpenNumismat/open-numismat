@@ -1,0 +1,68 @@
+html, body {
+    font-family: arial, sans-serif;
+    font-size: 1em;
+    margin: 0 auto;
+}
+p.breakhere {
+    page-break-before: always;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+#bodyContent {
+    max-width: 1000px;
+}
+
+div.row {
+    page-break-inside: avoid;
+    page-break-after:auto;
+    margin: 0 -1px -1px 0;
+    height: 2in;
+    width: 2in;
+    border: 1px solid gray;
+    text-align: center;
+    position: relative;
+    float: left;
+    font-family: sans-serif;
+    font-size: 0.8em;
+}
+.top-left {
+    position: absolute;
+    top: 1.5mm;
+    left: 1.5mm;
+    text-align: left;
+}
+.top-right {
+    position: absolute;
+    top: 1.5mm;
+    right: 1.5mm;
+}
+.bottom-left {
+    position: absolute;
+    bottom: 1.5mm;
+    left: 1.5mm;
+    text-align: left;
+}
+.bottom-right {
+    position: absolute;
+    bottom: 1.5mm;
+    right: 1.5mm;
+}
+a.photo {
+  text-decoration: none;
+}
+.photo {
+  max-width: 1.9in;
+  padding: 0;
+  vertical-align: middle;
+}
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.footer {
+    clear: both;
+    padding: 5px;
+}

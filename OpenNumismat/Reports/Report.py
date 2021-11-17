@@ -157,6 +157,7 @@ class Report(QtCore.QObject):
         record_mapping = {}
         record_mapping['status_raw'] = ''
         record_mapping['issuedate_raw'] = ''
+        record_mapping['diameter_raw'] = ''
         row = index.row()
         for field in self.model.fields:
             field_index = self.model.index(row, self.model.fieldIndex(field.name))
@@ -190,5 +191,7 @@ class Report(QtCore.QObject):
                         record_mapping['status_raw'] = self.model.data(field_index, Qt.UserRole)
                     elif field.name == 'issuedate':
                         record_mapping['issuedate_raw'] = self.model.data(field_index, Qt.UserRole)
+                    elif field.name == 'diameter':
+                        record_mapping['diameter_raw'] = self.model.data(field_index, Qt.UserRole)
 
         return record_mapping
