@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt5 import QtCore, QtSql
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtCore import Qt, pyqtSignal
@@ -78,7 +80,7 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
 class BaseReferenceSection(QtCore.QObject):
     changed = pyqtSignal(object)
 
-    def __init__(self, name, title, letter='', sort=False, parent=None):
+    def __init__(self, name, title, letter, sort=False, parent=None):
         super().__init__(parent)
 
         self.name = name
@@ -184,7 +186,7 @@ class BaseReferenceSection(QtCore.QObject):
 
 
 class ReferenceSection(BaseReferenceSection):
-    def __init__(self, name, title, letter='', sort=False, parent=None):
+    def __init__(self, name, title, letter='…', sort=False, parent=None):
         super().__init__(name, title, letter, sort, parent)
 
     def load(self, db):
@@ -226,7 +228,7 @@ class ReferenceSection(BaseReferenceSection):
 
 
 class CrossReferenceSection(BaseReferenceSection):
-    def __init__(self, name, parentRef, title, letter='', sort=False, parent=None):
+    def __init__(self, name, parentRef, title, letter='…', sort=False, parent=None):
         super().__init__(name, title, letter, sort, parent)
 
         self.parentIndex = None
@@ -322,7 +324,7 @@ class Reference(QtCore.QObject):
             self.sections.append(ref_edge)
 
     def __createReferenceSection(self, parentRef, field,
-                                 letter='', sort=False):
+                                 letter='…', sort=False):
         if field.name in self.userFields:
             if parentRef:
                 ref = CrossReferenceSection(field.name, parentRef, field.title,
