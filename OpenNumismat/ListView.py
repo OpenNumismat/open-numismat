@@ -792,7 +792,7 @@ class ListView(BaseTableView):
             type_ = self.model().fields.field(param.fieldid).type
             if type_ in Type.ImageTypes:
                 height_multiplex = self.model().settings['image_height']
-                height = self.defaultHeight * height_multiplex
+                height = int(self.defaultHeight * height_multiplex)
 
         self.verticalHeader().setDefaultSectionSize(height)
 
@@ -1212,8 +1212,8 @@ class IconView(BaseTableView):
         defaultHeight = self.verticalHeader().defaultSectionSize()
         height_multiplex = self.model().settings['image_height']
         height = defaultHeight * height_multiplex
-        self.verticalHeader().setDefaultSectionSize(height + 41)
-        self.horizontalHeader().setDefaultSectionSize(height * 2 + 10 * height_multiplex)
+        self.verticalHeader().setDefaultSectionSize(int(height + 41))
+        self.horizontalHeader().setDefaultSectionSize(int(height * 2 + 10 * height_multiplex))
 
     def setModel(self, model):
         model.rowInserted.connect(self.scrollToIndex)
@@ -1390,5 +1390,5 @@ class CardView(IconView):
         defaultHeight = self.verticalHeader().defaultSectionSize()
         height_multiplex = self.model().settings['image_height']
         height = defaultHeight * height_multiplex * 2
-        self.verticalHeader().setDefaultSectionSize(height * 2 + 42)
-        self.horizontalHeader().setDefaultSectionSize(height + 10 * height_multiplex)
+        self.verticalHeader().setDefaultSectionSize(int(height * 2 + 42))
+        self.horizontalHeader().setDefaultSectionSize(int(height + 10 * height_multiplex))
