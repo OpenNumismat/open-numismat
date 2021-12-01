@@ -1232,17 +1232,17 @@ class ImageViewer(QDialog):
         h = self._startPixmap.height()
         if self.rotateDlg.isAutoCrop():
             if (-45 < value and value < 45) or value < -135 or 135 < value:
-                xoffset = (pixmap.width() - w) / 2
-                yoffset = (pixmap.height() - h) / 2
+                xoffset = (pixmap.width() - w) // 2
+                yoffset = (pixmap.height() - h) // 2
                 rect = QRect(xoffset, yoffset, w, h)
             else:
-                xoffset = (pixmap.width() - h) / 2
-                yoffset = (pixmap.height() - w) / 2
+                xoffset = (pixmap.width() - h) // 2
+                yoffset = (pixmap.height() - w) // 2
                 rect = QRect(xoffset, yoffset, h, w)
             pixmap = pixmap.copy(rect)
         else:
-            xoffset = (pixmap.width() - w) / 2
-            yoffset = (pixmap.height() - h) / 2
+            xoffset = (pixmap.width() - w) // 2
+            yoffset = (pixmap.height() - h) // 2
 
         self.setImage(pixmap)
 
@@ -1300,10 +1300,10 @@ class ImageViewer(QDialog):
             h = int(sceneRect.height())
 
             image = self._pixmapHandle.pixmap().toImage()
-            x1 = self.__findBorderV(image, range(int(w/2)), range(h))
-            x2 = self.__findBorderV(image, range(w-1, int(w/2), -1), range(h)) + 1
-            y1 = self.__findBorderH(image, range(int(h/2)), range(w))
-            y2 = self.__findBorderH(image, range(h-1, int(h/2), -1), range(w)) + 1
+            x1 = self.__findBorderV(image, range(w//2), range(h))
+            x2 = self.__findBorderV(image, range(w-1, w//2, -1), range(h)) + 1
+            y1 = self.__findBorderH(image, range(h//2), range(w))
+            y2 = self.__findBorderH(image, range(h-1, h//2, -1), range(w)) + 1
 
             self.cropDlg = CropDialog(w, h, (x1, y1, x2-x1, y2-y1), self)
             self.cropDlg.finished.connect(self.cropClose)

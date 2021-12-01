@@ -37,7 +37,7 @@ class ImportUcoin(_Import):
                 csv.field_size_limit(maxInt)
                 break
             except OverflowError:
-                maxInt = int(maxInt / 10)
+                maxInt = maxInt // 10
 
         rows = []
         with open(srcFile, 'r', encoding='utf-8', errors='ignore') as f:

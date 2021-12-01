@@ -325,7 +325,7 @@ class ImageFormLayout(BaseFormLayout):
                 if isinstance(image.label(), QLabel):
                     image.label().setAlignment(Qt.AlignLeft)
 
-                row = int(self.imagesCount / 2)
+                row = self.imagesCount // 2
                 col = self.imagesCount % 2
 
                 self.addWidget(image.label(), row * 2, col)

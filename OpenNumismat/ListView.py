@@ -535,8 +535,8 @@ class ImageDelegate(QStyledItemDelegate):
                                 Qt.KeepAspectRatio, Qt.SmoothTransformation)
             pixmap = QPixmap.fromImage(scaledImage)
             # Set rect at center of item
-            rect.translate((rect.width() - pixmap.width()) / 2,
-                           (rect.height() - pixmap.height()) / 2)
+            rect.translate((rect.width() - pixmap.width()) // 2,
+                           (rect.height() - pixmap.height()) // 2)
             rect.setSize(pixmap.size())
             painter.drawPixmap(rect, pixmap)
 
@@ -1043,8 +1043,8 @@ class IconDelegate(QStyledItemDelegate):
                 scaledImage = image
             pixmap = QPixmap.fromImage(scaledImage)
             # Set rect at center of item
-            rect.translate((rect.width() - pixmap.width()) / 2,
-                           (rect.height() + 35 - pixmap.height()) / 2)
+            rect.translate((rect.width() - pixmap.width()) // 2,
+                           (rect.height() + 35 - pixmap.height()) // 2)
             rect.setSize(pixmap.size())
             painter.drawPixmap(rect, pixmap)
 
@@ -1089,7 +1089,7 @@ class CardDelegate(QStyledItemDelegate):
             rect.setY(rect.y() + 30 + 4 + 1)
             rect.setHeight(rect.height() - 1)
             obverse_rect = QRect(rect.x(), rect.y(),
-                                 rect.width(), rect.height() / 2)
+                                 rect.width(), rect.height() // 2)
 
             maxWidth = obverse_rect.width() - 4
             maxHeight = obverse_rect.height() - 4
@@ -1103,13 +1103,13 @@ class CardDelegate(QStyledItemDelegate):
                 scaledImage = image
             pixmap = QPixmap.fromImage(scaledImage)
             # Set rect at center of item
-            obverse_rect.translate((obverse_rect.width() - pixmap.width()) / 2,
-                                   (obverse_rect.height() - pixmap.height()) / 2)
+            obverse_rect.translate((obverse_rect.width() - pixmap.width()) // 2,
+                                   (obverse_rect.height() - pixmap.height()) // 2)
             obverse_rect.setSize(pixmap.size())
             painter.drawPixmap(obverse_rect, pixmap)
 
-            reverse_rect = QRect(rect.x(), rect.y() + rect.height() / 2,
-                                 rect.width(), rect.height() / 2)
+            reverse_rect = QRect(rect.x(), rect.y() + rect.height() // 2,
+                                 rect.width(), rect.height() // 2)
 
             image = QImage()
             image.loadFromData(reverse_data)
@@ -1120,8 +1120,8 @@ class CardDelegate(QStyledItemDelegate):
                 scaledImage = image
             pixmap = QPixmap.fromImage(scaledImage)
             # Set rect at center of item
-            reverse_rect.translate((reverse_rect.width() - pixmap.width()) / 2,
-                                   (reverse_rect.height() - pixmap.height()) / 2)
+            reverse_rect.translate((reverse_rect.width() - pixmap.width()) // 2,
+                                   (reverse_rect.height() - pixmap.height()) // 2)
             reverse_rect.setSize(pixmap.size())
             painter.drawPixmap(reverse_rect, pixmap)
 
@@ -1154,7 +1154,7 @@ class CardModel(QAbstractProxyModel):
 
     def rowCount(self, parent=QModelIndex()):
         count = self.model.rowCount()
-        return (count + (self.columns - 1)) / self.columns
+        return (count + (self.columns - 1)) // self.columns
 
     def columnCount(self, parent=QModelIndex()):
         return self.columns
@@ -1164,7 +1164,7 @@ class CardModel(QAbstractProxyModel):
         return self.model.index(num, 0)
 
     def mapFromSource(self, index):
-        return self.model.index(index.row() / self.columns,
+        return self.model.index(index.row() // self.columns,
                                 index.row() % self.columns)
 
     def repaint(self, immediately=False):
@@ -1174,7 +1174,7 @@ class CardModel(QAbstractProxyModel):
             width -= vertical_bar.width() + 2
         col_width = self.parent_widget.columnWidth(0)
         old = self.columns
-        new = int(width / col_width)
+        new = width // col_width
         if new == 0:
             new = 1
         if old != new or immediately:
