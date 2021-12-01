@@ -177,6 +177,12 @@ class CropDialog(QDialog):
             self.widthCircleSpin.setValue(self.auto_rect[2])
             self.heightCircleSpin.setValue(self.auto_rect[3])
 
+
+class DoubleSlider(QSlider):
+    def setValue(self, value):
+        super().setValue(int(value))
+
+
 @storeDlgPositionDecorator
 class RotateDialog(QDialog):
     valueChanged = pyqtSignal(float)
@@ -187,7 +193,7 @@ class RotateDialog(QDialog):
 
         angleLabel = QLabel(self.tr("Angle"))
 
-        angleSlider = QSlider(Qt.Horizontal)
+        angleSlider = DoubleSlider(Qt.Horizontal)
         angleSlider.setRange(-180, 180)
         angleSlider.setTickInterval(10)
         angleSlider.setTickPosition(QSlider.TicksAbove)
