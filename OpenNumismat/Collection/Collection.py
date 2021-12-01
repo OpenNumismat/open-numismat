@@ -73,21 +73,21 @@ class CollectionModel(QSqlTableModel):
                     else:
                         text = str(data)
                 elif field.type == Type.BigInt:
-                    text = locale.format("%d", int(data), grouping=True)
+                    text = locale.format_string("%d", int(data), grouping=True)
                 elif field.type == Type.Text:
                     text = htmlToPlainText(data)
                 elif field.type == Type.Money:
-                    text = locale.format("%.2f", float(data), grouping=True)
+                    text = locale.format_string("%.2f", float(data), grouping=True)
                     dp = locale.localeconv()['decimal_point']
                     text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Denomination:
                     text, converted = numberWithFraction(data, self.settings['convert_fraction'])
                     if not converted:
-                        text = locale.format("%.2f", float(data), grouping=True)
+                        text = locale.format_string("%.2f", float(data), grouping=True)
                         dp = locale.localeconv()['decimal_point']
                         text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Value:
-                    text = locale.format("%.3f", float(data), grouping=True)
+                    text = locale.format_string("%.3f", float(data), grouping=True)
                     dp = locale.localeconv()['decimal_point']
                     text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.PreviewImage:

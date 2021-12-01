@@ -567,10 +567,10 @@ class _DoubleEdit(QLineEdit):
             if not self.hasFocus() or self.isReadOnly():
                 try:
                     if self._decimals:
-                        text = locale.format("%%.%df" % self._decimals,
+                        text = locale.format_string("%%.%df" % self._decimals,
                                              float(text), grouping=True)
                     else:
-                        text = locale.format("%d", int(text), grouping=True)
+                        text = locale.format_string("%d", int(text), grouping=True)
                 except ValueError:
                     return
 
@@ -674,13 +674,13 @@ class DenominationEdit(MoneyEdit):
                 if not converted:
                     try:
                         if self._decimals:
-                            text = locale.format("%%.%df" % self._decimals,
+                            text = locale.format_string("%%.%df" % self._decimals,
                                                  float(text), grouping=True)
                             # Strip empty fraction
                             dp = locale.localeconv()['decimal_point']
                             text = text.rstrip('0').rstrip(dp)
                         else:
-                            text = locale.format("%d", int(text), grouping=True)
+                            text = locale.format_string("%d", int(text), grouping=True)
                     except ValueError:
                         return
             else:
