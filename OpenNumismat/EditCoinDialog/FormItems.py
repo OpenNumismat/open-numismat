@@ -820,8 +820,33 @@ class RichTextEdit(QTextEdit):
 
 class CalendarWidget(QCalendarWidget):
     DEFAULT_DATE = QDate(2000, 1, 1)
+    
+    def __init__(self):
+        super().__init__()
+        
+        self._height_fixed = False
+
+        self._today_button = QPushButton(self.tr("Today"))
+        self._today_button.clicked.connect(self.updateToday)
+        self._clean_button = QPushButton(self.tr("Clean"))
+        self._clean_button.clicked.connect(self.cleanDate)
+        buttons = QHBoxLayout()
+        buttons.addWidget(self._today_button)
+        buttons.addWidget(self._clean_button)
+        self.layout().addLayout(buttons)
+    
+    def updateToday(self):
+        today = QDate.currentDate()
+        self.clicked.emit(today)
+
+    def cleanDate(self):
+        self.clicked.emit(self.DEFAULT_DATE)
 
     def showEvent(self, e):
+        if not self._height_fixed:
+            self.setFixedHeight(self.height() + self._clean_button.height())
+            self._height_fixed = True
+
         if self.selectedDate() == self.DEFAULT_DATE:
             self.showToday()
 
