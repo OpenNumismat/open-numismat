@@ -1,6 +1,9 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/opennumismat/open-numismat/badge)](https://www.codefactor.io/repository/github/opennumismat/open-numismat)
 [![GitHub release](https://img.shields.io/github/release/opennumismat/open-numismat.svg)](https://github.com/opennumismat/open-numismat/releases/)
-[![Github all releases](https://img.shields.io/github/downloads/opennumismat/open-numismat/total.svg)](https://github.com/opennumismat/open-numismat/releases/)
+[![GitHub all releases](https://img.shields.io/github/downloads/opennumismat/open-numismat/total.svg)](https://github.com/opennumismat/open-numismat/releases/)
+[![GitHub release (latest by date)](https://img.shields.io/github/downloads/opennumismat/open-numismat/latest/total.svg)](https://github.com/opennumismat/open-numismat/releases/)
+[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/OpenNumismat/open-numismat/latest)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/OpenNumismat/open-numismat)
 [![GitHub license](https://img.shields.io/github/license/opennumismat/open-numismat.svg)](https://github.com/opennumismat/open-numismat/blob/master/COPYING)
 
 
