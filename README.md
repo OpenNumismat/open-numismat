@@ -1,3 +1,9 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/opennumismat/open-numismat/badge)](https://www.codefactor.io/repository/github/opennumismat/open-numismat)
+[![GitHub release](https://img.shields.io/github/release/opennumismat/open-numismat.svg)](https://github.com/opennumismat/open-numismat/releases/)
+[![Github all releases](https://img.shields.io/github/downloads/opennumismat/open-numismat/total.svg)](https://github.com/opennumismat/open-numismat/releases/)
+[![GitHub license](https://img.shields.io/github/license/opennumismat/open-numismat.svg)](https://github.com/opennumismat/open-numismat/blob/master/COPYING)
+
+
 # OpenNumismat
 http://opennumismat.github.io/
 
@@ -12,52 +18,51 @@ Windows, Linux (Debian/Ubuntu), macOS.
 
 ## Requirements
 Main Windows version based on:
- * Python 3.4.4
- * PyQt5 5.5.1
- * Jinja2 2.10 (for reports)
- * Matplotlib 2.1.0 (for statistics)
- * xlwt-future 0.8.0 (for exporting to Excel)
- * pywin32-219 (for saving report as Word Document)
- * lxml 3.4.1 (for importing from Tellico)
- * xlrd 1.1.0 (for importing from Excel)
- * python-dateutil 2.6.1 (for importing from Excel)
- * Microsoft Access Database Engine, Microsoft Access or any other
-   software with ODBC {Microsoft Access Driver (*.mdb)} (for importing from CoinManage 2021)
- * cx_Freeze 4.3.4 (for deploy)
- * Inno Setup 5.6.1 (for deploy)
+* Python 3.4.4
+* PyQt5 5.5.1
+* Jinja2 2.10 (for reports)
+* Matplotlib 2.1.0 (for statistics)
+* xlwt-future 0.8.0 (for exporting to Excel)
+* pywin32-219 (for saving report as Word Document)
+* lxml 3.4.1 (for importing from Tellico)
+* xlrd 1.1.0 (for importing from Excel)
+* python-dateutil 2.6.1 (for importing from Excel)
+* Microsoft Access Database Engine, Microsoft Access or any other software with ODBC {Microsoft Access Driver (*.mdb)} (for importing from CoinManage 2021)
+* cx_Freeze 4.3.4 (for deploy)
+* Inno Setup 5.6.1 (for deploy)
 
 macOS version based on MacPorts:
- * py37-pyqt5 +webkit
- * py37-lxml
- * py37-xlrd
- * py37-xlwt
- * py37-dateutil
- * py37-jinja2
- * py37-matplotlib +qt5
- * py37-cx_Freeze
+* py37-pyqt5 +webkit
+* py37-lxml
+* py37-xlrd
+* py37-xlwt
+* py37-dateutil
+* py37-jinja2
+* py37-matplotlib +qt5
+* py37-cx_Freeze
 
 Debian/Ubuntu version depends on following packages: 
- * python3
- * python3-pyqt5
- * python3-pyqt5.qtsql
- * libqt5sql5-sqlite
- * python3-pyqt5.qtwebkit
- * python3-jinja2
- * python3-matplotlib
- * python3-numpy
- * python3-lxml
- * python3-xlrd
- * python3-dateutil
- * python3-setuptools
+* python3
+* python3-pyqt5
+* python3-pyqt5.qtsql
+* libqt5sql5-sqlite
+* python3-pyqt5.qtwebkit
+* python3-jinja2
+* python3-matplotlib
+* python3-numpy
+* python3-lxml
+* python3-xlrd
+* python3-dateutil
+* python3-setuptools
 
 For running from source code and development requirements can be installed like so:
 `pip3 install -r requirements.txt`
 
 ## Building
 Befor building installation package may be necessary:
- * compile resorces with: `pyrcc5.exe -no-compress resources.qrc -o OpenNumismat/resources.py`
- * compile translations file with: `python3 tools/i18n.py`
- * create `OpenNumismat/private_keys.py` with content: `MAPS_API_KEY = '<your Google API key>'`
+* compile resorces with: `pyrcc5.exe -no-compress resources.qrc -o OpenNumismat/resources.py`
+* compile translations file with: `python3 tools/i18n.py`
+* create `OpenNumismat/private_keys.py` with content: `MAPS_API_KEY = '<your Google API key>'`
 
 #### For Windows
     pip3 install cx_Freeze
