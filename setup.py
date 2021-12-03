@@ -43,7 +43,7 @@ Main features:
   Tellico (additional software may be required), uCoin.net
 - Support languages: English, Russian, Ukrainian, Spanish, French, Hungarian,
   Portuguese, German, Greek, Czech, Italian, Polish, Catalan, Dutch, Bulgarian,
-  Latvian
+  Latvian, Swedish, Persian
 - Cross-platform: Windows, Linux, MacOS X
 
 .. image:: http://opennumismat.github.io/images/screenMain.png
@@ -70,36 +70,13 @@ except ImportError:
     from setuptools import setup
     cx_Freeze_available = False
 
-###############################################################################
-# VALIDATE THE NEEDED MODULES
-###############################################################################
+WIN32 = sys.platform == "win32"
+DARWIN = sys.platform == "darwin"
 
-# This modules can't be easy installed
-# Syntax: [(module, url of the tutorial)...]
-NEEDED_MODULES = [("PyQt5",
-        "http://www.riverbankcomputing.co.uk/software/pyqt/intro"), ]
-if sys.platform == 'win32':
-    NEEDED_MODULES.append(('win32com',
-            "http://sourceforge.net/projects/pywin32/files/pywin32/"))
+dependencies = ['pyqt5', 'jinja2', 'matplotlib', 'numpy', 'xlwt', 'xlrd', 'lxml', 'python-dateutil']
+if WIN32:
+    dependencies.append("win32com")
 
-
-for mn, urlm in NEEDED_MODULES:
-    try:
-        __import__(mn)
-    except ImportError:
-        print("Module '%s' not found. For more details: '%s'.\n" % (mn, urlm))
-        sys.exit(1)
-
-dependencies = ['lxml', 'jinja2', 'matplotlib', 'numpy', 'xlrd', 'python-dateutil']
-if sys.platform == 'win32' or sys.platform == "darwin":
-    dependencies.append("xlwt")
-
-
-# data_files = []
-# for dirname, dirnames, filenames in os.walk('OpenNumismat/templates'):
-#    for filename in filenames:
-#        data_files.append((dirname,
-#                           [os.path.join(dirname, filename), ]))
 
 templates_packages = []
 for dirname, dirnames, filenames in os.walk('OpenNumismat/templates'):
@@ -139,6 +116,8 @@ params = {
             "Natural Language :: Dutch",
             "Natural Language :: Bulgarian",
             "Natural Language :: Latvian",
+            "Natural Language :: Swedish",
+            "Natural Language :: Persian",
             "Intended Audience :: End Users/Desktop",
             "Operating System :: OS Independent",
             "Operating System :: POSIX :: Linux",
@@ -147,7 +126,14 @@ params = {
             "Environment :: X11 Applications :: Qt",
             "Environment :: Win32 (MS Windows)",
             "Environment :: MacOS X",
-            "Programming Language :: Python :: 3.4"],
+            "Programming Language :: Python :: 3.4",
+            "Programming Language :: Python :: 3.5",
+            "Programming Language :: Python :: 3.6",
+            "Programming Language :: Python :: 3.7",
+            "Programming Language :: Python :: 3.8",
+            "Programming Language :: Python :: 3.9",
+            "Programming Language :: Python :: 3.10",
+            "Programming Language :: Python :: 3 :: Only"],
 
     "install_requires": dependencies,
 
@@ -189,10 +175,10 @@ if cx_Freeze_available:
         
 
     base = None
-    if sys.platform == "win32":
+    if WIN32:
         base = "Win32GUI"
 
-    if sys.platform == "win32":
+    if WIN32:
         if PYQT_VERSION_STR == "5.5.1":
             qt_plugin_dir = PyQt5.__path__[0] + '/plugins'
         else:
@@ -220,12 +206,12 @@ if cx_Freeze_available:
             (qt_plugin_dir + "/imageformats", "imageformats"),
             ("OpenNumismat/opennumismat.mplstyle", "opennumismat.mplstyle"),
         ]
-    if sys.platform == "win32":
+    if WIN32:
         include_files.append(
                 (qt_plugin_dir + "/sqldrivers/qsqlite.dll", "sqldrivers/qsqlite.dll"))
         include_files.append(
                 (qt_plugin_dir + "/sqldrivers/qsqlodbc.dll", "sqldrivers/qsqlodbc.dll"))
-    elif sys.platform == "darwin":
+    elif DARWIN:
         include_files.append(
                 (qt_plugin_dir + "/sqldrivers/libqsqlite.dylib", "sqldrivers/libqsqlite.dylib"))
 
@@ -236,11 +222,12 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/liblcms2.dylib", "liblcms2.dylib"))
     build_exe_options = {
             "excludes": [],
+            "optimize": 2,
             "include_files": include_files,
             "replace_paths": [(os.path.dirname(os.path.abspath(__file__)) + os.sep, '')],
             "include_msvcr": True  # skip error msvcr100.dll missing
     }
-    if sys.platform == "win32":
+    if WIN32:
         build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
                              "numpy.core._methods", "numpy.lib.format",
                              "matplotlib.backends.backend_ps", "matplotlib.backends.backend_pdf",
@@ -250,7 +237,7 @@ if cx_Freeze_available:
         else:
             build_exe_options["includes"].append("PyQt5.QtWebKit")
         build_exe_options["build_exe"] = 'build/' + params['name']
-    elif sys.platform == "darwin":
+    elif DARWIN:
         build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
                          "PyQt5.QtWebKit"]
         build_exe_options["packages"] = ["xlwt", "asyncio"]
@@ -266,7 +253,7 @@ if cx_Freeze_available:
 
 setup(**params)
 
-if sys.platform == "win32":
+if WIN32:
     binDir = 'build/OpenNumismat/'
     shutil.rmtree(binDir + "mpl-data/sample_data")
     shutil.rmtree(binDir + "mpl-data/images")
@@ -277,7 +264,7 @@ if sys.platform == "win32":
         shutil.make_archive(params['name'] + '-' + params['version'], 'zip', 'build/')
 
 # Post bdist_mac
-if sys.platform == "darwin":
+if DARWIN:
     bundleName = params['name'] + '-' + params['version'] + '.app'
     binDir = 'build/' + bundleName + '/Contents/MacOS/'
     shutil.copy("qt.conf", binDir)
