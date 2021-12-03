@@ -2,7 +2,6 @@ from PyQt5.QtCore import pyqtSlot, pyqtSignal, QSettings, QUrl
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QSizePolicy
 
-import OpenNumismat
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
 
