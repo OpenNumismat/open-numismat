@@ -51,30 +51,6 @@ html, body {
  border-bottom-width: 1;
  text-align: Left; vertical-align: Middle;
 }
-.s4 {
- font-family: Arial;
- font-size: 11px;
- color: #000000; font-style: normal;
- background-color: transparent;
- border-color:#C0C0C0; border-style: solid;
- border-left-width: 0;
- border-right-width: 1;
- border-top-width: 1;
- border-bottom-width: 1;
- text-align: Left; vertical-align: Middle;
-}
-.s5 {
- font-family: Arial;
- font-size: 11px;
- color: #000000; font-style: normal;
- background-color: transparent;
- border-color:#C0C0C0; border-style: solid;
- border-left-width: 0;
- border-right-width: 0;
- border-top-width: 1;
- border-bottom-width: 1;
- text-align: Left; vertical-align: Middle;
-}
 .s6 {
  font-family: Arial;
  font-size: 13px;
@@ -88,90 +64,6 @@ html, body {
  color: #000000; font-style: normal;
  background-color: #FFFFFF;
  text-align: Left; vertical-align: Top;
-}
-.s8 {
- font-family: Arial;
- font-size: 11px;
- color: #000000; font-style: normal;
- background-color: transparent;
- border-color:#C0C0C0; border-style: solid;
- border-left-width: 0;
- border-right-width: 1;
- border-top-width: 1;
- border-bottom-width: 1;
- text-align: Left; vertical-align: Top;
-}
-.s9 {
- font-family: Arial;
- font-size: 11px;
- color: #000000; font-style: normal;
- background-color: transparent;
- border-color:#C0C0C0; border-style: solid;
- border-left-width: 0;
- border-right-width: 1;
- border-top-width: 1;
- border-bottom-width: 0;
- text-align: Left; vertical-align: Middle;
-}
-.s10 {
- font-family: Arial;
- font-size: 8px;
- color: #000000; font-style: italic;
- background-color: transparent;
- border-color:#C0C0C0; border-style: solid;
- border-left-width: 1;
- border-right-width: 0;
- border-top-width: 1;
- border-bottom-width: 1;
- text-align: Left; vertical-align: Middle;
-}
-.s11 {
- font-family: Arial;
- font-size: 8px;
- color: #000000; font-style: italic;
- background-color: transparent;
- border-color:#C0C0C0; border-style: solid;
- border-left-width: 1;
- border-right-width: 0;
- border-top-width: 1;
- border-bottom-width: 0;
- text-align: Left; vertical-align: Middle;
-}
-.s12 {
- font-family: Arial;
- font-size: 13px;
- color: #000000; font-style: normal;
- background-color: transparent;
- border-color:#000000; border-style: solid;
- border-left-width: 0;
- border-right-width: 0;
- border-top-width: 0;
- border-bottom-width: 1;
- text-align: Left; vertical-align: Middle;
-}
-.s13 {
- font-family: Arial;
- font-size: 11px;
- color: #000000; font-style: normal;
- background-color: transparent;
- border-color:#C0C0C0; border-style: solid;
- border-left-width: 0;
- border-right-width: 0;
- border-top-width: 1;
- border-bottom-width: 0;
- text-align: Left; vertical-align: Middle;
-}
-.s14 {
- font-family: Arial;
- font-size: 8px;
- color: #000000; font-style: italic;
- background-color: transparent;
- border-color:#C0C0C0; border-style: solid;
- border-left-width: 0;
- border-right-width: 0;
- border-top-width: 1;
- border-bottom-width: 0;
- text-align: Left; vertical-align: Middle;
 }
 .s15 {
  font-family: Arial;
@@ -261,13 +153,6 @@ html, body {
  font-family: Arial;
  font-size: 11px;
  color: #000000; font-style: normal;
- background-color: transparent;
- text-align: Left; vertical-align: Middle;
-}
-.s23 {
- font-family: Arial;
- font-size: 8px;
- color: #000000; font-style: italic;
  background-color: transparent;
  text-align: Left; vertical-align: Middle;
 }
