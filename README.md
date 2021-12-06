@@ -25,7 +25,7 @@ Main Windows version based on:
 * PyQt5 5.5.1
 * Jinja2 2.10 (for reports)
 * Matplotlib 2.1.0 (for statistics)
-* xlwt-future 0.8.0 (for exporting to Excel)
+* xlwt 1.3.0 (for exporting to Excel)
 * pywin32-219 (for saving report as Word Document)
 * lxml 3.4.1 (for importing from Tellico)
 * xlrd 1.2.0 (for importing from Excel)
