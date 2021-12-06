@@ -200,7 +200,7 @@ class ImportExcel(_Import2):
 
                 try:
                     val = parser.parse(val).date().isoformat()
-                except ValueError:
+                except (ValueError, TypeError):
                     val = None
             elif field.type in Type.ImageTypes:
                 image = QImage()
