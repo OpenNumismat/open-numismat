@@ -29,7 +29,7 @@ Main Windows version based on:
 * pywin32-219 (for saving report as Word Document)
 * lxml 3.4.1 (for importing from Tellico)
 * xlrd 1.2.0 (for importing from Excel)
-* python-dateutil 2.6.1 (for importing from Excel)
+* python-dateutil 2.8.2 (for importing from Excel)
 * Microsoft Access Database Engine, Microsoft Access or any other software with ODBC {Microsoft Access Driver (*.mdb)} (for importing from CoinManage 2021)
 * cx_Freeze 4.3.4 (for deploy)
 * Inno Setup 5.6.1 (for deploy)
