@@ -4,7 +4,7 @@ jinja2
 matplotlib
 numpy
 xlwt
-xlrd
+xlrd==1.2.0
 lxml
 python-dateutil
 pywin32; sys_platform == 'win32'

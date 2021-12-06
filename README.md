@@ -28,7 +28,7 @@ Main Windows version based on:
 * xlwt-future 0.8.0 (for exporting to Excel)
 * pywin32-219 (for saving report as Word Document)
 * lxml 3.4.1 (for importing from Tellico)
-* xlrd 1.1.0 (for importing from Excel)
+* xlrd 1.2.0 (for importing from Excel)
 * python-dateutil 2.6.1 (for importing from Excel)
 * Microsoft Access Database Engine, Microsoft Access or any other software with ODBC {Microsoft Access Driver (*.mdb)} (for importing from CoinManage 2021)
 * cx_Freeze 4.3.4 (for deploy)
@@ -55,6 +55,7 @@ Debian/Ubuntu version depends on following packages:
 * python3-numpy
 * python3-lxml
 * python3-xlrd
+* python3-xlwt
 * python3-dateutil
 * python3-setuptools
 
@@ -83,7 +84,6 @@ Befor building installation package may be necessary:
     "C:\Python34\python.exe" setup.py build_exe
 
 #### For macOS
-    pip3 install cx_Freeze
     python3 setup.py bdist_mac
     cd build
     mkdir vol
