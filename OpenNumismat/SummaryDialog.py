@@ -73,8 +73,9 @@ class SummaryDialog(QDialog):
 
         count_gold = 0
         quantity_gold = 0
+        gold_filter = self.materialFilter("Gold", self.tr("Gold"), "Au")
         sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
-                "(material='gold' OR material='Gold' OR material='%s' OR material='%s')" % (self.tr("Gold").lower(), self.tr("Gold").capitalize())
+                "%s" % gold_filter
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         while query.next():
@@ -90,8 +91,8 @@ class SummaryDialog(QDialog):
         
         if count_gold:
             sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
-                    "(material='gold' OR material='Gold' OR material='%s' OR material='%s') AND " \
-                    "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % (self.tr("Gold").lower(), self.tr("Gold").capitalize())
+                    "%s AND " \
+                    "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % gold_filter
             sql = self.makeSql(sql, filter_)
             query = QSqlQuery(sql, model.database())
             gold_weight = 0
@@ -115,8 +116,9 @@ class SummaryDialog(QDialog):
 
         count_silver = 0
         quantity_silver = 0
+        silver_filter = self.materialFilter("Silver", self.tr("Silver"), "Ag")
         sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
-                "(material='silver' OR material='Silver' OR material='%s' OR material='%s')" % (self.tr("Silver").lower(), self.tr("Silver").capitalize())
+                "%s" % silver_filter
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         while query.next():
@@ -132,8 +134,8 @@ class SummaryDialog(QDialog):
         
         if count_silver:
             sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
-                    "(material='silver' OR material='Silver' OR material='%s' OR material='%s') AND " \
-                    "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % (self.tr("Silver").lower(), self.tr("Silver").capitalize())
+                    "%s AND " \
+                    "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % silver_filter
             sql = self.makeSql(sql, filter_)
             query = QSqlQuery(sql, model.database())
             silver_weight = 0
@@ -331,3 +333,11 @@ class SummaryDialog(QDialog):
             lines.append(self.tr("Count images: %d") % count)
 
         return lines
+    
+    def materialFilter(self, *materials):
+        filters = []
+        for material in materials:
+            for material_variant in (material.lower(), material.upper(), material.capitalize()):
+                filters.append("material='%s'" % material_variant)
+
+        return '(%s)' % ' OR '.join(filters)
