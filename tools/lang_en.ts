@@ -176,6 +176,19 @@ Close the file and try again.</source>
     </message>
 </context>
 <context>
+    <name>CalendarWidget</name>
+    <message>
+        <location filename="FormItems.py" line="834"/>
+        <source>Today</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FormItems.py" line="836"/>
+        <source>Clean</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Collection</name>
     <message>
         <location filename="Collection.py" line="756"/>
@@ -1755,127 +1768,127 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ImageViewer</name>
     <message>
-        <location filename="ImageViewer.py" line="866"/>
+        <location filename="ImageViewer.py" line="872"/>
         <source>&amp;Save As...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="868"/>
+        <location filename="ImageViewer.py" line="874"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="869"/>
+        <location filename="ImageViewer.py" line="875"/>
         <source>Full Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="870"/>
+        <location filename="ImageViewer.py" line="876"/>
         <source>Zoom &amp;In (25%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="871"/>
+        <location filename="ImageViewer.py" line="877"/>
         <source>Zoom &amp;Out (25%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="872"/>
+        <location filename="ImageViewer.py" line="878"/>
         <source>&amp;Normal Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="873"/>
+        <location filename="ImageViewer.py" line="879"/>
         <source>&amp;Fit to Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="874"/>
+        <location filename="ImageViewer.py" line="880"/>
         <source>Show Tool Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="875"/>
+        <location filename="ImageViewer.py" line="881"/>
         <source>Show Status Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="876"/>
+        <location filename="ImageViewer.py" line="882"/>
         <source>Rotate to Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="877"/>
+        <location filename="ImageViewer.py" line="883"/>
         <source>Rotate to Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="878"/>
+        <location filename="ImageViewer.py" line="884"/>
         <source>Rotate...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="879"/>
+        <location filename="ImageViewer.py" line="885"/>
         <source>Crop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1035"/>
+        <location filename="ImageViewer.py" line="1041"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="882"/>
+        <location filename="ImageViewer.py" line="888"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="883"/>
+        <location filename="ImageViewer.py" line="889"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="898"/>
+        <location filename="ImageViewer.py" line="904"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="906"/>
+        <location filename="ImageViewer.py" line="912"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="918"/>
+        <location filename="ImageViewer.py" line="924"/>
         <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1010"/>
+        <location filename="ImageViewer.py" line="1016"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1010"/>
+        <location filename="ImageViewer.py" line="1016"/>
         <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1035"/>
+        <location filename="ImageViewer.py" line="1041"/>
         <source>Image was changed. Save changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="865"/>
+        <location filename="ImageViewer.py" line="871"/>
         <source>Browse in viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="884"/>
+        <location filename="ImageViewer.py" line="890"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="886"/>
+        <location filename="ImageViewer.py" line="892"/>
         <source>Redo</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2650,101 +2663,101 @@ Copyright (C) 2011-2021 Vitaly Ignatov
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="291"/>
+        <location filename="Reference.py" line="293"/>
         <source>C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="293"/>
+        <location filename="Reference.py" line="295"/>
         <source>P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="297"/>
+        <location filename="Reference.py" line="299"/>
         <source>U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="299"/>
+        <location filename="Reference.py" line="301"/>
         <source>S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="301"/>
+        <location filename="Reference.py" line="303"/>
         <source>G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="302"/>
+        <location filename="Reference.py" line="304"/>
         <source>M</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="303"/>
+        <location filename="Reference.py" line="305"/>
         <source>F</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="304"/>
+        <location filename="Reference.py" line="306"/>
         <source>Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="305"/>
+        <location filename="Reference.py" line="307"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="307"/>
+        <location filename="Reference.py" line="309"/>
         <source>T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="308"/>
+        <location filename="Reference.py" line="310"/>
         <source>D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="315"/>
+        <location filename="Reference.py" line="317"/>
         <source>Place</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="318"/>
+        <location filename="Reference.py" line="320"/>
         <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="399"/>
+        <location filename="Reference.py" line="401"/>
         <source>Open reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="365"/>
+        <location filename="Reference.py" line="367"/>
         <source>Can&apos;t open reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="399"/>
+        <location filename="Reference.py" line="401"/>
         <source>Can&apos;t open reference:
 %s
 Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="406"/>
+        <location filename="Reference.py" line="408"/>
         <source>Create reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="406"/>
+        <location filename="Reference.py" line="408"/>
         <source>Can&apos;t create reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="321"/>
+        <location filename="Reference.py" line="323"/>
         <source>Edge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2791,22 +2804,22 @@ Created new one</source>
 <context>
     <name>RotateDialog</name>
     <message>
-        <location filename="ImageViewer.py" line="186"/>
+        <location filename="ImageViewer.py" line="192"/>
         <source>Rotate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="214"/>
+        <location filename="ImageViewer.py" line="220"/>
         <source>Auto crop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="219"/>
+        <location filename="ImageViewer.py" line="225"/>
         <source>Show grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="188"/>
+        <location filename="ImageViewer.py" line="194"/>
         <source>Angle</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3074,153 +3087,153 @@ Created new one</source>
 <context>
     <name>SummaryDialog</name>
     <message>
-        <location filename="SummaryDialog.py" line="17"/>
+        <location filename="SummaryDialog.py" line="19"/>
         <source>Summary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="55"/>
+        <location filename="SummaryDialog.py" line="57"/>
         <source>Total count: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="68"/>
+        <location filename="SummaryDialog.py" line="70"/>
         <source>Count owned: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="166"/>
+        <location filename="SummaryDialog.py" line="165"/>
         <source>Count wish: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="175"/>
+        <location filename="SummaryDialog.py" line="174"/>
         <source>Count sales: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="183"/>
+        <location filename="SummaryDialog.py" line="182"/>
         <source>Count biddings: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="191"/>
+        <location filename="SummaryDialog.py" line="190"/>
         <source>Count missing: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="229"/>
+        <location filename="SummaryDialog.py" line="231"/>
         <source>(commission %d%%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="209"/>
-        <source>Paid: %.2f</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="212"/>
-        <source>Average paid per item: %.2f</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="230"/>
-        <source>Earned: %.2f</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="233"/>
-        <source>Average earn per item: %.2f</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="237"/>
-        <source>Total (paid - earned): %.2f</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="245"/>
+        <location filename="SummaryDialog.py" line="251"/>
         <source>First purchase: %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="322"/>
+        <location filename="SummaryDialog.py" line="328"/>
         <source>(calculated for %d coins)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="296"/>
+        <location filename="SummaryDialog.py" line="302"/>
         <source>Estimation owned: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="324"/>
+        <location filename="SummaryDialog.py" line="330"/>
         <source>Estimation wish: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="331"/>
+        <location filename="SummaryDialog.py" line="337"/>
         <source>Count images: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="35"/>
+        <location filename="SummaryDialog.py" line="37"/>
         <source>[Selected]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="35"/>
+        <location filename="SummaryDialog.py" line="37"/>
         <source>[All]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="70"/>
+        <location filename="SummaryDialog.py" line="72"/>
         <source>Count owned: %d/%d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="92"/>
+        <location filename="SummaryDialog.py" line="76"/>
         <source>Gold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="85"/>
+        <location filename="SummaryDialog.py" line="88"/>
         <source>Gold coins: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="87"/>
+        <location filename="SummaryDialog.py" line="90"/>
         <source>Gold coins: %d/%d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="294"/>
+        <location filename="SummaryDialog.py" line="300"/>
         <source>(calculated for %d/%d coins)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="111"/>
-        <source>Gold weight: %.2f gramm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SummaryDialog.py" line="140"/>
+        <location filename="SummaryDialog.py" line="119"/>
         <source>Silver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="133"/>
+        <location filename="SummaryDialog.py" line="131"/>
         <source>Silver coins: %d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="135"/>
+        <location filename="SummaryDialog.py" line="133"/>
         <source>Silver coins: %d/%d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="159"/>
-        <source>Silver weight: %.2f gramm</source>
+        <location filename="SummaryDialog.py" line="115"/>
+        <source>Gold weight: %s gramm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="158"/>
+        <source>Silver weight: %s gramm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="209"/>
+        <source>Paid: %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="214"/>
+        <source>Average paid per item: %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="233"/>
+        <source>Earned: %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="238"/>
+        <source>Average earn per item: %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SummaryDialog.py" line="243"/>
+        <source>Total (paid - earned): %s</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
