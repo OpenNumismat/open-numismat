@@ -333,11 +333,11 @@ class SummaryDialog(QDialog):
             lines.append(self.tr("Count images: %d") % count)
 
         return lines
-    
+
     def materialFilter(self, *materials):
         filters = []
         for material in materials:
             for material_variant in (material.lower(), material.upper(), material.capitalize()):
-                filters.append("material='%s'" % material_variant)
+                filters.append("'%s'" % material_variant)
 
-        return '(%s)' % ' OR '.join(filters)
+        return 'material IN (%s)' % ','.join(filters)
