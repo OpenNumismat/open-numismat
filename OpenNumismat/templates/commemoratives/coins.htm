@@ -24,7 +24,7 @@
 {% for year_group in records|groupby('year') %}
 <section class="coins">
 <header>{{year_group.grouper}}</header>
-  {% for series_group in year_group.list|groupby('series') %}
+  {% for series_group in year_group.list|groupby('series')|sort(attribute='1.0.issuedate_raw') %}
     {% if series_group.grouper and series_group.list|groupby('country')|length > 1 %}
 <div class="row">
 <div class="aside">
@@ -63,7 +63,7 @@
 </div>
 </div>
     {% else %}
-      {% for subject_group in series_group.list|groupby('subjectshort') %}
+      {% for subject_group in series_group.list|groupby('subjectshort')|sort(attribute='1.0.issuedate_raw') %}
         {% set record=subject_group.list[0] %}
 <div class="row">
 <div class="aside">
