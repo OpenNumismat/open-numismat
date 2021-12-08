@@ -1,0 +1,68 @@
+html, body {
+    font-family: arial, sans-serif;
+    font-size: 1em;
+    margin: 0 auto;
+}
+p.breakhere {
+    page-break-before: always;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+#bodyContent {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.title {
+    border-bottom: thin solid black;
+    padding-bottom: 0.8em;
+    margin-bottom: 0.8em;
+    margin-top: 0.8em;
+}
+div.row {
+    page-break-inside: avoid;
+    page-break-after:auto;
+    width: 100%;
+    margin: 0.5em auto;
+}
+
+.coins {
+    columns: 2;
+    column-rule: 0.2pt solid black;
+    border-bottom: thin solid black;
+    padding-bottom: 0.8em;
+    margin-bottom: 0.8em;
+}
+.coins header {
+    font-size: 1.5em;
+}
+div.aside{
+    font-size: 11pt;
+    line-height: 1.2;
+    font-family: Trebuchet MS, Arial;
+}
+div.aside div.div-title{
+    display: table-cell;
+    vertical-align: bottom;
+}
+div.div-image{
+    display: table-cell;
+    vertical-align: bottom;
+}
+div.div-mint table{
+    
+}
+div.div-image {
+}
+div.div-title {
+    padding-left: 1em;
+}
+
+a.photo {
+  text-decoration: none;
+}
+
+.photo {
+  max-width: 1.9in;
+  padding: 0;
+}
