@@ -13,6 +13,7 @@ from OpenNumismat.EditCoinDialog.MapWidget import importedQtWebKit
 from OpenNumismat.EditCoinDialog.OSMWidget import StaticOSMWidget, OSMWidget
 from OpenNumismat.EditCoinDialog.DAREWidget import StaticDAREWidget, DAREWidget
 from OpenNumismat.EditCoinDialog.GMapsWidget import StaticGMapsWidget, GMapsWidget, gmapsAvailable
+from OpenNumismat.EditCoinDialog.MapboxWidget import StaticMapboxWidget, MapboxWidget, mapboxAvailable
 
 
 class DetailsTabWidget(QTabWidget):
@@ -458,7 +459,9 @@ class DetailsTabWidget(QTabWidget):
             settings = Settings()
             if settings['map_type'] == 1 and gmapsAvailable:
                 self.map_item = StaticGMapsWidget(self)
-            elif settings['map_type'] == 2:
+            elif settings['map_type'] == 2 and mapboxAvailable:
+                self.map_item = StaticMapboxWidget(self)
+            elif settings['map_type'] == 3:
                 self.map_item = StaticDAREWidget(self)
             else:
                 self.map_item = StaticOSMWidget(self)
@@ -738,7 +741,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
             settings = Settings()
             if settings['map_type'] == 1 and gmapsAvailable:
                 self.map_item = GMapsWidget(self)
-            elif settings['map_type'] == 2:
+            elif settings['map_type'] == 2 and mapboxAvailable:
+                self.map_item = MapboxWidget(self)
+            elif settings['map_type'] == 3:
                 self.map_item = DAREWidget(self)
             else:
                 self.map_item = OSMWidget(self)
