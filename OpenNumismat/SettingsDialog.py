@@ -10,6 +10,8 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.Import.Colnect import ColnectCache
+from OpenNumismat.EditCoinDialog.GMapsWidget import gmapsAvailable
+from OpenNumismat.EditCoinDialog.MapboxWidget import mapboxAvailable
 
 
 class MainSettingsPage(QWidget):
@@ -121,6 +123,8 @@ class MainSettingsPage(QWidget):
         for template in Report.scanTemplates():
             self.templateSelector.addItem(template[0], template[1])
         current = self.templateSelector.findData(settings['template'])
+        if current == -1:
+            current = 0
         self.templateSelector.setCurrentIndex(current)
         self.templateSelector.setSizePolicy(QSizePolicy.Fixed,
                                             QSizePolicy.Fixed)
@@ -141,10 +145,14 @@ class MainSettingsPage(QWidget):
 
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap', 0)
-        self.mapSelector.addItem('Google Maps', 1)
-        self.mapSelector.addItem('Mapbox', 2)
+        if gmapsAvailable:
+            self.mapSelector.addItem('Google Maps', 1)
+        if mapboxAvailable:
+            self.mapSelector.addItem('Mapbox', 2)
         self.mapSelector.addItem('Roman Empire (DARE)', 3)
         current = self.mapSelector.findData(settings['map_type'])
+        if current == -1:
+            current = 0
         self.mapSelector.setCurrentIndex(current)
         self.mapSelector.setSizePolicy(QSizePolicy.Fixed,
                                        QSizePolicy.Fixed)

@@ -11,6 +11,7 @@ mapboxAvailable = True
 
 try:
     from OpenNumismat.private_keys import MAPBOX_ACCESS_TOKEN
+    from PyQt5.QtWebEngineWidgets import QWebEngineView
 except ImportError:
     mapboxAvailable = False
 
