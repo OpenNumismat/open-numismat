@@ -32,12 +32,12 @@ class MainSettingsPage(QWidget):
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
-        current = 4
         self.languageSelector = QComboBox(self)
-        for i, lang in enumerate(self.Languages):
+        for lang in self.Languages:
             self.languageSelector.addItem(lang[0], lang[1])
-            if settings['locale'] == lang[1]:
-                current = i
+        current = self.languageSelector.findData(settings['locale'])
+        if current == -1:
+            current = 4
         self.languageSelector.setCurrentIndex(current)
         self.languageSelector.setSizePolicy(QSizePolicy.Fixed,
                                             QSizePolicy.Fixed)
@@ -117,12 +117,10 @@ class MainSettingsPage(QWidget):
         self.checkDuplicate.setChecked(settings['check_coin_duplicate'])
         layout.addRow(self.checkDuplicate)
 
-        current = 0
         self.templateSelector = QComboBox(self)
-        for i, template in enumerate(Report.scanTemplates()):
+        for template in Report.scanTemplates():
             self.templateSelector.addItem(template[0], template[1])
-            if settings['template'] == template[1]:
-                current = i
+        current = self.templateSelector.findData(settings['template'])
         self.templateSelector.setCurrentIndex(current)
         self.templateSelector.setSizePolicy(QSizePolicy.Fixed,
                                             QSizePolicy.Fixed)
@@ -142,11 +140,12 @@ class MainSettingsPage(QWidget):
         layout.addRow(self.builtInViewer)
 
         self.mapSelector = QComboBox(self)
-        self.mapSelector.addItem('OpenStreetMap')
-        self.mapSelector.addItem('Google Maps')
-        self.mapSelector.addItem('Mapbox')
-        self.mapSelector.addItem('Roman Empire (DARE)')
-        self.mapSelector.setCurrentIndex(settings['map_type'])
+        self.mapSelector.addItem('OpenStreetMap', 0)
+        self.mapSelector.addItem('Google Maps', 1)
+        self.mapSelector.addItem('Mapbox', 2)
+        self.mapSelector.addItem('Roman Empire (DARE)', 3)
+        current = self.mapSelector.findData(settings['map_type'])
+        self.mapSelector.setCurrentIndex(current)
         self.mapSelector.setSizePolicy(QSizePolicy.Fixed,
                                        QSizePolicy.Fixed)
         layout.addRow(self.tr("Maps"), self.mapSelector)
@@ -192,7 +191,7 @@ class MainSettingsPage(QWidget):
         settings['check_coin_title'] = self.checkTitle.isChecked()
         settings['check_coin_duplicate'] = self.checkDuplicate.isChecked()
         settings['images_by_default'] = self.imagesByDefault.value()
-        settings['map_type'] = self.mapSelector.currentIndex()
+        settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
 
@@ -464,13 +463,12 @@ class ColnectSettingsPage(QWidget):
         fLayout = QFormLayout()
         fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
-        default_locale = settings['colnect_locale']
-        current = 9
         self.languageSelector = QComboBox(self)
-        for i, lang in enumerate(self.Languages):
+        for lang in self.Languages:
             self.languageSelector.addItem(lang[1], lang[0])
-            if default_locale == lang[0]:
-                current = i
+        current = self.languageSelector.findData(settings['colnect_locale'])
+        if current == -1:
+            current = 9
         self.languageSelector.setCurrentIndex(current)
         self.languageSelector.setSizePolicy(QSizePolicy.Fixed,
                                             QSizePolicy.Fixed)
