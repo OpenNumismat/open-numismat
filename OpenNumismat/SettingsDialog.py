@@ -10,8 +10,9 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.Import.Colnect import ColnectCache
-from OpenNumismat.EditCoinDialog.GMapsWidget import gmapsAvailable
-from OpenNumismat.EditCoinDialog.MapboxWidget import mapboxAvailable
+from OpenNumismat.EditCoinDialog.MapWidget import MapType
+from OpenNumismat.EditCoinDialog.MapWidget.GMapsWidget import gmapsAvailable
+from OpenNumismat.EditCoinDialog.MapWidget.MapboxWidget import mapboxAvailable
 
 
 class MainSettingsPage(QWidget):
@@ -144,15 +145,15 @@ class MainSettingsPage(QWidget):
         layout.addRow(self.builtInViewer)
 
         self.mapSelector = QComboBox(self)
-        self.mapSelector.addItem('OpenStreetMap', 0)
+        self.mapSelector.addItem('OpenStreetMap', MapType.OSM.value)
         if gmapsAvailable:
-            self.mapSelector.addItem('Google Maps', 1)
+            self.mapSelector.addItem('Google Maps', MapType.GMaps.value)
         if mapboxAvailable:
-            self.mapSelector.addItem('Mapbox', 2)
-        self.mapSelector.addItem('Roman Empire (DARE)', 3)
+            self.mapSelector.addItem('Mapbox', MapType.Mapbox.value)
+        self.mapSelector.addItem('Roman Empire (DARE)', MapType.DARE.value)
         current = self.mapSelector.findData(settings['map_type'])
         if current == -1:
-            current = 0
+            current = MapType.OSM.value
         self.mapSelector.setCurrentIndex(current)
         self.mapSelector.setSizePolicy(QSizePolicy.Fixed,
                                        QSizePolicy.Fixed)

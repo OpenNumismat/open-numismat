@@ -16,10 +16,7 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import DetailsTabWidget
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
-from OpenNumismat.EditCoinDialog.OSMWidget import GlobalOSMWidget
-from OpenNumismat.EditCoinDialog.DAREWidget import GlobalDAREWidget
-from OpenNumismat.EditCoinDialog.GMapsWidget import GlobalGMapsWidget, gmapsAvailable
-from OpenNumismat.EditCoinDialog.MapboxWidget import GlobalMapboxWidget, mapboxAvailable
+from OpenNumismat.EditCoinDialog.MapWidget import get_map_widget
 
 
 class ImageView(QWidget):
@@ -613,14 +610,7 @@ class PageView(Splitter):
 
         if importedQtWebKit:
             settings = Settings()
-            if settings['map_type'] == 1 and gmapsAvailable:
-                self.mapView = GlobalGMapsWidget()
-            elif settings['map_type'] == 2 and mapboxAvailable:
-                self.mapView = GlobalMapboxWidget()
-            elif settings['map_type'] == 3:
-                self.mapView = GlobalDAREWidget()
-            else:
-                self.mapView = GlobalOSMWidget()
+            self.mapView = get_map_widget(None, settings['map_type'], True)
             self.mapView.markerClicked.connect(self.setCurrentCoin)
 
         self.addWidget(self.splitter1)

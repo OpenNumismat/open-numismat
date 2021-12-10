@@ -1,11 +1,9 @@
 import json
 import urllib.request
 
-from PyQt5.QtSql import QSqlQuery
-
 from OpenNumismat import version
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
-from OpenNumismat.EditCoinDialog.MapWidget import BaseMapWidget
+from .MapWidget import BaseMapWidget
 
 class OSMWidget(BaseMapWidget):
     HTML = '''
@@ -152,9 +150,6 @@ function gmap_geocode(address) {
 </html>
 '''
 
-    def __init__(self, parent):
-        super().__init__(False, parent)
-
     @waitCursorDecorator
     def reverseGeocode(self, lat, lng):
         url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=%f&lon=%f&zoom=18&addressdetails=0&accept-language=%s" % (lat, lng, self.language)
@@ -167,49 +162,3 @@ function gmap_geocode(address) {
             return json_data['display_name']
         except:
             return ''
-
-
-class StaticOSMWidget(OSMWidget):
-
-    def __init__(self, parent):
-        super(OSMWidget, self).__init__(True, parent)
-
-
-class GlobalOSMWidget(OSMWidget):
-
-    def __init__(self, parent=None):
-        super(OSMWidget, self).__init__(True, parent)
-
-    def mapIsMoved(self, lat, lng):
-        pass
-
-    def mapIsZoomed(self, zoom):
-        pass
-
-    def setModel(self, model):
-        self.model = model
-
-    def clear(self):
-        pass
-
-    def modelChanged(self):
-        filter_ = self.model.filter()
-        if filter_:
-            sql_filter = "WHERE %s" % filter_
-        else:
-            sql_filter = ""
-
-        self.points = []
-        sql = "SELECT latitude, longitude, id, status FROM coins %s" % sql_filter
-        query = QSqlQuery(self.model.database())
-        query.exec_(sql)
-        while query.next():
-            record = query.record()
-            lat = record.value(0)
-            lng = record.value(1)
-            if lat and lng:
-                coin_id = record.value(2)
-                status = record.value(3)
-                self.addMarker(lat, lng, coin_id, status)
-
-        self.showMarkers()

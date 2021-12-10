@@ -1,11 +1,9 @@
 import json
 import urllib.request
 
-from PyQt5.QtSql import QSqlQuery
-
 from OpenNumismat import version
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
-from OpenNumismat.EditCoinDialog.MapWidget import BaseMapWidget
+from .MapWidget import BaseMapWidget
 
 class DAREWidget(BaseMapWidget):
     HTML = '''
@@ -178,9 +176,6 @@ function gmap_geocode(address) {
 </html>
 '''
 
-    def __init__(self, parent):
-        super().__init__(False, parent)
-
     @waitCursorDecorator
     def reverseGeocode(self, lat, lng):
         url = "https://imperium.ahlfeldt.se/api/geojson.php?point=%f,%f" % (lng, lat)
@@ -194,49 +189,3 @@ function gmap_geocode(address) {
             return "%s (%s)" % (properties['name'], properties['ancient'])
         except:
             return ''
-
-
-class StaticDAREWidget(DAREWidget):
-
-    def __init__(self, parent):
-        super(DAREWidget, self).__init__(True, parent)
-
-
-class GlobalDAREWidget(DAREWidget):
-
-    def __init__(self, parent=None):
-        super(DAREWidget, self).__init__(True, parent)
-
-    def mapIsMoved(self, lat, lng):
-        pass
-
-    def mapIsZoomed(self, zoom):
-        pass
-
-    def setModel(self, model):
-        self.model = model
-
-    def clear(self):
-        pass
-
-    def modelChanged(self):
-        filter_ = self.model.filter()
-        if filter_:
-            sql_filter = "WHERE %s" % filter_
-        else:
-            sql_filter = ""
-
-        self.points = []
-        sql = "SELECT latitude, longitude, id, status FROM coins %s" % sql_filter
-        query = QSqlQuery(self.model.database())
-        query.exec_(sql)
-        while query.next():
-            record = query.record()
-            lat = record.value(0)
-            lng = record.value(1)
-            if lat and lng:
-                coin_id = record.value(2)
-                status = record.value(3)
-                self.addMarker(lat, lng, coin_id, status)
-
-        self.showMarkers()

@@ -1,19 +1,20 @@
 import json
 import urllib.request
 
-from PyQt5.QtSql import QSqlQuery
-
 from OpenNumismat import version
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
-from OpenNumismat.EditCoinDialog.MapWidget import BaseMapWidget
+from .MapWidget import BaseMapWidget
 
 mapboxAvailable = True
 
 try:
     from OpenNumismat.private_keys import MAPBOX_ACCESS_TOKEN
-    from PyQt5.QtWebEngineWidgets import QWebEngineView
 except ImportError:
     mapboxAvailable = False
+else:
+    from .MapWidget import importedQtWebEngine
+    if not importedQtWebEngine:
+        mapboxAvailable = False
 
 
 class MapboxWidget(BaseMapWidget):
@@ -181,9 +182,6 @@ function gmap_geocode(address) {
 </html>
 '''
 
-    def __init__(self, parent):
-        super().__init__(False, parent)
-
     def _getParams(self):
         params = super()._getParams()
         params['ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
@@ -201,49 +199,3 @@ function gmap_geocode(address) {
             return json_data['features'][0]['place_name']
         except:
             return ''
-
-
-class StaticMapboxWidget(MapboxWidget):
-
-    def __init__(self, parent):
-        super(MapboxWidget, self).__init__(True, parent)
-
-
-class GlobalMapboxWidget(MapboxWidget):
-
-    def __init__(self, parent=None):
-        super(MapboxWidget, self).__init__(True, parent)
-
-    def mapIsMoved(self, lat, lng):
-        pass
-
-    def mapIsZoomed(self, zoom):
-        pass
-
-    def setModel(self, model):
-        self.model = model
-
-    def clear(self):
-        pass
-
-    def modelChanged(self):
-        filter_ = self.model.filter()
-        if filter_:
-            sql_filter = "WHERE %s" % filter_
-        else:
-            sql_filter = ""
-
-        self.points = []
-        sql = "SELECT latitude, longitude, id, status FROM coins %s" % sql_filter
-        query = QSqlQuery(self.model.database())
-        query.exec_(sql)
-        while query.next():
-            record = query.record()
-            lat = record.value(0)
-            lng = record.value(1)
-            if lat and lng:
-                coin_id = record.value(2)
-                status = record.value(3)
-                self.addMarker(lat, lng, coin_id, status)
-
-        self.showMarkers()

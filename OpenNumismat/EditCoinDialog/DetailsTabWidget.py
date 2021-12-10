@@ -9,11 +9,8 @@ from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
-from OpenNumismat.EditCoinDialog.MapWidget import importedQtWebKit
-from OpenNumismat.EditCoinDialog.OSMWidget import StaticOSMWidget, OSMWidget
-from OpenNumismat.EditCoinDialog.DAREWidget import StaticDAREWidget, DAREWidget
-from OpenNumismat.EditCoinDialog.GMapsWidget import StaticGMapsWidget, GMapsWidget, gmapsAvailable
-from OpenNumismat.EditCoinDialog.MapboxWidget import StaticMapboxWidget, MapboxWidget, mapboxAvailable
+from OpenNumismat.EditCoinDialog.MapWidget.MapWidget import importedQtWebKit
+from OpenNumismat.EditCoinDialog.MapWidget import get_map_widget
 
 
 class DetailsTabWidget(QTabWidget):
@@ -457,14 +454,7 @@ class DetailsTabWidget(QTabWidget):
 
         if importedQtWebKit and coordinates_enabled:
             settings = Settings()
-            if settings['map_type'] == 1 and gmapsAvailable:
-                self.map_item = StaticGMapsWidget(self)
-            elif settings['map_type'] == 2 and mapboxAvailable:
-                self.map_item = StaticMapboxWidget(self)
-            elif settings['map_type'] == 3:
-                self.map_item = StaticDAREWidget(self)
-            else:
-                self.map_item = StaticOSMWidget(self)
+            self.map_item = get_map_widget(self, settings['map_type'], False)
 
         return self.map_item
 
@@ -739,14 +729,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         if importedQtWebKit and coordinates_enabled:
             settings = Settings()
-            if settings['map_type'] == 1 and gmapsAvailable:
-                self.map_item = GMapsWidget(self)
-            elif settings['map_type'] == 2 and mapboxAvailable:
-                self.map_item = MapboxWidget(self)
-            elif settings['map_type'] == 3:
-                self.map_item = DAREWidget(self)
-            else:
-                self.map_item = OSMWidget(self)
+            self.map_item = get_map_widget(self, settings['map_type'], False, False)
 
             self.map_item.markerMoved.connect(self.mapMarkerMoved)
             self.map_item.markerRemoved.connect(self.mapMarkerRemoved)

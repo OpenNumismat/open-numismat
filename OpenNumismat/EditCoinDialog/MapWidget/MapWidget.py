@@ -1,5 +1,6 @@
 from PyQt5.QtCore import pyqtSlot, pyqtSignal, QSettings, QUrl
 from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import QSizePolicy
 
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
@@ -39,17 +40,18 @@ class BaseMapWidget(QWebView):
     markerRemoved = pyqtSignal()
     markerClicked = pyqtSignal(int)
 
-    def __init__(self, is_static, parent):
+    def __init__(self, global_, static, parent):
         super().__init__(parent)
 
         self.language = Settings()['locale']
-
-        self.is_static = is_static
+        self.is_static = static
+        self.is_global = global_
         self.lat = None
         self.lng = None
         self.points = []
         self.activated = False
         self.initialized = False
+
         self.loadFinished.connect(self.onLoadFinished)
 
         if importedQtWebEngine:
@@ -66,6 +68,27 @@ class BaseMapWidget(QWebView):
                 "qtWidget", self)
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+    def setModel(self, model):
+        self.model = model
+
+    def modelChanged(self):
+        self.points = []
+        sql = "SELECT latitude, longitude, id, status FROM coins WHERE ifnull(latitude,'')<>'' AND ifnull(longitude,'')<>''"
+        filter_ = self.model.filter()
+        if filter_:
+            sql += " AND " + filter_
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        while query.next():
+            record = query.record()
+            lat = record.value(0)
+            lng = record.value(1)
+            coin_id = record.value(2)
+            status = record.value(3)
+            self.addMarker(lat, lng, coin_id, status)
+
+        self.showMarkers()
 
     def linkClicked(self, url):
         executor = QDesktopServices()
@@ -118,16 +141,18 @@ class BaseMapWidget(QWebView):
 
     @pyqtSlot(float, float)
     def mapIsMoved(self, lat, lng):
-        QSettings().setValue(self.POSITION_KEY, (lat, lng))
+        if not self.is_global:
+            QSettings().setValue(self.POSITION_KEY, (lat, lng))
 
     @pyqtSlot(int)
     def mapIsZoomed(self, zoom):
-        if zoom < 2:
-            zoom = 2
-        elif zoom > 15:
-            zoom = 15
-
-        QSettings().setValue(self.ZOOM_KEY, zoom)
+        if not self.is_global:
+            if zoom < 2:
+                zoom = 2
+            elif zoom > 15:
+                zoom = 15
+    
+            QSettings().setValue(self.ZOOM_KEY, zoom)
 
     def moveMarker(self, lat, lng):
         if lat and lng:
