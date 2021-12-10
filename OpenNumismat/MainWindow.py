@@ -317,6 +317,19 @@ class MainWindow(QMainWindow):
         coin.addSeparator()
         coin.addAction(deleteCoinAct)
 
+        detailsMenu = QMenu(self.tr("Details"), self)
+        if statisticsAvailable or importedQtWebKit:
+            detailsMenu.addAction(self.detailsAct)
+            if statisticsAvailable:
+                detailsMenu.addAction(self.statisticsAct)
+            if importedQtWebKit:
+                detailsMenu.addAction(self.mapAct)
+
+        view = menubar.addMenu(self.tr("&View"))
+        self.collectionActs.append(view)
+        view.addMenu(detailsMenu)
+        view.addMenu(viewMenu)
+
         viewBrowserAct = QAction(QIcon(':/page_white_world.png'),
                                  self.tr("View in browser"), self)
         viewBrowserAct.triggered.connect(self.viewBrowserEvent)
