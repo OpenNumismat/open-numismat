@@ -9,22 +9,22 @@ from OpenNumismat.Settings import Settings
 importedQtWebKit = True
 importedQtWebEngine = False
 try:
-    from PyQt5.QtWebKitWidgets import QWebView, QWebPage
+    from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
+    from PyQt5.QtWebEngineWidgets import QWebEnginePage
+    from PyQt5.QtWebChannel import QWebChannel
+
+    importedQtWebEngine = True
+
+    class WebEnginePage(QWebEnginePage):
+        def acceptNavigationRequest(self, url, type_, isMainFrame):
+            if type_ == QWebEnginePage.NavigationTypeLinkClicked:
+                executor = QDesktopServices()
+                executor.openUrl(QUrl(url))
+                return False
+            return super().acceptNavigationRequest(url, type_, isMainFrame)
 except ImportError:
     try:
-        from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
-        from PyQt5.QtWebEngineWidgets import QWebEnginePage
-        from PyQt5.QtWebChannel import QWebChannel
-
-        importedQtWebEngine = True
-
-        class WebEnginePage(QWebEnginePage):
-            def acceptNavigationRequest(self, url, type_, isMainFrame):
-                if type_ == QWebEnginePage.NavigationTypeLinkClicked:
-                    executor = QDesktopServices()
-                    executor.openUrl(QUrl(url))
-                    return False
-                return super().acceptNavigationRequest(url, type_, isMainFrame)
+        from PyQt5.QtWebKitWidgets import QWebView, QWebPage
     except ImportError:
         print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. Maps not available')
         importedQtWebKit = False
