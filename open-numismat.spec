@@ -34,7 +34,8 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False,
-          icon='icons/main.ico')
+          icon='icons/main.ico',
+          version='file_version_info.txt')
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
@@ -46,17 +47,18 @@ coll = COLLECT(exe,
 
 import shutil
 
-binDir = "dist/OpenNumismat/mpl-data/"
+binDir = "dist/OpenNumismat/matplotlib/mpl-data/"
 shutil.rmtree(binDir + "fonts")
 shutil.rmtree(binDir + "images")
 shutil.rmtree(binDir + "sample_data")
 shutil.rmtree(binDir + "stylelib")
-binDir = "dist/OpenNumismat/PyQt5/Qt/"
+binDir = "dist/OpenNumismat/PyQt5/Qt5/"
 shutil.rmtree(binDir + "qml")
 shutil.rmtree(binDir + "translations")
-binDir = "dist/OpenNumismat/PyQt5/Qt/plugins/"
+binDir = "dist/OpenNumismat/PyQt5/Qt5/plugins/"
 shutil.rmtree(binDir + "audio")
 shutil.rmtree(binDir + "bearer")
+shutil.rmtree(binDir + "geoservices")
 shutil.rmtree(binDir + "mediaservice")
 shutil.rmtree(binDir + "playlistformats")
 shutil.rmtree(binDir + "position")
@@ -64,8 +66,8 @@ shutil.rmtree(binDir + "sensorgestures")
 shutil.rmtree(binDir + "sensors")
 
 from pathlib import Path
-for p in Path("dist/OpenNumismat/").glob("api-ms-win-*.dll"):
-    p.unlink()
+#for p in Path("dist/OpenNumismat/").glob("api-ms-win-*.dll"):
+#    p.unlink()
 for p in Path("dist/OpenNumismat/").glob("Qt5Quick3D*.dll"):
     p.unlink()
 
