@@ -849,57 +849,57 @@ The application will need to restart now.</source>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="214"/>
+        <location filename="SettingsDialog.py" line="223"/>
         <source>Max image side len</source>
         <translation>Максимальний розмір сторони зображення</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="216"/>
+        <location filename="SettingsDialog.py" line="225"/>
         <source>0 for storing in original size</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="225"/>
+        <location filename="SettingsDialog.py" line="234"/>
         <source>Preview image height</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="227"/>
+        <location filename="SettingsDialog.py" line="236"/>
         <source>Free format numeric fields</source>
         <translation>Довільний формат числових полів</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="237"/>
+        <location filename="SettingsDialog.py" line="246"/>
         <source>Images at bottom</source>
         <translation>Зображення внизу</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="241"/>
+        <location filename="SettingsDialog.py" line="250"/>
         <source>Enable BC</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="245"/>
+        <location filename="SettingsDialog.py" line="254"/>
         <source>Use RichText format</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="250"/>
+        <location filename="SettingsDialog.py" line="259"/>
         <source>Used statuses</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="268"/>
+        <location filename="SettingsDialog.py" line="277"/>
         <source>Default status for new coin</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="290"/>
+        <location filename="SettingsDialog.py" line="299"/>
         <source>Settings</source>
         <translation>Налаштування</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="290"/>
+        <location filename="SettingsDialog.py" line="299"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation type="unfinished"/>
     </message>
@@ -1011,27 +1011,27 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="477"/>
+        <location filename="SettingsDialog.py" line="485"/>
         <source>Language</source>
         <translation>Мова</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="479"/>
+        <location filename="SettingsDialog.py" line="487"/>
         <source>Close dialog after adding item</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="484"/>
+        <location filename="SettingsDialog.py" line="492"/>
         <source>Skip currency symbol</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="489"/>
+        <location filename="SettingsDialog.py" line="497"/>
         <source>Clear cache</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="500"/>
+        <location filename="SettingsDialog.py" line="508"/>
         <source>Use Colnect</source>
         <translation type="unfinished"/>
     </message>
@@ -1163,102 +1163,102 @@ The application will need to restart now.</source>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="44"/>
+        <location filename="DetailsTabWidget.py" line="42"/>
         <source>Coin</source>
         <translation>Монета</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="500"/>
+        <location filename="DetailsTabWidget.py" line="493"/>
         <source>Market</source>
         <translation>Торгівля</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="320"/>
+        <location filename="DetailsTabWidget.py" line="318"/>
         <source>Parameters</source>
         <translation>Параметри</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="75"/>
+        <location filename="DetailsTabWidget.py" line="73"/>
         <source>Design</source>
         <translation>Дизайн</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="85"/>
+        <location filename="DetailsTabWidget.py" line="83"/>
         <source>Classification</source>
         <translation>Класифікація</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="209"/>
+        <location filename="DetailsTabWidget.py" line="207"/>
         <source>Main details</source>
         <translation>Опис</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="228"/>
+        <location filename="DetailsTabWidget.py" line="226"/>
         <source>State</source>
         <translation>Стан</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="245"/>
+        <location filename="DetailsTabWidget.py" line="243"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="254"/>
+        <location filename="DetailsTabWidget.py" line="252"/>
         <source>Buy</source>
         <translation>Купівля</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="273"/>
+        <location filename="DetailsTabWidget.py" line="271"/>
         <source>Sale</source>
         <translation>Продаж</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="292"/>
+        <location filename="DetailsTabWidget.py" line="290"/>
         <source>Pass</source>
         <translation>Прохід</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="332"/>
+        <location filename="DetailsTabWidget.py" line="330"/>
         <source>Minting</source>
         <translation>Карбування</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="353"/>
+        <location filename="DetailsTabWidget.py" line="351"/>
         <source>Obverse</source>
         <translation>Аверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="364"/>
+        <location filename="DetailsTabWidget.py" line="362"/>
         <source>Reverse</source>
         <translation>Реверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="375"/>
+        <location filename="DetailsTabWidget.py" line="373"/>
         <source>Edge</source>
         <translation>Гурт</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="404"/>
+        <location filename="DetailsTabWidget.py" line="402"/>
         <source>Catalogue</source>
         <translation>Каталог</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="413"/>
+        <location filename="DetailsTabWidget.py" line="411"/>
         <source>Price</source>
         <translation>Ціна</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="422"/>
+        <location filename="DetailsTabWidget.py" line="420"/>
         <source>Variation</source>
         <translation>Різновид</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="550"/>
+        <location filename="DetailsTabWidget.py" line="543"/>
         <source>Commission</source>
         <translation>Комісія</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="50"/>
+        <location filename="DetailsTabWidget.py" line="48"/>
         <source>Map</source>
         <translation>Мапа</translation>
     </message>
@@ -1412,72 +1412,72 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="380"/>
+        <location filename="SettingsDialog.py" line="389"/>
         <source>Rename</source>
         <translation>Перейменувати</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="385"/>
+        <location filename="SettingsDialog.py" line="394"/>
         <source>Revert to default</source>
         <translation>Відновити за умовчанням</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="393"/>
+        <location filename="SettingsDialog.py" line="402"/>
         <source>Global enabled fields:</source>
         <translation>Увімкнені поля:</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="307"/>
+        <location filename="SettingsDialog.py" line="316"/>
         <source>Images</source>
         <translation>Зображення</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="308"/>
+        <location filename="SettingsDialog.py" line="317"/>
         <source>Main details</source>
         <translation>Основне</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="309"/>
+        <location filename="SettingsDialog.py" line="318"/>
         <source>State</source>
         <translation>Стан</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="310"/>
+        <location filename="SettingsDialog.py" line="319"/>
         <source>Buy</source>
         <translation>Купівля</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="311"/>
+        <location filename="SettingsDialog.py" line="320"/>
         <source>Sale</source>
         <translation>Продаж</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="312"/>
+        <location filename="SettingsDialog.py" line="321"/>
         <source>Map</source>
         <translation>Мапа</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="313"/>
+        <location filename="SettingsDialog.py" line="322"/>
         <source>Parameters</source>
         <translation>Параметри</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="314"/>
+        <location filename="SettingsDialog.py" line="323"/>
         <source>Design</source>
         <translation>Дизайн</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="315"/>
+        <location filename="SettingsDialog.py" line="324"/>
         <source>Classification</source>
         <translation>Класифікація</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="316"/>
+        <location filename="SettingsDialog.py" line="325"/>
         <source>System</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="317"/>
+        <location filename="SettingsDialog.py" line="326"/>
         <source>Other</source>
         <translation>Інший</translation>
     </message>
@@ -1523,52 +1523,52 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="592"/>
+        <location filename="DetailsTabWidget.py" line="585"/>
         <source>Design</source>
         <translation>Дизайн</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="596"/>
+        <location filename="DetailsTabWidget.py" line="589"/>
         <source>Images</source>
         <translation>Зображення</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="658"/>
+        <location filename="DetailsTabWidget.py" line="651"/>
         <source>Main details</source>
         <translation>Основне</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="661"/>
+        <location filename="DetailsTabWidget.py" line="654"/>
         <source>Generate</source>
         <translation>Генерувати</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="681"/>
+        <location filename="DetailsTabWidget.py" line="674"/>
         <source>Obverse</source>
         <translation>Аверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="693"/>
+        <location filename="DetailsTabWidget.py" line="686"/>
         <source>Reverse</source>
         <translation>Реверс</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="705"/>
+        <location filename="DetailsTabWidget.py" line="698"/>
         <source>Edge</source>
         <translation>Гурт</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="718"/>
+        <location filename="DetailsTabWidget.py" line="711"/>
         <source>Variation</source>
         <translation>Різновид</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="869"/>
+        <location filename="DetailsTabWidget.py" line="857"/>
         <source>Commission</source>
         <translation>Комісія</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="871"/>
+        <location filename="DetailsTabWidget.py" line="859"/>
         <source>Available format 12.5 or 10%</source>
         <translation type="unfinished"/>
     </message>
@@ -2047,112 +2047,112 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="45"/>
+        <location filename="SettingsDialog.py" line="48"/>
         <source>Language</source>
         <translation>Мова</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="62"/>
+        <location filename="SettingsDialog.py" line="65"/>
         <source>Reference</source>
         <translation>Довідник</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="165"/>
+        <location filename="SettingsDialog.py" line="174"/>
         <source>Backup folder</source>
         <translation>Шлях до резервних копій</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="78"/>
+        <location filename="SettingsDialog.py" line="81"/>
         <source>Make autobackup</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="88"/>
+        <location filename="SettingsDialog.py" line="91"/>
         <source>Coin changes before autobackup</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="92"/>
+        <location filename="SettingsDialog.py" line="95"/>
         <source>Send error info to author</source>
         <translation>Відправляти звіт про помилки автору</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="97"/>
+        <location filename="SettingsDialog.py" line="100"/>
         <source>Automatically check for updates</source>
         <translation>Перевіряти оновлення автоматично</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="103"/>
+        <location filename="SettingsDialog.py" line="106"/>
         <source>Reliable</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="104"/>
+        <location filename="SettingsDialog.py" line="107"/>
         <source>Fast</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="105"/>
+        <location filename="SettingsDialog.py" line="108"/>
         <source>Extra fast (dangerous)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="108"/>
+        <location filename="SettingsDialog.py" line="111"/>
         <source>Acceleration of storage</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="110"/>
+        <location filename="SettingsDialog.py" line="113"/>
         <source>Check that coin title present on save</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="115"/>
+        <location filename="SettingsDialog.py" line="118"/>
         <source>Check coin duplicates on save</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="130"/>
+        <location filename="SettingsDialog.py" line="133"/>
         <source>Default template</source>
         <translation>Шаблон за умовчанням</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="137"/>
+        <location filename="SettingsDialog.py" line="140"/>
         <source>Images count by default</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="174"/>
+        <location filename="SettingsDialog.py" line="183"/>
         <source>Select reference</source>
         <translation>Вибір довідника</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="151"/>
+        <location filename="SettingsDialog.py" line="160"/>
         <source>Maps</source>
         <translation>Мапи</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="139"/>
+        <location filename="SettingsDialog.py" line="142"/>
         <source>Use built-in image viewer</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="154"/>
+        <location filename="SettingsDialog.py" line="163"/>
         <source>Normal</source>
         <translation>Нечаста</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="155"/>
+        <location filename="SettingsDialog.py" line="164"/>
         <source>Large</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="156"/>
+        <location filename="SettingsDialog.py" line="165"/>
         <source>Huge</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="160"/>
+        <location filename="SettingsDialog.py" line="169"/>
         <source>Font size</source>
         <translation type="unfinished"/>
     </message>
@@ -2280,77 +2280,77 @@ Do you want to send an error message to the author?</source>
         <translation>Монета</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="359"/>
+        <location filename="MainWindow.py" line="372"/>
         <source>View in browser</source>
         <translation>Перегляд в браузері</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="328"/>
+        <location filename="MainWindow.py" line="341"/>
         <source>List</source>
         <translation>Перелік</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="341"/>
+        <location filename="MainWindow.py" line="354"/>
         <source>Reference</source>
         <translation>Довідник</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="344"/>
+        <location filename="MainWindow.py" line="357"/>
         <source>Report...</source>
         <translation>Звіт...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="349"/>
+        <location filename="MainWindow.py" line="362"/>
         <source>Save current list...</source>
         <translation>Зберегти поточний звіт...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="354"/>
+        <location filename="MainWindow.py" line="367"/>
         <source>Report</source>
         <translation>Звіт</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="374"/>
+        <location filename="MainWindow.py" line="387"/>
         <source>User manual</source>
         <translation>Посібник користувача</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="378"/>
+        <location filename="MainWindow.py" line="391"/>
         <source>Visit web-site</source>
         <translation>Відвідати веб-сайт</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="380"/>
+        <location filename="MainWindow.py" line="393"/>
         <source>Check for updates</source>
         <translation>Перевірити оновлення</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="872"/>
+        <location filename="MainWindow.py" line="885"/>
         <source>About %s</source>
         <translation>Про %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="385"/>
+        <location filename="MainWindow.py" line="398"/>
         <source>&amp;Help</source>
         <translation>&amp;Довідка</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="393"/>
+        <location filename="MainWindow.py" line="406"/>
         <source>Toolbar</source>
         <translation>Панель інструментів</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="428"/>
+        <location filename="MainWindow.py" line="441"/>
         <source>Quick search</source>
         <translation>Швидкий пошук</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="511"/>
+        <location filename="MainWindow.py" line="524"/>
         <source>Settings</source>
         <translation>Налаштування</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="511"/>
+        <location filename="MainWindow.py" line="524"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>Додаток потребує перезавантаження для застосування новиих налаштувань. Перезавантажити зараз?</translation>
     </message>
@@ -2365,82 +2365,82 @@ Do you want to send an error message to the author?</source>
         <translation>Статистика</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="645"/>
+        <location filename="MainWindow.py" line="658"/>
         <source>Importing</source>
         <translation>Імпортування</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="587"/>
+        <location filename="MainWindow.py" line="600"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation>Перед імпортом необхідно експортувати існуючу колекцію з Cabinet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="592"/>
+        <location filename="MainWindow.py" line="605"/>
         <source>Select directory</source>
         <translation>Відкрити</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="681"/>
+        <location filename="MainWindow.py" line="694"/>
         <source>Select file</source>
         <translation>Відкрити</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="608"/>
+        <location filename="MainWindow.py" line="621"/>
         <source>Import pre-defined coins?</source>
         <translation>Імпортувати попередньо введені монети?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="617"/>
+        <location filename="MainWindow.py" line="630"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Перед імпортом необхідно експортувати існуючу колекцію з Collection Studio в формат XML Table (використовуйте меню Collection Studio: Інструменти &gt; Експорт...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="630"/>
+        <location filename="MainWindow.py" line="643"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="645"/>
+        <location filename="MainWindow.py" line="658"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="786"/>
+        <location filename="MainWindow.py" line="799"/>
         <source>Open collection</source>
         <translation>Відкрити колекцію</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="786"/>
+        <location filename="MainWindow.py" line="799"/>
         <source>Collections (*.db)</source>
         <translation>Колекції (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="762"/>
+        <location filename="MainWindow.py" line="775"/>
         <source>New collection</source>
         <translation>Нова колекція</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="839"/>
+        <location filename="MainWindow.py" line="852"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Створити нову колекцію або відкрити існуючу</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="899"/>
+        <location filename="MainWindow.py" line="912"/>
         <source>Updates</source>
         <translation>Оновлення</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="899"/>
+        <location filename="MainWindow.py" line="912"/>
         <source>You already have the latest version.</source>
         <translation>Зберегти сортування стовпчиків.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="910"/>
+        <location filename="MainWindow.py" line="923"/>
         <source>New version</source>
         <translation>Нова версія</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="910"/>
+        <location filename="MainWindow.py" line="923"/>
         <source>New version is available. Download it now?</source>
         <translation>Доступна нова версія. Завантажити зараз?</translation>
     </message>
@@ -2465,7 +2465,7 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="872"/>
+        <location filename="MainWindow.py" line="885"/>
         <source>%s %s
 
 Copyright (C) 2011-2021 Vitaly Ignatov
@@ -2476,6 +2476,16 @@ Copyright (C) 2011-2021 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="111"/>
         <source>Save sort order</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="320"/>
+        <source>Details</source>
+        <translation>Деталі</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="328"/>
+        <source>&amp;View</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2837,22 +2847,22 @@ Created new one</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="535"/>
+        <location filename="SettingsDialog.py" line="543"/>
         <source>Settings</source>
         <translation>Налаштування</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="538"/>
+        <location filename="SettingsDialog.py" line="546"/>
         <source>Main</source>
         <translation>Основні</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="539"/>
+        <location filename="SettingsDialog.py" line="547"/>
         <source>Collection</source>
         <translation>Колекція</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="542"/>
+        <location filename="SettingsDialog.py" line="550"/>
         <source>Fields</source>
         <translation>Поля</translation>
     </message>
@@ -3355,32 +3365,32 @@ Add a new one first.</source>
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="395"/>
+        <location filename="PageView.py" line="393"/>
         <source>Other</source>
         <translation>Інший</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="427"/>
+        <location filename="PageView.py" line="425"/>
         <source>Add new coin...</source>
         <translation>Додати нову монету...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="430"/>
+        <location filename="PageView.py" line="428"/>
         <source>Edit coins...</source>
         <translation>Редагувати монети...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="434"/>
+        <location filename="PageView.py" line="432"/>
         <source>Customize tree...</source>
         <translation>Налаштувати дерево...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="487"/>
+        <location filename="PageView.py" line="485"/>
         <source>Updating records</source>
         <translation>Оновлення записів</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="487"/>
+        <location filename="PageView.py" line="485"/>
         <source>Cancel</source>
         <translation>Відмінити</translation>
     </message>
