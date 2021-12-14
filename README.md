@@ -34,14 +34,13 @@ Main Windows version based on:
 * Inno Setup 5.6.1 (for deploy)
 
 macOS version based on MacPorts:
-* py37-pyqt5 +webkit
-* py37-lxml
-* py37-xlrd
-* py37-xlwt
-* py37-dateutil
-* py37-jinja2
-* py37-matplotlib +qt5
-* py37-cx_Freeze
+* py36-pyqt5 +webkit
+* py36-lxml
+* py36-xlrd
+* py36-xlwt
+* py36-dateutil
+* py36-jinja2
+* py36-cx_Freeze (for deploy)
 
 Debian/Ubuntu version depends on following packages: 
 * python3
@@ -54,9 +53,10 @@ Debian/Ubuntu version depends on following packages:
 * python3-numpy
 * python3-lxml
 * python3-xlrd
-* python3-xlwt
 * python3-dateutil
-* python3-setuptools
+* python3-xlwt (suggests)
+* python3-pyqt5.webengine (suggests)
+* python3-setuptools (for deploy)
 
 For running from source code and development requirements can be installed like so:
 `pip3 install -r requirements.txt`
