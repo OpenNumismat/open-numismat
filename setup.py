@@ -74,9 +74,12 @@ except ImportError:
 WIN32 = sys.platform == "win32"
 DARWIN = sys.platform == "darwin"
 
-dependencies = ['pyqt5', 'jinja2', 'matplotlib', 'numpy', 'xlwt', 'xlrd', 'lxml', 'python-dateutil']
+dependencies = ['jinja2', 'matplotlib', 'numpy', 'xlrd', 'lxml', 'python-dateutil']
 if WIN32:
     dependencies.append("win32com")
+if WIN32 or DARWIN:
+    dependencies.append("pyqt5")
+    dependencies.append("xlwt")
 
 
 templates_packages = []
