@@ -12,7 +12,7 @@ PYTHON3 := $(filter-out $(PY3DEFAULT),$(PY3REQUESTED)) python3
 
 %:
 	# Adding the required helpers
-	dh $@ --with python3
+	dh $@ --with python3 --buildsystem=pybuild
 
 override_dh_auto_clean:
 	set -ex; for python in $(PYTHON3); do \
