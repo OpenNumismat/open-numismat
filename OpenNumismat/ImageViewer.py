@@ -882,7 +882,8 @@ class ImageViewer(QDialog):
         self.rotateLeftAct = QAction(QIcon(':/arrow_rotate_anticlockwise.png'), self.tr("Rotate to Left"), self, shortcut=QKeySequence.MoveToPreviousWord, triggered=self.rotateLeft)
         self.rotateRightAct = QAction(QIcon(':/arrow_rotate_clockwise.png'), self.tr("Rotate to Right"), self, shortcut=QKeySequence.MoveToNextWord, triggered=self.rotateRight)
         self.rotateAct = QAction(self.tr("Rotate..."), self, checkable=True, triggered=self.rotate)
-        self.cropAct = QAction(QIcon(':/shape_handles.png'), self.tr("Crop"), self, checkable=True, triggered=self.crop)
+        self.cropAct = QAction(QIcon(':/shape_handles.png'), self.tr("Crop..."), self, checkable=True, triggered=self.crop)
+        self.autocropAct = QAction(self.tr("Autocrop"), self, triggered=self.autocrop)
         self.saveAct = QAction(QIcon(':/save.png'), self.tr("Save"), self, shortcut=QKeySequence.Save, triggered=self.save)
         self.saveAct.setDisabled(True)
         self.copyAct = QAction(QIcon(':/page_copy.png'), self.tr("Copy"), self, shortcut=QKeySequence.Copy, triggered=self.copy)
@@ -920,6 +921,7 @@ class ImageViewer(QDialog):
         self.editMenu.addAction(self.rotateRightAct)
         self.editMenu.addAction(self.rotateAct)
         self.editMenu.addAction(self.cropAct)
+        self.editMenu.addAction(self.autocropAct)
 
         self.viewMenu = QMenu(self.tr("&View"), self)
         self.viewMenu.addAction(self.fullScreenAct)
@@ -1471,6 +1473,27 @@ class ImageViewer(QDialog):
 
         self.cropAct.setChecked(False)
         self._updateEditActions()
+
+    def autocrop(self):
+        pixmap = self._pixmapHandle.pixmap()
+        self.pushUndo(pixmap)
+
+        sceneRect = self.viewer.sceneRect()
+        w = int(sceneRect.width())
+        h = int(sceneRect.height())
+
+        image = pixmap.toImage()
+        x1 = self.__findBorderV(image, range(w//2), range(h))
+        x2 = self.__findBorderV(image, range(w-1, w//2, -1), range(h)) + 1
+        y1 = self.__findBorderH(image, range(h//2), range(w))
+        y2 = self.__findBorderH(image, range(h-1, h//2, -1), range(w)) + 1
+
+        rect = QRect(x1, y1, x2-x1, y2-y1)
+
+        pixmap = pixmap.copy(rect)
+        self.setImage(pixmap)
+
+        self.isChanged = True
 
     def _updateEditActions(self):
         inCrop = self.cropAct.isChecked()
