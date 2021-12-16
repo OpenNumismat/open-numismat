@@ -1278,7 +1278,7 @@ class ImageViewer(QDialog):
     COLOR_THRESHOLD = 20
     
     def __findBorderH(self, image, range_v, range_h):
-        c = image.pixel(0, 0)
+        c = image.pixel(range_h[0], range_v[0])
         start_r, start_g, start_b, _ = QColor(c).getRgb()
         for i in range_v:
             for j in range_h:
@@ -1290,7 +1290,7 @@ class ImageViewer(QDialog):
                     return i
 
     def __findBorderV(self, image, range_h, range_v):
-        c = image.pixel(0, 0)
+        c = image.pixel(range_h[0], range_v[0])
         start_r, start_g, start_b, _ = QColor(c).getRgb()
         for i in range_h:
             for j in range_v:
