@@ -20,10 +20,24 @@ try:
     from PyQt5.QtWebKitWidgets import QWebView
 except ImportError:
     try:
-        from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
+        from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
 
         importedQtWebEngine = True
 
+        class WebEnginePage(QWebEnginePage):
+            def acceptNavigationRequest(self, url, type_, isMainFrame):
+                if type_ == QWebEnginePage.NavigationTypeLinkClicked:
+                    return False
+                return super().acceptNavigationRequest(url, type_, isMainFrame)
+
+
+        class QWebView(QWebEngineView):
+            def __init__(self, parent=None):
+                super().__init__(parent)
+                self.setPage(WebEnginePage(self))
+            
+            def contextMenuEvent(self, _event):
+                pass
     except ImportError:
         print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. Maps not available')
         importedQtWebKit = False
