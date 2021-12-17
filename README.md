@@ -56,7 +56,6 @@ Debian/Ubuntu version depends on following packages:
 * python3-dateutil
 * python3-xlwt (suggests)
 * python3-pyqt5.webengine (suggests)
-* python3-setuptools (for deploy)
 
 For running from source code and development requirements can be installed like so:
 `pip3 install -r requirements.txt`
@@ -74,7 +73,8 @@ Befor building installation package may be necessary:
 
 #### For Windows x64
     pip3 install pyinstaller
-    "C:\Python39\Scripts\pyinstaller.exe" -y open-numismat.spec
+    SET PYTHONOPTIMIZE=1
+    "C:\Python310\Scripts\pyinstaller.exe" -y open-numismat.spec
     "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" tools\setup-win64.iss
 
 #### For Windows portable version
@@ -92,4 +92,5 @@ Befor building installation package may be necessary:
     hdiutil create OpenNumismat-$VERSION.dmg -volname "OpenNumismat-$VERSION" -srcfolder vol -fs HFS+ -size 500m -format UDZO
 
 #### For Linux
+    sudo apt-get install devscripts debhelper python3-setuptools dh-python
     debuild
