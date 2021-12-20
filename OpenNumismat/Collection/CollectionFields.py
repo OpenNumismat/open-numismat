@@ -53,7 +53,7 @@ class FieldTypes():
         elif type_ == FieldTypes.DateTime:
             sql_type = 'TEXT'
         else:
-            raise
+            raise TypeError
 
         return sql_type
 

@@ -245,7 +245,7 @@ class BaseTableView(QTableView):
             elif filters.index(selectedFilter) == 3:  # Text file UTF-8
                 export = ExportToCsvUtf8(fileName, self.listParam.page.title)
             else:
-                raise
+                raise ValueError
 
             export.open()
 

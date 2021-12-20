@@ -95,7 +95,7 @@ class FormItem(object):
         elif self._type == Type.DateTime:
             self._widget = DateTimeEdit(parent)
         else:
-            raise
+            raise TypeError
 
         if itemType & Type.Disabled:
             if self._type == Type.Image:
