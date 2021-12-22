@@ -44,7 +44,7 @@ coll = COLLECT(exe,
                upx=True,
                upx_exclude=[],
                name='OpenNumismat')
-app = BUNDLE(exe,
+app = BUNDLE(coll,
          name='OpenNumismat.app',
          icon='OpenNumismat.icns',
          version='1.8.12',
@@ -91,7 +91,7 @@ if WIN32:
 else:
     for f in ("QtBluetooth", "QtDBus", "QtDesigner",
               "QtLocation", "QtMultimedia", "QtMultimediaWidgets",
-              "QtNfc.dll", "QtOpenGL", "QtQuickParticles", "QtQuickTemplates2",
+              "QtNfc", "QtOpenGL", "QtQuickParticles", "QtQuickTemplates2",
               "QtQmlWorkerScript", "QtQuick3D", "QtQuick3DAssetImport",
               "QtQuick3DRender", "QtQuick3DRuntimeRender", "QtQuick3DUtils"
               ):
