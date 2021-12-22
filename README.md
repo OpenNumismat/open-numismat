@@ -1,7 +1,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/opennumismat/open-numismat/badge)](https://www.codefactor.io/repository/github/opennumismat/open-numismat)
 [![GitHub release](https://img.shields.io/github/release/opennumismat/open-numismat.svg)](https://github.com/opennumismat/open-numismat/releases/)
-[![GitHub all releases](https://img.shields.io/github/downloads/opennumismat/open-numismat/total.svg)](https://github.com/opennumismat/open-numismat/releases/)
-[![GitHub release (latest by date)](https://img.shields.io/github/downloads/opennumismat/open-numismat/latest/total.svg)](https://github.com/opennumismat/open-numismat/releases/)
+[![GitHub all releases](https://img.shields.io/github/downloads/opennumismat/open-numismat/total.svg)](https://hanadigital.github.io/grev/?user=OpenNumismat&repo=open-numismat)
+[![GitHub release (latest by date)](https://img.shields.io/github/downloads/opennumismat/open-numismat/latest/total.svg)](https://hanadigital.github.io/grev/?user=OpenNumismat&repo=open-numismat)
 ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/OpenNumismat/open-numismat/latest)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/OpenNumismat/open-numismat)
 [![GitHub license](https://img.shields.io/github/license/opennumismat/open-numismat.svg)](https://github.com/opennumismat/open-numismat/blob/master/COPYING)
@@ -74,7 +74,7 @@ Befor building installation package may be necessary:
 #### For Windows x64
     pip3 install pyinstaller
     SET PYTHONOPTIMIZE=1
-    "C:\Python310\Scripts\pyinstaller.exe" -y open-numismat.spec
+    pyinstaller --clean --noconfirm open-numismat.spec
     "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" tools\setup-win64.iss
 
 #### For Windows portable version

@@ -11,7 +11,7 @@ include_files = [
         ]
 
 a = Analysis(['open-numismat.py'],
-             pathex=['d:\\OpenNumismat\\open-numismat'],
+             pathex=[],
              binaries=[],
              datas=include_files,
              hiddenimports=[],
@@ -44,45 +44,55 @@ coll = COLLECT(exe,
                upx=True,
                upx_exclude=[],
                name='OpenNumismat')
+app = BUNDLE(exe,
+         name='OpenNumismat.app',
+         icon='OpenNumismat.icns',
+         version='1.8.12',
+         info_plist={'NSPrincipalClass': 'NSApplication'},
+         bundle_identifier=None)
 
-import shutil
-
-binDir = "dist/OpenNumismat/matplotlib/mpl-data/"
-shutil.rmtree(binDir + "fonts")
-shutil.rmtree(binDir + "images")
-shutil.rmtree(binDir + "sample_data")
-shutil.rmtree(binDir + "stylelib")
-binDir = "dist/OpenNumismat/PyQt5/Qt5/"
-shutil.rmtree(binDir + "qml")
-shutil.rmtree(binDir + "translations")
-binDir = "dist/OpenNumismat/PyQt5/Qt5/plugins/"
-shutil.rmtree(binDir + "audio")
-shutil.rmtree(binDir + "bearer")
-shutil.rmtree(binDir + "geoservices")
-shutil.rmtree(binDir + "mediaservice")
-shutil.rmtree(binDir + "playlistformats")
-shutil.rmtree(binDir + "position")
-shutil.rmtree(binDir + "sensorgestures")
-shutil.rmtree(binDir + "sensors")
-
-from pathlib import Path
-#for p in Path("dist/OpenNumismat/").glob("api-ms-win-*.dll"):
-#    p.unlink()
-for p in Path("dist/OpenNumismat/").glob("Qt5Quick3D*.dll"):
-    p.unlink()
 
 import os
-for f in ("opengl32sw.dll", "Qt5Bluetooth.dll", "Qt5DBus.dll", "Qt5Designer.dll",
-          "Qt5Location.dll", "Qt5Multimedia.dll", "Qt5MultimediaWidgets.dll",
-          "Qt5Nfc.dll", "Qt5OpenGL.dll", "Qt5QuickParticles.dll", "Qt5QuickTemplates2.dll",
-          "Qt5QmlWorkerScript.dll"
-          ):
-    f = "dist/OpenNumismat/" + f
-    os.remove(f)
+import shutil
+import sys
 
-for f in ("QtBluetooth.pyd", "QtDBus.pyd", "QtDesigner.pyd",
-          "QtLocation.pyd", "QtMultimedia.pyd", "QtMultimediaWidgets.pyd",
-          "QtNfc.pyd", "QtOpenGL.pyd", "QtPositioning.pyd",
-          "QtQml.pyd", "QtQuick.pyd", "QtQuick3D.pyd", "QtQuickWidgets.pyd"):
-    f = "dist/OpenNumismat/PyQt5/" + f
-    os.remove(f)
+WIN32 = sys.platform == "win32"
+DARWIN = sys.platform == "darwin"
+
+if WIN32:
+    bin_dir = "dist/OpenNumismat/"
+    pyd_ext = ".pyd"
+else:
+    bin_dir = "dist/OpenNumismat.app/Contents/MacOS/"
+    pyd_ext = ".abi3.so"
+
+for sub_folder in ("fonts", "images", "sample_data", "stylelib"):
+    shutil.rmtree(bin_dir + "matplotlib/mpl-data/" + sub_folder)
+for sub_folder in ("qml", "translations"):
+    shutil.rmtree(bin_dir + "PyQt5/Qt5/" + sub_folder)
+for sub_folder in ("audio", "bearer", "geoservices", "mediaservice",
+                "playlistformats", "position", "sensorgestures", "sensors"):
+    shutil.rmtree(bin_dir + "PyQt5/Qt5/plugins/" + sub_folder)
+
+for f in ("QtBluetooth", "QtDBus", "QtDesigner",
+          "QtLocation", "QtMultimedia", "QtMultimediaWidgets",
+          "QtNfc", "QtOpenGL", "QtPositioning",
+          "QtQml", "QtQuick", "QtQuick3D", "QtQuickWidgets"):
+    os.remove(bin_dir + "PyQt5/" + f + pyd_ext)
+
+if WIN32:
+    for f in ("opengl32sw.dll", "Qt5Bluetooth.dll", "Qt5DBus.dll", "Qt5Designer.dll",
+              "Qt5Location.dll", "Qt5Multimedia.dll", "Qt5MultimediaWidgets.dll",
+              "Qt5Nfc.dll", "Qt5OpenGL.dll", "Qt5QuickParticles.dll", "Qt5QuickTemplates2.dll",
+              "Qt5QmlWorkerScript.dll", "Qt5Quick3D.dll", "Qt5Quick3DAssetImport.dll",
+              "Qt5Quick3DRender.dll", "Qt5Quick3DRuntimeRender.dll", "Qt5Quick3DUtils.dll"
+              ):
+        os.remove(bin_dir + f)
+else:
+    for f in ("QtBluetooth", "QtDBus", "QtDesigner",
+              "QtLocation", "QtMultimedia", "QtMultimediaWidgets",
+              "QtNfc.dll", "QtOpenGL", "QtQuickParticles", "QtQuickTemplates2",
+              "QtQmlWorkerScript", "QtQuick3D", "QtQuick3DAssetImport",
+              "QtQuick3DRender", "QtQuick3DRuntimeRender", "QtQuick3DUtils"
+              ):
+        os.remove(bin_dir + f)
