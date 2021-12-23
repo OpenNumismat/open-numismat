@@ -97,7 +97,7 @@ params = {
     "version": Version,
     "author": 'Vitaly Ignatov',
     "author_email": 'opennumismat@gmail.com',
-    "description": 'Coin collecting software',
+    "description": 'OpenNumismat',
     "long_description": __doc__,
     "url": 'http://opennumismat.github.io/',
     "license": "GPLv3",

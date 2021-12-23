@@ -30,15 +30,14 @@ VSVersionInfo(
       StringTable(
         '040904E4',
         [
-        StringStruct('CompanyName', 'Vitaly Ignatov'),
-        StringStruct('FileDescription', 'Coin collecting software'),
+        StringStruct('FileDescription', 'OpenNumismat'),
         StringStruct('FileVersion', '1.8.12.0'),
         StringStruct('InternalName', 'OpenNumismat.exe'),
-        StringStruct('LegalCopyright', ''),
+        StringStruct('LegalCopyright', 'Copyright (C) 2011-2021 Vitaly Ignatov'),
         StringStruct('LegalTrademarks', ''),
         StringStruct('OriginalFilename', 'OpenNumismat.exe'),
         StringStruct('ProductName', 'OpenNumismat'),
-        StringStruct('ProductVersion', '1.8.12.0')])
+        StringStruct('ProductVersion', '1.8.12')])
       ]), 
     VarFileInfo([VarStruct('Translation', [1033, 1252])])
   ]
