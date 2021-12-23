@@ -89,7 +89,7 @@ if WIN32:
               ):
         os.remove(bin_dir + f)
 else:
-    for f in ("QtBluetooth", "QtDBus", "QtDesigner",
+    for f in ("QtBluetooth", "QtDesigner",
               "QtLocation", "QtMultimedia", "QtMultimediaWidgets",
               "QtNfc", "QtOpenGL", "QtQuickParticles", "QtQuickTemplates2",
               "QtQmlWorkerScript", "QtQuick3D", "QtQuick3DAssetImport",
