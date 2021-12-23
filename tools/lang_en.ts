@@ -1828,52 +1828,47 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="885"/>
-        <source>Crop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageViewer.py" line="1041"/>
+        <location filename="ImageViewer.py" line="1043"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="888"/>
+        <location filename="ImageViewer.py" line="889"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="889"/>
+        <location filename="ImageViewer.py" line="890"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="904"/>
+        <location filename="ImageViewer.py" line="905"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="912"/>
+        <location filename="ImageViewer.py" line="913"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="924"/>
+        <location filename="ImageViewer.py" line="926"/>
         <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1016"/>
+        <location filename="ImageViewer.py" line="1018"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1016"/>
+        <location filename="ImageViewer.py" line="1018"/>
         <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1041"/>
+        <location filename="ImageViewer.py" line="1043"/>
         <source>Image was changed. Save changes?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1883,13 +1878,23 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="890"/>
+        <location filename="ImageViewer.py" line="891"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="892"/>
+        <location filename="ImageViewer.py" line="893"/>
         <source>Redo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="885"/>
+        <source>Crop...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="886"/>
+        <source>Autocrop</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2281,7 +2286,7 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="372"/>
+        <location filename="MainWindow.py" line="371"/>
         <source>View in browser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2291,67 +2296,67 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="354"/>
+        <location filename="MainWindow.py" line="353"/>
         <source>Reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="357"/>
+        <location filename="MainWindow.py" line="356"/>
         <source>Report...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="362"/>
+        <location filename="MainWindow.py" line="361"/>
         <source>Save current list...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="367"/>
+        <location filename="MainWindow.py" line="366"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="387"/>
+        <location filename="MainWindow.py" line="386"/>
         <source>User manual</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="391"/>
+        <location filename="MainWindow.py" line="390"/>
         <source>Visit web-site</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="393"/>
+        <location filename="MainWindow.py" line="392"/>
         <source>Check for updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="885"/>
+        <location filename="MainWindow.py" line="884"/>
         <source>About %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="398"/>
+        <location filename="MainWindow.py" line="397"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="406"/>
+        <location filename="MainWindow.py" line="405"/>
         <source>Toolbar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="441"/>
+        <location filename="MainWindow.py" line="440"/>
         <source>Quick search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="524"/>
+        <location filename="MainWindow.py" line="523"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="524"/>
+        <location filename="MainWindow.py" line="523"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2366,82 +2371,82 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="658"/>
+        <location filename="MainWindow.py" line="657"/>
         <source>Importing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="600"/>
+        <location filename="MainWindow.py" line="599"/>
         <source>Before importing you should export existing collection from Cabinet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="605"/>
+        <location filename="MainWindow.py" line="604"/>
         <source>Select directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="694"/>
+        <location filename="MainWindow.py" line="693"/>
         <source>Select file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="621"/>
+        <location filename="MainWindow.py" line="620"/>
         <source>Import pre-defined coins?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="630"/>
+        <location filename="MainWindow.py" line="629"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="643"/>
+        <location filename="MainWindow.py" line="642"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="658"/>
+        <location filename="MainWindow.py" line="657"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="799"/>
+        <location filename="MainWindow.py" line="798"/>
         <source>Open collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="799"/>
+        <location filename="MainWindow.py" line="798"/>
         <source>Collections (*.db)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="775"/>
+        <location filename="MainWindow.py" line="774"/>
         <source>New collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="852"/>
+        <location filename="MainWindow.py" line="851"/>
         <source>Create new collection or open one of the existing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="912"/>
+        <location filename="MainWindow.py" line="911"/>
         <source>Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="912"/>
+        <location filename="MainWindow.py" line="911"/>
         <source>You already have the latest version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="923"/>
+        <location filename="MainWindow.py" line="922"/>
         <source>New version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="923"/>
+        <location filename="MainWindow.py" line="922"/>
         <source>New version is available. Download it now?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2466,7 +2471,7 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="885"/>
+        <location filename="MainWindow.py" line="884"/>
         <source>%s %s
 
 Copyright (C) 2011-2021 Vitaly Ignatov
@@ -2557,37 +2562,37 @@ Copyright (C) 2011-2021 Vitaly Ignatov
 <context>
     <name>PreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="232"/>
+        <location filename="Preview.py" line="246"/>
         <source>Report preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="254"/>
+        <location filename="Preview.py" line="268"/>
         <source>Save as MS Word document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="257"/>
+        <location filename="Preview.py" line="271"/>
         <source>Save as HTML files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="260"/>
+        <location filename="Preview.py" line="274"/>
         <source>Save as PDF file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="497"/>
+        <location filename="Preview.py" line="511"/>
         <source>Word documents (*.doc)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="503"/>
+        <location filename="Preview.py" line="517"/>
         <source>Web page (*.htm *.html)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="509"/>
+        <location filename="Preview.py" line="523"/>
         <source>PDF file (*.pdf)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2595,77 +2600,77 @@ Copyright (C) 2011-2021 Vitaly Ignatov
 <context>
     <name>QPrintPreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="269"/>
+        <location filename="Preview.py" line="283"/>
         <source>Next page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="270"/>
+        <location filename="Preview.py" line="284"/>
         <source>Previous page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="271"/>
+        <location filename="Preview.py" line="285"/>
         <source>First page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="272"/>
+        <location filename="Preview.py" line="286"/>
         <source>Last page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="280"/>
+        <location filename="Preview.py" line="294"/>
         <source>Fit width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="281"/>
+        <location filename="Preview.py" line="295"/>
         <source>Fit page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="290"/>
+        <location filename="Preview.py" line="304"/>
         <source>Zoom in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="291"/>
+        <location filename="Preview.py" line="305"/>
         <source>Zoom out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="297"/>
+        <location filename="Preview.py" line="311"/>
         <source>Portrait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="298"/>
+        <location filename="Preview.py" line="312"/>
         <source>Landscape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="308"/>
+        <location filename="Preview.py" line="322"/>
         <source>Show single page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="309"/>
+        <location filename="Preview.py" line="323"/>
         <source>Show facing pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="310"/>
+        <location filename="Preview.py" line="324"/>
         <source>Show overview of all pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="244"/>
+        <location filename="Preview.py" line="258"/>
         <source>Print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Preview.py" line="247"/>
+        <location filename="Preview.py" line="261"/>
         <source>Page setup</source>
         <translation type="unfinished"></translation>
     </message>
