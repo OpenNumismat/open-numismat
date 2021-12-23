@@ -345,7 +345,6 @@ class MainWindow(QMainWindow):
         listMenu.addAction(actions['rename'])
         listMenu.addSeparator()
         listMenu.addAction(actions['select'])
-        listMenu.addMenu(viewMenu)
         listMenu.addSeparator()
         listMenu.addAction(actions['close'])
         listMenu.addAction(actions['remove'])
