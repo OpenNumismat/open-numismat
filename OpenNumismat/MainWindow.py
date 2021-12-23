@@ -182,14 +182,6 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importNumistaAct)
             importMenu.addAction(importNumistaAct)
 
-        if ImportCabinet.isAvailable():
-            importCabinetAct = QAction(
-                                    QIcon(':/cabinet.png'),
-                                    "Cabinet 2.2.2.1, 2013", self)
-            importCabinetAct.triggered.connect(self.importCabinet)
-            self.collectionActs.append(importCabinetAct)
-            importMenu.addAction(importCabinetAct)
-
         if ImportCoinManage.isAvailable():
             importCoinManageAct = QAction(
                                     QIcon(':/CoinManage.png'),
@@ -594,18 +586,6 @@ class MainWindow(QMainWindow):
             # Process running as Python arg
             argv.append(sys.argv[0])
         QProcess.startDetached(program, argv)
-
-    def importCabinet(self):
-        QMessageBox.information(self, self.tr("Importing"),
-                self.tr("Before importing you should export existing "
-                        "collection from Cabinet."))
-
-        defaultDir = ImportCabinet.defaultDir()
-        directory = QFileDialog.getExistingDirectory(self,
-                                self.tr("Select directory"), defaultDir)
-        if directory:
-            imp = ImportCabinet(self)
-            imp.importData(directory, self.viewTab.currentModel())
 
     def importCoinManage(self):
         defaultDir = ImportCoinManage.defaultDir()

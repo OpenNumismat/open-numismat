@@ -39,7 +39,7 @@ Main features:
 - Batch edit coins
 - Ability to add and customize the lists to display the required data
 - Does not require additional software to work with a database
-- Importing from Cabinet, CoinManage, Collection Studio,
+- Importing from Colnect, CoinManage, Collection Studio,
   Tellico (additional software may be required), uCoin.net
 - Support languages: English, Russian, Ukrainian, Spanish, French, Hungarian,
   Portuguese, German, Greek, Czech, Italian, Polish, Catalan, Dutch, Bulgarian,
