@@ -9,8 +9,7 @@ from OpenNumismat.Settings import Settings
 importedQtWebKit = True
 importedQtWebEngine = False
 try:
-    from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
-    from PyQt5.QtWebEngineWidgets import QWebEnginePage
+    from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
     from PyQt5.QtWebChannel import QWebChannel
 
     importedQtWebEngine = True
@@ -22,6 +21,14 @@ try:
                 executor.openUrl(QUrl(url))
                 return False
             return super().acceptNavigationRequest(url, type_, isMainFrame)
+
+    class QWebView(QWebEngineView):
+        def __init__(self, parent=None):
+            super().__init__(parent)
+            self.setPage(WebEnginePage(self))
+
+        def contextMenuEvent(self, _event):
+            pass
 except ImportError:
     try:
         from PyQt5.QtWebKitWidgets import QWebView, QWebPage
@@ -55,8 +62,6 @@ class BaseMapWidget(QWebView):
         self.loadFinished.connect(self.onLoadFinished)
 
         if importedQtWebEngine:
-            self.setPage(WebEnginePage(self))
-
             channel = QWebChannel(self.page())
             channel.registerObject("qtWidget", self)
             self.page().setWebChannel(channel)
