@@ -5,8 +5,6 @@ from PyQt5.QtCore import QStandardPaths
 
 from OpenNumismat import version
 
-PORTABLE = False
-
 # Getting default path for storing user data
 HOME_PATH = ''
 if sys.platform in ('win32', 'darwin'):

@@ -30,7 +30,7 @@ def main():
     QCoreApplication.setOrganizationName(version.Company)
     QCoreApplication.setApplicationName(version.AppName)
 
-    if OpenNumismat.PORTABLE:
+    if version.Portable:
         QCoreApplication.setOrganizationName('.')
         QSettings.setDefaultFormat(QSettings.IniFormat)
         QSettings.setPath(QSettings.IniFormat, QSettings.UserScope,

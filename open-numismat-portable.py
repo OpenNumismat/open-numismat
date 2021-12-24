@@ -16,11 +16,11 @@
 # along with OpenNumismat; If not, see <http://www.gnu.org/licenses/>.
 
 import OpenNumismat
-
-OpenNumismat.PORTABLE = True
-OpenNumismat.HOME_PATH = '.'
-
+from OpenNumismat import version
 from OpenNumismat.main import main
+
+version.Portable = True
+OpenNumismat.HOME_PATH = '.'
 
 if __name__ == "__main__":
     main()
