@@ -19,8 +19,6 @@ def init_pathes():
         doc_dirs = QStandardPaths.standardLocations(location)
         if doc_dirs:
             OpenNumismat.HOME_PATH = os.path.join(doc_dirs[0], version.AppName)
-            if not os.path.exists(OpenNumismat.HOME_PATH):
-                OpenNumismat.HOME_PATH = doc_dirs[0]
 
     img_dirs = QStandardPaths.standardLocations(QStandardPaths.PicturesLocation)
     if img_dirs:
