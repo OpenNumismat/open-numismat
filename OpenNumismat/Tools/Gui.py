@@ -4,8 +4,6 @@ from PyQt5.QtCore import Qt, QSettings
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QProgressDialog, QFileDialog, QApplication
 
-import OpenNumismat
-
 
 class ProgressDialog(QProgressDialog):
     def __init__(self, labelText, cancelButtonText, maximum, parent=None):
