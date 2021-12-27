@@ -14,8 +14,8 @@ import OpenNumismat
 from OpenNumismat.Settings import Settings
 from OpenNumismat.MainWindow import MainWindow
 from OpenNumismat.Tools import TemporaryDir
-from OpenNumismat import version
 from OpenNumismat import resources
+from OpenNumismat import version
 
 
 def main():
@@ -150,7 +150,3 @@ def exceptHook(type_, value, tback):
 
     # Call the default handler
     sys.__excepthook__(type_, value, tback)
-
-
-if __name__ == '__main__':
-    main()

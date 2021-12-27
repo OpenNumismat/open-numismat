@@ -15,12 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with OpenNumismat; If not, see <http://www.gnu.org/licenses/>.
 
-import OpenNumismat
 from OpenNumismat import version
-from OpenNumismat.main import main
 
 version.Portable = True
-OpenNumismat.HOME_PATH = '.'
 
 if __name__ == "__main__":
+    from OpenNumismat.pathes import init_pathes
+    init_pathes()
+
+    from OpenNumismat.main import main
     main()
