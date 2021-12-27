@@ -148,14 +148,14 @@
     <message>
         <location filename="ListView.py" line="67"/>
         <source>Custom sorting</source>
-        <translation>Сортиране по избор</translation>
+        <translation>Персонализирано сортиране</translation>
     </message>
     <message>
         <location filename="ListView.py" line="67"/>
         <source>Default sort order changed.
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>Реда на сортиране по подразбиране е променен.
-Промяната на позицията на елемента е достъпна само при подреждане по подразбиране. Изчисти реда на сортиране сега?</translation>
+Промяната на позицията на елемента е достъпна само при подреждане по подразбиране. Да се изчисти ли реда на сортиране?</translation>
     </message>
     <message>
         <location filename="ListView.py" line="296"/>
@@ -193,12 +193,12 @@ Close the file and try again.</source>
     <message>
         <location filename="Collection.py" line="733"/>
         <source>Can&apos;t open collection %s</source>
-        <translation>Не може да се отвори колекция %s</translation>
+        <translation>Не може да се отвори колекцията %s</translation>
     </message>
     <message>
         <location filename="Collection.py" line="738"/>
         <source>Collection %s not exists</source>
-        <translation>Колекция %s не съществува</translation>
+        <translation>Колекцията %s не съществува</translation>
     </message>
     <message>
         <location filename="Collection.py" line="756"/>
@@ -893,7 +893,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="259"/>
         <source>Used statuses</source>
-        <translation>Използвани състояния</translation>
+        <translation>Използвани статуси</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="277"/>
@@ -908,7 +908,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="299"/>
         <source>Preview image height was changed. Recalculate it now?</source>
-        <translation>Височината на изображението в предварителен преглед беше променена. Преизчисляване сега?</translation>
+        <translation>Височината на изображението в предварителен преглед беше променена. Да се преизчисли ли?</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="232"/>
@@ -1315,7 +1315,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="EditCoinDialog.py" line="130"/>
         <source>Sale price is less than total bailed price. Save?</source>
-        <translation>Продажната цена е по-малка от общата заложена цена. Запазване?</translation>
+        <translation>Продажната цена е по-малка от общата заложена цена. Да се запази ли?</translation>
     </message>
     <message>
         <location filename="EditCoinDialog.py" line="154"/>
@@ -1891,12 +1891,12 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ImageViewer.py" line="890"/>
         <source>Undo</source>
-        <translation>Отмяна</translation>
+        <translation>Отмени</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="892"/>
         <source>Redo</source>
-        <translation>Повторение</translation>
+        <translation>Върни</translation>
     </message>
 </context>
 <context>
@@ -1953,7 +1953,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ListView.py" line="637"/>
         <source>Select columns...</source>
-        <translation>Избиране на колони...</translation>
+        <translation>Избор на колони...</translation>
     </message>
     <message>
         <location filename="ListView.py" line="638"/>
@@ -2289,7 +2289,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="372"/>
         <source>View in browser</source>
-        <translation>Виж в браузър</translation>
+        <translation>Преглед в браузъра</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="341"/>
@@ -3070,7 +3070,7 @@ Created new one</source>
     <message>
         <location filename="CollectionFields.py" line="64"/>
         <source>Owned</source>
-        <translation>В наличност</translation>
+        <translation>Притежавана</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="64"/>
@@ -3100,7 +3100,7 @@ Created new one</source>
     <message>
         <location filename="CollectionFields.py" line="64"/>
         <source>Missing</source>
-        <translation>Липсва</translation>
+        <translation>Липсваща</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="64"/>
@@ -3163,12 +3163,12 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="302"/>
         <source>Estimation owned: %d</source>
-        <translation>Оценка на наличните: %d</translation>
+        <translation>Оценка на притежаваните: %d</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="330"/>
         <source>Estimation wish: %d</source>
-        <translation>Оценка на необходимите: %d</translation>
+        <translation>Оценка на желаните: %d</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="337"/>

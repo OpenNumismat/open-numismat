@@ -3237,22 +3237,22 @@ Se creó una nueva</translation>
     <message>
         <location filename="SummaryDialog.py" line="209"/>
         <source>Paid: %s</source>
-        <translation type="unfinished"/>
+        <translation>Pagado: %s</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="214"/>
         <source>Average paid per item: %s</source>
-        <translation type="unfinished"/>
+        <translation>Promedio pagado por artículo: %s</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="233"/>
         <source>Earned: %s</source>
-        <translation type="unfinished"/>
+        <translation>Ganado: %s</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="238"/>
         <source>Average earn per item: %s</source>
-        <translation type="unfinished"/>
+        <translation>Ganancia promedio por artículo: %s</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="243"/>

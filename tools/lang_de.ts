@@ -3171,12 +3171,12 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="37"/>
         <source>[All]</source>
-        <translation type="unfinished"/>
+        <translation>[Alle]</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="72"/>
         <source>Count owned: %d/%d</source>
-        <translation type="unfinished"/>
+        <translation>Im Besitz: %d/%d</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="76"/>
@@ -3196,7 +3196,7 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="300"/>
         <source>(calculated for %d/%d coins)</source>
-        <translation type="unfinished"/>
+        <translation>(berechnet für %d/%d Münzen)</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="119"/>
@@ -3226,22 +3226,22 @@ Created new one</source>
     <message>
         <location filename="SummaryDialog.py" line="209"/>
         <source>Paid: %s</source>
-        <translation type="unfinished"/>
+        <translation>Bezahlt: %s</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="214"/>
         <source>Average paid per item: %s</source>
-        <translation type="unfinished"/>
+        <translation>Durchschnittlicher Preis bezahlt pro Stück: %s</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="233"/>
         <source>Earned: %s</source>
-        <translation type="unfinished"/>
+        <translation>Verdient: %s</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="238"/>
         <source>Average earn per item: %s</source>
-        <translation type="unfinished"/>
+        <translation>Durchschnittlicher Preis erzielt pro Stück: %s</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="243"/>
