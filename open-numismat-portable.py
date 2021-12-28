@@ -20,8 +20,5 @@ from OpenNumismat import version
 version.Portable = True
 
 if __name__ == "__main__":
-    from OpenNumismat.pathes import init_pathes
-    init_pathes()
-
-    from OpenNumismat.main import main
-    main()
+    from OpenNumismat import run
+    run()

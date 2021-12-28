@@ -160,10 +160,10 @@ params = {
     # auto create scripts
     "entry_points": {
         'console_scripts': [
-            'open-numismat = OpenNumismat:main',
+            'open-numismat = OpenNumismat:run',
         ],
         'gui_scripts': [
-            'open-numismat = OpenNumismat:main',
+            'open-numismat = OpenNumismat:run',
         ]
     }
 }

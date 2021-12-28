@@ -16,8 +16,5 @@
 # along with OpenNumismat; If not, see <http://www.gnu.org/licenses/>.
 
 if __name__ == "__main__":
-    from OpenNumismat.pathes import init_pathes
-    init_pathes()
-
-    from OpenNumismat.main import main
-    main()
+    from OpenNumismat import run
+    run()
