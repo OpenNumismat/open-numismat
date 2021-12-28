@@ -1617,7 +1617,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
 <context>
     <name>GetSaveFileName</name>
     <message>
-        <location filename="Gui.py" line="40"/>
+        <location filename="Gui.py" line="38"/>
         <source>Save as</source>
         <translation>Gravar como</translation>
     </message>
@@ -1834,52 +1834,47 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Rodar...</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="885"/>
-        <source>Crop</source>
-        <translation>Recortar</translation>
-    </message>
-    <message>
-        <location filename="ImageViewer.py" line="1041"/>
+        <location filename="ImageViewer.py" line="1043"/>
         <source>Save</source>
         <translation>Gravar</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="888"/>
+        <location filename="ImageViewer.py" line="889"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="889"/>
+        <location filename="ImageViewer.py" line="890"/>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="904"/>
+        <location filename="ImageViewer.py" line="905"/>
         <source>&amp;File</source>
         <translation>&amp;Ficheiro</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="912"/>
+        <location filename="ImageViewer.py" line="913"/>
         <source>&amp;Edit</source>
         <translation>&amp;Editar</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="924"/>
+        <location filename="ImageViewer.py" line="926"/>
         <source>&amp;View</source>
         <translation>&amp;Ver</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1016"/>
+        <location filename="ImageViewer.py" line="1018"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation>Imagens (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1016"/>
+        <location filename="ImageViewer.py" line="1018"/>
         <source>All files (*.*)</source>
         <translation>Todos os ficheiros (*.*)</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1041"/>
+        <location filename="ImageViewer.py" line="1043"/>
         <source>Image was changed. Save changes?</source>
         <translation>A imagem foi alterada. Gravar alterações?</translation>
     </message>
@@ -1889,14 +1884,24 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Explorar no visualizador</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="890"/>
+        <location filename="ImageViewer.py" line="891"/>
         <source>Undo</source>
         <translation>Desfazer</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="892"/>
+        <location filename="ImageViewer.py" line="893"/>
         <source>Redo</source>
         <translation>Refazer</translation>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="885"/>
+        <source>Crop...</source>
+        <translation>Recortar...</translation>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="886"/>
+        <source>Autocrop</source>
+        <translation>Recorte automático</translation>
     </message>
 </context>
 <context>
@@ -2237,127 +2242,127 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Importar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="233"/>
+        <location filename="MainWindow.py" line="225"/>
         <source>Synchronize...</source>
         <translation>Sincronizar...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="239"/>
+        <location filename="MainWindow.py" line="231"/>
         <source>Export</source>
         <translation>Exportar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="242"/>
+        <location filename="MainWindow.py" line="234"/>
         <source>For Android version</source>
         <translation>Para versão Android</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="252"/>
+        <location filename="MainWindow.py" line="244"/>
         <source>&amp;File</source>
         <translation>&amp;Ficheiro</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="276"/>
+        <location filename="MainWindow.py" line="268"/>
         <source>Add</source>
         <translation>Adicionar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="282"/>
+        <location filename="MainWindow.py" line="274"/>
         <source>Edit...</source>
         <translation>Editar...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="289"/>
+        <location filename="MainWindow.py" line="281"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="295"/>
+        <location filename="MainWindow.py" line="287"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="301"/>
+        <location filename="MainWindow.py" line="293"/>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="307"/>
+        <location filename="MainWindow.py" line="299"/>
         <source>Coin</source>
         <translation>Moeda</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="372"/>
+        <location filename="MainWindow.py" line="363"/>
         <source>View in browser</source>
         <translation>Ver no navegador</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="341"/>
+        <location filename="MainWindow.py" line="333"/>
         <source>List</source>
         <translation>Lista</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="354"/>
+        <location filename="MainWindow.py" line="345"/>
         <source>Reference</source>
         <translation>Referência</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="357"/>
+        <location filename="MainWindow.py" line="348"/>
         <source>Report...</source>
         <translation>Relatório...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="362"/>
+        <location filename="MainWindow.py" line="353"/>
         <source>Save current list...</source>
         <translation>Gravar lista actual...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="367"/>
+        <location filename="MainWindow.py" line="358"/>
         <source>Report</source>
         <translation>Relatório</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="387"/>
+        <location filename="MainWindow.py" line="378"/>
         <source>User manual</source>
         <translation>Manual do utilizador</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="391"/>
+        <location filename="MainWindow.py" line="382"/>
         <source>Visit web-site</source>
         <translation>Visitar a página web</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="393"/>
+        <location filename="MainWindow.py" line="384"/>
         <source>Check for updates</source>
         <translation>Procurar actualizações</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="885"/>
+        <location filename="MainWindow.py" line="864"/>
         <source>About %s</source>
         <translation>Sobre o %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="398"/>
+        <location filename="MainWindow.py" line="389"/>
         <source>&amp;Help</source>
         <translation>Aj&amp;uda</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="406"/>
+        <location filename="MainWindow.py" line="397"/>
         <source>Toolbar</source>
         <translation>Barra de ferramentas</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="441"/>
+        <location filename="MainWindow.py" line="432"/>
         <source>Quick search</source>
         <translation>Procura rápida</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="524"/>
+        <location filename="MainWindow.py" line="515"/>
         <source>Settings</source>
         <translation>Definições</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="524"/>
+        <location filename="MainWindow.py" line="515"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>A aplicação tem de reiniciar para aplicar as novas definições. Reiniciar agora?</translation>
     </message>
@@ -2372,82 +2377,72 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Estatísticas</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="658"/>
+        <location filename="MainWindow.py" line="637"/>
         <source>Importing</source>
         <translation>A importar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="600"/>
-        <source>Before importing you should export existing collection from Cabinet.</source>
-        <translation>Antes de importar deve exportar a colecção existente do Cabinet.</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="605"/>
-        <source>Select directory</source>
-        <translation>Seleccionar pasta</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="694"/>
+        <location filename="MainWindow.py" line="673"/>
         <source>Select file</source>
         <translation>Seleccionar ficheiro</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="621"/>
+        <location filename="MainWindow.py" line="600"/>
         <source>Import pre-defined coins?</source>
         <translation>Importar moedas predefinidas?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="630"/>
+        <location filename="MainWindow.py" line="609"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Antes de importar deve exportar a colecção existente do Collection Studio para tabela XML (escolha Collection Studio menu Ferramentas &gt; Exportar...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="643"/>
+        <location filename="MainWindow.py" line="622"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Antes de importar, deve exportar a sua colecção de uCoin.net para o formato CSV (valores separados por vírgulas).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="658"/>
+        <location filename="MainWindow.py" line="637"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation>Antes de importar, exporte a colecção existente de uCoin.net para Microsoft Excel (XLS) ou para Comma-Separated (CSV).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="799"/>
+        <location filename="MainWindow.py" line="778"/>
         <source>Open collection</source>
         <translation>Abrir colecção</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="799"/>
+        <location filename="MainWindow.py" line="778"/>
         <source>Collections (*.db)</source>
         <translation>Colecções (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="775"/>
+        <location filename="MainWindow.py" line="754"/>
         <source>New collection</source>
         <translation>Nova colecção</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="852"/>
+        <location filename="MainWindow.py" line="831"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Criar nova colecção ou abrir uma das existentes</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="912"/>
+        <location filename="MainWindow.py" line="891"/>
         <source>Updates</source>
         <translation>Actualizações</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="912"/>
+        <location filename="MainWindow.py" line="891"/>
         <source>You already have the latest version.</source>
         <translation>Já tem a última versão.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="923"/>
+        <location filename="MainWindow.py" line="902"/>
         <source>New version</source>
         <translation>Nova versão</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="923"/>
+        <location filename="MainWindow.py" line="902"/>
         <source>New version is available. Download it now?</source>
         <translation>Nova versão disponível. Transferir agora?</translation>
     </message>
@@ -2472,7 +2467,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Alterar vista</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="885"/>
+        <location filename="MainWindow.py" line="864"/>
         <source>%s %s
 
 Copyright (C) 2011-2021 Vitaly Ignatov
@@ -2490,12 +2485,12 @@ Copyright (C) 2011-2021 Vitaly Ignatov
         <translation>Gravar ordenação</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="320"/>
+        <location filename="MainWindow.py" line="312"/>
         <source>Details</source>
         <translation>Detalhes</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="328"/>
+        <location filename="MainWindow.py" line="320"/>
         <source>&amp;View</source>
         <translation>&amp;Ver</translation>
     </message>
@@ -2567,37 +2562,37 @@ Copyright (C) 2011-2021 Vitaly Ignatov
 <context>
     <name>PreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="232"/>
+        <location filename="Preview.py" line="246"/>
         <source>Report preview</source>
         <translation>Antever relatório</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="254"/>
+        <location filename="Preview.py" line="268"/>
         <source>Save as MS Word document</source>
         <translation>Gravar como documento MS Word</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="257"/>
+        <location filename="Preview.py" line="271"/>
         <source>Save as HTML files</source>
         <translation>Gravar como ficheiros HTML</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="260"/>
+        <location filename="Preview.py" line="274"/>
         <source>Save as PDF file</source>
         <translation>Gravar como ficheiro PDF</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="497"/>
+        <location filename="Preview.py" line="511"/>
         <source>Word documents (*.doc)</source>
         <translation>Documentos Word (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="503"/>
+        <location filename="Preview.py" line="517"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Página web (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="509"/>
+        <location filename="Preview.py" line="523"/>
         <source>PDF file (*.pdf)</source>
         <translation>Ficheiro PDF (*.pdf)</translation>
     </message>
@@ -2605,77 +2600,77 @@ Copyright (C) 2011-2021 Vitaly Ignatov
 <context>
     <name>QPrintPreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="269"/>
+        <location filename="Preview.py" line="283"/>
         <source>Next page</source>
         <translation>Página seguinte</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="270"/>
+        <location filename="Preview.py" line="284"/>
         <source>Previous page</source>
         <translation>Página anterior</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="271"/>
+        <location filename="Preview.py" line="285"/>
         <source>First page</source>
         <translation>Primeira página</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="272"/>
+        <location filename="Preview.py" line="286"/>
         <source>Last page</source>
         <translation>Última página</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="280"/>
+        <location filename="Preview.py" line="294"/>
         <source>Fit width</source>
         <translation>Ajustar a largura</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="281"/>
+        <location filename="Preview.py" line="295"/>
         <source>Fit page</source>
         <translation>Ajustar à página</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="290"/>
+        <location filename="Preview.py" line="304"/>
         <source>Zoom in</source>
         <translation>Ampliar</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="291"/>
+        <location filename="Preview.py" line="305"/>
         <source>Zoom out</source>
         <translation>Reduzir</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="297"/>
+        <location filename="Preview.py" line="311"/>
         <source>Portrait</source>
         <translation>Retrato</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="298"/>
+        <location filename="Preview.py" line="312"/>
         <source>Landscape</source>
         <translation>Paisagem</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="308"/>
+        <location filename="Preview.py" line="322"/>
         <source>Show single page</source>
         <translation>Mostrar só uma página</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="309"/>
+        <location filename="Preview.py" line="323"/>
         <source>Show facing pages</source>
         <translation>Mostrar páginas opostas</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="310"/>
+        <location filename="Preview.py" line="324"/>
         <source>Show overview of all pages</source>
         <translation>Mostrar resumo de todas as páginas</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="244"/>
+        <location filename="Preview.py" line="258"/>
         <source>Print</source>
         <translation>Imprimir</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="247"/>
+        <location filename="Preview.py" line="261"/>
         <source>Page setup</source>
         <translation>Configurar página</translation>
     </message>

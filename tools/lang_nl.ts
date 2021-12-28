@@ -1607,7 +1607,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
 <context>
     <name>GetSaveFileName</name>
     <message>
-        <location filename="Gui.py" line="40"/>
+        <location filename="Gui.py" line="38"/>
         <source>Save as</source>
         <translation>Opslaan als</translation>
     </message>
@@ -1824,52 +1824,47 @@ Wilt u een foutmelding te sturen naar de author?</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="885"/>
-        <source>Crop</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="ImageViewer.py" line="1041"/>
+        <location filename="ImageViewer.py" line="1043"/>
         <source>Save</source>
         <translation>Opslaan</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="888"/>
+        <location filename="ImageViewer.py" line="889"/>
         <source>Copy</source>
         <translation>Kopiëren</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="889"/>
+        <location filename="ImageViewer.py" line="890"/>
         <source>Paste</source>
         <translation>Plakken</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="904"/>
+        <location filename="ImageViewer.py" line="905"/>
         <source>&amp;File</source>
         <translation>&amp;Bestand</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="912"/>
+        <location filename="ImageViewer.py" line="913"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="924"/>
+        <location filename="ImageViewer.py" line="926"/>
         <source>&amp;View</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1016"/>
+        <location filename="ImageViewer.py" line="1018"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation>Afbeeldingen (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1016"/>
+        <location filename="ImageViewer.py" line="1018"/>
         <source>All files (*.*)</source>
         <translation>Alle bestanden (*.*)</translation>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="1041"/>
+        <location filename="ImageViewer.py" line="1043"/>
         <source>Image was changed. Save changes?</source>
         <translation type="unfinished"/>
     </message>
@@ -1879,13 +1874,23 @@ Wilt u een foutmelding te sturen naar de author?</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="890"/>
+        <location filename="ImageViewer.py" line="891"/>
         <source>Undo</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ImageViewer.py" line="892"/>
+        <location filename="ImageViewer.py" line="893"/>
         <source>Redo</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="885"/>
+        <source>Crop...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="ImageViewer.py" line="886"/>
+        <source>Autocrop</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2227,127 +2232,127 @@ Wilt u een foutmelding te sturen naar de author?</translation>
         <translation>Importeren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="233"/>
+        <location filename="MainWindow.py" line="225"/>
         <source>Synchronize...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="239"/>
+        <location filename="MainWindow.py" line="231"/>
         <source>Export</source>
         <translation>Exporteren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="242"/>
+        <location filename="MainWindow.py" line="234"/>
         <source>For Android version</source>
         <translation>Voor Android versie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="252"/>
+        <location filename="MainWindow.py" line="244"/>
         <source>&amp;File</source>
         <translation>&amp;Bestand</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="276"/>
+        <location filename="MainWindow.py" line="268"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="282"/>
+        <location filename="MainWindow.py" line="274"/>
         <source>Edit...</source>
         <translation>bewerken...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="289"/>
+        <location filename="MainWindow.py" line="281"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="295"/>
+        <location filename="MainWindow.py" line="287"/>
         <source>Copy</source>
         <translation>Kopiëren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="301"/>
+        <location filename="MainWindow.py" line="293"/>
         <source>Paste</source>
         <translation>Plakken</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="307"/>
+        <location filename="MainWindow.py" line="299"/>
         <source>Coin</source>
         <translation>Munt</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="372"/>
+        <location filename="MainWindow.py" line="363"/>
         <source>View in browser</source>
         <translation>Bekijk in de browser</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="341"/>
+        <location filename="MainWindow.py" line="333"/>
         <source>List</source>
         <translation>Lijst</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="354"/>
+        <location filename="MainWindow.py" line="345"/>
         <source>Reference</source>
         <translation>Referentie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="357"/>
+        <location filename="MainWindow.py" line="348"/>
         <source>Report...</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="362"/>
+        <location filename="MainWindow.py" line="353"/>
         <source>Save current list...</source>
         <translation>Sla huidige lijst op</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="367"/>
+        <location filename="MainWindow.py" line="358"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="387"/>
+        <location filename="MainWindow.py" line="378"/>
         <source>User manual</source>
         <translation>Gebruikershandleiding</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="391"/>
+        <location filename="MainWindow.py" line="382"/>
         <source>Visit web-site</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="393"/>
+        <location filename="MainWindow.py" line="384"/>
         <source>Check for updates</source>
         <translation>Controleren op update&apos;s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="885"/>
+        <location filename="MainWindow.py" line="864"/>
         <source>About %s</source>
         <translation>Over %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="398"/>
+        <location filename="MainWindow.py" line="389"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="406"/>
+        <location filename="MainWindow.py" line="397"/>
         <source>Toolbar</source>
         <translation>Toolbar</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="441"/>
+        <location filename="MainWindow.py" line="432"/>
         <source>Quick search</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="524"/>
+        <location filename="MainWindow.py" line="515"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="524"/>
+        <location filename="MainWindow.py" line="515"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>De applicatie moet opnieuw opstarten om de nieuwe instellingen te verwerken. Nu opnieuw starten?</translation>
     </message>
@@ -2362,82 +2367,72 @@ Wilt u een foutmelding te sturen naar de author?</translation>
         <translation>Statistieken</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="658"/>
+        <location filename="MainWindow.py" line="637"/>
         <source>Importing</source>
         <translation>Bezig met Importeren</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="600"/>
-        <source>Before importing you should export existing collection from Cabinet.</source>
-        <translation>Voordat u importeert moet u uw bestaande verzameling exporteren vanuit Cabinet</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="605"/>
-        <source>Select directory</source>
-        <translation>Selecteer map</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="694"/>
+        <location filename="MainWindow.py" line="673"/>
         <source>Select file</source>
         <translation>Selecteer bestand</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="621"/>
+        <location filename="MainWindow.py" line="600"/>
         <source>Import pre-defined coins?</source>
         <translation>Importeer voorgedefinieerde munten?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="630"/>
+        <location filename="MainWindow.py" line="609"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Voordat u importeert moet u uw bestaande verzameling exporteren vanuit Collection Studio naar een XML tabel (kies Collection Studio menu Tools &gt; Export...)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="643"/>
+        <location filename="MainWindow.py" line="622"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Voordat u importeert moet u uw bestaande verzameling exporteren van uCoin.net naar Comma-Separated (CSV) formaat.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="658"/>
+        <location filename="MainWindow.py" line="637"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="799"/>
+        <location filename="MainWindow.py" line="778"/>
         <source>Open collection</source>
         <translation>Open verzameling</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="799"/>
+        <location filename="MainWindow.py" line="778"/>
         <source>Collections (*.db)</source>
         <translation>verzamelingen (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="775"/>
+        <location filename="MainWindow.py" line="754"/>
         <source>New collection</source>
         <translation>Nieuwe verzameling</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="852"/>
+        <location filename="MainWindow.py" line="831"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Maak een nieuwe verzameling aan of open een bestaande</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="912"/>
+        <location filename="MainWindow.py" line="891"/>
         <source>Updates</source>
         <translation>Updates</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="912"/>
+        <location filename="MainWindow.py" line="891"/>
         <source>You already have the latest version.</source>
         <translation>Je beschikt al over de laatste versie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="923"/>
+        <location filename="MainWindow.py" line="902"/>
         <source>New version</source>
         <translation>nieuwe versie</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="923"/>
+        <location filename="MainWindow.py" line="902"/>
         <source>New version is available. Download it now?</source>
         <translation>Nieuwe versie beschikbaar, nu downloaden?</translation>
     </message>
@@ -2462,7 +2457,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="885"/>
+        <location filename="MainWindow.py" line="864"/>
         <source>%s %s
 
 Copyright (C) 2011-2021 Vitaly Ignatov
@@ -2476,12 +2471,12 @@ Copyright (C) 2011-2021 Vitaly Ignatov
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="320"/>
+        <location filename="MainWindow.py" line="312"/>
         <source>Details</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="MainWindow.py" line="328"/>
+        <location filename="MainWindow.py" line="320"/>
         <source>&amp;View</source>
         <translation type="unfinished"/>
     </message>
@@ -2553,37 +2548,37 @@ Copyright (C) 2011-2021 Vitaly Ignatov
 <context>
     <name>PreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="232"/>
+        <location filename="Preview.py" line="246"/>
         <source>Report preview</source>
         <translation>Voorbeeldrapport</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="254"/>
+        <location filename="Preview.py" line="268"/>
         <source>Save as MS Word document</source>
         <translation>Opslaan als MS Word bestand</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="257"/>
+        <location filename="Preview.py" line="271"/>
         <source>Save as HTML files</source>
         <translation>Opslaan als HTML bestand</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="260"/>
+        <location filename="Preview.py" line="274"/>
         <source>Save as PDF file</source>
         <translation>Opslaan als PDF bestand</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="497"/>
+        <location filename="Preview.py" line="511"/>
         <source>Word documents (*.doc)</source>
         <translation>Word document (*.doc)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="503"/>
+        <location filename="Preview.py" line="517"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Web pagina (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="509"/>
+        <location filename="Preview.py" line="523"/>
         <source>PDF file (*.pdf)</source>
         <translation>PDF bestand (*.pdf)</translation>
     </message>
@@ -2591,77 +2586,77 @@ Copyright (C) 2011-2021 Vitaly Ignatov
 <context>
     <name>QPrintPreviewDialog</name>
     <message>
-        <location filename="Preview.py" line="269"/>
+        <location filename="Preview.py" line="283"/>
         <source>Next page</source>
         <translation>Volgende pagina</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="270"/>
+        <location filename="Preview.py" line="284"/>
         <source>Previous page</source>
         <translation>Vorige pagina</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="271"/>
+        <location filename="Preview.py" line="285"/>
         <source>First page</source>
         <translation>Eerste pagina</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="272"/>
+        <location filename="Preview.py" line="286"/>
         <source>Last page</source>
         <translation>Laatste pagina</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="280"/>
+        <location filename="Preview.py" line="294"/>
         <source>Fit width</source>
         <translation>Breedte aanpassen</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="281"/>
+        <location filename="Preview.py" line="295"/>
         <source>Fit page</source>
         <translation>Pagina aanpassen</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="290"/>
+        <location filename="Preview.py" line="304"/>
         <source>Zoom in</source>
         <translation>Inzoomen</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="291"/>
+        <location filename="Preview.py" line="305"/>
         <source>Zoom out</source>
         <translation>Uitzoomen</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="297"/>
+        <location filename="Preview.py" line="311"/>
         <source>Portrait</source>
         <translation>Staand</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="298"/>
+        <location filename="Preview.py" line="312"/>
         <source>Landscape</source>
         <translation>Liggen</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="308"/>
+        <location filename="Preview.py" line="322"/>
         <source>Show single page</source>
         <translation>één pagina tonen</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="309"/>
+        <location filename="Preview.py" line="323"/>
         <source>Show facing pages</source>
         <translation>Toon tegenoverliggende pagina&apos;s</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="310"/>
+        <location filename="Preview.py" line="324"/>
         <source>Show overview of all pages</source>
         <translation>Toon overzicht van alle pagina&apos;s</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="244"/>
+        <location filename="Preview.py" line="258"/>
         <source>Print</source>
         <translation>Printen</translation>
     </message>
     <message>
-        <location filename="Preview.py" line="247"/>
+        <location filename="Preview.py" line="261"/>
         <source>Page setup</source>
         <translation>Pagina instelling</translation>
     </message>
