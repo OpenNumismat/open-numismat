@@ -7,6 +7,7 @@ from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+from OpenNumismat.Tools.Converters import stringToMoney
 
 
 @storeDlgSizeDecorator
@@ -102,8 +103,10 @@ class SummaryDialog(QDialog):
                 record = query.record()
                 fineness = record.value('fineness')
                 weight = record.value('weight')
+                if isinstance(weight, str):
+                    weight = stringToMoney(weight)
                 quantity = int(record.value('quantity') or 1)
-                gold_weight += float(weight) * float("0.%s" % fineness) * quantity
+                gold_weight += weight * float("0.%s" % fineness) * quantity
                 gold_count += 1
                 gold_quantity += quantity
             if gold_weight:
@@ -145,8 +148,10 @@ class SummaryDialog(QDialog):
                 record = query.record()
                 fineness = record.value('fineness')
                 weight = record.value('weight')
+                if isinstance(weight, str):
+                    weight = stringToMoney(weight)
                 quantity = int(record.value('quantity') or 1)
-                silver_weight += float(weight) * float("0.%s" % fineness) * quantity
+                silver_weight += weight * float("0.%s" % fineness) * quantity
                 silver_count += 1
                 silver_quantity += quantity
             if silver_weight:
