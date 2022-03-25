@@ -193,10 +193,11 @@ class ColnectConnector(QObject):
                     result = ''
                     if '/1000' in value:
                         pos = value.find('/1000') - 1
-                        while pos >= 0 and (value[pos].isdigit() or value[pos] in '.,'):
+                        while pos >= 0 and value[pos] in '0123456789.,':
                             result = value[pos] + result
                             pos -= 1
-                        result = float(result.replace(',', '.'))
+                        if result:
+                            result = float(result.replace(',', '.'))
                     elif '0.' in value:
                         pos = value.find('0.') + 2
                         while pos < len(value) and value[pos].isdigit():
@@ -209,11 +210,12 @@ class ColnectConnector(QObject):
                             pos += 1
                     elif '%' in value:
                         pos = value.find('%') - 1
-                        while pos >= 0 and (value[pos].isdigit() or value[pos] in '.,'):
+                        while pos >= 0 and value[pos] in '0123456789.,':
                             result = value[pos] + result
                             pos -= 1
-                        result = float(result.replace(',', '.'))
-                        result *= 10
+                        if result:
+                            result = float(result.replace(',', '.'))
+                            result *= 10
                     elif '.' in value:
                         pos = value.find('.') + 1
                         while pos < len(value) and value[pos].isdigit():
