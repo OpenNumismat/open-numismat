@@ -40,11 +40,11 @@ class FormItem(object):
         elif self._type == Type.ShortString:
             self._widget = ShortLineEdit(parent)
         elif self._type == Type.Number:
-            if settings['free_numeric']:
-                self._widget = UserNumericEdit(parent)
+            if self._field == 'year' and settings['enable_bc']:
+                self._widget = YearEdit(parent)
             else:
-                if settings['enable_bc'] and self._field == 'year':
-                    self._widget = YearEdit(parent)
+                if settings['free_numeric']:
+                    self._widget = UserNumericEdit(parent)
                 else:
                     self._widget = NumberEdit(parent)
         elif self._type == Type.BigInt:
