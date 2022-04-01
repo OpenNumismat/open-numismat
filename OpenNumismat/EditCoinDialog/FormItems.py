@@ -521,6 +521,56 @@ class YearEdit(QWidget):
             self.bcLbl.hide()
 
 
+class NativeYearEdit(QWidget):
+    clickedButton = pyqtSignal()
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.lineEdit = UserNumericEdit(self)
+
+        self.calcBtn = QPushButton(QIcon(':/date.png'), '', self)
+        self.calcBtn.setFixedWidth(25)
+        self.calcBtn.setToolTip(self.tr("Date calculator"))
+        self.calcBtn.clicked.connect(self.clickedButton)
+
+        layout = QHBoxLayout()
+        layout.addWidget(self.lineEdit)
+        layout.addWidget(self.calcBtn)
+        layout.setContentsMargins(QMargins())
+
+        self.setLayout(layout)
+
+    def clear(self):
+        self.lineEdit.clear()
+
+    def setText(self, text):
+        self.lineEdit.setText(text)
+
+    def text(self):
+        return self.lineEdit.text()
+
+    def home(self, mark):
+        self.lineEdit.home(mark)
+
+    def addAction(self, icon, position):
+        return self.lineEdit.addAction(icon, position)
+    
+    def actions(self):
+        return self.lineEdit.actions()
+    
+    def removeAction(self, act):
+        return self.lineEdit.removeAction(act)
+
+    def setReadOnly(self, b):
+        self.lineEdit.setReadOnly(b)
+
+        if b:
+            self.calcBtn.hide()
+        else:
+            self.calcBtn.show()
+
+
 class _DoubleEdit(QLineEdit):
     def __init__(self, bottom, top, decimals, parent=None):
         super().__init__(parent)

@@ -35,6 +35,8 @@ class FormItem(object):
                     self._widget = AddressLineEdit(parent)
                 elif self._field == 'grader':
                     self._widget = GraderLineEdit(parent)
+                elif self._field == 'native_year':
+                    self._widget = NativeYearEdit(parent)
                 else:
                     self._widget = LineEdit(parent)
         elif self._type == Type.ShortString:

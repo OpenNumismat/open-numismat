@@ -63,5 +63,8 @@
     <file alias="undo.png">icons/undo.png</file>
     <file alias="redo.png">icons/redo.png</file>
     <file alias="json.png">icons/json.png</file>
+    <file alias="date.png">icons/date.png</file>
+    <file alias="tick.png">icons/tick.png</file>
+    <file alias="backspace.png">icons/backspace.png</file>
 </qresource>
 </RCC>

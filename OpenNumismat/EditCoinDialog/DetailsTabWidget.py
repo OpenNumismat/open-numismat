@@ -2,9 +2,10 @@ from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QDoubleValidator, QDesktopServices
 from PyQt5.QtWidgets import *
 
-from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdit
+from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdit, NativeYearEdit
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
+from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
@@ -668,6 +669,11 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['series'])
         layout.addRow(self.items['subjectshort'])
 
+        if not self.items['year'].isHidden() and not self.items['native_year'].isHidden():
+            native_year_widget = self.items['native_year'].widget()
+            if isinstance(native_year_widget, NativeYearEdit):
+                native_year_widget.clickedButton.connect(self.clickedButtonNativeYear)
+
         return layout
 
     def obverseDesignLayout(self):
@@ -794,6 +800,14 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         title = ' '.join(titleParts)
         self.items['title'].setValue(title)
+        
+    def clickedButtonNativeYear(self):
+        year = self.items['year'].widget().text()
+        native_year = self.items['native_year'].widget().text()
+        dlg = YearCalculatorDialog(year, native_year, self)
+        if dlg.exec_() == QDialog.Accepted:
+            self.items['year'].widget().setText(dlg.year())
+            self.items['native_year'].widget().setText(dlg.nativeYear())
 
     def _createTrafficParts(self, status):
         if self.oldStatus == 'pass':
