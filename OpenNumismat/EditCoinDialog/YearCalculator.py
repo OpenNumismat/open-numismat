@@ -19,7 +19,7 @@ class YearCalculatorDialog(QDialog):
         self.buttonBox.rejected.connect(self.reject)
 
         combo = QComboBox()
-        combo.addItems((HebrewCalendar.TITLE, IslamicCalendar.TITLE))
+        combo.addItems((HebrewCalendar.TITLE, IslamicCalendar.TITLE, JapanCalendar.TITLE))
         combo.activated.connect(self.calendarChanged)
 
         hlayout = QHBoxLayout()
@@ -36,6 +36,10 @@ class YearCalculatorDialog(QDialog):
         hlayout.addWidget(self.islamic_layout)
         hlayout.setAlignment(self.islamic_layout, Qt.AlignTop)
 
+        self.japan_layout = self.nationalCalc(JapanCalendar(), native_year)
+        hlayout.addWidget(self.japan_layout)
+        hlayout.setAlignment(self.japan_layout, Qt.AlignTop)
+
         layout = QVBoxLayout()
         layout.addWidget(combo)
         layout.addLayout(hlayout)
@@ -46,6 +50,8 @@ class YearCalculatorDialog(QDialog):
         
         if native_year and native_year[0] in IslamicCalendar.SYMBOLS:
             calendar_index = 1
+        elif native_year and native_year[0] in JapanCalendar.SYMBOLS:
+            calendar_index = 2
         else:
             calendar_index = 0
 
@@ -53,16 +59,24 @@ class YearCalculatorDialog(QDialog):
         self.calendarChanged(calendar_index)
     
     def calendarChanged(self, index):
-        if index == 0:
-            self.nationalYearEditor = self.hebrew_layout.EDITOR
-            
-            self.hebrew_layout.show()
-            self.islamic_layout.hide()
-        else:
+        if index == 1:
             self.nationalYearEditor = self.islamic_layout.EDITOR
             
             self.hebrew_layout.hide()
             self.islamic_layout.show()
+            self.japan_layout.hide()
+        elif index == 2:
+            self.nationalYearEditor = self.japan_layout.EDITOR
+            
+            self.hebrew_layout.hide()
+            self.islamic_layout.hide()
+            self.japan_layout.show()
+        else:
+            self.nationalYearEditor = self.hebrew_layout.EDITOR
+            
+            self.hebrew_layout.show()
+            self.islamic_layout.hide()
+            self.japan_layout.hide()
 
     def gregoryanLayout(self, year):
         layout = QGridLayout()
@@ -116,7 +130,10 @@ class YearCalculatorDialog(QDialog):
             for col, dig in enumerate(line):
                 if dig:
                     btn = CalcButton(dig, edit)
-                    layout.addWidget(btn, row+2, col)
+                    if len(dig) > 1:
+                        layout.addWidget(btn, row+2, col*2, 1, 2)
+                    else:
+                        layout.addWidget(btn, row+2, col)
 
         widget = QWidget()
         widget.setLayout(layout)
@@ -128,7 +145,7 @@ class YearCalculatorDialog(QDialog):
         text = self.yearEditor.text()
         res, _, _ = self.yearEditor.validator().validate(text, 0)
         if res == QValidator.Acceptable:
-            text = self.nationalYearEditor.validator().fromGregorian(text)
+            text = self.nationalYearEditor.validator().fromGregorian(int(text))
             self.nationalYearEditor.setText(text)
     
     def convertToGregorian(self):
@@ -158,9 +175,9 @@ class YearCalculatorDialog(QDialog):
 class HebrewCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("HebrewCalendar", "Hebrew")
     CALC = (("א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"),
-            ("י", "כ", "ל", "‭מ", "נ", "ס", "ע", "פ", "צ"),
-            (None, "ך", None, "‭ם", "ן", None, None, "ף", "ץ"),
-            ("ק", "ר", "ש", "ת", None, None, None, None, "״"))
+            ("י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ"),
+            (None, "ך", None, "ם", "ן", None, None, "ף", "ץ"),
+            ("א", "ב", "ג", "ד", None, None, None, None, "״"))
     SYMBOLS = "‭אבגדהוזחטיכךלמםנןסעפףצץקרשת‏״"
 
     def validate(self, input_, pos):
@@ -206,7 +223,7 @@ class HebrewCalendar(QValidator):
             90: 'צ', 100: 'ק', 200: 'ר', 300: 'ש', 400: 'ת'
         }
         
-        num = int(year) + 3760
+        num = year + 3760
         
         ones = num % 10
         tens = num % 100 - ones
@@ -265,7 +282,7 @@ class IslamicCalendar(QValidator):
         _DIGITS = {1: "١", 2: "٢", 3: "٣", 4: "٤", 5: "٥",
                    6: "٦", 7: "٧", 8: "۸", 9: "٩", 0: "٠"}
         
-        num = int(1.03125 * (int(year) - 622))
+        num = int(1.03125 * (year - 622))
         
         ones = num % 10
         tens = (num // 10)  % 10
@@ -277,6 +294,119 @@ class IslamicCalendar(QValidator):
             letters = _DIGITS[thousands] + letters
         
         return letters
+
+
+class JapanCalendar(QValidator):
+    TITLE = QT_TRANSLATE_NOOP("JapanCalendar", "Japan")
+    CALC = (("1", "2", "3", "4", "5", "6", "7", "8", "9", "0"),
+            ("一", "二", "三", "四", "五", "六", "七", "八", "九"),
+            ("元", "十", "年"),
+            ("明治", "大正", "昭和", "平成", "令和"))
+    SYMBOLS = "1234567890元一二三四五六七八九十年明治大正昭和平成令和"
+
+    def validate(self, input_, pos):
+        for c in input_:
+            if c not in self.SYMBOLS:
+                return QValidator.Invalid, input_, pos
+        if input_.count('年') > 1:
+            return QValidator.Invalid, input_, pos
+
+        if len(input_) < 4:
+            return QValidator.Intermediate, input_, pos
+
+        if len(input_) > 6:
+            return QValidator.Invalid, input_, pos
+        
+        if "年" in input_:
+            letters = input_
+            if letters[0] == "年":
+                letters = input_[::-1]
+    
+            if letters[-1] != "年":
+                return QValidator.Invalid, input_, pos
+    
+            if letters[:2] not in ("明治", "大正", "昭和", "平成", "令和"):
+                return QValidator.Intermediate, input_, pos
+            
+            for c in letters[2:-1]:
+                if c not in "1234567890" and c not in "元一二三四五六七八九十":
+                    return QValidator.Intermediate, input_, pos
+        else:
+            return QValidator.Intermediate, input_, pos
+        
+        return QValidator.Acceptable, input_, pos
+    
+    def toGregorian(self, year):
+        if year[0] == "年":
+            year = year[::-1]
+        
+        _DIGITS = {"1": 1, "一": 1, "元": 1, "2": 2, "二": 2, "3": 3, "三": 3,
+                   "4": 4, "四": 4, "5": 5, "五": 5, "6": 6, "六": 6, "7": 7,
+                   "七": 7, "8": 8, "八": 8, "9": 9, "九": 9, "0": 0, "十": 0}
+        
+        result = 0
+        if year[2] in "1234567890":
+            for c in year[2:-1]:
+                result *= 10
+                result += _DIGITS[c]
+        else:
+            for c in year[2:-1]:
+                if c == "十":
+                    if result == 0:
+                        result = 10
+                    else:
+                        result *= 10
+                result += _DIGITS[c]
+        
+        if year[:2] == "明治":
+            result += 1868
+        elif year[:2] == "大正":
+            result += 1912
+        elif year[:2] == "昭和":
+            result += 1926
+        elif year[:2] == "平成":
+            result += 1989
+        elif year[:2] == "令和":
+            result += 2019
+
+        return str(result - 1)
+    
+    def fromGregorian(self, year):
+        _DIGITS = {1: "元", 2: "二", 3: "三", 4: "四", 5: "五",
+                   6: "六", 7: "七", 8: "八", 9: "九"}
+        
+        if year >= 2019:
+            result = "令和"
+            year -= 2019
+        elif year >= 1989:
+            result = "平成"
+            year -= 1989
+        elif year >= 1926:
+            result = "昭和"
+            year -= 1926
+        elif year >= 1912:
+            result = "大正"
+            year -= 1912
+        else:
+            result = "明治"
+            year -= 1868
+        year += 1
+        
+        ones = year % 10
+        tens = (year // 10)  % 10
+        
+        if tens > 1:
+            result += _DIGITS[tens]
+        if tens > 0:
+            result += "十"
+        result += _DIGITS[ones]
+
+        result += "年"
+        
+        if year < 1948:
+            result[::-1]
+        
+        return result
 
 
 class GregorianValidator(QValidator):
@@ -304,7 +434,10 @@ class CalcButton(QPushButton):
         font = QFont("serif", 20)
         self.setFont(font)
 
-        self.setFixedWidth(40)
+        if len(text) > 1:
+            self.setFixedWidth(80)
+        else:
+            self.setFixedWidth(40)
         self.setFixedHeight(40)
         
         self.clicked.connect(self.onClicked)
