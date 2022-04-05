@@ -11,6 +11,7 @@ class YearCalculatorDialog(QDialog):
     def __init__(self, year, native_year, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+        self.setWindowTitle(self.tr("Year calculator"))
 
         self.buttonBox = QDialogButtonBox(Qt.Horizontal)
         self.buttonBox.addButton(QDialogButtonBox.Save)
@@ -18,9 +19,12 @@ class YearCalculatorDialog(QDialog):
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
 
+        self.calendars = (HebrewCalendar(), IslamicCalendar(), JapanCalendar(), RomanCalendar())
+        self.national_layouts = []
+
         combo = QComboBox()
-        combo.addItems((HebrewCalendar.TITLE, IslamicCalendar.TITLE,
-                        JapanCalendar.TITLE, RomanCalendar.TITLE))
+        for calendar in self.calendars:
+            combo.addItem(calendar.TITLE)
         combo.activated.connect(self.calendarChanged)
 
         hlayout = QHBoxLayout()
@@ -29,21 +33,12 @@ class YearCalculatorDialog(QDialog):
         hlayout.setAlignment(year_layout, Qt.AlignTop)
         hlayout.addSpacing(20)
 
-        self.hebrew_layout = self.nationalCalc(HebrewCalendar(), native_year)
-        hlayout.addWidget(self.hebrew_layout)
-        hlayout.setAlignment(self.hebrew_layout, Qt.AlignTop)
-        
-        self.islamic_layout = self.nationalCalc(IslamicCalendar(), native_year)
-        hlayout.addWidget(self.islamic_layout)
-        hlayout.setAlignment(self.islamic_layout, Qt.AlignTop)
+        for calendar in self.calendars:
+            layout = self.nationalCalc(calendar, native_year)
+            self.national_layouts.append(layout)
 
-        self.japan_layout = self.nationalCalc(JapanCalendar(), native_year)
-        hlayout.addWidget(self.japan_layout)
-        hlayout.setAlignment(self.japan_layout, Qt.AlignTop)
-
-        self.roman_layout = self.nationalCalc(RomanCalendar(), native_year)
-        hlayout.addWidget(self.roman_layout)
-        hlayout.setAlignment(self.roman_layout, Qt.AlignTop)
+            hlayout.addWidget(layout)
+            hlayout.setAlignment(layout, Qt.AlignTop)
 
         layout = QVBoxLayout()
         layout.addWidget(combo)
@@ -53,47 +48,21 @@ class YearCalculatorDialog(QDialog):
 
         self.setLayout(layout)
         
-        if native_year and native_year[0] in IslamicCalendar.SYMBOLS:
-            calendar_index = 1
-        elif native_year and native_year[0] in JapanCalendar.SYMBOLS:
-            calendar_index = 2
-        elif native_year and native_year[0] in RomanCalendar.SYMBOLS:
-            calendar_index = 3
-        else:
-            calendar_index = 0
+        calendar_index = 0
+        for i, calendar in enumerate(self.calendars):
+            if native_year and native_year[0] in calendar.SYMBOLS:
+                calendar_index = i
 
         combo.setCurrentIndex(calendar_index)
         self.calendarChanged(calendar_index)
     
     def calendarChanged(self, index):
-        if index == 1:
-            self.nationalYearEditor = self.islamic_layout.EDITOR
-            
-            self.hebrew_layout.hide()
-            self.islamic_layout.show()
-            self.japan_layout.hide()
-            self.roman_layout.hide()
-        elif index == 2:
-            self.nationalYearEditor = self.japan_layout.EDITOR
-            
-            self.hebrew_layout.hide()
-            self.islamic_layout.hide()
-            self.japan_layout.show()
-            self.roman_layout.hide()
-        elif index == 3:
-            self.nationalYearEditor = self.roman_layout.EDITOR
-            
-            self.hebrew_layout.hide()
-            self.islamic_layout.hide()
-            self.japan_layout.hide()
-            self.roman_layout.show()
-        else:
-            self.nationalYearEditor = self.hebrew_layout.EDITOR
-            
-            self.hebrew_layout.show()
-            self.islamic_layout.hide()
-            self.japan_layout.hide()
-            self.roman_layout.hide()
+        self.nationalYearEditor = self.national_layouts[index].EDITOR
+        for i, layout in enumerate(self.national_layouts):
+            if i == index:
+                layout.show()
+            else:
+                layout.hide()
 
     def gregoryanLayout(self, year):
         layout = QGridLayout()
