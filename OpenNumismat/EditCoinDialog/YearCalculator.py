@@ -19,7 +19,8 @@ class YearCalculatorDialog(QDialog):
         self.buttonBox.rejected.connect(self.reject)
 
         combo = QComboBox()
-        combo.addItems((HebrewCalendar.TITLE, IslamicCalendar.TITLE, JapanCalendar.TITLE))
+        combo.addItems((HebrewCalendar.TITLE, IslamicCalendar.TITLE,
+                        JapanCalendar.TITLE, RomanCalendar.TITLE))
         combo.activated.connect(self.calendarChanged)
 
         hlayout = QHBoxLayout()
@@ -40,6 +41,10 @@ class YearCalculatorDialog(QDialog):
         hlayout.addWidget(self.japan_layout)
         hlayout.setAlignment(self.japan_layout, Qt.AlignTop)
 
+        self.roman_layout = self.nationalCalc(RomanCalendar(), native_year)
+        hlayout.addWidget(self.roman_layout)
+        hlayout.setAlignment(self.roman_layout, Qt.AlignTop)
+
         layout = QVBoxLayout()
         layout.addWidget(combo)
         layout.addLayout(hlayout)
@@ -52,6 +57,8 @@ class YearCalculatorDialog(QDialog):
             calendar_index = 1
         elif native_year and native_year[0] in JapanCalendar.SYMBOLS:
             calendar_index = 2
+        elif native_year and native_year[0] in RomanCalendar.SYMBOLS:
+            calendar_index = 3
         else:
             calendar_index = 0
 
@@ -65,18 +72,28 @@ class YearCalculatorDialog(QDialog):
             self.hebrew_layout.hide()
             self.islamic_layout.show()
             self.japan_layout.hide()
+            self.roman_layout.hide()
         elif index == 2:
             self.nationalYearEditor = self.japan_layout.EDITOR
             
             self.hebrew_layout.hide()
             self.islamic_layout.hide()
             self.japan_layout.show()
+            self.roman_layout.hide()
+        elif index == 3:
+            self.nationalYearEditor = self.roman_layout.EDITOR
+            
+            self.hebrew_layout.hide()
+            self.islamic_layout.hide()
+            self.japan_layout.hide()
+            self.roman_layout.show()
         else:
             self.nationalYearEditor = self.hebrew_layout.EDITOR
             
             self.hebrew_layout.show()
             self.islamic_layout.hide()
             self.japan_layout.hide()
+            self.roman_layout.hide()
 
     def gregoryanLayout(self, year):
         layout = QGridLayout()
@@ -153,7 +170,7 @@ class YearCalculatorDialog(QDialog):
         res, _, _ = self.nationalYearEditor.validator().validate(text, 0)
         if res == QValidator.Acceptable:
             text = self.nationalYearEditor.validator().toGregorian(text)
-            self.yearEditor.setText(text)
+            self.yearEditor.setText(str(text))
     
     def year(self):
         text = self.yearEditor.text()
@@ -214,7 +231,7 @@ class HebrewCalendar(QValidator):
                 continue
             result += _DIGITS[year[i]]
         
-        return str(result - 3760)
+        return result - 3760
 
     def fromGregorian(self, year):
         _GEMATRIOS = {
@@ -276,7 +293,7 @@ class IslamicCalendar(QValidator):
             result *= 10
             result += _DIGITS[c]
         
-        return str(math.ceil(0.969697 * result + 622))
+        return math.ceil(0.969697 * result + 622)
     
     def fromGregorian(self, year):
         _DIGITS = {1: "١", 2: "٢", 3: "٣", 4: "٤", 5: "٥",
@@ -369,7 +386,7 @@ class JapanCalendar(QValidator):
         elif year[:2] == "令和":
             result += 2019
 
-        return str(result - 1)
+        return result - 1
     
     def fromGregorian(self, year):
         _DIGITS = {1: "元", 2: "二", 3: "三", 4: "四", 5: "五",
@@ -408,6 +425,46 @@ class JapanCalendar(QValidator):
         
         return result
 
+
+class RomanCalendar(QValidator):
+    TITLE = QT_TRANSLATE_NOOP("RomanCalendar", "Roman")
+    CALC = (("I", "V", "X", "L", "C", "D", "M"),)
+    SYMBOLS = "IVXLCDM"
+
+    def validate(self, input_, pos):
+        for c in input_:
+            if c not in self.SYMBOLS:
+                return QValidator.Invalid, input_, pos
+
+        if len(input_) < 1:
+            return QValidator.Intermediate, input_, pos
+        
+        return QValidator.Acceptable, input_, pos
+    
+    def toGregorian(self, year):
+        trans = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        values = [trans[r] for r in year]
+        return sum(
+            val if val >= next_val else -val
+            for val, next_val in zip(values[:-1], values[1:])
+        ) + values[-1]
+    
+    def fromGregorian(self, year):
+        num = int(year)
+        return (
+            'M' * (num // 1000) +
+            self.encode_digit((num // 100) % 10, 'C', 'D', 'CM') +
+            self.encode_digit((num //  10) % 10, 'X', 'L', 'XC') +
+            self.encode_digit( num         % 10, 'I', 'V', 'IX') 
+        )
+
+    def encode_digit(self, digit, one, five, nine):
+        return (
+            nine                     if digit == 9 else
+            five + one * (digit - 5) if digit >= 5 else
+            one + five               if digit == 4 else
+            one * digit              
+        )
 
 class GregorianValidator(QValidator):
     def validate(self, input_, pos):
