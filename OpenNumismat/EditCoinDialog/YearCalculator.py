@@ -44,7 +44,13 @@ class YearCalculatorDialog(QDialog):
 
         self.setLayout(layout)
         
-        self.calendarChanged(0)
+        if native_year and native_year[0] in IslamicCalendar.SYMBOLS:
+            calendar_index = 1
+        else:
+            calendar_index = 0
+
+        combo.setCurrentIndex(calendar_index)
+        self.calendarChanged(calendar_index)
     
     def calendarChanged(self, index):
         if index == 0:
@@ -65,15 +71,16 @@ class YearCalculatorDialog(QDialog):
         edit = QLineEdit(year)
         validator = GregorianValidator(self)
         edit.setValidator(validator)
-        layout.addWidget(edit, 1, 0, 1, 5)
+        edit.setFont(QFont("serif", 16))
+        layout.addWidget(edit, 0, 0, 1, 5)
         
         btn = ClearButton(edit)
-        layout.addWidget(btn, 2, 0)
+        layout.addWidget(btn, 1, 0)
         btn = BackButton(edit)
-        layout.addWidget(btn, 2, 1)
+        layout.addWidget(btn, 1, 1)
         btn = ConvertButton()
         btn.clicked.connect(self.convertGregorian)
-        layout.addWidget(btn, 2, 2, 1, 3)
+        layout.addWidget(btn, 1, 2, 1, 3)
 
         self.yearEditor = edit
 
@@ -82,7 +89,7 @@ class YearCalculatorDialog(QDialog):
         for row, line in enumerate(digits):
             for col, dig in enumerate(line):
                 btn = CalcButton(dig, edit)
-                layout.addWidget(btn, row+3, col)
+                layout.addWidget(btn, row+2, col)
 
         return layout
     
@@ -92,15 +99,16 @@ class YearCalculatorDialog(QDialog):
 
         edit = QLineEdit(year)
         edit.setValidator(calendar)
-        layout.addWidget(edit, 1, 0, 1, 5)
+        edit.setFont(QFont("serif", 16))
+        layout.addWidget(edit, 0, 0, 1, 5)
 
         btn = ClearButton(edit)
-        layout.addWidget(btn, 2, 0)
+        layout.addWidget(btn, 1, 0)
         btn = BackButton(edit)
-        layout.addWidget(btn, 2, 1)
+        layout.addWidget(btn, 1, 1)
         btn = ConvertButton()
         btn.clicked.connect(self.convertToGregorian)
-        layout.addWidget(btn, 2, 2, 1, 3)
+        layout.addWidget(btn, 1, 2, 1, 3)
         
         digits = calendar.CALC
         
@@ -108,7 +116,7 @@ class YearCalculatorDialog(QDialog):
             for col, dig in enumerate(line):
                 if dig:
                     btn = CalcButton(dig, edit)
-                    layout.addWidget(btn, row+3, col)
+                    layout.addWidget(btn, row+2, col)
 
         widget = QWidget()
         widget.setLayout(layout)
@@ -151,12 +159,13 @@ class HebrewCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("HebrewCalendar", "Hebrew")
     CALC = (("א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"),
             ("י", "כ", "ל", "‭מ", "נ", "ס", "ע", "פ", "צ"),
-#           ("י", "כ/ך", "ל", "‭מ/ם", "נ/ן", "ס", "ע", "פ/ף", "צ/ץ"),
+            (None, "ך", None, "‭ם", "ן", None, None, "ף", "ץ"),
             ("ק", "ר", "ש", "ת", None, None, None, None, "״"))
+    SYMBOLS = "‭אבגדהוזחטיכךלמםנןסעפףצץקרשת‏״"
 
     def validate(self, input_, pos):
         for c in input_:
-            if c not in "‭אבגדהוזחטיכךלמםנןסעפףצץקרשת‏״":
+            if c not in self.SYMBOLS:
                 return QValidator.Invalid, input_, pos
         if input_.count('״') > 1:
             return QValidator.Invalid, input_, pos
@@ -225,10 +234,11 @@ class IslamicCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("IslamicCalendar", "Islamic")
     CALC = (("١", "٢", "٣", "٤", "٥", "٦", "٧", "۸", "٩", "٠"),
             (None, None, None, "۴", "۵", "۶", None, None, None, None))
+    SYMBOLS = "١٢٣٤۴٥۵٦۶٧۸٩٠"
 
     def validate(self, input_, pos):
         for c in input_:
-            if c not in "١٢٣٤۴٥۵٦۶٧۸٩٠":
+            if c not in self.SYMBOLS:
                 return QValidator.Invalid, input_, pos
 
         if len(input_) < 3:
