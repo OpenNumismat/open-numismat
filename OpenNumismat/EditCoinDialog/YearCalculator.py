@@ -19,7 +19,9 @@ class YearCalculatorDialog(QDialog):
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
 
-        self.calendars = (HebrewCalendar(), IslamicCalendar(), JapanCalendar(), RomanCalendar())
+        self.calendars = (HebrewCalendar(), IslamicCalendar(), JapanCalendar(),
+                          RomanCalendar(), NepalCalendar(), ThaiCalendar(),
+                          BurmeseCalendar())
         self.national_layouts = []
 
         combo = QComboBox()
@@ -435,6 +437,168 @@ class RomanCalendar(QValidator):
             one * digit              
         )
 
+
+class NepalCalendar(QValidator):
+    TITLE = QT_TRANSLATE_NOOP("NepalCalendar", "Nepal")
+    CALC = (("१", "२", "३", "४", "५", "६", "७", "८", "९", "०"),
+            ("੧", "੨", "੩", "੪", "੫", "੬", "੭", "੮", "੯", "੦"))
+    SYMBOLS = "०१२३४५६७८९੦੧੨੩੪੫੬੭੮੯"
+
+    def validate(self, input_, pos):
+        for c in input_:
+            if c not in self.SYMBOLS:
+                return QValidator.Invalid, input_, pos
+
+        if len(input_) < 4:
+            return QValidator.Intermediate, input_, pos
+
+        if len(input_) > 4:
+            return QValidator.Invalid, input_, pos
+
+        return QValidator.Acceptable, input_, pos
+    
+    def toGregorian(self, year):
+        _DIGITS = {"०": 0, "१": 1, "२": 2, "३": 3, "४": 4, "५": 5, "६": 6, "७": 7, "८": 8, "९": 9,
+                   "੦": 0, "੧": 1, "੨": 2, "੩": 3, "੪": 4, "੫": 5, "੬": 6, "੭": 7, "੮": 8, "੯": 9}
+        
+        result = 0
+        for c in year:
+            result *= 10
+            result += _DIGITS[c]
+        
+        if year < 1823:
+            return result + 78
+        return result - 57
+    
+    def fromGregorian(self, year):
+        _DIGITS = {1: "१", 2: "२", 3: "३", 4: "४", 5: "५",
+                   6: "६", 7: "७", 8: "८", 9: "९", 0: "०"}
+        
+        if year < 1901:
+            num = year - 78
+        else:
+            num = year + 57
+        
+        ones = num % 10
+        tens = (num // 10)  % 10
+        hundreds = (num // 100)  % 10
+        thousands = (num // 1000)  % 10
+        
+        letters = _DIGITS[hundreds] + _DIGITS[tens] + _DIGITS[ones]
+        if thousands:
+            letters = _DIGITS[thousands] + letters
+        
+        return letters
+
+
+class ThaiCalendar(QValidator):
+    TITLE = QT_TRANSLATE_NOOP("ThaiCalendar", "Thai")
+    CALC = (("๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙", "๐"),)
+    SYMBOLS = "๑๒๓๔๕๖๗๘๙๐"
+
+    def validate(self, input_, pos):
+        for c in input_:
+            if c not in self.SYMBOLS:
+                return QValidator.Invalid, input_, pos
+
+        if len(input_) < 3:
+            return QValidator.Intermediate, input_, pos
+
+        if len(input_) > 4:
+            return QValidator.Invalid, input_, pos
+
+        return QValidator.Acceptable, input_, pos
+    
+    def toGregorian(self, year):
+        _DIGITS = {"๐": 0, "๑": 1, "๒": 2, "๓": 3, "๔": 4,
+                   "๕": 5, "๖": 6, "๗": 7, "๘": 8, "๙": 9}
+        
+        result = 0
+        for c in year:
+            result *= 10
+            result += _DIGITS[c]
+        
+        if 1197 <= result and result <= 1249:
+            return result + 638
+        elif result <= 131:
+            return result + 1781
+        return result - 543
+    
+    def fromGregorian(self, year):
+        _DIGITS = {1: "๑", 2: "๒", 3: "๓", 4: "๔", 5: "๕",
+                   6: "๖", 7: "๗", 8: "๘", 9: "๙", 0: "๐"}
+        
+        if 1835 <= year and year <= 1887:
+            num = year - 638
+        elif year <= 1912:
+            num = year - 1781
+        else:
+            num = year + 543
+        
+        ones = num % 10
+        tens = (num // 10)  % 10
+        hundreds = (num // 100)  % 10
+        thousands = (num // 1000)  % 10
+        
+        letters = _DIGITS[hundreds] + _DIGITS[tens] + _DIGITS[ones]
+        if thousands:
+            letters = _DIGITS[thousands] + letters
+        
+        return letters
+
+
+class BurmeseCalendar(QValidator):
+    TITLE = QT_TRANSLATE_NOOP("BurmeseCalendar", "Burmese")
+    CALC = (("၁", "၂", "၃", "၄", "၅", "၆", "၇", "၈", "၉", "၀"),)
+    SYMBOLS = "၁၂၃၄၅၆၇၈၉၀"
+
+    def validate(self, input_, pos):
+        for c in input_:
+            if c not in self.SYMBOLS:
+                return QValidator.Invalid, input_, pos
+
+        if len(input_) < 4:
+            return QValidator.Intermediate, input_, pos
+
+        if len(input_) > 4:
+            return QValidator.Invalid, input_, pos
+
+        return QValidator.Acceptable, input_, pos
+    
+    def toGregorian(self, year):
+        _DIGITS = {"၀": 0, "၁": 1, "၂": 2, "၃": 3, "၄": 4,
+                   "၅": 5, "၆": 6, "၇": 7, "၈": 8, "၉": 9}
+        
+        result = 0
+        for c in year:
+            result *= 10
+            result += _DIGITS[c]
+        
+        if result <= 1247:
+            return result + 638
+        return result
+    
+    def fromGregorian(self, year):
+        _DIGITS = {1: "၁", 2: "၂", 3: "၃", 4: "၄", 5: "၅",
+                   6: "၆", 7: "၇", 8: "၈", 9: "၉", 0: "၀"}
+        
+        if 1852 <= year and year <= 1885:
+            num = year - 638
+        else:
+            num = year
+        
+        ones = num % 10
+        tens = (num // 10)  % 10
+        hundreds = (num // 100)  % 10
+        thousands = (num // 1000)  % 10
+        
+        letters = _DIGITS[hundreds] + _DIGITS[tens] + _DIGITS[ones]
+        if thousands:
+            letters = _DIGITS[thousands] + letters
+        
+        return letters
+
+
 class GregorianValidator(QValidator):
     def validate(self, input_, pos):
         if len(input_) == 0:
@@ -445,7 +609,7 @@ class GregorianValidator(QValidator):
         except ValueError:
             return QValidator.Invalid, input_, pos
 
-        if 0 > val or val > 9999:
+        if 0 > val or val > 2500:
             return QValidator.Invalid, input_, pos
 
         return QValidator.Acceptable, input_, pos
