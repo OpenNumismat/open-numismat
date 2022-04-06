@@ -531,7 +531,7 @@ class NativeYearEdit(QWidget):
 
         self.calcBtn = QPushButton(QIcon(':/date.png'), '', self)
         self.calcBtn.setFixedWidth(25)
-        self.calcBtn.setToolTip(self.tr("Date calculator"))
+        self.calcBtn.setToolTip(self.tr("Year calculator"))
         self.calcBtn.clicked.connect(self.clickedButton)
 
         layout = QHBoxLayout()

@@ -8,7 +8,17 @@ from PyQt5.QtWidgets import *
 
 
 class YearCalculatorDialog(QDialog):
-    def __init__(self, year, native_year, parent=None):
+    class CALENDARS():
+        HEBREW = 0
+        ISLAMIC = 1
+        JAPAN = 2
+        ROMAN = 3
+        NEPAL = 4
+        THAI = 5
+        BURMESE = 7
+        DEFAULT = HEBREW
+    
+    def __init__(self, year, native_year, default_calendar=CALENDARS.DEFAULT, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
         self.setWindowTitle(self.tr("Year calculator"))
@@ -50,7 +60,7 @@ class YearCalculatorDialog(QDialog):
 
         self.setLayout(layout)
         
-        calendar_index = 0
+        calendar_index = default_calendar
         for i, calendar in enumerate(self.calendars):
             if native_year and native_year[0] in calendar.SYMBOLS:
                 calendar_index = i
@@ -117,8 +127,9 @@ class YearCalculatorDialog(QDialog):
         for row, line in enumerate(digits):
             for col, dig in enumerate(line):
                 if dig:
-                    btn = CalcButton(dig, edit)
-                    if len(dig) > 1:
+                    btn = CalcButton(dig[0], edit)
+                    btn.setToolTip(dig[1])
+                    if len(dig[0]) > 1:
                         layout.addWidget(btn, row+2, col*2, 1, 2)
                     else:
                         layout.addWidget(btn, row+2, col)
@@ -162,10 +173,14 @@ class YearCalculatorDialog(QDialog):
 
 class HebrewCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("HebrewCalendar", "Hebrew")
-    CALC = (("א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"),
-            ("י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ"),
-            (None, "ך", None, "ם", "ן", None, None, "ף", "ץ"),
-            ("א", "ב", "ג", "ד", None, None, None, None, "״"))
+    CALC = ((("א", "1"), ("ב", "2"), ("ג", "3"), ("ד", "4"), ("ה", "5"),
+             ("ו", "6"), ("ז", "7"), ("ח", "8"), ("ט", "9")),
+            (("י", "10"), ("כ", "20"), ("ל", "30"), ("מ", "40"), ("נ", "50"),
+             ("ס", "60"), ("ע", "70"), ("פ", "80"), ("צ", "90")),
+            (None, ("ך", "20"), None, ("ם", "40"), ("ן", "50"),
+             None, None, ("ף", "80"), ("ץ", "90")),
+            (("ק", "100"), ("ר", "200"), ("ש", "300"), ("ת", "400"), None,
+             None, None, None, ("״", QT_TRANSLATE_NOOP("HebrewCalendar", "Units"))))
     SYMBOLS = "‭אבגדהוזחטיכךלמםנןסעפףצץקרשת‏״"
 
     def validate(self, input_, pos):
@@ -175,6 +190,9 @@ class HebrewCalendar(QValidator):
         if input_.count('״') > 1:
             return QValidator.Invalid, input_, pos
 
+        if len(input_) > 6:
+            return QValidator.Invalid, input_, pos
+        
         if len(input_) < 3:
             return QValidator.Intermediate, input_, pos
 
@@ -184,9 +202,6 @@ class HebrewCalendar(QValidator):
         if input_[-2] != '״':
             return QValidator.Invalid, input_, pos
 
-        if len(input_) > 6:
-            return QValidator.Invalid, input_, pos
-        
         return QValidator.Acceptable, input_, pos
     
     def toGregorian(self, year):
@@ -237,8 +252,10 @@ class HebrewCalendar(QValidator):
 
 class IslamicCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("IslamicCalendar", "Islamic")
-    CALC = (("١", "٢", "٣", "٤", "٥", "٦", "٧", "۸", "٩", "٠"),
-            (None, None, None, "۴", "۵", "۶", None, None, None, None))
+    CALC = ((("١", "1"), ("٢", "2"), ("٣", "3"), ("٤", "4"), ("٥", "5"),
+             ("٦", "6"), ("٧", "7"), ("۸", "8"), ("٩", "9"), ("٠", "0")),
+            (None, None, None, ("۴", "4"), ("۵", "5"),
+             ("۶", "6"), None, None, None, None))
     SYMBOLS = "١٢٣٤۴٥۵٦۶٧۸٩٠"
 
     def validate(self, input_, pos):
@@ -286,10 +303,12 @@ class IslamicCalendar(QValidator):
 
 class JapanCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("JapanCalendar", "Japan")
-    CALC = (("1", "2", "3", "4", "5", "6", "7", "8", "9", "0"),
-            ("一", "二", "三", "四", "五", "六", "七", "八", "九"),
-            ("元", "十", "年"),
-            ("明治", "大正", "昭和", "平成", "令和"))
+    CALC = ((("1", ""), ("2", ""), ("3", ""), ("4", ""), ("5", ""),
+             ("6", ""), ("7", ""), ("8", ""), ("9", ""), ("0", "")),
+            (("一", "1"), ("二", "2"), ("三", "3"), ("四", "4"), ("五", "5"),
+             ("六", "6"), ("七", "7"), ("八", "8"), ("九", "9")),
+            (("元", "1"), ("十", "10"), ("年", QT_TRANSLATE_NOOP("JapanCalendar", "Year"))),
+            (("明治", "1868"), ("大正", "1912"), ("昭和", "1926"), ("平成", "1989"), ("令和", "2019")))
     SYMBOLS = "1234567890元一二三四五六七八九十年明治大正昭和平成令和"
 
     def validate(self, input_, pos):
@@ -399,8 +418,9 @@ class JapanCalendar(QValidator):
 
 class RomanCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("RomanCalendar", "Roman")
-    CALC = (("I", "V", "X", "L", "C", "D", "M"),)
-    SYMBOLS = "IVXLCDM"
+    CALC = ((("I", "1"), ("V", "5"), ("X", "10"), ("L", "50"),
+             ("C", "100"), ("D", "500"), ("M", "1000")),)
+    SYMBOLS = "IVXLCDMivxlcdm"
 
     def validate(self, input_, pos):
         for c in input_:
@@ -413,7 +433,8 @@ class RomanCalendar(QValidator):
         return QValidator.Acceptable, input_, pos
     
     def toGregorian(self, year):
-        trans = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        trans = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000,
+                 'i': 1, 'v': 5, 'x': 10, 'l': 50, 'c': 100, 'd': 500, 'm': 1000}
         values = [trans[r] for r in year]
         return sum(
             val if val >= next_val else -val
@@ -440,8 +461,10 @@ class RomanCalendar(QValidator):
 
 class NepalCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("NepalCalendar", "Nepal")
-    CALC = (("१", "२", "३", "४", "५", "६", "७", "८", "९", "०"),
-            ("੧", "੨", "੩", "੪", "੫", "੬", "੭", "੮", "੯", "੦"))
+    CALC = ((("१", "1"), ("२", "2"), ("३", "3"), ("४", "4"), ("५", "5"),
+             ("६", "6"), ("७", "7"), ("८", "8"), ("९", "9"), ("०", "0")),
+            (("੧", "1"), ("੨", "2"), ("੩", "3"), ("੪", "4"), ("੫", "5"),
+             ("੬", "6"), ("੭", "7"), ("੮", "8"), ("੯", "9"), ("੦", "0")))
     SYMBOLS = "०१२३४५६७८९੦੧੨੩੪੫੬੭੮੯"
 
     def validate(self, input_, pos):
@@ -458,8 +481,10 @@ class NepalCalendar(QValidator):
         return QValidator.Acceptable, input_, pos
     
     def toGregorian(self, year):
-        _DIGITS = {"०": 0, "१": 1, "२": 2, "३": 3, "४": 4, "५": 5, "६": 6, "७": 7, "८": 8, "९": 9,
-                   "੦": 0, "੧": 1, "੨": 2, "੩": 3, "੪": 4, "੫": 5, "੬": 6, "੭": 7, "੮": 8, "੯": 9}
+        _DIGITS = {"०": 0, "१": 1, "२": 2, "३": 3, "४": 4,
+                   "५": 5, "६": 6, "७": 7, "८": 8, "९": 9,
+                   "੦": 0, "੧": 1, "੨": 2, "੩": 3, "੪": 4,
+                   "੫": 5, "੬": 6, "੭": 7, "੮": 8, "੯": 9}
         
         result = 0
         for c in year:
@@ -493,7 +518,8 @@ class NepalCalendar(QValidator):
 
 class ThaiCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("ThaiCalendar", "Thai")
-    CALC = (("๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙", "๐"),)
+    CALC = ((("๑", "1"), ("๒", "2"), ("๓", "3"), ("๔", "4"), ("๕", "5")),
+            (("๖", "6"), ("๗", "7"), ("๘", "8"), ("๙", "9"), ("๐", "0")))
     SYMBOLS = "๑๒๓๔๕๖๗๘๙๐"
 
     def validate(self, input_, pos):
@@ -549,7 +575,8 @@ class ThaiCalendar(QValidator):
 
 class BurmeseCalendar(QValidator):
     TITLE = QT_TRANSLATE_NOOP("BurmeseCalendar", "Burmese")
-    CALC = (("၁", "၂", "၃", "၄", "၅", "၆", "၇", "၈", "၉", "၀"),)
+    CALC = ((("၁", "1"), ("၂", "2"), ("၃", "3"), ("၄", "4"), ("၅", "5")),
+            (("၆", "6"), ("၇", "7"), ("၈", "8"), ("၉", "9"), ("၀", "0")))
     SYMBOLS = "၁၂၃၄၅၆၇၈၉၀"
 
     def validate(self, input_, pos):
@@ -684,5 +711,5 @@ class ConvertButton(QPushButton):
 
         self.setFixedHeight(40)
         self.setToolTip(self.tr("Convert"))
-        self.setText(self.tr("Convert"))
+        self.setText("  " + self.tr("Convert"))
         self.setIcon(QIcon(':/tick.png'))

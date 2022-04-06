@@ -804,7 +804,29 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def clickedButtonNativeYear(self):
         year = self.items['year'].widget().text()
         native_year = self.items['native_year'].widget().text()
-        dlg = YearCalculatorDialog(year, native_year, self)
+        country = self.items['country'].widget().text()
+        if country == self.tr("Israel"):
+            calendar = YearCalculatorDialog.CALENDARS.HEBREW
+        elif country in (self.tr("Afghanistan"), self.tr("Bahrain"),
+                         self.tr("Jordan"), self.tr("Iraq"), self.tr("Iran"),
+                         self.tr("Yemen"), self.tr("Qatar"), self.tr("Kuwait"),
+                         self.tr("Maldives"), self.tr("Oman"), self.tr("Syria"),
+                         self.tr("United Arab Emirates"), self.tr("Saudi Arabia"),
+                         self.tr("Turkey"), self.tr("Algeria"), self.tr("Egypt"),
+                         self.tr("Libya"), self.tr("Mauritania"),
+                         self.tr("Morocco"), self.tr("Sudan"), self.tr("Tunisia")):
+            calendar = YearCalculatorDialog.CALENDARS.ISLAMIC
+        elif country == self.tr("Japan"):
+            calendar = YearCalculatorDialog.CALENDARS.JAPAN
+        elif country in (self.tr("Nepal"), self.tr("India")):
+            calendar = YearCalculatorDialog.CALENDARS.NEPAL
+        elif country == self.tr("Thailand"):
+            calendar = YearCalculatorDialog.CALENDARS.THAI
+        elif country in (self.tr("Burma"), self.tr("Myanmar")):
+            calendar = YearCalculatorDialog.CALENDARS.BURMESE
+        else:
+            calendar = YearCalculatorDialog.CALENDARS.DEFAULT
+        dlg = YearCalculatorDialog(year, native_year, calendar, self)
         if dlg.exec_() == QDialog.Accepted:
             self.items['year'].widget().setText(dlg.year())
             self.items['native_year'].widget().setText(dlg.nativeYear())
