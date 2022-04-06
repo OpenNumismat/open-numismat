@@ -11,10 +11,11 @@ class YearCalculatorDialog(QDialog):
     class CALENDARS():
         HEBREW = 0
         ISLAMIC = 1
-        JAPAN = 2
-        ROMAN = 3
-        NEPAL = 4
-        THAI = 5
+        SOLAR_HIJRI = 2
+        JAPAN = 3
+        ROMAN = 4
+        NEPAL = 5
+        THAI = 6
         BURMESE = 7
         DEFAULT = HEBREW
     
@@ -29,9 +30,9 @@ class YearCalculatorDialog(QDialog):
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
 
-        self.calendars = (HebrewCalendar(), IslamicCalendar(), JapanCalendar(),
-                          RomanCalendar(), NepalCalendar(), ThaiCalendar(),
-                          BurmeseCalendar())
+        self.calendars = (HebrewCalendar(), IslamicCalendar(), SolarHijriCalendar(),
+                          JapanCalendar(), RomanCalendar(), NepalCalendar(),
+                          ThaiCalendar(), BurmeseCalendar())
         self.national_layouts = []
 
         combo = QComboBox()
@@ -276,7 +277,6 @@ class IslamicCalendar(QValidator):
                    "٦": 6, "۶": 6, "٧": 7, "۸": 8, "٩": 9, "٠": 0}
         
         result = 0
-        
         for c in year:
             result *= 10
             result += _DIGITS[c]
@@ -289,6 +289,54 @@ class IslamicCalendar(QValidator):
         
         num = int(1.03125 * (year - 622))
         
+        ones = num % 10
+        tens = (num // 10)  % 10
+        hundreds = (num // 100)  % 10
+        thousands = (num // 1000)  % 10
+        
+        letters = _DIGITS[hundreds] + _DIGITS[tens] + _DIGITS[ones]
+        if thousands:
+            letters = _DIGITS[thousands] + letters
+        
+        return letters
+
+
+class SolarHijriCalendar(QValidator):
+    TITLE = QT_TRANSLATE_NOOP("SolarHijriCalendar", "Solar hijri")
+    CALC = ((("١", "1"), ("٢", "2"), ("٣", "3"), ("۴", "4"), ("۵", "5")),
+            (("۶", "6"), ("٧", "7"), ("۸", "8"), ("٩", "9"), ("٠", "0")))
+    SYMBOLS = "١٢٣۴۵۶٧۸٩٠"
+
+    def validate(self, input_, pos):
+        for c in input_:
+            if c not in self.SYMBOLS:
+                return QValidator.Invalid, input_, pos
+
+        if len(input_) < 3:
+            return QValidator.Intermediate, input_, pos
+
+        if len(input_) > 4:
+            return QValidator.Invalid, input_, pos
+        
+        return QValidator.Acceptable, input_, pos
+    
+    def toGregorian(self, year):
+        _DIGITS = {"١": 1, "٢": 2, "٣": 3, "۴": 4, "۵": 5,
+                   "۶": 6, "٧": 7, "۸": 8, "٩": 9, "٠": 0}
+        
+        result = 0
+        for c in year:
+            result *= 10
+            result += _DIGITS[c]
+        
+        return result + 621
+    
+    def fromGregorian(self, year):
+        _DIGITS = {1: "١", 2: "٢", 3: "٣", 4: "۴", 5: "۵",
+                   6: "۶", 7: "٧", 8: "۸", 9: "٩", 0: "٠"}
+        
+        num = year - 621
+
         ones = num % 10
         tens = (num // 10)  % 10
         hundreds = (num // 100)  % 10
