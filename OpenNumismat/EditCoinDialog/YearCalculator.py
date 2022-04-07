@@ -23,6 +23,7 @@ class YearCalculatorDialog(QDialog):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
         self.setWindowTitle(self.tr("Year calculator"))
+        self.setWindowIcon(QIcon(':/date.png'))
 
         self.buttonBox = QDialogButtonBox(Qt.Horizontal)
         self.buttonBox.addButton(QDialogButtonBox.Save)
