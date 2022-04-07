@@ -8,9 +8,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import Statuses
-from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.Gui import statusIcon
-from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
+from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText, numberToFraction
 
 
 # Reimplementing QDoubleValidator for replace comma with dot
@@ -693,42 +692,37 @@ class MoneyEdit(_DoubleEdit):
         return self.minimumSizeHint()
 
 
-class DenominationEdit(MoneyEdit):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.settings = Settings()
+class UserDenominationEdit(UserNumericEdit):
+    def focusInEvent(self, event):
+        self._updateText()
+        return super().focusInEvent(event)
+
+    def focusOutEvent(self, event):
+        self._updateText()
+        return super().focusOutEvent(event)
+
+    def setText(self, text):
+        super().setText(text)
+        self._updateText()
 
     def text(self):
         text = super().text()
-        if text == '⅒':
-            text = '0.1'
-        elif text == '⅛':
-            text = '0.12'
-        elif text == '⅙':
-            text = '0.16'
-        elif text == '⅕':
-            text = '0.2'
-        elif text == '¼':
-            text = '0.25'
-        elif text == '⅓':
-            text = '0.33'
-        elif text == '½':
-            text = '0.5'
-        elif text == '⅔':
-            text = '0.66'
-        elif text == '¾':
-            text = '0.75'
-        elif text == '1¼':
-            text = '1.25'
-        elif text == '1½':
-            text = '1.5'
-        elif text == '2½':
-            text = '2.5'
-        elif text == '7½':
-            text = '7.5'
-        elif text == '12½':
-            text = '12.5'
-        return text
+        return numberToFraction(text)
+
+    def _updateText(self):
+        text = self.text()
+        if text:
+            if not self.hasFocus() or self.isReadOnly():
+                text, _ = numberWithFraction(text)
+
+            if QLineEdit.text(self) != text:
+                QLineEdit.setText(self, text)
+
+
+class DenominationEdit(MoneyEdit):
+    def text(self):
+        text = super().text()
+        return numberToFraction(text)
 
     def _updateText(self):
         text = self.text()
@@ -737,14 +731,10 @@ class DenominationEdit(MoneyEdit):
                 text, converted = numberWithFraction(text)
                 if not converted:
                     try:
-                        if self._decimals:
-                            text = locale.format_string("%%.%df" % self._decimals,
-                                                 float(text), grouping=True)
-                            # Strip empty fraction
-                            dp = locale.localeconv()['decimal_point']
-                            text = text.rstrip('0').rstrip(dp)
-                        else:
-                            text = locale.format_string("%d", int(text), grouping=True)
+                        text = locale.format_string("%.2f", float(text), grouping=True)
+                        # Strip empty fraction
+                        dp = locale.localeconv()['decimal_point']
+                        text = text.rstrip('0').rstrip(dp)
                     except ValueError:
                         return
             else:

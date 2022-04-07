@@ -69,11 +69,15 @@ class FormItem(object):
                 self._widget = MoneyEdit(parent)
         elif self._type == Type.Denomination:
             if settings['convert_fraction']:
-                self._widget = DenominationEdit(parent)
-            elif settings['free_numeric']:
-                self._widget = UserNumericEdit(parent)
+                if settings['free_numeric']:
+                    self._widget = UserDenominationEdit(parent)
+                else:
+                    self._widget = DenominationEdit(parent)
             else:
-                self._widget = MoneyEdit(parent)
+                if settings['free_numeric']:
+                    self._widget = UserNumericEdit(parent)
+                else:
+                    self._widget = MoneyEdit(parent)
         elif self._type == Type.Text:
             if itemType & Type.Disabled:
                 if settings['rich_text']:
