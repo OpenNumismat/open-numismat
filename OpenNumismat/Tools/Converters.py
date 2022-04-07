@@ -26,20 +26,35 @@ def stringToMoney(string):
 def numberWithFraction(string, enabled=True):
     if enabled:
         try:
-            if float(string) == 0.25:
+            value = float(string)
+            if value == 0.1:
+                return '⅒', True
+            elif value == 0.12:
+                return '⅛', True
+            elif value == 0.16:
+                return '⅙', True
+            elif value == 0.2:
+                return '⅕', True
+            elif value == 0.25:
                 return '¼', True
-            elif float(string) == 0.33:
+            elif value == 0.33:
                 return '⅓', True
-            elif float(string) == 0.5:
+            elif value == 0.5:
                 return '½', True
-            elif float(string) == 0.75:
+            elif value == 0.66:
+                return '⅔', True
+            elif value == 0.75:
                 return '¾', True
-            elif float(string) == 1.25:
+            elif value == 1.25:
                 return '1¼', True
-            elif float(string) == 1.5:
+            elif value == 1.5:
                 return '1½', True
-            elif float(string) == 2.5:
+            elif value == 2.5:
                 return '2½', True
+            elif value == 7.5:
+                return '7½', True
+            elif value == 12.5:
+                return '12½', True
         except (ValueError, TypeError):
             pass
 

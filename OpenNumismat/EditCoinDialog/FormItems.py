@@ -700,12 +700,22 @@ class DenominationEdit(MoneyEdit):
 
     def text(self):
         text = super().text()
-        if text == '¼':
+        if text == '⅒':
+            text = '0.1'
+        elif text == '⅛':
+            text = '0.12'
+        elif text == '⅙':
+            text = '0.16'
+        elif text == '⅕':
+            text = '0.2'
+        elif text == '¼':
             text = '0.25'
         elif text == '⅓':
             text = '0.33'
         elif text == '½':
             text = '0.5'
+        elif text == '⅔':
+            text = '0.66'
         elif text == '¾':
             text = '0.75'
         elif text == '1¼':
@@ -714,6 +724,10 @@ class DenominationEdit(MoneyEdit):
             text = '1.5'
         elif text == '2½':
             text = '2.5'
+        elif text == '7½':
+            text = '7.5'
+        elif text == '12½':
+            text = '12.5'
         return text
 
     def _updateText(self):
