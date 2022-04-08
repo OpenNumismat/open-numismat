@@ -74,6 +74,25 @@ class DoubleValidator(QDoubleValidator):
         return QValidator.Acceptable, input_, pos
 
 
+class DenominationValidator(DoubleValidator):
+    def __init__(self, parent=None):
+        super().__init__(0, 9999999999, 2, parent)
+        self.setNotation(QDoubleValidator.StandardNotation)
+
+    def validate(self, input_, pos):
+        result, input_, pos = super().validate(input_, pos)
+        
+        if result == QValidator.Invalid:
+            values = ('1/10', '1/8', '1/6', '1/5', '1/4', '1/3', '1/2', '2/3', '3/4')
+            for val in values:
+                if input_ == val:
+                    return QValidator.Acceptable, input_, pos
+                if val.startswith(input_):
+                    return QValidator.Intermediate, input_, pos
+
+        return result, input_, pos
+
+
 # Reimplementing QDoubleValidator for replace thousands separators
 class BigIntValidator(QDoubleValidator):
     def __init__(self, bottom, top, parent=None):
@@ -720,6 +739,12 @@ class UserDenominationEdit(UserNumericEdit):
 
 
 class DenominationEdit(MoneyEdit):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        
+        validator = DenominationValidator()
+        self.setValidator(validator)
+
     def text(self):
         text = super().text()
         return numberToFraction(text)

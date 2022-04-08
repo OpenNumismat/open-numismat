@@ -62,23 +62,23 @@ def numberWithFraction(string, enabled=True):
 
 
 def numberToFraction(text):
-    if text == '⅒':
+    if text == '⅒'  or text == '1/10':
         text = '0.1'
-    elif text == '⅛':
+    elif text == '⅛' or text == '1/8':
         text = '0.12'
-    elif text == '⅙':
+    elif text == '⅙' or text == '1/6':
         text = '0.16'
-    elif text == '⅕':
+    elif text == '⅕' or text == '1/5':
         text = '0.2'
-    elif text == '¼':
+    elif text == '¼' or text == '1/4':
         text = '0.25'
-    elif text == '⅓':
+    elif text == '⅓' or text == '1/3':
         text = '0.33'
-    elif text == '½':
+    elif text == '½' or text == '1/2':
         text = '0.5'
-    elif text == '⅔':
+    elif text == '⅔' or text == '2/3':
         text = '0.66'
-    elif text == '¾':
+    elif text == '¾' or text == '3/4':
         text = '0.75'
     elif text == '1¼':
         text = '1.25'
