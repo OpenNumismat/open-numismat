@@ -27,7 +27,13 @@ def numberWithFraction(string, enabled=True):
     if enabled:
         try:
             value = float(string)
-            if value == 0.1:
+            if value == 0.04:
+                return '1/24', True
+            elif value == 0.06:
+                return '1/16', True
+            elif value == 0.08:
+                return '1/12', True
+            elif value == 0.1:
                 return '⅒', True
             elif value == 0.12:
                 return '⅛', True
@@ -62,7 +68,13 @@ def numberWithFraction(string, enabled=True):
 
 
 def numberToFraction(text):
-    if text == '⅒'  or text == '1/10':
+    if text == '1/24':
+        text = '0.04'
+    elif text == '1/16':
+        text = '0.06'
+    elif text == '1/12':
+        text = '0.08'
+    elif text == '⅒'  or text == '1/10':
         text = '0.1'
     elif text == '⅛' or text == '1/8':
         text = '0.12'

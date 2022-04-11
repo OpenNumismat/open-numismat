@@ -83,7 +83,8 @@ class DenominationValidator(DoubleValidator):
         result, input_, pos = super().validate(input_, pos)
         
         if result == QValidator.Invalid:
-            values = ('1/10', '1/8', '1/6', '1/5', '1/4', '1/3', '1/2', '2/3', '3/4')
+            values = ('1/24', '1/16', '1/12', '1/10', '1/8', '1/6', '1/5',
+                      '1/4', '1/3', '1/2', '2/3', '3/4')
             for val in values:
                 if input_ == val:
                     return QValidator.Acceptable, input_, pos
