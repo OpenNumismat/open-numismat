@@ -184,14 +184,6 @@ Close the file and try again.</source>
     </message>
 </context>
 <context>
-    <name>BurmeseCalendar</name>
-    <message>
-        <location filename="YearCalculator.py" line="629"/>
-        <source>Burmese</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>YearCalculatorDialog</name>
     <message>
         <location filename="YearCalculator.py" line="25"/>
@@ -1806,19 +1798,6 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
-    <name>HebrewCalendar</name>
-    <message>
-        <location filename="YearCalculator.py" line="179"/>
-        <source>Hebrew</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="YearCalculator.py" line="180"/>
-        <source>Units</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>IconView</name>
     <message>
         <location filename="ListView.py" line="1266"/>
@@ -2137,27 +2116,6 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="Excel.py" line="152"/>
         <source>&lt;Ignore&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>IslamicCalendar</name>
-    <message>
-        <location filename="YearCalculator.py" line="259"/>
-        <source>Islamic</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>JapanCalendar</name>
-    <message>
-        <location filename="YearCalculator.py" line="358"/>
-        <source>Year</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="YearCalculator.py" line="357"/>
-        <source>Japan</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2708,14 +2666,6 @@ Copyright (C) 2011-2021 Vitaly Ignatov
     </message>
 </context>
 <context>
-    <name>NepalCalendar</name>
-    <message>
-        <location filename="YearCalculator.py" line="515"/>
-        <source>Nepal</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>NumistaAuthentication</name>
     <message>
         <location filename="Numista.py" line="82"/>
@@ -3037,14 +2987,6 @@ Created new one</source>
     </message>
 </context>
 <context>
-    <name>RomanCalendar</name>
-    <message>
-        <location filename="YearCalculator.py" line="472"/>
-        <source>Roman</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>RotateDialog</name>
     <message>
         <location filename="ImageViewer.py" line="192"/>
@@ -3095,14 +3037,6 @@ Created new one</source>
     <message>
         <location filename="SettingsDialog.py" line="550"/>
         <source>Fields</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SolarHijriCalendar</name>
-    <message>
-        <location filename="YearCalculator.py" line="309"/>
-        <source>Solar hijri</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3602,14 +3536,6 @@ Add a new one first.</source>
     </message>
 </context>
 <context>
-    <name>ThaiCalendar</name>
-    <message>
-        <location filename="YearCalculator.py" line="572"/>
-        <source>Thai</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>TreeView</name>
     <message>
         <location filename="PageView.py" line="393"/>
@@ -3686,6 +3612,59 @@ Add a new one first.</source>
     <message>
         <location filename="FormItems.py" line="193"/>
         <source>Select file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>YearCalculatorDialog</name>
+    <message>
+        <location filename="YearCalculator.py" line="179"/>
+        <source>Hebrew</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="180"/>
+        <source>Units</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="259"/>
+        <source>Islamic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="309"/>
+        <source>Solar hijri</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="357"/>
+        <source>Japan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="358"/>
+        <source>Year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="472"/>
+        <source>Roman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="515"/>
+        <source>Nepal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="572"/>
+        <source>Thai</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="629"/>
+        <source>Burmese</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

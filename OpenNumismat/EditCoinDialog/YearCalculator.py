@@ -38,7 +38,7 @@ class YearCalculatorDialog(QDialog):
 
         combo = QComboBox()
         for calendar in self.calendars:
-            combo.addItem(calendar.TITLE)
+            combo.addItem(QApplication.translate("YearCalculatorDialog", calendar.TITLE))
         combo.activated.connect(self.calendarChanged)
 
         hlayout = QHBoxLayout()
@@ -130,7 +130,7 @@ class YearCalculatorDialog(QDialog):
             for col, dig in enumerate(line):
                 if dig:
                     btn = CalcButton(dig[0], edit)
-                    btn.setToolTip(dig[1])
+                    btn.setToolTip(QApplication.translate("YearCalculatorDialog", dig[1]))
                     if len(dig[0]) > 1:
                         layout.addWidget(btn, row+2, col*2, 1, 2)
                     else:
@@ -174,7 +174,7 @@ class YearCalculatorDialog(QDialog):
 
 
 class HebrewCalendar(QValidator):
-    TITLE = QT_TRANSLATE_NOOP("HebrewCalendar", "Hebrew")
+    TITLE = QT_TRANSLATE_NOOP("YearCalculatorDialog", "Hebrew")
     CALC = ((("א", "1"), ("ב", "2"), ("ג", "3"), ("ד", "4"), ("ה", "5"),
              ("ו", "6"), ("ז", "7"), ("ח", "8"), ("ט", "9")),
             (("י", "10"), ("כ", "20"), ("ל", "30"), ("מ", "40"), ("נ", "50"),
@@ -182,7 +182,7 @@ class HebrewCalendar(QValidator):
             (None, ("ך", "20"), None, ("ם", "40"), ("ן", "50"),
              None, None, ("ף", "80"), ("ץ", "90")),
             (("ק", "100"), ("ר", "200"), ("ש", "300"), ("ת", "400"), None,
-             None, None, None, ("״", QT_TRANSLATE_NOOP("HebrewCalendar", "Units"))))
+             None, None, None, ("״", QT_TRANSLATE_NOOP("YearCalculatorDialog", "Units"))))
     SYMBOLS = "‭אבגדהוזחטיכךלמםנןסעפףצץקרשת‏״"
 
     def validate(self, input_, pos):
@@ -253,7 +253,7 @@ class HebrewCalendar(QValidator):
 
 
 class IslamicCalendar(QValidator):
-    TITLE = QT_TRANSLATE_NOOP("IslamicCalendar", "Islamic")
+    TITLE = QT_TRANSLATE_NOOP("YearCalculatorDialog", "Islamic")
     CALC = ((("١", "1"), ("٢", "2"), ("٣", "3"), ("٤", "4"), ("٥", "5"),
              ("٦", "6"), ("٧", "7"), ("۸", "8"), ("٩", "9"), ("٠", "0")),
             (None, None, None, ("۴", "4"), ("۵", "5"),
@@ -303,7 +303,7 @@ class IslamicCalendar(QValidator):
 
 
 class SolarHijriCalendar(QValidator):
-    TITLE = QT_TRANSLATE_NOOP("SolarHijriCalendar", "Solar hijri")
+    TITLE = QT_TRANSLATE_NOOP("YearCalculatorDialog", "Solar hijri")
     CALC = ((("١", "1"), ("٢", "2"), ("٣", "3"), ("۴", "4"), ("۵", "5")),
             (("۶", "6"), ("٧", "7"), ("۸", "8"), ("٩", "9"), ("٠", "0")))
     SYMBOLS = "١٢٣۴۵۶٧۸٩٠"
@@ -351,12 +351,12 @@ class SolarHijriCalendar(QValidator):
 
 
 class JapanCalendar(QValidator):
-    TITLE = QT_TRANSLATE_NOOP("JapanCalendar", "Japan")
+    TITLE = QT_TRANSLATE_NOOP("YearCalculatorDialog", "Japan")
     CALC = ((("1", ""), ("2", ""), ("3", ""), ("4", ""), ("5", ""),
              ("6", ""), ("7", ""), ("8", ""), ("9", ""), ("0", "")),
             (("一", "1"), ("二", "2"), ("三", "3"), ("四", "4"), ("五", "5"),
              ("六", "6"), ("七", "7"), ("八", "8"), ("九", "9")),
-            (("元", "1"), ("十", "10"), ("年", QT_TRANSLATE_NOOP("JapanCalendar", "Year"))),
+            (("元", "1"), ("十", "10"), ("年", QT_TRANSLATE_NOOP("YearCalculatorDialog", "Year"))),
             (("明治", "1868"), ("大正", "1912"), ("昭和", "1926"), ("平成", "1989"), ("令和", "2019")))
     SYMBOLS = "1234567890元一二三四五六七八九十年明治大正昭和平成令和"
 
@@ -466,7 +466,7 @@ class JapanCalendar(QValidator):
 
 
 class RomanCalendar(QValidator):
-    TITLE = QT_TRANSLATE_NOOP("RomanCalendar", "Roman")
+    TITLE = QT_TRANSLATE_NOOP("YearCalculatorDialog", "Roman")
     CALC = ((("I", "1"), ("V", "5"), ("X", "10"), ("L", "50"),
              ("C", "100"), ("D", "500"), ("M", "1000")),)
     SYMBOLS = "IVXLCDMivxlcdm"
@@ -509,7 +509,7 @@ class RomanCalendar(QValidator):
 
 
 class NepalCalendar(QValidator):
-    TITLE = QT_TRANSLATE_NOOP("NepalCalendar", "Nepal")
+    TITLE = QT_TRANSLATE_NOOP("YearCalculatorDialog", "Nepal")
     CALC = ((("१", "1"), ("२", "2"), ("३", "3"), ("४", "4"), ("५", "5"),
              ("६", "6"), ("७", "7"), ("८", "8"), ("९", "9"), ("०", "0")),
             (("੧", "1"), ("੨", "2"), ("੩", "3"), ("੪", "4"), ("੫", "5"),
@@ -566,7 +566,7 @@ class NepalCalendar(QValidator):
 
 
 class ThaiCalendar(QValidator):
-    TITLE = QT_TRANSLATE_NOOP("ThaiCalendar", "Thai")
+    TITLE = QT_TRANSLATE_NOOP("YearCalculatorDialog", "Thai")
     CALC = ((("๑", "1"), ("๒", "2"), ("๓", "3"), ("๔", "4"), ("๕", "5")),
             (("๖", "6"), ("๗", "7"), ("๘", "8"), ("๙", "9"), ("๐", "0")))
     SYMBOLS = "๑๒๓๔๕๖๗๘๙๐"
@@ -623,7 +623,7 @@ class ThaiCalendar(QValidator):
 
 
 class BurmeseCalendar(QValidator):
-    TITLE = QT_TRANSLATE_NOOP("BurmeseCalendar", "Burmese")
+    TITLE = QT_TRANSLATE_NOOP("YearCalculatorDialog", "Burmese")
     CALC = ((("၁", "1"), ("၂", "2"), ("၃", "3"), ("၄", "4"), ("၅", "5")),
             (("၆", "6"), ("၇", "7"), ("၈", "8"), ("၉", "9"), ("၀", "0")))
     SYMBOLS = "၁၂၃၄၅၆၇၈၉၀"

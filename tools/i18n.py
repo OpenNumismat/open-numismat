@@ -35,6 +35,7 @@ for lang in langs:
     outputfile = 'lang_%s.ts' % lang
     if os.path.isfile(outputfile):
         dst_file = '../OpenNumismat/translations/lang_%s.qm' % lang
+        print(' '.join([lreleasePath, outputfile, '-qm', dst_file]))
         os.system(' '.join([lreleasePath, outputfile, '-qm', dst_file]))
 
     src_file = os.path.join(translationsPath, "qtbase_%s.qm" % lang)
