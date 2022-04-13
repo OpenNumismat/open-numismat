@@ -3,7 +3,7 @@
 <context>
     <name>AddressLineEdit</name>
     <message>
-        <location filename="FormItems.py" line="217"/>
+        <location filename="FormItems.py" line="236"/>
         <source>Find address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34,7 +34,7 @@
 <context>
     <name>BackButton</name>
     <message>
-        <location filename="YearCalculator.py" line="745"/>
+        <location filename="YearCalculator.py" line="746"/>
         <source>Backspace</source>
         <translation type="unfinished"></translation>
     </message>
@@ -186,13 +186,13 @@ Close the file and try again.</source>
 <context>
     <name>BurmeseCalendar</name>
     <message>
-        <location filename="YearCalculator.py" line="628"/>
+        <location filename="YearCalculator.py" line="629"/>
         <source>Burmese</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>CALENDARS</name>
+    <name>YearCalculatorDialog</name>
     <message>
         <location filename="YearCalculator.py" line="25"/>
         <source>Year calculator</source>
@@ -202,12 +202,12 @@ Close the file and try again.</source>
 <context>
     <name>CalendarWidget</name>
     <message>
-        <location filename="FormItems.py" line="884"/>
+        <location filename="FormItems.py" line="914"/>
         <source>Today</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FormItems.py" line="886"/>
+        <location filename="FormItems.py" line="916"/>
         <source>Clean</source>
         <translation type="unfinished"></translation>
     </message>
@@ -215,7 +215,7 @@ Close the file and try again.</source>
 <context>
     <name>ClearButton</name>
     <message>
-        <location filename="YearCalculator.py" line="728"/>
+        <location filename="YearCalculator.py" line="729"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -940,7 +940,7 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="232"/>
+        <location filename="SettingsDialog.py" line="241"/>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1075,7 +1075,7 @@ The application will need to restart now.</source>
 <context>
     <name>ConvertButton</name>
     <message>
-        <location filename="YearCalculator.py" line="765"/>
+        <location filename="YearCalculator.py" line="766"/>
         <source>Convert</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1800,7 +1800,7 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>GraderLineEdit</name>
     <message>
-        <location filename="FormItems.py" line="263"/>
+        <location filename="FormItems.py" line="282"/>
         <source>View on grader site</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1808,12 +1808,12 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>HebrewCalendar</name>
     <message>
-        <location filename="YearCalculator.py" line="178"/>
+        <location filename="YearCalculator.py" line="179"/>
         <source>Hebrew</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="YearCalculator.py" line="179"/>
+        <location filename="YearCalculator.py" line="180"/>
         <source>Units</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2143,7 +2143,7 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>IslamicCalendar</name>
     <message>
-        <location filename="YearCalculator.py" line="258"/>
+        <location filename="YearCalculator.py" line="259"/>
         <source>Islamic</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2151,13 +2151,13 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>JapanCalendar</name>
     <message>
-        <location filename="YearCalculator.py" line="356"/>
-        <source>Japan</source>
+        <location filename="YearCalculator.py" line="358"/>
+        <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="YearCalculator.py" line="357"/>
-        <source>Year</source>
+        <source>Japan</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2702,7 +2702,7 @@ Copyright (C) 2011-2021 Vitaly Ignatov
 <context>
     <name>NativeYearEdit</name>
     <message>
-        <location filename="FormItems.py" line="535"/>
+        <location filename="FormItems.py" line="554"/>
         <source>Year calculator</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2710,7 +2710,7 @@ Copyright (C) 2011-2021 Vitaly Ignatov
 <context>
     <name>NepalCalendar</name>
     <message>
-        <location filename="YearCalculator.py" line="514"/>
+        <location filename="YearCalculator.py" line="515"/>
         <source>Nepal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3039,7 +3039,7 @@ Created new one</source>
 <context>
     <name>RomanCalendar</name>
     <message>
-        <location filename="YearCalculator.py" line="471"/>
+        <location filename="YearCalculator.py" line="472"/>
         <source>Roman</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3101,7 +3101,7 @@ Created new one</source>
 <context>
     <name>SolarHijriCalendar</name>
     <message>
-        <location filename="YearCalculator.py" line="308"/>
+        <location filename="YearCalculator.py" line="309"/>
         <source>Solar hijri</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3604,7 +3604,7 @@ Add a new one first.</source>
 <context>
     <name>ThaiCalendar</name>
     <message>
-        <location filename="YearCalculator.py" line="571"/>
+        <location filename="YearCalculator.py" line="572"/>
         <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3674,17 +3674,17 @@ Add a new one first.</source>
 <context>
     <name>UrlLineEdit</name>
     <message>
-        <location filename="FormItems.py" line="154"/>
+        <location filename="FormItems.py" line="173"/>
         <source>Open specified URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FormItems.py" line="162"/>
+        <location filename="FormItems.py" line="181"/>
         <source>Select file from disc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FormItems.py" line="174"/>
+        <location filename="FormItems.py" line="193"/>
         <source>Select file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3692,7 +3692,7 @@ Add a new one first.</source>
 <context>
     <name>YearEdit</name>
     <message>
-        <location filename="FormItems.py" line="499"/>
+        <location filename="FormItems.py" line="518"/>
         <source>BC</source>
         <translation type="unfinished"></translation>
     </message>

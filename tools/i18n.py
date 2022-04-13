@@ -3,11 +3,16 @@
 import os
 import shutil
 import PyQt5
+from PyQt5.QtCore import QLibraryInfo, PYQT_VERSION_STR
 
-pyqtPath = PyQt5.__path__[0]
-translationsPath = os.path.join(pyqtPath, "translations")
+if PYQT_VERSION_STR == "5.5.1":
+    pyqtPath = PyQt5.__path__[0]
+    translationsPath = os.path.join(pyqtPath, "translations")
+else:    
+    pyqtPath = os.path.join(PyQt5.__path__[0], "../../../Scripts")
+    translationsPath = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+
 lupdatePath = os.path.join(pyqtPath, 'pylupdate5.exe')
-linguistPath = os.path.join(pyqtPath, 'linguist.exe')
 lreleasePath = os.path.join(pyqtPath, 'lrelease.exe')
 
 srcFiles = []
