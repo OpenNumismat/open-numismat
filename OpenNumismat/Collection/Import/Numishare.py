@@ -10,12 +10,14 @@
 import os
 import tempfile
 import urllib.request
+from urllib.parse import quote_plus
 from socket import timeout
 
 numishareAvailable = True
 
 try:
     import lxml.etree
+    import lxml.html
 except ImportError:
     print('lxml module missed. Importing from Numishare not available')
     numishareAvailable = False
@@ -193,25 +195,25 @@ class NumishareConnector(QObject):
                  ruler=None, denomination=None, material=None, type_=None):
         params = []
         if images:
-            params.append("imagesavailable%3Atrue")
+            params.append('imagesavailable:true')
         if department:
-            params.append("department_facet%%3A%s" % department)
+            params.append('department_facet:"%s"' % department)
         if country:
-            params.append("region_facet%%3A%s" % country)
+            params.append('region_facet:"%s"' % country)
         if year:
-            params.append("year_num%%3A%s" % year)
+            params.append('year_num:"%s"' % year)
         if dinasty:
-            params.append("dynasty_facet%%3A%s" % dinasty)
+            params.append('dynasty_facet:"%s"' % dinasty)
         if ruler:
-            params.append("authority_facet%%3A%s" % ruler)
+            params.append('authority_facet:"%s"' % ruler)
         if denomination:
-            params.append("denomination_facet%%3A%s" % denomination)
+            params.append('denomination_facet:"%s"' % denomination)
         if material:
-            params.append("material_facet%%3A%s" % material)
+            params.append('material_facet:"%s"' % material)
         if type_:
-            params.append("objectType_facet%%3A%s" % type_)
+            params.append('objectType_facet:"%s"' % type_)
 
-        return "+AND+".join(params)
+        return quote_plus(" AND ".join(params))
 
     def getCount(self, images, department=None, country=None, year=None, dinasty=None,
                  ruler=None, denomination=None, material=None, type_=None):
@@ -278,17 +280,14 @@ class NumishareConnector(QObject):
         action = "get_facet_options?q=" + query + "&category=" + target + "&mincount=1&pipeline=results&lang=" + self.lang
 
         raw_data = self._download(action)
-        raw_data = raw_data.replace('&nbsp;', ' ')  # TODO: Replace with %C2%A0 and U+00A0
-        # TODO: Replace () with %28%29
-        # TODO: Replace space with + (https://www.w3schools.com/tags/ref_urlencode.asp)
 
         if not raw_data or "<option disabled>No options available</option>" in raw_data:
             return []
 
-        tree = lxml.etree.fromstring(raw_data)
+        tree = lxml.html.fromstring(raw_data)
         rows = tree.xpath("/html/body/select/option")
 
-        return [(row.text, row.values()[0]) for row in rows]
+        return [(row.values()[0], row.text) for row in rows]
 
     def close(self):
         self.cache.close()
