@@ -329,7 +329,7 @@ class NumishareDialog(QDialog):
                                               QSizePolicy.Fixed)
         for department in departments:
             self.departmentSelector.addItem(department[1], department[0])
-        layout.addRow(self.tr("Department"), self.departmentSelector)
+        layout.addRow(fields.getCustomTitle('region'), self.departmentSelector)
         self.departmentSelector.currentIndexChanged.connect(self.departmentChanged)
 
         self.countrySelector = QComboBox()
@@ -520,7 +520,11 @@ class NumishareDialog(QDialog):
 
     def _setRecordField(self, tree, key, record, field):
         value = self._getValue(tree, key)
-        record.setValue(field, value)
+        if value:
+            record.setValue(field, value)
+            return True
+        
+        return False
 
     def makeItem(self, item_id, record):
         data = self.numishare.getData(item_id)
@@ -536,6 +540,11 @@ class NumishareDialog(QDialog):
         self._setRecordField(tree, "./nuds:descMeta/nuds:adminDesc/nuds:department", record, 'region')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:authority/nuds:persname[@xlink:role='dynasty']", record, 'period')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:authority/nuds:persname[@xlink:role='authority']", record, 'ruler')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:physDesc/nuds:measurementsSet/nuds:shape", record, 'shape')
+        if not self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='subjectEvent']", record, 'subjectshort'):
+            self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='subjectPerson']", record, 'subjectshort')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='series']", record, 'series')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:noteSet/nuds:note", record, 'note')
 
         el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:legend")
         el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:type/nuds:description")
@@ -546,10 +555,21 @@ class NumishareDialog(QDialog):
         value = ' - '.join(filter(None, [el1, el2]))
         record.setValue('reversedesign', value)
 
+        if not self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:date", record, 'year'):
+            self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateOnObject/nuds:date", record, 'year')
         el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:fromDate")
         el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:toDate")
         value = ' - '.join(filter(None, [el1, el2]))
-        record.setValue('year', value)
+        record.setValue('dateemis', value)
+        
+        nsmap = {'nuds': 'http://nomisma.org/nuds',
+                 'xlink': 'http://www.w3.org/1999/xlink',
+                 'mets': 'http://www.loc.gov/METS/'}
+
+        refs = tree.xpath("./nuds:descMeta/nuds:refDesc/nuds:reference", namespaces=nsmap)
+        for i, ref in enumerate(refs[:4], start=1):
+            value = " ".join([item.text for item in ref])
+            record.setValue('catalognum%d' % i, value)
 
         id_ = self._getValue(tree, "./nuds:control/nuds:recordId")
         record.setValue('url', "https://numismatics.org/collection/%s" % id_)
@@ -774,9 +794,13 @@ class NumishareDialog(QDialog):
                 item = QTableWidgetItem(value)
                 self.table.setItem(i, 7, item)
 
-                el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:fromDate")
-                el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:toDate")
-                value = ' - '.join(filter(None, [el1, el2]))
+                value = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:date")
+                if not value:
+                    value = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateOnObject/nuds:date")
+                if not value:
+                    el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:fromDate")
+                    el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:toDate")
+                    value = ' - '.join(filter(None, [el1, el2]))
                 item = QTableWidgetItem(value)
                 self.table.setItem(i, 8, item)
             
