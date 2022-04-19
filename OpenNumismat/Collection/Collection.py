@@ -640,6 +640,7 @@ class CollectionSettings(BaseSettings):
             'default_status': 'demo',
             'colnect_category': 'coins',
             'colnect_country': 0,
+            'numishare_department': '',
     }
 
     def __init__(self, db):
