@@ -189,7 +189,7 @@ class NumishareConnector(QObject):
 
         return raw_data
 
-    def getCount(self, images, department=None, country=None, year=None, dinasty=None,
+    def _makeQuery(self, images, department=None, country=None, year=None, dinasty=None,
                  ruler=None, denomination=None, material=None, type_=None):
         params = []
         if images:
@@ -211,8 +211,13 @@ class NumishareConnector(QObject):
         if type_:
             params.append("objectType_facet%%3A%s" % type_)
 
-        query = "+AND+".join(params)
-        action = "apis/search?q=" + query + "&lang=" + self.lang + "&format=rss"
+        return "+AND+".join(params)
+
+    def getCount(self, images, department=None, country=None, year=None, dinasty=None,
+                 ruler=None, denomination=None, material=None, type_=None):
+        query = self._makeQuery(images, department, country, year, dinasty,
+                 ruler, denomination, material, type_)
+        action = "apis/search?q=" + query + "&format=rss"
         
         raw_data = self._download(action)
 
@@ -233,32 +238,14 @@ class NumishareConnector(QObject):
     
     def getIds(self, images, department=None, country=None, year=None, dinasty=None,
                  ruler=None, denomination=None, material=None, type_=None):
-        params = []
-        if images:
-            params.append("imagesavailable%3Atrue")
-        if department:
-            params.append("department_facet%%3A%s" % department)
-        if country:
-            params.append("region_facet%%3A%s" % country)
-        if year:
-            params.append("year_num%%3A%s" % year)
-        if dinasty:
-            params.append("dynasty_facet%%3A%s" % dinasty)
-        if ruler:
-            params.append("authority_facet%%3A%s" % ruler)
-        if denomination:
-            params.append("denomination_facet%%3A%s" % denomination)
-        if material:
-            params.append("material_facet%%3A%s" % material)
-        if type_:
-            params.append("objectType_facet%%3A%s" % type_)
+        query = self._makeQuery(images, department, country, year, dinasty,
+                 ruler, denomination, material, type_)
 
         res = []
         start_index = 0
 
         while True:
-            query = "+AND+".join(params)
-            action = "apis/search?q=" + query + "&lang=" + self.lang + "&format=rss"
+            action = "apis/search?q=" + query + "&format=rss"
             if start_index > 0:
                 action += "&start=%d" % start_index
             
@@ -286,27 +273,8 @@ class NumishareConnector(QObject):
     
     def getItems(self, target, images, department=None, country=None, year=None, dinasty=None,
                  ruler=None, denomination=None, material=None, type_=None):
-        params = []
-        if images:
-            params.append("imagesavailable%3Atrue")
-        if department and target != "department_facet":
-            params.append("department_facet%%3A%s" % department)
-        if country and target != "region_facet":
-            params.append("region_facet%%3A%s" % country)
-        if year and target != "year_num":
-            params.append("year_num%%3A%s" % year)
-        if dinasty and target != "dynasty_facet":
-            params.append("dynasty_facet%%3A%s" % dinasty)
-        if ruler and target != "authority_facet":
-            params.append("authority_facet%%3A%s" % ruler)
-        if denomination and target != "denomination_facet":
-            params.append("denomination_facet%%3A%s" % denomination)
-        if material and target != "material_facet":
-            params.append("material_facet%%3A%s" % material)
-        if type_ and target != "objectType_facet":
-            params.append("objectType_facet%%3A%s" % type_)
-        
-        query = "+AND+".join(params)
+        query = self._makeQuery(images, department, country, year, dinasty,
+                 ruler, denomination, material, type_)
         action = "get_facet_options?q=" + query + "&category=" + target + "&mincount=1&pipeline=results&lang=" + self.lang
 
         raw_data = self._download(action)
@@ -630,7 +598,7 @@ class NumishareDialog(QDialog):
         images = self.imagesSelector.isChecked()
 
         countries = self.numishare.getItems("region_facet", images, department=department,
-                country=country, ruler=ruler, dinasty=dinasty, year=year,
+                ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.countrySelector.currentIndexChanged.disconnect(self.partChanged)
         self.countrySelector.clear()
@@ -643,7 +611,7 @@ class NumishareDialog(QDialog):
         self.countrySelector.currentIndexChanged.connect(self.partChanged)
 
         rulers = self.numishare.getItems("authority_facet", images, department=department,
-                country=country, ruler=ruler, dinasty=dinasty, year=year,
+                country=country, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.rulerSelector.currentIndexChanged.disconnect(self.partChanged)
         self.rulerSelector.clear()
@@ -656,7 +624,7 @@ class NumishareDialog(QDialog):
         self.rulerSelector.currentIndexChanged.connect(self.partChanged)
 
         dinasties = self.numishare.getItems("dynasty_facet", images, department=department,
-                country=country, ruler=ruler, dinasty=dinasty, year=year,
+                country=country, ruler=ruler, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.dinastySelector.currentIndexChanged.disconnect(self.partChanged)
         self.dinastySelector.clear()
@@ -669,7 +637,7 @@ class NumishareDialog(QDialog):
         self.dinastySelector.currentIndexChanged.connect(self.partChanged)
 
         years = self.numishare.getItems("year_num", images, department=department,
-                country=country, ruler=ruler, dinasty=dinasty, year=year,
+                country=country, ruler=ruler, dinasty=dinasty,
                 denomination=denomination, material=material, type_=type_)
         self.yearSelector.currentIndexChanged.disconnect(self.partChanged)
         self.yearSelector.clear()
@@ -683,7 +651,7 @@ class NumishareDialog(QDialog):
 
         denominations = self.numishare.getItems("denomination_facet", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
-                denomination=denomination, material=material, type_=type_)
+                material=material, type_=type_)
         self.denominationSelector.currentIndexChanged.disconnect(self.partChanged)
         self.denominationSelector.clear()
         self.denominationSelector.addItem(self.tr("(All)"), None)
@@ -696,7 +664,7 @@ class NumishareDialog(QDialog):
 
         materials = self.numishare.getItems("material_facet", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
-                denomination=denomination, material=material, type_=type_)
+                denomination=denomination, type_=type_)
         self.materialSelector.currentIndexChanged.disconnect(self.partChanged)
         self.materialSelector.clear()
         self.materialSelector.addItem(self.tr("(All)"), None)
@@ -709,7 +677,7 @@ class NumishareDialog(QDialog):
 
         types = self.numishare.getItems("objectType_facet", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
-                denomination=denomination, material=material, type_=type_)
+                denomination=denomination, material=material)
         self.typeSelector.currentIndexChanged.disconnect(self.partChanged)
         self.typeSelector.clear()
         self.typeSelector.addItem(self.tr("(All)"), None)
