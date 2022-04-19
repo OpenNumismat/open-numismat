@@ -189,9 +189,11 @@ class NumishareConnector(QObject):
 
         return raw_data
 
-    def getCount(self, department=None, country=None, year=None, dinasty=None,
+    def getCount(self, images, department=None, country=None, year=None, dinasty=None,
                  ruler=None, denomination=None, material=None, type_=None):
         params = []
+        if images:
+            params.append("imagesavailable%3Atrue")
         if department:
             params.append("department_facet%%3A%s" % department)
         if country:
@@ -229,9 +231,11 @@ class NumishareConnector(QObject):
 
         return raw_data
     
-    def getIds(self, department=None, country=None, year=None, dinasty=None,
+    def getIds(self, images, department=None, country=None, year=None, dinasty=None,
                  ruler=None, denomination=None, material=None, type_=None):
         params = []
+        if images:
+            params.append("imagesavailable%3Atrue")
         if department:
             params.append("department_facet%%3A%s" % department)
         if country:
@@ -280,9 +284,11 @@ class NumishareConnector(QObject):
         print(res)
         return res
     
-    def getItems(self, target, department=None, country=None, year=None, dinasty=None,
+    def getItems(self, target, images, department=None, country=None, year=None, dinasty=None,
                  ruler=None, denomination=None, material=None, type_=None):
         params = []
+        if images:
+            params.append("imagesavailable%3Atrue")
         if department and target != "department_facet":
             params.append("department_facet%%3A%s" % department)
         if country and target != "region_facet":
@@ -408,9 +414,14 @@ class NumishareDialog(QDialog):
         self.typeSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('type'), self.typeSelector)
 
+        self.imagesSelector = QCheckBox(self.tr("Has images"))
+        self.imagesSelector.stateChanged.connect(self.partChanged)
+        layout.addRow(self.imagesSelector)
+
         self.parts = (self.countrySelector, self.dinastySelector,
                       self.rulerSelector, self.typeSelector, self.yearSelector,
-                      self.denominationSelector, self.materialSelector)
+                      self.denominationSelector, self.materialSelector,
+                      self.imagesSelector)
 
         self.table = QTableWidget(self)
         self.table.doubleClicked.connect(self.tableClicked)
@@ -592,53 +603,20 @@ class NumishareDialog(QDialog):
         self._clearTable()
         self._partsEnable(True)
 
-        department = self.departmentSelector.currentData()
-        
-        countries = self.numishare.getItems("region_facet", department=department)
         self.countrySelector.clear()
-        self.countrySelector.addItem(self.tr("(All)"), None)
-        for item in countries:
-            self.countrySelector.addItem(item[1], item[0])
-
-        rulers = self.numishare.getItems("authority_facet", department=department)
         self.rulerSelector.clear()
-        self.rulerSelector.addItem(self.tr("(All)"), None)
-        for item in rulers:
-            self.rulerSelector.addItem(item[1], item[0])
-
-        dinasties = self.numishare.getItems("dynasty_facet", department=department)
         self.dinastySelector.clear()
-        self.dinastySelector.addItem(self.tr("(All)"), None)
-        for item in dinasties:
-            self.dinastySelector.addItem(item[1], item[0])
-
-        years = self.numishare.getItems("year_num", department=department)
         self.yearSelector.clear()
-        self.yearSelector.addItem(self.tr("(All)"), None)
-        for item in years:
-            self.yearSelector.addItem(item[0], item[0])
-
-        denominations = self.numishare.getItems("denomination_facet", department=department)
         self.denominationSelector.clear()
-        self.denominationSelector.addItem(self.tr("(All)"), None)
-        for item in denominations:
-            self.denominationSelector.addItem(item[1], item[0])
-
-        materials = self.numishare.getItems("material_facet", department=department)
         self.materialSelector.clear()
-        self.materialSelector.addItem(self.tr("(All)"), None)
-        for item in materials:
-            self.materialSelector.addItem(item[1], item[0])
-
-        types = self.numishare.getItems("objectType_facet", department=department)
         self.typeSelector.clear()
-        self.typeSelector.addItem(self.tr("(All)"), None)
-        for item in types:
-            self.typeSelector.addItem(item[1], item[0])
-
+        
+        self.partChanged()
+        
+        department = self.departmentSelector.currentData()
         self.settings['numishare_department'] = department
 
-    def partChanged(self, _index):
+    def partChanged(self):
         self._clearTable()
 
         department = self.departmentSelector.currentData()
@@ -649,8 +627,9 @@ class NumishareDialog(QDialog):
         denomination = self.denominationSelector.currentData()
         material = self.materialSelector.currentData()
         type_ = self.typeSelector.currentData()
+        images = self.imagesSelector.isChecked()
 
-        countries = self.numishare.getItems("region_facet", department=department,
+        countries = self.numishare.getItems("region_facet", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.countrySelector.currentIndexChanged.disconnect(self.partChanged)
@@ -663,7 +642,7 @@ class NumishareDialog(QDialog):
             self.countrySelector.setCurrentIndex(index)
         self.countrySelector.currentIndexChanged.connect(self.partChanged)
 
-        rulers = self.numishare.getItems("authority_facet", department=department,
+        rulers = self.numishare.getItems("authority_facet", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.rulerSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -676,7 +655,7 @@ class NumishareDialog(QDialog):
             self.rulerSelector.setCurrentIndex(index)
         self.rulerSelector.currentIndexChanged.connect(self.partChanged)
 
-        dinasties = self.numishare.getItems("dynasty_facet", department=department,
+        dinasties = self.numishare.getItems("dynasty_facet", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.dinastySelector.currentIndexChanged.disconnect(self.partChanged)
@@ -689,7 +668,7 @@ class NumishareDialog(QDialog):
             self.dinastySelector.setCurrentIndex(index)
         self.dinastySelector.currentIndexChanged.connect(self.partChanged)
 
-        years = self.numishare.getItems("year_num", department=department,
+        years = self.numishare.getItems("year_num", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.yearSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -702,7 +681,7 @@ class NumishareDialog(QDialog):
             self.yearSelector.setCurrentIndex(index)
         self.yearSelector.currentIndexChanged.connect(self.partChanged)
 
-        denominations = self.numishare.getItems("denomination_facet", department=department,
+        denominations = self.numishare.getItems("denomination_facet", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.denominationSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -715,7 +694,7 @@ class NumishareDialog(QDialog):
             self.denominationSelector.setCurrentIndex(index)
         self.denominationSelector.currentIndexChanged.connect(self.partChanged)
 
-        materials = self.numishare.getItems("material_facet", department=department,
+        materials = self.numishare.getItems("material_facet", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.materialSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -728,7 +707,7 @@ class NumishareDialog(QDialog):
             self.materialSelector.setCurrentIndex(index)
         self.materialSelector.currentIndexChanged.connect(self.partChanged)
 
-        types = self.numishare.getItems("objectType_facet", department=department,
+        types = self.numishare.getItems("objectType_facet", images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.typeSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -742,7 +721,7 @@ class NumishareDialog(QDialog):
         self.typeSelector.currentIndexChanged.connect(self.partChanged)
 
         if country or ruler or dinasty or year or denomination or material or type_:
-            count = self.numishare.getCount(department=department,
+            count = self.numishare.getCount(images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
             print('TOTAL_LEN', count)
@@ -765,8 +744,9 @@ class NumishareDialog(QDialog):
         denomination = self.denominationSelector.currentData()
         material = self.materialSelector.currentData()
         type_ = self.typeSelector.currentData()
+        images = self.imagesSelector.isChecked()
 
-        item_ids = self.numishare.getIds(department=department,
+        item_ids = self.numishare.getIds(images, department=department,
                 country=country, ruler=ruler, dinasty=dinasty, year=year,
                 denomination=denomination, material=material, type_=type_)
 
