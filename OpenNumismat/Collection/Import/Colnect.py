@@ -7,7 +7,7 @@ import tempfile
 import urllib.request
 from socket import timeout
 
-from PyQt5.QtCore import Qt, QObject, QDate
+from PyQt5.QtCore import Qt, QObject, QDate, QByteArray
 from PyQt5.QtGui import QImage, QPixmap, QIcon
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import *
@@ -93,6 +93,8 @@ class ColnectCache(QObject):
                       " VALUES (?, ?, ?, ?)")
         query.addBindValue(type_)
         query.addBindValue(url)
+        if isinstance(data, bytes):
+            data = QByteArray(data)
         query.addBindValue(data)
         currentDate = QDate.currentDate()
         days = QDate(2000, 1, 1).daysTo(currentDate)
