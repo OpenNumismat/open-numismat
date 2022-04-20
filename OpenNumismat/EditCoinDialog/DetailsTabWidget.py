@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QDoubleValidator, QDesktopServices
 from PyQt5.QtWidgets import *
@@ -514,6 +516,8 @@ class DetailsTabWidget(QTabWidget):
             url = 'https://www.pmgnotes.com/certlookup/%s/%s' % (barcode, grade)
         elif grader == 'RNGA':
             url = 'https://rngacoin.ru/rnga-data-base/%s.html' % barcode
+        elif grader == 'ННР':
+            url = 'https://nreestr.ru/coins/search/%s' % barcode
         else:
             return
 

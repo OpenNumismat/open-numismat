@@ -133,6 +133,8 @@ for lang in langs:
     grader.addItem('PCGS', convertImage('icons/pcgs.png'))
     grader.addItem('PMG', convertImage('icons/pmg.png'))
     grader.addItem('RNGA', convertImage('icons/rnga.png'))
+    if lang == 'ru':
+        place.addItem('ННР', convertImage('icons/nreestr.png'))
     grader.model.submitAll()
 
     place = ref.section('payplace')
