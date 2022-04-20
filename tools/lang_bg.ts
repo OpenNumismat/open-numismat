@@ -2,7 +2,7 @@
 <context>
     <name>AddressLineEdit</name>
     <message>
-        <location filename="FormItems.py" line="217"/>
+        <location filename="FormItems.py" line="236"/>
         <source>Find address</source>
         <translation>Намеране на адрес</translation>
     </message>
@@ -28,6 +28,14 @@
         <location filename="ReferenceDialog.py" line="408"/>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Нещо се обърка при отмяна. Моля, рестартирайте!</translation>
+    </message>
+</context>
+<context>
+    <name>BackButton</name>
+    <message>
+        <location filename="YearCalculator.py" line="746"/>
+        <source>Backspace</source>
+        <translation>Изтриване</translation>
     </message>
 </context>
 <context>
@@ -171,15 +179,31 @@ Close the file and try again.</source>
     </message>
 </context>
 <context>
+    <name>YearCalculatorDialog</name>
+    <message>
+        <location filename="YearCalculator.py" line="25"/>
+        <source>Year calculator</source>
+        <translation>Годишен калкулатор</translation>
+    </message>
+</context>
+<context>
     <name>CalendarWidget</name>
     <message>
-        <location filename="FormItems.py" line="834"/>
+        <location filename="FormItems.py" line="914"/>
         <source>Today</source>
         <translation>Днес</translation>
     </message>
     <message>
-        <location filename="FormItems.py" line="836"/>
+        <location filename="FormItems.py" line="916"/>
         <source>Clean</source>
+        <translation>Изчистване</translation>
+    </message>
+</context>
+<context>
+    <name>ClearButton</name>
+    <message>
+        <location filename="YearCalculator.py" line="729"/>
+        <source>Clear</source>
         <translation>Изчистване</translation>
     </message>
 </context>
@@ -911,7 +935,7 @@ The application will need to restart now.</source>
         <translation>Височината на изображението в предварителен преглед беше променена. Да се преизчисли ли?</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="232"/>
+        <location filename="SettingsDialog.py" line="241"/>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation>Превръщам 0.5 в ½ (поддържа ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
@@ -927,17 +951,17 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectConnector</name>
     <message>
-        <location filename="Colnect.py" line="343"/>
+        <location filename="Colnect.py" line="345"/>
         <source>Colnect service not available</source>
         <translation>Colnect услугата не е налична</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="347"/>
+        <location filename="Colnect.py" line="349"/>
         <source>Colnect data not recognised</source>
         <translation>Данните от Colnect не се разпознават</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="336"/>
+        <location filename="Colnect.py" line="338"/>
         <source>Colnect proxy-server not response</source>
         <translation>Colnect прокси сървърът не отговаря</translation>
     </message>
@@ -945,72 +969,72 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectDialog</name>
     <message>
-        <location filename="Colnect.py" line="413"/>
+        <location filename="Colnect.py" line="415"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
         <translation>Каталожната информация е предоставена от &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;. Онлайн колекционерска общност.</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="426"/>
+        <location filename="Colnect.py" line="428"/>
         <source>Coins</source>
         <translation>Монети</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="426"/>
+        <location filename="Colnect.py" line="428"/>
         <source>Stamps</source>
         <translation>Пощенски марки</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="436"/>
+        <location filename="Colnect.py" line="438"/>
         <source>Category</source>
         <translation>Категория</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="507"/>
+        <location filename="Colnect.py" line="509"/>
         <source>Add</source>
         <translation>Добавяне</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="509"/>
+        <location filename="Colnect.py" line="511"/>
         <source>Add and close</source>
         <translation>Добавяне и затваряне</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="645"/>
+        <location filename="Colnect.py" line="647"/>
         <source>(All)</source>
         <translation>(Всички)</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="730"/>
+        <location filename="Colnect.py" line="732"/>
         <source>Downloading</source>
         <translation>Изтегляне</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="730"/>
+        <location filename="Colnect.py" line="732"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="519"/>
+        <location filename="Colnect.py" line="521"/>
         <source>Specify more parameters</source>
         <translation>Посочете повече параметри</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="516"/>
+        <location filename="Colnect.py" line="518"/>
         <source>Preview</source>
         <translation>Предварителен преглед</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="520"/>
+        <location filename="Colnect.py" line="522"/>
         <source>Nothing found</source>
         <translation>Нищо не е намерено</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="426"/>
+        <location filename="Colnect.py" line="428"/>
         <source>Banknotes</source>
         <translation>Банкноти</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="426"/>
+        <location filename="Colnect.py" line="428"/>
         <source>Philatelic products</source>
         <translation>Филателни продукти</translation>
     </message>
@@ -1030,7 +1054,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="492"/>
         <source>Skip currency symbol</source>
-        <translation>Пропуснете символа на валутата</translation>
+        <translation>Пропускане на символа за валутата</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="497"/>
@@ -1041,6 +1065,14 @@ The application will need to restart now.</source>
         <location filename="SettingsDialog.py" line="508"/>
         <source>Use Colnect</source>
         <translation>Използвай Colnect</translation>
+    </message>
+</context>
+<context>
+    <name>ConvertButton</name>
+    <message>
+        <location filename="YearCalculator.py" line="766"/>
+        <source>Convert</source>
+        <translation>Преобразуване</translation>
     </message>
 </context>
 <context>
@@ -1170,102 +1202,102 @@ The application will need to restart now.</source>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="42"/>
+        <location filename="DetailsTabWidget.py" line="43"/>
         <source>Coin</source>
         <translation>Монета</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="493"/>
+        <location filename="DetailsTabWidget.py" line="494"/>
         <source>Market</source>
         <translation>Пазар</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="318"/>
+        <location filename="DetailsTabWidget.py" line="319"/>
         <source>Parameters</source>
         <translation>Параметри</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="73"/>
+        <location filename="DetailsTabWidget.py" line="74"/>
         <source>Design</source>
         <translation>Дизайн</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="83"/>
+        <location filename="DetailsTabWidget.py" line="84"/>
         <source>Classification</source>
         <translation>Класификация</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="207"/>
+        <location filename="DetailsTabWidget.py" line="208"/>
         <source>Main details</source>
         <translation>Основни данни</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="226"/>
+        <location filename="DetailsTabWidget.py" line="227"/>
         <source>State</source>
         <translation>Състояние</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="243"/>
+        <location filename="DetailsTabWidget.py" line="244"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Няма нищо за показване. Променете статуса на монетите в предишния раздел</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="252"/>
+        <location filename="DetailsTabWidget.py" line="253"/>
         <source>Buy</source>
         <translation>Покупка</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="271"/>
+        <location filename="DetailsTabWidget.py" line="272"/>
         <source>Sale</source>
         <translation>Продава се</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="290"/>
+        <location filename="DetailsTabWidget.py" line="291"/>
         <source>Pass</source>
         <translation>Наблюдавана</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="330"/>
+        <location filename="DetailsTabWidget.py" line="331"/>
         <source>Minting</source>
         <translation>Сечене</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="351"/>
+        <location filename="DetailsTabWidget.py" line="352"/>
         <source>Obverse</source>
         <translation>Лицева страна</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="362"/>
+        <location filename="DetailsTabWidget.py" line="363"/>
         <source>Reverse</source>
         <translation>Обратна страна</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="373"/>
+        <location filename="DetailsTabWidget.py" line="374"/>
         <source>Edge</source>
         <translation>Гурт</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="402"/>
+        <location filename="DetailsTabWidget.py" line="403"/>
         <source>Catalogue</source>
         <translation>Каталог</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="411"/>
+        <location filename="DetailsTabWidget.py" line="412"/>
         <source>Price</source>
         <translation>Цена</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="420"/>
+        <location filename="DetailsTabWidget.py" line="421"/>
         <source>Variation</source>
         <translation>Вариация</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="543"/>
+        <location filename="DetailsTabWidget.py" line="544"/>
         <source>Commission</source>
         <translation>Комисионна</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="48"/>
+        <location filename="DetailsTabWidget.py" line="49"/>
         <source>Map</source>
         <translation>Карта</translation>
     </message>
@@ -1519,7 +1551,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="HeaderFilterMenu.py" line="271"/>
         <source>(Blanks)</source>
-        <translation>(Празни места)</translation>
+        <translation>(Празни)</translation>
     </message>
     <message>
         <location filename="HeaderFilterMenu.py" line="284"/>
@@ -1530,54 +1562,194 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="585"/>
+        <location filename="DetailsTabWidget.py" line="586"/>
         <source>Design</source>
         <translation>Дизайн</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="589"/>
+        <location filename="DetailsTabWidget.py" line="590"/>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="651"/>
+        <location filename="DetailsTabWidget.py" line="652"/>
         <source>Main details</source>
         <translation>Основни данни</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="654"/>
+        <location filename="DetailsTabWidget.py" line="655"/>
         <source>Generate</source>
         <translation>Генериране</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="674"/>
+        <location filename="DetailsTabWidget.py" line="680"/>
         <source>Obverse</source>
         <translation>Лицева страна</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="686"/>
+        <location filename="DetailsTabWidget.py" line="692"/>
         <source>Reverse</source>
         <translation>Обратна страна</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="698"/>
+        <location filename="DetailsTabWidget.py" line="704"/>
         <source>Edge</source>
         <translation>Гурт</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="711"/>
+        <location filename="DetailsTabWidget.py" line="717"/>
         <source>Variation</source>
         <translation>Вариация</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="857"/>
+        <location filename="DetailsTabWidget.py" line="894"/>
         <source>Commission</source>
         <translation>Комисионна</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="859"/>
+        <location filename="DetailsTabWidget.py" line="896"/>
         <source>Available format 12.5 or 10%</source>
         <translation>Наличен формат 12.5 или 10%</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="808"/>
+        <source>Israel</source>
+        <translation>Израел</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Bahrain</source>
+        <translation>Бахрейн</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Jordan</source>
+        <translation>Йордания</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Iraq</source>
+        <translation>Ирак</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Yemen</source>
+        <translation>Йемен</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Qatar</source>
+        <translation>Катар</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Kuwait</source>
+        <translation>Кувейт</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Maldives</source>
+        <translation>Малдиви</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Oman</source>
+        <translation>Оман</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Syria</source>
+        <translation>Сирия</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>United Arab Emirates</source>
+        <translation>Обединени арабски емирства</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Saudi Arabia</source>
+        <translation>Саудитска Арабия</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Turkey</source>
+        <translation>Турция</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Algeria</source>
+        <translation>Алжир</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Egypt</source>
+        <translation>Египет</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Libya</source>
+        <translation>Либия</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Mauritania</source>
+        <translation>Мавритания</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Morocco</source>
+        <translation>Мароко</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Sudan</source>
+        <translation>Судан</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="810"/>
+        <source>Tunisia</source>
+        <translation>Тунис</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="818"/>
+        <source>Afghanistan</source>
+        <translation>Афганистан</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="818"/>
+        <source>Iran</source>
+        <translation>Иран</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="820"/>
+        <source>Japan</source>
+        <translation>Япония</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="822"/>
+        <source>Nepal</source>
+        <translation>Непал</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="822"/>
+        <source>India</source>
+        <translation>Индия</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="824"/>
+        <source>Thailand</source>
+        <translation>Тайланд</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="826"/>
+        <source>Burma</source>
+        <translation>Бирма</translation>
+    </message>
+    <message>
+        <location filename="DetailsTabWidget.py" line="826"/>
+        <source>Myanmar</source>
+        <translation>Мианмар</translation>
     </message>
 </context>
 <context>
@@ -1624,7 +1796,7 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>GraderLineEdit</name>
     <message>
-        <location filename="FormItems.py" line="263"/>
+        <location filename="FormItems.py" line="282"/>
         <source>View on grader site</source>
         <translation>Преглед на сайта на оценителя</translation>
     </message>
@@ -1896,12 +2068,12 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ImageViewer.py" line="885"/>
         <source>Crop...</source>
-        <translation type="unfinished"/>
+        <translation>Изрязване...</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="886"/>
         <source>Autocrop</source>
-        <translation type="unfinished"/>
+        <translation>Автоматично изрязване</translation>
     </message>
 </context>
 <context>
@@ -1968,7 +2140,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="ListView.py" line="640"/>
         <source>Adjust size</source>
-        <translation>Регулирайте размера</translation>
+        <translation>Оптимална ширина</translation>
     </message>
     <message>
         <location filename="ListView.py" line="811"/>
@@ -2096,7 +2268,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="106"/>
         <source>Reliable</source>
-        <translation>Надежден</translation>
+        <translation>Надеждно</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="107"/>
@@ -2209,7 +2381,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="127"/>
         <source>&amp;New...</source>
-        <translation>&amp;Нов...</translation>
+        <translation>&amp;Нова...</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="132"/>
@@ -2493,6 +2665,14 @@ Copyright (C) 2011-2021 Vitaly Ignatov
         <location filename="MainWindow.py" line="320"/>
         <source>&amp;View</source>
         <translation>&amp;Изглед</translation>
+    </message>
+</context>
+<context>
+    <name>NativeYearEdit</name>
+    <message>
+        <location filename="FormItems.py" line="554"/>
+        <source>Year calculator</source>
+        <translation>Годишен калкулатор</translation>
     </message>
 </context>
 <context>
@@ -3055,7 +3235,7 @@ Created new one</source>
     <message>
         <location filename="CollectionFields.py" line="64"/>
         <source>Demo</source>
-        <translation>Демонстрация</translation>
+        <translation>Демонстрационна</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="64"/>
@@ -3106,152 +3286,152 @@ Created new one</source>
 <context>
     <name>SummaryDialog</name>
     <message>
-        <location filename="SummaryDialog.py" line="19"/>
+        <location filename="SummaryDialog.py" line="20"/>
         <source>Summary</source>
         <translation>Oбобщение</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="57"/>
+        <location filename="SummaryDialog.py" line="58"/>
         <source>Total count: %d</source>
         <translation>Общо брой: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="70"/>
+        <location filename="SummaryDialog.py" line="71"/>
         <source>Count owned: %d</source>
         <translation>Брой притежавани: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="165"/>
+        <location filename="SummaryDialog.py" line="170"/>
         <source>Count wish: %d</source>
         <translation>Брой желани: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="174"/>
+        <location filename="SummaryDialog.py" line="179"/>
         <source>Count sales: %d</source>
         <translation>Брой продажби: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="182"/>
+        <location filename="SummaryDialog.py" line="187"/>
         <source>Count biddings: %d</source>
         <translation>Брой наддавания: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="190"/>
+        <location filename="SummaryDialog.py" line="195"/>
         <source>Count missing: %d</source>
         <translation>Брой липсващи: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="231"/>
+        <location filename="SummaryDialog.py" line="236"/>
         <source>(commission %d%%)</source>
         <translation>(комисионна %d%%)</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="251"/>
+        <location filename="SummaryDialog.py" line="256"/>
         <source>First purchase: %s</source>
         <translation>Първа покупка: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="328"/>
+        <location filename="SummaryDialog.py" line="333"/>
         <source>(calculated for %d coins)</source>
         <translation>(изчисления за %d монети)</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="302"/>
+        <location filename="SummaryDialog.py" line="307"/>
         <source>Estimation owned: %d</source>
         <translation>Оценка на притежаваните: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="330"/>
+        <location filename="SummaryDialog.py" line="335"/>
         <source>Estimation wish: %d</source>
         <translation>Оценка на желаните: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="337"/>
+        <location filename="SummaryDialog.py" line="342"/>
         <source>Count images: %d</source>
         <translation>Брой изображения: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="37"/>
+        <location filename="SummaryDialog.py" line="38"/>
         <source>[Selected]</source>
         <translation>[Избрани]</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="37"/>
+        <location filename="SummaryDialog.py" line="38"/>
         <source>[All]</source>
         <translation>[Всички]</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="72"/>
+        <location filename="SummaryDialog.py" line="73"/>
         <source>Count owned: %d/%d</source>
         <translation>Брой притежавани: %d/%d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="76"/>
+        <location filename="SummaryDialog.py" line="77"/>
         <source>Gold</source>
         <translation>злато</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="88"/>
+        <location filename="SummaryDialog.py" line="89"/>
         <source>Gold coins: %d</source>
         <translation>Златни монети: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="90"/>
+        <location filename="SummaryDialog.py" line="91"/>
         <source>Gold coins: %d/%d</source>
         <translation>Златни монети: %d/%d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="300"/>
+        <location filename="SummaryDialog.py" line="305"/>
         <source>(calculated for %d/%d coins)</source>
         <translation>(изчислено за %d/%d монети)</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="119"/>
+        <location filename="SummaryDialog.py" line="122"/>
         <source>Silver</source>
         <translation>сребро</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="131"/>
+        <location filename="SummaryDialog.py" line="134"/>
         <source>Silver coins: %d</source>
         <translation>Сребърни монети: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="133"/>
+        <location filename="SummaryDialog.py" line="136"/>
         <source>Silver coins: %d/%d</source>
         <translation>Сребърни монети: %d/%d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="115"/>
+        <location filename="SummaryDialog.py" line="118"/>
         <source>Gold weight: %s gramm</source>
         <translation>Тегло на златото: %s г</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="158"/>
+        <location filename="SummaryDialog.py" line="163"/>
         <source>Silver weight: %s gramm</source>
         <translation>Тегло на среброто: %s г</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="209"/>
+        <location filename="SummaryDialog.py" line="214"/>
         <source>Paid: %s</source>
         <translation>Платено: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="214"/>
+        <location filename="SummaryDialog.py" line="219"/>
         <source>Average paid per item: %s</source>
         <translation>Средно платено за бройка: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="233"/>
+        <location filename="SummaryDialog.py" line="238"/>
         <source>Earned: %s</source>
         <translation>Спечелени: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="238"/>
+        <location filename="SummaryDialog.py" line="243"/>
         <source>Average earn per item: %s</source>
         <translation>Средна печалба за бройка: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="243"/>
+        <location filename="SummaryDialog.py" line="248"/>
         <source>Total (paid - earned): %s</source>
         <translation>Общо (платено - спечелено): %s</translation>
     </message>
@@ -3261,7 +3441,7 @@ Created new one</source>
     <message>
         <location filename="TabView.py" line="57"/>
         <source>&amp;New...</source>
-        <translation>&amp;Нов...</translation>
+        <translation>&amp;Нова...</translation>
     </message>
     <message>
         <location filename="TabView.py" line="61"/>
@@ -3436,25 +3616,78 @@ Add a new one first.</source>
 <context>
     <name>UrlLineEdit</name>
     <message>
-        <location filename="FormItems.py" line="154"/>
+        <location filename="FormItems.py" line="173"/>
         <source>Open specified URL</source>
         <translation>Отваряне на посочения URL адрес</translation>
     </message>
     <message>
-        <location filename="FormItems.py" line="162"/>
+        <location filename="FormItems.py" line="181"/>
         <source>Select file from disc</source>
         <translation>Изберете файл от диск</translation>
     </message>
     <message>
-        <location filename="FormItems.py" line="174"/>
+        <location filename="FormItems.py" line="193"/>
         <source>Select file</source>
         <translation>Избор на файл</translation>
     </message>
 </context>
 <context>
+    <name>YearCalculatorDialog</name>
+    <message>
+        <location filename="YearCalculator.py" line="179"/>
+        <source>Hebrew</source>
+        <translation>Еврейски</translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="180"/>
+        <source>Units</source>
+        <translation>Единици</translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="259"/>
+        <source>Islamic</source>
+        <translation>Ислямски</translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="309"/>
+        <source>Solar hijri</source>
+        <translation>Персийски</translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="357"/>
+        <source>Japan</source>
+        <translation>Япония</translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="358"/>
+        <source>Year</source>
+        <translation>Година</translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="472"/>
+        <source>Roman</source>
+        <translation>Римски</translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="515"/>
+        <source>Nepal</source>
+        <translation>Непал</translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="572"/>
+        <source>Thai</source>
+        <translation>Тайландски</translation>
+    </message>
+    <message>
+        <location filename="YearCalculator.py" line="629"/>
+        <source>Burmese</source>
+        <translation>Бирмански</translation>
+    </message>
+</context>
+<context>
     <name>YearEdit</name>
     <message>
-        <location filename="FormItems.py" line="499"/>
+        <location filename="FormItems.py" line="518"/>
         <source>BC</source>
         <translation>пр. Хр.</translation>
     </message>

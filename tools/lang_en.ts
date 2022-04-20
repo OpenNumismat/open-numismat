@@ -948,17 +948,17 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectConnector</name>
     <message>
-        <location filename="Colnect.py" line="345"/>
+        <location filename="Colnect.py" line="347"/>
         <source>Colnect service not available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="349"/>
+        <location filename="Colnect.py" line="351"/>
         <source>Colnect data not recognised</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="338"/>
+        <location filename="Colnect.py" line="340"/>
         <source>Colnect proxy-server not response</source>
         <translation type="unfinished"></translation>
     </message>
@@ -966,72 +966,72 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectDialog</name>
     <message>
-        <location filename="Colnect.py" line="415"/>
+        <location filename="Colnect.py" line="417"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="428"/>
+        <location filename="Colnect.py" line="430"/>
         <source>Coins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="428"/>
+        <location filename="Colnect.py" line="430"/>
         <source>Stamps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="438"/>
+        <location filename="Colnect.py" line="440"/>
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="509"/>
+        <location filename="Colnect.py" line="511"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="511"/>
+        <location filename="Colnect.py" line="513"/>
         <source>Add and close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="647"/>
+        <location filename="Colnect.py" line="649"/>
         <source>(All)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="732"/>
+        <location filename="Colnect.py" line="734"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="732"/>
+        <location filename="Colnect.py" line="734"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="521"/>
+        <location filename="Colnect.py" line="523"/>
         <source>Specify more parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="518"/>
+        <location filename="Colnect.py" line="520"/>
         <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="522"/>
+        <location filename="Colnect.py" line="524"/>
         <source>Nothing found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="428"/>
+        <location filename="Colnect.py" line="430"/>
         <source>Banknotes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="428"/>
+        <location filename="Colnect.py" line="430"/>
         <source>Philatelic products</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1199,102 +1199,102 @@ The application will need to restart now.</source>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="43"/>
+        <location filename="DetailsTabWidget.py" line="45"/>
         <source>Coin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="494"/>
+        <location filename="DetailsTabWidget.py" line="496"/>
         <source>Market</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="319"/>
+        <location filename="DetailsTabWidget.py" line="321"/>
         <source>Parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="74"/>
+        <location filename="DetailsTabWidget.py" line="76"/>
         <source>Design</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="84"/>
+        <location filename="DetailsTabWidget.py" line="86"/>
         <source>Classification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="208"/>
+        <location filename="DetailsTabWidget.py" line="210"/>
         <source>Main details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="227"/>
+        <location filename="DetailsTabWidget.py" line="229"/>
         <source>State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="244"/>
+        <location filename="DetailsTabWidget.py" line="246"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="253"/>
+        <location filename="DetailsTabWidget.py" line="255"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="272"/>
+        <location filename="DetailsTabWidget.py" line="274"/>
         <source>Sale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="291"/>
+        <location filename="DetailsTabWidget.py" line="293"/>
         <source>Pass</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="331"/>
+        <location filename="DetailsTabWidget.py" line="333"/>
         <source>Minting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="352"/>
+        <location filename="DetailsTabWidget.py" line="354"/>
         <source>Obverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="363"/>
+        <location filename="DetailsTabWidget.py" line="365"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="374"/>
+        <location filename="DetailsTabWidget.py" line="376"/>
         <source>Edge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="403"/>
+        <location filename="DetailsTabWidget.py" line="405"/>
         <source>Catalogue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="412"/>
+        <location filename="DetailsTabWidget.py" line="414"/>
         <source>Price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="421"/>
+        <location filename="DetailsTabWidget.py" line="423"/>
         <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="544"/>
+        <location filename="DetailsTabWidget.py" line="548"/>
         <source>Commission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="49"/>
+        <location filename="DetailsTabWidget.py" line="51"/>
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1558,192 +1558,192 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="586"/>
+        <location filename="DetailsTabWidget.py" line="590"/>
         <source>Design</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="590"/>
+        <location filename="DetailsTabWidget.py" line="594"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="652"/>
+        <location filename="DetailsTabWidget.py" line="656"/>
         <source>Main details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="655"/>
+        <location filename="DetailsTabWidget.py" line="659"/>
         <source>Generate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="680"/>
+        <location filename="DetailsTabWidget.py" line="684"/>
         <source>Obverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="692"/>
+        <location filename="DetailsTabWidget.py" line="696"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="704"/>
+        <location filename="DetailsTabWidget.py" line="708"/>
         <source>Edge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="717"/>
+        <location filename="DetailsTabWidget.py" line="721"/>
         <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="894"/>
+        <location filename="DetailsTabWidget.py" line="898"/>
         <source>Commission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="896"/>
+        <location filename="DetailsTabWidget.py" line="900"/>
         <source>Available format 12.5 or 10%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="808"/>
+        <location filename="DetailsTabWidget.py" line="812"/>
         <source>Israel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Bahrain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Jordan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Iraq</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Yemen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Qatar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Kuwait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Maldives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Oman</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Syria</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>United Arab Emirates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Saudi Arabia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Turkey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Algeria</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Egypt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Libya</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Mauritania</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Morocco</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Sudan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="814"/>
         <source>Tunisia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="818"/>
+        <location filename="DetailsTabWidget.py" line="822"/>
         <source>Afghanistan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="818"/>
+        <location filename="DetailsTabWidget.py" line="822"/>
         <source>Iran</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="820"/>
+        <location filename="DetailsTabWidget.py" line="824"/>
         <source>Japan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="822"/>
+        <location filename="DetailsTabWidget.py" line="826"/>
         <source>Nepal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="822"/>
+        <location filename="DetailsTabWidget.py" line="826"/>
         <source>India</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="824"/>
+        <location filename="DetailsTabWidget.py" line="828"/>
         <source>Thailand</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="826"/>
+        <location filename="DetailsTabWidget.py" line="830"/>
         <source>Burma</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="826"/>
+        <location filename="DetailsTabWidget.py" line="830"/>
         <source>Myanmar</source>
         <translation type="unfinished"></translation>
     </message>
