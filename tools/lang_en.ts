@@ -2633,15 +2633,6 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="864"/>
-        <source>%s %s
-
-Copyright (C) 2011-2021 Vitaly Ignatov
-
-%s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="MainWindow.py" line="111"/>
         <source>Save sort order</source>
         <translation type="unfinished"></translation>
@@ -2654,6 +2645,15 @@ Copyright (C) 2011-2021 Vitaly Ignatov
     <message>
         <location filename="MainWindow.py" line="320"/>
         <source>&amp;View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.py" line="864"/>
+        <source>%s %s
+
+Copyright (C) 2011-2022 Vitaly Ignatov
+
+%s is freeware licensed under a GPLv3.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
