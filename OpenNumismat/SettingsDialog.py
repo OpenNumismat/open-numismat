@@ -9,7 +9,7 @@ from OpenNumismat.Reports import Report
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses
-from OpenNumismat.Collection.Import.Colnect import ColnectCache
+from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.EditCoinDialog.MapWidget import MapType
 from OpenNumismat.EditCoinDialog.MapWidget.GMapsWidget import gmapsAvailable
 from OpenNumismat.EditCoinDialog.MapWidget.MapboxWidget import mapboxAvailable
@@ -516,7 +516,7 @@ class ColnectSettingsPage(QWidget):
         self.setLayout(layout)
 
     def clearCache(self):
-        ColnectCache.clear()
+        Cache.clear()
 
     def save(self):
         settings = Settings()

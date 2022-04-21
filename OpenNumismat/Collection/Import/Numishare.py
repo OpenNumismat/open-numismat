@@ -7,8 +7,6 @@
 # Coin: https://numismatics.org/search/id/1944.100.147.jsonld
 # Details: http://numismatics.org/crro/id/rrc-71.1a.jsonld
 
-import os
-import tempfile
 import urllib.request
 from urllib.parse import quote_plus
 from socket import timeout
@@ -22,99 +20,16 @@ except ImportError:
     print('lxml module missed. Importing from Numishare not available')
     numishareAvailable = False
 
-from PyQt5.QtCore import Qt, QObject, QByteArray
+from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtGui import QImage, QPixmap, QIcon
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import *
 
 from OpenNumismat import version
+from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import ProgressDialog
-
-
-class ColnectCache(QObject):
-    FILE_NAME = "opennumismat-cache"
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        self.db = self.open()
-        self._compact()
-
-    def open(self):
-        db = QSqlDatabase.addDatabase('QSQLITE', 'cache')
-        db.setDatabaseName(self._file_name())
-        if not db.open():
-            QMessageBox.warning(self, self.tr("Import"), self.tr("Can't open cache"))
-            return None
-
-        QSqlQuery("PRAGMA synchronous=OFF", db)
-        QSqlQuery("PRAGMA journal_mode=OFF", db)
-
-        if 'cache' not in db.tables():
-            sql = "CREATE TABLE cache (\
-                id INTEGER PRIMARY KEY,\
-                url TEXT, data BLOB,\
-                createdat TEXT DEFAULT CURRENT_DATE)"
-            QSqlQuery(sql, db)
-            sql = "CREATE INDEX index_cache_url ON cache (url)"
-            QSqlQuery(sql, db)
-
-        return db
-
-    def close(self):
-        if self.db:
-            self.db.close()
-            self.db = None
-        QSqlDatabase.removeDatabase('cache')
-
-    def get(self, url):
-        print(url)
-        if not self.db:
-            return None
-
-        query = QSqlQuery(self.db)
-        query.prepare("SELECT data FROM cache WHERE url=?")
-        query.addBindValue(url)
-        query.exec_()
-        if query.next():
-            record = query.record()
-            return record.value('data')
-
-        return None
-
-    def set(self, url, data):
-        if not self.db:
-            return
-
-        if not data:
-            return
-
-        query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO cache (url, data)"
-                      " VALUES (?, ?)")
-        query.addBindValue(url)
-        if isinstance(data, bytes):
-            data = QByteArray(data)
-        query.addBindValue(data)
-        query.exec_()
-
-    def _compact(self):
-        if self.db:
-            sql = "DELETE FROM cache WHERE createdat < date('now', '-30 day')"
-            QSqlQuery(sql, self.db)
-
-    @staticmethod
-    def _file_name():
-        return os.path.join(tempfile.gettempdir(), ColnectCache.FILE_NAME)
-
-    @staticmethod
-    def clear():
-        file_name = ColnectCache._file_name()
-        if os.path.exists(file_name):
-            os.remove(file_name)
 
 
 class NumishareConnector(QObject):
@@ -122,7 +37,7 @@ class NumishareConnector(QObject):
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.cache = ColnectCache()
+        self.cache = Cache()
         self.skip_currency = Settings()['colnect_skip_currency']
         self.lang = Settings()['colnect_locale']
 
