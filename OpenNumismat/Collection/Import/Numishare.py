@@ -22,7 +22,7 @@ except ImportError:
     print('lxml module missed. Importing from Numishare not available')
     numishareAvailable = False
 
-from PyQt5.QtCore import Qt, QObject, QDate, QByteArray
+from PyQt5.QtCore import Qt, QObject, QByteArray
 from PyQt5.QtGui import QImage, QPixmap, QIcon
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import *
@@ -35,11 +35,7 @@ from OpenNumismat.Tools.Gui import ProgressDialog
 
 
 class ColnectCache(QObject):
-    FILE_NAME = "opennumismat-colnect"
-
-    Action = 1
-    Item = 2
-    Image = 3
+    FILE_NAME = "opennumismat-cache"
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -51,17 +47,19 @@ class ColnectCache(QObject):
         db = QSqlDatabase.addDatabase('QSQLITE', 'cache')
         db.setDatabaseName(self._file_name())
         if not db.open():
-            QMessageBox.warning(self, "Colnect", self.tr("Can't open Colnect cache"))
+            QMessageBox.warning(self, self.tr("Import"), self.tr("Can't open cache"))
             return None
 
         QSqlQuery("PRAGMA synchronous=OFF", db)
-        QSqlQuery("PRAGMA journal_mode=MEMORY", db)
+        QSqlQuery("PRAGMA journal_mode=OFF", db)
 
         if 'cache' not in db.tables():
             sql = "CREATE TABLE cache (\
                 id INTEGER PRIMARY KEY,\
-                type INTEGER, url TEXT, data BLOB,\
-                createdat TEXT)"
+                url TEXT, data BLOB,\
+                createdat TEXT DEFAULT CURRENT_DATE)"
+            QSqlQuery(sql, db)
+            sql = "CREATE INDEX index_cache_url ON cache (url)"
             QSqlQuery(sql, db)
 
         return db
@@ -72,14 +70,13 @@ class ColnectCache(QObject):
             self.db = None
         QSqlDatabase.removeDatabase('cache')
 
-    def get(self, type_, url):
+    def get(self, url):
         print(url)
         if not self.db:
             return None
 
         query = QSqlQuery(self.db)
-        query.prepare("SELECT data FROM cache WHERE type=? AND url=?")
-        query.addBindValue(type_)
+        query.prepare("SELECT data FROM cache WHERE url=?")
         query.addBindValue(url)
         query.exec_()
         if query.next():
@@ -88,7 +85,7 @@ class ColnectCache(QObject):
 
         return None
 
-    def set(self, type_, url, data):
+    def set(self, url, data):
         if not self.db:
             return
 
@@ -96,31 +93,18 @@ class ColnectCache(QObject):
             return
 
         query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO cache (type, url, data, createdat)"
-                      " VALUES (?, ?, ?, ?)")
-        query.addBindValue(type_)
+        query.prepare("INSERT INTO cache (url, data)"
+                      " VALUES (?, ?)")
         query.addBindValue(url)
         if isinstance(data, bytes):
             data = QByteArray(data)
         query.addBindValue(data)
-        currentDate = QDate.currentDate()
-        days = QDate(2000, 1, 1).daysTo(currentDate)
-        query.addBindValue(days)
         query.exec_()
 
     def _compact(self):
         if self.db:
-            query = QSqlQuery(self.db)
-            query.prepare("DELETE FROM cache WHERE"
-                          " (createdat < ? AND type = 1) OR"
-                          " (createdat < ? AND type = 2) OR"
-                          " (createdat < ? AND type = 3)")
-            currentDate = QDate.currentDate()
-            days = QDate(2000, 1, 1).daysTo(currentDate)
-            query.addBindValue(days - 30)  # actions older month
-            query.addBindValue(days - 14)  # items older 2 weeks
-            query.addBindValue(days - 7)  # images older week
-            query.exec_()
+            sql = "DELETE FROM cache WHERE createdat < date('now', '-30 day')"
+            QSqlQuery(sql, self.db)
 
     @staticmethod
     def _file_name():
@@ -151,7 +135,7 @@ class NumishareConnector(QObject):
 
         if not full:
             # full images was not cached - store previous behaviour
-            data = self.cache.get(ColnectCache.Image, url)
+            data = self.cache.get(url)
             if data:
                 return data
 
@@ -163,7 +147,7 @@ class NumishareConnector(QObject):
             return None
 
         if not full:
-            self.cache.set(ColnectCache.Image, url, data)
+            self.cache.set(url, data)
 
         return data
 
@@ -174,7 +158,7 @@ class NumishareConnector(QObject):
     @waitCursorDecorator
     def _download(self, action):
         url = self._baseUrl() + action
-        raw_data = self.cache.get(ColnectCache.Action, url)
+        raw_data = self.cache.get(url)
         is_cashed = bool(raw_data)
         if not is_cashed:
             try:
@@ -189,7 +173,7 @@ class NumishareConnector(QObject):
                 return ''
 
         if not is_cashed:
-            self.cache.set(ColnectCache.Action, url, raw_data)
+            self.cache.set(url, raw_data)
 
         return raw_data
 
