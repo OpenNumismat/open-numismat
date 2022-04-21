@@ -641,6 +641,7 @@ class CollectionSettings(BaseSettings):
             'colnect_category': 'coins',
             'colnect_country': 0,
             'numishare_department': '',
+            'numishare_has_image': False,
     }
 
     def __init__(self, db):

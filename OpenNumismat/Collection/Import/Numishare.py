@@ -290,6 +290,8 @@ class NumishareDialog(QDialog):
         self.setWindowTitle("Numishare")
 
         fields = model.fields
+        self.model = model
+        self.items = []
 
         settings = Settings()
         self.lang = settings['colnect_locale']
@@ -315,6 +317,10 @@ class NumishareDialog(QDialog):
                                               QSizePolicy.Fixed)
         for department in departments:
             self.departmentSelector.addItem(department[1], department[0])
+        numishare_department = self.model.settings['numishare_department']
+        index = self.departmentSelector.findData(numishare_department)
+        if index >= 0:
+            self.departmentSelector.setCurrentIndex(index)
         layout.addRow(fields.getCustomTitle('region'), self.departmentSelector)
         self.departmentSelector.currentIndexChanged.connect(self.departmentChanged)
 
@@ -368,6 +374,8 @@ class NumishareDialog(QDialog):
         layout.addRow(fields.getCustomTitle('type'), self.typeSelector)
 
         self.imagesSelector = QCheckBox(self.tr("Has images"))
+        if self.model.settings['numishare_has_image']:
+            self.imagesSelector.setCheckState(Qt.Checked)
         self.imagesSelector.stateChanged.connect(self.partChanged)
         layout.addRow(self.imagesSelector)
 
@@ -436,19 +444,9 @@ class NumishareDialog(QDialog):
 
         self._partsEnable(False)
 
-        self.model = model
-        self.settings = model.settings
-        self.items = []
-
         self.numishare = NumishareConnector(self)
 
-        default_department = self.settings['numishare_department']
-        index = self.departmentSelector.findData(default_department)
-        if index >= 0:
-            self.departmentSelector.currentIndexChanged.disconnect(self.departmentChanged)
-            self.departmentSelector.setCurrentIndex(index)
-            self.departmentSelector.currentIndexChanged.connect(self.departmentChanged)
-            self.departmentChanged()
+        self.departmentChanged()
 
     def sectionDoubleClicked(self, index):
         self.table.resizeColumnToContents(index)
@@ -584,9 +582,6 @@ class NumishareDialog(QDialog):
             part.currentIndexChanged.connect(self.partChanged)
 
         self.partChanged()
-        
-        department = self.departmentSelector.currentData()
-        self.settings['numishare_department'] = department
 
     def partChanged(self):
         self._clearTable()
@@ -826,6 +821,9 @@ class NumishareDialog(QDialog):
             self.accept()
 
     def accept(self):
-        self.settings.save()
+        self.model.settings['numishare_department'] = self.departmentSelector.currentData()
+        self.model.settings['numishare_has_image'] = self.imagesSelector.isChecked()
+        self.model.settings.save()
+
         self.numishare.close()
         super().accept()
