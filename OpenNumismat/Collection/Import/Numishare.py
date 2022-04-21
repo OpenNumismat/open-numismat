@@ -319,8 +319,7 @@ class NumishareDialog(QDialog):
             self.departmentSelector.addItem(department[1], department[0])
         numishare_department = self.model.settings['numishare_department']
         index = self.departmentSelector.findData(numishare_department)
-        if index >= 0:
-            self.departmentSelector.setCurrentIndex(index)
+        self.departmentSelector.setCurrentIndex(index)
         layout.addRow(fields.getCustomTitle('region'), self.departmentSelector)
         self.departmentSelector.currentIndexChanged.connect(self.departmentChanged)
 
@@ -441,8 +440,6 @@ class NumishareDialog(QDialog):
         vlayout.addWidget(buttonBox)
 
         self.setLayout(vlayout)
-
-        self._partsEnable(False)
 
         self.numishare = NumishareConnector(self)
 
@@ -574,14 +571,18 @@ class NumishareDialog(QDialog):
 
     def departmentChanged(self):
         self._clearTable()
-        self._partsEnable(True)
 
-        for part in self.parts:
-            part.currentIndexChanged.disconnect(self.partChanged)
-            part.clear()
-            part.currentIndexChanged.connect(self.partChanged)
-
-        self.partChanged()
+        if self.departmentSelector.currentIndex() >= 0:
+            self._partsEnable(True)
+    
+            for part in self.parts:
+                part.currentIndexChanged.disconnect(self.partChanged)
+                part.clear()
+                part.currentIndexChanged.connect(self.partChanged)
+    
+            self.partChanged()
+        else:
+            self._partsEnable(False)
 
     def partChanged(self):
         self._clearTable()
