@@ -302,12 +302,12 @@ class NumishareDialog(QDialog):
                        ('Roman', self.tr("Roman")),
                        ('Byzantine', self.tr("Byzantine")), 
                        ('Islamic', self.tr("Islamic")), 
-                       ('East%%20Asian', self.tr("East Asia")), 
-                       ('South%%20Asian', self.tr("South Asia")), 
+                       ('East Asian', self.tr("East Asia")), 
+                       ('South Asian', self.tr("South Asia")), 
                        ('Medieval', self.tr("Medieval")), 
                        ('Modern', self.tr("Modern")), 
-                       ('North%20American', self.tr("North America")), 
-                       ('Latin%20American', self.tr("Latin America")), 
+                       ('North American', self.tr("North America")), 
+                       ('Latin American', self.tr("Latin America")), 
                        ('Medal', self.tr("Medals And Decorations")))
 
         self.departmentSelector = QComboBox()
@@ -373,8 +373,7 @@ class NumishareDialog(QDialog):
 
         self.parts = (self.countrySelector, self.dinastySelector,
                       self.rulerSelector, self.typeSelector, self.yearSelector,
-                      self.denominationSelector, self.materialSelector,
-                      self.imagesSelector)
+                      self.denominationSelector, self.materialSelector)
 
         self.table = QTableWidget(self)
         self.table.doubleClicked.connect(self.tableClicked)
@@ -446,8 +445,10 @@ class NumishareDialog(QDialog):
         default_department = self.settings['numishare_department']
         index = self.departmentSelector.findData(default_department)
         if index >= 0:
+            self.departmentSelector.currentIndexChanged.disconnect(self.departmentChanged)
             self.departmentSelector.setCurrentIndex(index)
-            self.departmentChanged(0)
+            self.departmentSelector.currentIndexChanged.connect(self.departmentChanged)
+            self.departmentChanged()
 
     def sectionDoubleClicked(self, index):
         self.table.resizeColumnToContents(index)
@@ -455,7 +456,8 @@ class NumishareDialog(QDialog):
     def _partsEnable(self, enabled):
         for part in self.parts:
             part.setEnabled(enabled)
-
+        self.imagesSelector.setEnabled(enabled)
+        
     def tableClicked(self, index):
         if not index:
             return
@@ -572,18 +574,15 @@ class NumishareDialog(QDialog):
             image = self.numishare.getImage(url, True)
             record.setValue('reverseimg', image)
 
-    def departmentChanged(self, _index):
+    def departmentChanged(self):
         self._clearTable()
         self._partsEnable(True)
 
-        self.countrySelector.clear()
-        self.rulerSelector.clear()
-        self.dinastySelector.clear()
-        self.yearSelector.clear()
-        self.denominationSelector.clear()
-        self.materialSelector.clear()
-        self.typeSelector.clear()
-        
+        for part in self.parts:
+            part.currentIndexChanged.disconnect(self.partChanged)
+            part.clear()
+            part.currentIndexChanged.connect(self.partChanged)
+
         self.partChanged()
         
         department = self.departmentSelector.currentData()
