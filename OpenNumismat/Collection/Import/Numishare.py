@@ -67,7 +67,7 @@ class NumishareConnector(QObject):
         return data
 
     def _baseUrl(self):
-        url = "http://numismatics.org/search/"
+        url = "https://numismatics.org/search/"
         return url
     
     @waitCursorDecorator
@@ -225,7 +225,8 @@ class NumishareDialog(QDialog):
                        ('Modern', self.tr("Modern")), 
                        ('North American', self.tr("North America")), 
                        ('Latin American', self.tr("Latin America")), 
-                       ('Medal', self.tr("Medals And Decorations")))
+                       ('Medal', self.tr("Medals And Decorations")),
+                       ('Decoration', self.tr("Decoration")))
 
         self.departmentSelector = QComboBox()
         self.departmentSelector.setSizePolicy(QSizePolicy.Fixed,
