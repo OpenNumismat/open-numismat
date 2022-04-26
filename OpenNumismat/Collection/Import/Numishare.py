@@ -433,6 +433,7 @@ class NumishareDialog(QDialog):
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='region']", record, 'country')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='mint']", record, 'mint')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination", record, 'unit')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:objectType", record, 'type')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:material", record, 'material')
         self._setRecordField(tree, "./nuds:descMeta/nuds:physDesc/nuds:measurementsSet/nuds:weight", record, 'weight')
         self._setRecordField(tree, "./nuds:descMeta/nuds:physDesc/nuds:measurementsSet/nuds:diameter", record, 'diameter')
