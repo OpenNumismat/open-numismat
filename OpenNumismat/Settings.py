@@ -1,5 +1,4 @@
 import os.path
-import sys
 
 from PyQt5.QtCore import QLocale, QSettings
 
