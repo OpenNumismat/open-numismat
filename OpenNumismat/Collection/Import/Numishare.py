@@ -132,6 +132,32 @@ class NumishareConnector(QObject):
     
         return int(count[0].text)
     
+    def getTranslation(self, src, lang):
+        url = "https://nomisma.org/apis/getLabel?uri=" + src + "&lang=" + lang
+        raw_data = self.cache.get(url)
+        is_cashed = bool(raw_data)
+        if not is_cashed:
+            try:
+                req = urllib.request.Request(url,
+                                        headers={'User-Agent': version.AppName})
+                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+            except timeout:
+                QMessageBox.warning(self.parent(), "Numishare",
+                                    self.tr("Numishare not response"))
+                return ''
+            except:
+                return ''
+
+        if not is_cashed:
+            self.cache.set(url, raw_data)
+
+        tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
+        data = tree.xpath("/response")
+        if data:
+            return data[0].text
+        
+        return ''
+    
     def getData(self, item_id):
         action = "id/%s.xml" % item_id
         
@@ -424,6 +450,12 @@ class NumishareDialog(QDialog):
 
         el = tree.xpath(key, namespaces=nsmap)
         if el:
+            if el[0].attrib.has_key('{http://www.w3.org/1999/xlink}href'):
+                src = el[0].attrib['{http://www.w3.org/1999/xlink}href']
+                data = self.numishare.getTranslation(src, self.lang)
+                if data:
+                    return data
+                
             return el[0].text
         
         return None
