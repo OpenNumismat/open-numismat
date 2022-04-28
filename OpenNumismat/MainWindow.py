@@ -19,7 +19,7 @@ from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
-from OpenNumismat.Collection.Import.Numishare import NumishareDialog
+from OpenNumismat.Collection.Import.Ans import AnsDialog
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 
 from OpenNumismat.Collection.Import import *
@@ -70,10 +70,10 @@ class MainWindow(QMainWindow):
         colnectAct.triggered.connect(self.colnectEvent)
         self.collectionActs.append(colnectAct)
 
-        numishareAct = QAction(QIcon(':/numishare.png'),
-                              "Numishare...", self)
-        numishareAct.triggered.connect(self.numishareEvent)
-        self.collectionActs.append(numishareAct)
+        ansAct = QAction(QIcon(':/ans.png'),
+                              "American Numismatic Society...", self)
+        ansAct.triggered.connect(self.ansEvent)
+        self.collectionActs.append(ansAct)
 
         self.detailsAct = QAction(QIcon(':/application-form.png'),
                                   self.tr("Info panel"), self)
@@ -309,7 +309,7 @@ class MainWindow(QMainWindow):
         coin.addSeparator()
         if Settings()['colnect_enabled'] and colnectAvailable:
             coin.addAction(colnectAct)
-            coin.addAction(numishareAct)
+            coin.addAction(ansAct)
         coin.addSeparator()
         coin.addAction(copyCoinAct)
         coin.addAction(pasteCoinAct)
@@ -426,7 +426,7 @@ class MainWindow(QMainWindow):
         if Settings()['colnect_enabled'] and colnectAvailable:
             toolBar.addSeparator()
             toolBar.addAction(colnectAct)
-            toolBar.addAction(numishareAct)
+            toolBar.addAction(ansAct)
         toolBar.addSeparator()
         toolBar.addWidget(self.viewButton)
 
@@ -543,9 +543,9 @@ class MainWindow(QMainWindow):
         dialog = ColnectDialog(model, self)
         dialog.exec_()
 
-    def numishareEvent(self):
+    def ansEvent(self):
         model = self.viewTab.currentModel()
-        dialog = NumishareDialog(model, self)
+        dialog = AnsDialog(model, self)
         dialog.exec_()
 
     def updateInfoType(self, info_type):

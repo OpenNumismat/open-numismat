@@ -2,14 +2,14 @@ import urllib.request
 from urllib.parse import quote_plus
 from socket import timeout
 
-numishareAvailable = True
+ansAvailable = True
 
 try:
     import lxml.etree
     import lxml.html
 except ImportError:
-    print('lxml module missed. Importing from Numishare not available')
-    numishareAvailable = False
+    print('lxml module missed. Importing from ANS not available')
+    ansAvailable = False
 
 from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtGui import QImage, QPixmap, QIcon
@@ -23,7 +23,7 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import ProgressDialog
 
 
-class NumishareConnector(QObject):
+class AnsConnector(QObject):
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -66,8 +66,8 @@ class NumishareConnector(QObject):
                                         headers={'User-Agent': version.AppName})
                 raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
             except timeout:
-                QMessageBox.warning(self.parent(), "Numishare",
-                                    self.tr("Numishare not response"))
+                QMessageBox.warning(self.parent(), "ANS",
+                                    self.tr("American Numismatic Society not response"))
                 return ''
             except:
                 return ''
@@ -195,7 +195,7 @@ class NumishareConnector(QObject):
 
 
 @storeDlgSizeDecorator
-class NumishareDialog(QDialog):
+class AnsDialog(QDialog):
     HEIGHT = 62
     NSMAP = {'nuds': 'http://nomisma.org/nuds',
              'xlink': 'http://www.w3.org/1999/xlink',
@@ -204,8 +204,8 @@ class NumishareDialog(QDialog):
     def __init__(self, model, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
-        self.setWindowIcon(QIcon(':/numishare.png'))
-        self.setWindowTitle("Numishare")
+        self.setWindowIcon(QIcon(':/ans.png'))
+        self.setWindowTitle("American Numismatic Society")
 
         fields = model.fields
         self.model = model
@@ -258,8 +258,8 @@ class NumishareDialog(QDialog):
                                               QSizePolicy.Fixed)
         for department in departments:
             self.departmentSelector.addItem(department[1], department[0])
-        numishare_department = self.model.settings['numishare_department']
-        index = self.departmentSelector.findData(numishare_department)
+        ans_department = self.model.settings['ans_department']
+        index = self.departmentSelector.findData(ans_department)
         self.departmentSelector.setCurrentIndex(index)
         layout.addRow(fields.getCustomTitle('region'), self.departmentSelector)
         self.departmentSelector.currentIndexChanged.connect(self.departmentChanged)
@@ -314,7 +314,7 @@ class NumishareDialog(QDialog):
         layout.addRow(fields.getCustomTitle('type'), self.typeSelector)
 
         self.imagesSelector = QCheckBox(self.tr("Has images"))
-        if self.model.settings['numishare_has_image']:
+        if self.model.settings['ans_has_image']:
             self.imagesSelector.setCheckState(Qt.Checked)
         self.imagesSelector.stateChanged.connect(self.partChanged)
         layout.addRow(self.imagesSelector)
@@ -382,7 +382,7 @@ class NumishareDialog(QDialog):
 
         self.setLayout(vlayout)
 
-        self.numishare = NumishareConnector(self)
+        self.connector = AnsConnector(self)
 
         self.departmentChanged()
 
@@ -425,7 +425,7 @@ class NumishareDialog(QDialog):
         if el:
             if el[0].attrib.has_key('{http://www.w3.org/1999/xlink}href'):
                 src = el[0].attrib['{http://www.w3.org/1999/xlink}href']
-                data = self.numishare.getTranslation(src, self.lang)
+                data = self.connector.getTranslation(src, self.lang)
                 if data:
                     return data
                 
@@ -449,7 +449,7 @@ class NumishareDialog(QDialog):
         return False
 
     def makeItem(self, item_id, record):
-        data = self.numishare.getData(item_id)
+        data = self.connector.getData(item_id)
         tree = lxml.etree.fromstring(data.encode('utf-8'))
 
         self._setRecordField(tree, "./nuds:descMeta/nuds:title", record, 'title')
@@ -473,20 +473,20 @@ class NumishareDialog(QDialog):
         url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='obverse']/mets:file[@USE='archive']/mets:FLocat",
                              '{http://www.w3.org/1999/xlink}href')
         if url:
-            image = self.numishare.getImage(url, True)
+            image = self.connector.getImage(url, True)
             record.setValue('obverseimg', image)
 
         url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='reverse']/mets:file[@USE='archive']/mets:FLocat",
                              '{http://www.w3.org/1999/xlink}href')
         if url:
-            image = self.numishare.getImage(url, True)
+            image = self.connector.getImage(url, True)
             record.setValue('reverseimg', image)
 
         url = self._getAttrib(tree, "./nuds:descMeta/nuds:refDesc/nuds:reference",
                              '{http://www.w3.org/1999/xlink}href')
         if url:
             url = url + '.xml'
-            raw_data = self.numishare.download_data(url)
+            raw_data = self.connector.download_data(url)
             if raw_data:
                 tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
 
@@ -546,7 +546,7 @@ class NumishareDialog(QDialog):
         type_ = self.typeSelector.currentData()
         images = self.imagesSelector.isChecked()
 
-        countries = self.numishare.getItems("region_facet", images, department=department,
+        countries = self.connector.getItems("region_facet", images, department=department,
                 ruler=ruler, dynasty=dynasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.countrySelector.currentIndexChanged.disconnect(self.partChanged)
@@ -559,7 +559,7 @@ class NumishareDialog(QDialog):
             self.countrySelector.setCurrentIndex(index)
         self.countrySelector.currentIndexChanged.connect(self.partChanged)
 
-        rulers = self.numishare.getItems("authority_facet", images, department=department,
+        rulers = self.connector.getItems("authority_facet", images, department=department,
                 country=country, dynasty=dynasty, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.rulerSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -572,7 +572,7 @@ class NumishareDialog(QDialog):
             self.rulerSelector.setCurrentIndex(index)
         self.rulerSelector.currentIndexChanged.connect(self.partChanged)
 
-        dynasties = self.numishare.getItems("dynasty_facet", images, department=department,
+        dynasties = self.connector.getItems("dynasty_facet", images, department=department,
                 country=country, ruler=ruler, year=year,
                 denomination=denomination, material=material, type_=type_)
         self.dynastySelector.currentIndexChanged.disconnect(self.partChanged)
@@ -585,7 +585,7 @@ class NumishareDialog(QDialog):
             self.dynastySelector.setCurrentIndex(index)
         self.dynastySelector.currentIndexChanged.connect(self.partChanged)
 
-        years = self.numishare.getItems("year_num", images, department=department,
+        years = self.connector.getItems("year_num", images, department=department,
                 country=country, ruler=ruler, dynasty=dynasty,
                 denomination=denomination, material=material, type_=type_)
         self.yearSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -598,7 +598,7 @@ class NumishareDialog(QDialog):
             self.yearSelector.setCurrentIndex(index)
         self.yearSelector.currentIndexChanged.connect(self.partChanged)
 
-        denominations = self.numishare.getItems("denomination_facet", images, department=department,
+        denominations = self.connector.getItems("denomination_facet", images, department=department,
                 country=country, ruler=ruler, dynasty=dynasty, year=year,
                 material=material, type_=type_)
         self.denominationSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -611,7 +611,7 @@ class NumishareDialog(QDialog):
             self.denominationSelector.setCurrentIndex(index)
         self.denominationSelector.currentIndexChanged.connect(self.partChanged)
 
-        materials = self.numishare.getItems("material_facet", images, department=department,
+        materials = self.connector.getItems("material_facet", images, department=department,
                 country=country, ruler=ruler, dynasty=dynasty, year=year,
                 denomination=denomination, type_=type_)
         self.materialSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -624,7 +624,7 @@ class NumishareDialog(QDialog):
             self.materialSelector.setCurrentIndex(index)
         self.materialSelector.currentIndexChanged.connect(self.partChanged)
 
-        types = self.numishare.getItems("objectType_facet", images, department=department,
+        types = self.connector.getItems("objectType_facet", images, department=department,
                 country=country, ruler=ruler, dynasty=dynasty, year=year,
                 denomination=denomination, material=material)
         self.typeSelector.currentIndexChanged.disconnect(self.partChanged)
@@ -638,7 +638,7 @@ class NumishareDialog(QDialog):
         self.typeSelector.currentIndexChanged.connect(self.partChanged)
 
         if country or ruler or dynasty or year or denomination or material or type_:
-            count = self.numishare.getCount(images, department=department,
+            count = self.connector.getCount(images, department=department,
                 country=country, ruler=ruler, dynasty=dynasty, year=year,
                 denomination=denomination, material=material, type_=type_)
             print('TOTAL_LEN', count)
@@ -663,7 +663,7 @@ class NumishareDialog(QDialog):
         type_ = self.typeSelector.currentData()
         images = self.imagesSelector.isChecked()
 
-        item_ids = self.numishare.getIds(images, department=department,
+        item_ids = self.connector.getIds(images, department=department,
                 country=country, ruler=ruler, dynasty=dynasty, year=year,
                 denomination=denomination, material=material, type_=type_)
 
@@ -679,7 +679,7 @@ class NumishareDialog(QDialog):
 
                 self.items.append(item_id)
                 
-                data = self.numishare.getData(item_id)
+                data = self.connector.getData(item_id)
                 tree = lxml.etree.fromstring(data.encode('utf-8'))
 
                 url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='obverse']/mets:file[@USE='thumbnail']/mets:FLocat",
@@ -708,7 +708,7 @@ class NumishareDialog(QDialog):
                                      '{http://www.w3.org/1999/xlink}href')
                 if url:
                     url = url + '.xml'
-                    raw_data = self.numishare.download_data(url)
+                    raw_data = self.connector.download_data(url)
                     if raw_data:
                         tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
 
@@ -757,7 +757,7 @@ class NumishareDialog(QDialog):
         if not url:
             return image
 
-        result = image.loadFromData(self.numishare.getImage(url, False))
+        result = image.loadFromData(self.connector.getImage(url, False))
         if result:
             if image.height() > self.HEIGHT:
                 image = image.scaled(self.HEIGHT, self.HEIGHT,
@@ -779,9 +779,9 @@ class NumishareDialog(QDialog):
             self.accept()
 
     def accept(self):
-        self.model.settings['numishare_department'] = self.departmentSelector.currentData()
-        self.model.settings['numishare_has_image'] = self.imagesSelector.isChecked()
+        self.model.settings['ans_department'] = self.departmentSelector.currentData()
+        self.model.settings['ans_has_image'] = self.imagesSelector.isChecked()
         self.model.settings.save()
 
-        self.numishare.close()
+        self.connector.close()
         super().accept()
