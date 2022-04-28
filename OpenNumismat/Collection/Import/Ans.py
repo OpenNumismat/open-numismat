@@ -172,7 +172,6 @@ class AnsConnector(QObject):
             else:
                 break
     
-        print(res)
         return res
     
     def getItems(self, target, images, department=None, country=None, year=None, dynasty=None,
@@ -503,13 +502,14 @@ class AnsDialog(QDialog):
 
         if self.trim_title:
             denomination = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination")
-            parts = re.match(r'(^[0-9,\.\s\-/]+)(.*)', denomination)
-            if parts:
-                value, unit = parts.groups()
-                record.setValue('value', value)
-                record.setValue('unit', unit)
-            else:
-                record.setValue('unit', denomination)
+            if denomination:
+                parts = re.match(r'(^[0-9,\.\s\-/]+)(.*)', denomination)
+                if parts:
+                    value, unit = parts.groups()
+                    record.setValue('value', value)
+                    record.setValue('unit', unit)
+                else:
+                    record.setValue('unit', denomination)
         else:
             self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination", record, 'unit')
 
@@ -673,7 +673,6 @@ class AnsDialog(QDialog):
             count = self.connector.getCount(images, department=department,
                 country=country, ruler=ruler, dynasty=dynasty, year=year,
                 denomination=denomination, material=material, type_=type_)
-            print('TOTAL_LEN', count)
 
             if count == 0:
                 self.label_empty.show()

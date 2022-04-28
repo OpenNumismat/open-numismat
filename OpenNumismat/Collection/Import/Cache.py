@@ -43,7 +43,6 @@ class Cache(QObject):
         QSqlDatabase.removeDatabase('cache')
 
     def get(self, url):
-        print(url)
         if not self.db:
             return None
 
