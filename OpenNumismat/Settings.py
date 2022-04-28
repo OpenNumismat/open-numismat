@@ -79,10 +79,11 @@ class Settings(BaseSettings):
                'check_coin_title': True,
                'check_coin_duplicate': True,
                'images_by_default': 2,
-               'colnect_enabled': True,
                'colnect_locale': _getLocale(),
-               'colnect_autoclose': False,
                'colnect_skip_currency': True,
+               'ans_split_denomination': True,
+               'ans_locale_en': False,
+               'ans_trim_title': True,
                'map_type': 0,
                'built_in_viewer': True,
                'font_size': 0}
@@ -98,8 +99,8 @@ class Settings(BaseSettings):
     def _getValue(self, key):
         if key in ('error', 'updates', 'autobackup',
                    'check_coin_title', 'check_coin_duplicate',
-                   'colnect_enabled', 'colnect_autoclose',
-                   'colnect_skip_currency', 'built_in_viewer'):
+                   'colnect_skip_currency', 'ans_split_denomination',
+                   'ans_locale_en', 'ans_trim_title', 'built_in_viewer'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
         elif key in ('images_by_default', 'autobackup_depth',

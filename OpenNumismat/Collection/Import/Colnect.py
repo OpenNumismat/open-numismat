@@ -306,7 +306,6 @@ class ColnectDialog(QDialog):
 
         settings = Settings()
         self.lang = settings['colnect_locale']
-        self.autoclose = settings['colnect_autoclose']
 
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
@@ -409,10 +408,7 @@ class ColnectDialog(QDialog):
         self.addButton.setEnabled(False)
         self.addCloseButton = QPushButton(self.tr("Add and close"))
         self.addCloseButton.setEnabled(False)
-        if self.autoclose:
-            self.addCloseButton.setDefault(True)
-        else:
-            self.addButton.setDefault(True)
+        self.addButton.setDefault(True)
 
         self.previewButton = QPushButton(self.tr("Preview"))
         self.previewButton.setEnabled(False)
@@ -472,7 +468,7 @@ class ColnectDialog(QDialog):
         if not index:
             return
 
-        self.addCoin(index, self.autoclose)
+        self.addCoin(index, False)
 
     def addCoin(self, index, close):
         if index.row() < len(self.items):

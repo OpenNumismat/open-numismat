@@ -439,7 +439,7 @@ class FieldsSettingsPage(QWidget):
         self.fields.save()
 
 
-class ColnectSettingsPage(QWidget):
+class ImportSettingsPage(QWidget):
     Languages = (
         ('ar', 'العربية'), ('az', 'Azərbaycanca'), ('be', 'Беларуская'),
         ('bg', 'Български'), ('ca', 'Català'), ('cs', 'Česky'),
@@ -464,7 +464,7 @@ class ColnectSettingsPage(QWidget):
         # ('fy', 'Frysk'),
     )
 
-    def __init__(self, collection, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
 
         settings = Settings()
@@ -484,15 +484,37 @@ class ColnectSettingsPage(QWidget):
 
         fLayout.addRow(self.tr("Language"), self.languageSelector)
 
-        self.autoclose = QCheckBox(self.tr("Close dialog after adding item"),
-                                   self)
-        self.autoclose.setChecked(settings['colnect_autoclose'])
-        fLayout.addRow(self.autoclose)
-
         self.skip_currency = QCheckBox(self.tr("Skip currency symbol"),
                                        self)
         self.skip_currency.setChecked(settings['colnect_skip_currency'])
         fLayout.addRow(self.skip_currency)
+
+        vLayout = QVBoxLayout()
+        vLayout.addLayout(fLayout)
+
+        colnectGroup = QGroupBox(self.tr("Use Colnect"), self)
+        colnectGroup.setLayout(vLayout)
+
+        fLayout = QFormLayout()
+        fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+
+        self.ans_locale_en = QCheckBox(self.tr("English language"), self)
+        self.ans_locale_en.setChecked(settings['ans_locale_en'])
+        fLayout.addRow(self.ans_locale_en)
+
+        self.ans_split_denomination = QCheckBox(self.tr("Split denomination"), self)
+        self.ans_split_denomination.setChecked(settings['ans_split_denomination'])
+        fLayout.addRow(self.ans_split_denomination)
+
+        self.ans_trim_title = QCheckBox(self.tr("Trim ID in title"), self)
+        self.ans_trim_title.setChecked(settings['ans_trim_title'])
+        fLayout.addRow(self.ans_trim_title)
+
+        vLayout = QVBoxLayout()
+        vLayout.addLayout(fLayout)
+
+        ansGroup = QGroupBox("American Numismatic Society", self)
+        ansGroup.setLayout(vLayout)
 
         clearCacheBtn = QPushButton(self.tr("Clear cache"), self)
         clearCacheBtn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -501,17 +523,10 @@ class ColnectSettingsPage(QWidget):
         hLayout = QHBoxLayout()
         hLayout.addWidget(clearCacheBtn, alignment=Qt.AlignRight)
 
-        vLayout = QVBoxLayout()
-        vLayout.addLayout(fLayout)
-        vLayout.addLayout(hLayout)
-
-        self.enabledGroup = QGroupBox(self.tr("Use Colnect"), self)
-        self.enabledGroup.setCheckable(True)
-        self.enabledGroup.setChecked(settings['colnect_enabled'])
-        self.enabledGroup.setLayout(vLayout)
-
         layout = QVBoxLayout()
-        layout.addWidget(self.enabledGroup)
+        layout.addWidget(colnectGroup)
+        layout.addWidget(ansGroup)
+        layout.addLayout(hLayout)
 
         self.setLayout(layout)
 
@@ -521,10 +536,11 @@ class ColnectSettingsPage(QWidget):
     def save(self):
         settings = Settings()
 
-        settings['colnect_enabled'] = self.enabledGroup.isChecked()
         settings['colnect_locale'] = self.languageSelector.currentData()
-        settings['colnect_autoclose'] = self.autoclose.isChecked()
         settings['colnect_skip_currency'] = self.skip_currency.isChecked()
+        settings['ans_split_denomination'] = self.ans_split_denomination.isChecked()
+        settings['ans_locale_en'] = self.ans_locale_en.isChecked()
+        settings['ans_trim_title'] = self.ans_trim_title.isChecked()
 
         settings.save()
 
@@ -538,7 +554,7 @@ class SettingsDialog(QDialog):
         mainPage = MainSettingsPage(collection, self)
         collectionPage = CollectionSettingsPage(collection, self)
         fieldsPage = FieldsSettingsPage(collection, self)
-        colnectPage = ColnectSettingsPage(collection, self)
+        importPage = ImportSettingsPage(self)
 
         self.setWindowTitle(self.tr("Settings"))
 
@@ -550,7 +566,7 @@ class SettingsDialog(QDialog):
         index = self.tab.addTab(fieldsPage, self.tr("Fields"))
         if not collection.isOpen():
             self.tab.setTabEnabled(index, False)
-        index = self.tab.addTab(colnectPage, "Colnect")
+        index = self.tab.addTab(importPage, self.tr("Import"))
         if not collection.isOpen():
             self.tab.setTabEnabled(index, False)
 

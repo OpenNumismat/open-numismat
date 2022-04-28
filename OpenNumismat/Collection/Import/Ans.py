@@ -1,3 +1,4 @@
+import re
 import urllib.request
 from urllib.parse import quote_plus
 from socket import timeout
@@ -212,8 +213,12 @@ class AnsDialog(QDialog):
         self.items = []
 
         settings = Settings()
-        self.lang = settings['colnect_locale']
-        self.autoclose = settings['colnect_autoclose']
+        if settings['ans_locale_en']:
+            self.lang = 'en'
+        else:
+            self.lang = settings['locale']
+        self.split_denomination = settings['ans_split_denomination']
+        self.trim_title = settings['ans_trim_title']
 
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
@@ -349,10 +354,7 @@ class AnsDialog(QDialog):
         self.addButton.setEnabled(False)
         self.addCloseButton = QPushButton(self.tr("Add and close"))
         self.addCloseButton.setEnabled(False)
-        if self.autoclose:
-            self.addCloseButton.setDefault(True)
-        else:
-            self.addButton.setDefault(True)
+        self.addButton.setDefault(True)
 
         self.previewButton = QPushButton(self.tr("Preview"))
         self.previewButton.setEnabled(False)
@@ -398,7 +400,7 @@ class AnsDialog(QDialog):
         if not index:
             return
 
-        self.addCoin(index, self.autoclose)
+        self.addCoin(index, False)
 
     def addCoin(self, index, close):
         if index.row() < len(self.items):
@@ -452,7 +454,17 @@ class AnsDialog(QDialog):
         data = self.connector.getData(item_id)
         tree = lxml.etree.fromstring(data.encode('utf-8'))
 
-        self._setRecordField(tree, "./nuds:descMeta/nuds:title", record, 'title')
+        id_ = self._getValue(tree, "./nuds:control/nuds:recordId")
+        record.setValue('url', "https://numismatics.org/collection/%s" % id_)
+
+        title = self._getValue(tree, "./nuds:descMeta/nuds:title")
+        if title and id_:
+            if self.trim_title:
+                title = re.sub("%s$" % id_, '', title)
+                title = re.sub(r"\. $", '', title)
+
+            record.setValue('title', title)
+            
         self._setRecordField(tree, "./nuds:descMeta/nuds:adminDesc/nuds:department", record, 'region')
         self._setRecordField(tree, "./nuds:descMeta/nuds:physDesc/nuds:measurementsSet/nuds:weight", record, 'weight')
         self._setRecordField(tree, "./nuds:descMeta/nuds:physDesc/nuds:measurementsSet/nuds:diameter", record, 'diameter')
@@ -466,9 +478,6 @@ class AnsDialog(QDialog):
         for i, ref in enumerate(refs[:4], start=1):
             value = " ".join([item.text for item in ref])
             record.setValue('catalognum%d' % i, value)
-
-        id_ = self._getValue(tree, "./nuds:control/nuds:recordId")
-        record.setValue('url', "https://numismatics.org/collection/%s" % id_)
 
         url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='obverse']/mets:file[@USE='archive']/mets:FLocat",
                              '{http://www.w3.org/1999/xlink}href')
@@ -490,9 +499,20 @@ class AnsDialog(QDialog):
             if raw_data:
                 tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
 
+        if self.trim_title:
+            denomination = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination")
+            parts = re.match(r'(^[0-9,\.\s\-/]+)(.*)', denomination)
+            if parts:
+                value, unit = parts.groups()
+                record.setValue('value', value)
+                record.setValue('unit', unit)
+            else:
+                record.setValue('unit', denomination)
+        else:
+            self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination", record, 'unit')
+
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='region']", record, 'country')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='mint']", record, 'mint')
-        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination", record, 'unit')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:objectType", record, 'type')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:material", record, 'material')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:authority/nuds:persname[@xlink:role='dynasty']", record, 'period')
@@ -700,9 +720,15 @@ class AnsDialog(QDialog):
                     item.setData(Qt.DecorationRole, pixmap)
                     self.table.setItem(i, 1, item)
 
-                value = self._getValue(tree, "./nuds:descMeta/nuds:title")
-                item = QTableWidgetItem(value)
-                self.table.setItem(i, 2, item)
+                title = self._getValue(tree, "./nuds:descMeta/nuds:title")
+                id_ = self._getValue(tree, "./nuds:control/nuds:recordId")
+                if title and id_:
+                    if self.trim_title:
+                        title = re.sub("%s$" % id_, '', title)
+                        title = re.sub(r"\. $", '', title)
+        
+                    item = QTableWidgetItem(title)
+                    self.table.setItem(i, 2, item)
 
                 url = self._getAttrib(tree, "./nuds:descMeta/nuds:refDesc/nuds:reference",
                                      '{http://www.w3.org/1999/xlink}href')
