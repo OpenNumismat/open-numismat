@@ -640,6 +640,8 @@ class CollectionSettings(BaseSettings):
             'default_status': 'demo',
             'colnect_category': 'coins',
             'colnect_country': 0,
+            'ans_department': '',
+            'ans_has_image': False,
     }
 
     def __init__(self, db):

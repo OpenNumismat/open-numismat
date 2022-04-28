@@ -19,6 +19,7 @@ from OpenNumismat.Collection.Export import ExportDialog
 from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
+from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 
 from OpenNumismat.Collection.Import import *
@@ -65,9 +66,14 @@ class MainWindow(QMainWindow):
         self.viewButton.setDefaultAction(self.tableViewAct)
 
         colnectAct = QAction(QIcon(':/colnect.png'),
-                             "Colnect...", self)
+                             "Colnect", self)
         colnectAct.triggered.connect(self.colnectEvent)
         self.collectionActs.append(colnectAct)
+
+        ansAct = QAction(QIcon(':/ans.png'),
+                              "American Numismatic Society", self)
+        ansAct.triggered.connect(self.ansEvent)
+        self.collectionActs.append(ansAct)
 
         self.detailsAct = QAction(QIcon(':/application-form.png'),
                                   self.tr("Info panel"), self)
@@ -301,8 +307,10 @@ class MainWindow(QMainWindow):
         coin.addAction(addCoinAct)
         coin.addAction(editCoinAct)
         coin.addSeparator()
-        if Settings()['colnect_enabled'] and colnectAvailable:
+        if colnectAvailable:
             coin.addAction(colnectAct)
+        if ansAvailable:
+            coin.addAction(ansAct)
         coin.addSeparator()
         coin.addAction(copyCoinAct)
         coin.addAction(pasteCoinAct)
@@ -416,9 +424,12 @@ class MainWindow(QMainWindow):
                 toolBar.addAction(self.statisticsAct)
             if importedQtWebKit:
                 toolBar.addAction(self.mapAct)
-        if Settings()['colnect_enabled'] and colnectAvailable:
+        if colnectAvailable or ansAvailable:
             toolBar.addSeparator()
+        if colnectAvailable:
             toolBar.addAction(colnectAct)
+        if ansAvailable:
+            toolBar.addAction(ansAct)
         toolBar.addSeparator()
         toolBar.addWidget(self.viewButton)
 
@@ -533,6 +544,11 @@ class MainWindow(QMainWindow):
     def colnectEvent(self):
         model = self.viewTab.currentModel()
         dialog = ColnectDialog(model, self)
+        dialog.exec_()
+
+    def ansEvent(self):
+        model = self.viewTab.currentModel()
+        dialog = AnsDialog(model, self)
         dialog.exec_()
 
     def updateInfoType(self, info_type):

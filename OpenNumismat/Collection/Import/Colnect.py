@@ -2,17 +2,15 @@ import csv
 import io
 import json
 import re
-import os
-import tempfile
 import urllib.request
 from socket import timeout
 
-from PyQt5.QtCore import Qt, QObject, QDate, QByteArray
+from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtGui import QImage, QPixmap, QIcon
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import *
 
 from OpenNumismat import version
+from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
@@ -28,110 +26,12 @@ except ImportError:
     colnectAvailable = False
 
 
-class ColnectCache(QObject):
-    FILE_NAME = "opennumismat-colnect"
-
-    Action = 1
-    Item = 2
-    Image = 3
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        self.db = self.open()
-        self._compact()
-
-    def open(self):
-        db = QSqlDatabase.addDatabase('QSQLITE', 'cache')
-        db.setDatabaseName(self._file_name())
-        if not db.open():
-            QMessageBox.warning(self, "Colnect", self.tr("Can't open Colnect cache"))
-            return None
-
-        QSqlQuery("PRAGMA synchronous=OFF", db)
-        QSqlQuery("PRAGMA journal_mode=MEMORY", db)
-
-        if 'cache' not in db.tables():
-            sql = "CREATE TABLE cache (\
-                id INTEGER PRIMARY KEY,\
-                type INTEGER, url TEXT, data BLOB,\
-                createdat TEXT)"
-            QSqlQuery(sql, db)
-
-        return db
-
-    def close(self):
-        if self.db:
-            self.db.close()
-            self.db = None
-        QSqlDatabase.removeDatabase('cache')
-
-    def get(self, type_, url):
-        if not self.db:
-            return None
-
-        query = QSqlQuery(self.db)
-        query.prepare("SELECT data FROM cache WHERE type=? AND url=?")
-        query.addBindValue(type_)
-        query.addBindValue(url)
-        query.exec_()
-        if query.next():
-            record = query.record()
-            return record.value('data')
-
-        return None
-
-    def set(self, type_, url, data):
-        if not self.db:
-            return
-
-        if not data:
-            return
-
-        query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO cache (type, url, data, createdat)"
-                      " VALUES (?, ?, ?, ?)")
-        query.addBindValue(type_)
-        query.addBindValue(url)
-        if isinstance(data, bytes):
-            data = QByteArray(data)
-        query.addBindValue(data)
-        currentDate = QDate.currentDate()
-        days = QDate(2000, 1, 1).daysTo(currentDate)
-        query.addBindValue(days)
-        query.exec_()
-
-    def _compact(self):
-        if self.db:
-            query = QSqlQuery(self.db)
-            query.prepare("DELETE FROM cache WHERE"
-                          " (createdat < ? AND type = 1) OR"
-                          " (createdat < ? AND type = 2) OR"
-                          " (createdat < ? AND type = 3)")
-            currentDate = QDate.currentDate()
-            days = QDate(2000, 1, 1).daysTo(currentDate)
-            query.addBindValue(days - 30)  # actions older month
-            query.addBindValue(days - 14)  # items older 2 weeks
-            query.addBindValue(days - 7)  # images older week
-            query.exec_()
-
-    @staticmethod
-    def _file_name():
-        return os.path.join(tempfile.gettempdir(), ColnectCache.FILE_NAME)
-
-    @staticmethod
-    def clear():
-        file_name = ColnectCache._file_name()
-        if os.path.exists(file_name):
-            os.remove(file_name)
-
-
 class ColnectConnector(QObject):
 
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.cache = ColnectCache()
+        self.cache = Cache()
         self.skip_currency = Settings()['colnect_skip_currency']
         self.lang = Settings()['colnect_locale']
 
@@ -248,7 +148,7 @@ class ColnectConnector(QObject):
     def getFields(self, category):
         url = "https://%s/en/api/COLNECT_KEY/fields/cat/%s" % (COLNECT_PROXY, category)
 
-        raw_data = self.cache.get(ColnectCache.Image, url)
+        raw_data = self.cache.get(url)
         if raw_data:
             data = json.loads(raw_data)
             return data
@@ -265,7 +165,7 @@ class ColnectConnector(QObject):
             return []
 
         data = json.loads(raw_data)
-        self.cache.set(ColnectCache.Image, url, raw_data)
+        self.cache.set(url, raw_data)
 
         return data
 
@@ -280,7 +180,7 @@ class ColnectConnector(QObject):
 
         if not full:
             # full images was not cached - store previous behaviour
-            data = self.cache.get(ColnectCache.Image, url)
+            data = self.cache.get(url)
             if data:
                 return data
 
@@ -292,7 +192,7 @@ class ColnectConnector(QObject):
             return None
 
         if not full:
-            self.cache.set(ColnectCache.Image, url, data)
+            self.cache.set(url, data)
 
         return data
 
@@ -324,7 +224,7 @@ class ColnectConnector(QObject):
     @waitCursorDecorator
     def getData(self, action):
         url = self._baseUrl() + action
-        raw_data = self.cache.get(ColnectCache.Action, url)
+        raw_data = self.cache.get(url)
         if raw_data:
             data = json.loads(raw_data)
             return data
@@ -350,7 +250,7 @@ class ColnectConnector(QObject):
             return []
 
         data = json.loads(raw_data)
-        self.cache.set(ColnectCache.Action, url, raw_data)
+        self.cache.set(url, raw_data)
 
         return data
 
@@ -406,7 +306,6 @@ class ColnectDialog(QDialog):
 
         settings = Settings()
         self.lang = settings['colnect_locale']
-        self.autoclose = settings['colnect_autoclose']
 
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
@@ -509,10 +408,7 @@ class ColnectDialog(QDialog):
         self.addButton.setEnabled(False)
         self.addCloseButton = QPushButton(self.tr("Add and close"))
         self.addCloseButton.setEnabled(False)
-        if self.autoclose:
-            self.addCloseButton.setDefault(True)
-        else:
-            self.addButton.setDefault(True)
+        self.addButton.setDefault(True)
 
         self.previewButton = QPushButton(self.tr("Preview"))
         self.previewButton.setEnabled(False)
@@ -545,11 +441,10 @@ class ColnectDialog(QDialog):
         self._partsEnable(False)
 
         self.model = model
-        self.settings = model.settings
         self.items = []
 
-        default_category = self.settings['colnect_category']
-        default_country = self.settings['colnect_country']
+        default_category = self.model.settings['colnect_category']
+        default_country = self.model.settings['colnect_country']
 
         self.colnect = ColnectConnector(self)
 
@@ -573,7 +468,7 @@ class ColnectDialog(QDialog):
         if not index:
             return
 
-        self.addCoin(index, self.autoclose)
+        self.addCoin(index, False)
 
     def addCoin(self, index, close):
         if index.row() < len(self.items):
@@ -604,8 +499,6 @@ class ColnectDialog(QDialog):
         countries = self.colnect.getCountries(category)
         for country in countries:
             self.countrySelector.addItem(country[1], country[0])
-
-        self.settings['colnect_category'] = category
 
     def countryChanged(self, _index):
         self._clearTable()
@@ -646,8 +539,6 @@ class ColnectDialog(QDialog):
         self.currencySelector.addItem(self.tr("(All)"), None)
         for currency in currencies:
             self.currencySelector.addItem(str(currency[1]), currency[0])
-
-        self.settings['colnect_country'] = country
 
     def partChanged(self, _index):
         self._clearTable()
@@ -833,10 +724,13 @@ class ColnectDialog(QDialog):
         else:
             self.accept()
 
-    def accept(self):
-        self.settings.save()
+    def done(self, r):
+        self.model.settings['colnect_country'] = self.countrySelector.currentData()
+        self.model.settings['colnect_category'] = self.categorySelector.currentData()
+        self.model.settings.save()
+
         self.colnect.close()
-        super().accept()
+        super().done(r)
 
 
 class ImportColnect(_Import2):

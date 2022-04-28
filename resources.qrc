@@ -66,5 +66,6 @@
     <file alias="date.png">icons/date.png</file>
     <file alias="tick.png">icons/tick.png</file>
     <file alias="backspace.png">icons/backspace.png</file>
+    <file alias="ans.png">icons/ans.png</file>
 </qresource>
 </RCC>
