@@ -66,12 +66,8 @@ class NumishareConnector(QObject):
 
         return data
 
-    def _baseUrl(self):
-        url = "https://numismatics.org/search/"
-        return url
-    
     @waitCursorDecorator
-    def download_url(self, url):
+    def download_data(self, url):
         raw_data = self.cache.get(url)
         is_cashed = bool(raw_data)
         if not is_cashed:
@@ -91,10 +87,10 @@ class NumishareConnector(QObject):
 
         return raw_data
 
-    def _download(self, action):
-        url = self._baseUrl() + action
-        return self.download_url(url)
-
+    def _baseUrl(self):
+        url = "https://numismatics.org/search/"
+        return url
+    
     def _makeQuery(self, images, department=None, country=None, year=None, dynasty=None,
                  ruler=None, denomination=None, material=None, type_=None):
         params = []
@@ -125,7 +121,7 @@ class NumishareConnector(QObject):
                  ruler, denomination, material, type_)
         action = "apis/search?q=" + query + "&format=rss"
         
-        raw_data = self._download(action)
+        raw_data = self.download_data(self._baseUrl() + action)
 
         if not raw_data:
             return 0
@@ -137,7 +133,7 @@ class NumishareConnector(QObject):
     
     def getTranslation(self, src, lang):
         url = "https://nomisma.org/apis/getLabel?uri=" + src + "&lang=" + lang
-        raw_data = self.download_url(url)
+        raw_data = self.download_data(url)
         if raw_data:
             tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
             data = tree.xpath("/response")
@@ -149,7 +145,7 @@ class NumishareConnector(QObject):
     def getData(self, item_id):
         action = "id/%s.xml" % item_id
         
-        raw_data = self._download(action)
+        raw_data = self.download_data(self._baseUrl() + action)
 
         return raw_data
     
@@ -166,7 +162,7 @@ class NumishareConnector(QObject):
             if start_index > 0:
                 action += "&start=%d" % start_index
             
-            raw_data = self._download(action)
+            raw_data = self.download_data(self._baseUrl() + action)
     
             if raw_data:
                 tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
@@ -194,7 +190,7 @@ class NumishareConnector(QObject):
                  ruler, denomination, material, type_)
         action = "get_facet_options?q=" + query + "&category=" + target + "&mincount=1&pipeline=results&lang=" + self.lang
 
-        raw_data = self._download(action)
+        raw_data = self.download_data(self._baseUrl() + action)
 
         if not raw_data or "<option disabled>No options available</option>" in raw_data:
             return []
@@ -211,6 +207,9 @@ class NumishareConnector(QObject):
 @storeDlgSizeDecorator
 class NumishareDialog(QDialog):
     HEIGHT = 62
+    NSMAP = {'nuds': 'http://nomisma.org/nuds',
+             'xlink': 'http://www.w3.org/1999/xlink',
+             'mets': 'http://www.loc.gov/METS/'}
 
     def __init__(self, model, parent=None):
         super().__init__(parent,
@@ -432,11 +431,7 @@ class NumishareDialog(QDialog):
         self.items = []
 
     def _getValue(self, tree, key):
-        nsmap = {'nuds': 'http://nomisma.org/nuds',
-                 'xlink': 'http://www.w3.org/1999/xlink',
-                 'mets': 'http://www.loc.gov/METS/'}
-
-        el = tree.xpath(key, namespaces=nsmap)
+        el = tree.xpath(key, namespaces=self.NSMAP)
         if el:
             if el[0].attrib.has_key('{http://www.w3.org/1999/xlink}href'):
                 src = el[0].attrib['{http://www.w3.org/1999/xlink}href']
@@ -449,11 +444,7 @@ class NumishareDialog(QDialog):
         return None
 
     def _getAttrib(self, tree, key, attrib):
-        nsmap = {'nuds': 'http://nomisma.org/nuds',
-                 'xlink': 'http://www.w3.org/1999/xlink',
-                 'mets': 'http://www.loc.gov/METS/'}
-
-        el = tree.xpath(key, namespaces=nsmap)
+        el = tree.xpath(key, namespaces=self.NSMAP)
         if el and el[0].attrib.has_key(attrib):
             return el[0].attrib[attrib]
         
@@ -468,10 +459,6 @@ class NumishareDialog(QDialog):
         return False
 
     def makeItem(self, item_id, record):
-        nsmap = {'nuds': 'http://nomisma.org/nuds',
-                 'xlink': 'http://www.w3.org/1999/xlink',
-                 'mets': 'http://www.loc.gov/METS/'}
-
         data = self.numishare.getData(item_id)
         tree = lxml.etree.fromstring(data.encode('utf-8'))
 
@@ -485,7 +472,7 @@ class NumishareDialog(QDialog):
         if not self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='subjectEvent']", record, 'subjectshort'):
             self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='subjectPerson']", record, 'subjectshort')
 
-        refs = tree.xpath("./nuds:descMeta/nuds:refDesc/nuds:reference", namespaces=nsmap)
+        refs = tree.xpath("./nuds:descMeta/nuds:refDesc/nuds:reference", namespaces=self.NSMAP)
         for i, ref in enumerate(refs[:4], start=1):
             value = " ".join([item.text for item in ref])
             record.setValue('catalognum%d' % i, value)
@@ -509,7 +496,7 @@ class NumishareDialog(QDialog):
                              '{http://www.w3.org/1999/xlink}href')
         if url:
             url = url + '.xml'
-            raw_data = self.numishare.download_url(url)
+            raw_data = self.numishare.download_data(url)
             if raw_data:
                 tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
 
@@ -731,7 +718,7 @@ class NumishareDialog(QDialog):
                                      '{http://www.w3.org/1999/xlink}href')
                 if url:
                     url = url + '.xml'
-                    raw_data = self.numishare.download_url(url)
+                    raw_data = self.numishare.download_data(url)
                     if raw_data:
                         tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
 
