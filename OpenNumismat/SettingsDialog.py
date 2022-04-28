@@ -7,6 +7,7 @@ from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Reports import Report
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.Import.Cache import Cache
@@ -269,7 +270,7 @@ class CollectionSettingsPage(QWidget):
 
         self.defaultStatus = QComboBox(self)
         for status in Statuses.Keys:
-            self.defaultStatus.addItem(Statuses[status], status)
+            self.defaultStatus.addItem(statusIcon(status), Statuses[status], status)
         index = self.defaultStatus.findData(self.settings['default_status'])
         self.defaultStatus.setCurrentIndex(index)
         self.defaultStatus.setSizePolicy(QSizePolicy.Fixed,
