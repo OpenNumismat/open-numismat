@@ -219,6 +219,8 @@ class AnsDialog(QDialog):
             self.lang = settings['locale']
         self.split_denomination = settings['ans_split_denomination']
         self.trim_title = settings['ans_trim_title']
+        self.trim_title = settings['ans_trim_title']
+        self.enable_bc = self.model.settings['enable_bc']
 
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
@@ -531,8 +533,15 @@ class AnsDialog(QDialog):
         value = ' - '.join(filter(None, [el1, el2]))
         record.setValue('reversedesign', value)
 
-        if not self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:date", record, 'year'):
-            self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateOnObject/nuds:date", record, 'year')
+        year = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:date")
+        if not year:
+            year = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateOnObject/nuds:date")
+        if year:
+            if self.enable_bc and 'BC' in year:
+                year = year.replace('BC', '').strip()
+                year = -int(year)
+
+            record.setValue('year', year)
         el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:fromDate")
         el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:toDate")
         value = ' - '.join(filter(None, [el1, el2]))
@@ -612,7 +621,10 @@ class AnsDialog(QDialog):
         self.yearSelector.clear()
         self.yearSelector.addItem(self.tr("(All)"), None)
         for item in years:
-            self.yearSelector.addItem(item[0], item[0])
+            year_showed = item[0]
+            if self.enable_bc and int(year_showed) < 0:
+                year_showed = str(-int(year_showed)) + " BC"
+            self.yearSelector.addItem(year_showed, item[0])
         index = self.yearSelector.findData(year)
         if index >= 0:
             self.yearSelector.setCurrentIndex(index)
