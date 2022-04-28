@@ -71,8 +71,7 @@ class NumishareConnector(QObject):
         return url
     
     @waitCursorDecorator
-    def _download(self, action):
-        url = self._baseUrl() + action
+    def download_url(self, url):
         raw_data = self.cache.get(url)
         is_cashed = bool(raw_data)
         if not is_cashed:
@@ -91,6 +90,10 @@ class NumishareConnector(QObject):
             self.cache.set(url, raw_data)
 
         return raw_data
+
+    def _download(self, action):
+        url = self._baseUrl() + action
+        return self.download_url(url)
 
     def _makeQuery(self, images, department=None, country=None, year=None, dynasty=None,
                  ruler=None, denomination=None, material=None, type_=None):
@@ -134,27 +137,12 @@ class NumishareConnector(QObject):
     
     def getTranslation(self, src, lang):
         url = "https://nomisma.org/apis/getLabel?uri=" + src + "&lang=" + lang
-        raw_data = self.cache.get(url)
-        is_cashed = bool(raw_data)
-        if not is_cashed:
-            try:
-                req = urllib.request.Request(url,
-                                        headers={'User-Agent': version.AppName})
-                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
-            except timeout:
-                QMessageBox.warning(self.parent(), "Numishare",
-                                    self.tr("Numishare not response"))
-                return ''
-            except:
-                return ''
-
-        if not is_cashed:
-            self.cache.set(url, raw_data)
-
-        tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
-        data = tree.xpath("/response")
-        if data:
-            return data[0].text
+        raw_data = self.download_url(url)
+        if raw_data:
+            tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
+            data = tree.xpath("/response")
+            if data:
+                return data[0].text
         
         return ''
     
@@ -466,7 +454,7 @@ class NumishareDialog(QDialog):
                  'mets': 'http://www.loc.gov/METS/'}
 
         el = tree.xpath(key, namespaces=nsmap)
-        if el:
+        if el and el[0].attrib.has_key(attrib):
             return el[0].attrib[attrib]
         
         return None
@@ -480,45 +468,22 @@ class NumishareDialog(QDialog):
         return False
 
     def makeItem(self, item_id, record):
+        nsmap = {'nuds': 'http://nomisma.org/nuds',
+                 'xlink': 'http://www.w3.org/1999/xlink',
+                 'mets': 'http://www.loc.gov/METS/'}
+
         data = self.numishare.getData(item_id)
         tree = lxml.etree.fromstring(data.encode('utf-8'))
 
         self._setRecordField(tree, "./nuds:descMeta/nuds:title", record, 'title')
-        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='region']", record, 'country')
-        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='mint']", record, 'mint')
-        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination", record, 'unit')
-        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:objectType", record, 'type')
-        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:material", record, 'material')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:adminDesc/nuds:department", record, 'region')
         self._setRecordField(tree, "./nuds:descMeta/nuds:physDesc/nuds:measurementsSet/nuds:weight", record, 'weight')
         self._setRecordField(tree, "./nuds:descMeta/nuds:physDesc/nuds:measurementsSet/nuds:diameter", record, 'diameter')
-        self._setRecordField(tree, "./nuds:descMeta/nuds:adminDesc/nuds:department", record, 'region')
-        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:authority/nuds:persname[@xlink:role='dynasty']", record, 'period')
-        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:authority/nuds:persname[@xlink:role='authority']", record, 'ruler')
         self._setRecordField(tree, "./nuds:descMeta/nuds:physDesc/nuds:measurementsSet/nuds:shape", record, 'shape')
-        if not self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='subjectEvent']", record, 'subjectshort'):
-            self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='subjectPerson']", record, 'subjectshort')
         self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='series']", record, 'series')
         self._setRecordField(tree, "./nuds:descMeta/nuds:noteSet/nuds:note", record, 'note')
-
-        el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:legend")
-        el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:type/nuds:description")
-        value = ' - '.join(filter(None, [el1, el2]))
-        record.setValue('obversedesign', value)
-        el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:reverse/nuds:legend")
-        el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:reverse/nuds:type/nuds:description")
-        value = ' - '.join(filter(None, [el1, el2]))
-        record.setValue('reversedesign', value)
-
-        if not self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:date", record, 'year'):
-            self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateOnObject/nuds:date", record, 'year')
-        el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:fromDate")
-        el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:toDate")
-        value = ' - '.join(filter(None, [el1, el2]))
-        record.setValue('dateemis', value)
-        
-        nsmap = {'nuds': 'http://nomisma.org/nuds',
-                 'xlink': 'http://www.w3.org/1999/xlink',
-                 'mets': 'http://www.loc.gov/METS/'}
+        if not self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='subjectEvent']", record, 'subjectshort'):
+            self._setRecordField(tree, "./nuds:descMeta/nuds:subjectSet/nuds:subject[@localType='subjectPerson']", record, 'subjectshort')
 
         refs = tree.xpath("./nuds:descMeta/nuds:refDesc/nuds:reference", namespaces=nsmap)
         for i, ref in enumerate(refs[:4], start=1):
@@ -540,6 +505,42 @@ class NumishareDialog(QDialog):
             image = self.numishare.getImage(url, True)
             record.setValue('reverseimg', image)
 
+        url = self._getAttrib(tree, "./nuds:descMeta/nuds:refDesc/nuds:reference",
+                             '{http://www.w3.org/1999/xlink}href')
+        if url:
+            url = url + '.xml'
+            raw_data = self.numishare.download_url(url)
+            if raw_data:
+                tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
+
+        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='region']", record, 'country')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='mint']", record, 'mint')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination", record, 'unit')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:objectType", record, 'type')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:material", record, 'material')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:authority/nuds:persname[@xlink:role='dynasty']", record, 'period')
+        self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:authority/nuds:persname[@xlink:role='authority']", record, 'ruler')
+
+        el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:legend")
+        el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:type/nuds:description[@xml:lang='%s']" % self.lang)
+        if not el2:
+            el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:type/nuds:description[@xml:lang='en']")
+        value = ' - '.join(filter(None, [el1, el2]))
+        record.setValue('obversedesign', value)
+        el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:reverse/nuds:legend")
+        el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:reverse/nuds:type/nuds:description[@xml:lang='%s']" % self.lang)
+        if not el2:
+            el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:reverse/nuds:type/nuds:description[@xml:lang='en']")
+        value = ' - '.join(filter(None, [el1, el2]))
+        record.setValue('reversedesign', value)
+
+        if not self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:date", record, 'year'):
+            self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateOnObject/nuds:date", record, 'year')
+        el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:fromDate")
+        el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:toDate")
+        value = ' - '.join(filter(None, [el1, el2]))
+        record.setValue('dateemis', value)
+        
     def departmentChanged(self):
         self._clearTable()
 
@@ -725,6 +726,14 @@ class NumishareDialog(QDialog):
                 value = self._getValue(tree, "./nuds:descMeta/nuds:title")
                 item = QTableWidgetItem(value)
                 self.table.setItem(i, 2, item)
+
+                url = self._getAttrib(tree, "./nuds:descMeta/nuds:refDesc/nuds:reference",
+                                     '{http://www.w3.org/1999/xlink}href')
+                if url:
+                    url = url + '.xml'
+                    raw_data = self.numishare.download_url(url)
+                    if raw_data:
+                        tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
 
                 value = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination")
                 item = QTableWidgetItem(value)
