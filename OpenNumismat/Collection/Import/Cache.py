@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 
 class Cache(QObject):
-    FILE_NAME = "opennumismat-cache"
+    FILE_NAME = "opennumismat-cache.sqlite3"
 
     def __init__(self, parent=None):
         super().__init__(parent)
