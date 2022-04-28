@@ -1,12 +1,3 @@
-# http://numismatics.org/search/apis
-# http://numismatics.org/crro/apis
-# http://nomisma.org/apis, http://nomisma.org/datasets (https://oscar.nationalmuseum.ch/apis/search?q=reference_facet:%22NHMZ%201-288a%22, https://oscar.nationalmuseum.ch/results?q=*%3A*)
-# http://nomisma.org/id/coins_ptolemaic_empire
-# https://github.com/nomisma/data/blob/master/id/ar.rdf
-# Find: https://numismatics.org/search/apis/search?q=denomination_facet%3A%22Victoriatus%22+AND+department_facet%3A%22Roman%22&lang=ru
-# Coin: https://numismatics.org/search/id/1944.100.147.jsonld
-# Details: http://numismatics.org/crro/id/rrc-71.1a.jsonld
-
 import urllib.request
 from urllib.parse import quote_plus
 from socket import timeout
@@ -38,7 +29,6 @@ class NumishareConnector(QObject):
         super().__init__(parent)
 
         self.cache = Cache()
-        self.skip_currency = Settings()['colnect_skip_currency']
         self.lang = Settings()['colnect_locale']
 
     @waitCursorDecorator

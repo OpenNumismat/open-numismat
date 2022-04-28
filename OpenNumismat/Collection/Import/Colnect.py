@@ -2,14 +2,11 @@ import csv
 import io
 import json
 import re
-import os
-import tempfile
 import urllib.request
 from socket import timeout
 
-from PyQt5.QtCore import Qt, QObject, QDate
+from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtGui import QImage, QPixmap, QIcon
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtWidgets import *
 
 from OpenNumismat import version
