@@ -778,10 +778,10 @@ class AnsDialog(QDialog):
         else:
             self.accept()
 
-    def accept(self):
+    def done(self, r):
         self.model.settings['ans_department'] = self.departmentSelector.currentData()
         self.model.settings['ans_has_image'] = self.imagesSelector.isChecked()
         self.model.settings.save()
 
         self.connector.close()
-        super().accept()
+        super().done(r)
