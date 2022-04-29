@@ -455,7 +455,8 @@ class JapanCalendar(QValidator):
             result += _DIGITS[tens]
         if tens > 0:
             result += "十"
-        result += _DIGITS[ones]
+        if ones:
+            result += _DIGITS[ones]
 
         result += "年"
         
