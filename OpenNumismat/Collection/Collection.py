@@ -1211,7 +1211,7 @@ class Collection(QtCore.QObject):
 
         height = 64
         if params['density'] == 'HDPI':
-            height *= 1.5
+            height = int(height * 1.5)
         elif params['density'] == 'XHDPI':
             height *= 2
         elif params['density'] == 'XXHDPI':
