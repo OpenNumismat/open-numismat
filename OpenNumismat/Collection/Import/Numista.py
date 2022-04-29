@@ -175,6 +175,8 @@ class ImportNumista(_Import2):
             item['price'] = {}
         if 'value' not in item['price']:
             item['price']['value'] = ''
+        if 'issuer' not in item['coin']:
+            item['coin']['issuer'] = {'name': ''}
 
         record.setValue('title', item['coin']['title'])
         record.setValue('country', item['coin']['issuer']['name'])
@@ -189,6 +191,7 @@ class ImportNumista(_Import2):
         record.setValue('mintage', item['issue']['mintage'])
         record.setValue('quantity', item['quantity'])
         record.setValue('payprice', item['price']['value'])
+        record.setValue('category', item['category'])
 
         coin_id = item['coin']['id']
         url = self.ENDPOINT + '/coins/' + str(coin_id) + '?' + \
@@ -202,10 +205,14 @@ class ImportNumista(_Import2):
 
         item_data = json.loads(raw_data)
 
-        record.setValue('value', item_data['value']['numeric_value'])
-        record.setValue('unit', item_data['value']['currency']['name'])
+        if 'value' in item_data:
+            if 'numeric_value' in item_data['value']:
+                record.setValue('value', item_data['value']['numeric_value'])
+            if 'currency' in item_data['value']:
+                record.setValue('unit', item_data['value']['currency']['name'])
         record.setValue('url', item_data['url'])
-        record.setValue('type', item_data['type'])
+        if 'type' in item_data:
+            record.setValue('type', item_data['type'])
         record.setValue('period', item_data['value']['currency']['full_name'])
         if 'ruler' in item_data:
             record.setValue('ruler', item_data['ruler'][0]['name'])
