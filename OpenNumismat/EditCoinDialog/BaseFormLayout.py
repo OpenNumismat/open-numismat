@@ -20,7 +20,6 @@ class FormItem(object):
             self._label.stateChanged.connect(self.checkBoxChanged)
         else:
             self._label = QLabel(title, parent)
-            self._label.setAlignment(Qt.AlignRight | Qt.AlignTop)
             self._label.setSizePolicy(QSizePolicy.Fixed,
                                       QSizePolicy.Preferred)
 
@@ -211,8 +210,11 @@ class BaseFormLayout(QGridLayout):
         if not item2:
             if item1.isHidden():
                 return
-            self.addWidget(item1.label(), self.row, 0)
             widget = item1.widget()
+            if isinstance(widget, QTextEdit):
+                self.addWidget(item1.label(), self.row, 0, Qt.AlignTop)
+            else:
+                self.addWidget(item1.label(), self.row, 0)
             # NOTE: columnSpan parameter in addWidget don't work with value -1
             # for 2-columns grid
             # self.addWidget(widget, self.row, 1, 1, -1)
@@ -329,7 +331,7 @@ class ImageFormLayout(BaseFormLayout):
                 image.label().setSizePolicy(QSizePolicy.Preferred,
                                             QSizePolicy.Fixed)
                 if isinstance(image.label(), QLabel):
-                    image.label().setAlignment(Qt.AlignLeft)
+                    image.label().setAlignment(Qt.AlignLeft | Qt.AlignTop)
 
                 row = self.imagesCount // 2
                 col = self.imagesCount % 2
