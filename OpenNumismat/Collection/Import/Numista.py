@@ -161,6 +161,8 @@ class ImportNumista(_Import2):
             item['issue']['mintage'] = ''
         if 'comment' not in item['issue']:
             item['issue']['comment'] = ''
+        if 'gregorian_year' in item['issue']:
+            item['issue']['year'] = item['issue']['gregorian_year']
         if 'year' not in item['issue']:
             item['issue']['year'] = ''
         if 'mint_letter' not in item['issue']:
@@ -191,7 +193,7 @@ class ImportNumista(_Import2):
         record.setValue('mintage', item['issue']['mintage'])
         record.setValue('quantity', item['quantity'])
         record.setValue('payprice', item['price']['value'])
-        record.setValue('category', item['category'])
+        record.setValue('category', item['coin']['category'])
 
         coin_id = item['coin']['id']
         url = self.ENDPOINT + '/coins/' + str(coin_id) + '?' + \
@@ -210,10 +212,14 @@ class ImportNumista(_Import2):
                 record.setValue('value', item_data['value']['numeric_value'])
             if 'currency' in item_data['value']:
                 record.setValue('unit', item_data['value']['currency']['name'])
+                record.setValue('period', item_data['value']['currency']['full_name'])
         record.setValue('url', item_data['url'])
         if 'type' in item_data:
             record.setValue('type', item_data['type'])
-        record.setValue('period', item_data['value']['currency']['full_name'])
+        if 'series' in item_data:
+            record.setValue('series', item_data['series'])
+        if 'commemorated_topic' in item_data:
+            record.setValue('subjectshort', item_data['commemorated_topic'])
         if 'ruler' in item_data:
             record.setValue('ruler', item_data['ruler'][0]['name'])
         if 'shape' in item_data:
