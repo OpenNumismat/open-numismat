@@ -541,7 +541,7 @@ class NepalCalendar(QValidator):
             result *= 10
             result += _DIGITS[c]
         
-        if year < 1823:
+        if result < 1823:
             return result + 78
         return result - 57
     
