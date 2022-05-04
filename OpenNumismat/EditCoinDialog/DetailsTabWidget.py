@@ -64,8 +64,9 @@ class DetailsTabWidget(QTabWidget):
         minting = self.mintingLayout()
         note = self.noteLayout()
 
-        title = QApplication.translate('DetailsTabWidget', "Parameters")
-        self.addTabPage(title, [parameters, self.Stretch, minting, note])
+        if not parameters.isEmpty() or not minting.isEmpty() or not note.isEmpty():
+            title = QApplication.translate('DetailsTabWidget', "Parameters")
+            self.addTabPage(title, [parameters, self.Stretch, minting, note])
 
     def createDesignPage(self):
         obverse = self.obverseDesignLayout()
@@ -73,8 +74,9 @@ class DetailsTabWidget(QTabWidget):
         edge = self.edgeDesignLayout()
         subject = self.subjectLayout()
 
-        title = QApplication.translate('DetailsTabWidget', "Design")
-        self.addTabPage(title, [obverse, reverse, self.Stretch, edge, subject])
+        if not obverse.isEmpty() or not reverse.isEmpty() or not edge.isEmpty() or not subject.isEmpty():
+            title = QApplication.translate('DetailsTabWidget', "Design")
+            self.addTabPage(title, [obverse, reverse, self.Stretch, edge, subject])
 
     def createClassificationPage(self):
         catalogue = self.catalogueLayout()
@@ -83,9 +85,10 @@ class DetailsTabWidget(QTabWidget):
         variation = self.variationLayout()
         url = self.urlLayout()
 
-        title = QApplication.translate('DetailsTabWidget', "Classification")
-        self.addTabPage(title, [catalogue, rarity, price, self.Stretch,
-                                variation, url])
+        if not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
+            title = QApplication.translate('DetailsTabWidget', "Classification")
+            self.addTabPage(title, [catalogue, rarity, price, self.Stretch,
+                                    variation, url])
 
     def _layoutToWidget(self, layout):
         widget = QWidget(self)
@@ -581,17 +584,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.createClassificationPage()
         self.createImagePage()
 
-    def createDesignPage(self):
-        obverse = self.obverseDesignLayout()
-        reverse = self.reverseDesignLayout()
-        edge = self.edgeDesignLayout()
-        subject = self.subjectLayout()
-
-        self.addTabPage(self.tr("Design"), [obverse, reverse, self.Stretch, edge, subject])
-
     def createImagePage(self):
         images = self.imagesLayout()
-        self.addTabPage(self.tr("Images"), [images, ])
+        if not images.isEmpty():
+            self.addTabPage(self.tr("Images"), [images, ])
 
     def addItem(self, field):
         checkable = 0
