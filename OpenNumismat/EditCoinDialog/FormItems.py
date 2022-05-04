@@ -487,10 +487,13 @@ class NumberEdit(QLineEdit):
 
 
 class YearEdit(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, is_free, parent=None):
         super().__init__(parent)
 
-        self.numberEdit = NumberEdit(parent)
+        if is_free:
+            self.numberEdit = UserNumericEdit(parent)
+        else:
+            self.numberEdit = NumberEdit(parent)
 
         self.bcBtn = QCheckBox(self.tr("BC"))
         self.bcBtn.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
