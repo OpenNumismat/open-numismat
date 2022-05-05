@@ -303,6 +303,8 @@ class ColnectDialog(QDialog):
         self.setWindowTitle("Colnect")
 
         fields = model.fields
+        self.model = model
+        self.items = []
 
         settings = Settings()
         self.lang = settings['colnect_locale']
@@ -333,6 +335,9 @@ class ColnectDialog(QDialog):
                                             QSizePolicy.Fixed)
         for category in categories:
             self.categorySelector.addItem(category[1], category[0])
+        default_category = self.model.settings['colnect_category']
+        index = self.categorySelector.findData(default_category)
+        self.categorySelector.setCurrentIndex(index)
         layout.addRow(self.tr("Category"), self.categorySelector)
         self.categorySelector.currentIndexChanged.connect(self.categoryChanged)
 
@@ -440,22 +445,15 @@ class ColnectDialog(QDialog):
 
         self._partsEnable(False)
 
-        self.model = model
-        self.items = []
-
-        default_category = self.model.settings['colnect_category']
-        default_country = self.model.settings['colnect_country']
-
         self.colnect = ColnectConnector(self)
 
-        index = self.categorySelector.findData(default_category)
-        self.categorySelector.setCurrentIndex(index)
-        self.categoryChanged(0)
+        self.categoryChanged()
 
+        default_country = self.model.settings['colnect_country']
         index = self.countrySelector.findData(default_country)
         if index >= 0:
             self.countrySelector.setCurrentIndex(index)
-        self.countryChanged(0)
+        self.countryChanged()
 
     def sectionDoubleClicked(self, index):
         self.table.resizeColumnToContents(index)
@@ -491,54 +489,61 @@ class ColnectDialog(QDialog):
         self.table.setRowCount(0)
         self.items = []
 
-    def categoryChanged(self, _index):
-        self._clearTable()
-        self.countrySelector.clear()
-
-        category = self.categorySelector.currentData()
-        countries = self.colnect.getCountries(category)
-        for country in countries:
-            self.countrySelector.addItem(country[1], country[0])
-
-    def countryChanged(self, _index):
+    def categoryChanged(self):
         self._clearTable()
 
-        self._partsEnable(True)
+        if self.categorySelector.currentIndex() >= 0:
+            self.countrySelector.clear()
+    
+            category = self.categorySelector.currentData()
+            countries = self.colnect.getCountries(category)
+            for country in countries:
+                self.countrySelector.addItem(country[1], country[0])
+        else:
+            self._partsEnable(False)
 
-        category = self.categorySelector.currentData()
-        country = self.countrySelector.currentData()
-        if not country:
-            return
+    def countryChanged(self):
+        self._clearTable()
 
-        series = self.colnect.getSeries(category, country)
-        self.seriesSelector.clear()
-        self.seriesSelector.addItem(self.tr("(All)"), None)
-        for ser in series:
-            self.seriesSelector.addItem(str(ser[1]), ser[0])
-
-        distributions = self.colnect.getDistributions(category, country)
-        self.distributionSelector.clear()
-        self.distributionSelector.addItem(self.tr("(All)"), None)
-        for distr in distributions:
-            self.distributionSelector.addItem(str(distr[1]), distr[0])
-
-        years = self.colnect.getYears(category, country)
-        self.yearSelector.clear()
-        self.yearSelector.addItem(self.tr("(All)"), None)
-        for year in years:
-            self.yearSelector.addItem(str(year[0]), year[0])
-
-        values = self.colnect.getValues(category, country)
-        self.valueSelector.clear()
-        self.valueSelector.addItem(self.tr("(All)"), None)
-        for value in values:
-            self.valueSelector.addItem(str(value[1]), value[0])
-
-        currencies = self.colnect.getCurrencies(category, country)
-        self.currencySelector.clear()
-        self.currencySelector.addItem(self.tr("(All)"), None)
-        for currency in currencies:
-            self.currencySelector.addItem(str(currency[1]), currency[0])
+        if self.countrySelector.currentIndex() >= 0:
+            self._partsEnable(True)
+    
+            category = self.categorySelector.currentData()
+            country = self.countrySelector.currentData()
+            if not country:
+                return
+    
+            series = self.colnect.getSeries(category, country)
+            self.seriesSelector.clear()
+            self.seriesSelector.addItem(self.tr("(All)"), None)
+            for ser in series:
+                self.seriesSelector.addItem(str(ser[1]), ser[0])
+    
+            distributions = self.colnect.getDistributions(category, country)
+            self.distributionSelector.clear()
+            self.distributionSelector.addItem(self.tr("(All)"), None)
+            for distr in distributions:
+                self.distributionSelector.addItem(str(distr[1]), distr[0])
+    
+            years = self.colnect.getYears(category, country)
+            self.yearSelector.clear()
+            self.yearSelector.addItem(self.tr("(All)"), None)
+            for year in years:
+                self.yearSelector.addItem(str(year[0]), year[0])
+    
+            values = self.colnect.getValues(category, country)
+            self.valueSelector.clear()
+            self.valueSelector.addItem(self.tr("(All)"), None)
+            for value in values:
+                self.valueSelector.addItem(str(value[1]), value[0])
+    
+            currencies = self.colnect.getCurrencies(category, country)
+            self.currencySelector.clear()
+            self.currencySelector.addItem(self.tr("(All)"), None)
+            for currency in currencies:
+                self.currencySelector.addItem(str(currency[1]), currency[0])
+        else:
+            self._partsEnable(False)
 
     def partChanged(self, _index):
         self._clearTable()
@@ -725,8 +730,10 @@ class ColnectDialog(QDialog):
             self.accept()
 
     def done(self, r):
-        self.model.settings['colnect_country'] = self.countrySelector.currentData()
-        self.model.settings['colnect_category'] = self.categorySelector.currentData()
+        if self.countrySelector.currentIndex() >= 0:
+            self.model.settings['colnect_country'] = self.countrySelector.currentData()
+        if self.categorySelector.currentIndex() >= 0:
+            self.model.settings['colnect_category'] = self.categorySelector.currentData()
         self.model.settings.save()
 
         self.colnect.close()

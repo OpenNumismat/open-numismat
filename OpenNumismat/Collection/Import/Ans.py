@@ -816,7 +816,8 @@ class AnsDialog(QDialog):
             self.accept()
 
     def done(self, r):
-        self.model.settings['ans_department'] = self.departmentSelector.currentData()
+        if self.departmentSelector.currentIndex() >= 0:
+            self.model.settings['ans_department'] = self.departmentSelector.currentData()
         self.model.settings['ans_has_image'] = self.imagesSelector.isChecked()
         self.model.settings.save()
 

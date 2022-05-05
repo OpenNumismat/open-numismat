@@ -638,7 +638,7 @@ class CollectionSettings(BaseSettings):
             'enable_bc': True,
             'rich_text': False,
             'default_status': 'demo',
-            'colnect_category': 'coins',
+            'colnect_category': '',
             'colnect_country': 0,
             'ans_department': '',
             'ans_has_image': False,
