@@ -104,7 +104,7 @@ class ImportNumista(_Import2):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        if Settings()['locale'] == 'fr':
+        if Settings()['locale'] in ('fr', 'es'):
             self.language = Settings()['locale']
         else:
             self.language = 'en'
