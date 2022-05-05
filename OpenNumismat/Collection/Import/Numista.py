@@ -47,7 +47,7 @@ class NumistaAuthentication(QDialog):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
-        if Settings()['locale'] == 'fr':
+        if Settings()['locale'] in ('fr', 'es'):
             self.language = Settings()['locale']
         else:
             self.language = 'en'
@@ -100,7 +100,7 @@ class NumistaAuthentication(QDialog):
         reply.ignoreSslErrors()
 
 class ImportNumista(_Import2):
-    ENDPOINT = 'https://api.numista.com/api/v2'
+    ENDPOINT = 'https://api.numista.com/api/v3'
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -133,7 +133,7 @@ class ImportNumista(_Import2):
             access_token = data['access_token']
             user_id = data['user_id']
 
-            url = self.ENDPOINT + '/users/' + str(user_id) + '/collected_coins?' + \
+            url = self.ENDPOINT + '/users/' + str(user_id) + '/collected_items?' + \
                 'lang=' + self.language
             try:
                 req = urllib.request.Request(url,
@@ -150,10 +150,10 @@ class ImportNumista(_Import2):
         return False
 
     def _getRowsCount(self, connection):
-        return len(self.coins_data['collected_coins'])
+        return len(self.coins_data['items'])
 
     def _setRecord(self, record, row):
-        item = self.coins_data['collected_coins'][row]
+        item = self.coins_data['items'][row]
 
         if 'issue' not in item:
             item['issue'] = {}
@@ -177,11 +177,11 @@ class ImportNumista(_Import2):
             item['price'] = {}
         if 'value' not in item['price']:
             item['price']['value'] = ''
-        if 'issuer' not in item['coin']:
+        if 'issuer' not in item['type']:
             item['coin']['issuer'] = {'name': ''}
 
-        record.setValue('title', item['coin']['title'])
-        record.setValue('country', item['coin']['issuer']['name'])
+        record.setValue('title', item['type']['title'])
+        record.setValue('country', item['type']['issuer']['name'])
         record.setValue('features', '\n'.join((item['issue']['comment'], item['private_comment'], item['public_comment'])))
         if item['for_swap']:
             record.setValue('status', 'sale')
@@ -193,10 +193,10 @@ class ImportNumista(_Import2):
         record.setValue('mintage', item['issue']['mintage'])
         record.setValue('quantity', item['quantity'])
         record.setValue('payprice', item['price']['value'])
-        record.setValue('category', item['coin']['category'])
+        record.setValue('category', item['type']['category'])
 
-        coin_id = item['coin']['id']
-        url = self.ENDPOINT + '/coins/' + str(coin_id) + '?' + \
+        type_id = item['type']['id']
+        url = self.ENDPOINT + '/types/' + str(type_id) + '?' + \
             'lang=' + self.language
         try:
             req = urllib.request.Request(url,
@@ -276,6 +276,29 @@ class ImportNumista(_Import2):
                 img_url = item_data['edge']['picture']
                 image = self._getImage(img_url)
                 record.setValue('edgeimg', image)
+
+        if 'id' in item['issue']:
+            issue_id = item['issue']['id']
+            url = self.ENDPOINT + '/types/' + str(type_id) + '/issues/' + str(issue_id) + '/prices' + \
+                '?lang=' + self.language # + '&currency=' + 'EUR'
+            try:
+                req = urllib.request.Request(url,
+                        headers={'Numista-API-Key': NUMISTA_API_KEY})
+                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+            except:
+                return
+    
+            prices_data = json.loads(raw_data)
+    
+            for price in prices_data['prices']:
+                if price['grade'] == 'f':
+                    record.setValue('price1', price['price'])
+                elif price['grade'] == 'vf':
+                    record.setValue('price2', price['price'])
+                elif price['grade'] == 'xf':
+                    record.setValue('price3', price['price'])
+                elif price['grade'] == 'unc':
+                    record.setValue('price4', price['price'])
 
     def _getImage(self, url):
         try:
