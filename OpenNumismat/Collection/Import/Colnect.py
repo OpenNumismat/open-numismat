@@ -627,8 +627,7 @@ class ColnectDialog(QDialog):
             progressDlg = ProgressDialog(self.tr("Downloading"), self.tr("Cancel"),
                                          len(item_ids), self)
 
-            action = "fields/cat/%s" % category
-            fields = self.colnect.getFields(action)
+            fields = self.colnect.getFields(category)
 
             self.table.setRowCount(len(item_ids))
             for i, item_id in enumerate(item_ids):
