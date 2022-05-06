@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtCore import Qt, QMargins
+from PyQt5.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
@@ -464,6 +464,19 @@ class ImportSettingsPage(QWidget):
         # ('kk', 'Қазақша'), ('ur', 'اردو'), ('mk', 'Македонски'),
         # ('fy', 'Frysk'),
     )
+    Currencies = (('BGN', QT_TRANSLATE_NOOP("Currency", "BGN - Bulgaria, Fourth lev")),
+                  ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazil, Real")),
+                  ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarus, Third ruble")),
+                  ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech Republic, Koruna")),
+                  ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Eurozone, Euro")),
+                  ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - United Kingdom, Pound sterling")),
+                  ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungary, Forint")),
+                  ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Poland, Fourth zloty")),
+                  ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russia, Ruble")),
+                  ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Sweden, Krona")),
+                  ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkey, New lira")),
+                  ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukraine, Hryvnia")),
+                  ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States, Dollar")))
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -473,17 +486,17 @@ class ImportSettingsPage(QWidget):
         fLayout = QFormLayout()
         fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
-        self.languageSelector = QComboBox(self)
+        self.colnect_locale = QComboBox(self)
         for lang in self.Languages:
-            self.languageSelector.addItem(lang[1], lang[0])
-        current = self.languageSelector.findData(settings['colnect_locale'])
+            self.colnect_locale.addItem(lang[1], lang[0])
+        current = self.colnect_locale.findData(settings['colnect_locale'])
         if current == -1:
             current = 9
-        self.languageSelector.setCurrentIndex(current)
-        self.languageSelector.setSizePolicy(QSizePolicy.Fixed,
+        self.colnect_locale.setCurrentIndex(current)
+        self.colnect_locale.setSizePolicy(QSizePolicy.Fixed,
                                             QSizePolicy.Fixed)
 
-        fLayout.addRow(self.tr("Language"), self.languageSelector)
+        fLayout.addRow(self.tr("Language"), self.colnect_locale)
 
         self.skip_currency = QCheckBox(self.tr("Skip currency symbol"),
                                        self)
@@ -493,7 +506,7 @@ class ImportSettingsPage(QWidget):
         vLayout = QVBoxLayout()
         vLayout.addLayout(fLayout)
 
-        colnectGroup = QGroupBox(self.tr("Use Colnect"), self)
+        colnectGroup = QGroupBox("Colnect", self)
         colnectGroup.setLayout(vLayout)
 
         fLayout = QFormLayout()
@@ -517,6 +530,30 @@ class ImportSettingsPage(QWidget):
         ansGroup = QGroupBox("American Numismatic Society", self)
         ansGroup.setLayout(vLayout)
 
+        fLayout = QFormLayout()
+        fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+
+        self.numista_split_denomination = QCheckBox(self.tr("Split denomination"), self)
+        self.numista_split_denomination.setChecked(settings['numista_split_denomination'])
+        fLayout.addRow(self.numista_split_denomination)
+
+        self.numista_currency = QComboBox(self)
+        for curr in self.Currencies:
+            self.numista_currency.addItem(QApplication.translate("Currency", curr[1]), curr[0])
+        current = self.numista_currency.findData(settings['numista_currency'])
+        if current == -1:
+            current = 0
+        self.numista_currency.setCurrentIndex(current)
+        self.numista_currency.setSizePolicy(QSizePolicy.Fixed,
+                                            QSizePolicy.Fixed)
+        fLayout.addRow(self.tr("Price currency"), self.numista_currency)
+
+        vLayout = QVBoxLayout()
+        vLayout.addLayout(fLayout)
+
+        numistaGroup = QGroupBox("Numista", self)
+        numistaGroup.setLayout(vLayout)
+
         clearCacheBtn = QPushButton(self.tr("Clear cache"), self)
         clearCacheBtn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         clearCacheBtn.clicked.connect(self.clearCache)
@@ -527,6 +564,7 @@ class ImportSettingsPage(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(colnectGroup)
         layout.addWidget(ansGroup)
+        layout.addWidget(numistaGroup)
         layout.addLayout(hLayout)
 
         self.setLayout(layout)
@@ -537,11 +575,13 @@ class ImportSettingsPage(QWidget):
     def save(self):
         settings = Settings()
 
-        settings['colnect_locale'] = self.languageSelector.currentData()
+        settings['colnect_locale'] = self.colnect_locale.currentData()
         settings['colnect_skip_currency'] = self.skip_currency.isChecked()
         settings['ans_split_denomination'] = self.ans_split_denomination.isChecked()
         settings['ans_locale_en'] = self.ans_locale_en.isChecked()
         settings['ans_trim_title'] = self.ans_trim_title.isChecked()
+        settings['numista_split_denomination'] = self.numista_split_denomination.isChecked()
+        settings['numista_currency'] = self.numista_currency.currentText()
 
         settings.save()
 

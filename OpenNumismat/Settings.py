@@ -84,6 +84,8 @@ class Settings(BaseSettings):
                'ans_split_denomination': True,
                'ans_locale_en': False,
                'ans_trim_title': True,
+               'numista_split_denomination': True,
+               'numista_currency': 'EUR',
                'map_type': 0,
                'built_in_viewer': True,
                'font_size': 0}
@@ -100,7 +102,8 @@ class Settings(BaseSettings):
         if key in ('error', 'updates', 'autobackup',
                    'check_coin_title', 'check_coin_duplicate',
                    'colnect_skip_currency', 'ans_split_denomination',
-                   'ans_locale_en', 'ans_trim_title', 'built_in_viewer'):
+                   'ans_locale_en', 'ans_trim_title', 'built_in_viewer',
+                   'numista_split_denomination'):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
         elif key in ('images_by_default', 'autobackup_depth',

@@ -1,4 +1,5 @@
 import json
+import re
 import urllib.request
 
 from PyQt5.QtCore import Qt, QUrl, QMargins
@@ -106,8 +107,12 @@ class ImportNumista(_Import2):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        if Settings()['locale'] in ('fr', 'es'):
-            self.language = Settings()['locale']
+        settings = Settings()
+
+        self.split_denomination = settings['numista_split_denomination']
+        self.currency = settings['numista_currency']
+        if settings['locale'] in ('fr', 'es'):
+            self.language = settings['locale']
         else:
             self.language = 'en'
 
@@ -225,10 +230,19 @@ class ImportNumista(_Import2):
         item_data = json.loads(raw_data)
 
         if 'value' in item_data:
-            if 'numeric_value' in item_data['value']:
-                record.setValue('value', item_data['value']['numeric_value'])
+            if 'text' in item_data['value']:
+                denomination = item_data['value']['text']
+                if self.split_denomination:
+                    parts = re.match(r'(^[0-9,\.\s\-/]+)(.*)', denomination)
+                    if parts:
+                        value, unit = parts.groups()
+                        record.setValue('value', value)
+                        record.setValue('unit', unit)
+                    else:
+                        record.setValue('unit', denomination)
+                else:
+                    record.setValue('unit', denomination)
             if 'currency' in item_data['value']:
-                record.setValue('unit', item_data['value']['currency']['name'])
                 record.setValue('period', item_data['value']['currency']['full_name'])
         record.setValue('url', item_data['url'])
         if 'type' in item_data:
@@ -301,7 +315,7 @@ class ImportNumista(_Import2):
         if 'id' in item['issue']:
             issue_id = item['issue']['id']
             url = self.ENDPOINT + '/types/' + str(type_id) + '/issues/' + str(issue_id) + '/prices' + \
-                '?lang=' + self.language # + '&currency=' + 'EUR'
+                '?lang=' + self.language + '&currency=' + self.currency
             raw_data = self._download_cache(url)
             if not raw_data:
                 return
@@ -310,13 +324,13 @@ class ImportNumista(_Import2):
     
             for price in prices_data['prices']:
                 if price['grade'] == 'f':
-                    record.setValue('price1', price['price'])
+                    record.setValue('price1', "%.2f" % price['price'])
                 elif price['grade'] == 'vf':
-                    record.setValue('price2', price['price'])
+                    record.setValue('price2', "%.2f" % price['price'])
                 elif price['grade'] == 'xf':
-                    record.setValue('price3', price['price'])
+                    record.setValue('price3', "%.2f" % price['price'])
                 elif price['grade'] == 'unc':
-                    record.setValue('price4', price['price'])
+                    record.setValue('price4', "%.2f" % price['price'])
 
     def _getImage(self, url):
         try:
