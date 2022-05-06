@@ -30,7 +30,10 @@ class AnsConnector(QObject):
         super().__init__(parent)
 
         self.cache = Cache()
-        self.lang = Settings()['colnect_locale']
+        if Settings()['ans_locale_en']:
+            self.lang = 'en'
+        else:
+            self.lang = Settings()['locale']
 
     @waitCursorDecorator
     def getImage(self, url, full):
