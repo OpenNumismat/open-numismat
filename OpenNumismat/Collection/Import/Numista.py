@@ -250,10 +250,12 @@ class ImportNumista(_Import2):
                 field = 'catalognum%d' % (i + 1)
                 code = catalog_num['catalogue']['code'] + '# ' + catalog_num['number']
                 record.setValue(field, code)
+        if 'comments' in item_data:
+            record.setValue('note', item_data['comments'])
 
         if 'obverse' in item_data:
             if 'engravers' in item_data['obverse']:
-                record.setValue('obversedesigner', ', '.join(item_data['obverse']['engravers']))
+                record.setValue('obverseengraver', ', '.join(item_data['obverse']['engravers']))
             if 'description' in item_data['obverse']:
                 record.setValue('obversedesign', item_data['obverse']['description'])
             if 'picture' in item_data['obverse']:
@@ -262,7 +264,7 @@ class ImportNumista(_Import2):
                 record.setValue('obverseimg', image)
         if 'reverse' in item_data:
             if 'engravers' in item_data['reverse']:
-                record.setValue('reversedesigner', ', '.join(item_data['reverse']['engravers']))
+                record.setValue('reverseengraver', ', '.join(item_data['reverse']['engravers']))
             if 'description' in item_data['reverse']:
                 record.setValue('reversedesign', item_data['reverse']['description'])
             if 'picture' in item_data['reverse']:
@@ -272,6 +274,8 @@ class ImportNumista(_Import2):
         if 'edge' in item_data:
             if 'description' in item_data['edge']:
                 record.setValue('edge', item_data['edge']['description'])
+            if 'lettering' in item_data['edge']:
+                record.setValue('edgelabel', item_data['edge']['lettering'])
             if 'picture' in item_data['edge']:
                 img_url = item_data['edge']['picture']
                 image = self._getImage(img_url)
