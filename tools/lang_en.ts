@@ -160,7 +160,7 @@
 <context>
     <name>BackButton</name>
     <message>
-        <location filename="YearCalculator.py" line="746"/>
+        <location filename="YearCalculator.py" line="747"/>
         <source>Backspace</source>
         <translation type="unfinished"></translation>
     </message>
@@ -333,12 +333,12 @@ Close the file and try again.</source>
 <context>
     <name>CalendarWidget</name>
     <message>
-        <location filename="FormItems.py" line="914"/>
+        <location filename="FormItems.py" line="917"/>
         <source>Today</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FormItems.py" line="916"/>
+        <location filename="FormItems.py" line="919"/>
         <source>Clean</source>
         <translation type="unfinished"></translation>
     </message>
@@ -346,7 +346,7 @@ Close the file and try again.</source>
 <context>
     <name>ClearButton</name>
     <message>
-        <location filename="YearCalculator.py" line="729"/>
+        <location filename="YearCalculator.py" line="730"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1016,68 +1016,65 @@ The application will need to restart now.</source>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="223"/>
+        <location filename="SettingsDialog.py" line="224"/>
         <source>Max image side len</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="225"/>
+        <location filename="SettingsDialog.py" line="226"/>
         <source>0 for storing in original size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="234"/>
+        <location filename="SettingsDialog.py" line="235"/>
         <source>Preview image height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="236"/>
+        <location filename="SettingsDialog.py" line="237"/>
         <source>Free format numeric fields</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="246"/>
+        <location filename="SettingsDialog.py" line="247"/>
         <source>Images at bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="250"/>
+        <location filename="SettingsDialog.py" line="251"/>
         <source>Enable BC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="254"/>
+        <location filename="SettingsDialog.py" line="255"/>
         <source>Use RichText format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="259"/>
+        <location filename="SettingsDialog.py" line="260"/>
         <source>Used statuses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="277"/>
+        <location filename="SettingsDialog.py" line="278"/>
         <source>Default status for new coin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="299"/>
+        <location filename="SettingsDialog.py" line="300"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="299"/>
+        <location filename="SettingsDialog.py" line="300"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="241"/>
+        <location filename="SettingsDialog.py" line="242"/>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>ColnectCache</name>
 </context>
 <context>
     <name>ColnectConnector</name>
@@ -1100,83 +1097,80 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectDialog</name>
     <message>
-        <location filename="Colnect.py" line="316"/>
+        <location filename="Colnect.py" line="318"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="329"/>
+        <location filename="Colnect.py" line="331"/>
         <source>Coins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="329"/>
+        <location filename="Colnect.py" line="331"/>
         <source>Stamps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="339"/>
+        <location filename="Colnect.py" line="344"/>
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="410"/>
+        <location filename="Colnect.py" line="415"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="412"/>
+        <location filename="Colnect.py" line="417"/>
         <source>Add and close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="542"/>
+        <location filename="Colnect.py" line="545"/>
         <source>(All)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="625"/>
+        <location filename="Colnect.py" line="630"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="625"/>
+        <location filename="Colnect.py" line="630"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="419"/>
+        <location filename="Colnect.py" line="424"/>
         <source>Specify more parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="416"/>
+        <location filename="Colnect.py" line="421"/>
         <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="420"/>
+        <location filename="Colnect.py" line="425"/>
         <source>Nothing found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="329"/>
+        <location filename="Colnect.py" line="331"/>
         <source>Banknotes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="329"/>
+        <location filename="Colnect.py" line="331"/>
         <source>Philatelic products</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>ColnectSettingsPage</name>
-</context>
-<context>
     <name>ConvertButton</name>
     <message>
-        <location filename="YearCalculator.py" line="766"/>
+        <location filename="YearCalculator.py" line="767"/>
         <source>Convert</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1270,6 +1264,74 @@ The application will need to restart now.</source>
     </message>
 </context>
 <context>
+    <name>Currency</name>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>BGN - Bulgaria, Fourth lev</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>BRL - Brazil, Real</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>BYN - Belarus, Third ruble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>CZK - Czech Republic, Koruna</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>EUR - Eurozone, Euro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>GBP - United Kingdom, Pound sterling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>HUF - Hungary, Forint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>PLN - Poland, Fourth zloty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>RUB - Russia, Ruble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>SEK - Sweden, Krona</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>TRY - Turkey, New lira</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>UAH - Ukraine, Hryvnia</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>USD - United States, Dollar</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CustomizeTreeDialog</name>
     <message>
         <location filename="CustomizeTreeDialog.py" line="109"/>
@@ -1313,92 +1375,92 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="496"/>
+        <location filename="DetailsTabWidget.py" line="499"/>
         <source>Market</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="321"/>
+        <location filename="DetailsTabWidget.py" line="324"/>
         <source>Parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="76"/>
+        <location filename="DetailsTabWidget.py" line="78"/>
         <source>Design</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="86"/>
+        <location filename="DetailsTabWidget.py" line="89"/>
         <source>Classification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="210"/>
+        <location filename="DetailsTabWidget.py" line="213"/>
         <source>Main details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="229"/>
+        <location filename="DetailsTabWidget.py" line="232"/>
         <source>State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="246"/>
+        <location filename="DetailsTabWidget.py" line="249"/>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="255"/>
+        <location filename="DetailsTabWidget.py" line="258"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="274"/>
+        <location filename="DetailsTabWidget.py" line="277"/>
         <source>Sale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="293"/>
+        <location filename="DetailsTabWidget.py" line="296"/>
         <source>Pass</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="333"/>
+        <location filename="DetailsTabWidget.py" line="336"/>
         <source>Minting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="354"/>
+        <location filename="DetailsTabWidget.py" line="357"/>
         <source>Obverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="365"/>
+        <location filename="DetailsTabWidget.py" line="368"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="376"/>
+        <location filename="DetailsTabWidget.py" line="379"/>
         <source>Edge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="405"/>
+        <location filename="DetailsTabWidget.py" line="408"/>
         <source>Catalogue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="414"/>
+        <location filename="DetailsTabWidget.py" line="417"/>
         <source>Price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="423"/>
+        <location filename="DetailsTabWidget.py" line="426"/>
         <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="548"/>
+        <location filename="DetailsTabWidget.py" line="551"/>
         <source>Commission</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1556,72 +1618,72 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="389"/>
+        <location filename="SettingsDialog.py" line="390"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="394"/>
+        <location filename="SettingsDialog.py" line="395"/>
         <source>Revert to default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="402"/>
+        <location filename="SettingsDialog.py" line="403"/>
         <source>Global enabled fields:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="316"/>
+        <location filename="SettingsDialog.py" line="317"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="317"/>
+        <location filename="SettingsDialog.py" line="318"/>
         <source>Main details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="318"/>
+        <location filename="SettingsDialog.py" line="319"/>
         <source>State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="319"/>
+        <location filename="SettingsDialog.py" line="320"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="320"/>
+        <location filename="SettingsDialog.py" line="321"/>
         <source>Sale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="321"/>
+        <location filename="SettingsDialog.py" line="322"/>
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="322"/>
+        <location filename="SettingsDialog.py" line="323"/>
         <source>Parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="323"/>
+        <location filename="SettingsDialog.py" line="324"/>
         <source>Design</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="324"/>
+        <location filename="SettingsDialog.py" line="325"/>
         <source>Classification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="325"/>
+        <location filename="SettingsDialog.py" line="326"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="326"/>
+        <location filename="SettingsDialog.py" line="327"/>
         <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1668,191 +1730,186 @@ Do you want to send an error message to the author?</source>
     <name>FormDetailsTabWidget</name>
     <message>
         <location filename="DetailsTabWidget.py" line="590"/>
-        <source>Design</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DetailsTabWidget.py" line="594"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="656"/>
+        <location filename="DetailsTabWidget.py" line="652"/>
         <source>Main details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="659"/>
+        <location filename="DetailsTabWidget.py" line="655"/>
         <source>Generate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="684"/>
+        <location filename="DetailsTabWidget.py" line="680"/>
         <source>Obverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="696"/>
+        <location filename="DetailsTabWidget.py" line="692"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="708"/>
+        <location filename="DetailsTabWidget.py" line="704"/>
         <source>Edge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="721"/>
+        <location filename="DetailsTabWidget.py" line="717"/>
         <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="898"/>
+        <location filename="DetailsTabWidget.py" line="894"/>
         <source>Commission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="900"/>
+        <location filename="DetailsTabWidget.py" line="896"/>
         <source>Available format 12.5 or 10%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="812"/>
+        <location filename="DetailsTabWidget.py" line="808"/>
         <source>Israel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Bahrain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Jordan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Iraq</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Yemen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Qatar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Kuwait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Maldives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Oman</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Syria</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>United Arab Emirates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Saudi Arabia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Turkey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Algeria</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Egypt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Libya</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Mauritania</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Morocco</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Sudan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="814"/>
+        <location filename="DetailsTabWidget.py" line="810"/>
         <source>Tunisia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="822"/>
+        <location filename="DetailsTabWidget.py" line="818"/>
         <source>Afghanistan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="822"/>
+        <location filename="DetailsTabWidget.py" line="818"/>
         <source>Iran</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="824"/>
+        <location filename="DetailsTabWidget.py" line="820"/>
         <source>Japan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="826"/>
+        <location filename="DetailsTabWidget.py" line="822"/>
         <source>Nepal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="826"/>
+        <location filename="DetailsTabWidget.py" line="822"/>
         <source>India</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="828"/>
+        <location filename="DetailsTabWidget.py" line="824"/>
         <source>Thailand</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="830"/>
+        <location filename="DetailsTabWidget.py" line="826"/>
         <source>Burma</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="830"/>
+        <location filename="DetailsTabWidget.py" line="826"/>
         <source>Myanmar</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2231,38 +2288,38 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ImportSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="485"/>
+        <location filename="SettingsDialog.py" line="499"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="487"/>
+        <location filename="SettingsDialog.py" line="501"/>
         <source>Skip currency symbol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="495"/>
-        <source>Use Colnect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="501"/>
+        <location filename="SettingsDialog.py" line="515"/>
         <source>English language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="505"/>
+        <location filename="SettingsDialog.py" line="536"/>
         <source>Split denomination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="509"/>
+        <location filename="SettingsDialog.py" line="523"/>
         <source>Trim ID in title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="519"/>
+        <location filename="SettingsDialog.py" line="557"/>
         <source>Clear cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="549"/>
+        <source>Price currency</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2372,112 +2429,112 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="48"/>
+        <location filename="SettingsDialog.py" line="49"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="65"/>
+        <location filename="SettingsDialog.py" line="66"/>
         <source>Reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="174"/>
+        <location filename="SettingsDialog.py" line="175"/>
         <source>Backup folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="81"/>
+        <location filename="SettingsDialog.py" line="82"/>
         <source>Make autobackup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="91"/>
+        <location filename="SettingsDialog.py" line="92"/>
         <source>Coin changes before autobackup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="95"/>
+        <location filename="SettingsDialog.py" line="96"/>
         <source>Send error info to author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="100"/>
+        <location filename="SettingsDialog.py" line="101"/>
         <source>Automatically check for updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="106"/>
+        <location filename="SettingsDialog.py" line="107"/>
         <source>Reliable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="107"/>
+        <location filename="SettingsDialog.py" line="108"/>
         <source>Fast</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="108"/>
+        <location filename="SettingsDialog.py" line="109"/>
         <source>Extra fast (dangerous)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="111"/>
+        <location filename="SettingsDialog.py" line="112"/>
         <source>Acceleration of storage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="113"/>
+        <location filename="SettingsDialog.py" line="114"/>
         <source>Check that coin title present on save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="118"/>
+        <location filename="SettingsDialog.py" line="119"/>
         <source>Check coin duplicates on save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="133"/>
+        <location filename="SettingsDialog.py" line="134"/>
         <source>Default template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="140"/>
+        <location filename="SettingsDialog.py" line="141"/>
         <source>Images count by default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="183"/>
+        <location filename="SettingsDialog.py" line="184"/>
         <source>Select reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="160"/>
+        <location filename="SettingsDialog.py" line="161"/>
         <source>Maps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="142"/>
+        <location filename="SettingsDialog.py" line="143"/>
         <source>Use built-in image viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="163"/>
+        <location filename="SettingsDialog.py" line="164"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="164"/>
+        <location filename="SettingsDialog.py" line="165"/>
         <source>Large</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="165"/>
+        <location filename="SettingsDialog.py" line="166"/>
         <source>Huge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="169"/>
+        <location filename="SettingsDialog.py" line="170"/>
         <source>Font size</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2807,7 +2864,7 @@ Copyright (C) 2011-2022 Vitaly Ignatov
 <context>
     <name>NativeYearEdit</name>
     <message>
-        <location filename="FormItems.py" line="554"/>
+        <location filename="FormItems.py" line="557"/>
         <source>Year calculator</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2815,7 +2872,7 @@ Copyright (C) 2011-2022 Vitaly Ignatov
 <context>
     <name>NumistaAuthentication</name>
     <message>
-        <location filename="Numista.py" line="82"/>
+        <location filename="Numista.py" line="84"/>
         <source>Numista</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3167,27 +3224,27 @@ Created new one</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="559"/>
+        <location filename="SettingsDialog.py" line="600"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="562"/>
+        <location filename="SettingsDialog.py" line="603"/>
         <source>Main</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="563"/>
+        <location filename="SettingsDialog.py" line="604"/>
         <source>Collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="566"/>
+        <location filename="SettingsDialog.py" line="607"/>
         <source>Fields</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="569"/>
+        <location filename="SettingsDialog.py" line="610"/>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3800,22 +3857,22 @@ Add a new one first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="YearCalculator.py" line="472"/>
+        <location filename="YearCalculator.py" line="473"/>
         <source>Roman</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="YearCalculator.py" line="515"/>
+        <location filename="YearCalculator.py" line="516"/>
         <source>Nepal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="YearCalculator.py" line="572"/>
+        <location filename="YearCalculator.py" line="573"/>
         <source>Thai</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="YearCalculator.py" line="629"/>
+        <location filename="YearCalculator.py" line="630"/>
         <source>Burmese</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3823,7 +3880,7 @@ Add a new one first.</source>
 <context>
     <name>YearEdit</name>
     <message>
-        <location filename="FormItems.py" line="518"/>
+        <location filename="FormItems.py" line="521"/>
         <source>BC</source>
         <translation type="unfinished"></translation>
     </message>
