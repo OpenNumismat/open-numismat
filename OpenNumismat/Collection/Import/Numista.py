@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import *
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
+from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
@@ -104,14 +105,33 @@ class ImportNumista(_Import2):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+
         if Settings()['locale'] in ('fr', 'es'):
             self.language = Settings()['locale']
         else:
             self.language = 'en'
 
+        self.cache = Cache()
+
     @staticmethod
     def isAvailable():
         return numistaAvailable
+    
+    def _download_cache(self, url):
+        raw_data = self.cache.get(url)
+        is_cashed = bool(raw_data)
+        if not is_cashed:
+            try:
+                req = urllib.request.Request(url,
+                        headers={'Numista-API-Key': NUMISTA_API_KEY})
+                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+            except:
+                return ''
+        
+        if not is_cashed:
+            self.cache.set(url, raw_data)
+
+        return raw_data
 
     def _connect(self, src):
         dialog = NumistaAuthentication(self.parent())
@@ -198,11 +218,8 @@ class ImportNumista(_Import2):
         type_id = item['type']['id']
         url = self.ENDPOINT + '/types/' + str(type_id) + '?' + \
             'lang=' + self.language
-        try:
-            req = urllib.request.Request(url,
-                    headers={'Numista-API-Key': NUMISTA_API_KEY})
-            raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
-        except:
+        raw_data = self._download_cache(url)
+        if not raw_data:
             return
 
         item_data = json.loads(raw_data)
@@ -285,13 +302,10 @@ class ImportNumista(_Import2):
             issue_id = item['issue']['id']
             url = self.ENDPOINT + '/types/' + str(type_id) + '/issues/' + str(issue_id) + '/prices' + \
                 '?lang=' + self.language # + '&currency=' + 'EUR'
-            try:
-                req = urllib.request.Request(url,
-                        headers={'Numista-API-Key': NUMISTA_API_KEY})
-                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
-            except:
+            raw_data = self._download_cache(url)
+            if not raw_data:
                 return
-    
+
             prices_data = json.loads(raw_data)
     
             for price in prices_data['prices']:
@@ -313,3 +327,6 @@ class ImportNumista(_Import2):
             return image
         except:
             return None
+
+    def _close(self, connection):
+        self.cache.close()
