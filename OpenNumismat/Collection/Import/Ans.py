@@ -500,9 +500,9 @@ class AnsDialog(QDialog):
             if raw_data:
                 tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
 
-        if self.trim_title:
-            denomination = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination")
-            if denomination:
+        denomination = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination")
+        if denomination:
+            if self.split_denomination:
                 parts = re.match(r'(^[0-9,\.\s\-/]+)(.*)', denomination)
                 if parts:
                     value, unit = parts.groups()
@@ -510,8 +510,8 @@ class AnsDialog(QDialog):
                     record.setValue('unit', unit)
                 else:
                     record.setValue('unit', denomination)
-        else:
-            self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination", record, 'unit')
+            else:
+                record.setValue('unit', denomination)
 
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='region']", record, 'country')
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:geographic/nuds:geogname[@xlink:role='mint']", record, 'mint')
@@ -734,10 +734,6 @@ class AnsDialog(QDialog):
                 title = self._getValue(tree, "./nuds:descMeta/nuds:title")
                 id_ = self._getValue(tree, "./nuds:control/nuds:recordId")
                 if title and id_:
-                    if self.trim_title:
-                        title = re.sub("%s$" % id_, '', title)
-                        title = re.sub(r"\. $", '', title)
-        
                     item = QTableWidgetItem(title)
                     self.table.setItem(i, 2, item)
 
