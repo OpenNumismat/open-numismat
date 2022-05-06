@@ -542,7 +542,7 @@ class ImportSettingsPage(QWidget):
             self.numista_currency.addItem(QApplication.translate("Currency", curr[1]), curr[0])
         current = self.numista_currency.findData(settings['numista_currency'])
         if current == -1:
-            current = 0
+            current = 4
         self.numista_currency.setCurrentIndex(current)
         self.numista_currency.setSizePolicy(QSizePolicy.Fixed,
                                             QSizePolicy.Fixed)
@@ -581,7 +581,7 @@ class ImportSettingsPage(QWidget):
         settings['ans_locale_en'] = self.ans_locale_en.isChecked()
         settings['ans_trim_title'] = self.ans_trim_title.isChecked()
         settings['numista_split_denomination'] = self.numista_split_denomination.isChecked()
-        settings['numista_currency'] = self.numista_currency.currentText()
+        settings['numista_currency'] = self.numista_currency.currentData()
 
         settings.save()
 
