@@ -470,7 +470,7 @@ class ImportSettingsPage(QWidget):
                   ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech koruna")),
                   ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Euro")),
                   ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - Pound sterling")),
-                  ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - ungarian forint")),
+                  ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungarian forint")),
                   ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Polish złoty")),
                   ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
                   ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Swedish krona")),
