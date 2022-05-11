@@ -550,6 +550,8 @@ class PreviewDialog(QDialog):
             self.printer.setOutputFormat(QPrinter.NativeFormat)
         else:
             pageParams = self.printer.pageLayout()
+            if pageParams.pageSize().id() == QPageSize.Custom:
+                pageParams = QPageLayout()
             self.webView.page().printToPdf(fileName, pageParams)
 
     def _q_previewChanged(self):
