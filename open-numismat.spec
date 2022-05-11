@@ -47,7 +47,7 @@ coll = COLLECT(exe,
 app = BUNDLE(coll,
          name='OpenNumismat.app',
          icon='OpenNumismat.icns',
-         version='1.8.14',
+         version='1.8.15',
          info_plist={'NSPrincipalClass': 'NSApplication'},
          bundle_identifier=None)
 
