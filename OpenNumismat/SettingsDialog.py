@@ -464,19 +464,19 @@ class ImportSettingsPage(QWidget):
         # ('kk', 'Қазақша'), ('ur', 'اردو'), ('mk', 'Македонски'),
         # ('fy', 'Frysk'),
     )
-    Currencies = (('BGN', QT_TRANSLATE_NOOP("Currency", "BGN - Bulgaria, Fourth lev")),
-                  ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazil, Real")),
-                  ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarus, Third ruble")),
-                  ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech Republic, Koruna")),
-                  ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Eurozone, Euro")),
-                  ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - United Kingdom, Pound sterling")),
-                  ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungary, Forint")),
-                  ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Poland, Fourth zloty")),
-                  ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russia, Ruble")),
-                  ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Sweden, Krona")),
-                  ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkey, New lira")),
-                  ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukraine, Hryvnia")),
-                  ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States, Dollar")))
+    Currencies = (('BGN', QT_TRANSLATE_NOOP("Currency", "BGN - Bulgarian lev")),
+                  ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazilian real")),
+                  ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarusian ruble")),
+                  ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech koruna")),
+                  ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Euro")),
+                  ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - Pound sterling")),
+                  ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - ungarian forint")),
+                  ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Polish złoty")),
+                  ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
+                  ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Swedish krona")),
+                  ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkish lira")),
+                  ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukrainian hryvnia")),
+                  ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States dollar")))
 
     def __init__(self, parent=None):
         super().__init__(parent)
