@@ -34,7 +34,7 @@
 <context>
     <name>AnsConnector</name>
     <message>
-        <location filename="Ans.py" line="70"/>
+        <location filename="Ans.py" line="73"/>
         <source>American Numismatic Society not response</source>
         <translation type="unfinished"></translation>
     </message>
@@ -42,117 +42,117 @@
 <context>
     <name>AnsDialog</name>
     <message>
-        <location filename="Ans.py" line="230"/>
+        <location filename="Ans.py" line="233"/>
         <source>Catalog information courtesy of the &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="241"/>
+        <location filename="Ans.py" line="244"/>
         <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>Greek</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>Roman</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>Byzantine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>Islamic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>East Asia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>South Asia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>Medieval</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>Modern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>North America</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>Latin America</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>Medals And Decorations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="252"/>
+        <location filename="Ans.py" line="255"/>
         <source>Decoration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="325"/>
+        <location filename="Ans.py" line="328"/>
         <source>Has images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="357"/>
+        <location filename="Ans.py" line="360"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="359"/>
+        <location filename="Ans.py" line="362"/>
         <source>Add and close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="363"/>
+        <location filename="Ans.py" line="366"/>
         <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="366"/>
+        <location filename="Ans.py" line="369"/>
         <source>Specify more parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="367"/>
+        <location filename="Ans.py" line="370"/>
         <source>Nothing found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="667"/>
+        <location filename="Ans.py" line="670"/>
         <source>(All)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="705"/>
+        <location filename="Ans.py" line="708"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ans.py" line="705"/>
+        <location filename="Ans.py" line="708"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
