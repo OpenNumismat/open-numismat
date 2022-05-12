@@ -11,7 +11,7 @@ from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Reports import Report
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Tools.Gui import getSaveFileName
+from OpenNumismat.Tools.Gui import getSaveFileName, infoMessageBox
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 importedQtWebKit = True
@@ -29,7 +29,7 @@ except ImportError:
                 if type_ == QWebEnginePage.NavigationTypeLinkClicked:
                     return False
                 return super().acceptNavigationRequest(url, type_, isMainFrame)
-
+            
 
         class QWebView(QWebEngineView):
             def __init__(self, parent=None):
@@ -541,18 +541,35 @@ class PreviewDialog(QDialog):
         report = Report.Report(self.model, template, fileName)
         self.fileName = report.generate(self.indexes, True)
 
-    @waitCursorDecorator
     def __exportToPdf(self, fileName):
+        QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+        
         if not importedQtWebEngine:
             self.printer.setOutputFormat(QPrinter.PdfFormat)
             self.printer.setOutputFileName(fileName)
             self.preview.print_()
             self.printer.setOutputFormat(QPrinter.NativeFormat)
+
+            QApplication.restoreOverrideCursor()
         else:
             pageParams = self.printer.pageLayout()
             if pageParams.pageSize().id() == QPageSize.Custom:
                 pageParams = QPageLayout()
+
+            self.webView.page().pdfPrintingFinished.connect(self.pdfPrintingFinished)
             self.webView.page().printToPdf(fileName, pageParams)
+    
+    def pdfPrintingFinished(self, file_path, success):
+        self.webView.page().pdfPrintingFinished.disconnect(self.pdfPrintingFinished)
+        QApplication.restoreOverrideCursor()
+
+        if success:
+            infoMessageBox("pdfPrintingFinished", self.tr("Report saving"),
+                           self.tr("Report saved as %s") % file_path,
+                           parent=self)
+        else:
+            QMessageBox.critical(self, self.tr("Report saving"),
+                                 self.tr("Report saving failed"))
 
     def _q_previewChanged(self):
         self.updateNavActions()

@@ -2,7 +2,7 @@ import os
 
 from PyQt5.QtCore import Qt, QSettings
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QProgressDialog, QFileDialog, QApplication
+from PyQt5.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox
 
 
 class ProgressDialog(QProgressDialog):
@@ -46,3 +46,16 @@ def getSaveFileName(parent, name, filename, dir_, filters):
         settings.setValue(keyFilter, selectedFilter)
 
     return fileName, selectedFilter
+
+
+def infoMessageBox(key, title, text, parent=None):
+    settings = QSettings()
+    key = 'show_info/' + key
+    show = settings.value(key, True, type=bool)
+    if show:
+        cb = QCheckBox(QApplication.translate("InfoMessageBox", "Don't show this again"))
+        msg_box = QMessageBox(QMessageBox.Information, title, text, parent=parent)
+        msg_box.setCheckBox(cb)
+        msg_box.exec_()
+        if cb.isChecked():
+            settings.setValue(key, False)
