@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer
-from PyQt5.QtGui import QImage, QKeySequence, QColor, QPainter
+from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QRect, QPoint
+from PyQt5.QtGui import QImage, QKeySequence, QPainter
 from PyQt5.QtWidgets import *
 
 import OpenNumismat
@@ -351,6 +351,44 @@ class CrossReferenceDialog(ReferenceDialog):
         return CrossReferenceWidget(section, self.parentIndex, text, self)
 
 
+class VTabBar(QTabBar):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def tabSizeHint(self, index):
+        s = super().tabSizeHint(index)
+        s.transpose()
+        return s
+
+    def paintEvent(self, event):
+        painter = QStylePainter(self)
+        opt = QStyleOptionTab()
+        for i in range(self.count()):
+            self.initStyleOption(opt, i)
+            painter.drawControl(QStyle.CE_TabBarTabShape, opt)
+            painter.save()
+
+            s = opt.rect.size()
+            s.transpose()
+            r = QRect(QPoint(), s)
+            r.moveCenter(opt.rect.center())
+            opt.rect = r
+
+            c = self.tabRect(i).center()
+            painter.translate(c)
+            painter.rotate(90)
+            painter.translate(-c)
+            painter.drawControl(QStyle.CE_TabBarTabLabel, opt)
+            painter.restore()
+
+
+class VTabWidget(QTabWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setTabBar(VTabBar())
+        self.setTabPosition(QTabWidget.West)
+
+
 @storeDlgSizeDecorator
 class AllReferenceDialog(QDialog):
     def __init__(self, reference, parent=None):
@@ -364,7 +402,7 @@ class AllReferenceDialog(QDialog):
 
         self.sections = reference.sections
 
-        tab = QTabWidget(self)
+        tab = VTabWidget(self)
         self.widgets = {}
         for section in self.sections:
             if section.parent_name:
