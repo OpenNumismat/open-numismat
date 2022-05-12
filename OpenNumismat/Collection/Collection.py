@@ -25,6 +25,7 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.VersionUpdater import updateCollection
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools import Gui
+from OpenNumismat.Tools.Gui import infoMessageBox
 from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
@@ -1090,19 +1091,26 @@ class Collection(QtCore.QObject):
         return acts
 
     @waitCursorDecorator
+    def __make_backup(self, backupFileName):
+        srcFile = QtCore.QFile(self.fileName)
+        return srcFile.copy(backupFileName)
+
     def backup(self):
         backupDir = QtCore.QDir(Settings()['backup'])
         if not backupDir.exists():
             backupDir.mkpath(backupDir.absolutePath())
 
         backupFileName = backupDir.filePath("%s_%s.db" % (self.getCollectionName(), QtCore.QDateTime.currentDateTime().toString('yyMMddhhmmss')))
-        srcFile = QtCore.QFile(self.fileName)
-        if not srcFile.copy(backupFileName):
+        if not self.__make_backup(backupFileName):
             QMessageBox.critical(self.parent(),
                             self.tr("Backup collection"),
                             self.tr("Can't make a collection backup at %s") %
                                                                 backupFileName)
             return False
+
+        infoMessageBox("backup", self.tr("Backup"),
+                       self.tr("Backup saved as %s") % backupFileName,
+                       parent=self.parent())
 
         return True
 
