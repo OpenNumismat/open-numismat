@@ -354,206 +354,216 @@ Close the file and try again.</source>
 <context>
     <name>Collection</name>
     <message>
-        <location filename="Collection.py" line="758"/>
+        <location filename="Collection.py" line="759"/>
         <source>Open collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="735"/>
+        <location filename="Collection.py" line="736"/>
         <source>Can&apos;t open collection %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="740"/>
+        <location filename="Collection.py" line="741"/>
         <source>Collection %s not exists</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="758"/>
+        <location filename="Collection.py" line="759"/>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="800"/>
+        <location filename="Collection.py" line="801"/>
         <source>Create collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="792"/>
+        <location filename="Collection.py" line="793"/>
         <source>Specified file already exists</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1161"/>
+        <location filename="Collection.py" line="1169"/>
         <source>Can&apos;t open collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="890"/>
+        <location filename="Collection.py" line="891"/>
         <source>Updating reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1509"/>
+        <location filename="Collection.py" line="1517"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="924"/>
+        <location filename="Collection.py" line="925"/>
         <source>Attach</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="924"/>
+        <location filename="Collection.py" line="925"/>
         <source>Attach current reference to a collection file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="965"/>
+        <location filename="Collection.py" line="966"/>
         <source>Attaching reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="965"/>
+        <location filename="Collection.py" line="966"/>
         <source>Can&apos;t attach reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="979"/>
+        <location filename="Collection.py" line="980"/>
         <source>Save reference as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="979"/>
+        <location filename="Collection.py" line="980"/>
         <source>Reference (*.ref)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="986"/>
+        <location filename="Collection.py" line="987"/>
         <source>Detaching reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1000"/>
+        <location filename="Collection.py" line="1001"/>
         <source>Detach reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1000"/>
+        <location filename="Collection.py" line="1001"/>
         <source>Can&apos;t detach reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1053"/>
+        <location filename="Collection.py" line="1054"/>
         <source>Create reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1021"/>
+        <location filename="Collection.py" line="1022"/>
         <source>Can&apos;t create reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1053"/>
+        <location filename="Collection.py" line="1054"/>
         <source>Can&apos;t clear attached reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1073"/>
+        <location filename="Collection.py" line="1074"/>
         <source>Detach current reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1076"/>
+        <location filename="Collection.py" line="1077"/>
         <source>Attach current reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1080"/>
+        <location filename="Collection.py" line="1081"/>
         <source>Fill from collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1083"/>
+        <location filename="Collection.py" line="1084"/>
         <source>Edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1106"/>
+        <location filename="Collection.py" line="1110"/>
         <source>Backup collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1106"/>
+        <location filename="Collection.py" line="1110"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1161"/>
+        <location filename="Collection.py" line="1169"/>
         <source>Create mobile collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1415"/>
+        <location filename="Collection.py" line="1423"/>
         <source>Exporting records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1352"/>
+        <location filename="Collection.py" line="1360"/>
         <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1355"/>
+        <location filename="Collection.py" line="1363"/>
         <source>Compact...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1373"/>
+        <location filename="Collection.py" line="1381"/>
         <source>Vacuum...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1668"/>
+        <location filename="Collection.py" line="1676"/>
         <source>Synchronizing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1468"/>
+        <location filename="Collection.py" line="1476"/>
         <source>Can&apos;t open collection:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1479"/>
+        <location filename="Collection.py" line="1487"/>
         <source>Collection %s in wrong format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1489"/>
+        <location filename="Collection.py" line="1497"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1661"/>
+        <location filename="Collection.py" line="1669"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1667"/>
+        <location filename="Collection.py" line="1675"/>
         <source>Collections looks like identical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1388"/>
+        <location filename="Collection.py" line="1396"/>
         <source>Save as</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1116"/>
+        <source>Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Collection.py" line="1116"/>
+        <source>Backup saved as %s</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -973,42 +983,42 @@ The application will need to restart now.</source>
 <context>
     <name>CollectionModel</name>
     <message>
-        <location filename="Collection.py" line="476"/>
+        <location filename="Collection.py" line="477"/>
         <source>Updating records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="476"/>
+        <location filename="Collection.py" line="477"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="497"/>
+        <location filename="Collection.py" line="498"/>
         <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="507"/>
+        <location filename="Collection.py" line="508"/>
         <source>file is readonly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="510"/>
+        <location filename="Collection.py" line="511"/>
         <source>Saving</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="510"/>
+        <location filename="Collection.py" line="511"/>
         <source>Can&apos;t save data: %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="593"/>
+        <location filename="Collection.py" line="594"/>
         <source>Filtering</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Collection.py" line="593"/>
+        <location filename="Collection.py" line="594"/>
         <source>Filter is too complex. Will be ignored</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1267,67 +1277,67 @@ The application will need to restart now.</source>
     <name>Currency</name>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>BGN - Bulgaria, Fourth lev</source>
+        <source>BGN - Bulgarian lev</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>BRL - Brazil, Real</source>
+        <source>BRL - Brazilian real</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>BYN - Belarus, Third ruble</source>
+        <source>BYN - Belarusian ruble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>CZK - Czech Republic, Koruna</source>
+        <source>CZK - Czech koruna</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>EUR - Eurozone, Euro</source>
+        <source>EUR - Euro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>GBP - United Kingdom, Pound sterling</source>
+        <source>GBP - Pound sterling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>HUF - Hungary, Forint</source>
+        <source>HUF - Hungarian forint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="SettingsDialog.py" line="467"/>
+        <source>PLN - Polish złoty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>PLN - Poland, Fourth zloty</source>
+        <source>RUB - Russian ruble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>RUB - Russia, Ruble</source>
+        <source>SEK - Swedish krona</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>SEK - Sweden, Krona</source>
+        <source>TRY - Turkish lira</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>TRY - Turkey, New lira</source>
+        <source>UAH - Ukrainian hryvnia</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="467"/>
-        <source>UAH - Ukraine, Hryvnia</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.py" line="467"/>
-        <source>USD - United States, Dollar</source>
+        <source>USD - United States dollar</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2324,6 +2334,14 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
+    <name>InfoMessageBox</name>
+    <message>
+        <location filename="Gui.py" line="56"/>
+        <source>Don&apos;t show this again</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ListView</name>
     <message>
         <location filename="ListView.py" line="637"/>
@@ -2968,6 +2986,21 @@ Copyright (C) 2011-2022 Vitaly Ignatov
     <message>
         <location filename="Preview.py" line="523"/>
         <source>PDF file (*.pdf)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Preview.py" line="572"/>
+        <source>Report saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Preview.py" line="568"/>
+        <source>Report saved as %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Preview.py" line="572"/>
+        <source>Report saving failed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
