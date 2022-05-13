@@ -378,9 +378,7 @@ class MainWindow(QMainWindow):
             if default_template == template[1]:
                 viewBrowserMenu.setDefaultAction(act)
         self.collectionActs.append(exportMenu)
-        if statisticsAvailable:
-            report.addSeparator()
-            report.addAction(self.statisticsAct)
+        report.addSeparator()
         report.addAction(summaryAct)
 
         helpAct = QAction(QIcon(':/help.png'),
