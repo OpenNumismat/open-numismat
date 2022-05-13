@@ -111,16 +111,6 @@ class MainSettingsPage(QWidget):
         self.speedup.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         layout.addRow(self.tr("Acceleration of storage"), self.speedup)
 
-        self.checkTitle = QCheckBox(
-                        self.tr("Check that coin title present on save"), self)
-        self.checkTitle.setChecked(settings['check_coin_title'])
-        layout.addRow(self.checkTitle)
-
-        self.checkDuplicate = QCheckBox(
-                        self.tr("Check coin duplicates on save"), self)
-        self.checkDuplicate.setChecked(settings['check_coin_duplicate'])
-        layout.addRow(self.checkDuplicate)
-
         self.templateSelector = QComboBox(self)
         for template in Report.scanTemplates():
             self.templateSelector.addItem(template[0], template[1])

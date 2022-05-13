@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSettings
 from PyQt5.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import ImageFields
@@ -79,17 +79,25 @@ class EditCoinDialog(QDialog):
                         'saleplace', 'saleinfo'):
                 self.items[key].clear()
 
-        settings = Settings()
-
-        if settings['check_coin_title']:
+        settings = QSettings()
+        key = 'show_info/save_without_title'
+        show = settings.value(key, True, type=bool)
+        if show:
             if not self.usedFields:
                 if not self.items['title'].value():
-                    result = QMessageBox.warning(
-                        self, self.tr("Save"),
-                        self.tr("Coin title not set. Save without title?"),
-                        QMessageBox.Save | QMessageBox.No, QMessageBox.No)
+                    msg_box = QMessageBox(QMessageBox.Warning, self.tr("Save"),
+                                          self.tr("Coin title not set. Save without title?"),
+                                          QMessageBox.Save | QMessageBox.No,
+                                          self)
+                    msg_box.setDefaultButton(QMessageBox.No)
+                    cb = QCheckBox(self.tr("Don't show this again"))
+                    msg_box.setCheckBox(cb)
+                    result = msg_box.exec_()
                     if result != QMessageBox.Save:
                         return
+                    else:
+                        if cb.isChecked():
+                            settings.setValue(key, False)
 
         # Checking that TotalPrice not less than Price
         payprice_str = self.items['payprice'].value()
@@ -148,15 +156,24 @@ class EditCoinDialog(QDialog):
                 value = value.strip()
             self.record.setValue(image_field + '_title', value)
 
-        if settings['check_coin_duplicate']:
+        key = 'show_info/save_similar'
+        show = settings.value(key, True, type=bool)
+        if show:
             if not self.usedFields:
                 if self.model.isExist(self.record):
-                    result = QMessageBox.warning(
-                        self, self.tr("Save"),
-                        self.tr("Similar coin already exists. Save?"),
-                        QMessageBox.Save | QMessageBox.No, QMessageBox.No)
+                    msg_box = QMessageBox(QMessageBox.Warning, self.tr("Save"),
+                                          self.tr("Similar coin already exists. Save?"),
+                                          QMessageBox.Save | QMessageBox.No,
+                                          self)
+                    msg_box.setDefaultButton(QMessageBox.No)
+                    cb = QCheckBox(self.tr("Don't show this again"))
+                    msg_box.setCheckBox(cb)
+                    result = msg_box.exec_()
                     if result != QMessageBox.Save:
                         return
+                    else:
+                        if cb.isChecked():
+                            settings.setValue(key, False)
 
         self.accept()
 

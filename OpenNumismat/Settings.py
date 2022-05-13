@@ -76,8 +76,6 @@ class Settings(BaseSettings):
                'speedup': 1,
                'updates': False,
                'template': default_template,
-               'check_coin_title': True,
-               'check_coin_duplicate': True,
                'images_by_default': 2,
                'colnect_locale': _getLocale(),
                'colnect_skip_currency': True,
@@ -100,7 +98,6 @@ class Settings(BaseSettings):
 
     def _getValue(self, key):
         if key in ('error', 'updates', 'autobackup',
-                   'check_coin_title', 'check_coin_duplicate',
                    'colnect_skip_currency', 'ans_split_denomination',
                    'ans_locale_en', 'ans_trim_title', 'built_in_viewer',
                    'numista_split_denomination'):
