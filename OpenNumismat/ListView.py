@@ -3,14 +3,13 @@ import pickle
 import os.path
 
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, pyqtSignal, QSortFilterProxyModel
+from PyQt5.QtCore import Qt, QMargins, pyqtSignal, QSortFilterProxyModel
 from PyQt5.QtCore import QCollator, QLocale
 from PyQt5.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
 from PyQt5.QtCore import QRectF, QRect
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from PyQt5.Qt import QMargins
 
 import OpenNumismat
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
