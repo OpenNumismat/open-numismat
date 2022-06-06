@@ -43,77 +43,77 @@
     <message>
         <location filename="Ans.py" line="230"/>
         <source>Catalog information courtesy of the &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
-        <translation type="unfinished"/>
+        <translation>Informazioni sul catalogo per gentile concessione di &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</translation>
     </message>
     <message>
         <location filename="Ans.py" line="241"/>
         <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
-        <translation type="unfinished"/>
+        <translation>Tutte le immagini di oggetti prodotti prima del 1925 sono nel &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;.Altre sono disponibili per scopi non commerciali. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>Greek</source>
-        <translation type="unfinished"/>
+        <translation>Greco</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>Roman</source>
-        <translation type="unfinished"/>
+        <translation>Romano</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>Byzantine</source>
-        <translation type="unfinished"/>
+        <translation>Bizantino</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>Islamic</source>
-        <translation type="unfinished"/>
+        <translation>Islamico</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>East Asia</source>
-        <translation type="unfinished"/>
+        <translation>Asia orientale</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>South Asia</source>
-        <translation type="unfinished"/>
+        <translation>Asia del sud</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>Medieval</source>
-        <translation type="unfinished"/>
+        <translation>Medievale</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>Modern</source>
-        <translation type="unfinished"/>
+        <translation>Moderno</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>North America</source>
-        <translation type="unfinished"/>
+        <translation>Nord America</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>Latin America</source>
-        <translation type="unfinished"/>
+        <translation>America Latina/translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>Medals And Decorations</source>
-        <translation type="unfinished"/>
+        <translation>Medaglie e Decorazioni</translation>
     </message>
     <message>
         <location filename="Ans.py" line="252"/>
         <source>Decoration</source>
-        <translation type="unfinished"/>
+        <translation>Decorazioni</translation>
     </message>
     <message>
         <location filename="Ans.py" line="325"/>
         <source>Has images</source>
-        <translation type="unfinished"/>
+        <translation>Ha immagini</translation>
     </message>
     <message>
         <location filename="Ans.py" line="357"/>
@@ -128,7 +128,7 @@
     <message>
         <location filename="Ans.py" line="363"/>
         <source>Preview</source>
-        <translation type="unfinished"/>
+        <translation>Anteprima</translation>
     </message>
     <message>
         <location filename="Ans.py" line="366"/>
@@ -138,7 +138,7 @@
     <message>
         <location filename="Ans.py" line="367"/>
         <source>Nothing found</source>
-        <translation type="unfinished"/>
+        <translation>Non è stato trovato niente</translation>
     </message>
     <message>
         <location filename="Ans.py" line="667"/>
