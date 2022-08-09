@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2022 Vitaly Ignatov -->
+<component type="desktop">
+  <id>org.opennumismat.OpenNumismat</id>
+  <name>OpenNumismat</name>
+  <summary>coin collecting software for organize and manage your own catalogue</summary>
+  <description>
+    <p>OpenNumismat is a handy and reliable application aimed at coin collectors, numismatists or amateurs looking to create a numismatics collection.</p>
+    <p>With OpenNumismat, you will be able to organize and manage coin collection: create an advanced catalogue of your coins, wish and selling lists, view statistics for your collection.</p>
+  </description>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <launchable type="desktop-id">org.opennumismat.OpenNumismat.desktop</launchable>
+  <url type="homepage">http://opennumismat.github.io/</url>
+  <update_contact>opennumismat@gmail.com</update_contact>
+  <content_rating type="oars-1.1"/>
+  <screenshots>
+    <screenshot type="default">
+      <image>http://opennumismat.github.io/images/screenMain.png</image>
+    </screenshot>
+    <screenshot>
+      <image>http://opennumismat.github.io/images/screenEdit.png</image>
+    </screenshot>
+    <screenshot>
+      <image>http://opennumismat.github.io/images/screenStatistics4.png</image>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release date="2022-07-07" version="1.8.15.5"/>
+    <release date="2022-06-06" version="1.8.15.3"/>
+    <release date="2022-06-01" version="1.8.15.2"/>
+    <release date="2022-05-31" version="1.8.15.1"/>
+  </releases>
+</component>
