@@ -273,8 +273,9 @@ class ImportNumista(_Import2):
             record.setValue('obvrev', item_data['orientation'])
         if 'mints' in item_data:
             record.setValue('mint', item_data['mints'][0]['name'])
-        if item_data['min_year'] != item_data['max_year']:
-            record.setValue('dateemis', ' - '.join((str(item_data['min_year']), str(item_data['max_year']))))
+        if 'min_year' in item_data and 'max_year' in item_data:
+            if item_data['min_year'] != item_data['max_year']:
+                record.setValue('dateemis', ' - '.join((str(item_data['min_year']), str(item_data['max_year']))))
         if 'references' in item_data:
             catalog_nums = item_data['references']
             for i, catalog_num in enumerate(catalog_nums[:4]):
