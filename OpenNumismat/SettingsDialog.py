@@ -188,8 +188,6 @@ class MainSettingsPage(QWidget):
         settings['updates'] = self.checkUpdates.isChecked()
         settings['speedup'] = self.speedup.currentData()
         settings['template'] = self.templateSelector.currentData()
-        settings['check_coin_title'] = self.checkTitle.isChecked()
-        settings['check_coin_duplicate'] = self.checkDuplicate.isChecked()
         settings['images_by_default'] = self.imagesByDefault.value()
         settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
