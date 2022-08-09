@@ -173,7 +173,7 @@ class CollectionFieldsBase(QObject):
                 ('payinfo', QApplication.translate('CollectionFieldsBase', "Info"), Type.Text),
                 ('saledate', QApplication.translate('CollectionFieldsBase', "Date"), Type.Date),
                 ('saleprice', QApplication.translate('CollectionFieldsBase', "Price"), Type.Money),
-                ('totalsaleprice', QApplication.translate('CollectionFieldsBase', "Bailed"), Type.Money),
+                ('totalsaleprice', QApplication.translate('CollectionFieldsBase', "Revenue"), Type.Money),
                 ('buyer', QApplication.translate('CollectionFieldsBase', "Buyer"), Type.String),
                 ('saleplace', QApplication.translate('CollectionFieldsBase', "Place"), Type.String),
                 ('saleinfo', QApplication.translate('CollectionFieldsBase', "Info"), Type.Text),

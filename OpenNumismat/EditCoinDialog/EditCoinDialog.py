@@ -127,7 +127,7 @@ class EditCoinDialog(QDialog):
             totalsaleprice = stringToMoney(totalsaleprice_str)
             if totalsaleprice < 0:
                 result = QMessageBox.warning(self, self.tr("Save"),
-                                self.tr("Total bailed price is negative. Save?"),
+                                self.tr("Total revenue price is negative. Save?"),
                                 QMessageBox.Save | QMessageBox.No,
                                 QMessageBox.No)
                 if result != QMessageBox.Save:
@@ -137,7 +137,7 @@ class EditCoinDialog(QDialog):
             if saleprice < totalsaleprice:
                 result = QMessageBox.warning(self, self.tr("Save"),
                             self.tr("Sale price is less than total "
-                                    "bailed price. Save?"),
+                                    "revenue price. Save?"),
                             QMessageBox.Save | QMessageBox.No,
                             QMessageBox.No)
                 if result != QMessageBox.Save:
