@@ -21,9 +21,12 @@ from OpenNumismat import version
 def main():
     try:
         locale.setlocale(locale.LC_ALL, '')
-    except:
+        language, _ = locale.getlocale()
+        if not language:
+            locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+    except Exception:
         # Work around system locale not specified (under Linux or Mac OS)
-        pass
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
     app = QApplication(sys.argv)
 
