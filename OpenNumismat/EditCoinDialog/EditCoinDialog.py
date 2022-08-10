@@ -5,7 +5,6 @@ from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
-from OpenNumismat.Settings import Settings
 
 
 @storeDlgSizeDecorator
