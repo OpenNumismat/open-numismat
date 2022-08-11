@@ -244,7 +244,7 @@ if cx_Freeze_available:
                              "matplotlib.backends.backend_svg"])
         build_exe_options["build_exe"] = 'build/' + params['name']
     elif DARWIN:
-        build_exe_options["packages"].extend(["xlwt", "asyncio"])
+        build_exe_options["packages"] = ["xlwt", "asyncio"]
 
     params["executables"] = [executable]
     params["options"] = {"build_exe": build_exe_options,
