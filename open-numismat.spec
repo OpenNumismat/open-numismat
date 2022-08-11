@@ -72,13 +72,16 @@ for sub_folder in ("qml", "translations"):
     shutil.rmtree(bin_dir + "PyQt5/Qt5/" + sub_folder)
 for sub_folder in ("audio", "bearer", "geoservices", "mediaservice",
                 "playlistformats", "position", "sensorgestures", "sensors"):
-    shutil.rmtree(bin_dir + "PyQt5/Qt5/plugins/" + sub_folder)
+    shutil.rmtree(bin_dir + "PyQt5/Qt5/plugins/" + sub_folder, ignore_errors=True)
 
 for f in ("QtBluetooth", "QtDBus", "QtDesigner",
           "QtLocation", "QtMultimedia", "QtMultimediaWidgets",
           "QtNfc", "QtOpenGL", "QtPositioning",
           "QtQml", "QtQuick", "QtQuick3D", "QtQuickWidgets"):
-    os.remove(bin_dir + "PyQt5/" + f + pyd_ext)
+    try:
+        os.remove(bin_dir + "PyQt5/" + f + pyd_ext)
+    except OSError:
+        pass
 
 if WIN32:
     for f in ("opengl32sw.dll", "Qt5Bluetooth.dll", "Qt5DBus.dll", "Qt5Designer.dll",
@@ -87,7 +90,10 @@ if WIN32:
               "Qt5QmlWorkerScript.dll", "Qt5Quick3D.dll", "Qt5Quick3DAssetImport.dll",
               "Qt5Quick3DRender.dll", "Qt5Quick3DRuntimeRender.dll", "Qt5Quick3DUtils.dll"
               ):
-        os.remove(bin_dir + f)
+        try:
+            os.remove(bin_dir + f)
+        except OSError:
+            pass
 else:
     for f in ("QtBluetooth", "QtDesigner",
               "QtLocation", "QtMultimedia", "QtMultimediaWidgets",

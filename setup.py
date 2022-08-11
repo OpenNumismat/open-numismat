@@ -233,20 +233,18 @@ if cx_Freeze_available:
             "replace_paths": [(os.path.dirname(os.path.abspath(__file__)) + os.sep, '')],
             "include_msvcr": True  # skip error msvcr100.dll missing
     }
+    build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork"]
+    if importedQtWebEngine:
+        build_exe_options["includes"].append("PyQt5.QtWebEngine")
+    else:
+        build_exe_options["includes"].append("PyQt5.QtWebKit")
     if WIN32:
-        build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
-                             "numpy.core._methods", "numpy.lib.format",
+        build_exe_options["includes"].extend(["numpy.core._methods", "numpy.lib.format",
                              "matplotlib.backends.backend_ps", "matplotlib.backends.backend_pdf",
-                             "matplotlib.backends.backend_svg"]
-        if importedQtWebEngine:
-            build_exe_options["includes"].append("PyQt5.QtWebEngine")
-        else:
-            build_exe_options["includes"].append("PyQt5.QtWebKit")
+                             "matplotlib.backends.backend_svg"])
         build_exe_options["build_exe"] = 'build/' + params['name']
     elif DARWIN:
-        build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork",
-                         "PyQt5.QtWebKit"]
-        build_exe_options["packages"] = ["xlwt", "asyncio"]
+        build_exe_options["packages"].extend(["xlwt", "asyncio"])
 
     params["executables"] = [executable]
     params["options"] = {"build_exe": build_exe_options,
