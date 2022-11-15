@@ -4,7 +4,7 @@
     <message>
         <location filename="FormItems.py" line="236"/>
         <source>Find address</source>
-        <translation type="unfinished"/>
+        <translation>Znajdź adres</translation>
     </message>
 </context>
 <context>
@@ -35,7 +35,7 @@
     <message>
         <location filename="Ans.py" line="73"/>
         <source>American Numismatic Society not response</source>
-        <translation type="unfinished"/>
+        <translation>Amerykańskie Towarzystwo Numizmatyczne nie odpowiada</translation>
     </message>
 </context>
 <context>
@@ -113,7 +113,7 @@
     <message>
         <location filename="Ans.py" line="328"/>
         <source>Has images</source>
-        <translation type="unfinished"/>
+        <translation>Posiada obrazy</translation>
     </message>
     <message>
         <location filename="Ans.py" line="360"/>
@@ -123,27 +123,27 @@
     <message>
         <location filename="Ans.py" line="362"/>
         <source>Add and close</source>
-        <translation type="unfinished"/>
+        <translation>Dodaj i zamknij</translation>
     </message>
     <message>
         <location filename="Ans.py" line="366"/>
         <source>Preview</source>
-        <translation type="unfinished"/>
+        <translation>Podgląd</translation>
     </message>
     <message>
         <location filename="Ans.py" line="369"/>
         <source>Specify more parameters</source>
-        <translation type="unfinished"/>
+        <translation>Podaj więcej parametrów</translation>
     </message>
     <message>
         <location filename="Ans.py" line="370"/>
         <source>Nothing found</source>
-        <translation type="unfinished"/>
+        <translation>Nic nie znaleziono</translation>
     </message>
     <message>
         <location filename="Ans.py" line="670"/>
         <source>(All)</source>
-        <translation type="unfinished"/>
+        <translation>(Wszystkie)</translation>
     </message>
     <message>
         <location filename="Ans.py" line="708"/>
@@ -184,12 +184,12 @@
     <message>
         <location filename="StatisticsView.py" line="193"/>
         <source>SVG image (*.svg)</source>
-        <translation type="unfinished"/>
+        <translation>Obraz SVG (*.svg)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="193"/>
         <source>PostScript (*.ps)</source>
-        <translation type="unfinished"/>
+        <translation>PostScript (*.ps)</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="193"/>
@@ -272,7 +272,7 @@
     <message>
         <location filename="ListView.py" line="63"/>
         <source>0 coins selected</source>
-        <translation type="unfinished"/>
+        <translation>0 monet zaznaczono</translation>
     </message>
     <message numerus="yes">
         <location filename="ListView.py" line="157"/>
@@ -282,7 +282,7 @@
     <message>
         <location filename="ListView.py" line="66"/>
         <source>Custom sorting</source>
-        <translation type="unfinished"/>
+        <translation>Niestandardowe sortowanie</translation>
     </message>
     <message>
         <location filename="ListView.py" line="66"/>
@@ -299,7 +299,7 @@ Close the file and try again.</source>
     <message>
         <location filename="ListView.py" line="214"/>
         <source>Nothing selected</source>
-        <translation type="unfinished"/>
+        <translation>Nieczego nie wybrano</translation>
     </message>
 </context>
 <context>
@@ -328,12 +328,12 @@ Close the file and try again.</source>
     <message>
         <location filename="FormItems.py" line="917"/>
         <source>Today</source>
-        <translation type="unfinished"/>
+        <translation>Dzisiaj</translation>
     </message>
     <message>
         <location filename="FormItems.py" line="919"/>
         <source>Clean</source>
-        <translation type="unfinished"/>
+        <translation>Wyczyść</translation>
     </message>
 </context>
 <context>
@@ -401,7 +401,7 @@ Zaktualizuj OpenNumismat</translation>
     <message>
         <location filename="Collection.py" line="925"/>
         <source>Attach current reference to a collection file?</source>
-        <translation>Przyłączyć aktualne odniesienie do pliku?</translation>
+        <translation>Dołączyć aktualne odniesienie do pliku?</translation>
     </message>
     <message>
         <location filename="Collection.py" line="966"/>
@@ -443,7 +443,7 @@ Zaktualizuj OpenNumismat</translation>
     <message>
         <location filename="Collection.py" line="1054"/>
         <source>Create reference</source>
-        <translation type="unfinished"/>
+        <translation>Dodaj odnośnik</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1022"/>
@@ -460,12 +460,12 @@ Zaktualizuj OpenNumismat</translation>
     <message>
         <location filename="Collection.py" line="1074"/>
         <source>Detach current reference</source>
-        <translation type="unfinished"/>
+        <translation>Odłącz aktualne odniesienie</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1077"/>
         <source>Attach current reference</source>
-        <translation type="unfinished"/>
+        <translation>Dołącz aktualne odniesienie</translation>
     </message>
     <message>
         <location filename="Collection.py" line="1081"/>
@@ -886,7 +886,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="206"/>
         <source>Engraver</source>
-        <translation type="unfinished"/>
+        <translation>Grafik</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="208"/>
@@ -901,57 +901,57 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="211"/>
         <source>Format</source>
-        <translation type="unfinished"/>
+        <translation>Format</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="212"/>
         <source>Condition</source>
-        <translation type="unfinished"/>
+        <translation>Stan</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="213"/>
         <source>Category</source>
-        <translation type="unfinished"/>
+        <translation>Kategoria</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="214"/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Pozycja</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="215"/>
         <source>Emitent</source>
-        <translation type="unfinished"/>
+        <translation>Emitent</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="218"/>
         <source>Signature</source>
-        <translation type="unfinished"/>
+        <translation>Podpis</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="219"/>
         <source>Address</source>
-        <translation type="unfinished"/>
+        <translation>Adres</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="220"/>
         <source>Latitude</source>
-        <translation type="unfinished"/>
+        <translation>Szerokość geograficzna</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="221"/>
         <source>Longitude</source>
-        <translation type="unfinished"/>
+        <translation>Długość geograficzna</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="222"/>
         <source>Photo 5</source>
-        <translation type="unfinished"/>
+        <translation>Zdjęcie 5</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="223"/>
         <source>Photo 6</source>
-        <translation type="unfinished"/>
+        <translation>Zdjęcie 6</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="224"/>
@@ -966,12 +966,12 @@ The application will need to restart now.</source>
     <message>
         <location filename="CollectionFields.py" line="226"/>
         <source>Year on coin</source>
-        <translation type="unfinished"/>
+        <translation>Rok na monecie</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="177"/>
         <source>Revenue</source>
-        <translation type="unfinished"/>
+        <translation>Przychód</translation>
     </message>
 </context>
 <context>
@@ -1032,7 +1032,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="223"/>
         <source>Preview image height</source>
-        <translation type="unfinished"/>
+        <translation>Wysokość podglądu obrazu</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="225"/>
@@ -1042,7 +1042,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="235"/>
         <source>Images at bottom</source>
-        <translation type="unfinished"/>
+        <translation>Obrazy na dole</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="239"/>
@@ -1057,12 +1057,12 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="248"/>
         <source>Used statuses</source>
-        <translation type="unfinished"/>
+        <translation>Używane statusy</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="266"/>
         <source>Default status for new coin</source>
-        <translation type="unfinished"/>
+        <translation>Domyślny status dla nowej monety</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="288"/>
@@ -1072,7 +1072,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="288"/>
         <source>Preview image height was changed. Recalculate it now?</source>
-        <translation type="unfinished"/>
+        <translation>Wysokość podglądu obrazu została zmieniona. Przeliczyć teraz?</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="230"/>
@@ -1085,7 +1085,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="247"/>
         <source>Colnect service not available</source>
-        <translation type="unfinished"/>
+        <translation>Colnect nie jest dostepny</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="251"/>
@@ -1095,7 +1095,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="240"/>
         <source>Colnect proxy-server not response</source>
-        <translation type="unfinished"/>
+        <translation>Colnect sewer proxy nie odpowiada</translation>
     </message>
 </context>
 <context>
@@ -1103,7 +1103,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="318"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
-        <translation type="unfinished"/>
+        <translation>Informacje katalogowe dzięki uprzejmości &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, internetowej społeczności kolekcjonerów.</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="331"/>
@@ -1113,12 +1113,12 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="331"/>
         <source>Stamps</source>
-        <translation type="unfinished"/>
+        <translation>Znaczki</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="344"/>
         <source>Category</source>
-        <translation type="unfinished"/>
+        <translation>Kategoria</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="415"/>
@@ -1128,12 +1128,12 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="417"/>
         <source>Add and close</source>
-        <translation type="unfinished"/>
+        <translation>Dodaj i zamknij</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="545"/>
         <source>(All)</source>
-        <translation type="unfinished"/>
+        <translation>(Wszystkie)</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="630"/>
@@ -1148,27 +1148,27 @@ The application will need to restart now.</source>
     <message>
         <location filename="Colnect.py" line="424"/>
         <source>Specify more parameters</source>
-        <translation type="unfinished"/>
+        <translation>Podaj więcej parametrów</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="421"/>
         <source>Preview</source>
-        <translation type="unfinished"/>
+        <translation>Podgląd</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="425"/>
         <source>Nothing found</source>
-        <translation type="unfinished"/>
+        <translation>Nic nie znaleziono</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="331"/>
         <source>Banknotes</source>
-        <translation type="unfinished"/>
+        <translation>Banknoty</translation>
     </message>
     <message>
         <location filename="Colnect.py" line="331"/>
         <source>Philatelic products</source>
-        <translation type="unfinished"/>
+        <translation>Produkty filatelistyczne</translation>
     </message>
 </context>
 <context>
@@ -1176,7 +1176,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="YearCalculator.py" line="767"/>
         <source>Convert</source>
-        <translation type="unfinished"/>
+        <translation>Konwertuj</translation>
     </message>
 </context>
 <context>
@@ -1184,67 +1184,67 @@ The application will need to restart now.</source>
     <message>
         <location filename="ImageViewer.py" line="24"/>
         <source>Crop</source>
-        <translation type="unfinished"/>
+        <translation>Przytnij</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="119"/>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="121"/>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="123"/>
         <source>Width</source>
-        <translation type="unfinished"/>
+        <translation>Szerokość</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="125"/>
         <source>Height</source>
-        <translation type="unfinished"/>
+        <translation>Wysokość</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="83"/>
         <source>X1</source>
-        <translation type="unfinished"/>
+        <translation>X1</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="85"/>
         <source>Y1</source>
-        <translation type="unfinished"/>
+        <translation>Y1</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="87"/>
         <source>X2</source>
-        <translation type="unfinished"/>
+        <translation>X2</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="89"/>
         <source>Y2</source>
-        <translation type="unfinished"/>
+        <translation>Y2</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="91"/>
         <source>X3</source>
-        <translation type="unfinished"/>
+        <translation>X3</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="93"/>
         <source>Y3</source>
-        <translation type="unfinished"/>
+        <translation>Y3</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="95"/>
         <source>X4</source>
-        <translation type="unfinished"/>
+        <translation>X4</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="97"/>
         <source>Y4</source>
-        <translation type="unfinished"/>
+        <translation>Y4</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="136"/>
@@ -1254,7 +1254,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="ImageViewer.py" line="138"/>
         <source>Circle</source>
-        <translation type="unfinished"/>
+        <translation>Okrągły</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="140"/>
@@ -1272,67 +1272,67 @@ The application will need to restart now.</source>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>BGN - Bulgarian lev</source>
-        <translation type="unfinished"/>
+        <translation>BGN - Lew bułgarski</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>BRL - Brazilian real</source>
-        <translation type="unfinished"/>
+        <translation>BRL - Real brazylijski</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>BYN - Belarusian ruble</source>
-        <translation type="unfinished"/>
+        <translation>BYN - Rubel białoruski</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>CZK - Czech koruna</source>
-        <translation type="unfinished"/>
+        <translation>CZK - Korona czeska</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>EUR - Euro</source>
-        <translation type="unfinished"/>
+        <translation>EUR - Euro</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>GBP - Pound sterling</source>
-        <translation type="unfinished"/>
+        <translation>GBP - Funt szterling</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>HUF - Hungarian forint</source>
-        <translation type="unfinished"/>
+        <translation>HUF - Forint węgierski</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>RUB - Russian ruble</source>
-        <translation type="unfinished"/>
+        <translation>RUB - Rubel rosyjski</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>SEK - Swedish krona</source>
-        <translation type="unfinished"/>
+        <translation>SEK - Korona szwecka</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>TRY - Turkish lira</source>
-        <translation type="unfinished"/>
+        <translation>TRY - Lira turecka</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>UAH - Ukrainian hryvnia</source>
-        <translation type="unfinished"/>
+        <translation>UAH - Hrywna ukraińska</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="455"/>
         <source>USD - United States dollar</source>
-        <translation type="unfinished"/>
+        <translation>USD - Dolar amerykański</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="SettingsDialog.py" line="455"/>
         <source>PLN - Polish złoty</source>
-        <translation type="unfinished"/>
+        <translation>PLN - Złoty polski</translation>
     </message>
 </context>
 <context>
@@ -1350,7 +1350,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="CustomizeTreeDialog.py" line="135"/>
         <source>Hold down the Ctrl key to combine two fields (Value + Unit)</source>
-        <translation type="unfinished"/>
+        <translation>Przytrzymaj klawisz Ctrl, aby połączyć dwa pola (Nominał + Waluta)</translation>
     </message>
 </context>
 <context>
@@ -1381,7 +1381,7 @@ The application will need to restart now.</source>
     <message>
         <location filename="DetailsTabWidget.py" line="499"/>
         <source>Market</source>
-        <translation type="unfinished"/>
+        <translation>Rynek</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="324"/>
@@ -1471,65 +1471,65 @@ The application will need to restart now.</source>
     <message>
         <location filename="DetailsTabWidget.py" line="51"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Mapa</translation>
     </message>
 </context>
 <context>
     <name>EditCoinDialog</name>
     <message>
-        <location filename="EditCoinDialog.py" line="59"/>
+        <location filename="EditCoinDialog.py" line="58"/>
         <source>Multi edit</source>
         <translation>Edytuj wiele</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="61"/>
+        <location filename="EditCoinDialog.py" line="60"/>
         <source>New</source>
         <translation>Nowy</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="63"/>
+        <location filename="EditCoinDialog.py" line="62"/>
         <source>Edit</source>
         <translation>Edytuj</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="164"/>
+        <location filename="EditCoinDialog.py" line="163"/>
         <source>Save</source>
         <translation>Zapisz</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="88"/>
+        <location filename="EditCoinDialog.py" line="87"/>
         <source>Coin title not set. Save without title?</source>
         <translation>Brak nazwy monety. Zapisać bez nazwy?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="108"/>
+        <location filename="EditCoinDialog.py" line="107"/>
         <source>Total paid price is negative. Save?</source>
         <translation>Całkowita cena jest ujemna. Zapisać?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="117"/>
+        <location filename="EditCoinDialog.py" line="116"/>
         <source>Pay price is great than total paid price. Save?</source>
         <translation>Cena zapłacona jest wyższa niż całkowita cena. Zapisać?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="164"/>
+        <location filename="EditCoinDialog.py" line="163"/>
         <source>Similar coin already exists. Save?</source>
         <translation>Jednakowa moneta już istnieje. Zapisać?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="169"/>
+        <location filename="EditCoinDialog.py" line="168"/>
         <source>Don&apos;t show this again</source>
-        <translation type="unfinished"/>
+        <translation>Nie pokazuj tego ponownie</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="129"/>
+        <location filename="EditCoinDialog.py" line="128"/>
         <source>Total revenue price is negative. Save?</source>
-        <translation type="unfinished"/>
+        <translation>Całkowita cena przychodu jest ujemna. Zapisać?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="138"/>
+        <location filename="EditCoinDialog.py" line="137"/>
         <source>Sale price is less than total revenue price. Save?</source>
-        <translation type="unfinished"/>
+        <translation>Cena sprzedaży jest niższa niż łączna cena przychodu. Zapisać?</translation>
     </message>
 </context>
 <context>
@@ -1602,7 +1602,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="Export.py" line="63"/>
         <source>Export a full-sized image</source>
-        <translation type="unfinished"/>
+        <translation>Eksportuj obrazy w pełnej rozdzielczości</translation>
     </message>
     <message>
         <location filename="Export.py" line="78"/>
@@ -1670,7 +1670,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="SettingsDialog.py" line="310"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Mapa</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="311"/>
@@ -1690,7 +1690,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="SettingsDialog.py" line="314"/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>System</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="315"/>
@@ -1954,7 +1954,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="StatisticsView.py" line="130"/>
         <source>Image not ready. Please try again later</source>
-        <translation type="unfinished"/>
+        <translation>Obraz nie jest gotowy. Proszę spróbuj później</translation>
     </message>
 </context>
 <context>
@@ -2008,12 +2008,12 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ListView.py" line="1293"/>
         <source>Move up</source>
-        <translation type="unfinished"/>
+        <translation>Przenieś do góry</translation>
     </message>
     <message>
         <location filename="ListView.py" line="1298"/>
         <source>Move down</source>
-        <translation type="unfinished"/>
+        <translation>Przenieś do dołu</translation>
     </message>
 </context>
 <context>
@@ -2073,7 +2073,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ImageLabel.py" line="374"/>
         <source>Enter new image name</source>
-        <translation type="unfinished"/>
+        <translation>Wprowadź nową nazwę obrazu</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="204"/>
@@ -2101,12 +2101,12 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ImageLabel.py" line="156"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation type="unfinished"/>
+        <translation>Obrazy (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="156"/>
         <source>All files (*.*)</source>
-        <translation type="unfinished"/>
+        <translation>Wszystkie pliki (*.*)</translation>
     </message>
     <message>
         <location filename="ImageLabel.py" line="43"/>
@@ -2119,7 +2119,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ImageViewer.py" line="872"/>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Zapisz jako...</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="874"/>
@@ -2129,52 +2129,52 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ImageViewer.py" line="875"/>
         <source>Full Screen</source>
-        <translation type="unfinished"/>
+        <translation>Pełen ekran</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="876"/>
         <source>Zoom &amp;In (25%)</source>
-        <translation type="unfinished"/>
+        <translation>Przybliż (25%)</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="877"/>
         <source>Zoom &amp;Out (25%)</source>
-        <translation type="unfinished"/>
+        <translation>Oddal (25%)</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="878"/>
         <source>&amp;Normal Size</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Normalny rozmiar</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="879"/>
         <source>&amp;Fit to Window</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Dopasuj do okna</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="880"/>
         <source>Show Tool Bar</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż pasek narzędzi</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="881"/>
         <source>Show Status Bar</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż pasek stanu</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="882"/>
         <source>Rotate to Left</source>
-        <translation type="unfinished"/>
+        <translation>Obróć w lewo</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="883"/>
         <source>Rotate to Right</source>
-        <translation type="unfinished"/>
+        <translation>Obróć w prawo</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="884"/>
         <source>Rotate...</source>
-        <translation type="unfinished"/>
+        <translation>Obróć...</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="1043"/>
@@ -2199,52 +2199,52 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ImageViewer.py" line="913"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Edytuj</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="926"/>
         <source>&amp;View</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Widok</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="1018"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation type="unfinished"/>
+        <translation>Obrazy (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="1018"/>
         <source>All files (*.*)</source>
-        <translation type="unfinished"/>
+        <translation>Wszystkie pliki (*.*)</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="1043"/>
         <source>Image was changed. Save changes?</source>
-        <translation type="unfinished"/>
+        <translation>Obraz został zmieniony. Zapisać zmiany?</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="871"/>
         <source>Browse in viewer</source>
-        <translation type="unfinished"/>
+        <translation>Przeglądaj w przeglądarce</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="891"/>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>Cofnij</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="893"/>
         <source>Redo</source>
-        <translation type="unfinished"/>
+        <translation>Popraw</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="885"/>
         <source>Crop...</source>
-        <translation type="unfinished"/>
+        <translation>Przytnij...</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="886"/>
         <source>Autocrop</source>
-        <translation type="unfinished"/>
+        <translation>Autoprzycięcie</translation>
     </message>
 </context>
 <context>
@@ -2293,7 +2293,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="Excel.py" line="152"/>
         <source>&lt;Ignore&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;Ignore&gt;</translation>
     </message>
 </context>
 <context>
@@ -2306,12 +2306,12 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="SettingsDialog.py" line="489"/>
         <source>Skip currency symbol</source>
-        <translation type="unfinished"/>
+        <translation>Pomiń symbol waluty</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="503"/>
         <source>English language</source>
-        <translation type="unfinished"/>
+        <translation>Język angielski</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="524"/>
@@ -2321,17 +2321,17 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="SettingsDialog.py" line="511"/>
         <source>Trim ID in title</source>
-        <translation type="unfinished"/>
+        <translation>Przytnij ID w tytule</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="545"/>
         <source>Clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Wyczyść pamięć podręczną</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="537"/>
         <source>Price currency</source>
-        <translation type="unfinished"/>
+        <translation>Waluta ceny</translation>
     </message>
 </context>
 <context>
@@ -2339,7 +2339,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="Gui.py" line="56"/>
         <source>Don&apos;t show this again</source>
-        <translation type="unfinished"/>
+        <translation>Nie pokazuj tego ponownie</translation>
     </message>
 </context>
 <context>
@@ -2377,7 +2377,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ListView.py" line="831"/>
         <source>Filter in</source>
-        <translation type="unfinished"/>
+        <translation>Filtruj po</translation>
     </message>
     <message>
         <location filename="ListView.py" line="823"/>
@@ -2437,12 +2437,12 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="ListView.py" line="838"/>
         <source>Move up</source>
-        <translation type="unfinished"/>
+        <translation>Przenieś do góry</translation>
     </message>
     <message>
         <location filename="ListView.py" line="843"/>
         <source>Move down</source>
-        <translation type="unfinished"/>
+        <translation>Przenieś do dołu</translation>
     </message>
 </context>
 <context>
@@ -2470,7 +2470,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="SettingsDialog.py" line="92"/>
         <source>Coin changes before autobackup</source>
-        <translation type="unfinished"/>
+        <translation>Ilość zmian przed automatyczną kopią zapasową</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="96"/>
@@ -2485,22 +2485,22 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="SettingsDialog.py" line="107"/>
         <source>Reliable</source>
-        <translation type="unfinished"/>
+        <translation>Niezawodna</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="108"/>
         <source>Fast</source>
-        <translation type="unfinished"/>
+        <translation>Szybka</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="109"/>
         <source>Extra fast (dangerous)</source>
-        <translation type="unfinished"/>
+        <translation>Super szybka (ryzykowna)</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="112"/>
         <source>Acceleration of storage</source>
-        <translation type="unfinished"/>
+        <translation>Przyspieszenie magazynowania danych</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="124"/>
@@ -2520,12 +2520,12 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="SettingsDialog.py" line="151"/>
         <source>Maps</source>
-        <translation type="unfinished"/>
+        <translation>Mapy</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="133"/>
         <source>Use built-in image viewer</source>
-        <translation type="unfinished"/>
+        <translation>Skorzystaj z wbudowanej przeglądarki obrazów</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="154"/>
@@ -2535,17 +2535,17 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="SettingsDialog.py" line="155"/>
         <source>Large</source>
-        <translation type="unfinished"/>
+        <translation>Duża</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="156"/>
         <source>Huge</source>
-        <translation type="unfinished"/>
+        <translation>Ogromna</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="160"/>
         <source>Font size</source>
-        <translation type="unfinished"/>
+        <translation>Wielkość czcionki</translation>
     </message>
 </context>
 <context>
@@ -2553,17 +2553,17 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="MainWindow.py" line="40"/>
         <source>Table view</source>
-        <translation type="unfinished"/>
+        <translation>Widok tabeli</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="46"/>
         <source>Icon view</source>
-        <translation type="unfinished"/>
+        <translation>Widok ikon</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="52"/>
         <source>Card view</source>
-        <translation type="unfinished"/>
+        <translation>Widok kart</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="98"/>
@@ -2838,12 +2838,12 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="MainWindow.py" line="92"/>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Mapa</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="58"/>
         <source>Change view</source>
-        <translation type="unfinished"/>
+        <translation>Zmień widok</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="117"/>
@@ -2858,7 +2858,7 @@ Chcesz zgłosić błąd autorowi?</translation>
     <message>
         <location filename="MainWindow.py" line="328"/>
         <source>&amp;View</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Widok</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="878"/>
@@ -3164,7 +3164,7 @@ Utworzono nowe</translation>
     <message>
         <location filename="Reference.py" line="408"/>
         <source>Create reference</source>
-        <translation type="unfinished"/>
+        <translation>Dodaj odnośnik</translation>
     </message>
     <message>
         <location filename="Reference.py" line="408"/>
@@ -3222,22 +3222,22 @@ Utworzono nowe</translation>
     <message>
         <location filename="ImageViewer.py" line="192"/>
         <source>Rotate</source>
-        <translation type="unfinished"/>
+        <translation>Obróć</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="220"/>
         <source>Auto crop</source>
-        <translation type="unfinished"/>
+        <translation>Automatycznie przytnik</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="225"/>
         <source>Show grid</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż siatkę</translation>
     </message>
     <message>
         <location filename="ImageViewer.py" line="194"/>
         <source>Angle</source>
-        <translation type="unfinished"/>
+        <translation>Kąt</translation>
     </message>
 </context>
 <context>
@@ -3299,22 +3299,22 @@ Utworzono nowe</translation>
     <message>
         <location filename="StatisticsView.py" line="368"/>
         <source>Bar</source>
-        <translation type="unfinished"/>
+        <translation>Słupkowy</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="369"/>
         <source>Horizontal bar</source>
-        <translation type="unfinished"/>
+        <translation>Słupkowy poziomy</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="370"/>
         <source>Pie</source>
-        <translation type="unfinished"/>
+        <translation>Kołowy</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="371"/>
         <source>Stacked bar</source>
-        <translation type="unfinished"/>
+        <translation>Słupkowy skumulowany</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="372"/>
@@ -3324,22 +3324,22 @@ Utworzono nowe</translation>
     <message>
         <location filename="StatisticsView.py" line="374"/>
         <source>GeoChart</source>
-        <translation type="unfinished"/>
+        <translation>GeoWykres</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="375"/>
         <source>Chart:</source>
-        <translation type="unfinished"/>
+        <translation>Wykres:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="378"/>
         <source>Field:</source>
-        <translation type="unfinished"/>
+        <translation>Pole:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="383"/>
         <source>Additional field:</source>
-        <translation type="unfinished"/>
+        <translation>Dodatkowe pola:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="388"/>
@@ -3374,7 +3374,7 @@ Utworzono nowe</translation>
     <message>
         <location filename="StatisticsView.py" line="400"/>
         <source>Count</source>
-        <translation type="unfinished"/>
+        <translation>Ilość</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="401"/>
@@ -3394,17 +3394,17 @@ Utworzono nowe</translation>
     <message>
         <location filename="StatisticsView.py" line="406"/>
         <source>Multicolor</source>
-        <translation type="unfinished"/>
+        <translation>Wielobarwny</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="409"/>
         <source>Region:</source>
-        <translation type="unfinished"/>
+        <translation>Region:</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="412"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Wszystkie</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="413"/>
@@ -3434,7 +3434,7 @@ Utworzono nowe</translation>
     <message>
         <location filename="StatisticsView.py" line="424"/>
         <source>Save chart</source>
-        <translation type="unfinished"/>
+        <translation>Zapisz wykres</translation>
     </message>
     <message>
         <location filename="StatisticsView.py" line="593"/>
@@ -3497,12 +3497,12 @@ Utworzono nowe</translation>
     <message>
         <location filename="CollectionFields.py" line="64"/>
         <source>Missing</source>
-        <translation type="unfinished"/>
+        <translation>Zaginiona</translation>
     </message>
     <message>
         <location filename="CollectionFields.py" line="64"/>
         <source>Duplicate</source>
-        <translation type="unfinished"/>
+        <translation>Duplikat</translation>
     </message>
 </context>
 <context>
@@ -3580,7 +3580,7 @@ Utworzono nowe</translation>
     <message>
         <location filename="SummaryDialog.py" line="38"/>
         <source>[All]</source>
-        <translation type="unfinished"/>
+        <translation>[Wszystkie]</translation>
     </message>
     <message>
         <location filename="SummaryDialog.py" line="73"/>
@@ -3863,7 +3863,7 @@ Dodaj wpierw nową.</translation>
     <message>
         <location filename="YearCalculator.py" line="180"/>
         <source>Units</source>
-        <translation type="unfinished"/>
+        <translation>Jednostki</translation>
     </message>
     <message>
         <location filename="YearCalculator.py" line="259"/>
@@ -3888,7 +3888,7 @@ Dodaj wpierw nową.</translation>
     <message>
         <location filename="YearCalculator.py" line="473"/>
         <source>Roman</source>
-        <translation type="unfinished"/>
+        <translation>Romański</translation>
     </message>
     <message>
         <location filename="YearCalculator.py" line="516"/>

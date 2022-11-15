@@ -1486,57 +1486,57 @@ La aplicación deberá reiniciarse ahora.</translation>
 <context>
     <name>EditCoinDialog</name>
     <message>
-        <location filename="EditCoinDialog.py" line="59"/>
+        <location filename="EditCoinDialog.py" line="58"/>
         <source>Multi edit</source>
         <translation>Edición múltiple</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="61"/>
+        <location filename="EditCoinDialog.py" line="60"/>
         <source>New</source>
         <translation>Nuevo</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="63"/>
+        <location filename="EditCoinDialog.py" line="62"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="164"/>
+        <location filename="EditCoinDialog.py" line="163"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="88"/>
+        <location filename="EditCoinDialog.py" line="87"/>
         <source>Coin title not set. Save without title?</source>
         <translation>Moneda sin título. ¿Guardar de todas maneras?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="108"/>
+        <location filename="EditCoinDialog.py" line="107"/>
         <source>Total paid price is negative. Save?</source>
         <translation>Precio total pagado negativo. ¿Guardar?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="117"/>
+        <location filename="EditCoinDialog.py" line="116"/>
         <source>Pay price is great than total paid price. Save?</source>
         <translation>Precio pagado es mayor que el precio total pagado. ¿Guardar?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="164"/>
+        <location filename="EditCoinDialog.py" line="163"/>
         <source>Similar coin already exists. Save?</source>
         <translation>Existe una moneda similar, ¿guardar de todas maneras?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="169"/>
+        <location filename="EditCoinDialog.py" line="168"/>
         <source>Don&apos;t show this again</source>
         <translation>No mostrar de nuevo esto</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="129"/>
+        <location filename="EditCoinDialog.py" line="128"/>
         <source>Total revenue price is negative. Save?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="138"/>
+        <location filename="EditCoinDialog.py" line="137"/>
         <source>Sale price is less than total revenue price. Save?</source>
         <translation type="unfinished"/>
     </message>

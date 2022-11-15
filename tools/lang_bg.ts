@@ -1486,57 +1486,57 @@ The application will need to restart now.</source>
 <context>
     <name>EditCoinDialog</name>
     <message>
-        <location filename="EditCoinDialog.py" line="59"/>
+        <location filename="EditCoinDialog.py" line="58"/>
         <source>Multi edit</source>
         <translation>Групово редактиране</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="61"/>
+        <location filename="EditCoinDialog.py" line="60"/>
         <source>New</source>
         <translation>Нова</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="63"/>
+        <location filename="EditCoinDialog.py" line="62"/>
         <source>Edit</source>
         <translation>Редактиране</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="164"/>
+        <location filename="EditCoinDialog.py" line="163"/>
         <source>Save</source>
         <translation>Записване</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="88"/>
+        <location filename="EditCoinDialog.py" line="87"/>
         <source>Coin title not set. Save without title?</source>
         <translation>Монетата е без заглавие. Желаете ли да я запишете без заглавие?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="108"/>
+        <location filename="EditCoinDialog.py" line="107"/>
         <source>Total paid price is negative. Save?</source>
         <translation>Общата платена цена е отрицателна. Да се запази ли?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="117"/>
+        <location filename="EditCoinDialog.py" line="116"/>
         <source>Pay price is great than total paid price. Save?</source>
         <translation>Цената за плащане е по-голяма от общата платена цена. Запазване?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="164"/>
+        <location filename="EditCoinDialog.py" line="163"/>
         <source>Similar coin already exists. Save?</source>
         <translation>Такава монета вече съществува. Сигурни ли сте, че искате да направите запис?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="169"/>
+        <location filename="EditCoinDialog.py" line="168"/>
         <source>Don&apos;t show this again</source>
-        <translation>Не показвайте това отново</translation>
+        <translation>Не показвай това съобщение отново</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="129"/>
+        <location filename="EditCoinDialog.py" line="128"/>
         <source>Total revenue price is negative. Save?</source>
         <translation>Цената на общия приход е отрицателна. Запазване?</translation>
     </message>
     <message>
-        <location filename="EditCoinDialog.py" line="138"/>
+        <location filename="EditCoinDialog.py" line="137"/>
         <source>Sale price is less than total revenue price. Save?</source>
         <translation>Продажната цена е по-малка от общата приходна цена. Запазване?</translation>
     </message>
@@ -2349,7 +2349,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="Gui.py" line="56"/>
         <source>Don&apos;t show this again</source>
-        <translation>Не показвайте това отново</translation>
+        <translation>Не показвай това съобщение отново</translation>
     </message>
 </context>
 <context>
