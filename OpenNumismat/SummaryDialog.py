@@ -102,6 +102,13 @@ class SummaryDialog(QDialog):
             while query.next():
                 record = query.record()
                 fineness = record.value('fineness')
+                if isinstance(fineness, str):
+                    fineness = stringToMoney(fineness)
+                if isinstance(fineness, float):
+                    if fineness > 1:
+                        fineness = str(fineness).replace('.', '')
+                    else:
+                        fineness = str(fineness).replace('0.', '')
                 weight = record.value('weight')
                 if isinstance(weight, str):
                     weight = stringToMoney(weight)
@@ -147,6 +154,13 @@ class SummaryDialog(QDialog):
             while query.next():
                 record = query.record()
                 fineness = record.value('fineness')
+                if isinstance(fineness, str):
+                    fineness = stringToMoney(fineness)
+                if isinstance(fineness, float):
+                    if fineness > 1:
+                        fineness = str(fineness).replace('.', '')
+                    else:
+                        fineness = str(fineness).replace('0.', '')
                 weight = record.value('weight')
                 if isinstance(weight, str):
                     weight = stringToMoney(weight)
