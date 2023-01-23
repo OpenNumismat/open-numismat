@@ -20,7 +20,7 @@ from OpenNumismat.Tools.Gui import ProgressDialog
 colnectAvailable = True
 
 try:
-    from OpenNumismat.private_keys import COLNECT_PROXY
+    from OpenNumismat.private_keys import COLNECT_PROXY, COLNECT_KEY
 except ImportError:
     print('Importing from Colnect not available')
     colnectAvailable = False
@@ -146,7 +146,7 @@ class ColnectConnector(QObject):
 
     @waitCursorDecorator
     def getFields(self, category):
-        url = "https://%s/en/api/COLNECT_KEY/fields/cat/%s" % (COLNECT_PROXY, category)
+        url = "https://%s/en/api/%s/fields/cat/%s" % (COLNECT_PROXY, COLNECT_KEY, category)
 
         raw_data = self.cache.get(url)
         if raw_data:
@@ -218,7 +218,7 @@ class ColnectConnector(QObject):
         return name
 
     def _baseUrl(self):
-        url = "https://%s/%s/api/COLNECT_KEY/" % (COLNECT_PROXY, self.lang)
+        url = "https://%s/%s/api/%s/" % (COLNECT_PROXY, self.lang, COLNECT_KEY)
         return url
 
     @waitCursorDecorator
