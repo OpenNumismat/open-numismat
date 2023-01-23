@@ -8,6 +8,7 @@ from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Reports import Report
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import statusIcon
+from OpenNumismat.Tools.Gui import infoMessageBox
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.Import.Cache import Cache
@@ -559,6 +560,10 @@ class ImportSettingsPage(QWidget):
 
     def clearCache(self):
         Cache.clear()
+
+        infoMessageBox("clear", self.tr("Clear cache"),
+                       self.tr("Import cache cleared"),
+                       parent=self)
 
     def save(self):
         settings = Settings()
