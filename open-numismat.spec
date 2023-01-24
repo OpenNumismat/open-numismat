@@ -101,4 +101,7 @@ else:
               "QtQmlWorkerScript", "QtQuick3D", "QtQuick3DAssetImport",
               "QtQuick3DRender", "QtQuick3DRuntimeRender", "QtQuick3DUtils"
               ):
-        os.remove(bin_dir + f)
+        try:
+            os.remove(bin_dir + f)
+        except OSError:
+            pass
