@@ -1021,62 +1021,62 @@ The application will need to restart now.</source>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="212"/>
+        <location filename="SettingsDialog.py" line="213"/>
         <source>Max image side len</source>
         <translation>Největší délka strany obrázku</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="214"/>
+        <location filename="SettingsDialog.py" line="215"/>
         <source>0 for storing in original size</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="223"/>
+        <location filename="SettingsDialog.py" line="224"/>
         <source>Preview image height</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="225"/>
+        <location filename="SettingsDialog.py" line="226"/>
         <source>Free format numeric fields</source>
         <translation>Číselná pole ve volném formátu</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="235"/>
+        <location filename="SettingsDialog.py" line="236"/>
         <source>Images at bottom</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="239"/>
+        <location filename="SettingsDialog.py" line="240"/>
         <source>Enable BC</source>
         <translation>Př. n. l.</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="243"/>
+        <location filename="SettingsDialog.py" line="244"/>
         <source>Use RichText format</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="248"/>
+        <location filename="SettingsDialog.py" line="249"/>
         <source>Used statuses</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="266"/>
+        <location filename="SettingsDialog.py" line="267"/>
         <source>Default status for new coin</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="288"/>
+        <location filename="SettingsDialog.py" line="289"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="288"/>
+        <location filename="SettingsDialog.py" line="289"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="230"/>
+        <location filename="SettingsDialog.py" line="231"/>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation type="unfinished"/>
     </message>
@@ -1271,67 +1271,67 @@ The application will need to restart now.</source>
 <context>
     <name>Currency</name>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>BGN - Bulgarian lev</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>BRL - Brazilian real</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>BYN - Belarusian ruble</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>CZK - Czech koruna</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>EUR - Euro</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>GBP - Pound sterling</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>HUF - Hungarian forint</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>RUB - Russian ruble</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>SEK - Swedish krona</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>TRY - Turkish lira</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>UAH - Ukrainian hryvnia</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>USD - United States dollar</source>
         <translation type="unfinished"/>
     </message>
     <message encoding="UTF-8">
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>PLN - Polish złoty</source>
         <translation type="unfinished"/>
     </message>
@@ -1629,72 +1629,72 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="378"/>
+        <location filename="SettingsDialog.py" line="379"/>
         <source>Rename</source>
         <translation>Přejmenovat</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="383"/>
+        <location filename="SettingsDialog.py" line="384"/>
         <source>Revert to default</source>
         <translation>Vrátit na výchozí</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="391"/>
+        <location filename="SettingsDialog.py" line="392"/>
         <source>Global enabled fields:</source>
         <translation>Celkově povolená pole:</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="305"/>
+        <location filename="SettingsDialog.py" line="306"/>
         <source>Images</source>
         <translation>Obrázky</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="306"/>
+        <location filename="SettingsDialog.py" line="307"/>
         <source>Main details</source>
         <translation>Hlavní podrobnosti</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="307"/>
+        <location filename="SettingsDialog.py" line="308"/>
         <source>State</source>
         <translation>Stav</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="308"/>
+        <location filename="SettingsDialog.py" line="309"/>
         <source>Buy</source>
         <translation>Koupit</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="309"/>
+        <location filename="SettingsDialog.py" line="310"/>
         <source>Sale</source>
         <translation>Prodej</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="310"/>
+        <location filename="SettingsDialog.py" line="311"/>
         <source>Map</source>
         <translation>Mapa</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="311"/>
+        <location filename="SettingsDialog.py" line="312"/>
         <source>Parameters</source>
         <translation>Parametry</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="312"/>
+        <location filename="SettingsDialog.py" line="313"/>
         <source>Design</source>
         <translation>Návrh</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="313"/>
+        <location filename="SettingsDialog.py" line="314"/>
         <source>Classification</source>
         <translation>Roztřídění</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="314"/>
+        <location filename="SettingsDialog.py" line="315"/>
         <source>System</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="315"/>
+        <location filename="SettingsDialog.py" line="316"/>
         <source>Other</source>
         <translation>Jiné</translation>
     </message>
@@ -2300,38 +2300,43 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>ImportSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="487"/>
+        <location filename="SettingsDialog.py" line="488"/>
         <source>Language</source>
         <translation>Jazyk</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="489"/>
+        <location filename="SettingsDialog.py" line="490"/>
         <source>Skip currency symbol</source>
         <translation>Přeskakovat symbol měny</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="503"/>
+        <location filename="SettingsDialog.py" line="504"/>
         <source>English language</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="524"/>
+        <location filename="SettingsDialog.py" line="525"/>
         <source>Split denomination</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="511"/>
+        <location filename="SettingsDialog.py" line="512"/>
         <source>Trim ID in title</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="545"/>
+        <location filename="SettingsDialog.py" line="564"/>
         <source>Clear cache</source>
         <translation>Vyčistit cache</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="537"/>
+        <location filename="SettingsDialog.py" line="538"/>
         <source>Price currency</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="564"/>
+        <source>Import cache cleared</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2449,102 +2454,102 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="49"/>
+        <location filename="SettingsDialog.py" line="50"/>
         <source>Language</source>
         <translation>Jazyk</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="66"/>
+        <location filename="SettingsDialog.py" line="67"/>
         <source>Reference</source>
         <translation>Odkaz</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="165"/>
+        <location filename="SettingsDialog.py" line="166"/>
         <source>Backup folder</source>
         <translation>Složka se zálohou</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="82"/>
+        <location filename="SettingsDialog.py" line="83"/>
         <source>Make autobackup</source>
         <translation>Vytvoř automaticky zálohu</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="92"/>
+        <location filename="SettingsDialog.py" line="93"/>
         <source>Coin changes before autobackup</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="96"/>
+        <location filename="SettingsDialog.py" line="97"/>
         <source>Send error info to author</source>
         <translation>Poslat hlášení o chybě autorovi programu</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="101"/>
+        <location filename="SettingsDialog.py" line="102"/>
         <source>Automatically check for updates</source>
         <translation>Automaticky prověřit dostupnost aktualizací</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="107"/>
+        <location filename="SettingsDialog.py" line="108"/>
         <source>Reliable</source>
         <translation>Spolehlivé</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="108"/>
+        <location filename="SettingsDialog.py" line="109"/>
         <source>Fast</source>
         <translation>Rychlé</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="109"/>
+        <location filename="SettingsDialog.py" line="110"/>
         <source>Extra fast (dangerous)</source>
         <translation>Extra rychlé (nebezpečné)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="112"/>
+        <location filename="SettingsDialog.py" line="113"/>
         <source>Acceleration of storage</source>
         <translation>Akcelerace uložiště</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="124"/>
+        <location filename="SettingsDialog.py" line="125"/>
         <source>Default template</source>
         <translation>Výchozí předloha</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="131"/>
+        <location filename="SettingsDialog.py" line="132"/>
         <source>Images count by default</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="174"/>
+        <location filename="SettingsDialog.py" line="175"/>
         <source>Select reference</source>
         <translation>Vybrat odkaz</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="151"/>
+        <location filename="SettingsDialog.py" line="152"/>
         <source>Maps</source>
         <translation>Mapy</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="133"/>
+        <location filename="SettingsDialog.py" line="134"/>
         <source>Use built-in image viewer</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="154"/>
+        <location filename="SettingsDialog.py" line="155"/>
         <source>Normal</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="155"/>
+        <location filename="SettingsDialog.py" line="156"/>
         <source>Large</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="156"/>
+        <location filename="SettingsDialog.py" line="157"/>
         <source>Huge</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="160"/>
+        <location filename="SettingsDialog.py" line="161"/>
         <source>Font size</source>
         <translation type="unfinished"/>
     </message>
@@ -3252,27 +3257,27 @@ Vytvořen nový</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="588"/>
+        <location filename="SettingsDialog.py" line="593"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="591"/>
+        <location filename="SettingsDialog.py" line="596"/>
         <source>Main</source>
         <translation>Hlavní</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="592"/>
+        <location filename="SettingsDialog.py" line="597"/>
         <source>Collection</source>
         <translation>Sbírka</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="595"/>
+        <location filename="SettingsDialog.py" line="600"/>
         <source>Fields</source>
         <translation>Pole</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="598"/>
+        <location filename="SettingsDialog.py" line="603"/>
         <source>Import</source>
         <translation>Zavést</translation>
     </message>
@@ -3524,52 +3529,52 @@ Vytvořen nový</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="170"/>
+        <location filename="SummaryDialog.py" line="184"/>
         <source>Count wish: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="179"/>
+        <location filename="SummaryDialog.py" line="193"/>
         <source>Count sales: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="187"/>
+        <location filename="SummaryDialog.py" line="201"/>
         <source>Count biddings: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="195"/>
+        <location filename="SummaryDialog.py" line="209"/>
         <source>Count missing: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="236"/>
+        <location filename="SummaryDialog.py" line="250"/>
         <source>(commission %d%%)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="256"/>
+        <location filename="SummaryDialog.py" line="270"/>
         <source>First purchase: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="333"/>
+        <location filename="SummaryDialog.py" line="347"/>
         <source>(calculated for %d coins)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="307"/>
+        <location filename="SummaryDialog.py" line="321"/>
         <source>Estimation owned: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="335"/>
+        <location filename="SummaryDialog.py" line="349"/>
         <source>Estimation wish: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="342"/>
+        <location filename="SummaryDialog.py" line="356"/>
         <source>Count images: %d</source>
         <translation type="unfinished"/>
     </message>
@@ -3604,57 +3609,57 @@ Vytvořen nový</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="305"/>
+        <location filename="SummaryDialog.py" line="319"/>
         <source>(calculated for %d/%d coins)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="122"/>
+        <location filename="SummaryDialog.py" line="129"/>
         <source>Silver</source>
         <translation>Stříbro</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="134"/>
+        <location filename="SummaryDialog.py" line="141"/>
         <source>Silver coins: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="136"/>
+        <location filename="SummaryDialog.py" line="143"/>
         <source>Silver coins: %d/%d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="118"/>
+        <location filename="SummaryDialog.py" line="125"/>
         <source>Gold weight: %s gramm</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="163"/>
+        <location filename="SummaryDialog.py" line="177"/>
         <source>Silver weight: %s gramm</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="214"/>
+        <location filename="SummaryDialog.py" line="228"/>
         <source>Paid: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="219"/>
+        <location filename="SummaryDialog.py" line="233"/>
         <source>Average paid per item: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="238"/>
+        <location filename="SummaryDialog.py" line="252"/>
         <source>Earned: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="243"/>
+        <location filename="SummaryDialog.py" line="257"/>
         <source>Average earn per item: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="248"/>
+        <location filename="SummaryDialog.py" line="262"/>
         <source>Total (paid - earned): %s</source>
         <translation type="unfinished"/>
     </message>

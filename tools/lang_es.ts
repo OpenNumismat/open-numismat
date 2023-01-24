@@ -1029,62 +1029,62 @@ La aplicación deberá reiniciarse ahora.</translation>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="212"/>
+        <location filename="SettingsDialog.py" line="213"/>
         <source>Max image side len</source>
         <translation>Longitud máxima de la imagen</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="214"/>
+        <location filename="SettingsDialog.py" line="215"/>
         <source>0 for storing in original size</source>
         <translation>0 para almacenar en tamaño original</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="223"/>
+        <location filename="SettingsDialog.py" line="224"/>
         <source>Preview image height</source>
         <translation>Altura de imagen previa</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="225"/>
+        <location filename="SettingsDialog.py" line="226"/>
         <source>Free format numeric fields</source>
         <translation>Campos numéricos de formato libre</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="235"/>
+        <location filename="SettingsDialog.py" line="236"/>
         <source>Images at bottom</source>
         <translation>Imágenes al fondo</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="239"/>
+        <location filename="SettingsDialog.py" line="240"/>
         <source>Enable BC</source>
         <translation>Habilitar A.C.</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="243"/>
+        <location filename="SettingsDialog.py" line="244"/>
         <source>Use RichText format</source>
         <translation>Usar formato de texto enriquecido</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="248"/>
+        <location filename="SettingsDialog.py" line="249"/>
         <source>Used statuses</source>
         <translation>Estados usados</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="266"/>
+        <location filename="SettingsDialog.py" line="267"/>
         <source>Default status for new coin</source>
         <translation>Estado predeterminado para la nueva moneda</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="288"/>
+        <location filename="SettingsDialog.py" line="289"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="288"/>
+        <location filename="SettingsDialog.py" line="289"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>La altura de la imagen de vista previa ha cambiado. ¿Recalcularla ahora?</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="230"/>
+        <location filename="SettingsDialog.py" line="231"/>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
         <translation>Convertir 0.5 en ½ (soporta ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
@@ -1279,67 +1279,67 @@ La aplicación deberá reiniciarse ahora.</translation>
 <context>
     <name>Currency</name>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>BGN - Bulgarian lev</source>
         <translation>BGN - Lev búlgaro</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>BRL - Brazilian real</source>
         <translation>BRL - Real brasileño</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>BYN - Belarusian ruble</source>
         <translation>BYN - Rublo bielorruso</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>CZK - Czech koruna</source>
         <translation>CZK - Corona checa</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>EUR - Euro</source>
         <translation>EUR - Euro</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>GBP - Pound sterling</source>
         <translation>GBP - Libra esterlina</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>HUF - Hungarian forint</source>
         <translation>HUF - Florín húngaro</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>RUB - Russian ruble</source>
         <translation>RUB - Rublo ruso</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>SEK - Swedish krona</source>
         <translation>SEK - Corona sueca</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>TRY - Turkish lira</source>
         <translation>TRY - Lira turca</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>UAH - Ukrainian hryvnia</source>
         <translation>UAH - Grivna ucraniana</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>USD - United States dollar</source>
         <translation>USD - Dólar estadounidense</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="SettingsDialog.py" line="455"/>
+        <location filename="SettingsDialog.py" line="456"/>
         <source>PLN - Polish złoty</source>
         <translation>PLN - Złoty polaco</translation>
     </message>
@@ -1637,72 +1637,72 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="378"/>
+        <location filename="SettingsDialog.py" line="379"/>
         <source>Rename</source>
         <translation>Renombrar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="383"/>
+        <location filename="SettingsDialog.py" line="384"/>
         <source>Revert to default</source>
         <translation>Volver a configuración por defecto</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="391"/>
+        <location filename="SettingsDialog.py" line="392"/>
         <source>Global enabled fields:</source>
         <translation>Campos globales permitidos:</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="305"/>
+        <location filename="SettingsDialog.py" line="306"/>
         <source>Images</source>
         <translation>Imágenes</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="306"/>
+        <location filename="SettingsDialog.py" line="307"/>
         <source>Main details</source>
         <translation>Detalles principales</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="307"/>
+        <location filename="SettingsDialog.py" line="308"/>
         <source>State</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="308"/>
+        <location filename="SettingsDialog.py" line="309"/>
         <source>Buy</source>
         <translation>Comprar</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="309"/>
+        <location filename="SettingsDialog.py" line="310"/>
         <source>Sale</source>
         <translation>Vender</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="310"/>
+        <location filename="SettingsDialog.py" line="311"/>
         <source>Map</source>
         <translation>Mapa</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="311"/>
+        <location filename="SettingsDialog.py" line="312"/>
         <source>Parameters</source>
         <translation>Parámetros</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="312"/>
+        <location filename="SettingsDialog.py" line="313"/>
         <source>Design</source>
         <translation>Diseño</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="313"/>
+        <location filename="SettingsDialog.py" line="314"/>
         <source>Classification</source>
         <translation>Clasificación</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="314"/>
+        <location filename="SettingsDialog.py" line="315"/>
         <source>System</source>
         <translation>Sistema</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="315"/>
+        <location filename="SettingsDialog.py" line="316"/>
         <source>Other</source>
         <translation>Otros</translation>
     </message>
@@ -2308,39 +2308,44 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ImportSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="487"/>
+        <location filename="SettingsDialog.py" line="488"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="489"/>
+        <location filename="SettingsDialog.py" line="490"/>
         <source>Skip currency symbol</source>
         <translation>Saltar símbolo de moneda</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="503"/>
+        <location filename="SettingsDialog.py" line="504"/>
         <source>English language</source>
         <translation>Idioma inglés</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="524"/>
+        <location filename="SettingsDialog.py" line="525"/>
         <source>Split denomination</source>
         <translation>Dividir denominación</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="511"/>
+        <location filename="SettingsDialog.py" line="512"/>
         <source>Trim ID in title</source>
         <translation>Recortar ID en el título</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="545"/>
+        <location filename="SettingsDialog.py" line="564"/>
         <source>Clear cache</source>
         <translation>Limpiar caché</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="537"/>
+        <location filename="SettingsDialog.py" line="538"/>
         <source>Price currency</source>
         <translation>Moneda del precio</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.py" line="564"/>
+        <source>Import cache cleared</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2457,102 +2462,102 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="49"/>
+        <location filename="SettingsDialog.py" line="50"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="66"/>
+        <location filename="SettingsDialog.py" line="67"/>
         <source>Reference</source>
         <translation>Referencia</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="165"/>
+        <location filename="SettingsDialog.py" line="166"/>
         <source>Backup folder</source>
         <translation>Carpeta respaldo</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="82"/>
+        <location filename="SettingsDialog.py" line="83"/>
         <source>Make autobackup</source>
         <translation>Realizar auto respaldo</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="92"/>
+        <location filename="SettingsDialog.py" line="93"/>
         <source>Coin changes before autobackup</source>
         <translation>Cambios en moneda antes de auto respaldo</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="96"/>
+        <location filename="SettingsDialog.py" line="97"/>
         <source>Send error info to author</source>
         <translation>Enviar información del error al autor</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="101"/>
+        <location filename="SettingsDialog.py" line="102"/>
         <source>Automatically check for updates</source>
         <translation>Comprobar automáticamente actualizaciones</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="107"/>
+        <location filename="SettingsDialog.py" line="108"/>
         <source>Reliable</source>
         <translation>Fiable</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="108"/>
+        <location filename="SettingsDialog.py" line="109"/>
         <source>Fast</source>
         <translation>Rápido</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="109"/>
+        <location filename="SettingsDialog.py" line="110"/>
         <source>Extra fast (dangerous)</source>
         <translation>Ultra rápido (peligroso)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="112"/>
+        <location filename="SettingsDialog.py" line="113"/>
         <source>Acceleration of storage</source>
         <translation>Aceleración de almacenamiento</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="124"/>
+        <location filename="SettingsDialog.py" line="125"/>
         <source>Default template</source>
         <translation>Plantilla por defecto</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="131"/>
+        <location filename="SettingsDialog.py" line="132"/>
         <source>Images count by default</source>
         <translation>Imágenes contadas por defecto</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="174"/>
+        <location filename="SettingsDialog.py" line="175"/>
         <source>Select reference</source>
         <translation>Seleccione referencia</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="151"/>
+        <location filename="SettingsDialog.py" line="152"/>
         <source>Maps</source>
         <translation>Mapas</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="133"/>
+        <location filename="SettingsDialog.py" line="134"/>
         <source>Use built-in image viewer</source>
         <translation>Usar editor de imagen integrado</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="154"/>
+        <location filename="SettingsDialog.py" line="155"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="155"/>
+        <location filename="SettingsDialog.py" line="156"/>
         <source>Large</source>
         <translation>Grande</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="156"/>
+        <location filename="SettingsDialog.py" line="157"/>
         <source>Huge</source>
         <translation>Enorme</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="160"/>
+        <location filename="SettingsDialog.py" line="161"/>
         <source>Font size</source>
         <translation>Tamaño de fuente</translation>
     </message>
@@ -3265,27 +3270,27 @@ Se creó una nueva</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="588"/>
+        <location filename="SettingsDialog.py" line="593"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="591"/>
+        <location filename="SettingsDialog.py" line="596"/>
         <source>Main</source>
         <translation>Principal</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="592"/>
+        <location filename="SettingsDialog.py" line="597"/>
         <source>Collection</source>
         <translation>Colección</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="595"/>
+        <location filename="SettingsDialog.py" line="600"/>
         <source>Fields</source>
         <translation>Campos</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="598"/>
+        <location filename="SettingsDialog.py" line="603"/>
         <source>Import</source>
         <translation>Importar</translation>
     </message>
@@ -3537,52 +3542,52 @@ Se creó una nueva</translation>
         <translation>Recuento propias: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="170"/>
+        <location filename="SummaryDialog.py" line="184"/>
         <source>Count wish: %d</source>
         <translation>Recuento deseadas: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="179"/>
+        <location filename="SummaryDialog.py" line="193"/>
         <source>Count sales: %d</source>
         <translation>Recuento de ventas: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="187"/>
+        <location filename="SummaryDialog.py" line="201"/>
         <source>Count biddings: %d</source>
         <translation>Recuento de pujas: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="195"/>
+        <location filename="SummaryDialog.py" line="209"/>
         <source>Count missing: %d</source>
         <translation>Recuento desaparecidas: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="236"/>
+        <location filename="SummaryDialog.py" line="250"/>
         <source>(commission %d%%)</source>
         <translation>(comisión %d%%)</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="256"/>
+        <location filename="SummaryDialog.py" line="270"/>
         <source>First purchase: %s</source>
         <translation>Primera compra: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="333"/>
+        <location filename="SummaryDialog.py" line="347"/>
         <source>(calculated for %d coins)</source>
         <translation>(calculado para %d monedas)</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="307"/>
+        <location filename="SummaryDialog.py" line="321"/>
         <source>Estimation owned: %d</source>
         <translation>Estimación en propiedad: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="335"/>
+        <location filename="SummaryDialog.py" line="349"/>
         <source>Estimation wish: %d</source>
         <translation>Estimación deseada: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="342"/>
+        <location filename="SummaryDialog.py" line="356"/>
         <source>Count images: %d</source>
         <translation>Recuento imágenes: %d</translation>
     </message>
@@ -3617,57 +3622,57 @@ Se creó una nueva</translation>
         <translation>Monedas de oro: %d/%d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="305"/>
+        <location filename="SummaryDialog.py" line="319"/>
         <source>(calculated for %d/%d coins)</source>
         <translation>(calculado para %d/%d monedas)</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="122"/>
+        <location filename="SummaryDialog.py" line="129"/>
         <source>Silver</source>
         <translation>Plata</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="134"/>
+        <location filename="SummaryDialog.py" line="141"/>
         <source>Silver coins: %d</source>
         <translation>Monedas de plata: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="136"/>
+        <location filename="SummaryDialog.py" line="143"/>
         <source>Silver coins: %d/%d</source>
         <translation>Monedas de plata: %d/%d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="118"/>
+        <location filename="SummaryDialog.py" line="125"/>
         <source>Gold weight: %s gramm</source>
         <translation>Peso de oro: %s gramos</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="163"/>
+        <location filename="SummaryDialog.py" line="177"/>
         <source>Silver weight: %s gramm</source>
         <translation>Peso de plata: %s gramos</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="214"/>
+        <location filename="SummaryDialog.py" line="228"/>
         <source>Paid: %s</source>
         <translation>Pagado: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="219"/>
+        <location filename="SummaryDialog.py" line="233"/>
         <source>Average paid per item: %s</source>
         <translation>Promedio pagado por artículo: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="238"/>
+        <location filename="SummaryDialog.py" line="252"/>
         <source>Earned: %s</source>
         <translation>Ganado: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="243"/>
+        <location filename="SummaryDialog.py" line="257"/>
         <source>Average earn per item: %s</source>
         <translation>Ganancia promedio por artículo: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="248"/>
+        <location filename="SummaryDialog.py" line="262"/>
         <source>Total (paid - earned): %s</source>
         <translation>Total (pagado - ganado): %s</translation>
     </message>
