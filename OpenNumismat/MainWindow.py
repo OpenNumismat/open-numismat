@@ -876,10 +876,10 @@ class MainWindow(QMainWindow):
 
     def about(self):
         QMessageBox.about(self, self.tr("About %s") % version.AppName,
-                self.tr("%s %s\n\n"
-                        "Copyright (C) 2011-2022 Vitaly Ignatov\n\n"
-                        "%s is freeware licensed under a GPLv3.") %
-                        (version.AppName, version.Version, version.AppName))
+                        "%s %s\n\n" % (version.AppName, version.Version) +
+                        "Copyright (C) 2011-2023 Vitaly Ignatov\n\n" +
+                        self.tr("%s is freeware licensed under a GPLv3.") %
+                        version.AppName)
 
     def onlineHelp(self):
         self._openUrl("http://opennumismat.github.io/open-numismat/manual.html")
