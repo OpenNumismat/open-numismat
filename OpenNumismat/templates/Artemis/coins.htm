@@ -30,34 +30,50 @@
     <div class="infoText">
       <div class="textPrimary">
         <dl class="textPrimaryDl">
+        {% if record.year %}
           <dt>{{titles.year}}</dt>
           <dd>{{record.year}}</dd>
+        {% endif %}
           <dt>{{titles.mint}}</dt>
           <dd>{{record.country}} {{record.mint}}</dd>
           <dt>{{titles.unit}}</dt>
           <dd>{{record.value}} {{record.unit|lower}}</dd>
+        {% if record.obversedesign %}
           <dt>{{titles.obverseimg}}</dt>
           <dd>{{record.obversedesign}}</dd>
+        {% endif %}
+        {% if record.reversedesign %}
           <dt>{{titles.reverseimg}}</dt>
           <dd>{{record.reversedesign}}</dd>
+        {% endif %}
+        {% if record.subject %}
           <dt>{{titles.subject}}</dt>
           <dd>{{record.subject}}</dd>
+        {% endif %}
         </dl>
       </div>
       <div class="textSecondary">
         <dl class="textSecondaryDl">
+        {% if record.material %}
           <dt>{{titles.material}}</dt>
           <dd>{{record.material}}</dd>
+        {% endif %}
+        {% if record.weight %}
           <dt>{{titles.weight}}</dt>
           <dd>{{record.weight}}</dd>
+        {% endif %}
+        {% if record.diameter %}
           <dt>{{titles.diameter}}</dt>
           <dd>{{record.diameter}}</dd>
+        {% endif %}
+        {% if record.thickness %}
           <dt>{{titles.thickness}}</dt>
           <dd>{{record.thickness}}</dd>
+        {% endif %}
+        {% if record.fineness %}
           <dt>{{titles.fineness}}</dt>
           <dd>{{record.fineness}}</dd>
-          <dt></dt>
-          <dd></dd>
+        {% endif %}
         </dl>
       </div>
     </div>

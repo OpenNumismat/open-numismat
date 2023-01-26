@@ -15,13 +15,7 @@ html, body {
     font-size: 1em;
 }
 
-dl dd {
-    margin-bottom: 0px;
-    line-height: 1.75;
-}
-
 dd {
-    margin-top: 0;
     margin-inline-start: 0;
 }
 
@@ -58,7 +52,6 @@ dd {
     width: auto;
     min-height: auto;
     order: 0;
-/*    text-align: center; */
     color: #eaeaea;
     font-size: 22px;
     letter-spacing: 0.00em;
@@ -67,6 +60,7 @@ dd {
 }
 
 .infoText {
+    line-height: 1.75;
     font-size: 18px;
     width: 100%;
     order: 1;
