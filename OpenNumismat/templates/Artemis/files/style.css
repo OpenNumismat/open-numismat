@@ -1,0 +1,163 @@
+p.breakhere {
+    page-break-before: always;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+* {
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+  color: #d7d7d7;
+}
+
+html, body {
+    font-family: sans-serif;
+    font-size: 1em;
+}
+
+dl dd {
+    margin-bottom: 0px;
+    line-height: 1.75;
+}
+
+dd {
+    margin-top: 0;
+    margin-inline-start: 0;
+}
+
+.coins {
+    font-weight: 400;
+    width: 100%;
+    min-height: 200px;
+    padding: 0px 20px 0px 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    page-break-inside: avoid;
+    page-break-after:auto;
+
+    width: 100%;
+    min-height: 200px;
+    padding: 0px 20px 0px 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-bottom: #303133;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    font-size: 16px;
+}
+
+.infoTitle {
+    width: auto;
+    min-height: auto;
+    order: 0;
+/*    text-align: center; */
+    color: #eaeaea;
+    font-size: 22px;
+    letter-spacing: 0.00em;
+    font-weight: 200;
+    line-height: 1.2;
+}
+
+.infoText {
+    font-size: 18px;
+    width: 100%;
+    order: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.textPrimary {
+    max-width: 700px;
+    order: 0;
+    flex: 1 0 70%;
+}
+
+.textPrimaryDl {
+    color: #000;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    justify-items: stretch;
+    grid-template-columns: 135px auto;
+}
+
+.textPrimaryDl dt {
+    font-weight: 700;
+    margin: 0;
+    text-align: right;
+    padding-right: 20px;
+    color: #d7d7d7 !important;
+    grid-column: 1;
+}
+
+.textSecondary {
+    order: 1;
+    flex: 1 0 30%;
+}
+
+.textSecondaryDl {
+    color: #000;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    justify-items: stretch;
+    grid-template-columns: 135px auto;
+}
+
+.textPrimaryDl dd {
+    text-align: left;
+    color: #d7d7d7 !important;
+    grid-column: 2;
+}
+
+.textSecondaryDl dt {
+    font-weight: 700;
+    margin: 0;
+    text-align: right;
+    padding-right: 20px;
+    text-align: right;
+    color: #d7d7d7 !important;
+    grid-column: 1;
+}
+
+.textSecondaryDl dd {
+    text-align: left;
+    color: #d7d7d7 !important;
+    grid-column: 2;
+}
+
+.textSecondary {
+    order: 1;
+    flex: 1 0 30%;
+}
+
+.coinImage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #303133;
+    padding-top: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    max-width: 350px;
+}
+
+.coinImage img {
+    max-height: 184px;
+    width: 100%;
+}
