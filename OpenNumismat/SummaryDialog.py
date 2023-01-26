@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import locale
-
-from PyQt5.QtCore import Qt, QDate
+from PyQt5.QtCore import Qt, QDate, QLocale
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
 
@@ -49,6 +47,7 @@ class SummaryDialog(QDialog):
 
     def fillSummary(self, model, filter_=None):
         lines = []
+        locale = QLocale.system()
 
         sql = "SELECT count(*) FROM coins"
         sql = self.makeSql(sql, filter_)
@@ -121,7 +120,7 @@ class SummaryDialog(QDialog):
                     comment = self.tr("(calculated for %d coins)") % gold_quantity
                 else:
                     comment = self.tr("(calculated for %d/%d coins)") % (gold_quantity, gold_count)
-                gold_weight_str = locale.format_string("%.2f", gold_weight, grouping=True)
+                gold_weight_str = locale.toString(gold_weight, format='f', precision=2)
                 lines.append(' '.join((self.tr("Gold weight: %s gramm") % gold_weight_str, comment)))
 
         count_silver = 0
@@ -173,7 +172,7 @@ class SummaryDialog(QDialog):
                     comment = self.tr("(calculated for %d coins)") % silver_quantity
                 else:
                     comment = self.tr("(calculated for %d/%d coins)") % (silver_quantity, silver_count)
-                silver_weight_str = locale.format_string("%.2f", silver_weight, grouping=True)
+                silver_weight_str = locale.toString(silver_weight, format='f', precision=2)
                 lines.append(' '.join((self.tr("Silver weight: %s gramm") % silver_weight_str, comment)))
 
         sql = "SELECT count(*) FROM coins WHERE status='wish'"
@@ -223,12 +222,12 @@ class SummaryDialog(QDialog):
                     paid_without_commission = query.record().value(0)
                     if paid_without_commission:
                         commission = self.tr("(commission %d%%)") % ((paid - paid_without_commission) / paid_without_commission * 100)
-                paid_str = locale.currency(paid, grouping=True, symbol=False)
+                paid_str = locale.toString(paid, format='f', precision=2)
                 lines.append(' '.join((self.tr("Paid: %s") % paid_str, commission)))
 
                 if count_owned:
                     val = paid / count_owned
-                    val_str = locale.currency(val, grouping=True, symbol=False)
+                    val_str = locale.toString(val, format='f', precision=2)
                     lines.append(self.tr("Average paid per item: %s") % val_str)
 
         earned = 0
@@ -246,17 +245,17 @@ class SummaryDialog(QDialog):
                     earn_without_commission = query.record().value(0)
                     if earn_without_commission:
                         commission = self.tr("(commission %d%%)") % ((earn_without_commission - earned) / earn_without_commission * 100)
-                earned_str = locale.currency(earned, grouping=True, symbol=False)
+                earned_str = locale.toString(earned, format='f', precision=2)
                 lines.append(' '.join((self.tr("Earned: %s") % earned_str, commission)))
 
                 if count_sold:
                     val = earned / count_sold
-                    val_str = locale.currency(val, grouping=True, symbol=False)
+                    val_str = locale.toString(val, format='f', precision=2)
                     lines.append(self.tr("Average earn per item: %s") % val_str)
 
         if paid and earned:
             total = paid - earned
-            total_str = locale.currency(total, grouping=True, symbol=False)
+            total_str = locale.toString(total, format='f', precision=2)
             lines.append(self.tr("Total (paid - earned): %s") % total_str)
 
         sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"

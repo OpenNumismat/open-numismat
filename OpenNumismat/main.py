@@ -1,4 +1,3 @@
-import locale
 import os
 import platform
 import shutil
@@ -19,15 +18,6 @@ from OpenNumismat import version
 
 
 def main():
-    try:
-        locale.setlocale(locale.LC_ALL, '')
-        language, _ = locale.getlocale()
-        if not language:
-            locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-    except Exception:
-        # Work around system locale not specified (under Linux or Mac OS)
-        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-
     app = QApplication(sys.argv)
 
     QCoreApplication.setOrganizationName(version.Company)

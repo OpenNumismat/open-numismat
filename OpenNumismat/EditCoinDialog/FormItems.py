@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import locale
 import re
 
-from PyQt5.QtCore import QMargins, QUrl, QDate, Qt, pyqtSignal
+from PyQt5.QtCore import QMargins, QUrl, QDate, Qt, pyqtSignal, QLocale
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
@@ -27,10 +26,10 @@ class DoubleValidator(QDoubleValidator):
         decPointFound = False
         decDigitCnt = 0
         value = '0'
-        ts = [locale.localeconv()['thousands_sep'], ]
+        ts = [QLocale.system().groupSeparator(), ]
         if ts[0] == chr(0xA0):
             ts.append(' ')
-        dp = [locale.localeconv()['decimal_point'], ]
+        dp = [QLocale.system().decimalPoint(), ]
         if dp[0] == ',' and '.' not in ts:
             dp.append('.')
 
@@ -106,7 +105,7 @@ class BigIntValidator(QDoubleValidator):
 
         lastWasDigit = False
         value = '0'
-        ts = [locale.localeconv()['thousands_sep'], ]
+        ts = [QLocale.system().groupSeparator(), ]
         if ts[0] == chr(0xA0):
             ts.append(' ')
         tss = (ts[0], ' ', chr(0xA0), '.', ',')
@@ -610,7 +609,7 @@ class _DoubleEdit(QLineEdit):
         return super().focusOutEvent(event)
 
     def setText(self, text):
-        ts = locale.localeconv()['thousands_sep']
+        ts = QLocale.system().groupSeparator()
         if ts == '.':
             text = text.replace('.', ',')
         super().setText(text)
@@ -619,14 +618,14 @@ class _DoubleEdit(QLineEdit):
     def text(self):
         text = super().text()
         # First, get rid of the grouping
-        ts = locale.localeconv()['thousands_sep']
+        ts = QLocale.system().groupSeparator()
         if ts:
             text = text.replace(ts, '')
             if ts == chr(0xA0):
                 text = text.replace(' ', '')
         # next, replace the decimal point with a dot
         if self._decimals:
-            dp = locale.localeconv()['decimal_point']
+            dp = QLocale.system().decimalPoint()
             if dp:
                 text = text.replace(dp, '.')
         return text
@@ -639,19 +638,19 @@ class _DoubleEdit(QLineEdit):
             if not self.hasFocus() or self.isReadOnly():
                 try:
                     if self._decimals:
-                        text = locale.format_string("%%.%df" % self._decimals,
-                                             float(text), grouping=True)
+                        text = QLocale.system().toString(float(text), format='f',
+                                                         precision=self._decimals)
                     else:
-                        text = locale.format_string("%d", int(text), grouping=True)
+                        text = QLocale.system().toString(int(text))
                 except ValueError:
                     return
 
                 if self._decimals:
                     # Strip empty fraction
-                    dp = locale.localeconv()['decimal_point']
+                    dp = QLocale.system().decimalPoint()
                     text = text.rstrip('0').rstrip(dp)
             else:
-                ts = locale.localeconv()['thousands_sep']
+                ts = QLocale.system().groupSeparator()
                 if ts == '.':
                     text = text.replace('.', ',')
 
@@ -673,7 +672,7 @@ class BigIntEdit(_DoubleEdit):
 
     def text(self):
         text = super().text()
-        ts = (locale.localeconv()['thousands_sep'], ' ', chr(0xA0), '.', ',')
+        ts = (QLocale.system().groupSeparator(), ' ', chr(0xA0), '.', ',')
         for c in ts:
             text = text.replace(c, '')
         return text
@@ -760,14 +759,14 @@ class DenominationEdit(MoneyEdit):
                 text, converted = numberWithFraction(text)
                 if not converted:
                     try:
-                        text = locale.format_string("%.2f", float(text), grouping=True)
+                        text = QLocale.system().toString(float(text), format='f', precision=2)
                         # Strip empty fraction
-                        dp = locale.localeconv()['decimal_point']
+                        dp = QLocale.system().decimalPoint()
                         text = text.rstrip('0').rstrip(dp)
                     except ValueError:
                         return
             else:
-                ts = locale.localeconv()['thousands_sep']
+                ts = QLocale.system().groupSeparator()
                 if ts == '.':
                     text = text.replace('.', ',')
 
