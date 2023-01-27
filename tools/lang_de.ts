@@ -2869,11 +2869,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="878"/>
-        <source>%s %s
-
-Copyright (C) 2011-2022 Vitaly Ignatov
-
-%s is freeware licensed under a GPLv3.</source>
+        <source>%s is freeware licensed under a GPLv3.</source>
         <translation type="unfinished"/>
     </message>
 </context>

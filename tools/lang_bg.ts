@@ -2877,16 +2877,8 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <location filename="MainWindow.py" line="878"/>
-        <source>%s %s
-
-Copyright (C) 2011-2022 Vitaly Ignatov
-
-%s is freeware licensed under a GPLv3.</source>
-        <translation>%s %s
-
-Copyright (C) 2011-2022 Vitaly Ignatov
-
-%s е безплатен софтуер, лицензиран под GPLv3.</translation>
+        <source>%s is freeware licensed under a GPLv3.</source>
+        <translation>%s е безплатен софтуер, лицензиран под GPLv3.</translation>
     </message>
 </context>
 <context>

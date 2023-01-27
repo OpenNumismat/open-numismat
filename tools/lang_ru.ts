@@ -1659,7 +1659,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="307"/>
         <source>Main details</source>
-        <translation>Основное</translation>
+        <translation>Описание</translation>
     </message>
     <message>
         <location filename="SettingsDialog.py" line="308"/>
@@ -1755,7 +1755,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="DetailsTabWidget.py" line="652"/>
         <source>Main details</source>
-        <translation>Основное</translation>
+        <translation>Описание</translation>
     </message>
     <message>
         <location filename="DetailsTabWidget.py" line="655"/>
@@ -2877,16 +2877,8 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <location filename="MainWindow.py" line="878"/>
-        <source>%s %s
-
-Copyright (C) 2011-2022 Vitaly Ignatov
-
-%s is freeware licensed under a GPLv3.</source>
-        <translation>%s %s
-
-Copyright (C) 2011-2022 Игнатов Виталий
-
-%s свободное приложение лицензированное под GPLv3.</translation>
+        <source>%s is freeware licensed under a GPLv3.</source>
+        <translation>%s свободное приложение лицензированное под GPLv3.</translation>
     </message>
 </context>
 <context>
