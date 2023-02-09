@@ -7,7 +7,7 @@ except ImportError:
     print('jinja2 module missed. Report engine not available')
 
 from PySide6 import QtCore
-from PySide6.QtCore import Qt, QCryptographicHash
+from PySide6.QtCore import Qt, QCryptographicHash, QLocale
 from PySide6.QtGui import QImage
 
 from OpenNumismat.Tools import Gui
@@ -23,14 +23,14 @@ def copyFolder(sourceFolder, destFolder):
     if not destDir.exists():
         destDir.mkpath(destFolder)
 
-    files = sourceDir.entryList(QtCore.QDir.Files)
+    files = sourceDir.entryList('', QtCore.QDir.Files)
     for file in files:
         srcName = os.path.join(sourceFolder, file)
         destName = os.path.join(destFolder, file)
         QtCore.QFile.remove(destName)  # remove if existing
         QtCore.QFile.copy(srcName, destName)
 
-    files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+    files = sourceDir.entryList('', QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
     for file in files:
         srcName = os.path.join(sourceFolder, file)
         destName = os.path.join(destFolder, file)
@@ -43,14 +43,14 @@ def scanTemplates():
     path = os.path.join(OpenNumismat.HOME_PATH, 'templates')
     sourceDir = QtCore.QDir(path)
     if sourceDir.exists():
-        files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+        files = sourceDir.entryList('', QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
         for file in files:
             templates.append((file, os.path.join(path, file)))
 
     path = os.path.join(OpenNumismat.PRJ_PATH, 'templates')
     sourceDir = QtCore.QDir(path)
     if sourceDir.exists():
-        files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+        files = sourceDir.entryList('', QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
         for file in files:
             templates.append((file, os.path.join(path, file)))
 
@@ -81,7 +81,7 @@ class Report(QtCore.QObject):
             single_file = True
 
         self.mapping = {'single_file': single_file,
-                        'date': QtCore.QDate.currentDate().toString(QtCore.Qt.DefaultLocaleLongDate)}
+                        'date': QLocale.system().toString(QtCore.QDate.currentDate(), QLocale.LongFormat)}
 
         self.mapping['collection'] = {'title': self.model.description.title,
                             'description': self.model.description.description,

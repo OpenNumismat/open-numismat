@@ -1,7 +1,7 @@
 import os.path
 
 from PySide6 import QtCore
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QMarginsF
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtPrintSupport import QPrinter, QPrintPreviewWidget, QPrintDialog, QPageSetupDialog
@@ -131,7 +131,7 @@ class PreviewDialog(QDialog):
             self.webView = TextDocument()
 
         self.printer = QPrinter(QPrinter.HighResolution)
-        self.printer.setPageMargins(12.7, 10, 10, 10, QPrinter.Millimeter)
+        self.printer.setPageMargins(QMarginsF(12.7, 10, 10, 10))
 
         if not importedQtWebEngine:
             self.preview = QPrintPreviewWidget(self.printer, self)
@@ -331,7 +331,7 @@ class PreviewDialog(QDialog):
             # Initial state:
             self.fitPageAction.setChecked(True)
             self.singleModeAction.setChecked(True)
-            if self.preview.orientation() == QPrinter.Portrait:
+            if self.preview.orientation() == QPageLayout.Portrait:
                 self.portraitAction.setChecked(True)
             else:
                 self.landscapeAction.setChecked(True)

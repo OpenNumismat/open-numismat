@@ -18,7 +18,7 @@ UNDO_STACK_SIZE = 3
 @storeDlgPositionDecorator
 class CropDialog(QDialog):
     currentToolChanged = pyqtSignal(int)
-    cropChanged = pyqtSignal()
+    cropChanged = pyqtSignal(int)
 
     def __init__(self, width, height, auto_rect, parent):
         super().__init__(parent, Qt.WindowCloseButtonHint)
@@ -795,7 +795,7 @@ class GraphicsView(QGraphicsView):
         self.setTransformationAnchor(QGraphicsView.NoAnchor)
 #        self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
 
-        oldPos = self.mapToScene(event.pos())
+        oldPos = self.mapToScene(event.position().toPoint())
 
         if event.angleDelta().y() > 0:
             self.parent().zoomIn()
@@ -803,7 +803,7 @@ class GraphicsView(QGraphicsView):
             self.parent().zoomOut()
 
         # Get the new position
-        newPos = self.mapToScene(event.pos())
+        newPos = self.mapToScene(event.position().toPoint())
 
         # Move scene to old position
         delta = newPos - oldPos
@@ -1215,8 +1215,8 @@ class ImageViewer(QDialog):
         else:
             self.grid = None
 
-    def rotate(self, checked):
-        if checked:
+    def rotate(self):
+        if self.rotateAct.isChecked():
             self.rotateDlg = RotateDialog(self)
             self.rotateDlg.valueChanged.connect(self.rotateChanged)
             self.rotateDlg.finished.connect(self.rotateClose)
@@ -1302,8 +1302,8 @@ class ImageViewer(QDialog):
                         abs(b - start_b) > self.COLOR_THRESHOLD:
                     return i
 
-    def crop(self, checked):
-        if checked:
+    def crop(self):
+        if self.cropAct.isChecked():
             sceneRect = self.viewer.sceneRect()
             w = int(sceneRect.width())
             h = int(sceneRect.height())
@@ -1373,7 +1373,7 @@ class ImageViewer(QDialog):
             self.cropDlg.y4Spin.setValue(int(points[3].y()))
         self.cropDlg.cropChanged.connect(self.cropDlgChanged)
 
-    def cropDlgChanged(self):
+    def cropDlgChanged(self, i):
         self.bounding.rectChanged.disconnect(self.cropChanged)
         if self.cropDlg.currentTool() == 0:
             x = self.cropDlg.xSpin.value()

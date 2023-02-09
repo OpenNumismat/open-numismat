@@ -45,7 +45,7 @@ def storeDlgPositionDecorator(original_class):
         orig_class_name = self.__class__.__name__
         position = settings.value('%s/position' % orig_class_name)
         if position:
-            screen = QApplication.desktop().screenGeometry()
+            screen = QApplication.primaryScreen().availableVirtualGeometry()
             if screen.contains(self.rect().center() + position):
                 self.move(position)
 

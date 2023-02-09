@@ -880,7 +880,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.payCommission = item.widget()
         self.payCommission.setToolTip(self.tr("Available format 12.5 or 10%"))
 
-        validator = CommissionValidator(0, 9999999999, 2, self)
+        validator = CommissionValidator(0, 9999999999., 2, self)
         validator.setNotation(QDoubleValidator.StandardNotation)
         self.payCommission.setValidator(validator)
 
@@ -895,7 +895,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.saleCommission = item.widget()
         self.saleCommission.setToolTip(self.tr("Available format 12.5 or 10%"))
 
-        validator = CommissionValidator(0, 9999999999, 2, self)
+        validator = CommissionValidator(0, 9999999999., 2, self)
         validator.setNotation(QDoubleValidator.StandardNotation)
         self.saleCommission.setValidator(validator)
 

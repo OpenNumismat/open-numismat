@@ -103,13 +103,13 @@ class CollectionModel(QSqlTableModel):
                         return None
                 elif field.type == Type.Date:
                     date = QtCore.QDate.fromString(data, Qt.ISODate)
-                    text = date.toString(Qt.SystemLocaleShortDate)
+                    text = QLocale.system().toString(date, QLocale.ShortFormat)
                 elif field.type == Type.DateTime:
                     date = QtCore.QDateTime.fromString(data, Qt.ISODate)
                     # Timestamp in DB stored in UTC
                     date.setTimeSpec(Qt.UTC)
                     date = date.toLocalTime()
-                    text = date.toString(Qt.SystemLocaleShortDate)
+                    text = QLocale.system().toString(date, QLocale.ShortFormat)
                 else:
                     return data
             except (ValueError, TypeError):

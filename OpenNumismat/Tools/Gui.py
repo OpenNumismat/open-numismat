@@ -39,7 +39,7 @@ def getSaveFileName(parent, name, filename, dir_, filters):
 
     fileName, selectedFilter = QFileDialog.getSaveFileName(
         parent, caption, defaultFileName, filter=';;'.join(filters),
-        initialFilter=defaultFilter)
+        selectedFilter=defaultFilter)
     if fileName:
         lastExportDir = os.path.dirname(fileName)
         settings.setValue(keyDir, lastExportDir)
