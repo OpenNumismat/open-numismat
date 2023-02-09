@@ -1,8 +1,8 @@
 import math
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
@@ -20,7 +20,7 @@ class CropDialog(QDialog):
     cropChanged = pyqtSignal()
 
     def __init__(self, width, height, auto_rect, parent):
-        super().__init__(parent, Qt.WindowCloseButtonHint)
+        super().__init__(parent, Qt.WindowType.WindowCloseButtonHint)
         self.setWindowTitle(self.tr("Crop"))
         
         self.auto_rect = auto_rect
@@ -141,9 +141,9 @@ class CropDialog(QDialog):
         self.tab.currentChanged.connect(self.tabChanged)
         self.tab.setCurrentIndex(cropTool)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
@@ -188,19 +188,19 @@ class RotateDialog(QDialog):
     valueChanged = pyqtSignal(float)
 
     def __init__(self, parent):
-        super().__init__(parent, Qt.WindowCloseButtonHint)
+        super().__init__(parent, Qt.WindowType.WindowCloseButtonHint)
         self.setWindowTitle(self.tr("Rotate"))
 
         angleLabel = QLabel(self.tr("Angle"))
 
-        angleSlider = DoubleSlider(Qt.Horizontal)
+        angleSlider = DoubleSlider(Qt.Orientation.Horizontal)
         angleSlider.setRange(-180, 180)
         angleSlider.setTickInterval(10)
         angleSlider.setTickPosition(QSlider.TicksAbove)
         angleSlider.setMinimumWidth(200)
 
         self.angleSpin = QDoubleSpinBox()
-        self.angleSpin.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.angleSpin.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         self.angleSpin.setRange(-180, 180)
         self.angleSpin.setSingleStep(0.1)
         self.angleSpin.setAccelerated(True)
@@ -226,9 +226,9 @@ class RotateDialog(QDialog):
         self.gridShown.stateChanged.connect(self.gridChanged)
         self.gridShown.setChecked(gridEnabled)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
@@ -307,30 +307,30 @@ class BoundingPointItem(QGraphicsRectItem):
         super().__init__(-self.SIZE / 2, -self.SIZE / 2, self.SIZE, self.SIZE)
         self.setPos(QPointF(x, y))
 
-        self.setBrush(Qt.white)
-        self.setFlag(QGraphicsItem.ItemIgnoresTransformations)
-        self.setFlag(QGraphicsItem.ItemIsMovable)
-        self.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-#        self.setFlag(QGraphicsItem.ItemSendsScenePositionChanges)
+        self.setBrush(Qt.GlobalColor.white)
+        self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIgnoresTransformations)
+        self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable)
+        self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsGeometryChanges)
+#        self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsScenePositionChanges)
         self.setAcceptHoverEvents(True)
 
     def itemChange(self, change, value):
-        if change == QGraphicsItem.ItemPositionChange:
+        if change == QGraphicsItem.GraphicsItemChange.ItemPositionChange:
             return self.bounding.update(self, value)
-        elif change == QGraphicsItem.ItemPositionHasChanged:
+        elif change == QGraphicsItem.GraphicsItemChange.ItemPositionHasChanged:
             self.bounding.updateRect()
 
         return super().itemChange(change, value)
 
     def hoverEnterEvent(self, event):
         if self.corner in (self.TOP_LEFT, self.BOTTOM_RIGHT):
-            self.setCursor(Qt.SizeFDiagCursor)
+            self.setCursor(Qt.CursorShape.SizeFDiagCursor)
         elif self.corner in (self.TOP_RIGHT, self.BOTTOM_LEFT):
-            self.setCursor(Qt.SizeBDiagCursor)
+            self.setCursor(Qt.CursorShape.SizeBDiagCursor)
         elif self.corner in (self.TOP, self.BOTTOM):
-            self.setCursor(Qt.SizeVerCursor)
+            self.setCursor(Qt.CursorShape.SizeVerCursor)
         else:
-            self.setCursor(Qt.SizeHorCursor)
+            self.setCursor(Qt.CursorShape.SizeHorCursor)
 
         super().hoverEnterEvent(event)
 
@@ -343,12 +343,12 @@ class BoundingLineItem(QGraphicsLineItem):
 
         super().__init__()
 
-        self.setPen(QPen(Qt.DashLine))
-        self.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+        self.setPen(QPen(Qt.PenStyle.DashLine))
+        self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIgnoresTransformations)
         if self.fixed:
-            self.setFlag(QGraphicsItem.ItemIsMovable)
-            self.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-#            self.setFlag(QGraphicsItem.ItemSendsScenePositionChanges)
+            self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable)
+            self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsGeometryChanges)
+#            self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsScenePositionChanges)
             self.setAcceptHoverEvents(True)
 
     def _isHorizontal(self):
@@ -356,16 +356,16 @@ class BoundingLineItem(QGraphicsLineItem):
         return (angle in (0, 180))
 
     def itemChange(self, change, value):
-        if change == QGraphicsItem.ItemPositionChange:
+        if change == QGraphicsItem.GraphicsItemChange.ItemPositionChange:
             return self.bounding.update(self, value)
 
         return super().itemChange(change, value)
 
     def hoverEnterEvent(self, event):
         if self._isHorizontal():
-            self.setCursor(Qt.SizeVerCursor)
+            self.setCursor(Qt.CursorShape.SizeVerCursor)
         else:
-            self.setCursor(Qt.SizeHorCursor)
+            self.setCursor(Qt.CursorShape.SizeHorCursor)
 
         super().hoverEnterEvent(event)
 
@@ -408,7 +408,7 @@ class GraphicsBoundingItem(QObject):
         p4 = self.points[BoundingPointItem.BOTTOM_LEFT]
 
         for item in self.items():
-            item.setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
+            item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsGeometryChanges, False)
 
         if obj in self.lines:
             line = obj
@@ -559,7 +559,7 @@ class GraphicsBoundingItem(QObject):
             pos = newPos
 
         for item in self.items():
-            item.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
+            item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsGeometryChanges)
 
         self.rectChanged.emit()
 
@@ -606,8 +606,8 @@ class BoundingCircleItem(QGraphicsEllipseItem):
 
         super().__init__()
 
-        self.setPen(QPen(Qt.DashLine))
-        self.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+        self.setPen(QPen(Qt.PenStyle.DashLine))
+        self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIgnoresTransformations)
 
 
 class GraphicsCircleBoundingItem(QObject):
@@ -642,7 +642,7 @@ class GraphicsCircleBoundingItem(QObject):
         p4 = self.points[3]
 
         for item in self.items():
-            item.setFlag(QGraphicsItem.ItemSendsGeometryChanges, False)
+            item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsGeometryChanges, False)
 
         if obj in self.points:
             point = obj
@@ -723,7 +723,7 @@ class GraphicsCircleBoundingItem(QObject):
             pos = newPos
 
         for item in self.items():
-            item.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
+            item.setFlag(QGraphicsItem.GraphicsItemFlag.ItemSendsGeometryChanges)
 
         self.rectChanged.emit()
 
@@ -763,7 +763,7 @@ class GraphicsGridItem(QObject):
         for i in range(int(self.width / self.STEP) + 1):
             line = QGraphicsLineItem()
             line.setPen(QPen(QColor(Qt.red)))
-            line.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+            line.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIgnoresTransformations)
 
             line.setLine(i * self.STEP, 0, i * self.STEP, self.height)
 
@@ -773,7 +773,7 @@ class GraphicsGridItem(QObject):
         for i in range(int(self.height / self.STEP) + 1):
             line = QGraphicsLineItem()
             line.setPen(QPen(QColor(Qt.red)))
-            line.setFlag(QGraphicsItem.ItemIgnoresTransformations)
+            line.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIgnoresTransformations)
 
             self.h_lines.append(line)
 
@@ -791,8 +791,8 @@ class GraphicsView(QGraphicsView):
         self.setStyleSheet("border: 0px;")
 
     def wheelEvent(self, event):
-        self.setTransformationAnchor(QGraphicsView.NoAnchor)
-#        self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
+        self.setTransformationAnchor(QGraphicsView.ViewportAnchor.NoAnchor)
+#        self.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
 
         oldPos = self.mapToScene(event.pos())
 
@@ -814,16 +814,16 @@ class ImageViewer(QDialog):
     imageSaved = pyqtSignal(QImage)
 
     def __init__(self, parent):
-        super().__init__(parent, Qt.WindowSystemMenuHint |
-                         Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        super().__init__(parent, Qt.WindowType.WindowSystemMenuHint |
+                         Qt.WindowType.WindowMinMaxButtonsHint | Qt.WindowType.WindowCloseButtonHint)
 
         self.scene = QGraphicsScene()
         self.viewer = GraphicsView(self.scene, self)
 
-        self.viewer.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.viewer.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.viewer.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.viewer.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.viewer.installEventFilter(self)
-        self.viewer.setResizeAnchor(QGraphicsView.AnchorViewCenter)
+        self.viewer.setResizeAnchor(QGraphicsView.ViewportAnchor.AnchorViewCenter)
 
         self.menuBar = QMenuBar()
 
@@ -869,28 +869,28 @@ class ImageViewer(QDialog):
 
     def createActions(self):
         self.openAct = QAction(self.tr("Browse in viewer"), self, triggered=self.open)
-        self.saveAsAct = QAction(self.tr("&Save As..."), self, shortcut=QKeySequence.SaveAs, triggered=self.saveAs)
-#        self.printAct = QAction(self.tr("&Print..."), self, shortcut=QKeySequence.Print, enabled=False, triggered=self.print_)
-        self.exitAct = QAction(self.tr("E&xit"), self, shortcut=QKeySequence.Quit, triggered=self.close)
-        self.fullScreenAct = QAction(self.tr("Full Screen"), self, shortcut=QKeySequence.FullScreen, triggered=self.fullScreen)
-        self.zoomInAct = QAction(QIcon(':/zoom_in.png'), self.tr("Zoom &In (25%)"), self, shortcut=Qt.Key_Plus, triggered=self.zoomIn)
-        self.zoomOutAct = QAction(QIcon(':/zoom_out.png'), self.tr("Zoom &Out (25%)"), self, shortcut=Qt.Key_Minus, triggered=self.zoomOut)
-        self.normalSizeAct = QAction(QIcon(':/arrow_out.png'), self.tr("&Normal Size"), self, shortcut=Qt.Key_A, triggered=self.normalSize)
-        self.fitToWindowAct = QAction(QIcon(':/arrow_in.png'), self.tr("&Fit to Window"), self, shortcut=Qt.Key_0, triggered=self.fitToWindow)
+        self.saveAsAct = QAction(self.tr("&Save As..."), self, shortcut=QKeySequence.StandardKey.SaveAs, triggered=self.saveAs)
+#        self.printAct = QAction(self.tr("&Print..."), self, shortcut=QKeySequence.StandardKey.Print, enabled=False, triggered=self.print)
+        self.exitAct = QAction(self.tr("E&xit"), self, shortcut=QKeySequence.StandardKey.Quit, triggered=self.close)
+        self.fullScreenAct = QAction(self.tr("Full Screen"), self, shortcut=QKeySequence.StandardKey.FullScreen, triggered=self.fullScreen)
+        self.zoomInAct = QAction(QIcon(':/zoom_in.png'), self.tr("Zoom &In (25%)"), self, shortcut=Qt.Key.Key_Plus, triggered=self.zoomIn)
+        self.zoomOutAct = QAction(QIcon(':/zoom_out.png'), self.tr("Zoom &Out (25%)"), self, shortcut=Qt.Key.Key_Minus, triggered=self.zoomOut)
+        self.normalSizeAct = QAction(QIcon(':/arrow_out.png'), self.tr("&Normal Size"), self, shortcut=Qt.Key.Key_A, triggered=self.normalSize)
+        self.fitToWindowAct = QAction(QIcon(':/arrow_in.png'), self.tr("&Fit to Window"), self, shortcut=Qt.Key.Key_0, triggered=self.fitToWindow)
         self.showToolBarAct = QAction(self.tr("Show Tool Bar"), self, checkable=True, triggered=self.showToolBar)
         self.showStatusBarAct = QAction(self.tr("Show Status Bar"), self, checkable=True, triggered=self.showStatusBar)
-        self.rotateLeftAct = QAction(QIcon(':/arrow_rotate_anticlockwise.png'), self.tr("Rotate to Left"), self, shortcut=QKeySequence.MoveToPreviousWord, triggered=self.rotateLeft)
-        self.rotateRightAct = QAction(QIcon(':/arrow_rotate_clockwise.png'), self.tr("Rotate to Right"), self, shortcut=QKeySequence.MoveToNextWord, triggered=self.rotateRight)
+        self.rotateLeftAct = QAction(QIcon(':/arrow_rotate_anticlockwise.png'), self.tr("Rotate to Left"), self, shortcut=QKeySequence.StandardKey.MoveToPreviousWord, triggered=self.rotateLeft)
+        self.rotateRightAct = QAction(QIcon(':/arrow_rotate_clockwise.png'), self.tr("Rotate to Right"), self, shortcut=QKeySequence.StandardKey.MoveToNextWord, triggered=self.rotateRight)
         self.rotateAct = QAction(self.tr("Rotate..."), self, checkable=True, triggered=self.rotate)
         self.cropAct = QAction(QIcon(':/shape_handles.png'), self.tr("Crop..."), self, checkable=True, triggered=self.crop)
         self.autocropAct = QAction(self.tr("Autocrop"), self, triggered=self.autocrop)
-        self.saveAct = QAction(QIcon(':/save.png'), self.tr("Save"), self, shortcut=QKeySequence.Save, triggered=self.save)
+        self.saveAct = QAction(QIcon(':/save.png'), self.tr("Save"), self, shortcut=QKeySequence.StandardKey.Save, triggered=self.save)
         self.saveAct.setDisabled(True)
-        self.copyAct = QAction(QIcon(':/page_copy.png'), self.tr("Copy"), self, shortcut=QKeySequence.Copy, triggered=self.copy)
-        self.pasteAct = QAction(QIcon(':/page_paste.png'), self.tr("Paste"), self, shortcut=QKeySequence.Paste, triggered=self.paste)
-        self.undoAct = QAction(QIcon(':/undo.png'), self.tr("Undo"), self, shortcut=QKeySequence.Undo, triggered=self.undo)
+        self.copyAct = QAction(QIcon(':/page_copy.png'), self.tr("Copy"), self, shortcut=QKeySequence.StandardKey.Copy, triggered=self.copy)
+        self.pasteAct = QAction(QIcon(':/page_paste.png'), self.tr("Paste"), self, shortcut=QKeySequence.StandardKey.Paste, triggered=self.paste)
+        self.undoAct = QAction(QIcon(':/undo.png'), self.tr("Undo"), self, shortcut=QKeySequence.StandardKey.Undo, triggered=self.undo)
         self.undoAct.setDisabled(True)
-        self.redoAct = QAction(QIcon(':/redo.png'), self.tr("Redo"), self, shortcut=QKeySequence.Redo, triggered=self.redo)
+        self.redoAct = QAction(QIcon(':/redo.png'), self.tr("Redo"), self, shortcut=QKeySequence.StandardKey.Redo, triggered=self.redo)
         self.redoAct.setDisabled(True)
 
         settings = QSettings()
@@ -1043,8 +1043,8 @@ class ImageViewer(QDialog):
                 result = QMessageBox.warning(
                     self, self.tr("Save"),
                     self.tr("Image was changed. Save changes?"),
-                    QMessageBox.Save | QMessageBox.No, QMessageBox.No)
-                if result == QMessageBox.Save:
+                    QMessageBox.StandardButton.Save | QMessageBox.StandardButton.No, QMessageBox.StandardButton.No)
+                if result == QMessageBox.StandardButton.Save:
                     self.save()
 
             super().done(r)
@@ -1059,7 +1059,7 @@ class ImageViewer(QDialog):
         self.showFullScreen()
 
     def normalSize(self):
-        self.viewer.setTransformationAnchor(QGraphicsView.AnchorViewCenter)
+        self.viewer.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorViewCenter)
 
         self.zoom(1 / self.scale)
         self.scale = 1
@@ -1071,7 +1071,7 @@ class ImageViewer(QDialog):
         scaleH = (self.viewer.height() - 4) / sceneRect.height()
         scaleW = (self.viewer.width() - 4) / sceneRect.width()
         if scaleH < 1 or scaleW < 1:
-            self.viewer.fitInView(sceneRect, Qt.KeepAspectRatio)
+            self.viewer.fitInView(sceneRect, Qt.AspectRatioMode.KeepAspectRatio)
             self.scale = min(scaleH, scaleW)
         else:
             self.viewer.resetTransform()
@@ -1163,9 +1163,9 @@ class ImageViewer(QDialog):
         sceneRect = self.viewer.sceneRect()
         imageRect = self.viewer.mapToScene(self.viewer.rect()).boundingRect()
         if imageRect.contains(sceneRect):
-            self.viewer.setDragMode(QGraphicsView.NoDrag)
+            self.viewer.setDragMode(QGraphicsView.DragMode.NoDrag)
         else:
-            self.viewer.setDragMode(QGraphicsView.ScrollHandDrag)
+            self.viewer.setDragMode(QGraphicsView.DragMode.ScrollHandDrag)
 
         self.zoomInAct.setDisabled(self.scale >= ZOOM_MAX)
         self.zoomOutAct.setDisabled(self.scale <= self.minScale)
@@ -1234,7 +1234,7 @@ class ImageViewer(QDialog):
     def rotateChanged(self, value):
         transform = QTransform()
         trans = transform.rotate(value)
-        pixmap = self._startPixmap.transformed(trans, Qt.SmoothTransformation)
+        pixmap = self._startPixmap.transformed(trans, Qt.TransformationMode.SmoothTransformation)
 
         w = self._startPixmap.width()
         h = self._startPixmap.height()
@@ -1430,10 +1430,10 @@ class ImageViewer(QDialog):
                               points[2].y() - points[0].y()).toRect()
 
                 mask = QBitmap(pixmap.size())
-                mask.fill(Qt.white)
+                mask.fill(Qt.GlobalColor.white)
                 painter = QPainter()
                 painter.begin(mask)
-                painter.setBrush(Qt.black)
+                painter.setBrush(Qt.GlobalColor.black)
                 painter.drawEllipse(rect)
                 painter.end()
                 pixmap.setMask(mask)
@@ -1465,7 +1465,7 @@ class ImageViewer(QDialog):
                     x = max(-tl.x(), -bl.x())
                     y = max(-tr.y(), -tl.y())
 
-                    pixmap = pixmap.transformed(transform, Qt.SmoothTransformation)
+                    pixmap = pixmap.transformed(transform, Qt.TransformationMode.SmoothTransformation)
                     pixmap = pixmap.copy(x, y, width, height)
                     self.setImage(pixmap)
 

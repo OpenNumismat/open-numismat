@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import *
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import *
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit
@@ -15,13 +15,13 @@ class FormItem(object):
         self._title = title
         if itemType & Type.Checkable:
             self._label = QCheckBox(title, parent)
-            self._label.setSizePolicy(QSizePolicy.Fixed,
-                                      QSizePolicy.Preferred)
+            self._label.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                      QSizePolicy.Policy.Preferred)
             self._label.stateChanged.connect(self.checkBoxChanged)
         else:
             self._label = QLabel(title, parent)
-            self._label.setSizePolicy(QSizePolicy.Fixed,
-                                      QSizePolicy.Preferred)
+            self._label.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                      QSizePolicy.Policy.Preferred)
 
         self._type = itemType & Type.Mask
         if self._type == Type.String:
@@ -121,7 +121,7 @@ class FormItem(object):
         return self.hidden
 
     def checkBoxChanged(self, state):
-        self._widget.setDisabled(state == Qt.Unchecked)
+        self._widget.setDisabled(state == Qt.CheckState.Unchecked)
 
     def field(self):
         return self._field
@@ -147,7 +147,7 @@ class FormItem(object):
             if date == self._widget.DEFAULT_DATE:
                 return ''
             else:
-                return date.toString(Qt.ISODate)
+                return date.toString(Qt.DateFormat.ISODate)
         elif isinstance(self._widget, QAbstractSpinBox):
             return self._widget.value()
         elif isinstance(self._widget, ImageEdit):
@@ -167,7 +167,7 @@ class FormItem(object):
         elif isinstance(self._widget, QDateTimeEdit):
             value = str(value)
             if value:
-                self._widget.setDate(QDate.fromString(str(value), Qt.ISODate))
+                self._widget.setDate(QDate.fromString(str(value), Qt.DateFormat.ISODate))
             else:
                 self._widget.setDate(self._widget.DEFAULT_DATE)
                 lineEdit = self._widget.findChild(QLineEdit)
@@ -187,7 +187,7 @@ class FormItem(object):
                     self._widget.removeAction(act)
                 icon = self.reference.getIcon(self._field, str(value))
                 if icon:
-                    self._widget.addAction(icon, QLineEdit.LeadingPosition)
+                    self._widget.addAction(icon, QLineEdit.ActionPosition.LeadingPosition)
         else:
             self._widget.setText(str(value))
             self._widget.home(False)
@@ -212,7 +212,7 @@ class BaseFormLayout(QGridLayout):
                 return
             widget = item1.widget()
             if isinstance(widget, QTextEdit):
-                self.addWidget(item1.label(), self.row, 0, Qt.AlignTop)
+                self.addWidget(item1.label(), self.row, 0, Qt.AlignmentFlag.AlignTop)
             else:
                 self.addWidget(item1.label(), self.row, 0)
             # NOTE: columnSpan parameter in addWidget don't work with value -1
@@ -220,8 +220,8 @@ class BaseFormLayout(QGridLayout):
             # self.addWidget(widget, self.row, 1, 1, -1)
             self.addWidget(widget, self.row, 1, 1, self.columnCount - 1)
             if item1.type() == Type.Number:
-                widget.setSizePolicy(QSizePolicy.Fixed,
-                                     QSizePolicy.Fixed)
+                widget.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                     QSizePolicy.Policy.Fixed)
         else:
             if item1.isHidden() and item2.isHidden():
                 return
@@ -230,7 +230,7 @@ class BaseFormLayout(QGridLayout):
                 if item1.isHidden():
                     return
 
-                if item2.sizePolicy().horizontalPolicy() == QSizePolicy.Fixed:
+                if item2.sizePolicy().horizontalPolicy() == QSizePolicy.Policy.Fixed:
                     self.addWidget(item1.label(), self.row, 0)
                     self.addWidget(item1.widget(), self.row, 1, 1, 4)
                     self.addWidget(item2, self.row, 5)
@@ -245,21 +245,21 @@ class BaseFormLayout(QGridLayout):
                     col += 1
                     self.addWidget(item1.widget(), self.row, col)
                     if item1.type() in (Type.BigInt, Type.Status):
-                        item1.widget().setSizePolicy(QSizePolicy.Fixed,
-                                                     QSizePolicy.Fixed)
+                        item1.widget().setSizePolicy(QSizePolicy.Policy.Fixed,
+                                                     QSizePolicy.Policy.Fixed)
                     col += 1
 
                     widget = QWidget()
                     widget.setMinimumWidth(0)
                     if self.columnCount == 6:
-                        widget.setSizePolicy(QSizePolicy.Fixed,
-                                             QSizePolicy.Fixed)
+                        widget.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                             QSizePolicy.Policy.Fixed)
                     self.addWidget(widget, self.row, col)
                     col += 1
 
                 if not item2.isHidden():
-                    if item2.widget().sizePolicy().horizontalPolicy() == QSizePolicy.Fixed:
-                        item2.label().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+                    if item2.widget().sizePolicy().horizontalPolicy() == QSizePolicy.Policy.Fixed:
+                        item2.label().setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
                     self.addWidget(item2.label(), self.row, col)
                     col += 1
                     self.addWidget(item2.widget(),
@@ -280,8 +280,8 @@ class BaseFormLayout(QGridLayout):
         widget = QWidget()
         widget.setMinimumWidth(0)
         if self.columnCount == 6:
-            widget.setSizePolicy(QSizePolicy.Fixed,
-                                 QSizePolicy.Fixed)
+            widget.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                 QSizePolicy.Policy.Fixed)
         self.addWidget(widget, self.row, col)
         col += 1
 
@@ -295,8 +295,8 @@ class BaseFormGroupBox(QGroupBox):
 
         self.layout = BaseFormLayout()
         self.setLayout(self.layout)
-        self.setSizePolicy(QSizePolicy.Preferred,
-                           QSizePolicy.Fixed)
+        self.setSizePolicy(QSizePolicy.Policy.Preferred,
+                           QSizePolicy.Policy.Fixed)
 
     def isEmpty(self):
         return self.layout.isEmpty()
@@ -314,8 +314,8 @@ class BaseFormGroupBox(QGroupBox):
 
     def fixSizePolicy(self, item):
         if not item.isHidden() and item.type() == Type.Text:
-            self.setSizePolicy(QSizePolicy.Preferred,
-                               QSizePolicy.Preferred)
+            self.setSizePolicy(QSizePolicy.Policy.Preferred,
+                               QSizePolicy.Policy.Preferred)
 
 
 class ImageFormLayout(BaseFormLayout):
@@ -328,10 +328,10 @@ class ImageFormLayout(BaseFormLayout):
     def addImages(self, images):
         for image in images:
             if not image.isHidden():
-                image.label().setSizePolicy(QSizePolicy.Preferred,
-                                            QSizePolicy.Fixed)
+                image.label().setSizePolicy(QSizePolicy.Policy.Preferred,
+                                            QSizePolicy.Policy.Fixed)
                 if isinstance(image.label(), QLabel):
-                    image.label().setAlignment(Qt.AlignLeft | Qt.AlignTop)
+                    image.label().setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
                 row = self.imagesCount // 2
                 col = self.imagesCount % 2
@@ -397,7 +397,7 @@ class DesignFormLayout(BaseFormGroupBox):
 
         widget = QWidget()
         widget.setMinimumWidth(0)
-        widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         hlayout.addWidget(widget)
 
         self.layout.addLayout(hlayout, self.layout.row, 1, 1, -1)

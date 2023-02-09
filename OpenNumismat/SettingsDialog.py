@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
@@ -35,7 +35,7 @@ class MainSettingsPage(QWidget):
         style = QApplication.style()
 
         layout = QFormLayout()
-        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        layout.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
 
         self.languageSelector = QComboBox(self)
         for lang in self.Languages:
@@ -44,15 +44,15 @@ class MainSettingsPage(QWidget):
         if current == -1:
             current = 4
         self.languageSelector.setCurrentIndex(current)
-        self.languageSelector.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
+        self.languageSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed)
 
         layout.addRow(self.tr("Language"), self.languageSelector)
 
         self.reference = QLineEdit(self)
         self.reference.setMinimumWidth(120)
         self.reference.setText(settings['reference'])
-        icon = style.standardIcon(QStyle.SP_DialogOpenButton)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_DialogOpenButton)
         self.referenceButton = QPushButton(icon, '', self)
         self.referenceButton.clicked.connect(self.referenceButtonClicked)
         if collection.isReferenceAttached():
@@ -69,7 +69,7 @@ class MainSettingsPage(QWidget):
         self.backupFolder = QLineEdit(self)
         self.backupFolder.setMinimumWidth(120)
         self.backupFolder.setText(settings['backup'])
-        icon = style.standardIcon(QStyle.SP_DirOpenIcon)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_DirOpenIcon)
         self.backupFolderButton = QPushButton(icon, '', self)
         self.backupFolderButton.clicked.connect(self.backupButtonClicked)
 
@@ -88,8 +88,8 @@ class MainSettingsPage(QWidget):
         self.autobackupDepth = QSpinBox(self)
         self.autobackupDepth.setRange(1, 1000)
         self.autobackupDepth.setValue(settings['autobackup_depth'])
-        self.autobackupDepth.setSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed)
+        self.autobackupDepth.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed)
         layout.addRow(self.tr("Coin changes before autobackup"),
                       self.autobackupDepth)
         self.autobackupDepth.setEnabled(settings['autobackup'])
@@ -109,7 +109,7 @@ class MainSettingsPage(QWidget):
         self.speedup.addItem(self.tr("Fast"), 1)
         self.speedup.addItem(self.tr("Extra fast (dangerous)"), 2)
         self.speedup.setCurrentIndex(settings['speedup'])
-        self.speedup.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.speedup.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         layout.addRow(self.tr("Acceleration of storage"), self.speedup)
 
         self.templateSelector = QComboBox(self)
@@ -119,16 +119,16 @@ class MainSettingsPage(QWidget):
         if current == -1:
             current = 0
         self.templateSelector.setCurrentIndex(current)
-        self.templateSelector.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
+        self.templateSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed)
 
         layout.addRow(self.tr("Default template"), self.templateSelector)
 
         self.imagesByDefault = QSpinBox(self)
         self.imagesByDefault.setRange(1, 8)
         self.imagesByDefault.setValue(settings['images_by_default'])
-        self.imagesByDefault.setSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed)
+        self.imagesByDefault.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed)
         layout.addRow(self.tr("Images count by default"), self.imagesByDefault)
 
         self.builtInViewer = QCheckBox(
@@ -147,8 +147,8 @@ class MainSettingsPage(QWidget):
         if current == -1:
             current = MapType.OSM.value
         self.mapSelector.setCurrentIndex(current)
-        self.mapSelector.setSizePolicy(QSizePolicy.Fixed,
-                                       QSizePolicy.Fixed)
+        self.mapSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                       QSizePolicy.Policy.Fixed)
         layout.addRow(self.tr("Maps"), self.mapSelector)
 
         self.fontSizeSelector = QComboBox(self)
@@ -156,8 +156,8 @@ class MainSettingsPage(QWidget):
         self.fontSizeSelector.addItem(self.tr("Large"))
         self.fontSizeSelector.addItem(self.tr("Huge"))
         self.fontSizeSelector.setCurrentIndex(settings['font_size'])
-        self.fontSizeSelector.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
+        self.fontSizeSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed)
         layout.addRow(self.tr("Font size"), self.fontSizeSelector)
 
         self.setLayout(layout)
@@ -169,7 +169,7 @@ class MainSettingsPage(QWidget):
             self.backupFolder.setText(folder)
 
     def autobackupClicked(self, state):
-        self.autobackupDepth.setEnabled(state == Qt.Checked)
+        self.autobackupDepth.setEnabled(state == Qt.CheckState.Checked)
 
     def referenceButtonClicked(self):
         file, _selectedFilter = QFileDialog.getOpenFileName(
@@ -206,7 +206,7 @@ class CollectionSettingsPage(QWidget):
         self.model = collection.model()
 
         layout = QFormLayout()
-        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        layout.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
 
         self.imageSideLen = NumberEdit(self)
         self.imageSideLen.setMaximumWidth(60)
@@ -219,8 +219,8 @@ class CollectionSettingsPage(QWidget):
         self.imageHeight.setDecimals(1)
         self.imageHeight.setSingleStep(0.1)
         self.imageHeight.setValue(self.settings['image_height'])
-        self.imageHeight.setSizePolicy(QSizePolicy.Fixed,
-                                       QSizePolicy.Fixed)
+        self.imageHeight.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                       QSizePolicy.Policy.Fixed)
         layout.addRow(self.tr("Preview image height"), self.imageHeight)
 
         self.freeNumeric = QCheckBox(
@@ -262,8 +262,8 @@ class CollectionSettingsPage(QWidget):
             self.defaultStatus.addItem(statusIcon(status), Statuses[status], status)
         index = self.defaultStatus.findData(self.settings['default_status'])
         self.defaultStatus.setCurrentIndex(index)
-        self.defaultStatus.setSizePolicy(QSizePolicy.Fixed,
-                                         QSizePolicy.Fixed)
+        self.defaultStatus.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                         QSizePolicy.Policy.Fixed)
         layout.addRow(self.tr("Default status for new coin"),
                       self.defaultStatus)
 
@@ -288,13 +288,13 @@ class CollectionSettingsPage(QWidget):
         if self.settings['image_height'] != old_image_height:
             result = QMessageBox.question(self, self.tr("Settings"),
                     self.tr("Preview image height was changed. Recalculate it now?"),
-                    QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-            if result == QMessageBox.Yes:
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, QMessageBox.StandardButton.Yes)
+            if result == QMessageBox.StandardButton.Yes:
                 self.model.recalculateAllImages(self)
 
 
 class FieldsSettingsPage(QWidget):
-    DataRole = Qt.UserRole
+    DataRole = Qt.ItemDataRole.UserRole
 
     def __init__(self, collection, parent=None):
         super().__init__(parent)
@@ -319,11 +319,11 @@ class FieldsSettingsPage(QWidget):
         for field in self.fields:
             item = QTreeWidgetItem((field.title,))
             item.setData(0, self.DataRole, field)
-            item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
-                          Qt.ItemIsEnabled | Qt.ItemIsSelectable)
-            checked = Qt.Unchecked
+            item.setFlags(Qt.ItemFlag.ItemIsEditable | Qt.ItemFlag.ItemIsUserCheckable |
+                          Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable)
+            checked = Qt.CheckState.Unchecked
             if field.enabled:
-                checked = Qt.Checked
+                checked = Qt.CheckState.Checked
             item.setCheckState(0, checked)
 
             if field.name in ('id', 'createdat', 'updatedat', 'sort_id'):
@@ -378,23 +378,23 @@ class FieldsSettingsPage(QWidget):
 
         self.renameButton = QPushButton(self.tr("Rename"), self)
         self.renameButton.clicked.connect(self.renameButtonClicked)
-        self.renameButton.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.renameButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         self.renameButton.setEnabled(False)
 
         self.defaultFieldsButton = QPushButton(
                                             self.tr("Revert to default"), self)
         self.defaultFieldsButton.clicked.connect(
                                             self.defaultFieldsButtonClicked)
-        self.defaultFieldsButton.setSizePolicy(QSizePolicy.Fixed,
-                                               QSizePolicy.Fixed)
+        self.defaultFieldsButton.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                               QSizePolicy.Policy.Fixed)
 
         layout = QVBoxLayout()
         layout.addWidget(QLabel(self.tr("Global enabled fields:"), self))
         layout.addWidget(self.treeWidget)
 
         hLayout = QHBoxLayout()
-        hLayout.addWidget(self.renameButton, alignment=Qt.AlignLeft)
-        hLayout.addWidget(self.defaultFieldsButton, alignment=Qt.AlignRight)
+        hLayout.addWidget(self.renameButton, alignment=Qt.AlignmentFlag.AlignLeft)
+        hLayout.addWidget(self.defaultFieldsButton, alignment=Qt.AlignmentFlag.AlignRight)
         layout.addLayout(hLayout)
 
         self.setLayout(layout)
@@ -423,7 +423,7 @@ class FieldsSettingsPage(QWidget):
             for j in range(top_item.childCount()):
                 item = top_item.child(j)
                 field = item.data(0, self.DataRole)
-                field.enabled = (item.checkState(0) == Qt.Checked)
+                field.enabled = (item.checkState(0) == Qt.CheckState.Checked)
                 field.title = item.text(0)
 
         self.fields.save()
@@ -473,7 +473,7 @@ class ImportSettingsPage(QWidget):
         settings = Settings()
 
         fLayout = QFormLayout()
-        fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        fLayout.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
 
         self.colnect_locale = QComboBox(self)
         for lang in self.Languages:
@@ -482,8 +482,8 @@ class ImportSettingsPage(QWidget):
         if current == -1:
             current = 9
         self.colnect_locale.setCurrentIndex(current)
-        self.colnect_locale.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
+        self.colnect_locale.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                          QSizePolicy.Policy.Fixed)
 
         fLayout.addRow(self.tr("Language"), self.colnect_locale)
 
@@ -499,7 +499,7 @@ class ImportSettingsPage(QWidget):
         colnectGroup.setLayout(vLayout)
 
         fLayout = QFormLayout()
-        fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        fLayout.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
 
         self.ans_locale_en = QCheckBox(self.tr("English language"), self)
         self.ans_locale_en.setChecked(settings['ans_locale_en'])
@@ -520,7 +520,7 @@ class ImportSettingsPage(QWidget):
         ansGroup.setLayout(vLayout)
 
         fLayout = QFormLayout()
-        fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        fLayout.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
 
         self.numista_split_denomination = QCheckBox(self.tr("Split denomination"), self)
         self.numista_split_denomination.setChecked(settings['numista_split_denomination'])
@@ -533,8 +533,8 @@ class ImportSettingsPage(QWidget):
         if current == -1:
             current = 4
         self.numista_currency.setCurrentIndex(current)
-        self.numista_currency.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
+        self.numista_currency.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed)
         fLayout.addRow(self.tr("Price currency"), self.numista_currency)
 
         vLayout = QVBoxLayout()
@@ -544,11 +544,11 @@ class ImportSettingsPage(QWidget):
         numistaGroup.setLayout(vLayout)
 
         clearCacheBtn = QPushButton(self.tr("Clear cache"), self)
-        clearCacheBtn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        clearCacheBtn.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         clearCacheBtn.clicked.connect(self.clearCache)
 
         hLayout = QHBoxLayout()
-        hLayout.addWidget(clearCacheBtn, alignment=Qt.AlignRight)
+        hLayout.addWidget(clearCacheBtn, alignment=Qt.AlignmentFlag.AlignRight)
 
         layout = QVBoxLayout()
         layout.addWidget(colnectGroup)
@@ -583,7 +583,7 @@ class ImportSettingsPage(QWidget):
 class SettingsDialog(QDialog):
     def __init__(self, collection, parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
 
         mainPage = MainSettingsPage(collection, self)
         collectionPage = CollectionSettingsPage(collection, self)
@@ -604,9 +604,9 @@ class SettingsDialog(QDialog):
         if not collection.isOpen():
             self.tab.setTabEnabled(index, False)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 

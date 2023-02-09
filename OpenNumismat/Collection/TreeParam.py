@@ -1,5 +1,5 @@
-from PyQt5 import QtCore
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PyQt6 import QtCore
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery
 
 
 class TreeParam(QtCore.QObject):
@@ -55,7 +55,7 @@ class TreeParam(QtCore.QObject):
         query.prepare("SELECT COUNT(DISTINCT position) "
                       "FROM treeparam WHERE pageid=?")
         query.addBindValue(self.pageId)
-        query.exec_()
+        query.exec()
         if query.first():
             count = query.record().value(0)
 
@@ -66,7 +66,7 @@ class TreeParam(QtCore.QObject):
             query = QSqlQuery(self.db)
             query.prepare("SELECT * FROM treeparam WHERE pageid=?")
             query.addBindValue(self.pageId)
-            query.exec_()
+            query.exec()
 
             while query.next():
                 record = query.record()
@@ -87,7 +87,7 @@ class TreeParam(QtCore.QObject):
                 query.addBindValue(self.pageId)
                 query.addBindValue(field.id)
                 query.addBindValue(position)
-                query.exec_()
+                query.exec()
 
         self.db.commit()
 
@@ -95,7 +95,7 @@ class TreeParam(QtCore.QObject):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM treeparam WHERE pageid=?")
         query.addBindValue(self.pageId)
-        query.exec_()
+        query.exec()
 
     def __iter__(self):
         self.index = 0

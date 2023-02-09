@@ -1,9 +1,9 @@
 import os
 import tempfile
 
-from PyQt5.QtCore import QObject, QByteArray
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from PyQt5.QtWidgets import QMessageBox
+from PyQt6.QtCore import QObject, QByteArray
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery
+from PyQt6.QtWidgets import QMessageBox
 
 
 class Cache(QObject):
@@ -49,7 +49,7 @@ class Cache(QObject):
         query = QSqlQuery(self.db)
         query.prepare("SELECT data FROM cache WHERE url=?")
         query.addBindValue(url)
-        query.exec_()
+        query.exec()
         if query.next():
             record = query.record()
             return record.value('data')
@@ -70,7 +70,7 @@ class Cache(QObject):
         if isinstance(data, bytes):
             data = QByteArray(data)
         query.addBindValue(data)
-        query.exec_()
+        query.exec()
 
     def _compact(self):
         if self.db:

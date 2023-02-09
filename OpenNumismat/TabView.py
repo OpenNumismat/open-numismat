@@ -1,6 +1,6 @@
-from PyQt5.QtCore import pyqtSignal, Qt
-from PyQt5.QtGui import QKeySequence, QIcon
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import pyqtSignal, Qt
+from PyQt6.QtGui import QKeySequence, QIcon, QAction
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.PageView import PageView
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
@@ -12,7 +12,7 @@ class TabBar(QTabBar):
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
 
     def mouseDoubleClickEvent(self, event):
         index = self.tabAt(event.pos())
@@ -79,7 +79,7 @@ class TabView(QTabWidget):
         self.__actions['select'] = selectColumnsAct
 
         closeListAct = QAction(self.tr("Close"), self)
-        closeListAct.setShortcut(QKeySequence.Close)
+        closeListAct.setShortcut(QKeySequence.StandardKey.Close)
         closeListAct.triggered.connect(self.closePage)
         self.__actions['close'] = closeListAct
 
@@ -98,7 +98,7 @@ class TabView(QTabWidget):
         menu.addAction(self.__actions['clone'])
         menu.addSeparator()
         menu.addAction(self.__actions['remove'])
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec(self.mapToGlobal(pos))
 
     def _clone(self):
         index = self.currentIndex()
@@ -197,7 +197,7 @@ class TabView(QTabWidget):
     def newList(self):
         label, ok = QInputDialog.getText(self, self.tr("New list"),
                 self.tr("Enter list title"), text=self.tr("New list"),
-                flags=(Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint))
+                flags=(Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint))
         if ok and label:
             self.__createListPage(label)
 
@@ -206,7 +206,7 @@ class TabView(QTabWidget):
         oldLabel = self.tabText(index)
         label, ok = QInputDialog.getText(self, self.tr("Rename list"),
                 self.tr("Enter new list title"), text=oldLabel,
-                flags=(Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint))
+                flags=(Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint))
         if ok and label:
             self.setTabText(index, label)
             page = self.widget(index)
@@ -241,9 +241,9 @@ class TabView(QTabWidget):
         pageTitle = self.tabText(index)
         result = QMessageBox.question(self, self.tr("Remove page"),
                 self.tr("Remove the page '%s' permanently?") % pageTitle,
-                QMessageBox.Yes | QMessageBox.No,
-                QMessageBox.No)
-        if result == QMessageBox.Yes:
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No)
+        if result == QMessageBox.StandardButton.Yes:
             page = self.widget(index)
             self.removeTab(index)
             self.collection.pages().removePage(page.param)
@@ -251,9 +251,9 @@ class TabView(QTabWidget):
     def removeClosedPages(self):
         result = QMessageBox.question(self, self.tr("Remove pages"),
                 self.tr("Remove all closed pages permanently?"),
-                QMessageBox.Yes | QMessageBox.No,
-                QMessageBox.No)
-        if result == QMessageBox.Yes:
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No)
+        if result == QMessageBox.StandardButton.Yes:
             closedPages = self.collection.pages().closedPages()
             for pageParam in closedPages:
                 self.collection.pages().removePage(pageParam)

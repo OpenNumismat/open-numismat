@@ -1,7 +1,7 @@
-from PyQt5 import QtCore
-from PyQt5 import QtSql
-from PyQt5.QtCore import Qt, QCollator, QLocale, QEvent
-from PyQt5.QtWidgets import *
+from PyQt6 import QtCore
+from PyQt6 import QtSql
+from PyQt6.QtCore import Qt, QCollator, QLocale, QEvent
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.ListView import ListView, CardView, IconView
 from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
@@ -26,7 +26,7 @@ class ImageView(QWidget):
 
         self.currentIndex = None
 
-        if direction == QBoxLayout.LeftToRight:
+        if direction == QBoxLayout.Direction.LeftToRight:
             layout = self.__createHorizontalLayout()
         else:
             layout = self.__createVerticalLayout()
@@ -41,9 +41,9 @@ class ImageView(QWidget):
         layout.addWidget(self.__layoutToWidget(self.imageLayout))
 
         self.buttonLayout = QHBoxLayout()
-        self.buttonLayout.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
+        self.buttonLayout.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignBottom)
         widget = self.__layoutToWidget(self.buttonLayout)
-        widget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        widget.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         layout.addWidget(widget)
 
         return layout
@@ -52,9 +52,9 @@ class ImageView(QWidget):
         layout = QHBoxLayout()
 
         self.buttonLayout = QVBoxLayout()
-        self.buttonLayout.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        self.buttonLayout.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
         widget = self.__layoutToWidget(self.buttonLayout)
-        widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         layout.addWidget(widget)
 
         self.imageLayout = QHBoxLayout()
@@ -95,9 +95,9 @@ class ImageView(QWidget):
         current = self.currentIndex
         self.showedCount = 0
         for i, field in enumerate(self.imageFields):
-            if self.imageButtons[i].checkState() == Qt.Checked:
+            if self.imageButtons[i].checkState() == Qt.CheckState.Checked:
                 index = self.model.index(current.row(), field.id)
-                data = index.data(Qt.UserRole)
+                data = index.data(Qt.ItemDataRole.UserRole)
                 img = self.model.getImage(data)
 
                 image = ImageLabel(field.name, self)
@@ -116,11 +116,11 @@ class ImageView(QWidget):
 
         for i, field in enumerate(self.imageFields):
             self.imageButtons[i].stateChanged.disconnect(self.buttonClicked)
-            self.imageButtons[i].setCheckState(Qt.Unchecked)
+            self.imageButtons[i].setCheckState(Qt.CheckState.Unchecked)
             self.imageButtons[i].setDisabled(True)
 
             index = self.model.index(current.row(), field.id)
-            data = index.data(Qt.UserRole)
+            data = index.data(Qt.ItemDataRole.UserRole)
             img = self.model.getImage(data)
             if img and not img.isNull():
                 if self.imageLayout.count() < self.showedCount:
@@ -132,7 +132,7 @@ class ImageView(QWidget):
                     image.imageEdited.connect(self.imageEdited)
                     self.imageLayout.addWidget(image)
 
-                    self.imageButtons[i].setCheckState(Qt.Checked)
+                    self.imageButtons[i].setCheckState(Qt.CheckState.Checked)
 
                 self.imageButtons[i].setDisabled(False)
 
@@ -153,8 +153,8 @@ class ImageView(QWidget):
 class TreeWidgetItem(QTreeWidgetItem):
 
     def __lt__(self, other):
-        left = self.data(0, Qt.UserRole + 3)
-        right = other.data(0, Qt.UserRole + 3)
+        left = self.data(0, Qt.ItemDataRole.UserRole + 3)
+        right = other.data(0, Qt.ItemDataRole.UserRole + 3)
 
         if not left or not right:
             return super().__lt__(other)
@@ -187,7 +187,7 @@ class AutoToolTipDelegate(QStyledItemDelegate):
             if view.verticalScrollBar().isVisible():
                 width -= view.verticalScrollBar().width()
             if rect.x() <= -5 or rect.x() + size.width() > width:
-                tooltip = index.data(Qt.DisplayRole)
+                tooltip = index.data(Qt.ItemDataRole.DisplayRole)
                 QToolTip.showText(event.globalPos(), tooltip, view)
                 return True
 
@@ -199,10 +199,10 @@ class AutoToolTipDelegate(QStyledItemDelegate):
 
 
 class TreeView(QTreeWidget):
-    FiltersRole = Qt.UserRole
-    FieldsRole = Qt.UserRole + 1
-    ParamRole = Qt.UserRole + 2
-    SortDataRole = Qt.UserRole + 3
+    FiltersRole = Qt.ItemDataRole.UserRole
+    FieldsRole = Qt.ItemDataRole.UserRole + 1
+    ParamRole = Qt.ItemDataRole.UserRole + 2
+    SortDataRole = Qt.ItemDataRole.UserRole + 3
 
     def __init__(self, treeParam, parent=None):
         super().__init__(parent)
@@ -212,7 +212,7 @@ class TreeView(QTreeWidget):
         self.setHeaderHidden(True)
         self.setAutoScroll(False)
 
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenuEvent)
 
         self.currentItemChanged.connect(self.itemActivatedEvent)
@@ -329,7 +329,7 @@ class TreeView(QTreeWidget):
                     self.setCurrentItem(child)
                     self.currentItemChanged.connect(self.itemActivatedEvent)
 
-        item.sortChildren(0, Qt.AscendingOrder)
+        item.sortChildren(0, Qt.SortOrder.AscendingOrder)
 
         if hasEmpty and len(fields) == 1 and item.childCount() > 0:
             text = self.tr("Other")
@@ -386,7 +386,7 @@ class TreeView(QTreeWidget):
                 if field in ('status', 'year'):
                     textPart.append(str(index.data()))
                 else:
-                    val = str(index.data(Qt.UserRole))
+                    val = str(index.data(Qt.ItemDataRole.UserRole))
                     if val:
                         textPart.append(val)
             text2 = ' '.join(textPart)
@@ -396,7 +396,7 @@ class TreeView(QTreeWidget):
                 self.scrollToIndex(index, subItem)
                 break
 
-    def scrollToItem(self, item, hint=QTreeWidget.EnsureVisible):
+    def scrollToItem(self, item, hint=QTreeWidget.ScrollHint.EnsureVisible):
         super().scrollToItem(item, hint)
 
         parentItem = item.parent()
@@ -430,11 +430,11 @@ class TreeView(QTreeWidget):
             act.setDisabled(True)
         menu.addSeparator()
         menu.addAction(self.tr("Customize tree..."), self._customizeTree)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec(self.mapToGlobal(pos))
 
     def _customizeTree(self):
         dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
-        if dialog.exec_() == QDialog.Accepted:
+        if dialog.exec() == QDialog.DialogCode.Accepted:
             self.treeParam.save()
             self.modelChanged()
 
@@ -469,19 +469,19 @@ class TreeView(QTreeWidget):
 
         # Fill multi record for editing
         multiRecord = self.model.record(0)
-        usedFields = [Qt.Checked] * multiRecord.count()
+        usedFields = [Qt.CheckState.Checked] * multiRecord.count()
         for i in range(self.model.rowCount()):
             record = self.model.record(i)
             for j in range(multiRecord.count()):
                 value = record.value(j)
                 if multiRecord.value(j) != value or not value:
                     multiRecord.setNull(j)
-                    usedFields[j] = Qt.Unchecked
+                    usedFields[j] = Qt.CheckState.Unchecked
 
         # TODO: Make identical with ListView._multiEdit
         dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             progressDlg = Gui.ProgressDialog(self.tr("Updating records"),
                                 self.tr("Cancel"), self.model.rowCount(), self)
 
@@ -495,7 +495,7 @@ class TreeView(QTreeWidget):
 
                 record = self.model.record(i)
                 for j in range(multiRecord.count()):
-                    if usedFields[j] == Qt.Checked:
+                    if usedFields[j] == Qt.CheckState.Checked:
                         record.setValue(j, multiRecord.value(j))
                 self.model.setRecord(i, record)
 
@@ -532,7 +532,7 @@ class DetailsView(QWidget):
 
 
 class Splitter(QSplitter):
-    def __init__(self, title, orientation=Qt.Horizontal, parent=None):
+    def __init__(self, title, orientation=Qt.Orientation.Horizontal, parent=None):
         super().__init__(orientation, parent)
 
         self.title = title
@@ -588,13 +588,13 @@ class PageView(Splitter):
         else:
             self.listView = ListView(self.param.listParam, self)
         if self.imagesAtBottom:
-            self.imageView = ImageView(QBoxLayout.LeftToRight, self)
-            self.detailsView = DetailsView(QBoxLayout.TopToBottom, self)
+            self.imageView = ImageView(QBoxLayout.Direction.LeftToRight, self)
+            self.detailsView = DetailsView(QBoxLayout.Direction.TopToBottom, self)
         else:
-            self.imageView = ImageView(QBoxLayout.TopToBottom, self)
-            self.detailsView = DetailsView(QBoxLayout.LeftToRight, self)
+            self.imageView = ImageView(QBoxLayout.Direction.TopToBottom, self)
+            self.detailsView = DetailsView(QBoxLayout.Direction.LeftToRight, self)
 
-        self.splitter1 = Splitter('1', Qt.Vertical, self)
+        self.splitter1 = Splitter('1', Qt.Orientation.Vertical, self)
         splitter2 = Splitter('2', parent=self.splitter1)
         splitter2.addWidget(self.treeView)
         splitter2.addWidget(self.listView)

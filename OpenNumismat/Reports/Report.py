@@ -6,9 +6,9 @@ try:
 except ImportError:
     print('jinja2 module missed. Report engine not available')
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QCryptographicHash
-from PyQt5.QtGui import QImage
+from PyQt6 import QtCore
+from PyQt6.QtCore import Qt, QCryptographicHash
+from PyQt6.QtGui import QImage
 
 from OpenNumismat.Tools import Gui
 import OpenNumismat
@@ -23,14 +23,14 @@ def copyFolder(sourceFolder, destFolder):
     if not destDir.exists():
         destDir.mkpath(destFolder)
 
-    files = sourceDir.entryList(QtCore.QDir.Files)
+    files = sourceDir.entryList(QtCore.QDir.Filter.Files)
     for file in files:
         srcName = os.path.join(sourceFolder, file)
         destName = os.path.join(destFolder, file)
         QtCore.QFile.remove(destName)  # remove if existing
         QtCore.QFile.copy(srcName, destName)
 
-    files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+    files = sourceDir.entryList(QtCore.QDir.Filter.AllDirs | QtCore.QDir.Filter.NoDotAndDotDot)
     for file in files:
         srcName = os.path.join(sourceFolder, file)
         destName = os.path.join(destFolder, file)
@@ -43,14 +43,14 @@ def scanTemplates():
     path = os.path.join(OpenNumismat.HOME_PATH, 'templates')
     sourceDir = QtCore.QDir(path)
     if sourceDir.exists():
-        files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+        files = sourceDir.entryList(QtCore.QDir.Filter.AllDirs | QtCore.QDir.Filter.NoDotAndDotDot)
         for file in files:
             templates.append((file, os.path.join(path, file)))
 
     path = os.path.join(OpenNumismat.PRJ_PATH, 'templates')
     sourceDir = QtCore.QDir(path)
     if sourceDir.exists():
-        files = sourceDir.entryList(QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+        files = sourceDir.entryList(QtCore.QDir.Filter.AllDirs | QtCore.QDir.Filter.NoDotAndDotDot)
         for file in files:
             templates.append((file, os.path.join(path, file)))
 
@@ -147,7 +147,7 @@ class Report(QtCore.QObject):
 
     def __getId(self, index):
         field_index = self.model.index(index.row(), self.model.fieldIndex('id'))
-        return self.model.data(field_index, Qt.UserRole)
+        return self.model.data(field_index, Qt.ItemDataRole.UserRole)
 
     def __recordMapping(self, index):
         imgFields = ('image', 'obverseimg', 'reverseimg', 'edgeimg',
@@ -161,7 +161,7 @@ class Report(QtCore.QObject):
         row = index.row()
         for field in self.model.fields:
             field_index = self.model.index(row, self.model.fieldIndex(field.name))
-            value = self.model.data(field_index, Qt.DisplayRole)
+            value = self.model.data(field_index, Qt.ItemDataRole.DisplayRole)
 
             if value is None or value == '':
                 record_mapping[field.name] = ''
@@ -188,10 +188,10 @@ class Report(QtCore.QObject):
                 else:
                     record_mapping[field.name] = value
                     if field.name == 'status':
-                        record_mapping['status_raw'] = self.model.data(field_index, Qt.UserRole)
+                        record_mapping['status_raw'] = self.model.data(field_index, Qt.ItemDataRole.UserRole)
                     elif field.name == 'issuedate':
-                        record_mapping['issuedate_raw'] = self.model.data(field_index, Qt.UserRole)
+                        record_mapping['issuedate_raw'] = self.model.data(field_index, Qt.ItemDataRole.UserRole)
                     elif field.name == 'diameter':
-                        record_mapping['diameter_raw'] = self.model.data(field_index, Qt.UserRole)
+                        record_mapping['diameter_raw'] = self.model.data(field_index, Qt.ItemDataRole.UserRole)
 
         return record_mapping

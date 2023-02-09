@@ -3,9 +3,9 @@
 import os
 import urllib.request
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QDialogButtonBox, QComboBox
-from PyQt5.QtGui import QPixmap, QImage
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QDialogButtonBox, QComboBox
+from PyQt6.QtGui import QPixmap, QImage
 
 from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
@@ -32,7 +32,7 @@ class TableDialog(QDialog):
 
     def __init__(self, parent, path, datemode):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
 
         self.path = path
         self.datemode = datemode
@@ -41,8 +41,8 @@ class TableDialog(QDialog):
 
         self.hlayout = QHBoxLayout()
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
         buttonBox.accepted.connect(self.accept)
 
         self.table = QTableWidget(self)
@@ -93,7 +93,7 @@ class TableDialog(QDialog):
                             result = image.loadFromData(data)
                             if result:
                                 pixmap = QPixmap.fromImage(image)
-                                item.setData(Qt.DecorationRole, pixmap)
+                                item.setData(Qt.ItemDataRole.DecorationRole, pixmap)
                         except:
                             pass
                     else:
@@ -103,7 +103,7 @@ class TableDialog(QDialog):
                         result = image.load(fileName)
                         if result:
                             pixmap = QPixmap.fromImage(image)
-                            item.setData(Qt.DecorationRole, pixmap)
+                            item.setData(Qt.ItemDataRole.DecorationRole, pixmap)
 
 
 class ImportExcel(_Import2):
@@ -161,8 +161,8 @@ class ImportExcel(_Import2):
             self.comboBoxes.append(combo)
         dialog.comboChanged(0)
 
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             self.selected_fields = []
             self.has_title = False
             self.has_status = False

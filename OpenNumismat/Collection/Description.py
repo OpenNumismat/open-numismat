@@ -1,6 +1,6 @@
-from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QObject
+from PyQt6.QtSql import QSqlQuery
+from PyQt6.QtWidgets import *
 
 
 class CollectionDescription(QObject):
@@ -28,7 +28,7 @@ class CollectionDescription(QObject):
         query.addBindValue(self.title)
         query.addBindValue(self.description)
         query.addBindValue(self.author)
-        query.exec_()
+        query.exec()
 
         self.db.commit()
 
@@ -48,7 +48,7 @@ class CollectionDescription(QObject):
         query.addBindValue(collection.getCollectionName())
         query.addBindValue('')
         query.addBindValue('')
-        query.exec_()
+        query.exec()
 
         self.db.commit()
 
@@ -56,7 +56,7 @@ class CollectionDescription(QObject):
 class DescriptionDialog(QDialog):
     def __init__(self, description, parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
 
         self.description = description
 
@@ -74,9 +74,9 @@ class DescriptionDialog(QDialog):
         self.authorWidget = QLineEdit(self.description.author, self)
         mainLayout.addRow(self.tr("Author"), self.authorWidget)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 

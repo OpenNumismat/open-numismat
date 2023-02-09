@@ -12,9 +12,9 @@ except ImportError:
     print('lxml module missed. Importing from ANS not available')
     ansAvailable = False
 
-from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtGui import QImage, QPixmap, QIcon
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QObject
+from PyQt6.QtGui import QImage, QPixmap, QIcon
+from PyQt6.QtWidgets import *
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import.Cache import Cache
@@ -206,7 +206,7 @@ class AnsDialog(QDialog):
 
     def __init__(self, model, parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
         self.setWindowIcon(QIcon(':/ans.png'))
         self.setWindowTitle("American Numismatic Society")
 
@@ -225,14 +225,14 @@ class AnsDialog(QDialog):
         self.enable_bc = self.model.settings['enable_bc']
 
         layout = QFormLayout()
-        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        layout.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
 
         mainLabel = QLabel(self.tr(
             "Catalog information courtesy of"
             " the <a href=\"http://numismatics.org/search/\">"
             "American Numismatic Society</a> collections database."))
-        mainLabel.setTextFormat(Qt.RichText)
-        mainLabel.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        mainLabel.setTextFormat(Qt.TextFormat.RichText)
+        mainLabel.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
         mainLabel.setOpenExternalLinks(True)
         font = mainLabel.font()
         font.setPointSize(11)
@@ -243,8 +243,8 @@ class AnsDialog(QDialog):
             " <a href=\"https://creativecommons.org/choose/mark/\">"
             "Public Domain</a>. Others are available for Non-Commercial purposes."
             " <a href=\"http://numismatics.org/photography-permissions/\">Policy</a>."))
-        licenseLabel.setTextFormat(Qt.RichText)
-        licenseLabel.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        licenseLabel.setTextFormat(Qt.TextFormat.RichText)
+        licenseLabel.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
         licenseLabel.setOpenExternalLinks(True)
         layout.addRow(licenseLabel)
         layout.addRow(QWidget())
@@ -263,8 +263,8 @@ class AnsDialog(QDialog):
                        ('Decoration', self.tr("Decoration")))
 
         self.departmentSelector = QComboBox()
-        self.departmentSelector.setSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed)
+        self.departmentSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                              QSizePolicy.Policy.Fixed)
         for department in departments:
             self.departmentSelector.addItem(department[1], department[0])
         ans_department = self.model.settings['ans_department']
@@ -274,57 +274,57 @@ class AnsDialog(QDialog):
         self.departmentSelector.currentIndexChanged.connect(self.departmentChanged)
 
         self.countrySelector = QComboBox()
-        self.countrySelector.setSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed)
-        self.countrySelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.countrySelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed)
+        self.countrySelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.countrySelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('country'), self.countrySelector)
 
         self.dynastySelector = QComboBox()
-        self.dynastySelector.setSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed)
-        self.dynastySelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.dynastySelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed)
+        self.dynastySelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.dynastySelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('period'), self.dynastySelector)
 
         self.rulerSelector = QComboBox()
-        self.rulerSelector.setSizePolicy(QSizePolicy.Fixed,
-                                         QSizePolicy.Fixed)
-        self.rulerSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.rulerSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                         QSizePolicy.Policy.Fixed)
+        self.rulerSelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.rulerSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('ruler'), self.rulerSelector)
 
         self.yearSelector = QComboBox()
-        self.yearSelector.setSizePolicy(QSizePolicy.Fixed,
-                                        QSizePolicy.Fixed)
+        self.yearSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                        QSizePolicy.Policy.Fixed)
         self.yearSelector.currentIndexChanged.connect(self.partChanged)
-        self.yearSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.yearSelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         layout.addRow(fields.getCustomTitle('year'), self.yearSelector)
 
         self.denominationSelector = QComboBox()
-        self.denominationSelector.setSizePolicy(QSizePolicy.Fixed,
-                                                QSizePolicy.Fixed)
-        self.denominationSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.denominationSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                                QSizePolicy.Policy.Fixed)
+        self.denominationSelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.denominationSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('unit'), self.denominationSelector)
 
         self.materialSelector = QComboBox()
-        self.materialSelector.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
-        self.materialSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.materialSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed)
+        self.materialSelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.materialSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('material'), self.materialSelector)
 
         self.typeSelector = QComboBox()
-        self.typeSelector.setSizePolicy(QSizePolicy.Fixed,
-                                        QSizePolicy.Fixed)
-        self.typeSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.typeSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                        QSizePolicy.Policy.Fixed)
+        self.typeSelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.typeSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('type'), self.typeSelector)
 
         self.imagesSelector = QCheckBox(self.tr("Has images"))
         if self.model.settings['ans_has_image']:
-            self.imagesSelector.setCheckState(Qt.Checked)
+            self.imagesSelector.setCheckState(Qt.CheckState.Checked)
         self.imagesSelector.stateChanged.connect(self.partChanged)
         layout.addRow(self.imagesSelector)
 
@@ -335,8 +335,8 @@ class AnsDialog(QDialog):
         self.table = QTableWidget(self)
         self.table.doubleClicked.connect(self.tableClicked)
         self.table.setColumnCount(10)
-        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
         font = self.table.horizontalHeader().font()
         font.setBold(True)
@@ -367,15 +367,15 @@ class AnsDialog(QDialog):
         self.label_empty = QLabel(self.tr("Nothing found"), self)
         self.label_empty.hide()
         previewBox = QHBoxLayout()
-        previewBox.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+        previewBox.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
         previewBox.addWidget(self.previewButton)
         previewBox.addWidget(self.label)
         previewBox.addWidget(self.label_empty)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal, self)
-        buttonBox.addButton(self.addButton, QDialogButtonBox.ActionRole)
-        buttonBox.addButton(self.addCloseButton, QDialogButtonBox.ActionRole)
-        buttonBox.addButton(QDialogButtonBox.Close)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal, self)
+        buttonBox.addButton(self.addButton, QDialogButtonBox.ButtonRole.ActionRole)
+        buttonBox.addButton(self.addCloseButton, QDialogButtonBox.ButtonRole.ActionRole)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Close)
         buttonBox.clicked.connect(self.clicked)
 
         self.table.hide()
@@ -722,7 +722,7 @@ class AnsDialog(QDialog):
                     image = self._getImage(url)
                     pixmap = QPixmap.fromImage(image)
                     item = QTableWidgetItem()
-                    item.setData(Qt.DecorationRole, pixmap)
+                    item.setData(Qt.ItemDataRole.DecorationRole, pixmap)
                     self.table.setItem(i, 0, item)
 
                 url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='reverse']/mets:file[@USE='thumbnail']/mets:FLocat",
@@ -731,7 +731,7 @@ class AnsDialog(QDialog):
                     image = self._getImage(url)
                     pixmap = QPixmap.fromImage(image)
                     item = QTableWidgetItem()
-                    item.setData(Qt.DecorationRole, pixmap)
+                    item.setData(Qt.ItemDataRole.DecorationRole, pixmap)
                     self.table.setItem(i, 1, item)
 
                 title = self._getValue(tree, "./nuds:descMeta/nuds:title")
@@ -797,7 +797,7 @@ class AnsDialog(QDialog):
         if result:
             if image.height() > self.HEIGHT:
                 image = image.scaled(self.HEIGHT, self.HEIGHT,
-                                     Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                     Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
         return image
 
     def clicked(self, button):

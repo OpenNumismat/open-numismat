@@ -1,4 +1,4 @@
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery
 
 from OpenNumismat.Settings import BaseSettings
 
@@ -37,7 +37,7 @@ class StatisticsParam(BaseSettings):
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM statistics WHERE pageid=?")
         query.addBindValue(self.pageId)
-        query.exec_()
+        query.exec()
         if query.first():
             record = query.record()
             self.__setitem__('showed', bool(record.value('showed')))
@@ -66,7 +66,7 @@ class StatisticsParam(BaseSettings):
         query.addBindValue(self.__getitem__('items'))
         query.addBindValue(self.__getitem__('period'))
         query.addBindValue(int(self.__getitem__('color')))
-        query.exec_()
+        query.exec()
 
         self.db.commit()
 
@@ -74,7 +74,7 @@ class StatisticsParam(BaseSettings):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM statistics WHERE pageid=?")
         query.addBindValue(self.pageId)
-        query.exec_()
+        query.exec()
 
     @staticmethod
     def create(db=QSqlDatabase()):

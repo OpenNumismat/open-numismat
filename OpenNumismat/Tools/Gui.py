@@ -1,15 +1,15 @@
 import os
 
-from PyQt5.QtCore import Qt, QSettings
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox
+from PyQt6.QtCore import Qt, QSettings
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox
 
 
 class ProgressDialog(QProgressDialog):
     def __init__(self, labelText, cancelButtonText, maximum, parent=None):
         super().__init__(labelText, cancelButtonText, 0, maximum, parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
-        self.setWindowModality(Qt.WindowModal)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
+        self.setWindowModality(Qt.WindowModality.WindowModal)
         self.setMinimumDuration(250)
 
     def step(self):
@@ -54,8 +54,8 @@ def infoMessageBox(key, title, text, parent=None):
     show = settings.value(key, True, type=bool)
     if show:
         cb = QCheckBox(QApplication.translate("InfoMessageBox", "Don't show this again"))
-        msg_box = QMessageBox(QMessageBox.Information, title, text, parent=parent)
+        msg_box = QMessageBox(QMessageBox.Icon.Information, title, text, parent=parent)
         msg_box.setCheckBox(cb)
-        msg_box.exec_()
+        msg_box.exec()
         if cb.isChecked():
             settings.setValue(key, False)

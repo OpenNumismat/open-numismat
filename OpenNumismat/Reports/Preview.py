@@ -1,10 +1,10 @@
 import os.path
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtPrintSupport import QPrinter, QPrintPreviewWidget, QPrintDialog, QPageSetupDialog
+from PyQt6 import QtCore
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtPrintSupport import QPrinter, QPrintPreviewWidget, QPrintDialog, QPageSetupDialog
 
 import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
@@ -79,7 +79,7 @@ class LineEdit(QLineEdit):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.setContextMenuPolicy(Qt.NoContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
         self.returnPressed.connect(self.handleReturnPressed)
 
         self.origText = ''
@@ -115,8 +115,8 @@ class TextDocument(QTextDocument):
 class PreviewDialog(QDialog):
 
     def __init__(self, model, indexes, parent=None):
-        super().__init__(parent, Qt.WindowSystemMenuHint |
-                         Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
+        super().__init__(parent, Qt.WindowType.WindowSystemMenuHint |
+                         Qt.WindowType.WindowMinMaxButtonsHint | Qt.WindowType.WindowCloseButtonHint)
 
         self.started = False
 
@@ -130,8 +130,8 @@ class PreviewDialog(QDialog):
         else:
             self.webView = TextDocument()
 
-        self.printer = QPrinter(QPrinter.HighResolution)
-        self.printer.setPageMargins(12.7, 10, 10, 10, QPrinter.Millimeter)
+        self.printer = QPrinter(QPrinter.PrinterMode.HighResolution)
+        self.printer.setPageMargins(12.7, 10, 10, 10, QPrinter.Unit.Millimeter)
 
         if not importedQtWebEngine:
             self.preview = QPrintPreviewWidget(self.printer, self)
@@ -151,15 +151,15 @@ class PreviewDialog(QDialog):
 
         if not importedQtWebEngine:
             self.pageNumEdit = LineEdit()
-            self.pageNumEdit.setAlignment(Qt.AlignRight)
-            self.pageNumEdit.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+            self.pageNumEdit.setAlignment(Qt.AlignmentFlag.AlignRight)
+            self.pageNumEdit.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed))
             self.pageNumLabel = QLabel()
             self.pageNumEdit.editingFinished.connect(self._q_pageNumEdited)
 
             self.zoomFactor = QComboBox()
             self.zoomFactor.setEditable(True)
             self.zoomFactor.setMinimumContentsLength(7)
-            self.zoomFactor.setInsertPolicy(QComboBox.NoInsert)
+            self.zoomFactor.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
             zoomEditor = LineEdit()
             zoomEditor.setValidator(ZoomFactorValidator(1, 1000, 1, zoomEditor))
             self.zoomFactor.setLineEdit(zoomEditor)
@@ -201,7 +201,7 @@ class PreviewDialog(QDialog):
             formLayout.setWidget(0, QFormLayout.LabelRole, self.pageNumEdit)
             formLayout.setWidget(0, QFormLayout.FieldRole, self.pageNumLabel)
             vboxLayout.addLayout(formLayout)
-            vboxLayout.setAlignment(Qt.AlignVCenter)
+            vboxLayout.setAlignment(Qt.AlignmentFlag.AlignVCenter)
             pageEdit.setLayout(vboxLayout)
             toolbar.addWidget(pageEdit)
 
@@ -336,11 +336,11 @@ class PreviewDialog(QDialog):
             else:
                 self.landscapeAction.setChecked(True)
 
-    def exec_(self):
+    def exec(self):
         pass
 
     def paintRequested(self, printer):
-        self.webView.print_(printer)
+        self.webView.print(printer)
 
     def qt_setupActionIcon(self, action, name):
         imagePrefix = ":/qt-project.org/dialogs/qprintpreviewdialog/images/"
@@ -485,9 +485,9 @@ class PreviewDialog(QDialog):
 
     def _q_print(self):
         printDialog = QPrintDialog(self.printer, self)
-        if printDialog.exec_() == QDialog.Accepted:
+        if printDialog.exec() == QDialog.DialogCode.Accepted:
             if not importedQtWebEngine:
-                self.preview.print_()
+                self.preview.print()
             else:
                 self.webView.page().print(self.printer, self._dummy)
 
@@ -495,7 +495,7 @@ class PreviewDialog(QDialog):
 
     def _q_pageSetup(self):
         pageSetup = QPageSetupDialog(self.printer, self)
-        if pageSetup.exec_() == QDialog.Accepted:
+        if pageSetup.exec() == QDialog.DialogCode.Accepted:
             if not importedQtWebEngine:
                 # update possible orientation changes
                 if self.preview.orientation() == QPrinter.Portrait:
@@ -542,13 +542,13 @@ class PreviewDialog(QDialog):
         self.fileName = report.generate(self.indexes, True)
 
     def __exportToPdf(self, fileName):
-        QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+        QApplication.setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
         
         if not importedQtWebEngine:
-            self.printer.setOutputFormat(QPrinter.PdfFormat)
+            self.printer.setOutputFormat(QPrinter.OutputFormat.PdfFormat)
             self.printer.setOutputFileName(fileName)
-            self.preview.print_()
-            self.printer.setOutputFormat(QPrinter.NativeFormat)
+            self.preview.print()
+            self.printer.setOutputFormat(QPrinter.OutputFormat.NativeFormat)
 
             QApplication.restoreOverrideCursor()
         else:

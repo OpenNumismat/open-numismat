@@ -1,6 +1,6 @@
-from PyQt5.QtCore import QT_TRANSLATE_NOOP, QObject
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PyQt6.QtCore import QT_TRANSLATE_NOOP, QObject
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery
 
 
 class FieldTypes():
@@ -261,7 +261,7 @@ class CollectionFields(CollectionFieldsBase):
 
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM fields")
-        query.exec_()
+        query.exec()
         self.userFields = []
         self.disabledFields = []
         while query.next():
@@ -287,7 +287,7 @@ class CollectionFields(CollectionFieldsBase):
             query.addBindValue(field.title)
             query.addBindValue(int(field.enabled))
             query.addBindValue(field.id)
-            query.exec_()
+            query.exec()
 
         self.db.commit()
 
@@ -311,6 +311,6 @@ class CollectionFields(CollectionFieldsBase):
             query.addBindValue(field.title)
             enabled = field in fields.userFields
             query.addBindValue(int(enabled))
-            query.exec_()
+            query.exec()
 
         db.commit()

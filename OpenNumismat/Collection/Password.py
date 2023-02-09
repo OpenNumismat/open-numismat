@@ -1,7 +1,7 @@
 import hashlib
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import *
 
 
 def cryptPassword(password=''):
@@ -19,7 +19,7 @@ class PasswordDialog(QDialog):
 
     def __init__(self, crypted_password, collection_name='', parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
         self.crypted_password = crypted_password
 
         self.setWindowTitle(collection_name)
@@ -30,9 +30,9 @@ class PasswordDialog(QDialog):
         self.passwordWidget.setEchoMode(QLineEdit.Password)
         mainLayout.addRow(self.tr("Password"), self.passwordWidget)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         buttonBox.accepted.connect(self.apply)
         buttonBox.rejected.connect(self.reject)
 
@@ -55,7 +55,7 @@ class PasswordDialog(QDialog):
 class PasswordSetDialog(QDialog):
     def __init__(self, settings, parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
         self.settings = settings
 
         self.setWindowTitle(self.tr("Set password"))
@@ -75,9 +75,9 @@ class PasswordSetDialog(QDialog):
         mainLayout.addRow(self.tr("Confirm password"),
                           self.confirmPasswordWidget)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 

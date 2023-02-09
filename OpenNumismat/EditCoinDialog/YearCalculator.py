@@ -2,9 +2,9 @@
 
 import math
 
-from PyQt5.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
-from PyQt5.QtGui import QFont, QValidator, QIcon
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
+from PyQt6.QtGui import QFont, QValidator, QIcon
+from PyQt6.QtWidgets import *
 
 
 class YearCalculatorDialog(QDialog):
@@ -21,13 +21,13 @@ class YearCalculatorDialog(QDialog):
     
     def __init__(self, year, native_year, default_calendar=CALENDARS.DEFAULT, parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
         self.setWindowTitle(self.tr("Year calculator"))
         self.setWindowIcon(QIcon(':/date.png'))
 
-        self.buttonBox = QDialogButtonBox(Qt.Horizontal)
-        self.buttonBox.addButton(QDialogButtonBox.Save)
-        self.buttonBox.addButton(QDialogButtonBox.Cancel)
+        self.buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        self.buttonBox.addButton(QDialogButtonBox.StandardButton.Save)
+        self.buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
 
@@ -145,21 +145,21 @@ class YearCalculatorDialog(QDialog):
     def convertGregorian(self):
         text = self.yearEditor.text()
         res, _, _ = self.yearEditor.validator().validate(text, 0)
-        if res == QValidator.Acceptable:
+        if res == QValidator.State.Acceptable:
             text = self.nationalYearEditor.validator().fromGregorian(int(text))
             self.nationalYearEditor.setText(text)
     
     def convertToGregorian(self):
         text = self.nationalYearEditor.text()
         res, _, _ = self.nationalYearEditor.validator().validate(text, 0)
-        if res == QValidator.Acceptable:
+        if res == QValidator.State.Acceptable:
             text = self.nationalYearEditor.validator().toGregorian(text)
             self.yearEditor.setText(str(text))
     
     def year(self):
         text = self.yearEditor.text()
         res, _, _ = self.yearEditor.validator().validate(text, 0)
-        if res == QValidator.Acceptable:
+        if res == QValidator.State.Acceptable:
             return text
         else:
             return ''
@@ -167,7 +167,7 @@ class YearCalculatorDialog(QDialog):
     def nativeYear(self):
         text = self.nationalYearEditor.text()
         res, _, _ = self.nationalYearEditor.validator().validate(text, 0)
-        if res == QValidator.Acceptable:
+        if res == QValidator.State.Acceptable:
             return text
         else:
             return ''
@@ -188,23 +188,23 @@ class HebrewCalendar(QValidator):
     def validate(self, input_, pos):
         for c in input_:
             if c not in self.SYMBOLS:
-                return QValidator.Invalid, input_, pos
+                return QValidator.State.Invalid, input_, pos
         if input_.count('״') > 1:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
         if len(input_) > 6:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
         
         if len(input_) < 3:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         if '״' not in input_ or input_[-1] == '״':
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         if input_[-2] != '״':
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
     
     def toGregorian(self, year):
         _DIGITS = {"א": 1, "ב": 2, "ג": 3, "ד": 4, "ה": 5, "ו": 6, "ז": 7, "ח": 8, "ט": 9,
@@ -263,15 +263,15 @@ class IslamicCalendar(QValidator):
     def validate(self, input_, pos):
         for c in input_:
             if c not in self.SYMBOLS:
-                return QValidator.Invalid, input_, pos
+                return QValidator.State.Invalid, input_, pos
 
         if len(input_) < 3:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         if len(input_) > 4:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
         
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
     
     def toGregorian(self, year):
         _DIGITS = {"١": 1, "٢": 2, "٣": 3, "٤": 4, "۴": 4, "٥": 5, "۵": 5,
@@ -311,15 +311,15 @@ class SolarHijriCalendar(QValidator):
     def validate(self, input_, pos):
         for c in input_:
             if c not in self.SYMBOLS:
-                return QValidator.Invalid, input_, pos
+                return QValidator.State.Invalid, input_, pos
 
         if len(input_) < 3:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         if len(input_) > 4:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
         
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
     
     def toGregorian(self, year):
         _DIGITS = {"١": 1, "٢": 2, "٣": 3, "۴": 4, "۵": 5,
@@ -363,15 +363,15 @@ class JapanCalendar(QValidator):
     def validate(self, input_, pos):
         for c in input_:
             if c not in self.SYMBOLS:
-                return QValidator.Invalid, input_, pos
+                return QValidator.State.Invalid, input_, pos
         if input_.count('年') > 1:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
         if len(input_) < 4:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         if len(input_) > 6:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
         
         if "年" in input_:
             letters = input_
@@ -379,18 +379,18 @@ class JapanCalendar(QValidator):
                 letters = input_[::-1]
     
             if letters[-1] != "年":
-                return QValidator.Invalid, input_, pos
+                return QValidator.State.Invalid, input_, pos
     
             if letters[:2] not in ("明治", "大正", "昭和", "平成", "令和"):
-                return QValidator.Intermediate, input_, pos
+                return QValidator.State.Intermediate, input_, pos
             
             for c in letters[2:-1]:
                 if c not in "1234567890" and c not in "元一二三四五六七八九十":
-                    return QValidator.Intermediate, input_, pos
+                    return QValidator.State.Intermediate, input_, pos
         else:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
         
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
     
     def toGregorian(self, year):
         if year[0] == "年":
@@ -475,12 +475,12 @@ class RomanCalendar(QValidator):
     def validate(self, input_, pos):
         for c in input_:
             if c not in self.SYMBOLS:
-                return QValidator.Invalid, input_, pos
+                return QValidator.State.Invalid, input_, pos
 
         if len(input_) < 1:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
         
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
     
     def toGregorian(self, year):
         trans = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000,
@@ -520,15 +520,15 @@ class NepalCalendar(QValidator):
     def validate(self, input_, pos):
         for c in input_:
             if c not in self.SYMBOLS:
-                return QValidator.Invalid, input_, pos
+                return QValidator.State.Invalid, input_, pos
 
         if len(input_) < 4:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         if len(input_) > 4:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
     
     def toGregorian(self, year):
         _DIGITS = {"०": 0, "१": 1, "२": 2, "३": 3, "४": 4,
@@ -575,15 +575,15 @@ class ThaiCalendar(QValidator):
     def validate(self, input_, pos):
         for c in input_:
             if c not in self.SYMBOLS:
-                return QValidator.Invalid, input_, pos
+                return QValidator.State.Invalid, input_, pos
 
         if len(input_) < 3:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         if len(input_) > 4:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
     
     def toGregorian(self, year):
         _DIGITS = {"๐": 0, "๑": 1, "๒": 2, "๓": 3, "๔": 4,
@@ -632,15 +632,15 @@ class BurmeseCalendar(QValidator):
     def validate(self, input_, pos):
         for c in input_:
             if c not in self.SYMBOLS:
-                return QValidator.Invalid, input_, pos
+                return QValidator.State.Invalid, input_, pos
 
         if len(input_) < 4:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         if len(input_) > 4:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
     
     def toGregorian(self, year):
         _DIGITS = {"၀": 0, "၁": 1, "၂": 2, "၃": 3, "၄": 4,
@@ -679,17 +679,17 @@ class BurmeseCalendar(QValidator):
 class GregorianValidator(QValidator):
     def validate(self, input_, pos):
         if len(input_) == 0:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         try:
             val = int(input_)
         except ValueError:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
         if 0 > val or val > 2500:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
 
 
 class CalcButton(QPushButton):
@@ -712,7 +712,7 @@ class CalcButton(QPushButton):
     def onClicked(self):
         new_text = self.editor.text() + self.text()
         res, new_text, _ = self.editor.validator().validate(new_text, 0)
-        if res != QValidator.Invalid:
+        if res != QValidator.State.Invalid:
             self.editor.setText(new_text)
 
 

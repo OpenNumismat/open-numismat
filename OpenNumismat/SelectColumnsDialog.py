@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.Collection.ListPageParam import ColumnListParam
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
@@ -11,7 +11,7 @@ class SelectColumnsDialog(QDialog):
 
     def __init__(self, listParam, parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
 
         self.listParam = listParam
 
@@ -19,7 +19,7 @@ class SelectColumnsDialog(QDialog):
 
         self.listWidget = QListWidget(self)
         # TODO: Disable resizing
-        self.listWidget.setDragDropMode(QAbstractItemView.InternalMove)
+        self.listWidget.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
         self.listWidget.setDropIndicatorShown(True)
         self.listWidget.setWrapping(True)
 
@@ -31,9 +31,9 @@ class SelectColumnsDialog(QDialog):
                 continue
             item = QListWidgetItem(field.title)
             item.setData(SelectColumnsDialog.DataRole, param)
-            checked = Qt.Unchecked
+            checked = Qt.CheckState.Unchecked
             if param.enabled:
-                checked = Qt.Checked
+                checked = Qt.CheckState.Checked
             item.setCheckState(checked)
             self.listWidget.addItem(item)
 
@@ -44,14 +44,14 @@ class SelectColumnsDialog(QDialog):
             item = QListWidgetItem(field.title)
             item.setData(SelectColumnsDialog.DataRole,
                          ColumnListParam(field.id, False))
-            item.setCheckState(Qt.Unchecked)
+            item.setCheckState(Qt.CheckState.Unchecked)
             self.listWidget.addItem(item)
 
         # TODO: Add buttons SelectAll, ClearAll, EnabledToTop
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         buttonBox.accepted.connect(self.save)
         buttonBox.rejected.connect(self.reject)
 
@@ -69,7 +69,7 @@ class SelectColumnsDialog(QDialog):
         for i in range(self.listWidget.count()):
             item = self.listWidget.item(i)
             param = item.data(SelectColumnsDialog.DataRole)
-            param.enabled = (item.checkState() == Qt.Checked)
+            param.enabled = (item.checkState() == Qt.CheckState.Checked)
             self.listParam.columns.append(param)
 
         self.accept()

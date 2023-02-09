@@ -1,5 +1,5 @@
-from PyQt5.QtCore import QObject, QSettings
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import QObject, QSettings
+from PyQt6.QtGui import QAction
 
 import OpenNumismat
 from OpenNumismat.Collection.Collection import Collection

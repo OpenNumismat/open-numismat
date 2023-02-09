@@ -2,14 +2,14 @@ import operator
 import pickle
 import os.path
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QMargins, pyqtSignal, QSortFilterProxyModel
-from PyQt5.QtCore import QCollator, QLocale
-from PyQt5.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
-from PyQt5.QtCore import QRectF, QRect
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt6 import QtCore
+from PyQt6.QtCore import Qt, QMargins, pyqtSignal, QSortFilterProxyModel
+from PyQt6.QtCore import QCollator, QLocale
+from PyQt6.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
+from PyQt6.QtCore import QRectF, QRect
+from PyQt6.QtSql import QSqlQuery
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
@@ -68,19 +68,19 @@ class BaseTableView(QTableView):
                     "Default sort order changed.\n"
                     "Changing item position avalaible only on default "
                     "sort order. Clear sort order now?"),
-            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.StandardButton.Yes | QMessageBox.Cancel,
             QMessageBox.Cancel)
 
     def tryDragMode(self):
         if self.sortingChanged:
             result = self._sortChangedMessage()
-            if result == QMessageBox.Yes:
+            if result == QMessageBox.StandardButton.Yes:
                 self.clearSorting()
             else:
                 return False
 
-        self.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.setDragDropMode(QAbstractItemView.InternalMove)
+        self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        self.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
         self.setDragEnabled(True)
         self.setAcceptDrops(True)
         self.setDragDropOverwriteMode(False)
@@ -89,12 +89,12 @@ class BaseTableView(QTableView):
         return True
 
     def selectMode(self):
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         self.setDragEnabled(False)
         self.setAcceptDrops(False)
 
     def isDragMode(self):
-        return self.dragDropMode() == QAbstractItemView.InternalMove
+        return self.dragDropMode() == QAbstractItemView.DragDropMode.InternalMove
 
     def modelChanged(self):
         # Fetch all selected records
@@ -116,23 +116,23 @@ class BaseTableView(QTableView):
 
     def keyPressEvent(self, event):
         key = event.key()
-        if (key == Qt.Key_Return) or (key == Qt.Key_Enter):
+        if (key == Qt.Key.Key_Return) or (key == Qt.Key.Key_Enter):
             indexes = self.selectedCoins()
             if len(indexes) == 1:
                 self._edit(indexes[0])
             elif len(indexes) > 1:
                 self._multiEdit(indexes)
-        elif event.matches(QKeySequence.Copy):
+        elif event.matches(QKeySequence.StandardKey.Copy):
             self._copy(self.selectedCoins())
-        elif event.matches(QKeySequence.Paste):
+        elif event.matches(QKeySequence.StandardKey.Paste):
             self._paste()
-        elif event.matches(QKeySequence.Delete):
+        elif event.matches(QKeySequence.StandardKey.Delete):
             self._delete(self.selectedCoins())
-        elif event.matches(QKeySequence.MoveToStartOfDocument):
+        elif event.matches(QKeySequence.StandardKey.MoveToStartOfDocument):
             index = self.model().index(0, 0)
             self.scrollToIndex(index)
             self.clearSelection()
-        elif event.matches(QKeySequence.MoveToEndOfDocument):
+        elif event.matches(QKeySequence.StandardKey.MoveToEndOfDocument):
             index = self.model().index(self.model().rowCount() - 1, 0)
             self.scrollToIndex(index)
             self.clearSelection()
@@ -170,7 +170,7 @@ class BaseTableView(QTableView):
 
     def clearSorting(self):
         sort_column_id = self.model().fields.sort_id.id
-        self.sortByColumn(sort_column_id, Qt.AscendingOrder)
+        self.sortByColumn(sort_column_id, Qt.SortOrder.AscendingOrder)
         self.sortingChanged = False
 
     def saveSorting(self):
@@ -185,7 +185,7 @@ class BaseTableView(QTableView):
 
         if indexes:
             preview = PreviewDialog(self.model(), indexes, self)
-            preview.exec_()
+            preview.exec()
         else:
             QMessageBox.information(
                 self, QApplication.translate('BaseTableView', "Report preview"),
@@ -276,7 +276,7 @@ class BaseTableView(QTableView):
                         continue
 
                     field_index = model.index(i, model.fieldIndex(field.name))
-                    value = model.data(field_index, Qt.DisplayRole)
+                    value = model.data(field_index, Qt.ItemDataRole.DisplayRole)
 
                     if value is None:
                         parts.append('')
@@ -307,8 +307,8 @@ class BaseTableView(QTableView):
         record = self.model().record(index.row())
         record_id = record.value('id')
         dialog = EditCoinDialog(self.model(), record, self)
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             updatedRecord = dialog.record
             self.model().setRecord(index.row(), updatedRecord)
             self.model().submitAll()
@@ -322,18 +322,18 @@ class BaseTableView(QTableView):
 
         # Fill multi record for editing
         multiRecord = self.model().record(indexes[0].row())
-        usedFields = [Qt.Checked] * multiRecord.count()
+        usedFields = [Qt.CheckState.Checked] * multiRecord.count()
         for index in indexes:
             record = self.model().record(index.row())
             for i in range(multiRecord.count()):
                 value = record.value(i)
                 if multiRecord.value(i) != value or not value:
                     multiRecord.setNull(i)
-                    usedFields[i] = Qt.Unchecked
+                    usedFields[i] = Qt.CheckState.Unchecked
 
         dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             progressDlg = Gui.ProgressDialog(
                 QApplication.translate('BaseTableView', "Updating records"),
                 QApplication.translate('BaseTableView', "Cancel"),
@@ -354,7 +354,7 @@ class BaseTableView(QTableView):
 
                 record = self.model().record(index.row())
                 for i in range(multiRecord.count()):
-                    if usedFields[i] == Qt.Checked:
+                    if usedFields[i] == Qt.CheckState.Checked:
                         record.setValue(i, multiRecord.value(i))
                 self.model().setRecord(index.row(), record)
 
@@ -403,8 +403,8 @@ class BaseTableView(QTableView):
         dialog = EditCoinDialog(self.model(), record, self)
         if count > 1:
             dialog.setManyCoins()
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             self.model().appendRecord(record)
 
         return dialog.clickedButton
@@ -436,9 +436,9 @@ class BaseTableView(QTableView):
                     self.model().appendRecord(record)
                 else:
                     btn = self.__insertCoin(record, len(pickleData) - progress)
-                    if btn == QDialogButtonBox.Abort:
+                    if btn == QDialogButtonBox.StandardButton.Abort:
                         break
-                    if btn == QDialogButtonBox.SaveAll:
+                    if btn == QDialogButtonBox.StandardButton.SaveAll:
                         progressDlg = Gui.ProgressDialog(
                             QApplication.translate('BaseTableView', "Inserting records"),
                             QApplication.translate('BaseTableView', "Cancel"),
@@ -471,9 +471,9 @@ class BaseTableView(QTableView):
                     self.model().appendRecord(record)
                 else:
                     btn = self.__insertCoin(record, len(textData) - progress)
-                    if btn == QDialogButtonBox.Abort:
+                    if btn == QDialogButtonBox.StandardButton.Abort:
                         break
-                    if btn == QDialogButtonBox.SaveAll:
+                    if btn == QDialogButtonBox.StandardButton.SaveAll:
                         progressDlg = Gui.ProgressDialog(
                             QApplication.translate('BaseTableView', "Inserting records"),
                             QApplication.translate('BaseTableView', "Cancel"),
@@ -490,9 +490,9 @@ class BaseTableView(QTableView):
             self, QApplication.translate('BaseTableView', "Delete"),
             QApplication.translate('BaseTableView', "Are you sure to remove a %n coin(s)?",
                                    '', len(indexes)),
-            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.StandardButton.Yes | QMessageBox.Cancel,
             QMessageBox.Cancel)
-        if result == QMessageBox.Yes:
+        if result == QMessageBox.StandardButton.Yes:
             progressDlg = Gui.ProgressDialog(
                 QApplication.translate('BaseTableView', "Deleting records"),
                 QApplication.translate('BaseTableView', "Cancel"),
@@ -531,7 +531,7 @@ class ImageDelegate(QStyledItemDelegate):
             image.loadFromData(data)
             rect = option.rect
             scaledImage = image.scaled(rect.width(), rect.height(),
-                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
             pixmap = QPixmap.fromImage(scaledImage)
             # Set rect at center of item
             rect.translate((rect.width() - pixmap.width()) // 2,
@@ -574,7 +574,7 @@ class SortFilterProxyModel(QSortFilterProxyModel):
             return leftData < rightData
 
     def flags(self, index):
-        return super().flags(index) | Qt.ItemIsDragEnabled | Qt.ItemIsDropEnabled
+        return super().flags(index) | Qt.ItemFlag.ItemIsDragEnabled | Qt.ItemFlag.ItemIsDropEnabled
 
 
 class ListView(BaseTableView):
@@ -582,11 +582,11 @@ class ListView(BaseTableView):
     def __init__(self, listParam, parent=None):
         super().__init__(listParam, parent)
 
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.doubleClicked.connect(self.itemDClicked)
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenuEvent)
         self.setSortingEnabled(True)
         self.horizontalHeader().setSectionsMovable(True)
@@ -594,13 +594,13 @@ class ListView(BaseTableView):
                                                 self.sectionDoubleClicked)
         self.horizontalHeader().sectionResized.connect(self.columnResized)
         self.horizontalHeader().sectionMoved.connect(self.columnMoved)
-        self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
+        self.horizontalHeader().setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.horizontalHeader().customContextMenuRequested.connect(
                                                 self.headerContextMenuEvent)
         self.horizontalHeader().sortIndicatorChanged.connect(
                                                 self.sortChangedEvent)
         self.horizontalScrollBar().valueChanged.connect(self.scrolled)
-        self.horizontalHeader().setDefaultAlignment(Qt.AlignLeft)
+        self.horizontalHeader().setDefaultAlignment(Qt.AlignmentFlag.AlignLeft)
         # Make header font always bold
         font = self.horizontalHeader().font()
         font.setBold(True)
@@ -616,7 +616,7 @@ class ListView(BaseTableView):
 
     def sortChangedEvent(self, logicalIndex, order):
         sort_column_id = self.model().fields.sort_id.id
-        if logicalIndex == sort_column_id and order == Qt.AscendingOrder:
+        if logicalIndex == sort_column_id and order == Qt.SortOrder.AscendingOrder:
             self.sortingChanged = False
         else:
             self.sortingChanged = True
@@ -636,7 +636,7 @@ class ListView(BaseTableView):
         menu.addAction(self.tr("Hide"), self._hideColumn)
         menu.addSeparator()
         menu.addAction(self.tr("Adjust size"), self._adjustColumn)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec(self.mapToGlobal(pos))
         self.pos = None
 
     def _adjustColumn(self):
@@ -652,8 +652,8 @@ class ListView(BaseTableView):
 
     def selectColumns(self):
         dialog = SelectColumnsDialog(self.listParam, self)
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             self.listParam.save_lists()
 
             self._moveColumns()
@@ -745,8 +745,8 @@ class ListView(BaseTableView):
             idIndex = self.model().fieldIndex('id')
             startIndex = self.model().index(0, idIndex)
 
-            indexes = self.proxyModel.match(startIndex, Qt.UserRole,
-                                        self.selectedId, 1, Qt.MatchExactly)
+            indexes = self.proxyModel.match(startIndex, Qt.ItemDataRole.UserRole,
+                                        self.selectedId, 1, Qt.MatchFlag.MatchExactly)
             if indexes:
                 index = self.proxyModel.index(indexes[0].row(), 1)
                 self.selectRow(index.row())
@@ -813,9 +813,9 @@ class ListView(BaseTableView):
         menu.setDefaultAction(act)
 
         menu.addAction(QIcon(':/page_copy.png'),
-                       self.tr("Copy"), self._copy, QKeySequence.Copy)
+                       self.tr("Copy"), self._copy, QKeySequence.StandardKey.Copy)
         menu.addAction(QIcon(':/page_paste.png'),
-                       self.tr("Paste"), self._paste, QKeySequence.Paste)
+                       self.tr("Paste"), self._paste, QKeySequence.StandardKey.Paste)
 
         menu.addSeparator()
         act = menu.addAction(self.tr("Clone"), self._clone)
@@ -845,10 +845,10 @@ class ListView(BaseTableView):
 
         menu.addSeparator()
         style = QApplication.style()
-        icon = style.standardIcon(QStyle.SP_TrashIcon)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_TrashIcon)
         menu.addAction(icon, self.tr("Delete"),
-                       self._delete, QKeySequence.Delete)
-        menu.exec_(self.mapToGlobal(pos))
+                       self._delete, QKeySequence.StandardKey.Delete)
+        menu.exec(self.mapToGlobal(pos))
 
     def currentChanged(self, current, previous):
         if current.row() != previous.row():
@@ -879,7 +879,7 @@ class ListView(BaseTableView):
         column = index.column()
         column_name = model.columnName(column)
         column_type = model.columnType(column)
-        data = index.data(Qt.UserRole)
+        data = index.data(Qt.ItemDataRole.UserRole)
         if column_type == Type.Text or column_type in Type.ImageTypes:
             if data:
                 filter_ = DataFilter(column_name)
@@ -903,7 +903,7 @@ class ListView(BaseTableView):
     def dropEvent(self, e):
         if self.sortingChanged:
             result = self._sortChangedMessage()
-            if result == QMessageBox.Yes:
+            if result == QMessageBox.StandardButton.Yes:
                 self.clearSorting()
 
             return
@@ -921,7 +921,7 @@ class ListView(BaseTableView):
     def _moveUp(self):
         if self.sortingChanged:
             result = self._sortChangedMessage()
-            if result == QMessageBox.Yes:
+            if result == QMessageBox.StandardButton.Yes:
                 self.clearSorting()
 
             return
@@ -937,7 +937,7 @@ class ListView(BaseTableView):
     def _moveDown(self):
         if self.sortingChanged:
             result = self._sortChangedMessage()
-            if result == QMessageBox.Yes:
+            if result == QMessageBox.StandardButton.Yes:
                 self.clearSorting()
 
             return
@@ -1010,12 +1010,12 @@ class IconDelegate(QStyledItemDelegate):
             title = title_index.data()
 
             palette = QPalette()
-            if option.state & QStyle.State_HasFocus or option.state & QStyle.State_Selected:
-                color = palette.color(QPalette.HighlightedText)
-                back_color = palette.color(QPalette.Highlight)
+            if option.state & QStyle.StateFlag.State_HasFocus or option.state & QStyle.StateFlag.State_Selected:
+                color = palette.color(QPalette.ColorRole.HighlightedText)
+                back_color = palette.color(QPalette.ColorRole.Highlight)
             else:
-                color = palette.color(QPalette.Text)
-                back_color = palette.color(QPalette.Midlight)
+                color = palette.color(QPalette.ColorRole.Text)
+                back_color = palette.color(QPalette.ColorRole.Midlight)
 
             painter.setPen(back_color)
             rect = option.rect.marginsRemoved(QMargins(1, 1, 1, 1))
@@ -1030,14 +1030,14 @@ class IconDelegate(QStyledItemDelegate):
 
             painter.setPen(color)
             text_option = QTextOption()
-            text_option.setWrapMode(QTextOption.WrapAtWordBoundaryOrAnywhere)
+            text_option.setWrapMode(QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere)
             painter.drawText(QRectF(text_rect), title, text_option)
 
             image = QImage()
             image.loadFromData(image_data)
             if rect.width() - 1 < image.width():
                 scaledImage = image.scaledToWidth(rect.width() - 2,
-                                                  Qt.SmoothTransformation)
+                                                  Qt.TransformationMode.SmoothTransformation)
             else:
                 scaledImage = image
             pixmap = QPixmap.fromImage(scaledImage)
@@ -1062,12 +1062,12 @@ class CardDelegate(QStyledItemDelegate):
             title = title_index.data()
 
             palette = QPalette()
-            if option.state & QStyle.State_HasFocus or option.state & QStyle.State_Selected:
-                color = palette.color(QPalette.HighlightedText)
-                back_color = palette.color(QPalette.Highlight)
+            if option.state & QStyle.StateFlag.State_HasFocus or option.state & QStyle.StateFlag.State_Selected:
+                color = palette.color(QPalette.ColorRole.HighlightedText)
+                back_color = palette.color(QPalette.ColorRole.Highlight)
             else:
-                color = palette.color(QPalette.Text)
-                back_color = palette.color(QPalette.Midlight)
+                color = palette.color(QPalette.ColorRole.Text)
+                back_color = palette.color(QPalette.ColorRole.Midlight)
 
             painter.setPen(back_color)
             rect = option.rect.marginsRemoved(QMargins(1, 1, 1, 1))
@@ -1082,7 +1082,7 @@ class CardDelegate(QStyledItemDelegate):
 
             painter.setPen(color)
             text_option = QTextOption()
-            text_option.setWrapMode(QTextOption.WrapAtWordBoundaryOrAnywhere)
+            text_option.setWrapMode(QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere)
             painter.drawText(QRectF(text_rect), title, text_option)
 
             rect.setY(rect.y() + 30 + 4 + 1)
@@ -1097,7 +1097,7 @@ class CardDelegate(QStyledItemDelegate):
             image.loadFromData(obverse_data)
             if image.width() > maxWidth or image.height() > maxHeight:
                 scaledImage = image.scaled(maxWidth, maxHeight,
-                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
             else:
                 scaledImage = image
             pixmap = QPixmap.fromImage(scaledImage)
@@ -1114,7 +1114,7 @@ class CardDelegate(QStyledItemDelegate):
             image.loadFromData(reverse_data)
             if image.width() > maxWidth or image.height() > maxHeight:
                 scaledImage = image.scaled(maxWidth, maxHeight,
-                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
             else:
                 scaledImage = image
             pixmap = QPixmap.fromImage(scaledImage)
@@ -1144,9 +1144,9 @@ class CardModel(QAbstractProxyModel):
         count = self.model.rowCount()
         num = index.row() * self.columns + index.column()
         if num >= count:
-            return Qt.ItemIsEnabled
+            return Qt.ItemFlag.ItemIsEnabled
         else:
-            return Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsDropEnabled
+            return Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsDragEnabled | Qt.ItemFlag.ItemIsDropEnabled
 
     def index(self, row, column, parent=QModelIndex()):
         return self.createIndex(row, column)
@@ -1187,10 +1187,10 @@ class IconView(BaseTableView):
         super().__init__(listParam, parent)
 
         self.setShowGrid(False)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.doubleClicked.connect(self.itemDClicked)
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenuEvent)
 
         self.horizontalHeader().setVisible(False)
@@ -1234,8 +1234,8 @@ class IconView(BaseTableView):
             idIndex = self.model().fieldIndex('id')
             startIndex = self.model().index(0, idIndex)
 
-            indexes = self.proxyModel.model.match(startIndex, Qt.DisplayRole,
-                                        self.selectedId, 1, Qt.MatchExactly)
+            indexes = self.proxyModel.model.match(startIndex, Qt.ItemDataRole.DisplayRole,
+                                        self.selectedId, 1, Qt.MatchFlag.MatchExactly)
             if indexes:
                 self.scrollToIndex(indexes[0])
             else:
@@ -1246,7 +1246,7 @@ class IconView(BaseTableView):
     def scrollToIndex(self, index):
         realRowIndex = self.proxyModel.mapFromSource(index)
         self.selectionModel().setCurrentIndex(realRowIndex,
-                                              QItemSelectionModel.ClearAndSelect)
+                                              QItemSelectionModel.SelectionFlag.ClearAndSelect)
         self.scrollTo(realRowIndex)
 
     def clearAllFilters(self):
@@ -1269,10 +1269,10 @@ class IconView(BaseTableView):
 
         menu.addAction(QIcon(':/page_copy.png'),
                        QApplication.translate('IconView', "Copy"),
-                       self._copy, QKeySequence.Copy)
+                       self._copy, QKeySequence.StandardKey.Copy)
         menu.addAction(QIcon(':/page_paste.png'),
                        QApplication.translate('IconView', "Paste"),
-                       self._paste, QKeySequence.Paste)
+                       self._paste, QKeySequence.StandardKey.Paste)
 
         menu.addSeparator()
         act = menu.addAction(QApplication.translate('IconView', "Clone"),
@@ -1299,10 +1299,10 @@ class IconView(BaseTableView):
 
         menu.addSeparator()
         style = QApplication.style()
-        icon = style.standardIcon(QStyle.SP_TrashIcon)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_TrashIcon)
         menu.addAction(icon, QApplication.translate('IconView', "Delete"),
-                       self._delete, QKeySequence.Delete)
-        menu.exec_(self.mapToGlobal(pos))
+                       self._delete, QKeySequence.StandardKey.Delete)
+        menu.exec(self.mapToGlobal(pos))
 
     def currentChanged(self, current, previous):
         if (current.row() != previous.row()) or (current.column() != previous.column()):

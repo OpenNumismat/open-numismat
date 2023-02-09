@@ -3,11 +3,11 @@ import json
 import os
 import shutil
 
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QImage, QPainter
-from PyQt5.QtCore import Qt, pyqtSignal, QCryptographicHash, QLocale
-from PyQt5.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import QImage, QPainter, QAction
+from PyQt6.QtCore import Qt, pyqtSignal, QCryptographicHash, QLocale
+from PyQt6.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -53,13 +53,13 @@ class CollectionModel(QSqlTableModel):
         self.rowsInserted.connect(self.rowsInsertedEvent)
 
     def supportedDropActions(self):
-        return Qt.MoveAction
+        return Qt.DropAction.MoveAction
 
     def rowsInsertedEvent(self, parent, start, end):
         self.insertedRowIndex = self.index(end, 0)
 
-    def data(self, index, role=Qt.DisplayRole):
-        if role == Qt.DisplayRole:
+    def data(self, index, role=Qt.ItemDataRole.DisplayRole):
+        if role == Qt.ItemDataRole.DisplayRole:
             # Localize values
             data = super().data(index, role)
             field = self.fields.fields[index.column()]
@@ -101,12 +101,12 @@ class CollectionModel(QSqlTableModel):
                     else:
                         return None
                 elif field.type == Type.Date:
-                    date = QtCore.QDate.fromString(data, Qt.ISODate)
+                    date = QtCore.QDate.fromString(data, Qt.DateFormat.ISODate)
                     text = date.toString(Qt.SystemLocaleShortDate)
                 elif field.type == Type.DateTime:
-                    date = QtCore.QDateTime.fromString(data, Qt.ISODate)
+                    date = QtCore.QDateTime.fromString(data, Qt.DateFormat.ISODate)
                     # Timestamp in DB stored in UTC
-                    date.setTimeSpec(Qt.UTC)
+                    date.setTimeSpec(Qt.TimeSpec.UTC)
                     date = date.toLocalTime()
                     text = date.toString(Qt.SystemLocaleShortDate)
                 else:
@@ -114,16 +114,16 @@ class CollectionModel(QSqlTableModel):
             except (ValueError, TypeError):
                 return data
             return text
-        elif role == Qt.UserRole:
+        elif role == Qt.ItemDataRole.UserRole:
             field = self.fields.fields[index.column()]
             if field.type == Type.Denomination:
-                data = super().data(index, Qt.DisplayRole)
+                data = super().data(index, Qt.ItemDataRole.DisplayRole)
                 data, _ = numberWithFraction(data, self.settings['convert_fraction'])
                 return data
-            return super().data(index, Qt.DisplayRole)
-        elif role == Qt.DecorationRole:
+            return super().data(index, Qt.ItemDataRole.DisplayRole)
+        elif role == Qt.ItemDataRole.DecorationRole:
             field = self.fields.fields[index.column()]
-            data = super().data(index, Qt.DisplayRole)
+            data = super().data(index, Qt.ItemDataRole.DisplayRole)
             if data:
                 if field.name == 'status':
                     icon = Gui.statusIcon(data)
@@ -131,15 +131,15 @@ class CollectionModel(QSqlTableModel):
                     icon = self.reference.getIcon(field.name, data)
 
                 return icon
-        elif role == Qt.TextAlignmentRole:
+        elif role == Qt.ItemDataRole.TextAlignmentRole:
             field = self.fields.fields[index.column()]
             if field.type == Type.BigInt:
-                return Qt.AlignRight | Qt.AlignVCenter
+                return Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
 
         return super().data(index, role)
 
     def dataDisplayRole(self, index):
-        return super().data(index, Qt.DisplayRole)
+        return super().data(index, Qt.ItemDataRole.DisplayRole)
 
     def addCoin(self, record, parent=None):
         record.setNull('id')  # remove ID value from record
@@ -147,8 +147,8 @@ class CollectionModel(QSqlTableModel):
             record.setValue('status', self.settings['default_status'])
 
         dialog = EditCoinDialog(self, record, parent)
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             self.appendRecord(record)
 
     def appendRecord(self, record):
@@ -181,7 +181,7 @@ class CollectionModel(QSqlTableModel):
                 query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
                 query.addBindValue(record.value(field + '_title'))
                 query.addBindValue(value)
-                query.exec_()
+                query.exec()
 
                 img_id = query.lastInsertId()
             else:
@@ -196,7 +196,7 @@ class CollectionModel(QSqlTableModel):
             query = QSqlQuery(self.database())
             query.prepare("INSERT INTO images (image) VALUES (?)")
             query.addBindValue(value)
-            query.exec_()
+            query.exec()
 
             img_id = query.lastInsertId()
         else:
@@ -221,7 +221,7 @@ class CollectionModel(QSqlTableModel):
                     query = QSqlQuery(self.database())
                     query.prepare("DELETE FROM photos WHERE id=?")
                     query.addBindValue(img_id)
-                    query.exec_()
+                    query.exec()
 
                     img_id = None
             else:
@@ -231,13 +231,13 @@ class CollectionModel(QSqlTableModel):
                     query.addBindValue(record.value(field + '_title'))
                     query.addBindValue(record.value(field))
                     query.addBindValue(img_id)
-                    query.exec_()
+                    query.exec()
                 else:
                     query = QSqlQuery(self.database())
                     query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
                     query.addBindValue(record.value(field + '_title'))
                     query.addBindValue(record.value(field))
-                    query.exec_()
+                    query.exec()
 
                     img_id = query.lastInsertId()
 
@@ -255,7 +255,7 @@ class CollectionModel(QSqlTableModel):
                 query = QSqlQuery(self.database())
                 query.prepare("DELETE FROM images WHERE id=?")
                 query.addBindValue(img_id)
-                query.exec_()
+                query.exec()
 
                 img_id = None
         else:
@@ -264,12 +264,12 @@ class CollectionModel(QSqlTableModel):
                 query.prepare("UPDATE images SET image=? WHERE id=?")
                 query.addBindValue(record.value('image'))
                 query.addBindValue(img_id)
-                query.exec_()
+                query.exec()
             else:
                 query = QSqlQuery(self.database())
                 query.prepare("INSERT INTO images (image) VALUES (?)")
                 query.addBindValue(record.value('image'))
-                query.exec_()
+                query.exec()
 
                 img_id = query.lastInsertId()
         self.database().commit()
@@ -328,14 +328,14 @@ class CollectionModel(QSqlTableModel):
             query.prepare("DELETE FROM photos WHERE id IN " + ids_sql)
             for id_ in ids:
                 query.addBindValue(id_)
-            query.exec_()
+            query.exec()
 
         value = record.value('image')
         if value:
             query = QSqlQuery(self.database())
             query.prepare("DELETE FROM images WHERE id=?")
             query.addBindValue(value)
-            query.exec_()
+            query.exec()
 
         return super().removeRow(row)
 
@@ -354,7 +354,7 @@ class CollectionModel(QSqlTableModel):
                 elif isinstance(image, QImage):
                     ba = QtCore.QByteArray()
                     buffer = QtCore.QBuffer(ba)
-                    buffer.open(QtCore.QIODevice.WriteOnly)
+                    buffer.open(QtCore.QIODeviceBase.OpenModeFlag.WriteOnly)
 
                     # Resize big images for storing in DB
                     sideLen = self.settings['ImageSideLen']
@@ -363,7 +363,7 @@ class CollectionModel(QSqlTableModel):
                         maxHeight = sideLen
                         if image.width() > maxWidth or image.height() > maxHeight:
                             image = image.scaled(maxWidth, maxHeight,
-                                    Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                    Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
                     image.save(buffer, self.IMAGE_FORMAT)
                     record.setValue(field.name, ba)
@@ -393,15 +393,15 @@ class CollectionModel(QSqlTableModel):
             if not record.isNull('obverseimg'):
                 obverseImage.loadFromData(record.value('obverseimg'))
                 obverseImage = obverseImage.scaledToHeight(height,
-                                                    Qt.SmoothTransformation)
+                                                    Qt.TransformationMode.SmoothTransformation)
             if not record.isNull('reverseimg') and reverseImage.isNull():
                 reverseImage.loadFromData(record.value('reverseimg'))
                 reverseImage = reverseImage.scaledToHeight(height,
-                                                    Qt.SmoothTransformation)
+                                                    Qt.TransformationMode.SmoothTransformation)
 
             image = QImage(obverseImage.width() + reverseImage.width(),
-                                 height, QImage.Format_RGB32)
-            image.fill(Qt.white)
+                                 height, QImage.Format.Format_RGB32)
+            image.fill(Qt.GlobalColor.white)
 
             paint = QPainter(image)
             if not record.isNull('obverseimg'):
@@ -414,7 +414,7 @@ class CollectionModel(QSqlTableModel):
 
             ba = QtCore.QByteArray()
             buffer = QtCore.QBuffer(ba)
-            buffer.open(QtCore.QIODevice.WriteOnly)
+            buffer.open(QtCore.QIODeviceBase.OpenModeFlag.WriteOnly)
 
             # Store as PNG for better view
             image.save(buffer, 'png')
@@ -425,7 +425,7 @@ class CollectionModel(QSqlTableModel):
             self.proxy.setDynamicSortFilter(False)
 
             sort_column_id = self.fields.sort_id.id
-            self.sort(sort_column_id, Qt.AscendingOrder)
+            self.sort(sort_column_id, Qt.SortOrder.AscendingOrder)
 
         row_rang = []
         if row2 == -1:
@@ -450,11 +450,11 @@ class CollectionModel(QSqlTableModel):
         self.submitAll()
 
         if self.proxy:
-            self.sort(-1, Qt.AscendingOrder)
+            self.sort(-1, Qt.SortOrder.AscendingOrder)
 
     @waitCursorDecorator
     def setRowsPos(self, indexes):
-        sorted_ids = sorted([index.data(Qt.UserRole) for index in indexes])
+        sorted_ids = sorted([index.data(Qt.ItemDataRole.UserRole) for index in indexes])
         for index, sort_id in zip(indexes, sorted_ids):
             record = super().record(index.row())
             record.setValue('sort_id', sort_id)
@@ -489,7 +489,7 @@ class CollectionModel(QSqlTableModel):
                 query.prepare("UPDATE images SET image=? WHERE id=?")
                 query.addBindValue(record.value('image'))
                 query.addBindValue(img_id)
-                query.exec_()
+                query.exec()
 
         progressDlg.setLabelText(self.tr("Saving..."))
 
@@ -536,7 +536,7 @@ class CollectionModel(QSqlTableModel):
         query = QSqlQuery(self.database())
         query.prepare("SELECT image FROM photos WHERE id=?")
         query.addBindValue(img_id)
-        query.exec_()
+        query.exec()
         if query.first():
             return query.record().value(0)
 
@@ -544,7 +544,7 @@ class CollectionModel(QSqlTableModel):
         query = QSqlQuery(self.database())
         query.prepare("SELECT image FROM images WHERE id=?")
         query.addBindValue(img_id)
-        query.exec_()
+        query.exec()
         if query.first():
             return query.record().value(0)
 
@@ -552,7 +552,7 @@ class CollectionModel(QSqlTableModel):
         query = QSqlQuery(self.database())
         query.prepare("SELECT title FROM photos WHERE id=?")
         query.addBindValue(img_id)
-        query.exec_()
+        query.exec()
         if query.first():
             return query.record().value(0)
 
@@ -608,7 +608,7 @@ class CollectionModel(QSqlTableModel):
         query.addBindValue(record.value('id'))
         for field in fields:
             query.addBindValue(record.value(field))
-        query.exec_()
+        query.exec()
         if query.first():
             return True
 
@@ -684,7 +684,7 @@ class CollectionSettings(BaseSettings):
                           " VALUES (?, ?)")
             query.addBindValue(key)
             query.addBindValue(str(value))
-            query.exec_()
+            query.exec()
 
         self.db.commit()
 
@@ -703,7 +703,7 @@ class CollectionSettings(BaseSettings):
                           " VALUES (?, ?)")
             query.addBindValue(key)
             query.addBindValue(str(value))
-            query.exec_()
+            query.exec()
 
         db.commit()
 
@@ -760,7 +760,7 @@ class Collection(QtCore.QObject):
             dialog = PasswordDialog(
                 self.settings['Password'], self.getCollectionName(),
                 self.parent())
-            result = dialog.exec_()
+            result = dialog.exec()
             if result == QDialog.Rejected:
                 return False
 
@@ -872,11 +872,11 @@ class Collection(QtCore.QObject):
     def createModel(self):
         model = CollectionModel(self)
         model.title = self.getCollectionName()
-        model.setEditStrategy(QSqlTableModel.OnManualSubmit)
+        model.setEditStrategy(QSqlTableModel.EditStrategy.OnManualSubmit)
         model.setTable('coins')
         model.select()
         for field in self.fields:
-            model.setHeaderData(field.id, QtCore.Qt.Horizontal, field.title)
+            model.setHeaderData(field.id, QtCore.Qt.Orientation.Horizontal, field.title)
 
         return model
 
@@ -900,7 +900,7 @@ class Collection(QtCore.QObject):
                     sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL AND %s=?" % (columnName, columnName, columnName, refSection.parent_name)
                     query.prepare(sql)
                     query.addBindValue(data)
-                    query.exec_()
+                    query.exec()
                     refSection.fillFromQuery(parentId, query)
                     refSection.reload()
             else:
@@ -913,15 +913,15 @@ class Collection(QtCore.QObject):
 
     def editReference(self):
         dialog = AllReferenceDialog(self.reference, self.parent())
-        dialog.exec_()
+        dialog.exec()
 
     def attachReference(self):
         result = QMessageBox.information(
             self.parent(), self.tr("Attach"),
             self.tr("Attach current reference to a collection file?"),
-            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.StandardButton.Yes | QMessageBox.Cancel,
             QMessageBox.Cancel)
-        if result == QMessageBox.Yes:
+        if result == QMessageBox.StandardButton.Yes:
             progressDlg = Gui.ProgressDialog(
                 self.tr("Attaching reference"), None,
                 len(self.reference.sections), self.parent())
@@ -929,7 +929,7 @@ class Collection(QtCore.QObject):
             query = QSqlQuery(self.db)
             query.prepare("ATTACH ? AS ref")
             query.addBindValue(self.reference.fileName)
-            res = query.exec_()
+            res = query.exec()
             if not res:
                 progressDlg.reset()
                 QMessageBox.critical(self.parent(),
@@ -949,7 +949,7 @@ class Collection(QtCore.QObject):
                     query = QSqlQuery(self.db)
                     query.prepare("INSERT INTO %s SELECT * FROM ref.%s" %
                                   (section.table_name, section.table_name))
-                    res = query.exec_()
+                    res = query.exec()
 
             if res:
                 reference.db.commit()
@@ -989,7 +989,7 @@ class Collection(QtCore.QObject):
             query = QSqlQuery(reference.db)
             query.prepare("ATTACH ? AS ref")
             query.addBindValue(self.fileName)
-            res = query.exec_()
+            res = query.exec()
             if not res:
                 progressDlg.reset()
                 QMessageBox.critical(self.parent(),
@@ -1006,7 +1006,7 @@ class Collection(QtCore.QObject):
                 if res:
                     query = QSqlQuery(reference.db)
                     query.prepare("INSERT INTO %s SELECT * FROM ref.%s" % (section.table_name, section.table_name))
-                    res = query.exec_()
+                    res = query.exec()
 
             if res:
                 reference.db.commit()
@@ -1028,17 +1028,17 @@ class Collection(QtCore.QObject):
                     if res:
                         query = QSqlQuery(self.db)
                         query.prepare("DROP TABLE %s" % table_name)
-                        res = query.exec_()
+                        res = query.exec()
 
             if res:
                 query = QSqlQuery(self.db)
                 query.prepare("DROP TABLE sections")
-                res = query.exec_()
+                res = query.exec()
 
             if res:
                 query = QSqlQuery(self.db)
                 query.prepare("DROP TABLE ref")
-                res = query.exec_()
+                res = query.exec()
 
             if res:
                 self.db.commit()
@@ -1117,7 +1117,7 @@ class Collection(QtCore.QObject):
         settings = Settings()
         autobackup_depth = settings['autobackup_depth']
         filter_ = ('%s_????????????.db' % self.getCollectionName(),)
-        files = QtCore.QDirIterator(settings['backup'], filter_, QtCore.QDir.Files)
+        files = QtCore.QDirIterator(settings['backup'], filter_, QtCore.QDir.Filter.Files)
         while files.hasNext():
             file = files.next()
             file_info = QtCore.QFileInfo(file)
@@ -1129,7 +1129,7 @@ class Collection(QtCore.QObject):
                 query.prepare("SELECT count(*) FROM coins WHERE updatedat > ?")
                 date = "20%s-%s-%sT23:59:59" % (file_date[0:2], file_date[2:4], file_date[4:6])
                 query.addBindValue(date)
-                query.exec_()
+                query.exec()
                 query.first()
                 if query.record().value(0) < autobackup_depth:
                     return False
@@ -1147,7 +1147,8 @@ class Collection(QtCore.QObject):
 
     def exportToMobile(self, params):
         IMAGE_FORMAT = 'jpg'
-        SKIPPED_FIELDS = ('signatureimg', 'varietyimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4', 'photo5', 'photo6',
+        SKIPPED_FIELDS = ('grader', 'seat', 'native_year', 'signatureimg',
+            'varietyimg', 'edgeimg', 'photo1', 'photo2', 'photo3', 'photo4', 'photo5', 'photo6',
             'obversedesigner', 'reversedesigner', 'catalognum2', 'catalognum3', 'catalognum4',
             'saledate', 'saleprice', 'totalsaleprice', 'buyer', 'saleplace', 'saleinfo',
             'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace', 'payinfo',
@@ -1180,7 +1181,7 @@ class Collection(QtCore.QObject):
                     VALUES (?, ?)""")
             query.addBindValue(key)
             query.addBindValue(str(value))
-            query.exec_()
+            query.exec()
 
         sql = """CREATE TABLE updates (
             title CHAR NOT NULL UNIQUE,
@@ -1212,7 +1213,7 @@ class Collection(QtCore.QObject):
             model.fetchMore()
 
         dest_model = QSqlTableModel(self.parent(), db)
-        dest_model.setEditStrategy(QSqlTableModel.OnManualSubmit)
+        dest_model.setEditStrategy(QSqlTableModel.EditStrategy.OnManualSubmit)
         dest_model.setTable('coins')
         dest_model.select()
 
@@ -1268,12 +1269,12 @@ class Collection(QtCore.QObject):
                 if is_obverse_present:
                     ba = QtCore.QByteArray()
                     buffer = QtCore.QBuffer(ba)
-                    buffer.open(QtCore.QIODevice.WriteOnly)
+                    buffer.open(QtCore.QIODeviceBase.OpenModeFlag.WriteOnly)
 
                     obverseImage.loadFromData(coin.value('obverseimg'))
                     if not obverseImage.isNull() and not params['fullimage'] and obverseImage.height() > maxHeight:
                         scaledImage = obverseImage.scaled(maxHeight, maxHeight,
-                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
                         scaledImage.save(buffer, IMAGE_FORMAT, 50)
                         save_data = ba
                     else:
@@ -1287,22 +1288,22 @@ class Collection(QtCore.QObject):
                     query.prepare("""INSERT INTO photos (image)
                             VALUES (?)""")
                     query.addBindValue(save_data)
-                    query.exec_()
+                    query.exec()
                     img_id = query.lastInsertId()
                     dest_record.setValue('obverseimg', img_id)
                 if not obverseImage.isNull():
                     obverseImage = obverseImage.scaledToHeight(height,
-                                                            Qt.SmoothTransformation)
+                                                            Qt.TransformationMode.SmoothTransformation)
 
                 if is_reverse_present:
                     ba = QtCore.QByteArray()
                     buffer = QtCore.QBuffer(ba)
-                    buffer.open(QtCore.QIODevice.WriteOnly)
+                    buffer.open(QtCore.QIODeviceBase.OpenModeFlag.WriteOnly)
 
                     reverseImage.loadFromData(coin.value('reverseimg'))
                     if not reverseImage.isNull() and not params['fullimage'] and reverseImage.height() > maxHeight:
                         scaledImage = reverseImage.scaled(maxHeight, maxHeight,
-                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
                         scaledImage.save(buffer, IMAGE_FORMAT, 50)
                         save_data = ba
                     else:
@@ -1316,12 +1317,12 @@ class Collection(QtCore.QObject):
                     query.prepare("""INSERT INTO photos (image)
                             VALUES (?)""")
                     query.addBindValue(save_data)
-                    query.exec_()
+                    query.exec()
                     img_id = query.lastInsertId()
                     dest_record.setValue('reverseimg', img_id)
                 if not reverseImage.isNull():
                     reverseImage = reverseImage.scaledToHeight(height,
-                                                        Qt.SmoothTransformation)
+                                                        Qt.TransformationMode.SmoothTransformation)
 
                 if not is_obverse_enabled:
                     obverseImage = QImage()
@@ -1329,8 +1330,8 @@ class Collection(QtCore.QObject):
                     reverseImage = QImage()
 
                 image = QImage(obverseImage.width() + reverseImage.width(),
-                                     height, QImage.Format_RGB32)
-                image.fill(Qt.white)
+                                     height, QImage.Format.Format_RGB32)
+                image.fill(Qt.GlobalColor.white)
 
                 paint = QPainter(image)
                 if is_obverse_present and is_obverse_enabled:
@@ -1343,7 +1344,7 @@ class Collection(QtCore.QObject):
 
                 ba = QtCore.QByteArray()
                 buffer = QtCore.QBuffer(ba)
-                buffer.open(QtCore.QIODevice.WriteOnly)
+                buffer.open(QtCore.QIODeviceBase.OpenModeFlag.WriteOnly)
 
                 # Store as PNG for better view
                 image.save(buffer, 'png')
@@ -1399,7 +1400,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             model = self.model()
     
             sort_column_id = model.fields.sort_id.id
-            model.sort(sort_column_id, Qt.AscendingOrder)
+            model.sort(sort_column_id, Qt.SortOrder.AscendingOrder)
         
             while model.canFetchMore():
                 model.fetchMore()
@@ -1465,7 +1466,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         query = QSqlQuery(self.db)
         query.prepare("ATTACH ? AS src")
         query.addBindValue(fileName)
-        res = query.exec_()
+        res = query.exec()
         if not res:
             QMessageBox.critical(self.parent(),
                                  self.tr("Synchronizing"),
@@ -1500,7 +1501,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         if pas != cryptPassword():
             dialog = PasswordDialog(
                 pas, self.fileNameToCollectionName(fileName), self.parent())
-            result = dialog.exec_()
+            result = dialog.exec()
             if result == QDialog.Rejected:
                 return
 
@@ -1512,7 +1513,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             self.tr("Synchronizing"), self.tr("Cancel"), count, self.parent())
 
         fields_query = QSqlQuery("PRAGMA table_info(coins)", self.db)
-        fields_query.exec_()
+        fields_query.exec()
         fields = []
         while fields_query.next():
             fields.append(fields_query.record().value(1))
@@ -1532,7 +1533,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
             sql = "SELECT 1 FROM coins WHERE createdat=? LIMIT 1"
             select_query = QSqlQuery(sql, self.db)
             select_query.addBindValue(query.record().value(0))
-            select_query.exec_()
+            select_query.exec()
             if select_query.first():
                 dst_fields = ImageFields + \
                              ('id', 'image', 'sort_id')
@@ -1545,7 +1546,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                           src_coins.updatedat>coins.updatedat" % (sql_src_fields, sql_dst_fields)
                 sel_query = QSqlQuery(sql, self.db)
                 sel_query.addBindValue(query.record().value(0))
-                sel_query.exec_()
+                sel_query.exec()
                 if sel_query.first():
                     sql = "UPDATE coins SET %s WHERE id=?" % ','.join(['%s=?' % f for f in fields])
                     up_query = QSqlQuery(sql, self.db)
@@ -1558,18 +1559,18 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                                 img_query = QSqlQuery(sql, self.db)
                                 img_query.addBindValue(img_id)
                                 img_query.addBindValue(old_img_id)
-                                img_query.exec_()
+                                img_query.exec()
                             elif img_id:
                                 sql = "INSERT INTO images (image) SELECT image FROM src.images WHERE id=?"
                                 img_query = QSqlQuery(sql, self.db)
                                 img_query.addBindValue(img_id)
-                                img_query.exec_()
+                                img_query.exec()
                                 img_id = img_query.lastInsertId()
                             elif old_img_id:
                                 sql = "DELETE FROM images WHERE id=?"
                                 img_query = QSqlQuery(sql, self.db)
                                 img_query.addBindValue(old_img_id)
-                                img_query.exec_()
+                                img_query.exec()
                                 img_id = None
 
                             up_query.addBindValue(img_id)
@@ -1582,19 +1583,19 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                                 img_query.addBindValue(img_id)
                                 img_query.addBindValue(img_id)
                                 img_query.addBindValue(old_img_id)
-                                img_query.exec_()
+                                img_query.exec()
                                 img_id = old_img_id
                             elif img_id:
                                 sql = "INSERT INTO photos (title, image) SELECT title, image FROM src.photos WHERE id=?"
                                 img_query = QSqlQuery(sql, self.db)
                                 img_query.addBindValue(img_id)
-                                img_query.exec_()
+                                img_query.exec()
                                 img_id = img_query.lastInsertId()
                             elif old_img_id:
                                 sql = "DELETE FROM photos WHERE id=?"
                                 img_query = QSqlQuery(sql, self.db)
                                 img_query.addBindValue(old_img_id)
-                                img_query.exec_()
+                                img_query.exec()
                                 img_id = None
 
                             up_query.addBindValue(img_id)
@@ -1604,13 +1605,13 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                             up_query.addBindValue(sel_query.record().value(field))
                     up_query.addBindValue(sel_query.record().value('coins_id'))
 
-                    up_query.exec_()
+                    up_query.exec()
                     updated_count += 1
             else:
                 sql = "SELECT %s FROM src.coins WHERE createdat=?" % sql_fields
                 sel_query = QSqlQuery(sql, self.db)
                 sel_query.addBindValue(query.record().value(0))
-                sel_query.exec_()
+                sel_query.exec()
                 while sel_query.next():
                     sql = "INSERT INTO coins (%s) VALUES (%s)" % (sql_fields, ','.join(['?'] * len(fields)))
                     ins_query = QSqlQuery(sql, self.db)
@@ -1621,7 +1622,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                                 sql = "INSERT INTO images (image) SELECT image FROM src.images WHERE id=?"
                                 img_query = QSqlQuery(sql, self.db)
                                 img_query.addBindValue(old_img_id)
-                                img_query.exec_()
+                                img_query.exec()
 
                                 img_id = img_query.lastInsertId()
                             else:
@@ -1633,7 +1634,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                                 sql = "INSERT INTO photos (title, image) SELECT title, image FROM src.photos WHERE id=?"
                                 img_query = QSqlQuery(sql, self.db)
                                 img_query.addBindValue(old_img_id)
-                                img_query.exec_()
+                                img_query.exec()
 
                                 img_id = img_query.lastInsertId()
                             else:
@@ -1649,13 +1650,13 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                         else:
                             ins_query.addBindValue(sel_query.record().value(field))
 
-                    ins_query.exec_()
+                    ins_query.exec()
                     inserted_count += 1
 
             self.db.commit()
 
         query = QSqlQuery("DETACH src", self.db)
-        query.exec_()
+        query.exec()
 
         progressDlg.reset()
 

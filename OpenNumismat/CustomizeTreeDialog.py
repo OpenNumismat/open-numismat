@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
@@ -13,7 +13,7 @@ class TreeWidget(QTreeWidget):
         self.model().rowsRemoved.connect(self.rowsRemoved)
 
     def updateFlags(self):
-        defaultFlags = Qt.ItemIsEnabled | Qt.ItemIsSelectable
+        defaultFlags = Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable
 
         self.invisibleRootItem().setFlags(defaultFlags)
 
@@ -28,8 +28,8 @@ class TreeWidget(QTreeWidget):
             while topItem.childCount():
                 topItem.setFlags(defaultFlags)
                 topItem = topItem.child(0)
-            topItem.setFlags(defaultFlags | Qt.ItemIsDropEnabled |
-                             Qt.ItemIsDragEnabled)
+            topItem.setFlags(defaultFlags | Qt.ItemFlag.ItemIsDropEnabled |
+                             Qt.ItemFlag.ItemIsDragEnabled)
 
     def expandAll(self):
         QTreeWidget.expandAll(self)
@@ -47,20 +47,20 @@ class TreeWidget(QTreeWidget):
 
     def dropEvent(self, event):
         self.event = event
-        if event.dropAction() & Qt.CopyAction:
-            event.setDropAction(Qt.MoveAction)
+        if event.dropAction() & Qt.DropAction.CopyAction:
+            event.setDropAction(Qt.DropAction.MoveAction)
         QTreeWidget.dropEvent(self, event)
 
     def dropMimeData(self, parent, index, data, action):
         res = QTreeWidget.dropMimeData(self, parent, index, data, action)
         if res:
-            if (self.event.proposedAction() & Qt.CopyAction) and parent.parent():
+            if (self.event.proposedAction() & Qt.DropAction.CopyAction) and parent.parent():
                 item = parent.takeChild(0)
                 text = ' + '.join([parent.text(0), item.text(0)])
                 parent.setText(0, text)
-                data = parent.data(0, Qt.UserRole)
-                data.extend(item.data(0, Qt.UserRole))
-                parent.setData(0, Qt.UserRole, data)
+                data = parent.data(0, Qt.ItemDataRole.UserRole)
+                data.extend(item.data(0, Qt.ItemDataRole.UserRole))
+                parent.setData(0, Qt.ItemDataRole.UserRole, data)
 
             self.updateFlags()
             self.expandAll()
@@ -78,20 +78,20 @@ class ListWidget(QListWidget):
         self.model().dataChanged.disconnect(self.__dataChanged)
         if topLeft.row() == bottomRight.row():
             item = self.item(topLeft.row())
-            data = item.data(Qt.UserRole)
+            data = item.data(Qt.ItemDataRole.UserRole)
             if data:
                 field = data[0]
                 item.setText(field.title)
-                item.setData(Qt.UserRole, [field, ])
+                item.setData(Qt.ItemDataRole.UserRole, [field, ])
                 for i, field in enumerate(data[1:]):
                     item = QListWidgetItem(field.title)
-                    item.setData(Qt.UserRole, [field, ])
+                    item.setData(Qt.ItemDataRole.UserRole, [field, ])
                     self.insertItem(topLeft.row() + i + 1, item)
         self.model().dataChanged.connect(self.__dataChanged)
 
     def dragMoveEvent(self, event):
-        if event.dropAction() & Qt.CopyAction:
-            event.setDropAction(Qt.MoveAction)
+        if event.dropAction() & Qt.DropAction.CopyAction:
+            event.setDropAction(Qt.DropAction.MoveAction)
 
         if event.source() == self:
             event.ignore()
@@ -104,27 +104,27 @@ class ListWidget(QListWidget):
 class CustomizeTreeDialog(QDialog):
     def __init__(self, model, treeParam, parent=None):
         QDialog.__init__(self, parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
 
         self.setWindowTitle(self.tr("Customize tree"))
 
         self.treeWidget = TreeWidget(self)
-        self.treeWidget.setDragDropMode(QAbstractItemView.DragDrop)
+        self.treeWidget.setDragDropMode(QAbstractItemView.DragDropMode.DragDrop)
         self.treeWidget.setDropIndicatorShown(True)
-        self.treeWidget.setDefaultDropAction(Qt.MoveAction)
+        self.treeWidget.setDefaultDropAction(Qt.DropAction.MoveAction)
 
         self.listWidget = ListWidget(self)
-        self.listWidget.setDragDropMode(QAbstractItemView.DragDrop)
+        self.listWidget.setDragDropMode(QAbstractItemView.DragDropMode.DragDrop)
         self.listWidget.setDropIndicatorShown(True)
-        self.listWidget.setDefaultDropAction(Qt.MoveAction)
+        self.listWidget.setDefaultDropAction(Qt.DropAction.MoveAction)
 
         splitter = QSplitter(self)
         splitter.addWidget(self.treeWidget)
         splitter.addWidget(self.listWidget)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         clearButton = QPushButton(self.tr("Clear"))
         buttonBox.addButton(clearButton, QDialogButtonBox.ResetRole)
         buttonBox.accepted.connect(self.save)
@@ -150,7 +150,7 @@ class CustomizeTreeDialog(QDialog):
             data = [field for field in param]
 
             item = QTreeWidgetItem([title, ])
-            item.setData(0, Qt.UserRole, data)
+            item.setData(0, Qt.ItemDataRole.UserRole, data)
             topItem.addChild(item)
             topItem = item
 
@@ -169,7 +169,7 @@ class CustomizeTreeDialog(QDialog):
                 self.availableFields.append(field)
                 if field.name not in self.treeParam.usedFieldNames():
                     item = QListWidgetItem(field.title)
-                    item.setData(Qt.UserRole, [field, ])
+                    item.setData(Qt.ItemDataRole.UserRole, [field, ])
                     self.listWidget.addItem(item)
 
     def save(self):
@@ -178,7 +178,7 @@ class CustomizeTreeDialog(QDialog):
         rootItem = self.treeWidget.topLevelItem(0)
         topItem = rootItem.child(0)
         while topItem:
-            self.treeParam.append(topItem.data(0, Qt.UserRole))
+            self.treeParam.append(topItem.data(0, Qt.ItemDataRole.UserRole))
             topItem = topItem.child(0)
 
         self.accept()
@@ -192,5 +192,5 @@ class CustomizeTreeDialog(QDialog):
         self.listWidget.clear()
         for field in self.availableFields:
             item = QListWidgetItem(field.title)
-            item.setData(Qt.UserRole, [field, ])
+            item.setData(Qt.ItemDataRole.UserRole, [field, ])
             self.listWidget.addItem(item)

@@ -2,9 +2,9 @@ import json
 import re
 import urllib.request
 
-from PyQt5.QtCore import Qt, QUrl, QMargins
-from PyQt5.QtGui import QDesktopServices, QImage
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QUrl, QMargins
+from PyQt6.QtGui import QDesktopServices, QImage
+from PyQt6.QtWidgets import *
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
@@ -47,7 +47,7 @@ class NumistaAuthentication(QDialog):
 
     def __init__(self, parent):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
 
         if Settings()['locale'] in ('fr', 'es'):
             self.language = Settings()['locale']
@@ -141,8 +141,8 @@ class ImportNumista(_Import2):
     def _connect(self, src):
         dialog = NumistaAuthentication(self.parent())
 
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             url = self.ENDPOINT + '/oauth_token?' + \
                 'code=' + dialog.authorization_code + \
                 '&client_id=opennumismat' + \

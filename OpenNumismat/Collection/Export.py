@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt, QSettings, QMargins, QFileInfo
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QSettings, QMargins, QFileInfo
+from PyQt6.QtWidgets import *
 
 import OpenNumismat
 
@@ -14,21 +14,21 @@ class ExportDialog(QDialog):
 
     def __init__(self, collection, parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
 
         self.collection = collection
 
         self.setWindowTitle(self.tr("Export to mobile"))
 
         form = QFormLayout()
-        form.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        form.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
 
         # density
         self.densitySelector = QComboBox(self)
         densities = ('MDPI', 'HDPI', 'XHDPI', 'XXHDPI', 'XXXHDPI')
         self.densitySelector.addItems(densities)
-        self.densitySelector.setSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed)
+        self.densitySelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed)
         form.addRow(self.tr("Target density of the display"), self.densitySelector)
 
         settings = QSettings()
@@ -40,8 +40,8 @@ class ExportDialog(QDialog):
         self.filterSelector.addItem(self.tr("Countries"), 'country')
         self.filterSelector.addItem(self.tr("Series"), 'series')
         self.filterSelector.addItem(self.tr("Denomination"), 'denomination')
-        self.filterSelector.setSizePolicy(QSizePolicy.Fixed,
-                                          QSizePolicy.Fixed)
+        self.filterSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                          QSizePolicy.Policy.Fixed)
         form.addRow(self.tr("Default filter by"), self.filterSelector)
 
         # image
@@ -66,7 +66,7 @@ class ExportDialog(QDialog):
         # file
         self.destination = QLineEdit(self)
         style = QApplication.style()
-        icon = style.standardIcon(QStyle.SP_DialogOpenButton)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_DialogOpenButton)
         self.destinationButton = QPushButton(icon, '', self)
         self.destinationButton.clicked.connect(self.destinationButtonClicked)
 
@@ -77,10 +77,10 @@ class ExportDialog(QDialog):
 
         form.addRow(self.tr("Destination"), hLayout)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        self.acceptButton = buttonBox.addButton(QDialogButtonBox.Ok)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        self.acceptButton = buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
         self.acceptButton.setEnabled(False)
-        buttonBox.addButton(QDialogButtonBox.Cancel)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         buttonBox.accepted.connect(self.start)
         buttonBox.rejected.connect(self.reject)
 

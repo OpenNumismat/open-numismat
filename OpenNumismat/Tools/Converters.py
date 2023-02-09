@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtGui import QTextDocument
+from PyQt6.QtGui import QTextDocument
 
 
 def stringToMoney(string):

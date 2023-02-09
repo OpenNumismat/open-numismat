@@ -5,9 +5,9 @@ import ssl
 import sys
 import traceback
 
-from PyQt5.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, PYQT_VERSION_STR, QSettings
-from PyQt5.QtWidgets import QApplication, QMessageBox
-from PyQt5.QtGui import QDesktopServices
+from PyQt6.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, PYQT_VERSION_STR, QSettings
+from PyQt6.QtWidgets import QApplication, QMessageBox
+from PyQt6.QtGui import QDesktopServices
 
 import OpenNumismat
 from OpenNumismat.Settings import Settings
@@ -87,7 +87,7 @@ def main():
     mainWindow = MainWindow()
     mainWindow.show()
     mainWindow.raise_()  # this will raise the window on Mac OS X
-    status = app.exec_()
+    status = app.exec()
 
     # Clear temporary files
     TemporaryDir.remove()
@@ -102,10 +102,10 @@ def exceptHook(type_, value, tback):
     text = QApplication.translate("ExcpHook",
                         "A system error occurred.\n"
                         "Do you want to send an error message to the author?")
-    msgBox = QMessageBox(QMessageBox.Information, title, text)
+    msgBox = QMessageBox(QMessageBox.Icon.Information, title, text)
     msgBox.setDetailedText(stack)
-    msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-    if msgBox.exec_() == QMessageBox.Yes:
+    msgBox.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+    if msgBox.exec() == QMessageBox.StandardButton.Yes:
         line = traceback.extract_tb(tback)[-1]
         subject = "[v%s] %s - %s:%d" % (version.Version, type_.__name__,
                                         line[0], line[1])

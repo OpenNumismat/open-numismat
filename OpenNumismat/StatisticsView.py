@@ -1,9 +1,9 @@
 from textwrap import wrap
 
-from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
-from PyQt5.QtGui import QImage, QIcon
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
+from PyQt6.QtGui import QImage, QIcon
+from PyQt6.QtSql import QSqlQuery
+from PyQt6.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
@@ -145,8 +145,8 @@ class BaseCanvas(FigureCanvas):
         self.setParent(parent)
 
         FigureCanvas.setSizePolicy(self,
-                                   QSizePolicy.Expanding,
-                                   QSizePolicy.Expanding)
+                                   QSizePolicy.Policy.Expanding,
+                                   QSizePolicy.Policy.Expanding)
         FigureCanvas.updateGeometry(self)
         self.mpl_connect("motion_notify_event", self.hover)
 
@@ -353,8 +353,8 @@ class StatisticsView(QWidget):
         ctrlLayout = QVBoxLayout()
         ctrlLayout.setAlignment(Qt.AlignTop)
         widget = self.__layoutToWidget(ctrlLayout)
-        widget.setSizePolicy(QSizePolicy.Fixed,
-                             QSizePolicy.Fixed)
+        widget.setSizePolicy(QSizePolicy.Policy.Fixed,
+                             QSizePolicy.Policy.Fixed)
         layout.addWidget(widget)
 
         self.chartLayout = QVBoxLayout()
@@ -509,7 +509,7 @@ class StatisticsView(QWidget):
             self.chart = ProgressCanvas(self)
         else:
             self.chart = BarCanvas(self)
-        self.chart.setMulticolor(self.colorCheck.checkState() == Qt.Checked)
+        self.chart.setMulticolor(self.colorCheck.checkState() == Qt.CheckState.Checked)
         self.chartLayout.addWidget(self.chart)
 
         fieldId = self.fieldSelector.currentData()
@@ -527,7 +527,7 @@ class StatisticsView(QWidget):
         if chart == 'geochart':
             sql = "SELECT count(*), country FROM coins %s GROUP BY country" % sql_filter
             query = QSqlQuery(self.model.database())
-            query.exec_(sql)
+            query.exec(sql)
             xx = []
             yy = []
             while query.next():
@@ -544,7 +544,7 @@ class StatisticsView(QWidget):
             sql = "SELECT count(%s), %s, %s FROM coins %s GROUP BY %s, %s" % (
                 subfield, subfield, field, sql_filter, field, subfield)
             query = QSqlQuery(self.model.database())
-            query.exec_(sql)
+            query.exec(sql)
             xx = []
             yy = []
             zz = []
@@ -645,7 +645,7 @@ class StatisticsView(QWidget):
                           sql_field, date_format, ' AND '.join(sql_filters),
                           date_format)
             query = QSqlQuery(self.model.database())
-            query.exec_(sql)
+            query.exec(sql)
             xx = []
             yy = []
             while query.next():
@@ -661,7 +661,7 @@ class StatisticsView(QWidget):
             sql = "SELECT count(*), %s FROM coins %s GROUP BY %s" % (
                 field, sql_filter, field)
             query = QSqlQuery(self.model.database())
-            query.exec_(sql)
+            query.exec(sql)
             xx = []
             yy = []
             while query.next():

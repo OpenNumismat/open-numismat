@@ -1,7 +1,7 @@
 import os
 import sys
 
-from PyQt5.QtCore import QStandardPaths
+from PyQt6.QtCore import QStandardPaths
 
 import OpenNumismat
 from OpenNumismat import version
@@ -12,15 +12,15 @@ def init_pathes():
     else:
         # Getting default path for storing user data
         if sys.platform in ('win32', 'darwin'):
-            location = QStandardPaths.DocumentsLocation
+            location = QStandardPaths.StandardLocation.DocumentsLocation
         else:
-            location = QStandardPaths.HomeLocation
+            location = QStandardPaths.StandardLocation.HomeLocation
         
         doc_dirs = QStandardPaths.standardLocations(location)
         if doc_dirs:
             OpenNumismat.HOME_PATH = os.path.join(doc_dirs[0], version.AppName)
 
-    img_dirs = QStandardPaths.standardLocations(QStandardPaths.PicturesLocation)
+    img_dirs = QStandardPaths.standardLocations(QStandardPaths.StandardLocation.PicturesLocation)
     if img_dirs:
         OpenNumismat.IMAGE_PATH = img_dirs[0]
     else:

@@ -1,7 +1,7 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtSql import QSqlQuery
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses, StatusesOrder
@@ -12,8 +12,8 @@ from OpenNumismat.Tools.Converters import numberWithFraction
 class CustomSortListWidgetItem(QListWidgetItem):
 
     def __lt__(self, other):
-        left = self.data(Qt.UserRole + 1)
-        right = other.data(Qt.UserRole + 1)
+        left = self.data(Qt.ItemDataRole.UserRole + 1)
+        right = other.data(Qt.ItemDataRole.UserRole + 1)
 
         if isinstance(left, str):
             right = str(right)
@@ -26,16 +26,16 @@ class CustomSortListWidgetItem(QListWidgetItem):
 class StatusSortListWidgetItem(QListWidgetItem):
 
     def __lt__(self, other):
-        left = self.data(Qt.UserRole)
-        right = other.data(Qt.UserRole)
+        left = self.data(Qt.ItemDataRole.UserRole)
+        right = other.data(Qt.ItemDataRole.UserRole)
         return StatusesOrder[left] < StatusesOrder[right]
 
 
 class FilterMenuButton(QPushButton):
-    DefaultType = QListWidgetItem.UserType
-    SelectAllType = QListWidgetItem.UserType + 1
-    BlanksType = QListWidgetItem.UserType + 2
-    DataType = QListWidgetItem.UserType + 3
+    DefaultType = QListWidgetItem.ItemType.UserType
+    SelectAllType = QListWidgetItem.ItemType.UserType + 1
+    BlanksType = QListWidgetItem.ItemType.UserType + 2
+    DataType = QListWidgetItem.ItemType.UserType + 3
 
     def __init__(self, columnParam, listParam, model, parent):
         super().__init__(parent)
@@ -104,19 +104,19 @@ class FilterMenuButton(QPushButton):
                     continue
 
                 item = CustomSortListWidgetItem()
-                item.setData(Qt.DisplayRole, label)
-                item.setData(Qt.UserRole, data)
-                item.setData(Qt.UserRole + 1, orig_data)
+                item.setData(Qt.ItemDataRole.DisplayRole, label)
+                item.setData(Qt.ItemDataRole.UserRole, data)
+                item.setData(Qt.ItemDataRole.UserRole + 1, orig_data)
                 if data in appliedValues:
                     if revert:
-                        item.setCheckState(Qt.Checked)
+                        item.setCheckState(Qt.CheckState.Checked)
                     else:
-                        item.setCheckState(Qt.Unchecked)
+                        item.setCheckState(Qt.CheckState.Unchecked)
                 else:
                     if revert:
-                        item.setCheckState(Qt.Unchecked)
+                        item.setCheckState(Qt.CheckState.Unchecked)
                     else:
-                        item.setCheckState(Qt.Checked)
+                        item.setCheckState(Qt.CheckState.Checked)
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
@@ -147,10 +147,10 @@ class FilterMenuButton(QPushButton):
                     label = self.tr("(Data)")
                 item = QListWidgetItem(label,
                                        type=FilterMenuButton.DataType)
-                item.setData(Qt.UserRole, label)
-                item.setCheckState(Qt.Checked)
+                item.setData(Qt.ItemDataRole.UserRole, label)
+                item.setCheckState(Qt.CheckState.Checked)
                 if columnFilters and columnFilters.hasData():
-                    item.setCheckState(Qt.Unchecked)
+                    item.setCheckState(Qt.CheckState.Unchecked)
                 self.listWidget.addItem(item)
         elif columnType == Type.Status:
             filtersSql = self.filtersToSql(filters.values())
@@ -165,21 +165,21 @@ class FilterMenuButton(QPushButton):
                 label = Statuses[value]
 
                 item = StatusSortListWidgetItem(label)
-                item.setData(Qt.UserRole, value)
+                item.setData(Qt.ItemDataRole.UserRole, value)
 
                 icon = statusIcon(value)
                 item.setIcon(icon)
 
                 if value in appliedValues:
                     if revert:
-                        item.setCheckState(Qt.Checked)
+                        item.setCheckState(Qt.CheckState.Checked)
                     else:
-                        item.setCheckState(Qt.Unchecked)
+                        item.setCheckState(Qt.CheckState.Unchecked)
                 else:
                     if revert:
-                        item.setCheckState(Qt.Unchecked)
+                        item.setCheckState(Qt.CheckState.Unchecked)
                     else:
-                        item.setCheckState(Qt.Checked)
+                        item.setCheckState(Qt.CheckState.Checked)
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
@@ -204,19 +204,19 @@ class FilterMenuButton(QPushButton):
                     continue
 
                 item = CustomSortListWidgetItem()
-                item.setData(Qt.DisplayRole, label)
-                item.setData(Qt.UserRole, data)
-                item.setData(Qt.UserRole + 1, orig_data)
+                item.setData(Qt.ItemDataRole.DisplayRole, label)
+                item.setData(Qt.ItemDataRole.UserRole, data)
+                item.setData(Qt.ItemDataRole.UserRole + 1, orig_data)
                 if data in appliedValues:
                     if revert:
-                        item.setCheckState(Qt.Checked)
+                        item.setCheckState(Qt.CheckState.Checked)
                     else:
-                        item.setCheckState(Qt.Unchecked)
+                        item.setCheckState(Qt.CheckState.Unchecked)
                 else:
                     if revert:
-                        item.setCheckState(Qt.Unchecked)
+                        item.setCheckState(Qt.CheckState.Unchecked)
                     else:
-                        item.setCheckState(Qt.Checked)
+                        item.setCheckState(Qt.CheckState.Checked)
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
@@ -241,41 +241,41 @@ class FilterMenuButton(QPushButton):
                     continue
 
                 item = QListWidgetItem()
-                item.setData(Qt.DisplayRole, orig_data)
-                item.setData(Qt.UserRole, data)
+                item.setData(Qt.ItemDataRole.DisplayRole, orig_data)
+                item.setData(Qt.ItemDataRole.UserRole, data)
                 if icon:
                     item.setIcon(icon)
                 if data in appliedValues:
                     if revert:
-                        item.setCheckState(Qt.Checked)
+                        item.setCheckState(Qt.CheckState.Checked)
                     else:
-                        item.setCheckState(Qt.Unchecked)
+                        item.setCheckState(Qt.CheckState.Unchecked)
                 else:
                     if revert:
-                        item.setCheckState(Qt.Unchecked)
+                        item.setCheckState(Qt.CheckState.Unchecked)
                     else:
-                        item.setCheckState(Qt.Checked)
+                        item.setCheckState(Qt.CheckState.Checked)
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
 
         item = QListWidgetItem(self.tr("(Select all)"),
                                type=FilterMenuButton.SelectAllType)
-        item.setData(Qt.UserRole, self.tr("(Select all)"))
-        item.setCheckState(Qt.Checked)
+        item.setData(Qt.ItemDataRole.UserRole, self.tr("(Select all)"))
+        item.setCheckState(Qt.CheckState.Checked)
         self.listWidget.insertItem(0, item)
 
         if hasBlanks:
             item = QListWidgetItem(self.tr("(Blanks)"),
                                    type=FilterMenuButton.BlanksType)
-            item.setData(Qt.UserRole, self.tr("(Blanks)"))
-            item.setCheckState(Qt.Checked)
+            item.setData(Qt.ItemDataRole.UserRole, self.tr("(Blanks)"))
+            item.setCheckState(Qt.CheckState.Checked)
             if revert:
                 if columnFilters and not columnFilters.hasBlank():
-                    item.setCheckState(Qt.Unchecked)
+                    item.setCheckState(Qt.CheckState.Unchecked)
             else:
                 if columnFilters and columnFilters.hasBlank():
-                    item.setCheckState(Qt.Unchecked)
+                    item.setCheckState(Qt.CheckState.Unchecked)
             self.listWidget.addItem(item)
 
         self.listWidget.itemChanged.connect(self.itemChanged)
@@ -284,9 +284,9 @@ class FilterMenuButton(QPushButton):
         self.searchBox.setPlaceholderText(self.tr("Filter"))
         self.searchBox.textChanged.connect(self.applySearch)
 
-        self.buttonBox = QDialogButtonBox(Qt.Horizontal)
-        self.buttonBox.addButton(QDialogButtonBox.Ok)
-        self.buttonBox.addButton(QDialogButtonBox.Cancel)
+        self.buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        self.buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
+        self.buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         self.buttonBox.accepted.connect(self.apply)
         self.buttonBox.rejected.connect(self.menu().hide)
 
@@ -315,25 +315,25 @@ class FilterMenuButton(QPushButton):
                 self.listWidget.item(i).setCheckState(item.checkState())
 
             # Disable applying filter when nothing to show
-            button = self.buttonBox.button(QDialogButtonBox.Ok)
-            button.setDisabled(item.checkState() == Qt.Unchecked)
+            button = self.buttonBox.button(QDialogButtonBox.StandardButton.Ok)
+            button.setDisabled(item.checkState() == Qt.CheckState.Unchecked)
         else:
             checkedCount = 0
             for i in range(1, self.listWidget.count()):
                 item = self.listWidget.item(i)
-                if item.checkState() == Qt.Checked:
+                if item.checkState() == Qt.CheckState.Checked:
                     checkedCount = checkedCount + 1
 
             if checkedCount == 0:
-                state = Qt.Unchecked
+                state = Qt.CheckState.Unchecked
             elif checkedCount == self.listWidget.count() - 1:
-                state = Qt.Checked
+                state = Qt.CheckState.Checked
             else:
                 state = Qt.PartiallyChecked
             self.listWidget.item(0).setCheckState(state)
 
             # Disable applying filter when nothing to show
-            button = self.buttonBox.button(QDialogButtonBox.Ok)
+            button = self.buttonBox.button(QDialogButtonBox.StandardButton.Ok)
             button.setDisabled(checkedCount == 0)
 
         self.listWidget.itemChanged.connect(self.itemChanged)
@@ -344,7 +344,7 @@ class FilterMenuButton(QPushButton):
         checked = 0
         for i in range(1, self.listWidget.count()):
             item = self.listWidget.item(i)
-            if item.checkState() == Qt.Unchecked:
+            if item.checkState() == Qt.CheckState.Unchecked:
                 unchecked = unchecked + 1
             else:
                 checked = checked + 1
@@ -352,25 +352,25 @@ class FilterMenuButton(QPushButton):
         for i in range(1, self.listWidget.count()):
             item = self.listWidget.item(i)
             if unchecked > checked:
-                if item.checkState() == Qt.Checked:
+                if item.checkState() == Qt.CheckState.Checked:
                     if item.type() == FilterMenuButton.BlanksType:
                         filter_ = BlankFilter(self.columnName)
                     elif item.type() == FilterMenuButton.DataType:
                         filter_ = DataFilter(self.columnName)
                     else:
-                        value = item.data(Qt.UserRole)
+                        value = item.data(Qt.ItemDataRole.UserRole)
                         filter_ = ValueFilter(self.columnName, value)
 
                     filter_.revert = True
                     filters.addFilter(filter_)
             else:
-                if item.checkState() == Qt.Unchecked:
+                if item.checkState() == Qt.CheckState.Unchecked:
                     if item.type() == FilterMenuButton.BlanksType:
                         filter_ = BlankFilter(self.columnName)
                     elif item.type() == FilterMenuButton.DataType:
                         filter_ = DataFilter(self.columnName)
                     else:
-                        value = item.data(Qt.UserRole)
+                        value = item.data(Qt.ItemDataRole.UserRole)
                         filter_ = ValueFilter(self.columnName, value)
 
                     filters.addFilter(filter_)

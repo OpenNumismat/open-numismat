@@ -5,9 +5,9 @@ try:
 except ImportError:
     pass
 
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from PyQt5.QtWidgets import QFileDialog
+from PyQt6 import QtCore, QtGui
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery
+from PyQt6.QtWidgets import QFileDialog
 
 import OpenNumismat
 from OpenNumismat.Collection.Import import _Import, _DatabaseServerError

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtGui import QDoubleValidator, QDesktopServices
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QUrl
+from PyQt6.QtGui import QDoubleValidator, QDesktopServices
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdit, NativeYearEdit
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
@@ -102,7 +102,7 @@ class DetailsTabWidget(QTabWidget):
                 if part.isEmpty():
                     parts.remove(part)
 
-        if self.direction == QBoxLayout.LeftToRight:
+        if self.direction == QBoxLayout.Direction.LeftToRight:
             newParts = []
             layout = QVBoxLayout()
             stretchNeeded = True
@@ -119,7 +119,7 @@ class DetailsTabWidget(QTabWidget):
                 else:
                     if isinstance(part, QWidget):
                         layout.addWidget(part)
-                        if part.sizePolicy().verticalPolicy() in (QSizePolicy.Preferred, QSizePolicy.Expanding):
+                        if part.sizePolicy().verticalPolicy() in (QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding):
                             stretchNeeded = False
                     else:
                         layout.addLayout(part)
@@ -140,14 +140,14 @@ class DetailsTabWidget(QTabWidget):
         for part in parts:
             if isinstance(part, QWidget):
                 pageLayout.addWidget(part)
-                if part.sizePolicy().verticalPolicy() in (QSizePolicy.Preferred, QSizePolicy.Expanding):
+                if part.sizePolicy().verticalPolicy() in (QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding):
                     stretchNeeded = False
             else:
                 pageLayout.addLayout(part)
                 if isinstance(part, ImageFormLayout):
                     stretchNeeded = False
 
-        if self.direction == QBoxLayout.TopToBottom and stretchNeeded:
+        if self.direction == QBoxLayout.Direction.TopToBottom and stretchNeeded:
             pageLayout.insertStretch(-1)
 
         return self._layoutToWidget(pageLayout)
@@ -341,8 +341,8 @@ class DetailsTabWidget(QTabWidget):
 
         item = self.items['quality']
         layout.addHalfRow(item)
-        item.widget().setSizePolicy(QSizePolicy.Preferred,
-                                    QSizePolicy.Fixed)
+        item.widget().setSizePolicy(QSizePolicy.Policy.Preferred,
+                                    QSizePolicy.Policy.Fixed)
 
         return layout
 
@@ -399,8 +399,8 @@ class DetailsTabWidget(QTabWidget):
 
         item = self.items['rarity']
         layout.addHalfRow(item)
-        item.widget().setSizePolicy(QSizePolicy.Preferred,
-                                    QSizePolicy.Fixed)
+        item.widget().setSizePolicy(QSizePolicy.Policy.Preferred,
+                                    QSizePolicy.Policy.Fixed)
 
         return layout
 
@@ -429,8 +429,8 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['variety'])
         item = self.items['varietydesc']
         layout.addRow(item)
-        item.widget().setSizePolicy(QSizePolicy.Preferred,
-                                    QSizePolicy.Minimum)
+        item.widget().setSizePolicy(QSizePolicy.Policy.Preferred,
+                                    QSizePolicy.Policy.Minimum)
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
         layout.addHalfRow(self.items['edgevar'])
 
@@ -438,7 +438,7 @@ class DetailsTabWidget(QTabWidget):
 
     def urlLayout(self):
         layout = BaseFormLayout()
-        layout.setAlignment(Qt.AlignTop)
+        layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
         layout.addRow(self.items['url'])
 
@@ -466,7 +466,7 @@ class DetailsTabWidget(QTabWidget):
 
     def _createTrafficParts(self, status):
         stretch_widget = QWidget()
-        stretch_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+        stretch_widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
 
         self.payCommission = None
         self.saleCommission = None
@@ -572,7 +572,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def __init__(self, model, parent=None, usedFields=None):
         self.usedFields = usedFields
 
-        super().__init__(model, QBoxLayout.TopToBottom, parent)
+        super().__init__(model, QBoxLayout.Direction.TopToBottom, parent)
 
     def createPages(self):
         self.createCoinPage()
@@ -641,7 +641,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         if self.usedFields:
             for item in self.items.values():
                 if self.usedFields[record.indexOf(item.field())]:
-                    item.label().setCheckState(Qt.Checked)
+                    item.label().setCheckState(Qt.CheckState.Checked)
 
         for image_field in ImageFields:
             title = record.value(image_field + '_title')
@@ -653,7 +653,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.layout.columnCount = 6
 
         btn = QPushButton(self.tr("Generate"))
-        btn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        btn.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         btn.clicked.connect(self.clickGenerateTitle)
         layout.addRow(self.items['title'], btn)
 
@@ -720,8 +720,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['variety'])
         item = self.items['varietydesc']
         layout.addRow(item)
-        item.widget().setSizePolicy(QSizePolicy.Preferred,
-                                    QSizePolicy.Minimum)
+        item.widget().setSizePolicy(QSizePolicy.Policy.Preferred,
+                                    QSizePolicy.Policy.Minimum)
         layout.addRow(self.items['obversevar'], self.items['reversevar'])
         layout.addHalfRow(self.items['edgevar'])
 
@@ -828,7 +828,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         else:
             calendar = YearCalculatorDialog.CALENDARS.DEFAULT
         dlg = YearCalculatorDialog(year, native_year, calendar, self)
-        if dlg.exec_() == QDialog.Accepted:
+        if dlg.exec() == QDialog.DialogCode.Accepted:
             self.items['year'].widget().setText(dlg.year())
             self.items['native_year'].widget().setText(dlg.nativeYear())
 
@@ -881,7 +881,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.payCommission.setToolTip(self.tr("Available format 12.5 or 10%"))
 
         validator = CommissionValidator(0, 9999999999, 2, self)
-        validator.setNotation(QDoubleValidator.StandardNotation)
+        validator.setNotation(QDoubleValidator.Notation.StandardNotation)
         self.payCommission.setValidator(validator)
 
         self.items['payprice'].widget().textChanged.connect(self.payCommissionChanged)
@@ -896,7 +896,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.saleCommission.setToolTip(self.tr("Available format 12.5 or 10%"))
 
         validator = CommissionValidator(0, 9999999999, 2, self)
-        validator.setNotation(QDoubleValidator.StandardNotation)
+        validator.setNotation(QDoubleValidator.Notation.StandardNotation)
         self.saleCommission.setValidator(validator)
 
         self.items['saleprice'].widget().textChanged.connect(self.saleCommissionChanged)

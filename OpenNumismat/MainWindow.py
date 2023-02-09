@@ -1,9 +1,9 @@
 import sys
 import urllib.request
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.Collection.Collection import Collection
 from OpenNumismat.Collection.Description import DescriptionDialog
@@ -28,7 +28,7 @@ from OpenNumismat.Collection.Import import *
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
 
         self.setWindowIcon(QIcon(':/main.ico'))
 
@@ -61,7 +61,7 @@ class MainWindow(QMainWindow):
         viewMenu.addAction(self.cardViewAct)
 
         self.viewButton = QToolButton()
-        self.viewButton.setPopupMode(QToolButton.InstantPopup)
+        self.viewButton.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
         self.viewButton.setMenu(viewMenu)
         self.viewButton.setDefaultAction(self.tableViewAct)
 
@@ -127,16 +127,16 @@ class MainWindow(QMainWindow):
 
         self.exitAct = QAction(QIcon(':/door_in.png'),
                                self.tr("E&xit"), self)
-        self.exitAct.setShortcut(QKeySequence.Quit)
+        self.exitAct.setShortcut(QKeySequence.StandardKey.Quit)
         self.exitAct.triggered.connect(self.close)
 
         newCollectionAct = QAction(self.tr("&New..."), self)
         newCollectionAct.triggered.connect(self.newCollectionEvent)
 
         style = QApplication.style()
-        icon = style.standardIcon(QStyle.SP_DialogOpenButton)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_DialogOpenButton)
         openCollectionAct = QAction(icon, self.tr("&Open..."), self)
-        openCollectionAct.setShortcut(QKeySequence.Open)
+        openCollectionAct.setShortcut(QKeySequence.StandardKey.Open)
         openCollectionAct.triggered.connect(self.openCollectionEvent)
 
         backupCollectionAct = QAction(
@@ -283,22 +283,22 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(editCoinAct)
 
         style = QApplication.style()
-        icon = style.standardIcon(QStyle.SP_TrashIcon)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_TrashIcon)
         deleteCoinAct = QAction(icon,
                                 self.tr("Delete"), self)
-        deleteCoinAct.setShortcut(QKeySequence.Delete)
+        deleteCoinAct.setShortcut(QKeySequence.StandardKey.Delete)
         deleteCoinAct.triggered.connect(self.deleteCoin)
         self.collectionActs.append(deleteCoinAct)
 
         copyCoinAct = QAction(QIcon(':/page_copy.png'),
                               self.tr("Copy"), self)
-        copyCoinAct.setShortcut(QKeySequence.Copy)
+        copyCoinAct.setShortcut(QKeySequence.StandardKey.Copy)
         copyCoinAct.triggered.connect(self.copyCoin)
         self.collectionActs.append(copyCoinAct)
 
         pasteCoinAct = QAction(QIcon(':/page_paste.png'),
                                self.tr("Paste"), self)
-        pasteCoinAct.setShortcut(QKeySequence.Paste)
+        pasteCoinAct.setShortcut(QKeySequence.StandardKey.Paste)
         pasteCoinAct.triggered.connect(self.pasteCoin)
         self.collectionActs.append(pasteCoinAct)
 
@@ -354,7 +354,7 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(self.referenceMenu)
 
         reportAct = QAction(self.tr("Report..."), self)
-        reportAct.setShortcut(Qt.CTRL + Qt.Key_P)
+        reportAct.setShortcut(QKeySequence.StandardKey.Print)
         reportAct.triggered.connect(self.report)
         self.collectionActs.append(reportAct)
 
@@ -383,7 +383,7 @@ class MainWindow(QMainWindow):
 
         helpAct = QAction(QIcon(':/help.png'),
                           self.tr("User manual"), self)
-        helpAct.setShortcut(QKeySequence.HelpContents)
+        helpAct.setShortcut(QKeySequence.StandardKey.HelpContents)
         helpAct.triggered.connect(self.onlineHelp)
         webAct = QAction(self.tr("Visit web-site"), self)
         webAct.triggered.connect(self.visitWeb)
@@ -432,7 +432,7 @@ class MainWindow(QMainWindow):
         toolBar.addWidget(self.viewButton)
 
         spacer = QWidget()
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         toolBar.addWidget(spacer)
 
         self.quickSearch = QLineEdit()
@@ -447,7 +447,7 @@ class MainWindow(QMainWindow):
         toolBar.addWidget(self.quickSearch)
 
         self.addToolBar(toolBar)
-        self.setContextMenuPolicy(Qt.NoContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
 
         self.setWindowTitle(version.AppName)
 
@@ -519,14 +519,14 @@ class MainWindow(QMainWindow):
 
     def settingsEvent(self):
         dialog = SettingsDialog(self.collection, self)
-        res = dialog.exec_()
-        if res == QDialog.Accepted:
+        res = dialog.exec()
+        if res == QDialog.DialogCode.Accepted:
             result = QMessageBox.question(self, self.tr("Settings"),
                         self.tr("The application will need to restart to apply "
                                 "the new settings. Restart it now?"),
-                        QMessageBox.Yes | QMessageBox.No,
-                        QMessageBox.Yes)
-            if result == QMessageBox.Yes:
+                        QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                        QMessageBox.StandardButton.Yes)
+            if result == QMessageBox.StandardButton.Yes:
                 self.restart()
 
     def changeViewEvent(self):
@@ -542,12 +542,12 @@ class MainWindow(QMainWindow):
     def colnectEvent(self):
         model = self.viewTab.currentModel()
         dialog = ColnectDialog(model, self)
-        dialog.exec_()
+        dialog.exec()
 
     def ansEvent(self):
         model = self.viewTab.currentModel()
         dialog = AnsDialog(model, self)
-        dialog.exec_()
+        dialog.exec()
 
     def updateInfoType(self, info_type):
         self.detailsAct.setChecked(False)
@@ -590,7 +590,7 @@ class MainWindow(QMainWindow):
     def summaryEvent(self):
         model = self.viewTab.currentModel()
         dialog = SummaryDialog(model, self)
-        dialog.exec_()
+        dialog.exec()
 
     def restart(self):
         self.close()
@@ -613,9 +613,9 @@ class MainWindow(QMainWindow):
 
             btn = QMessageBox.question(self, self.tr("Importing"),
                                 self.tr("Import pre-defined coins?"),
-                                QMessageBox.Yes | QMessageBox.No,
-                                QMessageBox.No)
-            if btn == QMessageBox.Yes:
+                                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                                QMessageBox.StandardButton.No)
+            if btn == QMessageBox.StandardButton.Yes:
                 imp = ImportCoinManagePredefined(self)
                 imp.importData(file, self.viewTab.currentModel())
 
@@ -696,8 +696,8 @@ class MainWindow(QMainWindow):
 
     def exportMobile(self):
         dialog = ExportDialog(self.collection, self)
-        res = dialog.exec_()
-        if res == QDialog.Accepted:
+        res = dialog.exec()
+        if res == QDialog.DialogCode.Accepted:
             self.collection.exportToMobile(dialog.params)
 
     def exportJson(self):
@@ -776,11 +776,11 @@ class MainWindow(QMainWindow):
 
     def descriptionCollectionEvent(self):
         dialog = DescriptionDialog(self.collection.getDescription(), self)
-        dialog.exec_()
+        dialog.exec()
 
     def passwordCollectionEvent(self):
         dialog = PasswordSetDialog(self.collection.settings, self)
-        dialog.exec_()
+        dialog.exec()
 
     def backupCollectionEvent(self):
         self.collection.backup()
@@ -893,7 +893,7 @@ class MainWindow(QMainWindow):
             lastUpdateDateStr = settings.value('mainwindow/last_update')
             if lastUpdateDateStr:
                 lastUpdateDate = QDate.fromString(lastUpdateDateStr,
-                                                  Qt.ISODate)
+                                                  Qt.DateFormat.ISODate)
                 currentDate = QDate.currentDate()
                 if lastUpdateDate.addDays(10) < currentDate:
                     self.checkUpdates()
@@ -907,7 +907,7 @@ class MainWindow(QMainWindow):
 
     def checkUpdates(self):
         currentDate = QDate.currentDate()
-        currentDateStr = currentDate.toString(Qt.ISODate)
+        currentDateStr = currentDate.toString(Qt.DateFormat.ISODate)
         settings = QSettings()
         settings.setValue('mainwindow/last_update', currentDateStr)
 
@@ -915,9 +915,9 @@ class MainWindow(QMainWindow):
         if newVersion and newVersion != version.Version:
             result = QMessageBox.question(self, self.tr("New version"),
                         self.tr("New version is available. Download it now?"),
-                        QMessageBox.Yes | QMessageBox.No,
-                        QMessageBox.Yes)
-            if result == QMessageBox.Yes:
+                        QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                        QMessageBox.StandardButton.Yes)
+            if result == QMessageBox.StandardButton.Yes:
                 self._openUrl(version.Web)
 
             return True

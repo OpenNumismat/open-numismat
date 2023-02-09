@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt, QSettings
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QSettings
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
@@ -11,9 +11,9 @@ from OpenNumismat.Tools.Converters import stringToMoney
 class EditCoinDialog(QDialog):
     def __init__(self, model, record, parent=None, usedFields=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
 
-        self.clickedButton = QDialogButtonBox.Abort
+        self.clickedButton = QDialogButtonBox.StandardButton.Abort
 
         self.usedFields = usedFields
         self.record = record
@@ -27,9 +27,9 @@ class EditCoinDialog(QDialog):
                                                         self.textChangedTitle)
         self.tab.fillItems(record)
 
-        self.buttonBox = QDialogButtonBox(Qt.Horizontal)
-        self.buttonBox.addButton(QDialogButtonBox.Save)
-        self.buttonBox.addButton(QDialogButtonBox.Cancel)
+        self.buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        self.buttonBox.addButton(QDialogButtonBox.StandardButton.Save)
+        self.buttonBox.addButton(QDialogButtonBox.StandardButton.Cancel)
         self.buttonBox.accepted.connect(self.save)
         self.buttonBox.rejected.connect(self.reject)
         self.buttonBox.clicked.connect(self.clicked)
@@ -41,8 +41,8 @@ class EditCoinDialog(QDialog):
         self.setLayout(layout)
 
     def clicked(self, button):
-        buttons = (QDialogButtonBox.Save, QDialogButtonBox.SaveAll,
-                   QDialogButtonBox.Cancel, QDialogButtonBox.Abort)
+        buttons = (QDialogButtonBox.StandardButton.Save, QDialogButtonBox.StandardButton.SaveAll,
+                   QDialogButtonBox.StandardButton.Cancel, QDialogButtonBox.StandardButton.Abort)
         for btn in buttons:
             if self.buttonBox.button(btn) == button:
                 self.clickedButton = btn
@@ -50,8 +50,8 @@ class EditCoinDialog(QDialog):
     # Enable 'Save all' button
     def setManyCoins(self, many=True):
         if many:
-            self.buttonBox.addButton(QDialogButtonBox.SaveAll)
-            self.buttonBox.addButton(QDialogButtonBox.Abort)
+            self.buttonBox.addButton(QDialogButtonBox.StandardButton.SaveAll)
+            self.buttonBox.addButton(QDialogButtonBox.StandardButton.Abort)
 
     def textChangedTitle(self, text=''):
         if self.usedFields:
@@ -86,13 +86,13 @@ class EditCoinDialog(QDialog):
                 if not self.items['title'].value():
                     msg_box = QMessageBox(QMessageBox.Warning, self.tr("Save"),
                                           self.tr("Coin title not set. Save without title?"),
-                                          QMessageBox.Save | QMessageBox.No,
+                                          QMessageBox.StandardButton.Save | QMessageBox.StandardButton.No,
                                           self)
-                    msg_box.setDefaultButton(QMessageBox.No)
+                    msg_box.setDefaultButton(QMessageBox.StandardButton.No)
                     cb = QCheckBox(self.tr("Don't show this again"))
                     msg_box.setCheckBox(cb)
-                    result = msg_box.exec_()
-                    if result != QMessageBox.Save:
+                    result = msg_box.exec()
+                    if result != QMessageBox.StandardButton.Save:
                         return
                     else:
                         if cb.isChecked():
@@ -106,9 +106,9 @@ class EditCoinDialog(QDialog):
             if totalpayprice < 0:
                 result = QMessageBox.warning(self, self.tr("Save"),
                                 self.tr("Total paid price is negative. Save?"),
-                                QMessageBox.Save | QMessageBox.No,
-                                QMessageBox.No)
-                if result != QMessageBox.Save:
+                                QMessageBox.StandardButton.Save | QMessageBox.StandardButton.No,
+                                QMessageBox.StandardButton.No)
+                if result != QMessageBox.StandardButton.Save:
                     return
         if payprice_str and totalpayprice_str:
             payprice = stringToMoney(payprice_str)
@@ -116,9 +116,9 @@ class EditCoinDialog(QDialog):
                 result = QMessageBox.warning(self, self.tr("Save"),
                             self.tr("Pay price is great than total "
                                     "paid price. Save?"),
-                            QMessageBox.Save | QMessageBox.No,
-                            QMessageBox.No)
-                if result != QMessageBox.Save:
+                            QMessageBox.StandardButton.Save | QMessageBox.StandardButton.No,
+                            QMessageBox.StandardButton.No)
+                if result != QMessageBox.StandardButton.Save:
                     return
         saleprice_str = self.items['saleprice'].value()
         totalsaleprice_str = self.items['totalsaleprice'].value()
@@ -127,9 +127,9 @@ class EditCoinDialog(QDialog):
             if totalsaleprice < 0:
                 result = QMessageBox.warning(self, self.tr("Save"),
                                 self.tr("Total revenue price is negative. Save?"),
-                                QMessageBox.Save | QMessageBox.No,
-                                QMessageBox.No)
-                if result != QMessageBox.Save:
+                                QMessageBox.StandardButton.Save | QMessageBox.StandardButton.No,
+                                QMessageBox.StandardButton.No)
+                if result != QMessageBox.StandardButton.Save:
                     return
         if saleprice_str and totalsaleprice_str:
             saleprice = stringToMoney(saleprice_str)
@@ -137,9 +137,9 @@ class EditCoinDialog(QDialog):
                 result = QMessageBox.warning(self, self.tr("Save"),
                             self.tr("Sale price is less than total "
                                     "revenue price. Save?"),
-                            QMessageBox.Save | QMessageBox.No,
-                            QMessageBox.No)
-                if result != QMessageBox.Save:
+                            QMessageBox.StandardButton.Save | QMessageBox.StandardButton.No,
+                            QMessageBox.StandardButton.No)
+                if result != QMessageBox.StandardButton.Save:
                     return
 
         for item in self.items.values():
@@ -162,13 +162,13 @@ class EditCoinDialog(QDialog):
                 if self.model.isExist(self.record):
                     msg_box = QMessageBox(QMessageBox.Warning, self.tr("Save"),
                                           self.tr("Similar coin already exists. Save?"),
-                                          QMessageBox.Save | QMessageBox.No,
+                                          QMessageBox.StandardButton.Save | QMessageBox.StandardButton.No,
                                           self)
-                    msg_box.setDefaultButton(QMessageBox.No)
+                    msg_box.setDefaultButton(QMessageBox.StandardButton.No)
                     cb = QCheckBox(self.tr("Don't show this again"))
                     msg_box.setCheckBox(cb)
-                    result = msg_box.exec_()
-                    if result != QMessageBox.Save:
+                    result = msg_box.exec()
+                    if result != QMessageBox.StandardButton.Save:
                         return
                     else:
                         if cb.isChecked():

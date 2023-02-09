@@ -5,9 +5,9 @@ import re
 import urllib.request
 from socket import timeout
 
-from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtGui import QImage, QPixmap, QIcon
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import Qt, QObject
+from PyQt6.QtGui import QImage, QPixmap, QIcon
+from PyQt6.QtWidgets import *
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import.Cache import Cache
@@ -298,7 +298,7 @@ class ColnectDialog(QDialog):
 
     def __init__(self, model, parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
         self.setWindowIcon(QIcon(':/colnect.png'))
         self.setWindowTitle("Colnect")
 
@@ -310,14 +310,14 @@ class ColnectDialog(QDialog):
         self.lang = settings['colnect_locale']
 
         layout = QFormLayout()
-        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+        layout.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
 
         self.colnectLabel = QLabel(self.tr(
             "Catalog information courtesy of"
             " <a href=\"https://colnect.com/\">Colnect</a>,"
             " an online collectors community."))
-        self.colnectLabel.setTextFormat(Qt.RichText)
-        self.colnectLabel.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        self.colnectLabel.setTextFormat(Qt.TextFormat.RichText)
+        self.colnectLabel.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
         self.colnectLabel.setOpenExternalLinks(True)
         font = self.colnectLabel.font()
         font.setPointSize(11)
@@ -331,8 +331,8 @@ class ColnectDialog(QDialog):
                       ('philatelic_products', self.tr("Philatelic products")))
 
         self.categorySelector = QComboBox()
-        self.categorySelector.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
+        self.categorySelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed)
         for category in categories:
             self.categorySelector.addItem(category[1], category[0])
         default_category = self.model.settings['colnect_category']
@@ -342,44 +342,44 @@ class ColnectDialog(QDialog):
         self.categorySelector.currentIndexChanged.connect(self.categoryChanged)
 
         self.countrySelector = QComboBox()
-        self.countrySelector.setSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed)
-        self.countrySelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.countrySelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                           QSizePolicy.Policy.Fixed)
+        self.countrySelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.countrySelector.currentIndexChanged.connect(self.countryChanged)
         layout.addRow(fields.getCustomTitle('country'), self.countrySelector)
 
         self.distributionSelector = QComboBox()
-        self.distributionSelector.setSizePolicy(QSizePolicy.Fixed,
-                                                QSizePolicy.Fixed)
-        self.distributionSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.distributionSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                                QSizePolicy.Policy.Fixed)
+        self.distributionSelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.distributionSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('type'), self.distributionSelector)
 
         self.seriesSelector = QComboBox()
-        self.seriesSelector.setSizePolicy(QSizePolicy.Fixed,
-                                          QSizePolicy.Fixed)
-        self.seriesSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.seriesSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                          QSizePolicy.Policy.Fixed)
+        self.seriesSelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.seriesSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('series'), self.seriesSelector)
 
         self.yearSelector = QComboBox()
-        self.yearSelector.setSizePolicy(QSizePolicy.Fixed,
-                                        QSizePolicy.Fixed)
+        self.yearSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                        QSizePolicy.Policy.Fixed)
         self.yearSelector.currentIndexChanged.connect(self.partChanged)
-        self.yearSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.yearSelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         layout.addRow(fields.getCustomTitle('year'), self.yearSelector)
 
         self.valueSelector = QComboBox()
-        self.valueSelector.setSizePolicy(QSizePolicy.Fixed,
-                                         QSizePolicy.Fixed)
-        self.valueSelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.valueSelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                         QSizePolicy.Policy.Fixed)
+        self.valueSelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.valueSelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('value'), self.valueSelector)
 
         self.currencySelector = QComboBox()
-        self.currencySelector.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
-        self.currencySelector.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.currencySelector.setSizePolicy(QSizePolicy.Policy.Fixed,
+                                            QSizePolicy.Policy.Fixed)
+        self.currencySelector.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.currencySelector.currentIndexChanged.connect(self.partChanged)
         layout.addRow(fields.getCustomTitle('unit'), self.currencySelector)
 
@@ -390,8 +390,8 @@ class ColnectDialog(QDialog):
         self.table = QTableWidget(self)
         self.table.doubleClicked.connect(self.tableClicked)
         self.table.setColumnCount(9)
-        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table.horizontalHeader().sectionDoubleClicked.connect(self.sectionDoubleClicked)
         font = self.table.horizontalHeader().font()
         font.setBold(True)
@@ -422,15 +422,15 @@ class ColnectDialog(QDialog):
         self.label_empty = QLabel(self.tr("Nothing found"), self)
         self.label_empty.hide()
         previewBox = QHBoxLayout()
-        previewBox.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+        previewBox.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
         previewBox.addWidget(self.previewButton)
         previewBox.addWidget(self.label)
         previewBox.addWidget(self.label_empty)
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal, self)
-        buttonBox.addButton(self.addButton, QDialogButtonBox.ActionRole)
-        buttonBox.addButton(self.addCloseButton, QDialogButtonBox.ActionRole)
-        buttonBox.addButton(QDialogButtonBox.Close)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal, self)
+        buttonBox.addButton(self.addButton, QDialogButtonBox.ButtonRole.ActionRole)
+        buttonBox.addButton(self.addCloseButton, QDialogButtonBox.ButtonRole.ActionRole)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Close)
         buttonBox.clicked.connect(self.clicked)
 
         self.table.hide()
@@ -645,14 +645,14 @@ class ColnectDialog(QDialog):
                 image = self._getImage(int(data[img_pos]), name_val)
                 pixmap = QPixmap.fromImage(image)
                 item = QTableWidgetItem()
-                item.setData(Qt.DecorationRole, pixmap)
+                item.setData(Qt.ItemDataRole.DecorationRole, pixmap)
                 self.table.setItem(i, 0, item)
 
                 img_pos = fields.index('BackPicture')
                 image = self._getImage(int(data[img_pos]), name_val)
                 pixmap = QPixmap.fromImage(image)
                 item = QTableWidgetItem()
-                item.setData(Qt.DecorationRole, pixmap)
+                item.setData(Qt.ItemDataRole.DecorationRole, pixmap)
                 self.table.setItem(i, 1, item)
 
                 value = self._getFieldData(data, fields, 'Name')
@@ -706,7 +706,7 @@ class ColnectDialog(QDialog):
         if result:
             if image.height() > self.HEIGHT:
                 image = image.scaled(self.HEIGHT, self.HEIGHT,
-                                     Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                     Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
         return image
 
     def _itemUrl(self, category, item_id):

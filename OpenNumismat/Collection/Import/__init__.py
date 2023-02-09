@@ -1,7 +1,7 @@
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QStandardPaths
-from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import *
+from PyQt6 import QtCore
+from PyQt6.QtCore import Qt, QStandardPaths
+from PyQt6.QtGui import QCursor
+from PyQt6.QtWidgets import *
 
 
 class _InvalidDatabaseError(Exception):
@@ -29,9 +29,9 @@ class _Import(QtCore.QObject):
         super().__init__(parent)
 
         self.progressDlg = QProgressDialog(self.parent(),
-                                           Qt.WindowCloseButtonHint |
-                                           Qt.WindowSystemMenuHint)
-        self.progressDlg.setWindowModality(Qt.WindowModal)
+                                           Qt.WindowType.WindowCloseButtonHint |
+                                           Qt.WindowType.WindowSystemMenuHint)
+        self.progressDlg.setWindowModality(Qt.WindowModality.WindowModal)
         self.progressDlg.setMinimumDuration(250)
         self.progressDlg.setCancelButtonText(QApplication.translate('_Import', "Cancel"))
         self.progressDlg.setWindowTitle(QApplication.translate('_Import', "Importing"))
@@ -43,7 +43,7 @@ class _Import(QtCore.QObject):
                 return False
 
             if self._check(connection):
-                QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+                QApplication.setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
                 rows = self._getRows(connection)
                 QApplication.restoreOverrideCursor()
 
@@ -95,7 +95,7 @@ class _Import(QtCore.QObject):
                                    parent=self.parent())
         if text:
             msgBox.setDetailedText(text)
-        msgBox.exec_()
+        msgBox.exec()
 
     def __invalidDbMessage(self, src, text=''):
         self.__errorMessage(QApplication.translate('_Import', "'%s' is not a valid database") % src, text)
@@ -132,9 +132,9 @@ class _Import2(QtCore.QObject):
                 rows_count = self._getRowsCount(connection)
 
                 progressDlg = QProgressDialog(self.parent(),
-                                              Qt.WindowCloseButtonHint |
-                                              Qt.WindowSystemMenuHint)
-                progressDlg.setWindowModality(Qt.WindowModal)
+                                              Qt.WindowType.WindowCloseButtonHint |
+                                              Qt.WindowType.WindowSystemMenuHint)
+                progressDlg.setWindowModality(Qt.WindowModality.WindowModal)
                 progressDlg.setCancelButtonText(QApplication.translate('_Import2', "Cancel"))
                 progressDlg.setWindowTitle(QApplication.translate('_Import2', "Importing"))
                 progressDlg.setMaximum(rows_count)
@@ -182,7 +182,7 @@ class _Import2(QtCore.QObject):
                              parent=self.parent())
         if text:
             msgBox.setDetailedText(text)
-        msgBox.exec_()
+        msgBox.exec()
 
     def __invalidDbMessage(self, src, text=''):
         self.__errorMessage(QApplication.translate('_Import', "'%s' is not a valid database") % src, text)

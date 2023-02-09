@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5 import QtCore, QtSql
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtCore import QSortFilterProxyModel
-from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import *
+from PyQt6 import QtCore, QtSql
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtCore import QSortFilterProxyModel
+from PyQt6.QtGui import QPixmap, QIcon
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
 
@@ -19,8 +19,8 @@ class SqlTableModel(QtSql.QSqlTableModel):
         self._proxyModel.setSortLocaleAware(True)
         self._proxyModel.setSourceModel(self)
 
-    def data(self, index, role=Qt.DisplayRole):
-        if role == Qt.DecorationRole:
+    def data(self, index, role=Qt.ItemDataRole.DisplayRole):
+        if role == Qt.ItemDataRole.DecorationRole:
             if index.row() < 0:
                 return None
             iconIndex = self.index(index.row(), self.fieldIndex('icon'))
@@ -54,8 +54,8 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
     def relationModel(self, _column):
         return self.model
 
-    def data(self, index, role=Qt.DisplayRole):
-        if role == Qt.DecorationRole:
+    def data(self, index, role=Qt.ItemDataRole.DisplayRole):
+        if role == Qt.ItemDataRole.DecorationRole:
             if index.row() < 0:
                 return None
             iconIndex = self.index(index.row(), self.fieldIndex('icon'))
@@ -106,8 +106,8 @@ class BaseReferenceSection(QtCore.QObject):
         old_text = self.parent.text()
 
         dialog = self._getDialog()
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        result = dialog.exec()
+        if result == QDialog.DialogCode.Accepted:
             self.reload()
 
             index = dialog.selectedIndex()
@@ -123,7 +123,7 @@ class BaseReferenceSection(QtCore.QObject):
         query = QSqlQuery(self.db)
         query.prepare("SELECT sort FROM sections WHERE name=?")
         query.addBindValue(self.name)
-        query.exec_()
+        query.exec()
         if query.first():
             data = query.record().value(0)
             if data:
@@ -142,7 +142,7 @@ class BaseReferenceSection(QtCore.QObject):
             query.prepare("UPDATE sections SET sort=? WHERE name=?")
             query.addBindValue(int(sort))
             query.addBindValue(self.name)
-            query.exec_()
+            query.exec()
 
         self.setSort()
 
@@ -179,7 +179,7 @@ class BaseReferenceSection(QtCore.QObject):
             else:
                 query.addBindValue('country')
         query.addBindValue(int(self.sort))
-        query.exec_()
+        query.exec()
 
         if in_transaction:
             db.commit()
@@ -195,7 +195,7 @@ class ReferenceSection(BaseReferenceSection):
             self.create(self.db)
 
         self.model = SqlTableModel(None, db)
-        self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
+        self.model.setEditStrategy(QtSql.QSqlTableModel.EditStrategy.OnFieldChange)
         self.model.setTable(self.table_name)
 
         self.reload()
@@ -224,7 +224,7 @@ class ReferenceSection(BaseReferenceSection):
                                             (self.table_name, self.table_name))
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(value)
-            fillQuery.exec_()
+            fillQuery.exec()
 
 
 class CrossReferenceSection(BaseReferenceSection):
@@ -242,8 +242,8 @@ class CrossReferenceSection(BaseReferenceSection):
             self.create(self.db)
 
         self.model = SqlRelationalTableModel(self.parentRef.model, None, db)
-        self.model.setJoinMode(QtSql.QSqlRelationalTableModel.LeftJoin)
-        self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
+        self.model.setJoinMode(QtSql.QSqlRelationalTableModel.JoinMode.LeftJoin)
+        self.model.setEditStrategy(QtSql.QSqlTableModel.EditStrategy.OnFieldChange)
         self.model.setTable(self.table_name)
         parentidIndex = self.model.fieldIndex('parentid')
         self.model.parentidIndex = parentidIndex
@@ -273,7 +273,7 @@ class CrossReferenceSection(BaseReferenceSection):
             fillQuery.addBindValue(parentId)
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(parentId)
-            fillQuery.exec_()
+            fillQuery.exec()
 
 
 class Reference(QtCore.QObject):
@@ -428,7 +428,7 @@ class Reference(QtCore.QObject):
             name = section.table_name
             sql = "SELECT 1 FROM %s WHERE icon IS NOT NULL LIMIT 1" % name
             query = QtSql.QSqlQuery(sql, self.db)
-            query.exec_()
+            query.exec()
             if query.first():
                 self.sections_with_icons.append(name)
 
@@ -475,7 +475,7 @@ class Reference(QtCore.QObject):
             sql = "SELECT icon FROM %s WHERE value=?" % table_name
             query = QtSql.QSqlQuery(sql, self.db)
             query.addBindValue(value)
-            query.exec_()
+            query.exec()
             if query.first():
                 data = query.record().value(0)
                 if data:

@@ -1,7 +1,7 @@
-from PyQt5.QtCore import pyqtSlot, pyqtSignal, QSettings, QUrl
-from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import QSizePolicy
+from PyQt6.QtCore import pyqtSlot, pyqtSignal, QSettings, QUrl
+from PyQt6.QtGui import QDesktopServices
+from PyQt6.QtSql import QSqlQuery
+from PyQt6.QtWidgets import QSizePolicy
 
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
@@ -72,7 +72,7 @@ class BaseMapWidget(QWebView):
             self.page().mainFrame().addToJavaScriptWindowObject(
                 "qtWidget", self)
 
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
     def setModel(self, model):
         self.model = model
@@ -84,7 +84,7 @@ class BaseMapWidget(QWebView):
         if filter_:
             sql += " AND " + filter_
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         while query.next():
             record = query.record()
             lat = record.value(0)

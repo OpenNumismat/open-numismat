@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtCore import Qt, QDate, QLocale
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
+from PyQt6.QtCore import Qt, QDate, QLocale
+from PyQt6.QtSql import QSqlQuery
+from PyQt6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
@@ -13,12 +13,12 @@ class SummaryDialog(QDialog):
 
     def __init__(self, model, parent=None):
         super().__init__(parent,
-                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+                         Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint)
 
         self.setWindowTitle(self.tr("Summary"))
 
-        buttonBox = QDialogButtonBox(Qt.Horizontal)
-        buttonBox.addButton(QDialogButtonBox.Ok)
+        buttonBox = QDialogButtonBox(Qt.Orientation.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.StandardButton.Ok)
         buttonBox.accepted.connect(self.accept)
 
         self.textBox = QTextEdit(self)
@@ -262,7 +262,7 @@ class SummaryDialog(QDialog):
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
-            date = QDate.fromString(query.record().value(0), Qt.ISODate)
+            date = QDate.fromString(query.record().value(0), Qt.DateFormat.ISODate)
             paydate = date.toString(Qt.SystemLocaleShortDate)
             lines.append(self.tr("First purchase: %s") % paydate)
 

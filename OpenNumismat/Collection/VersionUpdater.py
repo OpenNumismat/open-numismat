@@ -1,7 +1,7 @@
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtCore import QSettings
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtSql import QSqlQuery
+from PyQt6.QtCore import QSettings
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools import Gui
@@ -110,7 +110,7 @@ class UpdaterTo2(_Updater):
             query.addBindValue(fieldDesc.id)
             query.addBindValue(fieldDesc.title)
             query.addBindValue(int(fieldDesc.enabled))
-            query.exec_()
+            query.exec()
 
             self.collection.fields.userFields.append(fieldDesc)
 
@@ -136,7 +136,7 @@ class UpdaterTo2(_Updater):
                     fieldDesc = getattr(self.collection.fields, field)
                     image_query.addBindValue(fieldDesc.title)
                     image_query.addBindValue(record.value(field))
-                    image_query.exec_()
+                    image_query.exec()
                     imgIds[field] = image_query.lastInsertId()
                 else:
                     imgIds[field] = None
@@ -231,7 +231,7 @@ class UpdaterTo2(_Updater):
             coin_query.addBindValue(record.value('features'))
             coin_query.addBindValue(record.value('createdat'))
             coin_query.addBindValue(record.value('updatedat'))
-            if not coin_query.exec_():
+            if not coin_query.exec():
                 print(coin_query.lastError().text())
 
         self.progressDlg.setLabelText(self.tr("Saving..."))
@@ -246,7 +246,7 @@ class UpdaterTo2(_Updater):
         query.prepare("""INSERT INTO settings (title, value) VALUES (?, ?)""")
         query.addBindValue('Password')
         query.addBindValue(self.collection.settings['Password'])
-        query.exec_()
+        query.exec()
 
         self.db.commit()
 
@@ -279,7 +279,7 @@ class UpdaterTo3(_Updater):
         query.prepare("""INSERT INTO settings (title, value) VALUES (?, ?)""")
         query.addBindValue('Type')
         query.addBindValue(self.collection.settings['Type'])
-        query.exec_()
+        query.exec()
 
         sql = """ALTER TABLE images RENAME TO photos"""
         QSqlQuery(sql, self.db)
@@ -299,7 +299,7 @@ class UpdaterTo3(_Updater):
                 insert_query = QSqlQuery(self.db)
                 insert_query.prepare("INSERT INTO images (image) VALUES (?)")
                 insert_query.addBindValue(record.value('image'))
-                insert_query.exec_()
+                insert_query.exec()
                 img_id = insert_query.lastInsertId()
             else:
                 img_id = None
@@ -308,7 +308,7 @@ class UpdaterTo3(_Updater):
             update_query.prepare("UPDATE coins SET image=? WHERE id=?")
             update_query.addBindValue(img_id)
             update_query.addBindValue(record.value('id'))
-            update_query.exec_()
+            update_query.exec()
 
         self.collection.settings['Version'] = 3
         self.collection.settings.save()
@@ -343,7 +343,7 @@ class UpdaterTo4(_Updater):
             query.addBindValue(fieldDesc.id)
             query.addBindValue(fieldDesc.title)
             query.addBindValue(int(fieldDesc.enabled))
-            query.exec_()
+            query.exec()
 
             sql = "ALTER TABLE coins ADD COLUMN %s TEXT" % field
             QSqlQuery(sql, self.db)
@@ -391,7 +391,7 @@ class UpdaterTo5(_Updater):
             query.addBindValue(fieldDesc.id)
             query.addBindValue(fieldDesc.title)
             query.addBindValue(int(fieldDesc.enabled))
-            query.exec_()
+            query.exec()
 
             sql = "ALTER TABLE coins ADD COLUMN %s %s" % (field, Type.toSql(fieldDesc.type))
             QSqlQuery(sql, self.db)
@@ -446,7 +446,7 @@ class UpdaterTo6(_Updater):
             query.addBindValue(fieldDesc.id)
             query.addBindValue(fieldDesc.title)
             query.addBindValue(int(False))
-            query.exec_()
+            query.exec()
 
             sql = "ALTER TABLE coins ADD COLUMN %s %s" % (field, Type.toSql(fieldDesc.type))
             QSqlQuery(sql, self.db)
@@ -493,7 +493,7 @@ class UpdaterTo7(_Updater):
             query.addBindValue(fieldDesc.id)
             query.addBindValue(fieldDesc.title)
             query.addBindValue(int(False))
-            query.exec_()
+            query.exec()
 
             sql = "ALTER TABLE coins ADD COLUMN %s %s" % (field, Type.toSql(fieldDesc.type))
             QSqlQuery(sql, self.db)
@@ -536,7 +536,7 @@ class UpdaterTo8(_Updater):
             query.addBindValue(fieldDesc.id)
             query.addBindValue(fieldDesc.title)
             query.addBindValue(int(False))
-            query.exec_()
+            query.exec()
 
             sql = "ALTER TABLE coins ADD COLUMN %s %s" % (field, Type.toSql(fieldDesc.type))
             QSqlQuery(sql, self.db)

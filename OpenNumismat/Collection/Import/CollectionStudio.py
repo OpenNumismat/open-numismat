@@ -10,7 +10,7 @@ except ImportError:
     print('lxml module missed. Importing from CollectionStudio not available')
     available = False
 
-from PyQt5 import QtCore, QtGui
+from PyQt6 import QtCore, QtGui
 
 from OpenNumismat.Collection.Import import _Import
 from OpenNumismat.Tools.Converters import stringToMoney

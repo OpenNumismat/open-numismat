@@ -2,9 +2,9 @@
 
 import re
 
-from PyQt5.QtCore import QMargins, QUrl, QDate, Qt, pyqtSignal, QLocale
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import QMargins, QUrl, QDate, Qt, pyqtSignal, QLocale
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import statusIcon
@@ -15,12 +15,12 @@ from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText, n
 class DoubleValidator(QDoubleValidator):
     def __init__(self, bottom, top, decimals, parent=None):
         super().__init__(bottom, top, decimals, parent)
-        self.setNotation(QDoubleValidator.StandardNotation)
+        self.setNotation(QDoubleValidator.Notation.StandardNotation)
 
     def validate(self, input_, pos):
         input_ = input_.lstrip()
         if len(input_) == 0:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         lastWasDigit = False
         decPointFound = False
@@ -39,56 +39,56 @@ class DoubleValidator(QDoubleValidator):
                     if decDigitCnt < self.decimals():
                         decDigitCnt += 1
                     else:
-                        return QValidator.Invalid, input_, pos
+                        return QValidator.State.Invalid, input_, pos
 
                 value = value + c
                 lastWasDigit = True
             else:
                 if c in dp and self.decimals() != 0:
                     if decPointFound:
-                        return QValidator.Invalid, input_, pos
+                        return QValidator.State.Invalid, input_, pos
                     else:
                         value += '.'
                         decPointFound = True
                 elif c in ts:
                     if not lastWasDigit or decPointFound:
-                        return QValidator.Invalid, input_, pos
+                        return QValidator.State.Invalid, input_, pos
                 elif c == '-' and value == '0':
                     if self.bottom() > 0:
-                        return QValidator.Invalid, input_, pos
+                        return QValidator.State.Invalid, input_, pos
                     value = '-0'
                 else:
-                    return QValidator.Invalid, input_, pos
+                    return QValidator.State.Invalid, input_, pos
 
                 lastWasDigit = False
 
         try:
             val = float(value)
         except ValueError:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
         if self.bottom() > val or val > self.top():
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
 
 
 class DenominationValidator(DoubleValidator):
     def __init__(self, parent=None):
         super().__init__(0, 9999999999, 2, parent)
-        self.setNotation(QDoubleValidator.StandardNotation)
+        self.setNotation(QDoubleValidator.Notation.StandardNotation)
 
     def validate(self, input_, pos):
         result, input_, pos = super().validate(input_, pos)
         
-        if result == QValidator.Invalid:
+        if result == QValidator.State.Invalid:
             values = ('1/24', '1/16', '1/12', '1/10', '1/8', '1/6', '1/5',
                       '1/4', '1/3', '1/2', '2/3', '3/4')
             for val in values:
                 if input_ == val:
-                    return QValidator.Acceptable, input_, pos
+                    return QValidator.State.Acceptable, input_, pos
                 if val.startswith(input_):
-                    return QValidator.Intermediate, input_, pos
+                    return QValidator.State.Intermediate, input_, pos
 
         return result, input_, pos
 
@@ -101,7 +101,7 @@ class BigIntValidator(QDoubleValidator):
     def validate(self, input_, pos):
         input_ = input_.lstrip()
         if len(input_) == 0:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         lastWasDigit = False
         value = '0'
@@ -117,41 +117,41 @@ class BigIntValidator(QDoubleValidator):
             else:
                 if c in tss:
                     if not lastWasDigit:
-                        return QValidator.Invalid, input_, pos
+                        return QValidator.State.Invalid, input_, pos
                 else:
-                    return QValidator.Invalid, input_, pos
+                    return QValidator.State.Invalid, input_, pos
 
                 lastWasDigit = False
 
         try:
             val = int(value)
         except ValueError:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
         if not lastWasDigit and len(input_) > 0 and input_[-1] not in ts:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
         if self.bottom() > val or val > self.top():
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
 
 
 class NumberValidator(QIntValidator):
     def validate(self, input_, pos):
         input_ = input_.strip()
         if len(input_) == 0:
-            return QValidator.Intermediate, input_, pos
+            return QValidator.State.Intermediate, input_, pos
 
         try:
             val = int(input_)
         except ValueError:
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
         if self.bottom() > val or val > self.top():
-            return QValidator.Invalid, input_, pos
+            return QValidator.State.Invalid, input_, pos
 
-        return QValidator.Acceptable, input_, pos
+        return QValidator.State.Acceptable, input_, pos
 
 
 class LineEdit(QLineEdit):
@@ -173,7 +173,7 @@ class UrlLineEdit(QWidget):
         buttonLoad.clicked.connect(self.clickedButtonLoad)
 
         style = QApplication.style()
-        icon = style.standardIcon(QStyle.SP_DialogOpenButton)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_DialogOpenButton)
 
         self.buttonOpen = QPushButton(icon, '', parent)
         self.buttonOpen.setFixedWidth(25)
@@ -321,7 +321,7 @@ class LineEditRef(QWidget):
         self.comboBox.setEditable(True)
         self.comboBox.lineEdit().setMaxLength(1024)
         self.comboBox.setMinimumWidth(120)
-        self.comboBox.setInsertPolicy(QComboBox.NoInsert)
+        self.comboBox.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
 
         self.model = reference.model
         self.proxyModel = self.model.proxyModel()
@@ -438,7 +438,7 @@ class StatusBrowser(QLineEdit):
         for act in self.actions():
             self.removeAction(act)
         icon = statusIcon(value)
-        self.action = self.addAction(icon, QLineEdit.LeadingPosition)
+        self.action = self.addAction(icon, QLineEdit.ActionPosition.LeadingPosition)
 
         self.data = value
 
@@ -453,7 +453,7 @@ class ShortLineEdit(QLineEdit):
         super().__init__(parent)
         self.setMaxLength(10)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -464,8 +464,8 @@ class UserNumericEdit(QLineEdit):
         super().__init__(parent)
         self.setMaxLength(25)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum,
+                                       QSizePolicy.Policy.Fixed, QSizePolicy.ControlType.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -478,8 +478,8 @@ class NumberEdit(QLineEdit):
         self.setValidator(validator)
         self.setMaxLength(4)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum,
+                                       QSizePolicy.Policy.Fixed, QSizePolicy.ControlType.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -495,7 +495,7 @@ class YearEdit(QWidget):
             self.numberEdit = NumberEdit(parent)
 
         self.bcBtn = QCheckBox(self.tr("BC"))
-        self.bcBtn.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.bcBtn.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
 
         self.bcLbl = QLabel()
         self.bcLbl.hide()
@@ -510,7 +510,7 @@ class YearEdit(QWidget):
 
     def clear(self):
         self.numberEdit.clear()
-        self.bcBtn.setCheckState(Qt.Unchecked)
+        self.bcBtn.setCheckState(Qt.CheckState.Unchecked)
 
     def setText(self, text):
         if text and text[0] == '-':
@@ -667,8 +667,8 @@ class BigIntEdit(_DoubleEdit):
 
         self.setMaxLength(15 + 4)  # additional 4 symbol for thousands separator
         self.setMinimumWidth(100)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum,
+                                       QSizePolicy.Policy.Fixed, QSizePolicy.ControlType.SpinBox))
 
     def text(self):
         text = super().text()
@@ -683,8 +683,8 @@ class ValueEdit(_DoubleEdit):
         super().__init__(0, 9999999999, 3, parent)
         self.setMaxLength(17)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum,
+                                       QSizePolicy.Policy.Fixed, QSizePolicy.ControlType.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -695,8 +695,8 @@ class CoordEdit(_DoubleEdit):
         super().__init__(-180, 180, 4, parent)
         self.setMaxLength(9)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum,
+                                       QSizePolicy.Policy.Fixed, QSizePolicy.ControlType.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -707,8 +707,8 @@ class MoneyEdit(_DoubleEdit):
         super().__init__(0, 9999999999, 2, parent)
         self.setMaxLength(16)
         self.setMinimumWidth(100)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
-                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum,
+                                       QSizePolicy.Policy.Fixed, QSizePolicy.ControlType.SpinBox))
 
     def sizeHint(self):
         return self.minimumSizeHint()
@@ -962,7 +962,7 @@ class DateEdit(QDateEdit):
         self.__clearDefaultDate()
 
     def keyPressEvent(self, event):
-        if event.key() in (Qt.Key_Delete, Qt.Key_Backspace):
+        if event.key() in (Qt.Key.Key_Delete, Qt.Key.Key_Backspace):
             lineEdit = self.findChild(QLineEdit)
             if lineEdit.selectedText() == lineEdit.text():
                 self.setDate(self.DEFAULT_DATE)

@@ -1,8 +1,8 @@
 import urllib.request
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.ImageViewer import ImageViewer
@@ -25,13 +25,13 @@ class ImageLabel(QLabel):
 
         self.clear()
 
-        self.setBackgroundRole(QPalette.Base)
-        self.setSizePolicy(QSizePolicy.Ignored,
-                           QSizePolicy.Ignored)
-        self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-        self.setFocusPolicy(Qt.StrongFocus)
+        self.setBackgroundRole(QPalette.ColorRole.Base)
+        self.setSizePolicy(QSizePolicy.Policy.Ignored,
+                           QSizePolicy.Policy.Ignored)
+        self.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.contextMenu)
 
     def contextMenu(self, pos):
@@ -59,7 +59,7 @@ class ImageLabel(QLabel):
         menu.addAction(save)
         menu.addSeparator()
         menu.addAction(copy)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec(self.mapToGlobal(pos))
 
     def openImage(self):
         if Settings()['built_in_viewer']:
@@ -74,13 +74,13 @@ class ImageLabel(QLabel):
         viewer = ImageViewer(self)
         viewer.imageSaved.connect(self.imageSaved)
         viewer.setImage(self.image)
-        viewer.exec_()
+        viewer.exec()
 
     def imageSaved(self, image):
         if image.hasAlphaChannel():
             # Fill transparent color if present
-            fixedImage = QImage(image.size(), QImage.Format_RGB32)
-            fixedImage.fill(Qt.white)
+            fixedImage = QImage(image.size(), QImage.Format.Format_RGB32)
+            fixedImage.fill(Qt.GlobalColor.white)
             painter = QPainter(fixedImage)
             painter.drawImage(0, 0, image)
             painter.end()
@@ -134,7 +134,7 @@ class ImageLabel(QLabel):
         if self.image.width() > self.width() or \
                                         self.image.height() > self.height():
             scaledImage = self.image.scaled(self.size(),
-                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
         else:
             scaledImage = self.image
 
@@ -182,7 +182,7 @@ class ImageEdit(ImageLabel):
 
         self.label.mouseDoubleClickEvent = self.renameImageEvent
 
-        self.setFrameStyle(QFrame.Panel | QFrame.Plain)
+        self.setFrameStyle(QFrame.Shape.Panel | QFrame.Shadow.Plain)
 
         text = QApplication.translate('ImageEdit', "Exchange with")
         self.exchangeMenu = QMenu(text, self)
@@ -196,7 +196,7 @@ class ImageEdit(ImageLabel):
     def contextMenu(self, pos):
         style = QApplication.style()
 
-        icon = style.standardIcon(QStyle.SP_DirOpenIcon)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_DirOpenIcon)
         text = QApplication.translate('ImageEdit', "Load...")
         load_act = QAction(icon, text, self)
         load_act.triggered.connect(self.loadImage)
@@ -215,7 +215,7 @@ class ImageEdit(ImageLabel):
         copy_act.triggered.connect(self.copyImage)
         copy_act.setDisabled(self.image.isNull())
 
-        icon = style.standardIcon(QStyle.SP_TrashIcon)
+        icon = style.standardIcon(QStyle.StandardPixmap.SP_TrashIcon)
         text = QApplication.translate('ImageEdit', "Delete")
         delete_act = QAction(icon, text, self)
         delete_act.triggered.connect(self.deleteImage)
@@ -245,7 +245,7 @@ class ImageEdit(ImageLabel):
         menu.addAction(copy_act)
         menu.addAction(paste_act)
         menu.addAction(delete_act)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec(self.mapToGlobal(pos))
 
     def mouseDoubleClickEvent(self, _e):
         if self.image.isNull():
@@ -373,7 +373,7 @@ class ImageEdit(ImageLabel):
     def renameImage(self):
         title, ok = QInputDialog.getText(self, self.tr("Rename image"),
                 self.tr("Enter new image name"), text=self.title,
-                flags=(Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint))
+                flags=(Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowSystemMenuHint))
         if ok:
             self.title = title
             self.label.setText(title)
@@ -385,8 +385,8 @@ class ImageEdit(ImageLabel):
     def _setNewImage(self, image):
         if image.hasAlphaChannel():
             # Fill transparent color if present
-            fixedImage = QImage(image.size(), QImage.Format_RGB32)
-            fixedImage.fill(Qt.white)
+            fixedImage = QImage(image.size(), QImage.Format.Format_RGB32)
+            fixedImage.fill(Qt.GlobalColor.white)
             painter = QPainter(fixedImage)
             painter.drawImage(0, 0, image)
             painter.end()
