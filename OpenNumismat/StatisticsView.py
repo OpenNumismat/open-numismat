@@ -1,9 +1,9 @@
 from textwrap import wrap
 
-from PyQt5.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
-from PyQt5.QtGui import QImage, QIcon
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
+from PySide6.QtGui import QImage, QIcon
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses

@@ -3,11 +3,12 @@ import json
 import os
 import shutil
 
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QImage, QPainter
-from PyQt5.QtCore import Qt, pyqtSignal, QCryptographicHash, QLocale
-from PyQt5.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
+from PySide6 import QtCore
+from PySide6.QtWidgets import *
+from PySide6.QtGui import QImage, QPainter, QAction
+from PySide6.QtCore import Qt, QCryptographicHash, QLocale
+from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -77,17 +78,17 @@ class CollectionModel(QSqlTableModel):
                 elif field.type == Type.Text:
                     text = htmlToPlainText(data)
                 elif field.type == Type.Money:
-                    text = QLocale.system().toString(float(data), format='f', precision=2)
+                    text = QLocale.system().toString(float(data), 'f', precision=2)
                     dp = QLocale.system().decimalPoint()
                     text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Denomination:
                     text, converted = numberWithFraction(data, self.settings['convert_fraction'])
                     if not converted:
-                        text = QLocale.system().toString(float(data), format='f', precision=2)
+                        text = QLocale.system().toString(float(data), 'f', precision=2)
                         dp = QLocale.system().decimalPoint()
                         text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Value:
-                    text = QLocale.system().toString(float(data), format='f', precision=3)
+                    text = QLocale.system().toString(float(data), 'f', precision=3)
                     dp = QLocale.system().decimalPoint()
                     text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.PreviewImage:

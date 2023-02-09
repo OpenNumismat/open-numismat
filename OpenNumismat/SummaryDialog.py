@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtCore import Qt, QDate, QLocale
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
+from PySide6.QtCore import Qt, QDate, QLocale
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney

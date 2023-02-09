@@ -2,9 +2,10 @@
 
 import re
 
-from PyQt5.QtCore import QMargins, QUrl, QDate, Qt, pyqtSignal, QLocale
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import QMargins, QUrl, QDate, Qt, QLocale
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Signal as pyqtSignal
 
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import statusIcon
@@ -75,7 +76,7 @@ class DoubleValidator(QDoubleValidator):
 
 class DenominationValidator(DoubleValidator):
     def __init__(self, parent=None):
-        super().__init__(0, 9999999999, 2, parent)
+        super().__init__(0, 9999999999., 2, parent)
         self.setNotation(QDoubleValidator.StandardNotation)
 
     def validate(self, input_, pos):
@@ -638,7 +639,7 @@ class _DoubleEdit(QLineEdit):
             if not self.hasFocus() or self.isReadOnly():
                 try:
                     if self._decimals:
-                        text = QLocale.system().toString(float(text), format='f',
+                        text = QLocale.system().toString(float(text), 'f',
                                                          precision=self._decimals)
                     else:
                         text = QLocale.system().toString(int(text))
@@ -660,9 +661,9 @@ class _DoubleEdit(QLineEdit):
 
 class BigIntEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super().__init__(0, 999999999999999, 0, parent)
+        super().__init__(0, 999999999999999., 0, parent)
 
-        validator = BigIntValidator(0, 999999999999999, parent)
+        validator = BigIntValidator(0, 999999999999999., parent)
         self.setValidator(validator)
 
         self.setMaxLength(15 + 4)  # additional 4 symbol for thousands separator
@@ -680,7 +681,7 @@ class BigIntEdit(_DoubleEdit):
 
 class ValueEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super().__init__(0, 9999999999, 3, parent)
+        super().__init__(0, 9999999999., 3, parent)
         self.setMaxLength(17)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
@@ -704,7 +705,7 @@ class CoordEdit(_DoubleEdit):
 
 class MoneyEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super().__init__(0, 9999999999, 2, parent)
+        super().__init__(0, 9999999999., 2, parent)
         self.setMaxLength(16)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
@@ -759,7 +760,7 @@ class DenominationEdit(MoneyEdit):
                 text, converted = numberWithFraction(text)
                 if not converted:
                     try:
-                        text = QLocale.system().toString(float(text), format='f', precision=2)
+                        text = QLocale.system().toString(float(text), 'f', precision=2)
                         # Strip empty fraction
                         dp = QLocale.system().decimalPoint()
                         text = text.rstrip('0').rstrip(dp)

@@ -1,7 +1,7 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QIcon
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses, StatusesOrder

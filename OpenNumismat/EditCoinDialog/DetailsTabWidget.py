@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtGui import QDoubleValidator, QDesktopServices
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QUrl
+from PySide6.QtGui import QDoubleValidator, QDesktopServices
+from PySide6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdit, NativeYearEdit
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout

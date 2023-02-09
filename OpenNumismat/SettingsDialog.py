@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
+from PySide6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase

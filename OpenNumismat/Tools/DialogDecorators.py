@@ -1,5 +1,5 @@
-from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import QApplication
+from PySide6.QtCore import QSettings
+from PySide6.QtWidgets import QApplication
 
 
 def storeDlgSizeDecorator(original_class):

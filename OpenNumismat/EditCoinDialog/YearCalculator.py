@@ -2,9 +2,9 @@
 
 import math
 
-from PyQt5.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
-from PyQt5.QtGui import QFont, QValidator, QIcon
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
+from PySide6.QtGui import QFont, QValidator, QIcon
+from PySide6.QtWidgets import *
 
 
 class YearCalculatorDialog(QDialog):

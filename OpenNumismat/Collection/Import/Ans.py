@@ -12,9 +12,9 @@ except ImportError:
     print('lxml module missed. Importing from ANS not available')
     ansAvailable = False
 
-from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtGui import QImage, QPixmap, QIcon
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QObject
+from PySide6.QtGui import QImage, QPixmap, QIcon
+from PySide6.QtWidgets import *
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import.Cache import Cache

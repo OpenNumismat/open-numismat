@@ -16,7 +16,7 @@ import tempfile
 import urllib
 import zipfile
 
-from PyQt5 import QtGui
+from PySide6 import QtGui
 
 from OpenNumismat.Collection.Import import _Import
 from OpenNumismat.Tools.Converters import stringToMoney

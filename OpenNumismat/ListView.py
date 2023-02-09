@@ -2,14 +2,15 @@ import operator
 import pickle
 import os.path
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QMargins, pyqtSignal, QSortFilterProxyModel
-from PyQt5.QtCore import QCollator, QLocale
-from PyQt5.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
-from PyQt5.QtCore import QRectF, QRect
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6 import QtCore
+from PySide6.QtCore import Qt, QMargins, QSortFilterProxyModel
+from PySide6.QtCore import QCollator, QLocale
+from PySide6.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
+from PySide6.QtCore import QRectF, QRect
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Signal as pyqtSignal
 
 import OpenNumismat
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog

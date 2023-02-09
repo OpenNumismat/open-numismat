@@ -1,6 +1,6 @@
-from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QObject
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtWidgets import *
 
 
 class CollectionDescription(QObject):

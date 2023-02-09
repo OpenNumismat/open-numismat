@@ -1,7 +1,7 @@
-from PyQt5 import QtCore
-from PyQt5 import QtSql
-from PyQt5.QtCore import Qt, QCollator, QLocale, QEvent
-from PyQt5.QtWidgets import *
+from PySide6 import QtCore
+from PySide6 import QtSql
+from PySide6.QtCore import Qt, QCollator, QLocale, QEvent
+from PySide6.QtWidgets import *
 
 from OpenNumismat.ListView import ListView, CardView, IconView
 from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
@@ -87,7 +87,6 @@ class ImageView(QWidget):
         for _ in range(self.imageLayout.count()):
             item = self.imageLayout.itemAt(0)
             self.imageLayout.removeItem(item)
-            item.widget().deleteLater()
 
     def buttonClicked(self, _state):
         self.clear()

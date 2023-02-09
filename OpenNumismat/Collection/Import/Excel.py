@@ -3,9 +3,9 @@
 import os
 import urllib.request
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QDialogButtonBox, QComboBox
-from PyQt5.QtGui import QPixmap, QImage
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QDialogButtonBox, QComboBox
+from PySide6.QtGui import QPixmap, QImage
 
 from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator

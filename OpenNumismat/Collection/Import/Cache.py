@@ -1,9 +1,9 @@
 import os
 import tempfile
 
-from PyQt5.QtCore import QObject, QByteArray
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from PyQt5.QtWidgets import QMessageBox
+from PySide6.QtCore import QObject, QByteArray
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtWidgets import QMessageBox
 
 
 class Cache(QObject):

@@ -1,6 +1,6 @@
 import os.path
 
-from PyQt5.QtCore import QLocale, QSettings
+from PySide6.QtCore import QLocale, QSettings
 
 import OpenNumismat
 

@@ -1,8 +1,8 @@
 import os
 
-from PyQt5.QtCore import Qt, QSettings
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox
+from PySide6.QtCore import Qt, QSettings
+from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox
 
 
 class ProgressDialog(QProgressDialog):

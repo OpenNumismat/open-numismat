@@ -3,7 +3,7 @@
 import csv
 import sys
 
-from PyQt5.QtCore import QStandardPaths
+from PySide6.QtCore import QStandardPaths
 
 from OpenNumismat.Collection.Import import _Import
 from OpenNumismat.Collection.Import.Excel import ImportExcel

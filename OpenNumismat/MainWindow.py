@@ -1,9 +1,9 @@
 import sys
 import urllib.request
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 
 from OpenNumismat.Collection.Collection import Collection
 from OpenNumismat.Collection.Description import DescriptionDialog
@@ -354,7 +354,7 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(self.referenceMenu)
 
         reportAct = QAction(self.tr("Report..."), self)
-        reportAct.setShortcut(Qt.CTRL + Qt.Key_P)
+        reportAct.setShortcut(QKeySequence.Print)
         reportAct.triggered.connect(self.report)
         self.collectionActs.append(reportAct)
 

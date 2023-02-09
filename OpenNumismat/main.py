@@ -5,9 +5,10 @@ import ssl
 import sys
 import traceback
 
-from PyQt5.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, PYQT_VERSION_STR, QSettings
-from PyQt5.QtWidgets import QApplication, QMessageBox
-from PyQt5.QtGui import QDesktopServices
+from PySide6.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, QSettings
+from PySide6.QtWidgets import QApplication, QMessageBox
+from PySide6.QtGui import QDesktopServices
+from PySide6 import __version__ as PYQT_VERSION_STR
 
 import OpenNumismat
 from OpenNumismat.Settings import Settings

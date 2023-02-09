@@ -1,7 +1,7 @@
 import os
 import sys
 
-from PyQt5.QtCore import QStandardPaths
+from PySide6.QtCore import QStandardPaths
 
 import OpenNumismat
 from OpenNumismat import version

@@ -2,9 +2,9 @@ import json
 import re
 import urllib.request
 
-from PyQt5.QtCore import Qt, QUrl, QMargins
-from PyQt5.QtGui import QDesktopServices, QImage
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QUrl, QMargins
+from PySide6.QtGui import QDesktopServices, QImage
+from PySide6.QtWidgets import *
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2

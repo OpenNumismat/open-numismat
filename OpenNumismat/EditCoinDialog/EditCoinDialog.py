@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt, QSettings
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QSettings
+from PySide6.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget

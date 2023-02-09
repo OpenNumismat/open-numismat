@@ -1,6 +1,6 @@
-from PyQt5.QtCore import QT_TRANSLATE_NOOP, QObject
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtCore import QT_TRANSLATE_NOOP, QObject
+from PySide6.QtWidgets import QApplication
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 
 class FieldTypes():

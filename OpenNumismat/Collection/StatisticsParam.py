@@ -1,4 +1,4 @@
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 from OpenNumismat.Settings import BaseSettings
 
