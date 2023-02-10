@@ -119,7 +119,9 @@ class TabView(QTabWidget):
         if self.oldPage:
             statusBar = self.parent().statusBar()
             statusBar.removeWidget(self.oldPage.listView.listCountLabel)
+            self.oldPage.listView.listCountLabel.hide()
             statusBar.removeWidget(self.oldPage.listView.listSelectedLabel)
+            self.oldPage.listView.listSelectedLabel.hide()
 
     def updatePage(self, page):
         parent = self.parent()
