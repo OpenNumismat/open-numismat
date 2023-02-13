@@ -354,7 +354,7 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(self.referenceMenu)
 
         reportAct = QAction(self.tr("Report..."), self)
-        reportAct.setShortcut(Qt.CTRL + Qt.Key_P)
+        reportAct.setShortcut(QKeySequence.Print)
         reportAct.triggered.connect(self.report)
         self.collectionActs.append(reportAct)
 
