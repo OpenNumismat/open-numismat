@@ -164,7 +164,7 @@ class TabView(QTabWidget):
 
     def clear(self):
         self.currentChanged.disconnect(self.activatedPage)
-        for _ in range(self.count()):
+        while self.count():
             w = self.widget(0)
             self.removeTab(0)
             w.deleteLater()
