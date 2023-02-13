@@ -798,19 +798,19 @@ class Collection(QtCore.QObject):
                                        self.tr("Can't open collection"))
             return False
 
+        self.settings = CollectionSettings(self.db)
+
         self.fields = CollectionFields(self.db)
 
         self.createCoinsTable()
 
-        self._pages = CollectionPages(self.db)
+        self.fileName = fileName
 
-        self.settings = CollectionSettings(self.db)
+        self._pages = CollectionPages(self.db)
 
         self.description = CollectionDescription(self)
 
         self.__speedup()
-
-        self.fileName = fileName
 
         return True
 
