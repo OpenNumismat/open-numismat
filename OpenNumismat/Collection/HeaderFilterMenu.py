@@ -49,17 +49,18 @@ class FilterMenuButton(QPushButton):
         self.listParam = listParam
         self.settings = model.settings
 
-        menu = QMenu()
+        menu = QMenu(self)
+        menu.aboutToShow.connect(self.prepareMenu)
+        self.setMenu(menu)
 
         self.setToolTip(self.tr("Filter items"))
 
-        self.setFixedHeight(self.parent().height() - 2)
+        off = 2
+        self.setFixedHeight(self.parent().height() - off)
         self.setFixedWidth(self.height())
-        self.setMenu(menu)
+        self.setStyleSheet("padding-left:%dpx;" % (self.style().pixelMetric(QStyle.PM_MenuButtonIndicator) + off))
         if self.fieldid in self.filters.keys():
             self.setIcon(QIcon(':/filters.ico'))
-
-        menu.aboutToShow.connect(self.prepareMenu)
 
     def prepareMenu(self):
         self.listWidget = QListWidget(self)
