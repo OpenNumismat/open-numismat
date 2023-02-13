@@ -12,7 +12,6 @@ from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
-from OpenNumismat.EditCoinDialog.MapWidget.MapWidget import importedQtWebKit
 from OpenNumismat.EditCoinDialog.MapWidget import get_map_widget
 
 
@@ -458,7 +457,7 @@ class DetailsTabWidget(QTabWidget):
         coordinates_enabled = not (self.items['latitude'].isHidden() or
                                    self.items['longitude'].isHidden())
 
-        if importedQtWebKit and coordinates_enabled:
+        if coordinates_enabled:
             settings = Settings()
             self.map_item = get_map_widget(self, settings['map_type'], False)
 
@@ -733,7 +732,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         coordinates_enabled = not (self.items['latitude'].isHidden() or
                                    self.items['longitude'].isHidden())
 
-        if importedQtWebKit and coordinates_enabled:
+        if coordinates_enabled:
             settings = Settings()
             self.map_item = get_map_widget(self, settings['map_type'], False, False)
 
