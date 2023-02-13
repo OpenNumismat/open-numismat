@@ -4,7 +4,7 @@ from PySide6.QtCore import Qt, QCollator, QLocale, QEvent
 from PySide6.QtWidgets import *
 
 from OpenNumismat.ListView import ListView, CardView, IconView
-from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
+from OpenNumismat.StatisticsView import statisticsAvailable
 from OpenNumismat.StatisticsView import StatisticsView
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -609,10 +609,9 @@ class PageView(Splitter):
             self.statisticsView = StatisticsView(pageParam.statisticsParam)
             self.statisticsView.setMinimumHeight(200)
 
-        if importedQtWebKit:
-            settings = Settings()
-            self.mapView = get_map_widget(None, settings['map_type'], True)
-            self.mapView.markerClicked.connect(self.setCurrentCoin)
+        settings = Settings()
+        self.mapView = get_map_widget(None, settings['map_type'], True)
+        self.mapView.markerClicked.connect(self.setCurrentCoin)
 
         self.addWidget(self.splitter1)
         if self.imagesAtBottom:
@@ -634,10 +633,8 @@ class PageView(Splitter):
         self.detailsView.setModel(model)
         if statisticsAvailable:
             self.statisticsView.setModel(model)
-        if importedQtWebKit:
-            self.mapView.setModel(model)
-        if statisticsAvailable or importedQtWebKit:
-            self.prepareInfo()
+        self.mapView.setModel(model)
+        self.prepareInfo()
 
         self._model.modelChanged.connect(self.modelChanged)
 

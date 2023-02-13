@@ -16,7 +16,7 @@ from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
-from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
+from OpenNumismat.StatisticsView import statisticsAvailable
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
 from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
@@ -88,12 +88,11 @@ class MainWindow(QMainWindow):
             self.statisticsAct.triggered.connect(self.statisticsEvent)
             self.collectionActs.append(self.statisticsAct)
 
-        if importedQtWebKit:
-            self.mapAct = QAction(QIcon(':/world.png'),
-                                  self.tr("Map"), self)
-            self.mapAct.setCheckable(True)
-            self.mapAct.triggered.connect(self.mapEvent)
-            self.collectionActs.append(self.mapAct)
+        self.mapAct = QAction(QIcon(':/world.png'),
+                              self.tr("Map"), self)
+        self.mapAct.setCheckable(True)
+        self.mapAct.triggered.connect(self.mapEvent)
+        self.collectionActs.append(self.mapAct)
 
         summaryAct = QAction(self.tr("Summary"), self)
         summaryAct.triggered.connect(self.summaryEvent)
@@ -318,12 +317,10 @@ class MainWindow(QMainWindow):
         coin.addAction(deleteCoinAct)
 
         detailsMenu = QMenu(self.tr("Details"), self)
-        if statisticsAvailable or importedQtWebKit:
-            detailsMenu.addAction(self.detailsAct)
-            if statisticsAvailable:
-                detailsMenu.addAction(self.statisticsAct)
-            if importedQtWebKit:
-                detailsMenu.addAction(self.mapAct)
+        detailsMenu.addAction(self.detailsAct)
+        if statisticsAvailable:
+            detailsMenu.addAction(self.statisticsAct)
+        detailsMenu.addAction(self.mapAct)
 
         view = menubar.addMenu(self.tr("&View"))
         self.collectionActs.append(view)
@@ -415,13 +412,11 @@ class MainWindow(QMainWindow):
         toolBar.addAction(self.enableDragAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
-        if statisticsAvailable or importedQtWebKit:
-            toolBar.addSeparator()
-            toolBar.addAction(self.detailsAct)
-            if statisticsAvailable:
-                toolBar.addAction(self.statisticsAct)
-            if importedQtWebKit:
-                toolBar.addAction(self.mapAct)
+        toolBar.addSeparator()
+        toolBar.addAction(self.detailsAct)
+        if statisticsAvailable:
+            toolBar.addAction(self.statisticsAct)
+        toolBar.addAction(self.mapAct)
         if colnectAvailable or ansAvailable:
             toolBar.addSeparator()
         if colnectAvailable:
@@ -553,8 +548,7 @@ class MainWindow(QMainWindow):
         self.detailsAct.setChecked(False)
         if statisticsAvailable:
             self.statisticsAct.setChecked(False)
-        if importedQtWebKit:
-            self.mapAct.setChecked(False)
+        self.mapAct.setChecked(False)
 
         if info_type == CollectionPageTypes.Statistics:
             self.statisticsAct.setChecked(True)
