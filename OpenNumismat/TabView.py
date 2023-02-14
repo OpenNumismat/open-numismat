@@ -170,6 +170,8 @@ class TabView(QTabWidget):
             w.deleteLater()
         self.currentChanged.connect(self.activatedPage)
 
+        self.clearStatusBar()
+
     def setCollection(self, collection):
         self.collection = collection
 
