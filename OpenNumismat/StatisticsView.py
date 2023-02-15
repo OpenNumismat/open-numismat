@@ -1,9 +1,11 @@
 from textwrap import wrap
 
 from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
-from PySide6.QtGui import QImage, QIcon
+from PySide6.QtGui import QImage, QIcon, QCursor, QPainter
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import *
+from PySide6.QtCharts import QBarSet, QBarSeries, QChart, QChartView, QBarCategoryAxis, QValueAxis, QHorizontalBarSeries, QPieSeries, QHorizontalStackedBarSeries, QLineSeries
+from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
@@ -20,48 +22,8 @@ except ImportError:
     print('GMaps not available')
     gmapsAvailable = False
 
-statisticsAvailable = True
 
-try:
-    import numpy
-    import matplotlib
-    matplotlib.use('Qt5Agg')
-
-    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-    from matplotlib.figure import Figure
-    from matplotlib.ticker import MaxNLocator
-    import matplotlib.pyplot as plt
-    from OpenNumismat import PRJ_PATH
-    plt.style.use(PRJ_PATH + '/opennumismat.mplstyle')
-    # plt.style.use('seaborn-paper')
-except ImportError:
-    print('matplotlib or nympy module missed. Statistics not available')
-    statisticsAvailable = False
-
-    class FigureCanvas:
-        pass
-except ValueError:
-    print('matplotlib is old version. Statistics not available')
-    statisticsAvailable = False
-
-    class FigureCanvas:
-        pass
-
-importedQtWebKit = True
-try:
-    from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
-except ImportError:
-    try:
-        from PyQt5.QtWebKitWidgets import QWebView
-    except ImportError:
-        print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. GeoChart not available')
-        importedQtWebKit = False
-
-        class QWebView:
-            pass
-
-
-class GeoChartCanvas(QWebView):
+class GeoChart(QWebView):
     HTML = """
 <html>
   <head>
@@ -136,29 +98,19 @@ class GeoChartCanvas(QWebView):
                     f.write(bytes(self.html_data, 'utf-8'))
 
 
-class BaseCanvas(FigureCanvas):
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
-        self.fig = Figure(figsize=(width, height), dpi=dpi)
-        self.axes = self.fig.add_subplot(111)
-
-        FigureCanvas.__init__(self, self.fig)
-        self.setParent(parent)
-
-        FigureCanvas.setSizePolicy(self,
-                                   QSizePolicy.Expanding,
-                                   QSizePolicy.Expanding)
-        FigureCanvas.updateGeometry(self)
-        self.mpl_connect("motion_notify_event", self.hover)
-
+class BaseChart(QChartView):
+    
+    def __init__(self, parent=None):
+        self.chart = QChart()
+        self.chart.legend().hide()
+        self.chart.layout().setContentsMargins(0, 0, 0, 0)
+        self.chart.setBackgroundRoundness(0)
+        
         self.label = QApplication.translate('BaseCanvas', "Number of coins")
-
+        self.label_y = ''
         self.colors = None
-        self.multicolors = (
-            '#336699', '#99CCFF', '#999933', '#666699', '#CC9933', '#006666',
-            '#3399FF', '#993300', '#CCCC99', '#666666', '#FFCC66', '#6699CC',
-            '#663366', '#9999CC', '#CCCCCC', '#669999', '#CCCC66', '#CC6600',
-            '#9999FF', '#0066CC', '#99CCCC', '#999999', '#FFCC00', '#009999',
-            '#99CC33', '#FF9900', '#999966', '#66CCCC', '#339966', '#CCCC33')
+        
+        super().__init__(self.chart, parent)
 
     def setMulticolor(self, multicolor=False):
         if multicolor:
@@ -172,95 +124,113 @@ class BaseCanvas(FigureCanvas):
     def setLabelY(self, text):
         self.label_y = text
 
-    def hover(self, event):
-        if not event.inaxes:
+    def hover(self, status, index, barset):
+        if status:
+            QToolTip.showText(QCursor.pos(), self.tooltip(index))
+        else:
             QToolTip.showText(QPoint(), "")
-            return
-
-        for pos, figure in enumerate(self.figures):
-            if figure.contains(event)[0]:
-                point = QPoint(event.x, self.parent().height() - event.y)
-                QToolTip.showText(self.parent().mapToGlobal(point), self.tooltip(pos))
-                return
-
-        QToolTip.showText(QPoint(), "")
 
     def tooltip(self, pos):
         x = self.xx[pos]
         y = self.yy[pos]
         return "%s: %s\n%s: %d" % (self.label_y, x, self.label, y)
 
-    filters = (QApplication.translate('BaseCanvas', "PNG image (*.png)"),
-               QApplication.translate('BaseCanvas', "PDF file (*.pdf)"),
-               QApplication.translate('BaseCanvas', "SVG image (*.svg)"),
-               QApplication.translate('BaseCanvas', "PostScript (*.ps)"),
-               QApplication.translate('BaseCanvas', "Encapsulated PostScript (*.eps)"))
 
-    def save(self, fileName, selectedFilter):
-        # TODO: Matplotlib 2.1.0 needs file name in latin-1 for PS and EPS
-        if selectedFilter in self.filters[3:5]:
-            fileName = fileName.encode("latin-1", "ignore")
-        self.fig.savefig(fileName)
-
-
-class BarCanvas(BaseCanvas):
+class BarChart(BaseChart):
+    
     def setData(self, xx, yy):
         self.xx = xx
         self.yy = yy
+        
+        series = QBarSeries()
+        series.hovered.connect(self.hover)
 
-        self.axes.cla()
+        axisX = QBarCategoryAxis()
+        axisX.append(xx)
+        series.attachAxis(axisX)
+        self.chart.addAxis(axisX, Qt.AlignBottom)
 
-        x = range(len(yy))
-        self.figures = self.axes.bar(x, yy, color=self.colors)
-        self.axes.set_xticks(x)
-        keys = ['\n'.join(wrap(l, 17)) for l in xx]
-        self.axes.set_xticklabels(keys)
+        axisY = QValueAxis()
+        axisY.setTitleText(self.label)
+        if yy:
+            axisY.setRange(0, max(yy))
+        axisY.setLabelFormat("%d")
+        series.attachAxis(axisY)
+        self.chart.addAxis(axisY, Qt.AlignLeft)
 
-        self.axes.set_ylabel(self.label)
-        ya = self.axes.get_yaxis()
-        ya.set_major_locator(MaxNLocator(integer=True))
+        setY = QBarSet(self.label_y)
+        setY.append(yy)
+        series.append(setY)
 
-        self.draw()
+        self.chart.addSeries(series)
 
 
-class BarHCanvas(BaseCanvas):
+class BarHChart(BaseChart):
+    
     def setData(self, xx, yy):
-        self.axes.cla()
-
         xx = xx[::-1]  # xx.reverse()
         yy = yy[::-1]  # yy.reverse()
 
         self.xx = xx
         self.yy = yy
+        
+        series = QHorizontalBarSeries()
+        series.hovered.connect(self.hover)
 
-        x = range(len(yy))
-        self.figures = self.axes.barh(x, yy, color=self.colors)
-        self.axes.set_yticks(x)
-        keys = ['\n'.join(wrap(l, 17)) for l in xx]
-        self.axes.set_yticklabels(keys)
+        axisY = QBarCategoryAxis()
+        axisY.append(xx)
+        series.attachAxis(axisY)
+        self.chart.addAxis(axisY, Qt.AlignLeft)
 
-        self.axes.set_xlabel(self.label)
-        xa = self.axes.get_xaxis()
-        xa.set_major_locator(MaxNLocator(integer=True))
+        axisX = QValueAxis()
+        axisX.setTitleText(self.label)
+        if yy:
+            axisX.setRange(0, max(yy))
+        axisX.setLabelFormat("%d")
+        series.attachAxis(axisX)
+        self.chart.addAxis(axisX, Qt.AlignBottom)
 
-        self.draw()
+        setY = QBarSet(self.label_y)
+        setY.append(yy)
+        series.append(setY)
+
+        self.chart.addSeries(series)
 
 
-class PieCanvas(BaseCanvas):
+class PieChart(BaseChart):
+    
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setRenderHint(QPainter.Antialiasing)
+#        self.chart.legend().show()
+#        self.chart.legend().setAlignment(Qt.AlignRight)
+
     def setData(self, xx, yy):
         self.xx = xx
         self.yy = yy
+        
+        series = QPieSeries()
+        series.hovered.connect(self.hover)
+        
+        for x, y in zip(xx, yy):
+            series.append(x, y)
 
-        self.axes.cla()
+        self.chart.addSeries(series)
+        series.setLabelsVisible(True)
 
-        keys = ['\n'.join(wrap(l, 17)) for l in xx]
-        self.figures = self.axes.pie(yy, labels=keys, colors=self.multicolors)[0]
-        self.axes.axis('equal')
+    def hover(self, slice, state):
+        if state:
+            tooltip = "%s: %s\n%s: %d" % (self.label_y, slice.label(), self.label, slice.value())
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
 
-        self.draw()
 
-
-class StackedBarCanvas(BaseCanvas):
+class StackedBarChart(BaseChart):
+    
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.chart.legend().show()
 
     def setLabelZ(self, text):
         self.label_z = text
@@ -270,75 +240,84 @@ class StackedBarCanvas(BaseCanvas):
         self.xx = xx
         self.yy = yy
         self.zz = zz
+        
+        series = QHorizontalStackedBarSeries()
+        series.hovered.connect(self.hover)
 
-        self.axes.cla()
+        axisY = QBarCategoryAxis()
+        axisY.append(xx)
+        series.attachAxis(axisY)
+        self.chart.addAxis(axisY, Qt.AlignLeft)
 
-        x = range(len(xx))
+        axisX = QValueAxis()
+        axisX.setTitleText(self.label)
+        if yy:
+            sums = []
+            for i in range(len(yy[0])):
+                sums.append(sum(y[i] for y in yy))
+            axisX.setRange(0, max(sums))
+        axisX.setLabelFormat("%d")
+        series.attachAxis(axisX)
+        self.chart.addAxis(axisX, Qt.AlignBottom)
 
-        self.figures = []
-        lines = []
-        prev_y = [0 * len(xx)]
-        progressDlg = ProgressDialog(self.tr("Building chart"),
-                                self.tr("Cancel"), len(yy), self)
-        progressDlg.setMinimumDuration(2000)
-        for i, y in enumerate(yy):
-            progressDlg.step()
-            if progressDlg.wasCanceled():
-                return
+        for y, z in zip(yy, zz):
+            setY = QBarSet(z)
+            setY.append(y)
+            series.append(setY)
 
-            color = self.multicolors[i % len(self.multicolors)]
-            bars = self.axes.barh(x, y, left=prev_y, color=color)
-            for bar in bars:
-                self.figures.append(bar)
-            prev_y = numpy.add(prev_y, y)
-            lines.append(bars[0])
+        self.chart.addSeries(series)
 
-        progressDlg.setLabelText(self.tr("Drawing chart"))
-
-        self.axes.set_yticks(x)
-        keys = ['\n'.join(wrap(l, 17)) for l in xx]
-        self.axes.set_yticklabels(keys)
-
-        self.axes.set_xlabel(self.label)
-        xa = self.axes.get_xaxis()
-        xa.set_major_locator(MaxNLocator(integer=True))
-
-        self.axes.legend(lines, zz, frameon=True)
-
-        self.draw()
-
-        progressDlg.reset()
-
-    def tooltip(self, pos):
-        x = self.xx[pos % len(self.xx)]
-        y = self.yy[pos // len(self.xx)][pos % len(self.xx)]
-        z = self.zz[pos // len(self.xx)]
-        s = sum([yy[pos % len(self.xx)] for yy in self.yy])
-        return "%s: %s\n%s: %s\n%s: %d/%d" % (self.label_y, x, self.label_z, z,
-                                              self.label, y, s)
+    def hover(self, status, index, barset):
+        if status:
+            x = self.xx[index]
+            y = barset.at(index)
+            z = barset.label()
+            s = sum([yy[index] for yy in self.yy])
+            tooltip = "%s: %s\n%s: %s\n%s: %d/%d" % (self.label_y, x, self.label_z, z,
+                                                     self.label, y, s)
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
 
 
-class ProgressCanvas(BaseCanvas):
+class ProgressChart(BaseChart):
+    
     def setData(self, xx, yy):
         self.xx = xx
         self.yy = yy
+        
+        setY = QBarSet(self.label_y)
+        setY.append(yy)
 
-        self.axes.cla()
+        series = QBarSeries()
+        series.append(setY)
+        series.hovered.connect(self.hover)
 
-        x = range(len(yy))
-        self.figures = self.axes.bar(x, yy, color=self.colors)
-        self.axes.plot(x, numpy.cumsum(yy), color='red')
+        self.chart.addSeries(series)
 
-        self.axes.set_xticks(x)
-        keys = ['\n'.join(wrap(l, 17)) for l in xx]
-        self.axes.set_xticklabels(keys)
+        lineseries = QLineSeries()
+        lineseries.setName(self.tr("Trend"))
+        
+        cur_y = 0
+        for i, y in enumerate(yy):
+            cur_y += y
+            lineseries.append(QPoint(i, cur_y))
 
-        self.axes.set_ylabel(self.label)
-        ya = self.axes.get_yaxis()
-        ya.set_major_locator(MaxNLocator(integer=True))
+        self.chart.addSeries(lineseries)
 
-        self.draw()
+        axisX = QBarCategoryAxis()
+        axisX.append(xx)
+        self.chart.addAxis(axisX, Qt.AlignBottom)
+        series.attachAxis(axisX)
+        lineseries.attachAxis(axisX)
 
+        axisY = QValueAxis()
+        axisY.setLabelFormat("%d")
+        axisY.setRange(0, cur_y)
+        self.chart.addAxis(axisY, Qt.AlignLeft)
+        series.attachAxis(axisY)
+        lineseries.attachAxis(axisY)
+        
 
 class StatisticsView(QWidget):
     def __init__(self, statisticsParam, parent=None):
@@ -370,7 +349,7 @@ class StatisticsView(QWidget):
         self.chartSelector.addItem(self.tr("Pie"), 'pie')
         self.chartSelector.addItem(self.tr("Stacked bar"), 'stacked')
         self.chartSelector.addItem(self.tr("Progress"), 'progress')
-        if importedQtWebKit and gmapsAvailable:
+        if gmapsAvailable:
             self.chartSelector.addItem(self.tr("GeoChart"), 'geochart')
         ctrlLayout.addWidget(QLabel(self.tr("Chart:")))
         ctrlLayout.addWidget(self.chartSelector)
@@ -491,25 +470,23 @@ class StatisticsView(QWidget):
         self.colorCheck.stateChanged.connect(self.colorChanged)
         self.regionSelector.currentIndexChanged.connect(self.regionChanged)
 
-    def clear(self):
-        pass
-
     def modelChanged(self):
         self.chartLayout.removeWidget(self.chart)
+        self.chart.deleteLater()
         chart = self.chartSelector.currentData()
         if chart == 'geochart':
-            self.chart = GeoChartCanvas(self)
+            self.chart = GeoChart(self)
         elif chart == 'barh':
-            self.chart = BarHCanvas(self)
+            self.chart = BarHChart(self)
         elif chart == 'pie':
-            self.chart = PieCanvas(self)
+            self.chart = PieChart(self)
         elif chart == 'stacked':
-            self.chart = StackedBarCanvas(self)
+            self.chart = StackedBarChart(self)
         elif chart == 'progress':
-            self.chart = ProgressCanvas(self)
+            self.chart = ProgressChart(self)
         else:
-            self.chart = BarCanvas(self)
-        self.chart.setMulticolor(self.colorCheck.checkState() == Qt.Checked)
+            self.chart = BarChart(self)
+#        self.chart.setMulticolor(self.colorCheck.checkState() == Qt.Checked)
         self.chartLayout.addWidget(self.chart)
 
         fieldId = self.fieldSelector.currentData()
@@ -593,9 +570,6 @@ class StatisticsView(QWidget):
             elif items == 'totalprice':
                 sql_field = 'sum(totalpayprice)'
                 self.chart.setLabel(self.tr("Total paid"))
-            elif items == 'count':
-                sql_field = 'count(*)'
-                self.chart.setLabel(self.tr("Number of coins"))
             else:
                 sql_field = 'count(*)'
                 self.chart.setLabel(self.tr("Number of coins"))
