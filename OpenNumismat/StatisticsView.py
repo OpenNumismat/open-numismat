@@ -1,10 +1,10 @@
 from textwrap import wrap
 
 from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
-from PySide6.QtGui import QImage, QIcon, QCursor, QPainter
+from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import *
-from PySide6.QtCharts import QBarSet, QBarSeries, QChart, QChartView, QBarCategoryAxis, QValueAxis, QHorizontalBarSeries, QPieSeries, QHorizontalStackedBarSeries, QLineSeries
+from PySide6.QtCharts import QBarSet, QBarSeries, QChart, QChartView, QBarCategoryAxis, QValueAxis, QHorizontalBarSeries, QPieSeries, QHorizontalStackedBarSeries, QLineSeries, QStackedBarSeries
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 import OpenNumismat
@@ -100,6 +100,13 @@ class GeoChart(QWebView):
 
 class BaseChart(QChartView):
     
+    BLAF_PALETTE = (
+            '#336699', '#99CCFF', '#999933', '#666699', '#CC9933', '#006666',
+            '#3399FF', '#993300', '#CCCC99', '#666666', '#FFCC66', '#6699CC',
+            '#663366', '#9999CC', '#CCCCCC', '#669999', '#CCCC66', '#CC6600',
+            '#9999FF', '#0066CC', '#99CCCC', '#999999', '#FFCC00', '#009999',
+            '#99CC33', '#FF9900', '#999966', '#66CCCC', '#339966', '#CCCC33')
+
     def __init__(self, parent=None):
         self.chart = QChart()
         self.chart.legend().hide()
@@ -108,17 +115,15 @@ class BaseChart(QChartView):
         
         self.label = QApplication.translate('BaseCanvas', "Number of coins")
         self.label_y = ''
-        self.colors = None
+        self.colors = False
+        self.use_blaf_palette = True    # TODO: Move to settings
         
         super().__init__(self.chart, parent)
 
         self.setRenderHint(QPainter.Antialiasing)
 
     def setMulticolor(self, multicolor=False):
-        if multicolor:
-            self.colors = self.multicolors
-        else:
-            self.colors = None
+        self.colors = multicolor
 
     def setLabel(self, text):
         self.label = text
@@ -150,7 +155,10 @@ class BarChart(BaseChart):
         self.xx = xx
         self.yy = yy
         
-        series = QBarSeries()
+        if self.colors:
+            series = QStackedBarSeries()
+        else:
+            series = QBarSeries()
         series.hovered.connect(self.hover)
 
         axisX = QBarCategoryAxis()
@@ -166,9 +174,19 @@ class BarChart(BaseChart):
         series.attachAxis(axisY)
         self.chart.addAxis(axisY, Qt.AlignLeft)
 
-        setY = QBarSet(self.label_y)
-        setY.append(yy)
-        series.append(setY)
+        if self.colors:
+            for i, y in enumerate(yy):
+                lst = [0] * len(yy)
+                lst[i] = y
+                setY = QBarSet(self.label_y)
+                setY.append(lst)
+                if self.use_blaf_palette:
+                    setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                series.append(setY)
+        else:
+            setY = QBarSet(self.label_y)
+            setY.append(yy)
+            series.append(setY)
 
         self.chart.addSeries(series)
 
@@ -182,7 +200,10 @@ class BarHChart(BaseChart):
         self.xx = xx
         self.yy = yy
         
-        series = QHorizontalBarSeries()
+        if self.colors:
+            series = QHorizontalStackedBarSeries()
+        else:
+            series = QHorizontalBarSeries()
         series.hovered.connect(self.hover)
 
         axisY = QBarCategoryAxis()
@@ -198,9 +219,19 @@ class BarHChart(BaseChart):
         series.attachAxis(axisX)
         self.chart.addAxis(axisX, Qt.AlignBottom)
 
-        setY = QBarSet(self.label_y)
-        setY.append(yy)
-        series.append(setY)
+        if self.colors:
+            for i, y in enumerate(yy):
+                lst = [0] * len(yy)
+                lst[i] = y
+                setY = QBarSet(self.label_y)
+                setY.append(lst)
+                if self.use_blaf_palette:
+                    setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                series.append(setY)
+        else:
+            setY = QBarSet(self.label_y)
+            setY.append(yy)
+            series.append(setY)
 
         self.chart.addSeries(series)
 
@@ -218,9 +249,14 @@ class PieChart(BaseChart):
         
         series = QPieSeries()
         series.hovered.connect(self.hover)
-        
-        for x, y in zip(xx, yy):
-            series.append(x, y)
+
+        if self.use_blaf_palette:
+            for i, (x, y) in enumerate(zip(xx, yy)):
+                _slice = series.append(x, y)
+                _slice.setBrush(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+        else:
+            for x, y in zip(xx, yy):
+                series.append(x, y)
 
         self.chart.addSeries(series)
         series.setLabelsVisible(True)
@@ -267,9 +303,11 @@ class StackedBarChart(BaseChart):
         series.attachAxis(axisX)
         self.chart.addAxis(axisX, Qt.AlignBottom)
 
-        for y, z in zip(yy, zz):
+        for i, (y, z) in enumerate(zip(yy, zz)):
             setY = QBarSet(z)
             setY.append(y)
+            if self.use_blaf_palette:
+                setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
             series.append(setY)
 
         self.chart.addSeries(series)
@@ -293,12 +331,25 @@ class ProgressChart(BaseChart):
         self.xx = xx
         self.yy = yy
         
-        setY = QBarSet(self.label_y)
-        setY.append(yy)
-
-        series = QBarSeries()
-        series.append(setY)
+        if self.colors:
+            series = QStackedBarSeries()
+        else:
+            series = QBarSeries()
         series.hovered.connect(self.hover)
+
+        if self.colors:
+            for i, y in enumerate(yy):
+                lst = [0] * len(yy)
+                lst[i] = y
+                setY = QBarSet(self.label_y)
+                setY.append(lst)
+                if self.use_blaf_palette:
+                    setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                series.append(setY)
+        else:
+            setY = QBarSet(self.label_y)
+            setY.append(yy)
+            series.append(setY)
 
         self.chart.addSeries(series)
 
@@ -493,7 +544,7 @@ class StatisticsView(QWidget):
             self.chart = ProgressChart(self)
         else:
             self.chart = BarChart(self)
-#        self.chart.setMulticolor(self.colorCheck.checkState() == Qt.Checked)
+        self.chart.setMulticolor(self.colorCheck.checkState() == Qt.Checked)
         self.chartLayout.addWidget(self.chart)
 
         fieldId = self.fieldSelector.currentData()
