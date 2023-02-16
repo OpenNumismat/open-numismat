@@ -112,6 +112,8 @@ class BaseChart(QChartView):
         
         super().__init__(self.chart, parent)
 
+        self.setRenderHint(QPainter.Antialiasing)
+
     def setMulticolor(self, multicolor=False):
         if multicolor:
             self.colors = self.multicolors
@@ -134,6 +136,12 @@ class BaseChart(QChartView):
         x = self.xx[pos]
         y = self.yy[pos]
         return "%s: %s\n%s: %d" % (self.label_y, x, self.label, y)
+
+    filters = (QApplication.translate('BaseCanvas', "Images (*.png *.jpg *.jpeg *.bmp *.tiff *.gif)"),
+               QApplication.translate('BaseCanvas', "All files (*.*)"))
+
+    def save(self, fileName, selectedFilter):
+        self.grab().save(fileName)
 
 
 class BarChart(BaseChart):
@@ -199,9 +207,8 @@ class BarHChart(BaseChart):
 
 class PieChart(BaseChart):
     
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setRenderHint(QPainter.Antialiasing)
+#    def __init__(self, parent=None):
+#        super().__init__(parent)
 #        self.chart.legend().show()
 #        self.chart.legend().setAlignment(Qt.AlignRight)
 

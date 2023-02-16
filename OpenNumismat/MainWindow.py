@@ -16,7 +16,6 @@ from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
-from OpenNumismat.StatisticsView import statisticsAvailable
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
 from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
@@ -81,12 +80,11 @@ class MainWindow(QMainWindow):
         self.detailsAct.triggered.connect(self.detailsEvent)
         self.collectionActs.append(self.detailsAct)
 
-        if statisticsAvailable:
-            self.statisticsAct = QAction(QIcon(':/chart-bar.png'),
-                                         self.tr("Statistics"), self)
-            self.statisticsAct.setCheckable(True)
-            self.statisticsAct.triggered.connect(self.statisticsEvent)
-            self.collectionActs.append(self.statisticsAct)
+        self.statisticsAct = QAction(QIcon(':/chart-bar.png'),
+                                     self.tr("Statistics"), self)
+        self.statisticsAct.setCheckable(True)
+        self.statisticsAct.triggered.connect(self.statisticsEvent)
+        self.collectionActs.append(self.statisticsAct)
 
         self.mapAct = QAction(QIcon(':/world.png'),
                               self.tr("Map"), self)
@@ -318,8 +316,7 @@ class MainWindow(QMainWindow):
 
         detailsMenu = QMenu(self.tr("Details"), self)
         detailsMenu.addAction(self.detailsAct)
-        if statisticsAvailable:
-            detailsMenu.addAction(self.statisticsAct)
+        detailsMenu.addAction(self.statisticsAct)
         detailsMenu.addAction(self.mapAct)
 
         view = menubar.addMenu(self.tr("&View"))
@@ -414,8 +411,7 @@ class MainWindow(QMainWindow):
         toolBar.addAction(settingsAct)
         toolBar.addSeparator()
         toolBar.addAction(self.detailsAct)
-        if statisticsAvailable:
-            toolBar.addAction(self.statisticsAct)
+        toolBar.addAction(self.statisticsAct)
         toolBar.addAction(self.mapAct)
         if colnectAvailable or ansAvailable:
             toolBar.addSeparator()
@@ -546,8 +542,7 @@ class MainWindow(QMainWindow):
 
     def updateInfoType(self, info_type):
         self.detailsAct.setChecked(False)
-        if statisticsAvailable:
-            self.statisticsAct.setChecked(False)
+        self.statisticsAct.setChecked(False)
         self.mapAct.setChecked(False)
 
         if info_type == CollectionPageTypes.Statistics:
