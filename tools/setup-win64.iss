@@ -165,3 +165,23 @@ Name: sendreport; Description: "{cm:sendReport}"
 Name: checkupdate; Description: "{cm:checkUpdate}"
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+
+[InstallDelete]
+Type: filesandordirs; Name: {app}\altgraph-*.dist-info;
+Type: filesandordirs; Name: {app}\pyinstaller-*.dist-info;
+Type: filesandordirs; Name: {app}\setuptools-*.dist-info;
+Type: filesandordirs; Name: {app}\win32com;
+Type: filesandordirs; Name: {app}\PyQt5\Qt5\qml;
+Type: filesandordirs; Name: {app}\PyQt5\Qt5\translations;
+Type: files; Name: {app}\_win32sysloader.cp310-win_amd64.pyd;
+Type: files; Name: {app}\win32*.cp310-win_amd64.pyd;
+Type: files; Name: {app}\Qt5*.dll;
+Type: files; Name: {app}\pythoncom3*.dll;
+Type: files; Name: {app}\pywintypes3*.dll;
+Type: files; Name: {app}\MSVCP140.dll;
+Type: files; Name: {app}\MSVCP140_1.dll;
+Type: files; Name: {app}\libopenblas.XWYDX2IKJW2NMTWSFYNGFUWKQU3LYTCZ.gfortran-win_amd64.dll;
+Type: files; Name: {app}\libopenblas.GK7GX5KEQ4F6UYO3P26ULGBQYHGQO7J4.gfortran-win_amd64.dll;
+Type: files; Name: {app}\libGLESv2.dll;
+Type: files; Name: {app}\libcrypto-1_1-x64.dll;
+Type: files; Name: {app}\d3dcompiler_47.dll;
