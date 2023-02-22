@@ -33,6 +33,7 @@
     "format": [
         "Single",
         "Ensemble",
+        "Coincard",
         "Rouleau"
     ],
     "obvrev": [

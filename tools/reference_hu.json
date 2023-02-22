@@ -33,6 +33,7 @@
     "format": [
         "Single",
         "Készlet",
+        "Coincard",
         "Roll"
     ],
     "obvrev": [

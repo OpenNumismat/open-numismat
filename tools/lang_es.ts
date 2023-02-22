@@ -980,7 +980,7 @@ La aplicación deberá reiniciarse ahora.</translation>
     <message>
         <location filename="CollectionFields.py" line="177"/>
         <source>Revenue</source>
-        <translation type="unfinished"/>
+        <translation>Ingresos</translation>
     </message>
 </context>
 <context>
@@ -1533,12 +1533,12 @@ La aplicación deberá reiniciarse ahora.</translation>
     <message>
         <location filename="EditCoinDialog.py" line="128"/>
         <source>Total revenue price is negative. Save?</source>
-        <translation type="unfinished"/>
+        <translation>Precio total de ingresos negativo. ¿Guardar?</translation>
     </message>
     <message>
         <location filename="EditCoinDialog.py" line="137"/>
         <source>Sale price is less than total revenue price. Save?</source>
-        <translation type="unfinished"/>
+        <translation>Precio de venta es menor que el precio total de ingresos. ¿Guardar?</translation>
     </message>
 </context>
 <context>
@@ -2345,7 +2345,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="SettingsDialog.py" line="564"/>
         <source>Import cache cleared</source>
-        <translation type="unfinished"/>
+        <translation>Caché de importación vaciada</translation>
     </message>
 </context>
 <context>
@@ -2877,7 +2877,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="878"/>
         <source>%s is freeware licensed under a GPLv3.</source>
-        <translation type="unfinished"/>
+        <translation>%s es freeware bajo licencia GPLv3.</translation>
     </message>
 </context>
 <context>
