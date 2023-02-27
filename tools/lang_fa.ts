@@ -2762,7 +2762,7 @@ Do you want to send an error message to the author?</source>
     <message>
         <location filename="MainWindow.py" line="651"/>
         <source>Importing</source>
-        <translation type="unfinished"/>
+        <translation>وارد کردن</translation>
     </message>
     <message>
         <location filename="MainWindow.py" line="687"/>

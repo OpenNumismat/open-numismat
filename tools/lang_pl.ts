@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.0" language="pl_PL">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.0" language="pl">
 <context>
     <name>AddressLineEdit</name>
     <message>
@@ -58,7 +58,7 @@
     <message>
         <location filename="Ans.py" line="255"/>
         <source>Roman</source>
-        <translation type="unfinished"/>
+        <translation>Romański</translation>
     </message>
     <message>
         <location filename="Ans.py" line="255"/>
