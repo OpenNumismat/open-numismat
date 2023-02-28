@@ -69,6 +69,9 @@ class ColnectConnector(QObject):
             value = data[pos]
             if column[0] == 'year' and isinstance(value, str):
                 value = value[:4]
+            elif column[0] == 'year' and isinstance(value, int):
+                if value > 5000:
+                    value -= 10000
             elif column[0] == 'unit' and self.skip_currency:
                 value = value.split('-', 1)[-1].strip()
             elif column[0] == 'catalognum1':
@@ -357,6 +360,7 @@ class ColnectDialog(QDialog):
 
         settings = Settings()
         self.lang = settings['colnect_locale']
+        self.enable_bc = self.model.settings['enable_bc']
 
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
@@ -547,7 +551,17 @@ class ColnectDialog(QDialog):
         selector.addItem(self.tr("(All)"), None)
         for val in all_values:
             if selector == self.yearSelector:
-                selector.addItem(str(val[0]), val[0])
+                year = str(val[0])
+                if '&nbsp;BC' in year:
+                    if self.enable_bc:
+                        year_str = year.replace('&nbsp;', ' ')
+                    else:
+                        year_str = str(-int(year.replace('&nbsp;BC', '')))
+                    year_key = year.replace('&nbsp;', '')
+                else:
+                    year_str = year
+                    year_key = year
+                selector.addItem(year_str, year_key)
             else:
                 selector.addItem(str(val[1]), val[0])
         index = selector.findData(cur_value)
@@ -703,6 +717,11 @@ class ColnectDialog(QDialog):
                 item = QTableWidgetItem(value)
                 self.table.setItem(i, 3, item)
                 value = self._getFieldData(data, fields, 'Issued on')
+                if isinstance(value, int):
+                    if value > 5000:
+                        value -= 10000
+                    if self.enable_bc and value < 0:
+                        value = "%d BC" % -value
                 item = QTableWidgetItem(str(value))
                 self.table.setItem(i, 4, item)
                 if category == 'philatelic_products':
