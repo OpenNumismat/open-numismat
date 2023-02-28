@@ -221,6 +221,34 @@ class ColnectConnector(QObject):
         url = "https://%s/%s/api/%s/" % (COLNECT_PROXY, self.lang, COLNECT_KEY)
         return url
 
+    def _makeQuery(self, category, country=None, series=None,
+                 distribution=None, year=None, value=None, currency=None):
+        params = "/cat/%s" % category
+        if country:
+            params += "/producer/%d" % country
+        if series:
+            params += "/series/%s" % series
+        if distribution:
+            if category == 'coins':
+                params += "/distribution/%s" % distribution
+            elif category == 'stamps':
+                params += "/emission/%s" % distribution
+        if year:
+            params += "/year/%s" % year
+        if value:
+            params += "/face_value/%s" % value
+        if currency:
+            params += "/currency/%s" % currency
+        
+        return params
+
+    def getCount(self, category, country, series=None,
+                 distribution=None, year=None, value=None, currency=None):
+        action = "list_id" + self._makeQuery(category, country, series,
+                 distribution, year, value, currency)
+        item_ids = self.getData(action)
+        return len(item_ids)
+    
     @waitCursorDecorator
     def getData(self, action):
         url = self._baseUrl() + action
@@ -248,44 +276,65 @@ class ColnectConnector(QObject):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect data not recognised"))
             return []
+        elif raw_data.startswith('<!DOCTYPE html>'):
+            self.cache.set(url, '[]')
+            return []
 
         data = json.loads(raw_data)
         self.cache.set(url, raw_data)
 
         return data
 
+    def getIds(self, category, country, series=None,
+                 distribution=None, year=None, value=None, currency=None):
+        action = "list_id" + self._makeQuery(category, country, series,
+                 distribution, year, value, currency)
+        item_ids = self.getData(action)
+        return item_ids
+    
     def getCountries(self, category):
         action = "countries/cat/%s" % category
         return self.getData(action)
 
-    def getYears(self, category, country):
-        action = "years/cat/%s/producer/%d" % (category, country)
+    def getYears(self, category, country, series=None, distribution=None,
+                  value=None, currency=None):
+        action = "years" + self._makeQuery(category, country, series,
+                 distribution, None, value, currency)
         return self.getData(action)
 
-    def getSeries(self, category, country):
-        action = "series/cat/%s/producer/%d" % (category, country)
+    def getSeries(self, category, country, distribution=None, year=None,
+                  value=None, currency=None):
+        action = "series" + self._makeQuery(category, country, None,
+                 distribution, year, value, currency)
         return self.getData(action)
 
     def getColors(self, category):
         action = "colors/cat/%s/producer/252" % category    # TODO: Remove producer filter
         return self.getData(action)
 
-    def getDistributions(self, category, country):
+    def getDistributions(self, category, country, series=None, year=None,
+                         value=None, currency=None):
         if category == 'coins':
-            action = "distributions/cat/%s/producer/%d" % (category, country)
+            action = "distributions" + self._makeQuery(category, country, series,
+                     None, year, value, currency)
         elif category == 'stamps':
-            action = "emissions/cat/%s/producer/%d" % (category, country)
+            action = "emissions" + self._makeQuery(category, country, series,
+                     None, year, value, currency)
         else:
             return []
 
         return self.getData(action)
 
-    def getValues(self, category, country):
-        action = "face_values/cat/%s/producer/%d" % (category, country)
+    def getValues(self, category, country, series=None, distribution=None,
+                  year=None, currency=None):
+        action = "face_values" + self._makeQuery(category, country, series,
+                 distribution, year, None, currency)
         return self.getData(action)
 
-    def getCurrencies(self, category, country):
-        action = "currencies/cat/%s/producer/%d" % (category, country)
+    def getCurrencies(self, category, country, series=None, distribution=None,
+                      year=None, value=None):
+        action = "currencies" + self._makeQuery(category, country, series,
+                 distribution, year, value, None)
         return self.getData(action)
 
     def close(self):
@@ -477,6 +526,9 @@ class ColnectDialog(QDialog):
             if close:
                 self.accept()
             self.model.addCoin(newRecord, self)
+    
+    def _isDistributionEnabled(self, category):
+        return category in ('coins', 'stamps')
 
     def _clearTable(self):
         self.addButton.setEnabled(False)
@@ -489,14 +541,29 @@ class ColnectDialog(QDialog):
         self.table.setRowCount(0)
         self.items = []
 
+    def _updatePart(self, selector, all_values, cur_value=None):
+        selector.currentIndexChanged.disconnect(self.partChanged)
+        selector.clear()
+        selector.addItem(self.tr("(All)"), None)
+        for val in all_values:
+            if selector == self.yearSelector:
+                selector.addItem(str(val[0]), val[0])
+            else:
+                selector.addItem(str(val[1]), val[0])
+        index = selector.findData(cur_value)
+        if index >= 0:
+            selector.setCurrentIndex(index)
+        selector.currentIndexChanged.connect(self.partChanged)
+
     def categoryChanged(self):
         self._clearTable()
 
         if self.categorySelector.currentIndex() >= 0:
-            self.countrySelector.clear()
-    
             category = self.categorySelector.currentData()
+            self.distributionSelector.setVisible(self._isDistributionEnabled(category))
+
             countries = self.colnect.getCountries(category)
+            self.countrySelector.clear()
             for country in countries:
                 self.countrySelector.addItem(country[1], country[0])
         else:
@@ -514,77 +581,68 @@ class ColnectDialog(QDialog):
                 return
     
             series = self.colnect.getSeries(category, country)
-            self.seriesSelector.clear()
-            self.seriesSelector.addItem(self.tr("(All)"), None)
-            for ser in series:
-                self.seriesSelector.addItem(str(ser[1]), ser[0])
-    
-            distributions = self.colnect.getDistributions(category, country)
-            self.distributionSelector.clear()
-            self.distributionSelector.addItem(self.tr("(All)"), None)
-            for distr in distributions:
-                self.distributionSelector.addItem(str(distr[1]), distr[0])
+            self._updatePart(self.seriesSelector, series)
+
+            if self._isDistributionEnabled(category):
+                distributions = self.colnect.getDistributions(category, country)
+                self._updatePart(self.distributionSelector, distributions)
     
             years = self.colnect.getYears(category, country)
-            self.yearSelector.clear()
-            self.yearSelector.addItem(self.tr("(All)"), None)
-            for year in years:
-                self.yearSelector.addItem(str(year[0]), year[0])
+            self._updatePart(self.yearSelector, years)
     
             values = self.colnect.getValues(category, country)
-            self.valueSelector.clear()
-            self.valueSelector.addItem(self.tr("(All)"), None)
-            for value in values:
-                self.valueSelector.addItem(str(value[1]), value[0])
+            self._updatePart(self.valueSelector, values)
     
             currencies = self.colnect.getCurrencies(category, country)
-            self.currencySelector.clear()
-            self.currencySelector.addItem(self.tr("(All)"), None)
-            for currency in currencies:
-                self.currencySelector.addItem(str(currency[1]), currency[0])
+            self._updatePart(self.currencySelector, currencies)
         else:
             self._partsEnable(False)
-
+    
     def partChanged(self, _index):
         self._clearTable()
 
         category = self.categorySelector.currentData()
-        if category in ('coins', 'stamps'):
-            self.distributionSelector.setVisible(True)
-        else:
-            self.distributionSelector.setVisible(False)
-
+        country = self.countrySelector.currentData()
         series = self.seriesSelector.currentData()
         year = self.yearSelector.currentData()
         value = self.valueSelector.currentData()
         currency = self.currencySelector.currentData()
-        if self.distributionSelector.isVisible():
+        if self._isDistributionEnabled(category):
             distribution = self.distributionSelector.currentData()
         else:
             distribution = None
 
-        if series or distribution or year or value or currency:
-            country = self.countrySelector.currentData()
-            action = "list_id/cat/%s/producer/%d" % (category, country)
-            if series:
-                action += "/series/%s" % series
-            if distribution:
-                if category == 'coins':
-                    action += "/distribution/%s" % distribution
-                elif category == 'stamps':
-                    action += "/emission/%s" % distribution
-            if year:
-                action += "/year/%s" % year
-            if value:
-                action += "/face_value/%s" % value
-            if currency:
-                action += "/currency/%s" % currency
-            item_ids = self.colnect.getData(action)
+        all_series = self.colnect.getSeries(category, country,
+            distribution=distribution, year=year, value=value,
+            currency=currency)
+        self._updatePart(self.seriesSelector, all_series, series)
 
-            if len(item_ids) == 0:
+        if self._isDistributionEnabled(category):
+            distributions = self.colnect.getDistributions(category, country,
+                series=series, year=year, value=value, currency=currency)
+            self._updatePart(self.distributionSelector, distributions, distribution)
+
+        years = self.colnect.getYears(category, country, series=series,
+            distribution=distribution, value=value, currency=currency)
+        self._updatePart(self.yearSelector, years, year)
+
+        values = self.colnect.getValues(category, country, series=series,
+            distribution=distribution, year=year, currency=currency)
+        self._updatePart(self.valueSelector, values, value)
+
+        currencies = self.colnect.getCurrencies(category, country, series=series,
+            distribution=distribution, year=year, value=value)
+        self._updatePart(self.currencySelector, currencies, currency)
+
+        if series or distribution or year or value or currency:
+            count = self.colnect.getCount(category=category, country=country,
+                series=series, distribution=distribution, year=year,
+                value=value, currency=currency)
+
+            if count == 0:
                 self.label_empty.show()
                 self.label.hide()
-            elif ((series or distribution) and year and value and currency) or (len(item_ids) < 100):
+            elif ((series or distribution) and year and value and currency) or (count < 100):
                 self.previewButton.setEnabled(True)
                 self.label.hide()
 
@@ -592,36 +650,19 @@ class ColnectDialog(QDialog):
         self.table.show()
 
         category = self.categorySelector.currentData()
-        if category in ('coins', 'stamps'):
-            self.distributionSelector.setVisible(True)
-        else:
-            self.distributionSelector.setVisible(False)
-
+        country = self.countrySelector.currentData()
         series = self.seriesSelector.currentData()
         year = self.yearSelector.currentData()
         value = self.valueSelector.currentData()
         currency = self.currencySelector.currentData()
-        if self.distributionSelector.isVisible():
+        if self._isDistributionEnabled(category):
             distribution = self.distributionSelector.currentData()
         else:
             distribution = None
 
-        country = self.countrySelector.currentData()
-        action = "list_id/cat/%s/producer/%d" % (category, country)
-        if series:
-            action += "/series/%s" % series
-        if distribution:
-            if category == 'coins':
-                action += "/distribution/%s" % distribution
-            elif category == 'stamps':
-                action += "/emission/%s" % distribution
-        if year:
-            action += "/year/%s" % year
-        if value:
-            action += "/face_value/%s" % value
-        if currency:
-            action += "/currency/%s" % currency
-        item_ids = self.colnect.getData(action)
+        item_ids = self.colnect.getIds(category, country, series=series,
+            distribution=distribution, year=year, value=value,
+            currency=currency)
 
         if item_ids:
             progressDlg = ProgressDialog(self.tr("Downloading"), self.tr("Cancel"),
