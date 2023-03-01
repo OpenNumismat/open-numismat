@@ -51,7 +51,7 @@ class ImageLabel(QLabel):
         save.triggered.connect(self.saveImage)
         save.setDisabled(self.image.isNull())
 
-        menu = QMenu()
+        menu = QMenu(self)
         menu.addAction(open_)
         menu.setDefaultAction(open_)
         if use_external_viewer:
@@ -230,7 +230,7 @@ class ImageEdit(ImageLabel):
         rename_act = QAction(text, self)
         rename_act.triggered.connect(self.renameImage)
 
-        menu = QMenu()
+        menu = QMenu(self)
         menu.addAction(load_act)
         menu.addAction(open_act)
         if self.image.isNull():
