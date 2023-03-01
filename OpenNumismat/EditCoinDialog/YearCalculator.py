@@ -461,7 +461,7 @@ class JapanCalendar(QValidator):
         result += "年"
         
         if year < 1948:
-            result[::-1]
+            result = result[::-1]
         
         return result
 
