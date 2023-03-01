@@ -579,7 +579,8 @@ class ColnectDialog(QDialog):
             countries = self.colnect.getCountries(category)
             self.countrySelector.clear()
             for country in countries:
-                self.countrySelector.addItem(country[1], country[0])
+                if country[2]:  # Country contain coins
+                    self.countrySelector.addItem(country[1], country[0])
         else:
             self._partsEnable(False)
 
