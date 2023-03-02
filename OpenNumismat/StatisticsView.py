@@ -194,8 +194,8 @@ class BarChart(BaseChart):
 class BarHChart(BaseChart):
     
     def setData(self, xx, yy):
-        xx = xx[::-1]  # xx.reverse()
-        yy = yy[::-1]  # yy.reverse()
+        xx.reverse()
+        yy.reverse()
 
         self.xx = xx
         self.yy = yy
@@ -609,7 +609,7 @@ class StatisticsView(QWidget):
             for _ in range(len(zz)):
                 yy.append([0] * len(xx))
 
-            xx = xx[::-1]
+            xx.reverse()
             for i, val in enumerate(xx):
                 for j, subval in enumerate(zz):
                     try:
