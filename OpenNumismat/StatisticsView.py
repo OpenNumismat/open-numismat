@@ -544,7 +544,7 @@ class StatisticsView(QWidget):
             self.chart = ProgressChart(self)
         else:
             self.chart = BarChart(self)
-        self.chart.setMulticolor(self.colorCheck.checkState() == Qt.Checked)
+        self.chart.setMulticolor(self.colorCheck.isChecked())
         self.chartLayout.addWidget(self.chart)
 
         fieldId = self.fieldSelector.currentData()

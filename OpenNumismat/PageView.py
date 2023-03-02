@@ -95,7 +95,7 @@ class ImageView(QWidget):
         current = self.currentIndex
         self.showedCount = 0
         for i, field in enumerate(self.imageFields):
-            if self.imageButtons[i].checkState() == Qt.Checked:
+            if self.imageButtons[i].isChecked():
                 index = self.model.index(current.row(), field.id)
                 data = index.data(Qt.UserRole)
                 img = self.model.getImage(data)

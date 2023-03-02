@@ -69,7 +69,7 @@ class SelectColumnsDialog(QDialog):
         for i in range(self.listWidget.count()):
             item = self.listWidget.item(i)
             param = item.data(SelectColumnsDialog.DataRole)
-            param.enabled = (item.checkState() == Qt.Checked)
+            param.enabled = (item.isChecked())
             self.listParam.columns.append(param)
 
         self.accept()
