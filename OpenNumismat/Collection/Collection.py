@@ -1444,7 +1444,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                             img_file_title = "%d_%s.jpg" % (i + 1, field.name)
                             img_file_name = os.path.join(image_path, img_file_title)
                             img_file = open(img_file_name, 'wb')
-                            img_file.write(val)
+                            img_file.write(val.data())
                             img_file.close()
                             
                             img_file_dict[hash_] = img_file_title
