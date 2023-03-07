@@ -4,7 +4,7 @@ from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
 from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import *
-from PySide6.QtCharts import QBarSet, QBarSeries, QChart, QChartView, QBarCategoryAxis, QValueAxis, QHorizontalBarSeries, QPieSeries, QHorizontalStackedBarSeries, QLineSeries, QStackedBarSeries
+from PySide6.QtCharts import QBarSet, QBarSeries, QChart, QChartView, QBarCategoryAxis, QValueAxis, QHorizontalBarSeries, QPieSeries, QHorizontalStackedBarSeries, QLineSeries, QStackedBarSeries, QAreaSeries
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 import OpenNumismat
@@ -377,6 +377,75 @@ class ProgressChart(BaseChart):
         lineseries.attachAxis(axisY)
         
 
+class AreaChart(BaseChart):
+    
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.chart.legend().show()
+        self.chart.legend().setAlignment(Qt.AlignRight)
+
+    def setData(self, xx, yy):
+        self.xx = xx
+        self.yy = yy
+
+        lineseries_bottom = QLineSeries(self)
+        lineseries_bottom.append(QPoint(0, 0))
+        lineseries_bottom.append(QPoint(len(yy)-1, 0))
+
+        lineseries_total = QLineSeries(self)
+        cur_y = 0
+        for i, y in enumerate(yy):
+            cur_y += y[0]
+            lineseries_total.append(QPoint(i, cur_y))
+        max_y = cur_y
+
+        series_total = QAreaSeries(lineseries_total, lineseries_bottom)
+        series_total.setName(self.tr("Total"))
+        series_total.setOpacity(0.5)
+        series_total.hovered.connect(self.hover)
+        self.chart.addSeries(series_total)
+
+        lineseries_owned = QLineSeries(self)
+        cur_y = 0
+        for i, y in enumerate(yy):
+            cur_y += y[1]
+            lineseries_owned.append(QPoint(i, cur_y))
+        max_y = max(cur_y, max_y)
+
+        series_owned = QAreaSeries(lineseries_owned, lineseries_bottom)
+        series_owned.setName(self.tr("Owned"))
+        series_owned.setOpacity(0.5)
+        series_owned.hovered.connect(self.hover)
+        self.chart.addSeries(series_owned)
+
+        axisX = QBarCategoryAxis()
+        axisX.append(xx)
+        self.chart.addAxis(axisX, Qt.AlignBottom)
+        series_total.attachAxis(axisX)
+        series_owned.attachAxis(axisX)
+
+        axisY = QValueAxis()
+        axisY.setLabelFormat("%d")
+        axisY.setRange(0, max_y)
+        self.chart.addAxis(axisY, Qt.AlignLeft)
+        series_total.attachAxis(axisY)
+        series_owned.attachAxis(axisY)
+
+    def hover(self, point, state):
+        if state:
+            pos = int(point.x() + 0.5)
+            total = 0
+            owned = 0
+            for i in range(pos+1):
+                total += self.yy[i][0]
+                owned += self.yy[i][1]
+            tooltip = "%s: %s\n%s: %s" % (self.tr("Total"), total,
+                                          self.tr("Owned"), owned)
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
+
+
 class StatisticsView(QWidget):
     def __init__(self, statisticsParam, parent=None):
         super().__init__(parent)
@@ -407,6 +476,7 @@ class StatisticsView(QWidget):
         self.chartSelector.addItem(self.tr("Pie"), 'pie')
         self.chartSelector.addItem(self.tr("Stacked bar"), 'stacked')
         self.chartSelector.addItem(self.tr("Progress"), 'progress')
+        self.chartSelector.addItem(self.tr("Area"), 'area')
         if gmapsAvailable:
             self.chartSelector.addItem(self.tr("GeoChart"), 'geochart')
         ctrlLayout.addWidget(QLabel(self.tr("Chart:")))
@@ -439,6 +509,12 @@ class StatisticsView(QWidget):
         self.itemsSelector.addItem(self.tr("Total price"), 'totalprice')
         self.itemsSelector.addItem(self.tr("Created"), 'created')
         ctrlLayout.addWidget(self.itemsSelector)
+
+        self.areaLabel = QLabel(self.tr("Items:"))
+        ctrlLayout.addWidget(self.areaLabel)
+        self.areaSelector = QComboBox(self)
+        self.areaSelector.addItem(self.tr("Owned / Total"), 'created')
+        ctrlLayout.addWidget(self.areaSelector)
 
         self.colorCheck = QCheckBox(self.tr("Multicolor"), self)
         ctrlLayout.addWidget(self.colorCheck)
@@ -542,6 +618,8 @@ class StatisticsView(QWidget):
             self.chart = StackedBarChart(self)
         elif chart == 'progress':
             self.chart = ProgressChart(self)
+        elif chart == 'area':
+            self.chart = AreaChart(self)
         else:
             self.chart = BarChart(self)
         self.chart.setMulticolor(self.colorCheck.isChecked())
@@ -689,6 +767,42 @@ class StatisticsView(QWidget):
 
             self.chart.setData(xx, yy)
             self.chart.setLabelY(self.periodSelector.currentText())
+        elif chart == 'area':
+            sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
+                  " %s"\
+                  " GROUP BY strftime('%s', createdat) ORDER BY createdat" % (
+                      'count(*)', '%Y', sql_filter, '%Y')
+            query = QSqlQuery(self.model.database())
+            query.exec_(sql)
+            xx = {}
+            while query.next():
+                record = query.record()
+                count = record.value(0)
+                val = str(record.value(1))
+                xx[val] = [count, 0]
+
+            sql_filters = ["status='owned'"]
+            if filter_:
+                sql_filters.append(filter_)
+
+            sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
+                  " WHERE %s"\
+                  " GROUP BY strftime('%s', paydate) ORDER BY paydate" % (
+                      'count(*)', '%Y', ' AND '.join(sql_filters), '%Y')
+            query = QSqlQuery(self.model.database())
+            query.exec_(sql)
+            while query.next():
+                record = query.record()
+                count = record.value(0)
+                val = str(record.value(1))
+                if val in xx:
+                    xx[val][1] = count
+                else:
+                    xx[val] = [0, count]
+            xx = dict(sorted(xx.items()))
+            
+            self.chart.setData(xx.keys(), list(xx.values()))
+            self.chart.setLabelY(self.fieldSelector.currentText())
         else:
             sql = "SELECT count(*), %s FROM coins %s GROUP BY %s" % (
                 field, sql_filter, field)
@@ -735,13 +849,15 @@ class StatisticsView(QWidget):
     def showConfig(self, chart):
         self.subfieldSelector.setVisible(chart == 'stacked')
         self.subfieldLabel.setVisible(chart == 'stacked')
-        self.fieldSelector.setVisible(chart != 'progress' and chart != 'geochart')
-        self.fieldLabel.setVisible(chart != 'progress' and chart != 'geochart')
+        self.fieldSelector.setVisible(chart not in ('progress', 'geochart', 'area'))
+        self.fieldLabel.setVisible(chart not in ('progress', 'geochart', 'area'))
         self.periodSelector.setVisible(chart == 'progress')
         self.periodLabel.setVisible(chart == 'progress')
         self.itemsSelector.setVisible(chart == 'progress')
         self.itemsLabel.setVisible(chart == 'progress')
-        self.colorCheck.setVisible(chart != 'stacked' and chart != 'pie' and chart != 'geochart')
+        self.areaSelector.setVisible(chart == 'area')
+        self.areaLabel.setVisible(chart == 'area')
+        self.colorCheck.setVisible(chart not in ('stacked', 'pie', 'geochart', 'area'))
         self.regionLabel.setVisible(chart == 'geochart')
         self.regionSelector.setVisible(chart == 'geochart')
 
