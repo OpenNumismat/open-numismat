@@ -819,7 +819,7 @@ class StatisticsView(QWidget):
         else:
             sql_filter = ""
         
-        sql = "SELECT count(*), %s FROM coins %s GROUP BY %s" % (
+        sql = "SELECT count(*), IFNULL(%s,'') FROM coins %s GROUP BY IFNULL(%s,'')" % (
             field, sql_filter, field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
@@ -874,8 +874,9 @@ class StatisticsView(QWidget):
         
         subfieldId = self.subfieldSelector.currentData()
         subfield = self.model.fields.field(subfieldId).name
-        sql = "SELECT count(%s), %s, %s FROM coins %s GROUP BY %s, %s" % (
-            subfield, subfield, field, sql_filter, field, subfield)
+        sql = "SELECT count(IFNULL(%s,'')), IFNULL(%s,''), IFNULL(%s,'') FROM coins"\
+              " %s GROUP BY IFNULL(%s,''), IFNULL(%s,'')" % (
+                        subfield, subfield, field, sql_filter, field, subfield)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         xx = []
@@ -1022,11 +1023,12 @@ class StatisticsView(QWidget):
             date_field = "strftime('%%Y', %s)" % area
         else:
             date_field = area
-        sql = "SELECT count(*), %s, %s FROM coins"\
+        sql = "SELECT count(*), %s, IFNULL(%s,'') FROM coins"\
               " WHERE %s"\
-              " GROUP BY %s, %s ORDER BY %s" % (date_field, field,
-                                                ' AND '.join(sql_filters), date_field,
-                                                field, date_field)
+              " GROUP BY %s, IFNULL(%s,'') ORDER BY %s" % (
+                    date_field, field,
+                    ' AND '.join(sql_filters),
+                    date_field, field, date_field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         xx = {}
@@ -1059,10 +1061,9 @@ class StatisticsView(QWidget):
         else:
             sql_filter = ""
 
-        sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
+        sql = "SELECT count(*), strftime('%%Y', createdat) FROM coins"\
               " %s"\
-              " GROUP BY strftime('%s', createdat)" % (
-                  'count(*)', '%Y', sql_filter, '%Y')
+              " GROUP BY strftime('%%Y', createdat)" % sql_filter
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         xx = {}
@@ -1076,10 +1077,9 @@ class StatisticsView(QWidget):
         if filter_:
             sql_filters.append(filter_)
 
-        sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
+        sql = "SELECT count(*), strftime('%%Y', paydate) FROM coins"\
               " WHERE %s"\
-              " GROUP BY strftime('%s', paydate)" % (
-                  'count(*)', '%Y', ' AND '.join(sql_filters), '%Y')
+              " GROUP BY strftime('%%Y', paydate)" % ' AND '.join(sql_filters)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         while query.next():
@@ -1096,10 +1096,9 @@ class StatisticsView(QWidget):
         if filter_:
             sql_filters.append(filter_)
 
-        sql = "SELECT %s, strftime('%s', saledate) FROM coins"\
+        sql = "SELECT count(*), strftime('%%Y', saledate) FROM coins"\
               " WHERE %s"\
-              " GROUP BY strftime('%s', saledate)" % (
-                  'count(*)', '%Y', ' AND '.join(sql_filters), '%Y')
+              " GROUP BY strftime('%%Y', saledate)" % ' AND '.join(sql_filters)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         while query.next():
