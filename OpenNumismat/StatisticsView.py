@@ -525,7 +525,7 @@ class StatisticsView(QWidget):
             sql_filter = ""
 
         if chart == 'geochart':
-            sql = "SELECT count(*), country FROM coins %s GROUP BY country" % sql_filter
+            sql = "SELECT count(*), IFNULL(country,'') FROM coins %s GROUP BY IFNULL(country,'')" % sql_filter
             query = QSqlQuery(self.model.database())
             query.exec_(sql)
             xx = []
@@ -541,7 +541,8 @@ class StatisticsView(QWidget):
         elif chart == 'stacked':
             subfieldId = self.subfieldSelector.currentData()
             subfield = self.model.fields.field(subfieldId).name
-            sql = "SELECT count(%s), %s, %s FROM coins %s GROUP BY %s, %s" % (
+            sql = "SELECT count(IFNULL(%s,'')), IFNULL(%s,''), IFNULL(%s,'') FROM coins"\
+                  " %s GROUP BY IFNULL(%s,''), IFNULL(%s,'')" % (
                 subfield, subfield, field, sql_filter, field, subfield)
             query = QSqlQuery(self.model.database())
             query.exec_(sql)
@@ -658,7 +659,7 @@ class StatisticsView(QWidget):
             self.chart.setData(xx, yy)
             self.chart.setLabelY(self.periodSelector.currentText())
         else:
-            sql = "SELECT count(*), %s FROM coins %s GROUP BY %s" % (
+            sql = "SELECT count(*), IFNULL(%s,'') FROM coins %s GROUP BY IFNULL(%s,'')" % (
                 field, sql_filter, field)
             query = QSqlQuery(self.model.database())
             query.exec_(sql)
