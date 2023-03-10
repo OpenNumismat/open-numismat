@@ -1,15 +1,26 @@
-from textwrap import wrap
-
+from PySide6.QtCharts import (
+    QAreaSeries,
+    QBarCategoryAxis,
+    QBarSeries,
+    QBarSet,
+    QChart,
+    QChartView,
+    QHorizontalBarSeries,
+    QHorizontalStackedBarSeries,
+    QLineSeries,
+    QPieSeries,
+    QStackedBarSeries,
+    QValueAxis,
+)
 from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
 from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import *
-from PySide6.QtCharts import QBarSet, QBarSeries, QChart, QChartView, QBarCategoryAxis, QValueAxis, QHorizontalBarSeries, QPieSeries, QHorizontalStackedBarSeries, QLineSeries, QStackedBarSeries, QAreaSeries
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
-from OpenNumismat.Tools.Gui import getSaveFileName, ProgressDialog
+from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
@@ -93,9 +104,8 @@ class GeoChart(QWebView):
                             self.tr("Saving"),
                             self.tr("Image not ready. Please try again later"))
         else:
-            if selectedFilter == self.filters[0]:
-                with open(fileName, 'wb') as f:
-                    f.write(bytes(self.html_data, 'utf-8'))
+            with open(fileName, 'wb') as f:
+                f.write(bytes(self.html_data, 'utf-8'))
 
 
 class BaseChart(QChartView):
@@ -131,7 +141,7 @@ class BaseChart(QChartView):
     def setLabelY(self, text):
         self.label_y = text
 
-    def hover(self, status, index, barset):
+    def hover(self, status, index, _barset):
         if status:
             QToolTip.showText(QCursor.pos(), self.tooltip(index))
         else:
@@ -145,7 +155,7 @@ class BaseChart(QChartView):
     filters = (QApplication.translate('BaseCanvas', "Images (*.png *.jpg *.jpeg *.bmp *.tiff *.gif)"),
                QApplication.translate('BaseCanvas', "All files (*.*)"))
 
-    def save(self, fileName, selectedFilter):
+    def save(self, fileName, _selectedFilter):
         self.grab().save(fileName)
 
 
@@ -261,9 +271,10 @@ class PieChart(BaseChart):
         self.chart.addSeries(series)
         series.setLabelsVisible(True)
 
-    def hover(self, slice, state):
+    def hover(self, slice_, state):
         if state:
-            tooltip = "%s: %s\n%s: %d" % (self.label_y, slice.label(), self.label, slice.value())
+            tooltip = "%s: %s\n%s: %d" % (self.label_y, slice_.label(),
+                                          self.label, slice_.value())
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
