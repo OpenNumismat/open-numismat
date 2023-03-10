@@ -1123,7 +1123,7 @@ class StatisticsView(QWidget):
         else:
             sql_filter = ""
 
-        sql = "SELECT count(*), country FROM coins %s GROUP BY country" % sql_filter
+        sql = "SELECT count(*), IFNULL(country,'') FROM coins %s GROUP BY IFNULL(country,'')" % sql_filter
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         xx = []
