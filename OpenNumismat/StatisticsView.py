@@ -391,6 +391,8 @@ class AreaTotalChart(BaseChart):
         lineseries_bottom = QLineSeries(self)
         lineseries_bottom.append(QPoint(0, 0))
         lineseries_bottom.append(QPoint(len(xx)-1, 0))
+        
+        serieses = []
 
         lineseries_total = QLineSeries(self)
         cur_y = 0
@@ -399,11 +401,9 @@ class AreaTotalChart(BaseChart):
             lineseries_total.append(QPoint(i, cur_y))
         max_y = cur_y
 
-        series_total = QAreaSeries(lineseries_total, lineseries_bottom)
-        series_total.setName(self.tr("Total"))
-        series_total.setOpacity(0.5)
-        series_total.hovered.connect(self.hover)
-        self.chart.addSeries(series_total)
+        series = QAreaSeries(lineseries_total, lineseries_bottom)
+        series.setName(self.tr("Total"))
+        serieses.append(series)
 
         lineseries_owned = QLineSeries(self)
         cur_y = 0
@@ -412,35 +412,55 @@ class AreaTotalChart(BaseChart):
             lineseries_owned.append(QPoint(i, cur_y))
         max_y = max(cur_y, max_y)
 
-        series_owned = QAreaSeries(lineseries_owned, lineseries_bottom)
-        series_owned.setName(self.tr("Owned"))
-        series_owned.setOpacity(0.5)
-        series_owned.hovered.connect(self.hover)
-        self.chart.addSeries(series_owned)
+        series = QAreaSeries(lineseries_owned, lineseries_bottom)
+        series.setName(Statuses['owned'])
+        serieses.append(series)
 
+        lineseries_sold = QLineSeries(self)
+        cur_y = 0
+        for i, y in enumerate(yy):
+            cur_y += y[2]
+            lineseries_sold.append(QPoint(i, cur_y))
+        max_y = max(cur_y, max_y)
+
+        if cur_y:
+            series = QAreaSeries(lineseries_sold, lineseries_bottom)
+            series.setName(Statuses['sold'])
+            serieses.append(series)
+
+        for series in serieses:
+            series.setOpacity(0.5)
+            series.hovered.connect(self.hover)
+            self.chart.addSeries(series)
+        
         axisX = QBarCategoryAxis()
         axisX.append(xx)
         self.chart.addAxis(axisX, Qt.AlignBottom)
-        series_total.attachAxis(axisX)
-        series_owned.attachAxis(axisX)
+        for series in serieses:
+            series.attachAxis(axisX)
 
         axisY = QValueAxis()
         axisY.setLabelFormat("%d")
         axisY.setRange(0, max_y)
         self.chart.addAxis(axisY, Qt.AlignLeft)
-        series_total.attachAxis(axisY)
-        series_owned.attachAxis(axisY)
+        for series in serieses:
+            series.attachAxis(axisY)
 
     def hover(self, point, state):
         if state:
             pos = int(point.x() + 0.5)
             total = 0
             owned = 0
+            sold = 0
             for i in range(pos+1):
                 total += self.yy[i][0]
                 owned += self.yy[i][1]
+                sold += self.yy[i][2]
+            owned -= sold
             tooltip = "%s: %d\n%s: %d" % (self.tr("Total"), total,
-                                          self.tr("Owned"), owned)
+                                          Statuses['owned'], owned)
+            if sold:
+                tooltip += "\n%s: %d" % (Statuses['sold'], sold)
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
@@ -978,21 +998,26 @@ class StatisticsView(QWidget):
         elif field == 'unit':
             field = 'value,unit'
 
+        area = self.areaSelector.currentData()
+        if area == 'paydate':
+            sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate')"]
+        elif area == 'saledate':
+            sql_filters = ["status='sold'"]
+        else:
+            sql_filters = ["1=1"]
+
         filter_ = self.model.filter()
         if filter_:
-            sql_filter = "WHERE %s" % filter_
-        else:
-            sql_filter = ""
+            sql_filters.append(filter_)
         
-        area = self.areaSelector.currentData()
         if area in ('issuedate', 'paydate', 'saledate', 'createdat'):
             date_field = "strftime('%%Y', %s)" % area
         else:
             date_field = area
         sql = "SELECT count(*), %s, %s FROM coins"\
-              " %s"\
+              " WHERE %s"\
               " GROUP BY %s, %s ORDER BY %s" % (date_field, field,
-                                                sql_filter, date_field,
+                                                ' AND '.join(sql_filters), date_field,
                                                 field, date_field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
@@ -1037,9 +1062,9 @@ class StatisticsView(QWidget):
             record = query.record()
             count = record.value(0)
             val = str(record.value(1))
-            xx[val] = [count, 0]
+            xx[val] = [count, 0, 0]
 
-        sql_filters = ["status='owned'"]
+        sql_filters = ["status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate')"]
         if filter_:
             sql_filters.append(filter_)
 
@@ -1056,7 +1081,27 @@ class StatisticsView(QWidget):
             if val in xx:
                 xx[val][1] = count
             else:
-                xx[val] = [0, count]
+                xx[val] = [0, count, 0]
+        xx = dict(sorted(xx.items()))
+
+        sql_filters = ["status='sold'"]
+        if filter_:
+            sql_filters.append(filter_)
+
+        sql = "SELECT %s, strftime('%s', saledate) FROM coins"\
+              " WHERE %s"\
+              " GROUP BY strftime('%s', saledate)" % (
+                  'count(*)', '%Y', ' AND '.join(sql_filters), '%Y')
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            val = str(record.value(1))
+            if val in xx:
+                xx[val][2] = count
+            else:
+                xx[val] = [0, 0, count]
         xx = dict(sorted(xx.items()))
 
         chart = AreaTotalChart(self)
