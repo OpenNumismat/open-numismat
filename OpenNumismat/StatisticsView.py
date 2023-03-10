@@ -171,19 +171,6 @@ class BarChart(BaseChart):
             series = QBarSeries()
         series.hovered.connect(self.hover)
 
-        axisX = QBarCategoryAxis()
-        axisX.append(xx)
-        series.attachAxis(axisX)
-        self.chart.addAxis(axisX, Qt.AlignBottom)
-
-        axisY = QValueAxis()
-        axisY.setTitleText(self.label)
-        if yy:
-            axisY.setRange(0, max(yy))
-        axisY.setLabelFormat("%d")
-        series.attachAxis(axisY)
-        self.chart.addAxis(axisY, Qt.AlignLeft)
-
         if self.colors:
             for i, y in enumerate(yy):
                 lst = [0] * len(yy)
@@ -199,6 +186,18 @@ class BarChart(BaseChart):
             series.append(setY)
 
         self.chart.addSeries(series)
+
+        axisX = QBarCategoryAxis()
+        axisX.append(xx)
+        self.chart.addAxis(axisX, Qt.AlignBottom)
+        series.attachAxis(axisX)
+
+        axisY = QValueAxis()
+        axisY.setTitleText(self.label)
+        axisY.setLabelFormat("%d")
+        self.chart.addAxis(axisY, Qt.AlignLeft)
+        series.attachAxis(axisY)
+        axisY.applyNiceNumbers()
 
 
 class BarHChart(BaseChart):
@@ -216,19 +215,6 @@ class BarHChart(BaseChart):
             series = QHorizontalBarSeries()
         series.hovered.connect(self.hover)
 
-        axisY = QBarCategoryAxis()
-        axisY.append(xx)
-        series.attachAxis(axisY)
-        self.chart.addAxis(axisY, Qt.AlignLeft)
-
-        axisX = QValueAxis()
-        axisX.setTitleText(self.label)
-        if yy:
-            axisX.setRange(0, max(yy))
-        axisX.setLabelFormat("%d")
-        series.attachAxis(axisX)
-        self.chart.addAxis(axisX, Qt.AlignBottom)
-
         if self.colors:
             for i, y in enumerate(yy):
                 lst = [0] * len(yy)
@@ -244,6 +230,18 @@ class BarHChart(BaseChart):
             series.append(setY)
 
         self.chart.addSeries(series)
+
+        axisX = QValueAxis()
+        axisX.setTitleText(self.label)
+        axisX.setLabelFormat("%d")
+        self.chart.addAxis(axisX, Qt.AlignBottom)
+        series.attachAxis(axisX)
+        axisX.applyNiceNumbers()
+
+        axisY = QBarCategoryAxis()
+        axisY.append(xx)
+        self.chart.addAxis(axisY, Qt.AlignLeft)
+        series.attachAxis(axisY)
 
 
 class PieChart(BaseChart):
@@ -298,22 +296,6 @@ class StackedBarChart(BaseChart):
         series = QHorizontalStackedBarSeries()
         series.hovered.connect(self.hover)
 
-        axisY = QBarCategoryAxis()
-        axisY.append(xx)
-        series.attachAxis(axisY)
-        self.chart.addAxis(axisY, Qt.AlignLeft)
-
-        axisX = QValueAxis()
-        axisX.setTitleText(self.label)
-        if yy:
-            sums = []
-            for i in range(len(yy[0])):
-                sums.append(sum(y[i] for y in yy))
-            axisX.setRange(0, max(sums))
-        axisX.setLabelFormat("%d")
-        series.attachAxis(axisX)
-        self.chart.addAxis(axisX, Qt.AlignBottom)
-
         for i, (y, z) in enumerate(zip(yy, zz)):
             setY = QBarSet(z)
             setY.append(y)
@@ -322,6 +304,18 @@ class StackedBarChart(BaseChart):
             series.append(setY)
 
         self.chart.addSeries(series)
+
+        axisX = QValueAxis()
+        axisX.setTitleText(self.label)
+        axisX.setLabelFormat("%d")
+        self.chart.addAxis(axisX, Qt.AlignBottom)
+        series.attachAxis(axisX)
+        axisX.applyNiceNumbers()
+
+        axisY = QBarCategoryAxis()
+        axisY.append(xx)
+        self.chart.addAxis(axisY, Qt.AlignLeft)
+        series.attachAxis(axisY)
 
     def hover(self, status, index, barset):
         if status:
@@ -381,11 +375,12 @@ class ProgressChart(BaseChart):
         lineseries.attachAxis(axisX)
 
         axisY = QValueAxis()
+        axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
-        axisY.setRange(0, cur_y)
         self.chart.addAxis(axisY, Qt.AlignLeft)
-        series.attachAxis(axisY)
         lineseries.attachAxis(axisY)
+        series.attachAxis(axisY)
+        axisY.applyNiceNumbers()
         
 
 class AreaTotalChart(BaseChart):
@@ -451,11 +446,12 @@ class AreaTotalChart(BaseChart):
             series.attachAxis(axisX)
 
         axisY = QValueAxis()
+        axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
-        axisY.setRange(0, max_y)
         self.chart.addAxis(axisY, Qt.AlignLeft)
         for series in serieses:
             series.attachAxis(axisY)
+        axisY.applyNiceNumbers()
 
     def hover(self, point, state):
         if state:
@@ -536,11 +532,12 @@ class AreaChart(BaseChart):
             s.attachAxis(axisX)
 
         axisY = QValueAxis()
+        axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
-        axisY.setRange(0, cur_y)
         self.chart.addAxis(axisY, Qt.AlignLeft)
         for s in serieses:
             s.attachAxis(axisY)
+        axisY.applyNiceNumbers()
 
 
 class StatisticsView(QWidget):
