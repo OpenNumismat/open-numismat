@@ -377,7 +377,7 @@ class ProgressChart(BaseChart):
         lineseries.attachAxis(axisY)
         
 
-class AreaChart(BaseChart):
+class AreaTotalChart(BaseChart):
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -390,7 +390,7 @@ class AreaChart(BaseChart):
 
         lineseries_bottom = QLineSeries(self)
         lineseries_bottom.append(QPoint(0, 0))
-        lineseries_bottom.append(QPoint(len(yy)-1, 0))
+        lineseries_bottom.append(QPoint(len(xx)-1, 0))
 
         lineseries_total = QLineSeries(self)
         cur_y = 0
@@ -439,11 +439,77 @@ class AreaChart(BaseChart):
             for i in range(pos+1):
                 total += self.yy[i][0]
                 owned += self.yy[i][1]
-            tooltip = "%s: %s\n%s: %s" % (self.tr("Total"), total,
+            tooltip = "%s: %d\n%s: %d" % (self.tr("Total"), total,
                                           self.tr("Owned"), owned)
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
+
+
+class AreaChart(BaseChart):
+    
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.chart.legend().show()
+        self.chart.legend().setAlignment(Qt.AlignRight)
+
+    def setData(self, xx, yy):
+        self.xx = xx
+        self.yy = yy
+        self.zz = []
+        for y in yy:
+            for c in y.keys():
+                if c not in self.zz:
+                    self.zz.append(c)
+        self.zz = sorted(self.zz)
+        self.zz.reverse()
+
+        lineseries_bottom = QLineSeries(self)
+        lineseries_bottom.append(QPoint(0, 0))
+        lineseries_bottom.append(QPoint(len(xx)-1, 0))
+
+        lines = {}
+        for z in self.zz:
+            lineseries = QLineSeries(self)
+            lines[z] = lineseries
+        
+        for z in self.zz:
+            n = 0
+            for y in self.yy:
+                if z in y:
+                    n += y[z]
+                y[z] = n
+
+        for i, y in enumerate(self.yy):
+            cur_y = 0
+            for z in self.zz:
+                cur_y += y[z]
+                lines[z].append(QPoint(i, cur_y))
+        
+        serieses = []
+        lineseries_prev = lineseries_bottom
+        for i, z in enumerate(self.zz):
+            series = QAreaSeries(lines[z], lineseries_prev)
+            lineseries_prev = lines[z]
+            series.setName(z)
+            serieses.append(series)
+
+        serieses.reverse()
+        for s in serieses:
+            self.chart.addSeries(s)
+            
+        axisX = QBarCategoryAxis()
+        axisX.append(xx)
+        self.chart.addAxis(axisX, Qt.AlignBottom)
+        for s in serieses:
+            s.attachAxis(axisX)
+
+        axisY = QValueAxis()
+        axisY.setLabelFormat("%d")
+        axisY.setRange(0, cur_y)
+        self.chart.addAxis(axisY, Qt.AlignLeft)
+        for s in serieses:
+            s.attachAxis(axisY)
 
 
 class StatisticsView(QWidget):
@@ -513,7 +579,7 @@ class StatisticsView(QWidget):
         self.areaLabel = QLabel(self.tr("Items:"))
         ctrlLayout.addWidget(self.areaLabel)
         self.areaSelector = QComboBox(self)
-        self.areaSelector.addItem(self.tr("Owned / Total"), 'created')
+        self.areaSelector.addItem(self.tr("Owned / Total"), 'total')
         ctrlLayout.addWidget(self.areaSelector)
 
         self.colorCheck = QCheckBox(self.tr("Multicolor"), self)
@@ -563,6 +629,14 @@ class StatisticsView(QWidget):
                 if field.name == 'status':
                     default_subfieldid = field.id
 
+        for field in self.model.fields.userFields:
+            if field.name in ('issuedate', 'year', 'createdat'):
+                self.areaSelector.addItem(field.title, field.name)
+            elif field.name == 'paydate':
+                self.areaSelector.addItem(self.tr("Pay date"), 'paydate')
+            elif field.name == 'saledate':
+                self.areaSelector.addItem(self.tr("Sale date"), 'saledate')
+
         # TODO: Store field name instead field ID
         fieldid = self.statisticsParam['fieldid']
         index = self.fieldSelector.findData(fieldid)
@@ -587,6 +661,12 @@ class StatisticsView(QWidget):
         if index >= 0:
             self.itemsSelector.setCurrentIndex(index)
 
+        # TODO: Store selected area in separate field
+        area = self.statisticsParam['items']
+        index = self.areaSelector.findData(area)
+        if index >= 0:
+            self.areaSelector.setCurrentIndex(index)
+
         period = self.statisticsParam['period']
         index = self.periodSelector.findData(period)
         if index >= 0:
@@ -601,230 +681,35 @@ class StatisticsView(QWidget):
         self.subfieldSelector.currentIndexChanged.connect(self.subfieldChaged)
         self.periodSelector.currentIndexChanged.connect(self.periodChaged)
         self.itemsSelector.currentIndexChanged.connect(self.itemsChaged)
+        self.areaSelector.currentIndexChanged.connect(self.areaChaged)
         self.colorCheck.stateChanged.connect(self.colorChanged)
         self.regionSelector.currentIndexChanged.connect(self.regionChanged)
 
     def modelChanged(self):
         self.chartLayout.removeWidget(self.chart)
         self.chart.deleteLater()
+
         chart = self.chartSelector.currentData()
         if chart == 'geochart':
-            self.chart = GeoChart(self)
+            self.chart = self.geoChart()
         elif chart == 'barh':
-            self.chart = BarHChart(self)
+            self.chart = self.barHChart()
         elif chart == 'pie':
-            self.chart = PieChart(self)
+            self.chart = self.pieChart()
         elif chart == 'stacked':
-            self.chart = StackedBarChart(self)
+            self.chart = self.stackedChart()
         elif chart == 'progress':
-            self.chart = ProgressChart(self)
+            self.chart = self.progressChart()
         elif chart == 'area':
-            self.chart = AreaChart(self)
+            area = self.areaSelector.currentData()
+            if area == 'total':
+                self.chart = self.areaTotalChart()
+            else:
+                self.chart = self.areaChart()
         else:
-            self.chart = BarChart(self)
-        self.chart.setMulticolor(self.colorCheck.isChecked())
+            self.chart = self.barChart()
+
         self.chartLayout.addWidget(self.chart)
-
-        fieldId = self.fieldSelector.currentData()
-        field = self.model.fields.field(fieldId).name
-        if field == 'fineness':
-            field = 'material,fineness'
-        elif field == 'unit':
-            field = 'value,unit'
-        filter_ = self.model.filter()
-        if filter_:
-            sql_filter = "WHERE %s" % filter_
-        else:
-            sql_filter = ""
-
-        if chart == 'geochart':
-            sql = "SELECT count(*), country FROM coins %s GROUP BY country" % sql_filter
-            query = QSqlQuery(self.model.database())
-            query.exec_(sql)
-            xx = []
-            yy = []
-            while query.next():
-                record = query.record()
-                count = record.value(0)
-                val = str(record.value(1))
-                xx.append(val)
-                yy.append(count)
-
-            self.chart.setData(xx, yy, self.regionSelector.currentData())
-        elif chart == 'stacked':
-            subfieldId = self.subfieldSelector.currentData()
-            subfield = self.model.fields.field(subfieldId).name
-            sql = "SELECT count(%s), %s, %s FROM coins %s GROUP BY %s, %s" % (
-                subfield, subfield, field, sql_filter, field, subfield)
-            query = QSqlQuery(self.model.database())
-            query.exec_(sql)
-            xx = []
-            yy = []
-            zz = []
-            vv = {}
-            while query.next():
-                record = query.record()
-                count = record.value(0)
-                val = str(record.value(2))
-                if field == 'status':
-                    val = Statuses[val]
-                elif field == 'value,unit':
-                    val = numberWithFraction(val)[0] + ' ' + str(record.value(3))
-                elif ',' in field:
-                    val += ' ' + str(record.value(3))
-                subval = str(record.value(1))
-                if subfield == 'status':
-                    subval = Statuses[subval]
-
-                if val not in xx:
-                    xx.append(val)
-                if subval not in zz:
-                    zz.append(subval)
-                if val not in vv:
-                    vv[val] = {}
-                vv[val][subval] = count
-
-            for _ in range(len(zz)):
-                yy.append([0] * len(xx))
-
-            xx.reverse()
-            for i, val in enumerate(xx):
-                for j, subval in enumerate(zz):
-                    try:
-                        yy[j][i] = vv[val][subval]
-                    except KeyError:
-                        pass
-
-            self.chart.setData(xx, yy, zz)
-            self.chart.setLabelY(self.fieldSelector.currentText())
-            self.chart.setLabelZ(self.subfieldSelector.currentText())
-        elif chart == 'progress':
-            items = self.itemsSelector.currentData()
-            if items == 'price':
-                sql_field = 'sum(payprice)'
-                self.chart.setLabel(self.tr("Paid"))
-            elif items == 'totalprice':
-                sql_field = 'sum(totalpayprice)'
-                self.chart.setLabel(self.tr("Total paid"))
-            else:
-                sql_field = 'count(*)'
-                self.chart.setLabel(self.tr("Number of coins"))
-
-            period = self.periodSelector.currentData()
-            if items == 'created':
-                if period == 'month':
-                    sql_filters = ["createdat >= datetime('now', 'start of month', '-11 months')"]
-                elif period == 'week':
-                    sql_filters = ["createdat > datetime('now', '-11 months')"]
-                elif period == 'day':
-                    sql_filters = ["createdat > datetime('now', '-1 month')"]
-                else:  # year
-                    sql_filters = ["1=1"]
-            else:
-                sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate')"]
-
-                if period == 'month':
-                    sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
-                elif period == 'week':
-                    sql_filters.append("paydate > datetime('now', '-11 months')")
-                elif period == 'day':
-                    sql_filters.append("paydate > datetime('now', '-1 month')")
-
-            if period == 'month':
-                date_format = '%m'
-            elif period == 'week':
-                date_format = '%W'
-            elif period == 'day':
-                date_format = '%d'
-            else:
-                date_format = '%Y'
-
-            if filter_:
-                sql_filters.append(filter_)
-
-            if items == 'created':
-                sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
-                      " WHERE %s"\
-                      " GROUP BY strftime('%s', createdat) ORDER BY createdat" % (
-                          sql_field, date_format, ' AND '.join(sql_filters),
-                          date_format)
-            else:
-                sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
-                      " WHERE %s"\
-                      " GROUP BY strftime('%s', paydate) ORDER BY paydate" % (
-                          sql_field, date_format, ' AND '.join(sql_filters),
-                          date_format)
-            query = QSqlQuery(self.model.database())
-            query.exec_(sql)
-            xx = []
-            yy = []
-            while query.next():
-                record = query.record()
-                count = record.value(0)
-                val = str(record.value(1))
-                xx.append(val)
-                yy.append(count)
-
-            self.chart.setData(xx, yy)
-            self.chart.setLabelY(self.periodSelector.currentText())
-        elif chart == 'area':
-            sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
-                  " %s"\
-                  " GROUP BY strftime('%s', createdat) ORDER BY createdat" % (
-                      'count(*)', '%Y', sql_filter, '%Y')
-            query = QSqlQuery(self.model.database())
-            query.exec_(sql)
-            xx = {}
-            while query.next():
-                record = query.record()
-                count = record.value(0)
-                val = str(record.value(1))
-                xx[val] = [count, 0]
-
-            sql_filters = ["status='owned'"]
-            if filter_:
-                sql_filters.append(filter_)
-
-            sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
-                  " WHERE %s"\
-                  " GROUP BY strftime('%s', paydate) ORDER BY paydate" % (
-                      'count(*)', '%Y', ' AND '.join(sql_filters), '%Y')
-            query = QSqlQuery(self.model.database())
-            query.exec_(sql)
-            while query.next():
-                record = query.record()
-                count = record.value(0)
-                val = str(record.value(1))
-                if val in xx:
-                    xx[val][1] = count
-                else:
-                    xx[val] = [0, count]
-            xx = dict(sorted(xx.items()))
-            
-            self.chart.setData(xx.keys(), list(xx.values()))
-            self.chart.setLabelY(self.fieldSelector.currentText())
-        else:
-            sql = "SELECT count(*), %s FROM coins %s GROUP BY %s" % (
-                field, sql_filter, field)
-            query = QSqlQuery(self.model.database())
-            query.exec_(sql)
-            xx = []
-            yy = []
-            while query.next():
-                record = query.record()
-                count = record.value(0)
-                val = str(record.value(1))
-                if field == 'status':
-                    val = Statuses[val]
-                elif field == 'value,unit':
-                    val = numberWithFraction(val)[0] + ' ' + str(record.value(2))
-                elif ',' in field:
-                    val += ' ' + str(record.value(2))
-                xx.append(val)
-                yy.append(count)
-
-            self.chart.setData(xx, yy)
-            self.chart.setLabelY(self.fieldSelector.currentText())
 
     def fieldChaged(self, _text):
         fieldId = self.fieldSelector.currentData()
@@ -849,8 +734,8 @@ class StatisticsView(QWidget):
     def showConfig(self, chart):
         self.subfieldSelector.setVisible(chart == 'stacked')
         self.subfieldLabel.setVisible(chart == 'stacked')
-        self.fieldSelector.setVisible(chart not in ('progress', 'geochart', 'area'))
-        self.fieldLabel.setVisible(chart not in ('progress', 'geochart', 'area'))
+        self.fieldSelector.setVisible(chart not in ('progress', 'geochart'))
+        self.fieldLabel.setVisible(chart not in ('progress', 'geochart'))
         self.periodSelector.setVisible(chart == 'progress')
         self.periodLabel.setVisible(chart == 'progress')
         self.itemsSelector.setVisible(chart == 'progress')
@@ -873,6 +758,12 @@ class StatisticsView(QWidget):
 
         self.modelChanged()
 
+    def areaChaged(self, _text):
+        area = self.areaSelector.currentData()
+        self.statisticsParam['items'] = area
+
+        self.modelChanged()
+
     def colorChanged(self, state):
         self.statisticsParam['color'] = state
 
@@ -883,6 +774,319 @@ class StatisticsView(QWidget):
 #        self.statisticsParam['region'] = region
 
         self.modelChanged()
+    
+    def fillBarChart(self, chart):
+        chart.setMulticolor(self.colorCheck.isChecked())
+
+        fieldId = self.fieldSelector.currentData()
+        field = self.model.fields.field(fieldId).name
+        if field == 'fineness':
+            field = 'material,fineness'
+        elif field == 'unit':
+            field = 'value,unit'
+
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filter = "WHERE %s" % filter_
+        else:
+            sql_filter = ""
+        
+        sql = "SELECT count(*), %s FROM coins %s GROUP BY %s" % (
+            field, sql_filter, field)
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        xx = []
+        yy = []
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            val = str(record.value(1))
+            if field == 'status':
+                val = Statuses[val]
+            elif field == 'value,unit':
+                val = numberWithFraction(val)[0] + ' ' + str(record.value(2))
+            elif ',' in field:
+                val += ' ' + str(record.value(2))
+            xx.append(val)
+            yy.append(count)
+
+        chart.setData(xx, yy)
+        chart.setLabelY(self.fieldSelector.currentText())
+
+        return chart
+    
+    def barChart(self):
+        chart = BarChart(self)
+        self.fillBarChart(chart)        
+        return chart
+    
+    def barHChart(self):
+        chart = BarHChart(self)
+        self.fillBarChart(chart)        
+        return chart
+
+    def pieChart(self):
+        chart = PieChart(self)
+        self.fillBarChart(chart)        
+        return chart
+
+    def stackedChart(self):
+        fieldId = self.fieldSelector.currentData()
+        field = self.model.fields.field(fieldId).name
+        if field == 'fineness':
+            field = 'material,fineness'
+        elif field == 'unit':
+            field = 'value,unit'
+
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filter = "WHERE %s" % filter_
+        else:
+            sql_filter = ""
+        
+        subfieldId = self.subfieldSelector.currentData()
+        subfield = self.model.fields.field(subfieldId).name
+        sql = "SELECT count(%s), %s, %s FROM coins %s GROUP BY %s, %s" % (
+            subfield, subfield, field, sql_filter, field, subfield)
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        xx = []
+        yy = []
+        zz = []
+        vv = {}
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            val = str(record.value(2))
+            if field == 'status':
+                val = Statuses[val]
+            elif field == 'value,unit':
+                val = numberWithFraction(val)[0] + ' ' + str(record.value(3))
+            elif ',' in field:
+                val += ' ' + str(record.value(3))
+            subval = str(record.value(1))
+            if subfield == 'status':
+                subval = Statuses[subval]
+
+            if val not in xx:
+                xx.append(val)
+            if subval not in zz:
+                zz.append(subval)
+            if val not in vv:
+                vv[val] = {}
+            vv[val][subval] = count
+
+        for _ in range(len(zz)):
+            yy.append([0] * len(xx))
+
+        xx.reverse()
+        for i, val in enumerate(xx):
+            for j, subval in enumerate(zz):
+                try:
+                    yy[j][i] = vv[val][subval]
+                except KeyError:
+                    pass
+
+        chart = StackedBarChart(self)
+        chart.setData(xx, yy, zz)
+        chart.setLabelY(self.fieldSelector.currentText())
+        chart.setLabelZ(self.subfieldSelector.currentText())
+        
+        return chart
+
+    def progressChart(self):
+        chart = ProgressChart(self)
+        chart.setMulticolor(self.colorCheck.isChecked())
+
+        items = self.itemsSelector.currentData()
+        if items == 'price':
+            sql_field = 'sum(payprice)'
+            chart.setLabel(self.tr("Paid"))
+        elif items == 'totalprice':
+            sql_field = 'sum(totalpayprice)'
+            chart.setLabel(self.tr("Total paid"))
+        else:
+            sql_field = 'count(*)'
+            chart.setLabel(self.tr("Number of coins"))
+
+        period = self.periodSelector.currentData()
+        if items == 'created':
+            if period == 'month':
+                sql_filters = ["createdat >= datetime('now', 'start of month', '-11 months')"]
+            elif period == 'week':
+                sql_filters = ["createdat > datetime('now', '-11 months')"]
+            elif period == 'day':
+                sql_filters = ["createdat > datetime('now', '-1 month')"]
+            else:  # year
+                sql_filters = ["1=1"]
+        else:
+            sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate')"]
+
+            if period == 'month':
+                sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
+            elif period == 'week':
+                sql_filters.append("paydate > datetime('now', '-11 months')")
+            elif period == 'day':
+                sql_filters.append("paydate > datetime('now', '-1 month')")
+
+        if period == 'month':
+            date_format = '%m'
+        elif period == 'week':
+            date_format = '%W'
+        elif period == 'day':
+            date_format = '%d'
+        else:
+            date_format = '%Y'
+
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filters.append(filter_)
+
+        if items == 'created':
+            sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
+                  " WHERE %s"\
+                  " GROUP BY strftime('%s', createdat) ORDER BY createdat" % (
+                      sql_field, date_format, ' AND '.join(sql_filters),
+                      date_format)
+        else:
+            sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
+                  " WHERE %s"\
+                  " GROUP BY strftime('%s', paydate) ORDER BY paydate" % (
+                      sql_field, date_format, ' AND '.join(sql_filters),
+                      date_format)
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        xx = []
+        yy = []
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            val = str(record.value(1))
+            xx.append(val)
+            yy.append(count)
+
+        chart.setData(xx, yy)
+        chart.setLabelY(self.periodSelector.currentText())
+
+        return chart
+
+    def areaChart(self):
+        fieldId = self.fieldSelector.currentData()
+        field = self.model.fields.field(fieldId).name
+        if field == 'fineness':
+            field = 'material,fineness'
+        elif field == 'unit':
+            field = 'value,unit'
+
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filter = "WHERE %s" % filter_
+        else:
+            sql_filter = ""
+        
+        area = self.areaSelector.currentData()
+        if area in ('issuedate', 'paydate', 'saledate', 'createdat'):
+            date_field = "strftime('%%Y', %s)" % area
+        else:
+            date_field = area
+        sql = "SELECT count(*), %s, %s FROM coins"\
+              " %s"\
+              " GROUP BY %s, %s ORDER BY %s" % (date_field, field,
+                                                sql_filter, date_field,
+                                                field, date_field)
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        xx = {}
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            year = str(record.value(1))
+            val = str(record.value(2))
+            if field == 'status':
+                val = Statuses[val]
+            elif field == 'value,unit':
+                val = numberWithFraction(val)[0] + ' ' + str(record.value(3))
+            elif ',' in field:
+                val += ' ' + str(record.value(3))
+
+            if year not in xx:
+                xx[year] = {}
+            xx[year][val] = count
+
+        chart = AreaChart(self)
+        chart.setData(xx, list(xx.values()))
+        chart.setLabelY(self.fieldSelector.currentText())
+
+        return chart
+
+    def areaTotalChart(self):
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filter = "WHERE %s" % filter_
+        else:
+            sql_filter = ""
+
+        sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
+              " %s"\
+              " GROUP BY strftime('%s', createdat)" % (
+                  'count(*)', '%Y', sql_filter, '%Y')
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        xx = {}
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            val = str(record.value(1))
+            xx[val] = [count, 0]
+
+        sql_filters = ["status='owned'"]
+        if filter_:
+            sql_filters.append(filter_)
+
+        sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
+              " WHERE %s"\
+              " GROUP BY strftime('%s', paydate)" % (
+                  'count(*)', '%Y', ' AND '.join(sql_filters), '%Y')
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            val = str(record.value(1))
+            if val in xx:
+                xx[val][1] = count
+            else:
+                xx[val] = [0, count]
+        xx = dict(sorted(xx.items()))
+
+        chart = AreaTotalChart(self)
+        chart.setData(xx.keys(), list(xx.values()))
+
+        return chart
+
+    def geoChart(self):
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filter = "WHERE %s" % filter_
+        else:
+            sql_filter = ""
+
+        sql = "SELECT count(*), country FROM coins %s GROUP BY country" % sql_filter
+        query = QSqlQuery(self.model.database())
+        query.exec_(sql)
+        xx = []
+        yy = []
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            val = str(record.value(1))
+            xx.append(val)
+            yy.append(count)
+
+        chart = GeoChart(self)
+        chart.setData(xx, yy, self.regionSelector.currentData())
+        
+        return chart
 
     def __layoutToWidget(self, layout):
         widget = QWidget(self)
