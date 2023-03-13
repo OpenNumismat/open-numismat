@@ -398,6 +398,7 @@ class StatisticsView(QWidget):
         ctrlLayout.addWidget(self.itemsLabel)
         self.itemsSelector = QComboBox(self)
         self.itemsSelector.addItem(self.tr("Count"), 'count')
+        self.itemsSelector.addItem(self.tr("Date of issue"), 'issuedate')
         self.itemsSelector.addItem(self.tr("Price"), 'price')
         self.itemsSelector.addItem(self.tr("Total price"), 'totalprice')
         self.itemsSelector.addItem(self.tr("Created"), 'created')
@@ -614,6 +615,15 @@ class StatisticsView(QWidget):
                     sql_filters = ["createdat > datetime('now', '-1 month')"]
                 else:  # year
                     sql_filters = ["1=1"]
+            elif items == 'issuedate':
+                if period == 'month':
+                    sql_filters = ["issuedate >= datetime('now', 'start of month', '-11 months')"]
+                elif period == 'week':
+                    sql_filters = ["issuedate > datetime('now', '-11 months')"]
+                elif period == 'day':
+                    sql_filters = ["issuedate > datetime('now', '-1 month')"]
+                else:  # year
+                    sql_filters = ["1=1"]
             else:
                 sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate')"]
 
@@ -640,6 +650,12 @@ class StatisticsView(QWidget):
                 sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
                       " WHERE %s"\
                       " GROUP BY strftime('%s', createdat) ORDER BY createdat" % (
+                          sql_field, date_format, ' AND '.join(sql_filters),
+                          date_format)
+            elif items == 'issuedate':
+                sql = "SELECT %s, strftime('%s', issuedate) FROM coins"\
+                      " WHERE %s"\
+                      " GROUP BY strftime('%s', issuedate) ORDER BY issuedate" % (
                           sql_field, date_format, ' AND '.join(sql_filters),
                           date_format)
             else:
