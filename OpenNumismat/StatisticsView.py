@@ -380,6 +380,7 @@ class ProgressChart(BaseChart):
         self.chart.addAxis(axisY, Qt.AlignLeft)
         lineseries.attachAxis(axisY)
         series.attachAxis(axisY)
+        axisY.setMin(0)
         axisY.applyNiceNumbers()
         
 
