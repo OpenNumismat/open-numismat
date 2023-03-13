@@ -515,9 +515,12 @@ class StatisticsView(QWidget):
         fieldId = self.fieldSelector.currentData()
         field = self.model.fields.field(fieldId).name
         if field == 'fineness':
-            field = 'material,fineness'
+            sql_field = "IFNULL(material,''),IFNULL(fineness,'')"
         elif field == 'unit':
-            field = 'value,unit'
+            sql_field = "IFNULL(value,''),IFNULL(unit,'')"
+        else:
+            sql_field = "IFNULL(%s,'')" % field
+
         filter_ = self.model.filter()
         if filter_:
             sql_filter = "WHERE %s" % filter_
@@ -541,9 +544,9 @@ class StatisticsView(QWidget):
         elif chart == 'stacked':
             subfieldId = self.subfieldSelector.currentData()
             subfield = self.model.fields.field(subfieldId).name
-            sql = "SELECT count(IFNULL(%s,'')), IFNULL(%s,''), IFNULL(%s,'') FROM coins"\
-                  " %s GROUP BY IFNULL(%s,''), IFNULL(%s,'')" % (
-                subfield, subfield, field, sql_filter, field, subfield)
+            sql = "SELECT count(IFNULL(%s,'')), IFNULL(%s,''), %s FROM coins"\
+                  " %s GROUP BY %s, IFNULL(%s,'')" % (
+                subfield, subfield, sql_field, sql_filter, sql_field, subfield)
             query = QSqlQuery(self.model.database())
             query.exec_(sql)
             xx = []
@@ -556,9 +559,9 @@ class StatisticsView(QWidget):
                 val = str(record.value(2))
                 if field == 'status':
                     val = Statuses[val]
-                elif field == 'value,unit':
+                elif field == 'unit':
                     val = numberWithFraction(val)[0] + ' ' + str(record.value(3))
-                elif ',' in field:
+                elif field == 'fineness':
                     val += ' ' + str(record.value(3))
                 subval = str(record.value(1))
                 if subfield == 'status':
@@ -659,8 +662,8 @@ class StatisticsView(QWidget):
             self.chart.setData(xx, yy)
             self.chart.setLabelY(self.periodSelector.currentText())
         else:
-            sql = "SELECT count(*), IFNULL(%s,'') FROM coins %s GROUP BY IFNULL(%s,'')" % (
-                field, sql_filter, field)
+            sql = "SELECT count(*), %s FROM coins %s GROUP BY %s" % (
+                sql_field, sql_filter, sql_field)
             query = QSqlQuery(self.model.database())
             query.exec_(sql)
             xx = []
@@ -671,9 +674,9 @@ class StatisticsView(QWidget):
                 val = str(record.value(1))
                 if field == 'status':
                     val = Statuses[val]
-                elif field == 'value,unit':
+                elif field == 'unit':
                     val = numberWithFraction(val)[0] + ' ' + str(record.value(2))
-                elif ',' in field:
+                elif field == 'fineness':
                     val += ' ' + str(record.value(2))
                 xx.append(val)
                 yy.append(count)
