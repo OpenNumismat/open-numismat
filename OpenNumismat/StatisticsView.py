@@ -126,7 +126,7 @@ class BaseChart(QChartView):
         self.label = QApplication.translate('BaseCanvas', "Number of coins")
         self.label_y = ''
         self.colors = False
-        self.use_blaf_palette = True    # TODO: Move to settings
+        self.use_blaf_palette = Settings()['use_blaf_palette']
         
         super().__init__(self.chart, parent)
 
@@ -435,7 +435,9 @@ class AreaTotalChart(BaseChart):
             series.setName(Statuses['sold'])
             serieses.append(series)
 
-        for series in serieses:
+        for i, series in enumerate(serieses):
+            if self.use_blaf_palette:
+                series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
             series.setOpacity(0.5)
             series.hovered.connect(self.hover)
             self.chart.addSeries(series)
@@ -518,6 +520,8 @@ class AreaChart(BaseChart):
         lineseries_prev = lineseries_bottom
         for i, z in enumerate(self.zz):
             series = QAreaSeries(lines[z], lineseries_prev)
+            if self.use_blaf_palette:
+                series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
             lineseries_prev = lines[z]
             series.setName(z)
             serieses.append(series)

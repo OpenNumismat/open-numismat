@@ -160,6 +160,11 @@ class MainSettingsPage(QWidget):
                                             QSizePolicy.Fixed)
         layout.addRow(self.tr("Font size"), self.fontSizeSelector)
 
+        self.useBlafPalette = QCheckBox(
+                        self.tr("Use BLAF palette in statistics charts"), self)
+        self.useBlafPalette.setChecked(settings['use_blaf_palette'])
+        layout.addRow(self.useBlafPalette)
+
         self.setLayout(layout)
 
     def backupButtonClicked(self):
@@ -193,6 +198,7 @@ class MainSettingsPage(QWidget):
         settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
+        settings['use_blaf_palette'] = self.useBlafPalette.isChecked()
 
         settings.save()
 
