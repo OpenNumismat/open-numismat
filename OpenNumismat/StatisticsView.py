@@ -358,31 +358,41 @@ class ProgressChart(BaseChart):
 
         self.chart.addSeries(series)
 
-        lineseries = QLineSeries()
-        lineseries.setName(self.tr("Trend"))
+        self.lineseries = QLineSeries()
+        self.lineseries.setName(self.tr("Trend"))
+        self.lineseries.hovered.connect(self.line_hover)
         
         cur_y = 0
         for i, y in enumerate(yy):
             cur_y += y
-            lineseries.append(QPoint(i, cur_y))
+            self.lineseries.append(QPoint(i, cur_y))
 
-        self.chart.addSeries(lineseries)
+        self.chart.addSeries(self.lineseries)
 
         axisX = QBarCategoryAxis()
         axisX.append(xx)
         self.chart.addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
-        lineseries.attachAxis(axisX)
+        self.lineseries.attachAxis(axisX)
 
         axisY = QValueAxis()
         axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
         self.chart.addAxis(axisY, Qt.AlignLeft)
-        lineseries.attachAxis(axisY)
+        self.lineseries.attachAxis(axisY)
         series.attachAxis(axisY)
         axisY.setMin(0)
         axisY.applyNiceNumbers()
         
+    def line_hover(self, point, state):
+        if state:
+            pos = int(point.x() + 0.5)
+            count = self.lineseries.at(pos).y()
+            tooltip = "%s: %d" % (self.tr("Total"), count)
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
+
 
 class AreaTotalChart(BaseChart):
     
@@ -476,6 +486,23 @@ class AreaTotalChart(BaseChart):
             QToolTip.showText(QPoint(), "")
 
 
+class AreaSeries(QAreaSeries):
+    
+    def hover(self, point, state):
+        axisX = self.attachedAxes()[0]
+        if state:
+            pos = int(point.x() + 0.5)
+            max_y = 0
+            for series in self.chart().series():
+                max_y = max(max_y, series.upperSeries().at(pos).y())
+            cur_y = self.upperSeries().at(pos).y() - self.lowerSeries().at(pos).y()
+            tooltip = "%s %s: %d\n%s: %d" % (self.name(), axisX.at(pos),
+                                             cur_y, self.tr("Total"), max_y)
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
+    
+
 class AreaChart(BaseChart):
     
     def __init__(self, parent=None):
@@ -519,11 +546,12 @@ class AreaChart(BaseChart):
         serieses = []
         lineseries_prev = lineseries_bottom
         for i, z in enumerate(self.zz):
-            series = QAreaSeries(lines[z], lineseries_prev)
+            series = AreaSeries(lines[z], lineseries_prev)
             if self.use_blaf_palette:
                 series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
             lineseries_prev = lines[z]
             series.setName(z)
+            series.hovered.connect(series.hover)
             serieses.append(series)
 
         serieses.reverse()
