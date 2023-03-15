@@ -586,17 +586,11 @@ class StatisticsView(QWidget):
 
         ctrlLayout = QVBoxLayout()
         ctrlLayout.setAlignment(Qt.AlignTop)
-        widget = self.__layoutToWidget(ctrlLayout)
-        widget.setSizePolicy(QSizePolicy.Fixed,
-                             QSizePolicy.Fixed)
-        layout.addWidget(widget)
-
-        self.chartLayout = QVBoxLayout()
-        self.chartLayout.setContentsMargins(QMargins())
-        layout.addWidget(self.__layoutToWidget(self.chartLayout))
+        ctrlLayout.setContentsMargins(QMargins(10, 10, 0, 10))
+        layout.addLayout(ctrlLayout)
 
         self.chart = QWidget(self)
-        self.chartLayout.addWidget(self.chart)
+        layout.addWidget(self.chart)
 
         self.chartSelector = QComboBox(self)
         self.chartSelector.addItem(self.tr("Bar"), 'bar')
@@ -749,7 +743,7 @@ class StatisticsView(QWidget):
         self.regionSelector.currentIndexChanged.connect(self.regionChanged)
 
     def modelChanged(self):
-        self.chartLayout.removeWidget(self.chart)
+        self.layout().removeWidget(self.chart)
         self.chart.deleteLater()
 
         chart = self.chartSelector.currentData()
@@ -772,7 +766,7 @@ class StatisticsView(QWidget):
         else:
             self.chart = self.barChart()
 
-        self.chartLayout.addWidget(self.chart)
+        self.layout().addWidget(self.chart)
 
     def fieldChaged(self, _text):
         fieldId = self.fieldSelector.currentData()
@@ -1223,11 +1217,6 @@ class StatisticsView(QWidget):
         chart.setData(xx, yy, self.regionSelector.currentData())
         
         return chart
-
-    def __layoutToWidget(self, layout):
-        widget = QWidget(self)
-        widget.setLayout(layout)
-        return widget
 
     def save(self):
         defaultFileName = "%s_%s" % (self.chartSelector.currentText(),
