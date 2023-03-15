@@ -118,17 +118,17 @@ class BaseChart(QChartView):
             '#99CC33', '#FF9900', '#999966', '#66CCCC', '#339966', '#CCCC33')
 
     def __init__(self, parent=None):
-        self.chart = QChart()
-        self.chart.legend().hide()
-        self.chart.layout().setContentsMargins(0, 0, 0, 0)
-        self.chart.setBackgroundRoundness(0)
+        chart = QChart()
+        chart.legend().hide()
+        chart.layout().setContentsMargins(0, 0, 0, 0)
+        chart.setBackgroundRoundness(0)
         
         self.label = QApplication.translate('BaseCanvas', "Number of coins")
         self.label_y = ''
         self.colors = False
         self.use_blaf_palette = Settings()['use_blaf_palette']
         
-        super().__init__(self.chart, parent)
+        super().__init__(chart, parent)
 
         self.setRenderHint(QPainter.Antialiasing)
 
@@ -185,17 +185,17 @@ class BarChart(BaseChart):
             setY.append(yy)
             series.append(setY)
 
-        self.chart.addSeries(series)
+        self.chart().addSeries(series)
 
         axisX = QBarCategoryAxis()
         axisX.append(xx)
-        self.chart.addAxis(axisX, Qt.AlignBottom)
+        self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
 
         axisY = QValueAxis()
         axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
-        self.chart.addAxis(axisY, Qt.AlignLeft)
+        self.chart().addAxis(axisY, Qt.AlignLeft)
         series.attachAxis(axisY)
         axisY.applyNiceNumbers()
 
@@ -229,18 +229,18 @@ class BarHChart(BaseChart):
             setY.append(yy)
             series.append(setY)
 
-        self.chart.addSeries(series)
+        self.chart().addSeries(series)
 
         axisX = QValueAxis()
         axisX.setTitleText(self.label)
         axisX.setLabelFormat("%d")
-        self.chart.addAxis(axisX, Qt.AlignBottom)
+        self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
         axisX.applyNiceNumbers()
 
         axisY = QBarCategoryAxis()
         axisY.append(xx)
-        self.chart.addAxis(axisY, Qt.AlignLeft)
+        self.chart().addAxis(axisY, Qt.AlignLeft)
         series.attachAxis(axisY)
 
 
@@ -248,8 +248,8 @@ class PieChart(BaseChart):
     
 #    def __init__(self, parent=None):
 #        super().__init__(parent)
-#        self.chart.legend().show()
-#        self.chart.legend().setAlignment(Qt.AlignRight)
+#        self.chart().legend().show()
+#        self.chart().legend().setAlignment(Qt.AlignRight)
 
     def setData(self, xx, yy):
         self.xx = xx
@@ -266,7 +266,7 @@ class PieChart(BaseChart):
             for x, y in zip(xx, yy):
                 series.append(x, y)
 
-        self.chart.addSeries(series)
+        self.chart().addSeries(series)
         series.setLabelsVisible(True)
 
     def hover(self, slice_, state):
@@ -282,12 +282,11 @@ class StackedBarChart(BaseChart):
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.chart.legend().show()
+        self.chart().legend().show()
 
     def setLabelZ(self, text):
         self.label_z = text
 
-    @waitCursorDecorator
     def setData(self, xx, yy, zz):
         self.xx = xx
         self.yy = yy
@@ -303,18 +302,18 @@ class StackedBarChart(BaseChart):
                 setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
             series.append(setY)
 
-        self.chart.addSeries(series)
+        self.chart().addSeries(series)
 
         axisX = QValueAxis()
         axisX.setTitleText(self.label)
         axisX.setLabelFormat("%d")
-        self.chart.addAxis(axisX, Qt.AlignBottom)
+        self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
         axisX.applyNiceNumbers()
 
         axisY = QBarCategoryAxis()
         axisY.append(xx)
-        self.chart.addAxis(axisY, Qt.AlignLeft)
+        self.chart().addAxis(axisY, Qt.AlignLeft)
         series.attachAxis(axisY)
 
     def hover(self, status, index, barset):
@@ -356,29 +355,29 @@ class ProgressChart(BaseChart):
             setY.append(yy)
             series.append(setY)
 
-        self.chart.addSeries(series)
+        self.chart().addSeries(series)
 
-        self.lineseries = QLineSeries()
+        self.lineseries = QLineSeries(self)
         self.lineseries.setName(self.tr("Trend"))
         self.lineseries.hovered.connect(self.line_hover)
         
         cur_y = 0
         for i, y in enumerate(yy):
             cur_y += y
-            self.lineseries.append(QPoint(i, cur_y))
+            self.lineseries.append(i, cur_y)
 
-        self.chart.addSeries(self.lineseries)
+        self.chart().addSeries(self.lineseries)
 
         axisX = QBarCategoryAxis()
         axisX.append(xx)
-        self.chart.addAxis(axisX, Qt.AlignBottom)
+        self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
         self.lineseries.attachAxis(axisX)
 
         axisY = QValueAxis()
         axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
-        self.chart.addAxis(axisY, Qt.AlignLeft)
+        self.chart().addAxis(axisY, Qt.AlignLeft)
         self.lineseries.attachAxis(axisY)
         series.attachAxis(axisY)
         axisY.setMin(0)
@@ -398,16 +397,16 @@ class AreaTotalChart(BaseChart):
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.chart.legend().show()
-        self.chart.legend().setAlignment(Qt.AlignRight)
+        self.chart().legend().show()
+        self.chart().legend().setAlignment(Qt.AlignRight)
 
     def setData(self, xx, yy):
         self.xx = xx
         self.yy = yy
 
         lineseries_bottom = QLineSeries(self)
-        lineseries_bottom.append(QPoint(0, 0))
-        lineseries_bottom.append(QPoint(len(xx)-1, 0))
+        lineseries_bottom.append(0, 0)
+        lineseries_bottom.append(len(xx)-1, 0)
         
         serieses = []
 
@@ -415,7 +414,7 @@ class AreaTotalChart(BaseChart):
         cur_y = 0
         for i, y in enumerate(yy):
             cur_y += y[0]
-            lineseries_total.append(QPoint(i, cur_y))
+            lineseries_total.append(i, cur_y)
         max_y = cur_y
 
         series = QAreaSeries(lineseries_total, lineseries_bottom)
@@ -426,7 +425,7 @@ class AreaTotalChart(BaseChart):
         cur_y = 0
         for i, y in enumerate(yy):
             cur_y += y[1]
-            lineseries_owned.append(QPoint(i, cur_y))
+            lineseries_owned.append(i, cur_y)
         max_y = max(cur_y, max_y)
 
         series = QAreaSeries(lineseries_owned, lineseries_bottom)
@@ -437,7 +436,7 @@ class AreaTotalChart(BaseChart):
         cur_y = 0
         for i, y in enumerate(yy):
             cur_y += y[2]
-            lineseries_sold.append(QPoint(i, cur_y))
+            lineseries_sold.append(i, cur_y)
         max_y = max(cur_y, max_y)
 
         if cur_y:
@@ -450,18 +449,18 @@ class AreaTotalChart(BaseChart):
                 series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
             series.setOpacity(0.5)
             series.hovered.connect(self.hover)
-            self.chart.addSeries(series)
+            self.chart().addSeries(series)
         
         axisX = QBarCategoryAxis()
         axisX.append(xx)
-        self.chart.addAxis(axisX, Qt.AlignBottom)
+        self.chart().addAxis(axisX, Qt.AlignBottom)
         for series in serieses:
             series.attachAxis(axisX)
 
         axisY = QValueAxis()
         axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
-        self.chart.addAxis(axisY, Qt.AlignLeft)
+        self.chart().addAxis(axisY, Qt.AlignLeft)
         for series in serieses:
             series.attachAxis(axisY)
         axisY.applyNiceNumbers()
@@ -507,8 +506,8 @@ class AreaChart(BaseChart):
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.chart.legend().show()
-        self.chart.legend().setAlignment(Qt.AlignRight)
+        self.chart().legend().show()
+        self.chart().legend().setAlignment(Qt.AlignRight)
 
     def setData(self, xx, yy):
         self.xx = xx
@@ -522,8 +521,8 @@ class AreaChart(BaseChart):
         self.zz.reverse()
 
         lineseries_bottom = QLineSeries(self)
-        lineseries_bottom.append(QPoint(0, 0))
-        lineseries_bottom.append(QPoint(len(xx)-1, 0))
+        lineseries_bottom.append(0, 0)
+        lineseries_bottom.append(len(xx)-1, 0)
 
         lines = {}
         for z in self.zz:
@@ -541,7 +540,7 @@ class AreaChart(BaseChart):
             cur_y = 0
             for z in self.zz:
                 cur_y += y[z]
-                lines[z].append(QPoint(i, cur_y))
+                lines[z].append(i, cur_y)
         
         serieses = []
         lineseries_prev = lineseries_bottom
@@ -556,18 +555,18 @@ class AreaChart(BaseChart):
 
         serieses.reverse()
         for s in serieses:
-            self.chart.addSeries(s)
+            self.chart().addSeries(s)
             
         axisX = QBarCategoryAxis()
         axisX.append(xx)
-        self.chart.addAxis(axisX, Qt.AlignBottom)
+        self.chart().addAxis(axisX, Qt.AlignBottom)
         for s in serieses:
             s.attachAxis(axisX)
 
         axisY = QValueAxis()
         axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
-        self.chart.addAxis(axisY, Qt.AlignLeft)
+        self.chart().addAxis(axisY, Qt.AlignLeft)
         for s in serieses:
             s.attachAxis(axisY)
         axisY.applyNiceNumbers()
