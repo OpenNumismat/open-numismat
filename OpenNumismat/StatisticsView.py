@@ -246,10 +246,12 @@ class BarHChart(BaseChart):
 
 class PieChart(BaseChart):
     
-#    def __init__(self, parent=None):
-#        super().__init__(parent)
-#        self.chart().legend().show()
-#        self.chart().legend().setAlignment(Qt.AlignRight)
+    def __init__(self, legend, parent=None):
+        super().__init__(parent)
+        self.legend = legend
+        if self.legend:
+            self.chart().legend().show()
+            self.chart().legend().setAlignment(Qt.AlignRight)
 
     def setData(self, xx, yy):
         self.xx = xx
@@ -267,7 +269,8 @@ class PieChart(BaseChart):
                 series.append(x, y)
 
         self.chart().addSeries(series)
-        series.setLabelsVisible(True)
+        if not self.legend:
+            series.setLabelsVisible(True)
 
     def hover(self, slice_, state):
         if state:
@@ -642,6 +645,9 @@ class StatisticsView(QWidget):
         self.colorCheck = QCheckBox(self.tr("Multicolor"), self)
         ctrlLayout.addWidget(self.colorCheck)
 
+        self.legendCheck = QCheckBox(self.tr("Show legend"), self)
+        ctrlLayout.addWidget(self.legendCheck)
+
         self.regionLabel = QLabel(self.tr("Region:"))
         ctrlLayout.addWidget(self.regionLabel)
         self.regionSelector = QComboBox(self)
@@ -740,6 +746,7 @@ class StatisticsView(QWidget):
         self.itemsSelector.currentIndexChanged.connect(self.itemsChaged)
         self.areaSelector.currentIndexChanged.connect(self.areaChaged)
         self.colorCheck.stateChanged.connect(self.colorChanged)
+        self.legendCheck.stateChanged.connect(self.legendChanged)
         self.regionSelector.currentIndexChanged.connect(self.regionChanged)
 
     def modelChanged(self):
@@ -800,6 +807,7 @@ class StatisticsView(QWidget):
         self.areaSelector.setVisible(chart == 'area')
         self.areaLabel.setVisible(chart == 'area')
         self.colorCheck.setVisible(chart not in ('stacked', 'pie', 'geochart', 'area'))
+        self.legendCheck.setVisible(chart == 'pie')
         self.regionLabel.setVisible(chart == 'geochart')
         self.regionSelector.setVisible(chart == 'geochart')
 
@@ -823,6 +831,11 @@ class StatisticsView(QWidget):
 
     def colorChanged(self, state):
         self.statisticsParam['color'] = state
+
+        self.modelChanged()
+
+    def legendChanged(self, state):
+#        self.statisticsParam['legend'] = state
 
         self.modelChanged()
 
@@ -885,7 +898,8 @@ class StatisticsView(QWidget):
         return chart
 
     def pieChart(self):
-        chart = PieChart(self)
+        legend = self.legendCheck.isChecked()
+        chart = PieChart(legend, self)
         self.fillBarChart(chart)        
         return chart
 
