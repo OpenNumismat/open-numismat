@@ -463,6 +463,7 @@ class AreaTotalChart(BaseChart):
         self.chart().addAxis(axisY, Qt.AlignLeft)
         for series in serieses:
             series.attachAxis(axisY)
+        axisY.setMin(0)
         axisY.applyNiceNumbers()
 
     def hover(self, point, state):
@@ -569,6 +570,7 @@ class AreaChart(BaseChart):
         self.chart().addAxis(axisY, Qt.AlignLeft)
         for s in serieses:
             s.attachAxis(axisY)
+        axisY.setMin(0)
         axisY.applyNiceNumbers()
 
 
@@ -1037,16 +1039,25 @@ class StatisticsView(QWidget):
                       date_format)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
-        xx = []
-        yy = []
+        xx = {}
         while query.next():
             record = query.record()
             count = record.value(0)
             val = str(record.value(1))
-            xx.append(val)
-            yy.append(count)
+            xx[val] = count
 
-        chart.setData(xx, yy)
+        if period == 'year':
+            keys = list(xx)
+            if '' in keys:
+                keys.remove('')
+            if len(keys) > 2:
+                for x in range(int(min(keys)), int(max(keys))):
+                    if str(x) not in xx:
+                        xx[str(x)] = 0
+
+            xx = dict(sorted(xx.items()))
+
+        chart.setData(list(xx), list(xx.values()))
         chart.setLabelY(self.periodSelector.currentText())
 
         return chart
@@ -1079,10 +1090,10 @@ class StatisticsView(QWidget):
             date_field = area
         sql = "SELECT count(*), %s, %s FROM coins"\
               " WHERE %s"\
-              " GROUP BY %s, %s ORDER BY %s" % (
+              " GROUP BY %s, %s" % (
                     date_field, sql_field,
                     ' AND '.join(sql_filters),
-                    date_field, sql_field, date_field)
+                    date_field, sql_field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         xx = {}
@@ -1101,6 +1112,16 @@ class StatisticsView(QWidget):
             if year not in xx:
                 xx[year] = {}
             xx[year][val] = count
+
+        keys = list(xx)
+        if '' in keys:
+            keys.remove('')
+        if len(keys) > 2:
+            for x in range(int(min(keys)), int(max(keys))):
+                if str(x) not in xx:
+                    xx[str(x)] = {}
+
+        xx = dict(sorted(xx.items()))
 
         chart = AreaChart(self)
         chart.setData(xx, list(xx.values()))
@@ -1163,6 +1184,15 @@ class StatisticsView(QWidget):
                 xx[val][2] = count
             else:
                 xx[val] = [0, 0, count]
+
+        keys = list(xx)
+        if '' in keys:
+            keys.remove('')
+        if len(keys) > 2:
+            for x in range(int(min(keys)), int(max(keys))):
+                if str(x) not in xx:
+                    xx[str(x)] = [0, 0, 0]
+        
         xx = dict(sorted(xx.items()))
 
         chart = AreaTotalChart(self)
