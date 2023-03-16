@@ -1,3 +1,4 @@
+import math
 from functools import cmp_to_key
 
 from PySide6.QtCharts import (
@@ -501,7 +502,12 @@ class AreaSeries(QAreaSeries):
             max_y = 0
             for series in self.chart().series():
                 max_y = max(max_y, series.upperSeries().at(pos).y())
+
             cur_y = self.upperSeries().at(pos).y() - self.lowerSeries().at(pos).y()
+            # TODO: Why cur_y may be negative or NaN on long period?
+            if math.isnan(cur_y) or cur_y < 0:
+                cur_y = 0
+
             tooltip = "%s %s: %d\n%s: %d" % (self.name(), axisX.at(pos),
                                              cur_y, self.tr("Total"), max_y)
             QToolTip.showText(QCursor.pos(), tooltip)
