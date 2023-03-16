@@ -1,3 +1,5 @@
+from functools import cmp_to_key
+
 from PySide6.QtCharts import (
     QAreaSeries,
     QBarCategoryAxis,
@@ -12,6 +14,7 @@ from PySide6.QtCharts import (
     QStackedBarSeries,
     QValueAxis,
 )
+from PySide6.QtCore import QCollator, QLocale
 from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
 from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
 from PySide6.QtSql import QSqlQuery
@@ -20,6 +23,7 @@ from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.CollectionFields import StatusesOrder
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Settings import Settings
@@ -512,16 +516,10 @@ class AreaChart(BaseChart):
         self.chart().legend().show()
         self.chart().legend().setAlignment(Qt.AlignRight)
 
-    def setData(self, xx, yy):
+    def setData(self, xx, yy, zz):
         self.xx = xx
         self.yy = yy
-        self.zz = []
-        for y in yy:
-            for c in y.keys():
-                if c not in self.zz:
-                    self.zz.append(c)
-        self.zz = sorted(self.zz)
-        self.zz.reverse()
+        self.zz = zz
 
         lineseries_bottom = QLineSeries(self)
         lineseries_bottom.append(0, 0)
@@ -579,6 +577,10 @@ class AreaChart(BaseChart):
 class StatisticsView(QWidget):
     def __init__(self, statisticsParam, parent=None):
         super().__init__(parent)
+
+        locale = Settings()['locale']
+        self.collator = QCollator(QLocale(locale))
+        self.collator.setNumericMode(True)
 
         self.statisticsParam = statisticsParam
 
@@ -865,22 +867,28 @@ class StatisticsView(QWidget):
             sql_field, sql_filter, sql_field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
-        xx = []
-        yy = []
+        zz = {}
         while query.next():
             record = query.record()
             count = record.value(0)
             val = str(record.value(1))
-            if field == 'status':
-                val = Statuses[val]
-            elif field == 'unit':
+            if field == 'unit':
                 val = numberWithFraction(val)[0] + ' ' + str(record.value(2))
             elif field == 'fineness':
                 val += ' ' + str(record.value(2))
-            xx.append(val)
-            yy.append(count)
+            zz[val] = count
 
-        chart.setData(xx, yy)
+        if field == 'status':
+            sorted_zz = dict(sorted(zz.items(), key=lambda x: StatusesOrder[x[0]]))
+            zz = {}
+            for key, val in sorted_zz.items():
+                zz[Statuses[key]] = val
+        elif field == 'year':
+            pass
+        else:
+            zz = dict(sorted(zz.items(), key=cmp_to_key(self.sortStrings)))
+
+        chart.setData(list(zz), list(zz.values()))
         chart.setLabelY(self.fieldSelector.currentText())
 
         return chart
@@ -953,7 +961,20 @@ class StatisticsView(QWidget):
         for _ in range(len(zz)):
             yy.append([0] * len(xx))
 
-        xx.reverse()
+        if field == 'status':
+            xx.reverse()
+        elif field == 'year':
+            xx = sorted(xx, key=cmp_to_key(self.sortYears), reverse=True)
+        else:
+            xx = sorted(xx, key=cmp_to_key(self.sortStrings), reverse=True)
+
+        if subfield == 'status':
+            pass
+        elif subfield == 'year':
+            zz = sorted(zz, key=cmp_to_key(self.sortYears), reverse=True)
+        else:
+            zz = sorted(zz, key=cmp_to_key(self.sortStrings))
+
         for i, val in enumerate(xx):
             for j, subval in enumerate(zz):
                 try:
@@ -1119,18 +1140,35 @@ class StatisticsView(QWidget):
                 xx[year] = {}
             xx[year][val] = count
 
-        keys = list(xx)
-        if '' in keys:
-            keys.remove('')
-        if len(keys) > 2:
-            for x in range(int(min(keys)), int(max(keys))):
+        years = []
+        for year in xx.keys():
+            try:
+                years.append(int(year))
+            except ValueError:
+                pass
+
+        if len(years) > 2:
+            for x in range(int(min(years)), int(max(years))):
                 if str(x) not in xx:
                     xx[str(x)] = {}
 
-        xx = dict(sorted(xx.items()))
+        xx = dict(sorted(xx.items(), key=cmp_to_key(self.sortYears)))
+
+        zz = []
+        for y in xx.values():
+            for c in y.keys():
+                if c not in zz:
+                    zz.append(c)
+
+        if field == 'status':
+            pass
+        elif field == 'year':
+            zz = sorted(zz, key=cmp_to_key(self.sortYears))
+        else:
+            zz = sorted(zz, key=cmp_to_key(self.sortStrings), reverse=True)
 
         chart = AreaChart(self)
-        chart.setData(xx, list(xx.values()))
+        chart.setData(xx, list(xx.values()), zz)
         chart.setLabelY(self.fieldSelector.currentText())
 
         return chart
@@ -1239,3 +1277,31 @@ class StatisticsView(QWidget):
             OpenNumismat.HOME_PATH, self.chart.filters)
         if fileName:
             self.chart.save(fileName, selectedFilter)
+
+    def sortStrings(self, leftData, rightData):
+        if type(leftData) is tuple:
+            leftData = leftData[0]
+        if type(rightData) is tuple:
+            rightData = rightData[0]
+
+        return self.collator.compare(leftData, rightData)
+
+    def sortYears(self, leftData, rightData):
+        if type(leftData) is tuple:
+            leftData = leftData[0]
+        if type(rightData) is tuple:
+            rightData = rightData[0]
+
+        try:
+            leftData = int(leftData)
+            rightData = int(rightData)
+        except ValueError:
+            leftData = str(leftData)
+            rightData = str(rightData)
+
+        if leftData < rightData:
+            return -1
+        elif leftData > rightData:
+            return 1
+        else:
+            return 0
