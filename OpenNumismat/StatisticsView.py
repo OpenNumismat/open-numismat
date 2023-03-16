@@ -22,7 +22,6 @@ import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
-from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
 
 gmapsAvailable = True
@@ -396,7 +395,7 @@ class ProgressChart(BaseChart):
             QToolTip.showText(QPoint(), "")
 
 
-class AreaTotalChart(BaseChart):
+class AreaStatusChart(BaseChart):
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -629,17 +628,12 @@ class StatisticsView(QWidget):
         self.itemsLabel = QLabel(self.tr("Items:"))
         ctrlLayout.addWidget(self.itemsLabel)
         self.itemsSelector = QComboBox(self)
-        self.itemsSelector.addItem(self.tr("Count"), 'count')
-        self.itemsSelector.addItem(self.tr("Date of issue"), 'issuedate')
-        self.itemsSelector.addItem(self.tr("Price"), 'price')
-        self.itemsSelector.addItem(self.tr("Total price"), 'totalprice')
-        self.itemsSelector.addItem(self.tr("Created"), 'created')
         ctrlLayout.addWidget(self.itemsSelector)
 
         self.areaLabel = QLabel(self.tr("Items:"))
         ctrlLayout.addWidget(self.areaLabel)
         self.areaSelector = QComboBox(self)
-        self.areaSelector.addItem(self.tr("Owned / Total"), 'total')
+        self.areaSelector.addItem(self.tr("Status changing"), 'status')
         ctrlLayout.addWidget(self.areaSelector)
 
         self.colorCheck = QCheckBox(self.tr("Multicolor"), self)
@@ -692,13 +686,17 @@ class StatisticsView(QWidget):
                 if field.name == 'status':
                     default_subfieldid = field.id
 
-        for field in self.model.fields.userFields:
             if field.name in ('issuedate', 'year', 'createdat'):
                 self.areaSelector.addItem(field.title, field.name)
             elif field.name == 'paydate':
-                self.areaSelector.addItem(self.tr("Pay date"), 'paydate')
+                self.areaSelector.addItem(self.tr("Pay date"), field.name)
             elif field.name == 'saledate':
-                self.areaSelector.addItem(self.tr("Sale date"), 'saledate')
+                self.areaSelector.addItem(self.tr("Sale date"), field.name)
+
+            if field.name in ('issuedate', 'createdat', 'payprice', 'totalpayprice'):
+                self.itemsSelector.addItem(field.title, field.name)
+            elif field.name == 'paydate':
+                self.itemsSelector.addItem(self.tr("Pay date"), field.name)
 
         # TODO: Store field name instead field ID
         fieldid = self.statisticsParam['fieldid']
@@ -766,8 +764,8 @@ class StatisticsView(QWidget):
             self.chart = self.progressChart()
         elif chart == 'area':
             area = self.areaSelector.currentData()
-            if area == 'total':
-                self.chart = self.areaTotalChart()
+            if area == 'status':
+                self.chart = self.areaStatusChart()
             else:
                 self.chart = self.areaChart()
         else:
@@ -975,10 +973,10 @@ class StatisticsView(QWidget):
         chart.setMulticolor(self.colorCheck.isChecked())
 
         items = self.itemsSelector.currentData()
-        if items == 'price':
+        if items == 'payprice':
             sql_field = 'sum(payprice)'
-            chart.setLabel(self.tr("Paid"))
-        elif items == 'totalprice':
+            chart.setLabel(self.tr("Total price"))
+        elif items == 'totalpayprice':
             sql_field = 'sum(totalpayprice)'
             chart.setLabel(self.tr("Total paid"))
         else:
@@ -986,7 +984,7 @@ class StatisticsView(QWidget):
             chart.setLabel(self.tr("Number of coins"))
 
         period = self.periodSelector.currentData()
-        if items == 'created':
+        if items == 'createdat':
             if period == 'month':
                 sql_filters = ["createdat >= datetime('now', 'start of month', '-11 months')"]
             elif period == 'week':
@@ -1027,7 +1025,7 @@ class StatisticsView(QWidget):
         if filter_:
             sql_filters.append(filter_)
 
-        if items == 'created':
+        if items == 'createdat':
             sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
                   " WHERE %s"\
                   " GROUP BY strftime('%s', createdat) ORDER BY createdat" % (
@@ -1137,7 +1135,7 @@ class StatisticsView(QWidget):
 
         return chart
 
-    def areaTotalChart(self):
+    def areaStatusChart(self):
         filter_ = self.model.filter()
         if filter_:
             sql_filter = "WHERE %s" % filter_
@@ -1203,7 +1201,7 @@ class StatisticsView(QWidget):
         
         xx = dict(sorted(xx.items()))
 
-        chart = AreaTotalChart(self)
+        chart = AreaStatusChart(self)
         chart.setData(xx.keys(), list(xx.values()))
 
         return chart
