@@ -389,7 +389,6 @@ class ProgressChart(BaseChart):
         series.attachAxis(axisY)
         axisY.setMin(0)
         axisY.applyNiceNumbers()
-        print(222)
         
     def line_hover(self, point, state):
         if state:
