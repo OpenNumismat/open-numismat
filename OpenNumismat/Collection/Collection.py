@@ -376,7 +376,8 @@ class CollectionModel(QSqlTableModel):
         self._recalculateImage(record)
 
         currentTime = QtCore.QDateTime.currentDateTimeUtc()
-        record.setValue('updatedat', currentTime.toString("yyyy-MM-ddTHH:mm:ss.zzz"))
+        # currentTime.setTimeSpec(Qt.LocalTime)
+        record.setValue('updatedat', currentTime.toString(Qt.ISODateWithMs))
 
     def _recalculateImage(self, record):
         # Creating preview image for list
