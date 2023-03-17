@@ -348,7 +348,7 @@ class ProgressChart(BaseChart):
             series = QBarSeries()
         series.hovered.connect(self.hover)
 
-        if self.colors:
+        if self.colors and len(yy) < 500:
             for i, y in enumerate(yy):
                 lst = [0] * len(yy)
                 lst[i] = y
@@ -389,6 +389,7 @@ class ProgressChart(BaseChart):
         series.attachAxis(axisY)
         axisY.setMin(0)
         axisY.applyNiceNumbers()
+        print(222)
         
     def line_hover(self, point, state):
         if state:
@@ -701,7 +702,7 @@ class StatisticsView(QWidget):
             elif field.name == 'saledate':
                 self.areaSelector.addItem(self.tr("Sale date"), field.name)
 
-            if field.name in ('issuedate', 'createdat', 'payprice', 'totalpayprice'):
+            if field.name in ('issuedate', 'createdat', 'payprice', 'year', 'totalpayprice'):
                 self.itemsSelector.addItem(field.title, field.name)
             elif field.name == 'paydate':
                 self.itemsSelector.addItem(self.tr("Pay date"), field.name)
@@ -1029,6 +1030,8 @@ class StatisticsView(QWidget):
                 sql_filters = ["issuedate > datetime('now', '-1 month')"]
             else:  # year
                 sql_filters = ["1=1"]
+        elif items == 'year':
+            sql_filters = ["1=1"]
         else:
             sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate')"]
 
@@ -1064,6 +1067,11 @@ class StatisticsView(QWidget):
                   " GROUP BY strftime('%s', issuedate) ORDER BY issuedate" % (
                       sql_field, date_format, ' AND '.join(sql_filters),
                       date_format)
+        elif items == 'year':
+            sql = "SELECT %s, year FROM coins"\
+                  " WHERE %s"\
+                  " GROUP BY year" % (
+                      sql_field, ' AND '.join(sql_filters))
         else:
             sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
                   " WHERE %s"\
@@ -1080,11 +1088,15 @@ class StatisticsView(QWidget):
             xx[val] = count
 
         if period == 'year':
-            keys = list(xx)
-            if '' in keys:
-                keys.remove('')
-            if len(keys) > 2:
-                for x in range(int(min(keys)), int(max(keys))):
+            years = []
+            for year in xx.keys():
+                try:
+                    years.append(int(year))
+                except ValueError:
+                    pass
+
+            if len(years) > 2:
+                for x in range(int(min(years)), int(max(years))):
                     if str(x) not in xx:
                         xx[str(x)] = 0
 
