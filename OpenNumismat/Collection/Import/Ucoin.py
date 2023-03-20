@@ -60,6 +60,8 @@ class ImportUcoin(_Import):
             else:
                 value = ''
                 unit = row[1]
+            if '.' in value:
+                value = value.replace('.', '')
             record.setValue('value', value)
             record.setValue('unit', unit)
             year = row[2].split(' ', 1)[0]
@@ -99,7 +101,7 @@ class ImportUcoin2(ImportExcel):
     def defaultField(self, col, combo):
         res = 0
 
-        if self.sheet.ncols == 12:
+        if self.sheet.ncols == 12:  # Swap-List
             if col == 0:
                 res = combo.findText(self.fields.country.title)
             elif col == 1:
@@ -119,6 +121,29 @@ class ImportUcoin2(ImportExcel):
             elif col == 8:
                 res = combo.findText(self.fields.catalognum1.title)
             elif col == 10:
+                res = combo.findText(self.fields.features.title)
+        elif self.sheet.ncols == 17:
+            if col == 0:
+                res = combo.findText(self.fields.country.title)
+            elif col == 1:
+                res = combo.findText(self.fields.unit.title)
+            elif col == 2:
+                res = combo.findText(self.fields.year.title)
+            elif col == 3:
+                res = combo.findText(self.fields.mintmark.title)
+            elif col == 4:
+                res = combo.findText(self.fields.subjectshort.title)
+            elif col == 5:
+                res = combo.findText(self.fields.grade.title)
+            elif col == 6:
+                res = combo.findText(self.fields.price3.title)
+            elif col == 7:
+                res = combo.findText(self.fields.catalognum1.title)
+            elif col == 12:
+                res = combo.findText(self.fields.paydate.title)
+            elif col == 13:
+                res = combo.findText(self.fields.payprice.title)
+            elif col == 16:
                 res = combo.findText(self.fields.features.title)
         else:
             if col == 0:
