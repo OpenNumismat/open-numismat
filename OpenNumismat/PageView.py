@@ -538,11 +538,11 @@ class Splitter(QSplitter):
         self.title = title
         self.splitterMoved.connect(self.splitterPosChanged)
 
-    def splitterPosChanged(self, pos, index):
+    def splitterPosChanged(self, _pos, _index):
         settings = QtCore.QSettings()
         settings.setValue('pageview/splittersizes' + self.title, self.sizes())
 
-    def showEvent(self, e):
+    def showEvent(self, _e):
         settings = QtCore.QSettings()
         sizes = settings.value('pageview/splittersizes' + self.title)
         if sizes:
@@ -552,23 +552,6 @@ class Splitter(QSplitter):
             self.splitterMoved.disconnect(self.splitterPosChanged)
             self.setSizes(sizes)
             self.splitterMoved.connect(self.splitterPosChanged)
-
-    def replaceWidget(self, index, widget):
-        old = self.widget(index)
-        if old:
-            old.setParent(None)
-            old.deleteLater()
-        self.insertWidget(index, widget)
-
-        self.showEvent(None)
-
-    def switchWidget(self, index, widget):
-        old = self.widget(index)
-        if old:
-            old.setParent(None)
-        self.insertWidget(index, widget)
-
-        self.showEvent(None)
 
 
 class PageView(Splitter):
@@ -650,14 +633,14 @@ class PageView(Splitter):
         sizes = self.splitter1.sizes()
 
         if self.param.info_type == CollectionPageTypes.Map:
-            self.splitter1.switchWidget(1, self.mapView)
+            self.splitter1.replaceWidget(1, self.mapView)
         elif self.param.info_type == CollectionPageTypes.Statistics:
-            self.splitter1.switchWidget(1, self.statisticsView)
+            self.splitter1.replaceWidget(1, self.statisticsView)
         else:
             if self.imagesAtBottom:
-                self.splitter1.switchWidget(1, self.imageView)
+                self.splitter1.replaceWidget(1, self.imageView)
             else:
-                self.splitter1.switchWidget(1, self.detailsView)
+                self.splitter1.replaceWidget(1, self.detailsView)
 
         if sizes[1] > 0:
             self.splitter1.setSizes(sizes)
@@ -688,7 +671,8 @@ class PageView(Splitter):
             listView = ListView(self.param.listParam, self)
 
         splitter2 = self.splitter1.widget(0)
-        splitter2.replaceWidget(1, listView)
+        old_widget = splitter2.replaceWidget(1, listView)
+        old_widget.deleteLater()
         self.listView = listView
 
         self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
