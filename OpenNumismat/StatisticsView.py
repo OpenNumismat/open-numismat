@@ -117,6 +117,9 @@ class GeoChart(QWebView):
     def mouseDoubleClickEvent(self, event):
         self.doubleClicked.emit(event.position().toPoint())
 
+    def contextMenuEvent(self, _event):
+        pass
+
 
 class BaseChart(QChartView):
     doubleClicked = pyqtSignal(QPoint)
