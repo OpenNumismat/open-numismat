@@ -17,6 +17,7 @@ from PySide6.QtCharts import (
 )
 from PySide6.QtCore import QCollator, QLocale
 from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
+from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import *
@@ -39,6 +40,8 @@ except ImportError:
 
 
 class GeoChart(QWebView):
+    doubleClicked = pyqtSignal(QPoint)
+
     HTML = """
 <html>
   <head>
@@ -111,8 +114,12 @@ class GeoChart(QWebView):
             with open(fileName, 'wb') as f:
                 f.write(bytes(self.html_data, 'utf-8'))
 
+    def mouseDoubleClickEvent(self, event):
+        self.doubleClicked.emit(event.position().toPoint())
+
 
 class BaseChart(QChartView):
+    doubleClicked = pyqtSignal(QPoint)
     
     BLAF_PALETTE = (
             '#336699', '#99CCFF', '#999933', '#666699', '#CC9933', '#006666',
@@ -161,6 +168,9 @@ class BaseChart(QChartView):
 
     def save(self, fileName, _selectedFilter):
         self.grab().save(fileName)
+
+    def mouseDoubleClickEvent(self, event):
+        self.doubleClicked.emit(event.position().toPoint())
 
 
 class BarChart(BaseChart):
@@ -600,7 +610,7 @@ class StatisticsView(QWidget):
         layout.addLayout(ctrlLayout)
 
         self.chart = QWidget(self)
-        layout.addWidget(self.chart)
+        self.scroll = QScrollArea(self)
 
         self.chartSelector = QComboBox(self)
         self.chartSelector.addItem(self.tr("Bar"), 'bar')
@@ -662,16 +672,33 @@ class StatisticsView(QWidget):
         ctrlLayout.addWidget(self.regionSelector)
 
         saveButton = QPushButton()
-        icon = QIcon(':/save.png')
-        saveButton.setIcon(icon)
-        saveButton.setIconSize(QSize(16, 16))
+        saveButton.setIcon(QIcon(':/save.png'))
         saveButton.setToolTip(self.tr("Save chart"))
         saveButton.setFixedWidth(25)
-        ctrlLayout.addSpacing(1000)
-        ctrlLayout.addWidget(saveButton)
         saveButton.clicked.connect(self.save)
 
+        self.zoomInButton = QPushButton()
+        self.zoomInButton.setIcon(QIcon(':/zoom_in.png'))
+        self.zoomInButton.setToolTip(self.tr("Zoom In (50%)"))
+        self.zoomInButton.setFixedWidth(25)
+        self.zoomInButton.clicked.connect(self.zoomIn)
+
+        self.zoomOutButton = QPushButton()
+        self.zoomOutButton.setIcon(QIcon(':/zoom_out.png'))
+        self.zoomOutButton.setToolTip(self.tr("Zoom Out (50%)"))
+        self.zoomOutButton.setFixedWidth(25)
+        self.zoomOutButton.clicked.connect(self.zoomOut)
+
+        button_layout = QHBoxLayout()
+        button_layout.addWidget(saveButton)
+        button_layout.addWidget(self.zoomInButton, alignment=Qt.AlignRight)
+        button_layout.addWidget(self.zoomOutButton)
+
+        ctrlLayout.addSpacing(1000)
+        ctrlLayout.addLayout(button_layout)
+
         self.setLayout(layout)
+        layout.addWidget(self.scroll)
 
     def setModel(self, model):
         self.model = model
@@ -756,9 +783,6 @@ class StatisticsView(QWidget):
         self.regionSelector.currentIndexChanged.connect(self.regionChanged)
 
     def modelChanged(self):
-        self.layout().removeWidget(self.chart)
-        self.chart.deleteLater()
-
         chart = self.chartSelector.currentData()
         if chart == 'geochart':
             self.chart = self.geoChart()
@@ -779,7 +803,10 @@ class StatisticsView(QWidget):
         else:
             self.chart = self.barChart()
 
-        self.layout().addWidget(self.chart)
+        self.scroll.setWidget(self.chart)
+        self.chart.doubleClicked.connect(self.zoomInPos)
+
+        self.resizeEvent(None)
 
     def fieldChaged(self, _text):
         fieldId = self.fieldSelector.currentData()
@@ -1294,6 +1321,84 @@ class StatisticsView(QWidget):
             OpenNumismat.HOME_PATH, self.chart.filters)
         if fileName:
             self.chart.save(fileName, selectedFilter)
+
+    def resizeEvent(self, _e):
+        scroll_size = self.scroll.size() - QSize(2, 2)
+        chart_size = self.chart.size()
+
+        if scroll_size.height() >= chart_size.height() or \
+                scroll_size.width() >= chart_size.width():
+            self.chart.resize(scroll_size)
+            self.zoomOutButton.setDisabled(True)
+            self.zoomInButton.setEnabled(True)
+
+    def zoomInPos(self, point):
+        if not self.zoomInButton.isEnabled():
+            return
+
+        scroll_size = self.scroll.size() - QSize(2, 2)
+        target_size = self.chart.size() * 1.5
+
+        old_pos_h = (self.scroll.horizontalScrollBar().value() + point.x()) * 1.5
+        old_pos_v = (self.scroll.verticalScrollBar().value() + point.y()) * 1.5
+
+        if scroll_size.height() * 5 <= target_size.height() or \
+                scroll_size.width() * 5 <= target_size.width():
+            self.zoomInButton.setDisabled(True)
+        self.zoomOutButton.setEnabled(True)
+
+        self.chart.resize(target_size)
+
+        self.scroll.horizontalScrollBar().setValue((old_pos_h - point.x()))
+        self.scroll.verticalScrollBar().setValue((old_pos_v - point.y()))
+
+    def zoomIn(self):
+        old_size = self.chart.size()
+        scroll_size = self.scroll.size() - QSize(2, 2)
+        target_size = self.chart.size() * 1.5
+
+        if scroll_size.height() * 5 <= target_size.height() or \
+                scroll_size.width() * 5 <= target_size.width():
+            self.zoomInButton.setDisabled(True)
+        self.zoomOutButton.setEnabled(True)
+
+        self.chart.resize(target_size)
+
+        w = target_size.width() - old_size.width()
+        pos = self.scroll.horizontalScrollBar().value()
+        self.scroll.horizontalScrollBar().setValue(pos + w // 2)
+
+        h = target_size.height() - old_size.height()
+        pos = self.scroll.verticalScrollBar().value()
+        self.scroll.verticalScrollBar().setValue(pos + h // 2)
+
+    def zoomOut(self):
+        old_size = self.chart.size()
+        scroll_size = self.scroll.size() - QSize(2, 2)
+        target_size = self.chart.size() / 1.5
+
+        old_pos_h = self.scroll.horizontalScrollBar().value()
+        old_pos_v = self.scroll.verticalScrollBar().value()
+
+        if scroll_size.height() >= target_size.height() or \
+                scroll_size.width() >= target_size.width():
+            self.chart.resize(scroll_size)
+            self.zoomOutButton.setDisabled(True)
+        else:
+            self.chart.resize(target_size)
+        self.zoomInButton.setEnabled(True)
+
+        w1 = target_size.width() - scroll_size.width()
+        if w1:
+            w2 = old_size.width() - scroll_size.width()
+            scale = w2 / w1
+            self.scroll.horizontalScrollBar().setValue(old_pos_h / scale)
+
+        h1 = target_size.height() - scroll_size.height()
+        if h1:
+            h2 = old_size.height() - scroll_size.height()
+            scale = h2 / h1
+            self.scroll.verticalScrollBar().setValue(old_pos_v / scale)
 
     def sortStrings(self, leftData, rightData):
         if type(leftData) is tuple:
