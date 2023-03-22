@@ -670,7 +670,7 @@ class StatisticsView(QWidget):
             yy = []
             while query.next():
                 record = query.record()
-                count = record.value(0)
+                count = record.value(0) or 0
                 val = str(record.value(1))
                 xx.append(val)
                 yy.append(count)
