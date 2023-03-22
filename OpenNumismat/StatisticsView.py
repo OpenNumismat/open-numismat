@@ -135,6 +135,9 @@ class GeoChartCanvas(QWebView):
                 with open(fileName, 'wb') as f:
                     f.write(bytes(self.html_data, 'utf-8'))
 
+    def contextMenuEvent(self, _event):
+        pass
+
 
 class BaseCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
