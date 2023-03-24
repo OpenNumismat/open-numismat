@@ -1450,17 +1450,22 @@ class StatisticsView(QWidget):
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         xx = {}
+        zz = []
         while query.next():
             record = query.record()
             count = record.value(0)
             year = str(record.value(1))
             val = str(record.value(2))
+
             if field == 'status':
                 val = Statuses[val]
             elif field == 'unit':
                 val = numberWithFraction(val)[0] + ' ' + str(record.value(3))
             elif field == 'fineness':
                 val += ' ' + str(record.value(3))
+
+            if val not in zz:
+                zz.append(val)
 
             if year not in xx:
                 xx[year] = {}
@@ -1481,14 +1486,8 @@ class StatisticsView(QWidget):
 
             xx = dict(sorted(xx.items(), key=cmp_to_key(self.sortYears)))
 
-        zz = []
-        for y in xx.values():
-            for c in y.keys():
-                if c not in zz:
-                    zz.append(c)
-
         if field == 'status':
-            pass
+            zz = sorted(zz, key=cmp_to_key(self.sortStatuses), reverse=True)
         elif field == 'year':
             zz = sorted(zz, key=cmp_to_key(self.sortYears))
         else:
@@ -1551,7 +1550,6 @@ class StatisticsView(QWidget):
                 xx[val][1] = count
             else:
                 xx[val] = [0, count, 0]
-        xx = dict(sorted(xx.items()))
 
         sql_filters = ["status='sold'"]
         if filter_:
@@ -1587,9 +1585,9 @@ class StatisticsView(QWidget):
                     if str(x) not in xx:
                         xx[str(x)] = [0, 0, 0]
 
-            xx = dict(sorted(xx.items()))
-
             chart = AreaStatusChart(self)
+
+        xx = dict(sorted(xx.items()))
         chart.setData(xx.keys(), list(xx.values()))
 
         return chart
@@ -1713,6 +1711,22 @@ class StatisticsView(QWidget):
             rightData = rightData[0]
 
         return self.collator.compare(leftData, rightData)
+
+    def sortStatuses(self, leftData, rightData):
+        if type(leftData) is tuple:
+            leftData = leftData[0]
+        if type(rightData) is tuple:
+            rightData = rightData[0]
+
+        leftData = Statuses.reverse(leftData)
+        rightData = Statuses.reverse(rightData)
+
+        if StatusesOrder[leftData] < StatusesOrder[rightData]:
+            return -1
+        elif StatusesOrder[leftData] > StatusesOrder[rightData]:
+            return 1
+        else:
+            return 0
 
     def sortYears(self, leftData, rightData):
         if type(leftData) is tuple:

@@ -100,6 +100,12 @@ class Status(dict):
         except KeyError:
             return ''
 
+    def reverse(self, title):
+        for key, value in zip(self.Keys, self.Titles):
+            if QApplication.translate("Status", value) == title:
+                return key
+        return ''
+
 
 Statuses = Status()
 StatusesOrder = {'': 0, 'demo': 0, 'pass': 9, 'owned': 3, 'ordered': 2,
