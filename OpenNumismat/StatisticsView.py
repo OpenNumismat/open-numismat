@@ -1104,6 +1104,11 @@ class StatisticsView(QWidget):
         self.itemsLabel.setVisible(chart == 'progress')
         self.areaSelector.setVisible(chart == 'area')
         self.areaLabel.setVisible(chart == 'area')
+        if chart == 'area':
+            area = self.areaSelector.currentData()
+            self.fieldSelector.setDisabled(area == 'status')
+        else:
+            self.fieldSelector.setDisabled(False)
         self.colorCheck.setVisible(chart not in ('stacked', 'pie', 'geochart', 'area'))
         self.legendCheck.setVisible(chart == 'pie')
         self.niceYearsCheck.setVisible(chart == 'area')
@@ -1125,6 +1130,8 @@ class StatisticsView(QWidget):
     def areaChaged(self, _text):
         area = self.areaSelector.currentData()
         self.statisticsParam['items'] = area
+
+        self.fieldSelector.setDisabled(area == 'status')
 
         self.modelChanged()
 
