@@ -8,6 +8,7 @@ from PySide6.QtCharts import (
     QBarSet,
     QChart,
     QChartView,
+    QDateTimeAxis,
     QHorizontalBarSeries,
     QHorizontalStackedBarSeries,
     QLineSeries,
@@ -16,7 +17,7 @@ from PySide6.QtCharts import (
     QValueAxis,
 )
 from PySide6.QtCore import QCollator, QLocale
-from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDateTime, QByteArray
+from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDate, QDateTime, QByteArray
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
 from PySide6.QtSql import QSqlQuery
@@ -435,7 +436,6 @@ class AreaStatusChart(BaseChart):
         for i, y in enumerate(yy):
             cur_y += y[0]
             lineseries_total.append(i, cur_y)
-        max_y = cur_y
 
         series = QAreaSeries(lineseries_total, lineseries_bottom)
         series.setName(self.tr("Total"))
@@ -446,7 +446,6 @@ class AreaStatusChart(BaseChart):
         for i, y in enumerate(yy):
             cur_y += y[1]
             lineseries_owned.append(i, cur_y)
-        max_y = max(cur_y, max_y)
 
         series = QAreaSeries(lineseries_owned, lineseries_bottom)
         series.setName(Statuses['owned'])
@@ -457,7 +456,6 @@ class AreaStatusChart(BaseChart):
         for i, y in enumerate(yy):
             cur_y += y[2]
             lineseries_sold.append(i, cur_y)
-        max_y = max(cur_y, max_y)
 
         if cur_y:
             series = QAreaSeries(lineseries_sold, lineseries_bottom)
@@ -506,6 +504,134 @@ class AreaStatusChart(BaseChart):
             QToolTip.showText(QPoint(), "")
 
 
+class AreaNiceStatusChart(BaseChart):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.chart().legend().show()
+        self.chart().legend().setAlignment(Qt.AlignRight)
+
+    def val_to_date(self, val):
+        year = int(val[0:4])
+        if len(val) >= 7:
+            month = int(val[5:7])
+        else:
+            month = 1
+        if len(val) >= 10:
+            day = int(val[8:10])
+        else:
+            day = 1
+        date = QDateTime()
+        date.setDate(QDate(year, month, day))
+
+        return date
+
+    def setData(self, xx, yy):
+        self.xx = list(xx)
+        self.yy = yy
+
+        dates = []
+        for x in self.xx:
+            try:
+                self.val_to_date(x)  # check that date is valid
+                dates.append(x)  # store only valid dates
+            except:
+                pass
+
+        lineseries_bottom = QLineSeries(self)
+        if dates:
+            date = self.val_to_date(dates[0])
+            lineseries_bottom.append(float(date.toMSecsSinceEpoch()), 0)
+
+            date = self.val_to_date(dates[-1])
+            lineseries_bottom.append(float(date.toMSecsSinceEpoch()), 0)
+
+        serieses = []
+
+        lineseries_total = QLineSeries(self)
+        cur_y = 0
+        for i, y in enumerate(yy):
+            cur_y += y[0]
+
+            try:
+                date = self.val_to_date(self.xx[i])
+                lineseries_total.append(float(date.toMSecsSinceEpoch()), cur_y)
+            except:
+                pass
+
+        series = QAreaSeries(lineseries_total, lineseries_bottom)
+        series.setName(self.tr("Total"))
+        serieses.append(series)
+
+        lineseries_owned = QLineSeries(self)
+        cur_y = 0
+        for i, y in enumerate(yy):
+            cur_y += y[1]
+
+            try:
+                date = self.val_to_date(self.xx[i])
+                lineseries_owned.append(float(date.toMSecsSinceEpoch()), cur_y)
+            except:
+                pass
+
+        series = QAreaSeries(lineseries_owned, lineseries_bottom)
+        series.setName(Statuses['owned'])
+        serieses.append(series)
+
+        lineseries_sold = QLineSeries(self)
+        cur_y = 0
+        for i, y in enumerate(yy):
+            cur_y += y[2]
+
+            try:
+                date = self.val_to_date(self.xx[i])
+                lineseries_sold.append(float(date.toMSecsSinceEpoch()), cur_y)
+            except:
+                pass
+
+        if cur_y:
+            series = QAreaSeries(lineseries_sold, lineseries_bottom)
+            series.setName(Statuses['sold'])
+            serieses.append(series)
+
+        for i, series in enumerate(serieses):
+            if self.use_blaf_palette:
+                series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+            series.setOpacity(0.5)
+            series.hovered.connect(self.hover)
+            self.chart().addSeries(series)
+
+        min_year = self.val_to_date(dates[0]).date().year()
+        max_year = self.val_to_date(dates[-1]).date().year()
+        ticks = min(max_year - min_year, 12) + 1
+        axisX = QDateTimeAxis()
+        axisX.setFormat("yyyy")
+        axisX.setTickCount(ticks)
+        self.chart().addAxis(axisX, Qt.AlignBottom)
+        for series in serieses:
+            series.attachAxis(axisX)
+
+        axisY = QValueAxis()
+        axisY.setTitleText(self.label)
+        axisY.setLabelFormat("%d")
+        self.chart().addAxis(axisY, Qt.AlignLeft)
+        for series in serieses:
+            series.attachAxis(axisY)
+        axisY.setMin(0)
+        axisY.applyNiceNumbers()
+
+    def hover(self, point, state):
+        if state:
+            pos = int(point.x() + 5 * 24 * 60 * 60 * 1000)
+            date = QDateTime()
+            date.setMSecsSinceEpoch(pos)
+            tooltip = date.toString("yyyy/MM")
+
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
+
+
 class AreaSeries(QAreaSeries):
     
     def hover(self, point, state):
@@ -535,9 +661,9 @@ class AreaChart(BaseChart):
         self.chart().legend().show()
         self.chart().legend().setAlignment(Qt.AlignRight)
 
-    def setData(self, xx, yy, zz):
+    def setData(self, xx, zz):
         self.xx = xx
-        self.yy = yy
+        self.yy = list(xx.values())
         self.zz = zz
 
         lineseries_bottom = QLineSeries(self)
@@ -582,6 +708,138 @@ class AreaChart(BaseChart):
         self.chart().addAxis(axisX, Qt.AlignBottom)
         for s in serieses:
             s.attachAxis(axisX)
+
+        axisY = QValueAxis()
+        axisY.setTitleText(self.label)
+        axisY.setLabelFormat("%d")
+        self.chart().addAxis(axisY, Qt.AlignLeft)
+        for s in serieses:
+            s.attachAxis(axisY)
+        axisY.setMin(0)
+        axisY.applyNiceNumbers()
+
+
+class AreaNiceSeries(QAreaSeries):
+
+    def hover(self, point, state):
+        if state:
+            pos = int(point.x() + 5 * 24 * 60 * 60 * 1000)
+            date = QDateTime()
+            date.setMSecsSinceEpoch(pos)
+            max_y = 0
+            for series in self.chart().series():
+                point = self.getPoint(series.upperSeries(), pos)
+                max_y = max(max_y, point.y())
+
+            cur_y = self.getPoint(self.upperSeries(), pos).y() - self.getPoint(self.lowerSeries(), pos).y()
+            # TODO: Why cur_y may be negative or NaN on long period?
+            if math.isnan(cur_y) or cur_y < 0:
+                cur_y = 0
+
+            tooltip = "%s %s: %d\n%s: %d" % (self.name(), date.toString("yyyy/MM"),
+                                             cur_y, self.tr("Total"), max_y)
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
+
+    def getPoint(self, series, pos):
+        prev_point = series.points()[0]
+        for point in series.points():
+            if point.x() >= pos:
+                break
+            prev_point = point
+
+        return prev_point
+
+
+class AreaNiceChart(BaseChart):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.chart().legend().show()
+        self.chart().legend().setAlignment(Qt.AlignRight)
+
+    def val_to_date(self, val):
+        year = int(val[0:4])
+        if len(val) >= 7:
+            month = int(val[5:7])
+        else:
+            month = 1
+        if len(val) >= 10:
+            day = int(val[8:10])
+        else:
+            day = 1
+        date = QDateTime()
+        date.setDate(QDate(year, month, day))
+
+        return date
+
+    def setData(self, xx, zz):
+        self.zz = zz
+
+        self.xx = {}
+        for x, y in xx.items():
+            try:
+                self.val_to_date(x)  # check that date is valid
+                self.xx[x] = y  # store only valid dates
+            except:
+                pass
+
+        self.yy = list(self.xx.values())
+        dates = list(self.xx)
+
+        lineseries_bottom = QLineSeries(self)
+        if dates:
+            date = self.val_to_date(dates[0])
+            lineseries_bottom.append(float(date.toMSecsSinceEpoch()), 0)
+
+            date = self.val_to_date(dates[-1])
+            lineseries_bottom.append(float(date.toMSecsSinceEpoch()), 0)
+
+        lines = {}
+        for z in self.zz:
+            lines[z] = QLineSeries(self)
+
+        for z in self.zz:
+            n = 0
+            for y in self.yy:
+                if z in y:
+                    n += y[z]
+                y[z] = n
+
+        for i, y in enumerate(self.yy):
+            cur_y = 0
+            for z in self.zz:
+                cur_y += y[z]
+
+                date = self.val_to_date(dates[i])
+                lines[z].append(float(date.toMSecsSinceEpoch()), cur_y)
+
+        serieses = []
+        lineseries_prev = lineseries_bottom
+        for i, z in enumerate(self.zz):
+            series = AreaNiceSeries(lines[z], lineseries_prev)
+            if self.use_blaf_palette:
+                series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+            lineseries_prev = lines[z]
+            series.setName(z)
+            series.hovered.connect(series.hover)
+            serieses.append(series)
+
+        serieses.reverse()
+        for s in serieses:
+            self.chart().addSeries(s)
+
+        min_year = self.val_to_date(dates[0]).date().year()
+        max_year = self.val_to_date(dates[-1]).date().year()
+        ticks = min(max_year - min_year, 12) + 1
+        axisX = QDateTimeAxis()
+        axisX.setFormat("yyyy")
+        axisX.setTickCount(ticks)
+        self.chart().addAxis(axisX, Qt.AlignBottom)
+        for s in serieses:
+            s.attachAxis(axisX)
+        self.axisX = axisX
 
         axisY = QValueAxis()
         axisY.setTitleText(self.label)
@@ -662,6 +920,9 @@ class StatisticsView(QWidget):
 
         self.legendCheck = QCheckBox(self.tr("Show legend"), self)
         ctrlLayout.addWidget(self.legendCheck)
+
+        self.niceYearsCheck = QCheckBox(self.tr("Nice years"), self)
+        ctrlLayout.addWidget(self.niceYearsCheck)
 
         self.regionLabel = QLabel(self.tr("Region:"))
         ctrlLayout.addWidget(self.regionLabel)
@@ -783,6 +1044,7 @@ class StatisticsView(QWidget):
         self.areaSelector.currentIndexChanged.connect(self.areaChaged)
         self.colorCheck.stateChanged.connect(self.colorChanged)
         self.legendCheck.stateChanged.connect(self.legendChanged)
+        self.niceYearsCheck.stateChanged.connect(self.niceYearsChanged)
         self.regionSelector.currentIndexChanged.connect(self.regionChanged)
 
     def modelChanged(self):
@@ -844,6 +1106,7 @@ class StatisticsView(QWidget):
         self.areaLabel.setVisible(chart == 'area')
         self.colorCheck.setVisible(chart not in ('stacked', 'pie', 'geochart', 'area'))
         self.legendCheck.setVisible(chart == 'pie')
+        self.niceYearsCheck.setVisible(chart == 'area')
         self.regionLabel.setVisible(chart == 'geochart')
         self.regionSelector.setVisible(chart == 'geochart')
 
@@ -872,6 +1135,11 @@ class StatisticsView(QWidget):
 
     def legendChanged(self, state):
 #        self.statisticsParam['legend'] = state
+
+        self.modelChanged()
+
+    def niceYearsChanged(self, state):
+#        self.statisticsParam['nice_years'] = state
 
         self.modelChanged()
 
@@ -1137,6 +1405,7 @@ class StatisticsView(QWidget):
         return chart
 
     def areaChart(self):
+        nice_years = self.niceYearsCheck.isChecked()
         fieldId = self.fieldSelector.currentData()
         field = self.model.fields.field(fieldId).name
         if field == 'fineness':
@@ -1159,7 +1428,10 @@ class StatisticsView(QWidget):
             sql_filters.append(filter_)
         
         if area in ('issuedate', 'paydate', 'saledate', 'createdat'):
-            date_field = "strftime('%%Y', %s)" % area
+            if nice_years:
+                date_field = "strftime('%%Y-%%m', %s)" % area
+            else:
+                date_field = "strftime('%%Y', %s)" % area
         else:
             date_field = area
         sql = "SELECT count(*), %s, %s FROM coins"\
@@ -1187,19 +1459,20 @@ class StatisticsView(QWidget):
                 xx[year] = {}
             xx[year][val] = count
 
-        years = []
-        for year in xx.keys():
-            try:
-                years.append(int(year))
-            except ValueError:
-                pass
+        if not nice_years:
+            years = []
+            for year in xx.keys():
+                try:
+                    years.append(int(year))
+                except ValueError:
+                    pass
 
-        if len(years) > 2:
-            for x in range(int(min(years)), int(max(years))):
-                if str(x) not in xx:
-                    xx[str(x)] = {}
+            if len(years) > 2:
+                for x in range(int(min(years)), int(max(years))):
+                    if str(x) not in xx:
+                        xx[str(x)] = {}
 
-        xx = dict(sorted(xx.items(), key=cmp_to_key(self.sortYears)))
+            xx = dict(sorted(xx.items(), key=cmp_to_key(self.sortYears)))
 
         zz = []
         for y in xx.values():
@@ -1214,22 +1487,32 @@ class StatisticsView(QWidget):
         else:
             zz = sorted(zz, key=cmp_to_key(self.sortStrings), reverse=True)
 
-        chart = AreaChart(self)
-        chart.setData(xx, list(xx.values()), zz)
+        if nice_years:
+            chart = AreaNiceChart(self)
+        else:
+            chart = AreaChart(self)
+        chart.setData(xx, zz)
         chart.setLabelY(self.fieldSelector.currentText())
 
         return chart
 
     def areaStatusChart(self):
+        nice_years = self.niceYearsCheck.isChecked()
+
         filter_ = self.model.filter()
         if filter_:
             sql_filter = "WHERE %s" % filter_
         else:
             sql_filter = ""
 
-        sql = "SELECT count(*), strftime('%%Y', createdat) FROM coins"\
+        if nice_years:
+            date_field = "strftime('%Y-%m', createdat)"
+        else:
+            date_field = "strftime('%Y', createdat)"
+
+        sql = "SELECT count(*), %s FROM coins"\
               " %s"\
-              " GROUP BY strftime('%%Y', createdat)" % sql_filter
+              " GROUP BY %s" % (date_field, sql_filter, date_field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         xx = {}
@@ -1243,9 +1526,14 @@ class StatisticsView(QWidget):
         if filter_:
             sql_filters.append(filter_)
 
-        sql = "SELECT count(*), strftime('%%Y', paydate) FROM coins"\
+        if nice_years:
+            date_field = "strftime('%Y-%m', paydate)"
+        else:
+            date_field = "strftime('%Y', paydate)"
+
+        sql = "SELECT count(*), %s FROM coins"\
               " WHERE %s"\
-              " GROUP BY strftime('%%Y', paydate)" % ' AND '.join(sql_filters)
+              " GROUP BY %s" % (date_field, ' AND '.join(sql_filters), date_field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         while query.next():
@@ -1262,9 +1550,14 @@ class StatisticsView(QWidget):
         if filter_:
             sql_filters.append(filter_)
 
-        sql = "SELECT count(*), strftime('%%Y', saledate) FROM coins"\
+        if nice_years:
+            date_field = "strftime('%Y-%m', saledate)"
+        else:
+            date_field = "strftime('%Y', saledate)"
+
+        sql = "SELECT count(*), %s FROM coins"\
               " WHERE %s"\
-              " GROUP BY strftime('%%Y', saledate)" % ' AND '.join(sql_filters)
+              " GROUP BY %s" % (date_field, ' AND '.join(sql_filters), date_field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         while query.next():
@@ -1276,17 +1569,20 @@ class StatisticsView(QWidget):
             else:
                 xx[val] = [0, 0, count]
 
-        keys = list(xx)
-        if '' in keys:
-            keys.remove('')
-        if len(keys) > 2:
-            for x in range(int(min(keys)), int(max(keys))):
-                if str(x) not in xx:
-                    xx[str(x)] = [0, 0, 0]
-        
-        xx = dict(sorted(xx.items()))
+        if nice_years:
+            chart = AreaNiceStatusChart(self)
+        else:
+            keys = list(xx)
+            if '' in keys:
+                keys.remove('')
+            if len(keys) > 2:
+                for x in range(int(min(keys)), int(max(keys))):
+                    if str(x) not in xx:
+                        xx[str(x)] = [0, 0, 0]
 
-        chart = AreaStatusChart(self)
+            xx = dict(sorted(xx.items()))
+
+            chart = AreaStatusChart(self)
         chart.setData(xx.keys(), list(xx.values()))
 
         return chart
