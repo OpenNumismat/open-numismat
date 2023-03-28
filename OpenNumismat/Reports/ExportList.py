@@ -1,14 +1,7 @@
 import codecs
 import csv
 import html
-
-exportToExcelAvailable = True
-
-try:
-    import xlwt
-except ImportError:
-    print('xlwt module missed. Exporting to Excel not available')
-    exportToExcelAvailable = False
+import openpyxl
 
 
 class __ExportBase():
@@ -31,36 +24,23 @@ class __ExportBase():
 
 
 class ExportToExcel(__ExportBase):
-    def __init__(self, fileName, title=''):
-        super().__init__(fileName, title)
-
-    @staticmethod
-    def isAvailable():
-        return exportToExcelAvailable
 
     def open(self):
-        self._wb = xlwt.Workbook()
-        self._ws = self._wb.add_sheet(self.title)
+        self._wb = openpyxl.Workbook()
+        self._ws = self._wb.active
+        self._ws.title = self.title
 
     def close(self):
         self._wb.save(self.fileName)
 
     def writeHeader(self, headers):
-        for i, val in enumerate(headers):
-            self._ws.write(0, i, val)
-
-        self.currentRow = self.currentRow + 1
+        self._ws.append(headers)
 
     def writeRow(self, row):
-        for i, val in enumerate(row):
-            self._ws.write(self.currentRow, i, val)
-
-        self.currentRow = self.currentRow + 1
+        self._ws.append(row)
 
 
 class ExportToHtml(__ExportBase):
-    def __init__(self, fileName, title=''):
-        super().__init__(fileName, title)
 
     def open(self):
         self._file = codecs.open(self.fileName, 'w', 'utf-8')
@@ -121,8 +101,6 @@ background: #ecf0f6;
 
 
 class ExportToCsv(__ExportBase):
-    def __init__(self, fileName, title):
-        super().__init__(fileName)
 
     def open(self):
         self._file = open(self.fileName, 'w', newline='')
@@ -158,8 +136,6 @@ class ExportToCsv(__ExportBase):
 
 
 class ExportToCsvUtf8(__ExportBase):
-    def __init__(self, fileName, title=''):
-        super().__init__(fileName)
 
     def open(self):
         self._file = open(self.fileName, 'w', newline='', encoding='utf-8')

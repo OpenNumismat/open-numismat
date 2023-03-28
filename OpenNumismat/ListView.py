@@ -216,19 +216,15 @@ class BaseTableView(QTableView):
                 QApplication.translate('BaseTableView', "Nothing selected"))
 
     def saveTable(self):
-        filters = (QApplication.translate('BaseTableView', "Excel document (*.xls)"),
+        filters = (QApplication.translate('BaseTableView', "Excel document (*.xlsx)"),
                    QApplication.translate('BaseTableView', "Web page (*.htm *.html)"),
                    QApplication.translate('BaseTableView', "Text file (*.csv)"),
                    QApplication.translate('BaseTableView', "Text file UTF-8 (*.csv)"))
-        if not ExportToExcel.isAvailable():
-            availableFilters = filters[1:]
-        else:
-            availableFilters = filters
 
         defaultFileName = self.listParam.page.title
         fileName, selectedFilter = getSaveFileName(
             self, 'export_table', defaultFileName,
-            OpenNumismat.HOME_PATH, availableFilters)
+            OpenNumismat.HOME_PATH, filters)
         if fileName:
             model = self.model()
             progressDlg = Gui.ProgressDialog(
