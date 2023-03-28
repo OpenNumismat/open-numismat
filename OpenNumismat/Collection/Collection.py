@@ -1121,16 +1121,20 @@ class Collection(QtCore.QObject):
         filter_ = ('%s_????????????.db' % self.getCollectionName(),)
         files = QtCore.QDirIterator(settings['backup'], filter_, QtCore.QDir.Files)
         while files.hasNext():
-            file = files.next()
-            file_info = QtCore.QFileInfo(file)
-            if file_info.completeSuffix() == 'db':
-                file_title = file_info.baseName()
-                file_date = file_title[-12:-6]
+            file_info = files.nextFileInfo()
+
+            file_title = file_info.baseName()
+            file_date = file_title[-12:]
+
+            date_time = QtCore.QDateTime.fromString(file_date, 'yyMMddhhmmss')
+            if date_time.isValid():
+                if date_time.date().year() < 2000:
+                    date_time = date_time.addYears(100)
+                date_time = date_time.toUTC()
 
                 query = QSqlQuery(self.db)
                 query.prepare("SELECT count(*) FROM coins WHERE updatedat > ?")
-                date = "20%s-%s-%sT23:59:59" % (file_date[0:2], file_date[2:4], file_date[4:6])
-                query.addBindValue(date)
+                query.addBindValue(date_time.toString(Qt.ISODate))
                 query.exec_()
                 query.first()
                 if query.record().value(0) < autobackup_depth:
