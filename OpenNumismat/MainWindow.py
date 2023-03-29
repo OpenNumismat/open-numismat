@@ -666,7 +666,7 @@ class MainWindow(QMainWindow):
     def importExcel(self):
         defaultDir = ImportExcel.defaultDir()
         file, _selectedFilter = QFileDialog.getOpenFileName(
-            self, self.tr("Select file"), defaultDir, "*.xls *.xlsx")
+            self, self.tr("Select file"), defaultDir, "*.xlsx")
         if file:
             imp = ImportExcel(self)
             imp.importData(file, self.viewTab.currentModel())
