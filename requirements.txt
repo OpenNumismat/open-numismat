@@ -1,10 +1,7 @@
-pyqt5
-pyqtwebengine
+pyside6
 jinja2
-matplotlib
-numpy
-xlwt
-xlrd==1.2.0
 lxml
+openpyxl
+pillow
 python-dateutil
 pywin32; sys_platform == 'win32'
