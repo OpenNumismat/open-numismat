@@ -5,7 +5,7 @@ import ssl
 import sys
 import traceback
 
-from PySide6.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, QSettings
+from PySide6.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, QSettings, QLibraryInfo, QLocale
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtGui import QDesktopServices
 from PySide6 import __version__ as PYQT_VERSION_STR
@@ -72,15 +72,17 @@ def main():
 
     TemporaryDir.init(version.AppName)
 
-    lang = settings['locale']
+    locale = QLocale(settings['locale'])
 
-    translator = QTranslator()
-    translator.load('translations/lang_' + lang, OpenNumismat.PRJ_PATH)
-    app.installTranslator(translator)
+    path = os.path.join(OpenNumismat.PRJ_PATH, 'translations')
+    translator = QTranslator(app)
+    if translator.load(locale, 'lang', '_', path):
+        app.installTranslator(translator)
 
-    translatorQt = QTranslator()
-    translatorQt.load('translations/qtbase_' + lang, OpenNumismat.PRJ_PATH)
-    app.installTranslator(translatorQt)
+    path = QLibraryInfo.path(QLibraryInfo.TranslationsPath)
+    translator = QTranslator(app)
+    if translator.load(locale, 'qtbase', '_', path):
+        app.installTranslator(translator)
 
     # TODO: Enable SSL verification
     ssl._create_default_https_context = ssl._create_unverified_context
