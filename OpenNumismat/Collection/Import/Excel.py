@@ -68,6 +68,11 @@ class TableDialog(QDialog):
             elif field.type in Type.ImageTypes:
                 for row in range(self.table.rowCount()):
                     item = self.table.item(row, i - 1)
+                    if item.data(Qt.UserRole) is not None:
+                        pixmap = QPixmap.fromImage(item.data(Qt.UserRole))
+                        item.setData(Qt.DecorationRole, pixmap)
+                        continue
+
                     fileName = item.text()
                     image = QImage()
                     if fileName.startswith('http'):
@@ -118,6 +123,15 @@ class ImportExcel(_Import2):
 
         self.sheet = book.active
 
+        self.images = {}
+        for image in self.sheet._images:
+            img = QImage()
+            if img.loadFromData(image._data()):
+                _from = image.anchor._from
+                col = openpyxl.utils.get_column_letter(_from.col + 1)
+                coordinate = "%s%d" % (col, _from.row + 1)
+                self.images[coordinate] = img
+
         self.src_path = os.path.dirname(src)
         dialog = TableDialog(self.parent(), self.src_path)
 
@@ -128,7 +142,8 @@ class ImportExcel(_Import2):
 
         for row in range(rows):
             for col in range(self.sheet.max_column):
-                val = self.sheet.cell(row + 1, col + 1).value
+                cell = self.sheet.cell(row + 1, col + 1)
+                val = cell.value
 
                 if val is None:
                     val = ''
@@ -136,8 +151,14 @@ class ImportExcel(_Import2):
                     val = ''
                 elif isinstance(val, datetime.datetime):
                     val = val.date()
+                if cell.hyperlink:
+                    val = cell.hyperlink.target
 
                 item = QTableWidgetItem(str(val))
+
+                if cell.coordinate in self.images:
+                    item.setData(Qt.UserRole, self.images[cell.coordinate])
+
                 dialog.table.setItem(row, col, item)
 
         dialog.hlayout.addSpacing(dialog.table.verticalHeader().width())
@@ -185,11 +206,16 @@ class ImportExcel(_Import2):
             if not field:
                 continue
 
-            val = self.sheet.cell(row + 1, i + 1).value
-            if isinstance(val, datetime.datetime):
+            cell = self.sheet.cell(row + 1, i + 1)
+            val = cell.value
+            if isinstance(val, datetime.time):
+                val = ''
+            elif isinstance(val, datetime.datetime):
                 val = val.date()
             if isinstance(val, datetime.date):
                 val = val.isoformat()
+            if cell.hyperlink:
+                val = cell.hyperlink.target
 
             if field.type == Type.Date:
                 try:
@@ -197,29 +223,32 @@ class ImportExcel(_Import2):
                 except (ValueError, TypeError):
                     val = None
             elif field.type in Type.ImageTypes:
-                image = QImage()
-                if val.startswith('http'):
-                    try:
-                        # Wikipedia require any header
-                        req = urllib.request.Request(val,
-                                headers={'User-Agent': version.AppName})
-                        data = urllib.request.urlopen(req, timeout=30).read()
-                        if image.loadFromData(data):
+                if cell.coordinate in self.images:
+                    val = self.images[cell.coordinate]
+                elif val:
+                    image = QImage()
+                    if val.startswith('http'):
+                        try:
+                            # Wikipedia require any header
+                            req = urllib.request.Request(val,
+                                    headers={'User-Agent': version.AppName})
+                            data = urllib.request.urlopen(req, timeout=30).read()
+                            if image.loadFromData(data):
+                                val = image
+                            else:
+                                val = None
+                        except:
+                            val = None
+                    else:
+                        if os.path.isabs(val):
+                            fileName = val
+                        else:
+                            fileName = os.path.join(self.src_path, val)
+
+                        if image.load(fileName):
                             val = image
                         else:
                             val = None
-                    except:
-                        val = None
-                else:
-                    if os.path.isabs(val):
-                        fileName = val
-                    else:
-                        fileName = os.path.join(self.src_path, val)
-
-                    if image.load(fileName):
-                        val = image
-                    else:
-                        val = None
 
             record.setValue(field.name, val)
 
