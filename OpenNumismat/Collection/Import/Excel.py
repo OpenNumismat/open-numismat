@@ -7,7 +7,7 @@ from dateutil import parser
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QDialogButtonBox, QComboBox
-from PySide6.QtGui import QPixmap, QImage
+from PySide6.QtGui import QPixmap, QImage, QPainter
 
 from OpenNumismat.Collection.Import import _Import2, _InvalidDatabaseError
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
@@ -71,6 +71,7 @@ class TableDialog(QDialog):
                     if item.data(Qt.UserRole) is not None:
                         pixmap = QPixmap.fromImage(item.data(Qt.UserRole))
                         item.setData(Qt.DecorationRole, pixmap)
+                        item.setText('')
                         continue
 
                     fileName = item.text()
@@ -85,6 +86,7 @@ class TableDialog(QDialog):
                             if result:
                                 pixmap = QPixmap.fromImage(image)
                                 item.setData(Qt.DecorationRole, pixmap)
+                                item.setText('')
                         except:
                             pass
                     else:
@@ -95,6 +97,7 @@ class TableDialog(QDialog):
                         if result:
                             pixmap = QPixmap.fromImage(image)
                             item.setData(Qt.DecorationRole, pixmap)
+                            item.setText('')
 
 
 class ImportExcel(_Import2):
@@ -224,7 +227,8 @@ class ImportExcel(_Import2):
                     val = None
             elif field.type in Type.ImageTypes:
                 if cell.coordinate in self.images:
-                    val = self.images[cell.coordinate]
+                    image = self.images[cell.coordinate]
+                    val = self.__fixTransparentImage(image)
                 elif val:
                     image = QImage()
                     if val.startswith('http'):
@@ -234,7 +238,7 @@ class ImportExcel(_Import2):
                                     headers={'User-Agent': version.AppName})
                             data = urllib.request.urlopen(req, timeout=30).read()
                             if image.loadFromData(data):
-                                val = image
+                                val = self.__fixTransparentImage(image)
                             else:
                                 val = None
                         except:
@@ -246,7 +250,7 @@ class ImportExcel(_Import2):
                             fileName = os.path.join(self.src_path, val)
 
                         if image.load(fileName):
-                            val = image
+                            val = self.__fixTransparentImage(image)
                         else:
                             val = None
 
@@ -257,6 +261,19 @@ class ImportExcel(_Import2):
 
         if not self.has_status:
             record.setValue('status', self.defaultStatus())
+
+    def __fixTransparentImage(self, image):
+        if image.hasAlphaChannel():
+            # Fill transparent color if present
+            fixedImage = QImage(image.size(), QImage.Format_RGB32)
+            fixedImage.fill(Qt.white)
+            painter = QPainter(fixedImage)
+            painter.drawImage(0, 0, image)
+            painter.end()
+        else:
+            fixedImage = image
+
+        return fixedImage
 
     def __generateTitle(self, record):
         title = ""
