@@ -183,6 +183,7 @@ class ImageEdit(ImageLabel):
 
         self.label.mouseDoubleClickEvent = self.renameImageEvent
 
+        self.setAcceptDrops(True)
         self.setFrameStyle(QFrame.Panel | QFrame.Plain)
 
         text = QApplication.translate('ImageEdit', "Exchange with")
@@ -298,6 +299,20 @@ class ImageEdit(ImageLabel):
         elif mime.hasText():
             # Load image by URL
             self.loadFromUrl(mime.text())
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dragMoveEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        mime = event.mimeData()
+        if mime.hasUrls():
+            url = mime.urls()[0]
+            self.loadFromFile(url.toLocalFile())
 
     def clear(self):
         super().clear()
