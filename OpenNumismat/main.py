@@ -35,6 +35,7 @@ def main():
         app.setStyleSheet("QWidget{font-size: 11pt;}")
     elif settings['font_size'] == 2:
         app.setStyleSheet("QWidget{font-size: 13pt;}")
+    app.setStyle(settings['style'])
 
     if settings['error']:
         sys.excepthook = exceptHook

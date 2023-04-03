@@ -151,20 +151,6 @@ class MainSettingsPage(QWidget):
                                        QSizePolicy.Fixed)
         layout.addRow(self.tr("Maps"), self.mapSelector)
 
-        self.fontSizeSelector = QComboBox(self)
-        self.fontSizeSelector.addItem(self.tr("Normal"))
-        self.fontSizeSelector.addItem(self.tr("Large"))
-        self.fontSizeSelector.addItem(self.tr("Huge"))
-        self.fontSizeSelector.setCurrentIndex(settings['font_size'])
-        self.fontSizeSelector.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
-        layout.addRow(self.tr("Font size"), self.fontSizeSelector)
-
-        self.useBlafPalette = QCheckBox(
-                        self.tr("Use BLAF palette in statistics charts"), self)
-        self.useBlafPalette.setChecked(settings['use_blaf_palette'])
-        layout.addRow(self.useBlafPalette)
-
         self.setLayout(layout)
 
     def backupButtonClicked(self):
@@ -197,6 +183,48 @@ class MainSettingsPage(QWidget):
         settings['images_by_default'] = self.imagesByDefault.value()
         settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
+
+        settings.save()
+
+
+class ViewSettingsPage(QWidget):
+
+    def __init__(self, collection, parent=None):
+        super().__init__(parent)
+
+        settings = Settings()
+
+        layout = QFormLayout()
+        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+
+        self.styleSelector = QComboBox(self)
+        for key in QStyleFactory.keys():
+            self.styleSelector.addItem(key)
+        self.styleSelector.setCurrentText(settings['style'])
+        self.styleSelector.setSizePolicy(QSizePolicy.Fixed,
+                                         QSizePolicy.Fixed)
+        layout.addRow(self.tr("Style"), self.styleSelector)
+
+        self.fontSizeSelector = QComboBox(self)
+        self.fontSizeSelector.addItem(self.tr("Normal"))
+        self.fontSizeSelector.addItem(self.tr("Large"))
+        self.fontSizeSelector.addItem(self.tr("Huge"))
+        self.fontSizeSelector.setCurrentIndex(settings['font_size'])
+        self.fontSizeSelector.setSizePolicy(QSizePolicy.Fixed,
+                                            QSizePolicy.Fixed)
+        layout.addRow(self.tr("Font size"), self.fontSizeSelector)
+
+        self.useBlafPalette = QCheckBox(
+                        self.tr("Use BLAF palette in statistics charts"), self)
+        self.useBlafPalette.setChecked(settings['use_blaf_palette'])
+        layout.addRow(self.useBlafPalette)
+
+        self.setLayout(layout)
+
+    def save(self):
+        settings = Settings()
+
+        settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['use_blaf_palette'] = self.useBlafPalette.isChecked()
 
@@ -592,6 +620,7 @@ class SettingsDialog(QDialog):
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         mainPage = MainSettingsPage(collection, self)
+        viewPage = ViewSettingsPage(collection, self)
         collectionPage = CollectionSettingsPage(collection, self)
         fieldsPage = FieldsSettingsPage(collection, self)
         importPage = ImportSettingsPage(self)
@@ -600,6 +629,7 @@ class SettingsDialog(QDialog):
 
         self.tab = QTabWidget(self)
         self.tab.addTab(mainPage, self.tr("Main"))
+        self.tab.addTab(viewPage, self.tr("View"))
         index = self.tab.addTab(collectionPage, self.tr("Collection"))
         if not collection.isOpen():
             self.tab.setTabEnabled(index, False)

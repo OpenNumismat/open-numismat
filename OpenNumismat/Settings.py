@@ -89,6 +89,7 @@ class Settings(BaseSettings):
         'built_in_viewer': True,
         'font_size': 0,
         'use_blaf_palette': True,
+        'style': '',
     }
 
     def __init__(self, autoSave=False):
@@ -119,7 +120,7 @@ class Settings(BaseSettings):
             'autobackup_depth',
             'speedup',
             'map_type',
-            'font_size'
+            'font_size',
         ):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=int)
