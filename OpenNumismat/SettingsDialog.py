@@ -189,7 +189,7 @@ class MainSettingsPage(QWidget):
 
 class ViewSettingsPage(QWidget):
 
-    def __init__(self, collection, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
 
         settings = Settings()
@@ -619,25 +619,30 @@ class SettingsDialog(QDialog):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
-        mainPage = MainSettingsPage(collection, self)
-        viewPage = ViewSettingsPage(collection, self)
-        collectionPage = CollectionSettingsPage(collection, self)
-        fieldsPage = FieldsSettingsPage(collection, self)
-        importPage = ImportSettingsPage(self)
-
         self.setWindowTitle(self.tr("Settings"))
 
         self.tab = QTabWidget(self)
+        mainPage = MainSettingsPage(collection, self)
         self.tab.addTab(mainPage, self.tr("Main"))
+        viewPage = ViewSettingsPage(self)
         self.tab.addTab(viewPage, self.tr("View"))
-        index = self.tab.addTab(collectionPage, self.tr("Collection"))
-        if not collection.isOpen():
+        if collection.isOpen():
+            collectionPage = CollectionSettingsPage(collection, self)
+            self.tab.addTab(collectionPage, self.tr("Collection"))
+        else:
+            index = self.tab.addTab(QWidget(), self.tr("Collection"))
             self.tab.setTabEnabled(index, False)
-        index = self.tab.addTab(fieldsPage, self.tr("Fields"))
-        if not collection.isOpen():
+        if collection.isOpen():
+            fieldsPage = FieldsSettingsPage(collection, self)
+            self.tab.addTab(fieldsPage, self.tr("Fields"))
+        else:
+            index = self.tab.addTab(QWidget(), self.tr("Fields"))
             self.tab.setTabEnabled(index, False)
-        index = self.tab.addTab(importPage, self.tr("Import"))
-        if not collection.isOpen():
+        if collection.isOpen():
+            importPage = ImportSettingsPage(self)
+            self.tab.addTab(importPage, self.tr("Import"))
+        else:
+            index = self.tab.addTab(QWidget(), self.tr("Import"))
             self.tab.setTabEnabled(index, False)
 
         buttonBox = QDialogButtonBox(Qt.Horizontal)
@@ -655,6 +660,7 @@ class SettingsDialog(QDialog):
     def save(self):
         for i in range(self.tab.count()):
             page = self.tab.widget(i)
-            page.save()
+            if page.isEnabled():
+                page.save()
 
         self.accept()
