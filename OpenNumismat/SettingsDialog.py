@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from PySide6.QtCharts import QChart
 from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
 from PySide6.QtWidgets import *
 
@@ -219,6 +220,30 @@ class ViewSettingsPage(QWidget):
         self.useBlafPalette.setChecked(settings['use_blaf_palette'])
         layout.addRow(self.useBlafPalette)
 
+        self.chartThemeSelector = QComboBox(self)
+        self.chartThemeSelector.addItem(self.tr("Light"),
+                                        QChart.ChartThemeLight)
+        self.chartThemeSelector.addItem(self.tr("Blue Cerulean"),
+                                        QChart.ChartThemeBlueCerulean)
+        self.chartThemeSelector.addItem(self.tr("Dark"),
+                                        QChart.ChartThemeDark)
+        self.chartThemeSelector.addItem(self.tr("Brown Sand"),
+                                        QChart.ChartThemeBrownSand)
+        self.chartThemeSelector.addItem(self.tr("Blue Ncs"),
+                                        QChart.ChartThemeBlueNcs)
+        self.chartThemeSelector.addItem(self.tr("High Contrast"),
+                                        QChart.ChartThemeHighContrast)
+        self.chartThemeSelector.addItem(self.tr("Blue Icy"),
+                                        QChart.ChartThemeBlueIcy)
+        self.chartThemeSelector.addItem(self.tr("Qt"),
+                                        QChart.ChartThemeQt)
+        index = self.chartThemeSelector.findData(settings['chart_theme'])
+        if index >= 0:
+            self.chartThemeSelector.setCurrentIndex(index)
+        self.chartThemeSelector.setSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed)
+        layout.addRow(self.tr("Chart theme"), self.chartThemeSelector)
+
         self.setLayout(layout)
 
     def save(self):
@@ -227,6 +252,7 @@ class ViewSettingsPage(QWidget):
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['use_blaf_palette'] = self.useBlafPalette.isChecked()
+        settings['chart_theme'] = self.chartThemeSelector.currentData()
 
         settings.save()
 

@@ -134,6 +134,8 @@ class BaseChart(QChartView):
 
     def __init__(self, parent=None):
         chart = QChart()
+        theme = Settings()['chart_theme']
+        chart.setTheme(theme)
         chart.legend().hide()
         chart.layout().setContentsMargins(0, 0, 0, 0)
         chart.setBackgroundRoundness(0)

@@ -1,5 +1,6 @@
 import os.path
 
+from PySide6.QtCharts import QChart
 from PySide6.QtCore import QLocale, QSettings
 
 import OpenNumismat
@@ -90,6 +91,7 @@ class Settings(BaseSettings):
         'font_size': 0,
         'use_blaf_palette': True,
         'style': '',
+        'chart_theme': QChart.ChartThemeLight,
     }
 
     def __init__(self, autoSave=False):
