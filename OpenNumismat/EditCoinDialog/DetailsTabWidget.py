@@ -639,7 +639,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
         if self.usedFields:
             for item in self.items.values():
-                if self.usedFields[record.indexOf(item.field())]:
+                if self.usedFields[record.indexOf(item.field())] == Qt.Checked:
                     item.label().setCheckState(Qt.Checked)
 
         for image_field in ImageFields:
