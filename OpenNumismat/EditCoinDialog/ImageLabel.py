@@ -326,7 +326,9 @@ class ImageEdit(ImageLabel):
         self.imageChanged.emit(self)
 
         text = QApplication.translate('ImageEdit',
-                        "No image available\n(right-click to add an image)")
+                        "No image available\n"\
+                        "(double-click, right-click or\n"\
+                        "drag-n-drop to add an image)")
         self.setText(text)
 
     def loadFromFile(self, fileName):

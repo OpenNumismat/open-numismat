@@ -46,12 +46,12 @@ class FindDialog(QDialog):
         self.methodSelector = QComboBox()
         self.methodSelector.setSizePolicy(QSizePolicy.Fixed,
                                           QSizePolicy.Fixed)
-        self.methodSelector.addItem(self.tr("Average"), 'ahash')
-        self.methodSelector.addItem(self.tr("Perceptual"), 'phash')
-        self.methodSelector.addItem(self.tr("Difference"), 'dhash')
-        self.methodSelector.addItem(self.tr("Wavelet"), 'whash')
-        self.methodSelector.addItem(self.tr("Color"), 'colorhash')
-        self.methodSelector.addItem(self.tr("Crop-resistant"), 'crop_resistant_hash')
+        self.methodSelector.addItem("Average", 'ahash')
+        self.methodSelector.addItem("Perceptual", 'phash')
+        self.methodSelector.addItem("Difference", 'dhash')
+        self.methodSelector.addItem("Wavelet", 'whash')
+        self.methodSelector.addItem("Color", 'colorhash')
+        self.methodSelector.addItem("Crop-resistant", 'crop_resistant_hash')
         method = settings.value('image_find/method', 'phash')
         index = self.methodSelector.findData(method)
         if index:
