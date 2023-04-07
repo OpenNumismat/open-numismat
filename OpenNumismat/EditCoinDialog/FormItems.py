@@ -448,6 +448,10 @@ class StatusBrowser(QLineEdit):
     def currentData(self):
         return self.data
 
+    def clear(self):
+        self.removeAction(self.action)
+        super().clear()
+
 
 class ShortLineEdit(QLineEdit):
     def __init__(self, parent=None):
