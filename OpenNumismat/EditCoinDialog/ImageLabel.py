@@ -17,7 +17,7 @@ class ImageLabel(QLabel):
     MimeType = 'num/image'
     imageEdited = pyqtSignal(QLabel)
 
-    def __init__(self, field, parent=None):
+    def __init__(self, field=None, parent=None):
         super().__init__(parent)
 
         self.field = field or 'photo'
@@ -38,11 +38,13 @@ class ImageLabel(QLabel):
     def contextMenu(self, pos):
         open_ = QAction(self.tr("Open"), self)
         open_.triggered.connect(self.openImage)
+        open_.setDisabled(self.image.isNull())
 
         use_external_viewer = not Settings()['built_in_viewer']
         if use_external_viewer:
             edit = QAction(self.tr("Edit..."), self)
             edit.triggered.connect(self.editImage)
+            edit.setDisabled(self.image.isNull())
 
         copy = QAction(self.tr("Copy"), self)
         copy.triggered.connect(self.copyImage)
@@ -92,7 +94,8 @@ class ImageLabel(QLabel):
         self.imageEdited.emit(self)
 
     def mouseDoubleClickEvent(self, _e):
-        self.openImage()
+        if not self.image.isNull():
+            self.openImage()
 
     def clear(self):
         self._data = None
@@ -174,14 +177,16 @@ class ImageLabel(QLabel):
 
 class ImageEdit(ImageLabel):
     latestDir = OpenNumismat.IMAGE_PATH
+    imageChanged = pyqtSignal(QLabel)
 
-    def __init__(self, field, label, parent=None):
+    def __init__(self, field=None, label=None, parent=None):
         super().__init__(field, parent)
 
         self.label = label
         self.title = None
 
-        self.label.mouseDoubleClickEvent = self.renameImageEvent
+        if label:
+            self.label.mouseDoubleClickEvent = self.renameImageEvent
 
         self.setAcceptDrops(True)
         self.setFrameStyle(QFrame.Panel | QFrame.Plain)
@@ -240,9 +245,10 @@ class ImageEdit(ImageLabel):
         else:
             menu.setDefaultAction(open_act)
         menu.addAction(save_act)
-        menu.addSeparator()
-        menu.addAction(rename_act)
-        menu.addMenu(self.exchangeMenu)
+        if self.label:
+            menu.addSeparator()
+            menu.addAction(rename_act)
+            menu.addMenu(self.exchangeMenu)
         menu.addSeparator()
         menu.addAction(copy_act)
         menu.addAction(paste_act)
@@ -317,6 +323,7 @@ class ImageEdit(ImageLabel):
     def clear(self):
         super().clear()
         self.changed = False
+        self.imageChanged.emit(self)
 
         text = QApplication.translate('ImageEdit',
                         "No image available\n(right-click to add an image)")
@@ -377,6 +384,8 @@ class ImageEdit(ImageLabel):
             else:
                 image.clear()
 
+        self.imageChanged.emit(self)
+
     def connectExchangeAct(self, image, title):
         act = QAction(title, self)
         act.setData(image)
@@ -411,3 +420,4 @@ class ImageEdit(ImageLabel):
 
         self._setImage(fixedImage)
         self.changed = True
+        self.imageChanged.emit(self)

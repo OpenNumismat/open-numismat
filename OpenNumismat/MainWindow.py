@@ -16,6 +16,7 @@ from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
+from OpenNumismat.FindDialog import FindDialog
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
 from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
@@ -63,6 +64,11 @@ class MainWindow(QMainWindow):
         self.viewButton.setPopupMode(QToolButton.InstantPopup)
         self.viewButton.setMenu(viewMenu)
         self.viewButton.setDefaultAction(self.tableViewAct)
+
+        findAct = QAction(QIcon(':/binoculars.png'),
+                          "Find...", self)
+        findAct.triggered.connect(self.findEvent)
+        self.collectionActs.append(findAct)
 
         colnectAct = QAction(QIcon(':/colnect.png'),
                              "Colnect", self)
@@ -303,6 +309,8 @@ class MainWindow(QMainWindow):
         coin.addAction(addCoinAct)
         coin.addAction(editCoinAct)
         coin.addSeparator()
+        coin.addAction(findAct)
+        coin.addSeparator()
         if colnectAvailable:
             coin.addAction(colnectAct)
         if ansAvailable:
@@ -406,6 +414,8 @@ class MainWindow(QMainWindow):
         toolBar.addAction(cancelSortingAct)
         toolBar.addAction(saveSortingAct)
         toolBar.addAction(self.enableDragAct)
+        toolBar.addSeparator()
+        toolBar.addAction(findAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
         toolBar.addSeparator()
@@ -528,6 +538,11 @@ class MainWindow(QMainWindow):
         page = self.viewTab.currentPageView()
         page.changeView(type_)
         self.viewTab.updatePage(page)
+
+    def findEvent(self):
+        model = self.viewTab.currentModel()
+        dialog = FindDialog(model, self)
+        dialog.exec_()
 
     def colnectEvent(self):
         model = self.viewTab.currentModel()

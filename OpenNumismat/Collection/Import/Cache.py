@@ -50,7 +50,7 @@ class Cache(QObject):
         query.prepare("SELECT data FROM cache WHERE url=?")
         query.addBindValue(url)
         query.exec_()
-        if query.next():
+        if query.first():
             record = query.record()
             return record.value('data')
 
