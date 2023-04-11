@@ -316,12 +316,12 @@ class TableWidget(QTableWidget):
 
     def itemDClicked(self, index):
         comp_res = index.data(Qt.UserRole)
-
-        currentListView = self.img_widget.parent().viewTab.currentListView()
-        currentListView.selectedId = comp_res.coin_id
-        currentListView.modelChanged()  # TODO: Doesn't working when CardView is active
-        if currentListView.selectedId:
-            currentListView.itemDClicked(None)
+        if comp_res:
+            currentListView = self.img_widget.parent().viewTab.currentListView()
+            currentListView.selectedId = comp_res.coin_id
+            currentListView.modelChanged()  # TODO: Doesn't working when CardView is active
+            if currentListView.selectedId:
+                currentListView.itemDClicked(None)
 
     def addItem(self, item):
         self.items.append(item)
@@ -329,9 +329,8 @@ class TableWidget(QTableWidget):
         self.count += 1
 
     def currentChanged(self, current, previous):
-        index = self.currentIndex()
-        if index.isValid():
-            comp_res = index.data(Qt.UserRole)
+        comp_res = current.data(Qt.UserRole)
+        if comp_res:
             self.img_widget.showImage(comp_res.photo_id)
 
         return super().currentChanged(current, previous)
