@@ -1392,7 +1392,8 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         if json_file_name:
             json_file = codecs.open(json_file_name, "w", "utf-8")
 
-            image_path = '_images'.join(json_file_name.rsplit('.json', 1))
+            filename, _extension = os.path.splitext(json_file_name)
+            image_path = filename + '_images'
             shutil.rmtree(image_path, ignore_errors=True)
             os.makedirs(image_path)
         
@@ -1407,7 +1408,8 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
 
             desc = self.getDescription()
             data = {'title': desc.title, 'description': desc.description,
-                    'author': desc.author, 'type': "OpenNumismat", 'count': count}
+                    'author': desc.author, 'type': "OpenNumismat",
+                    'count': count, 'db_version': self.settings['Version']}
             json_file.write('{"description": ')
             json.dump(data, json_file, indent=2, sort_keys=True, ensure_ascii=False)
             json_file.write(',\n"coins": [\n')
@@ -1432,7 +1434,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
         
                     if field.name in ('id', 'createdat', 'updatedat', 'sort_id') or field.type == Type.PreviewImage:
                         continue
-                    if field.name in ('saledate', 'paydate', 'issuedate') and val == '2000-01-01':
+                    if field.type == Type.Date and val == '2000-01-01':
                         continue
         
                     if field.type == Type.Image:
