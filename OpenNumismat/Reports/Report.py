@@ -177,12 +177,12 @@ class Report(QtCore.QObject):
                         img_file_title = self.img_file_dict[hash_]
                     else:
                         img_file_title = "%s_%d.%s" % (field.name, self.__getId(index), ext)
-                        self.img_file_dict[hash_] = img_file_title
+                        img_file_name = os.path.join(self.contentDir, img_file_title)
+                        img_file = open(img_file_name, 'wb')
+                        img_file.write(value)
+                        img_file.close()
 
-                        imgFile = os.path.join(self.contentDir, img_file_title)
-                        image = QImage()
-                        image.loadFromData(value)
-                        image.save(imgFile)
+                        self.img_file_dict[hash_] = img_file_title
 
                     record_mapping[field.name] = img_file_title
                 else:
