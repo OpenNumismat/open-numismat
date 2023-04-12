@@ -417,11 +417,16 @@ class StatusEdit(QComboBox):
         self.setCurrentIndex(-1)
 
     def setCurrentValue(self, value):
-        old_index = self.currentIndex()
         index = self.findData(value)
-        self.setCurrentIndex(index)
-        if old_index == index:
-            self.currentIndexChanged.emit(index)
+        if index >= 0:
+            old_index = self.currentIndex()
+            self.setCurrentIndex(index)
+            if old_index == index:
+                self.currentIndexChanged.emit(index)
+        else:
+            # Add real coin status when it disabled in settings
+            self.addItem(statusIcon(value), Statuses[value], value)
+            self.setCurrentValue(value)
 
 
 class StatusBrowser(QLineEdit):

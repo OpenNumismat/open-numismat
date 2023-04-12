@@ -338,10 +338,13 @@ class CollectionSettingsPage(QWidget):
         self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
         self.settings['enable_bc'] = self.enableBC.isChecked()
         self.settings['rich_text'] = self.richText.isChecked()
-        self.settings['default_status'] = self.defaultStatus.currentData()
+        default_status = self.defaultStatus.currentData()
+        self.settings['default_status'] = default_status
 
         for status in Statuses.Keys:
             self.settings[status + '_status_used'] = self.statusUsed[status].isChecked()
+        # Default status is always enabled
+        self.settings[default_status + '_status_used'] = True
 
         self.settings.save()
 
