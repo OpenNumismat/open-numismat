@@ -179,7 +179,7 @@ class Report(QtCore.QObject):
                         img_file_title = "%s_%d.%s" % (field.name, self.__getId(index), ext)
                         img_file_name = os.path.join(self.contentDir, img_file_title)
                         img_file = open(img_file_name, 'wb')
-                        img_file.write(value)
+                        img_file.write(value.data())
                         img_file.close()
 
                         self.img_file_dict[hash_] = img_file_title
