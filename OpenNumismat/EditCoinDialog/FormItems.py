@@ -449,7 +449,8 @@ class StatusBrowser(QLineEdit):
         return self.data
 
     def clear(self):
-        self.removeAction(self.action)
+        for act in self.actions():
+            self.removeAction(act)
         super().clear()
 
 
