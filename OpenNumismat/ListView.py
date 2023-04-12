@@ -112,6 +112,10 @@ class BaseTableView(QTableView):
         self.listCountLabel.setText(labelText)
 
     def itemDClicked(self, _index):
+        selected_count = len(self.selectedCoins())
+        if not selected_count:
+            return
+
         self._edit(self.currentIndex())
 
     def keyPressEvent(self, event):
