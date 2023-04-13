@@ -59,8 +59,8 @@ class FieldTypes():
 
 
 class Status(dict):
-    Keys = ('demo', 'pass', 'owned', 'ordered', 'bidding',
-            'sold', 'sale', 'wish', 'missing', 'duplicate')
+    Keys = ('demo', 'pass', 'owned', 'ordered', 'bidding', 'sold',
+            'sale', 'wish', 'missing', 'duplicate', 'replacement')
     Titles = (
         QT_TRANSLATE_NOOP("Status", "Demo"),
         QT_TRANSLATE_NOOP("Status", "Pass"),
@@ -72,6 +72,7 @@ class Status(dict):
         QT_TRANSLATE_NOOP("Status", "Wish"),
         QT_TRANSLATE_NOOP("Status", "Missing"),
         QT_TRANSLATE_NOOP("Status", "Duplicate"),
+        QT_TRANSLATE_NOOP("Status", "Replacement"),
     )
 
     def __init__(self):
@@ -102,9 +103,20 @@ class Status(dict):
 
 
 Statuses = Status()
-StatusesOrder = {'': 0, 'demo': 0, 'pass': 9, 'owned': 3, 'ordered': 2,
-                 'bidding': 1, 'sold': 7, 'sale': 6, 'wish': 5, 'missing': 8,
-                 'duplicate': 4}
+StatusesOrder = {
+    '': 0,
+    'demo': 0,
+    'bidding': 1,
+    'ordered': 2,
+    'owned': 3,
+    'duplicate': 4,
+    'replacement': 5,
+    'wish': 6,
+    'sale': 7,
+    'sold': 8,
+    'missing': 9,
+    'pass': 10,
+}
 ImageFields = ('obverseimg', 'reverseimg', 'edgeimg', 'signatureimg',
                'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4',
                'photo5', 'photo6')

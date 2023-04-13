@@ -73,7 +73,7 @@ class EditCoinDialog(QDialog):
                         'payplace', 'payinfo'):
                 self.items[key].clear()
         if status in ('demo', 'wish', 'owned', 'sale', 'ordered', 'missing',
-                      'bidding', 'duplicate'):
+                      'bidding', 'duplicate', 'replacement'):
             for key in ('saledate', 'saleprice', 'totalsaleprice', 'buyer',
                         'saleplace', 'saleinfo'):
                 self.items[key].clear()
