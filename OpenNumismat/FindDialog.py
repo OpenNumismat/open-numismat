@@ -217,6 +217,7 @@ class FindDialog(QDialog):
 
                     # TODO: Test similarity threshold here
                     record_distances[field] = target_hash - hash_
+                    # record_distances[field] = (target_hash - hash_) / len(hash_.hash) ** 2
 
             field = min(record_distances, key=record_distances.get)
             photo_id = record.value('%s_id' % field)
