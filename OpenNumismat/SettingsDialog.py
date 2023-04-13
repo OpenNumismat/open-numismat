@@ -308,7 +308,7 @@ class CollectionSettingsPage(QWidget):
         gLayout = QGridLayout()
         statuses = QGroupBox(self.tr("Used statuses"), self)
         self.statusUsed = {}
-        statuses_per_col = len(Statuses.Keys) // 4
+        statuses_per_col = len(Statuses.Keys) // 3
         for i, status in enumerate(Statuses.Keys):
             statusCheckBox = QCheckBox(Statuses[status], self)
             statusCheckBox.setChecked(self.settings[status + '_status_used'])

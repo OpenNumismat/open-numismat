@@ -474,7 +474,8 @@ class DetailsTabWidget(QTabWidget):
         if status == 'pass':
             pass_ = self.passLayout()
             pageParts.extend([pass_, self.Stretch, stretch_widget])
-        elif status in ('owned', 'ordered', 'sale', 'missing', 'bidding', 'duplicate'):
+        elif status in ('owned', 'ordered', 'sale', 'missing',
+                        'bidding', 'duplicate', 'replacement'):
             pay = self.payLayout()
             pageParts.extend([pay, self.Stretch, stretch_widget])
         elif status == 'sold':
@@ -842,7 +843,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 self.items['totalsaleprice'].widget().textChanged.disconnect(self.saleTotalPriceChanged)
                 self.saleCommission.textChanged.disconnect(self.saleCommissionChanged)
                 self.items['saleprice'].widget().textChanged.disconnect(self.items['payprice'].widget().setText)
-        elif self.oldStatus in ('owned', 'ordered', 'sale', 'missing', 'bidding', 'duplicate'):
+        elif self.oldStatus in ('owned', 'ordered', 'sale', 'missing',
+                                'bidding', 'duplicate', 'replacement'):
             if self.payCommission:
                 self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
                 self.items['totalpayprice'].widget().textChanged.disconnect(self.payTotalPriceChanged)
@@ -868,7 +870,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def indexChangedState(self, index):
         super().indexChangedState(index)
 
-        if self.oldStatus in ('owned', 'ordered', 'sale', 'missing', 'bidding', 'duplicate'):
+        if self.oldStatus in ('owned', 'ordered', 'sale', 'missing',
+                              'bidding', 'duplicate', 'replacement'):
             self.payPriceChanged('')
         elif self.oldStatus in ('sold', 'pass'):
             self.payPriceChanged('')

@@ -68,5 +68,6 @@
     <file alias="backspace.png">icons/backspace.png</file>
     <file alias="ans.png">icons/ans.png</file>
     <file alias="binoculars.png">icons/binoculars.png</file>
+    <file alias="replacement.png">icons/replacement.png</file>
 </qresource>
 </RCC>

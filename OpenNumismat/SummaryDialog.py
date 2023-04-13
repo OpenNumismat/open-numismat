@@ -58,7 +58,7 @@ class SummaryDialog(QDialog):
 
         count_owned = 0
         quantity_owned = 0
-        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate')"
+        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement')"
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         while query.next():
@@ -74,7 +74,7 @@ class SummaryDialog(QDialog):
         count_gold = 0
         quantity_gold = 0
         gold_filter = self.materialFilter("Gold", self.tr("Gold"), "Au")
-        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
+        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
                 "%s" % gold_filter
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
@@ -90,7 +90,7 @@ class SummaryDialog(QDialog):
                 lines.append(self.tr("Gold coins: %d/%d") % (quantity_gold, count_gold))
         
         if count_gold:
-            sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
+            sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
                     "%s AND " \
                     "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % gold_filter
             sql = self.makeSql(sql, filter_)
@@ -126,7 +126,7 @@ class SummaryDialog(QDialog):
         count_silver = 0
         quantity_silver = 0
         silver_filter = self.materialFilter("Silver", self.tr("Silver"), "Ag")
-        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
+        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
                 "%s" % silver_filter
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
@@ -142,7 +142,7 @@ class SummaryDialog(QDialog):
                 lines.append(self.tr("Silver coins: %d/%d") % (quantity_silver, count_silver))
         
         if count_silver:
-            sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND " \
+            sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
                     "%s AND " \
                     "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % silver_filter
             sql = self.makeSql(sql, filter_)
@@ -209,13 +209,13 @@ class SummaryDialog(QDialog):
 
         paid = 0
         commission = ""
-        sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
+        sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             paid = query.record().value(0)
             if paid:
-                sql = "SELECT SUM(payprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND payprice<>'' AND payprice IS NOT NULL"
+                sql = "SELECT SUM(payprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND payprice<>'' AND payprice IS NOT NULL"
                 sql = self.makeSql(sql, filter_)
                 query = QSqlQuery(sql, model.database())
                 if query.first():
@@ -258,7 +258,7 @@ class SummaryDialog(QDialog):
             total_str = locale.toString(float(total), 'f', precision=2)
             lines.append(self.tr("Total (paid - earned): %s") % total_str)
 
-        sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
+        sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
@@ -266,7 +266,7 @@ class SummaryDialog(QDialog):
             paydate = locale.toString(date, QLocale.ShortFormat)
             lines.append(self.tr("First purchase: %s") % paydate)
 
-        sql = "SELECT UPPER(grade), price1, price2, price3, price4, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
+        sql = "SELECT UPPER(grade), price1, price2, price3, price4, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         est_owned = 0

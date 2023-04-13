@@ -637,6 +637,7 @@ class CollectionSettings(BaseSettings):
             'missing_status_used': True,
             'bidding_status_used': True,
             'duplicate_status_used': True,
+            'replacement_status_used': True,
             'enable_bc': True,
             'rich_text': False,
             'default_status': 'demo',

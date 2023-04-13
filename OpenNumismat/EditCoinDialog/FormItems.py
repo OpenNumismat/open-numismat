@@ -404,7 +404,7 @@ class StatusEdit(QComboBox):
 
     def __init__(self, settings, parent=None):
         super().__init__(parent)
-        self.setMinimumWidth(100)
+        self.setMinimumWidth(120)
 
         for status, statusTitle in Statuses.items():
             if settings[status + '_status_used']:

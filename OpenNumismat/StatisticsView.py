@@ -1339,7 +1339,7 @@ class StatisticsView(QWidget):
         elif items == 'year':
             sql_filters = ["1=1"]
         else:
-            sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate')"]
+            sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
 
             if period == 'month':
                 sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
@@ -1426,7 +1426,7 @@ class StatisticsView(QWidget):
 
         area = self.areaSelector.currentData()
         if area == 'paydate':
-            sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate')"]
+            sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
         elif area == 'saledate':
             sql_filters = ["status='sold'"]
         else:
@@ -1530,7 +1530,7 @@ class StatisticsView(QWidget):
             val = str(record.value(1))
             xx[val] = [count, 0, 0]
 
-        sql_filters = ["status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate')"]
+        sql_filters = ["status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')"]
         if filter_:
             sql_filters.append(filter_)
 
