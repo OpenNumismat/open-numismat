@@ -59,45 +59,31 @@ class FieldTypes():
 
 
 class Status(dict):
-    Keys = ('demo', 'bidding', 'ordered', 'owned', 'duplicate',
-            'replacement', 'sold', 'wish', 'sale', 'missing', 'pass',)
-    Titles = (
-        QT_TRANSLATE_NOOP("Status", "Demo"),
-        QT_TRANSLATE_NOOP("Status", "Bidding"),
-        QT_TRANSLATE_NOOP("Status", "Ordered"),
-        QT_TRANSLATE_NOOP("Status", "Owned"),
-        QT_TRANSLATE_NOOP("Status", "Duplicate"),
-        QT_TRANSLATE_NOOP("Status", "Replacement"),
-        QT_TRANSLATE_NOOP("Status", "Sold"),
-        QT_TRANSLATE_NOOP("Status", "Wish"),
-        QT_TRANSLATE_NOOP("Status", "Sale"),
-        QT_TRANSLATE_NOOP("Status", "Missing"),
-        QT_TRANSLATE_NOOP("Status", "Pass"),
-    )
 
     def __init__(self):
-        for key, value in zip(self.Keys, self.Titles):
-            dict.__setitem__(self, key, value)
+        self['demo'] = QT_TRANSLATE_NOOP("Status", "Demo")
+        self['bidding'] = QT_TRANSLATE_NOOP("Status", "Bidding")
+        self['ordered'] = QT_TRANSLATE_NOOP("Status", "Ordered")
+        self['owned'] = QT_TRANSLATE_NOOP("Status", "Owned")
+        self['duplicate'] = QT_TRANSLATE_NOOP("Status", "Duplicate")
+        self['replacement'] = QT_TRANSLATE_NOOP("Status", "Replacement")
+        self['sold'] = QT_TRANSLATE_NOOP("Status", "Sold")
+        self['wish'] = QT_TRANSLATE_NOOP("Status", "Wish")
+        self['sale'] = QT_TRANSLATE_NOOP("Status", "Sale")
+        self['missing'] = QT_TRANSLATE_NOOP("Status", "Missing")
+        self['pass'] = QT_TRANSLATE_NOOP("Status", "Pass")
 
-    def keys(self):
-        return self.Keys
+        self.orders = {}
+        for i, key in enumerate(self.keys()):
+            self.orders[key] = i + 1
 
-    def items(self):
-        result = []
-        for key in self.Keys:
-            result.append((key, self.__getitem__(key)))
-        return result
-
-    def values(self):
-        result = []
-        for key in self.Keys:
-            result.append(self.__getitem__(key))
-        return result
+    def init(self, settings):
+        for status in self.keys():
+            self[status] = settings[status + '_status_title']
 
     def __getitem__(self, key):
         try:
-            value = dict.__getitem__(self, key)
-            return QApplication.translate("Status", value)
+            return dict.__getitem__(self, key)
         except KeyError:
             return ''
 
@@ -107,22 +93,18 @@ class Status(dict):
                 return key
         return ''
 
+    def order(self, key):
+        try:
+            return self.orders[key]
+        except KeyError:
+            return 0
 
+    def compare(self, left, right):
+        return self.order(left) - self.order(right)
+
+
+# TODO: Move Statuses to Collection
 Statuses = Status()
-StatusesOrder = {
-    '': 0,
-    'demo': 0,
-    'bidding': 1,
-    'ordered': 2,
-    'owned': 3,
-    'duplicate': 4,
-    'replacement': 5,
-    'wish': 6,
-    'sale': 7,
-    'sold': 8,
-    'missing': 9,
-    'pass': 10,
-}
 ImageFields = ('obverseimg', 'reverseimg', 'edgeimg', 'signatureimg',
                'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4',
                'photo5', 'photo6')

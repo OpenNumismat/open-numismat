@@ -26,7 +26,6 @@ from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
-from OpenNumismat.Collection.CollectionFields import StatusesOrder
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Settings import Settings
@@ -1192,7 +1191,7 @@ class StatisticsView(QWidget):
             zz[val] = count
 
         if field == 'status':
-            sorted_zz = dict(sorted(zz.items(), key=lambda x: StatusesOrder[x[0]]))
+            sorted_zz = dict(sorted(zz.items(), key=lambda x: Statuses.order(x[0])))
             zz = {}
             for key, val in sorted_zz.items():
                 zz[Statuses[key]] = val
@@ -1723,12 +1722,7 @@ class StatisticsView(QWidget):
         leftData = Statuses.reverse(leftData)
         rightData = Statuses.reverse(rightData)
 
-        if StatusesOrder[leftData] < StatusesOrder[rightData]:
-            return -1
-        elif StatusesOrder[leftData] > StatusesOrder[rightData]:
-            return 1
-        else:
-            return 0
+        return Statuses.compare(leftData, rightData)
 
     def sortYears(self, leftData, rightData):
         if type(leftData) is tuple:

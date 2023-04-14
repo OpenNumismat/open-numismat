@@ -638,17 +638,17 @@ class CollectionSettings(BaseSettings):
             'bidding_status_used': True,
             'duplicate_status_used': True,
             'replacement_status_used': True,
-            'demo_status_title': Statuses['demo'],
-            'pass_status_title': Statuses['pass'],
-            'owned_status_title': Statuses['owned'],
-            'ordered_status_title': Statuses['ordered'],
-            'sold_status_title': Statuses['sold'],
-            'sale_status_title': Statuses['sale'],
-            'wish_status_title': Statuses['wish'],
-            'missing_status_title': Statuses['missing'],
-            'bidding_status_title': Statuses['bidding'],
-            'duplicate_status_title': Statuses['duplicate'],
-            'replacement_status_title': Statuses['replacement'],
+            'demo_status_title': '',
+            'pass_status_title': '',
+            'owned_status_title': '',
+            'ordered_status_title': '',
+            'sold_status_title': '',
+            'sale_status_title': '',
+            'wish_status_title': '',
+            'missing_status_title': '',
+            'bidding_status_title': '',
+            'duplicate_status_title': '',
+            'replacement_status_title': '',
             'enable_bc': True,
             'rich_text': False,
             'default_status': 'demo',
@@ -685,9 +685,9 @@ class CollectionSettings(BaseSettings):
 
         for status, title in Statuses.items():
             # Fill default status titles
-            self.Default[status + '_status_title'] = title
-            # Fill statuses from settings
-            Statuses[status] = self[status + '_status_title']
+            self.Default[status + '_status_title'] = QApplication.translate("Status", title)
+        # Fill global statuses from settings
+        Statuses.init(self)
 
     def keys(self):
         return self.Default.keys()

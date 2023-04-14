@@ -308,7 +308,7 @@ class CollectionSettingsPage(QWidget):
         self.statusUsed = {}
         statusesList = QListWidget(self)
         statusesList.setWrapping(True)
-        for status in Statuses.Keys:
+        for status in Statuses:
             title = self.settings[status + '_status_title']
             item = QListWidgetItem(statusIcon(status), title)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
@@ -324,7 +324,7 @@ class CollectionSettingsPage(QWidget):
         layout.addRow(statusesList)
 
         self.defaultStatus = QComboBox(self)
-        for status in Statuses.Keys:
+        for status in Statuses:
             self.defaultStatus.addItem(statusIcon(status), Statuses[status], status)
         index = self.defaultStatus.findData(self.settings['default_status'])
         self.defaultStatus.setCurrentIndex(index)
@@ -347,7 +347,7 @@ class CollectionSettingsPage(QWidget):
         default_status = self.defaultStatus.currentData()
         self.settings['default_status'] = default_status
 
-        for status in Statuses.Keys:
+        for status in Statuses:
             title = self.statusUsed[status].text()
             self.settings[status + '_status_title'] = title
 

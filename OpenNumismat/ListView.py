@@ -15,7 +15,7 @@ from PySide6.QtCore import Signal as pyqtSignal
 import OpenNumismat
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import StatusesOrder
+from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.SelectColumnsDialog import SelectColumnsDialog
 from OpenNumismat.Collection.HeaderFilterMenu import FilterMenuButton
 from OpenNumismat.Tools import Gui, TemporaryDir
@@ -560,7 +560,7 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         if left.column() == self.status_id:
             leftData = self.model.dataDisplayRole(left)
             rightData = self.model.dataDisplayRole(right)
-            return StatusesOrder[leftData] < StatusesOrder[rightData]
+            return Statuses.compare(leftData, rightData) < 0
         else:
             leftData = self.model.dataDisplayRole(left)
             rightData = self.model.dataDisplayRole(right)

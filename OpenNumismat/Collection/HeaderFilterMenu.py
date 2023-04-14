@@ -4,7 +4,7 @@ from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import Statuses, StatusesOrder
+from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction
 
@@ -28,7 +28,7 @@ class StatusSortListWidgetItem(QListWidgetItem):
     def __lt__(self, other):
         left = self.data(Qt.UserRole)
         right = other.data(Qt.UserRole)
-        return StatusesOrder[left] < StatusesOrder[right]
+        return Statuses.compare(left, right) < 0
 
 
 class FilterMenuButton(QPushButton):
@@ -159,8 +159,8 @@ class FilterMenuButton(QPushButton):
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
-            sql = "SELECT DISTINCT %s FROM coins %s ORDER BY %s ASC" % (
-                self.columnName, filtersSql, self.columnName)
+            sql = "SELECT DISTINCT %s FROM coins %s" % (
+                self.columnName, filtersSql)
             query = QSqlQuery(sql, self.db)
 
             while query.next():
