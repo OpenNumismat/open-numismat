@@ -68,9 +68,9 @@ class Status(dict):
         QT_TRANSLATE_NOOP("Status", "Owned"),
         QT_TRANSLATE_NOOP("Status", "Duplicate"),
         QT_TRANSLATE_NOOP("Status", "Replacement"),
+        QT_TRANSLATE_NOOP("Status", "Sold"),
         QT_TRANSLATE_NOOP("Status", "Wish"),
         QT_TRANSLATE_NOOP("Status", "Sale"),
-        QT_TRANSLATE_NOOP("Status", "Sold"),
         QT_TRANSLATE_NOOP("Status", "Missing"),
         QT_TRANSLATE_NOOP("Status", "Pass"),
     )
