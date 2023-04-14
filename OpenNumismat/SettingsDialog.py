@@ -2,6 +2,8 @@
 
 from PySide6.QtCharts import QChart
 from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
+from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtGui import QIcon, QAction
 from PySide6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
@@ -11,7 +13,7 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Gui import infoMessageBox
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.CollectionFields import Statuses, TitleTemplateFields
 from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.EditCoinDialog.MapWidget import MapType
 from OpenNumismat.EditCoinDialog.MapWidget.GMapsWidget import gmapsAvailable
@@ -257,16 +259,46 @@ class ViewSettingsPage(QWidget):
         settings.save()
 
 
+class FieldAction(QAction):
+    clicked = pyqtSignal(object)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.triggered.connect(self.trigger)
+
+    def trigger(self):
+        self.clicked.emit(self)
+
+
 class CollectionSettingsPage(QWidget):
 
     def __init__(self, collection, parent=None):
         super().__init__(parent)
 
+        self.collection = collection
         self.settings = collection.settings
         self.model = collection.model()
 
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+
+        self.titleTemplate = QLineEdit(self)
+        self.titleTemplate.setText(str(self.settings['title_template']))
+
+        self.addFieldButton = QPushButton(QIcon(':/add.png'), '', self)
+        self.addFieldButton.setToolTip(self.tr("Add field"))
+
+        menu = QMenu(self)
+        menu.aboutToShow.connect(self.addFieldButtonClicked)
+        self.addFieldButton.setMenu(menu)
+
+        hLayout = QHBoxLayout()
+        hLayout.addWidget(self.titleTemplate)
+        hLayout.addWidget(self.addFieldButton)
+        hLayout.setContentsMargins(QMargins())
+
+        layout.addRow(self.tr("Title template"), hLayout)
 
         self.imageSideLen = NumberEdit(self)
         self.imageSideLen.setMaximumWidth(60)
@@ -283,6 +315,10 @@ class CollectionSettingsPage(QWidget):
                                        QSizePolicy.Fixed)
         layout.addRow(self.tr("Preview image height"), self.imageHeight)
 
+        self.imagesAtBottom = QCheckBox(self.tr("Images at bottom"), self)
+        self.imagesAtBottom.setChecked(self.settings['images_at_bottom'])
+        layout.addRow(self.imagesAtBottom)
+
         self.freeNumeric = QCheckBox(
                             self.tr("Free format numeric fields"), self)
         self.freeNumeric.setChecked(self.settings['free_numeric'])
@@ -292,10 +328,6 @@ class CollectionSettingsPage(QWidget):
             self.tr("Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)"), self)
         self.convertFraction.setChecked(self.settings['convert_fraction'])
         layout.addRow(self.convertFraction)
-
-        self.imagesAtBottom = QCheckBox(self.tr("Images at bottom"), self)
-        self.imagesAtBottom.setChecked(self.settings['images_at_bottom'])
-        layout.addRow(self.imagesAtBottom)
 
         self.enableBC = QCheckBox(self.tr("Enable BC"), self)
         self.enableBC.setChecked(self.settings['enable_bc'])
@@ -335,7 +367,25 @@ class CollectionSettingsPage(QWidget):
 
         self.setLayout(layout)
 
+    def addFieldButtonClicked(self):
+        self.addFieldButton.menu().clear()
+        for field in self.collection.fields:
+            if field.name in TitleTemplateFields:
+                if field.enabled:
+                    act = FieldAction(field.title, self)
+                    act.setData(field.name)
+                    self.addFieldButton.menu().addAction(act)
+                    act.clicked.connect(self.addField)
+
+    def addField(self, act):
+        field = act.data()
+        pos = self.titleTemplate.cursorPosition()
+        template = self.titleTemplate.text()
+        template = template[:pos] + '<' + field + '>' + template[pos:]
+        self.titleTemplate.setText(template)
+
     def save(self):
+        self.settings['title_template'] = self.titleTemplate.text()
         self.settings['free_numeric'] = self.freeNumeric.isChecked()
         self.settings['convert_fraction'] = self.convertFraction.isChecked()
         self.settings['ImageSideLen'] = int(self.imageSideLen.text())

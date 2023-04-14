@@ -656,6 +656,7 @@ class CollectionSettings(BaseSettings):
             'colnect_country': 0,
             'ans_department': '',
             'ans_has_image': False,
+            'title_template': '<value> <unit> <year> <subjectshort> <mintmark> <variety>',
     }
 
     def __init__(self, db):

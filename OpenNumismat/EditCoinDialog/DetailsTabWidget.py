@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import re
+
 from PySide6.QtCore import Qt, QUrl
 from PySide6.QtGui import QDoubleValidator, QDesktopServices
 from PySide6.QtWidgets import *
@@ -10,6 +12,7 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormIte
 from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import ImageFields
+from OpenNumismat.Collection.CollectionFields import TitleTemplateFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
 from OpenNumismat.EditCoinDialog.MapWidget import get_map_widget
@@ -781,24 +784,26 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def clickGenerateTitle(self):
-        titleParts = []
-        for key in ('value', 'unit', 'year', 'subjectshort',
-                    'mintmark', 'variety'):
-            value = self.items[key].value()
-            if not isinstance(value, str):
-                value = str(value)
-            titlePart = value.strip()
-            if titlePart:
-                if key == 'unit':
-                    titlePart = titlePart.lower()
-                elif key == 'value':
-                    titlePart, _ = numberWithFraction(titlePart, self.settings['convert_fraction'])
-                elif key == 'subjectshort':
-                    if len(titlePart.split()) > 1:
-                        titlePart = '"%s"' % titlePart
-                titleParts.append(titlePart)
+        template = self.settings['title_template']
+        title = template
+        for field in TitleTemplateFields:
+            if '<' + field + '>' in template:
+                value = self.items[field].value()
+                if not isinstance(value, str):
+                    value = str(value)
+                value = value.strip()
+                if value:
+                    if field == 'unit':
+                        value = value.lower()
+                    elif field == 'value':
+                        value, _ = numberWithFraction(value, self.settings['convert_fraction'])
+                    elif field == 'subjectshort':
+                        if len(value.split()) > 1:
+                            value = '"' + value + '"'
 
-        title = ' '.join(titleParts)
+                title = title.replace('<' + field + '>', value)
+
+        title = re.sub(' +', ' ', title)
         self.items['title'].setValue(title)
         
     def clickedButtonNativeYear(self):

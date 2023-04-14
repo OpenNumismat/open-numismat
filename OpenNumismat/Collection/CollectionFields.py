@@ -108,6 +108,10 @@ Statuses = Status()
 ImageFields = ('obverseimg', 'reverseimg', 'edgeimg', 'signatureimg',
                'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4',
                'photo5', 'photo6')
+TitleTemplateFields = ('value', 'unit', 'region', 'country', 'year',
+                       'series', 'subjectshort', 'period', 'ruler', 'type',
+                       'emitent', 'mint', 'mintmark', 'material', 'rarity',
+                       'variety', 'defect', 'native_year',)
 
 
 class CollectionField():
