@@ -305,17 +305,23 @@ class CollectionSettingsPage(QWidget):
         self.richText.setChecked(self.settings['rich_text'])
         layout.addRow(self.richText)
 
-        gLayout = QGridLayout()
-        statuses = QGroupBox(self.tr("Used statuses"), self)
         self.statusUsed = {}
-        statuses_per_col = len(Statuses.Keys) // 3
-        for i, status in enumerate(Statuses.Keys):
-            statusCheckBox = QCheckBox(Statuses[status], self)
-            statusCheckBox.setChecked(self.settings[status + '_status_used'])
-            self.statusUsed[status] = statusCheckBox
-            gLayout.addWidget(statusCheckBox, i % statuses_per_col, i // statuses_per_col)
-        statuses.setLayout(gLayout)
-        layout.addRow(statuses)
+        statusesList = QListWidget(self)
+        statusesList.setWrapping(True)
+        for status in Statuses.Keys:
+            title = self.settings[status + '_status_title']
+            item = QListWidgetItem(statusIcon(status), title)
+            item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
+                          Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+
+            checked = Qt.Unchecked
+            if self.settings[status + '_status_used']:
+                checked = Qt.Checked
+            item.setCheckState(checked)
+            statusesList.addItem(item)
+            self.statusUsed[status] = item
+        layout.addRow(self.tr("Used statuses:"), QWidget())
+        layout.addRow(statusesList)
 
         self.defaultStatus = QComboBox(self)
         for status in Statuses.Keys:
@@ -342,7 +348,11 @@ class CollectionSettingsPage(QWidget):
         self.settings['default_status'] = default_status
 
         for status in Statuses.Keys:
-            self.settings[status + '_status_used'] = self.statusUsed[status].isChecked()
+            title = self.statusUsed[status].text()
+            self.settings[status + '_status_title'] = title
+
+            is_checked = (self.statusUsed[status].checkState() == Qt.Checked)
+            self.settings[status + '_status_used'] = is_checked
         # Default status is always enabled
         self.settings[default_status + '_status_used'] = True
 

@@ -638,6 +638,17 @@ class CollectionSettings(BaseSettings):
             'bidding_status_used': True,
             'duplicate_status_used': True,
             'replacement_status_used': True,
+            'demo_status_title': Statuses['demo'],
+            'pass_status_title': Statuses['pass'],
+            'owned_status_title': Statuses['owned'],
+            'ordered_status_title': Statuses['ordered'],
+            'sold_status_title': Statuses['sold'],
+            'sale_status_title': Statuses['sale'],
+            'wish_status_title': Statuses['wish'],
+            'missing_status_title': Statuses['missing'],
+            'bidding_status_title': Statuses['bidding'],
+            'duplicate_status_title': Statuses['duplicate'],
+            'replacement_status_title': Statuses['replacement'],
             'enable_bc': True,
             'rich_text': False,
             'default_status': 'demo',
@@ -671,6 +682,12 @@ class CollectionSettings(BaseSettings):
                 else:
                     value = record.value('value')
                 self.__setitem__(title, value)
+
+        for status, title in Statuses.items():
+            # Fill default status titles
+            self.Default[status + '_status_title'] = title
+            # Fill statuses from settings
+            Statuses[status] = self[status + '_status_title']
 
     def keys(self):
         return self.Default.keys()

@@ -102,8 +102,8 @@ class Status(dict):
             return ''
 
     def reverse(self, title):
-        for key, value in zip(self.Keys, self.Titles):
-            if QApplication.translate("Status", value) == title:
+        for key, value in self.items():
+            if value == title:
                 return key
         return ''
 
