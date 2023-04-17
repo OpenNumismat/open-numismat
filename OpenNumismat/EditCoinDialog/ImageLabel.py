@@ -386,8 +386,6 @@ class ImageEdit(ImageLabel):
             else:
                 image.clear()
 
-        self.imageChanged.emit(self)
-
     def connectExchangeAct(self, image, title):
         act = QAction(title, self)
         act.setData(image)
@@ -423,3 +421,8 @@ class ImageEdit(ImageLabel):
         self._setImage(fixedImage)
         self.changed = True
         self.imageChanged.emit(self)
+
+    def loadFromData(self, data):
+        result = super().loadFromData(data)
+        self.imageChanged.emit(self)
+        return result
