@@ -1,3 +1,5 @@
+import sys
+
 from PySide6.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QRect, QPoint
 from PySide6.QtGui import QImage, QKeySequence, QPainter
 from PySide6.QtWidgets import *
@@ -385,8 +387,11 @@ class VTabWidget(QTabWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setTabBar(VTabBar())
-        self.setTabPosition(QTabWidget.West)
+        # TODO: Workaround macOS problem
+        # https://github.com/yjg30737/pyqt-vertical-tab-widget/issues/1
+        if sys.platform != "darwin":
+            self.setTabBar(VTabBar())
+            self.setTabPosition(QTabWidget.West)
 
 
 @storeDlgSizeDecorator
