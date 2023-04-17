@@ -219,16 +219,17 @@ class FindDialog(QDialog):
                     record_distances[field] = target_hash - hash_
                     # record_distances[field] = (target_hash - hash_) / len(hash_.hash) ** 2
 
-            field = min(record_distances, key=record_distances.get)
-            photo_id = record.value('%s_id' % field)
-            distance = record_distances[field]
+            if record_distances:
+                field = min(record_distances, key=record_distances.get)
+                photo_id = record.value('%s_id' % field)
+                distance = record_distances[field]
 
-            comparison_results.append(ComparisonResult(
-                coin_id,
-                coin_title,
-                photo_id,
-                distance
-            ))
+                comparison_results.append(ComparisonResult(
+                    coin_id,
+                    coin_title,
+                    photo_id,
+                    distance
+                ))
 
         progressDlg.reset()
 
