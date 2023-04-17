@@ -343,6 +343,7 @@ class ReferenceDialog(QDialog):
 
 
 class CrossReferenceDialog(ReferenceDialog):
+
     def __init__(self, section, parentIndex, text='', parent=None):
         self.parentIndex = parentIndex
         super().__init__(section, text, parent)
@@ -352,8 +353,6 @@ class CrossReferenceDialog(ReferenceDialog):
 
 
 class VTabBar(QTabBar):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
     def tabSizeHint(self, index):
         s = super().tabSizeHint(index)
@@ -383,6 +382,7 @@ class VTabBar(QTabBar):
 
 
 class VTabWidget(QTabWidget):
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setTabBar(VTabBar())
