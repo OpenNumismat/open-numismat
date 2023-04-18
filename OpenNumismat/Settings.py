@@ -1,7 +1,7 @@
 import os.path
 
 from PySide6.QtCharts import QChart
-from PySide6.QtCore import QLocale, QSettings
+from PySide6.QtCore import Qt, QLocale, QSettings
 
 import OpenNumismat
 
@@ -89,9 +89,13 @@ class Settings(BaseSettings):
         'map_type': 0,
         'built_in_viewer': True,
         'font_size': 0,
-        'use_blaf_palette': True,
         'style': '',
-        'chart_theme': QChart.ChartThemeLight,
+        'chart_theme': QChart.ChartThemeLight.value,
+        'multicolor_chart': False,
+        'use_blaf_palette': True,
+        'show_chart_legend': False,
+        'chart_legend_pos': Qt.AlignRight.value,
+        'nice_years_chart': False,
     }
 
     def __init__(self, autoSave=False):
@@ -114,6 +118,9 @@ class Settings(BaseSettings):
             'built_in_viewer',
             'numista_split_denomination',
             'use_blaf_palette',
+            'multicolor_chart',
+            'show_chart_legend',
+            'nice_years_chart',
         ):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
@@ -123,6 +130,8 @@ class Settings(BaseSettings):
             'speedup',
             'map_type',
             'font_size',
+            'chart_theme',
+            'chart_legend_pos',
         ):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=int)

@@ -91,9 +91,6 @@ class GeoChart(QWebView):
         self.html_data = self.HTML % (locale, MAPS_API_KEY, region, data)
         self.setHtml(self.html_data)
 
-    def setMulticolor(self, multicolor=False):
-        pass
-
     filters = (QApplication.translate('GeoChartCanvas', "Web page (*.htm *.html)"),
                QApplication.translate('GeoChartCanvas', "PNG image (*.png)"))
 
@@ -133,7 +130,7 @@ class BaseChart(QChartView):
 
     def __init__(self, parent=None):
         chart = QChart()
-        theme = Settings()['chart_theme']
+        theme = QChart.ChartTheme(Settings()['chart_theme'])
         chart.setTheme(theme)
         chart.legend().hide()
         chart.layout().setContentsMargins(0, 0, 0, 0)
@@ -141,15 +138,12 @@ class BaseChart(QChartView):
         
         self.label = QApplication.translate('BaseCanvas', "Number of coins")
         self.label_y = ''
-        self.colors = False
+        self.colors = Settings()['multicolor_chart']
         self.use_blaf_palette = Settings()['use_blaf_palette']
         
         super().__init__(chart, parent)
 
         self.setRenderHint(QPainter.Antialiasing)
-
-    def setMulticolor(self, multicolor=False):
-        self.colors = multicolor
 
     def setLabel(self, text):
         self.label = text
@@ -265,12 +259,12 @@ class BarHChart(BaseChart):
 
 class PieChart(BaseChart):
     
-    def __init__(self, legend, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
-        self.legend = legend
+        self.legend = Settings['show_chart_legend']
         if self.legend:
             self.chart().legend().show()
-            self.chart().legend().setAlignment(Qt.AlignRight)
+            self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
 
     def setData(self, xx, yy):
         self.xx = xx
@@ -305,6 +299,7 @@ class StackedBarChart(BaseChart):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.chart().legend().show()
+        self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
 
     def setLabelZ(self, text):
         self.label_z = text
@@ -420,7 +415,7 @@ class AreaStatusChart(BaseChart):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.chart().legend().show()
-        self.chart().legend().setAlignment(Qt.AlignRight)
+        self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
 
     def setData(self, xx, yy):
         self.xx = xx
@@ -510,7 +505,7 @@ class AreaNiceStatusChart(BaseChart):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.chart().legend().show()
-        self.chart().legend().setAlignment(Qt.AlignRight)
+        self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
 
     def val_to_date(self, val):
         year = int(val[0:4])
@@ -660,7 +655,7 @@ class AreaChart(BaseChart):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.chart().legend().show()
-        self.chart().legend().setAlignment(Qt.AlignRight)
+        self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
 
     def setData(self, xx, zz):
         self.xx = xx
@@ -758,7 +753,7 @@ class AreaNiceChart(BaseChart):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.chart().legend().show()
-        self.chart().legend().setAlignment(Qt.AlignRight)
+        self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
 
     def val_to_date(self, val):
         year = int(val[0:4])
@@ -916,15 +911,6 @@ class StatisticsView(QWidget):
         self.areaSelector.addItem(self.tr("Status changing"), 'status')
         ctrlLayout.addWidget(self.areaSelector)
 
-        self.colorCheck = QCheckBox(self.tr("Multicolor"), self)
-        ctrlLayout.addWidget(self.colorCheck)
-
-        self.legendCheck = QCheckBox(self.tr("Show legend"), self)
-        ctrlLayout.addWidget(self.legendCheck)
-
-        self.niceYearsCheck = QCheckBox(self.tr("Nice years"), self)
-        ctrlLayout.addWidget(self.niceYearsCheck)
-
         self.regionLabel = QLabel(self.tr("Region:"))
         ctrlLayout.addWidget(self.regionLabel)
         self.regionSelector = QComboBox(self)
@@ -942,20 +928,27 @@ class StatisticsView(QWidget):
         saveButton.setFixedWidth(25)
         saveButton.clicked.connect(self.save)
 
+        settingsButton = QPushButton()
+        settingsButton.setIcon(QIcon(':/cog.png'))
+        settingsButton.setToolTip(self.tr("Settings"))
+        settingsButton.setFixedWidth(25)
+        settingsButton.clicked.connect(self.settings)
+
         self.zoomInButton = QPushButton()
         self.zoomInButton.setIcon(QIcon(':/zoom_in.png'))
-        self.zoomInButton.setToolTip(self.tr("Zoom In (50%)"))
+        self.zoomInButton.setToolTip(self.tr("Zoom In (25%)"))
         self.zoomInButton.setFixedWidth(25)
         self.zoomInButton.clicked.connect(self.zoomIn)
 
         self.zoomOutButton = QPushButton()
         self.zoomOutButton.setIcon(QIcon(':/zoom_out.png'))
-        self.zoomOutButton.setToolTip(self.tr("Zoom Out (50%)"))
+        self.zoomOutButton.setToolTip(self.tr("Zoom Out (25%)"))
         self.zoomOutButton.setFixedWidth(25)
         self.zoomOutButton.clicked.connect(self.zoomOut)
 
         button_layout = QHBoxLayout()
         button_layout.addWidget(saveButton)
+        button_layout.addWidget(settingsButton)
         button_layout.addWidget(self.zoomInButton, alignment=Qt.AlignRight)
         button_layout.addWidget(self.zoomOutButton)
 
@@ -1033,9 +1026,6 @@ class StatisticsView(QWidget):
         if index >= 0:
             self.periodSelector.setCurrentIndex(index)
 
-        color = self.statisticsParam['color']
-        self.colorCheck.setChecked(color)
-
         self.showConfig(chart)
         self.chartSelector.currentIndexChanged.connect(self.chartChaged)
         self.fieldSelector.currentIndexChanged.connect(self.fieldChaged)
@@ -1043,9 +1033,6 @@ class StatisticsView(QWidget):
         self.periodSelector.currentIndexChanged.connect(self.periodChaged)
         self.itemsSelector.currentIndexChanged.connect(self.itemsChaged)
         self.areaSelector.currentIndexChanged.connect(self.areaChaged)
-        self.colorCheck.stateChanged.connect(self.colorChanged)
-        self.legendCheck.stateChanged.connect(self.legendChanged)
-        self.niceYearsCheck.stateChanged.connect(self.niceYearsChanged)
         self.regionSelector.currentIndexChanged.connect(self.regionChanged)
 
     def modelChanged(self):
@@ -1110,9 +1097,6 @@ class StatisticsView(QWidget):
             self.fieldSelector.setDisabled(area == 'status')
         else:
             self.fieldSelector.setDisabled(False)
-        self.colorCheck.setVisible(chart not in ('stacked', 'pie', 'geochart', 'area'))
-        self.legendCheck.setVisible(chart == 'pie')
-        self.niceYearsCheck.setVisible(chart == 'area')
         self.regionLabel.setVisible(chart == 'geochart')
         self.regionSelector.setVisible(chart == 'geochart')
 
@@ -1136,21 +1120,6 @@ class StatisticsView(QWidget):
 
         self.modelChanged()
 
-    def colorChanged(self, state):
-        self.statisticsParam['color'] = state
-
-        self.modelChanged()
-
-    def legendChanged(self, state):
-#        self.statisticsParam['legend'] = state
-
-        self.modelChanged()
-
-    def niceYearsChanged(self, state):
-#        self.statisticsParam['nice_years'] = state
-
-        self.modelChanged()
-
     def regionChanged(self, _text):
 #        region = self.itemsSelector.currentData()
 #        self.statisticsParam['region'] = region
@@ -1158,8 +1127,6 @@ class StatisticsView(QWidget):
         self.modelChanged()
     
     def fillBarChart(self, chart):
-        chart.setMulticolor(self.colorCheck.isChecked())
-
         fieldId = self.fieldSelector.currentData()
         field = self.model.fields.field(fieldId).name
         if field == 'fineness':
@@ -1207,18 +1174,17 @@ class StatisticsView(QWidget):
     
     def barChart(self):
         chart = BarChart(self)
-        self.fillBarChart(chart)        
+        self.fillBarChart(chart)
         return chart
     
     def barHChart(self):
         chart = BarHChart(self)
-        self.fillBarChart(chart)        
+        self.fillBarChart(chart)
         return chart
 
     def pieChart(self):
-        legend = self.legendCheck.isChecked()
-        chart = PieChart(legend, self)
-        self.fillBarChart(chart)        
+        chart = PieChart(self)
+        self.fillBarChart(chart)
         return chart
 
     def stackedChart(self):
@@ -1303,7 +1269,6 @@ class StatisticsView(QWidget):
 
     def progressChart(self):
         chart = ProgressChart(self)
-        chart.setMulticolor(self.colorCheck.isChecked())
 
         items = self.itemsSelector.currentData()
         if items == 'payprice':
@@ -1413,7 +1378,7 @@ class StatisticsView(QWidget):
         return chart
 
     def areaChart(self):
-        nice_years = self.niceYearsCheck.isChecked()
+        nice_years = Settings()['nice_years_chart']
         fieldId = self.fieldSelector.currentData()
         field = self.model.fields.field(fieldId).name
         if field == 'fineness':
@@ -1504,7 +1469,7 @@ class StatisticsView(QWidget):
         return chart
 
     def areaStatusChart(self):
-        nice_years = self.niceYearsCheck.isChecked()
+        nice_years = Settings()['nice_years_chart']
 
         filter_ = self.model.filter()
         if filter_:
@@ -1627,6 +1592,16 @@ class StatisticsView(QWidget):
         if fileName:
             self.chart.save(fileName, selectedFilter)
 
+    def settings(self):
+        dialog = SettingsDialog(self)
+        dialog.applyClicked.connect(self.applySettings)
+        res = dialog.exec_()
+        if res == QDialog.Accepted:
+            self.applySettings()
+
+    def applySettings(self):
+        self.modelChanged()
+
     def resizeEvent(self, _e):
         scroll_size = self.scroll.size() - QSize(2, 2)
         chart_size = self.chart.size()
@@ -1660,7 +1635,7 @@ class StatisticsView(QWidget):
     def zoomIn(self):
         old_size = self.chart.size()
         scroll_size = self.scroll.size() - QSize(2, 2)
-        target_size = self.chart.size() * 1.5
+        target_size = self.chart.size() * 1.25
 
         if scroll_size.height() * 5 <= target_size.height() or \
                 scroll_size.width() * 5 <= target_size.width():
@@ -1680,7 +1655,7 @@ class StatisticsView(QWidget):
     def zoomOut(self):
         old_size = self.chart.size()
         scroll_size = self.scroll.size() - QSize(2, 2)
-        target_size = self.chart.size() / 1.5
+        target_size = self.chart.size() / 1.25
 
         old_pos_h = self.scroll.horizontalScrollBar().value()
         old_pos_v = self.scroll.verticalScrollBar().value()
@@ -1743,3 +1718,105 @@ class StatisticsView(QWidget):
             return 1
         else:
             return 0
+
+
+class SettingsDialog(QDialog):
+    applyClicked = pyqtSignal()
+
+    def __init__(self, parent=None):
+        super().__init__(parent,
+                         Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+
+        settings = Settings()
+
+        self.setWindowTitle(self.tr("Chart settings"))
+
+        formLayout = QFormLayout()
+        formLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+
+        self.chartThemeSelector = QComboBox(self)
+        self.chartThemeSelector.addItem(self.tr("Light"),
+                                        QChart.ChartThemeLight.value)
+        self.chartThemeSelector.addItem(self.tr("Blue Cerulean"),
+                                        QChart.ChartThemeBlueCerulean.value)
+        self.chartThemeSelector.addItem(self.tr("Dark"),
+                                        QChart.ChartThemeDark.value)
+        self.chartThemeSelector.addItem(self.tr("Brown Sand"),
+                                        QChart.ChartThemeBrownSand.value)
+        self.chartThemeSelector.addItem(self.tr("Blue Ncs"),
+                                        QChart.ChartThemeBlueNcs.value)
+        self.chartThemeSelector.addItem(self.tr("High Contrast"),
+                                        QChart.ChartThemeHighContrast.value)
+        self.chartThemeSelector.addItem(self.tr("Blue Icy"),
+                                        QChart.ChartThemeBlueIcy.value)
+        self.chartThemeSelector.addItem(self.tr("Qt"),
+                                        QChart.ChartThemeQt.value)
+        index = self.chartThemeSelector.findData(settings['chart_theme'])
+        if index >= 0:
+            self.chartThemeSelector.setCurrentIndex(index)
+        self.chartThemeSelector.setSizePolicy(QSizePolicy.Fixed,
+                                              QSizePolicy.Fixed)
+        formLayout.addRow(self.tr("Chart theme"), self.chartThemeSelector)
+
+        self.colorCheck = QCheckBox(self.tr("Multicolor"), self)
+        self.colorCheck.setChecked(settings['multicolor_chart'])
+        formLayout.addRow(self.colorCheck)
+
+        self.useBlafPalette = QCheckBox(
+                        self.tr("Use BLAF palette"), self)
+        self.useBlafPalette.setChecked(settings['use_blaf_palette'])
+        formLayout.addRow(self.useBlafPalette)
+
+        self.legendCheck = QCheckBox(self.tr("Show legend (Pie)"), self)
+        self.legendCheck.setChecked(settings['show_chart_legend'])
+        formLayout.addRow(self.legendCheck)
+
+        self.legendPosSelector = QComboBox(self)
+        self.legendPosSelector.addItem(self.tr("Top"), Qt.AlignTop.value)
+        self.legendPosSelector.addItem(self.tr("Right"), Qt.AlignRight.value)
+        self.legendPosSelector.addItem(self.tr("Bottom"), Qt.AlignBottom.value)
+        self.legendPosSelector.addItem(self.tr("Left"), Qt.AlignLeft.value)
+        index = self.legendPosSelector.findData(settings['chart_legend_pos'])
+        if index >= 0:
+            self.legendPosSelector.setCurrentIndex(index)
+        self.legendPosSelector.setSizePolicy(QSizePolicy.Fixed,
+                                             QSizePolicy.Fixed)
+        formLayout.addRow(self.tr("Legend position"), self.legendPosSelector)
+
+        self.niceYearsCheck = QCheckBox(self.tr("Nice years (Area)"), self)
+        self.niceYearsCheck.setChecked(settings['nice_years_chart'])
+        formLayout.addRow(self.niceYearsCheck)
+
+        buttonBox = QDialogButtonBox(Qt.Horizontal)
+        buttonBox.addButton(QDialogButtonBox.Ok)
+        buttonBox.addButton(QDialogButtonBox.Cancel)
+        applyButton = buttonBox.addButton(QDialogButtonBox.Apply)
+        buttonBox.accepted.connect(self.save)
+        buttonBox.rejected.connect(self.reject)
+        applyButton.clicked.connect(self.apply)
+
+        layout = QVBoxLayout()
+        layout.addLayout(formLayout)
+        layout.addWidget(buttonBox)
+
+        self.setLayout(layout)
+
+    def save(self):
+        self.save_settings()
+        self.accept()
+
+    def apply(self):
+        self.save_settings()
+        self.applyClicked.emit()
+
+    def save_settings(self):
+        settings = Settings()
+
+        settings['use_blaf_palette'] = self.useBlafPalette.isChecked()
+        settings['chart_theme'] = self.chartThemeSelector.currentData()
+        settings['multicolor_chart'] = self.colorCheck.isChecked()
+        settings['show_chart_legend'] = self.legendCheck.isChecked()
+        settings['chart_legend_pos'] = self.legendPosSelector.currentData()
+        settings['nice_years_chart'] = self.niceYearsCheck.isChecked()
+
+        settings.save()
