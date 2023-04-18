@@ -154,6 +154,23 @@ class MainSettingsPage(QWidget):
                                        QSizePolicy.Fixed)
         layout.addRow(self.tr("Maps"), self.mapSelector)
 
+        self.styleSelector = QComboBox(self)
+        for key in QStyleFactory.keys():
+            self.styleSelector.addItem(key)
+        self.styleSelector.setCurrentText(settings['style'])
+        self.styleSelector.setSizePolicy(QSizePolicy.Fixed,
+                                         QSizePolicy.Fixed)
+        layout.addRow(self.tr("Style"), self.styleSelector)
+
+        self.fontSizeSelector = QComboBox(self)
+        self.fontSizeSelector.addItem(self.tr("Normal"))
+        self.fontSizeSelector.addItem(self.tr("Large"))
+        self.fontSizeSelector.addItem(self.tr("Huge"))
+        self.fontSizeSelector.setCurrentIndex(settings['font_size'])
+        self.fontSizeSelector.setSizePolicy(QSizePolicy.Fixed,
+                                            QSizePolicy.Fixed)
+        layout.addRow(self.tr("Font size"), self.fontSizeSelector)
+
         self.setLayout(layout)
 
     def backupButtonClicked(self):
@@ -186,75 +203,8 @@ class MainSettingsPage(QWidget):
         settings['images_by_default'] = self.imagesByDefault.value()
         settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
-
-        settings.save()
-
-
-class ViewSettingsPage(QWidget):
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        settings = Settings()
-
-        layout = QFormLayout()
-        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
-
-        self.styleSelector = QComboBox(self)
-        for key in QStyleFactory.keys():
-            self.styleSelector.addItem(key)
-        self.styleSelector.setCurrentText(settings['style'])
-        self.styleSelector.setSizePolicy(QSizePolicy.Fixed,
-                                         QSizePolicy.Fixed)
-        layout.addRow(self.tr("Style"), self.styleSelector)
-
-        self.fontSizeSelector = QComboBox(self)
-        self.fontSizeSelector.addItem(self.tr("Normal"))
-        self.fontSizeSelector.addItem(self.tr("Large"))
-        self.fontSizeSelector.addItem(self.tr("Huge"))
-        self.fontSizeSelector.setCurrentIndex(settings['font_size'])
-        self.fontSizeSelector.setSizePolicy(QSizePolicy.Fixed,
-                                            QSizePolicy.Fixed)
-        layout.addRow(self.tr("Font size"), self.fontSizeSelector)
-
-        self.useBlafPalette = QCheckBox(
-                        self.tr("Use BLAF palette in statistics charts"), self)
-        self.useBlafPalette.setChecked(settings['use_blaf_palette'])
-        layout.addRow(self.useBlafPalette)
-
-        self.chartThemeSelector = QComboBox(self)
-        self.chartThemeSelector.addItem(self.tr("Light"),
-                                        QChart.ChartThemeLight)
-        self.chartThemeSelector.addItem(self.tr("Blue Cerulean"),
-                                        QChart.ChartThemeBlueCerulean)
-        self.chartThemeSelector.addItem(self.tr("Dark"),
-                                        QChart.ChartThemeDark)
-        self.chartThemeSelector.addItem(self.tr("Brown Sand"),
-                                        QChart.ChartThemeBrownSand)
-        self.chartThemeSelector.addItem(self.tr("Blue Ncs"),
-                                        QChart.ChartThemeBlueNcs)
-        self.chartThemeSelector.addItem(self.tr("High Contrast"),
-                                        QChart.ChartThemeHighContrast)
-        self.chartThemeSelector.addItem(self.tr("Blue Icy"),
-                                        QChart.ChartThemeBlueIcy)
-        self.chartThemeSelector.addItem(self.tr("Qt"),
-                                        QChart.ChartThemeQt)
-        index = self.chartThemeSelector.findData(settings['chart_theme'])
-        if index >= 0:
-            self.chartThemeSelector.setCurrentIndex(index)
-        self.chartThemeSelector.setSizePolicy(QSizePolicy.Fixed,
-                                              QSizePolicy.Fixed)
-        layout.addRow(self.tr("Chart theme"), self.chartThemeSelector)
-
-        self.setLayout(layout)
-
-    def save(self):
-        settings = Settings()
-
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
-        settings['use_blaf_palette'] = self.useBlafPalette.isChecked()
-        settings['chart_theme'] = self.chartThemeSelector.currentData()
 
         settings.save()
 
@@ -713,8 +663,6 @@ class SettingsDialog(QDialog):
         self.tab = QTabWidget(self)
         mainPage = MainSettingsPage(collection, self)
         self.tab.addTab(mainPage, self.tr("Main"))
-        viewPage = ViewSettingsPage(self)
-        self.tab.addTab(viewPage, self.tr("View"))
         if collection.isOpen():
             collectionPage = CollectionSettingsPage(collection, self)
             self.tab.addTab(collectionPage, self.tr("Collection"))
