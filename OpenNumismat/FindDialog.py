@@ -14,9 +14,8 @@ from OpenNumismat.Tools import Gui
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 
 
-@dataclass(frozen=True)
+@dataclass(slots=True, frozen=True)
 class ComparisonResult:
-    __slots__ = ("coin_id", "coin_title", "photo_id", "distance")
     coin_id: int
     coin_title: str
     photo_id: int

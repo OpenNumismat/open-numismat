@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from PySide6.QtCore import QT_TRANSLATE_NOOP, QObject
 from PySide6.QtWidgets import QApplication
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
@@ -114,12 +116,13 @@ TitleTemplateFields = ('value', 'unit', 'region', 'country', 'year',
                        'variety', 'defect', 'native_year',)
 
 
+@dataclass(slots=True)
 class CollectionField():
-    def __init__(self, id_, name, title, type_):
-        self.id = id_
-        self.name = name
-        self.title = title
-        self.type = type_
+    id: int
+    name: str
+    title: str
+    type: int
+    enabled: bool
 
 
 class CollectionFieldsBase(QObject):
@@ -232,7 +235,7 @@ class CollectionFieldsBase(QObject):
         self.fields = []
         for id_, field in enumerate(fields):
             self.fields.append(
-                            CollectionField(id_, field[0], field[1], field[2]))
+                    CollectionField(id_, field[0], field[1], field[2], False))
             setattr(self, self.fields[id_].name, self.fields[id_])
 
         self.systemFields = (self.id, self.createdat, self.updatedat,
