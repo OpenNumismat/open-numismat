@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from PySide6.QtCharts import QChart
 from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QIcon, QAction

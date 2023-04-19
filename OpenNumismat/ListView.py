@@ -3,7 +3,7 @@ import pickle
 import os.path
 
 from PySide6 import QtCore
-from PySide6.QtCore import Qt, QMargins, QSortFilterProxyModel
+from PySide6.QtCore import QMargins, QSortFilterProxyModel
 from PySide6.QtCore import QCollator, QLocale
 from PySide6.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
 from PySide6.QtCore import QRectF, QRect
