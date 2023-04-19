@@ -826,12 +826,13 @@ class AreaNiceChart(BaseChart):
         for s in serieses:
             self.chart().addSeries(s)
 
-        min_year = self.val_to_date(dates[0]).date().year()
-        max_year = self.val_to_date(dates[-1]).date().year()
-        ticks = min(max_year - min_year, 12) + 1
         axisX = QDateTimeAxis()
         axisX.setFormat("yyyy")
-        axisX.setTickCount(ticks)
+        if dates:
+            min_year = self.val_to_date(dates[0]).date().year()
+            max_year = self.val_to_date(dates[-1]).date().year()
+            ticks = min(max_year - min_year, 12) + 1
+            axisX.setTickCount(ticks)
         self.chart().addAxis(axisX, Qt.AlignBottom)
         for s in serieses:
             s.attachAxis(axisX)
