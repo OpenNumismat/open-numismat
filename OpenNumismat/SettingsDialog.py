@@ -6,7 +6,7 @@ from PySide6.QtGui import QIcon, QAction
 from PySide6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
-from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
+from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase, CollectionField
 from OpenNumismat.Reports import Report
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import statusIcon
@@ -375,17 +375,36 @@ class FieldsSettingsPage(QWidget):
         self.treeWidget.setHeaderHidden(True)
         self.treeWidget.itemSelectionChanged.connect(self.itemSelectionChanged)
 
-        image_item = QTreeWidgetItem((self.tr("Images"),))
-        main_item = QTreeWidgetItem((self.tr("Main details"),))
-        state_item = QTreeWidgetItem((self.tr("State"),))
-        buy_item = QTreeWidgetItem((self.tr("Buy"),))
-        sale_item = QTreeWidgetItem((self.tr("Sale"),))
-        map_item = QTreeWidgetItem((self.tr("Map"),))
-        parameters_item = QTreeWidgetItem((self.tr("Parameters"),))
-        design_item = QTreeWidgetItem((self.tr("Design"),))
-        classification_item = QTreeWidgetItem((self.tr("Classification"),))
-        system_item = QTreeWidgetItem((self.tr("System"),))
-        other_item = QTreeWidgetItem((self.tr("Other"),))
+        self.settings = collection.settings
+
+        coin_item = self.groupItem(self.treeWidget, 'coin_group_title')
+        coin_main_item = self.groupItem(coin_item, 'coin_main_group_title')
+        coin_state_item = self.groupItem(coin_item, 'coin_state_group_title')
+
+        market_item = self.groupItem(self.treeWidget, 'market_group_title')
+        market_buy_item = self.groupItem(market_item, 'market_buy_group_title')
+        market_sale_item = self.groupItem(market_item, 'market_sale_group_title')
+
+        map_item = self.groupItem(self.treeWidget, 'map_group_title')
+
+        parameters_item = self.groupItem(self.treeWidget, 'parameters_group_title')
+        parameters_parameters_item = self.groupItem(parameters_item, 'parameters_parameters_group_title')
+        parameters_minting_item = self.groupItem(parameters_item, 'parameters_minting_group_title')
+
+        design_item = self.groupItem(self.treeWidget, 'design_group_title')
+        design_obverse_item = self.groupItem(design_item, 'design_obverse_group_title')
+        design_reverse_item = self.groupItem(design_item, 'design_reverse_group_title')
+        design_edge_item = self.groupItem(design_item, 'design_edge_group_title')
+
+        classification_item = self.groupItem(self.treeWidget, 'classification_group_title')
+        classification_catalogue_item = self.groupItem(classification_item, 'classification_catalogue_group_title')
+        classification_price_item = self.groupItem(classification_item, 'classification_price_group_title')
+        classification_variation_item = self.groupItem(classification_item, 'classification_variation_group_title')
+
+        images_item = self.groupItem(self.treeWidget, 'images_group_title')
+
+        system_item = QTreeWidgetItem(self.treeWidget, (self.tr("System"),))
+        reserve_item = QTreeWidgetItem(self.treeWidget, (self.tr("Reserve"),))
 
         self.fields = collection.fields
         for field in self.fields:
@@ -398,55 +417,63 @@ class FieldsSettingsPage(QWidget):
                 checked = Qt.Checked
             item.setCheckState(0, checked)
 
-            if field.name in ('id', 'createdat', 'updatedat', 'sort_id'):
+            if field.name in ('image', 'id', 'createdat', 'updatedat', 'sort_id'):
                 system_item.addChild(item)
-            elif field.name in ('image', 'obverseimg', 'reverseimg', 'edgeimg',
-                                'photo1', 'photo2', 'photo3', 'photo4',
-                                'photo5', 'photo6',
-                                'varietyimg', 'signatureimg'):
-                image_item.addChild(item)
+            elif field.name in ('photo1', 'photo2', 'photo3', 'photo4',
+                                'photo5', 'photo6',):
+                images_item.addChild(item)
             elif field.name in ('title', 'region', 'country', 'period',
                                 'emitent', 'ruler', 'value', 'unit', 'year',
                                 'mintmark', 'mint', 'type', 'series',
                                 'subjectshort', 'native_year'):
-                main_item.addChild(item)
+                coin_main_item.addChild(item)
             elif field.name in ('status', 'grade', 'quantity', 'format',
                                 'condition', 'storage', 'barcode', 'defect',
                                 'features', 'grader', 'seat'):
-                state_item.addChild(item)
+                coin_state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
                                 'saller', 'payplace', 'payinfo'):
-                buy_item.addChild(item)
+                market_buy_item.addChild(item)
             elif field.name in ('saledate', 'saleprice', 'totalsaleprice',
                                 'buyer', 'saleplace', 'saleinfo'):
-                sale_item.addChild(item)
+                market_sale_item.addChild(item)
             elif field.name in ('address', 'latitude', 'longitude'):
                 map_item.addChild(item)
             elif field.name in ('material', 'fineness', 'weight', 'diameter',
-                                'thickness', 'shape', 'obvrev', 'issuedate',
-                                'mintage', 'dateemis', 'quality', 'note'):
+                                'thickness', 'shape', 'obvrev',):
+                parameters_parameters_item.addChild(item)
+            elif field.name in ('issuedate',
+                                'mintage', 'dateemis', 'quality',):
+                parameters_minting_item.addChild(item)
+            elif field.name in ('note',):
                 parameters_item.addChild(item)
-            elif field.name in ('obversedesign', 'obversedesigner', 'obverseengraver',
-                                'obversecolor', 'reversedesign', 'reversedesigner',
-                                'reverseengraver', 'reversecolor', 'edge', 'edgelabel',
-                                'signaturetype', 'signature', 'subject'):
+            elif field.name in ('obverseimg', 'obversedesign', 'obversedesigner',
+                                'obverseengraver', 'obversecolor',):
+                design_obverse_item.addChild(item)
+            elif field.name in ('reverseimg', 'reversedesign', 'reversedesigner',
+                                'reverseengraver', 'reversecolor',):
+                design_reverse_item.addChild(item)
+            elif field.name in ('edgeimg', 'edge', 'edgelabel',
+                                'signatureimg', 'signaturetype', 'signature',):
+                design_edge_item.addChild(item)
+            elif field.name in ('subject',):
                 design_item.addChild(item)
-            elif field.name in ('catalognum1', 'catalognum2', 'catalognum3', 'catalognum4',
-                                'rarity', 'price4', 'price3', 'price2', 'price1',
-                                'variety', 'varietydesc', 'obversevar',
-                                'reversevar', 'edgevar', 'url'):
+            elif field.name in ('catalognum1', 'catalognum2',
+                                'catalognum3', 'catalognum4',):
+                classification_catalogue_item.addChild(item)
+            elif field.name in ('price4', 'price3', 'price2', 'price1',):
+                classification_price_item.addChild(item)
+            elif field.name in ('variety', 'varietydesc', 'obversevar',
+                                'reversevar', 'edgevar', 'varietyimg',):
+                classification_variation_item.addChild(item)
+            elif field.name in ('rarity', 'url',):
                 classification_item.addChild(item)
             elif field.name in ('address', 'latitude', 'longitude'):
                 map_item.addChild(item)
             else:
-                other_item.addChild(item)
+                reserve_item.addChild(item)
 
-        for item in (image_item, main_item, state_item, buy_item, sale_item,
-                     map_item, parameters_item, design_item,
-                     classification_item, system_item, other_item):
-            if item.childCount() > 0:
-                self.treeWidget.addTopLevelItem(item)
-                item.setExpanded(True)
+        self.treeWidget.expandAll()
 
         self.renameButton = QPushButton(self.tr("Rename"), self)
         self.renameButton.clicked.connect(self.renameButtonClicked)
@@ -471,18 +498,25 @@ class FieldsSettingsPage(QWidget):
 
         self.setLayout(layout)
 
+    def groupItem(self, parent, group_name):
+        item = QTreeWidgetItem(parent, (self.settings[group_name],))
+        item.setData(0, self.DataRole, group_name)
+        item.setFlags(Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+
+        return item
+
     def itemSelectionChanged(self):
         self.renameButton.setEnabled(len(self.treeWidget.selectedItems()) > 0)
 
     def defaultFieldsButtonClicked(self):
         defaultFields = CollectionFieldsBase()
-        for i in range(self.treeWidget.topLevelItemCount()):
-            top_item = self.treeWidget.topLevelItem(i)
-            for j in range(top_item.childCount()):
-                item = top_item.child(j)
-                field = item.data(0, self.DataRole)
+        for item in self.treeChilds(self.treeWidget, True):
+            field = item.data(0, self.DataRole)
+            if isinstance(field, CollectionField):
                 defaultField = defaultFields.field(field.id)
                 item.setText(0, defaultField.title)
+            elif isinstance(field, str):
+                item.setText(0, self.settings.Default[field])
 
     def renameButtonClicked(self):
         items = self.treeWidget.selectedItems()
@@ -490,15 +524,39 @@ class FieldsSettingsPage(QWidget):
             self.treeWidget.editItem(items[0])
 
     def save(self):
-        for i in range(self.treeWidget.topLevelItemCount()):
-            top_item = self.treeWidget.topLevelItem(i)
-            for j in range(top_item.childCount()):
-                item = top_item.child(j)
-                field = item.data(0, self.DataRole)
+        for item in self.treeChilds(self.treeWidget, True):
+            field = item.data(0, self.DataRole)
+            if isinstance(field, CollectionField):
                 field.enabled = (item.checkState(0) == Qt.Checked)
                 field.title = item.text(0)
+            elif isinstance(field, str):
+                self.settings[field] = item.text(0)
 
         self.fields.save()
+        self.settings.save()
+
+    def treeChilds(self, tree, with_parent=False):
+        childs = []
+        for i in range(tree.topLevelItemCount()):
+            top_item = tree.topLevelItem(i)
+            if with_parent:
+                childs.append(top_item)
+            childs.extend(self.treeItemChilds(top_item, with_parent))
+
+        return childs
+
+    def treeItemChilds(self, tree_item, with_parent=False):
+        childs = []
+        for j in range(tree_item.childCount()):
+            item = tree_item.child(j)
+            if item.childCount():
+                if with_parent:
+                    childs.append(item)
+                childs.extend(self.treeItemChilds(item))
+            else:
+                childs.append(item)
+
+        return childs
 
 
 class ImportSettingsPage(QWidget):

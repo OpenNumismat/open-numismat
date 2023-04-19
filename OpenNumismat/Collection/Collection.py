@@ -7,6 +7,7 @@ from PySide6 import QtCore
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QImage, QPainter, QAction
 from PySide6.QtCore import Qt, QCryptographicHash, QLocale
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 
@@ -657,6 +658,25 @@ class CollectionSettings(BaseSettings):
             'ans_department': '',
             'ans_has_image': False,
             'title_template': '<value> <unit> <year> <subjectshort> <mintmark> <variety>',
+            'coin_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Coin"),
+            'coin_main_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Main details"),
+            'coin_state_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "State"),
+            'market_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Market"),
+            'market_buy_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Buy"),
+            'market_sale_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Sale"),
+            'map_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Map"),
+            'parameters_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Parameters"),
+            'parameters_parameters_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Parameters"),
+            'parameters_minting_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Minting"),
+            'design_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Design"),
+            'design_obverse_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Obverse"),
+            'design_reverse_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Reverse"),
+            'design_edge_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Edge"),
+            'classification_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Classification"),
+            'classification_catalogue_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Catalogue"),
+            'classification_price_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Price"),
+            'classification_variation_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Variation"),
+            'images_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Images"),
     }
 
     def __init__(self, db):
@@ -689,6 +709,12 @@ class CollectionSettings(BaseSettings):
             self.Default[status + '_status_title'] = QApplication.translate("Status", title)
         # Fill global statuses from settings
         Statuses.init(self)
+
+        for key in self.keys():
+            if '_group_title' in key:
+                self.Default[key] = QApplication.translate(
+                    "CollectionSettings", self.Default[key]
+                )
 
     def keys(self):
         return self.Default.keys()

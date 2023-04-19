@@ -44,13 +44,13 @@ class DetailsTabWidget(QTabWidget):
     def createCoinPage(self):
         main = self.mainDetailsLayout()
         state = self.stateLayout()
-        title = QApplication.translate('DetailsTabWidget', "Coin")
+        title = self.settings['coin_group_title']
         self.addTabPage(title, [main, self.Stretch, state])
 
     def createMapPage(self):
         coordinates = self.coordinatesLayout()
         if not coordinates.isEmpty():
-            title = QApplication.translate('DetailsTabWidget', "Map")
+            title = self.settings['map_group_title']
             map_ = self.mapLayout()
             if map_:
                 self.addTabPage(title, [coordinates, self.Stretch, map_])
@@ -58,7 +58,7 @@ class DetailsTabWidget(QTabWidget):
                 self.addTabPage(title, [coordinates, ])
 
     def createTrafficPage(self):
-        title = QApplication.translate('DetailsTabWidget', "Market")
+        title = self.settings['market_group_title']
         self.addTabPage(title, [])
 
     def createParametersPage(self):
@@ -67,7 +67,7 @@ class DetailsTabWidget(QTabWidget):
         note = self.noteLayout()
 
         if not parameters.isEmpty() or not minting.isEmpty() or not note.isEmpty():
-            title = QApplication.translate('DetailsTabWidget', "Parameters")
+            title = self.settings['parameters_group_title']
             self.addTabPage(title, [parameters, self.Stretch, minting, note])
 
     def createDesignPage(self):
@@ -77,7 +77,7 @@ class DetailsTabWidget(QTabWidget):
         subject = self.subjectLayout()
 
         if not obverse.isEmpty() or not reverse.isEmpty() or not edge.isEmpty() or not subject.isEmpty():
-            title = QApplication.translate('DetailsTabWidget', "Design")
+            title = self.settings['design_group_title']
             self.addTabPage(title, [obverse, reverse, self.Stretch, edge, subject])
 
     def createClassificationPage(self):
@@ -88,7 +88,7 @@ class DetailsTabWidget(QTabWidget):
         url = self.urlLayout()
 
         if not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
-            title = QApplication.translate('DetailsTabWidget', "Classification")
+            title = self.settings['classification_group_title']
             self.addTabPage(title, [catalogue, rarity, price, self.Stretch,
                                     variation, url])
 
@@ -212,7 +212,7 @@ class DetailsTabWidget(QTabWidget):
             item.widget().clear()
 
     def mainDetailsLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Main details")
+        title = self.settings['coin_main_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['title'])
@@ -231,7 +231,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def stateLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "State")
+        title = self.settings['coin_state_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['status'], self.items['grade'])
@@ -257,7 +257,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def payLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Buy")
+        title = self.settings['market_buy_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['paydate'], self.items['payprice'])
@@ -276,7 +276,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def saleLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Sale")
+        title = self.settings['market_sale_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['saledate'], self.items['saleprice'])
@@ -323,7 +323,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def parametersLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Parameters")
+        title = self.settings['parameters_parameters_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['material'])
@@ -335,7 +335,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def mintingLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Minting")
+        title = self.settings['parameters_minting_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['issuedate'], self.items['mintage'])
@@ -356,7 +356,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def obverseDesignLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Obverse")
+        title = self.settings['design_obverse_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['obversedesign'])
@@ -367,7 +367,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def reverseDesignLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Reverse")
+        title = self.settings['design_reverse_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['reversedesign'])
@@ -378,7 +378,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def edgeDesignLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Edge")
+        title = self.settings['design_edge_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['edge'])
@@ -407,7 +407,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def catalogueLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Catalogue")
+        title = self.settings['classification_catalogue_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['catalognum1'], self.items['catalognum2'])
@@ -416,7 +416,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def priceLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Price")
+        title = self.settings['classification_price_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['price4'], self.items['price3'])
@@ -425,7 +425,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def variationLayout(self):
-        title = QApplication.translate('DetailsTabWidget', "Variation")
+        title = self.settings['classification_variation_group_title']
         layout = BaseFormGroupBox(title)
 
         layout.addRow(self.items['variety'])
@@ -499,7 +499,7 @@ class DetailsTabWidget(QTabWidget):
         pageParts = self._createTrafficParts(status)
         page = self.createTabPage(pageParts)
 
-        title = QApplication.translate('DetailsTabWidget', "Market")
+        title = self.settings['market_group_title']
         self.insertTab(1, page, title)
         self.setCurrentIndex(pageIndex)
         
@@ -590,7 +590,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def createImagePage(self):
         images = self.imagesLayout()
         if not images.isEmpty():
-            self.addTabPage(self.tr("Images"), [images, ])
+            self.addTabPage(self.settings['images_group_title'], [images, ])
 
     def addItem(self, field):
         checkable = 0
@@ -652,7 +652,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
                 self.items[image_field].widget().setTitle(title)
 
     def mainDetailsLayout(self):
-        layout = BaseFormGroupBox(self.tr("Main details"))
+        title = self.settings['coin_main_group_title']
+        layout = BaseFormGroupBox(title)
         layout.layout.columnCount = 6
 
         btn = QPushButton(self.tr("Generate"))
@@ -680,7 +681,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def obverseDesignLayout(self):
-        layout = DesignFormLayout(self.tr("Obverse"))
+        title = self.settings['design_obverse_group_title']
+        layout = DesignFormLayout(title)
         layout.defaultHeight = 60
 
         layout.addImage(self.items['obverseimg'])
@@ -692,7 +694,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def reverseDesignLayout(self):
-        layout = DesignFormLayout(self.tr("Reverse"))
+        title = self.settings['design_reverse_group_title']
+        layout = DesignFormLayout(title)
         layout.defaultHeight = 60
 
         layout.addImage(self.items['reverseimg'])
@@ -704,7 +707,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def edgeDesignLayout(self):
-        layout = DesignFormLayout(self.tr("Edge"))
+        title = self.settings['design_edge_group_title']
+        layout = DesignFormLayout(title)
 
         layout.addImage(self.items['edgeimg'], 2)
         layout.addRow(self.items['edge'])
@@ -717,7 +721,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def variationLayout(self):
-        layout = DesignFormLayout(self.tr("Variation"))
+        title = self.settings['classification_variation_group_title']
+        layout = DesignFormLayout(title)
 
         layout.addImage(self.items['varietyimg'], 2)
         layout.addRow(self.items['variety'])
