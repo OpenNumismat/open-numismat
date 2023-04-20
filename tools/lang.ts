@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1">
 <context>
     <name></name>
     <message>
@@ -966,7 +966,90 @@ Please update OpenNumismat</source>
     </message>
 </context>
 <context>
+    <name>CollectionSettings</name>
+    <message>
+        <source>Coin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Market</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Buy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Design</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Obverse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reverse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Classification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalogue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CollectionSettingsPage</name>
+    <message>
+        <source>Add field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Title template</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>Max image side len</source>
         <translation type="unfinished"></translation>
@@ -980,15 +1063,15 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Images at bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Free format numeric fields</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Images at bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1000,7 +1083,7 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Used statuses</source>
+        <source>Used statuses:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1256,79 +1339,11 @@ Please update OpenNumismat</source>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <source>Coin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Market</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Parameters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Design</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Classification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Main details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>State</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Buy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pass</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edge</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Catalogue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1461,47 +1476,11 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <source>Images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Main details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>State</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Buy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Map</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Parameters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Design</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Classification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Other</source>
+        <source>Reserve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1549,33 +1528,44 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
+    <name>FindDialog</name>
+    <message>
+        <source>Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hashing method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Similarity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No image fields selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Processing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <source>Images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Main details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Generate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edge</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Variation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1799,7 +1789,8 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>No image available
-(right-click to add an image)</source>
+(double-click, right-click or
+drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2078,6 +2069,10 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2091,10 +2086,6 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Font size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use BLAF palette in statistics charts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2646,6 +2637,82 @@ Created new one</source>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chart settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blue Cerulean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brown Sand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blue Ncs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High Contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blue Icy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chart theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Multicolor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use BLAF palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show legend (Pie)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Legend position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nice years (Area)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StatisticsView</name>
@@ -2718,18 +2785,6 @@ Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Multicolor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show legend</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nice years</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Region:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2762,11 +2817,15 @@ Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Zoom In (50%)</source>
+        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Zoom Out (50%)</source>
+        <source>Zoom In (25%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Out (25%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2785,11 +2844,7 @@ Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pass</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Owned</source>
+        <source>Bidding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2797,7 +2852,15 @@ Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Bidding</source>
+        <source>Owned</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replacement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2805,11 +2868,11 @@ Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sale</source>
+        <source>Wish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Wish</source>
+        <source>Sale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2817,7 +2880,7 @@ Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Duplicate</source>
+        <source>Pass</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
