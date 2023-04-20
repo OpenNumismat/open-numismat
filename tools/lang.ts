@@ -337,11 +337,11 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg *.bmp *.tiff *.gif)</source>
+        <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All files (*.*)</source>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

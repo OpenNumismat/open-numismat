@@ -13,7 +13,7 @@ srcFiles = []
 for dirname, dirnames, filenames in os.walk('../OpenNumismat'):
     for filename in filenames:
         fileName, fileExtension = os.path.splitext(filename)
-        if fileExtension in ('.py', '.ui'):
+        if fileExtension in ('.py', '.ui') and fileName not in ('resources',):
             srcFiles.append(os.path.join(dirname, filename))
 
 outputfile = 'lang.ts'
