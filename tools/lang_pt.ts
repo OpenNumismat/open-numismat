@@ -580,11 +580,11 @@ Por favor, actualize o OpenNumismat</translation>
     </message>
     <message>
         <source>Can&apos;t make a collection backup at %s</source>
-        <translation>Impossível fazer cópia de segurança em %s</translation>
+        <translation>Impossível fazer salvaguarda em %s</translation>
     </message>
     <message>
         <source>Backup</source>
-        <translation>Cópia de segurança</translation>
+        <translation>Salvaguarda</translation>
     </message>
     <message>
         <source>Backup saved as %s</source>
