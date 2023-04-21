@@ -2876,7 +2876,7 @@ Criada uma nova</translation>
     </message>
     <message>
         <source>Replacement</source>
-        <translation>Substituição</translation>
+        <translation>Substituto</translation>
     </message>
     <message>
         <source>Sold</source>
