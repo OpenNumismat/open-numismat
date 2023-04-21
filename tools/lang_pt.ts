@@ -3187,7 +3187,7 @@ Adicione uma nova primeiro.</translation>
     <name>YearCalculatorDialog</name>
     <message>
         <source>Year calculator</source>
-        <translation>Calculador de anos</translation>
+        <translation>Calculadora de anos</translation>
     </message>
     <message>
         <source>Hebrew</source>
