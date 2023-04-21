@@ -3151,7 +3151,7 @@ Adicione uma nova primeiro.</translation>
     </message>
     <message>
         <source>Vacuum...</source>
-        <translation>Vácuo...</translation>
+        <translation>Esvaziar...</translation>
     </message>
 </context>
 <context>
