@@ -3165,7 +3165,7 @@ Adicione uma nova primeiro.</translation>
     <name>UpdaterTo5</name>
     <message>
         <source>Saving...</source>
-        <translation>A Guardar...</translation>
+        <translation>A gravar...</translation>
     </message>
 </context>
 <context>
