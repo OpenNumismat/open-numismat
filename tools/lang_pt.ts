@@ -2872,7 +2872,7 @@ Criada uma nova</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Duplicar</translation>
+        <translation>Duplicada</translation>
     </message>
     <message>
         <source>Replacement</source>
