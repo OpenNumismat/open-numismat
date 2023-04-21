@@ -576,7 +576,7 @@ Por favor, actualize o OpenNumismat</translation>
     </message>
     <message>
         <source>Backup collection</source>
-        <translation>Cópia de segurança da colecção</translation>
+        <translation>Salvaguardar a colecção</translation>
     </message>
     <message>
         <source>Can&apos;t make a collection backup at %s</source>
