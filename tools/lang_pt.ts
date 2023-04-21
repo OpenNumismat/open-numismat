@@ -1162,8 +1162,7 @@ Por favor, actualize o OpenNumismat</translation>
     </message>
     <message>
         <source>Specify more parameters</source>
-        <translation>
-Especifique mais parâmetros</translation>
+        <translation>Especifique mais parâmetros</translation>
     </message>
     <message>
         <source>Nothing found</source>
