@@ -2363,7 +2363,7 @@ arraste e largue para adicionar)</translation>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
-        <translation>Calculador de anos</translation>
+        <translation>Calculadora de anos</translation>
     </message>
 </context>
 <context>
