@@ -123,7 +123,7 @@
     </message>
     <message>
         <source>Vacuum...</source>
-        <translation>Vácuo...</translation>
+        <translation>Esvaziar...</translation>
     </message>
     <message>
         <source>Save as</source>
