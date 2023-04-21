@@ -368,7 +368,7 @@ Mudar a posição do item só está disponível na ordenação predefinida. Limp
     </message>
     <message>
         <source>%n coin(s) selected</source>
-        <translation>%n moedas seleccionadas</translation>
+        <translation>%n moeda(s) seleccionada(s)</translation>
     </message>
     <message>
         <source>Report preview</source>
