@@ -1552,7 +1552,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Start</source>
-        <translation>Старт</translation>
+        <translation>Начало</translation>
     </message>
     <message>
         <source>Similarity</source>
