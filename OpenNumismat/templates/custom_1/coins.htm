@@ -136,7 +136,7 @@
   <td colspan="4" class="cell_full text"><b>{{record.note}}</b></td>
 </tr>
 {% endif %}
-{% if record.status_raw in ['owned', 'wish', 'sale', 'sold'] %}
+{% if record.status_raw in ['owned', 'wish', 'sale', 'sold', 'replacement'] %}
 <tr>
   <td colspan="2" class="cell_left title" align="center">Информация о покупке:</td>
   {% if record.status_raw in ['owned', 'wish', 'sale'] %}
