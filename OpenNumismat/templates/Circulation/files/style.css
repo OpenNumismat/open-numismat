@@ -1,0 +1,108 @@
+html, body {
+    font-family: arial, sans-serif;
+    font-size: 1em;
+    margin: 0 auto;
+}
+p.breakhere {
+    page-break-before: always;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+#bodyContent {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.title {
+    border-bottom: thin solid black;
+    padding-bottom: 0.8em;
+    margin-bottom: 0.8em;
+    margin-top: 0.8em;
+}
+.footer {
+    border-top: thin solid black;
+    padding-top: 0.8em;
+    margin-bottom: 0.8em;
+    margin-top: 0.8em;
+}
+div.row {
+    page-break-inside: avoid;
+    page-break-after:auto;
+    width: 100%;
+    margin: 0.5em auto;
+}
+header {
+    font-size: 1.5em;
+}
+
+.coins {
+    border: 0.05rem solid #CCC;
+    text-align: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: Verdana,Tahoma,Arial,sans-serif;
+}
+
+.coins thead th {
+    background: #808080;
+    padding: 4px;
+    color: #FFF;
+    font-size: 12px;
+    border: 0.05rem #C0C0C0 solid;
+    white-space: nowrap;
+}
+
+.coins tbody th {
+    background: #EEEEEE;
+    color: #203450;
+/*    display: inline-block;*/
+    padding: 0 4px;
+    font-size: 12px;
+    border: 0.05rem #C0C0C0 solid;
+    white-space: nowrap;
+    min-width: 44px;
+}
+
+.coins tbody td {
+    background: none;
+    color: #203450;
+/*    display: inline-block;*/
+    padding: 0 4px;
+    font-size: 11px;
+    border: 0.05rem #C0C0C0 solid;
+    white-space: nowrap;
+    min-width: 44px;
+}
+
+.coins .owned {
+    background: #BBDDAA;
+}
+
+.coins .need {
+    background: #FFDD77;
+}
+
+.coins header {
+    font-size: 1.3em;
+}
+div.aside{
+    font-size: 11pt;
+    line-height: 1.2;
+    font-family: Trebuchet MS, Arial;
+}
+div.aside div.div-title{
+    display: table-cell;
+    vertical-align: bottom;
+}
+div.div-image{
+    display: table-cell;
+    vertical-align: bottom;
+}
+div.div-mint table{
+    
+}
+div.div-image {
+}
+div.div-title {
+    padding-left: 1em;
+}

@@ -48,7 +48,7 @@
       <td>{{record_item.issuedate}}</td><td>{{record_item.country}}</td><td>{{record_item.mintmark}}</td><td style="text-align: right;">{{record_item.mintage}}</td>
       <td><input type="checkbox"
           {% for status_group in mint_group.list|groupby('status_raw') %}
-            {% if status_group.grouper in ('owned', 'ordered', 'sale', 'duplicate') %}
+            {% if status_group.grouper in ('owned', 'ordered', 'sale', 'duplicate', 'replacement') %}
         checked
             {% endif %}
           {% endfor %}
@@ -83,7 +83,7 @@
       <td>{{record_item.issuedate}}</td><td>{{record_item.country}}</td><td>{{record_item.mintmark}}</td><td style="text-align: right;">{{record_item.mintage}}</td>
       <td><input type="checkbox"
           {% for status_group in mint_group.list|groupby('status_raw') %}
-            {% if status_group.grouper in ('owned', 'ordered', 'sale', 'duplicate') %}
+            {% if status_group.grouper in ('owned', 'ordered', 'sale', 'duplicate', 'replacement') %}
         checked
             {% endif %}
           {% endfor %}
