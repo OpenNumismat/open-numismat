@@ -2745,7 +2745,7 @@ Created new one</source>
     </message>
     <message>
         <source>Stacked bar</source>
-        <translation>Колона с наслагване</translation>
+        <translation>Колонна с наслагване</translation>
     </message>
     <message>
         <source>Progress</source>
