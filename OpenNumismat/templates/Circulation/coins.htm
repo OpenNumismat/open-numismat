@@ -20,18 +20,20 @@
     {% for period_group in country_group.list|groupby('period') %}
       <header>{{ country_group.grouper }} • {{ period_group.grouper }}</header>
 
-      {%- set vars = {'max_mint_count': 0} %}
+      {%- set max_variety_count = namespace(value=0) %}
+      {%- set max_mint_count = namespace(value=0) %}
+      {%- set vars = {'max_mint_count': 0, 'max_variety_count': 0} %}
       {%- for year_group in period_group.list|groupby('year') %}
         {%- set mint_count = year_group.list|groupby('mintmark')|length %}
-        {%- if year_group.list|groupby('mintmark')|length > vars.max_mint_count %}
-          {%- if vars.update({'max_mint_count': mint_count}) %}{% endif %}
+        {%- if mint_count > max_mint_count.value %}
+          {%- set max_mint_count.value = mint_count %}
         {%- endif %}
       {%- endfor %}
       
       <table class="coins">
         <thead>
           <th>{{titles.year}}</th>
-          {%- if vars.max_mint_count > 1 %}
+          {%- if max_mint_count.value > 1 %}
             <th>{{titles.mintmark}}</th>
           {%- endif %}
           {%- for unit_group in period_group.list|groupby('unit') %}
@@ -41,57 +43,121 @@
           {%- endfor %}
         </thead>
         <tbody>
-          {%- if vars.max_mint_count > 1 %}
+          {%- if max_mint_count.value > 1 %}
             {%- for years_group in period_group.list|groupby('year')|reverse %}
+
+              {%- set total_variety_count = namespace(value=0) %}
               {%- for mints_group in years_group.list|groupby('mintmark') %}
-                <tr>
-                  {%- if loop.first %}
-                    <th rowspan="{{ loop.length }}">{{ years_group.grouper }}</th>
-                  {%- endif %}
-                  <th>{{ mints_group.grouper }}</th>
-
-                  {%- for unit_group in period_group.list|groupby('unit') %}
-                    {%- for value_group in unit_group.list|groupby('value_raw') %}
-
-                      {%- set coins_group = value_group.list | selectattr("year", "equalto", years_group.grouper) | list | selectattr("mintmark", "equalto", mints_group.grouper) | list %}
-                      {%- if coins_group | length %}
-                        {%- set coins_group_owned = coins_group | selectattr("status_raw", "in", ('owned', 'ordered', 'sale', 'duplicate', 'replacement')) | list %}
-                        {%- if coins_group_owned | length %}
-                          <td class="owned">{{ coins_group_owned | length }}</td>
-                        {%- else %}
-                          <td class="need"></td>
-                        {%- endif %}
-                      {%- else %}
-                        <td class="empty">-</td>
-                      {%- endif %}
-
-                    {%- endfor %}
+                {%- set max_variety_count = namespace(value=0) %}
+                {%- for unit_group in mints_group.list|groupby('unit') %}
+                  {%- for value_group in unit_group.list|groupby('value') %}
+                    {%- set variety_count = value_group.list|groupby('variety')|length %}
+                    {%- if variety_count > max_variety_count.value %}
+                      {%- set max_variety_count.value = variety_count %}
+                    {%- endif %}
                   {%- endfor %}
-                </tr>
+                {%- endfor %}
+                {%- set total_variety_count.value = total_variety_count.value + max_variety_count.value %}
+              {%- endfor %}
+
+              {%- for mints_group in years_group.list|groupby('mintmark') %}
+                {%- set mints_loop = loop %}
+
+                {%- set max_variety_count = namespace(value=0) %}
+                {%- for unit_group in mints_group.list|groupby('unit') %}
+                  {%- for value_group in unit_group.list|groupby('value') %}
+                    {%- set variety_count = value_group.list|groupby('variety')|length %}
+                    {%- if variety_count > max_variety_count.value %}
+                      {%- set max_variety_count.value = variety_count %}
+                    {%- endif %}
+                  {%- endfor %}
+                {%- endfor %}
+
+                {%- for n in range(max_variety_count.value) %}
+                  <tr>
+                    {%- if mints_loop.first %}
+                      <th rowspan="{{ total_variety_count.value }}">{{ years_group.grouper }}</th>
+                    {%- endif %}
+
+                    {%- if loop.first %}
+                      <th rowspan="{{ loop.length }}">{{ mints_group.grouper }}</th>
+                    {%- endif %}
+
+                    {%- for unit_group in period_group.list|groupby('unit') %}
+                      {%- for value_group in unit_group.list|groupby('value_raw') %}
+
+                        {%- set coins_group = value_group.list | selectattr("year", "equalto", years_group.grouper) | list | selectattr("mintmark", "equalto", mints_group.grouper) | list %}
+                        {%- for variety_group in coins_group|groupby('variety') %}
+                          {%- if loop.index0 == n %}
+                            {%- set coins_group_owned = variety_group.list | selectattr("status_raw", "in", ('owned', 'ordered', 'sale', 'duplicate', 'replacement')) | list %}
+                            {%- if coins_group_owned | length %}
+                              <td class="owned" {% if loop.last %}rowspan="{{ max_variety_count.value - loop.length + 1 }}{% endif %}">
+                                {{ coins_group_owned | length }} {% if loop.length > 1 %}({{ variety_group.grouper }}){% endif %}
+                              </td>
+                            {%- else %}
+                              <td class="need" {% if loop.last %}rowspan="{{ max_variety_count.value - loop.length + 1 }}{% endif %}">
+                                {%- if loop.length > 1 %}({{ variety_group.grouper }}){% endif %}
+                              </td>
+                            {%- endif %}
+                          {%- endif %}
+                        {%- else %}
+                          {%- if n == 0 %}
+                            <td class="empty" rowspan="{{ max_variety_count.value }}">-</td>
+                          {%- endif %}
+                        {%- endfor %}
+
+                      {%- endfor %}
+                    {%- endfor %}
+                  </tr>
+                {%- endfor %}
               {%- endfor %}
             {%- endfor %}
           {%- else %}
             {%- for years_group in period_group.list|groupby('year')|reverse %}
+
+              {%- set max_variety_count = namespace(value=0) %}
+              {%- for unit_group in years_group.list|groupby('unit') %}
+                {%- for value_group in unit_group.list|groupby('value') %}
+                  {%- set variety_count = value_group.list|groupby('variety')|length %}
+                  {%- if variety_count > max_variety_count.value %}
+                    {%- set max_variety_count.value = variety_count %}
+                  {%- endif %}
+                {%- endfor %}
+              {%- endfor %}
+
+              {%- for n in range(max_variety_count.value) %}
               <tr>
-                <th>{{ years_group.grouper }}</th>
+                {%- if loop.first %}
+                  <th rowspan="{{ max_variety_count.value }}">{{ years_group.grouper }}</th>
+                {%- endif %}
                 {%- for unit_group in period_group.list|groupby('unit') %}
                   {%- for value_group in unit_group.list|groupby('value_raw') %}
 
                     {%- set coins_group = value_group.list | selectattr("year", "equalto", years_group.grouper) | list %}
-                    {%- if coins_group | length %}
-                      {%- set coins_group_owned = coins_group | selectattr("status_raw", "in", ('owned', 'ordered', 'sale', 'duplicate', 'replacement')) | list %}
-                      {%- if coins_group_owned | length %}
-                        <td class="owned">{{ coins_group_owned | length }}</td>
-                      {%- else %}
-                        <td class="need"></td>
+                    {%- for variety_group in coins_group|groupby('variety') %}
+                      {%- if loop.index0 == n %}
+                        {%- set coins_group_owned = variety_group.list | selectattr("status_raw", "in", ('owned', 'ordered', 'sale', 'duplicate', 'replacement')) | list %}
+                        {%- if coins_group_owned | length %}
+                          <td class="owned" rowspan="{{ max_variety_count.value - loop.length + 1 }}">
+                            {{ coins_group_owned | length }} {% if loop.length > 1 %}({{ variety_group.grouper }}){% endif %}
+                          </td>
+                        {%- else %}
+                          <td class="need" rowspan="{{ max_variety_count.value - loop.length + 1 }}">
+                            {%- if loop.length > 1 %}({{ variety_group.grouper }}){% endif %}
+                          </td>
+                        {%- endif %}
                       {%- endif %}
                     {%- else %}
-                      <td class="empty">-</td>
-                    {%- endif %}
-                  {%- endfor %}
+                      {%- if n == 0 %}
+                        <td class="empty" rowspan="{{ max_variety_count.value }}">-</td>
+                      {%- endif %}
+                    {%- endfor %}
 
+                  {%- endfor %}
                 {%- endfor %}
               </tr>
+              {%- endfor %}
+
             {%- endfor %}
           {%- endif %}
         </tbody>
