@@ -60,7 +60,7 @@ class BaseTableView(QTableView):
         self.selectedId = None
 
         self.listCountLabel = QLabel()
-        self.listSelectedLabel = QLabel(QApplication.translate('BaseTableView', "0 coins selected"))
+        self.listSelectedLabel = QLabel(QApplication.translate('BaseTableView', "0 records selected"))
 
     def _sortChangedMessage(self):
         return QMessageBox.information(
@@ -109,7 +109,7 @@ class BaseTableView(QTableView):
         query.first()
         totalCount = query.record().value(0)
 
-        labelText = QApplication.translate('BaseTableView', "%d/%d coins") % (newCount, totalCount)
+        labelText = QApplication.translate('BaseTableView', "%d/%d records") % (newCount, totalCount)
         self.listCountLabel.setText(labelText)
 
     def itemDClicked(self, _index):
@@ -158,7 +158,7 @@ class BaseTableView(QTableView):
 
     def selectionChanged(self, selected, deselected):
         count = len(self.selectedCoins())
-        label = QApplication.translate('BaseTableView', "%n coin(s) selected",
+        label = QApplication.translate('BaseTableView', "%n record(s) selected",
                                        '', count)
         self.listSelectedLabel.setText(label)
         return super().selectionChanged(selected, deselected)
