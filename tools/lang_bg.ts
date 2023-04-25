@@ -2733,11 +2733,11 @@ Created new one</source>
     <name>StatisticsView</name>
     <message>
         <source>Bar</source>
-        <translation>Колона</translation>
+        <translation>Колонна</translation>
     </message>
     <message>
         <source>Horizontal bar</source>
-        <translation>Хоризонтална колона</translation>
+        <translation>Хоризонтална колонна</translation>
     </message>
     <message>
         <source>Pie</source>
