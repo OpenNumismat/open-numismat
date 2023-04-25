@@ -2726,7 +2726,7 @@ Created new one</source>
     </message>
     <message>
         <source>Nice years (Area)</source>
-        <translation>Красиви години (Площна)</translation>
+        <translation>Красиви години (Площна диаграма)</translation>
     </message>
 </context>
 <context>
