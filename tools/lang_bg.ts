@@ -2726,7 +2726,7 @@ Created new one</source>
     </message>
     <message>
         <source>Nice years (Area)</source>
-        <translation>Красиви години (Област)</translation>
+        <translation>Красиви години (Площна)</translation>
     </message>
 </context>
 <context>
@@ -2753,7 +2753,7 @@ Created new one</source>
     </message>
     <message>
         <source>Area</source>
-        <translation>Област</translation>
+        <translation>Площна</translation>
     </message>
     <message>
         <source>GeoChart</source>
