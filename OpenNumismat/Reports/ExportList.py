@@ -1,7 +1,11 @@
 import codecs
 import csv
+import io
 import html
 import openpyxl
+from PIL import Image
+
+from PySide6.QtCore import QByteArray
 
 
 class __ExportBase():
@@ -22,6 +26,9 @@ class __ExportBase():
     def writeRow(self, row):
         pass
 
+    def acceptImages(self):
+        return False
+
 
 class ExportToExcel(__ExportBase):
 
@@ -30,6 +37,8 @@ class ExportToExcel(__ExportBase):
         self._ws = self._wb.active
         self._ws.title = self.title
 
+        self._current_row = 1
+
     def close(self):
         self._wb.save(self.fileName)
 
@@ -37,7 +46,23 @@ class ExportToExcel(__ExportBase):
         self._ws.append(headers)
 
     def writeRow(self, row):
+        for i, item in enumerate(row):
+            if isinstance(item, QByteArray):
+                image_data = item.data()
+                image = Image.open(io.BytesIO(image_data))
+                img = openpyxl.drawing.image.Image(image)
+
+                cell = self._ws.cell(self._current_row + 1, i + 1)
+                self._ws.add_image(img, cell.coordinate)
+
+                row[i] = None
+
         self._ws.append(row)
+
+        self._current_row += 1
+
+    def acceptImages(self):
+        return True
 
 
 class ExportToHtml(__ExportBase):

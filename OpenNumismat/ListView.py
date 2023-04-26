@@ -255,7 +255,7 @@ class BaseTableView(QTableView):
                     continue
 
                 field = model.fields.field(param.fieldid)
-                if field.type in Type.ImageTypes:
+                if not export.acceptImages() and field.type in Type.ImageTypes:
                     continue
 
                 parts.append(field.title)
@@ -269,11 +269,11 @@ class BaseTableView(QTableView):
 
                 parts = []
                 for param in self.listParam.columns:
-                    field = model.fields.field(param.fieldid)
-                    if field.type in Type.ImageTypes:
+                    if not param.enabled:
                         continue
 
-                    if not param.enabled:
+                    field = model.fields.field(param.fieldid)
+                    if not export.acceptImages() and field.type in Type.ImageTypes:
                         continue
 
                     field_index = model.index(i, model.fieldIndex(field.name))
