@@ -1143,7 +1143,7 @@ class StatisticsView(QWidget):
         else:
             sql_filter = ""
         
-        sql = "SELECT count(*), %s FROM coins %s GROUP BY %s" % (
+        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins %s GROUP BY %s" % (
             sql_field, sql_filter, sql_field)
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
@@ -1279,7 +1279,7 @@ class StatisticsView(QWidget):
             sql_field = 'sum(totalpayprice)'
             chart.setLabel(self.tr("Total paid"))
         else:
-            sql_field = 'count(*)'
+            sql_field = "sum(iif(quantity!='',quantity,1))"
             chart.setLabel(self.tr("Number of coins"))
 
         period = self.periodSelector.currentData()
@@ -1408,7 +1408,7 @@ class StatisticsView(QWidget):
                 date_field = "strftime('%%Y', %s)" % area
         else:
             date_field = area
-        sql = "SELECT count(*), %s, %s FROM coins"\
+        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s, %s FROM coins"\
               " WHERE %s"\
               " GROUP BY %s, %s" % (
                     date_field, sql_field,
@@ -1483,7 +1483,7 @@ class StatisticsView(QWidget):
         else:
             date_field = "strftime('%Y', createdat)"
 
-        sql = "SELECT count(*), %s FROM coins"\
+        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins"\
               " %s"\
               " GROUP BY %s" % (date_field, sql_filter, date_field)
         query = QSqlQuery(self.model.database())
@@ -1504,7 +1504,7 @@ class StatisticsView(QWidget):
         else:
             date_field = "strftime('%Y', paydate)"
 
-        sql = "SELECT count(*), %s FROM coins"\
+        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins"\
               " WHERE %s"\
               " GROUP BY %s" % (date_field, ' AND '.join(sql_filters), date_field)
         query = QSqlQuery(self.model.database())
@@ -1527,7 +1527,7 @@ class StatisticsView(QWidget):
         else:
             date_field = "strftime('%Y', saledate)"
 
-        sql = "SELECT count(*), %s FROM coins"\
+        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins"\
               " WHERE %s"\
               " GROUP BY %s" % (date_field, ' AND '.join(sql_filters), date_field)
         query = QSqlQuery(self.model.database())
@@ -1566,7 +1566,7 @@ class StatisticsView(QWidget):
         else:
             sql_filter = ""
 
-        sql = "SELECT count(*), IFNULL(country,'') FROM coins %s GROUP BY IFNULL(country,'')" % sql_filter
+        sql = "SELECT sum(iif(quantity!='',quantity,1)), IFNULL(country,'') FROM coins %s GROUP BY IFNULL(country,'')" % sql_filter
         query = QSqlQuery(self.model.database())
         query.exec_(sql)
         xx = []
