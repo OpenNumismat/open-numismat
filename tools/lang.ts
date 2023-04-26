@@ -348,24 +348,12 @@ The application will need to restart now.</source>
 <context>
     <name>BaseTableView</name>
     <message>
-        <source>0 coins selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Custom sorting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Default sort order changed.
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%d/%d coins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%n coin(s) selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -423,6 +411,18 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Deleting records</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>0 records selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%d/%d records</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%n record(s) selected</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -968,10 +968,6 @@ Please update OpenNumismat</source>
 <context>
     <name>CollectionSettings</name>
     <message>
-        <source>Coin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Main details</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1037,6 +1033,14 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overall</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Technical data</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2216,10 +2220,6 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Coin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2345,6 +2345,10 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>New version is available. Download it now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Record</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
