@@ -617,7 +617,7 @@ class CollectionModel(QSqlTableModel):
 
 class CollectionSettings(BaseSettings):
     Default = {
-            'Version': 8,
+            'Version': 9,
             'Type': version.AppName,
             'Password': cryptPassword(),
             'ImageSideLen': 1024,

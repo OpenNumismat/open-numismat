@@ -43,6 +43,9 @@ class Updater(QtCore.QObject):
             if self.currentVersion < 8:
                 updater = UpdaterTo8(self.collection)
                 updater.update()
+            if self.currentVersion < 9:
+                updater = UpdaterTo9(self.collection)
+                updater.update()
 
             self.__finalize()
 
@@ -546,6 +549,74 @@ class UpdaterTo8(_Updater):
         self._updateRecord()
 
         self.collection.settings['Version'] = 8
+        self.collection.settings.save()
+
+        self.db.commit()
+
+        self._finish()
+
+
+class UpdaterTo9(_Updater):
+
+    def __init__(self, collection):
+        super().__init__(collection)
+        self.progressDlg.setMinimumDuration(0)
+
+    def getTotalCount(self):
+        return 12 + 2
+
+    def update(self):
+        self._begin()
+
+        self.db.transaction()
+
+        fields = (
+            'composition',
+            'width',
+            'height',
+            'technique',
+            'modification',
+            'axis',
+            'real_weight',
+            'real_diameter',
+            'rating',
+            'buying_invoice',
+            'sale_invoice',
+        )
+        for field in fields:
+            self._updateRecord()
+
+            fieldDesc = getattr(self.collection.fields, field)
+            fieldDesc.enabled = False
+            query = QSqlQuery(self.db)
+            query.prepare("INSERT INTO fields (id, title, enabled)"
+                          " VALUES (?, ?, ?)")
+            query.addBindValue(fieldDesc.id)
+            query.addBindValue(fieldDesc.title)
+            query.addBindValue(int(False))
+            query.exec_()
+
+            sql = "ALTER TABLE coins ADD COLUMN %s %s" % (field, Type.toSql(fieldDesc.type))
+            QSqlQuery(sql, self.db)
+
+            self.collection.fields.userFields.append(fieldDesc)
+
+        self._updateRecord()
+
+        sql = """CREATE TABLE tags (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    tag TEXT,
+                    parent_id INTEGER)"""
+        QSqlQuery(sql, self.db)
+
+        self._updateRecord()
+
+        sql = """CREATE TABLE coins_tags (
+                    coin_id INTEGER,
+                    tag_id INTEGER)"""
+        QSqlQuery(sql, self.db)
+
+        self.collection.settings['Version'] = 9
         self.collection.settings.save()
 
         self.db.commit()

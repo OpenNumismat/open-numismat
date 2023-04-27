@@ -235,6 +235,17 @@ class CollectionFieldsBase(QObject):
                 ('grader', QApplication.translate('CollectionFieldsBase', "Grader"), Type.String),
                 ('seat', QApplication.translate('CollectionFieldsBase', "Seat"), Type.String),
                 ('native_year', QApplication.translate('CollectionFieldsBase', "Year on coin"), Type.String),
+                ('composition', QApplication.translate('CollectionFieldsBase', "Composition"), Type.String),
+                ('width', QApplication.translate('CollectionFieldsBase', "Width"), Type.Value),
+                ('height', QApplication.translate('CollectionFieldsBase', "Height"), Type.Value),
+                ('technique', QApplication.translate('CollectionFieldsBase', "Technique"), Type.String),
+                ('modification', QApplication.translate('CollectionFieldsBase', "Modification"), Type.String),
+                ('axis', QApplication.translate('CollectionFieldsBase', "Die axis"), Type.Number),
+                ('real_weight', QApplication.translate('CollectionFieldsBase', "Weight"), Type.Value),
+                ('real_diameter', QApplication.translate('CollectionFieldsBase', "Diameter"), Type.Value),
+                ('rating', QApplication.translate('CollectionFieldsBase', "Rating"), Type.String),
+                ('buying_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
+                ('sale_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
             ]
 
         self.fields = []
