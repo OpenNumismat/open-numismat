@@ -304,7 +304,6 @@ class Reference(QtCore.QObject):
         self.__createReferenceSection(ref_country, fields.series,
                                       self.tr("S"), True)
         self.__createReferenceSection(None, fields.grade, self.tr("G"))
-        self.__createReferenceSection(None, fields.material, self.tr("M"))
         self.__createReferenceSection(None, fields.shape, self.tr("F"))
         self.__createReferenceSection(None, fields.quality, self.tr("Q"))
         self.__createReferenceSection(None, fields.rarity, self.tr("R"))
@@ -328,6 +327,9 @@ class Reference(QtCore.QObject):
         if 'edge' in self.userFields or 'signaturetype' in self.userFields:
             ref_edge = ReferenceSection('edge', self.tr("Edge"))
             self.sections.append(ref_edge)
+        if 'material' in self.userFields or 'material2' in self.userFields:
+            ref_material = ReferenceSection('material', self.tr("Material"), self.tr("M"))
+            self.sections.append(ref_material)
 
     def __createReferenceSection(self, parentRef, field,
                                  letter='…', sort=False):
