@@ -349,10 +349,6 @@ The application will need to restart now.</source>
 <context>
     <name>BaseTableView</name>
     <message>
-        <source>0 coins selected</source>
-        <translation>Не са избрани монети</translation>
-    </message>
-    <message>
         <source>Custom sorting</source>
         <translation>Персонализирано сортиране</translation>
     </message>
@@ -361,14 +357,6 @@ The application will need to restart now.</source>
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>Реда на сортиране по подразбиране е променен.
 Промяната на позицията на елемента е достъпна само при подреждане по подразбиране. Да се изчисти ли реда на сортиране?</translation>
-    </message>
-    <message>
-        <source>%d/%d coins</source>
-        <translation>%d/%d монета/и</translation>
-    </message>
-    <message>
-        <source>%n coin(s) selected</source>
-        <translation>%n избрана/и монета/и</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -427,6 +415,18 @@ Close the file and try again.</source>
     <message>
         <source>Deleting records</source>
         <translation>Изтриване на записи</translation>
+    </message>
+    <message>
+        <source>0 records selected</source>
+        <translation>Не са избрани записи</translation>
+    </message>
+    <message>
+        <source>%d/%d records</source>
+        <translation>%d/%d записи</translation>
+    </message>
+    <message>
+        <source>%n record(s) selected</source>
+        <translation>%n избран/и запис/и</translation>
     </message>
 </context>
 <context>
@@ -976,10 +976,6 @@ Please update OpenNumismat</source>
 <context>
     <name>CollectionSettings</name>
     <message>
-        <source>Coin</source>
-        <translation>Монета</translation>
-    </message>
-    <message>
         <source>Main details</source>
         <translation>Основни данни</translation>
     </message>
@@ -1046,6 +1042,14 @@ Please update OpenNumismat</source>
     <message>
         <source>Images</source>
         <translation>Изображения</translation>
+    </message>
+    <message>
+        <source>Overall</source>
+        <translation>Обща информация</translation>
+    </message>
+    <message>
+        <source>Technical data</source>
+        <translation>Технически данни</translation>
     </message>
 </context>
 <context>
@@ -2227,10 +2231,6 @@ drag-n-drop to add an image)</source>
         <translation>Постави</translation>
     </message>
     <message>
-        <source>Coin</source>
-        <translation>Монета</translation>
-    </message>
-    <message>
         <source>Details</source>
         <translation>Детайли</translation>
     </message>
@@ -2357,6 +2357,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>New version is available. Download it now?</source>
         <translation>Налична е по-нова версия. Да се изтеглили сега?</translation>
+    </message>
+    <message>
+        <source>Record</source>
+        <translation>Запис</translation>
     </message>
 </context>
 <context>
