@@ -563,7 +563,7 @@ class UpdaterTo9(_Updater):
         self.progressDlg.setMinimumDuration(0)
 
     def getTotalCount(self):
-        return 12 + 2
+        return 13 + 2
 
     def update(self):
         self._begin()
@@ -572,6 +572,7 @@ class UpdaterTo9(_Updater):
 
         fields = (
             'composition',
+            'material2',
             'width',
             'height',
             'technique',

@@ -231,6 +231,7 @@ class CollectionFieldsBase(QObject):
                 ('seat', QApplication.translate('CollectionFieldsBase', "Seat"), Type.String),
                 ('native_year', QApplication.translate('CollectionFieldsBase', "Year on coin"), Type.String),
                 ('composition', QApplication.translate('CollectionFieldsBase', "Composition"), Type.String),
+                ('material2', QApplication.translate('CollectionFieldsBase', "Material 2"), Type.String),
                 ('width', QApplication.translate('CollectionFieldsBase', "Width"), Type.Value),
                 ('height', QApplication.translate('CollectionFieldsBase', "Height"), Type.Value),
                 ('technique', QApplication.translate('CollectionFieldsBase', "Technique"), Type.String),
