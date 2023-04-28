@@ -26,6 +26,7 @@ from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.CollectionFields import StatisticsFields
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Settings import Settings
@@ -964,10 +965,7 @@ class StatisticsView(QWidget):
 
         default_subfieldid = 0
         for field in self.model.fields.userFields:
-            if field.name in ('region', 'country', 'year', 'period', 'ruler',
-                              'mint', 'type', 'series', 'status', 'material',
-                              'grade', 'saller', 'payplace', 'buyer',
-                              'saleplace', 'storage', 'fineness', 'unit'):
+            if field.name in StatisticsFields:
                 if field.name == 'fineness':
                     title = self.model.fields.material.title + '+' + field.title
                     self.fieldSelector.addItem(title, field.id)
