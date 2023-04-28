@@ -525,6 +525,11 @@ class FieldsSettingsPage(QWidget):
             elif isinstance(field, str):
                 item.setText(0, self.settings.Default[field])
 
+        for item in self.groupItems:
+            group_name = item.data(0, self.DataRole)
+            group_title = self.settings.Default[group_name]
+            item.setText(0, group_title)
+
     def renameButtonClicked(self):
         items = self.treeWidget.selectedItems()
         if len(items) > 0:
