@@ -2726,18 +2726,18 @@ Created new one</source>
     </message>
     <message>
         <source>Nice years (Area)</source>
-        <translation>Красиви години (Област)</translation>
+        <translation>Красиви години (Площна диаграма)</translation>
     </message>
 </context>
 <context>
     <name>StatisticsView</name>
     <message>
         <source>Bar</source>
-        <translation>Колона</translation>
+        <translation>Колонна</translation>
     </message>
     <message>
         <source>Horizontal bar</source>
-        <translation>Хоризонтална колона</translation>
+        <translation>Хоризонтална колонна</translation>
     </message>
     <message>
         <source>Pie</source>
@@ -2745,7 +2745,7 @@ Created new one</source>
     </message>
     <message>
         <source>Stacked bar</source>
-        <translation>Колона с наслагване</translation>
+        <translation>Колонна с наслагване</translation>
     </message>
     <message>
         <source>Progress</source>
@@ -2753,7 +2753,7 @@ Created new one</source>
     </message>
     <message>
         <source>Area</source>
-        <translation>Област</translation>
+        <translation>Площна</translation>
     </message>
     <message>
         <source>GeoChart</source>
