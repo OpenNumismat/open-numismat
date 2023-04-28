@@ -655,7 +655,7 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="246"/>
+        <location filename="CollectionFields.py" line="247"/>
         <source>Diameter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -665,7 +665,7 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="245"/>
+        <location filename="CollectionFields.py" line="246"/>
         <source>Weight</source>
         <translation type="unfinished"></translation>
     </message>
@@ -985,38 +985,43 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="240"/>
+        <location filename="CollectionFields.py" line="241"/>
         <source>Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="241"/>
+        <location filename="CollectionFields.py" line="242"/>
         <source>Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="242"/>
+        <location filename="CollectionFields.py" line="243"/>
         <source>Technique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="243"/>
+        <location filename="CollectionFields.py" line="244"/>
         <source>Modification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="244"/>
+        <location filename="CollectionFields.py" line="245"/>
         <source>Die axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="247"/>
+        <location filename="CollectionFields.py" line="248"/>
         <source>Rating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="249"/>
+        <location filename="CollectionFields.py" line="250"/>
         <source>Invoice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="240"/>
+        <source>Material 2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3121,32 +3126,32 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="295"/>
+        <location filename="Reference.py" line="296"/>
         <source>C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="297"/>
+        <location filename="Reference.py" line="298"/>
         <source>P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="301"/>
+        <location filename="Reference.py" line="302"/>
         <source>U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="303"/>
+        <location filename="Reference.py" line="304"/>
         <source>S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="305"/>
+        <location filename="Reference.py" line="306"/>
         <source>G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="306"/>
+        <location filename="Reference.py" line="331"/>
         <source>M</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3186,30 +3191,30 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="407"/>
+        <location filename="Reference.py" line="410"/>
         <source>Open reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="373"/>
+        <location filename="Reference.py" line="376"/>
         <source>Can&apos;t open reference:
 %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="407"/>
+        <location filename="Reference.py" line="410"/>
         <source>Can&apos;t open reference:
 %s
 Created new one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="414"/>
+        <location filename="Reference.py" line="417"/>
         <source>Create reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Reference.py" line="414"/>
+        <location filename="Reference.py" line="417"/>
         <source>Can&apos;t create reference:
 %s</source>
         <translation type="unfinished"></translation>
@@ -3217,6 +3222,11 @@ Created new one</source>
     <message>
         <location filename="Reference.py" line="328"/>
         <source>Edge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="331"/>
+        <source>Material</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
