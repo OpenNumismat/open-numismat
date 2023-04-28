@@ -430,6 +430,17 @@ class Reference(QtCore.QObject):
         if 'ref' not in self.db.tables():
             self.__updateTo1()
 
+        query = QSqlQuery("SELECT value FROM ref WHERE title='version'", self.db)
+        query.exec_()
+        if query.first():
+            current_version = int(query.record().value(0))
+            if current_version > self.VERSION:
+                QMessageBox.critical(self.parent(),
+                        self.tr("Open reference"),
+                        self.tr("Reference is a newer version.\n"
+                                "Please update OpenNumismat"))
+                return
+
         for section in self.sections:
             section.load(self.db)
 
