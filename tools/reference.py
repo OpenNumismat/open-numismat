@@ -110,11 +110,27 @@ for lang in langs:
     data = json.loads(json_data)
 
     ref.db.transaction()
+    
+    shape_images = (
+        convertImage('icons/round.png'),
+        convertImage('icons/irregular.png'),
+        convertImage('icons/square.png'),
+        convertImage('icons/polygon.png'),
+        convertImage('icons/spanish.png'),
+        convertImage('icons/hole.png'),
+        convertImage('icons/half.png'),
+        convertImage('icons/klippe.png'),
+        convertImage('icons/scalloped.png'),
+    )
 
     for section_name in sorted(data.keys()):
         section = ref.section(section_name)
-        for value in data[section_name]:
-            section.addItem(value)
+        if section_name == 'shape':
+            for i, value in enumerate(data[section_name]):
+                section.addItem(value, shape_images[i])
+        else:
+            for value in data[section_name]:
+                section.addItem(value)
 
     grade = ref.section('grade')
     grade.addItem('Unc')
