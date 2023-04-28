@@ -377,6 +377,8 @@ class FieldsSettingsPage(QWidget):
 
         self.settings = collection.settings
 
+        self.groupItems = []
+
         coin_item = self.groupItem(self.treeWidget, 'coin_group_title')
         coin_main_item = self.groupItem(coin_item, 'coin_main_group_title')
         coin_state_item = self.groupItem(coin_item, 'coin_state_group_title')
@@ -389,6 +391,7 @@ class FieldsSettingsPage(QWidget):
 
         parameters_item = self.groupItem(self.treeWidget, 'parameters_group_title')
         parameters_parameters_item = self.groupItem(parameters_item, 'parameters_parameters_group_title')
+        parameters_specificity_item = self.groupItem(parameters_item, 'parameters_specificity_group_title')
         parameters_minting_item = self.groupItem(parameters_item, 'parameters_minting_group_title')
 
         design_item = self.groupItem(self.treeWidget, 'design_group_title')
@@ -404,7 +407,7 @@ class FieldsSettingsPage(QWidget):
         images_item = self.groupItem(self.treeWidget, 'images_group_title')
 
         system_item = QTreeWidgetItem(self.treeWidget, (self.tr("System"),))
-        reserve_item = QTreeWidgetItem(self.treeWidget, (self.tr("Reserve"),))
+#        reserve_item = QTreeWidgetItem(self.treeWidget, (self.tr("Reserve"),))
 
         self.fields = collection.fields
         for field in self.fields:
@@ -425,24 +428,28 @@ class FieldsSettingsPage(QWidget):
             elif field.name in ('title', 'region', 'country', 'period',
                                 'emitent', 'ruler', 'value', 'unit', 'year',
                                 'mintmark', 'mint', 'type', 'series',
-                                'subjectshort', 'native_year'):
+                                'subjectshort', 'native_year', 'category',):
                 coin_main_item.addChild(item)
             elif field.name in ('status', 'grade', 'quantity', 'format',
                                 'condition', 'storage', 'barcode', 'defect',
-                                'features', 'grader', 'seat'):
+                                'features', 'grader', 'seat', 'rating',):
                 coin_state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
-                                'saller', 'payplace', 'payinfo'):
+                                'saller', 'payplace', 'payinfo', 'buying_invoice'):
                 market_buy_item.addChild(item)
             elif field.name in ('saledate', 'saleprice', 'totalsaleprice',
-                                'buyer', 'saleplace', 'saleinfo'):
+                                'buyer', 'saleplace', 'saleinfo', 'sale_invoice'):
                 market_sale_item.addChild(item)
             elif field.name in ('address', 'latitude', 'longitude'):
                 map_item.addChild(item)
             elif field.name in ('material', 'fineness', 'weight', 'diameter',
-                                'thickness', 'shape', 'obvrev',):
+                                'thickness', 'shape', 'obvrev', 'width',
+                                'height', 'material2', 'composition'):
                 parameters_parameters_item.addChild(item)
-            elif field.name in ('issuedate',
+            elif field.name in ('real_diameter', 'real_weight', 'axis',
+                                'modification',):
+                parameters_specificity_item.addChild(item)
+            elif field.name in ('issuedate', 'technique',
                                 'mintage', 'dateemis', 'quality',):
                 parameters_minting_item.addChild(item)
             elif field.name in ('note',):
@@ -468,10 +475,8 @@ class FieldsSettingsPage(QWidget):
                 classification_variation_item.addChild(item)
             elif field.name in ('rarity', 'url',):
                 classification_item.addChild(item)
-            elif field.name in ('address', 'latitude', 'longitude'):
-                map_item.addChild(item)
-            else:
-                reserve_item.addChild(item)
+#            else:
+#                reserve_item.addChild(item)
 
         self.treeWidget.expandAll()
 
@@ -502,6 +507,8 @@ class FieldsSettingsPage(QWidget):
         item = QTreeWidgetItem(parent, (self.settings[group_name],))
         item.setData(0, self.DataRole, group_name)
         item.setFlags(Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+
+        self.groupItems.append(item)
 
         return item
 

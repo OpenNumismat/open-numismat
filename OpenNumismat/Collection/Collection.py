@@ -667,6 +667,7 @@ class CollectionSettings(BaseSettings):
             'map_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Map"),
             'parameters_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Technical data"),
             'parameters_parameters_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Parameters"),
+            'parameters_specificity_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Specificity"),
             'parameters_minting_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Minting"),
             'design_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Design"),
             'design_obverse_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Obverse"),
