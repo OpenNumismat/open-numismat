@@ -157,11 +157,11 @@ class BaseReferenceSection(QtCore.QObject):
             sql = "CREATE TABLE %s (\
                 id INTEGER PRIMARY KEY,\
                 parentid INTEGER,\
-                value TEXT, icon BLOB, position INEGER)" % self.table_name
+                value TEXT, icon BLOB)" % self.table_name
         else:
             sql = "CREATE TABLE %s (\
                 id INTEGER PRIMARY KEY,\
-                value TEXT, icon BLOB, position INEGER)" % self.table_name
+                value TEXT, icon BLOB)" % self.table_name
         QSqlQuery(sql, db)
 
         query = QSqlQuery(db)
@@ -278,7 +278,7 @@ class CrossReferenceSection(BaseReferenceSection):
 
 
 class Reference(QtCore.QObject):
-    VERSION = 2
+    VERSION = 1
 
     def __init__(self, fields, parent=None, db=None):
         super().__init__(parent)
@@ -430,13 +430,6 @@ class Reference(QtCore.QObject):
         if 'ref' not in self.db.tables():
             self.__updateTo1()
 
-        query = QSqlQuery("SELECT value FROM ref WHERE title='version'", self.db)
-        query.exec_()
-        if query.first():
-            current_version = int(query.record().value(0))
-            if current_version < 2:
-                self.__updateTo2()
-
         for section in self.sections:
             section.load(self.db)
 
@@ -548,26 +541,6 @@ class Reference(QtCore.QObject):
 
         sql = """INSERT INTO ref (title, value)
             VALUES ('version', 1)"""
-        QSqlQuery(sql, self.db)
-
-        self.db.commit()
-
-    def __updateTo2(self):
-        self.backup()
-
-        self.db.transaction()
-
-        for section in self.sections:
-            table_name = section.table_name
-
-            sql = "ALTER TABLE %s ADD COLUMN position INTEGER" % table_name
-            QSqlQuery(sql, self.db)
-
-            sql = "UPDATE %s SET position = id" % table_name
-            QSqlQuery(sql, self.db)
-
-        sql = """INSERT OR REPLACE INTO ref (title, value)
-            VALUES ('version', 2)"""
         QSqlQuery(sql, self.db)
 
         self.db.commit()
