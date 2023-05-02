@@ -850,6 +850,7 @@ class Collection(QtCore.QObject):
         self.fields = CollectionFields(self.db)
 
         self.createCoinsTable()
+        self.createTagsTable()
 
         self.fileName = fileName
 
@@ -889,6 +890,19 @@ class Collection(QtCore.QObject):
         QSqlQuery(sql, self.db)
 
         sql = "CREATE TABLE images (id INTEGER PRIMARY KEY, image BLOB)"
+        QSqlQuery(sql, self.db)
+
+    def createTagsTable(self):
+        sql = """CREATE TABLE tags (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    tag TEXT,
+                    parent_id INTEGER,
+                    position INTEGER)"""
+        QSqlQuery(sql, self.db)
+
+        sql = """CREATE TABLE coins_tags (
+                    coin_id INTEGER,
+                    tag_id INTEGER)"""
         QSqlQuery(sql, self.db)
 
     def isReferenceAttached(self):

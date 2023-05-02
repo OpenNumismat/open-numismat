@@ -563,7 +563,7 @@ class UpdaterTo9(_Updater):
         self.progressDlg.setMinimumDuration(0)
 
     def getTotalCount(self):
-        return 13 + 2
+        return 14
 
     def update(self):
         self._begin()
@@ -604,18 +604,9 @@ class UpdaterTo9(_Updater):
 
         self._updateRecord()
 
-        sql = """CREATE TABLE tags (
-                    id INTEGER NOT NULL PRIMARY KEY,
-                    tag TEXT,
-                    parent_id INTEGER)"""
-        QSqlQuery(sql, self.db)
+        self.collection.createTagsTable()
 
         self._updateRecord()
-
-        sql = """CREATE TABLE coins_tags (
-                    coin_id INTEGER,
-                    tag_id INTEGER)"""
-        QSqlQuery(sql, self.db)
 
         self.collection.settings['Version'] = 9
         self.collection.settings.save()
