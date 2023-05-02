@@ -349,10 +349,6 @@ The application will need to restart now.</source>
 <context>
     <name>BaseTableView</name>
     <message>
-        <source>0 coins selected</source>
-        <translation>Нет выбранных монет</translation>
-    </message>
-    <message>
         <source>Custom sorting</source>
         <translation>Ручная сортировка</translation>
     </message>
@@ -361,14 +357,6 @@ The application will need to restart now.</source>
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>Сортировка изменена.
 Изменение позиции элементов доступно только при сброшенной сортировке. Сбросить сортировку сейчас?</translation>
-    </message>
-    <message>
-        <source>%d/%d coins</source>
-        <translation>%d/%d монет</translation>
-    </message>
-    <message>
-        <source>%n coin(s) selected</source>
-        <translation>%n монет выбрано</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -427,6 +415,18 @@ Close the file and try again.</source>
     <message>
         <source>Deleting records</source>
         <translation>Удаление записей</translation>
+    </message>
+    <message>
+        <source>0 records selected</source>
+        <translation>Нет выбранных записей</translation>
+    </message>
+    <message>
+        <source>%d/%d records</source>
+        <translation>%d/%d записей</translation>
+    </message>
+    <message>
+        <source>%n record(s) selected</source>
+        <translation>%n записей выбрано</translation>
     </message>
 </context>
 <context>
@@ -976,10 +976,6 @@ Please update OpenNumismat</source>
 <context>
     <name>CollectionSettings</name>
     <message>
-        <source>Coin</source>
-        <translation>Монета</translation>
-    </message>
-    <message>
         <source>Main details</source>
         <translation>Описание</translation>
     </message>
@@ -1046,6 +1042,14 @@ Please update OpenNumismat</source>
     <message>
         <source>Images</source>
         <translation>Изображения</translation>
+    </message>
+    <message>
+        <source>Overall</source>
+        <translation>Общее</translation>
+    </message>
+    <message>
+        <source>Technical data</source>
+        <translation>Технические данные</translation>
     </message>
 </context>
 <context>
@@ -2227,10 +2231,6 @@ drag-n-drop to add an image)</source>
         <translation>Вставить</translation>
     </message>
     <message>
-        <source>Coin</source>
-        <translation>Монета</translation>
-    </message>
-    <message>
         <source>Details</source>
         <translation>Детали</translation>
     </message>
@@ -2357,6 +2357,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>New version is available. Download it now?</source>
         <translation>Доступна новая версия. Скачать сейчас?</translation>
+    </message>
+    <message>
+        <source>Record</source>
+        <translation>Запись</translation>
     </message>
 </context>
 <context>
