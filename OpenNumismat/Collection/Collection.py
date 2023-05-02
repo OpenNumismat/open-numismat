@@ -678,6 +678,7 @@ class CollectionSettings(BaseSettings):
             'classification_price_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Price"),
             'classification_variation_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Variation"),
             'images_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Images"),
+            'relative_url': False,
     }
 
     def __init__(self, db):
@@ -697,7 +698,8 @@ class CollectionSettings(BaseSettings):
                 elif title in ('image_height',):
                     value = float(record.value('value'))
                 elif title in ('free_numeric', 'convert_fraction',
-                               'images_at_bottom', 'enable_bc', 'rich_text'):
+                               'images_at_bottom', 'enable_bc', 'rich_text',
+                               'relative_url'):
                     value = record.value('value').lower() in ('true', '1')
                 elif '_status_used' in title:
                     value = record.value('value').lower() in ('true', '1')

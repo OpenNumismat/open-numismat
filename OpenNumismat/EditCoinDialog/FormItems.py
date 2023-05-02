@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import re
 
 from PySide6.QtCore import QMargins, QUrl, QDate, Qt, QLocale
@@ -163,9 +164,12 @@ class LineEdit(QLineEdit):
 
 
 class UrlLineEdit(QWidget):
-    def __init__(self, parent=None):
+
+    def __init__(self, settings, parent=None):
         super().__init__(parent)
 
+        self.basePath = os.path.dirname(settings.db.databaseName())
+        self.relativeUrl = settings['relative_url']
         self.lineEdit = LineEdit(self)
 
         buttonLoad = QPushButton(QIcon(':/world.png'), '', self)
@@ -191,15 +195,29 @@ class UrlLineEdit(QWidget):
 
     def clickedButtonOpen(self):
         file, _selectedFilter = QFileDialog.getOpenFileName(
-            self, self.tr("Select file"), self.text(), "*.*")
+            self, self.tr("Select file"), self.getPath(), "*.*")
         if file:
+            if self.relativeUrl:
+                try:
+                    file = os.path.relpath(file, self.basePath)
+                except ValueError:
+                    pass
+
             self.setText(file)
 
     def clickedButtonLoad(self):
-        url = QUrl(self.text())
+        url = QUrl(self.getPath())
 
         executor = QDesktopServices()
         executor.openUrl(url)
+
+    def getPath(self):
+        file = self.text()
+        if self.relativeUrl:
+            if not file.startswith(('file', 'http')):
+                file = os.path.join(self.basePath, file).replace('\\', '/')
+
+        return file
 
     def clear(self):
         self.lineEdit.clear()

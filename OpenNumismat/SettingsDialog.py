@@ -286,6 +286,10 @@ class CollectionSettingsPage(QWidget):
         self.richText.setChecked(self.settings['rich_text'])
         layout.addRow(self.richText)
 
+        self.relativeUrl = QCheckBox(self.tr("Use relative paths for invoices"), self)
+        self.relativeUrl.setChecked(self.settings['relative_url'])
+        layout.addRow(self.relativeUrl)
+
         self.statusUsed = {}
         statusesList = QListWidget(self)
         statusesList.setWrapping(True)
@@ -343,6 +347,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['images_at_bottom'] = self.imagesAtBottom.isChecked()
         self.settings['enable_bc'] = self.enableBC.isChecked()
         self.settings['rich_text'] = self.richText.isChecked()
+        self.settings['relative_url'] = self.relativeUrl.isChecked()
         default_status = self.defaultStatus.currentData()
         self.settings['default_status'] = default_status
 
