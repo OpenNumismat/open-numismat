@@ -163,6 +163,23 @@ class LineEdit(QLineEdit):
         self.setMinimumWidth(100)
 
 
+class UrlLineEditInternal(LineEdit):
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dragMoveEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        mime = event.mimeData()
+        if mime.hasUrls():
+            url = mime.urls()[0]
+            self.parent().setPath(url.toLocalFile())
+
+
 class UrlLineEdit(QWidget):
 
     def __init__(self, settings, parent=None):
@@ -170,7 +187,7 @@ class UrlLineEdit(QWidget):
 
         self.basePath = os.path.dirname(settings.db.databaseName())
         self.relativeUrl = settings['relative_url']
-        self.lineEdit = LineEdit(self)
+        self.lineEdit = UrlLineEditInternal(self)
 
         buttonLoad = QPushButton(QIcon(':/world.png'), '', self)
         buttonLoad.setFixedWidth(25)
@@ -197,13 +214,7 @@ class UrlLineEdit(QWidget):
         file, _selectedFilter = QFileDialog.getOpenFileName(
             self, self.tr("Select file"), self.getPath(), "*.*")
         if file:
-            if self.relativeUrl:
-                try:
-                    file = os.path.relpath(file, self.basePath)
-                except ValueError:
-                    pass
-
-            self.setText(file)
+            self.setPath(file)
 
     def clickedButtonLoad(self):
         url = QUrl(self.getPath())
@@ -218,6 +229,15 @@ class UrlLineEdit(QWidget):
                 file = os.path.join(self.basePath, file).replace('\\', '/')
 
         return file
+
+    def setPath(self, file):
+        if self.relativeUrl:
+            try:
+                file = os.path.relpath(file, self.basePath)
+            except ValueError:
+                pass
+
+        self.setText(file)
 
     def clear(self):
         self.lineEdit.clear()
