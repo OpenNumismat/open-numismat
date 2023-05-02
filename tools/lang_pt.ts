@@ -349,10 +349,6 @@ A aplicação tem de reiniciar agora.</translation>
 <context>
     <name>BaseTableView</name>
     <message>
-        <source>0 coins selected</source>
-        <translation>0 moedas seleccionadas</translation>
-    </message>
-    <message>
         <source>Custom sorting</source>
         <translation>Ordem personalizada</translation>
     </message>
@@ -361,14 +357,6 @@ A aplicação tem de reiniciar agora.</translation>
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>A ordem predefinida foi alterada.
 Mudar a posição do item só está disponível na ordenação predefinida. Limpar a ordenação agora?</translation>
-    </message>
-    <message>
-        <source>%d/%d coins</source>
-        <translation>%d/%d moedas</translation>
-    </message>
-    <message>
-        <source>%n coin(s) selected</source>
-        <translation>%n moeda(s) seleccionada(s)</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -427,6 +415,18 @@ Feche o ficheiro e tente novamente.</translation>
     <message>
         <source>Deleting records</source>
         <translation>A eliminar registos</translation>
+    </message>
+    <message>
+        <source>0 records selected</source>
+        <translation>Nenhum registo seleccionado</translation>
+    </message>
+    <message>
+        <source>%d/%d records</source>
+        <translation>%d/%d registos</translation>
+    </message>
+    <message>
+        <source>%n record(s) selected</source>
+        <translation>%n registos seleccionados</translation>
     </message>
 </context>
 <context>
@@ -976,10 +976,6 @@ Por favor, actualize o OpenNumismat</translation>
 <context>
     <name>CollectionSettings</name>
     <message>
-        <source>Coin</source>
-        <translation>Moeda</translation>
-    </message>
-    <message>
         <source>Main details</source>
         <translation>Detalhes principais</translation>
     </message>
@@ -1046,6 +1042,14 @@ Por favor, actualize o OpenNumismat</translation>
     <message>
         <source>Images</source>
         <translation>Imagens</translation>
+    </message>
+    <message>
+        <source>Overall</source>
+        <translation>Resumo</translation>
+    </message>
+    <message>
+        <source>Technical data</source>
+        <translation>Dados técnicos</translation>
     </message>
 </context>
 <context>
@@ -2227,10 +2231,6 @@ arraste e largue para adicionar)</translation>
         <translation>Colar</translation>
     </message>
     <message>
-        <source>Coin</source>
-        <translation>Moeda</translation>
-    </message>
-    <message>
         <source>Details</source>
         <translation>Detalhes</translation>
     </message>
@@ -2357,6 +2357,10 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>New version is available. Download it now?</source>
         <translation>Nova versão disponível. Transferir agora?</translation>
+    </message>
+    <message>
+        <source>Record</source>
+        <translation>Registo</translation>
     </message>
 </context>
 <context>
