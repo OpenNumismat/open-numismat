@@ -98,7 +98,7 @@ class FormItem(object):
             else:
                 self._widget = StatusEdit(settings, parent)
         elif self._type == Type.DateTime:
-            self._widget = DateTimeEdit(parent)
+            self._widget = QDateTimeEdit(parent)
         else:
             raise TypeError
 

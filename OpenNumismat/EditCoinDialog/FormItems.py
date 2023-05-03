@@ -3,7 +3,7 @@
 import os
 import re
 
-from PySide6.QtCore import QMargins, QUrl, QDate, Qt, QLocale
+from PySide6.QtCore import QMargins, QUrl, QDate, QLocale
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import Signal as pyqtSignal
@@ -1023,8 +1023,3 @@ class DateEdit(QDateEdit):
             lineEdit = self.findChild(QLineEdit)
             lineEdit.setCursorPosition(0)
             lineEdit.setText("")
-
-
-class DateTimeEdit(QDateTimeEdit):
-    def __init__(self, parent=None):
-        super().__init__(parent)
