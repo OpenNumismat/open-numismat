@@ -44,13 +44,12 @@ class FormItem(object):
             if self._field == 'year' and settings['enable_bc']:
                 self._widget = YearEdit(settings['free_numeric'], parent)
             elif self._field == 'axis':
-                if settings['free_numeric']:
+                if settings['axis_in_hours']:
+                    self._widget = AxisHourEdit(parent)
+                elif settings['free_numeric']:
                     self._widget = UserNumericEdit(parent)
                 else:
-                    if settings['axis_in_hours']:
-                        self._widget = AxisHourEdit(parent)
-                    else:
-                        self._widget = AxisDegreeEdit(parent)
+                    self._widget = AxisDegreeEdit(parent)
             else:
                 if settings['free_numeric']:
                     self._widget = UserNumericEdit(parent)
