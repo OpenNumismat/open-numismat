@@ -21,26 +21,15 @@ Windows, Linux (Debian/Ubuntu), macOS.
 
 ## Requirements
 Main Windows version based on:
-* Python 3.4.4
-* PyQt5 5.5.1
-* Jinja2 2.10 (for reports)
-* Matplotlib 2.1.0 (for statistics)
-* xlwt 1.3.0 (for exporting to Excel)
-* pywin32-219 (for saving report as Word Document)
-* lxml 3.4.1 (for importing from Tellico)
-* xlrd 1.2.0 (for importing from Excel)
+* Python 3.11.3
+* PySide6 6.5.0
+* Jinja2 3.1.2 (for reports)
+* openpyxl 3.1.2 (for import/export to Excel)
+* pywin32-306 (for saving report as Word Document)
+* lxml 4.9.2 (for importing from Tellico)
 * python-dateutil 2.8.2 (for importing from Excel)
-* cx_Freeze 4.3.4 (for deploy)
-* Inno Setup 5.6.1 (for deploy)
-
-macOS version based on MacPorts:
-* py36-pyqt5 +webkit
-* py36-lxml
-* py36-xlrd
-* py36-xlwt
-* py36-dateutil
-* py36-jinja2
-* py36-cx_Freeze (for deploy)
+* pyinstaller 5.10.1 (for deploy)
+* Inno Setup 6.2.1 (for deploy)
 
 Debian/Ubuntu version depends on following packages: 
 * python3
@@ -62,20 +51,14 @@ For running from source code and development requirements can be installed like 
 
 ## Building
 Befor building installation package may be necessary:
-* compile resorces with: `pyrcc5.exe -no-compress resources.qrc -o OpenNumismat/resources.py`
-* compile translations file with: `python3 tools/i18n.py`
+* compile translations file with: `python3 tools/build_resources.py`
 * create `OpenNumismat/private_keys.py` with content: `MAPS_API_KEY = '<your Google API key>'`
 
 #### For Windows
-    pip3 install cx_Freeze
-    "C:\Python34\python.exe" setup.py build_exe
-    "C:\Program Files (x86)\Inno Setup 5\ISCC.exe" tools\setup.iss
-
-#### For Windows x64
     pip3 install pyinstaller
     SET PYTHONOPTIMIZE=1
     pyinstaller --clean --noconfirm open-numismat.spec
-    "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" tools\setup-win64.iss
+    "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" tools\setup.iss
 
 #### For Windows portable version
     pip3 install cx_Freeze
