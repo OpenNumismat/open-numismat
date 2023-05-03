@@ -679,6 +679,7 @@ class CollectionSettings(BaseSettings):
             'classification_variation_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Variation"),
             'images_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Images"),
             'relative_url': False,
+            'axis_in_hours': False,
     }
 
     def __init__(self, db):
@@ -699,7 +700,7 @@ class CollectionSettings(BaseSettings):
                     value = float(record.value('value'))
                 elif title in ('free_numeric', 'convert_fraction',
                                'images_at_bottom', 'enable_bc', 'rich_text',
-                               'relative_url'):
+                               'relative_url', 'axis_in_hours'):
                     value = record.value('value').lower() in ('true', '1')
                 elif '_status_used' in title:
                     value = record.value('value').lower() in ('true', '1')

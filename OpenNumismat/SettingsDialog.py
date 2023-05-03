@@ -290,6 +290,10 @@ class CollectionSettingsPage(QWidget):
         self.relativeUrl.setChecked(self.settings['relative_url'])
         layout.addRow(self.relativeUrl)
 
+        self.axisHours = QCheckBox(self.tr("Die axis in hours"), self)
+        self.axisHours.setChecked(self.settings['axis_in_hours'])
+        layout.addRow(self.axisHours)
+
         self.statusUsed = {}
         statusesList = QListWidget(self)
         statusesList.setWrapping(True)
@@ -348,6 +352,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['enable_bc'] = self.enableBC.isChecked()
         self.settings['rich_text'] = self.richText.isChecked()
         self.settings['relative_url'] = self.relativeUrl.isChecked()
+        self.settings['axis_in_hours'] = self.axisHours.isChecked()
         default_status = self.defaultStatus.currentData()
         self.settings['default_status'] = default_status
 

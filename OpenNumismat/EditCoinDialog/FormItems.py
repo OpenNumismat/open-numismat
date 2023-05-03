@@ -520,10 +520,11 @@ class UserNumericEdit(QLineEdit):
         return self.minimumSizeHint()
 
 
-class NumberEdit(QLineEdit):
-    def __init__(self, parent=None):
+class _NumberEdit(QLineEdit):
+
+    def __init__(self, bottom, top, parent=None):
         super().__init__(parent)
-        validator = NumberValidator(0, 9999, parent)
+        validator = NumberValidator(bottom, top, parent)
         self.setValidator(validator)
         self.setMaxLength(4)
         self.setMinimumWidth(100)
@@ -532,6 +533,72 @@ class NumberEdit(QLineEdit):
 
     def sizeHint(self):
         return self.minimumSizeHint()
+
+
+class NumberEdit(_NumberEdit):
+
+    def __init__(self, parent=None):
+        super().__init__(0, 9999, parent)
+
+
+class AxisDegreeEdit(_NumberEdit):
+
+    def __init__(self, parent=None):
+        super().__init__(0, 359, parent)
+
+
+class AxisHourEdit(QSpinBox):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setRange(0, 12)
+        self.setSpecialValueText(" ")  # TODO: Not working without value
+        self.setSuffix(self.tr("h"))
+
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                       QSizePolicy.Fixed))
+
+    def setReadOnly(self, r):
+        if r:
+            self.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        else:
+            self.setButtonSymbols(QAbstractSpinBox.UpDownArrows)
+
+        return super().setReadOnly(r)
+
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+    def focusOutEvent(self, event):
+        if not super().cleanText():
+            self.setValue(0)
+        return super().focusOutEvent(event)
+
+    def setText(self, text):
+        try:
+            value = int(text)
+        except ValueError:
+            self.setValue(0)
+            return
+
+        value += 360 / 12 / 2
+        value /= 360 / 12
+        value = int(value)
+        if value == 0:
+            value = 12
+
+        self.setValue(value)
+
+    def value(self):
+        value = super().value()
+        if value == 0:
+            return None
+        elif value == 12:
+            return 0
+        else:
+            return value * 30
 
 
 class YearEdit(QWidget):
