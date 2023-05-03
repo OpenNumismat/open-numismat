@@ -88,6 +88,25 @@ class TabView(QTabWidget):
         removeListAct.triggered.connect(self.removePage)
         self.__actions['remove'] = removeListAct
 
+        cancelFilteringAct = QAction(QIcon(':/funnel_clear.png'),
+                                     self.tr("Clear all filters"), self)
+        cancelFilteringAct.triggered.connect(self.cancelFiltering)
+        self.__actions['cancel_filtering'] = cancelFilteringAct
+
+        cancelSortingAct = QAction(QIcon(':/sort_clear.png'),
+                                   self.tr("Clear sort order"), self)
+        cancelSortingAct.triggered.connect(self.cancelSorting)
+        self.__actions['cancel_sorting'] = cancelSortingAct
+
+        saveSortingAct = QAction(QIcon(':/sort_save.png'),
+                                   self.tr("Save sort order"), self)
+        saveSortingAct.triggered.connect(self.saveSorting)
+        self.__actions['save_sorting'] = saveSortingAct
+
+        customizeTreeAct = QAction(self.tr("Customize tree..."), self)
+        customizeTreeAct.triggered.connect(self.customizeTree)
+        self.__actions['customize_tree'] = customizeTreeAct
+
     def tabBarContextMenuEvent(self, pos):
         index = self.tabBar().tabAt(pos)
         self.setCurrentIndex(index)
@@ -146,6 +165,10 @@ class TabView(QTabWidget):
         self.__actions['rename'].setEnabled(enabled)
         self.__actions['close'].setEnabled(enabled)
         self.__actions['remove'].setEnabled(enabled)
+        self.__actions['cancel_filtering'].setEnabled(enabled)
+        self.__actions['cancel_sorting'].setEnabled(enabled)
+        self.__actions['save_sorting'].setEnabled(enabled)
+        self.__actions['customize_tree'].setEnabled(enabled)
 
         if index >= 0:
             page = self.widget(index)
@@ -218,6 +241,24 @@ class TabView(QTabWidget):
     def selectColumns(self):
         listView = self.currentListView()
         listView.selectColumns()
+
+    def cancelFiltering(self):
+        self.parent().quickSearch.clear()
+
+        listView = self.currentListView()
+        listView.clearAllFilters()
+
+    def cancelSorting(self):
+        listView = self.currentListView()
+        listView.clearSorting()
+
+    def saveSorting(self):
+        listView = self.currentListView()
+        listView.saveSorting()
+
+    def customizeTree(self):
+        treeView = self.currentPageView().treeView
+        treeView.customizeTree()
 
     def closePage(self, index=None):
         if self.count() <= 1:

@@ -104,21 +104,6 @@ class MainWindow(QMainWindow):
         settingsAct.triggered.connect(self.settingsEvent)
         self.collectionActs.append(settingsAct)
 
-        cancelFilteringAct = QAction(QIcon(':/funnel_clear.png'),
-                                     self.tr("Clear all filters"), self)
-        cancelFilteringAct.triggered.connect(self.cancelFilteringEvent)
-        self.collectionActs.append(cancelFilteringAct)
-
-        cancelSortingAct = QAction(QIcon(':/sort_clear.png'),
-                                   self.tr("Clear sort order"), self)
-        cancelSortingAct.triggered.connect(self.cancelSortingEvent)
-        self.collectionActs.append(cancelSortingAct)
-
-        saveSortingAct = QAction(QIcon(':/sort_save.png'),
-                                   self.tr("Save sort order"), self)
-        saveSortingAct.triggered.connect(self.saveSortingEvent)
-        self.collectionActs.append(saveSortingAct)
-
         self.enableDragAct = QAction(QIcon(':/arrow_switch.png'),
                                      self.tr("Sort by drag-n-drop mode"), self)
         self.enableDragAct.setCheckable(True)
@@ -345,6 +330,14 @@ class MainWindow(QMainWindow):
         listMenu.addAction(actions['rename'])
         listMenu.addSeparator()
         listMenu.addAction(actions['select'])
+        listMenu.addAction(actions['customize_tree'])
+        listMenu.addSeparator()
+        listMenu.addAction(actions['cancel_filtering'])
+        self.collectionActs.append(actions['cancel_filtering'])
+        listMenu.addAction(actions['cancel_sorting'])
+        self.collectionActs.append(actions['cancel_sorting'])
+        listMenu.addAction(actions['save_sorting'])
+        self.collectionActs.append(actions['save_sorting'])
         listMenu.addSeparator()
         listMenu.addAction(actions['close'])
         listMenu.addAction(actions['remove'])
@@ -409,9 +402,9 @@ class MainWindow(QMainWindow):
         toolBar.addAction(editCoinAct)
         toolBar.addAction(viewBrowserAct)
         toolBar.addSeparator()
-        toolBar.addAction(cancelFilteringAct)
-        toolBar.addAction(cancelSortingAct)
-        toolBar.addAction(saveSortingAct)
+        toolBar.addAction(actions['cancel_filtering'])
+        toolBar.addAction(actions['cancel_sorting'])
+        toolBar.addAction(actions['save_sorting'])
         toolBar.addAction(self.enableDragAct)
         toolBar.addSeparator()
         toolBar.addAction(settingsAct)
@@ -493,20 +486,6 @@ class MainWindow(QMainWindow):
             act.triggered.connect(self.openLatestCollectionEvent)
             self.__menu.insertAction(self.exitAct, act)
         self.__menu.insertSeparator(self.exitAct)
-
-    def cancelFilteringEvent(self):
-        self.quickSearch.clear()
-
-        listView = self.viewTab.currentListView()
-        listView.clearAllFilters()
-
-    def cancelSortingEvent(self):
-        listView = self.viewTab.currentListView()
-        listView.clearSorting()
-
-    def saveSortingEvent(self):
-        listView = self.viewTab.currentListView()
-        listView.saveSorting()
 
     def enableDragEvent(self):
         listView = self.viewTab.currentListView()

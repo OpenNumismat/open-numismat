@@ -430,10 +430,10 @@ class TreeView(QTreeWidget):
         if not (self.model.rowCount() and self.selectedItems()):
             act.setDisabled(True)
         menu.addSeparator()
-        menu.addAction(self.tr("Customize tree..."), self._customizeTree)
+        menu.addAction(self.tr("Customize tree..."), self.customizeTree)
         menu.exec_(self.mapToGlobal(pos))
 
-    def _customizeTree(self):
+    def customizeTree(self):
         dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
         if dialog.exec_() == QDialog.Accepted:
             self.treeParam.save()
