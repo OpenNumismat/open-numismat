@@ -74,6 +74,15 @@ class CollectionModel(QSqlTableModel):
                         text = "%d BC" % -year
                     else:
                         text = str(data)
+                elif field.name == 'axis':
+                    if self.settings['axis_in_hours']:
+                        value = int(data)
+                        value += 360 / 12 / 2
+                        value /= 360 / 12
+                        value = int(value)
+                        if value == 0:
+                            value = 12
+                        text = str(value) + self.tr("h")
                 elif field.type == Type.BigInt:
                     text = QLocale.system().toString(int(data))
                 elif field.type == Type.Text:
