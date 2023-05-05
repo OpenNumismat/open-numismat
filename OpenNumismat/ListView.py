@@ -144,9 +144,6 @@ class BaseTableView(QTableView):
         else:
             return super().keyPressEvent(event)
 
-    def contextMenuEvent(self, pos):
-        raise NotImplementedError
-
     def currentChanged(self, current, previous):
         index = self.currentIndex()
         if index.isValid():
@@ -587,8 +584,6 @@ class ListView(BaseTableView):
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.doubleClicked.connect(self.itemDClicked)
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.contextMenuEvent)
         self.setSortingEnabled(True)
         self.horizontalHeader().setSectionsMovable(True)
         self.horizontalHeader().sectionDoubleClicked.connect(
@@ -800,7 +795,7 @@ class ListView(BaseTableView):
 
         self._updateHeaderButtons()
 
-    def contextMenuEvent(self, pos):
+    def contextMenuEvent(self, event):
         selected_count = len(self.selectedCoins())
         if not selected_count:
             return
@@ -849,7 +844,7 @@ class ListView(BaseTableView):
         icon = style.standardIcon(QStyle.SP_TrashIcon)
         menu.addAction(icon, self.tr("Delete"),
                        self._delete, QKeySequence.Delete)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec_(self.mapToGlobal(event.pos()))
 
     def currentChanged(self, current, previous):
         if current.row() != previous.row():
@@ -1191,8 +1186,6 @@ class IconView(BaseTableView):
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.doubleClicked.connect(self.itemDClicked)
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.contextMenuEvent)
 
         self.horizontalHeader().setVisible(False)
         self.verticalHeader().setVisible(False)
@@ -1254,7 +1247,7 @@ class IconView(BaseTableView):
         self.searchText = ''
         self.model().clearFilters()
 
-    def contextMenuEvent(self, pos):
+    def contextMenuEvent(self, event):
         selected_count = len(self.selectedCoins())
         if not selected_count:
             return
@@ -1303,7 +1296,7 @@ class IconView(BaseTableView):
         icon = style.standardIcon(QStyle.SP_TrashIcon)
         menu.addAction(icon, QApplication.translate('IconView', "Delete"),
                        self._delete, QKeySequence.Delete)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec_(self.mapToGlobal(event.pos()))
 
     def currentChanged(self, current, previous):
         if (current.row() != previous.row()) or (current.column() != previous.column()):
