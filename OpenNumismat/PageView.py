@@ -213,9 +213,6 @@ class TreeView(QTreeWidget):
         self.setHeaderHidden(True)
         self.setAutoScroll(False)
 
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.contextMenuEvent)
-
         self.currentItemChanged.connect(self.itemActivatedEvent)
         self.itemExpanded.connect(self.expandedEvent)
         self.collapsed.connect(self.collapsedEvent)
@@ -421,7 +418,7 @@ class TreeView(QTreeWidget):
         self.model.setAdditionalFilter(filter_)
         self.changingEnabled = True
 
-    def contextMenuEvent(self, pos):
+    def contextMenuEvent(self, event):
         menu = QMenu(self)
         act = menu.addAction(self.tr("Add new coin..."), self._addCoin)
         if not (self.model.rowCount() and self.selectedItems()):
@@ -431,7 +428,7 @@ class TreeView(QTreeWidget):
             act.setDisabled(True)
         menu.addSeparator()
         menu.addAction(self.tr("Customize tree..."), self.customizeTree)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec_(self.mapToGlobal(event.pos()))
 
     def customizeTree(self):
         dialog = CustomizeTreeDialog(self.model, self.treeParam, self)

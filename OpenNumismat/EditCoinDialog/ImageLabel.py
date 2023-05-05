@@ -31,10 +31,7 @@ class ImageLabel(QLabel):
         self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.setFocusPolicy(Qt.StrongFocus)
 
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.contextMenu)
-
-    def contextMenu(self, pos):
+    def contextMenuEvent(self, event):
         open_ = QAction(self.tr("Open"), self)
         open_.triggered.connect(self.openImage)
 
@@ -59,7 +56,7 @@ class ImageLabel(QLabel):
         menu.addAction(save)
         menu.addSeparator()
         menu.addAction(copy)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec_(self.mapToGlobal(event.pos()))
 
     def openImage(self):
         if Settings()['built_in_viewer']:
