@@ -167,6 +167,34 @@ A aplicação tem de reiniciar agora.</translation>
         <source>Collections looks like identical</source>
         <translation>As colecções parecem iguais</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Renomear</translation>
+    </message>
+    <message>
+        <source>Revert to default</source>
+        <translation>Reverter para predefinição</translation>
+    </message>
+    <message>
+        <source>Global enabled fields:</source>
+        <translation>Campos globais activos:</translation>
+    </message>
+    <message>
+        <source>New tag</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Eliminar</translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation>Insira o valor</translation>
+    </message>
 </context>
 <context>
     <name>AddressLineEdit</name>
@@ -322,6 +350,13 @@ A aplicação tem de reiniciar agora.</translation>
     <message>
         <source>Total</source>
         <translation>Total</translation>
+    </message>
+</context>
+<context>
+    <name>AxisHourEdit</name>
+    <message>
+        <source>h</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -937,6 +972,42 @@ Por favor, actualize o OpenNumismat</translation>
         <source>Year on coin</source>
         <translation>Ano na moeda</translation>
     </message>
+    <message>
+        <source>Composition</source>
+        <translation>Composição</translation>
+    </message>
+    <message>
+        <source>Material 2</source>
+        <translation>Material 2</translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Largura</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Altura</translation>
+    </message>
+    <message>
+        <source>Technique</source>
+        <translation>Técnica</translation>
+    </message>
+    <message>
+        <source>Modification</source>
+        <translation>Modificação</translation>
+    </message>
+    <message>
+        <source>Die axis</source>
+        <translation>Eixo de matriz</translation>
+    </message>
+    <message>
+        <source>Rating</source>
+        <translation>Classificação</translation>
+    </message>
+    <message>
+        <source>Invoice</source>
+        <translation>Factura</translation>
+    </message>
 </context>
 <context>
     <name>CollectionModel</name>
@@ -971,6 +1042,10 @@ Por favor, actualize o OpenNumismat</translation>
     <message>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Filtro muito complexo. Será ignorado</translation>
+    </message>
+    <message>
+        <source>h</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1051,6 +1126,10 @@ Por favor, actualize o OpenNumismat</translation>
         <source>Technical data</source>
         <translation>Dados técnicos</translation>
     </message>
+    <message>
+        <source>Specificity</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CollectionSettingsPage</name>
@@ -1109,6 +1188,14 @@ Por favor, actualize o OpenNumismat</translation>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Antever altura da imagem foi alterado. Recalcular agora?</translation>
+    </message>
+    <message>
+        <source>Use relative paths for invoices</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Die axis in hours</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1491,22 +1578,6 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     <message>
         <source>System</source>
         <translation>Sistema</translation>
-    </message>
-    <message>
-        <source>Reserve</source>
-        <translation>Reserva</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Renomear</translation>
-    </message>
-    <message>
-        <source>Revert to default</source>
-        <translation>Reverter para predefinição</translation>
-    </message>
-    <message>
-        <source>Global enabled fields:</source>
-        <translation>Campos globais activos:</translation>
     </message>
 </context>
 <context>
@@ -2147,18 +2218,6 @@ arraste e largue para adicionar)</translation>
         <translation>Definições...</translation>
     </message>
     <message>
-        <source>Clear all filters</source>
-        <translation>Limpar todos os filtros</translation>
-    </message>
-    <message>
-        <source>Clear sort order</source>
-        <translation>Limpar ordenação</translation>
-    </message>
-    <message>
-        <source>Save sort order</source>
-        <translation>Gravar ordenação</translation>
-    </message>
-    <message>
         <source>Sort by drag-n-drop mode</source>
         <translation>Ordenar com arrastar/largar</translation>
     </message>
@@ -2361,6 +2420,10 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Record</source>
         <translation>Registo</translation>
+    </message>
+    <message>
+        <source>Tags...</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2573,6 +2636,15 @@ Criada uma nova</translation>
 %s</source>
         <translation>Impossível criar referência:
 %s</translation>
+    </message>
+    <message>
+        <source>Material</source>
+        <translation>Material</translation>
+    </message>
+    <message>
+        <source>Reference is a newer version.
+Please update OpenNumismat</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3112,12 +3184,59 @@ Adicione uma nova primeiro.</translation>
         <source>Remove all closed pages permanently?</source>
         <translation>Remover todas as páginas fechadas permanentemente?</translation>
     </message>
+    <message>
+        <source>Clear all filters</source>
+        <translation>Limpar todos os filtros</translation>
+    </message>
+    <message>
+        <source>Clear sort order</source>
+        <translation>Limpar ordenação</translation>
+    </message>
+    <message>
+        <source>Save sort order</source>
+        <translation>Gravar ordenação</translation>
+    </message>
+    <message>
+        <source>Customize tree...</source>
+        <translation>Personalizar árvore...</translation>
+    </message>
 </context>
 <context>
     <name>TableDialog</name>
     <message>
         <source>Select columns</source>
         <translation>Seleccionar colunas</translation>
+    </message>
+</context>
+<context>
+    <name>TagsDialog</name>
+    <message>
+        <source>Tags</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>New tag</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Renomear</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Eliminar</translation>
+    </message>
+    <message>
+        <source>Save tags</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Something went wrong when saving. Please restart</source>
+        <translation>Algo correu mal ao gravar. Por favor, reinicie</translation>
+    </message>
+    <message>
+        <source>Something went wrong when canceling. Please restart</source>
+        <translation>Algo correu mal ao cancelar. Por favor reinicie</translation>
     </message>
 </context>
 <context>
