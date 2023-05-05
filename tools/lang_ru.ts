@@ -167,6 +167,34 @@ The application will need to restart now.</source>
         <source>Collections looks like identical</source>
         <translation>Коллекции выглядят одинаковыми</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Переименовать</translation>
+    </message>
+    <message>
+        <source>Revert to default</source>
+        <translation>Восстановить по умолчанию</translation>
+    </message>
+    <message>
+        <source>Global enabled fields:</source>
+        <translation>Действующие поля:</translation>
+    </message>
+    <message>
+        <source>New tag</source>
+        <translation>Новая метка</translation>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation>Новая подметка</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation>Введите значение</translation>
+    </message>
 </context>
 <context>
     <name>AddressLineEdit</name>
@@ -322,6 +350,13 @@ The application will need to restart now.</source>
     <message>
         <source>Total</source>
         <translation>Всего</translation>
+    </message>
+</context>
+<context>
+    <name>AxisHourEdit</name>
+    <message>
+        <source>h</source>
+        <translation>ч</translation>
     </message>
 </context>
 <context>
@@ -937,6 +972,42 @@ Please update OpenNumismat</source>
         <source>Year on coin</source>
         <translation>Год на монете</translation>
     </message>
+    <message>
+        <source>Composition</source>
+        <translation>Состав</translation>
+    </message>
+    <message>
+        <source>Material 2</source>
+        <translation>Материал 2</translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Ширина</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Высота</translation>
+    </message>
+    <message>
+        <source>Technique</source>
+        <translation>Техника</translation>
+    </message>
+    <message>
+        <source>Modification</source>
+        <translation>Изменение</translation>
+    </message>
+    <message>
+        <source>Die axis</source>
+        <translation>Оси</translation>
+    </message>
+    <message>
+        <source>Rating</source>
+        <translation>Рейтинг</translation>
+    </message>
+    <message>
+        <source>Invoice</source>
+        <translation>Счет</translation>
+    </message>
 </context>
 <context>
     <name>CollectionModel</name>
@@ -971,6 +1042,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Фильтр слишком сложный. Будет проигнорирован</translation>
+    </message>
+    <message>
+        <source>h</source>
+        <translation>ч</translation>
     </message>
 </context>
 <context>
@@ -1051,6 +1126,10 @@ Please update OpenNumismat</source>
         <source>Technical data</source>
         <translation>Технические данные</translation>
     </message>
+    <message>
+        <source>Specificity</source>
+        <translation>Специфика</translation>
+    </message>
 </context>
 <context>
     <name>CollectionSettingsPage</name>
@@ -1109,6 +1188,14 @@ Please update OpenNumismat</source>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Высота изображения предпросмотра была изменена. Пересчитать их сейчас?</translation>
+    </message>
+    <message>
+        <source>Use relative paths for invoices</source>
+        <translation>Использовать относительные пути для ссылок на счет</translation>
+    </message>
+    <message>
+        <source>Die axis in hours</source>
+        <translation>Поворот осей в часах</translation>
     </message>
 </context>
 <context>
@@ -1491,22 +1578,6 @@ Do you want to send an error message to the author?</source>
     <message>
         <source>System</source>
         <translation>Системные</translation>
-    </message>
-    <message>
-        <source>Reserve</source>
-        <translation>Резерв</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Переименовать</translation>
-    </message>
-    <message>
-        <source>Revert to default</source>
-        <translation>Восстановить по умолчанию</translation>
-    </message>
-    <message>
-        <source>Global enabled fields:</source>
-        <translation>Действующие поля:</translation>
     </message>
 </context>
 <context>
@@ -2147,18 +2218,6 @@ drag-n-drop to add an image)</source>
         <translation>Настройки...</translation>
     </message>
     <message>
-        <source>Clear all filters</source>
-        <translation>Сбросить все фильтры</translation>
-    </message>
-    <message>
-        <source>Clear sort order</source>
-        <translation>Сбросить всю сортировку</translation>
-    </message>
-    <message>
-        <source>Save sort order</source>
-        <translation>Сохранить текущую сортировку</translation>
-    </message>
-    <message>
         <source>Sort by drag-n-drop mode</source>
         <translation>Режим сортировки перетаскиванием</translation>
     </message>
@@ -2361,6 +2420,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Record</source>
         <translation>Запись</translation>
+    </message>
+    <message>
+        <source>Tags...</source>
+        <translation>Метки...</translation>
     </message>
 </context>
 <context>
@@ -2573,6 +2636,16 @@ Created new one</source>
 %s</source>
         <translation>Не удалось создать справочник:
 %s</translation>
+    </message>
+    <message>
+        <source>Material</source>
+        <translation>Материал</translation>
+    </message>
+    <message>
+        <source>Reference is a newer version.
+Please update OpenNumismat</source>
+        <translation>Справочник более новой версии.
+Необходимо обновить OpenNumismat</translation>
     </message>
 </context>
 <context>
@@ -3112,12 +3185,59 @@ Add a new one first.</source>
         <source>Remove all closed pages permanently?</source>
         <translation>Удалить все закрытые страницы навсегда?</translation>
     </message>
+    <message>
+        <source>Clear all filters</source>
+        <translation>Сбросить все фильтры</translation>
+    </message>
+    <message>
+        <source>Clear sort order</source>
+        <translation>Сбросить всю сортировку</translation>
+    </message>
+    <message>
+        <source>Save sort order</source>
+        <translation>Сохранить текущую сортировку</translation>
+    </message>
+    <message>
+        <source>Customize tree...</source>
+        <translation>Настроить дерево...</translation>
+    </message>
 </context>
 <context>
     <name>TableDialog</name>
     <message>
         <source>Select columns</source>
         <translation>Выбрать столбцы</translation>
+    </message>
+</context>
+<context>
+    <name>TagsDialog</name>
+    <message>
+        <source>Tags</source>
+        <translation>Метки</translation>
+    </message>
+    <message>
+        <source>New tag</source>
+        <translation>Новая метка</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Переименовать</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <source>Save tags</source>
+        <translation>Сохранение меток</translation>
+    </message>
+    <message>
+        <source>Something went wrong when saving. Please restart</source>
+        <translation>Что-то пошло не так при сохранении. Пожалуйста, перезапустите приложение</translation>
+    </message>
+    <message>
+        <source>Something went wrong when canceling. Please restart</source>
+        <translation>Что-то пошло не так при отмене. Пожалуйста, перезапустите приложение</translation>
     </message>
 </context>
 <context>
