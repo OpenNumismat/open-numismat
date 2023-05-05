@@ -37,22 +37,27 @@
         "Blíster"
     ],
     "obvrev": [
-        "Alineació de medalla (0º)",
-        "Moneda (180º)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Amb estries",
+        "Plain",
         "Decorada",
-        "Vora serrada",
-        "Vora llisa",
+        "Segmented reeding",
         "Epigrafiada"
     ],
     "shape": [
         "Rodona",
+        "Round (irregular)",
         "Quadrada",
         "Polígon",
         "Flor espanyola",
-        "Cercle amb forat"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acer inoxidable",
@@ -80,7 +85,34 @@
         "Tombac",
         "Tel·luri",
         "Estany",
-        "Zinc",
-        "Bimetall"
+        "Zinc"
+    ],
+    "composition": [
+        "Single",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Moneda",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

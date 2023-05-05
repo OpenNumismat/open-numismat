@@ -37,22 +37,27 @@
         "Ρολό"
     ],
     "obvrev": [
-        "Μετάλλιο (0°)",
-        "Νόμισμα (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Ραβδωτή",
+        "Plain",
         "Διακόσμηση",
-        "Διακεκομμένη οδόντωση",
-        "Ομαλή",
+        "Segmented reeding",
         "Γράμματα"
     ],
     "shape": [
         "Στρογγυλό",
+        "Round (irregular)",
         "Τετράγωνο",
         "Πολύγωνο",
         "Ισπανικό λουλούδι",
-        "Στρογγυλό με τρύπα"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Ανοξείδωτος χάλυβας",
@@ -80,7 +85,34 @@
         "Ορείχαλκος-Χαλκός-Ψευδάργυρος",
         "Τελλούριο",
         "Κασσίτερος",
-        "Ψευδάργυρος",
-        "Διμεταλλικό"
+        "Ψευδάργυρος"
+    ],
+    "composition": [
+        "Μονό",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "&Νόμισμα",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

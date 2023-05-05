@@ -37,22 +37,27 @@
         "Rouleau"
     ],
     "obvrev": [
-        "Alignement médaille (0°)",
-        "Alignement monnaie (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Cannelures",
+        "Plain",
         "Décoré",
-        "Listel interrompu",
-        "Poli",
+        "Segmented reeding",
         "Lettré"
     ],
     "shape": [
         "Arrondi",
+        "Round (irregular)",
         "Carré",
         "Polygone",
         "Fleur espagnole",
-        "Cercle avec trou"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acmonital",
@@ -80,7 +85,34 @@
         "Tombac",
         "Tellure",
         "Étain",
-        "Zinc",
-        "Bimétallique"
+        "Zinc"
+    ],
+    "composition": [
+        "Single",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Pièce",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

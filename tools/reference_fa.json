@@ -37,22 +37,27 @@
         "رول"
     ],
     "obvrev": [
-        "مدالیک (0 درجه)",
-        "سکه (180 درجه)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Reeded",
+        "Plain",
         "Decorated",
-        "Interrupted milled",
-        "صاف",
+        "Segmented reeding",
         "Lettered"
     ],
     "shape": [
         "گرد",
+        "Round (irregular)",
         "مربع",
         "چند گوشه",
         "Spanish flower",
-        "Circle with hole"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acmonital",
@@ -80,7 +85,34 @@
         "Tombac",
         "Tellurium",
         "Tin",
-        "روی",
-        "Bimetal"
+        "روی"
+    ],
+    "composition": [
+        "Single",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "سکه",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

@@ -37,22 +37,27 @@
         "Сувій"
     ],
     "obvrev": [
-        "Медальне (0°)",
-        "Монетне (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Рубчатий",
+        "Plain",
         "Візерунчатий",
-        "Переривчасто рубчатий",
-        "Гладкий",
+        "Segmented reeding",
         "Надпис"
     ],
     "shape": [
         "Коло",
+        "Round (irregular)",
         "Квадрат",
         "Багатокутник",
         "Іспанська квітка",
-        "Коло з отвором"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Акмонітал",
@@ -80,7 +85,34 @@
         "Томбак",
         "Телур",
         "Олово",
-        "Цинк",
-        "Біметал"
+        "Цинк"
+    ],
+    "composition": [
+        "Одномісний",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Монета",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

@@ -37,22 +37,27 @@
         "Rodar"
     ],
     "obvrev": [
-        "Medalla (0°)",
-        "Moneda (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Estriado",
+        "Plain",
         "Decorada",
-        "Estriado irregular",
-        "Suave",
+        "Segmented reeding",
         "Con letras"
     ],
     "shape": [
         "Círculo",
+        "Round (irregular)",
         "Cuadrado",
         "Polígono",
         "Flor española",
-        "Círculo con agujero"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acmonital",
@@ -80,7 +85,34 @@
         "Tombac (Cu-Zn)",
         "Telurio",
         "Estaño",
-        "Zinc",
-        "Bimetálica"
+        "Zinc"
+    ],
+    "composition": [
+        "Suelta",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Moneda",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

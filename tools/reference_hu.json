@@ -37,22 +37,27 @@
         "Roll"
     ],
     "obvrev": [
-        "Medallic (0°)",
-        "Coin (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Reeded",
+        "Plain",
         "Decorated",
-        "Interrupted milled",
-        "Sima",
+        "Segmented reeding",
         "Feliratos"
     ],
     "shape": [
         "Kerek",
+        "Round (irregular)",
         "Négyzet",
         "Polygon",
         "Spanish flower",
-        "Circle with hole"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acmonital",
@@ -80,7 +85,34 @@
         "Tombac",
         "Tellurium",
         "Tin",
-        "Zinc",
-        "Bimetal"
+        "Zinc"
+    ],
+    "composition": [
+        "Single",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Érme",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }
