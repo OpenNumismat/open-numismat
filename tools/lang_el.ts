@@ -2,7 +2,7 @@
 <context>
     <name>AddressLineEdit</name>
     <message>
-        <location filename="FormItems.py" line="236"/>
+        <location filename="FormItems.py" line="235"/>
         <source>Find address</source>
         <translation type="unfinished"/>
     </message>
@@ -10,22 +10,22 @@
 <context>
     <name>AllReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="401"/>
+        <location filename="ReferenceDialog.py" line="406"/>
         <source>Reference</source>
         <translation>Αναφορά</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="446"/>
+        <location filename="ReferenceDialog.py" line="451"/>
         <source>Save reference</source>
         <translation>Αποθήκευση αναφοράς</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="433"/>
+        <location filename="ReferenceDialog.py" line="438"/>
         <source>Something went wrong when saving. Please restart</source>
         <translation>Συνέβη κάποιο λάθος κατά την αποθήκευση. Παρακαλώ κάντε επανεκκίνηση</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="446"/>
+        <location filename="ReferenceDialog.py" line="451"/>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Συνέβη κάποιο λάθος κατά την ακύρωση. Παρακαλώ κάντε επανεκκίνηση.</translation>
     </message>
@@ -167,32 +167,32 @@
 <context>
     <name>BaseCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="153"/>
+        <location filename="StatisticsView.py" line="156"/>
         <source>Number of coins</source>
         <translation>Αριθμός νομισμάτων</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="193"/>
+        <location filename="StatisticsView.py" line="196"/>
         <source>PNG image (*.png)</source>
         <translation>Εικόνα PNG (*.png)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="193"/>
+        <location filename="StatisticsView.py" line="196"/>
         <source>PDF file (*.pdf)</source>
         <translation>Αρχείο PDF (*.pdf)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="193"/>
+        <location filename="StatisticsView.py" line="196"/>
         <source>SVG image (*.svg)</source>
         <translation>Εικόνα SVG (*.svg)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="193"/>
+        <location filename="StatisticsView.py" line="196"/>
         <source>PostScript (*.ps)</source>
         <translation>PostScript (*.ps)</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="193"/>
+        <location filename="StatisticsView.py" line="196"/>
         <source>Encapsulated PostScript (*.eps)</source>
         <translation>Συμπυκνωμένη μορφή PostScript (*.eps)</translation>
     </message>
@@ -205,67 +205,67 @@
         <translation>%d/%d νομίσματα</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="214"/>
+        <location filename="ListView.py" line="218"/>
         <source>Report preview</source>
         <translation>Προεπισκόπηση έκθεσης</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="219"/>
+        <location filename="ListView.py" line="223"/>
         <source>Excel document (*.xls)</source>
         <translation>Έγγραφο Excel (*.xls)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="219"/>
+        <location filename="ListView.py" line="223"/>
         <source>Web page (*.htm *.html)</source>
         <translation>Ιστοσελίδα (*.htm *.html)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="219"/>
+        <location filename="ListView.py" line="223"/>
         <source>Text file (*.csv)</source>
         <translation>Αρχείο κειμένου (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="219"/>
+        <location filename="ListView.py" line="223"/>
         <source>Text file UTF-8 (*.csv)</source>
         <translation>Αρχείο κειμένου UTF-8 (*.csv)</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="295"/>
+        <location filename="ListView.py" line="299"/>
         <source>Saving list</source>
         <translation>Αποθήκευση λίστας</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="497"/>
+        <location filename="ListView.py" line="501"/>
         <source>Cancel</source>
         <translation>Άκυρο</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="338"/>
+        <location filename="ListView.py" line="342"/>
         <source>Updating records</source>
         <translation>Ενημέρωση εγγραφών</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="510"/>
+        <location filename="ListView.py" line="514"/>
         <source>Saving...</source>
         <translation>Αποθήκευση...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="478"/>
+        <location filename="ListView.py" line="482"/>
         <source>Inserting records</source>
         <translation>Εισαγωγή εγγραφών</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="490"/>
+        <location filename="ListView.py" line="494"/>
         <source>Delete</source>
         <translation>Διαγραφή</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="490"/>
+        <location filename="ListView.py" line="494"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="ListView.py" line="497"/>
+        <location filename="ListView.py" line="501"/>
         <source>Deleting records</source>
         <translation>Διαγραφή εγγραφών</translation>
     </message>
@@ -275,7 +275,7 @@
         <translation>0 νομίσματα επιλεγμένα</translation>
     </message>
     <message numerus="yes">
-        <location filename="ListView.py" line="157"/>
+        <location filename="ListView.py" line="161"/>
         <source>%n coin(s) selected</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
@@ -291,13 +291,13 @@ Changing item position avalaible only on default sort order. Clear sort order no
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="295"/>
+        <location filename="ListView.py" line="299"/>
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="214"/>
+        <location filename="ListView.py" line="218"/>
         <source>Nothing selected</source>
         <translation type="unfinished"/>
     </message>
@@ -326,12 +326,12 @@ Close the file and try again.</source>
 <context>
     <name>CalendarWidget</name>
     <message>
-        <location filename="FormItems.py" line="917"/>
+        <location filename="FormItems.py" line="921"/>
         <source>Today</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="FormItems.py" line="919"/>
+        <location filename="FormItems.py" line="923"/>
         <source>Clean</source>
         <translation type="unfinished"/>
     </message>
@@ -389,7 +389,7 @@ Please update OpenNumismat</source>
         <translation>Ενημέρωση αναφοράς</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1517"/>
+        <location filename="Collection.py" line="1519"/>
         <source>Cancel</source>
         <translation>Άκυρο</translation>
     </message>
@@ -497,7 +497,7 @@ Please update OpenNumismat</source>
         <translation>Δημιουργία φορητής συλλογής</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1423"/>
+        <location filename="Collection.py" line="1425"/>
         <source>Exporting records</source>
         <translation>Εξαγωγή εγγραφών</translation>
     </message>
@@ -517,38 +517,38 @@ Please update OpenNumismat</source>
         <translation>Συμπίεση...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1676"/>
+        <location filename="Collection.py" line="1678"/>
         <source>Synchronizing</source>
         <translation>Συγχρονισμός</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1476"/>
+        <location filename="Collection.py" line="1478"/>
         <source>Can't open collection:
 %s</source>
         <translation>Δεν είναι δυνατό το άνοιγμα της συλλογής:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1487"/>
+        <location filename="Collection.py" line="1489"/>
         <source>Collection %s in wrong format</source>
         <translation>Η συλλογή %s είναι σε λάθος μορφή</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1497"/>
+        <location filename="Collection.py" line="1499"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation>Η συλλογή %s είναι σε παλιά μορφή.
 (Δοκιμάστε να την ανοίξετε πριν τη συγχώνευση.)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1669"/>
+        <location filename="Collection.py" line="1671"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Έχουν εισαχθεί %d και ενημερώθηκαν %d νομίσματα.
 Η εφαρμογή πρέπει να κάνει επανεκκίνηση τώρα.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1675"/>
+        <location filename="Collection.py" line="1677"/>
         <source>Collections looks like identical</source>
         <translation>Οι συλλογές μοιάζουν πανομοιότυπες</translation>
     </message>
@@ -571,455 +571,500 @@ The application will need to restart now.</source>
 <context>
     <name>CollectionFieldsBase</name>
     <message>
-        <location filename="CollectionFields.py" line="128"/>
+        <location filename="CollectionFields.py" line="140"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="130"/>
+        <location filename="CollectionFields.py" line="142"/>
         <source>Name</source>
         <translation>Όνομα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="131"/>
+        <location filename="CollectionFields.py" line="143"/>
         <source>Value</source>
         <translation>Αξία</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="132"/>
+        <location filename="CollectionFields.py" line="144"/>
         <source>Unit</source>
         <translation>Μονάδα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="133"/>
+        <location filename="CollectionFields.py" line="145"/>
         <source>Country</source>
         <translation>Χώρα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="134"/>
+        <location filename="CollectionFields.py" line="146"/>
         <source>Year</source>
         <translation>Έτος</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="135"/>
+        <location filename="CollectionFields.py" line="147"/>
         <source>Period</source>
         <translation>Περίοδος</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="136"/>
+        <location filename="CollectionFields.py" line="148"/>
         <source>Mint</source>
         <translation>Νομισματοκοπείο</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="137"/>
+        <location filename="CollectionFields.py" line="149"/>
         <source>Mint mark</source>
         <translation>Σήμανση νομ/κοπείου</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="138"/>
+        <location filename="CollectionFields.py" line="150"/>
         <source>Date of issue</source>
         <translation>Ημερ/νία έκδοσης</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="216"/>
+        <location filename="CollectionFields.py" line="228"/>
         <source>Type</source>
         <translation>Τύπος</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="140"/>
+        <location filename="CollectionFields.py" line="152"/>
         <source>Series</source>
         <translation>Σειρά</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="190"/>
+        <location filename="CollectionFields.py" line="202"/>
         <source>Subject</source>
         <translation>Θέμα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="142"/>
+        <location filename="CollectionFields.py" line="154"/>
         <source>Status</source>
         <translation>Κατάσταση</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="143"/>
+        <location filename="CollectionFields.py" line="155"/>
         <source>Material</source>
         <translation>Υλικό</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="144"/>
+        <location filename="CollectionFields.py" line="156"/>
         <source>Fineness</source>
         <translation>Λεπτότητα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="145"/>
+        <location filename="CollectionFields.py" line="157"/>
         <source>Shape</source>
         <translation>Σχήμα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="146"/>
+        <location filename="CollectionFields.py" line="247"/>
         <source>Diameter</source>
         <translation>Διάμετρος</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="147"/>
+        <location filename="CollectionFields.py" line="159"/>
         <source>Thickness</source>
         <translation>Πάχος</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="148"/>
+        <location filename="CollectionFields.py" line="246"/>
         <source>Weight</source>
         <translation>Βάρος</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="149"/>
+        <location filename="CollectionFields.py" line="161"/>
         <source>Grade</source>
         <translation>Αξιολόγηση</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="151"/>
+        <location filename="CollectionFields.py" line="163"/>
         <source>Label</source>
         <translation>Ετικέτα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="152"/>
+        <location filename="CollectionFields.py" line="164"/>
         <source>ObvRev</source>
         <translation>Γωνία όψεων</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="153"/>
+        <location filename="CollectionFields.py" line="165"/>
         <source>Quality</source>
         <translation>Ποιότητα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="154"/>
+        <location filename="CollectionFields.py" line="166"/>
         <source>Mintage</source>
         <translation>Νομισματοκοπία</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="155"/>
+        <location filename="CollectionFields.py" line="167"/>
         <source>Emission period</source>
         <translation>Περίοδος έκδοσης</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="156"/>
+        <location filename="CollectionFields.py" line="168"/>
         <source>1#</source>
         <translation>N° 1</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="157"/>
+        <location filename="CollectionFields.py" line="169"/>
         <source>2#</source>
         <translation>N° 2</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="158"/>
+        <location filename="CollectionFields.py" line="170"/>
         <source>3#</source>
         <translation>N° 3</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="159"/>
+        <location filename="CollectionFields.py" line="171"/>
         <source>4#</source>
         <translation>N° 4</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="160"/>
+        <location filename="CollectionFields.py" line="172"/>
         <source>Rarity</source>
         <translation>Σπανιότητα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="161"/>
+        <location filename="CollectionFields.py" line="173"/>
         <source>Fine</source>
         <translation>Καλό</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="162"/>
+        <location filename="CollectionFields.py" line="174"/>
         <source>VF</source>
         <translation>VF</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="163"/>
+        <location filename="CollectionFields.py" line="175"/>
         <source>XF</source>
         <translation>XF</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="164"/>
+        <location filename="CollectionFields.py" line="176"/>
         <source>Unc</source>
         <translation>Unc</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="210"/>
+        <location filename="CollectionFields.py" line="222"/>
         <source>Variety</source>
         <translation>Ποικιλία</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="183"/>
+        <location filename="CollectionFields.py" line="195"/>
         <source>Obverse</source>
         <translation>Πρόσθια όψη</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="186"/>
+        <location filename="CollectionFields.py" line="198"/>
         <source>Reverse</source>
         <translation>Οπίσθια όψη</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="189"/>
+        <location filename="CollectionFields.py" line="201"/>
         <source>Edge</source>
         <translation>Περιφέρεια</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="175"/>
+        <location filename="CollectionFields.py" line="187"/>
         <source>Date</source>
         <translation>Ημερομηνία</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="176"/>
+        <location filename="CollectionFields.py" line="188"/>
         <source>Price</source>
         <translation>Τιμή</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="171"/>
+        <location filename="CollectionFields.py" line="183"/>
         <source>Paid</source>
         <translation>Πληρώθηκε</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="172"/>
+        <location filename="CollectionFields.py" line="184"/>
         <source>Seller</source>
         <translation>Πωλητής</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="179"/>
+        <location filename="CollectionFields.py" line="191"/>
         <source>Place</source>
         <translation>Τόπος</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="180"/>
+        <location filename="CollectionFields.py" line="192"/>
         <source>Info</source>
         <translation>Πληροφορίες</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="178"/>
+        <location filename="CollectionFields.py" line="190"/>
         <source>Buyer</source>
         <translation>Αγοραστής</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="181"/>
+        <location filename="CollectionFields.py" line="193"/>
         <source>Note</source>
         <translation>Σημείωση</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="182"/>
+        <location filename="CollectionFields.py" line="194"/>
         <source>Image</source>
         <translation>Εικόνα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="187"/>
+        <location filename="CollectionFields.py" line="199"/>
         <source>Design</source>
         <translation>Σχέδιο</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="188"/>
+        <location filename="CollectionFields.py" line="200"/>
         <source>Designer</source>
         <translation>Σχεδιαστής</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="191"/>
+        <location filename="CollectionFields.py" line="203"/>
         <source>Photo 1</source>
         <translation>Φωτογραφία 1</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="192"/>
+        <location filename="CollectionFields.py" line="204"/>
         <source>Photo 2</source>
         <translation>Φωτογραφία 2</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="193"/>
+        <location filename="CollectionFields.py" line="205"/>
         <source>Photo 3</source>
         <translation>Φωτογραφία 3</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="194"/>
+        <location filename="CollectionFields.py" line="206"/>
         <source>Photo 4</source>
         <translation>Φωτογραφία 4</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="195"/>
+        <location filename="CollectionFields.py" line="207"/>
         <source>Defect</source>
         <translation>Ελάττωμα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="196"/>
+        <location filename="CollectionFields.py" line="208"/>
         <source>Storage</source>
         <translation>Αποθήκευση</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="197"/>
+        <location filename="CollectionFields.py" line="209"/>
         <source>Features</source>
         <translation>Χαρακτηριστικά</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="198"/>
+        <location filename="CollectionFields.py" line="210"/>
         <source>Created at</source>
         <translation>Δημιουργήθηκε</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="199"/>
+        <location filename="CollectionFields.py" line="211"/>
         <source>Updated at</source>
         <translation>Ενημερώθηκε</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="200"/>
+        <location filename="CollectionFields.py" line="212"/>
         <source>Quantity</source>
         <translation>Ποσότητα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="201"/>
+        <location filename="CollectionFields.py" line="213"/>
         <source>URL</source>
         <translation>Διεύθυνση URL</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="202"/>
+        <location filename="CollectionFields.py" line="214"/>
         <source>Barcode</source>
         <translation>Γραμμοκώδικας</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="203"/>
+        <location filename="CollectionFields.py" line="215"/>
         <source>Ruler</source>
         <translation>Χάρακας</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="204"/>
+        <location filename="CollectionFields.py" line="216"/>
         <source>Region</source>
         <translation>Περιοχή</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="206"/>
+        <location filename="CollectionFields.py" line="218"/>
         <source>Engraver</source>
         <translation>Χαράκτης</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="208"/>
+        <location filename="CollectionFields.py" line="220"/>
         <source>Color</source>
         <translation>Χρώμα</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="209"/>
+        <location filename="CollectionFields.py" line="221"/>
         <source>Description</source>
         <translation>Περιγραφή</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="211"/>
+        <location filename="CollectionFields.py" line="223"/>
         <source>Format</source>
         <translation>Μορφή</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="212"/>
+        <location filename="CollectionFields.py" line="224"/>
         <source>Condition</source>
         <translation>Κατάσταση</translation>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="213"/>
+        <location filename="CollectionFields.py" line="225"/>
         <source>Category</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="214"/>
+        <location filename="CollectionFields.py" line="226"/>
         <source>Position</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="215"/>
+        <location filename="CollectionFields.py" line="227"/>
         <source>Emitent</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="218"/>
+        <location filename="CollectionFields.py" line="230"/>
         <source>Signature</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="219"/>
+        <location filename="CollectionFields.py" line="231"/>
         <source>Address</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="220"/>
+        <location filename="CollectionFields.py" line="232"/>
         <source>Latitude</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="221"/>
+        <location filename="CollectionFields.py" line="233"/>
         <source>Longitude</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="222"/>
+        <location filename="CollectionFields.py" line="234"/>
         <source>Photo 5</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="223"/>
+        <location filename="CollectionFields.py" line="235"/>
         <source>Photo 6</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="224"/>
+        <location filename="CollectionFields.py" line="236"/>
         <source>Grader</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="225"/>
+        <location filename="CollectionFields.py" line="237"/>
         <source>Seat</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="226"/>
+        <location filename="CollectionFields.py" line="238"/>
         <source>Year on coin</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="CollectionFields.py" line="177"/>
+        <location filename="CollectionFields.py" line="189"/>
         <source>Revenue</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="239"/>
+        <source>Composition</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="241"/>
+        <source>Width</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="242"/>
+        <source>Height</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="243"/>
+        <source>Technique</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="244"/>
+        <source>Modification</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="245"/>
+        <source>Die axis</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="248"/>
+        <source>Rating</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="250"/>
+        <source>Invoice</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="CollectionFields.py" line="240"/>
+        <source>Material 2</source>
         <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>CollectionModel</name>
     <message>
-        <location filename="Collection.py" line="477"/>
+        <location filename="Collection.py" line="476"/>
         <source>Updating records</source>
         <translation>Ενημέρωση εγγραφών</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="477"/>
+        <location filename="Collection.py" line="476"/>
         <source>Cancel</source>
         <translation>Άκυρο</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="498"/>
+        <location filename="Collection.py" line="497"/>
         <source>Saving...</source>
         <translation>Αποθήκευση...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="508"/>
+        <location filename="Collection.py" line="507"/>
         <source>file is readonly</source>
         <translation>είναι μόνο για ανάγνωση</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="511"/>
+        <location filename="Collection.py" line="510"/>
         <source>Saving</source>
         <translation>Αποθήκευση</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="511"/>
+        <location filename="Collection.py" line="510"/>
         <source>Can&apos;t save data: %s</source>
         <translation>Δεν είναι δυνατή η αποθήκευση των δεδομένων: %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="594"/>
+        <location filename="Collection.py" line="593"/>
         <source>Filtering</source>
         <translation>Φιλτράρισμα</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="594"/>
+        <location filename="Collection.py" line="593"/>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Το φίλτρο είναι πολύ σύνθετο. Θα αγνοηθεί.</translation>
     </message>
@@ -1072,12 +1117,12 @@ The application will need to restart now.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="289"/>
+        <location filename="SettingsDialog.py" line="292"/>
         <source>Settings</source>
         <translation>Ρυθμίσεις</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="289"/>
+        <location filename="SettingsDialog.py" line="292"/>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Το ύψος της εικόνας προεπισκόπησης άλλαξε. Να ξαναγίνει υπολογισμός τώρα;</translation>
     </message>
@@ -1090,17 +1135,17 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectConnector</name>
     <message>
-        <location filename="Colnect.py" line="247"/>
+        <location filename="Colnect.py" line="278"/>
         <source>Colnect service not available</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="251"/>
+        <location filename="Colnect.py" line="282"/>
         <source>Colnect data not recognised</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="240"/>
+        <location filename="Colnect.py" line="271"/>
         <source>Colnect proxy-server not response</source>
         <translation type="unfinished"/>
     </message>
@@ -1108,72 +1153,72 @@ The application will need to restart now.</source>
 <context>
     <name>ColnectDialog</name>
     <message>
-        <location filename="Colnect.py" line="318"/>
+        <location filename="Colnect.py" line="371"/>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="331"/>
+        <location filename="Colnect.py" line="384"/>
         <source>Coins</source>
         <translation>Νομίσματα</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="331"/>
+        <location filename="Colnect.py" line="384"/>
         <source>Stamps</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="344"/>
+        <location filename="Colnect.py" line="397"/>
         <source>Category</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="415"/>
+        <location filename="Colnect.py" line="468"/>
         <source>Add</source>
         <translation>Προσθήκη</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="417"/>
+        <location filename="Colnect.py" line="470"/>
         <source>Add and close</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="545"/>
+        <location filename="Colnect.py" line="554"/>
         <source>(All)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="630"/>
+        <location filename="Colnect.py" line="686"/>
         <source>Downloading</source>
         <translation>Λήψη...</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="630"/>
+        <location filename="Colnect.py" line="686"/>
         <source>Cancel</source>
         <translation>Άκυρο</translation>
     </message>
     <message>
-        <location filename="Colnect.py" line="424"/>
+        <location filename="Colnect.py" line="477"/>
         <source>Specify more parameters</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="421"/>
+        <location filename="Colnect.py" line="474"/>
         <source>Preview</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="425"/>
+        <location filename="Colnect.py" line="478"/>
         <source>Nothing found</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="331"/>
+        <location filename="Colnect.py" line="384"/>
         <source>Banknotes</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="Colnect.py" line="331"/>
+        <location filename="Colnect.py" line="384"/>
         <source>Philatelic products</source>
         <translation type="unfinished"/>
     </message>
@@ -1277,67 +1322,67 @@ The application will need to restart now.</source>
 <context>
     <name>Currency</name>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>BGN - Bulgarian lev</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>BRL - Brazilian real</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>BYN - Belarusian ruble</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>CZK - Czech koruna</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>EUR - Euro</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>GBP - Pound sterling</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>HUF - Hungarian forint</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>RUB - Russian ruble</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>SEK - Swedish krona</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>TRY - Turkish lira</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>UAH - Ukrainian hryvnia</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>USD - United States dollar</source>
         <translation type="unfinished"/>
     </message>
     <message encoding="UTF-8">
-        <location filename="SettingsDialog.py" line="456"/>
+        <location filename="SettingsDialog.py" line="459"/>
         <source>PLN - Polish złoty</source>
         <translation type="unfinished"/>
     </message>
@@ -1386,7 +1431,7 @@ The application will need to restart now.</source>
         <translation>Νόμισμα</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="499"/>
+        <location filename="DetailsTabWidget.py" line="500"/>
         <source>Market</source>
         <translation>Αγορά</translation>
     </message>
@@ -1471,7 +1516,7 @@ The application will need to restart now.</source>
         <translation>Παραλλαγή</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="551"/>
+        <location filename="DetailsTabWidget.py" line="552"/>
         <source>Commission</source>
         <translation>Προμήθεια</translation>
     </message>
@@ -1542,12 +1587,12 @@ The application will need to restart now.</source>
 <context>
     <name>ExcpHook</name>
     <message>
-        <location filename="main.py" line="111"/>
+        <location filename="main.py" line="101"/>
         <source>System error</source>
         <translation>Σφάλμα συστήματος</translation>
     </message>
     <message>
-        <location filename="main.py" line="112"/>
+        <location filename="main.py" line="102"/>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Παρουσιάστηκε ένα σφάλμα συστήματος.
@@ -1635,72 +1680,72 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FieldsSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="379"/>
+        <location filename="SettingsDialog.py" line="382"/>
         <source>Rename</source>
         <translation>Μετονομασία</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="384"/>
+        <location filename="SettingsDialog.py" line="387"/>
         <source>Revert to default</source>
         <translation>Επαναφορά προεπιλογών</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="392"/>
+        <location filename="SettingsDialog.py" line="395"/>
         <source>Global enabled fields:</source>
         <translation>Καθολικά ενεργοποιημένα πεδία:</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="306"/>
+        <location filename="SettingsDialog.py" line="309"/>
         <source>Images</source>
         <translation>Εικόνες</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="307"/>
+        <location filename="SettingsDialog.py" line="310"/>
         <source>Main details</source>
         <translation>Κύρια στοιχεία</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="308"/>
+        <location filename="SettingsDialog.py" line="311"/>
         <source>State</source>
         <translation>Κατάσταση</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="309"/>
+        <location filename="SettingsDialog.py" line="312"/>
         <source>Buy</source>
         <translation>Αγορά</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="310"/>
+        <location filename="SettingsDialog.py" line="313"/>
         <source>Sale</source>
         <translation>Πώληση</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="311"/>
+        <location filename="SettingsDialog.py" line="314"/>
         <source>Map</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="312"/>
+        <location filename="SettingsDialog.py" line="315"/>
         <source>Parameters</source>
         <translation>Παράμετροι</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="313"/>
+        <location filename="SettingsDialog.py" line="316"/>
         <source>Design</source>
         <translation>Σχέδιο</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="314"/>
+        <location filename="SettingsDialog.py" line="317"/>
         <source>Classification</source>
         <translation>Ταξινόμηση</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="315"/>
+        <location filename="SettingsDialog.py" line="318"/>
         <source>System</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="316"/>
+        <location filename="SettingsDialog.py" line="319"/>
         <source>Other</source>
         <translation>Άλλο</translation>
     </message>
@@ -1746,187 +1791,187 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>FormDetailsTabWidget</name>
     <message>
-        <location filename="DetailsTabWidget.py" line="590"/>
+        <location filename="DetailsTabWidget.py" line="591"/>
         <source>Images</source>
         <translation>Εικόνες</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="652"/>
+        <location filename="DetailsTabWidget.py" line="653"/>
         <source>Main details</source>
         <translation>Κύρια στοιχεία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="655"/>
+        <location filename="DetailsTabWidget.py" line="656"/>
         <source>Generate</source>
         <translation>Δημιουργία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="680"/>
+        <location filename="DetailsTabWidget.py" line="681"/>
         <source>Obverse</source>
         <translation>Πρόσθια όψη</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="692"/>
+        <location filename="DetailsTabWidget.py" line="693"/>
         <source>Reverse</source>
         <translation>Οπίσθια όψη</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="704"/>
+        <location filename="DetailsTabWidget.py" line="705"/>
         <source>Edge</source>
         <translation>Περιφέρεια</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="717"/>
+        <location filename="DetailsTabWidget.py" line="718"/>
         <source>Variation</source>
         <translation>Παραλλαγή</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="894"/>
+        <location filename="DetailsTabWidget.py" line="897"/>
         <source>Commission</source>
         <translation>Προμήθεια</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="896"/>
+        <location filename="DetailsTabWidget.py" line="899"/>
         <source>Available format 12.5 or 10%</source>
         <translation>Διαθέσιμη μορφή 12.5 ή 10%</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="808"/>
+        <location filename="DetailsTabWidget.py" line="809"/>
         <source>Israel</source>
         <translation>Ισραήλ</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Bahrain</source>
         <translation>Μπαχρέιν</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Jordan</source>
         <translation>Ιορδανία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Iraq</source>
         <translation>Ιράκ</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Yemen</source>
         <translation>Υεμένη</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Qatar</source>
         <translation>Κατάρ</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Kuwait</source>
         <translation>Κουβέιτ</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Maldives</source>
         <translation>Μαλδίβες</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Oman</source>
         <translation>Ομάν</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Syria</source>
         <translation>Συρία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>United Arab Emirates</source>
         <translation>Ηνωμένα Αραβικά Εμιράτα</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Saudi Arabia</source>
         <translation>Σαουδική Αραβία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Turkey</source>
         <translation>Τουρκία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Algeria</source>
         <translation>Αλγερία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Egypt</source>
         <translation>Αίγυπτος</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Libya</source>
         <translation>Λιβύη</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Mauritania</source>
         <translation>Μαυριτανία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Morocco</source>
         <translation>Μαρόκο</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Sudan</source>
         <translation>Σουδάν</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="810"/>
+        <location filename="DetailsTabWidget.py" line="811"/>
         <source>Tunisia</source>
         <translation>Τυνησία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="818"/>
+        <location filename="DetailsTabWidget.py" line="819"/>
         <source>Afghanistan</source>
         <translation>Αφγανιστάν</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="818"/>
+        <location filename="DetailsTabWidget.py" line="819"/>
         <source>Iran</source>
         <translation>Ιράν</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="820"/>
+        <location filename="DetailsTabWidget.py" line="821"/>
         <source>Japan</source>
         <translation>Ιαπωνία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="822"/>
+        <location filename="DetailsTabWidget.py" line="823"/>
         <source>Nepal</source>
         <translation>Παλάου</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="822"/>
+        <location filename="DetailsTabWidget.py" line="823"/>
         <source>India</source>
         <translation>Ινδία</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="824"/>
+        <location filename="DetailsTabWidget.py" line="825"/>
         <source>Thailand</source>
         <translation>Ταϊλάνδη</translation>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="826"/>
+        <location filename="DetailsTabWidget.py" line="827"/>
         <source>Burma</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="DetailsTabWidget.py" line="826"/>
+        <location filename="DetailsTabWidget.py" line="827"/>
         <source>Myanmar</source>
         <translation>Μιανμάρ</translation>
     </message>
@@ -1975,7 +2020,7 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>GraderLineEdit</name>
     <message>
-        <location filename="FormItems.py" line="282"/>
+        <location filename="FormItems.py" line="281"/>
         <source>View on grader site</source>
         <translation type="unfinished"/>
     </message>
@@ -1983,42 +2028,42 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>IconView</name>
     <message>
-        <location filename="ListView.py" line="1265"/>
+        <location filename="ListView.py" line="1269"/>
         <source>Edit...</source>
         <translation>Επεξεργασία...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1273"/>
+        <location filename="ListView.py" line="1277"/>
         <source>Copy</source>
         <translation>Αντιγραφή</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1276"/>
+        <location filename="ListView.py" line="1280"/>
         <source>Paste</source>
         <translation>Επικόλληση</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1281"/>
+        <location filename="ListView.py" line="1285"/>
         <source>Clone</source>
         <translation>Κλώνος</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1285"/>
+        <location filename="ListView.py" line="1289"/>
         <source>Multi edit...</source>
         <translation>Μαζική επεξεργασία...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1306"/>
+        <location filename="ListView.py" line="1310"/>
         <source>Delete</source>
         <translation>Διαγραφή</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="1293"/>
+        <location filename="ListView.py" line="1297"/>
         <source>Move up</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="1298"/>
+        <location filename="ListView.py" line="1302"/>
         <source>Move down</source>
         <translation type="unfinished"/>
     </message>
@@ -2306,42 +2351,42 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ImportSettingsPage</name>
     <message>
-        <location filename="SettingsDialog.py" line="488"/>
+        <location filename="SettingsDialog.py" line="491"/>
         <source>Language</source>
         <translation>Γλώσσα / Language</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="490"/>
+        <location filename="SettingsDialog.py" line="493"/>
         <source>Skip currency symbol</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="504"/>
+        <location filename="SettingsDialog.py" line="507"/>
         <source>English language</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="525"/>
+        <location filename="SettingsDialog.py" line="528"/>
         <source>Split denomination</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="512"/>
+        <location filename="SettingsDialog.py" line="515"/>
         <source>Trim ID in title</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="564"/>
+        <location filename="SettingsDialog.py" line="567"/>
         <source>Clear cache</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="538"/>
+        <location filename="SettingsDialog.py" line="541"/>
         <source>Price currency</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="564"/>
+        <location filename="SettingsDialog.py" line="567"/>
         <source>Import cache cleared</source>
         <translation type="unfinished"/>
     </message>
@@ -2357,102 +2402,102 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="ListView.py" line="636"/>
+        <location filename="ListView.py" line="640"/>
         <source>Select columns...</source>
         <translation>Επιλογή στηλών...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="637"/>
+        <location filename="ListView.py" line="641"/>
         <source>Hide</source>
         <translation>Απόκρυψη</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="639"/>
+        <location filename="ListView.py" line="643"/>
         <source>Adjust size</source>
         <translation>Ρύθμιση μεγέθους</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="810"/>
+        <location filename="ListView.py" line="814"/>
         <source>Edit...</source>
         <translation>Επεξεργασία...</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="817"/>
+        <location filename="ListView.py" line="821"/>
         <source>Copy</source>
         <translation>Αντιγραφή</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="819"/>
+        <location filename="ListView.py" line="823"/>
         <source>Paste</source>
         <translation>Επικόλληση</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="831"/>
+        <location filename="ListView.py" line="835"/>
         <source>Filter in</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="823"/>
+        <location filename="ListView.py" line="827"/>
         <source>Clone</source>
         <translation>Κλώνος</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="826"/>
+        <location filename="ListView.py" line="830"/>
         <source>Multi edit...</source>
         <translation>Μαζική επεξεργασία...</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="56"/>
+        <location filename="ReferenceDialog.py" line="58"/>
         <source>Delete</source>
         <translation>Διαγραφή</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="40"/>
+        <location filename="ReferenceDialog.py" line="42"/>
         <source>Enter value</source>
         <translation>Εισαγωγή τιμής</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="52"/>
+        <location filename="ReferenceDialog.py" line="54"/>
         <source>Add</source>
         <translation>Προσθήκη</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="64"/>
+        <location filename="ReferenceDialog.py" line="66"/>
         <source>Change icon...</source>
         <translation>Αλλαγή εικονιδίου...</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="66"/>
+        <location filename="ReferenceDialog.py" line="68"/>
         <source>Add icon...</source>
         <translation>Προσθήκη εικονιδίου...</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="70"/>
+        <location filename="ReferenceDialog.py" line="72"/>
         <source>Paste icon</source>
         <translation>Επικόλληση εικονιδίου</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="74"/>
+        <location filename="ReferenceDialog.py" line="76"/>
         <source>Clear icon</source>
         <translation>Απαλοιφή εικονιδίου</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="88"/>
+        <location filename="ReferenceDialog.py" line="90"/>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
         <translation>Εικόνες (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Όλα τα αρχεία (*.*)</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="90"/>
+        <location filename="ReferenceDialog.py" line="92"/>
         <source>Open File</source>
         <translation>Άνοιγμα αρχείου</translation>
     </message>
     <message>
-        <location filename="ListView.py" line="838"/>
+        <location filename="ListView.py" line="842"/>
         <source>Move up</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="ListView.py" line="843"/>
+        <location filename="ListView.py" line="847"/>
         <source>Move down</source>
         <translation type="unfinished"/>
     </message>
@@ -2881,7 +2926,7 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>NativeYearEdit</name>
     <message>
-        <location filename="FormItems.py" line="557"/>
+        <location filename="FormItems.py" line="561"/>
         <source>Year calculator</source>
         <translation type="unfinished"/>
     </message>
@@ -3084,84 +3129,84 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>Reference</name>
     <message>
-        <location filename="Reference.py" line="293"/>
+        <location filename="Reference.py" line="296"/>
         <source>C</source>
         <translation>Χ</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="295"/>
+        <location filename="Reference.py" line="298"/>
         <source>P</source>
         <translation>Π</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="299"/>
+        <location filename="Reference.py" line="302"/>
         <source>U</source>
         <translation>Μ</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="301"/>
+        <location filename="Reference.py" line="304"/>
         <source>S</source>
         <translation>Σ</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="303"/>
+        <location filename="Reference.py" line="306"/>
         <source>G</source>
         <translation>Α</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="304"/>
+        <location filename="Reference.py" line="331"/>
         <source>M</source>
         <translation>Υ</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="305"/>
+        <location filename="Reference.py" line="307"/>
         <source>F</source>
         <translation>Σ</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="306"/>
+        <location filename="Reference.py" line="308"/>
         <source>Q</source>
         <translation>Π</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="307"/>
+        <location filename="Reference.py" line="309"/>
         <source>R</source>
         <translation>Σ</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="309"/>
+        <location filename="Reference.py" line="311"/>
         <source>T</source>
         <translation>Τ</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="310"/>
+        <location filename="Reference.py" line="312"/>
         <source>D</source>
         <translation>Ε</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="317"/>
+        <location filename="Reference.py" line="322"/>
         <source>Place</source>
         <translation>Τόπος</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="320"/>
+        <location filename="Reference.py" line="325"/>
         <source>Color</source>
         <translation>Χρώμα</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="401"/>
+        <location filename="Reference.py" line="410"/>
         <source>Open reference</source>
         <translation>Άνοιγμα αναφοράς</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="367"/>
+        <location filename="Reference.py" line="376"/>
         <source>Can't open reference:
 %s</source>
         <translation>Δεν είναι δυνατό το άνοιγμα της αναφοράς:
 %s</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="401"/>
+        <location filename="Reference.py" line="410"/>
         <source>Can't open reference:
 %s
 Created new one</source>
@@ -3170,27 +3215,32 @@ Created new one</source>
 Δημιουργήθηκε νέα</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="408"/>
+        <location filename="Reference.py" line="417"/>
         <source>Create reference</source>
         <translation>Δημιουργία αναφοράς</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="408"/>
+        <location filename="Reference.py" line="417"/>
         <source>Can't create reference:
 %s</source>
         <translation>Δεν ήταν δυνατή η δημιουργία αναφοράς:
 %s</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="323"/>
+        <location filename="Reference.py" line="328"/>
         <source>Edge</source>
         <translation>Περιφέρεια</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="331"/>
+        <source>Material</source>
+        <translation>Υλικό</translation>
     </message>
 </context>
 <context>
     <name>ReferenceDialog</name>
     <message>
-        <location filename="ReferenceDialog.py" line="319"/>
+        <location filename="ReferenceDialog.py" line="321"/>
         <source>Reference</source>
         <translation>Αναφορά</translation>
     </message>
@@ -3198,17 +3248,17 @@ Created new one</source>
 <context>
     <name>ReferenceWidget</name>
     <message>
-        <location filename="ReferenceDialog.py" line="169"/>
+        <location filename="ReferenceDialog.py" line="171"/>
         <source>Add</source>
         <translation>Προσθήκη</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="173"/>
+        <location filename="ReferenceDialog.py" line="175"/>
         <source>Del</source>
         <translation>Διαγραφή</translation>
     </message>
     <message>
-        <location filename="ReferenceDialog.py" line="180"/>
+        <location filename="ReferenceDialog.py" line="182"/>
         <source>Sort</source>
         <translation>Ταξινόμηση</translation>
     </message>
@@ -3260,27 +3310,27 @@ Created new one</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.py" line="593"/>
+        <location filename="SettingsDialog.py" line="596"/>
         <source>Settings</source>
         <translation>Ρυθμίσεις</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="596"/>
+        <location filename="SettingsDialog.py" line="599"/>
         <source>Main</source>
         <translation>Κύριες</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="597"/>
+        <location filename="SettingsDialog.py" line="600"/>
         <source>Collection</source>
         <translation>Συλλογή</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="600"/>
+        <location filename="SettingsDialog.py" line="603"/>
         <source>Fields</source>
         <translation>Πεδία</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="603"/>
+        <location filename="SettingsDialog.py" line="606"/>
         <source>Import</source>
         <translation>Εισαγωγή</translation>
     </message>
@@ -3288,17 +3338,17 @@ Created new one</source>
 <context>
     <name>StackedBarCanvas</name>
     <message>
-        <location filename="StatisticsView.py" line="281"/>
+        <location filename="StatisticsView.py" line="284"/>
         <source>Building chart</source>
         <translation>Δημιουργία διαγράμματος</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="281"/>
+        <location filename="StatisticsView.py" line="284"/>
         <source>Cancel</source>
         <translation>Άκυρο</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="296"/>
+        <location filename="StatisticsView.py" line="299"/>
         <source>Drawing chart</source>
         <translation>Σχεδίαση διαγράμματος</translation>
     </message>
@@ -3306,159 +3356,164 @@ Created new one</source>
 <context>
     <name>StatisticsView</name>
     <message>
-        <location filename="StatisticsView.py" line="368"/>
+        <location filename="StatisticsView.py" line="371"/>
         <source>Bar</source>
         <translation>Στήλη</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="369"/>
+        <location filename="StatisticsView.py" line="372"/>
         <source>Horizontal bar</source>
         <translation>Οριζόντια γραμμή</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="370"/>
+        <location filename="StatisticsView.py" line="373"/>
         <source>Pie</source>
         <translation>Πίτα</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="371"/>
+        <location filename="StatisticsView.py" line="374"/>
         <source>Stacked bar</source>
         <translation>Στοίβα γραμμών</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="372"/>
+        <location filename="StatisticsView.py" line="375"/>
         <source>Progress</source>
         <translation>Πρόοδος</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="374"/>
+        <location filename="StatisticsView.py" line="377"/>
         <source>GeoChart</source>
         <translation>GeoChart</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="375"/>
+        <location filename="StatisticsView.py" line="378"/>
         <source>Chart:</source>
         <translation>Διάγραμμα:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="378"/>
+        <location filename="StatisticsView.py" line="381"/>
         <source>Field:</source>
         <translation>Πεδίο:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="383"/>
+        <location filename="StatisticsView.py" line="386"/>
         <source>Additional field:</source>
         <translation>Πρόσθετο πεδίο:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="388"/>
+        <location filename="StatisticsView.py" line="391"/>
         <source>Sum per:</source>
         <translation>Σύνολο ανά:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="391"/>
+        <location filename="StatisticsView.py" line="394"/>
         <source>Year</source>
         <translation>Έτος</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="392"/>
+        <location filename="StatisticsView.py" line="395"/>
         <source>Month</source>
         <translation>Μήνας</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="393"/>
+        <location filename="StatisticsView.py" line="396"/>
         <source>Week</source>
         <translation>Εβδομάδα</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="394"/>
+        <location filename="StatisticsView.py" line="397"/>
         <source>Day</source>
         <translation>Ημέρα</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="397"/>
+        <location filename="StatisticsView.py" line="400"/>
         <source>Items:</source>
         <translation>Στοιχεία:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="400"/>
+        <location filename="StatisticsView.py" line="403"/>
         <source>Count</source>
         <translation>Αριθμός</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="401"/>
+        <location filename="StatisticsView.py" line="405"/>
         <source>Price</source>
         <translation>Τιμή</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="402"/>
+        <location filename="StatisticsView.py" line="406"/>
         <source>Total price</source>
         <translation>Συνολική τιμή</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="403"/>
+        <location filename="StatisticsView.py" line="407"/>
         <source>Created</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="406"/>
+        <location filename="StatisticsView.py" line="410"/>
         <source>Multicolor</source>
         <translation>Πολύχρωμο</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="409"/>
+        <location filename="StatisticsView.py" line="413"/>
         <source>Region:</source>
         <translation>Περιοχή:</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="412"/>
+        <location filename="StatisticsView.py" line="416"/>
         <source>All</source>
         <translation>Όλες</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="413"/>
+        <location filename="StatisticsView.py" line="417"/>
         <source>Europe</source>
         <translation>Ευρώπη</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="414"/>
+        <location filename="StatisticsView.py" line="418"/>
         <source>Africa</source>
         <translation>Αφρική</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="415"/>
+        <location filename="StatisticsView.py" line="419"/>
         <source>Americas</source>
         <translation>Αμερική</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="416"/>
+        <location filename="StatisticsView.py" line="420"/>
         <source>Asia</source>
         <translation>Ασία</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="417"/>
+        <location filename="StatisticsView.py" line="421"/>
         <source>Oceania</source>
         <translation>Ωκεανία</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="424"/>
+        <location filename="StatisticsView.py" line="428"/>
         <source>Save chart</source>
         <translation>Αποθήκευση διαγράμματος</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="593"/>
+        <location filename="StatisticsView.py" line="601"/>
         <source>Paid</source>
         <translation>Πληρώθηκε</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="596"/>
+        <location filename="StatisticsView.py" line="604"/>
         <source>Total paid</source>
         <translation>Σύνολο πληρωμών</translation>
     </message>
     <message>
-        <location filename="StatisticsView.py" line="602"/>
+        <location filename="StatisticsView.py" line="610"/>
         <source>Number of coins</source>
         <translation>Αριθμός νομισμάτων</translation>
+    </message>
+    <message>
+        <location filename="StatisticsView.py" line="404"/>
+        <source>Date of issue</source>
+        <translation>Ημερ/νία έκδοσης</translation>
     </message>
 </context>
 <context>
@@ -3513,156 +3568,161 @@ Created new one</source>
         <source>Duplicate</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location filename="CollectionFields.py" line="64"/>
+        <source>Replacement</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SummaryDialog</name>
     <message>
-        <location filename="SummaryDialog.py" line="20"/>
+        <location filename="SummaryDialog.py" line="18"/>
         <source>Summary</source>
         <translation>Περίληψη</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="58"/>
+        <location filename="SummaryDialog.py" line="57"/>
         <source>Total count: %d</source>
         <translation>Συνολικός αριθμός: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="71"/>
+        <location filename="SummaryDialog.py" line="70"/>
         <source>Count owned: %d</source>
         <translation>Αριθμός διαθέσιμων: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="184"/>
+        <location filename="SummaryDialog.py" line="183"/>
         <source>Count wish: %d</source>
         <translation>Αριθμός επιθυμητών: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="193"/>
+        <location filename="SummaryDialog.py" line="192"/>
         <source>Count sales: %d</source>
         <translation>Αριθμός πωλήσεων: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="201"/>
+        <location filename="SummaryDialog.py" line="200"/>
         <source>Count biddings: %d</source>
         <translation>Αριθμός προσφορών: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="209"/>
+        <location filename="SummaryDialog.py" line="208"/>
         <source>Count missing: %d</source>
         <translation>Αριθμός χαμένων: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="250"/>
+        <location filename="SummaryDialog.py" line="249"/>
         <source>(commission %d%%)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="270"/>
+        <location filename="SummaryDialog.py" line="269"/>
         <source>First purchase: %s</source>
         <translation>Πρώτη αγορά: %s</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="347"/>
+        <location filename="SummaryDialog.py" line="346"/>
         <source>(calculated for %d coins)</source>
         <translation>(υπολογίστηκε για %d νομίσματα)</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="321"/>
+        <location filename="SummaryDialog.py" line="320"/>
         <source>Estimation owned: %d</source>
         <translation>Εκτίμηση διαθέσιμων: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="349"/>
+        <location filename="SummaryDialog.py" line="348"/>
         <source>Estimation wish: %d</source>
         <translation>Εκτίμηση επιθυμητών: %d</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="356"/>
+        <location filename="SummaryDialog.py" line="355"/>
         <source>Count images: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="38"/>
+        <location filename="SummaryDialog.py" line="36"/>
         <source>[Selected]</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="38"/>
+        <location filename="SummaryDialog.py" line="36"/>
         <source>[All]</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="73"/>
+        <location filename="SummaryDialog.py" line="72"/>
         <source>Count owned: %d/%d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="77"/>
+        <location filename="SummaryDialog.py" line="76"/>
         <source>Gold</source>
         <translation>Χρυσός</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="89"/>
+        <location filename="SummaryDialog.py" line="88"/>
         <source>Gold coins: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="91"/>
+        <location filename="SummaryDialog.py" line="90"/>
         <source>Gold coins: %d/%d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="319"/>
+        <location filename="SummaryDialog.py" line="318"/>
         <source>(calculated for %d/%d coins)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="129"/>
+        <location filename="SummaryDialog.py" line="128"/>
         <source>Silver</source>
         <translation>Ασήμι</translation>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="141"/>
+        <location filename="SummaryDialog.py" line="140"/>
         <source>Silver coins: %d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="143"/>
+        <location filename="SummaryDialog.py" line="142"/>
         <source>Silver coins: %d/%d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="125"/>
+        <location filename="SummaryDialog.py" line="124"/>
         <source>Gold weight: %s gramm</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="177"/>
+        <location filename="SummaryDialog.py" line="176"/>
         <source>Silver weight: %s gramm</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="228"/>
+        <location filename="SummaryDialog.py" line="227"/>
         <source>Paid: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="233"/>
+        <location filename="SummaryDialog.py" line="232"/>
         <source>Average paid per item: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="252"/>
+        <location filename="SummaryDialog.py" line="251"/>
         <source>Earned: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="257"/>
+        <location filename="SummaryDialog.py" line="256"/>
         <source>Average earn per item: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="SummaryDialog.py" line="262"/>
+        <location filename="SummaryDialog.py" line="261"/>
         <source>Total (paid - earned): %s</source>
         <translation type="unfinished"/>
     </message>
@@ -3715,61 +3775,61 @@ Created new one</source>
         <translation>(κλώνος)</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="190"/>
+        <location filename="TabView.py" line="192"/>
         <source>Coins</source>
         <translation>Νομίσματα</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="198"/>
+        <location filename="TabView.py" line="200"/>
         <source>New list</source>
         <translation>Νέα λίστα</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="198"/>
+        <location filename="TabView.py" line="200"/>
         <source>Enter list title</source>
         <translation>Εισάγετε τον τίτλο λίστας</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="207"/>
+        <location filename="TabView.py" line="209"/>
         <source>Rename list</source>
         <translation>Μετονομασία λίστας</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="207"/>
+        <location filename="TabView.py" line="209"/>
         <source>Enter new list title</source>
         <translation>Εισάγετε το νέο τίτλο λίστας</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="242"/>
+        <location filename="TabView.py" line="244"/>
         <source>Remove page</source>
         <translation>Κατάργηση σελίδας</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="222"/>
+        <location filename="TabView.py" line="224"/>
         <source>Can't close latest opened page.
 Add a new one first.</source>
         <translation>Δεν είναι δυνατό το κλείσιμο της πρόσφατα ανοιγμένης σελίδας.
 Προσθέστε μια νέα πρώτα.</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="235"/>
+        <location filename="TabView.py" line="237"/>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
         <translation>Δεν είναι δυνατή η κατάργηση της πρόσφατα ανοιγμένης σελίδας.
 Προσθέστε μια νέα πρώτα.</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="242"/>
+        <location filename="TabView.py" line="244"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
         <translation>Κατάργηση της σελίδας &apos;%s&apos; μόνιμα;</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="252"/>
+        <location filename="TabView.py" line="254"/>
         <source>Remove pages</source>
         <translation>Κατάργηση σελίδων</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="252"/>
+        <location filename="TabView.py" line="254"/>
         <source>Remove all closed pages permanently?</source>
         <translation>Κατάργηση όλων των κλειστών σελίδων μόνιμα;</translation>
     </message>
@@ -3785,32 +3845,32 @@ Add a new one first.</source>
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="PageView.py" line="393"/>
+        <location filename="PageView.py" line="394"/>
         <source>Other</source>
         <translation>Άλλο</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="425"/>
+        <location filename="PageView.py" line="426"/>
         <source>Add new coin...</source>
         <translation>Προσθήκη νέου νομίσματος</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="428"/>
+        <location filename="PageView.py" line="429"/>
         <source>Edit coins...</source>
         <translation>Επεξεργασία νομισμάτων...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="432"/>
+        <location filename="PageView.py" line="433"/>
         <source>Customize tree...</source>
         <translation>Προσαρμογή δέντρου...</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="485"/>
+        <location filename="PageView.py" line="486"/>
         <source>Updating records</source>
         <translation>Ενημέρωση εγγραφών</translation>
     </message>
     <message>
-        <location filename="PageView.py" line="485"/>
+        <location filename="PageView.py" line="486"/>
         <source>Cancel</source>
         <translation>Άκυρο</translation>
     </message>
@@ -3818,12 +3878,12 @@ Add a new one first.</source>
 <context>
     <name>UpdaterTo2</name>
     <message>
-        <location filename="VersionUpdater.py" line="237"/>
+        <location filename="VersionUpdater.py" line="240"/>
         <source>Saving...</source>
         <translation>Αποθήκευση...</translation>
     </message>
     <message>
-        <location filename="VersionUpdater.py" line="253"/>
+        <location filename="VersionUpdater.py" line="256"/>
         <source>Vacuum...</source>
         <translation>Συμπίεση...</translation>
     </message>
@@ -3831,7 +3891,7 @@ Add a new one first.</source>
 <context>
     <name>UpdaterTo4</name>
     <message>
-        <location filename="VersionUpdater.py" line="353"/>
+        <location filename="VersionUpdater.py" line="356"/>
         <source>Saving...</source>
         <translation>Αποθήκευση...</translation>
     </message>
@@ -3839,7 +3899,7 @@ Add a new one first.</source>
 <context>
     <name>UpdaterTo5</name>
     <message>
-        <location filename="VersionUpdater.py" line="405"/>
+        <location filename="VersionUpdater.py" line="408"/>
         <source>Saving...</source>
         <translation>Αποθήκευση...</translation>
     </message>
@@ -3847,17 +3907,17 @@ Add a new one first.</source>
 <context>
     <name>UrlLineEdit</name>
     <message>
-        <location filename="FormItems.py" line="173"/>
+        <location filename="FormItems.py" line="172"/>
         <source>Open specified URL</source>
         <translation>Άνοιγμα καθορισμένης διεύθυνσης URL</translation>
     </message>
     <message>
-        <location filename="FormItems.py" line="181"/>
+        <location filename="FormItems.py" line="180"/>
         <source>Select file from disc</source>
         <translation>Επιλογή αρχείου από το δίσκο</translation>
     </message>
     <message>
-        <location filename="FormItems.py" line="193"/>
+        <location filename="FormItems.py" line="192"/>
         <source>Select file</source>
         <translation>Επιλογή αρχείου</translation>
     </message>
@@ -3918,7 +3978,7 @@ Add a new one first.</source>
 <context>
     <name>YearEdit</name>
     <message>
-        <location filename="FormItems.py" line="521"/>
+        <location filename="FormItems.py" line="525"/>
         <source>BC</source>
         <translation>π.Χ.</translation>
     </message>
@@ -3972,7 +4032,7 @@ Add a new one first.</source>
 <context>
     <name>_Updater</name>
     <message>
-        <location filename="VersionUpdater.py" line="70"/>
+        <location filename="VersionUpdater.py" line="73"/>
         <source>Updating records</source>
         <translation>Ενημέρωση εγγραφών</translation>
     </message>
