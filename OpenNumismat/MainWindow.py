@@ -16,12 +16,12 @@ from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
-from OpenNumismat.FindDialog import FindDialog
+# from OpenNumismat.FindDialog import FindDialog
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
 from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
-from OpenNumismat.TagsDialog import TagsDialog
+# from OpenNumismat.TagsDialog import TagsDialog
 
 from OpenNumismat.Collection.Import import *
 
@@ -66,10 +66,10 @@ class MainWindow(QMainWindow):
         self.viewButton.setMenu(viewMenu)
         self.viewButton.setDefaultAction(self.tableViewAct)
 
-        findAct = QAction(QIcon(':/binoculars.png'),
-                          "Find...", self)
-        findAct.triggered.connect(self.findEvent)
-        self.collectionActs.append(findAct)
+#        findAct = QAction(QIcon(':/binoculars.png'),
+#                          "Find...", self)
+#        findAct.triggered.connect(self.findEvent)
+#        self.collectionActs.append(findAct)
 
         colnectAct = QAction(QIcon(':/colnect.png'),
                              "Colnect", self)
@@ -295,8 +295,8 @@ class MainWindow(QMainWindow):
         record.addAction(addCoinAct)
         record.addAction(editCoinAct)
         record.addSeparator()
-        record.addAction(findAct)
-        record.addSeparator()
+#        record.addAction(findAct)
+#        record.addSeparator()
         if colnectAvailable:
             record.addAction(colnectAct)
         if ansAvailable:
@@ -348,8 +348,8 @@ class MainWindow(QMainWindow):
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
         self.collectionActs.append(self.referenceMenu)
 
-        self.tagsAct = QAction(self.tr("Tags..."), self)
-        self.tagsAct.triggered.connect(self.tagsEvent)
+#        self.tagsAct = QAction(self.tr("Tags..."), self)
+#        self.tagsAct.triggered.connect(self.tagsEvent)
 
         reportAct = QAction(self.tr("Report..."), self)
         reportAct.setShortcut(QKeySequence.Print)
@@ -412,8 +412,8 @@ class MainWindow(QMainWindow):
         toolBar.addAction(actions['save_sorting'])
         toolBar.addAction(self.enableDragAct)
         toolBar.addSeparator()
-        toolBar.addAction(findAct)
-        toolBar.addSeparator()
+#        toolBar.addAction(findAct)
+#        toolBar.addSeparator()
         toolBar.addAction(settingsAct)
         toolBar.addSeparator()
         toolBar.addAction(self.detailsAct)
@@ -818,8 +818,8 @@ class MainWindow(QMainWindow):
 
         self.referenceMenu.clear()
 
-        self.referenceMenu.addAction(self.tagsAct)
-        self.referenceMenu.addSeparator()
+#        self.referenceMenu.addAction(self.tagsAct)
+#        self.referenceMenu.addSeparator()
 
         for action in self.collection.referenceMenu(self):
             self.referenceMenu.addAction(action)
