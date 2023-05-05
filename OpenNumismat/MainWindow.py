@@ -258,7 +258,7 @@ class MainWindow(QMainWindow):
 
         addCoinAct = QAction(QIcon(':/add.png'),
                              self.tr("Add"), self)
-        addCoinAct.setShortcut('Insert')
+        addCoinAct.setShortcut(Qt.Key_Insert)
         addCoinAct.triggered.connect(self.addCoin)
         self.collectionActs.append(addCoinAct)
 

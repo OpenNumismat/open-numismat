@@ -811,7 +811,7 @@ class ListView(BaseTableView):
         menu = QMenu(self)
         act = menu.addAction(QIcon(':/pencil.png'),
                              self.tr("Edit..."), self._edit)
-        act.setShortcut('Enter')
+        act.setShortcut(Qt.Key_Enter)
         # Disable Edit when more than one record selected
         act.setEnabled(selected_count == 1)
         menu.setDefaultAction(act)
@@ -1266,7 +1266,7 @@ class IconView(BaseTableView):
         act = menu.addAction(QIcon(':/pencil.png'),
                              QApplication.translate('IconView', "Edit..."),
                              self._edit)
-        act.setShortcut('Enter')
+        act.setShortcut(Qt.Key_Enter)
         # Disable Edit when more than one record selected
         act.setEnabled(selected_count == 1)
         menu.setDefaultAction(act)
