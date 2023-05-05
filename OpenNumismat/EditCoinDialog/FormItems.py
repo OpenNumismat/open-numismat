@@ -979,8 +979,3 @@ class DateEdit(QDateEdit):
             lineEdit = self.findChild(QLineEdit)
             lineEdit.setCursorPosition(0)
             lineEdit.setText("")
-
-
-class DateTimeEdit(QDateTimeEdit):
-    def __init__(self, parent=None):
-        super().__init__(parent)
