@@ -166,6 +166,34 @@ The application will need to restart now.</source>
         <source>Collections looks like identical</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Revert to default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global enabled fields:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AddressLineEdit</name>
@@ -320,6 +348,13 @@ The application will need to restart now.</source>
     <name>AreaStatusChart</name>
     <message>
         <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AxisHourEdit</name>
+    <message>
+        <source>h</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -929,6 +964,42 @@ Please update OpenNumismat</source>
         <source>Year on coin</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Composition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Material 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Technique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Die axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invoice</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CollectionModel</name>
@@ -962,6 +1033,10 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Filter is too complex. Will be ignored</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>h</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1043,6 +1118,10 @@ Please update OpenNumismat</source>
         <source>Technical data</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Specificity</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CollectionSettingsPage</name>
@@ -1100,6 +1179,14 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use relative paths for invoices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Die axis in hours</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1481,22 +1568,6 @@ Do you want to send an error message to the author?</source>
     <name>FieldsSettingsPage</name>
     <message>
         <source>System</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reserve</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Revert to default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Global enabled fields:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2136,18 +2207,6 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clear all filters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Clear sort order</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save sort order</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Sort by drag-n-drop mode</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2349,6 +2408,10 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tags...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2557,6 +2620,15 @@ Created new one</source>
     <message>
         <source>Can&apos;t create reference:
 %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Material</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reference is a newer version.
+Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3095,11 +3167,58 @@ Add a new one first.</source>
         <source>Remove all closed pages permanently?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Clear all filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear sort order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save sort order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Customize tree...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TableDialog</name>
     <message>
         <source>Select columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TagsDialog</name>
+    <message>
+        <source>Tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong when saving. Please restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong when canceling. Please restart</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
