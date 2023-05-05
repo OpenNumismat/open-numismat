@@ -271,6 +271,7 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['totalpayprice'], item)
         layout.addRow(self.items['saller'])
         layout.addRow(self.items['payplace'])
+        layout.addRow(self.items['buying_invoice'])
         layout.addRow(self.items['payinfo'])
 
         return layout
@@ -290,6 +291,7 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['totalsaleprice'], item)
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
+        layout.addRow(self.items['sale_invoice'])
         layout.addRow(self.items['saleinfo'])
 
         return layout

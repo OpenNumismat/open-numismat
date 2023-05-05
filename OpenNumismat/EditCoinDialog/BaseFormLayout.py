@@ -28,8 +28,8 @@ class FormItem(object):
             if section:
                 self._widget = LineEditRef(section, parent)
             else:
-                if self._field == 'url':
-                    self._widget = UrlLineEdit(parent)
+                if self._field in ('url', 'buying_invoice', 'sale_invoice'):
+                    self._widget = UrlLineEdit(settings, parent)
                 elif self._field == 'address':
                     self._widget = AddressLineEdit(parent)
                 elif self._field == 'grader':

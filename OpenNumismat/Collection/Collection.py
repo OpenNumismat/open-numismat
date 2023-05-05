@@ -643,6 +643,7 @@ class CollectionSettings(BaseSettings):
             'colnect_country': 0,
             'ans_department': '',
             'ans_has_image': False,
+            'relative_url': False,
     }
 
     def __init__(self, db):
@@ -662,7 +663,8 @@ class CollectionSettings(BaseSettings):
                 elif title in ('image_height',):
                     value = float(record.value('value'))
                 elif title in ('free_numeric', 'convert_fraction',
-                               'images_at_bottom', 'enable_bc', 'rich_text'):
+                               'images_at_bottom', 'enable_bc', 'rich_text',
+                               'relative_url'):
                     value = record.value('value').lower() in ('true', '1')
                 elif '_status_used' in title:
                     value = record.value('value').lower() in ('true', '1')
