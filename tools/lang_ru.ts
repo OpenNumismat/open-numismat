@@ -381,191 +381,191 @@ Please update OpenNumismat</source>
         <translation>Указанный файл уже существует</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1169"/>
+        <location filename="Collection.py" line="1183"/>
         <source>Can&apos;t open collection</source>
         <translation>Невозможно открыть коллекцию</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="891"/>
+        <location filename="Collection.py" line="905"/>
         <source>Updating reference</source>
         <translation>Обновление справочника</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1519"/>
+        <location filename="Collection.py" line="1533"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="925"/>
+        <location filename="Collection.py" line="939"/>
         <source>Attach</source>
         <translation>Прикрепить</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="925"/>
+        <location filename="Collection.py" line="939"/>
         <source>Attach current reference to a collection file?</source>
         <translation>Прикрепить текущий справочник к файлу коллекции?</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="966"/>
+        <location filename="Collection.py" line="980"/>
         <source>Attaching reference</source>
         <translation>Прикрепление справочника</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="966"/>
+        <location filename="Collection.py" line="980"/>
         <source>Can't attach reference:
 %s</source>
         <translation>Не удалось прикрепить справочник:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="980"/>
+        <location filename="Collection.py" line="994"/>
         <source>Save reference as</source>
         <translation>Сохранить справочник как</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="980"/>
+        <location filename="Collection.py" line="994"/>
         <source>Reference (*.ref)</source>
         <translation>Справочник (*.ref)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="987"/>
+        <location filename="Collection.py" line="1001"/>
         <source>Detaching reference</source>
         <translation>Открепление справочника</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1001"/>
+        <location filename="Collection.py" line="1015"/>
         <source>Detach reference</source>
         <translation>Открепить справочник</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1001"/>
+        <location filename="Collection.py" line="1015"/>
         <source>Can't detach reference:
 %s</source>
         <translation>Не удалось открепить справочник:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1054"/>
+        <location filename="Collection.py" line="1068"/>
         <source>Create reference</source>
         <translation>Создание справочника</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1022"/>
+        <location filename="Collection.py" line="1036"/>
         <source>Can't create reference:
 %s</source>
         <translation>Не удалось создать справочник:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1054"/>
+        <location filename="Collection.py" line="1068"/>
         <source>Can't clear attached reference:
 %s</source>
         <translation>Не удалось очистить прикрепленный справочник:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1074"/>
+        <location filename="Collection.py" line="1088"/>
         <source>Detach current reference</source>
         <translation>Открепить текущий справочник</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1077"/>
+        <location filename="Collection.py" line="1091"/>
         <source>Attach current reference</source>
         <translation>Прикрепить текущий справочник</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1081"/>
+        <location filename="Collection.py" line="1095"/>
         <source>Fill from collection</source>
         <translation>Заполнить из коллекции</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1084"/>
+        <location filename="Collection.py" line="1098"/>
         <source>Edit...</source>
         <translation>Редактировать...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1110"/>
+        <location filename="Collection.py" line="1124"/>
         <source>Backup collection</source>
         <translation>Резервное копирование коллекции</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1110"/>
+        <location filename="Collection.py" line="1124"/>
         <source>Can&apos;t make a collection backup at %s</source>
         <translation>Не удалось создать резервную копию коллекции в %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1169"/>
+        <location filename="Collection.py" line="1183"/>
         <source>Create mobile collection</source>
         <translation>Создание коллекции для мобильного</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1425"/>
+        <location filename="Collection.py" line="1439"/>
         <source>Exporting records</source>
         <translation>Экспорт записей</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1360"/>
+        <location filename="Collection.py" line="1374"/>
         <source>Saving...</source>
         <translation>Сохранение...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1363"/>
+        <location filename="Collection.py" line="1377"/>
         <source>Compact...</source>
         <translation>Сжатие...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1381"/>
+        <location filename="Collection.py" line="1395"/>
         <source>Vacuum...</source>
         <translation>Сжатие...</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1678"/>
+        <location filename="Collection.py" line="1692"/>
         <source>Synchronizing</source>
         <translation>Синхронизация</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1478"/>
+        <location filename="Collection.py" line="1492"/>
         <source>Can't open collection:
 %s</source>
         <translation>Не удалось открыть коллекцию:
 %s</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1489"/>
+        <location filename="Collection.py" line="1503"/>
         <source>Collection %s in wrong format</source>
         <translation>Коллекция %s в неверном формате</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1499"/>
+        <location filename="Collection.py" line="1513"/>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation>Исходная коллекция %s в старом формате.
 (Попробуйте открыть ее перед объединением.)</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1671"/>
+        <location filename="Collection.py" line="1685"/>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Вставлено %d монет, обновлено %d монет.
 Необходимо перезапустить приложение.</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1677"/>
+        <location filename="Collection.py" line="1691"/>
         <source>Collections looks like identical</source>
         <translation>Коллекции выглядят одинаковыми</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1396"/>
+        <location filename="Collection.py" line="1410"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1116"/>
+        <location filename="Collection.py" line="1130"/>
         <source>Backup</source>
         <translation>Резервное копирование</translation>
     </message>
     <message>
-        <location filename="Collection.py" line="1116"/>
+        <location filename="Collection.py" line="1130"/>
         <source>Backup saved as %s</source>
         <translation>Резервная копия сохранена как %s</translation>
     </message>
@@ -2636,172 +2636,167 @@ Do you want to send an error message to the author?</source>
         <translation>Настройки...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="107"/>
-        <source>Clear all filters</source>
-        <translation>Сбросить все фильтры</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="128"/>
+        <location filename="MainWindow.py" line="113"/>
         <source>E&amp;xit</source>
         <translation>В&amp;ыход</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="133"/>
+        <location filename="MainWindow.py" line="118"/>
         <source>&amp;New...</source>
         <translation>&amp;Новая...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="138"/>
+        <location filename="MainWindow.py" line="123"/>
         <source>&amp;Open...</source>
         <translation>&amp;Открыть...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="142"/>
+        <location filename="MainWindow.py" line="127"/>
         <source>Backup</source>
         <translation>Резервное копирование</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="148"/>
+        <location filename="MainWindow.py" line="133"/>
         <source>Vacuum</source>
         <translation>Сжать</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="154"/>
+        <location filename="MainWindow.py" line="139"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="159"/>
+        <location filename="MainWindow.py" line="144"/>
         <source>Set password...</source>
         <translation>Установить пароль...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="164"/>
+        <location filename="MainWindow.py" line="149"/>
         <source>Import</source>
         <translation>Импортировать</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="231"/>
+        <location filename="MainWindow.py" line="216"/>
         <source>Synchronize...</source>
         <translation>Синхронизировать...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="237"/>
+        <location filename="MainWindow.py" line="222"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="240"/>
+        <location filename="MainWindow.py" line="225"/>
         <source>For Android version</source>
         <translation>Версия для Android</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="250"/>
+        <location filename="MainWindow.py" line="235"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="274"/>
+        <location filename="MainWindow.py" line="259"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="280"/>
+        <location filename="MainWindow.py" line="265"/>
         <source>Edit...</source>
         <translation>Редактировать...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="287"/>
+        <location filename="MainWindow.py" line="272"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="293"/>
+        <location filename="MainWindow.py" line="278"/>
         <source>Copy</source>
         <translation>Копировать</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="299"/>
+        <location filename="MainWindow.py" line="284"/>
         <source>Paste</source>
         <translation>Вставить</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="305"/>
+        <location filename="MainWindow.py" line="290"/>
         <source>Coin</source>
         <translation>Монета</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="371"/>
+        <location filename="MainWindow.py" line="364"/>
         <source>View in browser</source>
         <translation>Просмотр в браузере</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="341"/>
+        <location filename="MainWindow.py" line="326"/>
         <source>List</source>
         <translation>Список</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="353"/>
+        <location filename="MainWindow.py" line="346"/>
         <source>Reference</source>
         <translation>Справочник</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="356"/>
+        <location filename="MainWindow.py" line="349"/>
         <source>Report...</source>
         <translation>Отчет...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="361"/>
+        <location filename="MainWindow.py" line="354"/>
         <source>Save current list...</source>
         <translation>Сохранить текущий список...</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="366"/>
+        <location filename="MainWindow.py" line="359"/>
         <source>Report</source>
         <translation>Отчет</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="384"/>
+        <location filename="MainWindow.py" line="377"/>
         <source>User manual</source>
         <translation>Руководство пользователя</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="388"/>
+        <location filename="MainWindow.py" line="381"/>
         <source>Visit web-site</source>
         <translation>Web-сайт программы</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="390"/>
+        <location filename="MainWindow.py" line="383"/>
         <source>Check for updates</source>
         <translation>Проверить обновления</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="878"/>
+        <location filename="MainWindow.py" line="857"/>
         <source>About %s</source>
         <translation>О %s</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="395"/>
+        <location filename="MainWindow.py" line="388"/>
         <source>&amp;Help</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="403"/>
+        <location filename="MainWindow.py" line="396"/>
         <source>Toolbar</source>
         <translation>Панель инструментов</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="441"/>
+        <location filename="MainWindow.py" line="434"/>
         <source>Quick search</source>
         <translation>Быстрый поиск</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="524"/>
+        <location filename="MainWindow.py" line="503"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="524"/>
+        <location filename="MainWindow.py" line="503"/>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
         <translation>Приложение требует перезапуска для применения новых настроек. Перезапустить сейчас?</translation>
     </message>
@@ -2816,82 +2811,77 @@ Do you want to send an error message to the author?</source>
         <translation>Статистика</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="651"/>
+        <location filename="MainWindow.py" line="630"/>
         <source>Importing</source>
         <translation>Импортирование</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="687"/>
+        <location filename="MainWindow.py" line="666"/>
         <source>Select file</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="614"/>
+        <location filename="MainWindow.py" line="593"/>
         <source>Import pre-defined coins?</source>
         <translation>Импортировать предустановленные монеты?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="623"/>
+        <location filename="MainWindow.py" line="602"/>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
         <translation>Перед импортом необходимо экспортировать существующую коллекцию из Collection Studio в формат XML Table (используйте меню Collection Studio: Инструменты &gt; Экспорт...).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="636"/>
+        <location filename="MainWindow.py" line="615"/>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
         <translation>Перед импортом необходимо экспортировать существующую коллекцию из uCoin.net в формате Comma-Separated (CSV).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="651"/>
+        <location filename="MainWindow.py" line="630"/>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
         <translation>Перед импортом необходимо экспортировать существующую коллекцию из uCoin.net в формат Microsoft Excel (XLS) или Comma-Separated (CSV).</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="792"/>
+        <location filename="MainWindow.py" line="771"/>
         <source>Open collection</source>
         <translation>Открыть коллекцию</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="792"/>
+        <location filename="MainWindow.py" line="771"/>
         <source>Collections (*.db)</source>
         <translation>Коллекции (*.db)</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="768"/>
+        <location filename="MainWindow.py" line="747"/>
         <source>New collection</source>
         <translation>Новая коллекция</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="845"/>
+        <location filename="MainWindow.py" line="824"/>
         <source>Create new collection or open one of the existing</source>
         <translation>Создать новую коллекцию или открыть существующую</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="905"/>
+        <location filename="MainWindow.py" line="884"/>
         <source>Updates</source>
         <translation>Обновление</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="905"/>
+        <location filename="MainWindow.py" line="884"/>
         <source>You already have the latest version.</source>
         <translation>Вы уже используете последнюю версию.</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="916"/>
+        <location filename="MainWindow.py" line="895"/>
         <source>New version</source>
         <translation>Новая версия</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="916"/>
+        <location filename="MainWindow.py" line="895"/>
         <source>New version is available. Download it now?</source>
         <translation>Доступна новая версия. Скачать сейчас?</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="112"/>
-        <source>Clear sort order</source>
-        <translation>Сбросить всю сортировку</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="122"/>
+        <location filename="MainWindow.py" line="107"/>
         <source>Sort by drag-n-drop mode</source>
         <translation>Режим сортировки перетаскиванием</translation>
     </message>
@@ -2906,22 +2896,17 @@ Do you want to send an error message to the author?</source>
         <translation>Сменить вид</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="117"/>
-        <source>Save sort order</source>
-        <translation>Сохранить текущую сортировку</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.py" line="320"/>
+        <location filename="MainWindow.py" line="305"/>
         <source>Details</source>
         <translation>Детали</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="328"/>
+        <location filename="MainWindow.py" line="313"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="MainWindow.py" line="878"/>
+        <location filename="MainWindow.py" line="857"/>
         <source>%s is freeware licensed under a GPLv3.</source>
         <translation>%s свободное приложение лицензированное под GPLv3.</translation>
     </message>
@@ -3197,7 +3182,7 @@ Do you want to send an error message to the author?</source>
         <translation>Цвет</translation>
     </message>
     <message>
-        <location filename="Reference.py" line="410"/>
+        <location filename="Reference.py" line="437"/>
         <source>Open reference</source>
         <translation>Открыть справочник</translation>
     </message>
@@ -3238,6 +3223,13 @@ Created new one</source>
         <location filename="Reference.py" line="331"/>
         <source>Material</source>
         <translation>Материал</translation>
+    </message>
+    <message>
+        <location filename="Reference.py" line="437"/>
+        <source>Reference is a newer version.
+Please update OpenNumismat</source>
+        <translation>Справочник более новой версии.
+Необходимо обновить OpenNumismat</translation>
     </message>
 </context>
 <context>
@@ -3773,68 +3765,88 @@ Created new one</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="108"/>
+        <location filename="TabView.py" line="127"/>
         <source> (clone)</source>
         <translation> (копия)</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="192"/>
+        <location filename="TabView.py" line="215"/>
         <source>Coins</source>
         <translation>Монеты</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="200"/>
+        <location filename="TabView.py" line="223"/>
         <source>New list</source>
         <translation>Новый список</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="200"/>
+        <location filename="TabView.py" line="223"/>
         <source>Enter list title</source>
         <translation>Введите название списка</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="209"/>
+        <location filename="TabView.py" line="232"/>
         <source>Rename list</source>
         <translation>Переименовать список</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="209"/>
+        <location filename="TabView.py" line="232"/>
         <source>Enter new list title</source>
         <translation>Введите новое имя для списка</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="244"/>
+        <location filename="TabView.py" line="285"/>
         <source>Remove page</source>
         <translation>Удалить страницу</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="224"/>
+        <location filename="TabView.py" line="265"/>
         <source>Can't close latest opened page.
 Add a new one first.</source>
         <translation>Нельзя закрыть последнюю вкладку.
 Добавьте новую сперва.</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="237"/>
+        <location filename="TabView.py" line="278"/>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
         <translation>Нельзя удалить последнюю вкладку.
 Добавьте новую сперва.</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="244"/>
+        <location filename="TabView.py" line="285"/>
         <source>Remove the page &apos;%s&apos; permanently?</source>
         <translation>Удалить страницу &apos;%s&apos; навсегда?</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="254"/>
+        <location filename="TabView.py" line="295"/>
         <source>Remove pages</source>
         <translation>Удалить страницы</translation>
     </message>
     <message>
-        <location filename="TabView.py" line="254"/>
+        <location filename="TabView.py" line="295"/>
         <source>Remove all closed pages permanently?</source>
         <translation>Удалить все закрытые страницы навсегда?</translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="91"/>
+        <source>Clear all filters</source>
+        <translation>Сбросить все фильтры</translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="96"/>
+        <source>Clear sort order</source>
+        <translation>Сбросить всю сортировку</translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="101"/>
+        <source>Save sort order</source>
+        <translation>Сохранить текущую сортировку</translation>
+    </message>
+    <message>
+        <location filename="TabView.py" line="106"/>
+        <source>Customize tree...</source>
+        <translation>Настроить дерево...</translation>
     </message>
 </context>
 <context>
