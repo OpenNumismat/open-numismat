@@ -62,11 +62,12 @@ class DetailsTabWidget(QTabWidget):
     def createParametersPage(self):
         parameters = self.parametersLayout()
         minting = self.mintingLayout()
+        specificity = self.specificityLayout()
         note = self.noteLayout()
 
         if not parameters.isEmpty() or not minting.isEmpty() or not note.isEmpty():
             title = QApplication.translate('DetailsTabWidget', "Parameters")
-            self.addTabPage(title, [parameters, self.Stretch, minting, note])
+            self.addTabPage(title, [parameters, specificity, self.Stretch, minting, note])
 
     def createDesignPage(self):
         obverse = self.obverseDesignLayout()
@@ -213,6 +214,7 @@ class DetailsTabWidget(QTabWidget):
         title = QApplication.translate('DetailsTabWidget', "Main details")
         layout = BaseFormGroupBox(title)
 
+        layout.addRow(self.items['category'])
         layout.addRow(self.items['title'])
         layout.addRow(self.items['region'])
         layout.addRow(self.items['country'])
@@ -324,11 +326,21 @@ class DetailsTabWidget(QTabWidget):
         title = QApplication.translate('DetailsTabWidget', "Parameters")
         layout = BaseFormGroupBox(title)
 
-        layout.addRow(self.items['material'])
+        layout.addRow(self.items['composition'])
+        layout.addRow(self.items['material'], self.items['material2'])
         layout.addRow(self.items['fineness'], self.items['weight'])
         layout.addRow(self.items['diameter'], self.items['thickness'])
-        layout.addRow(self.items['shape'])
-        layout.addRow(self.items['obvrev'])
+        layout.addRow(self.items['width'], self.items['height'])
+        layout.addRow(self.items['shape'], self.items['obvrev'])
+
+        return layout
+
+    def specificityLayout(self):
+        title = QApplication.translate('DetailsTabWidget', "Specificity")
+        layout = BaseFormGroupBox(title)
+
+        layout.addRow(self.items['modification'])
+        layout.addRow(self.items['real_diameter'], self.items['real_weight'])
 
         return layout
 
@@ -339,10 +351,7 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['issuedate'], self.items['mintage'])
         layout.addRow(self.items['dateemis'])
 
-        item = self.items['quality']
-        layout.addHalfRow(item)
-        item.widget().setSizePolicy(QSizePolicy.Preferred,
-                                    QSizePolicy.Fixed)
+        layout.addRow(self.items['quality'], self.items['technique'])
 
         return layout
 
@@ -652,6 +661,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def mainDetailsLayout(self):
         layout = BaseFormGroupBox(self.tr("Main details"))
         layout.layout.columnCount = 6
+
+        layout.addRow(self.items['category'])
 
         btn = QPushButton(self.tr("Generate"))
         btn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)

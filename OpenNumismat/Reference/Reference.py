@@ -461,6 +461,8 @@ class Reference(QtCore.QObject):
             name = 'color'
         elif name in ('edge', 'signaturetype'):
             name = 'edge'
+        elif name in ('material', 'material2'):
+            name = 'material'
 
         for section in self.sections:
             if section.name == name:
@@ -477,6 +479,8 @@ class Reference(QtCore.QObject):
                 sectionNames.extend(['obversecolor', 'reversecolor'])
             elif section.name == 'edge':
                 sectionNames.extend(['edge', 'signaturetype'])
+            elif section.name == 'material':
+                sectionNames.extend(['material', 'material2'])
             else:
                 sectionNames.append(section.name)
 
@@ -489,6 +493,8 @@ class Reference(QtCore.QObject):
             section = 'color'
         elif section in ('edge', 'signaturetype'):
             section = 'edge'
+        elif section in ('material', 'material2'):
+            section = 'material'
 
         table_name = "ref_%s" % section
         if table_name in self.sections_with_icons:

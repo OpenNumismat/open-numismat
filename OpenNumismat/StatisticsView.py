@@ -441,7 +441,8 @@ class StatisticsView(QWidget):
             if field.name in ('region', 'country', 'year', 'period', 'ruler',
                               'mint', 'type', 'series', 'status', 'material',
                               'grade', 'saller', 'payplace', 'buyer',
-                              'saleplace', 'storage', 'fineness', 'unit'):
+                              'saleplace', 'storage', 'fineness', 'unit',
+                              'composition', 'category'):
                 if field.name == 'fineness':
                     title = self.model.fields.material.title + '+' + field.title
                     self.fieldSelector.addItem(title, field.id)

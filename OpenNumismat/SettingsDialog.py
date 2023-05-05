@@ -339,7 +339,7 @@ class FieldsSettingsPage(QWidget):
             elif field.name in ('title', 'region', 'country', 'period',
                                 'emitent', 'ruler', 'value', 'unit', 'year',
                                 'mintmark', 'mint', 'type', 'series',
-                                'subjectshort', 'native_year'):
+                                'subjectshort', 'native_year', 'category'):
                 main_item.addChild(item)
             elif field.name in ('status', 'grade', 'quantity', 'format',
                                 'condition', 'storage', 'barcode', 'defect',
@@ -355,7 +355,10 @@ class FieldsSettingsPage(QWidget):
                 map_item.addChild(item)
             elif field.name in ('material', 'fineness', 'weight', 'diameter',
                                 'thickness', 'shape', 'obvrev', 'issuedate',
-                                'mintage', 'dateemis', 'quality', 'note'):
+                                'mintage', 'dateemis', 'quality', 'note',
+                                'width', 'height', 'material2', 'composition',
+                                'real_diameter', 'real_weight', 'modification',
+                                'technique'):
                 parameters_item.addChild(item)
             elif field.name in ('obversedesign', 'obversedesigner', 'obverseengraver',
                                 'obversecolor', 'reversedesign', 'reversedesigner',

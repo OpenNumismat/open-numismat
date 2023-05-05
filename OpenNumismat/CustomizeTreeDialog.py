@@ -159,13 +159,13 @@ class CustomizeTreeDialog(QDialog):
 
         self.availableFields = []
         for field in allFields.userFields:
-            if field.name in ('value', 'unit', 'region', 'country', 'year',
+            if field.name in ('value', 'unit', 'category', 'region', 'country', 'year',
                               'period', 'ruler', 'emitent', 'mint', 'mintmark',
                               'type', 'series', 'subjectshort', 'dateemis',
                               'status', 'material', 'fineness', 'grade',
                               'quality', 'rarity', 'variety', 'saller',
                               'payplace', 'buyer', 'saleplace', 'defect',
-                              'storage'):
+                              'storage', 'composition'):
                 self.availableFields.append(field)
                 if field.name not in self.treeParam.usedFieldNames():
                     item = QListWidgetItem(field.title)
