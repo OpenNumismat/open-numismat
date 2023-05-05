@@ -36,22 +36,27 @@
         "Rolo"
     ],
     "obvrev": [
-        "Metálico (0°)",
-        "Moeda (180°)"
+        "↑↑ Medalhística",
+        "↑↓ Moeda",
+        "↺ Variável"
     ],
     "edge": [
         "Recartilhado",
+        "Lisa",
         "Decorada",
-        "Interrompido",
-        "Suave",
+        "Rendilhado segmentado",
         "Letrado"
     ],
     "shape": [
         "Redondo",
-        "Quadrado",
-        "Polígono",
+        "Redonda (irregular)",
+        "Quadrada",
+        "Polígonal",
         "Flor espanhola",
-        "Círculo com furo"
+        "Redonda com buraco",
+        "Meio círculo",
+        "Klippe",
+        "Recortada"
     ],
     "material": [
         "Acmonital",
@@ -79,7 +84,34 @@
         "Tombac",
         "Telúrio",
         "Lata",
-        "Zinco",
-        "Bimetálico"
+        "Zinco"
+    ],
+    "composition": [
+        "Única",
+        "Folheada",
+        "Revestida",
+        "Bimetálica"
+    ],
+    "technique": [
+        "Fresada",
+        "Fundida",
+        "Martelada",
+        "Gravada",
+        "Espigas",
+        "Klippe",
+        "Fio",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colorida",
+        "Contra-marca",
+        "Furada",
+        "Cortada"
+    ],
+    "category": [
+        "Moeda",
+        "Nota bancária",
+        "Selo",
+        "Postal"
     ]
 }

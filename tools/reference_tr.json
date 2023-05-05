@@ -36,22 +36,27 @@
         "Roll"
     ],
     "obvrev": [
-        "Madalyon (0°)",
-        "Madeni para (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Tırtıllı",
+        "Plain",
         "Decorated",
-        "Interrupted milled",
-        "Düz",
+        "Segmented reeding",
         "Yazılı"
     ],
     "shape": [
         "Yuvarlak",
+        "Round (irregular)",
         "Kare",
         "Çokgen",
         "Spanish flower",
-        "Ortası delikli"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acmonital",
@@ -79,7 +84,34 @@
         "Tombak",
         "Tellür",
         "Kalay",
-        "Çinko",
-        "Bimetal"
+        "Çinko"
+    ],
+    "composition": [
+        "Single",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Madeni Para",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

@@ -5,7 +5,7 @@
         "Scarce",
         "Rare",
         "Unique",
-        "In sets only"
+        "Nur in Sets"
     ],
     "quality": [
         "bankfrisch",
@@ -36,22 +36,27 @@
         "Rolle"
     ],
     "obvrev": [
-        "Medallic (0°)",
-        "Coin (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Reeded",
+        "Plain",
         "Decorated",
-        "Interrupted milled",
-        "Smooth",
+        "Segmented reeding",
         "Lettered"
     ],
     "shape": [
         "Round",
+        "Round (irregular)",
         "Square",
         "Polygon",
         "Spanische Blume",
-        "Rund mit Loch"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acmonital",
@@ -79,7 +84,34 @@
         "Tombak",
         "Tellur",
         "Zinn",
-        "Zink",
-        "Bimetall"
+        "Zink"
+    ],
+    "composition": [
+        "Single",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Münze",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

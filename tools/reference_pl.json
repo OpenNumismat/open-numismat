@@ -36,22 +36,27 @@
         "Rolka"
     ],
     "obvrev": [
-        "Odbicie medalowe",
-        "Odwrotka"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "frezowany",
+        "Plain",
         "Dekorowanie",
-        "przerwane ząbkowanie",
-        "Gładki",
+        "Segmented reeding",
         "Literowana"
     ],
     "shape": [
         "Okrągła",
+        "Round (irregular)",
         "Kwadratowa",
         "Wielokąt",
         "Spanish flower",
-        "Okrąg z dziurką"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "stal nierdzewna",
@@ -79,7 +84,34 @@
         "Tombak",
         "Telur",
         "Cyna",
-        "Cyn",
-        "Bimetal"
+        "Cyn"
+    ],
+    "composition": [
+        "Single",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Moneta",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

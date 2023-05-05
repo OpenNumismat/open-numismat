@@ -36,22 +36,27 @@
         "Rol"
     ],
     "obvrev": [
-        "Medailleslag (0°)",
-        "Muntslag (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Geribbeld",
+        "Plain",
         "Decorated",
-        "Interrupted milled",
-        "Smooth",
+        "Segmented reeding",
         "Lettered"
     ],
     "shape": [
         "Rond",
+        "Round (irregular)",
         "Square",
         "Polygon",
         "Spanish flower",
-        "Circle with hole"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acmonital",
@@ -79,7 +84,34 @@
         "Tombac",
         "Tellurium",
         "Tin",
-        "Zink",
-        "Bimetal"
+        "Zink"
+    ],
+    "composition": [
+        "Enkel",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Munt",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

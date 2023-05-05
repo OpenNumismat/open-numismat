@@ -36,22 +36,27 @@
         "Rotolo"
     ],
     "obvrev": [
-        "Medallic (0°)",
-        "Coin (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Zigrinato",
+        "Plain",
         "Decorato",
-        "Zigrinatura interrotta",
-        "Liscio",
+        "Segmented reeding",
         "Marcato con lettere"
     ],
     "shape": [
         "Rotonda",
+        "Round (irregular)",
         "Quadrata",
         "Poligono",
         "Fiore spagnolo",
-        "Rotonda con foro"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acmonital - Acciaio monetario italiano",
@@ -79,7 +84,34 @@
         "Tombacco",
         "Tellurio",
         "Stagno",
-        "Zinco",
-        "Bimetallica"
+        "Zinco"
+    ],
+    "composition": [
+        "Singolo",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Moneta",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }

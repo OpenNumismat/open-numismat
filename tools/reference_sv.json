@@ -36,22 +36,27 @@
         "Rulle"
     ],
     "obvrev": [
-        "Medallic (0°)",
-        "Mynt (180°)"
+        "↑↑ Medallic",
+        "↑↓ Coin",
+        "↺ Variable"
     ],
     "edge": [
         "Reeded",
+        "Plain",
         "Dekoration",
-        "Avbruten fräst",
-        "Slät",
+        "Segmented reeding",
         "Lettered"
     ],
     "shape": [
         "Rund",
+        "Round (irregular)",
         "Fyrkant",
         "Polygon",
         "Spansk blomma",
-        "Cirkel med hål"
+        "Round with hole",
+        "Half circle",
+        "Klippe",
+        "Scalloped"
     ],
     "material": [
         "Acmonital",
@@ -79,7 +84,34 @@
         "Tombac",
         "Tellur",
         "Teen",
-        "Zink",
-        "Bimetall"
+        "Zink"
+    ],
+    "composition": [
+        "Enda",
+        "Plated",
+        "Clad",
+        "Bimetallic"
+    ],
+    "technique": [
+        "Milled",
+        "Cast",
+        "Hammered",
+        "Engraved",
+        "Cobs",
+        "Klippe",
+        "Wire",
+        "Scyphate"
+    ],
+    "modification": [
+        "Colored",
+        "Countermarked",
+        "Holed",
+        "Cut"
+    ],
+    "category": [
+        "Mynt",
+        "Banknote",
+        "Stamp",
+        "Postcard"
     ]
 }
