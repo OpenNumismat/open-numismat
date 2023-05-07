@@ -1195,7 +1195,7 @@ Por favor, actualize o OpenNumismat</translation>
     </message>
     <message>
         <source>Die axis in hours</source>
-        <translation>Desenhar eixo em horas</translation>
+        <translation>Eixo matriz em horas</translation>
     </message>
 </context>
 <context>
