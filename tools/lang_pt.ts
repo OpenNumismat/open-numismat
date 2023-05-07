@@ -173,7 +173,7 @@ A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
         <source>Revert to default</source>
-        <translation>Reverter para predefinição</translation>
+        <translation>Reverter para pré-definição</translation>
     </message>
     <message>
         <source>Global enabled fields:</source>
@@ -193,7 +193,7 @@ A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
         <source>Enter value</source>
-        <translation>Insira o valor</translation>
+        <translation>Inserir valor</translation>
     </message>
 </context>
 <context>
