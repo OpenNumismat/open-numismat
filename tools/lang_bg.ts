@@ -181,11 +181,11 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>New tag</source>
-        <translation type="unfinished"/>
+        <translation>Нов етикет</translation>
     </message>
     <message>
         <source>New subtag</source>
-        <translation type="unfinished"/>
+        <translation>Нов под етиткет</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -356,7 +356,7 @@ The application will need to restart now.</source>
     <name>AxisHourEdit</name>
     <message>
         <source>h</source>
-        <translation type="unfinished"/>
+        <translation>ч</translation>
     </message>
 </context>
 <context>
@@ -623,7 +623,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Backup saved as %s</source>
-        <translation>Резервното копие е запазено като %s</translation>
+        <translation>Записано е резервно копие като %s</translation>
     </message>
     <message>
         <source>Create mobile collection</source>
@@ -1045,7 +1045,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>h</source>
-        <translation type="unfinished"/>
+        <translation>ч</translation>
     </message>
 </context>
 <context>
@@ -1128,7 +1128,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Specificity</source>
-        <translation type="unfinished"/>
+        <translation>Специфичност</translation>
     </message>
 </context>
 <context>
@@ -1191,11 +1191,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Use relative paths for invoices</source>
-        <translation type="unfinished"/>
+        <translation>Използване на относителни пътища за фактури</translation>
     </message>
     <message>
         <source>Die axis in hours</source>
-        <translation type="unfinished"/>
+        <translation>Ос на матрицата в часове</translation>
     </message>
 </context>
 <context>
@@ -2423,7 +2423,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Tags...</source>
-        <translation type="unfinished"/>
+        <translation>Етикети...</translation>
     </message>
 </context>
 <context>
@@ -2644,7 +2644,8 @@ Created new one</source>
     <message>
         <source>Reference is a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished"/>
+        <translation>Номенклатурата е по-нова версия.
+Моля, актуализирайте OpenNumismat</translation>
     </message>
 </context>
 <context>
@@ -3212,11 +3213,11 @@ Add a new one first.</source>
     <name>TagsDialog</name>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation>Етикети</translation>
     </message>
     <message>
         <source>New tag</source>
-        <translation type="unfinished"/>
+        <translation>Нов етикет</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -3228,7 +3229,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Save tags</source>
-        <translation type="unfinished"/>
+        <translation>Запазване на етикети</translation>
     </message>
     <message>
         <source>Something went wrong when saving. Please restart</source>
