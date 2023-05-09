@@ -356,7 +356,7 @@ The application will need to restart now.</source>
     <name>AxisHourEdit</name>
     <message>
         <source>h</source>
-        <translation>ч</translation>
+        <translation>ч.</translation>
     </message>
 </context>
 <context>
@@ -1045,7 +1045,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>h</source>
-        <translation>ч</translation>
+        <translation>ч.</translation>
     </message>
 </context>
 <context>
