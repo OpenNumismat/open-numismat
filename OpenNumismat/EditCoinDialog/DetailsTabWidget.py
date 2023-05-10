@@ -238,7 +238,7 @@ class DetailsTabWidget(QTabWidget):
 
         layout.addRow(self.items['status'], self.items['grade'])
         self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
-        layout.addRow(self.items['rating'])
+#        layout.addRow(self.items['rating'])
         layout.addRow(self.items['quantity'], self.items['format'])
         layout.addRow(self.items['condition'])
         layout.addRow(self.items['seat'], self.items['storage'])

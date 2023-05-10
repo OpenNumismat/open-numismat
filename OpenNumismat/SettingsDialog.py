@@ -442,7 +442,8 @@ class FieldsSettingsPage(QWidget):
                 coin_main_item.addChild(item)
             elif field.name in ('status', 'grade', 'quantity', 'format',
                                 'condition', 'storage', 'barcode', 'defect',
-                                'features', 'grader', 'seat', 'rating',):
+#                                'features', 'grader', 'seat', 'rating',):
+                                'features', 'grader', 'seat',):
                 coin_state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
                                 'saller', 'payplace', 'payinfo', 'buying_invoice'):
