@@ -264,8 +264,7 @@
         <location filename="ListView.py" line="491"/>
         <source>Are you sure to remove a %n coin(s)?</source>
         <translation>
-            <numerusform>Are you sure to remove a %n coin?</numerusform>
-            <numerusform>Are you sure to remove a %n coins?</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -282,8 +281,7 @@
         <location filename="ListView.py" line="158"/>
         <source>%n coin(s) selected</source>
         <translation>
-            <numerusform>%n coin selected</numerusform>
-            <numerusform>%n coins selected</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -310,7 +308,7 @@ Close the file and try again.</source>
     </message>
 </context>
 <context>
-    <name>YearCalculatorDialog</name>
+    <name>CALENDARS</name>
     <message>
         <location filename="YearCalculator.py" line="25"/>
         <source>Year calculator</source>
@@ -1126,13 +1124,13 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="231"/>
-        <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
+        <location filename="SettingsDialog.py" line="248"/>
+        <source>Use relative paths for invoices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.py" line="248"/>
-        <source>Use relative paths for invoices</source>
+        <location filename="SettingsDialog.py" line="231"/>
+        <source>Convert 0.5 to &#xc2;&#xbd; (support &#xc2;&#xbc;, &#xe2;&#x85;&#x93;, &#xc2;&#xbd;, &#xc2;&#xbe;, 1&#xc2;&#xbc;, 1&#xc2;&#xbd;, 2&#xc2;&#xbd;)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
