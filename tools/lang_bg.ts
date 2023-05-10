@@ -2430,7 +2430,7 @@ drag-n-drop to add an image)</source>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
-        <translation>Конвертиране на години</translation>
+        <translation>Конвертиране на година</translation>
     </message>
 </context>
 <context>
@@ -3311,7 +3311,7 @@ Add a new one first.</source>
     <name>YearCalculatorDialog</name>
     <message>
         <source>Year calculator</source>
-        <translation>Конвертиране на години</translation>
+        <translation>Конвертиране на година</translation>
     </message>
     <message>
         <source>Hebrew</source>
