@@ -173,7 +173,7 @@ A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
         <source>Revert to default</source>
-        <translation>Reverter para predefinição</translation>
+        <translation>Reverter para pré-definição</translation>
     </message>
     <message>
         <source>Global enabled fields:</source>
@@ -181,11 +181,11 @@ A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
         <source>New tag</source>
-        <translation type="unfinished"/>
+        <translation>Nova etiqueta</translation>
     </message>
     <message>
         <source>New subtag</source>
-        <translation type="unfinished"/>
+        <translation>Nova sub-etiqueta</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -193,7 +193,7 @@ A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
         <source>Enter value</source>
-        <translation>Insira o valor</translation>
+        <translation>Inserir valor</translation>
     </message>
 </context>
 <context>
@@ -356,7 +356,7 @@ A aplicação tem de reiniciar agora.</translation>
     <name>AxisHourEdit</name>
     <message>
         <source>h</source>
-        <translation type="unfinished"/>
+        <translation>h</translation>
     </message>
 </context>
 <context>
@@ -1045,7 +1045,7 @@ Por favor, actualize o OpenNumismat</translation>
     </message>
     <message>
         <source>h</source>
-        <translation type="unfinished"/>
+        <translation>h</translation>
     </message>
 </context>
 <context>
@@ -1128,7 +1128,7 @@ Por favor, actualize o OpenNumismat</translation>
     </message>
     <message>
         <source>Specificity</source>
-        <translation type="unfinished"/>
+        <translation>Especificidade</translation>
     </message>
 </context>
 <context>
@@ -1191,11 +1191,11 @@ Por favor, actualize o OpenNumismat</translation>
     </message>
     <message>
         <source>Use relative paths for invoices</source>
-        <translation type="unfinished"/>
+        <translation>Usar caminhos relativos para facturas</translation>
     </message>
     <message>
         <source>Die axis in hours</source>
-        <translation type="unfinished"/>
+        <translation>Eixo matriz em horas</translation>
     </message>
 </context>
 <context>
@@ -2423,7 +2423,7 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Tags...</source>
-        <translation type="unfinished"/>
+        <translation>Etiquetas...</translation>
     </message>
 </context>
 <context>
@@ -2644,7 +2644,8 @@ Criada uma nova</translation>
     <message>
         <source>Reference is a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished"/>
+        <translation>A referência é uma versão nova.
+Por favor, actualize o Openumismat.</translation>
     </message>
 </context>
 <context>
@@ -3212,11 +3213,11 @@ Adicione uma nova primeiro.</translation>
     <name>TagsDialog</name>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation>Etiquetas</translation>
     </message>
     <message>
         <source>New tag</source>
-        <translation type="unfinished"/>
+        <translation>Nova etiqueta</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -3228,7 +3229,7 @@ Adicione uma nova primeiro.</translation>
     </message>
     <message>
         <source>Save tags</source>
-        <translation type="unfinished"/>
+        <translation>Gravar etiquetas</translation>
     </message>
     <message>
         <source>Something went wrong when saving. Please restart</source>
