@@ -83,6 +83,8 @@ class CollectionModel(QSqlTableModel):
                         if value == 0:
                             value = 12
                         text = str(value) + self.tr("h")
+                    else:
+                        return data
                 elif field.type == Type.BigInt:
                     text = QLocale.system().toString(int(data))
                 elif field.type == Type.Text:
