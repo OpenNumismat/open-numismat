@@ -185,7 +185,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>New subtag</source>
-        <translation>Нов подетиткет</translation>
+        <translation>Нов подетикет</translation>
     </message>
     <message>
         <source>Delete</source>
