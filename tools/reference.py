@@ -144,7 +144,7 @@ for lang in langs:
     grader = ref.section('grader')
     grader.addItem('ANACS', convertImage('icons/anacs.png'))
     grader.addItem('ICCS', convertImage('icons/iccs.png'))
-    grader.addItem('ICG', convertImage('icons/icg.ico'))
+    grader.addItem('ICG', convertImage('icons/icg.png'))
     grader.addItem('NGC', convertImage('icons/ngc.png'))
     grader.addItem('PCGS', convertImage('icons/pcgs.png'))
     grader.addItem('PMG', convertImage('icons/pmg.png'))

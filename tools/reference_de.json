@@ -1,37 +1,37 @@
 {
     "rarity": [
-        "Common",
-        "Normal",
-        "Scarce",
-        "Rare",
-        "Unique",
+        "üblich",
+        "normal",
+        "ungewöhnlich",
+        "selten",
+        "einzigartig",
         "Nur in Sets"
     ],
     "quality": [
         "bankfrisch",
-        "Brilliant uncirculated",
-        "Proof",
-        "Proof like",
-        "Reverse frosted"
+        "bankfrisch / stgl",
+        "Polierte Platte",
+        "Spiegelglanz",
+        "Rückseite mattiert"
     ],
     "defect": [
-        "Clipped planchet",
-        "Lamination",
-        "Off center strike",
-        "Multiple strike",
-        "Mule",
-        "Doubled die",
-        "Brockage"
+        "Beschnittener Schrötling",
+        "Beschichtung",
+        "dezentrierte Prägung",
+        "Mehrfach-Prägung",
+        "Zwitterprägung",
+        "Doppelprägung",
+        "\"Brockage\"-Fehler"
     ],
     "type": [
-        "Regular issue",
-        "Commemorative",
-        "Bullion",
-        "Restrike",
-        "Pattern"
+        "Normal-Ausgabe",
+        "Gedenkausgabe",
+        "Barren/Anlagemünze",
+        "Nachprägung",
+        "Probe/Muster"
     ],
     "format": [
-        "Single",
+        "einzeln",
         "Set",
         "Coincard",
         "Rolle"
@@ -42,17 +42,17 @@
         "↺ Variable"
     ],
     "edge": [
-        "Reeded",
-        "Plain",
-        "Decorated",
-        "Segmented reeding",
-        "Lettered"
+        "geriffelt",
+        "glatt",
+        "verziert",
+        "segmentiert geriffelt",
+        "beschriftet"
     ],
     "shape": [
-        "Round",
-        "Round (irregular)",
-        "Square",
-        "Polygon",
+        "rund",
+        "rund (unregelmäßig)",
+        "quadratisch",
+        "mehreckig",
         "Spanische Blume",
         "Round with hole",
         "Half circle",
@@ -88,7 +88,7 @@
         "Zink"
     ],
     "composition": [
-        "Single",
+        "einzeln",
         "Plated",
         "Clad",
         "Bimetallic"
