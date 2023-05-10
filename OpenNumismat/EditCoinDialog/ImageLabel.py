@@ -197,7 +197,7 @@ class ImageEdit(ImageLabel):
         self.title = title
         self.label.setText(title)
 
-    def contextMenu(self, pos):
+    def contextMenuEvent(self, event):
         style = QApplication.style()
 
         icon = style.standardIcon(QStyle.SP_DirOpenIcon)
@@ -250,7 +250,7 @@ class ImageEdit(ImageLabel):
         menu.addAction(copy_act)
         menu.addAction(paste_act)
         menu.addAction(delete_act)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec_(self.mapToGlobal(event.pos()))
 
     def mouseDoubleClickEvent(self, _e):
         if self.image.isNull():
