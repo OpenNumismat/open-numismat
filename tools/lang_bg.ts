@@ -1076,7 +1076,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Minting</source>
-        <translation>Сечене</translation>
+        <translation>Монетосечене</translation>
     </message>
     <message>
         <source>Design</source>
