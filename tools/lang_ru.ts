@@ -102,10 +102,6 @@
         <translation>Страна</translation>
     </message>
     <message>
-        <source>Number of coins</source>
-        <translation>Количество монет</translation>
-    </message>
-    <message>
         <source>Saving</source>
         <translation>Сохранение</translation>
     </message>
@@ -369,16 +365,16 @@ The application will need to restart now.</source>
 <context>
     <name>BaseCanvas</name>
     <message>
-        <source>Number of coins</source>
-        <translation>Количество монет</translation>
-    </message>
-    <message>
         <source>All files (*.*)</source>
         <translation>Все файлы (*.*)</translation>
     </message>
     <message>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Количество</translation>
     </message>
 </context>
 <context>
