@@ -12,6 +12,7 @@ from PySide6 import __version__ as PYQT_VERSION_STR
 
 import OpenNumismat
 from OpenNumismat.Settings import Settings
+from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.MainWindow import MainWindow
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import resources
@@ -40,36 +41,7 @@ def main():
     if settings['error']:
         sys.excepthook = exceptHook
 
-    if not os.path.exists(settings['reference']):
-        # Create default dirs and files if not exists
-        try:
-            ref_path = os.path.dirname(settings['reference'])
-            dst_ref = os.path.join(ref_path, 'reference.ref')
-            if not os.path.exists(dst_ref):
-                os.makedirs(ref_path, exist_ok=True)
-                src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
-                                   'reference_%s.ref' % settings['locale'])
-                if not os.path.exists(src_ref):
-                    src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
-                                       'reference_en.ref')
-
-                shutil.copy(src_ref, dst_ref)
-
-            dst_demo_db = os.path.join(OpenNumismat.HOME_PATH, 'demo.db')
-            if not os.path.exists(dst_demo_db):
-                os.makedirs(OpenNumismat.HOME_PATH, exist_ok=True)
-                src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
-                                           'demo_%s.db' % settings['locale'])
-                if not os.path.exists(src_demo_db):
-                    src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
-                                       'demo_en.ref')
-
-                shutil.copy(src_demo_db, dst_demo_db)
-
-            templates_path = os.path.join(OpenNumismat.HOME_PATH, 'templates')
-            os.makedirs(templates_path, exist_ok=True)
-        except:
-            pass
+    setupHomeFolder(settings)
 
     TemporaryDir.init(version.AppName)
 
@@ -97,6 +69,39 @@ def main():
     TemporaryDir.remove()
 
     sys.exit(status)
+
+
+def setupHomeFolder(settings):
+    if not os.path.exists(settings['reference']):
+        # Create default dirs and files if not exists
+        try:
+            ref_path = os.path.dirname(settings['reference'])
+            dst_ref = os.path.join(ref_path, 'reference.ref')
+            if not os.path.exists(dst_ref):
+                os.makedirs(ref_path, exist_ok=True)
+                src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
+                                   'reference_%s.ref' % settings['locale'])
+                if not os.path.exists(src_ref):
+                    src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
+                                       'reference_en.ref')
+
+                shutil.copy(src_ref, dst_ref)
+
+            dst_demo_db = LatestCollections.DefaultCollectionName
+            if not os.path.exists(dst_demo_db):
+                os.makedirs(OpenNumismat.HOME_PATH, exist_ok=True)
+                src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
+                                           'demo_%s.db' % settings['locale'])
+                if not os.path.exists(src_demo_db):
+                    src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
+                                       'demo_en.ref')
+
+                shutil.copy(src_demo_db, dst_demo_db)
+
+            templates_path = os.path.join(OpenNumismat.HOME_PATH, 'templates')
+            os.makedirs(templates_path, exist_ok=True)
+        except ValueError:
+            pass
 
 
 def exceptHook(type_, value, tback):

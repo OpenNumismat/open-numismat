@@ -1,3 +1,5 @@
+import os
+
 from PySide6.QtCore import QObject, QSettings
 from PySide6.QtGui import QAction
 
@@ -6,7 +8,8 @@ from OpenNumismat.Collection.Collection import Collection
 
 
 class LatestCollections(QObject):
-    DefaultCollectionName = OpenNumismat.HOME_PATH + "/demo.db"
+    DefaultCollectionTitle = "MyCollection.db"
+    DefaultCollectionName = os.path.join(OpenNumismat.HOME_PATH, DefaultCollectionTitle)
     SettingsKey = 'collection/latest'
     LatestCount = 7
 
