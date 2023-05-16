@@ -86,7 +86,7 @@ class GeoChart(QWebView):
 
     def setData(self, xx, yy, region):
         data = ','.join(["['%s', %d]" % (x, y) for x, y in zip(xx, yy)])
-        header = "['%s', '%s']" % (self.tr("Country"), self.tr("Number of coins"))
+        header = "['%s', '%s']" % (self.tr("Country"), self.tr("Quantity"))
         data = ','.join((header, data))
         locale = Settings()['locale']
         self.html_data = self.HTML % (locale, MAPS_API_KEY, region, data)
@@ -137,7 +137,7 @@ class BaseChart(QChartView):
         chart.layout().setContentsMargins(0, 0, 0, 0)
         chart.setBackgroundRoundness(0)
         
-        self.label = QApplication.translate('BaseCanvas', "Number of coins")
+        self.label = QApplication.translate('BaseCanvas', "Quantity")
         self.label_y = ''
         self.colors = Settings()['multicolor_chart']
         self.use_blaf_palette = Settings()['use_blaf_palette']
@@ -1278,7 +1278,7 @@ class StatisticsView(QWidget):
             chart.setLabel(self.tr("Total paid"))
         else:
             sql_field = "sum(iif(quantity!='',quantity,1))"
-            chart.setLabel(self.tr("Number of coins"))
+            chart.setLabel(self.tr("Quantity"))
 
         period = self.periodSelector.currentData()
         if items == 'createdat':

@@ -104,10 +104,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Number of coins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Saving</source>
         <translation type="unfinished"></translation>
     </message>
@@ -368,15 +364,15 @@ The application will need to restart now.</source>
 <context>
     <name>BaseCanvas</name>
     <message>
-        <source>Number of coins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quantity</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
