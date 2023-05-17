@@ -14,6 +14,7 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.SettingsDialog import SettingsDialog
 from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+from OpenNumismat.Tools.misc import versiontuple
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
 # from OpenNumismat.FindDialog import FindDialog
@@ -906,8 +907,8 @@ class MainWindow(QMainWindow):
         settings = QSettings()
         settings.setValue('mainwindow/last_update', currentDateStr)
 
-        newVersion = self.__getNewVersion()
-        if newVersion and newVersion != version.Version:
+        new_version = self.__getNewVersion()
+        if versiontuple(new_version) > versiontuple(version.Version):
             result = QMessageBox.question(self, self.tr("New version"),
                         self.tr("New version is available. Download it now?"),
                         QMessageBox.Yes | QMessageBox.No,
@@ -927,16 +928,14 @@ class MainWindow(QMainWindow):
     def __getNewVersion(self):
         from xml.dom.minidom import parseString
 
-        newVersion = version.Version
-
         try:
-            url = "http://opennumismat.github.io/data/pad.xml"
+            url = "http://opennumismat.github.io/data/pad.xml1"
             req = urllib.request.Request(url)
-            data = urllib.request.urlopen(req, timeout=10).read()
+            data = urllib.request.urlopen(req, timeout=2).read()
             xml = parseString(data)
             tag = xml.getElementsByTagName('Program_Version')[0]
             newVersion = tag.firstChild.nodeValue
         except:
-            return None
+            return "0.0.0"
 
         return newVersion
