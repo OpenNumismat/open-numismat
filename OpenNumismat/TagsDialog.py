@@ -38,13 +38,13 @@ class TagsTreeWidget(QTreeWidget):
 
         for tag_id, item in items.items():
             parent_id = item.data(0, Qt.UserRole + 2)
-#            position = item.data(0, Qt.UserRole + 1)
+            # position = item.data(0, Qt.UserRole + 1)
 
             if parent_id:
                 parent_item = items[parent_id]
                 parent_item.addChild(item)
             else:
-#                self.insertTopLevelItem(position, item)
+                # self.insertTopLevelItem(position, item)
                 self.addTopLevelItem(item)
 
         self.expandAll()
@@ -154,10 +154,10 @@ class TagsTreeWidget(QTreeWidget):
         tag_id = query.lastInsertId()
         item.setData(0, Qt.UserRole, tag_id)
 
-#        if valid:
-#            self.model().submit()
-#        else:
-#            self.model().removeRow(row)
+        # if valid:
+        #     self.model().submit()
+        # else:
+        #     self.model().removeRow(row)
 
     def defaultValue(self):
         return self.tr("Enter value")

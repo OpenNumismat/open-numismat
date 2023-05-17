@@ -142,7 +142,7 @@ class ImageView(QWidget):
         record = self.model.record(self.currentIndex.row())
         record.setValue(image.field, image.image)
         self.model.setRecord(self.currentIndex.row(), record)
-#        self.model.submitAll()
+        # self.model.submitAll()
 
     def __layoutToWidget(self, layout):
         widget = QWidget(self)

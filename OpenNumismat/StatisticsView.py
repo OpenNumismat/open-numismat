@@ -1120,8 +1120,8 @@ class StatisticsView(QWidget):
         self.modelChanged()
 
     def regionChanged(self, _text):
-#        region = self.itemsSelector.currentData()
-#        self.statisticsParam['region'] = region
+        # region = self.itemsSelector.currentData()
+        # self.statisticsParam['region'] = region
 
         self.modelChanged()
     

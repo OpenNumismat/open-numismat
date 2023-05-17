@@ -417,7 +417,7 @@ class FieldsSettingsPage(QWidget):
         images_item = self.groupItem(self.treeWidget, 'images_group_title')
 
         system_item = QTreeWidgetItem(self.treeWidget, (self.tr("System"),))
-#        reserve_item = QTreeWidgetItem(self.treeWidget, (self.tr("Reserve"),))
+        # reserve_item = QTreeWidgetItem(self.treeWidget, (self.tr("Reserve"),))
 
         self.fields = collection.fields
         for field in self.fields:
@@ -442,7 +442,7 @@ class FieldsSettingsPage(QWidget):
                 coin_main_item.addChild(item)
             elif field.name in ('status', 'grade', 'quantity', 'format',
                                 'condition', 'storage', 'barcode', 'defect',
-#                                'features', 'grader', 'seat', 'rating',):
+                               # 'features', 'grader', 'seat', 'rating',):
                                 'features', 'grader', 'seat',):
                 coin_state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
@@ -486,8 +486,8 @@ class FieldsSettingsPage(QWidget):
                 classification_variation_item.addChild(item)
             elif field.name in ('rarity', 'url',):
                 classification_item.addChild(item)
-#            else:
-#                reserve_item.addChild(item)
+            # else:
+            #    reserve_item.addChild(item)
 
         self.treeWidget.expandAll()
 
