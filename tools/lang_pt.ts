@@ -2,104 +2,12 @@
 <context>
     <name/>
     <message>
-        <source>E&amp;xit</source>
-        <translation>&amp;Sair</translation>
-    </message>
-    <message>
-        <source>Full Screen</source>
-        <translation>Ecrã completo</translation>
-    </message>
-    <message>
-        <source>Zoom &amp;In (25%)</source>
-        <translation>Ampl&amp;iar (25%)</translation>
-    </message>
-    <message>
-        <source>Zoom &amp;Out (25%)</source>
-        <translation>Redu&amp;zir (25%)</translation>
-    </message>
-    <message>
-        <source>&amp;Normal Size</source>
-        <translation>Tamanho &amp;normal</translation>
-    </message>
-    <message>
-        <source>&amp;Fit to Window</source>
-        <translation>A&amp;justar à janela</translation>
-    </message>
-    <message>
-        <source>Show Tool Bar</source>
-        <translation>Mostrar barra de ferramentas</translation>
-    </message>
-    <message>
-        <source>Show Status Bar</source>
-        <translation>Mostrar barra de estado</translation>
-    </message>
-    <message>
-        <source>Rotate to Left</source>
-        <translation>Rodar à esquerda</translation>
-    </message>
-    <message>
-        <source>Rotate to Right</source>
-        <translation>Rodar à direita</translation>
-    </message>
-    <message>
-        <source>Rotate...</source>
-        <translation>Rodar...</translation>
-    </message>
-    <message>
-        <source>Crop...</source>
-        <translation>Recortar...</translation>
-    </message>
-    <message>
-        <source>Autocrop</source>
-        <translation>Recorte automático</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Gravar</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Copiar</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation>Colar</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation>Desfazer</translation>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation>Refazer</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation>&amp;Ficheiro</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Editar</translation>
-    </message>
-    <message>
-        <source>&amp;View</source>
-        <translation>&amp;Ver</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Imagens (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos os ficheiros (*.*)</translation>
-    </message>
-    <message>
-        <source>Image was changed. Save changes?</source>
-        <translation>A imagem foi alterada. Gravar alterações?</translation>
-    </message>
-    <message>
         <source>Country</source>
         <translation>País</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Quantidade</translation>
     </message>
     <message>
         <source>Saving</source>
@@ -108,88 +16,6 @@
     <message>
         <source>Image not ready. Please try again later</source>
         <translation>Imagem não pronta. Por favor, tente mais tarde</translation>
-    </message>
-    <message>
-        <source>Total price</source>
-        <translation>Preço total</translation>
-    </message>
-    <message>
-        <source>Total paid</source>
-        <translation>Total pago</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Esvaziar...</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation>Gravar como</translation>
-    </message>
-    <message>
-        <source>Exporting records</source>
-        <translation>Exportar registos</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Cancelar</translation>
-    </message>
-    <message>
-        <source>Synchronizing</source>
-        <translation>A sincronizar</translation>
-    </message>
-    <message>
-        <source>Can't open collection:
-%s</source>
-        <translation>Impossível abrir colecção:
-%s</translation>
-    </message>
-    <message>
-        <source>Collection %s in wrong format</source>
-        <translation>Colecção %s em formato errado</translation>
-    </message>
-    <message>
-        <source>Collection %s in old format.
-(Try to open it before merging.)</source>
-        <translation>Colecção %s em formato antigo
-(tente abrir antes de unir).</translation>
-    </message>
-    <message>
-        <source>Inserted %d coins, updated %d coins.
-The application will need to restart now.</source>
-        <translation>Inseridas %d moedas, actualizadas %d moedas.
-A aplicação tem de reiniciar agora.</translation>
-    </message>
-    <message>
-        <source>Collections looks like identical</source>
-        <translation>As colecções parecem iguais</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Renomear</translation>
-    </message>
-    <message>
-        <source>Revert to default</source>
-        <translation>Reverter para pré-definição</translation>
-    </message>
-    <message>
-        <source>Global enabled fields:</source>
-        <translation>Campos globais activos:</translation>
-    </message>
-    <message>
-        <source>New tag</source>
-        <translation>Nova etiqueta</translation>
-    </message>
-    <message>
-        <source>New subtag</source>
-        <translation>Nova sub-etiqueta</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Eliminar</translation>
-    </message>
-    <message>
-        <source>Enter value</source>
-        <translation>Inserir valor</translation>
     </message>
 </context>
 <context>
@@ -365,20 +191,24 @@ A aplicação tem de reiniciar agora.</translation>
 <context>
     <name>BaseCanvas</name>
     <message>
-        <source>All files (*.*)</source>
-        <translation>Todos os ficheiros (*.*)</translation>
+        <source>Quantity</source>
+        <translation>Quantidade</translation>
     </message>
     <message>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation>Imagens (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
     </message>
     <message>
-        <source>Quantity</source>
-        <translation>Quantidade</translation>
+        <source>All files (*.*)</source>
+        <translation>Todos os ficheiros (*.*)</translation>
     </message>
 </context>
 <context>
     <name>BaseTableView</name>
+    <message>
+        <source>0 records selected</source>
+        <translation>Nenhum registo seleccionado</translation>
+    </message>
     <message>
         <source>Custom sorting</source>
         <translation>Ordem personalizada</translation>
@@ -388,6 +218,14 @@ A aplicação tem de reiniciar agora.</translation>
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>A ordem predefinida foi alterada.
 Mudar a posição do item só está disponível na ordenação predefinida. Limpar a ordenação agora?</translation>
+    </message>
+    <message>
+        <source>%d/%d records</source>
+        <translation>%d/%d registos</translation>
+    </message>
+    <message>
+        <source>%n record(s) selected</source>
+        <translation>%n registos seleccionados</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -446,18 +284,6 @@ Feche o ficheiro e tente novamente.</translation>
     <message>
         <source>Deleting records</source>
         <translation>A eliminar registos</translation>
-    </message>
-    <message>
-        <source>0 records selected</source>
-        <translation>Nenhum registo seleccionado</translation>
-    </message>
-    <message>
-        <source>%d/%d records</source>
-        <translation>%d/%d registos</translation>
-    </message>
-    <message>
-        <source>%n record(s) selected</source>
-        <translation>%n registos seleccionados</translation>
     </message>
 </context>
 <context>
@@ -636,6 +462,40 @@ Por favor, actualize o OpenNumismat</translation>
     <message>
         <source>Compact...</source>
         <translation>Comprimir...</translation>
+    </message>
+    <message>
+        <source>Vacuum...</source>
+        <translation>Vácuo...</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Gravar como</translation>
+    </message>
+    <message>
+        <source>Synchronizing</source>
+        <translation>A sincronizar</translation>
+    </message>
+    <message>
+        <source>Can't open collection:
+%s</source>
+        <translation>Impossível abrir colecção:
+%s</translation>
+    </message>
+    <message>
+        <source>Collection %s in old format.
+(Try to open it before merging.)</source>
+        <translation>Colecção %s em formato antigo
+(tente abrir antes de unir).</translation>
+    </message>
+    <message>
+        <source>Inserted %d coins, updated %d coins.
+The application will need to restart now.</source>
+        <translation>Inseridas %d moedas, actualizadas %d moedas.
+A aplicação tem de reiniciar agora.</translation>
+    </message>
+    <message>
+        <source>Collections looks like identical</source>
+        <translation>As colecções parecem iguais</translation>
     </message>
 </context>
 <context>
@@ -1008,6 +868,10 @@ Por favor, actualize o OpenNumismat</translation>
 <context>
     <name>CollectionModel</name>
     <message>
+        <source>h</source>
+        <translation>h</translation>
+    </message>
+    <message>
         <source>Updating records</source>
         <translation>A actualizar registos</translation>
     </message>
@@ -1039,13 +903,13 @@ Por favor, actualize o OpenNumismat</translation>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Filtro muito complexo. Será ignorado</translation>
     </message>
-    <message>
-        <source>h</source>
-        <translation>h</translation>
-    </message>
 </context>
 <context>
     <name>CollectionSettings</name>
+    <message>
+        <source>Overall</source>
+        <translation>Resumo</translation>
+    </message>
     <message>
         <source>Main details</source>
         <translation>Detalhes principais</translation>
@@ -1071,8 +935,16 @@ Por favor, actualize o OpenNumismat</translation>
         <translation>Mapa</translation>
     </message>
     <message>
+        <source>Technical data</source>
+        <translation>Dados técnicos</translation>
+    </message>
+    <message>
         <source>Parameters</source>
         <translation>Parâmetros</translation>
+    </message>
+    <message>
+        <source>Specificity</source>
+        <translation>Especificidade</translation>
     </message>
     <message>
         <source>Minting</source>
@@ -1113,18 +985,6 @@ Por favor, actualize o OpenNumismat</translation>
     <message>
         <source>Images</source>
         <translation>Imagens</translation>
-    </message>
-    <message>
-        <source>Overall</source>
-        <translation>Resumo</translation>
-    </message>
-    <message>
-        <source>Technical data</source>
-        <translation>Dados técnicos</translation>
-    </message>
-    <message>
-        <source>Specificity</source>
-        <translation>Especificidade</translation>
     </message>
 </context>
 <context>
@@ -1170,6 +1030,14 @@ Por favor, actualize o OpenNumismat</translation>
         <translation>Usar formato RichText</translation>
     </message>
     <message>
+        <source>Use relative paths for invoices</source>
+        <translation>Usar caminhos relativos para facturas</translation>
+    </message>
+    <message>
+        <source>Die axis in hours</source>
+        <translation>Eixo matriz em horas</translation>
+    </message>
+    <message>
         <source>Used statuses:</source>
         <translation>Estados usados:</translation>
     </message>
@@ -1184,14 +1052,6 @@ Por favor, actualize o OpenNumismat</translation>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Antever altura da imagem foi alterado. Recalcular agora?</translation>
-    </message>
-    <message>
-        <source>Use relative paths for invoices</source>
-        <translation>Usar caminhos relativos para facturas</translation>
-    </message>
-    <message>
-        <source>Die axis in hours</source>
-        <translation>Eixo matriz em horas</translation>
     </message>
 </context>
 <context>
@@ -1575,6 +1435,18 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <source>System</source>
         <translation>Sistema</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Renomear</translation>
+    </message>
+    <message>
+        <source>Revert to default</source>
+        <translation>Reverter para predefinição</translation>
+    </message>
+    <message>
+        <source>Global enabled fields:</source>
+        <translation>Campos globais activos:</translation>
+    </message>
 </context>
 <context>
     <name>FilterMenuButton</name>
@@ -1914,8 +1786,104 @@ arraste e largue para adicionar)</translation>
 <context>
     <name>ImageViewer</name>
     <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Sair</translation>
+    </message>
+    <message>
         <source>Browse in viewer</source>
         <translation>Explorar no visualizador</translation>
+    </message>
+    <message>
+        <source>Full Screen</source>
+        <translation>Ecrã completo</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;In (25%)</source>
+        <translation>Ampl&amp;iar (25%)</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;Out (25%)</source>
+        <translation>Redu&amp;zir (25%)</translation>
+    </message>
+    <message>
+        <source>&amp;Normal Size</source>
+        <translation>Tamanho &amp;normal</translation>
+    </message>
+    <message>
+        <source>&amp;Fit to Window</source>
+        <translation>A&amp;justar à janela</translation>
+    </message>
+    <message>
+        <source>Show Tool Bar</source>
+        <translation>Mostrar barra de ferramentas</translation>
+    </message>
+    <message>
+        <source>Show Status Bar</source>
+        <translation>Mostrar barra de estado</translation>
+    </message>
+    <message>
+        <source>Rotate to Left</source>
+        <translation>Rodar à esquerda</translation>
+    </message>
+    <message>
+        <source>Rotate to Right</source>
+        <translation>Rodar à direita</translation>
+    </message>
+    <message>
+        <source>Rotate...</source>
+        <translation>Rodar...</translation>
+    </message>
+    <message>
+        <source>Crop...</source>
+        <translation>Recortar...</translation>
+    </message>
+    <message>
+        <source>Autocrop</source>
+        <translation>Recorte automático</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Gravar</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Copiar</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Colar</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Desfazer</translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <translation>Refazer</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Ficheiro</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Ver</translation>
+    </message>
+    <message>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <translation>Imagens (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos os ficheiros (*.*)</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>A imagem foi alterada. Gravar alterações?</translation>
     </message>
     <message>
         <source>&amp;Save As...</source>
@@ -2286,6 +2254,10 @@ arraste e largue para adicionar)</translation>
         <translation>Colar</translation>
     </message>
     <message>
+        <source>Record</source>
+        <translation>Registo</translation>
+    </message>
+    <message>
         <source>Details</source>
         <translation>Detalhes</translation>
     </message>
@@ -2412,14 +2384,6 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>New version is available. Download it now?</source>
         <translation>Nova versão disponível. Transferir agora?</translation>
-    </message>
-    <message>
-        <source>Record</source>
-        <translation>Registo</translation>
-    </message>
-    <message>
-        <source>Tags...</source>
-        <translation>Etiquetas...</translation>
     </message>
 </context>
 <context>
@@ -2570,10 +2534,6 @@ arraste e largue para adicionar)</translation>
         <translation>G</translation>
     </message>
     <message>
-        <source>M</source>
-        <translation>M</translation>
-    </message>
-    <message>
         <source>F</source>
         <translation>F</translation>
     </message>
@@ -2606,6 +2566,14 @@ arraste e largue para adicionar)</translation>
         <translation>Rebordo</translation>
     </message>
     <message>
+        <source>Material</source>
+        <translation>Material</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation>M</translation>
+    </message>
+    <message>
         <source>Open reference</source>
         <translation>Abrir referência</translation>
     </message>
@@ -2632,10 +2600,6 @@ Criada uma nova</translation>
 %s</source>
         <translation>Impossível criar referência:
 %s</translation>
-    </message>
-    <message>
-        <source>Material</source>
-        <translation>Material</translation>
     </message>
     <message>
         <source>Reference is a newer version.
@@ -2924,6 +2888,18 @@ Por favor, actualize o Openumismat.</translation>
         <source>Sale date</source>
         <translation>Data de venda</translation>
     </message>
+    <message>
+        <source>Total price</source>
+        <translation>Preço total</translation>
+    </message>
+    <message>
+        <source>Total paid</source>
+        <translation>Total pago</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Quantidade</translation>
+    </message>
 </context>
 <context>
     <name>Status</name>
@@ -3130,6 +3106,22 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Remover</translation>
     </message>
     <message>
+        <source>Clear all filters</source>
+        <translation>Limpar todos os filtros</translation>
+    </message>
+    <message>
+        <source>Clear sort order</source>
+        <translation>Limpar ordenação</translation>
+    </message>
+    <message>
+        <source>Save sort order</source>
+        <translation>Gravar ordenação</translation>
+    </message>
+    <message>
+        <source>Customize tree...</source>
+        <translation>Personalizar árvore...</translation>
+    </message>
+    <message>
         <source> (clone)</source>
         <translation> (clonar)</translation>
     </message>
@@ -3181,22 +3173,6 @@ Adicione uma nova primeiro.</translation>
         <source>Remove all closed pages permanently?</source>
         <translation>Remover todas as páginas fechadas permanentemente?</translation>
     </message>
-    <message>
-        <source>Clear all filters</source>
-        <translation>Limpar todos os filtros</translation>
-    </message>
-    <message>
-        <source>Clear sort order</source>
-        <translation>Limpar ordenação</translation>
-    </message>
-    <message>
-        <source>Save sort order</source>
-        <translation>Gravar ordenação</translation>
-    </message>
-    <message>
-        <source>Customize tree...</source>
-        <translation>Personalizar árvore...</translation>
-    </message>
 </context>
 <context>
     <name>TableDialog</name>
@@ -3234,6 +3210,29 @@ Adicione uma nova primeiro.</translation>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Algo correu mal ao cancelar. Por favor reinicie</translation>
+    </message>
+</context>
+<context>
+    <name>TagsTreeWidget</name>
+    <message>
+        <source>New tag</source>
+        <translation>Nova etiqueta</translation>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation>Nova sub-etiqueta</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Renomear</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Eliminar</translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation>Inserir valor</translation>
     </message>
 </context>
 <context>
