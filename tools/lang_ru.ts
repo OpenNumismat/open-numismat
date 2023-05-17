@@ -2,104 +2,12 @@
 <context>
     <name/>
     <message>
-        <source>E&amp;xit</source>
-        <translation>В&amp;ыход</translation>
-    </message>
-    <message>
-        <source>Full Screen</source>
-        <translation>Во весь экран</translation>
-    </message>
-    <message>
-        <source>Zoom &amp;In (25%)</source>
-        <translation>Увеличить (25%)</translation>
-    </message>
-    <message>
-        <source>Zoom &amp;Out (25%)</source>
-        <translation>Уменьшить (25%)</translation>
-    </message>
-    <message>
-        <source>&amp;Normal Size</source>
-        <translation>Исходный размер</translation>
-    </message>
-    <message>
-        <source>&amp;Fit to Window</source>
-        <translation>Заполнить окно</translation>
-    </message>
-    <message>
-        <source>Show Tool Bar</source>
-        <translation>Показать панель инструментов</translation>
-    </message>
-    <message>
-        <source>Show Status Bar</source>
-        <translation>Показать строку состояния</translation>
-    </message>
-    <message>
-        <source>Rotate to Left</source>
-        <translation>Повернуть влево</translation>
-    </message>
-    <message>
-        <source>Rotate to Right</source>
-        <translation>Повернуть вправо</translation>
-    </message>
-    <message>
-        <source>Rotate...</source>
-        <translation>Поворот...</translation>
-    </message>
-    <message>
-        <source>Crop...</source>
-        <translation>Обрезать...</translation>
-    </message>
-    <message>
-        <source>Autocrop</source>
-        <translation>Автообрезка</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Сохранить</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Копировать</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation>Вставить</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation>Отменить</translation>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation>Повторить</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation>&amp;Файл</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Правка</translation>
-    </message>
-    <message>
-        <source>&amp;View</source>
-        <translation>&amp;Вид</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Все файлы (*.*)</translation>
-    </message>
-    <message>
-        <source>Image was changed. Save changes?</source>
-        <translation>Изображение изменено. Сохранить изменения?</translation>
-    </message>
-    <message>
         <source>Country</source>
         <translation>Страна</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Количество</translation>
     </message>
     <message>
         <source>Saving</source>
@@ -108,88 +16,6 @@
     <message>
         <source>Image not ready. Please try again later</source>
         <translation>Изображение не готово. Попробуйте позже</translation>
-    </message>
-    <message>
-        <source>Total price</source>
-        <translation>Полная цена</translation>
-    </message>
-    <message>
-        <source>Total paid</source>
-        <translation>Всего уплачено</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Сжатие...</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation>Сохранить как</translation>
-    </message>
-    <message>
-        <source>Exporting records</source>
-        <translation>Экспорт записей</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
-    </message>
-    <message>
-        <source>Synchronizing</source>
-        <translation>Синхронизация</translation>
-    </message>
-    <message>
-        <source>Can't open collection:
-%s</source>
-        <translation>Не удалось открыть коллекцию:
-%s</translation>
-    </message>
-    <message>
-        <source>Collection %s in wrong format</source>
-        <translation>Коллекция %s в неверном формате</translation>
-    </message>
-    <message>
-        <source>Collection %s in old format.
-(Try to open it before merging.)</source>
-        <translation>Исходная коллекция %s в старом формате.
-(Попробуйте открыть ее перед объединением.)</translation>
-    </message>
-    <message>
-        <source>Inserted %d coins, updated %d coins.
-The application will need to restart now.</source>
-        <translation>Вставлено %d монет, обновлено %d монет.
-Необходимо перезапустить приложение.</translation>
-    </message>
-    <message>
-        <source>Collections looks like identical</source>
-        <translation>Коллекции выглядят одинаковыми</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Переименовать</translation>
-    </message>
-    <message>
-        <source>Revert to default</source>
-        <translation>Восстановить по умолчанию</translation>
-    </message>
-    <message>
-        <source>Global enabled fields:</source>
-        <translation>Действующие поля:</translation>
-    </message>
-    <message>
-        <source>New tag</source>
-        <translation>Новая метка</translation>
-    </message>
-    <message>
-        <source>New subtag</source>
-        <translation>Новая подметка</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Удалить</translation>
-    </message>
-    <message>
-        <source>Enter value</source>
-        <translation>Введите значение</translation>
     </message>
 </context>
 <context>
@@ -365,20 +191,24 @@ The application will need to restart now.</source>
 <context>
     <name>BaseCanvas</name>
     <message>
-        <source>All files (*.*)</source>
-        <translation>Все файлы (*.*)</translation>
+        <source>Quantity</source>
+        <translation>Количество</translation>
     </message>
     <message>
         <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
         <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
     </message>
     <message>
-        <source>Quantity</source>
-        <translation>Количество</translation>
+        <source>All files (*.*)</source>
+        <translation>Все файлы (*.*)</translation>
     </message>
 </context>
 <context>
     <name>BaseTableView</name>
+    <message>
+        <source>0 records selected</source>
+        <translation>Нет выбранных записей</translation>
+    </message>
     <message>
         <source>Custom sorting</source>
         <translation>Ручная сортировка</translation>
@@ -388,6 +218,14 @@ The application will need to restart now.</source>
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>Сортировка изменена.
 Изменение позиции элементов доступно только при сброшенной сортировке. Сбросить сортировку сейчас?</translation>
+    </message>
+    <message>
+        <source>%d/%d records</source>
+        <translation>%d/%d записей</translation>
+    </message>
+    <message>
+        <source>%n record(s) selected</source>
+        <translation>%n записей выбрано</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -446,18 +284,6 @@ Close the file and try again.</source>
     <message>
         <source>Deleting records</source>
         <translation>Удаление записей</translation>
-    </message>
-    <message>
-        <source>0 records selected</source>
-        <translation>Нет выбранных записей</translation>
-    </message>
-    <message>
-        <source>%d/%d records</source>
-        <translation>%d/%d записей</translation>
-    </message>
-    <message>
-        <source>%n record(s) selected</source>
-        <translation>%n записей выбрано</translation>
     </message>
 </context>
 <context>
@@ -636,6 +462,40 @@ Please update OpenNumismat</source>
     <message>
         <source>Compact...</source>
         <translation>Сжатие...</translation>
+    </message>
+    <message>
+        <source>Vacuum...</source>
+        <translation>Сжатие...</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Сохранить как</translation>
+    </message>
+    <message>
+        <source>Synchronizing</source>
+        <translation>Синхронизация</translation>
+    </message>
+    <message>
+        <source>Can't open collection:
+%s</source>
+        <translation>Не удалось открыть коллекцию:
+%s</translation>
+    </message>
+    <message>
+        <source>Collection %s in old format.
+(Try to open it before merging.)</source>
+        <translation>Исходная коллекция %s в старом формате.
+(Попробуйте открыть ее перед объединением.)</translation>
+    </message>
+    <message>
+        <source>Inserted %d coins, updated %d coins.
+The application will need to restart now.</source>
+        <translation>Вставлено %d монет, обновлено %d монет.
+Необходимо перезапустить приложение.</translation>
+    </message>
+    <message>
+        <source>Collections looks like identical</source>
+        <translation>Коллекции выглядят одинаковыми</translation>
     </message>
 </context>
 <context>
@@ -1008,6 +868,10 @@ Please update OpenNumismat</source>
 <context>
     <name>CollectionModel</name>
     <message>
+        <source>h</source>
+        <translation>ч</translation>
+    </message>
+    <message>
         <source>Updating records</source>
         <translation>Обновление записей</translation>
     </message>
@@ -1039,13 +903,13 @@ Please update OpenNumismat</source>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Фильтр слишком сложный. Будет проигнорирован</translation>
     </message>
-    <message>
-        <source>h</source>
-        <translation>ч</translation>
-    </message>
 </context>
 <context>
     <name>CollectionSettings</name>
+    <message>
+        <source>Overall</source>
+        <translation>Общее</translation>
+    </message>
     <message>
         <source>Main details</source>
         <translation>Описание</translation>
@@ -1071,8 +935,16 @@ Please update OpenNumismat</source>
         <translation>Карта</translation>
     </message>
     <message>
+        <source>Technical data</source>
+        <translation>Технические данные</translation>
+    </message>
+    <message>
         <source>Parameters</source>
         <translation>Параметры</translation>
+    </message>
+    <message>
+        <source>Specificity</source>
+        <translation>Специфика</translation>
     </message>
     <message>
         <source>Minting</source>
@@ -1113,18 +985,6 @@ Please update OpenNumismat</source>
     <message>
         <source>Images</source>
         <translation>Изображения</translation>
-    </message>
-    <message>
-        <source>Overall</source>
-        <translation>Общее</translation>
-    </message>
-    <message>
-        <source>Technical data</source>
-        <translation>Технические данные</translation>
-    </message>
-    <message>
-        <source>Specificity</source>
-        <translation>Специфика</translation>
     </message>
 </context>
 <context>
@@ -1170,6 +1030,14 @@ Please update OpenNumismat</source>
         <translation>Использовать формат RichText</translation>
     </message>
     <message>
+        <source>Use relative paths for invoices</source>
+        <translation>Использовать относительные пути для ссылок на счет</translation>
+    </message>
+    <message>
+        <source>Die axis in hours</source>
+        <translation>Поворот осей в часах</translation>
+    </message>
+    <message>
         <source>Used statuses:</source>
         <translation>Используемые статусы:</translation>
     </message>
@@ -1184,14 +1052,6 @@ Please update OpenNumismat</source>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Высота изображения предпросмотра была изменена. Пересчитать их сейчас?</translation>
-    </message>
-    <message>
-        <source>Use relative paths for invoices</source>
-        <translation>Использовать относительные пути для ссылок на счет</translation>
-    </message>
-    <message>
-        <source>Die axis in hours</source>
-        <translation>Поворот осей в часах</translation>
     </message>
 </context>
 <context>
@@ -1575,6 +1435,18 @@ Do you want to send an error message to the author?</source>
         <source>System</source>
         <translation>Системные</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Переименовать</translation>
+    </message>
+    <message>
+        <source>Revert to default</source>
+        <translation>Восстановить по умолчанию</translation>
+    </message>
+    <message>
+        <source>Global enabled fields:</source>
+        <translation>Действующие поля:</translation>
+    </message>
 </context>
 <context>
     <name>FilterMenuButton</name>
@@ -1914,8 +1786,104 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImageViewer</name>
     <message>
+        <source>E&amp;xit</source>
+        <translation>В&amp;ыход</translation>
+    </message>
+    <message>
         <source>Browse in viewer</source>
         <translation>Открыть в программе просмотра</translation>
+    </message>
+    <message>
+        <source>Full Screen</source>
+        <translation>Во весь экран</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;In (25%)</source>
+        <translation>Увеличить (25%)</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;Out (25%)</source>
+        <translation>Уменьшить (25%)</translation>
+    </message>
+    <message>
+        <source>&amp;Normal Size</source>
+        <translation>Исходный размер</translation>
+    </message>
+    <message>
+        <source>&amp;Fit to Window</source>
+        <translation>Заполнить окно</translation>
+    </message>
+    <message>
+        <source>Show Tool Bar</source>
+        <translation>Показать панель инструментов</translation>
+    </message>
+    <message>
+        <source>Show Status Bar</source>
+        <translation>Показать строку состояния</translation>
+    </message>
+    <message>
+        <source>Rotate to Left</source>
+        <translation>Повернуть влево</translation>
+    </message>
+    <message>
+        <source>Rotate to Right</source>
+        <translation>Повернуть вправо</translation>
+    </message>
+    <message>
+        <source>Rotate...</source>
+        <translation>Поворот...</translation>
+    </message>
+    <message>
+        <source>Crop...</source>
+        <translation>Обрезать...</translation>
+    </message>
+    <message>
+        <source>Autocrop</source>
+        <translation>Автообрезка</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Копировать</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Вставить</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Отменить</translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <translation>Повторить</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Файл</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Правка</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Вид</translation>
+    </message>
+    <message>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Все файлы (*.*)</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>Изображение изменено. Сохранить изменения?</translation>
     </message>
     <message>
         <source>&amp;Save As...</source>
@@ -2286,6 +2254,10 @@ drag-n-drop to add an image)</source>
         <translation>Вставить</translation>
     </message>
     <message>
+        <source>Record</source>
+        <translation>Запись</translation>
+    </message>
+    <message>
         <source>Details</source>
         <translation>Детали</translation>
     </message>
@@ -2412,14 +2384,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>New version is available. Download it now?</source>
         <translation>Доступна новая версия. Скачать сейчас?</translation>
-    </message>
-    <message>
-        <source>Record</source>
-        <translation>Запись</translation>
-    </message>
-    <message>
-        <source>Tags...</source>
-        <translation>Метки...</translation>
     </message>
 </context>
 <context>
@@ -2570,10 +2534,6 @@ drag-n-drop to add an image)</source>
         <translation>С</translation>
     </message>
     <message>
-        <source>M</source>
-        <translation>М</translation>
-    </message>
-    <message>
         <source>F</source>
         <translation>Ф</translation>
     </message>
@@ -2606,6 +2566,14 @@ drag-n-drop to add an image)</source>
         <translation>Гурт</translation>
     </message>
     <message>
+        <source>Material</source>
+        <translation>Материал</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation>М</translation>
+    </message>
+    <message>
         <source>Open reference</source>
         <translation>Открыть справочник</translation>
     </message>
@@ -2632,10 +2600,6 @@ Created new one</source>
 %s</source>
         <translation>Не удалось создать справочник:
 %s</translation>
-    </message>
-    <message>
-        <source>Material</source>
-        <translation>Материал</translation>
     </message>
     <message>
         <source>Reference is a newer version.
@@ -2924,6 +2888,18 @@ Please update OpenNumismat</source>
         <source>Sale date</source>
         <translation>Дата продажи</translation>
     </message>
+    <message>
+        <source>Total price</source>
+        <translation>Полная цена</translation>
+    </message>
+    <message>
+        <source>Total paid</source>
+        <translation>Всего уплачено</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Количество</translation>
+    </message>
 </context>
 <context>
     <name>Status</name>
@@ -3130,6 +3106,22 @@ Please update OpenNumismat</source>
         <translation>Удалить</translation>
     </message>
     <message>
+        <source>Clear all filters</source>
+        <translation>Сбросить все фильтры</translation>
+    </message>
+    <message>
+        <source>Clear sort order</source>
+        <translation>Сбросить всю сортировку</translation>
+    </message>
+    <message>
+        <source>Save sort order</source>
+        <translation>Сохранить текущую сортировку</translation>
+    </message>
+    <message>
+        <source>Customize tree...</source>
+        <translation>Настроить дерево...</translation>
+    </message>
+    <message>
         <source> (clone)</source>
         <translation> (копия)</translation>
     </message>
@@ -3181,22 +3173,6 @@ Add a new one first.</source>
         <source>Remove all closed pages permanently?</source>
         <translation>Удалить все закрытые страницы навсегда?</translation>
     </message>
-    <message>
-        <source>Clear all filters</source>
-        <translation>Сбросить все фильтры</translation>
-    </message>
-    <message>
-        <source>Clear sort order</source>
-        <translation>Сбросить всю сортировку</translation>
-    </message>
-    <message>
-        <source>Save sort order</source>
-        <translation>Сохранить текущую сортировку</translation>
-    </message>
-    <message>
-        <source>Customize tree...</source>
-        <translation>Настроить дерево...</translation>
-    </message>
 </context>
 <context>
     <name>TableDialog</name>
@@ -3234,6 +3210,29 @@ Add a new one first.</source>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Что-то пошло не так при отмене. Пожалуйста, перезапустите приложение</translation>
+    </message>
+</context>
+<context>
+    <name>TagsTreeWidget</name>
+    <message>
+        <source>New tag</source>
+        <translation>Новая метка</translation>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation>Новая подметка</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Переименовать</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation>Введите значение</translation>
     </message>
 </context>
 <context>
