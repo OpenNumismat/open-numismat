@@ -2937,7 +2937,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Vendável</translation>
+        <translation>À venda</translation>
     </message>
     <message>
         <source>Missing</source>
