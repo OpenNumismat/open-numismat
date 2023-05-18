@@ -1132,7 +1132,7 @@ The application will need to restart now.</source>
     <name>ConvertButton</name>
     <message>
         <source>Convert</source>
-        <translation>Преобразуване</translation>
+        <translation>Конвертиране</translation>
     </message>
 </context>
 <context>
