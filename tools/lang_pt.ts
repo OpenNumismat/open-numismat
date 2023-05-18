@@ -928,7 +928,7 @@ A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Vendável</translation>
+        <translation>à venda</translation>
     </message>
     <message>
         <source>Map</source>
