@@ -410,13 +410,14 @@ class TreeView(QTreeWidget):
                 self.horizontalScrollBar().setValue(itemRect.x())
 
     def itemActivatedEvent(self, current, _previous):
-        self.scrollToItem(current)
-        self.resizeColumnToContents(0)
+        if current:
+            self.scrollToItem(current)
+            self.resizeColumnToContents(0)
 
-        self.changingEnabled = False
-        filter_ = current.data(0, self.FiltersRole)
-        self.model.setAdditionalFilter(filter_)
-        self.changingEnabled = True
+            self.changingEnabled = False
+            filter_ = current.data(0, self.FiltersRole)
+            self.model.setAdditionalFilter(filter_)
+            self.changingEnabled = True
 
     def contextMenuEvent(self, event):
         menu = QMenu(self)
