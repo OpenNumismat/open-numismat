@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import codecs
 import json
 import os
@@ -85,6 +87,12 @@ class CollectionModel(QSqlTableModel):
                         text = str(value) + self.tr("h")
                     else:
                         return data
+                elif field.name == 'rating':
+                    star_count = data.count('*')
+                    if self.settings['stars_count'] == 5:
+                        star_count = int((star_count + 1) / 2)
+                    # text = '★' * star_count  # black star
+                    text = '⭐' * star_count  # white medium star
                 elif field.type == Type.BigInt:
                     text = QLocale.system().toString(int(data))
                 elif field.type == Type.Text:
@@ -691,6 +699,7 @@ class CollectionSettings(BaseSettings):
             'images_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Images"),
             'relative_url': False,
             'axis_in_hours': False,
+            'stars_count': 10,
     }
 
     def __init__(self, db):
@@ -705,7 +714,8 @@ class CollectionSettings(BaseSettings):
             record = query.record()
             title = record.value('title')
             if title in self.keys():
-                if title in ('Version', 'ImageSideLen', 'colnect_country'):
+                if title in ('Version', 'ImageSideLen', 'colnect_country',
+                             'stars_count'):
                     value = int(record.value('value'))
                 elif title in ('image_height',):
                     value = float(record.value('value'))

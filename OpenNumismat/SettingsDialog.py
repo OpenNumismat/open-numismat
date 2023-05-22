@@ -294,6 +294,10 @@ class CollectionSettingsPage(QWidget):
         self.axisHours.setChecked(self.settings['axis_in_hours'])
         layout.addRow(self.axisHours)
 
+        self.starsCount = QCheckBox(self.tr("5 stars in rating"), self)
+        self.starsCount.setChecked(self.settings['stars_count'] == 5)
+        layout.addRow(self.starsCount)
+
         self.statusUsed = {}
         statusesList = QListWidget(self)
         statusesList.setWrapping(True)
@@ -353,6 +357,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['rich_text'] = self.richText.isChecked()
         self.settings['relative_url'] = self.relativeUrl.isChecked()
         self.settings['axis_in_hours'] = self.axisHours.isChecked()
+        self.settings['stars_count'] = 5 if self.starsCount.isChecked() else 10
         default_status = self.defaultStatus.currentData()
         self.settings['default_status'] = default_status
 
@@ -442,8 +447,7 @@ class FieldsSettingsPage(QWidget):
                 coin_main_item.addChild(item)
             elif field.name in ('status', 'grade', 'quantity', 'format',
                                 'condition', 'storage', 'barcode', 'defect',
-                               # 'features', 'grader', 'seat', 'rating',):
-                                'features', 'grader', 'seat',):
+                                'features', 'grader', 'seat', 'rating',):
                 coin_state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
                                 'saller', 'payplace', 'payinfo', 'buying_invoice'):

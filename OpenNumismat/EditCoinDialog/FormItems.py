@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import math
 import os
 import re
 
-from PySide6.QtCore import QMargins, QUrl, QDate, QLocale
+from PySide6.QtCore import QMargins, QUrl, QDate, QLocale, QPointF, QSize
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import Signal as pyqtSignal
@@ -1090,3 +1091,68 @@ class DateEdit(QDateEdit):
             lineEdit = self.findChild(QLineEdit)
             lineEdit.setCursorPosition(0)
             lineEdit.setText("")
+
+
+class RatingEdit(QWidget):
+    PaintingScaleFactor = 18
+
+    def __init__(self, maxStarCount, parent=None):
+        super().__init__(parent)
+        
+        self.readOnly = False
+        self.maxStarCount = maxStarCount
+        self.starCount = 0
+        
+        self.starPolygon = QPolygonF()
+        self.starPolygon.append(QPointF(1.0, 0.5))
+        for i in range(5):
+            point = QPointF(0.5 + 0.5 * math.cos(0.8 * i * math.pi),
+                            0.5 + 0.5 * math.sin(0.8 * i * math.pi))
+            self.starPolygon.append(point)
+
+        self.diamondPolygon = QPolygonF((
+            QPointF(0.4, 0.5), QPointF(0.5, 0.4), QPointF(0.6, 0.5),
+            QPointF(0.5, 0.6), QPointF(0.4, 0.5)
+        ))
+
+    def setReadOnly(self, b):
+        self.readOnly = b
+    
+    def clear(self):
+        return
+
+    def text(self):
+        return '*' * (self.starCount / (10 / self.maxStarCount))
+
+    def setText(self, text):
+        self.starCount = text.count('*') / (10 / self.maxStarCount)
+
+    def home(self, _mark):
+        return
+
+    def paintEvent(self, _event):
+        painter = QPainter(self)
+
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        painter.setPen(Qt.NoPen)
+        palette = QPalette()
+        if self.readOnly:
+            brush = palette.windowText()
+        else:
+            brush = palette.highlight()
+        painter.setBrush(brush)
+
+        rect = self.rect()
+        yOffset = (rect.height() - self.PaintingScaleFactor) / 2
+        painter.translate(rect.x(), rect.y() + yOffset)
+        painter.scale(self.PaintingScaleFactor, self.PaintingScaleFactor)
+
+        for i in range(self.maxStarCount):
+            if i < self.starCount:
+                painter.drawPolygon(self.starPolygon, Qt.WindingFill)
+            elif not self.readOnly:
+                painter.drawPolygon(self.diamondPolygon, Qt.WindingFill)
+            painter.translate(1.0, 0.0)
+
+    def sizeHint(self):
+        return self.PaintingScaleFactor * QSize(self.maxStarCount, 1)

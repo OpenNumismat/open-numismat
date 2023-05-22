@@ -36,6 +36,8 @@ class FormItem(object):
                     self._widget = GraderLineEdit(parent)
                 elif self._field == 'native_year':
                     self._widget = NativeYearEdit(parent)
+                elif self._field == 'rating':
+                    self._widget = RatingEdit(settings['stars_count'], parent)
                 else:
                     self._widget = LineEdit(parent)
         elif self._type == Type.ShortString:
