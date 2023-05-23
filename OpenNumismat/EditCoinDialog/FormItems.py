@@ -1093,7 +1093,7 @@ class DateEdit(QDateEdit):
             lineEdit.setText("")
 
 
-class RatingEdit(QWidget):
+class RatingEdit(QLabel):
     PaintingScaleFactor = 18
 
     def __init__(self, maxStarCount, parent=None):
@@ -1166,10 +1166,16 @@ class RatingEdit(QWidget):
         self.starCount = math.ceil(text.count('*') / (10 / self.maxStarCount))
         self.currentStarCount = self.starCount
 
+        if self.readOnly:
+            super().setText('⭐' * self.starCount)
+
     def home(self, _mark):
         return
 
-    def paintEvent(self, _event):
+    def paintEvent(self, event):
+        if self.readOnly:
+            return super().paintEvent(event)
+
         painter = QPainter(self)
 
         painter.setRenderHint(QPainter.Antialiasing, True)

@@ -1045,6 +1045,10 @@ The application will need to restart now.</source>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>5 stars in rating</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColnectConnector</name>
