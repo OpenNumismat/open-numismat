@@ -928,7 +928,7 @@ A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Vendável</translation>
+        <translation>à venda</translation>
     </message>
     <message>
         <source>Map</source>
@@ -2909,7 +2909,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Bidding</source>
-        <translation>Oferta</translation>
+        <translation>Em licitação</translation>
     </message>
     <message>
         <source>Ordered</source>
@@ -2937,7 +2937,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Vendável</translation>
+        <translation>À venda</translation>
     </message>
     <message>
         <source>Missing</source>
@@ -3024,7 +3024,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Count biddings: %d</source>
-        <translation>Total de ofertas: %d</translation>
+        <translation>Total de licitações: %d</translation>
     </message>
     <message>
         <source>Count missing: %d</source>
