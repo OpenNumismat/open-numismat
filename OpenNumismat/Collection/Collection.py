@@ -2,6 +2,7 @@
 
 import codecs
 import json
+import math
 import os
 import shutil
 
@@ -88,9 +89,8 @@ class CollectionModel(QSqlTableModel):
                     else:
                         return data
                 elif field.name == 'rating':
-                    star_count = data.count('*')
-                    if self.settings['stars_count'] == 5:
-                        star_count = int((star_count + 1) / 2)
+                    maxStarCount = self.settings['stars_count']
+                    star_count = math.ceil(data.count('*') / (10 / maxStarCount))
                     # text = '★' * star_count  # black star
                     text = '⭐' * star_count  # white medium star
                 elif field.type == Type.BigInt:

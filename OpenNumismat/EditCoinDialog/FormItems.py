@@ -1122,10 +1122,10 @@ class RatingEdit(QWidget):
         return
 
     def text(self):
-        return '*' * (self.starCount / (10 / self.maxStarCount))
+        return '*' * math.ceil(self.starCount * (10 / self.maxStarCount))
 
     def setText(self, text):
-        self.starCount = text.count('*') / (10 / self.maxStarCount)
+        self.starCount = math.ceil(text.count('*') / (10 / self.maxStarCount))
 
     def home(self, _mark):
         return
