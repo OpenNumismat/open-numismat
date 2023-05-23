@@ -1099,10 +1099,11 @@ class RatingEdit(QWidget):
     def __init__(self, maxStarCount, parent=None):
         super().__init__(parent)
         
-        self.readOnly = False
         self.maxStarCount = maxStarCount
         self.starCount = 0
-        
+        self.currentStarCount = self.starCount
+        self.setReadOnly(False)
+
         self.starPolygon = QPolygonF()
         self.starPolygon.append(QPointF(1.0, 0.5))
         for i in range(5):
@@ -1115,9 +1116,46 @@ class RatingEdit(QWidget):
             QPointF(0.5, 0.6), QPointF(0.4, 0.5)
         ))
 
+    def enterEvent(self, event):
+        if not self.readOnly:
+            self.setAutoFillBackground(True)
+
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        if not self.readOnly:
+            self.setAutoFillBackground(False)
+            self.currentStarCount = self.starCount
+
+        super().leaveEvent(event)
+
+    def mouseMoveEvent(self, event):
+        if not self.readOnly:
+            star = self.starAtPosition(event.position().toPoint().x())
+
+            if star != self.currentStarCount and star != -1:
+                self.currentStarCount = star
+                self.update()
+
+        super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        if self.underMouse():
+            self.starCount = self.currentStarCount
+        super().mouseReleaseEvent(event)
+
+    def starAtPosition(self, x):
+        star = math.ceil((x - 5) / (self.sizeHint().width() / self.maxStarCount))
+        if star < 0 or star > self.maxStarCount:
+            return -1
+
+        return star
+
     def setReadOnly(self, b):
         self.readOnly = b
-    
+
+        self.setMouseTracking(not self.readOnly)
+
     def clear(self):
         return
 
@@ -1126,6 +1164,7 @@ class RatingEdit(QWidget):
 
     def setText(self, text):
         self.starCount = math.ceil(text.count('*') / (10 / self.maxStarCount))
+        self.currentStarCount = self.starCount
 
     def home(self, _mark):
         return
@@ -1148,7 +1187,7 @@ class RatingEdit(QWidget):
         painter.scale(self.PaintingScaleFactor, self.PaintingScaleFactor)
 
         for i in range(self.maxStarCount):
-            if i < self.starCount:
+            if i < self.currentStarCount:
                 painter.drawPolygon(self.starPolygon, Qt.WindingFill)
             elif not self.readOnly:
                 painter.drawPolygon(self.diamondPolygon, Qt.WindingFill)
