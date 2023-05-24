@@ -929,7 +929,7 @@ class MainWindow(QMainWindow):
         from xml.dom.minidom import parseString
 
         try:
-            url = "http://opennumismat.github.io/data/pad.xml1"
+            url = "http://opennumismat.github.io/data/pad.xml"
             req = urllib.request.Request(url)
             data = urllib.request.urlopen(req, timeout=2).read()
             xml = parseString(data)
