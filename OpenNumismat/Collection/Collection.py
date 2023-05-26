@@ -175,8 +175,24 @@ class CollectionModel(QSqlTableModel):
     def appendRecord(self, record):
         rowCount = self.rowCount()
 
+        tag_ids = record.value('tags')
+        record.remove(record.indexOf('tags'))
+
         self.insertRecord(-1, record)
         self.submitAll()
+
+        # query = self.query()
+        # print(query.lastInsertId())
+        query = QSqlQuery(self.database())
+        query.exec_('SELECT last_insert_rowid()')
+        if query.first():
+            coin_id = query.value(0)
+            for tag_id in tag_ids:
+                query = QSqlQuery(self.database())
+                query.prepare("INSERT INTO coins_tags(coin_id, tag_id) VALUES(?, ?)")
+                query.addBindValue(coin_id)
+                query.addBindValue(tag_id)
+                query.exec_()
 
         if rowCount < self.rowCount():  # inserted row visible in current model
             if self.insertedRowIndex.isValid():
@@ -227,7 +243,8 @@ class CollectionModel(QSqlTableModel):
         record.setValue('image', img_id)
         record.remove(record.indexOf('image_id'))
 
-        record.remove(record.indexOf('tags'))
+#        record.remove(record.indexOf('tags'))
+#        record.setGenerated("tags", False)
 
         return super().insertRecord(row, record)
 
