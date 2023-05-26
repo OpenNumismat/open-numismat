@@ -227,6 +227,8 @@ class CollectionModel(QSqlTableModel):
         record.setValue('image', img_id)
         record.remove(record.indexOf('image_id'))
 
+        record.remove(record.indexOf('tags'))
+
         return super().insertRecord(row, record)
 
     def setRecord(self, row, record):
@@ -293,6 +295,21 @@ class CollectionModel(QSqlTableModel):
                 query.exec_()
 
                 img_id = query.lastInsertId()
+
+        coin_id = record.value('id')
+
+        query = QSqlQuery(self.database())
+        query.prepare("DELETE FROM coins_tags WHERE coin_id=?")
+        query.addBindValue(coin_id)
+        query.exec_()
+
+        for tag_id in record.value('tags'):
+            query = QSqlQuery(self.database())
+            query.prepare("INSERT INTO coins_tags(coin_id, tag_id) VALUES(?, ?)")
+            query.addBindValue(coin_id)
+            query.addBindValue(tag_id)
+            query.exec_()
+        
         self.database().commit()
 
         if img_id:
@@ -331,6 +348,21 @@ class CollectionModel(QSqlTableModel):
         else:
             record.setValue('image', None)
 
+        tag_ids = []
+        coin_id = record.value('id')
+        if coin_id:
+            query = QSqlQuery(self.database())
+            query.prepare("SELECT tag_id FROM coins_tags WHERE coin_id=?")
+            query.addBindValue(coin_id)
+            query.exec_()
+
+            while query.next():
+                tag_id = query.record().value(0)
+                tag_ids.append(tag_id)
+
+        record.append(QSqlField('tags'))
+        record.setValue('tags', tag_ids)
+
         return record
 
     def removeRow(self, row):
@@ -356,6 +388,13 @@ class CollectionModel(QSqlTableModel):
             query = QSqlQuery(self.database())
             query.prepare("DELETE FROM images WHERE id=?")
             query.addBindValue(value)
+            query.exec_()
+
+        coin_id = record.value('id')
+        if coin_id:
+            query = QSqlQuery(self.database())
+            query.prepare("DELETE FROM coins_tags WHERE coin_id=?")
+            query.addBindValue(coin_id)
             query.exec_()
 
         return super().removeRow(row)
@@ -697,6 +736,7 @@ class CollectionSettings(BaseSettings):
             'classification_price_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Price"),
             'classification_variation_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Variation"),
             'images_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Images"),
+            'tags_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Tags"),
             'relative_url': False,
             'axis_in_hours': False,
             'stars_count': 10,

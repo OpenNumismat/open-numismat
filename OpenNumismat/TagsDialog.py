@@ -12,6 +12,92 @@ class TagsTreeWidget(QTreeWidget):
         super().__init__(parent)
 
         self.db = db
+        self.record = None
+
+        self.setHeaderHidden(True)
+
+        self.update()
+
+    def update(self):
+        self.clear()
+
+        sql = "SELECT id, tag, position, parent_id FROM tags ORDER BY position"
+        query = QSqlQuery(self.db)
+        query.exec_(sql)
+
+        items = {}
+        while query.next():
+            record = query.record()
+
+            tag_id = record.value(0)
+            position = record.value(2)
+            tag = record.value(1)
+            parent_id = record.value(3)
+            
+            item = QTreeWidgetItem((tag,))
+            item.setData(0, Qt.UserRole, tag_id)
+            item.setData(0, Qt.UserRole + 1, position)
+            item.setData(0, Qt.UserRole + 2, parent_id)
+            item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+            item.setCheckState(0, Qt.Unchecked)
+
+            items[tag_id] = item
+
+        for tag_id, item in items.items():
+            parent_id = item.data(0, Qt.UserRole + 2)
+
+            if parent_id:
+                parent_item = items[parent_id]
+                parent_item.addChild(item)
+            else:
+                self.addTopLevelItem(item)
+
+        self.expandAll()
+
+        self.fill(self.record)
+
+    def fill(self, record):
+        if record:
+            self.record = record
+            self.tag_ids = record.value('tags')
+            self.execForAll(self.markItem)
+
+    def markItem(self, item):
+        tag_id = item.data(0, Qt.UserRole)
+        if tag_id in self.tag_ids:
+            item.setCheckState(0, Qt.Checked)
+        else:
+            item.setCheckState(0, Qt.Unchecked)
+
+    def getTags(self):
+        self.tag_ids = []
+        self.execForAll(self.storeTagId)
+        return self.tag_ids
+
+    def storeTagId(self, item):
+        if item.checkState(0) == Qt.Checked:
+            tag_id = item.data(0, Qt.UserRole)
+            self.tag_ids.append(tag_id)
+
+    def execForAll(self, func):
+        for i in range(self.topLevelItemCount()):
+            item = self.topLevelItem(i)
+            self.execForItem(func, item)
+
+    def execForItem(self, func, item):
+        func(item)
+
+        for i in range(item.childCount()):
+            child = item.child(i)
+            self.execForItem(func, child)
+
+
+class EditTagsTreeWidget(QTreeWidget):
+
+    def __init__(self, db, parent=None):
+        super().__init__(parent)
+
+        self.db = db
 
         self.setHeaderHidden(True)
 
@@ -27,7 +113,7 @@ class TagsTreeWidget(QTreeWidget):
             position = record.value(2)
             tag = record.value(1)
             parent_id = record.value(3)
-            
+
             item = QTreeWidgetItem((tag,))
             item.setData(0, Qt.UserRole, tag_id)
             item.setData(0, Qt.UserRole + 1, position)
@@ -187,7 +273,7 @@ class TagsDialog(QDialog):
 
         self.setWindowTitle(self.tr("Tags"))
 
-        self.tagsTree = TagsTreeWidget(self.db)
+        self.tagsTree = EditTagsTreeWidget(self.db)
 
         add_button = QPushButton(QIcon(':/add.png'), '')
         add_button.setToolTip(self.tr("New tag"))

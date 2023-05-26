@@ -22,7 +22,7 @@ from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
 from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
-# from OpenNumismat.TagsDialog import TagsDialog
+from OpenNumismat.TagsDialog import TagsDialog
 
 from OpenNumismat.Collection.Import import *
 
@@ -349,8 +349,8 @@ class MainWindow(QMainWindow):
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
         self.collectionActs.append(self.referenceMenu)
 
-        # self.tagsAct = QAction(self.tr("Tags..."), self)
-        # self.tagsAct.triggered.connect(self.tagsEvent)
+        self.tagsAct = QAction(self.tr("Tags..."), self)
+        self.tagsAct.triggered.connect(self.tagsEvent)
 
         reportAct = QAction(self.tr("Report..."), self)
         reportAct.setShortcut(QKeySequence.Print)
@@ -819,8 +819,8 @@ class MainWindow(QMainWindow):
 
         self.referenceMenu.clear()
 
-        # self.referenceMenu.addAction(self.tagsAct)
-        # self.referenceMenu.addSeparator()
+        self.referenceMenu.addAction(self.tagsAct)
+        self.referenceMenu.addSeparator()
 
         for action in self.collection.referenceMenu(self):
             self.referenceMenu.addAction(action)

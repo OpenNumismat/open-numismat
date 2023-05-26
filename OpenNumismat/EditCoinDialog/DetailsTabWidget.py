@@ -16,6 +16,7 @@ from OpenNumismat.Collection.CollectionFields import TitleTemplateFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
 from OpenNumismat.EditCoinDialog.MapWidget import get_map_widget
+from OpenNumismat.TagsDialog import TagsDialog, TagsTreeWidget
 
 
 class DetailsTabWidget(QTabWidget):
@@ -29,6 +30,7 @@ class DetailsTabWidget(QTabWidget):
         self.reference = model.reference
         self.settings = model.settings
         self.map_item = None
+        self.tags_item = None
 
         self.createItems()
         self.createPages()
@@ -36,6 +38,7 @@ class DetailsTabWidget(QTabWidget):
     def createPages(self):
         self.createCoinPage()
         self.createTrafficPage()
+        self.createTagsPage()
         self.createMapPage()
         self.createParametersPage()
         self.createDesignPage()
@@ -46,6 +49,12 @@ class DetailsTabWidget(QTabWidget):
         state = self.stateLayout()
         title = self.settings['coin_group_title']
         self.addTabPage(title, [main, self.Stretch, state])
+
+    def createTagsPage(self):
+        self.tags_item = self.tagsLayout()
+        title = self.settings['tags_group_title']
+
+        self.addTabPage(title, [self.tags_item, ])
 
     def createMapPage(self):
         coordinates = self.coordinatesLayout()
@@ -200,6 +209,9 @@ class DetailsTabWidget(QTabWidget):
                 lat = record.value('latitude')
                 lng = record.value('longitude')
                 self.map_item.setMarker(lat, lng)
+
+            if self.tags_item:
+                self.tags_item.fill(record)
 
     def _fillItem(self, record, item):
         if not record.isNull(item.field()):
@@ -463,6 +475,11 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
+    def tagsLayout(self):
+        self.tags_item = None
+        self.tags_item = TagsTreeWidget(self.model.database(), self)
+        return self.tags_item
+
     def coordinatesLayout(self):
         layout = BaseFormLayout()
 
@@ -598,11 +615,28 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.createCoinPage()
         self.oldStatus = 'demo'
         self.createTrafficPage()
+        self.createTagsPage()
         self.createMapPage()
         self.createParametersPage()
         self.createDesignPage()
         self.createClassificationPage()
         self.createImagePage()
+
+    def createTagsPage(self):
+        tags = self.tagsLayout()
+        title = self.settings['tags_group_title']
+
+        btn = QPushButton(self.tr("Edit..."))
+        btn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        btn.clicked.connect(self.clickEditTags)
+
+        self.addTabPage(title, [tags, btn])
+
+    def clickEditTags(self):
+        dialog = TagsDialog(self.model.database(), self)
+        res = dialog.exec_()
+        if res == QDialog.Accepted:
+            self.tags_item.update()
 
     def createImagePage(self):
         images = self.imagesLayout()

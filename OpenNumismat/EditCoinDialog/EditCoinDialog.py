@@ -155,6 +155,10 @@ class EditCoinDialog(QDialog):
                 value = value.strip()
             self.record.setValue(image_field + '_title', value)
 
+        if self.tab.tags_item:
+            tag_ids = self.tab.tags_item.getTags()
+            self.record.setValue('tags', tag_ids)
+
         key = 'show_info/save_similar'
         show = settings.value(key, True, type=bool)
         if show:
