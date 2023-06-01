@@ -819,8 +819,9 @@ class MainWindow(QMainWindow):
 
         self.referenceMenu.clear()
 
-        self.referenceMenu.addAction(self.tagsAct)
-        self.referenceMenu.addSeparator()
+        if collection.settings['tags_used']:
+            self.referenceMenu.addAction(self.tagsAct)
+            self.referenceMenu.addSeparator()
 
         for action in self.collection.referenceMenu(self):
             self.referenceMenu.addAction(action)

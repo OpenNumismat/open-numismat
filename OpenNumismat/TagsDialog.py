@@ -8,9 +8,10 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 class TagsTreeWidget(QTreeWidget):
 
-    def __init__(self, db, parent=None):
+    def __init__(self, db, readonly, parent=None):
         super().__init__(parent)
 
+        self.readonly = readonly
         self.db = db
         self.record = None
 
@@ -38,7 +39,11 @@ class TagsTreeWidget(QTreeWidget):
             item.setData(0, Qt.UserRole, tag_id)
             item.setData(0, Qt.UserRole + 1, position)
             item.setData(0, Qt.UserRole + 2, parent_id)
-            item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+            if self.readonly:
+                item.setFlags(Qt.ItemIsEnabled)
+            else:
+                item.setFlags(item.flags() | Qt.ItemIsSelectable)
+
             item.setCheckState(0, Qt.Unchecked)
 
             items[tag_id] = item
@@ -141,15 +146,17 @@ class EditTagsTreeWidget(QTreeWidget):
 
         menu = QMenu(self)
 
-        menu.addAction(QIcon(':/add.png'), self.tr("New tag"), self.addItem)
+        menu.addAction(QIcon(':/add.png'), self.tr("New tag"), Qt.Key_Insert, self.addItem)
+
         act = menu.addAction(self.tr("New subtag"), self.addSubItem)
         act.setEnabled(index.isValid())
         menu.addSeparator()
         act = menu.addAction(QIcon(':/pencil.png'), self.tr("Rename"), self.renameItem)
         act.setEnabled(index.isValid())
+
         style = QApplication.style()
         icon = style.standardIcon(QStyle.SP_TrashIcon)
-        act = menu.addAction(icon, self.tr("Delete"), self.deleteItem)
+        act = menu.addAction(icon, self.tr("Delete"), QKeySequence.Delete, self.deleteItem)
         act.setEnabled(index.isValid())
 
         menu.exec_(self.mapToGlobal(event.pos()))

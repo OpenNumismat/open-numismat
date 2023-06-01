@@ -38,7 +38,8 @@ class DetailsTabWidget(QTabWidget):
     def createPages(self):
         self.createCoinPage()
         self.createTrafficPage()
-        self.createTagsPage()
+        if self.settings['tags_used']:
+            self.createTagsPage()
         self.createMapPage()
         self.createParametersPage()
         self.createDesignPage()
@@ -476,8 +477,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def tagsLayout(self):
-        self.tags_item = None
-        self.tags_item = TagsTreeWidget(self.model.database(), self)
+        self.tags_item = TagsTreeWidget(self.model.database(), True, self)
         return self.tags_item
 
     def coordinatesLayout(self):
@@ -615,7 +615,8 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.createCoinPage()
         self.oldStatus = 'demo'
         self.createTrafficPage()
-        self.createTagsPage()
+        if self.settings['tags_used']:
+            self.createTagsPage()
         self.createMapPage()
         self.createParametersPage()
         self.createDesignPage()
@@ -631,6 +632,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
         btn.clicked.connect(self.clickEditTags)
 
         self.addTabPage(title, [tags, btn])
+
+    def tagsLayout(self):
+        self.tags_item = TagsTreeWidget(self.model.database(), False, self)
+        return self.tags_item
 
     def clickEditTags(self):
         dialog = TagsDialog(self.model.database(), self)

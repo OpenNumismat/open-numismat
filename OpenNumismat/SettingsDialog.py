@@ -298,6 +298,10 @@ class CollectionSettingsPage(QWidget):
         self.starsCount.setChecked(self.settings['stars_count'] == 5)
         layout.addRow(self.starsCount)
 
+        self.tagsEnabled = QCheckBox(self.tr("Enable tags"), self)
+        self.tagsEnabled.setChecked(self.settings['tags_used'])
+        layout.addRow(self.tagsEnabled)
+
         self.statusUsed = {}
         statusesList = QListWidget(self)
         statusesList.setWrapping(True)
@@ -358,6 +362,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['relative_url'] = self.relativeUrl.isChecked()
         self.settings['axis_in_hours'] = self.axisHours.isChecked()
         self.settings['stars_count'] = 5 if self.starsCount.isChecked() else 10
+        self.settings['tags_used'] = self.tagsEnabled.isChecked()
         default_status = self.defaultStatus.currentData()
         self.settings['default_status'] = default_status
 

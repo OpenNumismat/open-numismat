@@ -243,9 +243,6 @@ class CollectionModel(QSqlTableModel):
         record.setValue('image', img_id)
         record.remove(record.indexOf('image_id'))
 
-#        record.remove(record.indexOf('tags'))
-#        record.setGenerated("tags", False)
-
         return super().insertRecord(row, record)
 
     def setRecord(self, row, record):
@@ -326,6 +323,8 @@ class CollectionModel(QSqlTableModel):
             query.addBindValue(coin_id)
             query.addBindValue(tag_id)
             query.exec_()
+
+        record.remove(record.indexOf('tags'))
         
         self.database().commit()
 
@@ -757,6 +756,7 @@ class CollectionSettings(BaseSettings):
             'relative_url': False,
             'axis_in_hours': False,
             'stars_count': 10,
+            'tags_used': True,
     }
 
     def __init__(self, db):
@@ -778,7 +778,7 @@ class CollectionSettings(BaseSettings):
                     value = float(record.value('value'))
                 elif title in ('free_numeric', 'convert_fraction',
                                'images_at_bottom', 'enable_bc', 'rich_text',
-                               'relative_url', 'axis_in_hours'):
+                               'relative_url', 'axis_in_hours', 'tags_used'):
                     value = record.value('value').lower() in ('true', '1')
                 elif '_status_used' in title:
                     value = record.value('value').lower() in ('true', '1')
