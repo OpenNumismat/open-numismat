@@ -216,7 +216,6 @@ class EditTagsTreeWidget(QTreeWidget):
             super().commitData(editor)
 
     def closeEditor(self, editor, hint):
-        row = self.currentIndex().row()
         super().closeEditor(editor, hint)
 
         valid = True
@@ -231,6 +230,14 @@ class EditTagsTreeWidget(QTreeWidget):
         tag_id = item.data(0, Qt.UserRole)
         position = item.data(0, Qt.UserRole + 1) or 1
         parent_item = item.parent()
+
+        if not valid and not tag_id:
+            if item.parent():
+                item.parent().removeChild(item)
+            else:
+                index = self.currentIndex()
+                self.takeTopLevelItem(index.row())
+            return
 
         sql = "INSERT OR REPLACE INTO tags (id, tag, position, parent_id) VALUES (?, ?, ?, ?)"
         query = QSqlQuery(self.db)
@@ -247,11 +254,6 @@ class EditTagsTreeWidget(QTreeWidget):
 
         tag_id = query.lastInsertId()
         item.setData(0, Qt.UserRole, tag_id)
-
-        # if valid:
-        #     self.model().submit()
-        # else:
-        #     self.model().removeRow(row)
 
     def defaultValue(self):
         return self.tr("Enter value")
