@@ -1053,6 +1053,10 @@ The application will need to restart now.</source>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Височината на изображението в предварителен преглед беше променена. Да се преизчисли ли?</translation>
     </message>
+    <message>
+        <source>5 stars in rating</source>
+        <translation>5 звезди в рейтинга</translation>
+    </message>
 </context>
 <context>
     <name>ColnectConnector</name>
@@ -1132,7 +1136,7 @@ The application will need to restart now.</source>
     <name>ConvertButton</name>
     <message>
         <source>Convert</source>
-        <translation>Преобразуване</translation>
+        <translation>Конвертиране</translation>
     </message>
 </context>
 <context>
