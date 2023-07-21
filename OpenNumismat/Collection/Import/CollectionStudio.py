@@ -97,7 +97,9 @@ class ImportCollectionStudio(_Import):
         return src
 
     def _getRows(self, srcFile):
-        tree = lxml.etree.parse(srcFile)
+        with open(srcFile, 'rb') as f:
+            xml = f.read().replace(b'&', b'&amp;')
+        tree = lxml.etree.fromstring(xml)
         rows = tree.xpath("/Collection/ITEM")
         return rows
 
