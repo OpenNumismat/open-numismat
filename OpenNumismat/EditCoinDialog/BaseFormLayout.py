@@ -373,9 +373,10 @@ class DesignFormLayout(BaseFormGroupBox):
                 self.layout.setColumnMinimumWidth(2, 160)
                 self.layout.setRowMinimumHeight(0, self.defaultHeight)
             else:
+                # Multi-edit
                 image.label().setText("")
-                self.layout.addWidget(image.label(), 0, 3, 1, 1)
-                self.layout.addWidget(image.widget(), 0, 4, rowSpan, 1)
+                self.layout.addWidget(image.label(), self.imagesCount * 2, 3, 1, 1)
+                self.layout.addWidget(image.widget(), self.imagesCount * 2, 4, rowSpan, 1)
                 self.layout.setColumnMinimumWidth(4, 160)
                 self.layout.setRowMinimumHeight(0, self.defaultHeight)
 
