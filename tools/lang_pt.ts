@@ -1053,6 +1053,10 @@ A aplicação tem de reiniciar agora.</translation>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Antever altura da imagem foi alterado. Recalcular agora?</translation>
     </message>
+    <message>
+        <source>5 stars in rating</source>
+        <translation>5 estrelas</translation>
+    </message>
 </context>
 <context>
     <name>ColnectConnector</name>
