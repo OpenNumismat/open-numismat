@@ -168,6 +168,8 @@ class EditTagsTreeWidget(QTreeWidget):
         if not parent_item:
             parent_item = self
         item = QTreeWidgetItem(parent_item, (self.defaultValue(),))
+        position = self._getNewPosition()
+        item.setData(0, Qt.UserRole + 1, position)
         item.setFlags(item.flags() | Qt.ItemIsEditable)
         self.setCurrentItem(item)
         self.editItem(item)
@@ -175,10 +177,25 @@ class EditTagsTreeWidget(QTreeWidget):
     def addSubItem(self):
         parent_item = self.currentItem()
         item = QTreeWidgetItem(parent_item, (self.defaultValue(),))
-        parent_item.setExpanded(True)
+        position = self._getNewPosition()
+        item.setData(0, Qt.UserRole + 1, position)
         item.setFlags(item.flags() | Qt.ItemIsEditable)
+        parent_item.setExpanded(True)
         self.setCurrentItem(item)
         self.editItem(item)
+
+    def _getNewPosition(self):
+        sql = "SELECT MAX(id) FROM tags"
+        query = QSqlQuery(sql, self.db)
+        query.exec_()
+
+        if query.first():
+            max_id = query.record().value(0)
+            position = max_id + 1
+        else:
+            position = 0
+
+        return position
 
     def renameItem(self):
         item = self.currentItem()
