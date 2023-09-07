@@ -39,6 +39,7 @@ from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
 class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
     modelChanged = pyqtSignal()
+    tagsChanged = pyqtSignal()
     IMAGE_FORMAT = 'jpg'
     SQLITE_READONLY = '8'
 

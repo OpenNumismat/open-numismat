@@ -642,6 +642,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         res = dialog.exec_()
         if res == QDialog.Accepted:
             self.tags_item.update()
+            self.model.tagsChanged.emit()
 
     def createImagePage(self):
         images = self.imagesLayout()
