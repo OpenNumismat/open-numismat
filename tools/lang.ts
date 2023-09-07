@@ -978,6 +978,10 @@ The application will need to restart now.</source>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Tags</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CollectionSettingsPage</name>
@@ -1047,6 +1051,10 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>5 stars in rating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable tags</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1350,6 +1358,29 @@ The application will need to restart now.</source>
     </message>
 </context>
 <context>
+    <name>EditTagsTreeWidget</name>
+    <message>
+        <source>New tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ExcpHook</name>
     <message>
         <source>System error</source>
@@ -1633,6 +1664,10 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Available format 12.5 or 10%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2376,6 +2411,10 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>New version is available. Download it now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tags...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3195,29 +3234,6 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TagsTreeWidget</name>
-    <message>
-        <source>New tag</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New subtag</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter value</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
