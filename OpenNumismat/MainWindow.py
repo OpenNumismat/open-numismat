@@ -780,6 +780,11 @@ class MainWindow(QMainWindow):
         self.collection.backup()
 
     def vacuumCollectionEvent(self):
+        # Fetch all List models before vacuum
+        for i in range(self.viewTab.count()):
+            listView = self.viewTab.widget(i)
+            listView.modelChanged()
+
         self.collection.vacuum()
 
     def mergeCollectionEvent(self):
