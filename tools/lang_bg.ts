@@ -986,6 +986,10 @@ The application will need to restart now.</source>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
+    <message>
+        <source>Tags</source>
+        <translation>Етикети</translation>
+    </message>
 </context>
 <context>
     <name>CollectionSettingsPage</name>
@@ -1056,6 +1060,10 @@ The application will need to restart now.</source>
     <message>
         <source>5 stars in rating</source>
         <translation>5 звезди в рейтинга</translation>
+    </message>
+    <message>
+        <source>Enable tags</source>
+        <translation>Активиране на етикети</translation>
     </message>
 </context>
 <context>
@@ -1358,6 +1366,29 @@ The application will need to restart now.</source>
     </message>
 </context>
 <context>
+    <name>EditTagsTreeWidget</name>
+    <message>
+        <source>New tag</source>
+        <translation>Нов етикет</translation>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation>Нов подетикет</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Преименуване</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Изтриване</translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation>Въведете стойност</translation>
+    </message>
+</context>
+<context>
     <name>ExcpHook</name>
     <message>
         <source>System error</source>
@@ -1643,6 +1674,10 @@ Do you want to send an error message to the author?</source>
     <message>
         <source>Available format 12.5 or 10%</source>
         <translation>Наличен формат 12.5 или 10%</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Редакция...</translation>
     </message>
 </context>
 <context>
@@ -2388,6 +2423,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>New version is available. Download it now?</source>
         <translation>Налична е по-нова версия. Да се изтеглили сега?</translation>
+    </message>
+    <message>
+        <source>Tags...</source>
+        <translation>Етикети...</translation>
     </message>
 </context>
 <context>
@@ -3214,29 +3253,6 @@ Add a new one first.</source>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Нещо се обърка при отмяна. Моля, рестартирайте!</translation>
-    </message>
-</context>
-<context>
-    <name>TagsTreeWidget</name>
-    <message>
-        <source>New tag</source>
-        <translation>Нов етикет</translation>
-    </message>
-    <message>
-        <source>New subtag</source>
-        <translation>Нов подетикет</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Преименуване</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Изтриване</translation>
-    </message>
-    <message>
-        <source>Enter value</source>
-        <translation>Въведете стойност</translation>
     </message>
 </context>
 <context>
