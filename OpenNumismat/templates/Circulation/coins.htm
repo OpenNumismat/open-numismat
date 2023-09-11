@@ -35,7 +35,7 @@
             <th>{{titles.mintmark}}</th>
           {%- endif %}
           {%- for unit_group in period_group.list|groupby('unit') %}
-            {%- for value_group in unit_group.list|groupby('value_raw') %}
+            {%- for value_group in unit_group.list|rejectattr('value_raw','string')|groupby('value_raw') %}
               <th>{{ value_group.grouper }}{{ unit_group.grouper[0] }}</th>
             {%- endfor %}
           {%- endfor %}
@@ -82,7 +82,7 @@
                   {%- endif %}
 
                   {%- for unit_group in period_group.list|groupby('unit') %}
-                    {%- for value_group in unit_group.list|groupby('value_raw') %}
+                    {%- for value_group in unit_group.list|rejectattr('value_raw','string')|groupby('value_raw') %}
 
                       {%- set coins_group = value_group.list | selectattr("year", "equalto", years_group.grouper) | list | selectattr("mintmark", "equalto", mints_group.grouper) | list %}
                       {%- for variety_group in coins_group|groupby('variety') %}
