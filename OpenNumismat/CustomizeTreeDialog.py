@@ -179,10 +179,9 @@ class CustomizeTreeDialog(QDialog):
         self.accept()
 
     def clear(self):
-        self.treeWidget.clear()
-        rootItem = QTreeWidgetItem([self.treeParam.rootTitle, ])
-        self.treeWidget.addTopLevelItem(rootItem)
-        self.treeWidget.updateFlags()
+        # Clear all sub-elements
+        rootItem = self.treeWidget.topLevelItem(0)
+        rootItem.takeChildren()
 
         self.listWidget.clear()
         for field in self.availableFields:
