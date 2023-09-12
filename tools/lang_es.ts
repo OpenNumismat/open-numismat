@@ -986,6 +986,10 @@ La aplicación deberá reiniciarse ahora.</translation>
         <source>Images</source>
         <translation>Imágenes</translation>
     </message>
+    <message>
+        <source>Tags</source>
+        <translation>Etiquetas</translation>
+    </message>
 </context>
 <context>
     <name>CollectionSettingsPage</name>
@@ -1056,6 +1060,10 @@ La aplicación deberá reiniciarse ahora.</translation>
     <message>
         <source>5 stars in rating</source>
         <translation>5 estrellas en puntuación</translation>
+    </message>
+    <message>
+        <source>Enable tags</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1358,6 +1366,29 @@ La aplicación deberá reiniciarse ahora.</translation>
     </message>
 </context>
 <context>
+    <name>EditTagsTreeWidget</name>
+    <message>
+        <source>New tag</source>
+        <translation>Nueva etiqueta</translation>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation>Nueva subetiqueta</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Renombrar</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Eliminar</translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation>Introduzca valor</translation>
+    </message>
+</context>
+<context>
     <name>ExcpHook</name>
     <message>
         <source>System error</source>
@@ -1643,6 +1674,10 @@ Do you want to send an error message to the author?</source>
     <message>
         <source>Available format 12.5 or 10%</source>
         <translation>Disponible formado 12.5 o 10%</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Editar...</translation>
     </message>
 </context>
 <context>
@@ -2388,6 +2423,10 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>New version is available. Download it now?</source>
         <translation>Nueva versión disponible. ¿Desea descargarla?</translation>
+    </message>
+    <message>
+        <source>Tags...</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3214,29 +3253,6 @@ Añada una nueva primero.</translation>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Algo ha salido mal al cancelar. Por favor, reinicie</translation>
-    </message>
-</context>
-<context>
-    <name>TagsTreeWidget</name>
-    <message>
-        <source>New tag</source>
-        <translation>Nueva etiqueta</translation>
-    </message>
-    <message>
-        <source>New subtag</source>
-        <translation>Nueva subetiqueta</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Renombrar</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Eliminar</translation>
-    </message>
-    <message>
-        <source>Enter value</source>
-        <translation>Introduzca valor</translation>
     </message>
 </context>
 <context>
