@@ -888,7 +888,7 @@ class Collection(QtCore.QObject):
 
         if self.settings['Password'] != cryptPassword():
             dialog = PasswordDialog(
-                self.settings['Password'], self.getCollectionName(),
+                self.settings['Password'], self.fileNameToCollectionName(fileName),
                 self.parent())
             result = dialog.exec_()
             if result == QDialog.Rejected:
