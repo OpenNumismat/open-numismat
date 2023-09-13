@@ -73,7 +73,7 @@ class ColnectConnector(QObject):
                 if value > 5000:
                     value -= 10000
             elif column[0] == 'unit' and self.skip_currency:
-                value = value.split('-', 1)[-1].strip()
+                value = value.split(' - ', 1)[-1].strip()
             elif column[0] == 'catalognum1':
                 codes = value.split(',', 3)
                 for i, code in enumerate(codes):
