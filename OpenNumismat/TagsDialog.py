@@ -188,9 +188,10 @@ class EditTagsTreeWidget(QTreeWidget):
         sql = "SELECT MAX(id) FROM tags"
         query = QSqlQuery(sql, self.db)
         query.exec_()
+        query.first()
+        max_id = query.record().value(0)
 
-        if query.first():
-            max_id = query.record().value(0)
+        if max_id:
             position = max_id + 1
         else:
             position = 0
