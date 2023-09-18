@@ -94,7 +94,7 @@ def setupHomeFolder(settings):
                                            'demo_%s.db' % settings['locale'])
                 if not os.path.exists(src_demo_db):
                     src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
-                                       'demo_en.ref')
+                                       'demo_en.db')
 
                 shutil.copy(src_demo_db, dst_demo_db)
 
