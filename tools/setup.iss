@@ -96,25 +96,25 @@ sv.associate=Associera *.db-filer med OpenNumismat
 
 [Files]
 Source: "..\dist\OpenNumismat\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
-Source: "..\dist\OpenNumismat\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: en; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: ru; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_uk.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: uk; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_es.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: es; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_fr.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: fr; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_hu.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: hu; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_pt.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: pt; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_de.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: de; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_el.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: el; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_cs.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: cs; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_it.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: it; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_pl.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: pl; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_ca.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: ca; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_nl.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: nl; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_bg.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: bg; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_lv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: lv; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_tr.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: tr; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_fa.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: fa; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_sv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "demo.db"; Languages: sv; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_en.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: en; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_ru.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: ru; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_uk.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: uk; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_es.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: es; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_fr.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: fr; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_hu.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: hu; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_pt.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: pt; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_de.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: de; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_el.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: el; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_cs.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: cs; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_it.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: it; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_pl.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: pl; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_ca.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: ca; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_nl.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: nl; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_bg.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: bg; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_lv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: lv; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_tr.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: tr; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_fa.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: fa; Flags: onlyifdoesntexist
+Source: "..\dist\OpenNumismat\db\demo_sv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: sv; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_uk.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: uk; Flags: onlyifdoesntexist
