@@ -1204,9 +1204,9 @@ class Collection(QtCore.QObject):
 
     def __updateAttachAction(self):
         try:
-            self.attachReferenceAct.disconnect()
-        except TypeError:
-            pass
+            self.attachReferenceAct.triggered.disconnect()
+        except RuntimeError:
+            pass  # nothing is connected yet
 
         if self.isReferenceAttached():
             self.attachReferenceAct.setText(self.tr("Detach current reference"))
