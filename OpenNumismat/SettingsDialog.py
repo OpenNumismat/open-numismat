@@ -6,7 +6,7 @@ from PySide6.QtGui import QIcon, QAction
 from PySide6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
-from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase, CollectionField
+from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase, CollectionField, ImageFields
 from OpenNumismat.Reports import Report
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import statusIcon
@@ -127,7 +127,7 @@ class MainSettingsPage(QWidget):
         layout.addRow(self.tr("Default template"), self.templateSelector)
 
         self.imagesByDefault = QSpinBox(self)
-        self.imagesByDefault.setRange(1, 8)
+        self.imagesByDefault.setRange(1, len(ImageFields))
         self.imagesByDefault.setValue(settings['images_by_default'])
         self.imagesByDefault.setSizePolicy(QSizePolicy.Fixed,
                                            QSizePolicy.Fixed)
