@@ -48,7 +48,7 @@ class ColnectConnector(QObject):
                    'banknotes': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
                                  ('mintage', 'Mintage'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Composition'),
                                  ('width', 'Width'), ('height', 'Height'), ('subject', 'Description'), ('mint', 'Printer'),
-                                 ('issuedate', 'Issued on'), ('catalognum1', 'Catalog Codes'),
+                                 ('issuedate', 'Issued on'), ('catalognum1', 'Catalog Codes'), ('type', 'Distribution'),
                                 ),
                    'stamps': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
                               ('mintage', 'Print run'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Paper'),
