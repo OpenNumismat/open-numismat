@@ -2,6 +2,7 @@ from PySide6.QtCore import Qt, QSettings
 from PySide6.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import ImageFields
+from OpenNumismat.EditCoinDialog.FormItems import LineEditRef
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import FormDetailsTabWidget
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
@@ -179,6 +180,18 @@ class EditCoinDialog(QDialog):
                             settings.setValue(key, False)
 
         self.accept()
+
+    def exec_(self):
+        result = super().exec_()
+
+        widget = self.items['region'].widget()
+        if isinstance(widget, LineEditRef):
+            widget.comboBox.editTextChanged.disconnect()
+        widget = self.items['country'].widget()
+        if isinstance(widget, LineEditRef):
+            widget.comboBox.editTextChanged.disconnect()
+
+        return result
 
     def getUsedFields(self):
         for item in self.items.values():
