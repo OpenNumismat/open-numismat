@@ -573,12 +573,12 @@ class AxisHourEdit(QSpinBox):
         return self.minimumSizeHint()
 
     def showEvent(self, event):
-        if not super().cleanText():
+        if not self.cleanText():
             self.setValue(0)
         return super().showEvent(event)
 
     def focusOutEvent(self, event):
-        if not super().cleanText():
+        if not self.cleanText():
             self.setValue(0)
         return super().focusOutEvent(event)
 
