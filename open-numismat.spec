@@ -33,6 +33,7 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False,
+#          target_arch='universal2',
           icon='icons/main.ico',
           version='file_version_info.txt')
 coll = COLLECT(exe,
@@ -62,11 +63,14 @@ if WIN32:
     bin_dir = "dist/OpenNumismat/"
     pyd_ext = ".pyd"
 else:
-    bin_dir = "dist/OpenNumismat.app/Contents/MacOS/"
+    bin_dir = "dist/OpenNumismat.app/Contents/Frameworks/"
     pyd_ext = ".abi3.so"
 
 for sub_folder in ("qml",):
-    shutil.rmtree(bin_dir + "PySide6/" + sub_folder)
+    if WIN32:
+        shutil.rmtree(bin_dir + "PySide6/" + sub_folder)
+    else:
+        shutil.rmtree(bin_dir + "PySide6/Qt/" + sub_folder)
 
 for f in ("QtOpenGL", "QtPositioning",
           "QtQml", "QtQuick", "QtQuickWidgets",):
@@ -88,4 +92,5 @@ else:
         try:
             os.remove(bin_dir + f)
         except OSError:
+            print("Missed file:", f)
             pass
