@@ -72,7 +72,7 @@ for sub_folder in ("qml",):
     else:
         shutil.rmtree(bin_dir + "PySide6/Qt/" + sub_folder)
 
-for f in ("QtOpenGL", "QtPositioning",
+for f in ("QtPositioning",
           "QtQml", "QtQuick", "QtQuickWidgets",):
     try:
         os.remove(bin_dir + "PySide6/" + f + pyd_ext)
@@ -85,7 +85,7 @@ if WIN32:
 else:
     for f in ("QtBluetooth", "QtDesigner",
               "QtLocation", "QtMultimedia", "QtMultimediaWidgets",
-              "QtNfc", "QtOpenGL", "QtQuickParticles", "QtQuickTemplates2",
+              "QtNfc", "QtQuickParticles", "QtQuickTemplates2",
               "QtQmlWorkerScript", "QtQuick3D", "QtQuick3DAssetImport",
               "QtQuick3DRender", "QtQuick3DRuntimeRender", "QtQuick3DUtils",
               ):
