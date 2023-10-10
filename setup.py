@@ -74,12 +74,9 @@ except ImportError:
 WIN32 = sys.platform == "win32"
 DARWIN = sys.platform == "darwin"
 
-dependencies = ['jinja2', 'matplotlib', 'numpy', 'xlrd', 'lxml', 'python-dateutil']
+dependencies = ['pyside6', 'jinja2', 'lxml', 'openpyxl', 'pillow', 'python-dateutil']
 if WIN32:
     dependencies.append("win32com")
-if WIN32 or DARWIN:
-    dependencies.append("pyqt5")
-    dependencies.append("xlwt")
 
 
 templates_packages = []
@@ -131,13 +128,11 @@ params = {
         "Environment :: X11 Applications :: Qt",
         "Environment :: Win32 (MS Windows)",
         "Environment :: MacOS X",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3 :: Only",
     ],
 
@@ -146,8 +141,7 @@ params = {
     # include all resources
     "include_package_data": True,
     "package_data": {'': ['*.png', '*.gif', '*.jpg', '*.ico',
-        '*.js', '*.htm', '*.html', '*.css', '*.qm', '*.db', '*.ref',
-        '*.mplstyle']},
+        '*.js', '*.htm', '*.html', '*.css', '*.qm', '*.db', '*.ref']},
 #    "data_files": data_files,
 
     "py_modules": ['open-numismat', ],
@@ -259,9 +253,6 @@ setup(**params)
 
 if WIN32:
     binDir = 'build/OpenNumismat/'
-    shutil.rmtree(binDir + "mpl-data/sample_data")
-    shutil.rmtree(binDir + "mpl-data/images")
-    shutil.rmtree(binDir + "mpl-data/fonts")
     if os.environ.get('PORTABLE'):
         if os.path.exists(params['name'] + '-' + params['version'] + '.zip'):
             os.remove(params['name'] + '-' + params['version'] + '.zip')
