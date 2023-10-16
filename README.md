@@ -21,30 +21,15 @@ Windows, Linux (Debian/Ubuntu), macOS.
 
 ## Requirements
 Main Windows version based on:
-* Python 3.11.3
-* PySide6 6.5.0
+* Python 3.11.6
+* PySide6 6.5.3
 * Jinja2 3.1.2 (for reports)
 * openpyxl 3.1.2 (for import/export to Excel)
 * pywin32-306 (for saving report as Word Document)
-* lxml 4.9.2 (for importing from Tellico)
+* lxml 4.9.3 (for importing from Tellico, Collection Studio and ANS)
 * python-dateutil 2.8.2 (for importing from Excel)
-* pyinstaller 5.10.1 (for deploy)
+* pyinstaller 6.1.0 (for deploy)
 * Inno Setup 6.2.1 (for deploy)
-
-Debian/Ubuntu version depends on following packages: 
-* python3
-* python3-pyqt5
-* python3-pyqt5.qtsql
-* libqt5sql5-sqlite
-* python3-pyqt5.qtwebkit
-* python3-jinja2
-* python3-matplotlib
-* python3-numpy
-* python3-lxml
-* python3-xlrd
-* python3-dateutil
-* python3-xlwt (suggests)
-* python3-pyqt5.webengine (suggests)
 
 For running from source code and development requirements can be installed like so:
 `pip3 install -r requirements.txt`
@@ -61,19 +46,19 @@ Befor building installation package may be necessary:
     "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" tools\setup.iss
 
 #### For Windows portable version
-    pip3 install cx_Freeze
-    SET PORTABLE=YES
-    "C:\Python34\python.exe" setup.py build_exe
+    pip3 install pyinstaller
+    SET PYTHONOPTIMIZE=1
+    pyinstaller --clean --noconfirm open-numismat-portable.spec
 
 #### For macOS
-    python3 setup.py bdist_mac
-    cd build
+    pyinstaller --clean --noconfirm open-numismat.spec
+    cd dist
     mkdir vol
     VERSION=$(grep Version ../OpenNumismat/version.py | grep -o -E "\d+.\d+.\d+")
-    mv OpenNumismat-$VERSION.app vol/OpenNumismat.app
+    mv OpenNumismat.app vol
     ln -s /Applications vol/Applications
-    hdiutil create OpenNumismat-$VERSION.dmg -volname "OpenNumismat-$VERSION" -srcfolder vol -fs HFS+ -size 500m -format UDZO
+    hdiutil create OpenNumismat-$VERSION-macos11.dmg -volname "OpenNumismat-$VERSION" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
 
 #### For Linux
-    sudo apt-get install devscripts debhelper python3-setuptools dh-python
-    debuild
+    sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv
+    debuild -b -us -uc
