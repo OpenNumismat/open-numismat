@@ -35,7 +35,8 @@ exe = EXE(pyz,
           console=False,
 #          target_arch='universal2',
           icon='icons/main.ico',
-          version='file_version_info.txt')
+          version='file_version_info.txt',
+          contents_directory='.') # https://pyinstaller.org/en/latest/runtime-information.html
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
@@ -47,7 +48,7 @@ coll = COLLECT(exe,
 app = BUNDLE(coll,
          name='OpenNumismat.app',
          icon='OpenNumismat.icns',
-         version='1.9.3',
+         version='1.9.4',
          info_plist={'NSPrincipalClass': 'NSApplication'},
          bundle_identifier=None)
 
