@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtCore import Qt, QDate, QLocale
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
+from PySide6.QtCore import Qt, QDate, QLocale
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
@@ -120,7 +120,7 @@ class SummaryDialog(QDialog):
                     comment = self.tr("(calculated for %d coins)") % gold_quantity
                 else:
                     comment = self.tr("(calculated for %d/%d coins)") % (gold_quantity, gold_count)
-                gold_weight_str = locale.toString(float(gold_weight), format='f', precision=2)
+                gold_weight_str = locale.toString(float(gold_weight), 'f', precision=2)
                 lines.append(' '.join((self.tr("Gold weight: %s gramm") % gold_weight_str, comment)))
 
         count_silver = 0
@@ -172,7 +172,7 @@ class SummaryDialog(QDialog):
                     comment = self.tr("(calculated for %d coins)") % silver_quantity
                 else:
                     comment = self.tr("(calculated for %d/%d coins)") % (silver_quantity, silver_count)
-                silver_weight_str = locale.toString(float(silver_weight), format='f', precision=2)
+                silver_weight_str = locale.toString(float(silver_weight), 'f', precision=2)
                 lines.append(' '.join((self.tr("Silver weight: %s gramm") % silver_weight_str, comment)))
 
         sql = "SELECT count(*) FROM coins WHERE status='wish'"
@@ -222,12 +222,12 @@ class SummaryDialog(QDialog):
                     paid_without_commission = query.record().value(0)
                     if paid_without_commission:
                         commission = self.tr("(commission %d%%)") % ((paid - paid_without_commission) / paid_without_commission * 100)
-                paid_str = locale.toString(float(paid), format='f', precision=2)
+                paid_str = locale.toString(float(paid), 'f', precision=2)
                 lines.append(' '.join((self.tr("Paid: %s") % paid_str, commission)))
 
                 if count_owned:
                     val = paid / count_owned
-                    val_str = locale.toString(float(val), format='f', precision=2)
+                    val_str = locale.toString(float(val), 'f', precision=2)
                     lines.append(self.tr("Average paid per item: %s") % val_str)
 
         earned = 0
@@ -245,17 +245,17 @@ class SummaryDialog(QDialog):
                     earn_without_commission = query.record().value(0)
                     if earn_without_commission:
                         commission = self.tr("(commission %d%%)") % ((earn_without_commission - earned) / earn_without_commission * 100)
-                earned_str = locale.toString(float(earned), format='f', precision=2)
+                earned_str = locale.toString(float(earned), 'f', precision=2)
                 lines.append(' '.join((self.tr("Earned: %s") % earned_str, commission)))
 
                 if count_sold:
                     val = earned / count_sold
-                    val_str = locale.toString(float(val), format='f', precision=2)
+                    val_str = locale.toString(float(val), 'f', precision=2)
                     lines.append(self.tr("Average earn per item: %s") % val_str)
 
         if paid and earned:
             total = paid - earned
-            total_str = locale.toString(float(total), format='f', precision=2)
+            total_str = locale.toString(float(total), 'f', precision=2)
             lines.append(self.tr("Total (paid - earned): %s") % total_str)
 
         sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
@@ -263,7 +263,7 @@ class SummaryDialog(QDialog):
         query = QSqlQuery(sql, model.database())
         if query.first():
             date = QDate.fromString(query.record().value(0), Qt.ISODate)
-            paydate = date.toString(Qt.SystemLocaleShortDate)
+            paydate = locale.toString(date, QLocale.ShortFormat)
             lines.append(self.tr("First purchase: %s") % paydate)
 
         sql = "SELECT UPPER(grade), price1, price2, price3, price4, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"

@@ -1,8 +1,8 @@
 import os
 
-from PyQt5.QtCore import Qt, QSettings
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox
+from PySide6.QtCore import Qt, QSettings
+from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox
 
 
 class ProgressDialog(QProgressDialog):
@@ -39,7 +39,7 @@ def getSaveFileName(parent, name, filename, dir_, filters):
 
     fileName, selectedFilter = QFileDialog.getSaveFileName(
         parent, caption, defaultFileName, filter=';;'.join(filters),
-        initialFilter=defaultFilter)
+        selectedFilter=defaultFilter)
     if fileName:
         lastExportDir = os.path.dirname(fileName)
         settings.setValue(keyDir, lastExportDir)

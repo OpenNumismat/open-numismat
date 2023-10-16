@@ -2,9 +2,11 @@ import json
 import re
 import urllib.request
 
-from PyQt5.QtCore import Qt, QUrl, QMargins
-from PyQt5.QtGui import QDesktopServices, QImage
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QUrl, QMargins
+from PySide6.QtGui import QDesktopServices, QImage
+from PySide6.QtWidgets import *
+from PySide6.QtWebEngineCore import QWebEnginePage
+from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
@@ -12,34 +14,23 @@ from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
-importedQtWebEngine = False
 numistaAvailable = True
-try:
-    from PyQt5.QtWebKitWidgets import QWebView, QWebPage
-except ImportError:
-    try:
-        from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
-        from PyQt5.QtWebEngineWidgets import QWebEnginePage
-
-        importedQtWebEngine = True
-
-        class WebEnginePage(QWebEnginePage):
-
-            def acceptNavigationRequest(self, url, type_, isMainFrame):
-                if type_ == QWebEnginePage.NavigationTypeLinkClicked:
-                    executor = QDesktopServices()
-                    executor.openUrl(QUrl(url))
-                    return False
-                return super().acceptNavigationRequest(url, type_, isMainFrame)
-    except ImportError:
-        print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. Importing from Numista not available')
-        numistaAvailable = False
 
 try:
     from OpenNumismat.private_keys import NUMISTA_API_KEY
 except ImportError:
     print('Importing from Numista not available')
     numistaAvailable = False
+
+
+class WebEnginePage(QWebEnginePage):
+
+    def acceptNavigationRequest(self, url, type_, isMainFrame):
+        if type_ == QWebEnginePage.NavigationTypeLinkClicked:
+            executor = QDesktopServices()
+            executor.openUrl(QUrl(url))
+            return False
+        return super().acceptNavigationRequest(url, type_, isMainFrame)
 
 
 @storeDlgSizeDecorator
@@ -55,12 +46,7 @@ class NumistaAuthentication(QDialog):
             self.language = 'en'
 
         self.page = QWebView(self)
-        if importedQtWebEngine:
-            self.page.setPage(WebEnginePage(self))
-        else:
-            self.page.linkClicked.connect(self.onLinkClicked)
-            self.page.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
-            self.page.page().networkAccessManager().sslErrors.connect(self.onSslErrors)
+        self.page.setPage(WebEnginePage(self))
         self.page.urlChanged.connect(self.onUrlChanged)
 
         redirect_uri = 'local'  # Should normally be a URL to your application

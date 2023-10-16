@@ -5,9 +5,9 @@ import re
 import urllib.request
 from socket import timeout
 
-from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtGui import QImage, QPixmap, QIcon
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QObject
+from PySide6.QtGui import QImage, QPixmap, QIcon
+from PySide6.QtWidgets import *
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import.Cache import Cache
@@ -47,12 +47,12 @@ class ColnectConnector(QObject):
                             ),
                    'banknotes': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
                                  ('mintage', 'Mintage'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Composition'),
-                                 ('diameter', 'Width'), ('thickness', 'Height'), ('subject', 'Description'), ('mint', 'Printer'),
-                                 ('issuedate', 'Issued on'), ('catalognum1', 'Catalog Codes'),
+                                 ('width', 'Width'), ('height', 'Height'), ('subject', 'Description'), ('mint', 'Printer'),
+                                 ('issuedate', 'Issued on'), ('catalognum1', 'Catalog Codes'), ('type', 'Distribution'),
                                 ),
                    'stamps': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
                               ('mintage', 'Print run'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Paper'),
-                              ('diameter', 'Width'), ('thickness', 'Height'), ('subject', 'Description'), ('type', 'Emission'),
+                              ('width', 'Width'), ('height', 'Height'), ('subject', 'Description'), ('type', 'Emission'),
                               ('quality', 'Printing'), ('obvrev', 'Gum'), ('edgelabel', 'Watermark'),
                               ('issuedate', 'Issued on'), ('edge', 'Perforation'), ('obversecolor', 'Colors'),
                               ('format', 'Format'), ('catalognum1', 'Catalog Codes'),
@@ -73,7 +73,9 @@ class ColnectConnector(QObject):
                 if value > 5000:
                     value -= 10000
             elif column[0] == 'unit' and self.skip_currency:
-                value = value.split('-', 1)[-1].strip()
+                value = value.split(' - ', 1)[-1].strip()
+            elif column[0] == 'subject':
+                value = value.replace('[b]', '').replace('[/b]', '').replace('  ', '\n')
             elif column[0] == 'catalognum1':
                 codes = value.split(',', 3)
                 for i, code in enumerate(codes):
@@ -579,7 +581,7 @@ class ColnectDialog(QDialog):
             countries = self.colnect.getCountries(category)
             self.countrySelector.clear()
             for country in countries:
-                if country[2]:  # Country contain coins
+                if len(country) == 3 and country[2]:  # Country contain coins
                     self.countrySelector.addItem(country[1], country[0])
         else:
             self._partsEnable(False)

@@ -1,13 +1,18 @@
+# -*- coding: utf-8 -*-
+
 import codecs
 import json
+import math
 import os
 import shutil
 
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QImage, QPainter
-from PyQt5.QtCore import Qt, pyqtSignal, QCryptographicHash, QLocale
-from PyQt5.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
+from PySide6 import QtCore
+from PySide6.QtWidgets import *
+from PySide6.QtGui import QImage, QPainter, QAction
+from PySide6.QtCore import Qt, QCryptographicHash, QLocale
+from PySide6.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
 
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -34,6 +39,7 @@ from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
 class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
     modelChanged = pyqtSignal()
+    tagsChanged = pyqtSignal()
     IMAGE_FORMAT = 'jpg'
     SQLITE_READONLY = '8'
 
@@ -72,22 +78,38 @@ class CollectionModel(QSqlTableModel):
                         text = "%d BC" % -year
                     else:
                         text = str(data)
+                elif field.name == 'axis':
+                    if self.settings['axis_in_hours']:
+                        value = int(data)
+                        value += 360 / 12 / 2
+                        value /= 360 / 12
+                        value = int(value)
+                        if value == 0:
+                            value = 12
+                        text = str(value) + self.tr("h")
+                    else:
+                        return data
+                elif field.name == 'rating':
+                    maxStarCount = self.settings['stars_count']
+                    star_count = math.ceil(data.count('*') / (10 / maxStarCount))
+                    # text = '★' * star_count  # black star
+                    text = '⭐' * star_count  # white medium star
                 elif field.type == Type.BigInt:
                     text = QLocale.system().toString(int(data))
                 elif field.type == Type.Text:
                     text = htmlToPlainText(data)
                 elif field.type == Type.Money:
-                    text = QLocale.system().toString(float(data), format='f', precision=2)
+                    text = QLocale.system().toString(float(data), 'f', precision=2)
                     dp = QLocale.system().decimalPoint()
                     text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Denomination:
                     text, converted = numberWithFraction(data, self.settings['convert_fraction'])
                     if not converted:
-                        text = QLocale.system().toString(float(data), format='f', precision=2)
+                        text = QLocale.system().toString(float(data), 'f', precision=2)
                         dp = QLocale.system().decimalPoint()
                         text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.Value:
-                    text = QLocale.system().toString(float(data), format='f', precision=3)
+                    text = QLocale.system().toString(float(data), 'f', precision=3)
                     dp = QLocale.system().decimalPoint()
                     text = text.rstrip('0').rstrip(dp)
                 elif field.type == Type.PreviewImage:
@@ -102,13 +124,13 @@ class CollectionModel(QSqlTableModel):
                         return None
                 elif field.type == Type.Date:
                     date = QtCore.QDate.fromString(data, Qt.ISODate)
-                    text = date.toString(Qt.SystemLocaleShortDate)
+                    text = QLocale.system().toString(date, QLocale.ShortFormat)
                 elif field.type == Type.DateTime:
                     date = QtCore.QDateTime.fromString(data, Qt.ISODate)
                     # Timestamp in DB stored in UTC
                     date.setTimeSpec(Qt.UTC)
                     date = date.toLocalTime()
-                    text = date.toString(Qt.SystemLocaleShortDate)
+                    text = QLocale.system().toString(date, QLocale.ShortFormat)
                 else:
                     return data
             except (ValueError, TypeError):
@@ -154,8 +176,24 @@ class CollectionModel(QSqlTableModel):
     def appendRecord(self, record):
         rowCount = self.rowCount()
 
+        tag_ids = record.value('tags')
+        record.remove(record.indexOf('tags'))
+
         self.insertRecord(-1, record)
         self.submitAll()
+
+        # query = self.query()
+        # print(query.lastInsertId())
+        query = QSqlQuery(self.database())
+        query.exec_('SELECT last_insert_rowid()')
+        if query.first():
+            coin_id = query.value(0)
+            for tag_id in tag_ids:
+                query = QSqlQuery(self.database())
+                query.prepare("INSERT INTO coins_tags(coin_id, tag_id) VALUES(?, ?)")
+                query.addBindValue(coin_id)
+                query.addBindValue(tag_id)
+                query.exec_()
 
         if rowCount < self.rowCount():  # inserted row visible in current model
             if self.insertedRowIndex.isValid():
@@ -272,6 +310,23 @@ class CollectionModel(QSqlTableModel):
                 query.exec_()
 
                 img_id = query.lastInsertId()
+
+        coin_id = record.value('id')
+
+        query = QSqlQuery(self.database())
+        query.prepare("DELETE FROM coins_tags WHERE coin_id=?")
+        query.addBindValue(coin_id)
+        query.exec_()
+
+        for tag_id in record.value('tags'):
+            query = QSqlQuery(self.database())
+            query.prepare("INSERT INTO coins_tags(coin_id, tag_id) VALUES(?, ?)")
+            query.addBindValue(coin_id)
+            query.addBindValue(tag_id)
+            query.exec_()
+
+        record.remove(record.indexOf('tags'))
+        
         self.database().commit()
 
         if img_id:
@@ -310,6 +365,21 @@ class CollectionModel(QSqlTableModel):
         else:
             record.setValue('image', None)
 
+        tag_ids = []
+        coin_id = record.value('id')
+        if coin_id:
+            query = QSqlQuery(self.database())
+            query.prepare("SELECT tag_id FROM coins_tags WHERE coin_id=?")
+            query.addBindValue(coin_id)
+            query.exec_()
+
+            while query.next():
+                tag_id = query.record().value(0)
+                tag_ids.append(tag_id)
+
+        record.append(QSqlField('tags'))
+        record.setValue('tags', tag_ids)
+
         return record
 
     def removeRow(self, row):
@@ -335,6 +405,13 @@ class CollectionModel(QSqlTableModel):
             query = QSqlQuery(self.database())
             query.prepare("DELETE FROM images WHERE id=?")
             query.addBindValue(value)
+            query.exec_()
+
+        coin_id = record.value('id')
+        if coin_id:
+            query = QSqlQuery(self.database())
+            query.prepare("DELETE FROM coins_tags WHERE coin_id=?")
+            query.addBindValue(coin_id)
             query.exec_()
 
         return super().removeRow(row)
@@ -375,7 +452,8 @@ class CollectionModel(QSqlTableModel):
         self._recalculateImage(record)
 
         currentTime = QtCore.QDateTime.currentDateTimeUtc()
-        record.setValue('updatedat', currentTime.toString("yyyy-MM-ddTHH:mm:ss.zzz"))
+        # currentTime.setTimeSpec(Qt.LocalTime)
+        record.setValue('updatedat', currentTime.toString(Qt.ISODateWithMs))
 
     def _recalculateImage(self, record):
         # Creating preview image for list
@@ -636,6 +714,17 @@ class CollectionSettings(BaseSettings):
             'bidding_status_used': True,
             'duplicate_status_used': True,
             'replacement_status_used': True,
+            'demo_status_title': '',
+            'pass_status_title': '',
+            'owned_status_title': '',
+            'ordered_status_title': '',
+            'sold_status_title': '',
+            'sale_status_title': '',
+            'wish_status_title': '',
+            'missing_status_title': '',
+            'bidding_status_title': '',
+            'duplicate_status_title': '',
+            'replacement_status_title': '',
             'enable_bc': True,
             'rich_text': False,
             'default_status': 'demo',
@@ -643,7 +732,32 @@ class CollectionSettings(BaseSettings):
             'colnect_country': 0,
             'ans_department': '',
             'ans_has_image': False,
+            'title_template': '<value> <unit> <year> <subjectshort> <mintmark> <variety>',
+            'coin_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Overall"),
+            'coin_main_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Main details"),
+            'coin_state_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "State"),
+            'market_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Market"),
+            'market_buy_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Buy"),
+            'market_sale_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Sale"),
+            'map_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Map"),
+            'parameters_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Technical data"),
+            'parameters_parameters_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Parameters"),
+            'parameters_specificity_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Specificity"),
+            'parameters_minting_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Minting"),
+            'design_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Design"),
+            'design_obverse_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Obverse"),
+            'design_reverse_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Reverse"),
+            'design_edge_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Edge"),
+            'classification_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Classification"),
+            'classification_catalogue_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Catalogue"),
+            'classification_price_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Price"),
+            'classification_variation_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Variation"),
+            'images_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Images"),
+            'tags_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Tags"),
             'relative_url': False,
+            'axis_in_hours': False,
+            'stars_count': 10,
+            'tags_used': True,
     }
 
     def __init__(self, db):
@@ -658,19 +772,32 @@ class CollectionSettings(BaseSettings):
             record = query.record()
             title = record.value('title')
             if title in self.keys():
-                if title in ('Version', 'ImageSideLen', 'colnect_country'):
+                if title in ('Version', 'ImageSideLen', 'colnect_country',
+                             'stars_count'):
                     value = int(record.value('value'))
                 elif title in ('image_height',):
                     value = float(record.value('value'))
                 elif title in ('free_numeric', 'convert_fraction',
                                'images_at_bottom', 'enable_bc', 'rich_text',
-                               'relative_url'):
+                               'relative_url', 'axis_in_hours', 'tags_used'):
                     value = record.value('value').lower() in ('true', '1')
                 elif '_status_used' in title:
                     value = record.value('value').lower() in ('true', '1')
                 else:
                     value = record.value('value')
                 self.__setitem__(title, value)
+
+        for status, title in Statuses.items():
+            # Fill default status titles
+            self.Default[status + '_status_title'] = QApplication.translate("Status", title)
+        # Fill global statuses from settings
+        Statuses.init(self)
+
+        for key in self.keys():
+            if '_group_title' in key:
+                self.Default[key] = QApplication.translate(
+                    "CollectionSettings", self.Default[key]
+                )
 
     def keys(self):
         return self.Default.keys()
@@ -761,7 +888,7 @@ class Collection(QtCore.QObject):
 
         if self.settings['Password'] != cryptPassword():
             dialog = PasswordDialog(
-                self.settings['Password'], self.getCollectionName(),
+                self.settings['Password'], self.fileNameToCollectionName(fileName),
                 self.parent())
             result = dialog.exec_()
             if result == QDialog.Rejected:
@@ -1077,9 +1204,9 @@ class Collection(QtCore.QObject):
 
     def __updateAttachAction(self):
         try:
-            self.attachReferenceAct.disconnect()
-        except TypeError:
-            pass
+            self.attachReferenceAct.triggered.disconnect()
+        except RuntimeError:
+            pass  # nothing is connected yet
 
         if self.isReferenceAttached():
             self.attachReferenceAct.setText(self.tr("Detach current reference"))
@@ -1136,16 +1263,20 @@ class Collection(QtCore.QObject):
         filter_ = ('%s_????????????.db' % self.getCollectionName(),)
         files = QtCore.QDirIterator(settings['backup'], filter_, QtCore.QDir.Files)
         while files.hasNext():
-            file = files.next()
-            file_info = QtCore.QFileInfo(file)
-            if file_info.completeSuffix() == 'db':
-                file_title = file_info.baseName()
-                file_date = file_title[-12:-6]
+            file_info = files.nextFileInfo()
+
+            file_title = file_info.baseName()
+            file_date = file_title[-12:]
+
+            date_time = QtCore.QDateTime.fromString(file_date, 'yyMMddhhmmss')
+            if date_time.isValid():
+                if date_time.date().year() < 2000:
+                    date_time = date_time.addYears(100)
+                date_time = date_time.toUTC()
 
                 query = QSqlQuery(self.db)
                 query.prepare("SELECT count(*) FROM coins WHERE updatedat > ?")
-                date = "20%s-%s-%sT23:59:59" % (file_date[0:2], file_date[2:4], file_date[4:6])
-                query.addBindValue(date)
+                query.addBindValue(date_time.toString(Qt.ISODate))
                 query.exec_()
                 query.first()
                 if query.record().value(0) < autobackup_depth:
@@ -1373,15 +1504,15 @@ class Collection(QtCore.QObject):
 
         progressDlg.setLabelText(self.tr("Compact..."))
         QSqlQuery("""UPDATE coins
-SET
-  reverseimg = (select t2.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.reverseimg = t1.id where t1.id <> t2.id and t3.id = coins.id)
-WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.reverseimg = t1.id where t1.id <> t2.id)
-""", db)
+            SET
+              reverseimg = (select t2.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.reverseimg = t1.id where t1.id <> t2.id and t3.id = coins.id)
+            WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.reverseimg = t1.id where t1.id <> t2.id)
+            """, db)
         QSqlQuery("""UPDATE coins
-SET
-  obverseimg = (select t2.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.obverseimg = t1.id where t1.id <> t2.id and t3.id = coins.id)
-WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.obverseimg = t1.id where t1.id <> t2.id)
-""", db)
+            SET
+              obverseimg = (select t2.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.obverseimg = t1.id where t1.id <> t2.id and t3.id = coins.id)
+            WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos group by image having count(*) > 1) t2 on t1.image = t2.image join photos t1 on t3.obverseimg = t1.id where t1.id <> t2.id)
+            """, db)
 
         QSqlQuery("""DELETE FROM photos
             WHERE id NOT IN (SELECT id FROM photos GROUP BY image)""", db)
@@ -1462,7 +1593,7 @@ WHERE coins.id in (select t3.id from coins t3 join (select id, image from photos
                             img_file_title = "%d_%s.jpg" % (i + 1, field.name)
                             img_file_name = os.path.join(image_path, img_file_title)
                             img_file = open(img_file_name, 'wb')
-                            img_file.write(val)
+                            img_file.write(val.data())
                             img_file.close()
                             
                             img_file_dict[hash_] = img_file_title

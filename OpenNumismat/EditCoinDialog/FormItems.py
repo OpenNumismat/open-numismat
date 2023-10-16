@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import math
 import os
 import re
 
-from PyQt5.QtCore import QMargins, QUrl, QDate, Qt, pyqtSignal, QLocale
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import QMargins, QUrl, QDate, QLocale, QPointF, QSize
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Signal as pyqtSignal
 
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import statusIcon
@@ -76,7 +78,7 @@ class DoubleValidator(QDoubleValidator):
 
 class DenominationValidator(DoubleValidator):
     def __init__(self, parent=None):
-        super().__init__(0, 9999999999, 2, parent)
+        super().__init__(0, 9999999999., 2, parent)
         self.setNotation(QDoubleValidator.StandardNotation)
 
     def validate(self, input_, pos):
@@ -162,6 +164,23 @@ class LineEdit(QLineEdit):
         self.setMinimumWidth(100)
 
 
+class UrlLineEditInternal(LineEdit):
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dragMoveEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        mime = event.mimeData()
+        if mime.hasUrls():
+            url = mime.urls()[0]
+            self.parent().setPath(url.toLocalFile())
+
+
 class UrlLineEdit(QWidget):
 
     def __init__(self, settings, parent=None):
@@ -169,7 +188,7 @@ class UrlLineEdit(QWidget):
 
         self.basePath = os.path.dirname(settings.db.databaseName())
         self.relativeUrl = settings['relative_url']
-        self.lineEdit = LineEdit(self)
+        self.lineEdit = UrlLineEditInternal(self)
 
         buttonLoad = QPushButton(QIcon(':/world.png'), '', self)
         buttonLoad.setFixedWidth(25)
@@ -196,13 +215,7 @@ class UrlLineEdit(QWidget):
         file, _selectedFilter = QFileDialog.getOpenFileName(
             self, self.tr("Select file"), self.getPath(), "*.*")
         if file:
-            if self.relativeUrl:
-                try:
-                    file = os.path.relpath(file, self.basePath)
-                except ValueError:
-                    pass
-
-            self.setText(file)
+            self.setPath(file)
 
     def clickedButtonLoad(self):
         url = QUrl(self.getPath())
@@ -217,6 +230,15 @@ class UrlLineEdit(QWidget):
                 file = os.path.join(self.basePath, file).replace('\\', '/')
 
         return file
+
+    def setPath(self, file):
+        if self.relativeUrl:
+            try:
+                file = os.path.relpath(file, self.basePath)
+            except ValueError:
+                pass
+
+        self.setText(file)
 
     def clear(self):
         self.lineEdit.clear()
@@ -470,6 +492,11 @@ class StatusBrowser(QLineEdit):
     def currentData(self):
         return self.data
 
+    def clear(self):
+        for act in self.actions():
+            self.removeAction(act)
+        super().clear()
+
 
 class ShortLineEdit(QLineEdit):
     def __init__(self, parent=None):
@@ -494,10 +521,11 @@ class UserNumericEdit(QLineEdit):
         return self.minimumSizeHint()
 
 
-class NumberEdit(QLineEdit):
-    def __init__(self, parent=None):
+class _NumberEdit(QLineEdit):
+
+    def __init__(self, bottom, top, parent=None):
         super().__init__(parent)
-        validator = NumberValidator(0, 9999, parent)
+        validator = NumberValidator(bottom, top, parent)
         self.setValidator(validator)
         self.setMaxLength(4)
         self.setMinimumWidth(100)
@@ -506,6 +534,77 @@ class NumberEdit(QLineEdit):
 
     def sizeHint(self):
         return self.minimumSizeHint()
+
+
+class NumberEdit(_NumberEdit):
+
+    def __init__(self, parent=None):
+        super().__init__(0, 9999, parent)
+
+
+class AxisDegreeEdit(_NumberEdit):
+
+    def __init__(self, parent=None):
+        super().__init__(0, 359, parent)
+
+
+class AxisHourEdit(QSpinBox):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setRange(0, 12)
+        self.setSpecialValueText(" ")  # TODO: Not working without value
+        self.setSuffix(self.tr("h"))
+
+        self.setMinimumWidth(100)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,
+                                       QSizePolicy.Fixed))
+
+    def setReadOnly(self, r):
+        if r:
+            self.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        else:
+            self.setButtonSymbols(QAbstractSpinBox.UpDownArrows)
+
+        return super().setReadOnly(r)
+
+    def sizeHint(self):
+        return self.minimumSizeHint()
+
+    def showEvent(self, event):
+        if not self.cleanText():
+            self.setValue(0)
+        return super().showEvent(event)
+
+    def focusOutEvent(self, event):
+        if not self.cleanText():
+            self.setValue(0)
+        return super().focusOutEvent(event)
+
+    def setText(self, text):
+        try:
+            value = int(text)
+        except ValueError:
+            self.setValue(0)
+            return
+
+        value += 360 / 12 / 2
+        value /= 360 / 12
+        value = int(value)
+        if value == 0:
+            value = 12
+
+        self.setValue(value)
+
+    def value(self):
+        value = super().value()
+        if value == 0:
+            return None
+        elif value == 12:
+            return 0
+        else:
+            return value * 30
 
 
 class YearEdit(QWidget):
@@ -661,7 +760,7 @@ class _DoubleEdit(QLineEdit):
             if not self.hasFocus() or self.isReadOnly():
                 try:
                     if self._decimals:
-                        text = QLocale.system().toString(float(text), format='f',
+                        text = QLocale.system().toString(float(text), 'f',
                                                          precision=self._decimals)
                     else:
                         text = QLocale.system().toString(int(text))
@@ -683,9 +782,9 @@ class _DoubleEdit(QLineEdit):
 
 class BigIntEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super().__init__(0, 999999999999999, 0, parent)
+        super().__init__(0, 999999999999999., 0, parent)
 
-        validator = BigIntValidator(0, 999999999999999, parent)
+        validator = BigIntValidator(0, 999999999999999., parent)
         self.setValidator(validator)
 
         self.setMaxLength(15 + 4)  # additional 4 symbol for thousands separator
@@ -703,7 +802,7 @@ class BigIntEdit(_DoubleEdit):
 
 class ValueEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super().__init__(0, 9999999999, 3, parent)
+        super().__init__(0, 9999999999., 3, parent)
         self.setMaxLength(17)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
@@ -727,7 +826,7 @@ class CoordEdit(_DoubleEdit):
 
 class MoneyEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super().__init__(0, 9999999999, 2, parent)
+        super().__init__(0, 9999999999., 2, parent)
         self.setMaxLength(16)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
@@ -782,7 +881,7 @@ class DenominationEdit(MoneyEdit):
                 text, converted = numberWithFraction(text)
                 if not converted:
                     try:
-                        text = QLocale.system().toString(float(text), format='f', precision=2)
+                        text = QLocale.system().toString(float(text), 'f', precision=2)
                         # Strip empty fraction
                         dp = QLocale.system().decimalPoint()
                         text = text.rstrip('0').rstrip(dp)
@@ -997,3 +1096,113 @@ class DateEdit(QDateEdit):
             lineEdit = self.findChild(QLineEdit)
             lineEdit.setCursorPosition(0)
             lineEdit.setText("")
+
+
+class RatingEdit(QLabel):
+    PaintingScaleFactor = 18
+
+    def __init__(self, maxStarCount, parent=None):
+        super().__init__(parent)
+        
+        self.maxStarCount = maxStarCount
+        self.starCount = 0
+        self.currentStarCount = self.starCount
+        self.setReadOnly(False)
+
+        self.starPolygon = QPolygonF()
+        self.starPolygon.append(QPointF(1.0, 0.5))
+        for i in range(5):
+            point = QPointF(0.5 + 0.5 * math.cos(0.8 * i * math.pi),
+                            0.5 + 0.5 * math.sin(0.8 * i * math.pi))
+            self.starPolygon.append(point)
+
+        self.diamondPolygon = QPolygonF((
+            QPointF(0.4, 0.5), QPointF(0.5, 0.4), QPointF(0.6, 0.5),
+            QPointF(0.5, 0.6), QPointF(0.4, 0.5)
+        ))
+
+    def enterEvent(self, event):
+        if not self.readOnly:
+            self.setAutoFillBackground(True)
+
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        if not self.readOnly:
+            self.setAutoFillBackground(False)
+            self.currentStarCount = self.starCount
+
+        super().leaveEvent(event)
+
+    def mouseMoveEvent(self, event):
+        if not self.readOnly:
+            star = self.starAtPosition(event.position().toPoint().x())
+
+            if star != self.currentStarCount and star != -1:
+                self.currentStarCount = star
+                self.update()
+
+        super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        if self.underMouse():
+            self.starCount = self.currentStarCount
+        super().mouseReleaseEvent(event)
+
+    def starAtPosition(self, x):
+        star = math.ceil((x - 5) / (self.sizeHint().width() / self.maxStarCount))
+        if star < 0 or star > self.maxStarCount:
+            return -1
+
+        return star
+
+    def setReadOnly(self, b):
+        self.readOnly = b
+
+        self.setMouseTracking(not self.readOnly)
+
+    def clear(self):
+        return
+
+    def text(self):
+        return '*' * math.ceil(self.starCount * (10 / self.maxStarCount))
+
+    def setText(self, text):
+        self.starCount = math.ceil(text.count('*') / (10 / self.maxStarCount))
+        self.currentStarCount = self.starCount
+
+        if self.readOnly:
+            super().setText('⭐' * self.starCount)
+
+    def home(self, _mark):
+        return
+
+    def paintEvent(self, event):
+        if self.readOnly:
+            return super().paintEvent(event)
+
+        painter = QPainter(self)
+
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        painter.setPen(Qt.NoPen)
+        palette = QPalette()
+        if self.readOnly:
+            brush = palette.windowText()
+        else:
+            brush = palette.highlight()
+        painter.setBrush(brush)
+
+        rect = self.rect()
+        yOffset = (rect.height() - self.PaintingScaleFactor) / 2
+        painter.translate(rect.x(), rect.y() + yOffset)
+        painter.scale(self.PaintingScaleFactor, self.PaintingScaleFactor)
+
+        for i in range(self.maxStarCount):
+            if i < self.currentStarCount:
+                painter.drawPolygon(self.starPolygon, Qt.WindingFill)
+            elif not self.readOnly:
+                painter.drawPolygon(self.diamondPolygon, Qt.WindingFill)
+            painter.translate(1.0, 0.0)
+
+    def sizeHint(self):
+        return self.PaintingScaleFactor * QSize(self.maxStarCount, 1)

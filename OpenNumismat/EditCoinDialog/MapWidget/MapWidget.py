@@ -1,43 +1,33 @@
-from PyQt5.QtCore import pyqtSlot, pyqtSignal, QSettings, QUrl
-from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import QSizePolicy
+from PySide6.QtCore import QSettings, QUrl
+from PySide6.QtGui import QDesktopServices
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtCore import Slot as pyqtSlot
+from PySide6.QtWebChannel import QWebChannel
+from PySide6.QtWebEngineCore import  QWebEnginePage
+from PySide6.QtWebEngineWidgets import QWebEngineView
 
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
 
-importedQtWebKit = True
-importedQtWebEngine = False
-try:
-    from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
-    from PyQt5.QtWebChannel import QWebChannel
 
-    importedQtWebEngine = True
+class WebEnginePage(QWebEnginePage):
+    def acceptNavigationRequest(self, url, type_, isMainFrame):
+        if type_ == QWebEnginePage.NavigationTypeLinkClicked:
+            executor = QDesktopServices()
+            executor.openUrl(QUrl(url))
+            return False
+        return super().acceptNavigationRequest(url, type_, isMainFrame)
 
-    class WebEnginePage(QWebEnginePage):
-        def acceptNavigationRequest(self, url, type_, isMainFrame):
-            if type_ == QWebEnginePage.NavigationTypeLinkClicked:
-                executor = QDesktopServices()
-                executor.openUrl(QUrl(url))
-                return False
-            return super().acceptNavigationRequest(url, type_, isMainFrame)
 
-    class QWebView(QWebEngineView):
-        def __init__(self, parent=None):
-            super().__init__(parent)
-            self.setPage(WebEnginePage(self))
+class QWebView(QWebEngineView):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setPage(WebEnginePage(self))
 
-        def contextMenuEvent(self, _event):
-            pass
-except ImportError:
-    try:
-        from PyQt5.QtWebKitWidgets import QWebView, QWebPage
-    except ImportError:
-        print('PyQt5.QtWebKitWidgets or PyQt5.QtWebEngineWidgets module missed. Maps not available')
-        importedQtWebKit = False
-
-        class QWebView:
-            pass
+    def contextMenuEvent(self, _event):
+        pass
 
 
 class BaseMapWidget(QWebView):
@@ -61,16 +51,9 @@ class BaseMapWidget(QWebView):
 
         self.loadFinished.connect(self.onLoadFinished)
 
-        if importedQtWebEngine:
-            channel = QWebChannel(self.page())
-            channel.registerObject("qtWidget", self)
-            self.page().setWebChannel(channel)
-        else:
-            self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
-            self.page().linkClicked.connect(self.linkClicked)
-
-            self.page().mainFrame().addToJavaScriptWindowObject(
-                "qtWidget", self)
+        channel = QWebChannel(self.page())
+        channel.registerObject("qtWidget", self)
+        self.page().setWebChannel(channel)
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
@@ -133,10 +116,7 @@ class BaseMapWidget(QWebView):
             self.initialized = True
 
     def runScript(self, script):
-        if importedQtWebEngine:
-            return self.page().runJavaScript(script)
-        else:
-            return self.page().mainFrame().evaluateJavaScript(script)
+        return self.page().runJavaScript(script)
 
     @pyqtSlot()
     def mapIsReady(self):

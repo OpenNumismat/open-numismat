@@ -1,14 +1,11 @@
 import codecs
 import csv
+import io
 import html
+import openpyxl
+from PIL import Image
 
-exportToExcelAvailable = True
-
-try:
-    import xlwt
-except ImportError:
-    print('xlwt module missed. Exporting to Excel not available')
-    exportToExcelAvailable = False
+from PySide6.QtCore import QByteArray
 
 
 class __ExportBase():
@@ -29,38 +26,46 @@ class __ExportBase():
     def writeRow(self, row):
         pass
 
+    def acceptImages(self):
+        return False
+
 
 class ExportToExcel(__ExportBase):
-    def __init__(self, fileName, title=''):
-        super().__init__(fileName, title)
-
-    @staticmethod
-    def isAvailable():
-        return exportToExcelAvailable
 
     def open(self):
-        self._wb = xlwt.Workbook()
-        self._ws = self._wb.add_sheet(self.title)
+        self._wb = openpyxl.Workbook()
+        self._ws = self._wb.active
+        self._ws.title = self.title
+
+        self._current_row = 1
 
     def close(self):
         self._wb.save(self.fileName)
 
     def writeHeader(self, headers):
-        for i, val in enumerate(headers):
-            self._ws.write(0, i, val)
-
-        self.currentRow = self.currentRow + 1
+        self._ws.append(headers)
 
     def writeRow(self, row):
-        for i, val in enumerate(row):
-            self._ws.write(self.currentRow, i, val)
+        for i, item in enumerate(row):
+            if isinstance(item, QByteArray):
+                image_data = item.data()
+                image = Image.open(io.BytesIO(image_data))
+                img = openpyxl.drawing.image.Image(image)
 
-        self.currentRow = self.currentRow + 1
+                cell = self._ws.cell(self._current_row + 1, i + 1)
+                self._ws.add_image(img, cell.coordinate)
+
+                row[i] = None
+
+        self._ws.append(row)
+
+        self._current_row += 1
+
+    def acceptImages(self):
+        return True
 
 
 class ExportToHtml(__ExportBase):
-    def __init__(self, fileName, title=''):
-        super().__init__(fileName, title)
 
     def open(self):
         self._file = codecs.open(self.fileName, 'w', 'utf-8')
@@ -121,8 +126,6 @@ background: #ecf0f6;
 
 
 class ExportToCsv(__ExportBase):
-    def __init__(self, fileName, title):
-        super().__init__(fileName)
 
     def open(self):
         self._file = open(self.fileName, 'w', newline='')
@@ -158,8 +161,6 @@ class ExportToCsv(__ExportBase):
 
 
 class ExportToCsvUtf8(__ExportBase):
-    def __init__(self, fileName, title=''):
-        super().__init__(fileName)
 
     def open(self):
         self._file = open(self.fileName, 'w', newline='', encoding='utf-8')

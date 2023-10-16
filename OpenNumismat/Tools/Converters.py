@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtGui import QTextDocument
+from PySide6.QtGui import QTextDocument
+from PySide6.QtCore import QLocale
 
 
 def stringToMoney(string):
+    spaces = ' \t\n\r' + QLocale.system().groupSeparator()
+    dp = [QLocale.system().decimalPoint(), ]
+    if dp[0] == ',' and '.' != QLocale.system().groupSeparator():
+        dp.append('.')
+
     value_began = False
     money = '0'
     for c in string:
@@ -12,15 +18,18 @@ def stringToMoney(string):
             value_began = True
         elif c == '-' and not value_began:
             money = '-0'
-        elif c in '.,':
+        elif c in dp:
             money += '.'
-        elif c in ' \t\n\r':
+        elif c in spaces:
             continue
         else:
             if value_began:
                 break
 
-    return float(money)
+    try:
+        return float(money)
+    except ValueError:
+        return 0.
 
 
 def numberWithFraction(string, enabled=True):

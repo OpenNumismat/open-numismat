@@ -1,8 +1,9 @@
 import math
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Signal as pyqtSignal
 
 import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir
@@ -17,7 +18,7 @@ UNDO_STACK_SIZE = 3
 @storeDlgPositionDecorator
 class CropDialog(QDialog):
     currentToolChanged = pyqtSignal(int)
-    cropChanged = pyqtSignal()
+    cropChanged = pyqtSignal(int)
 
     def __init__(self, width, height, auto_rect, parent):
         super().__init__(parent, Qt.WindowCloseButtonHint)
@@ -311,7 +312,7 @@ class BoundingPointItem(QGraphicsRectItem):
         self.setFlag(QGraphicsItem.ItemIgnoresTransformations)
         self.setFlag(QGraphicsItem.ItemIsMovable)
         self.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-#        self.setFlag(QGraphicsItem.ItemSendsScenePositionChanges)
+        # self.setFlag(QGraphicsItem.ItemSendsScenePositionChanges)
         self.setAcceptHoverEvents(True)
 
     def itemChange(self, change, value):
@@ -348,7 +349,7 @@ class BoundingLineItem(QGraphicsLineItem):
         if self.fixed:
             self.setFlag(QGraphicsItem.ItemIsMovable)
             self.setFlag(QGraphicsItem.ItemSendsGeometryChanges)
-#            self.setFlag(QGraphicsItem.ItemSendsScenePositionChanges)
+            # self.setFlag(QGraphicsItem.ItemSendsScenePositionChanges)
             self.setAcceptHoverEvents(True)
 
     def _isHorizontal(self):
@@ -792,9 +793,9 @@ class GraphicsView(QGraphicsView):
 
     def wheelEvent(self, event):
         self.setTransformationAnchor(QGraphicsView.NoAnchor)
-#        self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
+        # self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
 
-        oldPos = self.mapToScene(event.pos())
+        oldPos = self.mapToScene(event.position().toPoint())
 
         if event.angleDelta().y() > 0:
             self.parent().zoomIn()
@@ -802,7 +803,7 @@ class GraphicsView(QGraphicsView):
             self.parent().zoomOut()
 
         # Get the new position
-        newPos = self.mapToScene(event.pos())
+        newPos = self.mapToScene(event.position().toPoint())
 
         # Move scene to old position
         delta = newPos - oldPos
@@ -870,7 +871,7 @@ class ImageViewer(QDialog):
     def createActions(self):
         self.openAct = QAction(self.tr("Browse in viewer"), self, triggered=self.open)
         self.saveAsAct = QAction(self.tr("&Save As..."), self, shortcut=QKeySequence.SaveAs, triggered=self.saveAs)
-#        self.printAct = QAction(self.tr("&Print..."), self, shortcut=QKeySequence.Print, enabled=False, triggered=self.print_)
+        # self.printAct = QAction(self.tr("&Print..."), self, shortcut=QKeySequence.Print, enabled=False, triggered=self.print_)
         self.exitAct = QAction(self.tr("E&xit"), self, shortcut=QKeySequence.Quit, triggered=self.close)
         self.fullScreenAct = QAction(self.tr("Full Screen"), self, shortcut=QKeySequence.FullScreen, triggered=self.fullScreen)
         self.zoomInAct = QAction(QIcon(':/zoom_in.png'), self.tr("Zoom &In (25%)"), self, shortcut=Qt.Key_Plus, triggered=self.zoomIn)
@@ -906,7 +907,7 @@ class ImageViewer(QDialog):
         self.fileMenu.addAction(self.openAct)
         self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.saveAsAct)
-#        self.fileMenu.addAction(self.printAct)
+        # self.fileMenu.addAction(self.printAct)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
 
@@ -1214,8 +1215,8 @@ class ImageViewer(QDialog):
         else:
             self.grid = None
 
-    def rotate(self, checked):
-        if checked:
+    def rotate(self):
+        if self.rotateAct.isChecked():
             self.rotateDlg = RotateDialog(self)
             self.rotateDlg.valueChanged.connect(self.rotateChanged)
             self.rotateDlg.finished.connect(self.rotateClose)
@@ -1301,8 +1302,8 @@ class ImageViewer(QDialog):
                         abs(b - start_b) > self.COLOR_THRESHOLD:
                     return i
 
-    def crop(self, checked):
-        if checked:
+    def crop(self):
+        if self.cropAct.isChecked():
             sceneRect = self.viewer.sceneRect()
             w = int(sceneRect.width())
             h = int(sceneRect.height())
@@ -1372,7 +1373,7 @@ class ImageViewer(QDialog):
             self.cropDlg.y4Spin.setValue(int(points[3].y()))
         self.cropDlg.cropChanged.connect(self.cropDlgChanged)
 
-    def cropDlgChanged(self):
+    def cropDlgChanged(self, i):
         self.bounding.rectChanged.disconnect(self.cropChanged)
         if self.cropDlg.currentTool() == 0:
             x = self.cropDlg.xSpin.value()

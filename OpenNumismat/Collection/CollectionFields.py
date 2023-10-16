@@ -1,6 +1,8 @@
-from PyQt5.QtCore import QT_TRANSLATE_NOOP, QObject
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from dataclasses import dataclass
+
+from PySide6.QtCore import QT_TRANSLATE_NOOP, QObject
+from PySide6.QtWidgets import QApplication
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 
 class FieldTypes():
@@ -59,75 +61,149 @@ class FieldTypes():
 
 
 class Status(dict):
-    Keys = ('demo', 'pass', 'owned', 'ordered', 'bidding', 'sold',
-            'sale', 'wish', 'missing', 'duplicate', 'replacement')
-    Titles = (
-        QT_TRANSLATE_NOOP("Status", "Demo"),
-        QT_TRANSLATE_NOOP("Status", "Pass"),
-        QT_TRANSLATE_NOOP("Status", "Owned"),
-        QT_TRANSLATE_NOOP("Status", "Ordered"),
-        QT_TRANSLATE_NOOP("Status", "Bidding"),
-        QT_TRANSLATE_NOOP("Status", "Sold"),
-        QT_TRANSLATE_NOOP("Status", "Sale"),
-        QT_TRANSLATE_NOOP("Status", "Wish"),
-        QT_TRANSLATE_NOOP("Status", "Missing"),
-        QT_TRANSLATE_NOOP("Status", "Duplicate"),
-        QT_TRANSLATE_NOOP("Status", "Replacement"),
-    )
 
     def __init__(self):
-        for key, value in zip(self.Keys, self.Titles):
-            dict.__setitem__(self, key, value)
+        self['demo'] = QT_TRANSLATE_NOOP("Status", "Demo")
+        self['bidding'] = QT_TRANSLATE_NOOP("Status", "Bidding")
+        self['ordered'] = QT_TRANSLATE_NOOP("Status", "Ordered")
+        self['owned'] = QT_TRANSLATE_NOOP("Status", "Owned")
+        self['duplicate'] = QT_TRANSLATE_NOOP("Status", "Duplicate")
+        self['replacement'] = QT_TRANSLATE_NOOP("Status", "Replacement")
+        self['sold'] = QT_TRANSLATE_NOOP("Status", "Sold")
+        self['wish'] = QT_TRANSLATE_NOOP("Status", "Wish")
+        self['sale'] = QT_TRANSLATE_NOOP("Status", "Sale")
+        self['missing'] = QT_TRANSLATE_NOOP("Status", "Missing")
+        self['pass'] = QT_TRANSLATE_NOOP("Status", "Pass")
 
-    def keys(self):
-        return self.Keys
+        self.orders = {}
+        for i, key in enumerate(self.keys()):
+            self.orders[key] = i + 1
 
-    def items(self):
-        result = []
-        for key in self.Keys:
-            result.append((key, self.__getitem__(key)))
-        return result
-
-    def values(self):
-        result = []
-        for key in self.Keys:
-            result.append(self.__getitem__(key))
-        return result
+    def init(self, settings):
+        for status in self.keys():
+            self[status] = settings[status + '_status_title']
 
     def __getitem__(self, key):
         try:
-            value = dict.__getitem__(self, key)
-            return QApplication.translate("Status", value)
+            return dict.__getitem__(self, key)
         except KeyError:
             return ''
 
+    def reverse(self, title):
+        for key, value in self.items():
+            if value == title:
+                return key
+        return ''
 
+    def order(self, key):
+        try:
+            return self.orders[key]
+        except KeyError:
+            return 0
+
+    def compare(self, left, right):
+        return self.order(left) - self.order(right)
+
+
+# TODO: Move Statuses to Collection
 Statuses = Status()
-StatusesOrder = {
-    '': 0,
-    'demo': 0,
-    'bidding': 1,
-    'ordered': 2,
-    'owned': 3,
-    'duplicate': 4,
-    'replacement': 5,
-    'wish': 6,
-    'sale': 7,
-    'sold': 8,
-    'missing': 9,
-    'pass': 10,
-}
-ImageFields = ('obverseimg', 'reverseimg', 'edgeimg', 'signatureimg',
-               'varietyimg', 'photo1', 'photo2', 'photo3', 'photo4',
-               'photo5', 'photo6')
+ImageFields = (
+    'obverseimg',
+    'reverseimg',
+    'edgeimg',
+    'signatureimg',
+    'varietyimg',
+    'photo1',
+    'photo2',
+    'photo3',
+    'photo4',
+    'photo5',
+    'photo6',
+)
+TitleTemplateFields = (
+    'value',
+    'unit',
+    'region',
+    'country',
+    'year',
+    'series',
+    'subjectshort',
+    'period',
+    'ruler',
+    'type',
+    'emitent',
+    'mint',
+    'mintmark',
+    'material',
+    'rarity',
+    'variety',
+    'defect',
+    'native_year',
+)
+TreeFields = (
+    'value',
+    'unit',
+    'category',
+    'region',
+    'country',
+    'year',
+    'period',
+    'ruler',
+    'emitent',
+    'mint',
+    'mintmark',
+    'type',
+    'series',
+    'subjectshort',
+    'dateemis',
+    'status',
+    'material',
+    'fineness',
+    'grade',
+    'grader',
+    'quality',
+    'rarity',
+    'variety',
+    'saller',
+    'payplace',
+    'buyer',
+    'saleplace',
+    'defect',
+    'storage',
+    'composition',
+)
+StatisticsFields = (
+    'category',
+    'region',
+    'country',
+    'year',
+    'period',
+    'ruler',
+    'mint',
+    'type',
+    'series',
+    'status',
+    'material',
+    'grade',
+    'grader',
+    'saller',
+    'payplace',
+    'buyer',
+    'saleplace',
+    'storage',
+    'fineness',
+    'unit',
+    'composition',
+)
 
 
+@dataclass(slots=True)
 class CollectionField():
-    def __init__(self, id_, name, title, type_):
-        self.id = id_
-        self.name = name
-        self.title = title
-        self.type = type_
+    id: int
+    name: str
+    title: str
+    type: int
+    enabled: bool
 
 
 class CollectionFieldsBase(QObject):
@@ -252,7 +328,7 @@ class CollectionFieldsBase(QObject):
         self.fields = []
         for id_, field in enumerate(fields):
             self.fields.append(
-                            CollectionField(id_, field[0], field[1], field[2]))
+                    CollectionField(id_, field[0], field[1], field[2], False))
             setattr(self, self.fields[id_].name, self.fields[id_])
 
         self.systemFields = (self.id, self.createdat, self.updatedat,

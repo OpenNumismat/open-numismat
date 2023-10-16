@@ -1,41 +1,28 @@
-# -*- coding: utf-8 -*-
-
+import datetime
+import openpyxl
 import os
 import urllib.request
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QDialogButtonBox, QComboBox
-from PyQt5.QtGui import QPixmap, QImage
+from dateutil import parser
 
-from OpenNumismat.Collection.Import import _Import2
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QDialogButtonBox, QComboBox
+from PySide6.QtGui import QPixmap, QImage, QPainter
+
+from OpenNumismat.Collection.Import import _Import2, _InvalidDatabaseError
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat import version
-
-available = True
-
-try:
-    import xlrd
-except ImportError:
-    print('xlrd module missed. Importing from Excel not available')
-    available = False
-
-try:
-    from dateutil import parser
-except ImportError:
-    print('dateutil module missed. Importing from Excel not available')
-    available = False
 
 
 @storeDlgSizeDecorator
 class TableDialog(QDialog):
 
-    def __init__(self, parent, path, datemode):
+    def __init__(self, parent, path):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.path = path
-        self.datemode = datemode
 
         self.setWindowTitle(self.tr("Select columns"))
 
@@ -72,16 +59,21 @@ class TableDialog(QDialog):
                 for row in range(self.table.rowCount()):
                     item = self.table.item(row, i - 1)
                     val = item.text()
+
                     try:
-                        y, m, d, _h, _m, _s = xlrd.xldate_as_tuple(float(val),
-                                                                   self.datemode)
-                        date = "%d-%02d-%02d" % (y, m, d)
-                        item.setText(date)
-                    except ValueError:
+                        val = parser.parse(val).date().isoformat()
+                        item.setText(val)
+                    except (ValueError, TypeError):
                         pass
             elif field.type in Type.ImageTypes:
                 for row in range(self.table.rowCount()):
                     item = self.table.item(row, i - 1)
+                    if item.data(Qt.UserRole) is not None:
+                        pixmap = QPixmap.fromImage(item.data(Qt.UserRole))
+                        item.setData(Qt.DecorationRole, pixmap)
+                        item.setText('')
+                        continue
+
                     fileName = item.text()
                     image = QImage()
                     if fileName.startswith('http'):
@@ -94,6 +86,7 @@ class TableDialog(QDialog):
                             if result:
                                 pixmap = QPixmap.fromImage(image)
                                 item.setData(Qt.DecorationRole, pixmap)
+                                item.setText('')
                         except:
                             pass
                     else:
@@ -104,6 +97,7 @@ class TableDialog(QDialog):
                         if result:
                             pixmap = QPixmap.fromImage(image)
                             item.setData(Qt.DecorationRole, pixmap)
+                            item.setText('')
 
 
 class ImportExcel(_Import2):
@@ -113,7 +107,7 @@ class ImportExcel(_Import2):
 
     @staticmethod
     def isAvailable():
-        return available
+        return True
 
     def defaultField(self, col, _combo):
         if col < 10:
@@ -125,36 +119,62 @@ class ImportExcel(_Import2):
         return 'owned'
 
     def _connect(self, src):
-        book = xlrd.open_workbook(src)
-        self.datemode = book.datemode
-        self.sheet = book.sheet_by_index(0)
+        try:
+            book = openpyxl.load_workbook(src)
+        except openpyxl.utils.exceptions.InvalidFileException as e:
+            raise _InvalidDatabaseError(str(e))
+
+        self.sheet = book.active
+
+        self.images = {}
+        for image in self.sheet._images:
+            img = QImage()
+            if img.loadFromData(image._data()):
+                _from = image.anchor._from
+                col = openpyxl.utils.get_column_letter(_from.col + 1)
+                coordinate = "%s%d" % (col, _from.row + 1)
+                self.images[coordinate] = img
 
         self.src_path = os.path.dirname(src)
-        dialog = TableDialog(self.parent(), self.src_path, self.datemode)
+        dialog = TableDialog(self.parent(), self.src_path)
 
-        rows = self.sheet.nrows
-        if rows > 10:
-            rows = 10
+        rows = min(self.sheet.max_row, 10)
+
         dialog.table.setRowCount(rows)
-        dialog.table.setColumnCount(self.sheet.ncols)
+        dialog.table.setColumnCount(self.sheet.max_column)
 
         for row in range(rows):
-            for col in range(self.sheet.ncols):
-                val = self.sheet.cell(row, col).value
+            for col in range(self.sheet.max_column):
+                cell = self.sheet.cell(row + 1, col + 1)
+                val = cell.value
+
+                if val is None:
+                    val = ''
+                elif isinstance(val, datetime.time):
+                    val = ''
+                elif isinstance(val, datetime.datetime):
+                    val = val.date()
+                if cell.hyperlink:
+                    val = cell.hyperlink.target
+
                 item = QTableWidgetItem(str(val))
+
+                if cell.coordinate in self.images:
+                    item.setData(Qt.UserRole, self.images[cell.coordinate])
+
                 dialog.table.setItem(row, col, item)
 
         dialog.hlayout.addSpacing(dialog.table.verticalHeader().width())
 
         self.comboBoxes = []
-        for col in range(self.sheet.ncols):
+        for col in range(self.sheet.max_column):
             combo = QComboBox()
             combo.addItem(self.tr("<Ignore>"))
             for f in self.fields.userFields:
                 if f not in self.fields.systemFields:
                     combo.addItem(f.title, f)
             combo.setCurrentIndex(self.defaultField(col, combo))
-            combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLength)
+            combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             combo.currentIndexChanged.connect(dialog.comboChanged)
             dialog.hlayout.addWidget(combo)
 
@@ -182,50 +202,57 @@ class ImportExcel(_Import2):
         return None
 
     def _getRowsCount(self, book):
-        return self.sheet.nrows
+        return self.sheet.max_row
 
     def _setRecord(self, record, row):
         for i, field in enumerate(self.selected_fields):
             if not field:
                 continue
 
-            val = self.sheet.cell(row, i).value
-            if field.type == Type.Date:
-                try:
-                    y, m, d, _h, _m, _s = xlrd.xldate_as_tuple(float(val),
-                                                               self.datemode)
-                    val = "%d-%02d-%02d" % (y, m, d)
-                except ValueError:
-                    pass
+            cell = self.sheet.cell(row + 1, i + 1)
+            val = cell.value
+            if isinstance(val, datetime.time):
+                val = ''
+            elif isinstance(val, datetime.datetime):
+                val = val.date()
+            if isinstance(val, datetime.date):
+                val = val.isoformat()
+            if cell.hyperlink:
+                val = cell.hyperlink.target
 
+            if field.type == Type.Date:
                 try:
                     val = parser.parse(val).date().isoformat()
                 except (ValueError, TypeError):
                     val = None
             elif field.type in Type.ImageTypes:
-                image = QImage()
-                if val.startswith('http'):
-                    try:
-                        # Wikipedia require any header
-                        req = urllib.request.Request(val,
-                                headers={'User-Agent': version.AppName})
-                        data = urllib.request.urlopen(req, timeout=30).read()
-                        if image.loadFromData(data):
-                            val = image
+                if cell.coordinate in self.images:
+                    image = self.images[cell.coordinate]
+                    val = self.__fixTransparentImage(image)
+                elif val:
+                    image = QImage()
+                    if val.startswith('http'):
+                        try:
+                            # Wikipedia require any header
+                            req = urllib.request.Request(val,
+                                    headers={'User-Agent': version.AppName})
+                            data = urllib.request.urlopen(req, timeout=30).read()
+                            if image.loadFromData(data):
+                                val = self.__fixTransparentImage(image)
+                            else:
+                                val = None
+                        except:
+                            val = None
+                    else:
+                        if os.path.isabs(val):
+                            fileName = val
+                        else:
+                            fileName = os.path.join(self.src_path, val)
+
+                        if image.load(fileName):
+                            val = self.__fixTransparentImage(image)
                         else:
                             val = None
-                    except:
-                        val = None
-                else:
-                    if os.path.isabs(val):
-                        fileName = val
-                    else:
-                        fileName = os.path.join(self.src_path, val)
-
-                    if image.load(fileName):
-                        val = image
-                    else:
-                        val = None
 
             record.setValue(field.name, val)
 
@@ -234,6 +261,19 @@ class ImportExcel(_Import2):
 
         if not self.has_status:
             record.setValue('status', self.defaultStatus())
+
+    def __fixTransparentImage(self, image):
+        if image.hasAlphaChannel():
+            # Fill transparent color if present
+            fixedImage = QImage(image.size(), QImage.Format_RGB32)
+            fixedImage.fill(Qt.white)
+            painter = QPainter(fixedImage)
+            painter.drawImage(0, 0, image)
+            painter.end()
+        else:
+            fixedImage = image
+
+        return fixedImage
 
     def __generateTitle(self, record):
         title = ""

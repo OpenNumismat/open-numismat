@@ -1,10 +1,9 @@
-from PyQt5 import QtCore
-from PyQt5 import QtSql
-from PyQt5.QtCore import Qt, QCollator, QLocale, QEvent
-from PyQt5.QtWidgets import *
+from PySide6 import QtCore
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtCore import Qt, QCollator, QLocale, QEvent
+from PySide6.QtWidgets import *
 
 from OpenNumismat.ListView import ListView, CardView, IconView
-from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
 from OpenNumismat.StatisticsView import StatisticsView
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -96,7 +95,7 @@ class ImageView(QWidget):
         current = self.currentIndex
         self.showedCount = 0
         for i, field in enumerate(self.imageFields):
-            if self.imageButtons[i].checkState() == Qt.Checked:
+            if self.imageButtons[i].isChecked():
                 index = self.model.index(current.row(), field.id)
                 data = index.data(Qt.UserRole)
                 img = self.model.getImage(data)
@@ -143,7 +142,7 @@ class ImageView(QWidget):
         record = self.model.record(self.currentIndex.row())
         record.setValue(image.field, image.image)
         self.model.setRecord(self.currentIndex.row(), record)
-#        self.model.submitAll()
+        # self.model.submitAll()
 
     def __layoutToWidget(self, layout):
         widget = QWidget(self)
@@ -261,7 +260,7 @@ class TreeView(QTreeWidget):
         sql = "SELECT DISTINCT %s FROM coins" % ','.join(fields)
         if filters:
             sql += " WHERE " + filters
-        query = QtSql.QSqlQuery(sql, self.db)
+        query = QSqlQuery(sql, self.db)
         hasEmpty = False
         while query.next():
             record = query.record()
@@ -503,6 +502,91 @@ class TreeView(QTreeWidget):
 
         self.model.setFilter(storedFilter)
 
+    def clearSelection(self):
+        super().clearSelection()
+        self.setCurrentItem(None)
+
+
+class TagsView(QTreeWidget):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setHeaderHidden(True)
+        self.setAutoScroll(False)
+
+        self.currentItemChanged.connect(self.itemActivatedEvent)
+
+    def setModel(self, model):
+        self.db = model.database()
+        self.model = model
+
+        self.update()
+
+    def update(self):
+        self.clear()
+
+        sql = "SELECT id, tag, position, parent_id FROM tags ORDER BY position"
+        query = QSqlQuery(self.db)
+        query.exec_(sql)
+
+        items = {}
+        while query.next():
+            record = query.record()
+
+            tag_id = record.value(0)
+            # position = record.value(2)
+            tag = record.value(1)
+            parent_id = record.value(3)
+
+            item = QTreeWidgetItem((tag,))
+            item.setData(0, Qt.UserRole, tag_id)
+            # item.setData(0, Qt.UserRole + 1, position)
+            item.setData(0, Qt.UserRole + 2, parent_id)
+
+            items[tag_id] = item
+
+        for tag_id, item in items.items():
+            parent_id = item.data(0, Qt.UserRole + 2)
+
+            if parent_id:
+                parent_item = items[parent_id]
+                parent_item.addChild(item)
+            else:
+                self.addTopLevelItem(item)
+
+        self.expandAll()
+
+    def itemActivatedEvent(self, current, _previous):
+        if current:
+            self.scrollToItem(current)
+            self.resizeColumnToContents(0)
+
+            tag_id = current.data(0, Qt.UserRole)
+            sql = "SELECT coin_id FROM coins_tags WHERE tag_id=%d" % tag_id
+            query = QSqlQuery(self.db)
+            query.exec_(sql)
+            coin_ids = []
+            while query.next():
+                record = query.record()
+
+                coin_id = record.value(0)
+                coin_ids.append(str(coin_id))
+
+            if coin_ids:
+                # TODO: Use INNER JOIN instead filtering by id
+                filter_ = "id IN (" + ','.join(coin_ids) + ")"
+            else:
+                filter_ = "FALSE"
+            self.model.setAdditionalFilter(filter_)
+
+    def tagsChanged(self):
+        self.update()
+
+    def clearSelection(self):
+        super().clearSelection()
+        self.setCurrentItem(None)
+
 
 class DetailsView(QWidget):
 
@@ -537,11 +621,11 @@ class Splitter(QSplitter):
         self.title = title
         self.splitterMoved.connect(self.splitterPosChanged)
 
-    def splitterPosChanged(self, pos, index):
+    def splitterPosChanged(self, _pos, _index):
         settings = QtCore.QSettings()
         settings.setValue('pageview/splittersizes' + self.title, self.sizes())
 
-    def showEvent(self, e):
+    def showEvent(self, _e):
         settings = QtCore.QSettings()
         sizes = settings.value('pageview/splittersizes' + self.title)
         if sizes:
@@ -551,23 +635,6 @@ class Splitter(QSplitter):
             self.splitterMoved.disconnect(self.splitterPosChanged)
             self.setSizes(sizes)
             self.splitterMoved.connect(self.splitterPosChanged)
-
-    def replaceWidget(self, index, widget):
-        old = self.widget(index)
-        if old:
-            old.setParent(None)
-            old.deleteLater()
-        self.insertWidget(index, widget)
-
-        self.showEvent(None)
-
-    def switchWidget(self, index, widget):
-        old = self.widget(index)
-        if old:
-            old.setParent(None)
-        self.insertWidget(index, widget)
-
-        self.showEvent(None)
 
 
 class PageView(Splitter):
@@ -580,6 +647,7 @@ class PageView(Splitter):
         self.param = pageParam
         self.id = pageParam.id
         self.treeView = TreeView(pageParam.treeParam, self)
+        self.tagsView = TagsView(self)
         if self.param.type == CollectionPageTypes.Card:
             self.listView = CardView(self.param.listParam, self)
         elif self.param.type == CollectionPageTypes.Icon:
@@ -595,7 +663,10 @@ class PageView(Splitter):
 
         self.splitter1 = Splitter('1', Qt.Vertical, self)
         splitter2 = Splitter('2', parent=self.splitter1)
-        splitter2.addWidget(self.treeView)
+        splitter3 = Splitter('3', Qt.Vertical, parent=splitter2)
+        splitter3.addWidget(self.treeView)
+        splitter3.addWidget(self.tagsView)
+        splitter2.addWidget(splitter3)
         splitter2.addWidget(self.listView)
         self.splitter1.addWidget(splitter2)
         if self.imagesAtBottom:
@@ -603,14 +674,12 @@ class PageView(Splitter):
         else:
             self.splitter1.addWidget(self.detailsView)
 
-        if statisticsAvailable:
-            self.statisticsView = StatisticsView(pageParam.statisticsParam)
-            self.statisticsView.setMinimumHeight(200)
+        self.statisticsView = StatisticsView(pageParam.statisticsParam)
+        self.statisticsView.setMinimumHeight(200)
 
-        if importedQtWebKit:
-            settings = Settings()
-            self.mapView = get_map_widget(None, settings['map_type'], True)
-            self.mapView.markerClicked.connect(self.setCurrentCoin)
+        settings = Settings()
+        self.mapView = get_map_widget(None, settings['map_type'], True)
+        self.mapView.markerClicked.connect(self.setCurrentCoin)
 
         self.addWidget(self.splitter1)
         if self.imagesAtBottom:
@@ -618,26 +687,31 @@ class PageView(Splitter):
         else:
             self.addWidget(self.imageView)
 
-        self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
-        self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
-        self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
         self.splitterMoved.connect(self.splitterPosChanged)
 
     def setModel(self, model, reference):
         self._model = model
 
         self.treeView.setModel(model, reference)
+        self.tagsView.setModel(model)
         self.listView.setModel(model)
         self.imageView.setModel(model)
         self.detailsView.setModel(model)
-        if statisticsAvailable:
-            self.statisticsView.setModel(model)
-        if importedQtWebKit:
-            self.mapView.setModel(model)
-        if statisticsAvailable or importedQtWebKit:
-            self.prepareInfo()
+        self.statisticsView.setModel(model)
+        self.mapView.setModel(model)
+        self.prepareInfo()
 
+        self.listView.rowChanged.connect(self.imageView.rowChangedEvent)
+        self.listView.rowChanged.connect(self.treeView.rowChangedEvent)
+        self.listView.rowChanged.connect(self.detailsView.rowChangedEvent)
+        if model.settings['tags_used']:
+            self.treeView.currentItemChanged.connect(self.tagsView.clearSelection)
+            self.tagsView.currentItemChanged.connect(self.treeView.clearSelection)
+            self._model.tagsChanged.connect(self.tagsView.tagsChanged)
         self._model.modelChanged.connect(self.modelChanged)
+
+        if not model.settings['tags_used']:
+            self.tagsView.hide()
 
     def model(self):
         return self._model
@@ -654,14 +728,14 @@ class PageView(Splitter):
         sizes = self.splitter1.sizes()
 
         if self.param.info_type == CollectionPageTypes.Map:
-            self.splitter1.switchWidget(1, self.mapView)
+            self.splitter1.replaceWidget(1, self.mapView)
         elif self.param.info_type == CollectionPageTypes.Statistics:
-            self.splitter1.switchWidget(1, self.statisticsView)
+            self.splitter1.replaceWidget(1, self.statisticsView)
         else:
             if self.imagesAtBottom:
-                self.splitter1.switchWidget(1, self.imageView)
+                self.splitter1.replaceWidget(1, self.imageView)
             else:
-                self.splitter1.switchWidget(1, self.detailsView)
+                self.splitter1.replaceWidget(1, self.detailsView)
 
         if sizes[1] > 0:
             self.splitter1.setSizes(sizes)
@@ -692,7 +766,8 @@ class PageView(Splitter):
             listView = ListView(self.param.listParam, self)
 
         splitter2 = self.splitter1.widget(0)
-        splitter2.replaceWidget(1, listView)
+        old_widget = splitter2.replaceWidget(1, listView)
+        old_widget.deleteLater()
         self.listView = listView
 
         self.listView.rowChanged.connect(self.imageView.rowChangedEvent)

@@ -1,5 +1,5 @@
-from PyQt5 import QtCore
-from PyQt5.QtSql import QSqlQuery, QSqlRecord
+from PySide6 import QtCore
+from PySide6.QtSql import QSqlQuery, QSqlRecord
 
 from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
 

@@ -1,10 +1,10 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QIcon
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtWidgets import *
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import Statuses, StatusesOrder
+from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction
 
@@ -28,7 +28,7 @@ class StatusSortListWidgetItem(QListWidgetItem):
     def __lt__(self, other):
         left = self.data(Qt.UserRole)
         right = other.data(Qt.UserRole)
-        return StatusesOrder[left] < StatusesOrder[right]
+        return Statuses.compare(left, right) < 0
 
 
 class FilterMenuButton(QPushButton):
@@ -49,17 +49,20 @@ class FilterMenuButton(QPushButton):
         self.listParam = listParam
         self.settings = model.settings
 
-        menu = QMenu()
+        menu = QMenu(self)
+        menu.aboutToShow.connect(self.prepareMenu)
+        self.setMenu(menu)
 
         self.setToolTip(self.tr("Filter items"))
 
-        self.setFixedHeight(self.parent().height() - 2)
+        off = 2
+        self.setFixedHeight(self.parent().height() - off)
         self.setFixedWidth(self.height())
-        self.setMenu(menu)
+        self.setObjectName("FilterMenuButton")
+        padding = self.style().pixelMetric(QStyle.PM_MenuButtonIndicator) + off
+        self.setStyleSheet("QPushButton#FilterMenuButton {padding-left:%dpx;}" % padding)
         if self.fieldid in self.filters.keys():
             self.setIcon(QIcon(':/filters.ico'))
-
-        menu.aboutToShow.connect(self.prepareMenu)
 
     def prepareMenu(self):
         self.listWidget = QListWidget(self)
@@ -156,8 +159,8 @@ class FilterMenuButton(QPushButton):
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
-            sql = "SELECT DISTINCT %s FROM coins %s ORDER BY %s ASC" % (
-                self.columnName, filtersSql, self.columnName)
+            sql = "SELECT DISTINCT %s FROM coins %s" % (
+                self.columnName, filtersSql)
             query = QSqlQuery(sql, self.db)
 
             while query.next():

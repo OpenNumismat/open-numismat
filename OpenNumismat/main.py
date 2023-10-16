@@ -5,12 +5,14 @@ import ssl
 import sys
 import traceback
 
-from PyQt5.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, PYQT_VERSION_STR, QSettings
-from PyQt5.QtWidgets import QApplication, QMessageBox
-from PyQt5.QtGui import QDesktopServices
+from PySide6.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, QSettings, QLibraryInfo, QLocale
+from PySide6.QtWidgets import QApplication, QMessageBox
+from PySide6.QtGui import QDesktopServices
+from PySide6 import __version__ as PYQT_VERSION_STR
 
 import OpenNumismat
 from OpenNumismat.Settings import Settings
+from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.MainWindow import MainWindow
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat import resources
@@ -34,10 +36,42 @@ def main():
         app.setStyleSheet("QWidget{font-size: 11pt;}")
     elif settings['font_size'] == 2:
         app.setStyleSheet("QWidget{font-size: 13pt;}")
+    app.setStyle(settings['style'])
 
     if settings['error']:
         sys.excepthook = exceptHook
 
+    setupHomeFolder(settings)
+
+    TemporaryDir.init(version.AppName)
+
+    locale = QLocale(settings['locale'])
+
+    path = os.path.join(OpenNumismat.PRJ_PATH, 'translations')
+    translator = QTranslator(app)
+    if translator.load(locale, 'lang', '_', path):
+        app.installTranslator(translator)
+
+    path = QLibraryInfo.path(QLibraryInfo.TranslationsPath)
+    translator = QTranslator(app)
+    if translator.load(locale, 'qtbase', '_', path):
+        app.installTranslator(translator)
+
+    # TODO: Enable SSL verification
+    ssl._create_default_https_context = ssl._create_unverified_context
+
+    mainWindow = MainWindow()
+    mainWindow.show()
+    mainWindow.raise_()  # this will raise the window on Mac OS X
+    status = app.exec_()
+
+    # Clear temporary files
+    TemporaryDir.remove()
+
+    sys.exit(status)
+
+
+def setupHomeFolder(settings):
     if not os.path.exists(settings['reference']):
         # Create default dirs and files if not exists
         try:
@@ -53,46 +87,21 @@ def main():
 
                 shutil.copy(src_ref, dst_ref)
 
-            dst_demo_db = os.path.join(OpenNumismat.HOME_PATH, 'demo.db')
+            dst_demo_db = LatestCollections.DefaultCollectionName
             if not os.path.exists(dst_demo_db):
                 os.makedirs(OpenNumismat.HOME_PATH, exist_ok=True)
                 src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
                                            'demo_%s.db' % settings['locale'])
                 if not os.path.exists(src_demo_db):
                     src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
-                                       'demo_en.ref')
+                                       'demo_en.db')
 
                 shutil.copy(src_demo_db, dst_demo_db)
 
             templates_path = os.path.join(OpenNumismat.HOME_PATH, 'templates')
             os.makedirs(templates_path, exist_ok=True)
-        except:
+        except ValueError:
             pass
-
-    TemporaryDir.init(version.AppName)
-
-    lang = settings['locale']
-
-    translator = QTranslator()
-    translator.load('translations/lang_' + lang, OpenNumismat.PRJ_PATH)
-    app.installTranslator(translator)
-
-    translatorQt = QTranslator()
-    translatorQt.load('translations/qtbase_' + lang, OpenNumismat.PRJ_PATH)
-    app.installTranslator(translatorQt)
-
-    # TODO: Enable SSL verification
-    ssl._create_default_https_context = ssl._create_unverified_context
-
-    mainWindow = MainWindow()
-    mainWindow.show()
-    mainWindow.raise_()  # this will raise the window on Mac OS X
-    status = app.exec_()
-
-    # Clear temporary files
-    TemporaryDir.remove()
-
-    sys.exit(status)
 
 
 def exceptHook(type_, value, tback):

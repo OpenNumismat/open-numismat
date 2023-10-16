@@ -1,16 +1,14 @@
 Source: open-numismat
-Section: misc
+Section: x11
 Priority: optional
 Maintainer: Vitaly Ignatov <opennumismat@gmail.com>
-Build-Depends: debhelper (>= 9), python3, python3-setuptools, dh-python
-Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 10), python3, dh-python, dh-virtualenv
+Standards-Version: 4.0.0
 Homepage: http://opennumismat.github.io/
 
 Package: open-numismat
 Architecture: all
-Depends: ${misc:Depends}, python3, python3-pyqt5, python3-pyqt5.qtsql, libqt5sql5-sqlite, python3-pyqt5.qtwebkit, python3-jinja2, python3-matplotlib, python3-numpy, python3-lxml, python3-xlrd, python3-dateutil
-Suggests: python3-xlwt, python3-pyqt5.qtwebengine
-X-Python3-Version: >= 3.4
+Depends: ${misc:Depends}, python3 (>= 3.10)
 Description:  Coin collecting software for organize and manage your own catalogue
  OpenNumismat is a handy and reliable application aimed at coin lovers,
  numismatists or amateurs looking to create a numismatics collection.

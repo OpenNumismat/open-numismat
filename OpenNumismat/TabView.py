@@ -1,6 +1,7 @@
-from PyQt5.QtCore import pyqtSignal, Qt
-from PyQt5.QtGui import QKeySequence, QIcon
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QKeySequence, QIcon, QAction
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Signal as pyqtSignal
 
 from OpenNumismat.PageView import PageView
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
@@ -137,7 +138,9 @@ class TabView(QTabWidget):
         if self.oldPage:
             statusBar = self.parent().statusBar()
             statusBar.removeWidget(self.oldPage.listView.listCountLabel)
+            self.oldPage.listView.listCountLabel.hide()
             statusBar.removeWidget(self.oldPage.listView.listSelectedLabel)
+            self.oldPage.listView.listSelectedLabel.hide()
 
     def updatePage(self, page):
         parent = self.parent()
@@ -192,7 +195,7 @@ class TabView(QTabWidget):
             self.removeTab(0)
             w.deleteLater()
         self.currentChanged.connect(self.activatedPage)
-
+        
         self.clearStatusBar()
 
     def setCollection(self, collection):

@@ -1,8 +1,8 @@
 import sys
 
-from PyQt5.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QRect, QPoint
-from PyQt5.QtGui import QImage, QKeySequence, QPainter
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QRect, QPoint
+from PySide6.QtGui import QImage, QKeySequence, QPainter
+from PySide6.QtWidgets import *
 
 import OpenNumismat
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator

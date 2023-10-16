@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from PyQt5 import QtCore, QtSql
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtCore import QSortFilterProxyModel
-from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import *
+from PySide6 import QtCore, QtSql
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtCore import Qt
+from PySide6.QtCore import QSortFilterProxyModel
+from PySide6.QtGui import QPixmap, QIcon
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Signal as pyqtSignal
 
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
 

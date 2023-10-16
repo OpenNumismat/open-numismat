@@ -1,9 +1,9 @@
 import sys
 import urllib.request
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 
 from OpenNumismat.Collection.Collection import Collection
 from OpenNumismat.Collection.Description import DescriptionDialog
@@ -14,13 +14,15 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.SettingsDialog import SettingsDialog
 from OpenNumismat.LatestCollections import LatestCollections
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+from OpenNumismat.Tools.misc import versiontuple
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
-from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
+# from OpenNumismat.FindDialog import FindDialog
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
 from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
+from OpenNumismat.TagsDialog import TagsDialog
 
 from OpenNumismat.Collection.Import import *
 
@@ -65,6 +67,11 @@ class MainWindow(QMainWindow):
         self.viewButton.setMenu(viewMenu)
         self.viewButton.setDefaultAction(self.tableViewAct)
 
+        # findAct = QAction(QIcon(':/binoculars.png'),
+        #                   "Find...", self)
+        # findAct.triggered.connect(self.findEvent)
+        # self.collectionActs.append(findAct)
+
         colnectAct = QAction(QIcon(':/colnect.png'),
                              "Colnect", self)
         colnectAct.triggered.connect(self.colnectEvent)
@@ -81,19 +88,17 @@ class MainWindow(QMainWindow):
         self.detailsAct.triggered.connect(self.detailsEvent)
         self.collectionActs.append(self.detailsAct)
 
-        if statisticsAvailable:
-            self.statisticsAct = QAction(QIcon(':/chart-bar.png'),
-                                         self.tr("Statistics"), self)
-            self.statisticsAct.setCheckable(True)
-            self.statisticsAct.triggered.connect(self.statisticsEvent)
-            self.collectionActs.append(self.statisticsAct)
+        self.statisticsAct = QAction(QIcon(':/chart-bar.png'),
+                                     self.tr("Statistics"), self)
+        self.statisticsAct.setCheckable(True)
+        self.statisticsAct.triggered.connect(self.statisticsEvent)
+        self.collectionActs.append(self.statisticsAct)
 
-        if importedQtWebKit:
-            self.mapAct = QAction(QIcon(':/world.png'),
-                                  self.tr("Map"), self)
-            self.mapAct.setCheckable(True)
-            self.mapAct.triggered.connect(self.mapEvent)
-            self.collectionActs.append(self.mapAct)
+        self.mapAct = QAction(QIcon(':/world.png'),
+                              self.tr("Map"), self)
+        self.mapAct.setCheckable(True)
+        self.mapAct.triggered.connect(self.mapEvent)
+        self.collectionActs.append(self.mapAct)
 
         summaryAct = QAction(self.tr("Summary"), self)
         summaryAct.triggered.connect(self.summaryEvent)
@@ -102,7 +107,6 @@ class MainWindow(QMainWindow):
         settingsAct = QAction(QIcon(':/cog.png'),
                               self.tr("Settings..."), self)
         settingsAct.triggered.connect(self.settingsEvent)
-        self.collectionActs.append(settingsAct)
 
         self.enableDragAct = QAction(QIcon(':/arrow_switch.png'),
                                      self.tr("Sort by drag-n-drop mode"), self)
@@ -287,28 +291,27 @@ class MainWindow(QMainWindow):
         pasteCoinAct.triggered.connect(self.pasteCoin)
         self.collectionActs.append(pasteCoinAct)
 
-        coin = menubar.addMenu(self.tr("Coin"))
-        self.collectionActs.append(coin)
-        coin.addAction(addCoinAct)
-        coin.addAction(editCoinAct)
-        coin.addSeparator()
+        record = menubar.addMenu(self.tr("Record"))
+        self.collectionActs.append(record)
+        record.addAction(addCoinAct)
+        record.addAction(editCoinAct)
+        record.addSeparator()
+        # record.addAction(findAct)
+        # record.addSeparator()
         if colnectAvailable:
-            coin.addAction(colnectAct)
+            record.addAction(colnectAct)
         if ansAvailable:
-            coin.addAction(ansAct)
-        coin.addSeparator()
-        coin.addAction(copyCoinAct)
-        coin.addAction(pasteCoinAct)
-        coin.addSeparator()
-        coin.addAction(deleteCoinAct)
+            record.addAction(ansAct)
+        record.addSeparator()
+        record.addAction(copyCoinAct)
+        record.addAction(pasteCoinAct)
+        record.addSeparator()
+        record.addAction(deleteCoinAct)
 
         detailsMenu = QMenu(self.tr("Details"), self)
-        if statisticsAvailable or importedQtWebKit:
-            detailsMenu.addAction(self.detailsAct)
-            if statisticsAvailable:
-                detailsMenu.addAction(self.statisticsAct)
-            if importedQtWebKit:
-                detailsMenu.addAction(self.mapAct)
+        detailsMenu.addAction(self.detailsAct)
+        detailsMenu.addAction(self.statisticsAct)
+        detailsMenu.addAction(self.mapAct)
 
         view = menubar.addMenu(self.tr("&View"))
         self.collectionActs.append(view)
@@ -345,6 +348,9 @@ class MainWindow(QMainWindow):
 
         self.referenceMenu = menubar.addMenu(self.tr("Reference"))
         self.collectionActs.append(self.referenceMenu)
+
+        self.tagsAct = QAction(self.tr("Tags..."), self)
+        self.tagsAct.triggered.connect(self.tagsEvent)
 
         reportAct = QAction(self.tr("Report..."), self)
         reportAct.setShortcut(QKeySequence.Print)
@@ -407,14 +413,13 @@ class MainWindow(QMainWindow):
         toolBar.addAction(actions['save_sorting'])
         toolBar.addAction(self.enableDragAct)
         toolBar.addSeparator()
+        # toolBar.addAction(findAct)
+        # toolBar.addSeparator()
         toolBar.addAction(settingsAct)
-        if statisticsAvailable or importedQtWebKit:
-            toolBar.addSeparator()
-            toolBar.addAction(self.detailsAct)
-            if statisticsAvailable:
-                toolBar.addAction(self.statisticsAct)
-            if importedQtWebKit:
-                toolBar.addAction(self.mapAct)
+        toolBar.addSeparator()
+        toolBar.addAction(self.detailsAct)
+        toolBar.addAction(self.statisticsAct)
+        toolBar.addAction(self.mapAct)
         if colnectAvailable or ansAvailable:
             toolBar.addSeparator()
         if colnectAvailable:
@@ -518,6 +523,11 @@ class MainWindow(QMainWindow):
         page.changeView(type_)
         self.viewTab.updatePage(page)
 
+    def findEvent(self):
+        model = self.viewTab.currentModel()
+        dialog = FindDialog(model, self)
+        dialog.exec_()
+
     def colnectEvent(self):
         model = self.viewTab.currentModel()
         dialog = ColnectDialog(model, self)
@@ -530,10 +540,8 @@ class MainWindow(QMainWindow):
 
     def updateInfoType(self, info_type):
         self.detailsAct.setChecked(False)
-        if statisticsAvailable:
-            self.statisticsAct.setChecked(False)
-        if importedQtWebKit:
-            self.mapAct.setChecked(False)
+        self.statisticsAct.setChecked(False)
+        self.mapAct.setChecked(False)
 
         if info_type == CollectionPageTypes.Statistics:
             self.statisticsAct.setChecked(True)
@@ -570,6 +578,13 @@ class MainWindow(QMainWindow):
         model = self.viewTab.currentModel()
         dialog = SummaryDialog(model, self)
         dialog.exec_()
+
+    def tagsEvent(self):
+        model = self.viewTab.currentModel()
+        dialog = TagsDialog(model.database(), self)
+        res = dialog.exec_()
+        if res == QDialog.Accepted:
+            model.tagsChanged.emit()
 
     def restart(self):
         self.close()
@@ -656,7 +671,7 @@ class MainWindow(QMainWindow):
     def importExcel(self):
         defaultDir = ImportExcel.defaultDir()
         file, _selectedFilter = QFileDialog.getOpenFileName(
-            self, self.tr("Select file"), defaultDir, "*.xls *.xlsx")
+            self, self.tr("Select file"), defaultDir, "*.xlsx")
         if file:
             imp = ImportExcel(self)
             imp.importData(file, self.viewTab.currentModel())
@@ -765,6 +780,11 @@ class MainWindow(QMainWindow):
         self.collection.backup()
 
     def vacuumCollectionEvent(self):
+        # Fetch all List models before vacuum
+        for i in range(self.viewTab.count()):
+            listView = self.viewTab.widget(i)
+            listView.modelChanged()
+
         self.collection.vacuum()
 
     def mergeCollectionEvent(self):
@@ -805,6 +825,11 @@ class MainWindow(QMainWindow):
         self.viewTab.setCollection(collection)
 
         self.referenceMenu.clear()
+
+        if collection.settings['tags_used']:
+            self.referenceMenu.addAction(self.tagsAct)
+            self.referenceMenu.addSeparator()
+
         for action in self.collection.referenceMenu(self):
             self.referenceMenu.addAction(action)
 
@@ -890,8 +915,8 @@ class MainWindow(QMainWindow):
         settings = QSettings()
         settings.setValue('mainwindow/last_update', currentDateStr)
 
-        newVersion = self.__getNewVersion()
-        if newVersion and newVersion != version.Version:
+        new_version = self.__getNewVersion()
+        if versiontuple(new_version) > versiontuple(version.Version):
             result = QMessageBox.question(self, self.tr("New version"),
                         self.tr("New version is available. Download it now?"),
                         QMessageBox.Yes | QMessageBox.No,
@@ -911,16 +936,14 @@ class MainWindow(QMainWindow):
     def __getNewVersion(self):
         from xml.dom.minidom import parseString
 
-        newVersion = version.Version
-
         try:
             url = "http://opennumismat.github.io/data/pad.xml"
             req = urllib.request.Request(url)
-            data = urllib.request.urlopen(req, timeout=10).read()
+            data = urllib.request.urlopen(req, timeout=2).read()
             xml = parseString(data)
             tag = xml.getElementsByTagName('Program_Version')[0]
             newVersion = tag.firstChild.nodeValue
         except:
-            return None
+            return "0.0.0"
 
         return newVersion

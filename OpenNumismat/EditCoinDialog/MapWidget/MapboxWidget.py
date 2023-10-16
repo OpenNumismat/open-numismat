@@ -11,10 +11,6 @@ try:
     from OpenNumismat.private_keys import MAPBOX_ACCESS_TOKEN
 except ImportError:
     mapboxAvailable = False
-else:
-    from .MapWidget import importedQtWebEngine
-    if not importedQtWebEngine:
-        mapboxAvailable = False
 
 
 class MapboxWidget(BaseMapWidget):

@@ -1,7 +1,7 @@
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QStandardPaths
-from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import *
+from PySide6 import QtCore
+from PySide6.QtCore import Qt, QStandardPaths
+from PySide6.QtGui import QCursor
+from PySide6.QtWidgets import *
 
 
 class _InvalidDatabaseError(Exception):

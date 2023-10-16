@@ -2,19 +2,20 @@ import operator
 import pickle
 import os.path
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QMargins, pyqtSignal, QSortFilterProxyModel
-from PyQt5.QtCore import QCollator, QLocale
-from PyQt5.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
-from PyQt5.QtCore import QRectF, QRect
-from PyQt5.QtSql import QSqlQuery
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6 import QtCore
+from PySide6.QtCore import QMargins, QSortFilterProxyModel
+from PySide6.QtCore import QCollator, QLocale
+from PySide6.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
+from PySide6.QtCore import QRectF, QRect
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Signal as pyqtSignal
 
 import OpenNumismat
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import StatusesOrder
+from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.SelectColumnsDialog import SelectColumnsDialog
 from OpenNumismat.Collection.HeaderFilterMenu import FilterMenuButton
 from OpenNumismat.Tools import Gui, TemporaryDir
@@ -59,7 +60,7 @@ class BaseTableView(QTableView):
         self.selectedId = None
 
         self.listCountLabel = QLabel()
-        self.listSelectedLabel = QLabel(QApplication.translate('BaseTableView', "0 coins selected"))
+        self.listSelectedLabel = QLabel(QApplication.translate('BaseTableView', "0 records selected"))
 
     def _sortChangedMessage(self):
         return QMessageBox.information(
@@ -108,7 +109,7 @@ class BaseTableView(QTableView):
         query.first()
         totalCount = query.record().value(0)
 
-        labelText = QApplication.translate('BaseTableView', "%d/%d coins") % (newCount, totalCount)
+        labelText = QApplication.translate('BaseTableView', "%d/%d records") % (newCount, totalCount)
         self.listCountLabel.setText(labelText)
 
     def itemDClicked(self, _index):
@@ -154,7 +155,7 @@ class BaseTableView(QTableView):
 
     def selectionChanged(self, selected, deselected):
         count = len(self.selectedCoins())
-        label = QApplication.translate('BaseTableView', "%n coin(s) selected",
+        label = QApplication.translate('BaseTableView', "%n record(s) selected",
                                        '', count)
         self.listSelectedLabel.setText(label)
         return super().selectionChanged(selected, deselected)
@@ -216,19 +217,15 @@ class BaseTableView(QTableView):
                 QApplication.translate('BaseTableView', "Nothing selected"))
 
     def saveTable(self):
-        filters = (QApplication.translate('BaseTableView', "Excel document (*.xls)"),
+        filters = (QApplication.translate('BaseTableView', "Excel document (*.xlsx)"),
                    QApplication.translate('BaseTableView', "Web page (*.htm *.html)"),
                    QApplication.translate('BaseTableView', "Text file (*.csv)"),
                    QApplication.translate('BaseTableView', "Text file UTF-8 (*.csv)"))
-        if not ExportToExcel.isAvailable():
-            availableFilters = filters[1:]
-        else:
-            availableFilters = filters
 
         defaultFileName = self.listParam.page.title
         fileName, selectedFilter = getSaveFileName(
             self, 'export_table', defaultFileName,
-            OpenNumismat.HOME_PATH, availableFilters)
+            OpenNumismat.HOME_PATH, filters)
         if fileName:
             model = self.model()
             progressDlg = Gui.ProgressDialog(
@@ -255,7 +252,7 @@ class BaseTableView(QTableView):
                     continue
 
                 field = model.fields.field(param.fieldid)
-                if field.type in Type.ImageTypes:
+                if not export.acceptImages() and field.type in Type.ImageTypes:
                     continue
 
                 parts.append(field.title)
@@ -269,11 +266,11 @@ class BaseTableView(QTableView):
 
                 parts = []
                 for param in self.listParam.columns:
-                    field = model.fields.field(param.fieldid)
-                    if field.type in Type.ImageTypes:
+                    if not param.enabled:
                         continue
 
-                    if not param.enabled:
+                    field = model.fields.field(param.fieldid)
+                    if not export.acceptImages() and field.type in Type.ImageTypes:
                         continue
 
                     field_index = model.index(i, model.fieldIndex(field.name))
@@ -560,7 +557,7 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         if left.column() == self.status_id:
             leftData = self.model.dataDisplayRole(left)
             rightData = self.model.dataDisplayRole(right)
-            return StatusesOrder[leftData] < StatusesOrder[rightData]
+            return Statuses.compare(leftData, rightData) < 0
         else:
             leftData = self.model.dataDisplayRole(left)
             rightData = self.model.dataDisplayRole(right)

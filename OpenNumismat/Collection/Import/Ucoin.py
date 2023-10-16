@@ -3,7 +3,7 @@
 import csv
 import sys
 
-from PyQt5.QtCore import QStandardPaths
+from PySide6.QtCore import QStandardPaths
 
 from OpenNumismat.Collection.Import import _Import
 from OpenNumismat.Collection.Import.Excel import ImportExcel
@@ -101,7 +101,7 @@ class ImportUcoin2(ImportExcel):
     def defaultField(self, col, combo):
         res = 0
 
-        if self.sheet.ncols == 12:  # Swap-List
+        if self.sheet.max_column == 12:  # Swap-List
             if col == 0:
                 res = combo.findText(self.fields.country.title)
             elif col == 1:
@@ -122,7 +122,7 @@ class ImportUcoin2(ImportExcel):
                 res = combo.findText(self.fields.catalognum1.title)
             elif col == 10:
                 res = combo.findText(self.fields.features.title)
-        elif self.sheet.ncols == 17:
+        elif self.sheet.max_column == 17:
             if col == 0:
                 res = combo.findText(self.fields.country.title)
             elif col == 1:
@@ -175,7 +175,7 @@ class ImportUcoin2(ImportExcel):
         return res
 
     def defaultStatus(self):
-        if self.sheet.ncols == 12:
+        if self.sheet.max_column == 12:
             return 'sale'
         else:
             return 'owned'

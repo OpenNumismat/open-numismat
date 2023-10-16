@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt, QSettings, QMargins, QFileInfo
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import Qt, QSettings, QMargins, QFileInfo
+from PySide6.QtWidgets import *
 
 import OpenNumismat
 

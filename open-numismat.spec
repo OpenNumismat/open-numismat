@@ -7,7 +7,6 @@ include_files = [
             ("OpenNumismat/translations", "translations"),
             ("OpenNumismat/templates", "templates"),
             ("OpenNumismat/db", "db"),
-            ("OpenNumismat/opennumismat.mplstyle", "."),
         ]
 
 a = Analysis(['open-numismat.py'],
@@ -34,8 +33,10 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False,
+#          target_arch='universal2',
           icon='icons/main.ico',
-          version='file_version_info.txt')
+          version='file_version_info.txt',
+          contents_directory='.') # https://pyinstaller.org/en/latest/runtime-information.html
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
@@ -47,7 +48,7 @@ coll = COLLECT(exe,
 app = BUNDLE(coll,
          name='OpenNumismat.app',
          icon='OpenNumismat.icns',
-         version='1.8.22',
+         version='1.9.4',
          info_plist={'NSPrincipalClass': 'NSApplication'},
          bundle_identifier=None)
 
@@ -63,45 +64,34 @@ if WIN32:
     bin_dir = "dist/OpenNumismat/"
     pyd_ext = ".pyd"
 else:
-    bin_dir = "dist/OpenNumismat.app/Contents/MacOS/"
+    bin_dir = "dist/OpenNumismat.app/Contents/Frameworks/"
     pyd_ext = ".abi3.so"
 
-for sub_folder in ("fonts", "images", "sample_data", "stylelib"):
-    shutil.rmtree(bin_dir + "matplotlib/mpl-data/" + sub_folder)
-for sub_folder in ("qml", "translations"):
-    shutil.rmtree(bin_dir + "PyQt5/Qt5/" + sub_folder)
-for sub_folder in ("audio", "bearer", "geoservices", "mediaservice",
-                "playlistformats", "position", "sensorgestures", "sensors"):
-    shutil.rmtree(bin_dir + "PyQt5/Qt5/plugins/" + sub_folder, ignore_errors=True)
+for sub_folder in ("qml",):
+    if WIN32:
+        shutil.rmtree(bin_dir + "PySide6/" + sub_folder)
+    else:
+        shutil.rmtree(bin_dir + "PySide6/Qt/" + sub_folder)
 
-for f in ("QtBluetooth", "QtDBus", "QtDesigner",
-          "QtLocation", "QtMultimedia", "QtMultimediaWidgets",
-          "QtNfc", "QtOpenGL", "QtPositioning",
-          "QtQml", "QtQuick", "QtQuick3D", "QtQuickWidgets"):
+for f in ("QtPositioning",
+          "QtQml", "QtQuick", "QtQuickWidgets",):
     try:
-        os.remove(bin_dir + "PyQt5/" + f + pyd_ext)
+        os.remove(bin_dir + "PySide6/" + f + pyd_ext)
     except OSError:
+        print("Missed file:", "PySide6/" + f + pyd_ext)
         pass
 
 if WIN32:
-    for f in ("opengl32sw.dll", "Qt5Bluetooth.dll", "Qt5DBus.dll", "Qt5Designer.dll",
-              "Qt5Location.dll", "Qt5Multimedia.dll", "Qt5MultimediaWidgets.dll",
-              "Qt5Nfc.dll", "Qt5OpenGL.dll", "Qt5QuickParticles.dll", "Qt5QuickTemplates2.dll",
-              "Qt5QmlWorkerScript.dll", "Qt5Quick3D.dll", "Qt5Quick3DAssetImport.dll",
-              "Qt5Quick3DRender.dll", "Qt5Quick3DRuntimeRender.dll", "Qt5Quick3DUtils.dll"
-              ):
-        try:
-            os.remove(bin_dir + f)
-        except OSError:
-            pass
+    pass
 else:
     for f in ("QtBluetooth", "QtDesigner",
               "QtLocation", "QtMultimedia", "QtMultimediaWidgets",
-              "QtNfc", "QtOpenGL", "QtQuickParticles", "QtQuickTemplates2",
+              "QtNfc", "QtQuickParticles", "QtQuickTemplates2",
               "QtQmlWorkerScript", "QtQuick3D", "QtQuick3DAssetImport",
-              "QtQuick3DRender", "QtQuick3DRuntimeRender", "QtQuick3DUtils"
+              "QtQuick3DRender", "QtQuick3DRuntimeRender", "QtQuick3DUtils",
               ):
         try:
             os.remove(bin_dir + f)
         except OSError:
+            print("Missed file:", f)
             pass

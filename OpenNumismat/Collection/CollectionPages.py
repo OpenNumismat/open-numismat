@@ -1,11 +1,10 @@
-from PyQt5 import QtCore
-from PyQt5.QtSql import QSqlQuery
+from PySide6 import QtCore
+from PySide6.QtSql import QSqlQuery
 
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.ListPageParam import ListPageParam
 from OpenNumismat.Collection.TreeParam import TreeParam
 from OpenNumismat.Collection.StatisticsParam import StatisticsParam
-from OpenNumismat.StatisticsView import statisticsAvailable, importedQtWebKit
 
 
 class CollectionPageTypes:
@@ -29,10 +28,6 @@ class CollectionPageParam(QtCore.QObject):
         setattr(self, 'type',
                 record.value('type') & CollectionPageTypes.TypeMask)
         info_type = record.value('type') & CollectionPageTypes.InfoTypeMask
-        if info_type == CollectionPageTypes.Statistics and not statisticsAvailable:
-            info_type = CollectionPageTypes.Details
-        if info_type == CollectionPageTypes.Map and not importedQtWebKit:
-            info_type = CollectionPageTypes.Details
         setattr(self, 'info_type', info_type)
 
 

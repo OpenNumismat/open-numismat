@@ -1,8 +1,9 @@
 import urllib.request
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+from PySide6.QtCore import Signal as pyqtSignal
 
 import OpenNumismat
 from OpenNumismat.ImageViewer import ImageViewer
@@ -16,7 +17,7 @@ class ImageLabel(QLabel):
     MimeType = 'num/image'
     imageEdited = pyqtSignal(QLabel)
 
-    def __init__(self, field, parent=None):
+    def __init__(self, field=None, parent=None):
         super().__init__(parent)
 
         self.field = field or 'photo'
@@ -34,11 +35,13 @@ class ImageLabel(QLabel):
     def contextMenuEvent(self, event):
         open_ = QAction(self.tr("Open"), self)
         open_.triggered.connect(self.openImage)
+        open_.setDisabled(self.image.isNull())
 
         use_external_viewer = not Settings()['built_in_viewer']
         if use_external_viewer:
             edit = QAction(self.tr("Edit..."), self)
             edit.triggered.connect(self.editImage)
+            edit.setDisabled(self.image.isNull())
 
         copy = QAction(self.tr("Copy"), self)
         copy.triggered.connect(self.copyImage)
@@ -88,7 +91,8 @@ class ImageLabel(QLabel):
         self.imageEdited.emit(self)
 
     def mouseDoubleClickEvent(self, _e):
-        self.openImage()
+        if not self.image.isNull():
+            self.openImage()
 
     def clear(self):
         self._data = None
@@ -170,15 +174,18 @@ class ImageLabel(QLabel):
 
 class ImageEdit(ImageLabel):
     latestDir = OpenNumismat.IMAGE_PATH
+    imageChanged = pyqtSignal(QLabel)
 
-    def __init__(self, field, label, parent=None):
+    def __init__(self, field=None, label=None, parent=None):
         super().__init__(field, parent)
 
         self.label = label
         self.title = None
 
-        self.label.mouseDoubleClickEvent = self.renameImageEvent
+        if label:
+            self.label.mouseDoubleClickEvent = self.renameImageEvent
 
+        self.setAcceptDrops(True)
         self.setFrameStyle(QFrame.Panel | QFrame.Plain)
 
         text = QApplication.translate('ImageEdit', "Exchange with")
@@ -235,9 +242,10 @@ class ImageEdit(ImageLabel):
         else:
             menu.setDefaultAction(open_act)
         menu.addAction(save_act)
-        menu.addSeparator()
-        menu.addAction(rename_act)
-        menu.addMenu(self.exchangeMenu)
+        if self.label:
+            menu.addSeparator()
+            menu.addAction(rename_act)
+            menu.addMenu(self.exchangeMenu)
         menu.addSeparator()
         menu.addAction(copy_act)
         menu.addAction(paste_act)
@@ -295,12 +303,29 @@ class ImageEdit(ImageLabel):
             # Load image by URL
             self.loadFromUrl(mime.text())
 
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dragMoveEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        mime = event.mimeData()
+        if mime.hasUrls():
+            url = mime.urls()[0]
+            self.loadFromFile(url.toLocalFile())
+
     def clear(self):
         super().clear()
         self.changed = False
+        self.imageChanged.emit(self)
 
         text = QApplication.translate('ImageEdit',
-                        "No image available\n(right-click to add an image)")
+                        "No image available\n"\
+                        "(double-click, right-click or\n"\
+                        "drag-n-drop to add an image)")
         self.setText(text)
 
     def loadFromFile(self, fileName):
@@ -392,3 +417,9 @@ class ImageEdit(ImageLabel):
 
         self._setImage(fixedImage)
         self.changed = True
+        self.imageChanged.emit(self)
+
+    def loadFromData(self, data):
+        result = super().loadFromData(data)
+        self.imageChanged.emit(self)
+        return result

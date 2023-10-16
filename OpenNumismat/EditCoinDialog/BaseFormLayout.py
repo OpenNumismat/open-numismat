@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import *
+from PySide6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import *
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit
@@ -36,6 +36,8 @@ class FormItem(object):
                     self._widget = GraderLineEdit(parent)
                 elif self._field == 'native_year':
                     self._widget = NativeYearEdit(parent)
+                elif self._field == 'rating':
+                    self._widget = RatingEdit(settings['stars_count'], parent)
                 else:
                     self._widget = LineEdit(parent)
         elif self._type == Type.ShortString:
@@ -43,6 +45,13 @@ class FormItem(object):
         elif self._type == Type.Number:
             if self._field == 'year' and settings['enable_bc']:
                 self._widget = YearEdit(settings['free_numeric'], parent)
+            elif self._field == 'axis':
+                if settings['axis_in_hours']:
+                    self._widget = AxisHourEdit(parent)
+                elif settings['free_numeric']:
+                    self._widget = UserNumericEdit(parent)
+                else:
+                    self._widget = AxisDegreeEdit(parent)
             else:
                 if settings['free_numeric']:
                     self._widget = UserNumericEdit(parent)
@@ -161,7 +170,7 @@ class FormItem(object):
         if isinstance(self._widget, ImageEdit):
             self._widget.loadFromData(value)
         elif isinstance(self._widget, QSpinBox):
-            self._widget.setValue(int(value))
+            self._widget.setText(value)
         elif isinstance(self._widget, QDoubleSpinBox):
             self._widget.setValue(float(value))
         elif isinstance(self._widget, QDateTimeEdit):
