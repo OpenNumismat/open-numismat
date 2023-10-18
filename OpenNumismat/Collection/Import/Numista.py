@@ -275,6 +275,8 @@ class ImportNumista(_Import2):
                 record.setValue(field, code)
         if 'comments' in item_data:
             record.setValue('note', item_data['comments'])
+        if 'technique' in item_data:
+            record.setValue('technique', item_data['technique']['text'])
 
         if 'obverse' in item_data:
             if 'engravers' in item_data['obverse']:
