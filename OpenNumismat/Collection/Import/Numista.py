@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import json
 import re
 import urllib.request
@@ -12,6 +14,7 @@ from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.Settings import Settings
+from OpenNumismat.Tools.Converters import numberToFraction
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 numistaAvailable = True
@@ -219,10 +222,10 @@ class ImportNumista(_Import2):
             if 'text' in item_data['value']:
                 denomination = item_data['value']['text']
                 if self.split_denomination:
-                    parts = re.match(r'(^[0-9,\.\s\-/]+)(.*)', denomination)
+                    parts = re.match(r'(^[0-9⅒⅛⅙⅕¼⅓½⅔¾,\.\s\-/⁄⅟]+)(.*)', denomination)
                     if parts:
                         value, unit = parts.groups()
-                        record.setValue('value', value)
+                        record.setValue('value', numberToFraction(value.strip()))
                         record.setValue('unit', unit)
                     else:
                         record.setValue('unit', denomination)
