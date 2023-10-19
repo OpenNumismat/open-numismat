@@ -185,10 +185,10 @@ class EditCoinDialog(QDialog):
         result = super().exec_()
 
         widget = self.items['region'].widget()
-        if isinstance(widget, LineEditRef):
+        if isinstance(widget, LineEditRef) and widget.hasDependents():
             widget.comboBox.editTextChanged.disconnect()
         widget = self.items['country'].widget()
-        if isinstance(widget, LineEditRef):
+        if isinstance(widget, LineEditRef) and widget.hasDependents():
             widget.comboBox.editTextChanged.disconnect()
 
         return result

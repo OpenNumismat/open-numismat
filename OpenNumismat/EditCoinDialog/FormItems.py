@@ -411,6 +411,9 @@ class LineEditRef(QWidget):
             self.comboBox.editTextChanged.connect(self.updateDependents)
         self.dependents.append(reference)
 
+    def hasDependents(self):
+        return bool(self.dependents)
+
     def updateDependents(self, index):
         if isinstance(index, str):
             index = self.comboBox.findText(index)
