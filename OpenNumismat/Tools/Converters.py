@@ -36,8 +36,12 @@ def numberWithFraction(string, enabled=True):
     if enabled:
         try:
             value = float(string)
-            if value == 0.04:
+            if value == 0.02:
+                return '1⁄48', True
+            elif value == 0.04:
                 return '1⁄24', True
+            elif value == 0.05:
+                return '1⁄20', True
             elif value == 0.06:
                 return '1⁄16', True
             elif value == 0.08:
@@ -66,6 +70,8 @@ def numberWithFraction(string, enabled=True):
                 return '1½', True
             elif value == 2.5:
                 return '2½', True
+            elif value == 4.5:
+                return '4½', True
             elif value == 7.5:
                 return '7½', True
             elif value == 12.5:
@@ -77,8 +83,12 @@ def numberWithFraction(string, enabled=True):
 
 
 def numberToFraction(text):
-    if text == '⅟24' or text == '1⁄24' or text == '1/24':
+    if text == '⅟48' or text == '1⁄48' or text == '1/48':
+        text = '0.02'
+    elif text == '⅟24' or text == '1⁄24' or text == '1/24':
         text = '0.04'
+    elif text == '⅟20' or text == '1⁄20' or text == '1/20':
+        text = '0.05'
     elif text == '⅟16' or text == '1⁄16' or text == '1/16':
         text = '0.06'
     elif text == '⅟12' or text == '1⁄12' or text == '1/12':
@@ -107,6 +117,8 @@ def numberToFraction(text):
         text = '1.5'
     elif text == '2½':
         text = '2.5'
+    elif text == '4½':
+        text = '4.5'
     elif text == '7½':
         text = '7.5'
     elif text == '12½':
