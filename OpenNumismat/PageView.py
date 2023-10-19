@@ -447,6 +447,7 @@ class TreeView(QTreeWidget):
         # Fill new record with values of first record
         for j in range(newRecord.count()):
             newRecord.setValue(j, self.model.record(0).value(j))
+        tag_ids = self.model.record(0).value('tags')
 
         for i in range(self.model.rowCount()):
             record = self.model.record(i)
@@ -454,6 +455,8 @@ class TreeView(QTreeWidget):
                 value = record.value(j)
                 if newRecord.value(j) != value or not value:
                     newRecord.setNull(j)
+            tag_ids = list([tag_id for tag_id in tag_ids if tag_id in record.value('tags')])
+        newRecord.setValue('tags', tag_ids)
 
         self.model.addCoin(newRecord, self)
 
