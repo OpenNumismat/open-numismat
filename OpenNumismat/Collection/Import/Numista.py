@@ -178,7 +178,10 @@ class ImportNumista(_Import2):
         if 'gregorian_year' in item['issue']:
             item['issue']['year'] = item['issue']['gregorian_year']
         if 'year' not in item['issue']:
-            item['issue']['year'] = ''
+            if 'min_year' in item['issue'] and 'max_year' in item['issue'] and item['issue']['min_year'] == item['issue']['max_year']:
+                item['issue']['year'] = item['issue']['min_year']
+            else:
+                item['issue']['year'] = ''
         if 'mint_letter' not in item['issue']:
             item['issue']['mint_letter'] = ''
         if 'private_comment' not in item:
