@@ -170,9 +170,11 @@ Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescripti
 Type: filesandordirs; Name: {app}\*.dist-info;
 Type: filesandordirs; Name: {app}\win32com;
 Type: filesandordirs; Name: {app}\matplotlib;
+Type: filesandordirs; Name: {app}\numpy;
 Type: filesandordirs; Name: {app}\PyQt5;
 Type: files; Name: {app}\*.cp39-win_amd64.pyd;
 Type: files; Name: {app}\*.cp310-win_amd64.pyd;
+Type: files; Name: {app}\win32*.pyd;
 Type: files; Name: {app}\Qt5*.dll;
 Type: files; Name: {app}\pythoncom3*.dll;
 Type: files; Name: {app}\pywintypes3*.dll;
