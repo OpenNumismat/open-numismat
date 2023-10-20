@@ -1,0 +1,3 @@
+[submodule "OpenNumismat/EditCoinDialog/YearCalculator"]
+	path = OpenNumismat/EditCoinDialog/YearCalculator
+	url = https://github.com/OpenNumismat/YearCalculator
