@@ -3366,7 +3366,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Burmese</source>
-        <translation>бирмански</translation>
+        <translation>бирманска</translation>
     </message>
 </context>
 <context>
