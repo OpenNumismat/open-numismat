@@ -1023,7 +1023,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
-        <translation>Превръщам 0.5 в ½ (поддържа ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
+        <translation>Преобразуване на 0.5 в ½ (поддържа ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
     <message>
         <source>Enable BC</source>
