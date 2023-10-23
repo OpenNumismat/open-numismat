@@ -3330,7 +3330,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation>еврейски</translation>
+        <translation>еврейска</translation>
     </message>
     <message>
         <source>Units</source>
