@@ -3338,7 +3338,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Islamic</source>
-        <translation>ислямски</translation>
+        <translation>ислямска</translation>
     </message>
     <message>
         <source>Solar hijri</source>
