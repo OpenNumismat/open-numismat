@@ -3354,7 +3354,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Roman</source>
-        <translation>римски</translation>
+        <translation>римска</translation>
     </message>
     <message>
         <source>Nepal</source>
