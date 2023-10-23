@@ -2433,7 +2433,7 @@ drag-n-drop to add an image)</source>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
-        <translation>Конвертиране на година</translation>
+        <translation>Преобразуване на година</translation>
     </message>
 </context>
 <context>
@@ -2909,7 +2909,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Save chart</source>
-        <translation>Запазване на диаграмата</translation>
+        <translation>Запазване на диаграма</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -3326,7 +3326,7 @@ Add a new one first.</source>
     <name>YearCalculatorDialog</name>
     <message>
         <source>Year calculator</source>
-        <translation>Конвертиране на година</translation>
+        <translation>Преобразуване на година</translation>
     </message>
     <message>
         <source>Hebrew</source>
