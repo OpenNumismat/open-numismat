@@ -999,7 +999,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Title template</source>
-        <translation>Заглавен шаблон</translation>
+        <translation>Шаблон за наименованието</translation>
     </message>
     <message>
         <source>Max image side len</source>
