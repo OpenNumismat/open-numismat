@@ -65,8 +65,7 @@ class TagsTreeWidget(QTreeWidget):
         if record:
             self.record = record
             self.tag_ids = record.value('tags')
-            if self.tag_ids:
-                self.execForAll(self.markItem)
+            self.execForAll(self.markItem)
 
     def markItem(self, item):
         tag_id = item.data(0, Qt.UserRole)
