@@ -3342,7 +3342,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Solar hijri</source>
-        <translation>слънчева хиджри</translation>
+        <translation>иранска</translation>
     </message>
     <message>
         <source>Japan</source>
