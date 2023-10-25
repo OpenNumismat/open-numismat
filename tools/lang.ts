@@ -2,25 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name></name>
-    <message>
-        <source>Country</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Quantity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Saving</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image not ready. Please try again later</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
@@ -1668,6 +1649,25 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GeoChart</name>
+    <message>
+        <source>Country</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image not ready. Please try again later</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3323,14 +3323,6 @@ Add a new one first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Solar hijri</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Japan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3348,6 +3340,14 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Burmese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Iranian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
