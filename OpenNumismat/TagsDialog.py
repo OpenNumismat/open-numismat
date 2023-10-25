@@ -14,6 +14,7 @@ class TagsTreeWidget(QTreeWidget):
         self.readonly = readonly
         self.db = db
         self.record = None
+        self.tristate = False
 
         self.setHeaderHidden(True)
 
@@ -63,26 +64,41 @@ class TagsTreeWidget(QTreeWidget):
 
     def fill(self, record):
         if record:
+            if isinstance(record.value('tags'), dict):
+                self.tristate = True
             self.record = record
             self.tag_ids = record.value('tags')
             self.execForAll(self.markItem)
 
     def markItem(self, item):
+        if self.tristate:
+            item.setFlags(item.flags() | Qt.ItemIsUserTristate)
+
         tag_id = item.data(0, Qt.UserRole)
         if tag_id in self.tag_ids:
-            item.setCheckState(0, Qt.Checked)
+            if self.tristate:
+                item.setCheckState(0, self.tag_ids[tag_id])
+            else:
+                item.setCheckState(0, Qt.Checked)
         else:
             item.setCheckState(0, Qt.Unchecked)
 
     def getTags(self):
-        self.tag_ids = []
+        if self.tristate:
+            self.tag_ids = {}
+        else:
+            self.tag_ids = []
         self.execForAll(self.storeTagId)
         return self.tag_ids
 
     def storeTagId(self, item):
-        if item.checkState(0) == Qt.Checked:
+        if self.tristate:
             tag_id = item.data(0, Qt.UserRole)
-            self.tag_ids.append(tag_id)
+            self.tag_ids[tag_id] = item.checkState(0)
+        else:
+            if item.checkState(0) == Qt.Checked:
+                tag_id = item.data(0, Qt.UserRole)
+                self.tag_ids.append(tag_id)
 
     def execForAll(self, func):
         for i in range(self.topLevelItemCount()):

@@ -470,15 +470,27 @@ class TreeView(QTreeWidget):
 
         # Fill multi record for editing
         multiRecord = self.model.record(0)
+        tags = {}
+        for tag_id in multiRecord.value('tags'):
+            tags[tag_id] = Qt.Checked
         usedFields = [Qt.Checked] * multiRecord.count()
         for i in range(self.model.rowCount()):
             record = self.model.record(i)
+
+            tags_diff = set(tags).symmetric_difference(record.value('tags'))
+            for tag_id in tags_diff:
+                tags[tag_id] = Qt.PartiallyChecked
+
             for j in range(multiRecord.count()):
-                value = record.value(j)
-                if multiRecord.value(j) != value or not value:
-                    multiRecord.setNull(j)
+                field = record.field(j)
+                if field.name() == 'tags':
                     usedFields[j] = Qt.Unchecked
-        multiRecord.setValue('tags', [])
+                else:
+                    value = field.value()
+                    if multiRecord.value(j) != value or not value:
+                        multiRecord.setNull(j)
+                        usedFields[j] = Qt.Unchecked
+        multiRecord.setValue('tags', tags)
 
         # TODO: Make identical with ListView._multiEdit
         dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
@@ -490,6 +502,7 @@ class TreeView(QTreeWidget):
             # Fill records by used fields in multi record
             multiRecord = dialog.record
             usedFields = dialog.getUsedFields()
+            new_tags = multiRecord.value('tags')
             for i in range(self.model.rowCount()):
                 progressDlg.setValue(i)
                 if progressDlg.wasCanceled():
@@ -499,6 +512,15 @@ class TreeView(QTreeWidget):
                 for j in range(multiRecord.count()):
                     if usedFields[j] == Qt.Checked:
                         record.setValue(j, multiRecord.value(j))
+                cur_tags = record.value('tags')
+                for tag_id, state in new_tags.items():
+                    if state == Qt.Checked:
+                        if tag_id not in cur_tags:
+                            cur_tags.append(tag_id)
+                    elif state == Qt.Unchecked:
+                        if tag_id in cur_tags:
+                            cur_tags.remove(tag_id)
+                record.setValue('tags', cur_tags)
                 self.model.setRecord(i, record)
 
             self.model.submitAll()

@@ -320,15 +320,27 @@ class BaseTableView(QTableView):
 
         # Fill multi record for editing
         multiRecord = self.model().record(indexes[0].row())
+        tags = {}
+        for tag_id in multiRecord.value('tags'):
+            tags[tag_id] = Qt.Checked
         usedFields = [Qt.Checked] * multiRecord.count()
         for index in indexes:
             record = self.model().record(index.row())
-            for i in range(multiRecord.count()):
-                value = record.value(i)
-                if multiRecord.value(i) != value or not value:
-                    multiRecord.setNull(i)
-                    usedFields[i] = Qt.Unchecked
-        multiRecord.setValue('tags', [])
+
+            tags_diff = set(tags).symmetric_difference(record.value('tags'))
+            for tag_id in tags_diff:
+                tags[tag_id] = Qt.PartiallyChecked
+
+            for j in range(multiRecord.count()):
+                field = record.field(j)
+                if field.name() == 'tags':
+                    usedFields[j] = Qt.Unchecked
+                else:
+                    value = field.value()
+                    if multiRecord.value(j) != value or not value:
+                        multiRecord.setNull(j)
+                        usedFields[j] = Qt.Unchecked
+        multiRecord.setValue('tags', tags)
 
         dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
         result = dialog.exec_()
@@ -341,6 +353,7 @@ class BaseTableView(QTableView):
             # Fill records by used fields in multi record
             multiRecord = dialog.record
             usedFields = dialog.getUsedFields()
+            new_tags = multiRecord.value('tags')
 
             # Sort and reverse indexes for updating records that out
             # filtered after updating
@@ -355,6 +368,15 @@ class BaseTableView(QTableView):
                 for i in range(multiRecord.count()):
                     if usedFields[i] == Qt.Checked:
                         record.setValue(i, multiRecord.value(i))
+                cur_tags = record.value('tags')
+                for tag_id, state in new_tags.items():
+                    if state == Qt.Checked:
+                        if tag_id not in cur_tags:
+                            cur_tags.append(tag_id)
+                    elif state == Qt.Unchecked:
+                        if tag_id in cur_tags:
+                            cur_tags.remove(tag_id)
+                record.setValue('tags', cur_tags)
                 self.model().setRecord(index.row(), record)
 
             progressDlg.setLabelText(
