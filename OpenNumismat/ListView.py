@@ -328,6 +328,7 @@ class BaseTableView(QTableView):
                 if multiRecord.value(i) != value or not value:
                     multiRecord.setNull(i)
                     usedFields[i] = Qt.Unchecked
+        multiRecord.setValue('tags', [])
 
         dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
         result = dialog.exec_()

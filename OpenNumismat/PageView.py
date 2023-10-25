@@ -478,6 +478,7 @@ class TreeView(QTreeWidget):
                 if multiRecord.value(j) != value or not value:
                     multiRecord.setNull(j)
                     usedFields[j] = Qt.Unchecked
+        multiRecord.setValue('tags', [])
 
         # TODO: Make identical with ListView._multiEdit
         dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
