@@ -996,7 +996,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Images at bottom</source>
-        <translation>Изображенията на дъното</translation>
+        <translation>Изображенията в долната част на прозореца</translation>
     </message>
     <message>
         <source>Free format numeric fields</source>
