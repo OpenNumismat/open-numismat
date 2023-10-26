@@ -206,7 +206,7 @@ Mudar a posição do item só está disponível na ordenação predefinida. Limp
     </message>
     <message>
         <source>%n record(s) selected</source>
-        <translation>%n registos seleccionados</translation>
+        <translation>%n registo(s) seleccionado(s)</translation>
     </message>
     <message>
         <source>Report preview</source>
