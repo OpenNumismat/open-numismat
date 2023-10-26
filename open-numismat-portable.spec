@@ -1,6 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-block_cipher = None
+from OpenNumismat.version import Version, AppName
 
 include_files = [
     ("COPYING", "."),
@@ -20,10 +20,10 @@ a = Analysis(
     excludes=[],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
-    cipher=block_cipher,
+    cipher=None,
     noarchive=False,
 )
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
@@ -35,7 +35,6 @@ exe = EXE(
     strip=False,
     upx=True,
     console=False,
-    #          target_arch='universal2',
     icon="icons/main.ico",
     version="file_version_info.txt",
 )
@@ -107,8 +106,6 @@ else:
         except OSError:
             print("Missed file:", f)
             pass
-
-from OpenNumismat.version import Version, AppName
 
 if os.path.exists(AppName + "-" + Version + ".zip"):
     os.remove(AppName + "-" + Version + ".zip")
