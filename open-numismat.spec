@@ -1,5 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+from OpenNumismat.version import Version
+
 block_cipher = None
 
 include_files = [
@@ -48,7 +50,7 @@ coll = COLLECT(exe,
 app = BUNDLE(coll,
          name='OpenNumismat.app',
          icon='OpenNumismat.icns',
-         version='1.9.4',
+         version=Version,
          info_plist={'NSPrincipalClass': 'NSApplication'},
          bundle_identifier=None)
 
