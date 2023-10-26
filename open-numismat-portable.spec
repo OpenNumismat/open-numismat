@@ -1,7 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-from OpenNumismat.version import Version, AppName
-
 include_files = [
     ("COPYING", "."),
     ("OpenNumismat/translations", "translations"),
@@ -49,6 +47,7 @@ coll = COLLECT(
     name="OpenNumismat",
 )
 
+from OpenNumismat.version import Version, AppName
 
 import os
 import shutil

@@ -1,7 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-from OpenNumismat.version import Version
-
 include_files = [
     ("COPYING", "."),
     ("OpenNumismat/translations", "translations"),
@@ -50,6 +48,9 @@ coll = COLLECT(
     upx_exclude=[],
     name="OpenNumismat",
 )
+
+from OpenNumismat.version import Version
+
 app = BUNDLE(
     coll,
     name="OpenNumismat.app",
@@ -58,7 +59,6 @@ app = BUNDLE(
     info_plist={"NSPrincipalClass": "NSApplication"},
     bundle_identifier=None,
 )
-
 
 import os
 import shutil
