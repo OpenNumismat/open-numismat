@@ -28,10 +28,7 @@ def init_pathes():
 
     # Getting path where stored application data (icons, templates, etc)
     # sys.frozen is True when running from cx_Freeze/pyinstaller executable
-    if getattr(sys, 'frozen', False):
-        if sys.platform == 'darwin':
-            OpenNumismat.PRJ_PATH = os.path.join(os.path.dirname(sys.executable), '..', 'Resources')
-        else:
-            OpenNumismat.PRJ_PATH = os.path.dirname(sys.executable)
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        OpenNumismat.PRJ_PATH = sys._MEIPASS
     else:
         OpenNumismat.PRJ_PATH = os.path.abspath(os.path.dirname(__file__))
