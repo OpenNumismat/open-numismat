@@ -188,7 +188,7 @@
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
-        <translation>Nenhum registo seleccionado</translation>
+        <translation>0 registos seleccionados</translation>
     </message>
     <message>
         <source>Custom sorting</source>
