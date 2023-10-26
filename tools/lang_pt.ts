@@ -1,24 +1,5 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt">
 <context>
-    <name/>
-    <message>
-        <source>Country</source>
-        <translation>País</translation>
-    </message>
-    <message>
-        <source>Quantity</source>
-        <translation>Quantidade</translation>
-    </message>
-    <message>
-        <source>Saving</source>
-        <translation>A gravar</translation>
-    </message>
-    <message>
-        <source>Image not ready. Please try again later</source>
-        <translation>Imagem não pronta. Por favor, tente mais tarde</translation>
-    </message>
-</context>
-<context>
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
@@ -207,7 +188,7 @@
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
-        <translation>Nenhum registo seleccionado</translation>
+        <translation>0 registos seleccionados</translation>
     </message>
     <message>
         <source>Custom sorting</source>
@@ -225,7 +206,7 @@ Mudar a posição do item só está disponível na ordenação predefinida. Limp
     </message>
     <message>
         <source>%n record(s) selected</source>
-        <translation>%n registos seleccionados</translation>
+        <translation>%n registo(s) seleccionado(s)</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -1678,6 +1659,25 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     <message>
         <source>Edit...</source>
         <translation>Editar...</translation>
+    </message>
+</context>
+<context>
+    <name>GeoChart</name>
+    <message>
+        <source>Country</source>
+        <translation>País</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Quantidade</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>A gravar</translation>
+    </message>
+    <message>
+        <source>Image not ready. Please try again later</source>
+        <translation>Imagem não pronta. Por favor, tente mais tarde</translation>
     </message>
 </context>
 <context>
@@ -3341,14 +3341,6 @@ Adicione uma nova primeiro.</translation>
         <translation>Islâmico</translation>
     </message>
     <message>
-        <source>Solar hijri</source>
-        <translation>Solar Hijri</translation>
-    </message>
-    <message>
-        <source>Japan</source>
-        <translation>Japão</translation>
-    </message>
-    <message>
         <source>Year</source>
         <translation>Ano</translation>
     </message>
@@ -3367,6 +3359,14 @@ Adicione uma nova primeiro.</translation>
     <message>
         <source>Burmese</source>
         <translation>Birmanês</translation>
+    </message>
+    <message>
+        <source>Iranian</source>
+        <translation>Iraniano</translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Japonês</translation>
     </message>
 </context>
 <context>

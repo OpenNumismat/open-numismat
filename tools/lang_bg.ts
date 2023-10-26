@@ -1,24 +1,5 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="bg">
 <context>
-    <name/>
-    <message>
-        <source>Country</source>
-        <translation>Държава</translation>
-    </message>
-    <message>
-        <source>Quantity</source>
-        <translation>Количество</translation>
-    </message>
-    <message>
-        <source>Saving</source>
-        <translation>Записване</translation>
-    </message>
-    <message>
-        <source>Image not ready. Please try again later</source>
-        <translation>Изображението не е готово. Моля, опитайте отново по-късно</translation>
-    </message>
-</context>
-<context>
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
@@ -999,7 +980,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Title template</source>
-        <translation>Заглавен шаблон</translation>
+        <translation>Шаблон за наименованието</translation>
     </message>
     <message>
         <source>Max image side len</source>
@@ -1015,7 +996,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Images at bottom</source>
-        <translation>Изображенията на дъното</translation>
+        <translation>Изображенията в долната част на прозореца</translation>
     </message>
     <message>
         <source>Free format numeric fields</source>
@@ -1023,7 +1004,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
-        <translation>Превръщам 0.5 в ½ (поддържа ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
+        <translation>Преобразуване на 0.5 в ½ (поддържа ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</translation>
     </message>
     <message>
         <source>Enable BC</source>
@@ -1144,7 +1125,7 @@ The application will need to restart now.</source>
     <name>ConvertButton</name>
     <message>
         <source>Convert</source>
-        <translation>Конвертиране</translation>
+        <translation>Преобразуване</translation>
     </message>
 </context>
 <context>
@@ -1678,6 +1659,25 @@ Do you want to send an error message to the author?</source>
     <message>
         <source>Edit...</source>
         <translation>Редакция...</translation>
+    </message>
+</context>
+<context>
+    <name>GeoChart</name>
+    <message>
+        <source>Country</source>
+        <translation>Държава</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Количество</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Записване</translation>
+    </message>
+    <message>
+        <source>Image not ready. Please try again later</source>
+        <translation>Изображението не е готово. Моля, опитайте отново по-късно</translation>
     </message>
 </context>
 <context>
@@ -2433,7 +2433,7 @@ drag-n-drop to add an image)</source>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
-        <translation>Конвертиране на година</translation>
+        <translation>Преобразуване на година</translation>
     </message>
 </context>
 <context>
@@ -2909,7 +2909,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Save chart</source>
-        <translation>Запазване на диаграмата</translation>
+        <translation>Запазване на диаграма</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -3326,11 +3326,11 @@ Add a new one first.</source>
     <name>YearCalculatorDialog</name>
     <message>
         <source>Year calculator</source>
-        <translation>Конвертиране на година</translation>
+        <translation>Преобразуване на година</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation>еврейски</translation>
+        <translation>еврейска</translation>
     </message>
     <message>
         <source>Units</source>
@@ -3338,15 +3338,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Islamic</source>
-        <translation>ислямски</translation>
-    </message>
-    <message>
-        <source>Solar hijri</source>
-        <translation>слънчев хиджри</translation>
-    </message>
-    <message>
-        <source>Japan</source>
-        <translation>японски</translation>
+        <translation>ислямска</translation>
     </message>
     <message>
         <source>Year</source>
@@ -3354,19 +3346,27 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Roman</source>
-        <translation>римски</translation>
+        <translation>римска</translation>
     </message>
     <message>
         <source>Nepal</source>
-        <translation>непалски</translation>
+        <translation>непалска</translation>
     </message>
     <message>
         <source>Thai</source>
-        <translation>тайландски</translation>
+        <translation>тайландска</translation>
     </message>
     <message>
         <source>Burmese</source>
-        <translation>бирмански</translation>
+        <translation>бирманска</translation>
+    </message>
+    <message>
+        <source>Iranian</source>
+        <translation>иранска</translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation>японска</translation>
     </message>
 </context>
 <context>
