@@ -1,24 +1,5 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
 <context>
-    <name/>
-    <message>
-        <source>Country</source>
-        <translation>País</translation>
-    </message>
-    <message>
-        <source>Quantity</source>
-        <translation>Cantidad</translation>
-    </message>
-    <message>
-        <source>Saving</source>
-        <translation>Guardando</translation>
-    </message>
-    <message>
-        <source>Image not ready. Please try again later</source>
-        <translation>Imagen no lista. Inténtelo más tarde</translation>
-    </message>
-</context>
-<context>
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
@@ -1678,6 +1659,25 @@ Do you want to send an error message to the author?</source>
     <message>
         <source>Edit...</source>
         <translation>Editar...</translation>
+    </message>
+</context>
+<context>
+    <name>GeoChart</name>
+    <message>
+        <source>Country</source>
+        <translation>País</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Cantidad</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Guardando</translation>
+    </message>
+    <message>
+        <source>Image not ready. Please try again later</source>
+        <translation>Imagen no lista. Inténtelo más tarde</translation>
     </message>
 </context>
 <context>
@@ -3341,14 +3341,6 @@ Añada una nueva primero.</translation>
         <translation>Islámico</translation>
     </message>
     <message>
-        <source>Solar hijri</source>
-        <translation>Hijri solar</translation>
-    </message>
-    <message>
-        <source>Japan</source>
-        <translation>Japón</translation>
-    </message>
-    <message>
         <source>Year</source>
         <translation>Año</translation>
     </message>
@@ -3367,6 +3359,14 @@ Añada una nueva primero.</translation>
     <message>
         <source>Burmese</source>
         <translation>Birmano</translation>
+    </message>
+    <message>
+        <source>Iranian</source>
+        <translation>Iraní</translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Japonés</translation>
     </message>
 </context>
 <context>
