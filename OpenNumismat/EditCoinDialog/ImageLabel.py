@@ -72,6 +72,7 @@ class ImageLabel(QLabel):
 
     def editImage(self):
         viewer = ImageEditorDialog(self)
+        viewer.setTitle(self.field)
         viewer.imageSaved.connect(self.imageSaved)
         viewer.setImage(self.image)
         viewer.exec_()

@@ -98,7 +98,7 @@ class FormItem(object):
                 else:
                     self._widget = TextEdit(parent)
         elif self._type == Type.Image:
-            self._widget = ImageEdit(field, self._label, parent)
+            self._widget = ImageEdit(self._title, self._label, parent)
         elif self._type == Type.Date:
             self._widget = DateEdit(parent)
         elif self._type == Type.Status:
