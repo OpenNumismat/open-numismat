@@ -6,7 +6,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import Signal as pyqtSignal
 
 import OpenNumismat
-from OpenNumismat.ImageViewer import ImageViewer
+from OpenNumismat.ImageEditor import ImageEditorDialog
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.Gui import getSaveFileName
@@ -71,7 +71,7 @@ class ImageLabel(QLabel):
             executor.openUrl(QUrl.fromLocalFile(fileName))
 
     def editImage(self):
-        viewer = ImageViewer(self)
+        viewer = ImageEditorDialog(self)
         viewer.imageSaved.connect(self.imageSaved)
         viewer.setImage(self.image)
         viewer.exec_()
