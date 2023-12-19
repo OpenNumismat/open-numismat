@@ -2,7 +2,7 @@
 
 from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
 from PySide6.QtCore import Signal as pyqtSignal
-from PySide6.QtGui import QIcon, QAction
+from PySide6.QtGui import QIcon, QAction, QPixmap, QColor
 from PySide6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
@@ -170,6 +170,14 @@ class MainSettingsPage(QWidget):
                                             QSizePolicy.Fixed)
         layout.addRow(self.tr("Font size"), self.fontSizeSelector)
 
+        self.transparentColorButton = QPushButton(self)
+        self.transparentColorButton.setSizePolicy(QSizePolicy.Fixed,
+                                                  QSizePolicy.Fixed)
+        self.transparent_color = settings['transparent_color']
+        self.updateTransparentColorButton(self.transparent_color)
+        layout.addRow(self.tr("Image background color"), self.transparentColorButton)
+        self.transparentColorButton.clicked.connect(self.transparentColorButtonClicked)
+
         self.setLayout(layout)
 
     def backupButtonClicked(self):
@@ -186,6 +194,22 @@ class MainSettingsPage(QWidget):
             self, self.tr("Select reference"), self.reference.text(), "*.ref")
         if file:
             self.reference.setText(file)
+
+    def transparentColorButtonClicked(self):
+        settings = Settings()
+        color = settings['transparent_color']
+
+        dlg = QColorDialog(color, self)
+        if dlg.exec_() == QDialog.Accepted:
+            self.transparent_color = dlg.currentColor()
+            settings['transparent_color'] = self.transparent_color
+            self.updateTransparentColorButton(self.transparent_color)
+
+    def updateTransparentColorButton(self, color):
+        pixmap = QPixmap(16, 16)
+        pixmap.fill(color)
+        icon = QIcon(pixmap)
+        self.transparentColorButton.setIcon(icon)
 
     def save(self):
         settings = Settings()
@@ -204,6 +228,7 @@ class MainSettingsPage(QWidget):
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
+        settings['transparent_color'] = self.transparent_color
 
         settings.save()
 

@@ -2,6 +2,7 @@ import os.path
 
 from PySide6.QtCharts import QChart
 from PySide6.QtCore import Qt, QLocale, QSettings
+from PySide6.QtGui import QColor
 
 import OpenNumismat
 
@@ -96,6 +97,7 @@ class Settings(BaseSettings):
         'show_chart_legend': False,
         'chart_legend_pos': Qt.AlignRight.value,
         'nice_years_chart': False,
+        'transparent_color': QColor(Qt.white),
     }
 
     def __init__(self, autoSave=False):
@@ -135,6 +137,11 @@ class Settings(BaseSettings):
         ):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=int)
+        elif key in (
+            'transparent_color',
+        ):
+            value = self.settings.value('mainwindow/' + key, self.Default[key],
+                                        type=QColor)
         else:
             value = self.settings.value('mainwindow/' + key, self.Default[key])
 

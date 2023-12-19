@@ -12,6 +12,7 @@ from PySide6.QtGui import QPixmap, QImage, QPainter
 from OpenNumismat.Collection.Import import _Import2, _InvalidDatabaseError
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.Settings import Settings
 from OpenNumismat import version
 
 
@@ -265,8 +266,9 @@ class ImportExcel(_Import2):
     def __fixTransparentImage(self, image):
         if image.hasAlphaChannel():
             # Fill transparent color if present
+            color = Settings()['transparent_color']
             fixedImage = QImage(image.size(), QImage.Format_RGB32)
-            fixedImage.fill(Qt.white)
+            fixedImage.fill(color)
             painter = QPainter(fixedImage)
             painter.drawImage(0, 0, image)
             painter.end()

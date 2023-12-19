@@ -80,8 +80,9 @@ class ImageLabel(QLabel):
     def imageSaved(self, image):
         if image.hasAlphaChannel():
             # Fill transparent color if present
+            color = Settings()['transparent_color']
             fixedImage = QImage(image.size(), QImage.Format_RGB32)
-            fixedImage.fill(Qt.white)
+            fixedImage.fill(color)
             painter = QPainter(fixedImage)
             painter.drawImage(0, 0, image)
             painter.end()
@@ -408,8 +409,9 @@ class ImageEdit(ImageLabel):
     def _setNewImage(self, image):
         if image.hasAlphaChannel():
             # Fill transparent color if present
+            color = Settings()['transparent_color']
             fixedImage = QImage(image.size(), QImage.Format_RGB32)
-            fixedImage.fill(Qt.white)
+            fixedImage.fill(color)
             painter = QPainter(fixedImage)
             painter.drawImage(0, 0, image)
             painter.end()

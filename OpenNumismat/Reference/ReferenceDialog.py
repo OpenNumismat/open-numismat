@@ -5,6 +5,7 @@ from PySide6.QtGui import QImage, QKeySequence, QPainter
 from PySide6.QtWidgets import *
 
 import OpenNumismat
+from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
@@ -104,8 +105,9 @@ class ListView(QListView):
             image = mime.imageData()
             if image.hasAlphaChannel():
                 # Fill transparent color if present
+                color = Settings()['transparent_color']
                 fixedImage = QImage(image.size(), QImage.Format_RGB32)
-                fixedImage.fill(Qt.white)
+                fixedImage.fill(color)
                 painter = QPainter(fixedImage)
                 painter.drawImage(0, 0, image)
                 painter.end()
