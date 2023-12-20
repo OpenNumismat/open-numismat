@@ -19,7 +19,7 @@ from PySide6.QtCharts import (
 from PySide6.QtCore import QCollator, QLocale
 from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDate, QDateTime, QByteArray
 from PySide6.QtCore import Signal as pyqtSignal
-from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
+from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor, QImageReader
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import *
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
@@ -92,8 +92,9 @@ class GeoChart(QWebView):
         self.html_data = self.HTML % (locale, MAPS_API_KEY, region, data)
         self.setHtml(self.html_data)
 
-    filters = (QApplication.translate('GeoChartCanvas', "Web page (*.htm *.html)"),
-               QApplication.translate('GeoChartCanvas', "PNG image (*.png)"))
+    def filters(self):
+        return (QApplication.translate('GeoChartCanvas', "Web page (*.htm *.html)"),
+                QApplication.translate('GeoChartCanvas', "PNG image (*.png)"))
 
     def save(self, fileName, selectedFilter):
         if selectedFilter == self.filters[1]:
@@ -163,8 +164,16 @@ class BaseChart(QChartView):
         y = self.yy[pos]
         return "%s: %s\n%s: %d" % (self.label_y, x, self.label, y)
 
-    filters = (QApplication.translate('BaseCanvas', "Images (*.jpg *.jpeg *.bmp *.png *.tiff)"),
-               QApplication.translate('BaseCanvas', "All files (*.*)"))
+    def filters(self):
+        supported_formats = QImageReader.supportedImageFormats()
+        formats = "*.jpg *.jpeg *.png *.bmp *.tiff"
+        if b'webp' in supported_formats:
+            formats += " *.webp"
+        if b'jp2' in supported_formats:
+            formats += " *.jp2"
+
+        return (QApplication.translate('BaseCanvas', "Images (%s)") % formats,
+                QApplication.translate('BaseCanvas', "All files (*.*)"))
 
     def save(self, fileName, _selectedFilter):
         self.grab().save(fileName)
@@ -1587,7 +1596,7 @@ class StatisticsView(QWidget):
 
         fileName, selectedFilter = getSaveFileName(
             self, 'export_statistics', defaultFileName,
-            OpenNumismat.HOME_PATH, self.chart.filters)
+            OpenNumismat.HOME_PATH, self.chart.filters())
         if fileName:
             self.chart.save(fileName, selectedFilter)
 

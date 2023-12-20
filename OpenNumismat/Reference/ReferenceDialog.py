@@ -1,7 +1,7 @@
 import sys
 
 from PySide6.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QRect, QPoint
-from PySide6.QtGui import QImage, QKeySequence, QPainter
+from PySide6.QtGui import QImage, QKeySequence, QPainter, QImageReader
 from PySide6.QtWidgets import *
 
 import OpenNumismat
@@ -88,11 +88,18 @@ class ListView(QListView):
         self.widget.deleteItem()
 
     def _addIcon(self):
-        filter_ = self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;"
-                          "All files (*.*)")
+        supported_formats = QImageReader.supportedImageFormats()
+        formats = "*.jpg *.jpeg *.png *.bmp *.tiff *.gif *.ico"
+        if b'webp' in supported_formats:
+            formats += " *.webp"
+        if b'jp2' in supported_formats:
+            formats += " *.jp2"
+
+        filters = (self.tr("Images (%s)") % formats,
+                   self.tr("All files (*.*)"))
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 self.tr("Open File"), self.latestDir,
-                filter_)
+                ';;'.join(filters))
         if fileName:
             file_info = QFileInfo(fileName)
             self.latestDir = file_info.absolutePath()

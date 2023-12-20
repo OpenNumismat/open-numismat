@@ -156,7 +156,14 @@ class ImageLabel(QLabel):
         return fileName
 
     def saveImage(self):
-        filters = (self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff)"),
+        supported_formats = QImageReader.supportedImageFormats()
+        formats = "*.jpg *.jpeg *.png *.bmp *.tiff"
+        if b'webp' in supported_formats:
+            formats += " *.webp"
+        if b'jp2' in supported_formats:
+            formats += " *.jp2"
+
+        filters = (self.tr("Images (%s)") % formats,
                    self.tr("All files (*.*)"))
         # TODO: Set default name to coin title + field name
         fileName, _selectedFilter = getSaveFileName(
@@ -269,10 +276,10 @@ class ImageEdit(ImageLabel):
             formats += " *.jp2"
 
         caption = QApplication.translate('ImageEdit', "Open File")
-        filter_ = QApplication.translate('ImageEdit',
-                            "Images (%s);;All files (*.*)" % formats)
+        filters = (QApplication.translate('ImageEdit', "Images (%s)") % formats,
+                   QApplication.translate('ImageEdit', "All files (*.*)"))
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
-                caption, ImageEdit.latestDir, filter_)
+                caption, ImageEdit.latestDir, ';;'.join(filters))
         if fileName:
             file_info = QFileInfo(fileName)
             ImageEdit.latestDir = file_info.absolutePath()
