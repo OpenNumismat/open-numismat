@@ -109,7 +109,7 @@ class ImportCoinManage(_Import):
                 winreg.CloseKey(hkey)
                 if dir_.cd(value):
                     break
-            except (WindowsError, NameError):
+            except (OSError, NameError):
                 continue
 
         return dir_.absolutePath()
