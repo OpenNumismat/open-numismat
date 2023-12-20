@@ -156,7 +156,7 @@ class ImageLabel(QLabel):
         return fileName
 
     def saveImage(self):
-        filters = (self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)"),
+        filters = (self.tr("Images (*.jpg *.jpeg *.bmp *.png *.tiff)"),
                    self.tr("All files (*.*)"))
         # TODO: Set default name to coin title + field name
         fileName, _selectedFilter = getSaveFileName(

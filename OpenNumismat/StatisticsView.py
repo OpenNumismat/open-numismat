@@ -163,7 +163,7 @@ class BaseChart(QChartView):
         y = self.yy[pos]
         return "%s: %s\n%s: %d" % (self.label_y, x, self.label, y)
 
-    filters = (QApplication.translate('BaseCanvas', "Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)"),
+    filters = (QApplication.translate('BaseCanvas', "Images (*.jpg *.jpeg *.bmp *.png *.tiff)"),
                QApplication.translate('BaseCanvas', "All files (*.*)"))
 
     def save(self, fileName, _selectedFilter):
