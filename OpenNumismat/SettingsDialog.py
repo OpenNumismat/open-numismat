@@ -342,7 +342,7 @@ class CollectionSettingsPage(QWidget):
             item.setCheckState(checked)
             statusesList.addItem(item)
             self.statusUsed[status] = item
-        layout.addRow(self.tr("Used statuses:"), QWidget())
+        layout.addRow(self.tr("Used statuses (double-click for rename):"), QWidget())
         layout.addRow(statusesList)
 
         self.defaultStatus = QComboBox(self)
