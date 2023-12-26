@@ -73,11 +73,11 @@ class CollectionModel(QSqlTableModel):
                 if field.name == 'status':
                     text = Statuses[data]
                 elif field.name == 'year':
-                    year = int(data)
-                    if year < 0:
-                        text = "%d BC" % -year
+                    year = str(data)
+                    if year and year[0] == '-':
+                        text = "%s BC" % year[1:]
                     else:
-                        text = str(data)
+                        text = year
                 elif field.name == 'axis':
                     if self.settings['axis_in_hours']:
                         value = int(data)

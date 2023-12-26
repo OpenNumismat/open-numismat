@@ -19,6 +19,7 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.SelectColumnsDialog import SelectColumnsDialog
 from OpenNumismat.Collection.HeaderFilterMenu import FilterMenuButton
 from OpenNumismat.Tools import Gui, TemporaryDir
+from OpenNumismat.Tools.Converters import compareYears
 from OpenNumismat.Reports.Report import Report
 from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat.Settings import Settings
@@ -569,6 +570,7 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         self.model = model
         self.setSourceModel(model)
         self.status_id = model.fields.status.id
+        self.year_id = model.fields.year.id
 
         self.setDynamicSortFilter(True)
 
@@ -577,14 +579,14 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         self.collator.setNumericMode(True)
 
     def lessThan(self, left, right):
-        if left.column() == self.status_id:
-            leftData = self.model.dataDisplayRole(left)
-            rightData = self.model.dataDisplayRole(right)
-            return Statuses.compare(leftData, rightData) < 0
-        else:
-            leftData = self.model.dataDisplayRole(left)
-            rightData = self.model.dataDisplayRole(right)
+        leftData = self.model.dataDisplayRole(left)
+        rightData = self.model.dataDisplayRole(right)
 
+        if left.column() == self.status_id:
+            return Statuses.compare(leftData, rightData) < 0
+        elif left.column() == self.year_id:
+            return compareYears(leftData, rightData) < 0
+        else:
             if isinstance(leftData, str):
                 rightData = str(rightData)
                 return self.collator.compare(leftData, rightData) < 0

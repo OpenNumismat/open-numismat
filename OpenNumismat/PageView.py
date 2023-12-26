@@ -10,7 +10,7 @@ from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.CustomizeTreeDialog import CustomizeTreeDialog
 from OpenNumismat.Tools import Gui
-from OpenNumismat.Tools.Converters import numberWithFraction
+from OpenNumismat.Tools.Converters import numberWithFraction, compareYears
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import DetailsTabWidget
 from OpenNumismat.Settings import Settings
@@ -150,6 +150,18 @@ class ImageView(QWidget):
         return widget
 
 
+class YearTreeWidgetItem(QTreeWidgetItem):
+
+    def __lt__(self, other):
+        left = self.data(0, Qt.UserRole + 3)
+        right = other.data(0, Qt.UserRole + 3)
+
+        if not left or not right:
+            return super().__lt__(other)
+
+        return compareYears(left[0], right[0]) < 0
+
+
 class TreeWidgetItem(QTreeWidgetItem):
 
     def __lt__(self, other):
@@ -280,9 +292,8 @@ class TreeView(QTreeWidget):
                     elif fields[i] == 'year':
                         label = text
                         try:
-                            year = int(text)
-                            if year < 0:
-                                label = "%d BC" % -year
+                            if text[0] == '-':
+                                label = "%s BC" % text[1:]
                         except ValueError:
                             pass
                         data.append(label)
@@ -304,7 +315,10 @@ class TreeView(QTreeWidget):
                     child.setData(0, self.SortDataRole, orig_data)
                 else:
                     newFilters = filterSql[0]
-                    child = TreeWidgetItem(data)
+                    if fields[0] == 'year':
+                        child = YearTreeWidgetItem(data)
+                    else:
+                        child = TreeWidgetItem(data)
                     child.setData(0, self.SortDataRole, orig_data)
 
                 if filters:

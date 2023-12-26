@@ -6,7 +6,7 @@ from PySide6.QtWidgets import *
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import statusIcon
-from OpenNumismat.Tools.Converters import numberWithFraction
+from OpenNumismat.Tools.Converters import numberWithFraction, compareYears
 
 
 class CustomSortListWidgetItem(QListWidgetItem):
@@ -21,6 +21,14 @@ class CustomSortListWidgetItem(QListWidgetItem):
             left = str(left)
 
         return left < right
+
+
+class YearSortListWidgetItem(QListWidgetItem):
+
+    def __lt__(self, other):
+        left = self.data(Qt.UserRole + 1)
+        right = other.data(Qt.UserRole + 1)
+        return compareYears(left, right) < 0
 
 
 class StatusSortListWidgetItem(QListWidgetItem):
@@ -96,9 +104,9 @@ class FilterMenuButton(QPushButton):
                     data = str(orig_data)
                     label = data
                     try:
-                        year = int(orig_data)
-                        if year < 0:
-                            label = "%d BC" % -year
+                        year = str(data)
+                        if year and year[0] == '-':
+                            label = "%s BC" % year[1:]
                     except ValueError:
                         pass
 
@@ -106,7 +114,7 @@ class FilterMenuButton(QPushButton):
                     hasBlanks = True
                     continue
 
-                item = CustomSortListWidgetItem()
+                item = YearSortListWidgetItem()
                 item.setData(Qt.DisplayRole, label)
                 item.setData(Qt.UserRole, data)
                 item.setData(Qt.UserRole + 1, orig_data)

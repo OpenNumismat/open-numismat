@@ -135,3 +135,41 @@ def htmlToPlainText(text):
         text = document.toPlainText()
 
     return text
+
+
+def _compareYearStrings(left, right):
+    if left and left[0] == '-' and right and right[0] == '-':
+        left_year = 0
+        right_year = 0
+        for c in left[1:]:
+            if c.isdigit():
+                left_year = left_year * 10 + (ord(c) - ord('0'))
+            else:
+                break
+        for c in right[1:]:
+            if c.isdigit():
+                right_year = right_year * 10 + (ord(c) - ord('0'))
+            else:
+                break
+
+        if left_year != right_year:
+            # Invert comparing for negative years
+            return -(left_year - right_year)
+
+    if left < right:
+        return -1
+    # elif left == right:
+    #    return 0
+    else:
+        return 1
+
+
+def compareYears(left, right):
+    if isinstance(left, str):
+        right = str(right)
+        return _compareYearStrings(left, right)
+    elif isinstance(right, str):
+        left = str(left)
+        return _compareYearStrings(left, right)
+
+    return left - right
