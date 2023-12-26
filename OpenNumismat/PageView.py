@@ -10,6 +10,7 @@ from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.CustomizeTreeDialog import CustomizeTreeDialog
 from OpenNumismat.Tools import Gui
+from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction, compareYears
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.EditCoinDialog.DetailsTabWidget import DetailsTabWidget
@@ -328,7 +329,10 @@ class TreeView(QTreeWidget):
                 child.setData(0, self.FiltersRole, newFilters)
                 child.setData(0, self.FieldsRole, fields)
 
-                icon = self.reference.getIcon(fields[0], data[0])
+                if fields[0] == 'status':
+                    icon = statusIcon(orig_data[0])
+                else:
+                    icon = self.reference.getIcon(fields[0], data[0])
                 if icon:
                     child.setIcon(0, icon)
 
