@@ -156,7 +156,7 @@ class ImageLabel(QLabel):
                    self.tr("All files (*.*)"))
         # TODO: Set default name to coin title + field name
         fileName, _selectedFilter = getSaveFileName(
-            self, 'save_image', self.field, OpenNumismat.IMAGE_PATH, filters)
+            self, 'images', self.field, OpenNumismat.IMAGE_PATH, filters)
         if fileName:
             self.image.save(fileName)
 
@@ -171,7 +171,6 @@ class ImageLabel(QLabel):
 
 
 class ImageEdit(ImageLabel):
-    latestDir = OpenNumismat.IMAGE_PATH
     imageChanged = pyqtSignal(QLabel)
 
     def __init__(self, field=None, label=None, parent=None):
@@ -264,14 +263,18 @@ class ImageEdit(ImageLabel):
         if b'jp2' in supported_formats:
             formats += " *.jp2"
 
+        settings = QSettings()
+        last_dir = settings.value('images/last_dir', OpenNumismat.IMAGE_PATH)
+
         caption = QApplication.translate('ImageEdit', "Open File")
         filters = (QApplication.translate('ImageEdit', "Images (%s)") % formats,
                    QApplication.translate('ImageEdit', "All files (*.*)"))
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
-                caption, ImageEdit.latestDir, ';;'.join(filters))
+                caption, last_dir, ';;'.join(filters))
         if fileName:
             file_info = QFileInfo(fileName)
-            ImageEdit.latestDir = file_info.absolutePath()
+            settings = QSettings()
+            settings.setValue('images/last_dir', file_info.absolutePath())
 
             self.loadFromFile(fileName)
 
