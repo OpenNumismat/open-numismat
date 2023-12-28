@@ -24,7 +24,7 @@ from OpenNumismat.Reports.Report import Report
 from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportToCsv, ExportToCsvUtf8
-from OpenNumismat.Tools.Gui import getSaveFileName
+from OpenNumismat.Tools.Gui import getSaveFileName, statusColor
 from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
 
 
@@ -1036,7 +1036,10 @@ class IconDelegate(QStyledItemDelegate):
                 back_color = palette.color(QPalette.Highlight)
             else:
                 color = palette.color(QPalette.Text)
-                back_color = palette.color(QPalette.Midlight)
+
+                status_index = model.index(orig_index.row(), model.fields.status.id)
+                status = status_index.data(Qt.UserRole)
+                back_color = statusColor(status)
 
             painter.setPen(back_color)
             rect = option.rect.marginsRemoved(QMargins(1, 1, 1, 1))
@@ -1088,7 +1091,10 @@ class CardDelegate(QStyledItemDelegate):
                 back_color = palette.color(QPalette.Highlight)
             else:
                 color = palette.color(QPalette.Text)
-                back_color = palette.color(QPalette.Midlight)
+
+                status_index = model.index(orig_index.row(), model.fields.status.id)
+                status = status_index.data(Qt.UserRole)
+                back_color = statusColor(status)
 
             painter.setPen(back_color)
             rect = option.rect.marginsRemoved(QMargins(1, 1, 1, 1))

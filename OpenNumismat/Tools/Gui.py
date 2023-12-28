@@ -1,7 +1,7 @@
 import os
 
 from PySide6.QtCore import Qt, QSettings
-from PySide6.QtGui import QIcon
+from PySide6.QtGui import QIcon, QColor, QPalette
 from PySide6.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox
 
 
@@ -24,6 +24,34 @@ class ProgressDialog(QProgressDialog):
 
 def statusIcon(status):
     return QIcon(":/%s.png" % status)
+
+
+def statusColor(status):
+    if status == 'demo':
+        return QColor(174, 170, 170, 127)
+    if status == 'bidding':
+        return QColor(174, 117, 104, 127)
+    if status == 'ordered':
+        return QColor(169, 208, 142, 127)
+    if status == 'owned':
+        return QColor(112, 173, 71, 127)
+    if status == 'duplicate':
+        return QColor(45, 200, 138, 127)
+    if status == 'replacement':
+        return QColor(189, 180, 64, 127)
+    if status == 'sold':
+        return QColor(192, 0, 0, 127, 127)
+    if status == 'wish':
+        return QColor(255, 192, 0, 127)
+    if status == 'sale':
+        return QColor(237, 125, 49, 127)
+    if status == 'missing':
+        return QColor(154, 104, 174, 127)
+    if status == 'pass':
+        return QColor(91, 155, 213, 127)
+
+    palette = QPalette()
+    return palette.color(QPalette.Midlight)
 
 
 def getSaveFileName(parent, name, filename, dir_, filters):

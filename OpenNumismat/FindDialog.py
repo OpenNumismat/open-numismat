@@ -4,14 +4,15 @@ from dataclasses import dataclass
 from PIL import Image
 
 from PySide6.QtCore import Qt, QBuffer, QMargins, QRect, QRectF, QSettings
-from PySide6.QtGui import QImage, QPixmap, QIcon, QTextOption, QPalette
+from PySide6.QtGui import QImage, QPixmap, QIcon, QTextOption, QPalette, QColor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import *
 
+from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit, ImageLabel
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools import Gui
-from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.Tools.Gui import statusColor
 
 
 @dataclass(slots=True, frozen=True)
@@ -20,6 +21,7 @@ class ComparisonResult:
     coin_title: str
     photo_id: int
     distance: float
+    color: QColor
 
 
 @storeDlgSizeDecorator
@@ -183,7 +185,7 @@ class FindDialog(QDialog):
         sql_fileds = ""
         for field in fields:
             sql_fileds += ", %s.image AS %s_image, %s.id AS %s_id" % (field, field, field, field)
-        sql = "SELECT coins.id, coins.title%s FROM coins" % sql_fileds
+        sql = "SELECT coins.id, coins.title, coins.status%s FROM coins" % sql_fileds
         for field in fields:
             sql += " LEFT JOIN photos %s ON coins.%s=%s.id" % (field, field, field)
         if self.model.filter():
@@ -206,6 +208,7 @@ class FindDialog(QDialog):
             record = query.record()
             coin_id = record.value('coins.id')
             coin_title = record.value('coins.title')
+            coin_status = record.value('coins.status')
 
             record_distances = {}
             for field in fields:
@@ -227,7 +230,8 @@ class FindDialog(QDialog):
                     coin_id,
                     coin_title,
                     photo_id,
-                    distance
+                    distance,
+                    statusColor(coin_status)
                 ))
 
         progressDlg.reset()
@@ -394,7 +398,7 @@ class CardDelegate(QStyledItemDelegate):
                 back_color = palette.color(QPalette.Highlight)
             else:
                 color = palette.color(QPalette.Text)
-                back_color = palette.color(QPalette.Midlight)
+                back_color = comp_res.color
 
             painter.setPen(back_color)
             rect = option.rect.marginsRemoved(QMargins(1, 1, 1, 1))
