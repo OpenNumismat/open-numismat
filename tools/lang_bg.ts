@@ -176,12 +176,12 @@
         <translation>Количество</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
         <source>All files (*.*)</source>
         <translation>Всички файлове (*.*)</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
     </message>
 </context>
 <context>
@@ -1023,10 +1023,6 @@ The application will need to restart now.</source>
         <translation>Ос на матрицата в часове</translation>
     </message>
     <message>
-        <source>Used statuses:</source>
-        <translation>Използвани статуси:</translation>
-    </message>
-    <message>
         <source>Default status for new coin</source>
         <translation>Статус по подразбиране за нова монета</translation>
     </message>
@@ -1045,6 +1041,10 @@ The application will need to restart now.</source>
     <message>
         <source>Enable tags</source>
         <translation>Активиране на етикети</translation>
+    </message>
+    <message>
+        <source>Used statuses (double-click for rename):</source>
+        <translation>Използвани статуси (кликнете два пъти за преименуване):</translation>
     </message>
 </context>
 <context>
@@ -1783,8 +1783,8 @@ Do you want to send an error message to the author?</source>
 (double-click, right-click or
 drag-n-drop to add an image)</source>
         <translation>Няма налично изображение
-(двойно щракване, щракване с десния бутон на мишката или
-плъзгане и пускане, за да добавите изображение)</translation>
+(щракнете двукратно, щракнете с десния бутон или
+плъзнете и пуснете, за да добавите изображение)</translation>
     </message>
     <message>
         <source>Rename image</source>
@@ -1794,28 +1794,9 @@ drag-n-drop to add an image)</source>
         <source>Enter new image name</source>
         <translation>Въведете ново име на изображението</translation>
     </message>
-</context>
-<context>
-    <name>ImageLabel</name>
     <message>
-        <source>Open</source>
-        <translation>Отваряне</translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation>Редактиране...</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Копирай</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation>Запиши като...</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
     </message>
     <message>
         <source>All files (*.*)</source>
@@ -1823,14 +1804,18 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImageViewer</name>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>И&amp;зход</translation>
-    </message>
+    <name>ImageEditorDialog</name>
     <message>
         <source>Browse in viewer</source>
         <translation>Преглеждайте в браузъра</translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation>Запиши &amp;като...</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>И&amp;зход</translation>
     </message>
     <message>
         <source>Full Screen</source>
@@ -1901,6 +1886,18 @@ drag-n-drop to add an image)</source>
         <translation>Върни</translation>
     </message>
     <message>
+        <source>Window color</source>
+        <translation>Цвят на прозореца</translation>
+    </message>
+    <message>
+        <source>Cut left half</source>
+        <translation>Отрязване на лявата половина</translation>
+    </message>
+    <message>
+        <source>Cut right half</source>
+        <translation>Отрязване на дясната половина</translation>
+    </message>
+    <message>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
@@ -1913,8 +1910,16 @@ drag-n-drop to add an image)</source>
         <translation>&amp;Изглед</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
+    <message>
+        <source>Image editor</source>
+        <translation>Редактор на изображения</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
     </message>
     <message>
         <source>All files (*.*)</source>
@@ -1925,8 +1930,70 @@ drag-n-drop to add an image)</source>
         <translation>Изображението е променено. Да се запазят ли промените?</translation>
     </message>
     <message>
-        <source>&amp;Save As...</source>
-        <translation>Запиши &amp;като...</translation>
+        <source>Save changes to current image?</source>
+        <translation>Да се запазят ли промените в текущото изображение?</translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Не показвай това съобщение отново</translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>&amp;Open...</source>
+        <translation>&amp;Отваряне...</translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation>Цвят на фона</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Отваряне на файл</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Всички файлове (*.*)</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Записване</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>Изображението е променено. Да се запазят ли промените?</translation>
+    </message>
+</context>
+<context>
+    <name>ImageLabel</name>
+    <message>
+        <source>Open</source>
+        <translation>Отваряне</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Редактиране...</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Копирай</translation>
+    </message>
+    <message>
+        <source>Save as...</source>
+        <translation>Запиши като...</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Всички файлове (*.*)</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
     </message>
 </context>
 <context>
@@ -2087,12 +2154,16 @@ drag-n-drop to add an image)</source>
         <translation>Изчисти икона</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Всички файлове (*.*)</translation>
-    </message>
-    <message>
         <source>Open File</source>
         <translation>Отваряне на файл</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Всички файлове (*.*)</translation>
     </message>
 </context>
 <context>
@@ -2180,6 +2251,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Select reference</source>
         <translation>Избор на номенклатура</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Фонов цвят на изображението</translation>
     </message>
 </context>
 <context>
