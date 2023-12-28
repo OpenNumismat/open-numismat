@@ -1783,8 +1783,8 @@ Do you want to send an error message to the author?</source>
 (double-click, right-click or
 drag-n-drop to add an image)</source>
         <translation>Няма налично изображение
-(щракнете двукратно, щракнете с десния бутон или
-плъзнете и пуснете, за да добавите изображение)</translation>
+(двойно щракване, щракване с десния бутон на мишката или
+плъзгане и пускане, за да добавите изображение)</translation>
     </message>
     <message>
         <source>Rename image</source>
