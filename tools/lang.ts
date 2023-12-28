@@ -178,11 +178,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All files (*.*)</source>
+        <source>Images (%s)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1015,10 +1015,6 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Used statuses:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default status for new coin</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1036,6 +1032,10 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Enable tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Used statuses (double-click for rename):</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1783,27 +1783,8 @@ drag-n-drop to add an image)</source>
         <source>Enter new image name</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>ImageLabel</name>
     <message>
-        <source>Open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <source>Images (%s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1812,13 +1793,17 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImageViewer</name>
+    <name>ImageEditorDialog</name>
     <message>
-        <source>E&amp;xit</source>
+        <source>Browse in viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Browse in viewer</source>
+        <source>&amp;Save As...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1890,6 +1875,18 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Window color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut left half</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut right half</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1902,7 +1899,15 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1914,7 +1919,69 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Save As...</source>
+        <source>Save changes to current image?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>&amp;Open...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImageLabel</name>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2076,11 +2143,15 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
+        <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open File</source>
+        <source>Images (%s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2168,6 +2239,10 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Select reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image background color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
