@@ -1807,7 +1807,7 @@ drag-n-drop to add an image)</source>
     <name>ImageEditorDialog</name>
     <message>
         <source>Browse in viewer</source>
-        <translation>Преглед във външна програма</translation>
+        <translation>Преглед с външна програма</translation>
     </message>
     <message>
         <source>&amp;Save As...</source>
