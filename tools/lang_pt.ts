@@ -176,12 +176,12 @@
         <translation>Quantidade</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Imagens (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
         <source>All files (*.*)</source>
         <translation>Todos os ficheiros (*.*)</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Imagens (%s)</translation>
     </message>
 </context>
 <context>
@@ -1023,10 +1023,6 @@ A aplicação tem de reiniciar agora.</translation>
         <translation>Eixo matriz em horas</translation>
     </message>
     <message>
-        <source>Used statuses:</source>
-        <translation>Estados usados:</translation>
-    </message>
-    <message>
         <source>Default status for new coin</source>
         <translation>Estado predefinido da nova moeda</translation>
     </message>
@@ -1045,6 +1041,10 @@ A aplicação tem de reiniciar agora.</translation>
     <message>
         <source>Enable tags</source>
         <translation>Activar etiquetas</translation>
+    </message>
+    <message>
+        <source>Used statuses (double-click for rename):</source>
+        <translation>Estados usados (duplo clique para renomear)</translation>
     </message>
 </context>
 <context>
@@ -1794,28 +1794,9 @@ arraste e largue para adicionar)</translation>
         <source>Enter new image name</source>
         <translation>Insira o novo nome</translation>
     </message>
-</context>
-<context>
-    <name>ImageLabel</name>
     <message>
-        <source>Open</source>
-        <translation>Abrir</translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation>Editar...</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Copiar</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation>Gravar como...</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Imagens (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+        <source>Images (%s)</source>
+        <translation>Imagens (%s)</translation>
     </message>
     <message>
         <source>All files (*.*)</source>
@@ -1823,14 +1804,18 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
-    <name>ImageViewer</name>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>&amp;Sair</translation>
-    </message>
+    <name>ImageEditorDialog</name>
     <message>
         <source>Browse in viewer</source>
         <translation>Explorar no visualizador</translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation>Gra&amp;var como</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Sair</translation>
     </message>
     <message>
         <source>Full Screen</source>
@@ -1901,6 +1886,18 @@ arraste e largue para adicionar)</translation>
         <translation>Refazer</translation>
     </message>
     <message>
+        <source>Window color</source>
+        <translation>Cor da janela</translation>
+    </message>
+    <message>
+        <source>Cut left half</source>
+        <translation>Cortar a metade esquerda</translation>
+    </message>
+    <message>
+        <source>Cut right half</source>
+        <translation>Cortar a metade direita</translation>
+    </message>
+    <message>
         <source>&amp;File</source>
         <translation>&amp;Ficheiro</translation>
     </message>
@@ -1913,8 +1910,16 @@ arraste e largue para adicionar)</translation>
         <translation>&amp;Ver</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Imagens (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+        <source>Settings</source>
+        <translation>Definições</translation>
+    </message>
+    <message>
+        <source>Image editor</source>
+        <translation>Editor de imagem</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Imagens (%s)</translation>
     </message>
     <message>
         <source>All files (*.*)</source>
@@ -1925,8 +1930,70 @@ arraste e largue para adicionar)</translation>
         <translation>A imagem foi alterada. Gravar alterações?</translation>
     </message>
     <message>
-        <source>&amp;Save As...</source>
-        <translation>Gra&amp;var como</translation>
+        <source>Save changes to current image?</source>
+        <translation>Gravar alterações à imagem?</translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Não mostrar novamente</translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>&amp;Open...</source>
+        <translation>&amp;Abrir...</translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation>Cor do fundo</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Abrir ficheiro</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Imagens (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos os ficheiros (*.*)</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Gravar</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>A imagem foi alterada. Gravar alterações?</translation>
+    </message>
+</context>
+<context>
+    <name>ImageLabel</name>
+    <message>
+        <source>Open</source>
+        <translation>Abrir</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Editar...</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Copiar</translation>
+    </message>
+    <message>
+        <source>Save as...</source>
+        <translation>Gravar como...</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos os ficheiros (*.*)</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Imagens (%s)</translation>
     </message>
 </context>
 <context>
@@ -2087,12 +2154,16 @@ arraste e largue para adicionar)</translation>
         <translation>Limpar ícone</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
-        <translation>Imagens (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Todos os ficheiros (*.*)</translation>
-    </message>
-    <message>
         <source>Open File</source>
         <translation>Abrir ficheiro</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Imagens (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos os ficheiros (*.*)</translation>
     </message>
 </context>
 <context>
@@ -2180,6 +2251,10 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Select reference</source>
         <translation>Seleccionar referência</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Cor de fundo da imagem</translation>
     </message>
 </context>
 <context>
