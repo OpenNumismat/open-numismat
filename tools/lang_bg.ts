@@ -1847,11 +1847,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Rotate to Left</source>
-        <translation>Завърти наляво</translation>
+        <translation>Завъртане наляво</translation>
     </message>
     <message>
         <source>Rotate to Right</source>
-        <translation>Завърти надясно</translation>
+        <translation>Завъртане надясно</translation>
     </message>
     <message>
         <source>Rotate...</source>
