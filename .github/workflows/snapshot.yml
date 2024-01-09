@@ -51,7 +51,7 @@ jobs:
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
     - name: Patch version
-      uses: Nambers/ReplaceStringInFile@v1
+      uses: Nambers/ReplaceStringInFile@v1.3
       with:
         path: OpenNumismat/version.py
         oldString: "Version = .*"
