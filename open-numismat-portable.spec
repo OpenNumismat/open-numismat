@@ -105,7 +105,3 @@ else:
         except OSError:
             print("Missed file:", f)
             pass
-
-if os.path.exists(AppName + "-" + Version + ".zip"):
-    os.remove(AppName + "-" + Version + ".zip")
-shutil.make_archive(AppName + "-" + Version, "zip", "dist/")
