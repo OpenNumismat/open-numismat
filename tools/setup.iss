@@ -42,17 +42,17 @@ fr.sendReport=Envoyer un rapport a l'auteur du site-web si une erreur se produit
 hu.sendReport=Hiba elkuldese a keszitonek
 pt.sendReport=Enviar um relatorio para o site do autor se ocorrer um erro
 de.sendReport=Send a reports to author's web-site if any error occurred
-el.sendReport=Αποστολή αναφορών στον ιστότοπο του συγγραφέα σε περίπτωση σφάλματος
+;el.sendReport=Αποστολή αναφορών στον ιστότοπο του συγγραφέα σε περίπτωση σφάλματος
 cs.sendReport=Send a reports to author's web-site if any error occurred
 it.sendReport=Invia un rapporto al sito web dell'autore se e avvenuto un errore
 pl.sendReport=Wyslij raport do Autorow w przypadku problemow
 ca.sendReport=Envieu un informe a la pagina web de l'autor si hi ha cap error
 nl.sendReport=Stuur een rapport naar de auteur als er een fout is opgetreden
 bg.sendReport=Изпращане на отчети до уеб сайта на автора, ако възникне някаква грешка
-lv.sendReport=Nosūtīt ziņojumu uz autora tīmekļvietni, ja radusies kāda kļūda
+;lv.sendReport=Nosūtīt ziņojumu uz autora tīmekļvietni, ja radusies kāda kļūda
 tr.sendReport=Herhangi bir hata durumunda geliştirici web sitesine rapor gönder
-fa.sendReport=Send a reports to author's web-site if any error occurred
-sv.sendReport=Skicka rapporter till Utvecklarens webbplats om något fel inträffade
+;fa.sendReport=Send a reports to author's web-site if any error occurred
+;sv.sendReport=Skicka rapporter till Utvecklarens webbplats om något fel inträffade
 
 en.checkUpdate=Automatically check for updates
 ru.checkUpdate=Проверять обновления автоматически
@@ -62,17 +62,17 @@ fr.checkUpdate=Verification automatique des mises a jour
 hu.checkUpdate=Automatically check for updates
 pt.checkUpdate=Procurar atualizacoes automaticamente
 de.checkUpdate=Automatically check for updates
-el.checkUpdate=Αυτόματος έλεγχος για ενημερώσεις
+;el.checkUpdate=Αυτόματος έλεγχος για ενημερώσεις
 cs.checkUpdate=Automatically check for updates
 it.checkUpdate=Cerca automaticamente gli aggiornamenti
 pl.checkUpdate=Automatycznie sprawdzaj w poszukiwaniu najnowszej wersji
 ca.checkUpdate=Comprova si hi ha actualitzacions automaticament
 nl.checkUpdate=Automatisch controleren op update's
 bg.checkUpdate=Автоматична проверка за актуализации
-lv.checkUpdate=Automātiski meklēt atjauninājumus
+;lv.checkUpdate=Automātiski meklēt atjauninājumus
 tr.checkUpdate=Güncellemeleri otomatik olarak kontrol et
-fa.checkUpdate=به صورت خودکار به‌روزرسانی‌ها بررسی شود
-sv.checkUpdate=Sök efter uppdateringar
+;fa.checkUpdate=به صورت خودکار به‌روزرسانی‌ها بررسی شود
+;sv.checkUpdate=Sök efter uppdateringar
 
 en.associate=Associate *.db files with OpenNumismat
 ru.associate=Связать *.db файлы с OpenNumismat
@@ -82,17 +82,17 @@ fr.associate=Associer les fichiers *.db avec OpenNumismat
 hu.associate=Associate *.db files with OpenNumismat
 pt.associate=Associar ficheiros *.db com o OpenNumismat
 de.associate=Associate *.db files with OpenNumismat
-el.associate=Συσχέτιση αρχείων *.db με το OpenNumismat
+;el.associate=Συσχέτιση αρχείων *.db με το OpenNumismat
 cs.associate=Associate *.db files with OpenNumismat
 it.associate=Associare i file *.db con OpenNumismat
 pl.associate=Skojarz rozszerzenie *.db z OpenNumismat
 ca.associate=Associa fitxers *.db amb OpenNumismat
 nl.associate=Associate *.db files with OpenNumismat
 bg.associate=Асоциирай *.db файлове с OpenNumismat
-lv.associate=Saistīt *.db failus ar OpenNumismat
+;lv.associate=Saistīt *.db failus ar OpenNumismat
 tr.associate=*.db dosyalarını OpenNumismat'la ilişkilendir
-fa.associate=Associate *.db files with OpenNumismat
-sv.associate=Associera *.db-filer med OpenNumismat
+;fa.associate=Associate *.db files with OpenNumismat
+;sv.associate=Associera *.db-filer med OpenNumismat
 
 [Files]
 Source: "..\dist\OpenNumismat\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
@@ -104,17 +104,17 @@ Source: "..\dist\OpenNumismat\db\demo_fr.db"; DestDir: "{userdocs}\OpenNumismat"
 Source: "..\dist\OpenNumismat\db\demo_hu.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: hu; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\demo_pt.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: pt; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\demo_de.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: de; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_el.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: el; Flags: onlyifdoesntexist
+;Source: "..\dist\OpenNumismat\db\demo_el.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: el; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\demo_cs.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: cs; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\demo_it.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: it; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\demo_pl.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: pl; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\demo_ca.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: ca; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\demo_nl.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: nl; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\demo_bg.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: bg; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_lv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: lv; Flags: onlyifdoesntexist
+;Source: "..\dist\OpenNumismat\db\demo_lv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: lv; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\demo_tr.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: tr; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_fa.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: fa; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\demo_sv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: sv; Flags: onlyifdoesntexist
+;Source: "..\dist\OpenNumismat\db\demo_fa.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: fa; Flags: onlyifdoesntexist
+;Source: "..\dist\OpenNumismat\db\demo_sv.db"; DestDir: "{userdocs}\OpenNumismat"; DestName: "MyCollection.db"; Languages: sv; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_en.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: en; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_ru.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ru; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_uk.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: uk; Flags: onlyifdoesntexist
@@ -123,17 +123,17 @@ Source: "..\dist\OpenNumismat\db\reference_fr.ref"; DestDir: "{userdocs}\OpenNum
 Source: "..\dist\OpenNumismat\db\reference_hu.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: hu; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_pt.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: pt; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_de.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: de; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\reference_el.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: el; Flags: onlyifdoesntexist
+;Source: "..\dist\OpenNumismat\db\reference_el.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: el; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_cs.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: cs; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_it.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: it; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_pl.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: pl; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_ca.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: ca; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_nl.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: nl; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_bg.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: bg; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\reference_lv.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: lv; Flags: onlyifdoesntexist
+;Source: "..\dist\OpenNumismat\db\reference_lv.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: lv; Flags: onlyifdoesntexist
 Source: "..\dist\OpenNumismat\db\reference_tr.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: tr; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\reference_fa.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: fa; Flags: onlyifdoesntexist
-Source: "..\dist\OpenNumismat\db\reference_sv.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: sv; Flags: onlyifdoesntexist
+;Source: "..\dist\OpenNumismat\db\reference_fa.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: fa; Flags: onlyifdoesntexist
+;Source: "..\dist\OpenNumismat\db\reference_sv.ref"; DestDir: "{userdocs}\OpenNumismat"; DestName: "reference.ref"; Languages: sv; Flags: onlyifdoesntexist
 
 [Dirs]
 Name: "{userdocs}\OpenNumismat"
