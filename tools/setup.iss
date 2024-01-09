@@ -21,17 +21,17 @@ Name: fr; MessagesFile: "compiler:Languages\French.isl"; InfoBeforeFile: license
 Name: hu; MessagesFile: "compiler:Languages\Hungarian.isl"; InfoBeforeFile: license_en.txt
 Name: pt; MessagesFile: "compiler:Languages\Portuguese.isl"; InfoBeforeFile: license_pt.txt
 Name: de; MessagesFile: "compiler:Languages\German.isl"; InfoBeforeFile: license_de.txt
-{Name: el; MessagesFile: "compiler:Languages\Greek.isl"; InfoBeforeFile: license_el.txt}
+;Name: el; MessagesFile: "compiler:Languages\Greek.isl"; InfoBeforeFile: license_el.txt
 Name: cs; MessagesFile: "compiler:Languages\Czech.isl"; InfoBeforeFile: license_en.txt
 Name: it; MessagesFile: "compiler:Languages\Italian.isl"; InfoBeforeFile: license_it.txt
 Name: pl; MessagesFile: "compiler:Languages\Polish.isl"; InfoBeforeFile: license_pl.txt
 Name: ca; MessagesFile: "compiler:Languages\Catalan.isl"; InfoBeforeFile: license_ca.txt
 Name: nl; MessagesFile: "compiler:Languages\Dutch.isl"; InfoBeforeFile: license_nl.txt
 Name: bg; MessagesFile: "compiler:Languages\Bulgarian.isl"; InfoBeforeFile: license_bg.txt
-{Name: lv; MessagesFile: "compiler:Languages\Latvian.isl"; InfoBeforeFile: license_lv.txt}
+;Name: lv; MessagesFile: "compiler:Languages\Latvian.isl"; InfoBeforeFile: license_lv.txt
 Name: tr; MessagesFile: "compiler:Languages\Turkish.isl"; InfoBeforeFile: license_tr.txt
-{Name: fa; MessagesFile: "compiler:Languages\Farsi.isl"; InfoBeforeFile: license_fa.txt}
-{Name: sv; MessagesFile: "compiler:Languages\Swedish.isl"; InfoBeforeFile: license_sv.txt}
+;Name: fa; MessagesFile: "compiler:Languages\Farsi.isl"; InfoBeforeFile: license_fa.txt
+;Name: sv; MessagesFile: "compiler:Languages\Swedish.isl"; InfoBeforeFile: license_sv.txt
 
 [CustomMessages]
 en.sendReport=Send a reports to author's web-site if any error occurred
