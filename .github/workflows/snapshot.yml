@@ -55,7 +55,7 @@ jobs:
       with:
         path: OpenNumismat/version.py
         oldString: "Version = .*"
-        newString: "Version = '${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}'"
+        newString: "Version = ''${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}''"
         showFileContent: true
     - name: build
       run: |
