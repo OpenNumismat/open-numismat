@@ -207,11 +207,11 @@ jobs:
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
     - name: Patch version
-      uses: Nambers/ReplaceStringInFile@v1.3
+      uses: jacobtomlinson/gha-find-replace@v3
       with:
-        path: OpenNumismat/version.py
-        oldString: "Version = .*"
-        newString: "Version = '${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}'"
+        include: OpenNumismat/version.py
+        find: "Version = .*"
+        replace: "Version = '${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}'"
     - name: build
       run: |
         SET PYTHONOPTIMIZE=1
@@ -220,12 +220,11 @@ jobs:
       run: |
         cd dist
         mkdir vol
-        VERSION=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
         mv OpenNumismat.app vol
         ln -s /Applications vol/Applications
-        hdiutil create OpenNumismat-$VERSION-macos11.dmg -volname "OpenNumismat-$VERSION" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
+        hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
         cd ..
-        mv dist/OpenNumismat-$VERSION-macos11.dmg .
+        mv dist/${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg .
     - name: upload
       uses: actions/upload-artifact@v2
       with:
