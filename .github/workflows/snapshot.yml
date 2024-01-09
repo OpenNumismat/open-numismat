@@ -56,7 +56,7 @@ jobs:
       with:
         file: OpenNumismat/version.py
         old-string: "Version = .*"
-        new-string: >
+        new-string: >-
           Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: Patch portable
       uses: Nambers/ReplaceStringInFile@v1.3
@@ -115,7 +115,7 @@ jobs:
       with:
         file: OpenNumismat/version.py
         old-string: "Version = .*"
-        new-string: >
+        new-string: >-
           Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: Patch build
       uses: Nambers/ReplaceStringInFile@v1.3
@@ -168,7 +168,7 @@ jobs:
       with:
         file: OpenNumismat/version.py
         old-string: "Version = .*"
-        new-string: >
+        new-string: >-
           Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: Patch build
       uses: Nambers/ReplaceStringInFile@v1.3
@@ -214,7 +214,7 @@ jobs:
       with:
         file: OpenNumismat/version.py
         old-string: "Version = .*"
-        new-string: >
+        new-string: >-
           Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
       run: |
