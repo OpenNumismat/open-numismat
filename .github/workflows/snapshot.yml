@@ -149,11 +149,11 @@ jobs:
         python-version: '3.12'
     - name: install dependencies
       run: |
+        sudo apt update
+        sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install pyinstaller
-        sudo apt update
-        sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python-virtualenv
+        python -m pip install virtualenv
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
