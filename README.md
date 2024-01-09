@@ -5,6 +5,7 @@
 ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/OpenNumismat/open-numismat/latest)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/OpenNumismat/open-numismat)
 [![GitHub license](https://img.shields.io/github/license/opennumismat/open-numismat.svg)](https://github.com/opennumismat/open-numismat/blob/master/COPYING)
+[![Latest build](https://github.com/OpenNumismat/ImageEditor/actions/workflows/snapshot.yml/badge.svg)](https://github.com/OpenNumismat/open-numismat/releases/tag/latest)
 
 
 # OpenNumismat
