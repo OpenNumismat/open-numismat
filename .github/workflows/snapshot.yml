@@ -120,7 +120,7 @@ jobs:
       with:
         path: tools/setup.iss
         oldString: "AppVersion=.*"
-        newString: "AppVersion=''${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}''"
+        newString: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
       run: |
         SET PYTHONOPTIMIZE=1
@@ -150,7 +150,7 @@ jobs:
     - name: install dependencies
       run: |
         sudo apt update
-        sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv
+        sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
         python -m pip install virtualenv
@@ -166,7 +166,7 @@ jobs:
       with:
         path: OpenNumismat/version.py
         oldString: "Version = .*"
-        newString: "Version = ''${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}''"
+        newString: "Version = '${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}'"
     - name: Patch build
       uses: Nambers/ReplaceStringInFile@v1.3
       with:
