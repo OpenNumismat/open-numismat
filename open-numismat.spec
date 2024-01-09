@@ -49,6 +49,8 @@ coll = COLLECT(
     name="OpenNumismat",
 )
 
+from OpenNumismat.version import Version
+
 app = BUNDLE(
     coll,
     name="OpenNumismat.app",

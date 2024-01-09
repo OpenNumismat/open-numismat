@@ -22,8 +22,9 @@ jobs:
     steps:
       - run: "true"
 
-  Windows:
+  windows:
     needs: [version, title]
+    name: Windows
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
@@ -56,6 +57,12 @@ jobs:
         path: OpenNumismat/version.py
         oldString: "Version = .*"
         newString: "Version = ''${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}''"
+    - name: Patch portable
+      uses: Nambers/ReplaceStringInFile@v1.3
+      with:
+        path: OpenNumismat/version.py
+        oldString: "Portable = False"
+        newString: "Portable = True"
     - name: build
       run: |
         SET PYTHONOPTIMIZE=1
@@ -73,8 +80,9 @@ jobs:
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
         #if-no-files-found: error
 
-  InnoSetup:
+  innosetup:
     needs: [version, title]
+    name: InnoSetup
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
@@ -130,7 +138,7 @@ jobs:
 
   prerelease:
     name: Create pre-release
-    needs: [title, windows]
+    needs: [title, windows, innosetup]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

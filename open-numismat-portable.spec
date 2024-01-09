@@ -8,7 +8,7 @@ include_files = [
 ]
 
 a = Analysis(
-    ["open-numismat-portable.py"],
+    ["open-numismat.py"],
     pathex=[],
     binaries=[],
     datas=include_files,
