@@ -34,7 +34,7 @@ exe = EXE(
     upx=True,
     console=False,
     icon="icons/main.ico",
-    version="file_version_info.txt",
+    version="versionfile.txt",
 )
 coll = COLLECT(
     exe,
@@ -46,8 +46,6 @@ coll = COLLECT(
     upx_exclude=[],
     name="OpenNumismat",
 )
-
-from OpenNumismat.version import Version, AppName
 
 import os
 import shutil

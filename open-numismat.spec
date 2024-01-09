@@ -35,7 +35,7 @@ exe = EXE(
     console=False,
     #          target_arch='universal2',
     icon="icons/main.ico",
-    version="file_version_info.txt",
+    version="versionfile.txt",
     contents_directory=".",  # https://pyinstaller.org/en/latest/runtime-information.html
 )
 coll = COLLECT(
@@ -48,8 +48,6 @@ coll = COLLECT(
     upx_exclude=[],
     name="OpenNumismat",
 )
-
-from OpenNumismat.version import Version
 
 app = BUNDLE(
     coll,
