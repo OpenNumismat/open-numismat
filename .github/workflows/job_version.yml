@@ -1,0 +1,35 @@
+name: job_version
+
+on:
+  workflow_call:
+    outputs:
+      VERSION:
+        value: ${{ jobs.version.outputs.VERSION }}
+      REVISION:
+        value: ${{ jobs.version.outputs.TAG_OFFSET }}
+      APPNAME:
+        value: ${{ jobs.version.outputs.APP_NAME }}
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      APP_NAME: OpenNumismat
+      VERSION: ${{ steps.get_desc.outputs.VERSION }}
+      TAG_OFFSET: ${{ steps.get_desc.outputs.TAG_OFFSET }}
+      SHA_SHORT: ${{ steps.get_desc.outputs.SHA_SHORT }}
+      BUILD_NUM: ${{ steps.get_desc.outputs.BUILD_NUM }}
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Desc
+      id: get_desc
+      run: |
+        echo "APP_NAME=${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
+        tag_abbrev=$(git tag --sort=v:refname | grep -oE "(^[0-9]+(\.[0-9]+)*)$" | tail -1)
+        echo "VERSION=$tag_abbrev" >> $GITHUB_OUTPUT
+        # echo "VERSION=$(python -c 'from src import __version__; print(__version__)')" >> "$GITHUB_OUTPUT"
+        echo "BUILD_NUM=${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+        echo "TAG_OFFSET=$(git rev-list $tag_abbrev..HEAD --count)" >> $GITHUB_OUTPUT
+        echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT

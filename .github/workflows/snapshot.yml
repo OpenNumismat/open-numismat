@@ -1,0 +1,103 @@
+name: "Snapshot"
+
+on:
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - 'icons/*'
+      - 'resources.qrc'
+
+jobs:
+  version:
+    name: Version
+    uses: ./.github/workflows/job_version.yml
+
+  title:
+    needs: version
+    name: Title
+    runs-on: ubuntu-latest
+    outputs:
+      PACKAGENAME: ${{ needs.version.outputs.APPNAME }}-${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+      APPNAME: ${{ needs.version.outputs.APPNAME }}
+    steps:
+      - run: "true"
+
+  windows:
+    needs: [version, title]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install pyinstaller pyinstaller-versionfile
+    - name: Create versionfile
+      run: |
+        touch metadata.yml
+        echo "FileDescription: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: Nambers/ReplaceStringInFile@v1
+      with:
+        path: OpenNumismat/version.py
+        oldString: "Version = .*"
+        newString: "Version = '${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}'"
+        showFileContent: true
+    - name: build
+      run: |
+        SET PYTHONOPTIMIZE=1
+        pyinstaller open-numismat-portable.spec
+    - name: package
+      run: |
+        cd dist
+        dir ${{ needs.title.outputs.APPNAME }}
+        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
+        cd ..
+    - name: upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}
+        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        #if-no-files-found: error
+
+  prerelease:
+    name: Create pre-release
+    needs: [title, windows]
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        path: artifacts
+    - name: release
+      id: release
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+    - name: upload
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_content_type: application/zip
