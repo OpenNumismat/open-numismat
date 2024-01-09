@@ -22,7 +22,7 @@ jobs:
     steps:
       - run: "true"
 
-  windows:
+  Windows:
     needs: [version, title]
     runs-on: windows-latest
     steps:
@@ -69,20 +69,64 @@ jobs:
     - name: upload
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ needs.title.outputs.PACKAGENAME }}
+        name: ${{ needs.title.outputs.PACKAGENAME }}-zip
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
         #if-no-files-found: error
 
-  innosetup:
+  InnoSetup:
     needs: [version, title]
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
       with:
         submodules: 'recursive'
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install pyinstaller pyinstaller-versionfile
+    - name: Create versionfile
+      run: |
+        touch metadata.yml
+        echo "FileDescription: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: Nambers/ReplaceStringInFile@v1.3
+      with:
+        path: OpenNumismat/version.py
+        oldString: "Version = .*"
+        newString: "Version = ''${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}''"
+    - name: Patch build
+      uses: Nambers/ReplaceStringInFile@v1.3
+      with:
+        path: tools/setup.iss
+        oldString: "AppVersion=.*"
+        newString: "AppVersion=''${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}''"
     - name: build
       run: |
-        ISCC.exe
+        SET PYTHONOPTIMIZE=1
+        pyinstaller open-numismat.spec
+    - name: package
+      run: |
+        ISCC.exe tools/setup.iss
+        move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
+    - name: upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}
+        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        #if-no-files-found: error
 
   prerelease:
     name: Create pre-release
@@ -103,10 +147,17 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: true
         title: "Development Build"
-    - name: upload
+    - name: upload-windows
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-zip/${{ needs.title.outputs.PACKAGENAME }}.zip
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}.zip
         asset_content_type: application/zip
+    - name: upload-innosetup
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_content_type: application/octet-stream
