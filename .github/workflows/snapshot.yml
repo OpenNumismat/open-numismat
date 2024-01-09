@@ -73,6 +73,17 @@ jobs:
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
         #if-no-files-found: error
 
+  innosetup:
+    needs: [version, title]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'
+    - name: build
+      run: |
+        ISCC.exe
+
   prerelease:
     name: Create pre-release
     needs: [title, windows]
