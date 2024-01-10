@@ -1,7 +1,4 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --with python-virtualenv
-
-override_dh_virtualenv:
-	dh_virtualenv --builtin-venv
+	dh $@ --with python-virtualenv --python /usr/bin/python3

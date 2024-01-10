@@ -128,8 +128,6 @@ params = {
         "Environment :: X11 Applications :: Qt",
         "Environment :: Win32 (MS Windows)",
         "Environment :: MacOS X",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
