@@ -175,6 +175,9 @@ jobs:
         python -m pip list
         pip list
         python -m pip install virtualenv
+        /usr/bin/python3 -m pip list
+        python -m pip list
+        whereis python3
         debuild -b -us -uc
     - name: upload
       uses: actions/upload-artifact@v2
