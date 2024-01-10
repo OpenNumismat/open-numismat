@@ -61,5 +61,5 @@ Befor building installation package may be necessary:
     hdiutil create OpenNumismat-$VERSION-macos11.dmg -volname "OpenNumismat-$VERSION" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
 
 #### For Linux
-    sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv
+    sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv
     debuild -b -us -uc
