@@ -79,7 +79,7 @@ jobs:
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-zip
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
-        #if-no-files-found: error
+        if-no-files-found: error
 
   innosetup:
     needs: [version, title]
@@ -136,7 +136,7 @@ jobs:
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}
         path: ${{ needs.title.outputs.PACKAGENAME }}.exe
-        #if-no-files-found: error
+        if-no-files-found: error
 
   ubuntu:
     needs: [version, title]
@@ -173,7 +173,7 @@ jobs:
     - name: Build
       run: |
         debuild -b -us -uc
-        pwd
+        cd ..
         ls
     - name: upload
       uses: actions/upload-artifact@v2
@@ -230,7 +230,7 @@ jobs:
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg
         path: ${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg
-        #if-no-files-found: error
+        if-no-files-found: error
 
   prerelease:
     name: Create pre-release
