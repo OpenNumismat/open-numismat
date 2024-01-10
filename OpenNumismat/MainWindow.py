@@ -881,7 +881,7 @@ class MainWindow(QMainWindow):
     def about(self):
         QMessageBox.about(self, self.tr("About %s") % version.AppName,
                         "%s %s\n\n" % (version.AppName, version.Version) +
-                        "Copyright (C) 2011-2023 Vitaly Ignatov\n\n" +
+                        "Copyright (C) 2011-2024 Vitaly Ignatov\n\n" +
                         self.tr("%s is freeware licensed under a GPLv3.") %
                         version.AppName)
 
