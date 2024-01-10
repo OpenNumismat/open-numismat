@@ -170,24 +170,15 @@ jobs:
         file: debian/changelog
         old-string: "open-numismat (.*) oneiric; urgency=low"
         new-string: "open-numismat (${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}) unstable; urgency=low"
-    - name: package
+    - name: Build
       run: |
-        python -m pip list
-        /usr/bin/python3 -m pip list
-        python -m pip install virtualenv
-        /usr/bin/python3 -m pip install virtualenv
-        /usr/bin/python3 -m pip list
-        python -m pip list
-        whereis python3
-        python3 -m virtualenv foo
-        virtualenv --version
         debuild -b -us -uc
     - name: upload
       uses: actions/upload-artifact@v2
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb
-        path: ${{ needs.title.outputs.PACKAGENAME }}.deb
-        #if-no-files-found: error
+        path: ../${{ needs.title.outputs.PACKAGENAME }}.deb
+        if-no-files-found: error
 
   macos:
     needs: [version, title]
