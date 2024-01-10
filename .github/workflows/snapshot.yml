@@ -173,7 +173,7 @@ jobs:
     - name: Build
       run: |
         debuild -b -us -uc
-        cd ..
+        mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
         ls
     - name: upload
       uses: actions/upload-artifact@v2
