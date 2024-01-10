@@ -1,0 +1,20 @@
+name: Create private keys from GitHub secrets
+inputs:
+  file:
+    description: "File to put private keys."
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create file
+      shell: bash
+      run: touch ${{ inputs.file }}
+
+    - name: Write secrets to file
+      shell: bash
+      run: |
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> ${{ inputs.file }}
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> ${{ inputs.file }}
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> ${{ inputs.file }}
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> ${{ inputs.file }}

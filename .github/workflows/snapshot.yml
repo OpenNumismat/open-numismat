@@ -27,7 +27,7 @@ jobs:
     name: Windows
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
     - uses: actions/setup-python@v3
@@ -45,12 +45,9 @@ jobs:
         echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
         create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
     - name: Create private keys
-      run: |
-        touch OpenNumismat/private_keys.py
-        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
-        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+      uses: ./.github/actions/create-private-keys
+      with:
+        file: OpenNumismat/private_keys.py
     - name: Patch version
       uses: ./.github/actions/replace-string-in-file
       with:
@@ -59,11 +56,11 @@ jobs:
         new-string: >-
           Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: Patch portable
-      uses: Nambers/ReplaceStringInFile@v1.3
+      uses: ./.github/actions/replace-string-in-file
       with:
-        path: OpenNumismat/version.py
-        oldString: "Portable = False"
-        newString: "Portable = True"
+        file: OpenNumismat/version.py
+        old-string: "Portable = False"
+        new-string: "Portable = True"
     - name: build
       run: |
         SET PYTHONOPTIMIZE=1
@@ -86,7 +83,7 @@ jobs:
     name: InnoSetup
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
     - uses: actions/setup-python@v3
@@ -104,12 +101,9 @@ jobs:
         echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
         create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
     - name: Create private keys
-      run: |
-        touch OpenNumismat/private_keys.py
-        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
-        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+      uses: ./.github/actions/create-private-keys
+      with:
+        file: OpenNumismat/private_keys.py
     - name: Patch version
       uses: ./.github/actions/replace-string-in-file
       with:
@@ -118,11 +112,11 @@ jobs:
         new-string: >-
           Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: Patch build
-      uses: Nambers/ReplaceStringInFile@v1.3
+      uses: ./.github/actions/replace-string-in-file
       with:
-        path: tools/setup.iss
-        oldString: "AppVersion=.*"
-        newString: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+        file: tools/setup.iss
+        old-string: "AppVersion=.*"
+        new-string: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
       run: |
         SET PYTHONOPTIMIZE=1
@@ -143,7 +137,7 @@ jobs:
     name: Ubuntu
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
     - uses: actions/setup-python@v3
@@ -157,12 +151,9 @@ jobs:
         python -m pip install -r requirements.txt
         python -m pip install virtualenv
     - name: Create private keys
-      run: |
-        touch OpenNumismat/private_keys.py
-        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
-        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+      uses: ./.github/actions/create-private-keys
+      with:
+        file: OpenNumismat/private_keys.py
     - name: Patch version
       uses: ./.github/actions/replace-string-in-file
       with:
@@ -171,11 +162,11 @@ jobs:
         new-string: >-
           Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: Patch build
-      uses: Nambers/ReplaceStringInFile@v1.3
+      uses: ./.github/actions/replace-string-in-file
       with:
-        path: debian/changelog
-        oldString: "open-numismat (.*) oneiric; urgency=low"
-        newString: "open-numismat (${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}) oneiric; urgency=low"
+        file: debian/changelog
+        old-string: "open-numismat (.*) oneiric; urgency=low"
+        new-string: "open-numismat (${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}) oneiric; urgency=low"
     - name: package
       run: |
         debuild -b -us -uc
@@ -191,7 +182,7 @@ jobs:
     name: macOS
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
     - uses: actions/setup-python@v3
@@ -203,12 +194,9 @@ jobs:
         python -m pip install -r requirements.txt
         python -m pip install pyinstaller
     - name: Create private keys
-      run: |
-        touch OpenNumismat/private_keys.py
-        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
-        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+      uses: ./.github/actions/create-private-keys
+      with:
+        file: OpenNumismat/private_keys.py
     - name: Patch version
       uses: ./.github/actions/replace-string-in-file
       with:
@@ -238,7 +226,7 @@ jobs:
 
   prerelease:
     name: Create pre-release
-    needs: [title, windows, innosetup]
+    needs: [title, windows, innosetup, macos]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -268,4 +256,11 @@ jobs:
         upload_url: ${{ steps.release.outputs.upload_url }}
         asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_content_type: application/octet-stream
+    - name: upload-macos
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg
         asset_content_type: application/octet-stream
