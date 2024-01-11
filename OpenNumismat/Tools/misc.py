@@ -1,6 +1,6 @@
 import sys
-from PySide6.QtCore import QT_TRANSLATE_NOOP
 from PySide6.QtGui import QImageReader
+from PySide6.QtWidgets import QApplication
 
 
 def versiontuple(v):
@@ -24,8 +24,8 @@ def readImageFilters():
     if sys.platform == "linux":
         formats += " *.JPG *.JPEG"
 
-    filters = (QT_TRANSLATE_NOOP('readImageFilters', "Images (%s)") % formats,
-               QT_TRANSLATE_NOOP('readImageFilters', "All files (*.*)"))
+    filters = (QApplication.translate('readImageFilters', "Images (%s)") % formats,
+               QApplication.translate('readImageFilters', "All files (*.*)"))
 
     return filters
 
@@ -44,6 +44,6 @@ def saveImageFilters():
         filters.append("AVIF - AVIF (*.avif)")
     filters.append("BMP - Windows Bitmaps (*.bmp)")
     filters.append("TIF - TIFF (*.tif *.tiff)")
-    filters.append(QT_TRANSLATE_NOOP("saveImageFilters", "All files (*.*)"))
+    filters.append(QApplication.translate("saveImageFilters", "All files (*.*)"))
 
     return filters
