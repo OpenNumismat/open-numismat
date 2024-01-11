@@ -3106,7 +3106,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>(calculated for %d coins)</source>
-        <translation>(изчислено за %d монети)</translation>
+        <translation>(изчислено за %d монета/и)</translation>
     </message>
     <message>
         <source>(calculated for %d/%d coins)</source>
