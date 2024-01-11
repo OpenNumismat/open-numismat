@@ -161,54 +161,31 @@ params = {
 }
 
 if cx_Freeze_available:
-    import PyQt5
-    from PyQt5.QtCore import QLibraryInfo, PYQT_VERSION_STR
-
-    importedQtWebEngine = False
-    try:
-        from PyQt5 import QtWebEngineWidgets
-        importedQtWebEngine = True
-    except ImportError:
-        pass
-        
-
     base = None
     if WIN32:
         base = "Win32GUI"
 
     if WIN32:
-        if PYQT_VERSION_STR == "5.5.1":
-            qt_plugin_dir = PyQt5.__path__[0] + '/plugins'
-        else:
-            qt_plugin_dir = QLibraryInfo.location(QLibraryInfo.PluginsPath)
         executable_ext = '.exe'
     else:
         # Path to Qt on MacPorts
         qt_plugin_dir = '/opt/local/libexec/qt5/plugins'
         executable_ext = ''
 
-    if os.environ.get('PORTABLE'):
-        start_script = "open-numismat-portable.py"
-    else:
-        start_script = "open-numismat.py"
+    start_script = "open-numismat.py"
 
     executable = Executable(start_script, base=base,
                             icon='icons/main.ico',
-                            targetName=params['name'] + executable_ext)
+                            target_name=params['name'] + executable_ext)
 
     include_files = [
             "COPYING",
             ("OpenNumismat/translations", "translations"),
             ("OpenNumismat/templates", "templates"),
             ("OpenNumismat/db", "db"),
-            (qt_plugin_dir + "/imageformats", "imageformats"),
-            ("OpenNumismat/opennumismat.mplstyle", "opennumismat.mplstyle"),
         ]
     if WIN32:
-        include_files.append(
-                (qt_plugin_dir + "/sqldrivers/qsqlite.dll", "sqldrivers/qsqlite.dll"))
-        include_files.append(
-                (qt_plugin_dir + "/sqldrivers/qsqlodbc.dll", "sqldrivers/qsqlodbc.dll"))
+        pass
     elif DARWIN:
         include_files.append(
                 (qt_plugin_dir + "/sqldrivers/libqsqlite.dylib", "sqldrivers/libqsqlite.dylib"))
@@ -220,20 +197,16 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/liblcms2.dylib", "liblcms2.dylib"))
     build_exe_options = {
             "excludes": [],
-            "optimize": 2,
+            "optimize": 1,
             "include_files": include_files,
             "replace_paths": [(os.path.dirname(os.path.abspath(__file__)) + os.sep, '')],
             "include_msvcr": True  # skip error msvcr100.dll missing
     }
-    build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect", "PyQt5.QtNetwork"]
-    if importedQtWebEngine:
-        build_exe_options["includes"].append("PyQt5.QtWebEngine")
-    else:
-        build_exe_options["includes"].append("PyQt5.QtWebKit")
+#    build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect"]
     if WIN32:
-        build_exe_options["includes"].extend(["numpy.core._methods", "numpy.lib.format",
-                             "matplotlib.backends.backend_ps", "matplotlib.backends.backend_pdf",
-                             "matplotlib.backends.backend_svg"])
+#        build_exe_options["includes"].extend([
+#            "numpy.core._methods", "numpy.lib.format",
+#        ])
         build_exe_options["build_exe"] = 'build/' + params['name']
     elif DARWIN:
         build_exe_options["packages"] = ["xlwt", "asyncio"]
