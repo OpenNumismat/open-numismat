@@ -1946,7 +1946,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Background color</source>
-        <translation>Цвят на фона</translation>
+        <translation>Фонов цвят на изображението</translation>
     </message>
     <message>
         <source>Open File</source>
