@@ -1012,7 +1012,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Use RichText format</source>
-        <translation>Използвайте формата RichText</translation>
+        <translation>Използване на формата RichText</translation>
     </message>
     <message>
         <source>Use relative paths for invoices</source>
