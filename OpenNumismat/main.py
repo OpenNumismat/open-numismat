@@ -29,7 +29,7 @@ def main():
         QCoreApplication.setOrganizationName('.')
         QSettings.setDefaultFormat(QSettings.IniFormat)
         QSettings.setPath(QSettings.IniFormat, QSettings.UserScope,
-                          OpenNumismat.PRJ_PATH)
+                          OpenNumismat.HOME_PATH)
 
     settings = Settings()
     if settings['font_size'] == 1:
