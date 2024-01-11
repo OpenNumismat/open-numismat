@@ -3110,7 +3110,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>(calculated for %d/%d coins)</source>
-        <translation>(изчислено за %d/%d монети)</translation>
+        <translation>(изчислено за %d/%d монета/и)</translation>
     </message>
     <message>
         <source>Gold weight: %s gramm</source>
