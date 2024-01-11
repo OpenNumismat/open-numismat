@@ -7,6 +7,7 @@ from PySide6.QtWidgets import *
 import OpenNumismat
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+from OpenNumismat.Tools.misc import readImageFilters
 
 
 class ListView(QListView):
@@ -88,18 +89,9 @@ class ListView(QListView):
         self.widget.deleteItem()
 
     def _addIcon(self):
-        supported_formats = QImageReader.supportedImageFormats()
-        formats = "*.jpg *.jpeg *.png *.bmp *.tiff *.gif *.ico"
-        if b'webp' in supported_formats:
-            formats += " *.webp"
-        if b'jp2' in supported_formats:
-            formats += " *.jp2"
-
-        filters = (self.tr("Images (%s)") % formats,
-                   self.tr("All files (*.*)"))
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 self.tr("Open File"), self.latestDir,
-                ';;'.join(filters))
+                ';;'.join(readImageFilters()))
         if fileName:
             file_info = QFileInfo(fileName)
             self.latestDir = file_info.absolutePath()

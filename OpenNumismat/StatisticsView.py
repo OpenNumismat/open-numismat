@@ -29,6 +29,7 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.CollectionFields import StatisticsFields
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
+from OpenNumismat.Tools.misc import saveImageFilters
 from OpenNumismat.Settings import Settings
 
 gmapsAvailable = True
@@ -165,15 +166,7 @@ class BaseChart(QChartView):
         return "%s: %s\n%s: %d" % (self.label_y, x, self.label, y)
 
     def filters(self):
-        supported_formats = QImageReader.supportedImageFormats()
-        formats = "*.jpg *.jpeg *.png *.bmp *.tiff"
-        if b'webp' in supported_formats:
-            formats += " *.webp"
-        if b'jp2' in supported_formats:
-            formats += " *.jp2"
-
-        return (QApplication.translate('BaseCanvas', "Images (%s)") % formats,
-                QApplication.translate('BaseCanvas', "All files (*.*)"))
+        return saveImageFilters()
 
     def save(self, fileName, _selectedFilter):
         self.grab().save(fileName)

@@ -11,6 +11,7 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat import version
+from OpenNumismat.Tools.misc import readImageFilters, saveImageFilters
 
 
 class ImageLabel(QLabel):
@@ -145,18 +146,9 @@ class ImageLabel(QLabel):
         return fileName
 
     def saveImage(self):
-        supported_formats = QImageReader.supportedImageFormats()
-        formats = "*.jpg *.jpeg *.png *.bmp *.tiff"
-        if b'webp' in supported_formats:
-            formats += " *.webp"
-        if b'jp2' in supported_formats:
-            formats += " *.jp2"
-
-        filters = (self.tr("Images (%s)") % formats,
-                   self.tr("All files (*.*)"))
         # TODO: Set default name to coin title + field name
         fileName, _selectedFilter = getSaveFileName(
-            self, 'images', self.field, OpenNumismat.IMAGE_PATH, filters)
+            self, 'images', self.field, OpenNumismat.IMAGE_PATH, saveImageFilters())
         if fileName:
             self.image.save(fileName)
 
@@ -256,21 +248,12 @@ class ImageEdit(ImageLabel):
             self.openImage()
 
     def loadImage(self):
-        supported_formats = QImageReader.supportedImageFormats()
-        formats = "*.jpg *.jpeg *.bmp *.png *.tif *.tiff *.gif"
-        if b'webp' in supported_formats:
-            formats += " *.webp"
-        if b'jp2' in supported_formats:
-            formats += " *.jp2"
-
         settings = QSettings()
         last_dir = settings.value('images/last_dir', OpenNumismat.IMAGE_PATH)
 
         caption = QApplication.translate('ImageEdit', "Open File")
-        filters = (QApplication.translate('ImageEdit', "Images (%s)") % formats,
-                   QApplication.translate('ImageEdit', "All files (*.*)"))
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
-                caption, last_dir, ';;'.join(filters))
+                caption, last_dir, ';;'.join(readImageFilters()))
         if fileName:
             file_info = QFileInfo(fileName)
             settings = QSettings()
