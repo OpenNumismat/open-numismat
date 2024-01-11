@@ -98,7 +98,7 @@ class GeoChart(QWebView):
                 QApplication.translate('GeoChartCanvas', "PNG image (*.png)"))
 
     def save(self, fileName, selectedFilter):
-        if selectedFilter == self.filters[1]:
+        if selectedFilter == self.filters()[1]:
             img = self.page().mainFrame().evaluateJavaScript("chart.getImageURI()")
             if img:
                 ba = QByteArray()
