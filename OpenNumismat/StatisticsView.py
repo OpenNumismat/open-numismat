@@ -19,7 +19,7 @@ from PySide6.QtCharts import (
 from PySide6.QtCore import QCollator, QLocale
 from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDate, QDateTime, QByteArray
 from PySide6.QtCore import Signal as pyqtSignal
-from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor, QImageReader
+from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import *
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
@@ -32,13 +32,11 @@ from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Tools.misc import saveImageFilters
 from OpenNumismat.Settings import Settings
 
-gmapsAvailable = True
-
 try:
     from OpenNumismat.private_keys import MAPS_API_KEY
 except ImportError:
-    print('GMaps not available')
-    gmapsAvailable = False
+    print('GeoChart does not support non-English country names')
+    MAPS_API_KEY = ''
 
 
 class GeoChart(QWebView):
@@ -880,8 +878,7 @@ class StatisticsView(QWidget):
         self.chartSelector.addItem(self.tr("Stacked bar"), 'stacked')
         self.chartSelector.addItem(self.tr("Progress"), 'progress')
         self.chartSelector.addItem(self.tr("Area"), 'area')
-        if gmapsAvailable:
-            self.chartSelector.addItem(self.tr("GeoChart"), 'geochart')
+        self.chartSelector.addItem(self.tr("GeoChart"), 'geochart')
         ctrlLayout.addWidget(QLabel(self.tr("Chart:")))
         ctrlLayout.addWidget(self.chartSelector)
 
