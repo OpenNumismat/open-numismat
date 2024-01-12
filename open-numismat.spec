@@ -2,7 +2,6 @@
 
 include_files = [
     ("COPYING", "."),
-    ("OpenNumismat/translations", "translations"),
     ("OpenNumismat/templates", "templates"),
     ("OpenNumismat/db", "db"),
 ]

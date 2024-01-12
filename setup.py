@@ -145,7 +145,6 @@ params = {
     "py_modules": ['open-numismat', ],
 
     "packages": find_packages() + [
-        'OpenNumismat/translations',
         'OpenNumismat/db'] +
           templates_packages,
 
