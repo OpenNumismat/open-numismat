@@ -4,8 +4,9 @@ on:
   push:
     branches: [ "master" ]
     paths-ignore:
+      - 'OpenNumismat/resources/i18n/*'
       - 'icons/*'
-      - 'resources.qrc'
+      - 'OpenNumismat/resources/resources.qrc'
 
 jobs:
   version:
