@@ -176,12 +176,12 @@
         <translation>Количество</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
         <source>All files (*.*)</source>
         <translation>Все файлы (*.*)</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
     </message>
 </context>
 <context>
@@ -1023,10 +1023,6 @@ The application will need to restart now.</source>
         <translation>Поворот осей в часах</translation>
     </message>
     <message>
-        <source>Used statuses:</source>
-        <translation>Используемые статусы:</translation>
-    </message>
-    <message>
         <source>Default status for new coin</source>
         <translation>Статус для новых монет</translation>
     </message>
@@ -1045,6 +1041,10 @@ The application will need to restart now.</source>
     <message>
         <source>Enable tags</source>
         <translation>Разрешить теги</translation>
+    </message>
+    <message>
+        <source>Used statuses (double-click for rename):</source>
+        <translation>Используемые статусы (двойной щелчок для переименования)</translation>
     </message>
 </context>
 <context>
@@ -1794,28 +1794,9 @@ drag-n-drop to add an image)</source>
         <source>Enter new image name</source>
         <translation>Введите новое название изображения</translation>
     </message>
-</context>
-<context>
-    <name>ImageLabel</name>
     <message>
-        <source>Open</source>
-        <translation>Открыть</translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation>Редактировать...</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Копировать</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation>Сохранить как...</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
     </message>
     <message>
         <source>All files (*.*)</source>
@@ -1823,14 +1804,18 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImageViewer</name>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>В&amp;ыход</translation>
-    </message>
+    <name>ImageEditorDialog</name>
     <message>
         <source>Browse in viewer</source>
         <translation>Открыть в программе просмотра</translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation>Сохранить как...</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>В&amp;ыход</translation>
     </message>
     <message>
         <source>Full Screen</source>
@@ -1901,6 +1886,18 @@ drag-n-drop to add an image)</source>
         <translation>Повторить</translation>
     </message>
     <message>
+        <source>Window color</source>
+        <translation>Цвет окна</translation>
+    </message>
+    <message>
+        <source>Cut left half</source>
+        <translation>Вырезать левую половину</translation>
+    </message>
+    <message>
+        <source>Cut right half</source>
+        <translation>Вырезать правую половину</translation>
+    </message>
+    <message>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
@@ -1913,8 +1910,16 @@ drag-n-drop to add an image)</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
+    <message>
+        <source>Image editor</source>
+        <translation>Редактор изображений</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
     </message>
     <message>
         <source>All files (*.*)</source>
@@ -1925,8 +1930,70 @@ drag-n-drop to add an image)</source>
         <translation>Изображение изменено. Сохранить изменения?</translation>
     </message>
     <message>
-        <source>&amp;Save As...</source>
+        <source>Save changes to current image?</source>
+        <translation>Сохранить изменения в этом изображении?</translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Больше не показывать</translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>&amp;Open...</source>
+        <translation>&amp;Открыть...</translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation>Цвет фона</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Открыть файл</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Все файлы (*.*)</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>Изображение изменено. Сохранить изменения?</translation>
+    </message>
+</context>
+<context>
+    <name>ImageLabel</name>
+    <message>
+        <source>Open</source>
+        <translation>Открыть</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Редактировать...</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Копировать</translation>
+    </message>
+    <message>
+        <source>Save as...</source>
         <translation>Сохранить как...</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Все файлы (*.*)</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
     </message>
 </context>
 <context>
@@ -2087,12 +2154,16 @@ drag-n-drop to add an image)</source>
         <translation>Очистить иконку</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
-        <translation>Изображения (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Все файлы (*.*)</translation>
-    </message>
-    <message>
         <source>Open File</source>
         <translation>Открыть файл</translation>
+    </message>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Все файлы (*.*)</translation>
     </message>
 </context>
 <context>
@@ -2180,6 +2251,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Select reference</source>
         <translation>Выбор справочника</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Цвет фона изображения</translation>
     </message>
 </context>
 <context>
