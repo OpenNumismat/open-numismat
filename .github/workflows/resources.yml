@@ -1,0 +1,45 @@
+name: "Build resources"
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'OpenNumismat/resources/i18n/lang_*.qm'
+      - 'icons/*'
+      - 'OpenNumismat/resources/resources.qrc'
+#  pull_request:
+#    branches:
+#      - main
+#    types: [closed]
+#    paths:
+#      - 'src/i18n/lang_*.ts'
+#      - 'src/icons/*'
+#      - 'src/resources.qrc'
+
+jobs:
+  resources:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pyside6
+    - name: ts2qm
+      run: |
+        python misc/ts2qm.py
+    - name: qrc2py
+      run: |
+        python misc/qrc2py.py
+    - name: Commit & Push changes
+      uses: actions-js/push@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: master
+        message: Updated resources
