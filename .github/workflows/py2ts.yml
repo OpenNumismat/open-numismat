@@ -1,0 +1,39 @@
+name: "Build tranlations"
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'OpenNumismat/**.py'
+      - '!OpenNumismat/resources/resources.py'
+#  pull_request:
+#    branches:
+#      - main
+#    types: [closed]
+#    paths:
+#      - 'src/**.py'
+#      - '!src/resources.py'
+
+jobs:
+  resources:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pyside6
+    - name: py2ts
+      run: |
+        python misc/py2ts.py
+    - name: Commit & Push changes
+      uses: actions-js/push@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        message: i18n
