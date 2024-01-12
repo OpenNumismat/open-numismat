@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'OpenNumismat/resources/i18n/lang_*.qm'
+      - 'OpenNumismat/resources/i18n/lang_*.ts'
       - 'icons/*'
       - 'OpenNumismat/resources/resources.qrc'
 #  pull_request:
