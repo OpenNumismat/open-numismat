@@ -1,0 +1,1 @@
+import OpenNumismat.resources.resources

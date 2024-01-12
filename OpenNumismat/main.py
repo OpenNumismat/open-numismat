@@ -47,9 +47,8 @@ def main():
 
     locale = QLocale(settings['locale'])
 
-    path = os.path.join(OpenNumismat.PRJ_PATH, 'translations')
     translator = QTranslator(app)
-    if translator.load(locale, 'lang', '_', path):
+    if translator.load(locale, 'lang', '_', ':/i18n'):
         app.installTranslator(translator)
 
     path = QLibraryInfo.path(QLibraryInfo.TranslationsPath)
