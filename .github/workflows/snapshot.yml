@@ -138,6 +138,58 @@ jobs:
         path: ${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
 
+  cx_freeze:
+    needs: [version, title]
+    name: cx_Freeze
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install cx_freeze
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: Patch portable
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Portable = False"
+        new-string: "Portable = True"
+    - name: build
+      run: |
+        python setup.py build_exe
+    - name: package
+      run: |
+        cd build
+        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
+        cd ..
+    - name: upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-cx_freeze
+        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        if-no-files-found: error
+
   ubuntu:
     needs: [version, title]
     name: Ubuntu
