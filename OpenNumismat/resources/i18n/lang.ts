@@ -177,14 +177,6 @@
         <source>Quantity</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>BaseTableView</name>
@@ -1783,14 +1775,6 @@ drag-n-drop to add an image)</source>
         <source>Enter new image name</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ImageEditorDialog</name>
@@ -1907,14 +1891,6 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (%s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Image was changed. Save changes?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1942,14 +1918,6 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (%s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1974,14 +1942,6 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Save as...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Images (%s)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2144,14 +2104,6 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Open File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3475,6 +3427,24 @@ Add a new one first.</source>
     <name>_Updater</name>
     <message>
         <source>Updating records</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>readImageFilters</name>
+    <message>
+        <source>Images (%s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>saveImageFilters</name>
+    <message>
+        <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
