@@ -194,7 +194,7 @@ if cx_Freeze_available:
         include_files.append(("/opt/local/lib/libtiff.5.dylib", "libtiff.5.dylib"))
         include_files.append(("/opt/local/lib/liblcms2.dylib", "liblcms2.dylib"))
     build_exe_options = {
-            "excludes": [],
+            "excludes": ["tkinter",],
             "optimize": 1,
             "include_files": include_files,
             "replace_paths": [(os.path.dirname(os.path.abspath(__file__)) + os.sep, '')],
