@@ -17,6 +17,10 @@ on:
 #      - 'src/icons/*'
 #      - 'src/resources.qrc'
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   resources:
     runs-on: windows-latest
