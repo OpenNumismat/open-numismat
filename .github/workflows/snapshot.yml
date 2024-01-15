@@ -300,7 +300,7 @@ jobs:
       id: release
       uses: marvinpinto/action-automatic-releases@latest
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        repo_token: "${{ secrets.PAT }}"
         automatic_release_tag: "latest"
         prerelease: true
         title: "Development Build"
