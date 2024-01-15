@@ -175,14 +175,6 @@
         <source>Quantity</source>
         <translation>Количество</translation>
     </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Всички файлове (*.*)</translation>
-    </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation>Изображения (%s)</translation>
-    </message>
 </context>
 <context>
     <name>BaseTableView</name>
@@ -203,10 +195,6 @@ Changing item position avalaible only on default sort order. Clear sort order no
     <message>
         <source>%d/%d records</source>
         <translation>%d/%d записи</translation>
-    </message>
-    <message>
-        <source>%n record(s) selected</source>
-        <translation>%n избран/и запис/и</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -265,6 +253,14 @@ Close the file and try again.</source>
     <message>
         <source>Deleting records</source>
         <translation>Изтриване на записи</translation>
+    </message>
+    <message>
+        <source>%d record(s) selected</source>
+        <translation>%d избран/и запис/и</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove a %d coin(s)?</source>
+        <translation>Сигурни ли сте, че искате да изтриете избраната/ите %d монета/и?</translation>
     </message>
 </context>
 <context>
@@ -1794,14 +1790,6 @@ drag-n-drop to add an image)</source>
         <source>Enter new image name</source>
         <translation>Въведете ново име на изображението</translation>
     </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation>Изображения (%s)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Всички файлове (*.*)</translation>
-    </message>
 </context>
 <context>
     <name>ImageEditorDialog</name>
@@ -1918,14 +1906,6 @@ drag-n-drop to add an image)</source>
         <translation>Редактор на изображения</translation>
     </message>
     <message>
-        <source>Images (%s)</source>
-        <translation>Изображения (%s)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Всички файлове (*.*)</translation>
-    </message>
-    <message>
         <source>Image was changed. Save changes?</source>
         <translation>Изображението е променено. Да се запазят ли промените?</translation>
     </message>
@@ -1953,14 +1933,6 @@ drag-n-drop to add an image)</source>
         <translation>Отваряне на файл</translation>
     </message>
     <message>
-        <source>Images (%s)</source>
-        <translation>Изображения (%s)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Всички файлове (*.*)</translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation>Записване</translation>
     </message>
@@ -1986,14 +1958,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Запиши като...</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Всички файлове (*.*)</translation>
-    </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation>Изображения (%s)</translation>
     </message>
 </context>
 <context>
@@ -2156,14 +2120,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Open File</source>
         <translation>Отваряне на файл</translation>
-    </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation>Изображения (%s)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Всички файлове (*.*)</translation>
     </message>
 </context>
 <context>
@@ -3494,6 +3450,24 @@ Add a new one first.</source>
     <message>
         <source>Updating records</source>
         <translation>Актуализиране на записите</translation>
+    </message>
+</context>
+<context>
+    <name>readImageFilters</name>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Изображения (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Всички файлове (*.*)</translation>
+    </message>
+</context>
+<context>
+    <name>saveImageFilters</name>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Всички файлове (*.*)</translation>
     </message>
 </context>
 </TS>
