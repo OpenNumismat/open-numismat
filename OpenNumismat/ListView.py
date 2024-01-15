@@ -156,8 +156,7 @@ class BaseTableView(QTableView):
 
     def selectionChanged(self, selected, deselected):
         count = len(self.selectedCoins())
-        label = QApplication.translate('BaseTableView', "%n record(s) selected",
-                                       '', count)
+        label = QApplication.translate('BaseTableView', "%d record(s) selected") % count
         self.listSelectedLabel.setText(label)
         return super().selectionChanged(selected, deselected)
 
@@ -510,8 +509,7 @@ class BaseTableView(QTableView):
 
         result = QMessageBox.information(
             self, QApplication.translate('BaseTableView', "Delete"),
-            QApplication.translate('BaseTableView', "Are you sure to remove a %n coin(s)?",
-                                   '', len(indexes)),
+            QApplication.translate('BaseTableView', "Are you sure to remove a %d coin(s)?") % len(indexes),
             QMessageBox.Yes | QMessageBox.Cancel,
             QMessageBox.Cancel)
         if result == QMessageBox.Yes:
