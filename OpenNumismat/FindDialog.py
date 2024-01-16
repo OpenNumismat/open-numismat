@@ -47,11 +47,11 @@ class FindDialog(QDialog):
         self.methodSelector = QComboBox()
         self.methodSelector.setSizePolicy(QSizePolicy.Fixed,
                                           QSizePolicy.Fixed)
-        self.methodSelector.addItem("Average", 'ahash')
+        # self.methodSelector.addItem("Average", 'ahash')
         self.methodSelector.addItem("Perceptual", 'phash')
-        self.methodSelector.addItem("Difference", 'dhash')
-        self.methodSelector.addItem("Wavelet", 'whash')
-        self.methodSelector.addItem("Color", 'colorhash')
+        # self.methodSelector.addItem("Difference", 'dhash')
+        # self.methodSelector.addItem("Wavelet", 'whash')
+        # self.methodSelector.addItem("Color", 'colorhash')
         self.methodSelector.addItem("Crop-resistant", 'crop_resistant_hash')
         method = settings.value('image_find/method', 'phash')
         index = self.methodSelector.findData(method)
@@ -263,6 +263,19 @@ class FindDialog(QDialog):
         self.table.update()
 
     def _imageHash(self, image, method):
+        # Squaring
+        w, h = image.size
+        if w > h:
+            offset = (w - h) // 2
+            image = image.crop((offset, 0, w - offset, h))
+        else:
+            offset = (h - w) // 2
+            image = image.crop((0, offset, w, h - offset))
+
+        # Resize
+        # image = image.resize((256, 256), Image.Resampling.LANCZOS)
+
+        # Compute hash
         if method == 'ahash':
             return imagehash.average_hash(image)
         elif method == 'phash':
