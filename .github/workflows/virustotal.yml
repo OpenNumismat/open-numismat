@@ -16,6 +16,7 @@ jobs:
           files: |
             .exe$
             .zip$
+            .msi$
           update_release_body: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
           request_rate: 4

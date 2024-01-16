@@ -8,6 +8,10 @@ on:
       - 'icons/*'
       - 'OpenNumismat/resources/resources.qrc'
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   version:
     name: Version
