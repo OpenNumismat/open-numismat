@@ -181,6 +181,7 @@ jobs:
         new-string: "Portable = True"
     - name: build
       run: |
+        SET PYTHONOPTIMIZE=1
         python setup.py build_exe
     - name: package
       run: |
@@ -327,7 +328,7 @@ jobs:
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
         asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-cx_freeze/${{ needs.title.outputs.PACKAGENAME }}.zip
-        asset_name: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-cx_freeze.zip
         asset_content_type: application/octet-stream
     - name: upload-ubuntu
       uses: actions/upload-release-asset@v1
