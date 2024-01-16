@@ -17,7 +17,7 @@ from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.misc import versiontuple
 from OpenNumismat import version
 from OpenNumismat.Collection.Export import ExportDialog
-# from OpenNumismat.FindDialog import FindDialog
+from OpenNumismat.FindDialog import FindDialog
 from OpenNumismat.SummaryDialog import SummaryDialog
 from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailable
 from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
@@ -67,10 +67,10 @@ class MainWindow(QMainWindow):
         self.viewButton.setMenu(viewMenu)
         self.viewButton.setDefaultAction(self.tableViewAct)
 
-        # findAct = QAction(QIcon(':/binoculars.png'),
-        #                   "Find...", self)
-        # findAct.triggered.connect(self.findEvent)
-        # self.collectionActs.append(findAct)
+        findAct = QAction(QIcon(':/binoculars.png'),
+                          "Find...", self)
+        findAct.triggered.connect(self.findEvent)
+        self.collectionActs.append(findAct)
 
         colnectAct = QAction(QIcon(':/colnect.png'),
                              "Colnect", self)
@@ -296,8 +296,8 @@ class MainWindow(QMainWindow):
         record.addAction(addCoinAct)
         record.addAction(editCoinAct)
         record.addSeparator()
-        # record.addAction(findAct)
-        # record.addSeparator()
+        record.addAction(findAct)
+        record.addSeparator()
         if colnectAvailable:
             record.addAction(colnectAct)
         if ansAvailable:
@@ -413,8 +413,8 @@ class MainWindow(QMainWindow):
         toolBar.addAction(actions['save_sorting'])
         toolBar.addAction(self.enableDragAct)
         toolBar.addSeparator()
-        # toolBar.addAction(findAct)
-        # toolBar.addSeparator()
+        toolBar.addAction(findAct)
+        toolBar.addSeparator()
         toolBar.addAction(settingsAct)
         toolBar.addSeparator()
         toolBar.addAction(self.detailsAct)
