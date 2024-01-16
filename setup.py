@@ -201,6 +201,7 @@ if cx_Freeze_available:
             "include_msvcr": True  # skip error msvcr100.dll missing
     }
 #    build_exe_options["includes"] = ["lxml._elementpath", "gzip", "inspect"]
+    build_exe_options["includes"] = ["PySide6.support.deprecated"]
     if WIN32:
 #        build_exe_options["includes"].extend([
 #            "numpy.core._methods", "numpy.lib.format",
