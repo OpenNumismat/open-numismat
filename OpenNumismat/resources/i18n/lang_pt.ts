@@ -175,14 +175,6 @@
         <source>Quantity</source>
         <translation>Quantidade</translation>
     </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos os ficheiros (*.*)</translation>
-    </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation>Imagens (%s)</translation>
-    </message>
 </context>
 <context>
     <name>BaseTableView</name>
@@ -203,10 +195,6 @@ Mudar a posição do item só está disponível na ordenação predefinida. Limp
     <message>
         <source>%d/%d records</source>
         <translation>%d/%d registos</translation>
-    </message>
-    <message>
-        <source>%n record(s) selected</source>
-        <translation>%n registo(s) seleccionado(s)</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -265,6 +253,14 @@ Feche o ficheiro e tente novamente.</translation>
     <message>
         <source>Deleting records</source>
         <translation>A eliminar registos</translation>
+    </message>
+    <message>
+        <source>%d record(s) selected</source>
+        <translation>%d registo(s) seleccionado(s)</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove a %d coin(s)?</source>
+        <translation>Tem a certeza de que deseja remover %d moeda(s)</translation>
     </message>
 </context>
 <context>
@@ -1794,14 +1790,6 @@ arraste e largue para adicionar)</translation>
         <source>Enter new image name</source>
         <translation>Insira o novo nome</translation>
     </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation>Imagens (%s)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos os ficheiros (*.*)</translation>
-    </message>
 </context>
 <context>
     <name>ImageEditorDialog</name>
@@ -1918,14 +1906,6 @@ arraste e largue para adicionar)</translation>
         <translation>Editor de imagem</translation>
     </message>
     <message>
-        <source>Images (%s)</source>
-        <translation>Imagens (%s)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos os ficheiros (*.*)</translation>
-    </message>
-    <message>
         <source>Image was changed. Save changes?</source>
         <translation>A imagem foi alterada. Gravar alterações?</translation>
     </message>
@@ -1953,14 +1933,6 @@ arraste e largue para adicionar)</translation>
         <translation>Abrir ficheiro</translation>
     </message>
     <message>
-        <source>Images (%s)</source>
-        <translation>Imagens (%s)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos os ficheiros (*.*)</translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation>Gravar</translation>
     </message>
@@ -1986,14 +1958,6 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Save as...</source>
         <translation>Gravar como...</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos os ficheiros (*.*)</translation>
-    </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation>Imagens (%s)</translation>
     </message>
 </context>
 <context>
@@ -2156,14 +2120,6 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Open File</source>
         <translation>Abrir ficheiro</translation>
-    </message>
-    <message>
-        <source>Images (%s)</source>
-        <translation>Imagens (%s)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos os ficheiros (*.*)</translation>
     </message>
 </context>
 <context>
@@ -3494,6 +3450,24 @@ Adicione uma nova primeiro.</translation>
     <message>
         <source>Updating records</source>
         <translation>A actualizar registos</translation>
+    </message>
+</context>
+<context>
+    <name>readImageFilters</name>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Imagens (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos os ficheiros (*.*)</translation>
+    </message>
+</context>
+<context>
+    <name>saveImageFilters</name>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos os ficheiros (*.*)</translation>
     </message>
 </context>
 </TS>
