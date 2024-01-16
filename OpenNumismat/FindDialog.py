@@ -337,9 +337,9 @@ class TableWidget(QTableWidget):
         if comp_res:
             currentListView = self.img_widget.parent().viewTab.currentListView()
             currentListView.selectedId = comp_res.coin_id
-            currentListView.modelChanged()  # TODO: Doesn't working when CardView is active
+            currentListView.modelChanged()
             if currentListView.selectedId:
-                currentListView.itemDClicked(None)
+                currentListView.itemDClicked(None)  # TODO: Doesn't working when CardView is active
 
     def addItem(self, item):
         self.items.append(item)
@@ -399,6 +399,7 @@ class TableWidget(QTableWidget):
 
 
 class CardDelegate(QStyledItemDelegate):
+    LABEL_HEIGHT = 30 + 4
 
     def paint(self, painter, option, index):
         comp_res = index.data(Qt.UserRole)
@@ -418,7 +419,7 @@ class CardDelegate(QStyledItemDelegate):
             painter.drawRect(rect)
 
             text_rect = QRect(rect)
-            text_rect.setHeight(30 + 4)
+            text_rect.setHeight(self.LABEL_HEIGHT)
             painter.fillRect(text_rect, back_color)
 
             text_rect = rect.marginsRemoved(QMargins(3, 2, 2, 2))
@@ -429,7 +430,7 @@ class CardDelegate(QStyledItemDelegate):
             text_option.setWrapMode(QTextOption.WrapAtWordBoundaryOrAnywhere)
             painter.drawText(QRectF(text_rect), comp_res.coin_title, text_option)
 
-            rect.setY(rect.y() + 30 + 4 + 1)
+            rect.setY(rect.y() + self.LABEL_HEIGHT + 1)
             rect.setHeight(rect.height() - 1)
             image_rect = QRect(rect.x(), rect.y(),
                                rect.width(), rect.height())

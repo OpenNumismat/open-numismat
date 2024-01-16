@@ -1257,7 +1257,7 @@ class IconView(BaseTableView):
             idIndex = self.model().fieldIndex('id')
             startIndex = self.model().index(0, idIndex)
 
-            indexes = self.proxyModel.model.match(startIndex, Qt.DisplayRole,
+            indexes = self.proxyModel.model.match(startIndex, Qt.UserRole,
                                         self.selectedId, 1, Qt.MatchExactly)
             if indexes:
                 self.scrollToIndex(indexes[0])
