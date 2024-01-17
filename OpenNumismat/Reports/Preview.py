@@ -34,6 +34,7 @@ class QWebView(QWebEngineView):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setPage(WebEnginePage(self))
+        self.setMinimumHeight(100)
     
     def contextMenuEvent(self, _event):
         pass
