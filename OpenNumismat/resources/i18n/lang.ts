@@ -2448,6 +2448,10 @@ drag-n-drop to add an image)</source>
         <source>Tags...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Find...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NativeYearEdit</name>
