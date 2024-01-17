@@ -249,7 +249,7 @@ class FindDialog(QDialog):
         similarity = self.similaritySlider.value()
         max_val = 64
         if method == 'crop_resistant_hash':
-            max_val = 5
+            max_val = len(target_hash.segment_hashes)
         max_distance = max_val * (100 - similarity) / 100
 
         for comp_res in comparison_results:
@@ -264,13 +264,14 @@ class FindDialog(QDialog):
 
     def _imageHash(self, image, method):
         # Squaring
-        w, h = image.size
-        if w > h:
-            offset = (w - h) // 2
-            image = image.crop((offset, 0, w - offset, h))
-        else:
-            offset = (h - w) // 2
-            image = image.crop((0, offset, w, h - offset))
+        if method != 'crop_resistant_hash':
+            w, h = image.size
+            if w > h:
+                offset = (w - h) // 2
+                image = image.crop((offset, 0, w - offset, h))
+            else:
+                offset = (h - w) // 2
+                image = image.crop((0, offset, w, h - offset))
 
         # Resize
         # image = image.resize((256, 256), Image.Resampling.LANCZOS)
