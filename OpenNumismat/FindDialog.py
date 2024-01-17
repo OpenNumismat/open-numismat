@@ -1,7 +1,9 @@
+import cv2
 import imagehash
 import io
 from dataclasses import dataclass
 from PIL import Image
+import numpy as np
 
 from PySide6.QtCore import Qt, QBuffer, QMargins, QRect, QRectF, QSettings
 from PySide6.QtGui import QImage, QPixmap, QIcon, QTextOption, QPalette, QColor
@@ -49,6 +51,7 @@ class FindDialog(QDialog):
                                           QSizePolicy.Fixed)
         # self.methodSelector.addItem("Average", 'ahash')
         self.methodSelector.addItem("Perceptual", 'phash')
+        self.methodSelector.addItem("Perceptual + ORB", 'phash_orb')
         # self.methodSelector.addItem("Difference", 'dhash')
         # self.methodSelector.addItem("Wavelet", 'whash')
         # self.methodSelector.addItem("Color", 'colorhash')
@@ -63,7 +66,7 @@ class FindDialog(QDialog):
         self.similaritySlider.setRange(0, 100)
         self.similaritySlider.setTickInterval(10)
         self.similaritySlider.setTickPosition(QSlider.TicksAbove)
-        self.similaritySlider.setSizePolicy(QSizePolicy.Fixed,
+        self.similaritySlider.setSizePolicy(QSizePolicy.Preferred,
                                             QSizePolicy.Fixed)
         self.similaritySlider.valueChanged.connect(self.similarityChanged)
         similarity = settings.value('image_find/similarity', 75, type=int)
@@ -276,10 +279,14 @@ class FindDialog(QDialog):
         # Resize
         # image = image.resize((256, 256), Image.Resampling.LANCZOS)
 
+        # Filter
+        if method == 'phash_orb':
+            image = img2orientedBRIEF(image)
+
         # Compute hash
         if method == 'ahash':
             return imagehash.average_hash(image)
-        elif method == 'phash':
+        elif method == 'phash' or method == 'phash_orb':
             return imagehash.phash(image)
         elif method == 'dhash':
             return imagehash.dhash(image)
@@ -452,3 +459,31 @@ class CardDelegate(QStyledItemDelegate):
                                  (image_rect.height() - pixmap.height()) // 2)
             image_rect.setSize(pixmap.size())
             painter.drawPixmap(image_rect, pixmap)
+
+
+def img2orientedBRIEF(image, nfeatures=2000):
+    if isinstance(image, Image.Image):  # convert PIL to cv2
+        image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+
+    if len(image.shape) == 3:
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # https://www.geeksforgeeks.org/feature-detection-and-matching-with-opencv-python/
+    orb = cv2.ORB_create(nfeatures=nfeatures)
+    kp = orb.detect(image)
+
+    height, width = image.shape
+    img = np.zeros([height, width, 1], dtype=np.uint8)
+    img.fill(255)
+
+    # Drawing the keypoints
+    if width <= 512:
+        for i in kp:
+            x = int(i.pt[0])
+            y = int(i.pt[1])
+            cv2.circle(img, (x, y), 2, (0, 0, 255), -1)
+    else:
+        img = cv2.drawKeypoints(img, kp, 0, color=(0, 255, 0))
+
+    image = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))  # convert cv2 to PIL
+    return image
