@@ -32,6 +32,7 @@ class ImageLabel(QLabel):
                            QSizePolicy.Ignored)
         self.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.setFocusPolicy(Qt.StrongFocus)
+        self.setMinimumWidth(100)
 
     def contextMenuEvent(self, event):
         open_ = QAction(self.tr("Open"), self)
