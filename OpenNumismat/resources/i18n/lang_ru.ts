@@ -2459,6 +2459,10 @@ drag-n-drop to add an image)</source>
         <source>Tags...</source>
         <translation>Метки...</translation>
     </message>
+    <message>
+        <source>Find...</source>
+        <translation>Поиск...</translation>
+    </message>
 </context>
 <context>
     <name>NativeYearEdit</name>
