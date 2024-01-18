@@ -67,7 +67,7 @@ class MainWindow(QMainWindow):
         self.viewButton.setMenu(viewMenu)
         self.viewButton.setDefaultAction(self.tableViewAct)
 
-        findAct = QAction(QIcon(':/binoculars.png'),
+        findAct = QAction(QIcon(':/SimilarImageFinder.png'),
                           self.tr("Search by image..."), self)
         findAct.triggered.connect(self.findEvent)
         self.collectionActs.append(findAct)
