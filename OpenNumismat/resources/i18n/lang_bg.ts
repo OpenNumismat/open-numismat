@@ -3,7 +3,7 @@
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
-        <translation>Намиране на адрес</translation>
+        <translation>Търсене на адрес</translation>
     </message>
 </context>
 <context>
@@ -1495,7 +1495,7 @@ Do you want to send an error message to the author?</source>
     <name>FindDialog</name>
     <message>
         <source>Find</source>
-        <translation>Намиране</translation>
+        <translation>Търсене</translation>
     </message>
     <message>
         <source>Field</source>
@@ -1524,6 +1524,10 @@ Do you want to send an error message to the author?</source>
     <message>
         <source>Cancel</source>
         <translation>Отказ</translation>
+    </message>
+    <message>
+        <source>Search by image</source>
+        <translation>Търсене по изображение</translation>
     </message>
 </context>
 <context>
@@ -2458,6 +2462,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Tags...</source>
         <translation>Етикети...</translation>
+    </message>
+    <message>
+        <source>Search by image...</source>
+        <translation>Търсене по изображение</translation>
     </message>
 </context>
 <context>
