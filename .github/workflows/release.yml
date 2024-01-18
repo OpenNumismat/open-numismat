@@ -191,7 +191,7 @@ jobs:
         if-no-files-found: error
 
   prerelease:
-    name: Create pre-release
+    name: Create release
     needs: [version, title, windows, innosetup, ubuntu, macos]
     runs-on: ubuntu-latest
     env:
