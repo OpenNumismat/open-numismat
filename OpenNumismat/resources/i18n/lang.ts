@@ -1516,6 +1516,10 @@ Do you want to send an error message to the author?</source>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Search by image</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FormDetailsTabWidget</name>
@@ -2449,7 +2453,7 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Find...</source>
+        <source>Search by image...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
