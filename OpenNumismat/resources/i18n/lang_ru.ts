@@ -1525,6 +1525,10 @@ Do you want to send an error message to the author?</source>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
+    <message>
+        <source>Search by image</source>
+        <translation>Поиск по изображению</translation>
+    </message>
 </context>
 <context>
     <name>FormDetailsTabWidget</name>
@@ -2458,6 +2462,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Tags...</source>
         <translation>Метки...</translation>
+    </message>
+    <message>
+        <source>Search by image...</source>
+        <translation>Поиск по изображению...</translation>
     </message>
 </context>
 <context>
