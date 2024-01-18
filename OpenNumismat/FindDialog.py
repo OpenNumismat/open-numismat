@@ -38,7 +38,7 @@ class FindDialog(QDialog):
         self.model = model
 
         self.setWindowIcon(QIcon(':/binoculars.png'))
-        self.setWindowTitle(self.tr("Find"))
+        self.setWindowTitle(self.tr("Search by image"))
 
         self.targetImgLabel = ImageEdit()
         self.targetImgLabel.imageChanged.connect(self.imageChanged)
