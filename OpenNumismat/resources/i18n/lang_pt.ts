@@ -2459,10 +2459,6 @@ arraste e largue para adicionar)</translation>
         <source>Tags...</source>
         <translation>Etiquetas...</translation>
     </message>
-    <message>
-        <source>Find...</source>
-        <translation>Localizar...</translation>
-    </message>
 </context>
 <context>
     <name>NativeYearEdit</name>
