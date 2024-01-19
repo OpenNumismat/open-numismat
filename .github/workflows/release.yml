@@ -190,7 +190,7 @@ jobs:
         path: ${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg
         if-no-files-found: error
 
-  prerelease:
+  release:
     name: Create release
     needs: [version, title, windows, innosetup, ubuntu, macos]
     runs-on: ubuntu-latest
@@ -206,7 +206,7 @@ jobs:
       uses: actions/create-release@v1
       with:
         tag_name: ${{ github.ref }}
-        release_name: Version ${{ github.ref }}
+        release_name: OpenNumismat ${{ github.ref }}
     - name: upload-windows
       uses: actions/upload-release-asset@v1
       with:
