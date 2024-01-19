@@ -1525,6 +1525,10 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
+    <message>
+        <source>Search by image</source>
+        <translation>Procurar por imagem</translation>
+    </message>
 </context>
 <context>
     <name>FormDetailsTabWidget</name>
@@ -2458,6 +2462,10 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Tags...</source>
         <translation>Etiquetas...</translation>
+    </message>
+    <message>
+        <source>Search by image...</source>
+        <translation>Procurar por imagem...</translation>
     </message>
 </context>
 <context>
