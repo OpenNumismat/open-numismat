@@ -1,7 +1,7 @@
 import sys
 
 from PySide6.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QRect, QPoint
-from PySide6.QtGui import QImage, QKeySequence, QPainter, QImageReader
+from PySide6.QtGui import QImage, QKeySequence, QPainter
 from PySide6.QtWidgets import *
 
 import OpenNumismat
