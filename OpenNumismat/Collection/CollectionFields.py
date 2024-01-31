@@ -323,6 +323,7 @@ class CollectionFieldsBase(QObject):
                 ('rating', QApplication.translate('CollectionFieldsBase', "Rating"), Type.String),
                 ('buying_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
                 ('sale_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
+                ('totalsum', QApplication.translate('CollectionFieldsBase', "Total Sum"), Type.Denomination),
             ]
 
         self.fields = []

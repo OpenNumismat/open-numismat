@@ -427,6 +427,7 @@ class FieldsSettingsPage(QWidget):
         coin_item = self.groupItem(self.treeWidget, 'coin_group_title')
         coin_main_item = self.groupItem(coin_item, 'coin_main_group_title')
         coin_state_item = self.groupItem(coin_item, 'coin_state_group_title')
+        classification_price_item = self.groupItem(coin_item, 'classification_price_group_title')
 
         market_item = self.groupItem(self.treeWidget, 'market_group_title')
         market_buy_item = self.groupItem(market_item, 'market_buy_group_title')
@@ -446,7 +447,7 @@ class FieldsSettingsPage(QWidget):
 
         classification_item = self.groupItem(self.treeWidget, 'classification_group_title')
         classification_catalogue_item = self.groupItem(classification_item, 'classification_catalogue_group_title')
-        classification_price_item = self.groupItem(classification_item, 'classification_price_group_title')
+        # classification_price_item = self.groupItem(classification_item, 'classification_price_group_title')
         classification_variation_item = self.groupItem(classification_item, 'classification_variation_group_title')
 
         images_item = self.groupItem(self.treeWidget, 'images_group_title')
@@ -477,7 +478,7 @@ class FieldsSettingsPage(QWidget):
                 coin_main_item.addChild(item)
             elif field.name in ('status', 'grade', 'quantity', 'format',
                                 'condition', 'storage', 'barcode', 'defect',
-                                'features', 'grader', 'seat', 'rating',):
+                                'features', 'grader', 'seat', 'rating', 'totalsum', ):
                 coin_state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
                                 'saller', 'payplace', 'payinfo', 'buying_invoice'):

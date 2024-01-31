@@ -31,6 +31,11 @@ class DetailsTabWidget(QTabWidget):
         self.settings = model.settings
         self.map_item = None
         self.tags_item = None
+        # pas
+        self.uid = None
+        # self.rec = None
+        self.quantity = None
+        self.totalsum = None
 
         self.createItems()
         self.createPages()
@@ -49,7 +54,8 @@ class DetailsTabWidget(QTabWidget):
         main = self.mainDetailsLayout()
         state = self.stateLayout()
         title = self.settings['coin_group_title']
-        self.addTabPage(title, [main, self.Stretch, state])
+        price = self.priceLayout()
+        self.addTabPage(title, [main, self.Stretch, state, price])
 
     def createTagsPage(self):
         self.tags_item = self.tagsLayout()
@@ -94,14 +100,14 @@ class DetailsTabWidget(QTabWidget):
     def createClassificationPage(self):
         catalogue = self.catalogueLayout()
         rarity = self.rarityLayout()
-        price = self.priceLayout()
+        # price = self.priceLayout()
         variation = self.variationLayout()
         url = self.urlLayout()
 
-        if not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
+        if not catalogue.isEmpty() or not rarity.isEmpty() or not variation.isEmpty() or not url.isEmpty():
             title = self.settings['classification_group_title']
-            self.addTabPage(title, [catalogue, rarity, price, self.Stretch,
-                                    variation, url])
+            self.addTabPage(title, [catalogue, rarity, url, self.Stretch,
+                                    variation])
 
     def _layoutToWidget(self, layout):
         widget = QWidget(self)
@@ -190,6 +196,10 @@ class DetailsTabWidget(QTabWidget):
 
     def fillItems(self, record):
         if not record.isEmpty():
+            # pas
+            # self.rec = record
+            self.uid = record.value('uid')
+
             # Fields with commission dependent on status field and should be
             # filled after it and in right order
             ordered_item_keys = ('status', 'payprice', 'totalpayprice',
@@ -214,9 +224,35 @@ class DetailsTabWidget(QTabWidget):
             if self.tags_item:
                 self.tags_item.fill(record)
 
+    def _calcPaySaleStat(self):
+        from PySide6.QtSql import QSqlQuery
+        query = QSqlQuery()
+        query.prepare("""select coin_id,
+                                round(sum(cost*quantity*(case oper_name when 'Продал' then 1 else -1 end)),2) as ts,
+                                sum(quantity*(case oper_name when 'Продал' then -1 else 1 end)) as tq
+                                from coins_paysales
+                                where coin_id = ?
+                                group by coin_id""")
+        query.addBindValue(self.uid)
+        query.exec_()
+        ts = tq = 0
+        while query.next():
+            record = query.record()
+            ts = record.value('ts')
+            tq = record.value('tq')
+        return tq, ts
+
     def _fillItem(self, record, item):
         if not record.isNull(item.field()):
-            value = record.value(item.field())
+            # pas
+            if item.field() == 'quantity':
+                _tq, _ts = self._calcPaySaleStat()
+                value = _tq
+            elif item.field() == 'totalsum':
+                _tq, _ts = self._calcPaySaleStat()
+                value = _ts
+            else:
+                value = record.value(item.field())
             item.setValue(value)
         else:
             item.widget().clear()
@@ -252,7 +288,12 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['status'], self.items['grade'])
         self.items['status'].widget().currentIndexChanged.connect(self.indexChangedState)
         layout.addRow(self.items['rating'])
-        layout.addRow(self.items['quantity'], self.items['format'])
+        # pas
+        self.quantity = self.items['quantity']
+        self.totalsum = self.items['totalsum']
+
+        layout.addRow(self.quantity, self.items['format'])
+        layout.addRow(self.totalsum)
         layout.addRow(self.items['condition'])
         layout.addRow(self.items['seat'], self.items['storage'])
         layout.addRow(self.items['barcode'], self.items['grader'])
@@ -272,43 +313,62 @@ class DetailsTabWidget(QTabWidget):
 
         return layout
 
-    def payLayout(self):
-        title = self.settings['market_buy_group_title']
-        layout = BaseFormGroupBox(title)
+    # def payLayout(self):
+    #     title = self.settings['market_buy_group_title']
+    #     layout = BaseFormGroupBox(title)
+    #
+    #     layout.addRow(self.items['paydate'], self.items['payprice'])
+    #
+    #     # Add auxiliary field
+    #     if self.items['payprice'].hidden or self.items['totalpayprice'].hidden:
+    #         item = None
+    #     else:
+    #         item = self.addPayCommission()
+    #
+    #     layout.addRow(self.items['totalpayprice'], item)
+    #     layout.addRow(self.items['saller'])
+    #     layout.addRow(self.items['payplace'])
+    #     layout.addRow(self.items['buying_invoice'])
+    #     layout.addRow(self.items['payinfo'])
+    #
+    #     return layout
 
-        layout.addRow(self.items['paydate'], self.items['payprice'])
+    # def saleLayout(self):
+    #     title = self.settings['market_sale_group_title']
+    #     layout = BaseFormGroupBox(title)
+    #
+    #     layout.addRow(self.items['saledate'], self.items['saleprice'])
+    #
+    #     # Add auxiliary field
+    #     if self.items['saleprice'].hidden or self.items['totalsaleprice'].hidden:
+    #         item = None
+    #     else:
+    #         item = self.addSaleCommission()
+    #
+    #     layout.addRow(self.items['totalsaleprice'], item)
+    #     layout.addRow(self.items['buyer'])
+    #     layout.addRow(self.items['saleplace'])
+    #     layout.addRow(self.items['sale_invoice'])
+    #     layout.addRow(self.items['saleinfo'])
+    #
+    #     return layout
 
-        # Add auxiliary field
-        if self.items['payprice'].hidden or self.items['totalpayprice'].hidden:
-            item = None
-        else:
-            item = self.addPayCommission()
+    # pas
+    def paySaleLayout(self, uid):
+        from OpenNumismat.PaySaleModule import PaySaleLayout
 
-        layout.addRow(self.items['totalpayprice'], item)
-        layout.addRow(self.items['saller'])
-        layout.addRow(self.items['payplace'])
-        layout.addRow(self.items['buying_invoice'])
-        layout.addRow(self.items['payinfo'])
+        title = self.settings['market_paysale_group_title']
 
-        return layout
+        places = self.reference.section('place')
 
-    def saleLayout(self):
-        title = self.settings['market_sale_group_title']
-        layout = BaseFormGroupBox(title)
+        #
+        _t1 = self.quantity
+        _t2 = self.totalsum
+        # _r = self.rec
+        _f = type(self).__name__
+        #
 
-        layout.addRow(self.items['saledate'], self.items['saleprice'])
-
-        # Add auxiliary field
-        if self.items['saleprice'].hidden or self.items['totalsaleprice'].hidden:
-            item = None
-        else:
-            item = self.addSaleCommission()
-
-        layout.addRow(self.items['totalsaleprice'], item)
-        layout.addRow(self.items['buyer'])
-        layout.addRow(self.items['saleplace'])
-        layout.addRow(self.items['sale_invoice'])
-        layout.addRow(self.items['saleinfo'])
+        layout = PaySaleLayout(title, uid, places, _f, _t1, _t2)
 
         return layout
 
@@ -500,7 +560,7 @@ class DetailsTabWidget(QTabWidget):
 
         return self.map_item
 
-    def _createTrafficParts(self, status):
+    def _createTrafficParts(self, status, uid):
         stretch_widget = QWidget()
         stretch_widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
 
@@ -513,12 +573,16 @@ class DetailsTabWidget(QTabWidget):
             pageParts.extend([pass_, self.Stretch, stretch_widget])
         elif status in ('owned', 'ordered', 'sale', 'missing',
                         'bidding', 'duplicate', 'replacement'):
-            pay = self.payLayout()
-            pageParts.extend([pay, self.Stretch, stretch_widget])
+            # pay = self.payLayout()
+            # pageParts.extend([pay, self.Stretch, stretch_widget])
+            pay_sale = self.paySaleLayout(uid)
+            pageParts.extend([pay_sale, self.Stretch, stretch_widget])
         elif status == 'sold':
-            pay = self.payLayout()
-            sale = self.saleLayout()
-            pageParts.extend([pay, self.Stretch, sale])
+            # pay = self.payLayout()
+            # sale = self.saleLayout()
+            # pageParts.extend([pay, self.Stretch, sale])
+            pay_sale = self.paySaleLayout(uid)
+            pageParts.extend([pay_sale, self.Stretch, stretch_widget])
         else:
             layout = self.emptyMarketLayout()
             pageParts.append(layout)
@@ -530,7 +594,9 @@ class DetailsTabWidget(QTabWidget):
 
         self.removeTab(1)
         status = self.items['status'].widget().currentData()
-        pageParts = self._createTrafficParts(status)
+        # pas
+        uid = self.uid
+        pageParts = self._createTrafficParts(status, uid)
         page = self.createTabPage(pageParts)
 
         title = self.settings['market_group_title']
@@ -901,7 +967,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
             self.items['year'].widget().setText(dlg.year())
             self.items['native_year'].widget().setText(dlg.nativeYear())
 
-    def _createTrafficParts(self, status):
+    def _createTrafficParts(self, status, uid):
         if self.oldStatus == 'pass':
             if self.payCommission:
                 self.items['payprice'].widget().textChanged.disconnect(self.payCommissionChanged)
@@ -930,7 +996,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         else:
             pass
 
-        pageParts = super()._createTrafficParts(status)
+        pageParts = super()._createTrafficParts(status, uid)
 
         self.oldStatus = status
 

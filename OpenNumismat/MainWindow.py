@@ -910,6 +910,10 @@ class MainWindow(QMainWindow):
                     self.tr("You already have the latest version."))
 
     def checkUpdates(self):
+        # pas
+        QMessageBox.information(self, "Обновление", "Вы используете модифицированную версию приложения. Обновление запрещено разработчиком!")
+        return False
+
         currentDate = QDate.currentDate()
         currentDateStr = currentDate.toString(Qt.ISODate)
         settings = QSettings()

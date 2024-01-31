@@ -179,6 +179,9 @@ class CollectionModel(QSqlTableModel):
         tag_ids = record.value('tags')
         record.remove(record.indexOf('tags'))
 
+        # pas
+        record.remove(record.indexOf('uid'))
+
         self.insertRecord(-1, record)
         self.submitAll()
 
@@ -326,6 +329,9 @@ class CollectionModel(QSqlTableModel):
             query.exec_()
 
         record.remove(record.indexOf('tags'))
+
+        # pas
+        record.remove(record.indexOf('uid'))
         
         self.database().commit()
 
@@ -379,6 +385,10 @@ class CollectionModel(QSqlTableModel):
 
         record.append(QSqlField('tags'))
         record.setValue('tags', tag_ids)
+
+        # pas
+        record.append(QSqlField('uid'))
+        record.setValue('uid', coin_id)
 
         return record
 
@@ -758,6 +768,7 @@ class CollectionSettings(BaseSettings):
             'axis_in_hours': False,
             'stars_count': 10,
             'tags_used': True,
+            'market_paysale_group_title': QT_TRANSLATE_NOOP("CollectionSettings", "Pay And Sale"),
     }
 
     def __init__(self, db):
@@ -933,6 +944,7 @@ class Collection(QtCore.QObject):
 
         self.createCoinsTable()
         self.createTagsTable()
+        self.createPaySalesTable()
 
         self.fileName = fileName
 
@@ -985,6 +997,21 @@ class Collection(QtCore.QObject):
         sql = """CREATE TABLE coins_tags (
                     coin_id INTEGER,
                     tag_id INTEGER)"""
+        QSqlQuery(sql, self.db)
+
+    # pas
+    def createPaySalesTable(self):
+        sql = """CREATE TABLE coins_paysales (
+                    id         INTEGER         PRIMARY KEY AUTOINCREMENT,
+                    coin_id    INTEGER         REFERENCES coins (id) ON DELETE CASCADE
+                                                                     ON UPDATE CASCADE,
+                    oper_date  DATE,
+                    oper_name  TEXT,
+                    cost       NUMERIC (10, 2),
+                    quantity   INTEGER,
+                    place      TEXT,
+                    oper_actor TEXT
+                )"""
         QSqlQuery(sql, self.db)
 
     def isReferenceAttached(self):
