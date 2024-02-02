@@ -787,8 +787,7 @@ class CollectionSettings(BaseSettings):
                     value = record.value('value')
                 self.__setitem__(title, value)
 
-        Statuses = Status()
-        for status, title in Statuses.items():
+        for status, title in Status().items():
             # Fill default status titles
             self.Default[status + '_status_title'] = QApplication.translate("Status", title)
         # Fill global statuses from settings
