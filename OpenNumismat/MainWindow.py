@@ -1,3 +1,4 @@
+from datetime import datetime
 import sys
 import urllib.request
 
@@ -23,6 +24,7 @@ from OpenNumismat.Collection.Import.Colnect import ColnectDialog, colnectAvailab
 from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 from OpenNumismat.TagsDialog import TagsDialog
+from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
 
 from OpenNumismat.Collection.Import import *
 
@@ -379,6 +381,15 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(exportMenu)
         report.addSeparator()
         report.addAction(summaryAct)
+
+        yearCalculatorAct = QAction(self.tr("Year calculator"), self)
+        yearCalculatorAct.triggered.connect(self.yearCalculator)
+        referencesGeneratorAct = QAction(self.tr("References generator"), self)
+        referencesGeneratorAct.triggered.connect(self.referencesGenerator)
+
+        tools = menubar.addMenu(self.tr("Tools"))
+        tools.addAction(yearCalculatorAct)
+        tools.addAction(referencesGeneratorAct)
 
         helpAct = QAction(QIcon(':/help.png'),
                           self.tr("User manual"), self)
@@ -877,6 +888,14 @@ class MainWindow(QMainWindow):
             if Settings()['autobackup']:
                 if self.collection.isNeedBackup():
                     self.collection.backup()
+
+    def yearCalculator(self):
+        year = datetime.today().strftime("%Y")
+        dlg = YearCalculatorDialog(year, '', parent=self)
+        dlg.exec_()
+
+    def referencesGenerator(self):
+        self._openUrl("http://opennumismat.github.io/references/")
 
     def about(self):
         QMessageBox.about(self, self.tr("About %s") % version.AppName,
