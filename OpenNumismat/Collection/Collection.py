@@ -25,7 +25,7 @@ from OpenNumismat.Reference.Reference import Reference
 from OpenNumismat.Reference.Reference import CrossReferenceSection
 from OpenNumismat.Reference.ReferenceDialog import AllReferenceDialog
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
-from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.CollectionFields import Status, Statuses
 from OpenNumismat.Collection.VersionUpdater import updateCollection
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools import Gui
@@ -787,6 +787,7 @@ class CollectionSettings(BaseSettings):
                     value = record.value('value')
                 self.__setitem__(title, value)
 
+        Statuses = Status()
         for status, title in Statuses.items():
             # Fill default status titles
             self.Default[status + '_status_title'] = QApplication.translate("Status", title)
