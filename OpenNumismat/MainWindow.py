@@ -892,7 +892,9 @@ class MainWindow(QMainWindow):
     def yearCalculator(self):
         year = datetime.today().strftime("%Y")
         dlg = YearCalculatorDialog(year, '', parent=self)
-        dlg.exec_()
+        dlg.buttonBox.clear()
+        dlg.buttonBox.addButton(QDialogButtonBox.Close)
+        dlg.exec()
 
     def referencesGenerator(self):
         self._openUrl("http://opennumismat.github.io/references/")
