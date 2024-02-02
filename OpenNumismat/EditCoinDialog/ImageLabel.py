@@ -73,7 +73,8 @@ class ImageLabel(QLabel):
             executor.openUrl(QUrl.fromLocalFile(fileName))
 
     def editImage(self):
-        viewer = ImageEditorDialog(self)
+        readonly = not isinstance(self, ImageEdit)
+        viewer = ImageEditorDialog(self, readonly=readonly)
         viewer.setTitle(self.field)
         viewer.imageSaved.connect(self.imageSaved)
         viewer.setImage(self.image)
