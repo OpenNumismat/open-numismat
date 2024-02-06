@@ -633,6 +633,12 @@ class ListView(BaseTableView):
             if field.type in Type.ImageTypes:
                 self.setItemDelegateForColumn(field.id, ImageDelegate(self))
 
+        self.upAct = QAction(QIcon(':/bullet_arrow_up.png'), self.tr("Move up"),
+                          self, shortcut=Qt.ALT | Qt.Key_Up, triggered=self._moveUp)
+        self.downAct = QAction(QIcon(':/bullet_arrow_down.png'), self.tr("Move down"),
+                          self, shortcut=Qt.ALT | Qt.Key_Down, triggered=self._moveDown)
+        self.addActions([self.upAct, self.downAct, ])
+
     def sortChangedEvent(self, logicalIndex, order):
         sort_column_id = self.model().fields.sort_id.id
         if logicalIndex == sort_column_id and order == Qt.AscendingOrder:
