@@ -944,6 +944,10 @@ class ListView(BaseTableView):
         super().dropEvent(e)
 
     def _moveUp(self):
+        selected_count = len(self.selectedCoins())
+        if selected_count != 1:
+            return
+
         if self.sortingChanged:
             result = self._sortChangedMessage()
             if result == QMessageBox.Yes:
@@ -960,6 +964,10 @@ class ListView(BaseTableView):
         self.model().moveRows(index1.row(), index2.row())
 
     def _moveDown(self):
+        selected_count = len(self.selectedCoins())
+        if selected_count != 1:
+            return
+
         if self.sortingChanged:
             result = self._sortChangedMessage()
             if result == QMessageBox.Yes:
