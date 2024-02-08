@@ -1284,7 +1284,7 @@ The application will need to restart now.</source>
     <name>DetailsTabWidget</name>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
-        <translation>Няма нищо за показване. Променете статуса на монетите в предишния раздел</translation>
+        <translation>Няма данни за показване. Променете статуса на монетите в предишния раздел</translation>
     </message>
     <message>
         <source>Pass</source>
