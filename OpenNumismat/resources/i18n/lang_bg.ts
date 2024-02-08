@@ -2467,6 +2467,18 @@ drag-n-drop to add an image)</source>
         <source>Search by image...</source>
         <translation>Търсене по изображение</translation>
     </message>
+    <message>
+        <source>Year calculator</source>
+        <translation>Преобразуване на година</translation>
+    </message>
+    <message>
+        <source>References generator</source>
+        <translation>Генератор на номенклатури</translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation>Инструменти</translation>
+    </message>
 </context>
 <context>
     <name>NativeYearEdit</name>
