@@ -30,5 +30,8 @@ def init_pathes():
     # sys.frozen is True when running from cx_Freeze/pyinstaller executable
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
         OpenNumismat.PRJ_PATH = sys._MEIPASS
+    elif "__compiled__" in globals():  # for Nuitka
+#        OpenNumismat.PRJ_PATH = __compiled__.containing_dir
+        OpenNumismat.PRJ_PATH = os.path.dirname(sys.executable)
     else:
         OpenNumismat.PRJ_PATH = os.path.abspath(os.path.dirname(__file__))
