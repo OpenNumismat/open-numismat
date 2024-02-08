@@ -2456,6 +2456,18 @@ drag-n-drop to add an image)</source>
         <source>Search by image...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Year calculator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>References generator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NativeYearEdit</name>
