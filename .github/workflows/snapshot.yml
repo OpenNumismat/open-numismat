@@ -246,7 +246,7 @@ jobs:
         --disable-console
         --include-data-dir=OpenNumismat/templates=templates
         --include-data-dir=OpenNumismat/db=db
-        --include-data-files=COPYING
+        --include-data-files=COPYING=COPYING
         --windows-icon-from-ico=icons/main.ico
         --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
         --output-filename=OpenNumismat.exe
