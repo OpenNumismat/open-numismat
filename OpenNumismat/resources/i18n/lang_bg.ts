@@ -2033,7 +2033,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Clear cache</source>
-        <translation>Изчистване на кеш</translation>
+        <translation>Изчистване на кешът</translation>
     </message>
     <message>
         <source>Import cache cleared</source>
