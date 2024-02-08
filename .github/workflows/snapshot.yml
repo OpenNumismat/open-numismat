@@ -249,11 +249,13 @@ jobs:
         --include-data-files=COPYING=COPYING
         --windows-icon-from-ico=icons/main.ico
         --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
-        --output-filename=OpenNumismat.exe
+        --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: package
       run: |
         cd open-numismat.dist
-        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip *
+        mkdir ${{ needs.title.outputs.APPNAME }}
+        robocopy . ${{ needs.title.outputs.APPNAME }}  /move /e /xd ${{ needs.title.outputs.APPNAME }}
+        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
         move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
         cd ..
     - name: upload
