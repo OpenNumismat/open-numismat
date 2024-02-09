@@ -19,7 +19,7 @@ class Cache(QObject):
         db = QSqlDatabase.addDatabase('QSQLITE', 'cache')
         db.setDatabaseName(self._file_name())
         if not db.open():
-            QMessageBox.warning(self, self.tr("Import"), self.tr("Can't open cache"))
+            QMessageBox.warning(self.parent(), self.tr("Import"), self.tr("Can't open cache"))
             return None
 
         QSqlQuery("PRAGMA synchronous=OFF", db)
