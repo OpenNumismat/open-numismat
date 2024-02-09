@@ -298,7 +298,7 @@ jobs:
     - name: Patch build
       uses: ./.github/actions/replace-string-in-file
       with:
-        file: tools/setup.iss
+        file: tools/setup-nuitka.iss
         old-string: "AppVersion=.*"
         new-string: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
