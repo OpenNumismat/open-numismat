@@ -295,12 +295,12 @@ jobs:
         old-string: "Version = .*"
         new-string: >-
           Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
-    - name: Patch portable
+    - name: Patch build
       uses: ./.github/actions/replace-string-in-file
       with:
-        file: OpenNumismat/version.py
-        old-string: "Portable = False"
-        new-string: "Portable = True"
+        file: tools/setup.iss
+        old-string: "AppVersion=.*"
+        new-string: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
       run: >-
         python -m nuitka open-numismat.py
