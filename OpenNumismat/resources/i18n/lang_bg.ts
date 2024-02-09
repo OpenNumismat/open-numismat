@@ -1284,7 +1284,7 @@ The application will need to restart now.</source>
     <name>DetailsTabWidget</name>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
-        <translation>Няма нищо за показване. Променете статуса на монетите в предишния раздел</translation>
+        <translation>Няма данни за показване. Променете статуса на монетите в предишния раздел</translation>
     </message>
     <message>
         <source>Pass</source>
@@ -1744,7 +1744,7 @@ Do you want to send an error message to the author?</source>
     <name>ImageEdit</name>
     <message>
         <source>Exchange with</source>
-        <translation>Размяна с</translation>
+        <translation>Размени с</translation>
     </message>
     <message>
         <source>Load...</source>
@@ -2033,7 +2033,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Clear cache</source>
-        <translation>Изчистване на кеш</translation>
+        <translation>Изчистване на кешът</translation>
     </message>
     <message>
         <source>Import cache cleared</source>
@@ -2466,6 +2466,18 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Search by image...</source>
         <translation>Търсене по изображение</translation>
+    </message>
+    <message>
+        <source>Year calculator</source>
+        <translation>Преобразуване на година</translation>
+    </message>
+    <message>
+        <source>References generator</source>
+        <translation>Генератор на номенклатури</translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation>Инструменти</translation>
     </message>
 </context>
 <context>
