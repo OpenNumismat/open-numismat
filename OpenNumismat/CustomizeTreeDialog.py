@@ -73,10 +73,7 @@ class ListWidget(QListWidget):
     def __init__(self, parent=None):
         QListWidget.__init__(self, parent)
 
-        self.model().dataChanged.connect(self.__dataChanged)
-
-    def __dataChanged(self, topLeft, bottomRight):
-        self.model().dataChanged.disconnect(self.__dataChanged)
+    def dataChanged(self, topLeft, bottomRight, roles=[]):
         if topLeft.row() == bottomRight.row():
             item = self.item(topLeft.row())
             data = item.data(Qt.UserRole)
@@ -88,7 +85,6 @@ class ListWidget(QListWidget):
                     item = QListWidgetItem(field.title)
                     item.setData(Qt.UserRole, [field, ])
                     self.insertItem(topLeft.row() + i + 1, item)
-        self.model().dataChanged.connect(self.__dataChanged)
 
     def dragMoveEvent(self, event):
         if event.dropAction() & Qt.CopyAction:
