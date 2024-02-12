@@ -3237,7 +3237,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Enter new list title</source>
-        <translation>Въведете ново заглавие на списъка</translation>
+        <translation>Въведете ново име на списъка</translation>
     </message>
     <message>
         <source>Remove page</source>
