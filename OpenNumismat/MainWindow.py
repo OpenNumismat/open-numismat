@@ -601,7 +601,10 @@ class MainWindow(QMainWindow):
         self.close()
         program = sys.executable
         argv = []
-        if program != sys.argv[0]:
+        if "__compiled__" in globals():
+            # Process running as Nuitka
+            program = sys.argv[0]
+        elif program != sys.argv[0] and "__compiled__" not in globals():
             # Process running as Python arg
             argv.append(sys.argv[0])
         QProcess.startDetached(program, argv)
