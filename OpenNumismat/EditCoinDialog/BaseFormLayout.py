@@ -3,6 +3,7 @@ from PySide6.QtWidgets import *
 from OpenNumismat.EditCoinDialog.FormItems import *
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.Settings import Settings
 
 
 class FormItem(object):
@@ -34,7 +35,7 @@ class FormItem(object):
                     self._widget = AddressLineEdit(parent)
                 elif self._field == 'grader':
                     self._widget = GraderLineEdit(parent)
-                elif self._field == 'barcode':
+                elif self._field == 'barcode' and Settings()['use_webcam']:
                     self._widget = BarcodeLineEdit(parent)
                 elif self._field == 'native_year':
                     self._widget = NativeYearEdit(parent)

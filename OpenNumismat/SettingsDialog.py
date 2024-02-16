@@ -138,6 +138,11 @@ class MainSettingsPage(QWidget):
         self.builtInViewer.setChecked(settings['built_in_viewer'])
         layout.addRow(self.builtInViewer)
 
+        self.useWebcam = QCheckBox(
+                        self.tr("Use webcam"), self)
+        self.useWebcam.setChecked(settings['use_webcam'])
+        layout.addRow(self.useWebcam)
+
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap', MapType.OSM.value)
         if gmapsAvailable:
@@ -226,6 +231,7 @@ class MainSettingsPage(QWidget):
         settings['images_by_default'] = self.imagesByDefault.value()
         settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
+        settings['use_webcam'] = self.useWebcam.isChecked()
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['transparent_color'] = self.transparent_color

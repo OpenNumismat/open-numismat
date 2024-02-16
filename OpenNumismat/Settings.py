@@ -98,6 +98,7 @@ class Settings(BaseSettings):
         'chart_legend_pos': Qt.AlignRight.value,
         'nice_years_chart': False,
         'transparent_color': QColor(Qt.white),
+        'use_webcam': True,
     }
 
     def __init__(self, autoSave=False):
@@ -123,6 +124,7 @@ class Settings(BaseSettings):
             'multicolor_chart',
             'show_chart_legend',
             'nice_years_chart',
+            'use_webcam',
         ):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
