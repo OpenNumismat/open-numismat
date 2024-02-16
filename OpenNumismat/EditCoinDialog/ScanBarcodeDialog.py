@@ -108,6 +108,11 @@ class ScanBarcodeDialog(QDialog):
 
     def done(self, r):
         self.camera.stop()
+
+        if self.worker.isRunning():
+            self.worker.terminate()
+        self.worker.deleteLater()
+
         super().done(r)
 
     def readyForCapture(self, ready):
