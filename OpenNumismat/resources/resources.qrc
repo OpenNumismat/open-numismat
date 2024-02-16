@@ -69,6 +69,7 @@
     <file alias="ans.png">../../icons/ans.png</file>
     <file alias="SimilarImageFinder.png">../../icons/SimilarImageFinder.png</file>
     <file alias="replacement.png">../../icons/replacement.png</file>
+    <file alias="barcode.png">../../icons/barcode.png</file>
 </qresource>
 <qresource prefix="i18n">
     <file alias="lang_bg.qm">i18n/lang_bg.qm</file>

@@ -361,7 +361,7 @@ class BarcodeLineEdit(QWidget):
 
         self.lineEdit = LineEdit(self)
 
-        self.buttonScan = QPushButton(QIcon(':/webcam.png'), '', self)
+        self.buttonScan = QPushButton(QIcon(':/barcode.png'), '', self)
         self.buttonScan.setFixedWidth(25)
         self.buttonScan.setToolTip(self.tr("Scan barcode"))
         self.buttonScan.clicked.connect(self.clickedButton)
