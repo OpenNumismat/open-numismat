@@ -34,6 +34,8 @@ class FormItem(object):
                     self._widget = AddressLineEdit(parent)
                 elif self._field == 'grader':
                     self._widget = GraderLineEdit(parent)
+                elif self._field == 'barcode':
+                    self._widget = BarcodeLineEdit(parent)
                 elif self._field == 'native_year':
                     self._widget = NativeYearEdit(parent)
                 elif self._field == 'rating':

@@ -8,3 +8,4 @@ numpy
 pillow
 python-dateutil
 pywin32; sys_platform == 'win32'
+zxing-cpp

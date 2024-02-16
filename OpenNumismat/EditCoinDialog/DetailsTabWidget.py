@@ -6,7 +6,7 @@ from PySide6.QtCore import Qt, QUrl
 from PySide6.QtGui import QDoubleValidator, QDesktopServices
 from PySide6.QtWidgets import *
 
-from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdit, NativeYearEdit
+from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdit, NativeYearEdit, BarcodeLineEdit
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
@@ -17,6 +17,7 @@ from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
 from OpenNumismat.EditCoinDialog.MapWidget import get_map_widget
 from OpenNumismat.TagsDialog import TagsDialog, TagsTreeWidget
+from OpenNumismat.EditCoinDialog.ScanBarcodeDialog import ScanBarcodeDialog
 
 
 class DetailsTabWidget(QTabWidget):
@@ -256,6 +257,8 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['condition'])
         layout.addRow(self.items['seat'], self.items['storage'])
         layout.addRow(self.items['barcode'], self.items['grader'])
+        if isinstance(self.items['barcode'].widget(), BarcodeLineEdit):
+            self.items['barcode'].widget().clickedButton.connect(self.clickedButtonScanBarcode)
         if isinstance(self.items['grader'].widget(), GraderLineEdit):
             self.items['grader'].widget().clickedButton.connect(self.clickedButtonGrader)
         layout.addRow(self.items['defect'])
@@ -536,7 +539,12 @@ class DetailsTabWidget(QTabWidget):
         title = self.settings['market_group_title']
         self.insertTab(1, page, title)
         self.setCurrentIndex(pageIndex)
-        
+
+    def clickedButtonScanBarcode(self):
+        dlg = ScanBarcodeDialog(self)
+        if dlg.exec_() == QDialog.Accepted:
+            self.items['barcode'].widget().setText(dlg.barcode)
+
     def clickedButtonGrader(self):
         grader = self.items['grader'].value().upper()
         barcode = self.items['barcode'].value()

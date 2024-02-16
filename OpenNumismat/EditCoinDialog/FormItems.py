@@ -353,6 +353,56 @@ class GraderLineEdit(QWidget):
         return self.lineEdit.removeAction(act)
 
 
+class BarcodeLineEdit(QWidget):
+    clickedButton = pyqtSignal()
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.lineEdit = LineEdit(self)
+
+        self.buttonScan = QPushButton(QIcon(':/webcam.png'), '', self)
+        self.buttonScan.setFixedWidth(25)
+        self.buttonScan.setToolTip(self.tr("Scan barcode"))
+        self.buttonScan.clicked.connect(self.clickedButton)
+
+        layout = QHBoxLayout()
+        layout.addWidget(self.lineEdit)
+        layout.addWidget(self.buttonScan)
+        layout.setContentsMargins(QMargins())
+
+        self.setLayout(layout)
+
+    def clear(self):
+        self.lineEdit.clear()
+
+    def setText(self, text):
+        self.lineEdit.setText(text)
+
+    def text(self):
+        return self.lineEdit.text()
+
+    def home(self, mark):
+        self.lineEdit.home(mark)
+
+    def setReadOnly(self, b):
+        self.lineEdit.setReadOnly(b)
+
+        if b:
+            self.buttonScan.hide()
+        else:
+            self.buttonScan.show()
+
+    def addAction(self, icon, position):
+        return self.lineEdit.addAction(icon, position)
+
+    def actions(self):
+        return self.lineEdit.actions()
+
+    def removeAction(self, act):
+        return self.lineEdit.removeAction(act)
+
+
 class LineEditRef(QWidget):
     def __init__(self, reference, parent=None):
         super().__init__(parent)
