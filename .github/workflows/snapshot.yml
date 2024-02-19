@@ -242,7 +242,7 @@ jobs:
         --show-modules
         --standalone
         --enable-plugin=pyside6
-        --include-qt-plugins=sqldrivers
+        --include-qt-plugins=sqldrivers,multimedia
         --disable-console
         --include-data-dir=OpenNumismat/templates=templates
         --include-data-dir=OpenNumismat/db=db
@@ -311,7 +311,7 @@ jobs:
         --show-modules
         --standalone
         --enable-plugin=pyside6
-        --include-qt-plugins=sqldrivers
+        --include-qt-plugins=sqldrivers,multimedia
         --disable-console
         --include-data-dir=OpenNumismat/templates=templates
         --include-data-dir=OpenNumismat/db=db
