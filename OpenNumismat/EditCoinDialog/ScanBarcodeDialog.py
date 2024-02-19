@@ -1,7 +1,7 @@
 from PIL import ImageQt
 import zxingcpp
 
-from PySide6.QtCore import QTimer, QThread
+from PySide6.QtCore import QTimer, QThread, QSettings
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtWidgets import QComboBox, QDialog, QMessageBox, QVBoxLayout
 from PySide6.QtMultimedia import QCamera, QImageCapture, QMediaCaptureSession, QMediaDevices
@@ -61,8 +61,7 @@ class ScanBarcodeDialog(QDialog):
         self.cameraSelector = QComboBox()
         for cameraDevice in QMediaDevices.videoInputs():
             self.cameraSelector.addItem(cameraDevice.description(), cameraDevice.id())
-        defaultDevice = QMediaDevices.defaultVideoInput()
-        self.cameraSelector.findData(defaultDevice.id())
+        self.cameraSelector.setCurrentIndex(-1)
         self.cameraSelector.currentIndexChanged.connect(self.cameraChanged)
 
         layout = QVBoxLayout()
@@ -70,17 +69,33 @@ class ScanBarcodeDialog(QDialog):
         layout.addWidget(self.viewfinder)
         self.setLayout(layout)
 
-        if defaultDevice.isNull():
+        settings = QSettings()
+        default_camera_id = settings.value('default_camera')
+        camera_index = -1
+        if default_camera_id:
+            camera_index = self.cameraSelector.findData(default_camera_id)
+            if camera_index == -1:
+                defaultDevice = QMediaDevices.defaultVideoInput()
+                camera_index = self.cameraSelector.findData(defaultDevice.id())
+        else:
+            defaultDevice = QMediaDevices.defaultVideoInput()
+            camera_index = self.cameraSelector.findData(defaultDevice.id())
+
+        if camera_index == -1:
             QMessageBox.warning(self.parent(), self.tr("Scan barcode"),
                                 self.tr("Camera not available"))
-
-        self.setCamera(defaultDevice)
+        else:
+            self.cameraSelector.setCurrentIndex(camera_index)
 
     def cameraChanged(self, _index):
         cameraId = self.cameraSelector.currentData()
         for cameraDevice in QMediaDevices.videoInputs():
             if cameraDevice.id() == cameraId:
                 self.setCamera(cameraDevice)
+
+                settings = QSettings()
+                settings.setValue('default_camera', cameraId)
+
                 break
 
     def setCamera(self, cameraDevice):
@@ -107,11 +122,11 @@ class ScanBarcodeDialog(QDialog):
         self.camera.start()
 
     def done(self, r):
-        self.camera.stop()
+        if self.camera:
+            self.camera.stop()
 
         if self.worker.isRunning():
             self.worker.terminate()
-        self.worker.deleteLater()
 
         super().done(r)
 
