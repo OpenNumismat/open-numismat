@@ -105,8 +105,10 @@ class ScanBarcodeDialog(QDialog):
             self.camera.stop()
 
         self.camera = QCamera(cameraDevice)
-#        self.camera.setFocusMode(QCamera.FocusModeAutoNear)
-#        self.camera.setExposureMode(QCamera.ExposureBarcode)
+        if self.camera.isFocusModeSupported(QCamera.FocusModeAutoNear):
+            self.camera.setFocusMode(QCamera.FocusModeAutoNear)
+        if self.camera.isExposureModeSupported(QCamera.ExposureBarcode):
+            self.camera.setExposureMode(QCamera.ExposureBarcode)
         self.captureSession.setCamera(self.camera)
 
         self.camera.errorOccurred.connect(self.displayCameraError)
