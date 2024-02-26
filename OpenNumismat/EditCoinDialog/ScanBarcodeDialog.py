@@ -3,6 +3,7 @@ import zxingcpp
 
 from PySide6.QtCore import QTimer, QThread, QSettings
 from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QComboBox, QDialog, QMessageBox, QVBoxLayout
 from PySide6.QtMultimedia import QCamera, QImageCapture, QMediaCaptureSession, QMediaDevices
 from PySide6.QtMultimediaWidgets import QVideoWidget
@@ -44,6 +45,8 @@ class ScanBarcodeDialog(QDialog):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        self.setWindowIcon(QIcon(':/webcam.png'))
 
         self.barcode = None
         self.captureSession = QMediaCaptureSession()
