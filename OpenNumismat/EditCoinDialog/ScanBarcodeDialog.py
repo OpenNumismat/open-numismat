@@ -80,7 +80,8 @@ class ScanBarcodeDialog(QDialog):
         self.rectangle = None
         self.mask = None
         self.barcode = None
-        self.camera = None
+        self.camera = QCamera(self)
+        self.camera.errorOccurred.connect(self.displayCameraError)
         self.captureSession = QMediaCaptureSession()
         self.worker = WorkerThread(self)
         self.worker.resultReady.connect(self.resultReady)
@@ -184,17 +185,15 @@ class ScanBarcodeDialog(QDialog):
     def setCamera(self, cameraDevice):
         self.setWindowTitle(cameraDevice.description())
 
-        if self.camera:
+        if self.camera.isActive():
             self.camera.stop()
 
-        self.camera = QCamera(cameraDevice)
+        self.camera.setCameraDevice(cameraDevice)
         if self.camera.isFocusModeSupported(QCamera.FocusModeAutoNear):
             self.camera.setFocusMode(QCamera.FocusModeAutoNear)
         if self.camera.isExposureModeSupported(QCamera.ExposureBarcode):
             self.camera.setExposureMode(QCamera.ExposureBarcode)
         self.captureSession.setCamera(self.camera)
-
-        self.camera.errorOccurred.connect(self.displayCameraError)
 
         self.imageCapture = QImageCapture()
         self.captureSession.setImageCapture(self.imageCapture)
@@ -207,7 +206,7 @@ class ScanBarcodeDialog(QDialog):
         self.camera.start()
 
     def done(self, r):
-        if self.camera:
+        if self.camera.isActive():
             self.camera.stop()
 
         if self.worker.isRunning():
