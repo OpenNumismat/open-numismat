@@ -1,14 +1,18 @@
 from PIL import ImageQt
 import zxingcpp
 
-from PySide6.QtCore import QTimer, QThread, QSettings
+from PySide6.QtCore import QTimer, QThread, QSettings, Qt, QRectF
 from PySide6.QtCore import Signal as pyqtSignal
-from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QComboBox, QDialog, QMessageBox, QVBoxLayout
+from PySide6.QtGui import QIcon, QPen, QImage, QBrush, QPainter, QBitmap, QPixmap, QColor
 from PySide6.QtMultimedia import QCamera, QImageCapture, QMediaCaptureSession, QMediaDevices
-from PySide6.QtMultimediaWidgets import QVideoWidget
+from PySide6.QtMultimediaWidgets import QGraphicsVideoItem
+from PySide6.QtWidgets import QComboBox, QDialog, QMessageBox, QVBoxLayout
+from PySide6.QtWidgets import QGraphicsScene, QGraphicsView, QGraphicsPixmapItem
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+
+MASK_OPACITY = 0.3
+QR_SIZE = 0.7  # Size of rectangle for QR capture
 
 
 class WorkerThread(QThread):
@@ -40,6 +44,31 @@ class WorkerThread(QThread):
         self.resultReady.emit(None)
 
 
+class MaskRectangleItem(QGraphicsPixmapItem):
+
+    def __init__(self):
+        super().__init__()
+
+        self.setOpacity(MASK_OPACITY)
+
+    def setRect(self, width, height, x, y, w, h):
+        image = QImage(width, height, QImage.Format_ARGB32)
+        image.fill(Qt.black)
+
+        brush = QBrush(Qt.white)
+        painter = QPainter(image)
+        painter.setBrush(brush)
+        painter.setPen(Qt.NoPen)
+        painter.drawRect(x, y, w, h)
+        painter.end()
+
+        mask = image.createMaskFromColor(QColor(Qt.white).rgb())
+        bitmap = QBitmap.fromImage(mask)
+        pixmap = QPixmap.fromImage(image)
+        pixmap.setMask(bitmap)
+        self.setPixmap(pixmap)
+
+
 @storeDlgSizeDecorator
 class ScanBarcodeDialog(QDialog):
 
@@ -48,9 +77,11 @@ class ScanBarcodeDialog(QDialog):
 
         self.setWindowIcon(QIcon(':/webcam.png'))
 
+        self.rectangle = None
+        self.mask = None
         self.barcode = None
-        self.captureSession = QMediaCaptureSession()
         self.camera = None
+        self.captureSession = QMediaCaptureSession()
         self.worker = WorkerThread(self)
         self.worker.resultReady.connect(self.resultReady)
 
@@ -59,7 +90,15 @@ class ScanBarcodeDialog(QDialog):
         self.first_capture_timer = QTimer(self)
         self.first_capture_timer.timeout.connect(self.firstCaptureTimeout)
 
-        self.viewfinder = QVideoWidget()
+        self.scene = QGraphicsScene(self)
+        self.view = QGraphicsView(self.scene)
+        # self.view.setMinimumSize(120, 60)
+        self.view.setFrameStyle(0)
+        self.viewfinder = QGraphicsVideoItem()
+
+        self.scene.addItem(self.viewfinder)
+
+        self.viewfinder.nativeSizeChanged.connect(self.video_size_changed)
 
         self.cameraSelector = QComboBox()
         for cameraDevice in QMediaDevices.videoInputs():
@@ -69,7 +108,7 @@ class ScanBarcodeDialog(QDialog):
 
         layout = QVBoxLayout()
         layout.addWidget(self.cameraSelector)
-        layout.addWidget(self.viewfinder)
+        layout.addWidget(self.view)
         self.setLayout(layout)
 
         settings = QSettings()
@@ -89,6 +128,47 @@ class ScanBarcodeDialog(QDialog):
                                 self.tr("Camera not available"))
         else:
             self.cameraSelector.setCurrentIndex(camera_index)
+
+    def video_size_changed(self, _size):
+        self.resizeEvent(None)
+
+    def resizeEvent(self, _event):
+        if self.rectangle:
+            self.scene.removeItem(self.rectangle)
+        if self.mask:
+            self.scene.removeItem(self.mask)
+
+        bounds = self.scene.itemsBoundingRect()
+        self.view.fitInView(bounds, Qt.KeepAspectRatio)
+        square = self.calculate_center_square(bounds)
+
+        pen = QPen(Qt.green)
+        pen.setWidth(0)
+        pen.setStyle(Qt.DotLine)
+        self.rectangle = self.scene.addRect(square, pen)
+
+        offsetX = bounds.x()
+        offsetY = bounds.y()
+
+        self.mask = MaskRectangleItem()
+        self.mask.setRect(bounds.width(), bounds.height(),
+                          square.x() - offsetX, square.y() - offsetY,
+                          square.width(), square.height())
+        self.mask.setX(offsetX)
+        self.mask.setY(offsetY)
+        self.scene.addItem(self.mask)
+
+        self.view.centerOn(0, 0)
+        self.view.raise_()
+
+    def calculate_center_square(self, img_rect):
+        a = QR_SIZE * min(img_rect.height(), img_rect.width())  # Size of square side
+        x = (img_rect.width() - a) / 2  # Postion of the square inside rectangle
+        y = (img_rect.height() - a) / 2
+        if type(img_rect) != QImage:  # if we have a bounding rectangle, not an image
+            x += img_rect.left()  # then we need to shift our square inside this rectangle
+            y += img_rect.top()
+        return QRectF(x, y, a, a)
 
     def cameraChanged(self, _index):
         cameraId = self.cameraSelector.currentData()
@@ -148,6 +228,7 @@ class ScanBarcodeDialog(QDialog):
         self.first_capture_timer.stop()
 
         if not self.worker.isRunning():
+            img = img.copy(self.calculate_center_square(img).toRect())
             self.worker.setImage(img)
             self.worker.start()
 
