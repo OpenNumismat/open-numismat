@@ -2194,7 +2194,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Нормален</translation>
+        <translation>нормална</translation>
     </message>
     <message>
         <source>Large</source>
