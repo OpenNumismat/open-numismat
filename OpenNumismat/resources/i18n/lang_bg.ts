@@ -64,7 +64,7 @@
     </message>
     <message>
         <source>South Asia</source>
-        <translation>южноазиатски</translation>
+        <translation>Южна Азия</translation>
     </message>
     <message>
         <source>Medieval</source>
