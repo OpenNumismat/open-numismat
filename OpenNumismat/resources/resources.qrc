@@ -71,6 +71,8 @@
     <file alias="replacement.png">../../icons/replacement.png</file>
     <file alias="barcode.png">../../icons/barcode.png</file>
     <file alias="webcam.png">../../icons/webcam.png</file>
+    <file alias="ngc.png">../../icons/ngc.png</file>
+    <file alias="pcgs.png">../../icons/pcgs.png</file>
 </qresource>
 <qresource prefix="i18n">
     <file alias="lang_bg.qm">i18n/lang_bg.qm</file>

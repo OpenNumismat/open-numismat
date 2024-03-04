@@ -544,8 +544,15 @@ class DetailsTabWidget(QTabWidget):
     def clickedButtonScanBarcode(self):
         dlg = ScanBarcodeDialog(self)
         if dlg.exec_() == QDialog.Accepted:
-            barcode = parseBarcode(dlg.barcode)
-            self.items['barcode'].widget().setText(barcode)
+            result = parseBarcode(dlg.barcode)
+            if 'barcode' in result:
+                self.items['barcode'].widget().setText(result['barcode'])
+            if 'grader' in result:
+                self.items['grader'].widget().setText(result['grader'])
+            if 'grade' in result:
+                self.items['grade'].widget().setText(result['grade'])
+            if 'url' in result:
+                self.items['url'].widget().setText(result['url'])
 
     def clickedButtonGrader(self):
         grader = self.items['grader'].value().upper()
