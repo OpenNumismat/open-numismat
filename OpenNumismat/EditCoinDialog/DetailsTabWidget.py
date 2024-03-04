@@ -554,6 +554,8 @@ class DetailsTabWidget(QTabWidget):
         grade = ''.join(filter(lambda i: i.isdigit(), grade))
         if grader == 'ANACS':
             url = 'https://www.anacs.com/Verify/CertVerification.aspx?cert=%s' % barcode
+        elif grader == 'ASG':
+            url = 'https://www.asgstamps.com/certlookup/%s/%s/' % (barcode, grade)
         elif grader == 'ICCS':
             url = 'https://iccscoin.ca'
         elif grader == 'ICG':
