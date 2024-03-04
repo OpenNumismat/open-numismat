@@ -30,12 +30,6 @@ class WorkerThread(QThread):
         if self.image:
             img = ImageQt.fromqimage(self.image)
             results = zxingcpp.read_barcodes(img)
-#            for result in results:
-#                print('Found barcode:'
-#                    f'\n Text:    "{result.text}"'
-#                    f'\n Format:   {result.format}'
-#                    f'\n Content:  {result.content_type}'
-#                    f'\n Position: {result.position}')
 
             if results:
                 self.resultReady.emit(results[0].text)
