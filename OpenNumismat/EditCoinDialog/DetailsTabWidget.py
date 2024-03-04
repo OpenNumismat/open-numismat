@@ -18,6 +18,7 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.EditCoinDialog.MapWidget import get_map_widget
 from OpenNumismat.TagsDialog import TagsDialog, TagsTreeWidget
 from OpenNumismat.EditCoinDialog.ScanBarcodeDialog import ScanBarcodeDialog
+from OpenNumismat.EditCoinDialog.ParseBarcodeDialog import parseBarcode
 
 
 class DetailsTabWidget(QTabWidget):
@@ -543,7 +544,8 @@ class DetailsTabWidget(QTabWidget):
     def clickedButtonScanBarcode(self):
         dlg = ScanBarcodeDialog(self)
         if dlg.exec_() == QDialog.Accepted:
-            self.items['barcode'].widget().setText(dlg.barcode)
+            barcode = parseBarcode(dlg.barcode)
+            self.items['barcode'].widget().setText(barcode)
 
     def clickedButtonGrader(self):
         grader = self.items['grader'].value().upper()
