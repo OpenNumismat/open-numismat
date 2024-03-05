@@ -2629,7 +2629,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>F</source>
-        <translation>F</translation>
+        <translation>Ф</translation>
     </message>
     <message>
         <source>Q</source>
