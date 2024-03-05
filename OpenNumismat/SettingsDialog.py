@@ -2,7 +2,7 @@
 
 from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
 from PySide6.QtCore import Signal as pyqtSignal
-from PySide6.QtGui import QIcon, QAction, QPixmap
+from PySide6.QtGui import QIcon, QAction, QPixmap, QColor
 from PySide6.QtWidgets import *
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit

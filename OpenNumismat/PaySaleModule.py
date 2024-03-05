@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-import dateutil.parser
+# import dateutil.parser
 from PySide6.QtCore import Qt
 from PySide6.QtSql import QSqlQueryModel, QSqlQuery
 # from PySide6.QtWidgets import *
@@ -64,7 +64,8 @@ class PaySaleForm(QDialog):
         self.setLayout(self.layout)
 
         if self.rec:
-            self.fld_date.setDate(dateutil.parser.parse(str(rec[2])))
+            # self.fld_date.setDate(dateutil.parser.parse(str(rec[2])))
+            self.fld_date.setDate(datetime.datetime.strptime(str(rec[2]), "%d.%m.%Y"))
             _act = self.fld_act.findText(str(rec[3]))
             if _act != -1:
                 self.fld_act.setCurrentIndex(_act)
@@ -133,7 +134,7 @@ class PaySaleLayout(QGroupBox):
         self.tq = _tq
         self.ts = _ts
         self.places = places
-        self.sel_query = ("select * from coins_paysales where coin_id = %s" % uid)
+        self.sel_query = ("select * from coins_paysales where coin_id = %s order by cast(substr(oper_date, 7,4)||substr(oper_date, 4,2)||substr(oper_date, 1,2) as int) desc" % uid)
         self.tbl_view = None
         self.model = None
 
@@ -176,6 +177,10 @@ class PaySaleLayout(QGroupBox):
         self.tbl_view.hideColumn(0)
         self.tbl_view.hideColumn(1)
         self.tbl_view.verticalHeader().setVisible(False)
+        self.tbl_view.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        # self.tbl_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tbl_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.tbl_view.horizontalHeader().setStretchLastSection(True)
         self.tbl_view.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tbl_view.setSelectionMode(QAbstractItemView.SingleSelection)
 
