@@ -1,5 +1,24 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
 <context>
+    <name/>
+    <message>
+        <source>Country</source>
+        <translation>País</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Cantidad</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Guardando</translation>
+    </message>
+    <message>
+        <source>Image not ready. Please try again later</source>
+        <translation>Imagen no lista. Inténtelo más tarde</translation>
+    </message>
+</context>
+<context>
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
@@ -175,6 +194,14 @@
         <source>Quantity</source>
         <translation>Cantidad</translation>
     </message>
+    <message>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <translation>Imágenes (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos los archivos (*.*)</translation>
+    </message>
 </context>
 <context>
     <name>BaseTableView</name>
@@ -195,6 +222,10 @@ Cambio de posición del artículo disponible sólo en el orden predeterminado. �
     <message>
         <source>%d/%d records</source>
         <translation>%d/%d registros</translation>
+    </message>
+    <message>
+        <source>%n record(s) selected</source>
+        <translation>%n registro(s) seleccionado(s)</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -253,14 +284,6 @@ Cierre el archivo y pruebe de nuevo.</translation>
     <message>
         <source>Deleting records</source>
         <translation>Eliminar registro</translation>
-    </message>
-    <message>
-        <source>%d record(s) selected</source>
-        <translation>%d registro(s) seleccionado(s)</translation>
-    </message>
-    <message>
-        <source>Are you sure to remove a %d coin(s)?</source>
-        <translation>¿Seguro que quiere eliminar %d moneda(s)?</translation>
     </message>
 </context>
 <context>
@@ -1019,6 +1042,10 @@ La aplicación deberá reiniciarse ahora.</translation>
         <translation>Eje de alineación en horas</translation>
     </message>
     <message>
+        <source>Used statuses:</source>
+        <translation>Estatus usados:</translation>
+    </message>
+    <message>
         <source>Default status for new coin</source>
         <translation>Estado predeterminado para la nueva moneda</translation>
     </message>
@@ -1037,10 +1064,6 @@ La aplicación deberá reiniciarse ahora.</translation>
     <message>
         <source>Enable tags</source>
         <translation>Habilitar etiquetas</translation>
-    </message>
-    <message>
-        <source>Used statuses (double-click for rename):</source>
-        <translation>Estatus usados (doble-clic para renombrar):</translation>
     </message>
 </context>
 <context>
@@ -1525,10 +1548,6 @@ Do you want to send an error message to the author?</source>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
-    <message>
-        <source>Search by image</source>
-        <translation>Búsqueda por imagen</translation>
-    </message>
 </context>
 <context>
     <name>FormDetailsTabWidget</name>
@@ -1662,25 +1681,6 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
-    <name>GeoChart</name>
-    <message>
-        <source>Country</source>
-        <translation>País</translation>
-    </message>
-    <message>
-        <source>Quantity</source>
-        <translation>Cantidad</translation>
-    </message>
-    <message>
-        <source>Saving</source>
-        <translation>Guardando</translation>
-    </message>
-    <message>
-        <source>Image not ready. Please try again later</source>
-        <translation>Imagen no lista. Inténtelo más tarde</translation>
-    </message>
-</context>
-<context>
     <name>GeoChartCanvas</name>
     <message>
         <source>Web page (*.htm *.html)</source>
@@ -1796,18 +1796,41 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
 </context>
 <context>
-    <name>ImageEditorDialog</name>
+    <name>ImageLabel</name>
     <message>
-        <source>Browse in viewer</source>
-        <translation>Ver en visor</translation>
+        <source>Open</source>
+        <translation>Abrir</translation>
     </message>
     <message>
-        <source>&amp;Save As...</source>
-        <translation>&amp;Guardar como...</translation>
+        <source>Edit...</source>
+        <translation>Editar...</translation>
     </message>
+    <message>
+        <source>Copy</source>
+        <translation>Copiar</translation>
+    </message>
+    <message>
+        <source>Save as...</source>
+        <translation>Guardar como...</translation>
+    </message>
+    <message>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <translation>Imágenes (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos los archivos (*.*)</translation>
+    </message>
+</context>
+<context>
+    <name>ImageViewer</name>
     <message>
         <source>E&amp;xit</source>
         <translation>&amp;Salir</translation>
+    </message>
+    <message>
+        <source>Browse in viewer</source>
+        <translation>Ver en visor</translation>
     </message>
     <message>
         <source>Full Screen</source>
@@ -1878,18 +1901,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Rehacer</translation>
     </message>
     <message>
-        <source>Window color</source>
-        <translation>Color de ventana</translation>
-    </message>
-    <message>
-        <source>Cut left half</source>
-        <translation>Cortar mitad izquierda</translation>
-    </message>
-    <message>
-        <source>Cut right half</source>
-        <translation>Cortar mitad derecha</translation>
-    </message>
-    <message>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
@@ -1902,66 +1913,20 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>&amp;Ver</translation>
     </message>
     <message>
-        <source>Settings</source>
-        <translation>Configuración</translation>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
+        <translation>Imágenes (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
     </message>
     <message>
-        <source>Image editor</source>
-        <translation>Editor de imagen</translation>
-    </message>
-    <message>
-        <source>Image was changed. Save changes?</source>
-        <translation>La imagen ha cambiado ¿Guardar cambios?</translation>
-    </message>
-    <message>
-        <source>Save changes to current image?</source>
-        <translation>¿Grabar cambios a imagen actual?</translation>
-    </message>
-    <message>
-        <source>Don&apos;t show this again</source>
-        <translation>No mostrar de nuevo esto</translation>
-    </message>
-</context>
-<context>
-    <name>ImageEditorWindow</name>
-    <message>
-        <source>&amp;Open...</source>
-        <translation>&amp;Abrir...</translation>
-    </message>
-    <message>
-        <source>Background color</source>
-        <translation>Color de fondo</translation>
-    </message>
-    <message>
-        <source>Open File</source>
-        <translation>Abrir archivo</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Guardar</translation>
+        <source>All files (*.*)</source>
+        <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
         <source>Image was changed. Save changes?</source>
         <translation>La imagen ha cambiado ¿Guardar cambios?</translation>
     </message>
-</context>
-<context>
-    <name>ImageLabel</name>
     <message>
-        <source>Open</source>
-        <translation>Abrir</translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation>Editar...</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Copiar</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation>Guardar como...</translation>
+        <source>&amp;Save As...</source>
+        <translation>&amp;Guardar como...</translation>
     </message>
 </context>
 <context>
@@ -2122,6 +2087,10 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Limpiar icono</translation>
     </message>
     <message>
+        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
+        <translation>Imágenes (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</translation>
+    </message>
+    <message>
         <source>Open File</source>
         <translation>Abrir archivo</translation>
     </message>
@@ -2211,10 +2180,6 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Select reference</source>
         <translation>Seleccione referencia</translation>
-    </message>
-    <message>
-        <source>Image background color</source>
-        <translation>Color de fondo de imagen</translation>
     </message>
 </context>
 <context>
@@ -2462,22 +2427,6 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Tags...</source>
         <translation>Etiquetas...</translation>
-    </message>
-    <message>
-        <source>Search by image...</source>
-        <translation>Búsqueda por imagen...</translation>
-    </message>
-    <message>
-        <source>Year calculator</source>
-        <translation>Calculador de año</translation>
-    </message>
-    <message>
-        <source>References generator</source>
-        <translation>Generador de referencias</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation>Herramientas</translation>
     </message>
 </context>
 <context>
@@ -3392,6 +3341,14 @@ Añada una nueva primero.</translation>
         <translation>Islámico</translation>
     </message>
     <message>
+        <source>Solar hijri</source>
+        <translation>Hijri solar</translation>
+    </message>
+    <message>
+        <source>Japan</source>
+        <translation>Japón</translation>
+    </message>
+    <message>
         <source>Year</source>
         <translation>Año</translation>
     </message>
@@ -3410,14 +3367,6 @@ Añada una nueva primero.</translation>
     <message>
         <source>Burmese</source>
         <translation>Birmano</translation>
-    </message>
-    <message>
-        <source>Iranian</source>
-        <translation>Iraní</translation>
-    </message>
-    <message>
-        <source>Japanese</source>
-        <translation>Japonés</translation>
     </message>
 </context>
 <context>
@@ -3470,24 +3419,6 @@ Añada una nueva primero.</translation>
     <message>
         <source>Updating records</source>
         <translation>Actualizando registros</translation>
-    </message>
-</context>
-<context>
-    <name>readImageFilters</name>
-    <message>
-        <source>Images (%s)</source>
-        <translation>Imágenes (%s)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos los archivos (*.*)</translation>
-    </message>
-</context>
-<context>
-    <name>saveImageFilters</name>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos los archivos (*.*)</translation>
     </message>
 </context>
 </TS>
