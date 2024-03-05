@@ -170,6 +170,13 @@
     </message>
 </context>
 <context>
+    <name>BarcodeLineEdit</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Сканиране на баркод</translation>
+    </message>
+</context>
+<context>
     <name>BaseCanvas</name>
     <message>
         <source>Quantity</source>
@@ -2216,6 +2223,10 @@ drag-n-drop to add an image)</source>
         <source>Image background color</source>
         <translation>Фонов цвят на изображението</translation>
     </message>
+    <message>
+        <source>Use webcam</source>
+        <translation>Използване на уеб камера</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -2481,6 +2492,13 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>NGCBarcodeDialog</name>
+    <message>
+        <source>NGC barcode parser</source>
+        <translation>Баркод на NGC</translation>
+    </message>
+</context>
+<context>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
@@ -2492,6 +2510,20 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Numista</source>
         <translation>Numista</translation>
+    </message>
+</context>
+<context>
+    <name>OldPCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>Баркод на PCGS</translation>
+    </message>
+</context>
+<context>
+    <name>PCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>Баркод на PCGS</translation>
     </message>
 </context>
 <context>
@@ -2629,7 +2661,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>F</source>
-        <translation>Ф</translation>
+        <translation>F</translation>
     </message>
     <message>
         <source>Q</source>
@@ -2752,6 +2784,25 @@ Please update OpenNumismat</source>
     <message>
         <source>Show grid</source>
         <translation>Показване на мрежа</translation>
+    </message>
+</context>
+<context>
+    <name>ScanBarcodeDialog</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Сканиране на баркод</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Камерата не е налична</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Камерата не е налична или е деактивирана от антивирусната програма</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Грешка в камерата</translation>
     </message>
 </context>
 <context>
