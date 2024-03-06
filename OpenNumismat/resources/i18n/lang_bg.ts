@@ -76,7 +76,7 @@
     </message>
     <message>
         <source>North America</source>
-        <translation>северноамерикански</translation>
+        <translation>Северна Америка</translation>
     </message>
     <message>
         <source>Latin America</source>
