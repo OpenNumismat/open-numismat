@@ -60,7 +60,7 @@
     </message>
     <message>
         <source>East Asia</source>
-        <translation>източноазиатски</translation>
+        <translation>Източна Азия</translation>
     </message>
     <message>
         <source>South Asia</source>
