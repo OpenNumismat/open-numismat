@@ -80,7 +80,7 @@
     </message>
     <message>
         <source>Latin America</source>
-        <translation>латиноамерикански</translation>
+        <translation>Латинска Америка</translation>
     </message>
     <message>
         <source>Medals And Decorations</source>
