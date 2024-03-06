@@ -2999,7 +2999,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Americas</source>
-        <translation>Северна и Южна Америка</translation>
+        <translation>Америка</translation>
     </message>
     <message>
         <source>Asia</source>
