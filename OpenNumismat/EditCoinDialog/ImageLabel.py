@@ -18,10 +18,11 @@ class ImageLabel(QLabel):
     MimeType = 'num/image'
     imageEdited = pyqtSignal(QLabel)
 
-    def __init__(self, field=None, parent=None):
+    def __init__(self, field=None, title=None, parent=None):
         super().__init__(parent)
 
-        self.field = field or 'photo'
+        self.field = field
+        self.title = title or 'photo'
         self._data = None
         self.image = QImage()
 
@@ -73,9 +74,8 @@ class ImageLabel(QLabel):
             executor.openUrl(QUrl.fromLocalFile(fileName))
 
     def editImage(self):
-        readonly = not isinstance(self, ImageEdit)
-        viewer = ImageEditorDialog(self, readonly=readonly)
-        viewer.setTitle(self.field)
+        viewer = ImageEditorDialog(self)
+        viewer.setTitle(self.title)
         viewer.imageSaved.connect(self.imageSaved)
         viewer.setImage(self.image)
         viewer.exec_()
@@ -150,7 +150,7 @@ class ImageLabel(QLabel):
     def saveImage(self):
         # TODO: Set default name to coin title + field name
         fileName, _selectedFilter = getSaveFileName(
-            self, 'images', self.field, OpenNumismat.IMAGE_PATH, saveImageFilters())
+            self, 'images', self.title, OpenNumismat.IMAGE_PATH, saveImageFilters())
         if fileName:
             self.image.save(fileName)
 
@@ -168,10 +168,10 @@ class ImageEdit(ImageLabel):
     imageChanged = pyqtSignal(QLabel)
 
     def __init__(self, field=None, label=None, parent=None):
-        super().__init__(field, parent)
+        super().__init__(None, field, parent)
 
         self.label = label
-        self.title = None
+        self.title = field
 
         if label:
             self.label.mouseDoubleClickEvent = self.renameImageEvent

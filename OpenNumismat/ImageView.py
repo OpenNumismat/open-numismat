@@ -89,7 +89,7 @@ class ImageView(QWidget):
                 data = index.data(Qt.UserRole)
                 img = self.model.getImage(data)
 
-                image = ImageLabel(field.title, self)
+                image = ImageLabel(field.name, field.title, self)
                 image.loadFromData(img)
                 title = self.model.getImageTitle(data)
                 image.setToolTip(title)
@@ -113,7 +113,7 @@ class ImageView(QWidget):
             img = self.model.getImage(data)
             if img and not img.isNull():
                 if self.imageLayout.count() < self.showedCount:
-                    image = ImageLabel(field.title, self)
+                    image = ImageLabel(field.name, field.title, self)
                     image.loadFromData(img)
                     title = self.model.getImageTitle(data)
                     image.setToolTip(title)
@@ -131,7 +131,6 @@ class ImageView(QWidget):
         record = self.model.record(self.currentIndex.row())
         record.setValue(image.field, image.image)
         self.model.setRecord(self.currentIndex.row(), record)
-        # self.model.submitAll()
 
     def __layoutToWidget(self, layout):
         widget = QWidget(self)
