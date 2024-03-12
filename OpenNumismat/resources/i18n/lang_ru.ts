@@ -173,7 +173,7 @@
     <name>BarcodeLineEdit</name>
     <message>
         <source>Scan barcode</source>
-        <translation>Сканирование штрихкод</translation>
+        <translation>Сканирование штрихкода</translation>
     </message>
 </context>
 <context>
