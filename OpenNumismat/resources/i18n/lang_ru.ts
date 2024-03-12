@@ -2790,7 +2790,7 @@ Please update OpenNumismat</source>
     <name>ScanBarcodeDialog</name>
     <message>
         <source>Scan barcode</source>
-        <translation>Сканировать штрихкод</translation>
+        <translation>Сканирование штрихкода</translation>
     </message>
     <message>
         <source>Camera not available</source>
