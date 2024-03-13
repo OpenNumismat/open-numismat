@@ -1,5 +1,4 @@
-from PySide6 import QtCore
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QSettings
 from PySide6.QtWidgets import *
 
 from OpenNumismat.ImageView import ImageView
@@ -21,11 +20,11 @@ class Splitter(QSplitter):
         self.splitterMoved.connect(self.splitterPosChanged)
 
     def splitterPosChanged(self, _pos, _index):
-        settings = QtCore.QSettings()
+        settings = QSettings()
         settings.setValue('pageview/splittersizes' + self.title, self.sizes())
 
     def showEvent(self, _e):
-        settings = QtCore.QSettings()
+        settings = QSettings()
         sizes = settings.value('pageview/splittersizes' + self.title)
         if sizes:
             for i, size in enumerate(sizes):
