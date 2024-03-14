@@ -1,9 +1,11 @@
 from PySide6 import QtCore
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QImage
 from PySide6.QtWidgets import *
 
-from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel, ImageScrollLabel
+from OpenNumismat.ImageProxy import ImageProxy
 from OpenNumismat.Settings import Settings
 
 
@@ -94,7 +96,6 @@ class ImageView(QWidget):
                 title = self.model.getImageTitle(data)
                 image.setToolTip(title)
 
-                image.imageEdited.connect(self.imageEdited)
                 self.imageLayout.addWidget(image)
 
                 self.showedCount += 1
@@ -118,7 +119,6 @@ class ImageView(QWidget):
                     title = self.model.getImageTitle(data)
                     image.setToolTip(title)
 
-                    image.imageEdited.connect(self.imageEdited)
                     self.imageLayout.addWidget(image)
 
                     self.imageButtons[i].setCheckState(Qt.Checked)
@@ -131,6 +131,25 @@ class ImageView(QWidget):
         record = self.model.record(self.currentIndex.row())
         record.setValue(image.field, image.image)
         self.model.setRecord(self.currentIndex.row(), record)
+
+        for i in range(self.imageLayout.count()):
+            image_label = self.imageLayout.itemAt(i).widget()
+            if image_label.field == image.field:
+                image_label._setImage(image.image)
+
+    def getImageProxy(self):
+        imageProxy = ImageProxy()
+
+        for field in self.imageFields:
+            index = self.model.index(self.currentIndex.row(), field.id)
+            data = index.data(Qt.UserRole)
+            img = self.model.getImage(data)
+            if img and not img.isNull():
+                image = ImageScrollLabel(field.name, field.title, self)
+                image.loadFromData(img)
+                imageProxy.append(image)
+
+        return imageProxy
 
     def __layoutToWidget(self, layout):
         widget = QWidget(self)
