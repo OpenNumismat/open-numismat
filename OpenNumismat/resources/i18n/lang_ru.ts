@@ -170,6 +170,13 @@
     </message>
 </context>
 <context>
+    <name>BarcodeLineEdit</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Сканирование штрихкода</translation>
+    </message>
+</context>
+<context>
     <name>BaseCanvas</name>
     <message>
         <source>Quantity</source>
@@ -2216,6 +2223,10 @@ drag-n-drop to add an image)</source>
         <source>Image background color</source>
         <translation>Цвет фона изображения</translation>
     </message>
+    <message>
+        <source>Use webcam</source>
+        <translation>Использовать камеру</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -2481,6 +2492,13 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>NGCBarcodeDialog</name>
+    <message>
+        <source>NGC barcode parser</source>
+        <translation>Разбор штрихкода NGC</translation>
+    </message>
+</context>
+<context>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
@@ -2492,6 +2510,20 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Numista</source>
         <translation>Numista</translation>
+    </message>
+</context>
+<context>
+    <name>OldPCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>Разбор штрихкода PCGS</translation>
+    </message>
+</context>
+<context>
+    <name>PCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>Разбор штрихкода PCGS</translation>
     </message>
 </context>
 <context>
@@ -2752,6 +2784,25 @@ Please update OpenNumismat</source>
     <message>
         <source>Show grid</source>
         <translation>Показать сетку</translation>
+    </message>
+</context>
+<context>
+    <name>ScanBarcodeDialog</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Сканирование штрихкода</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Камера не доступна</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Камера не доступна или заблокирована антивирусом</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Ошибка камеры</translation>
     </message>
 </context>
 <context>
