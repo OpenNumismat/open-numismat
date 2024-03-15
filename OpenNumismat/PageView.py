@@ -10,29 +10,7 @@ from OpenNumismat.TreeView import TreeView
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 from OpenNumismat.EditCoinDialog.MapWidget import get_map_widget
-
-
-class Splitter(QSplitter):
-    def __init__(self, title, orientation=Qt.Horizontal, parent=None):
-        super().__init__(orientation, parent)
-
-        self.title = title
-        self.splitterMoved.connect(self.splitterPosChanged)
-
-    def splitterPosChanged(self, _pos, _index):
-        settings = QSettings()
-        settings.setValue('pageview/splittersizes' + self.title, self.sizes())
-
-    def showEvent(self, _e):
-        settings = QSettings()
-        sizes = settings.value('pageview/splittersizes' + self.title)
-        if sizes:
-            for i, size in enumerate(sizes):
-                sizes[i] = int(size)
-
-            self.splitterMoved.disconnect(self.splitterPosChanged)
-            self.setSizes(sizes)
-            self.splitterMoved.connect(self.splitterPosChanged)
+from OpenNumismat.Tools.Gui import Splitter
 
 
 class PageView(Splitter):

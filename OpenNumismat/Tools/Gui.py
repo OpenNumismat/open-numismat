@@ -2,7 +2,7 @@ import os
 
 from PySide6.QtCore import Qt, QSettings
 from PySide6.QtGui import QIcon, QColor, QPalette
-from PySide6.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox
+from PySide6.QtWidgets import QProgressDialog, QFileDialog, QApplication, QCheckBox, QMessageBox, QSplitter
 
 
 class ProgressDialog(QProgressDialog):
@@ -20,6 +20,30 @@ class ProgressDialog(QProgressDialog):
         super().setLabelText(text)
         self.setMaximum(self.maximum() + 1)
         self.step()
+
+
+class Splitter(QSplitter):
+
+    def __init__(self, title, orientation=Qt.Horizontal, parent=None):
+        super().__init__(orientation, parent)
+
+        self.title = title
+        self.splitterMoved.connect(self.splitterPosChanged)
+
+    def splitterPosChanged(self, _pos, _index):
+        settings = QSettings()
+        settings.setValue('pageview/splittersizes' + self.title, self.sizes())
+
+    def showEvent(self, _e):
+        settings = QSettings()
+        sizes = settings.value('pageview/splittersizes' + self.title)
+        if sizes:
+            for i, size in enumerate(sizes):
+                sizes[i] = int(size)
+
+            self.splitterMoved.disconnect(self.splitterPosChanged)
+            self.setSizes(sizes)
+            self.splitterMoved.connect(self.splitterPosChanged)
 
 
 def statusIcon(status):
