@@ -69,7 +69,7 @@ class ImageScrollLabel(QLabel):
 
     def imageSaved(self, image):
         self._setImage(image)
-        self.parent.imageEdited(self)
+        self.imageEdited.emit(self)
 
     def _setImage(self, image):
         self.image = image

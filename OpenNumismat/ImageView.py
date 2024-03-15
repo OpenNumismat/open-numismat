@@ -147,6 +147,7 @@ class ImageView(QWidget):
             if img and not img.isNull():
                 image = ImageScrollLabel(field.name, field.title, self)
                 image.loadFromData(img)
+                image.imageEdited.connect(self.imageEdited)
                 imageProxy.append(image)
 
         return imageProxy
