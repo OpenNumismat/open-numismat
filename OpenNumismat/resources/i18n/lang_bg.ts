@@ -2516,14 +2516,14 @@ drag-n-drop to add an image)</source>
     <name>OldPCGSBarcodeDialog</name>
     <message>
         <source>PCGS barcode parser</source>
-        <translation>Баркод на PCGS</translation>
+        <translation>PCGS баркод</translation>
     </message>
 </context>
 <context>
     <name>PCGSBarcodeDialog</name>
     <message>
         <source>PCGS barcode parser</source>
-        <translation>Баркод на PCGS</translation>
+        <translation>PCGS баркод</translation>
     </message>
 </context>
 <context>
