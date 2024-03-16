@@ -2495,7 +2495,7 @@ drag-n-drop to add an image)</source>
     <name>NGCBarcodeDialog</name>
     <message>
         <source>NGC barcode parser</source>
-        <translation>Баркод на NGC</translation>
+        <translation>NGC баркод</translation>
     </message>
 </context>
 <context>
