@@ -93,7 +93,7 @@ def numberToFraction(text):
         text = '0.06'
     elif text == '⅟12' or text == '1⁄12' or text == '1/12':
         text = '0.08'
-    elif text == '⅒'  or text == '1/10':
+    elif text == '⅒' or text == '1/10':
         text = '0.1'
     elif text == '⅛' or text == '1/8':
         text = '0.12'

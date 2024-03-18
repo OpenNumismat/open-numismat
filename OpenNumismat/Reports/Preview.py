@@ -4,7 +4,7 @@ from PySide6.QtCore import QMarginsF, QSize, QUrl
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtPrintSupport import QPrinter, QPrintDialog, QPageSetupDialog
-from PySide6.QtWebEngineCore import  QWebEnginePage
+from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView
 
 import OpenNumismat

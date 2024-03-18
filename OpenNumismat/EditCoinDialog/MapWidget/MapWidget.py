@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtCore import Slot as pyqtSlot
 from PySide6.QtWebChannel import QWebChannel
-from PySide6.QtWebEngineCore import  QWebEnginePage
+from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView
 
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
