@@ -60,11 +60,11 @@
     </message>
     <message>
         <source>East Asia</source>
-        <translation>Източна Азия</translation>
+        <translation>източноазиатски</translation>
     </message>
     <message>
         <source>South Asia</source>
-        <translation>Южна Азия</translation>
+        <translation>южноазиатски</translation>
     </message>
     <message>
         <source>Medieval</source>
@@ -76,11 +76,11 @@
     </message>
     <message>
         <source>North America</source>
-        <translation>Северна Америка</translation>
+        <translation>северноамерикански</translation>
     </message>
     <message>
         <source>Latin America</source>
-        <translation>Латинска Америка</translation>
+        <translation>латиноамерикански</translation>
     </message>
     <message>
         <source>Medals And Decorations</source>
@@ -167,13 +167,6 @@
     <message>
         <source>Backspace</source>
         <translation>Изтриване</translation>
-    </message>
-</context>
-<context>
-    <name>BarcodeLineEdit</name>
-    <message>
-        <source>Scan barcode</source>
-        <translation>Сканиране на баркод</translation>
     </message>
 </context>
 <context>
@@ -2223,10 +2216,6 @@ drag-n-drop to add an image)</source>
         <source>Image background color</source>
         <translation>Фонов цвят на изображението</translation>
     </message>
-    <message>
-        <source>Use webcam</source>
-        <translation>Използване на уеб камера</translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -2492,13 +2481,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>NGCBarcodeDialog</name>
-    <message>
-        <source>NGC barcode parser</source>
-        <translation>NGC баркод</translation>
-    </message>
-</context>
-<context>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
@@ -2510,20 +2492,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Numista</source>
         <translation>Numista</translation>
-    </message>
-</context>
-<context>
-    <name>OldPCGSBarcodeDialog</name>
-    <message>
-        <source>PCGS barcode parser</source>
-        <translation>PCGS баркод</translation>
-    </message>
-</context>
-<context>
-    <name>PCGSBarcodeDialog</name>
-    <message>
-        <source>PCGS barcode parser</source>
-        <translation>PCGS баркод</translation>
     </message>
 </context>
 <context>
@@ -2661,7 +2629,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>F</source>
-        <translation>F</translation>
+        <translation>Ф</translation>
     </message>
     <message>
         <source>Q</source>
@@ -2784,25 +2752,6 @@ Please update OpenNumismat</source>
     <message>
         <source>Show grid</source>
         <translation>Показване на мрежа</translation>
-    </message>
-</context>
-<context>
-    <name>ScanBarcodeDialog</name>
-    <message>
-        <source>Scan barcode</source>
-        <translation>Сканиране на баркод</translation>
-    </message>
-    <message>
-        <source>Camera not available</source>
-        <translation>Камерата не е налична</translation>
-    </message>
-    <message>
-        <source>Camera not available or disabled by antivirus</source>
-        <translation>Камерата не е налична или е деактивирана от антивирусната програма</translation>
-    </message>
-    <message>
-        <source>Camera Error</source>
-        <translation>Грешка в камерата</translation>
     </message>
 </context>
 <context>
@@ -2999,7 +2948,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Americas</source>
-        <translation>Америка</translation>
+        <translation>Северна и Южна Америка</translation>
     </message>
     <message>
         <source>Asia</source>
