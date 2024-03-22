@@ -160,9 +160,3 @@ class ImageView(QWidget):
         widget = QWidget(self)
         widget.setLayout(layout)
         return widget
-
-    def prevRecord(self):
-        pass
-
-    def nextRecord(self):
-        pass
