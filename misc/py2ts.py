@@ -3,7 +3,8 @@
 import os
 from PySide6.QtCore import QLibraryInfo
 
-base_path = os.path.join(os.path.dirname(__file__), "../OpenNumismat")
+#base_path = os.path.join(os.path.dirname(__file__), "../OpenNumismat")
+base_path = "OpenNumismat"
 
 pyqt_path = QLibraryInfo.path(QLibraryInfo.LibraryExecutablesPath)
 lupdate_path = os.path.join(pyqt_path, 'lupdate')
