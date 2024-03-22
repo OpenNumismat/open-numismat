@@ -1,7 +1,7 @@
 from PySide6 import QtCore
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QImage
+from PySide6.QtCore import Qt, QObject
 from PySide6.QtWidgets import *
+from PySide6.QtCore import Signal as pyqtSignal
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel, ImageScrollLabel
@@ -10,6 +10,8 @@ from OpenNumismat.Settings import Settings
 
 
 class ImageView(QWidget):
+    prevRecordEvent = pyqtSignal(QObject)
+    nextRecordEvent = pyqtSignal(QObject)
 
     def __init__(self, direction, parent=None):
         super().__init__(parent)
@@ -138,7 +140,9 @@ class ImageView(QWidget):
                 image_label._setImage(image.image)
 
     def getImageProxy(self):
-        imageProxy = ImageProxy()
+        imageProxy = ImageProxy(self)
+        imageProxy.prevRecordEvent.connect(self.prevRecordEvent)
+        imageProxy.nextRecordEvent.connect(self.nextRecordEvent)
 
         for field in self.imageFields:
             index = self.model.index(self.currentIndex.row(), field.id)
@@ -156,3 +160,9 @@ class ImageView(QWidget):
         widget = QWidget(self)
         widget.setLayout(layout)
         return widget
+
+    def prevRecord(self):
+        pass
+
+    def nextRecord(self):
+        pass

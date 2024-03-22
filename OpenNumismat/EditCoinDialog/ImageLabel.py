@@ -158,10 +158,10 @@ class ImageLabel(QLabel):
         if not isinstance(self, ImageEdit):
             proxy = self.parent.getImageProxy()
             proxy.setCurrent(self.field)
-            viewer = ImageEditorDialog(self, scrollpanel=True)
+            viewer = ImageEditorDialog(self.parent, scrollpanel=True)
             viewer.setImageProxy(proxy)
         else:
-            viewer = ImageEditorDialog(self)
+            viewer = ImageEditorDialog(self.parent)
             viewer.setImage(self.image)
             viewer.imageSaved.connect(self.imageSaved)
 

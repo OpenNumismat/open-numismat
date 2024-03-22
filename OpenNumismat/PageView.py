@@ -1,4 +1,5 @@
-from PySide6.QtCore import Qt, QSettings
+from PySide6.QtCore import Qt, QEvent
+from PySide6.QtGui import QKeyEvent
 from PySide6.QtWidgets import *
 
 from OpenNumismat.ImageView import ImageView
@@ -36,6 +37,8 @@ class PageView(Splitter):
         else:
             self.imageView = ImageView(QBoxLayout.TopToBottom, self)
             self.detailsView = DetailsView(QBoxLayout.LeftToRight, self)
+        self.imageView.prevRecordEvent.connect(self.prevRecord)
+        self.imageView.nextRecordEvent.connect(self.nextRecord)
 
         self.splitter1 = Splitter('1', Qt.Vertical, self)
         splitter2 = Splitter('2', parent=self.splitter1)
@@ -160,3 +163,27 @@ class PageView(Splitter):
     def setCurrentCoin(self, coin_id):
         self.listView.selectedId = coin_id
         self.listView.modelChanged()
+
+    def prevRecord(self, editor):
+        event = QKeyEvent(QEvent.KeyPress, Qt.Key_Up, Qt.NoModifier, 0, 0, 0)
+        self.listView.keyPressEvent(event)
+
+        old_proxy = editor.proxy
+        # TODO: Refactor
+        imageView = self.imageView
+        proxy = imageView.getImageProxy()
+        proxy.setCurrent(old_proxy._current)
+        editor.setImageProxy(proxy)
+        old_proxy.deleteLater()
+
+    def nextRecord(self, editor):
+        event = QKeyEvent(QEvent.KeyPress, Qt.Key_Down, Qt.NoModifier, 0, 0, 0)
+        self.listView.keyPressEvent(event)
+
+        old_proxy = editor.proxy
+        # TODO: Refactor
+        imageView = self.imageView
+        proxy = imageView.getImageProxy()
+        proxy.setCurrent(old_proxy._current)
+        editor.setImageProxy(proxy)
+        old_proxy.deleteLater()

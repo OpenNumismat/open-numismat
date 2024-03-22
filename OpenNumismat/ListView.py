@@ -6,7 +6,7 @@ from PySide6 import QtCore
 from PySide6.QtCore import QMargins, QSortFilterProxyModel
 from PySide6.QtCore import QCollator, QLocale
 from PySide6.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
-from PySide6.QtCore import QRectF, QRect
+from PySide6.QtCore import QRectF, QRect, QEvent
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *

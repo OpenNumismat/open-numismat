@@ -21,6 +21,10 @@
     <file alias="arrow_rotate_anticlockwise.png">../../icons/arrow_rotate_anticlockwise.png</file>
     <file alias="arrow_rotate_clockwise.png">../../icons/arrow_rotate_clockwise.png</file>
     <file alias="arrow_switch.png">../../icons/arrow_switch.png</file>
+    <file alias="arrow_left.png">../../icons/arrow_left.png</file>
+    <file alias="arrow_right.png">../../icons/arrow_right.png</file>
+    <file alias="arrow_up.png">../../icons/arrow_up.png</file>
+    <file alias="arrow_down.png">../../icons/arrow_down.png</file>
     <file alias="bullet_arrow_down.png">../../icons/bullet_arrow_down.png</file>
     <file alias="bullet_arrow_up.png">../../icons/bullet_arrow_up.png</file>
     <file alias="chart-bar.png">../../icons/chart-bar.png</file>
