@@ -170,13 +170,6 @@
     </message>
 </context>
 <context>
-    <name>BarcodeLineEdit</name>
-    <message>
-        <source>Scan barcode</source>
-        <translation>Ler código de barras</translation>
-    </message>
-</context>
-<context>
     <name>BaseCanvas</name>
     <message>
         <source>Quantity</source>
@@ -2223,10 +2216,6 @@ arraste e largue para adicionar)</translation>
         <source>Image background color</source>
         <translation>Cor de fundo da imagem</translation>
     </message>
-    <message>
-        <source>Use webcam</source>
-        <translation>Utilizar a câmara</translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -2492,13 +2481,6 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
-    <name>NGCBarcodeDialog</name>
-    <message>
-        <source>NGC barcode parser</source>
-        <translation>Analisador NGC de código de barras</translation>
-    </message>
-</context>
-<context>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
@@ -2510,20 +2492,6 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Numista</source>
         <translation>Numista</translation>
-    </message>
-</context>
-<context>
-    <name>OldPCGSBarcodeDialog</name>
-    <message>
-        <source>PCGS barcode parser</source>
-        <translation>Analisador PCGS de código de barras</translation>
-    </message>
-</context>
-<context>
-    <name>PCGSBarcodeDialog</name>
-    <message>
-        <source>PCGS barcode parser</source>
-        <translation>Analisador PCGS de código de barras</translation>
     </message>
 </context>
 <context>
@@ -2784,25 +2752,6 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>Show grid</source>
         <translation>Mostrar grelha</translation>
-    </message>
-</context>
-<context>
-    <name>ScanBarcodeDialog</name>
-    <message>
-        <source>Scan barcode</source>
-        <translation>Ler código de barras</translation>
-    </message>
-    <message>
-        <source>Camera not available</source>
-        <translation>Câmara indisponível</translation>
-    </message>
-    <message>
-        <source>Camera not available or disabled by antivirus</source>
-        <translation>Câmara indisponível ou desactivada pelo antivírus</translation>
-    </message>
-    <message>
-        <source>Camera Error</source>
-        <translation>Erro da câmara</translation>
     </message>
 </context>
 <context>
