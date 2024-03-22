@@ -293,6 +293,25 @@ Close the file and try again.</source>
     </message>
 </context>
 <context>
+    <name>CameraDialog</name>
+    <message>
+        <source>Shoot</source>
+        <translation>Снимок</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Ошибка камеры</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Камера не доступна</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Камера не доступна или заблокирована антивирусом</translation>
+    </message>
+</context>
+<context>
     <name>ClearButton</name>
     <message>
         <source>Clear</source>
@@ -1928,20 +1947,48 @@ drag-n-drop to add an image)</source>
         <source>Don&apos;t show this again</source>
         <translation>Больше не показывать</translation>
     </message>
-</context>
-<context>
-    <name>ImageEditorWindow</name>
     <message>
         <source>&amp;Open...</source>
         <translation>&amp;Открыть...</translation>
     </message>
     <message>
-        <source>Background color</source>
-        <translation>Цвет фона</translation>
+        <source>Show Scroll Panel</source>
+        <translation>Показывать панель навигации</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Камера</translation>
+    </message>
+    <message>
+        <source>Previous image</source>
+        <translation>Предыдущее изображение</translation>
+    </message>
+    <message>
+        <source>Next image</source>
+        <translation>Следующее изображение</translation>
+    </message>
+    <message>
+        <source>Previous record</source>
+        <translation>Предыдущая запись</translation>
+    </message>
+    <message>
+        <source>Next record</source>
+        <translation>Следующая запись</translation>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation>Навигация</translation>
     </message>
     <message>
         <source>Open File</source>
         <translation>Открыть файл</translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>Background color</source>
+        <translation>Цвет фона</translation>
     </message>
     <message>
         <source>Save</source>
@@ -1950,6 +1997,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Image was changed. Save changes?</source>
         <translation>Изображение изменено. Сохранить изменения?</translation>
+    </message>
+    <message>
+        <source>Open folder...</source>
+        <translation>Открыть каталог...</translation>
+    </message>
+    <message>
+        <source>Open image folder</source>
+        <translation>Открытие каталога с изображениями</translation>
     </message>
 </context>
 <context>
