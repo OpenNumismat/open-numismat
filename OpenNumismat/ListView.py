@@ -858,13 +858,11 @@ class ListView(BaseTableView):
         menu.addSeparator()
         index = QTableView.currentIndex(self)
         row = index.row()
-        act = menu.addAction(QIcon(':/bullet_arrow_up.png'),
-                             self.tr("Move up"), self._moveUp)
+        act = menu.addAction(self.upAct)
         if (selected_count > 1) or (row == 0):
             act.setEnabled(False)
 
-        act = menu.addAction(QIcon(':/bullet_arrow_down.png'),
-                             self.tr("Move down"), self._moveDown)
+        act = menu.addAction(self.downAct)
         if (selected_count > 1) or (row == self.model().rowCount() - 1):
             act.setEnabled(False)
 
