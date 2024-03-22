@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - master
-#    paths:
-#      - 'OpenNumismat/**.py'
-#      - '!OpenNumismat/resources/resources.py'
+    paths:
+      - 'OpenNumismat/**.py'
+      - '!OpenNumismat/resources/resources.py'
 #  pull_request:
 #    branches:
 #      - main
