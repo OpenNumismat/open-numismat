@@ -169,9 +169,7 @@ class PageView(Splitter):
         self.listView.keyPressEvent(event)
 
         old_proxy = editor.proxy
-        # TODO: Refactor
-        imageView = self.imageView
-        proxy = imageView.getImageProxy()
+        proxy = self.imageView.getImageProxy()
         proxy.setCurrent(old_proxy._current)
         editor.setImageProxy(proxy)
         old_proxy.deleteLater()
@@ -181,9 +179,7 @@ class PageView(Splitter):
         self.listView.keyPressEvent(event)
 
         old_proxy = editor.proxy
-        # TODO: Refactor
-        imageView = self.imageView
-        proxy = imageView.getImageProxy()
+        proxy = self.imageView.getImageProxy()
         proxy.setCurrent(old_proxy._current)
         editor.setImageProxy(proxy)
         old_proxy.deleteLater()
