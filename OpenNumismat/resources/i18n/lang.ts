@@ -293,6 +293,25 @@ Close the file and try again.</source>
     </message>
 </context>
 <context>
+    <name>CameraDialog</name>
+    <message>
+        <source>Shoot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ClearButton</name>
     <message>
         <source>Clear</source>
@@ -1917,19 +1936,47 @@ drag-n-drop to add an image)</source>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>ImageEditorWindow</name>
     <message>
         <source>&amp;Open...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Background color</source>
+        <source>Show Scroll Panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Navigation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Open File</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>Background color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1938,6 +1985,14 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Image was changed. Save changes?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open folder...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open image folder</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
