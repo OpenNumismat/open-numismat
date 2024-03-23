@@ -170,6 +170,13 @@
     </message>
 </context>
 <context>
+    <name>BarcodeLineEdit</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Ler código de barras</translation>
+    </message>
+</context>
+<context>
     <name>BaseCanvas</name>
     <message>
         <source>Quantity</source>
@@ -283,6 +290,25 @@ Feche o ficheiro e tente novamente.</translation>
     <message>
         <source>Clean</source>
         <translation>Limpar</translation>
+    </message>
+</context>
+<context>
+    <name>CameraDialog</name>
+    <message>
+        <source>Shoot</source>
+        <translation>Fotografar</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Erro da câmara</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Câmara indisponível</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Câmara indisponível ou desactivada pelo antivírus</translation>
     </message>
 </context>
 <context>
@@ -1921,20 +1947,48 @@ arraste e largue para adicionar)</translation>
         <source>Don&apos;t show this again</source>
         <translation>Não mostrar novamente</translation>
     </message>
-</context>
-<context>
-    <name>ImageEditorWindow</name>
     <message>
         <source>&amp;Open...</source>
         <translation>&amp;Abrir...</translation>
     </message>
     <message>
-        <source>Background color</source>
-        <translation>Cor do fundo</translation>
+        <source>Show Scroll Panel</source>
+        <translation>Mostrar painel de rolamento</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Câmara</translation>
+    </message>
+    <message>
+        <source>Previous image</source>
+        <translation>Imagem anterior</translation>
+    </message>
+    <message>
+        <source>Next image</source>
+        <translation>Imagem seguinte</translation>
+    </message>
+    <message>
+        <source>Previous record</source>
+        <translation>Registo anterior</translation>
+    </message>
+    <message>
+        <source>Next record</source>
+        <translation>Registo seguinte</translation>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation>Navegação</translation>
     </message>
     <message>
         <source>Open File</source>
         <translation>Abrir ficheiro</translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>Background color</source>
+        <translation>Cor do fundo</translation>
     </message>
     <message>
         <source>Save</source>
@@ -1943,6 +1997,14 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Image was changed. Save changes?</source>
         <translation>A imagem foi alterada. Gravar alterações?</translation>
+    </message>
+    <message>
+        <source>Open folder...</source>
+        <translation>Abrir pasta...</translation>
+    </message>
+    <message>
+        <source>Open image folder</source>
+        <translation>Abrir pasta da imagem</translation>
     </message>
 </context>
 <context>
@@ -2216,6 +2278,10 @@ arraste e largue para adicionar)</translation>
         <source>Image background color</source>
         <translation>Cor de fundo da imagem</translation>
     </message>
+    <message>
+        <source>Use webcam</source>
+        <translation>Utilizar a câmara</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -2481,6 +2547,13 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
+    <name>NGCBarcodeDialog</name>
+    <message>
+        <source>NGC barcode parser</source>
+        <translation>Analisador NGC de código de barras</translation>
+    </message>
+</context>
+<context>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
@@ -2492,6 +2565,20 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Numista</source>
         <translation>Numista</translation>
+    </message>
+</context>
+<context>
+    <name>OldPCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>Analisador PCGS de código de barras</translation>
+    </message>
+</context>
+<context>
+    <name>PCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>Analisador PCGS de código de barras</translation>
     </message>
 </context>
 <context>
@@ -2752,6 +2839,25 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>Show grid</source>
         <translation>Mostrar grelha</translation>
+    </message>
+</context>
+<context>
+    <name>ScanBarcodeDialog</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Ler código de barras</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Câmara indisponível</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Câmara indisponível ou desactivada pelo antivírus</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Erro da câmara</translation>
     </message>
 </context>
 <context>
