@@ -4,8 +4,8 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import Signal as pyqtSignal
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel, ImageScrollLabel
-from OpenNumismat.ImageEditor import ImageProxy
+from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
+from OpenNumismat.ImageEditor import ImageProxy, ImageScrollLabel
 from OpenNumismat.Settings import Settings
 
 
