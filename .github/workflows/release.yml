@@ -116,6 +116,166 @@ jobs:
         path: ${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
 
+  cx_freeze:
+    needs: [version, title]
+    name: cx_Freeze
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install cx_freeze
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch portable
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Portable = False"
+        new-string: "Portable = True"
+    - name: build
+      run: |
+        SET PYTHONOPTIMIZE=1
+        python setup.py build_exe
+    - name: package
+      run: |
+        cd build
+        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
+        cd ..
+    - name: upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-cx_freeze
+        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        if-no-files-found: error
+
+  nuitka:
+    needs: [version, title]
+    name: Nuitka
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install nuitka
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch portable
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Portable = False"
+        new-string: "Portable = True"
+    - name: build
+      run: >-
+        python -m nuitka open-numismat.py
+        --jobs=2
+        --assume-yes-for-downloads
+        --msvc=latest
+        --lto=yes
+        --show-modules
+        --standalone
+        --enable-plugin=pyside6
+        --include-qt-plugins=sqldrivers,multimedia
+        --disable-console
+        --include-data-dir=OpenNumismat/templates=templates
+        --include-data-dir=OpenNumismat/db=db
+        --include-data-files=COPYING=COPYING
+        --windows-icon-from-ico=icons/main.ico
+        --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        --output-filename=${{ needs.title.outputs.APPNAME }}.exe
+    - name: package
+      run: |
+        cd open-numismat.dist
+        mkdir ${{ needs.title.outputs.APPNAME }}
+        robocopy . ${{ needs.title.outputs.APPNAME }}  /move /e /xd ${{ needs.title.outputs.APPNAME }}
+        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
+        cd ..
+    - name: upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
+        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        if-no-files-found: error
+
+  nuitka_innosetup:
+    needs: [version, title]
+    name: Nuitka InnoSetup
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install nuitka
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: build
+      run: >-
+        python -m nuitka open-numismat.py
+        --jobs=2
+        --assume-yes-for-downloads
+        --msvc=latest
+        --lto=yes
+        --show-modules
+        --standalone
+        --enable-plugin=pyside6
+        --include-qt-plugins=sqldrivers,multimedia
+        --disable-console
+        --include-data-dir=OpenNumismat/templates=templates
+        --include-data-dir=OpenNumismat/db=db
+        --include-data-files=COPYING=COPYING
+        --windows-icon-from-ico=icons/main.ico
+        --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        --output-filename=${{ needs.title.outputs.APPNAME }}.exe
+    - name: package
+      run: |
+        ISCC.exe tools/setup-nuitka.iss
+        move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
+    - name: upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-innosetup
+        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        if-no-files-found: error
+
   ubuntu:
     needs: [version, title]
     name: Ubuntu
@@ -192,7 +352,7 @@ jobs:
 
   release:
     name: Create release
-    needs: [version, title, windows, innosetup, ubuntu, macos]
+    needs: [version, title, windows, innosetup, ubuntu, macos, cx_freeze, nuitka, nuitka_innosetup]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -220,6 +380,27 @@ jobs:
         upload_url: ${{ steps.release.outputs.upload_url }}
         asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_content_type: application/octet-stream
+    - name: upload-cx_freeze
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-cx_freeze/${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-cx_freeze.zip
+        asset_content_type: application/octet-stream
+    - name: upload-nuitka
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka/${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip
+        asset_content_type: application/octet-stream
+    - name: upload-nuitka-innosetup
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-innosetup/${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
         asset_content_type: application/octet-stream
     - name: upload-ubuntu
       uses: actions/upload-release-asset@v1
