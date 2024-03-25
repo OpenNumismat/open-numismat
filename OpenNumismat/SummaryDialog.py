@@ -71,50 +71,16 @@ class SummaryDialog(QDialog):
         else:
             lines.append(self.tr("Count owned: %d/%d") % (quantity_owned, count_owned))
 
-        count_gold = 0
-        quantity_gold = 0
-        gold_filter = self.materialFilter("Gold", self.tr("Gold"), "Au")
-        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
-                "%s" % gold_filter
-        sql = self.makeSql(sql, filter_)
-        query = QSqlQuery(sql, model.database())
-        while query.next():
-            record = query.record()
-            quantity = int(record.value('quantity') or 1)
-            count_gold += 1
-            quantity_gold += quantity
+        count_gold, quantity_gold = self.materialCount(
+                ("Gold", self.tr("Gold"), "Au"), model, filter_)
         if count_gold:
             if count_gold == quantity_gold:
                 lines.append(self.tr("Gold coins: %d") % count_gold)
             else:
                 lines.append(self.tr("Gold coins: %d/%d") % (quantity_gold, count_gold))
-        
-        if count_gold:
-            sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
-                    "%s AND " \
-                    "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % gold_filter
-            sql = self.makeSql(sql, filter_)
-            query = QSqlQuery(sql, model.database())
-            gold_weight = 0
-            gold_count = 0
-            gold_quantity = 0
-            while query.next():
-                record = query.record()
-                fineness = record.value('fineness')
-                if isinstance(fineness, str):
-                    fineness = stringToMoney(fineness)
-                if isinstance(fineness, float):
-                    if fineness > 1:
-                        fineness = str(fineness).replace('.', '')
-                    else:
-                        fineness = str(fineness).replace('0.', '')
-                weight = record.value('weight')
-                if isinstance(weight, str):
-                    weight = stringToMoney(weight)
-                quantity = int(record.value('quantity') or 1)
-                gold_weight += weight * float("0.%s" % fineness) * quantity
-                gold_count += 1
-                gold_quantity += quantity
+
+            gold_weight, gold_count, gold_quantity = self.materialWeight(
+                ("Gold", self.tr("Gold"), "Au"), model, filter_)
             if gold_weight:
                 if gold_count == gold_quantity:
                     comment = self.tr("(calculated for %d coins)") % gold_quantity
@@ -123,50 +89,16 @@ class SummaryDialog(QDialog):
                 gold_weight_str = locale.toString(float(gold_weight), 'f', precision=2)
                 lines.append(' '.join((self.tr("Gold weight: %s gramm") % gold_weight_str, comment)))
 
-        count_silver = 0
-        quantity_silver = 0
-        silver_filter = self.materialFilter("Silver", self.tr("Silver"), "Ag")
-        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
-                "%s" % silver_filter
-        sql = self.makeSql(sql, filter_)
-        query = QSqlQuery(sql, model.database())
-        while query.next():
-            record = query.record()
-            quantity = int(record.value('quantity') or 1)
-            count_silver += 1
-            quantity_silver += quantity
+        count_silver, quantity_silver = self.materialCount(
+                ("Silver", self.tr("Silver"), "Ag"), model, filter_)
         if count_silver:
             if count_silver == quantity_silver:
                 lines.append(self.tr("Silver coins: %d") % count_silver)
             else:
                 lines.append(self.tr("Silver coins: %d/%d") % (quantity_silver, count_silver))
-        
-        if count_silver:
-            sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
-                    "%s AND " \
-                    "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % silver_filter
-            sql = self.makeSql(sql, filter_)
-            query = QSqlQuery(sql, model.database())
-            silver_weight = 0
-            silver_count = 0
-            silver_quantity = 0
-            while query.next():
-                record = query.record()
-                fineness = record.value('fineness')
-                if isinstance(fineness, str):
-                    fineness = stringToMoney(fineness)
-                if isinstance(fineness, float):
-                    if fineness > 1:
-                        fineness = str(fineness).replace('.', '')
-                    else:
-                        fineness = str(fineness).replace('0.', '')
-                weight = record.value('weight')
-                if isinstance(weight, str):
-                    weight = stringToMoney(weight)
-                quantity = int(record.value('quantity') or 1)
-                silver_weight += weight * float("0.%s" % fineness) * quantity
-                silver_count += 1
-                silver_quantity += quantity
+
+            silver_weight, silver_count, silver_quantity = self.materialWeight(
+                ("Silver", self.tr("Silver"), "Ag"), model, filter_)
             if silver_weight:
                 if silver_count == silver_quantity:
                     comment = self.tr("(calculated for %d coins)") % silver_quantity
@@ -359,3 +291,49 @@ class SummaryDialog(QDialog):
                 filters.append("'%s'" % material_variant)
 
         return 'material IN (%s)' % ','.join(filters)
+
+    def materialCount(self, materials, model, filter_):
+        material_count = 0
+        material_quantity = 0
+        material_filter = self.materialFilter(*materials)
+        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
+                "%s" % material_filter
+        sql = self.makeSql(sql, filter_)
+        query = QSqlQuery(sql, model.database())
+        while query.next():
+            record = query.record()
+            quantity = int(record.value('quantity') or 1)
+            material_count += 1
+            material_quantity += quantity
+
+        return material_count, material_quantity
+
+    def materialWeight(self, materials, model, filter_):
+        material_filter = self.materialFilter(*materials)
+        sql = "SELECT fineness, weight, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND " \
+                "%s AND " \
+                "ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''" % material_filter
+        sql = self.makeSql(sql, filter_)
+        query = QSqlQuery(sql, model.database())
+        material_weight = 0
+        material_count = 0
+        material_quantity = 0
+        while query.next():
+            record = query.record()
+            fineness = record.value('fineness')
+            if isinstance(fineness, str):
+                fineness = stringToMoney(fineness)
+            if isinstance(fineness, float):
+                if fineness > 1:
+                    fineness = str(fineness).replace('.', '')
+                else:
+                    fineness = str(fineness).replace('0.', '')
+            weight = record.value('weight')
+            if isinstance(weight, str):
+                weight = stringToMoney(weight)
+            quantity = int(record.value('quantity') or 1)
+            material_weight += weight * float("0.%s" % fineness) * quantity
+            material_count += 1
+            material_quantity += quantity
+
+        return material_weight, material_count, material_quantity
