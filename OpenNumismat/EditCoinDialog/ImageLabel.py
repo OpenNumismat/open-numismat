@@ -81,7 +81,7 @@ class ImageLabel(QLabel):
             viewer = ImageEditorDialog(self.parent, scrollpanel=True)
             viewer.setImageProxy(proxy)
         else:
-            viewer = ImageEditorDialog(self.parent)
+            viewer = ImageEditorDialog(self)
             viewer.setImage(self.image)
             viewer.imageSaved.connect(self.imageSaved)
 
