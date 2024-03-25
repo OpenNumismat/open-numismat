@@ -1401,7 +1401,7 @@ The application will need to restart now.</source>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Възникна системна грешка.
-Искате ли да изпратите съобщение за грешката на автора?</translation>
+Искате ли да изпратите съобщението за грешката на автора?</translation>
     </message>
 </context>
 <context>
