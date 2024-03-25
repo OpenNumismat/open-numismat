@@ -60,11 +60,11 @@
     </message>
     <message>
         <source>East Asia</source>
-        <translation>източноазиатски</translation>
+        <translation>Източна Азия</translation>
     </message>
     <message>
         <source>South Asia</source>
-        <translation>южноазиатски</translation>
+        <translation>Южна Азия</translation>
     </message>
     <message>
         <source>Medieval</source>
@@ -76,11 +76,11 @@
     </message>
     <message>
         <source>North America</source>
-        <translation>северноамерикански</translation>
+        <translation>Северна Америка</translation>
     </message>
     <message>
         <source>Latin America</source>
-        <translation>латиноамерикански</translation>
+        <translation>Латинска Америка</translation>
     </message>
     <message>
         <source>Medals And Decorations</source>
@@ -167,6 +167,13 @@
     <message>
         <source>Backspace</source>
         <translation>Изтриване</translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeLineEdit</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Сканиране на баркод</translation>
     </message>
 </context>
 <context>
@@ -283,6 +290,25 @@ Close the file and try again.</source>
     <message>
         <source>Clean</source>
         <translation>Изчистване</translation>
+    </message>
+</context>
+<context>
+    <name>CameraDialog</name>
+    <message>
+        <source>Shoot</source>
+        <translation>Снимай</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Грешка в камерата</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Камерата не е налична</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Камерата не е налична или е деактивирана от антивирусната програма</translation>
     </message>
 </context>
 <context>
@@ -1921,20 +1947,48 @@ drag-n-drop to add an image)</source>
         <source>Don&apos;t show this again</source>
         <translation>Не показвай това съобщение отново</translation>
     </message>
-</context>
-<context>
-    <name>ImageEditorWindow</name>
     <message>
         <source>&amp;Open...</source>
         <translation>&amp;Отваряне...</translation>
     </message>
     <message>
-        <source>Background color</source>
-        <translation>Фонов цвят на изображението</translation>
+        <source>Show Scroll Panel</source>
+        <translation>Показване на панела за превъртане</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Камера</translation>
+    </message>
+    <message>
+        <source>Previous image</source>
+        <translation>Предишно изображение</translation>
+    </message>
+    <message>
+        <source>Next image</source>
+        <translation>Следващо изображение</translation>
+    </message>
+    <message>
+        <source>Previous record</source>
+        <translation>Предишен запис</translation>
+    </message>
+    <message>
+        <source>Next record</source>
+        <translation>Следващ запис</translation>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation>Навигация</translation>
     </message>
     <message>
         <source>Open File</source>
         <translation>Отваряне на файл</translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>Background color</source>
+        <translation>Фонов цвят на изображението</translation>
     </message>
     <message>
         <source>Save</source>
@@ -1943,6 +1997,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Image was changed. Save changes?</source>
         <translation>Изображението е променено. Да се запазят ли промените?</translation>
+    </message>
+    <message>
+        <source>Open folder...</source>
+        <translation>Отваряне на папка...</translation>
+    </message>
+    <message>
+        <source>Open image folder</source>
+        <translation>Папка с изображения</translation>
     </message>
 </context>
 <context>
@@ -2216,6 +2278,10 @@ drag-n-drop to add an image)</source>
         <source>Image background color</source>
         <translation>Фонов цвят на изображението</translation>
     </message>
+    <message>
+        <source>Use webcam</source>
+        <translation>Използване на уеб камера</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -2481,6 +2547,13 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>NGCBarcodeDialog</name>
+    <message>
+        <source>NGC barcode parser</source>
+        <translation>NGC баркод</translation>
+    </message>
+</context>
+<context>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
@@ -2492,6 +2565,20 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Numista</source>
         <translation>Numista</translation>
+    </message>
+</context>
+<context>
+    <name>OldPCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>PCGS баркод</translation>
+    </message>
+</context>
+<context>
+    <name>PCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>PCGS баркод</translation>
     </message>
 </context>
 <context>
@@ -2629,7 +2716,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>F</source>
-        <translation>Ф</translation>
+        <translation>F</translation>
     </message>
     <message>
         <source>Q</source>
@@ -2752,6 +2839,25 @@ Please update OpenNumismat</source>
     <message>
         <source>Show grid</source>
         <translation>Показване на мрежа</translation>
+    </message>
+</context>
+<context>
+    <name>ScanBarcodeDialog</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Сканиране на баркод</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Камерата не е налична</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Камерата не е налична или е деактивирана от антивирусната програма</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Грешка в камерата</translation>
     </message>
 </context>
 <context>
@@ -2948,7 +3054,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Americas</source>
-        <translation>Северна и Южна Америка</translation>
+        <translation>Америка</translation>
     </message>
     <message>
         <source>Asia</source>
