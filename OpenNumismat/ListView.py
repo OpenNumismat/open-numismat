@@ -858,13 +858,12 @@ class ListView(BaseTableView):
         menu.addSeparator()
         index = QTableView.currentIndex(self)
         row = index.row()
-        act = menu.addAction(self.upAct)
+        menu.addAction(self.upAct)
         if (selected_count > 1) or (row == 0):
-            act.setEnabled(False)
-
-        act = menu.addAction(self.downAct)
+            self.upAct.setEnabled(False)
+        menu.addAction(self.downAct)
         if (selected_count > 1) or (row == self.model().rowCount() - 1):
-            act.setEnabled(False)
+            self.downAct.setEnabled(False)
 
         menu.addSeparator()
         style = QApplication.style()
@@ -872,6 +871,9 @@ class ListView(BaseTableView):
         menu.addAction(icon, self.tr("Delete"),
                        self._delete, QKeySequence.Delete)
         menu.exec_(self.mapToGlobal(event.pos()))
+
+        self.upAct.setEnabled(True)
+        self.downAct.setEnabled(True)
 
     def currentChanged(self, current, previous):
         if current.row() != previous.row():
