@@ -26,6 +26,7 @@ class ImageLabel(QLabel):
         self.title = title or 'photo'
         self._data = None
         self.image = QImage()
+        self.readonly = False
 
         self.clear()
 
@@ -75,15 +76,19 @@ class ImageLabel(QLabel):
             executor.openUrl(QUrl.fromLocalFile(fileName))
 
     def editImage(self):
-        if not isinstance(self, ImageEdit):
-            proxy = self.parent.getImageProxy()
-            proxy.setCurrent(self.field)
-            viewer = ImageEditorDialog(self.parent, scrollpanel=True)
-            viewer.setImageProxy(proxy)
-        else:
+        if isinstance(self, ImageEdit):
             viewer = ImageEditorDialog(self)
             viewer.setImage(self.image)
             viewer.imageSaved.connect(self.imageSaved)
+        else:
+            if self.readonly:
+                viewer = ImageEditorDialog(self.parent, readonly=True)
+                viewer.setImage(self.image)
+            else:
+                proxy = self.parent.getImageProxy()
+                proxy.setCurrent(self.field)
+                viewer = ImageEditorDialog(self.parent, scrollpanel=True)
+                viewer.setImageProxy(proxy)
 
         viewer.setTitle(self.title)
         viewer.exec_()
@@ -170,6 +175,9 @@ class ImageLabel(QLabel):
 
             clipboard = QApplication.clipboard()
             clipboard.setMimeData(mime)
+
+    def setReadonly(self, readonly):
+        self.readonly = readonly
 
 
 class ImageEdit(ImageLabel):

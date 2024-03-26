@@ -43,7 +43,8 @@ class FindDialog(QDialog):
         self.targetImgLabel = ImageEdit()
         self.targetImgLabel.imageChanged.connect(self.imageChanged)
 
-        self.imgLabel = ImageLabel()
+        self.imgLabel = ImageLabel(parent=self)
+        self.imgLabel.setReadonly(True)
         self.imgLabel.setFrameStyle(QFrame.Panel | QFrame.Plain)
 
         self.methodSelector = QComboBox()
