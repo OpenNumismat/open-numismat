@@ -123,13 +123,21 @@ def exceptHook(type_, value, tback):
         #    "ExcpHook",
         #    "PLEASE ADD A COMMENT, IT WILL HELP IN SOLVING THE PROBLEM"))
         # errorMessage.append('')
-        errorMessage.append("%s: %s" % (version.AppName, version.Version))
+        version_str = f"{version.AppName}: {version.Version}"
+        package_types = []
+        if "__compiled__" in globals():
+            package_types.append('nuitka')
+        if version.Portable:
+            package_types.append('portable')
+        if package_types:
+            version_str += f" ({','.join(package_types)})"
+        errorMessage.append(version_str)
         errorMessage.append("OS: %s %s (%s)" % (platform.system(),
                                                 platform.release(),
                                                 platform.version()))
         errorMessage.append("Python: %s (%s)" % (platform.python_version(),
                                                  platform.architecture()[0]))
-        errorMessage.append("Qt: %s" % PYQT_VERSION_STR)
+        errorMessage.append(f"Qt: {PYQT_VERSION_STR}")
         try:
             errorMessage.append("Locale: %s" % Settings()['locale'])
         except:
