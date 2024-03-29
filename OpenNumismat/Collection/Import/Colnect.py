@@ -2,6 +2,7 @@ import csv
 import io
 import json
 import re
+import time
 import urllib.request
 from socket import timeout
 
@@ -18,6 +19,10 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import ProgressDialog
 
 colnectAvailable = True
+SILENT_FILL = True
+SILENT_FILL_COLNECT_SLEEP = 2
+COMM_TIMEOUT = 30 # was 10s which is too small timeout for API, 30s is better, but it could be even higher
+MAX_ITEMS = 150 # was 100
 
 try:
     from OpenNumismat.private_keys import COLNECT_PROXY, COLNECT_KEY
@@ -35,7 +40,11 @@ class ColnectConnector(QObject):
         self.skip_currency = Settings()['colnect_skip_currency']
         self.lang = Settings()['colnect_locale']
 
-    def makeItem(self, category, data, record):
+    def makeItem(self, category, data, record, silent_fill = False):
+        if silent_fill:
+            # if we are doing silent fill we must not call Colnect too much or else we will start getting empty responses
+            time.sleep(SILENT_FILL_COLNECT_SLEEP)
+
         fields = self.getFields(category)
 
         # construct Record object from data json
@@ -65,6 +74,10 @@ class ColnectConnector(QObject):
                             )}
 
         for column in columns[category]:
+            # if silent_fill:
+            #     print("column: " + str(column))
+            #     print("column0=" + column[0] + ", column[1]=" + column[1])
+            #
             pos = fields.index(column[1])
             value = data[pos]
             if column[0] == 'year' and isinstance(value, str):
@@ -161,7 +174,7 @@ class ColnectConnector(QObject):
         try:
             req = urllib.request.Request(url,
                                     headers={'User-Agent': version.AppName})
-            raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+            raw_data = urllib.request.urlopen(req, timeout=COMM_TIMEOUT).read().decode()
         except timeout:
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect proxy-server not response"))
@@ -192,7 +205,8 @@ class ColnectConnector(QObject):
         try:
             req = urllib.request.Request(url,
                                     headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req, timeout=30).read()
+            # since pictures can be big we use double timeout
+            data = urllib.request.urlopen(req, timeout=(COMM_TIMEOUT*2)).read()
         except:
             return None
 
@@ -252,7 +266,9 @@ class ColnectConnector(QObject):
         action = "list_id" + self._makeQuery(category, country, series,
                  distribution, year, value, currency)
         item_ids = self.getData(action)
-        return len(item_ids)
+        count = len(item_ids)
+        print("Item count: " + str(count))
+        return count
     
     @waitCursorDecorator
     def getData(self, action):
@@ -265,7 +281,7 @@ class ColnectConnector(QObject):
         try:
             req = urllib.request.Request(url,
                                     headers={'User-Agent': version.AppName})
-            raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+            raw_data = urllib.request.urlopen(req, timeout=COMM_TIMEOUT).read().decode()
         except timeout:
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect proxy-server not response"))
@@ -523,15 +539,18 @@ class ColnectDialog(QDialog):
 
         self.addCoin(index, False)
 
+
     def addCoin(self, index, close):
         if index.row() < len(self.items):
-            data = self.items[index.row()]
+            currentRow = index.row()
+            print("Current Entry: " + str(currentRow+1) + " of " + str(len(self.items)))
+            data = self.items[currentRow]
             category = self.categorySelector.currentData()
             newRecord = self.model.record()
-            self.colnect.makeItem(category, data, newRecord)
+            self.colnect.makeItem(category, data, newRecord, SILENT_FILL)
             if close:
                 self.accept()
-            self.model.addCoin(newRecord, self)
+            self.model.addCoin(newRecord, self, SILENT_FILL)
     
     def _isDistributionEnabled(self, category):
         return category in ('coins', 'stamps')
@@ -659,7 +678,7 @@ class ColnectDialog(QDialog):
             if count == 0:
                 self.label_empty.show()
                 self.label.hide()
-            elif ((series or distribution) and year and value and currency) or (count < 100):
+            elif ((series or distribution) and year and value and currency) or (count < MAX_ITEMS):
                 self.previewButton.setEnabled(True)
                 self.label.hide()
 

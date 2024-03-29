@@ -163,15 +163,18 @@ class CollectionModel(QSqlTableModel):
     def dataDisplayRole(self, index):
         return super().data(index, Qt.DisplayRole)
 
-    def addCoin(self, record, parent=None):
+    def addCoin(self, record, parent=None, silent_add=False):
         record.setNull('id')  # remove ID value from record
         if not record.value('status'):
             record.setValue('status', self.settings['default_status'])
 
-        dialog = EditCoinDialog(self, record, parent)
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
+        if silent_add:
             self.appendRecord(record)
+        else:
+            dialog = EditCoinDialog(self, record, parent)
+            result = dialog.exec_()
+            if result == QDialog.Accepted:
+                self.appendRecord(record)
 
     def appendRecord(self, record):
         rowCount = self.rowCount()
