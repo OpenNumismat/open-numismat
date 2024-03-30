@@ -21,7 +21,7 @@ from OpenNumismat.Tools.Gui import ProgressDialog
 colnectAvailable = True
 SILENT_FILL = True
 SILENT_FILL_COLNECT_SLEEP = 2
-COMM_TIMEOUT = 30 # was 10s which is too small timeout for API, 30s is better, but it could be even higher
+COMM_TIMEOUT = 60 # was 10s which is too small timeout for API, 30s is better, but it could be even higher
 MAX_ITEMS = 150 # was 100
 
 try:
