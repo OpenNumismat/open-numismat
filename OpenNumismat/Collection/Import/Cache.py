@@ -1,9 +1,11 @@
 import os
-import tempfile
 
-from PySide6.QtCore import QObject, QByteArray
+from PySide6.QtCore import QObject, QByteArray, QStandardPaths
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QMessageBox
+
+import OpenNumismat
+from OpenNumismat import version
 
 
 class Cache(QObject):
@@ -16,6 +18,8 @@ class Cache(QObject):
         self._compact()
 
     def open(self):
+        os.makedirs(os.path.dirname(self._file_name()), exist_ok=True)
+
         db = QSqlDatabase.addDatabase('QSQLITE', 'cache')
         db.setDatabaseName(self._file_name())
         if not db.open():
@@ -79,7 +83,11 @@ class Cache(QObject):
 
     @staticmethod
     def _file_name():
-        return os.path.join(tempfile.gettempdir(), Cache.FILE_NAME)
+        if version.Portable:
+            path = OpenNumismat.HOME_PATH
+        else:
+            path = QStandardPaths.standardLocations(QStandardPaths.AppLocalDataLocation)[0]
+        return os.path.join(path, Cache.FILE_NAME)
 
     @staticmethod
     def clear():

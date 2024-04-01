@@ -165,3 +165,6 @@ Name: sendreport; Description: "{cm:sendReport}"
 Name: checkupdate; Description: "{cm:checkUpdate}"
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+
+[UninstallDelete]
+Type: filesandordirs; Name: {localappdata}\Janis\OpenNumismat;

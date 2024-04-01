@@ -166,6 +166,9 @@ Name: checkupdate; Description: "{cm:checkUpdate}"
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
+[UninstallDelete]
+Type: filesandordirs; Name: {localappdata}\Janis\OpenNumismat;
+
 [InstallDelete]
 Type: filesandordirs; Name: {app}\*.dist-info;
 Type: filesandordirs; Name: {app}\win32com;
