@@ -168,3 +168,15 @@ Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescripti
 
 [UninstallDelete]
 Type: filesandordirs; Name: {localappdata}\Janis\OpenNumismat;
+
+[InstallDelete]
+Type: filesandordirs; Name: {app}\Pythonwin;
+Type: filesandordirs; Name: {app}\pywin32_system32;
+Type: filesandordirs; Name: {app}\win32;
+Type: filesandordirs; Name: {app}\win32com;
+Type: filesandordirs; Name: {app}\PySide6\plugins;
+Type: filesandordirs; Name: {app}\PySide6\resources;
+Type: files; Name: {app}\base_library.zip;
+Type: files; Name: {app}\ucrtbase.dll;
+Type: files; Name: {app}\api-ms-win-*-0.dll;
+Type: files; Name: {app}\PySide6\*.dll;
