@@ -2535,7 +2535,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Year calculator</source>
-        <translation>Калькулятор годов</translation>
+        <translation>Калькулятор дат</translation>
     </message>
     <message>
         <source>References generator</source>
@@ -2557,7 +2557,7 @@ drag-n-drop to add an image)</source>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
-        <translation>Калькулятор годов</translation>
+        <translation>Калькулятор дат</translation>
     </message>
 </context>
 <context>
