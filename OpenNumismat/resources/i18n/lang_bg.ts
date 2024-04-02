@@ -1058,7 +1058,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>5 stars in rating</source>
-        <translation>5 звезди в рейтинга</translation>
+        <translation>5 звезден рейтинг</translation>
     </message>
     <message>
         <source>Enable tags</source>
