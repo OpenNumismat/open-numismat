@@ -915,9 +915,9 @@ class FormDetailsTabWidget(DetailsTabWidget):
                          self.tr("Morocco"), self.tr("Sudan"), self.tr("Tunisia")):
             calendar = YearCalculatorDialog.CALENDARS.ISLAMIC
         elif country in (self.tr("Afghanistan"), self.tr("Iran")):
-            calendar = YearCalculatorDialog.CALENDARS.SOLAR_HIJRI
+            calendar = YearCalculatorDialog.CALENDARS.IRANIAN
         elif country == self.tr("Japan"):
-            calendar = YearCalculatorDialog.CALENDARS.JAPAN
+            calendar = YearCalculatorDialog.CALENDARS.JAPANESE
         elif country in (self.tr("Nepal"), self.tr("India")):
             calendar = YearCalculatorDialog.CALENDARS.NEPAL
         elif country == self.tr("Thailand"):
