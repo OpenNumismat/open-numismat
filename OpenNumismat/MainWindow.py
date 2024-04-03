@@ -2,9 +2,37 @@ from datetime import datetime
 import sys
 import urllib.request
 
-from PySide6.QtCore import *
-from PySide6.QtGui import *
-from PySide6.QtWidgets import *
+from PySide6.QtCore import (
+    QDate,
+    QFileInfo,
+    QProcess,
+    QSettings,
+    QTimer,
+    QUrl,
+)
+from PySide6.QtGui import (
+    Qt,
+    QAction,
+    QDesktopServices,
+    QIcon,
+    QKeySequence,
+)
+from PySide6.QtWidgets import (
+    QApplication,
+    QDialog,
+    QDialogButtonBox,
+    QFileDialog,
+    QLabel,
+    QLineEdit,
+    QMainWindow,
+    QMenu,
+    QMessageBox,
+    QSizePolicy,
+    QStyle,
+    QToolBar,
+    QToolButton,
+    QWidget,
+)
 
 from OpenNumismat.Collection.Collection import Collection
 from OpenNumismat.Collection.Description import DescriptionDialog

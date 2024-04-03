@@ -1,7 +1,6 @@
-from PySide6 import QtCore
-from PySide6.QtCore import Qt, QStandardPaths
+from PySide6.QtCore import Qt, QStandardPaths, QObject
 from PySide6.QtGui import QCursor
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QApplication, QProgressDialog, QMessageBox
 
 
 class _InvalidDatabaseError(Exception):
@@ -12,7 +11,7 @@ class _DatabaseServerError(Exception):
     pass
 
 
-class _Import(QtCore.QObject):
+class _Import(QObject):
     @staticmethod
     def isAvailable():
         return True
@@ -104,7 +103,7 @@ class _Import(QtCore.QObject):
         self.__errorMessage(QApplication.translate('_Import', "DB server connection problem. Check additional software."), text)
 
 
-class _Import2(QtCore.QObject):
+class _Import2(QObject):
 
     @staticmethod
     def isAvailable():

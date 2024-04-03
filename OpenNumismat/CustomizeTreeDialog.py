@@ -1,5 +1,18 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QAbstractItemView,
+    QDialog,
+    QDialogButtonBox,
+    QLabel,
+    QListWidget,
+    QListWidgetItem,
+    QPushButton,
+    QSizePolicy,
+    QSplitter,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QVBoxLayout,
+)
 
 from OpenNumismat.Collection.CollectionFields import TreeFields
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator

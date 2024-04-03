@@ -8,7 +8,30 @@ import numpy as np
 from PySide6.QtCore import Qt, QBuffer, QMargins, QRect, QRectF, QSettings
 from PySide6.QtGui import QImage, QPixmap, QIcon, QTextOption, QPalette, QColor
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QAbstractItemView,
+    QCheckBox,
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
+    QFormLayout,
+    QFrame,
+    QGridLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QMessageBox,
+    QPushButton,
+    QSizePolicy,
+    QSlider,
+    QSplitter,
+    QStyle,
+    QStyledItemDelegate,
+    QTableWidget,
+    QTableWidgetItem,
+    QVBoxLayout,
+    QWidget,
+)
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit, ImageLabel

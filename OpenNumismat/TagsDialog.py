@@ -1,7 +1,20 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon, QKeySequence
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QAbstractItemDelegate,
+    QApplication,
+    QDialog,
+    QDialogButtonBox,
+    QHBoxLayout,
+    QMenu,
+    QMessageBox,
+    QPushButton,
+    QStyle,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QVBoxLayout,
+)
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 

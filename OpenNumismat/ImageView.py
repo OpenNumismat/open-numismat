@@ -1,7 +1,13 @@
-from PySide6 import QtCore
-from PySide6.QtCore import Qt, QObject
-from PySide6.QtWidgets import *
+from PySide6.QtCore import Qt, QObject, QMargins
 from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtWidgets import (
+    QBoxLayout,
+    QCheckBox,
+    QHBoxLayout,
+    QSizePolicy,
+    QVBoxLayout,
+    QWidget,
+)
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
@@ -29,7 +35,7 @@ class ImageView(QWidget):
         layout = QVBoxLayout()
 
         self.imageLayout = QVBoxLayout()
-        self.imageLayout.setContentsMargins(QtCore.QMargins())
+        self.imageLayout.setContentsMargins(QMargins())
         layout.addWidget(self.__layoutToWidget(self.imageLayout))
 
         self.buttonLayout = QHBoxLayout()
@@ -50,7 +56,7 @@ class ImageView(QWidget):
         layout.addWidget(widget)
 
         self.imageLayout = QHBoxLayout()
-        self.imageLayout.setContentsMargins(QtCore.QMargins())
+        self.imageLayout.setContentsMargins(QMargins())
         layout.addWidget(self.__layoutToWidget(self.imageLayout))
 
         return layout

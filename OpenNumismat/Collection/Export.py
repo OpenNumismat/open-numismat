@@ -1,5 +1,22 @@
 from PySide6.QtCore import Qt, QSettings, QMargins, QFileInfo
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
+    QFileDialog,
+    QFormLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QLineEdit,
+    QMessageBox,
+    QPushButton,
+    QRadioButton,
+    QSizePolicy,
+    QStyle,
+    QVBoxLayout,
+)
 
 import OpenNumismat
 

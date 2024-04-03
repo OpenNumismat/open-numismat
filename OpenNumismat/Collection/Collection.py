@@ -6,13 +6,34 @@ import math
 import os
 import shutil
 
-from PySide6 import QtCore
-from PySide6.QtWidgets import *
-from PySide6.QtGui import QImage, QPainter, QAction
-from PySide6.QtCore import Qt, QCryptographicHash, QLocale
-from PySide6.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import (
+    Qt,
+    QBuffer,
+    QByteArray,
+    QCryptographicHash,
+    QDate,
+    QDateTime,
+    QDir,
+    QDirIterator,
+    QFile,
+    QFileInfo,
+    QIODevice,
+    QLocale,
+    QModelIndex,
+    QObject,
+    QRectF,
+    QT_TRANSLATE_NOOP,
+)
 from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtGui import QImage, QPainter, QAction
 from PySide6.QtSql import QSqlTableModel, QSqlDatabase, QSqlQuery, QSqlField
+from PySide6.QtWidgets import (
+    QApplication,
+    QDialog,
+    QFileDialog,
+    QMessageBox,
+    QTableView,
+)
 
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -123,10 +144,10 @@ class CollectionModel(QSqlTableModel):
                     else:
                         return None
                 elif field.type == Type.Date:
-                    date = QtCore.QDate.fromString(data, Qt.ISODate)
+                    date = QDate.fromString(data, Qt.ISODate)
                     text = QLocale.system().toString(date, QLocale.ShortFormat)
                 elif field.type == Type.DateTime:
-                    date = QtCore.QDateTime.fromString(data, Qt.ISODate)
+                    date = QDateTime.fromString(data, Qt.ISODate)
                     # Timestamp in DB stored in UTC
                     date.setTimeSpec(Qt.UTC)
                     date = date.toLocalTime()
@@ -429,9 +450,9 @@ class CollectionModel(QSqlTableModel):
                     # as string
                     record.setNull(field.name)
                 elif isinstance(image, QImage):
-                    ba = QtCore.QByteArray()
-                    buffer = QtCore.QBuffer(ba)
-                    buffer.open(QtCore.QIODevice.WriteOnly)
+                    ba = QByteArray()
+                    buffer = QBuffer(ba)
+                    buffer.open(QIODevice.WriteOnly)
 
                     # Resize big images for storing in DB
                     sideLen = self.settings['ImageSideLen']
@@ -445,13 +466,13 @@ class CollectionModel(QSqlTableModel):
                     image.save(buffer, self.IMAGE_FORMAT)
                     record.setValue(field.name, ba)
                 elif isinstance(image, bytes):
-                    ba = QtCore.QByteArray(image)
+                    ba = QByteArray(image)
                     record.setValue(field.name, ba)
 
         # Creating preview image for list
         self._recalculateImage(record)
 
-        currentTime = QtCore.QDateTime.currentDateTimeUtc()
+        currentTime = QDateTime.currentDateTimeUtc()
         # currentTime.setTimeSpec(Qt.LocalTime)
         record.setValue('updatedat', currentTime.toString(Qt.ISODateWithMs))
 
@@ -483,16 +504,16 @@ class CollectionModel(QSqlTableModel):
 
             paint = QPainter(image)
             if not record.isNull('obverseimg'):
-                paint.drawImage(QtCore.QRectF(0, 0, obverseImage.width(), height), obverseImage,
-                                QtCore.QRectF(0, 0, obverseImage.width(), height))
+                paint.drawImage(QRectF(0, 0, obverseImage.width(), height), obverseImage,
+                                QRectF(0, 0, obverseImage.width(), height))
             if not record.isNull('reverseimg'):
-                paint.drawImage(QtCore.QRectF(obverseImage.width(), 0, reverseImage.width(), height), reverseImage,
-                                QtCore.QRectF(0, 0, reverseImage.width(), height))
+                paint.drawImage(QRectF(obverseImage.width(), 0, reverseImage.width(), height), reverseImage,
+                                QRectF(0, 0, reverseImage.width(), height))
             paint.end()
 
-            ba = QtCore.QByteArray()
-            buffer = QtCore.QBuffer(ba)
-            buffer.open(QtCore.QIODevice.WriteOnly)
+            ba = QByteArray()
+            buffer = QBuffer(ba)
+            buffer.open(QIODevice.WriteOnly)
 
             # Store as PNG for better view
             image.save(buffer, 'png')
@@ -599,13 +620,13 @@ class CollectionModel(QSqlTableModel):
         return ret
 
     def columnType(self, column):
-        if isinstance(column, QtCore.QModelIndex):
+        if isinstance(column, QModelIndex):
             column = column.column()
 
         return self.fields.fields[column].type
 
     def columnName(self, column):
-        if isinstance(column, QtCore.QModelIndex):
+        if isinstance(column, QModelIndex):
             column = column.column()
 
         return self.fields.fields[column].name
@@ -838,7 +859,7 @@ class CollectionSettings(BaseSettings):
         db.commit()
 
 
-class Collection(QtCore.QObject):
+class Collection(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -852,7 +873,7 @@ class Collection(QtCore.QObject):
     def open(self, fileName):
         self.fileName = None
 
-        file = QtCore.QFileInfo(fileName)
+        file = QFileInfo(fileName)
         if file.isFile():
             self.db.setDatabaseName(fileName)
             if not self.db.open() or not self.db.tables():
@@ -913,7 +934,7 @@ class Collection(QtCore.QObject):
     def create(self, fileName):
         self.fileName = None
 
-        if QtCore.QFileInfo(fileName).exists():
+        if QFileInfo(fileName).exists():
             QMessageBox.critical(self.parent(),
                                     self.tr("Create collection"),
                                     self.tr("Specified file already exists"))
@@ -999,7 +1020,7 @@ class Collection(QtCore.QObject):
         self.reference.load()
 
     def getFileName(self):
-        return QtCore.QDir(self.fileName).absolutePath()
+        return QDir(self.fileName).absolutePath()
 
     def getCollectionName(self):
         return Collection.fileNameToCollectionName(self.fileName)
@@ -1020,7 +1041,7 @@ class Collection(QtCore.QObject):
         model.setTable('coins')
         model.select()
         for field in self.fields:
-            model.setHeaderData(field.id, QtCore.Qt.Horizontal, field.title)
+            model.setHeaderData(field.id, Qt.Horizontal, field.title)
 
         return model
 
@@ -1235,15 +1256,15 @@ class Collection(QtCore.QObject):
 
     @waitCursorDecorator
     def __make_backup(self, backupFileName):
-        srcFile = QtCore.QFile(self.fileName)
+        srcFile = QFile(self.fileName)
         return srcFile.copy(backupFileName)
 
     def backup(self):
-        backupDir = QtCore.QDir(Settings()['backup'])
+        backupDir = QDir(Settings()['backup'])
         if not backupDir.exists():
             backupDir.mkpath(backupDir.absolutePath())
 
-        backupFileName = backupDir.filePath("%s_%s.db" % (self.getCollectionName(), QtCore.QDateTime.currentDateTime().toString('yyMMddhhmmss')))
+        backupFileName = backupDir.filePath("%s_%s.db" % (self.getCollectionName(), QDateTime.currentDateTime().toString('yyMMddhhmmss')))
         if not self.__make_backup(backupFileName):
             QMessageBox.critical(self.parent(),
                             self.tr("Backup collection"),
@@ -1261,14 +1282,14 @@ class Collection(QtCore.QObject):
         settings = Settings()
         autobackup_depth = settings['autobackup_depth']
         filter_ = ('%s_????????????.db' % self.getCollectionName(),)
-        files = QtCore.QDirIterator(settings['backup'], filter_, QtCore.QDir.Files)
+        files = QDirIterator(settings['backup'], filter_, QDir.Files)
         while files.hasNext():
             file_info = files.nextFileInfo()
 
             file_title = file_info.baseName()
             file_date = file_title[-12:]
 
-            date_time = QtCore.QDateTime.fromString(file_date, 'yyMMddhhmmss')
+            date_time = QDateTime.fromString(file_date, 'yyMMddhhmmss')
             if date_time.isValid():
                 if date_time.date().year() < 2000:
                     date_time = date_time.addYears(100)
@@ -1290,7 +1311,7 @@ class Collection(QtCore.QObject):
 
     @staticmethod
     def fileNameToCollectionName(fileName):
-        file = QtCore.QFileInfo(fileName)
+        file = QFileInfo(fileName)
         return file.baseName()
 
     def exportToMobile(self, params):
@@ -1414,9 +1435,9 @@ class Collection(QtCore.QObject):
                 reverseImage = QImage()
 
                 if is_obverse_present:
-                    ba = QtCore.QByteArray()
-                    buffer = QtCore.QBuffer(ba)
-                    buffer.open(QtCore.QIODevice.WriteOnly)
+                    ba = QByteArray()
+                    buffer = QBuffer(ba)
+                    buffer.open(QIODevice.WriteOnly)
 
                     obverseImage.loadFromData(coin.value('obverseimg'))
                     if not obverseImage.isNull() and not params['fullimage'] and obverseImage.height() > maxHeight:
@@ -1443,9 +1464,9 @@ class Collection(QtCore.QObject):
                                                             Qt.SmoothTransformation)
 
                 if is_reverse_present:
-                    ba = QtCore.QByteArray()
-                    buffer = QtCore.QBuffer(ba)
-                    buffer.open(QtCore.QIODevice.WriteOnly)
+                    ba = QByteArray()
+                    buffer = QBuffer(ba)
+                    buffer.open(QIODevice.WriteOnly)
 
                     reverseImage.loadFromData(coin.value('reverseimg'))
                     if not reverseImage.isNull() and not params['fullimage'] and reverseImage.height() > maxHeight:
@@ -1482,16 +1503,16 @@ class Collection(QtCore.QObject):
 
                 paint = QPainter(image)
                 if is_obverse_present and is_obverse_enabled:
-                    paint.drawImage(QtCore.QRectF(0, 0, obverseImage.width(), height), obverseImage,
-                                    QtCore.QRectF(0, 0, obverseImage.width(), height))
+                    paint.drawImage(QRectF(0, 0, obverseImage.width(), height), obverseImage,
+                                    QRectF(0, 0, obverseImage.width(), height))
                 if is_reverse_present and is_reverse_enabled:
-                    paint.drawImage(QtCore.QRectF(obverseImage.width(), 0, reverseImage.width(), height), reverseImage,
-                                    QtCore.QRectF(0, 0, reverseImage.width(), height))
+                    paint.drawImage(QRectF(obverseImage.width(), 0, reverseImage.width(), height), reverseImage,
+                                    QRectF(0, 0, reverseImage.width(), height))
                 paint.end()
 
-                ba = QtCore.QByteArray()
-                buffer = QtCore.QBuffer(ba)
-                buffer.open(QtCore.QIODevice.WriteOnly)
+                ba = QByteArray()
+                buffer = QBuffer(ba)
+                buffer.open(QIODevice.WriteOnly)
 
                 # Store as PNG for better view
                 image.save(buffer, 'png')

@@ -1,7 +1,13 @@
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QKeySequence, QIcon, QAction
-from PySide6.QtWidgets import *
 from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtGui import QKeySequence, QIcon, QAction
+from PySide6.QtWidgets import (
+    QInputDialog,
+    QMenu,
+    QMessageBox,
+    QTabBar,
+    QTabWidget,
+)
 
 from OpenNumismat.PageView import PageView
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes

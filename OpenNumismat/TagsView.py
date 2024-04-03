@@ -1,6 +1,6 @@
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QTreeWidget, QTreeWidgetItem
 
 
 class TagsView(QTreeWidget):

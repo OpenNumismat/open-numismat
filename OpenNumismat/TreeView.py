@@ -1,6 +1,13 @@
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtCore import Qt, QCollator, QLocale, QEvent
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QDialog,
+    QMenu,
+    QStyledItemDelegate,
+    QToolTip,
+    QTreeWidget,
+    QTreeWidgetItem,
+)
 
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.CustomizeTreeDialog import CustomizeTreeDialog

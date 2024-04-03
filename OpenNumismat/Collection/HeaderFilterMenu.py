@@ -1,7 +1,18 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QDialogButtonBox,
+    QLineEdit,
+    QListWidget,
+    QListWidgetItem,
+    QMenu,
+    QPushButton,
+    QStyle,
+    QVBoxLayout,
+    QWidget,
+    QWidgetAction,
+)
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import Statuses

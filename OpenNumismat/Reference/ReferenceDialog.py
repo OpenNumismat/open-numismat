@@ -2,7 +2,28 @@ import sys
 
 from PySide6.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QRect, QPoint
 from PySide6.QtGui import QImage, QKeySequence, QPainter
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QAbstractItemDelegate,
+    QAbstractItemView,
+    QApplication,
+    QCheckBox,
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
+    QFileDialog,
+    QHBoxLayout,
+    QListView,
+    QMenu,
+    QMessageBox,
+    QPushButton,
+    QStyle,
+    QStyleOptionTab,
+    QStylePainter,
+    QTabBar,
+    QTabWidget,
+    QVBoxLayout,
+    QWidget,
+)
 
 import OpenNumismat
 from OpenNumismat.Settings import Settings

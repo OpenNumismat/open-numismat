@@ -1,6 +1,13 @@
 from PySide6.QtCore import Qt, QObject
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QDialog,
+    QDialogButtonBox,
+    QFormLayout,
+    QLineEdit,
+    QTextEdit,
+    QVBoxLayout,
+)
 
 
 class CollectionDescription(QObject):

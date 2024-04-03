@@ -6,7 +6,7 @@ import urllib.request
 
 from PySide6.QtCore import Qt, QUrl, QMargins
 from PySide6.QtGui import QDesktopServices, QImage
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QDialog, QVBoxLayout
 from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 

@@ -1,5 +1,12 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QAbstractItemView,
+    QDialog,
+    QDialogButtonBox,
+    QListWidget,
+    QListWidgetItem,
+    QVBoxLayout,
+)
 
 from OpenNumismat.Collection.ListPageParam import ColumnListParam
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator

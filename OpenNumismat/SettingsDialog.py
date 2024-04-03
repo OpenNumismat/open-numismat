@@ -3,7 +3,35 @@
 from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QIcon, QAction, QPixmap
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QColorDialog,
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
+    QDoubleSpinBox,
+    QFileDialog,
+    QFormLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QListWidget,
+    QListWidgetItem,
+    QMenu,
+    QMessageBox,
+    QPushButton,
+    QSizePolicy,
+    QSpinBox,
+    QStyle,
+    QStyleFactory,
+    QTabWidget,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QVBoxLayout,
+    QWidget,
+)
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase, CollectionField, ImageFields

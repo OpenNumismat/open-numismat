@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from PySide6 import QtCore, QtSql
-from PySide6.QtSql import QSqlDatabase, QSqlQuery
-from PySide6.QtCore import Qt
-from PySide6.QtCore import QSortFilterProxyModel
-from PySide6.QtGui import QPixmap, QIcon
-from PySide6.QtWidgets import *
+from PySide6.QtCore import Qt, QSortFilterProxyModel, QObject, QFile, QFileInfo, QDateTime
 from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtGui import QPixmap, QIcon
+from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel, QSqlRelationalTableModel, QSqlRelation
+from PySide6.QtWidgets import QDialog, QMessageBox, QPushButton
 
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
 
 
-class SqlTableModel(QtSql.QSqlTableModel):
+class SqlTableModel(QSqlTableModel):
 
     def __init__(self, parent, db):
         super().__init__(parent, db)
@@ -43,7 +41,7 @@ class SqlTableModel(QtSql.QSqlTableModel):
             self._proxyModel.sort(-1)
 
 
-class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
+class SqlRelationalTableModel(QSqlRelationalTableModel):
     def __init__(self, model, parent, db):
         super().__init__(parent, db)
 
@@ -78,7 +76,7 @@ class SqlRelationalTableModel(QtSql.QSqlRelationalTableModel):
             self._proxyModel.sort(-1)
 
 
-class BaseReferenceSection(QtCore.QObject):
+class BaseReferenceSection(QObject):
     changed = pyqtSignal(object)
 
     def __init__(self, name, title, letter, sort=False, parent=None):
@@ -196,7 +194,7 @@ class ReferenceSection(BaseReferenceSection):
             self.create(self.db)
 
         self.model = SqlTableModel(None, db)
-        self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
+        self.model.setEditStrategy(QSqlTableModel.OnFieldChange)
         self.model.setTable(self.table_name)
 
         self.reload()
@@ -243,13 +241,13 @@ class CrossReferenceSection(BaseReferenceSection):
             self.create(self.db)
 
         self.model = SqlRelationalTableModel(self.parentRef.model, None, db)
-        self.model.setJoinMode(QtSql.QSqlRelationalTableModel.LeftJoin)
-        self.model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
+        self.model.setJoinMode(QSqlRelationalTableModel.LeftJoin)
+        self.model.setEditStrategy(QSqlTableModel.OnFieldChange)
         self.model.setTable(self.table_name)
         parentidIndex = self.model.fieldIndex('parentid')
         self.model.parentidIndex = parentidIndex
         self.model.setRelation(
-            parentidIndex, QtSql.QSqlRelation(self.parent_table_name, 'id', 'value'))
+            parentidIndex, QSqlRelation(self.parent_table_name, 'id', 'value'))
 
         self.reload()
 
@@ -277,7 +275,7 @@ class CrossReferenceSection(BaseReferenceSection):
             fillQuery.exec_()
 
 
-class Reference(QtCore.QObject):
+class Reference(QObject):
     VERSION = 1
 
     def __init__(self, fields, parent=None, db=None):
@@ -369,7 +367,7 @@ class Reference(QtCore.QObject):
             section.create(self.db)
 
     def open(self, fileName, interactive=True):
-        file = QtCore.QFileInfo(fileName)
+        file = QFileInfo(fileName)
         if file.isFile():
             self.db.setDatabaseName(fileName)
             if not self.db.open():
@@ -448,7 +446,7 @@ class Reference(QtCore.QObject):
         for section in self.sections:
             name = section.table_name
             sql = "SELECT 1 FROM %s WHERE icon IS NOT NULL LIMIT 1" % name
-            query = QtSql.QSqlQuery(sql, self.db)
+            query = QSqlQuery(sql, self.db)
             query.exec_()
             if query.first():
                 self.sections_with_icons.append(name)
@@ -500,7 +498,7 @@ class Reference(QtCore.QObject):
         table_name = "ref_%s" % section
         if table_name in self.sections_with_icons:
             sql = "SELECT icon FROM %s WHERE value=?" % table_name
-            query = QtSql.QSqlQuery(sql, self.db)
+            query = QSqlQuery(sql, self.db)
             query.addBindValue(value)
             query.exec_()
             if query.first():
@@ -514,11 +512,11 @@ class Reference(QtCore.QObject):
 
     def backup(self):
         if self.fileName:
-            file = QtCore.QFileInfo(self.fileName)
+            file = QFileInfo(self.fileName)
             backupDir = file.dir()
             backupFileName = backupDir.filePath("%s_%s.ref" % (file.baseName(),
-                                                               QtCore.QDateTime.currentDateTime().toString('yyMMddhhmmss')))
-            srcFile = QtCore.QFile(self.fileName)
+                                                               QDateTime.currentDateTime().toString('yyMMddhhmmss')))
+            srcFile = QFile(self.fileName)
             srcFile.copy(backupFileName)
 
     def __updateTo1(self):

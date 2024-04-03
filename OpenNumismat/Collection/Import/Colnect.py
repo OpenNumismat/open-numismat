@@ -7,7 +7,22 @@ from socket import timeout
 
 from PySide6.QtCore import Qt, QObject
 from PySide6.QtGui import QImage, QPixmap, QIcon
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QAbstractItemView,
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
+    QFormLayout,
+    QHBoxLayout,
+    QLabel,
+    QMessageBox,
+    QPushButton,
+    QSizePolicy,
+    QTableWidget,
+    QTableWidgetItem,
+    QVBoxLayout,
+    QWidget,
+)
 
 from OpenNumismat import version
 from OpenNumismat.Collection.Import.Cache import Cache

@@ -2,15 +2,45 @@ import operator
 import pickle
 import os.path
 
-from PySide6 import QtCore
-from PySide6.QtCore import QMargins, QSortFilterProxyModel
-from PySide6.QtCore import QCollator, QLocale
-from PySide6.QtCore import QAbstractProxyModel, QModelIndex, QItemSelectionModel
-from PySide6.QtCore import QRectF, QRect
-from PySide6.QtSql import QSqlQuery
-from PySide6.QtGui import *
-from PySide6.QtWidgets import *
+from PySide6.QtCore import (
+    QAbstractProxyModel,
+    QByteArray,
+    QCollator,
+    QItemSelectionModel,
+    QLocale,
+    QMargins,
+    QMimeData,
+    QModelIndex,
+    QRect,
+    QRectF,
+    QSortFilterProxyModel,
+    QUrl,
+)
 from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtGui import (
+    Qt,
+    QAction,
+    QDesktopServices,
+    QIcon,
+    QImage,
+    QKeySequence,
+    QPalette,
+    QPixmap,
+    QTextOption,
+)
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtWidgets import (
+    QAbstractItemView,
+    QApplication,
+    QDialog,
+    QDialogButtonBox,
+    QLabel,
+    QMenu,
+    QMessageBox,
+    QStyle,
+    QStyledItemDelegate,
+    QTableView,
+)
 
 import OpenNumismat
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
@@ -210,7 +240,7 @@ class BaseTableView(QTableView):
             fileName = report.generate(indexes)
             if fileName:
                 executor = QDesktopServices()
-                executor.openUrl(QtCore.QUrl.fromLocalFile(fileName))
+                executor.openUrl(QUrl.fromLocalFile(fileName))
         else:
             QMessageBox.information(
                 self, QApplication.translate('BaseTableView', "Report preview"),
@@ -403,7 +433,7 @@ class BaseTableView(QTableView):
                 if record.isNull(i):
                     textRecordData.append('')
                     pickleRecordData.append(None)
-                elif isinstance(value, QtCore.QByteArray):
+                elif isinstance(value, QByteArray):
                     textRecordData.append('')
                     pickleRecordData.append(value.data())
                 else:
@@ -413,7 +443,7 @@ class BaseTableView(QTableView):
             textData.append('\t'.join(textRecordData))
             pickleData.append(pickleRecordData)
 
-        mime = QtCore.QMimeData()
+        mime = QMimeData()
         mime.setText('\n'.join(textData))
         mime.setData(ListView.MimeType, pickle.dumps(pickleData))
 
@@ -449,7 +479,7 @@ class BaseTableView(QTableView):
                     if isinstance(recordData[i], bytes):
                         # Note: Qt::QVariant convert Python bytes type to
                         # str type
-                        record.setValue(i, QtCore.QByteArray(recordData[i]))
+                        record.setValue(i, QByteArray(recordData[i]))
                     else:
                         record.setValue(i, recordData[i])
 

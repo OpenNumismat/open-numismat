@@ -1,5 +1,11 @@
 from PySide6.QtCore import Qt, QSettings
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QCheckBox,
+    QDialog,
+    QDialogButtonBox,
+    QMessageBox,
+    QVBoxLayout,
+)
 
 from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.EditCoinDialog.FormItems import LineEditRef

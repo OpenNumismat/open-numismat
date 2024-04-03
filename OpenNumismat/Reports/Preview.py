@@ -1,11 +1,18 @@
 import os.path
 
 from PySide6.QtCore import QMarginsF, QSize, QUrl
-from PySide6.QtGui import *
-from PySide6.QtWidgets import *
+from PySide6.QtGui import Qt, QActionGroup, QPageLayout, QCursor, QIcon, QPageSize
 from PySide6.QtPrintSupport import QPrinter, QPrintDialog, QPageSetupDialog
 from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView
+from PySide6.QtWidgets import (
+    QApplication,
+    QComboBox,
+    QDialog,
+    QMessageBox,
+    QToolBar,
+    QVBoxLayout,
+)
 
 import OpenNumismat
 from OpenNumismat.Tools import TemporaryDir

@@ -16,12 +16,37 @@ from PySide6.QtCharts import (
     QStackedBarSeries,
     QValueAxis,
 )
-from PySide6.QtCore import QCollator, QLocale
-from PySide6.QtCore import Qt, QPoint, QMargins, QSize, QDate, QDateTime, QByteArray
+from PySide6.QtCore import (
+    Qt,
+    QByteArray,
+    QCollator,
+    QDate,
+    QDateTime,
+    QLocale,
+    QMargins,
+    QPoint,
+    QSize,
+)
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
+    QFormLayout,
+    QHBoxLayout,
+    QLabel,
+    QMessageBox,
+    QPushButton,
+    QScrollArea,
+    QSizePolicy,
+    QToolTip,
+    QVBoxLayout,
+    QWidget,
+)
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 import OpenNumismat

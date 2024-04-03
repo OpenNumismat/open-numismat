@@ -4,7 +4,18 @@ import re
 
 from PySide6.QtCore import Qt, QUrl
 from PySide6.QtGui import QDoubleValidator, QDesktopServices
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import (
+    QApplication,
+    QBoxLayout,
+    QDialog,
+    QHBoxLayout,
+    QLabel,
+    QPushButton,
+    QSizePolicy,
+    QTabWidget,
+    QVBoxLayout,
+    QWidget,
+)
 
 from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdit, NativeYearEdit, BarcodeLineEdit
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout

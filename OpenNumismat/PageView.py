@@ -1,6 +1,6 @@
 from PySide6.QtCore import Qt, QEvent
 from PySide6.QtGui import QKeyEvent
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QBoxLayout
 
 from OpenNumismat.ImageView import ImageView
 from OpenNumismat.DetailsView import DetailsView

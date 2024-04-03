@@ -1,4 +1,20 @@
-from PySide6.QtWidgets import *
+from PySide6.QtCore import Qt, QDate
+from PySide6.QtWidgets import (
+    QAbstractButton,
+    QAbstractSpinBox,
+    QCheckBox,
+    QDateTimeEdit,
+    QDoubleSpinBox,
+    QGridLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QSizePolicy,
+    QSpinBox,
+    QTextEdit,
+    QWidget,
+)
 
 from OpenNumismat.EditCoinDialog.FormItems import *
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit

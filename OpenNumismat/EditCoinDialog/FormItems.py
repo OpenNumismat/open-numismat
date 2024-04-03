@@ -4,10 +4,38 @@ import math
 import os
 import re
 
-from PySide6.QtCore import QMargins, QUrl, QDate, QLocale, QPointF, QSize
-from PySide6.QtGui import *
-from PySide6.QtWidgets import *
+from PySide6.QtCore import QMargins, QDate, QLocale, QPointF, QSize, QUrl
 from PySide6.QtCore import Signal as pyqtSignal
+from PySide6.QtGui import (
+    Qt,
+    QDesktopServices,
+    QDoubleValidator,
+    QIcon,
+    QIntValidator,
+    QPainter,
+    QPalette,
+    QPolygonF,
+    QValidator,
+)
+from PySide6.QtWidgets import (
+    QAbstractSpinBox,
+    QApplication,
+    QCalendarWidget,
+    QCheckBox,
+    QComboBox,
+    QDateEdit,
+    QFileDialog,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QPushButton,
+    QSizePolicy,
+    QSpinBox,
+    QStyle,
+    QTextBrowser,
+    QTextEdit,
+    QWidget,
+)
 
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import statusIcon
