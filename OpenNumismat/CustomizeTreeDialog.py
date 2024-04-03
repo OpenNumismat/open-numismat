@@ -19,8 +19,9 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 
 class TreeWidget(QTreeWidget):
+
     def __init__(self, parent=None):
-        QTreeWidget.__init__(self, parent)
+        super().__init__(parent)
 
         self.setHeaderHidden(True)
 
@@ -83,8 +84,6 @@ class TreeWidget(QTreeWidget):
 
 
 class ListWidget(QListWidget):
-    def __init__(self, parent=None):
-        QListWidget.__init__(self, parent)
 
     def dataChanged(self, topLeft, bottomRight, roles=[]):
         if topLeft.row() == bottomRight.row():
@@ -112,8 +111,9 @@ class ListWidget(QListWidget):
 
 @storeDlgSizeDecorator
 class CustomizeTreeDialog(QDialog):
+
     def __init__(self, model, treeParam, parent=None):
-        QDialog.__init__(self, parent,
+        super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.setWindowTitle(self.tr("Customize tree"))
