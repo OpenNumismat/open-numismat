@@ -2271,6 +2271,10 @@ drag-n-drop to add an image)</source>
         <source>Use webcam</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show splash screen at startup</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
