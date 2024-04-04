@@ -99,6 +99,7 @@ class Settings(BaseSettings):
         'nice_years_chart': False,
         'transparent_color': QColor(Qt.white),
         'use_webcam': True,
+        'show_splashscreen': True,
     }
 
     def __init__(self, autoSave=False):
@@ -125,6 +126,7 @@ class Settings(BaseSettings):
             'show_chart_legend',
             'nice_years_chart',
             'use_webcam',
+            'show_splashscreen',
         ):
             value = self.settings.value('mainwindow/' + key, self.Default[key],
                                         type=bool)
