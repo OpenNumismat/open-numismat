@@ -2282,6 +2282,10 @@ drag-n-drop to add an image)</source>
         <source>Use webcam</source>
         <translation>Използване на уеб камера</translation>
     </message>
+    <message>
+        <source>Show splash screen at startup</source>
+        <translation>Показване на начален екран при стартиране</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
