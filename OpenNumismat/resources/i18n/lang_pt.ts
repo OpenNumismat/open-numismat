@@ -2282,6 +2282,10 @@ arraste e largue para adicionar)</translation>
         <source>Use webcam</source>
         <translation>Utilizar a câmara</translation>
     </message>
+    <message>
+        <source>Show splash screen at startup</source>
+        <translation>Mostrar ecrã de logótipo no arranque</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
