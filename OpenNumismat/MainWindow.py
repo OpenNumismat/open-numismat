@@ -488,6 +488,17 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle(version.AppName)
 
+        settings = QSettings()
+        geometry = settings.value('mainwindow/geometry')
+        if geometry:
+            self.restoreGeometry(geometry)
+        winState = settings.value('mainwindow/winState')
+        if winState:
+            self.restoreState(winState)
+
+        self.autoUpdate()
+
+    def openStartCollection(self):
         if len(sys.argv) > 1:
             fileName = sys.argv[1]
         else:
@@ -503,15 +514,6 @@ class MainWindow(QMainWindow):
         pageIndex = settings.value('tabwindow/page', 0)
         if pageIndex is not None:
             self.viewTab.setCurrentIndex(int(pageIndex))
-
-        geometry = settings.value('mainwindow/geometry')
-        if geometry:
-            self.restoreGeometry(geometry)
-        winState = settings.value('mainwindow/winState')
-        if winState:
-            self.restoreState(winState)
-
-        self.autoUpdate()
 
     def createStatusBar(self):
         self.collectionFileLabel = QLabel()

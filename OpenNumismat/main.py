@@ -62,6 +62,8 @@ def main():
     mainWindow = MainWindow()
     mainWindow.show()
     mainWindow.raise_()  # this will raise the window on Mac OS X
+    mainWindow.openStartCollection()
+
     status = app.exec_()
 
     # Clear temporary files
