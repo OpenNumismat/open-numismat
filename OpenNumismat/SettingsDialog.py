@@ -171,11 +171,6 @@ class MainSettingsPage(QWidget):
         self.useWebcam.setChecked(settings['use_webcam'])
         layout.addRow(self.useWebcam)
 
-        self.showSplashscreen = QCheckBox(
-                        self.tr("Show splash screen at startup"), self)
-        self.showSplashscreen.setChecked(settings['show_splashscreen'])
-        layout.addRow(self.showSplashscreen)
-
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap', MapType.OSM.value)
         if gmapsAvailable:
@@ -265,7 +260,6 @@ class MainSettingsPage(QWidget):
         settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['use_webcam'] = self.useWebcam.isChecked()
-        settings['show_splashscreen'] = self.showSplashscreen.isChecked()
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['transparent_color'] = self.transparent_color

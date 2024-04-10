@@ -6,8 +6,8 @@ import sys
 import traceback
 
 from PySide6.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, QSettings, QLibraryInfo, QLocale
-from PySide6.QtWidgets import QApplication, QMessageBox, QSplashScreen
-from PySide6.QtGui import QDesktopServices, QPixmap
+from PySide6.QtWidgets import QApplication, QMessageBox
+from PySide6.QtGui import QDesktopServices
 from PySide6 import __version__ as PYQT_VERSION_STR
 
 import OpenNumismat
@@ -30,15 +30,6 @@ def main():
         QSettings.setDefaultFormat(QSettings.IniFormat)
         QSettings.setPath(QSettings.IniFormat, QSettings.UserScope,
                           OpenNumismat.HOME_PATH)
-
-    settings = QSettings()
-    show_splashscreen = settings.value('mainwindow/show_splashscreen', True, type=bool)
-    if show_splashscreen:
-        pixmap = QPixmap(":splashscreen.png")
-        splash = QSplashScreen(pixmap)
-        splash.show()
-    else:
-        splash = None
 
     settings = Settings()
     if settings['font_size'] == 1:
@@ -71,9 +62,6 @@ def main():
     mainWindow = MainWindow()
     mainWindow.show()
     mainWindow.raise_()  # this will raise the window on Mac OS X
-    if splash:
-        splash.finish(mainWindow)
-
     status = app.exec_()
 
     # Clear temporary files
