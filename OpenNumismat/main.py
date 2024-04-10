@@ -81,7 +81,7 @@ def setupHomeFolder(settings):
             if not os.path.exists(dst_ref):
                 os.makedirs(ref_path, exist_ok=True)
                 src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
-                                   'reference_%s.ref' % settings['locale'])
+                                   f"reference_{settings['locale']}.ref")
                 if not os.path.exists(src_ref):
                     src_ref = os.path.join(OpenNumismat.PRJ_PATH, 'db',
                                        'reference_en.ref')
@@ -92,7 +92,7 @@ def setupHomeFolder(settings):
             if not os.path.exists(dst_demo_db):
                 os.makedirs(OpenNumismat.HOME_PATH, exist_ok=True)
                 src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
-                                           'demo_%s.db' % settings['locale'])
+                                           f"demo_{settings['locale']}.db")
                 if not os.path.exists(src_demo_db):
                     src_demo_db = os.path.join(OpenNumismat.PRJ_PATH, 'db',
                                        'demo_en.db')

@@ -137,9 +137,9 @@ class TreeView(QTreeWidget):
         if not fields:
             return
 
-        sql = "SELECT DISTINCT %s FROM coins" % ','.join(fields)
+        sql = f"SELECT DISTINCT {','.join(fields)} FROM coins"
         if filters:
-            sql += " WHERE " + filters
+            sql += f" WHERE {filters}"
         query = QSqlQuery(sql, self.db)
         hasEmpty = False
         while query.next():
@@ -159,11 +159,8 @@ class TreeView(QTreeWidget):
                         data.append(Statuses[text])
                     elif fields[i] == 'year':
                         label = text
-                        try:
-                            if text[0] == '-':
-                                label = "%s BC" % text[1:]
-                        except ValueError:
-                            pass
+                        if text[0] == '-':
+                            label = f"{text[1:]} BC"
                         data.append(label)
                     elif fields[i] == 'value':
                         label, _ = numberWithFraction(text, self.convert_fraction)
@@ -171,7 +168,7 @@ class TreeView(QTreeWidget):
                     else:
                         data.append(text)
                     escapedText = text.replace("'", "''")
-                    filterSql.append("%s='%s'" % (fields[i], escapedText))
+                    filterSql.append(f"{fields[i]}='{escapedText}'")
                 else:
                     hasEmpty = True
 
@@ -190,7 +187,7 @@ class TreeView(QTreeWidget):
                     child.setData(0, self.SortDataRole, orig_data)
 
                 if filters:
-                    newFilters = filters + ' AND ' + newFilters
+                    newFilters = f"{filters} AND {newFilters}"
 
                 child.setData(0, self.ParamRole, paramIndex)
                 child.setData(0, self.FiltersRole, newFilters)
@@ -215,9 +212,9 @@ class TreeView(QTreeWidget):
 
         if hasEmpty and len(fields) == 1 and item.childCount() > 0:
             text = self.tr("Other")
-            newFilters = "ifnull(%s,'')=''" % fields[0]
+            newFilters = f"ifnull({fields[0]},'')=''"
             if filters:
-                newFilters = filters + ' AND ' + newFilters
+                newFilters = f"{filters} AND {newFilters}"
 
             child = QTreeWidgetItem([text, ])
             child.setData(0, self.ParamRole, paramIndex)

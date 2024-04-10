@@ -107,21 +107,21 @@ class AnsConnector(QObject):
         if images:
             params.append('imagesavailable:true')
         if department:
-            params.append('department_facet:"%s"' % department)
+            params.append(f'department_facet:"{department}"')
         if country:
-            params.append('region_facet:"%s"' % country)
+            params.append(f'region_facet:"{country}"')
         if year:
-            params.append('year_num:"%s"' % year)
+            params.append(f'year_num:"{year}"')
         if dynasty:
-            params.append('dynasty_facet:"%s"' % dynasty)
+            params.append(f'dynasty_facet:"{dynasty}"')
         if ruler:
-            params.append('authority_facet:"%s"' % ruler)
+            params.append(f'authority_facet:"{ruler}"')
         if denomination:
-            params.append('denomination_facet:"%s"' % denomination)
+            params.append(f'denomination_facet:"{denomination}"')
         if material:
-            params.append('material_facet:"%s"' % material)
+            params.append(f'material_facet:"{material}"')
         if type_:
-            params.append('objectType_facet:"%s"' % type_)
+            params.append(f'objectType_facet:"{type_}"')
 
         return quote_plus(" AND ".join(params))
 
@@ -153,7 +153,7 @@ class AnsConnector(QObject):
         return ''
     
     def getData(self, item_id):
-        action = "id/%s.xml" % item_id
+        action = f"id/{item_id}.xml"
         
         raw_data = self.download_data(self._baseUrl() + action)
 
@@ -168,9 +168,9 @@ class AnsConnector(QObject):
         start_index = 0
 
         while True:
-            action = "apis/search?q=" + query + "&format=rss"
+            action = f"apis/search?q={query}&format=rss"
             if start_index > 0:
-                action += "&start=%d" % start_index
+                action += f"&start={start_index}"
             
             raw_data = self.download_data(self._baseUrl() + action)
     
@@ -475,12 +475,12 @@ class AnsDialog(QDialog):
         tree = lxml.etree.fromstring(data.encode('utf-8'))
 
         id_ = self._getValue(tree, "./nuds:control/nuds:recordId")
-        record.setValue('url', "https://numismatics.org/collection/%s" % id_)
+        record.setValue('url', f"https://numismatics.org/collection/{id_}")
 
         title = self._getValue(tree, "./nuds:descMeta/nuds:title")
         if title and id_:
             if self.trim_title:
-                title = re.sub("%s$" % id_, '', title)
+                title = re.sub(f"{id_}$", '', title)
                 title = re.sub(r"\. $", '', title)
 
             record.setValue('title', title)
@@ -497,7 +497,7 @@ class AnsDialog(QDialog):
         refs = tree.xpath("./nuds:descMeta/nuds:refDesc/nuds:reference", namespaces=self.NSMAP)
         for i, ref in enumerate(refs[:4], start=1):
             value = " ".join([item.text for item in ref])
-            record.setValue('catalognum%d' % i, value)
+            record.setValue(f'catalognum{i}', value)
 
         url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='obverse']/mets:file[@USE='archive']/mets:FLocat",
                              '{http://www.w3.org/1999/xlink}href')
@@ -540,13 +540,13 @@ class AnsDialog(QDialog):
         self._setRecordField(tree, "./nuds:descMeta/nuds:typeDesc/nuds:authority/nuds:persname[@xlink:role='authority']", record, 'ruler')
 
         el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:legend")
-        el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:type/nuds:description[@xml:lang='%s']" % self.lang)
+        el2 = self._getValue(tree, f"./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:type/nuds:description[@xml:lang='{self.lang}']")
         if not el2:
             el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:obverse/nuds:type/nuds:description[@xml:lang='en']")
         value = ' - '.join(filter(None, [el1, el2]))
         record.setValue('obversedesign', value)
         el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:reverse/nuds:legend")
-        el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:reverse/nuds:type/nuds:description[@xml:lang='%s']" % self.lang)
+        el2 = self._getValue(tree, f"./nuds:descMeta/nuds:typeDesc/nuds:reverse/nuds:type/nuds:description[@xml:lang='{self.lang}']")
         if not el2:
             el2 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:reverse/nuds:type/nuds:description[@xml:lang='en']")
         value = ' - '.join(filter(None, [el1, el2]))

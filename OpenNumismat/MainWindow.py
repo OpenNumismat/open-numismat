@@ -859,7 +859,7 @@ class MainWindow(QMainWindow):
         self.__setEnabledActs(True)
 
         self.collectionFileLabel.setText(collection.getFileName())
-        title = "%s - %s" % (collection.getCollectionName(), version.AppName)
+        title = f"{collection.getCollectionName()} - {version.AppName}"
         self.setWindowTitle(title)
 
         latest = LatestCollections(self)

@@ -12,19 +12,19 @@ def storeDlgSizeDecorator(original_class):
 
         settings = QSettings()
         orig_class_name = self.__class__.__name__
-        geometry = settings.value('%s/geometry' % orig_class_name)
+        geometry = settings.value(f"{orig_class_name}/geometry")
         if geometry:
             if QApplication.screenAt(geometry.center()):
                 self.setGeometry(geometry)
-        if settings.value('%s/maximized' % orig_class_name, False, type=bool):
+        if settings.value(f"{orig_class_name}/maximized", False, type=bool):
             self.showMaximized()
 
     def done(self, r):
         settings = QSettings()
         orig_class_name = self.__class__.__name__
-        settings.setValue('%s/maximized' % orig_class_name, self.isMaximized())
+        settings.setValue(f"{orig_class_name}/maximized", self.isMaximized())
         if not self.isMaximized():
-            settings.setValue('%s/geometry' % orig_class_name, self.geometry())
+            settings.setValue(f"{orig_class_name}/geometry", self.geometry())
 
         orig_done(self, r)  # call the original done
 
@@ -44,7 +44,7 @@ def storeDlgPositionDecorator(original_class):
 
         settings = QSettings()
         orig_class_name = self.__class__.__name__
-        position = settings.value('%s/position' % orig_class_name)
+        position = settings.value(f"{orig_class_name}/position")
         if position:
             if QApplication.screenAt(self.rect().center() + position):
                 self.move(position)
@@ -52,7 +52,7 @@ def storeDlgPositionDecorator(original_class):
     def done(self, r):
         settings = QSettings()
         orig_class_name = self.__class__.__name__
-        settings.setValue('%s/position' % orig_class_name, self.pos())
+        settings.setValue(f"{orig_class_name}/position", self.pos())
 
         orig_done(self, r)  # call the original done
 

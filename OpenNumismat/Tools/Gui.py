@@ -47,7 +47,7 @@ class Splitter(QSplitter):
 
 
 def statusIcon(status):
-    return QIcon(":/%s.png" % status)
+    return QIcon(f":/{status}.png")
 
 
 def statusColor(status):

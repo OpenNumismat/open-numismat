@@ -133,7 +133,7 @@ class ImportExcel(_Import2):
             if img.loadFromData(image._data()):
                 _from = image.anchor._from
                 col = openpyxl.utils.get_column_letter(_from.col + 1)
-                coordinate = "%s%d" % (col, _from.row + 1)
+                coordinate = f"{col}{_from.row + 1}"
                 self.images[coordinate] = img
 
         self.src_path = os.path.dirname(src)

@@ -96,7 +96,7 @@ class CollectionModel(QSqlTableModel):
                 elif field.name == 'year':
                     year = str(data)
                     if year and year[0] == '-':
-                        text = "%s BC" % year[1:]
+                        text = f"{year[1:]} BC"
                     else:
                         text = year
                 elif field.name == 'axis':
