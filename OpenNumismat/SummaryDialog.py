@@ -62,10 +62,11 @@ class SummaryDialog(QDialog):
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         while query.next():
-            record = query.record()
-            quantity = int(record.value('quantity') or 1)
-            count_owned += 1
+            quantity = query.record().value('quantity')
+            if not isinstance(quantity, int):
+                quantity = 1
             quantity_owned += quantity
+            count_owned += 1
         if count_owned == quantity_owned:
             lines.append(self.tr("Count owned: %d") % count_owned)
         else:
