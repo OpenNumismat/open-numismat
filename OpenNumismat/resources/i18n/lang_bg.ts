@@ -3367,7 +3367,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Remove the page &apos;%s&apos; permanently?</source>
-        <translation>Да се премахне ли трайно списък &apos;%s&apos;?</translation>
+        <translation>Да се премахне ли трайно списък &apos;%s&apos;?</translation>
     </message>
     <message>
         <source>Remove pages</source>
