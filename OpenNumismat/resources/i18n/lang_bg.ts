@@ -3371,7 +3371,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Remove pages</source>
-        <translation>Премахване на страници</translation>
+        <translation>Премахване на списъците</translation>
     </message>
     <message>
         <source>Remove all closed pages permanently?</source>
