@@ -3351,7 +3351,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Remove page</source>
-        <translation>Премахване на списъка</translation>
+        <translation>Премахване на списък</translation>
     </message>
     <message>
         <source>Can't close latest opened page.
