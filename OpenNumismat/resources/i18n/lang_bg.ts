@@ -3375,7 +3375,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Remove all closed pages permanently?</source>
-        <translation>Да се премахнат ли трайно всички затворени списъци?</translation>
+        <translation>Да се премахнат ли завинаги всички затворени списъци?</translation>
     </message>
 </context>
 <context>
