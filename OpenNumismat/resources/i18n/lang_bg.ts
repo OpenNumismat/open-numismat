@@ -585,7 +585,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Grade</source>
-        <translation>Качество</translation>
+        <translation>Оценка</translation>
     </message>
     <message>
         <source>Label</source>
