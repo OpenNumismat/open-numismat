@@ -139,6 +139,7 @@ class ImageView(QWidget):
         record = self.model.record(self.currentIndex.row())
         record.setValue(image.field, image.image)
         self.model.setRecord(self.currentIndex.row(), record)
+        self.model.submitAll()
 
         for i in range(self.imageLayout.count()):
             image_label = self.imageLayout.itemAt(i).widget()
