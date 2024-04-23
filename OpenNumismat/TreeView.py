@@ -120,104 +120,163 @@ class TreeView(QTreeWidget):
         self.addTopLevelItem(rootItem)
 
     def expandedEvent(self, item):
-        for i in range(item.childCount()):
-            child = item.child(i)
-            if child.childCount() == 0:
-                paramIndex = child.data(0, self.ParamRole) + 1
-                filters = child.data(0, self.FiltersRole)
-                self.__updateChilds(child, paramIndex, filters)
+        self.__fillChilds(item)
 
         self.resizeColumnToContents(0)
 
-    def collapsedEvent(self, _parentItem):
-        self.resizeColumnToContents(0)
+    def __value2label(self, field, text):
+        if field == 'status':
+            label = Statuses[text]
+        elif field == 'year':
+            label = text
+            if text[0] == '-':
+                label = f"{text[1:]} BC"
+        elif field == 'value':
+            label, _ = numberWithFraction(text, self.convert_fraction)
+        else:
+            label = text
 
-    def __updateChilds(self, item, paramIndex=0, filters=''):
+        return label
+
+    def __record2label(self, record, fields):
+        label_parts = []
+
+        for field in fields:
+            text = str(record.value(field))
+            if text:
+                label = self.__value2label(field, text)
+                label_parts.append(label)
+
+        if label_parts:
+            return ' '.join(label_parts)
+        else:
+            return self.tr("Other")
+
+    def __processChilds(self, parent_fields, cur_fields, filters):
+        result = {}
+
+        sql_fields = ','.join(cur_fields + parent_fields)
+        sql = f"SELECT DISTINCT {sql_fields} FROM coins"
+        if filters:
+            sql += f" WHERE {filters}"
+        query = QSqlQuery(sql, self.db)
+        while query.next():
+            record = query.record()
+
+            child_label = self.__record2label(record, cur_fields)
+
+            orig_data = []
+            child_filters = []
+            for field in cur_fields:
+                value = record.value(field)
+
+                orig_data.append(value)
+                text = str(value)
+                if text:
+                    escapedText = text.replace("'", "''")
+                    child_filters.append(f"{field}='{escapedText}'")
+                else:
+                    child_filters.append(f"ifnull({field},'')=''")
+
+            label = self.__record2label(record, parent_fields)
+            if label in result:
+                result[label][0].append(child_label)
+                result[label][1].append(orig_data)
+                result[label][2].append(child_filters)
+            else:
+                result[label] = ([child_label, ], [orig_data, ], [child_filters, ])
+
+        return result
+
+    def __fillRoot(self, item):
+        paramIndex = item.data(0, self.ParamRole)
+        filters = item.data(0, self.FiltersRole)
+
         fields = self.treeParam.fieldNames(paramIndex)
         if not fields:
             return
 
-        sql = f"SELECT DISTINCT {','.join(fields)} FROM coins"
-        if filters:
-            sql += f" WHERE {filters}"
-        query = QSqlQuery(sql, self.db)
+        res = self.__processChilds([], fields, filters)
+
+        label = self.tr("Other")
+        self.__addChilds(item, res, label)
+
+    def __fillChilds(self, item):
+        paramIndex = item.data(0, self.ParamRole)
+        filters = item.data(0, self.FiltersRole)
+
+        fields1 = self.treeParam.fieldNames(paramIndex)
+        if not fields1:
+            return
+
+        fields = self.treeParam.fieldNames(paramIndex + 1)
+        if not fields:
+            return
+
+        res = self.__processChilds(fields1, fields, filters)
+
+        for i in range(item.childCount()):
+            child = item.child(i)
+            if child.childCount() == 0:
+                self.__addChilds(child, res, child.text(0))
+
+    def __addChilds(self, item, res, label):
+        filter_ = item.data(0, self.FiltersRole)
+        paramIndex = item.data(0, self.ParamRole)
+        fields = self.treeParam.fieldNames(paramIndex)
+
+        cur_labels = res[label][0]
+        cur_value = res[label][1]
+        cur_filters = res[label][2]
+
         hasEmpty = False
-        while query.next():
-            record = query.record()
-            data = []
-            orig_data = []
-            filterSql = []
-            for i in range(record.count()):
-                if record.isNull(i):
-                    hasEmpty = True
-                    continue
+        for i, cur_label in enumerate(cur_labels):
+            if cur_label == self.tr("Other"):
+                hasEmpty = True
+                continue
 
-                orig_data.append(record.value(i))
-                text = str(record.value(i))
-                if text:
-                    if fields[i] == 'status':
-                        data.append(Statuses[text])
-                    elif fields[i] == 'year':
-                        label = text
-                        if text[0] == '-':
-                            label = f"{text[1:]} BC"
-                        data.append(label)
-                    elif fields[i] == 'value':
-                        label, _ = numberWithFraction(text, self.convert_fraction)
-                        data.append(label)
-                    else:
-                        data.append(text)
-                    escapedText = text.replace("'", "''")
-                    filterSql.append(f"{fields[i]}='{escapedText}'")
-                else:
-                    hasEmpty = True
+            if len(fields) == 1 and fields[0] == 'year':
+                child = YearTreeWidgetItem([cur_label, ])
+            else:
+                child = TreeWidgetItem([cur_label, ])
+            child.setData(0, self.SortDataRole, cur_value[i])
+            child.setData(0, self.ParamRole, paramIndex + 1)
+            child.setData(0, self.FieldsRole, fields)
 
-            if data:
-                if len(data) > 1:
-                    newFilters = ' AND '.join(filterSql)
-                    text = ' '.join(data)
-                    child = TreeWidgetItem([text, ])
-                    child.setData(0, self.SortDataRole, orig_data)
-                else:
-                    newFilters = filterSql[0]
-                    if fields[0] == 'year':
-                        child = YearTreeWidgetItem(data)
-                    else:
-                        child = TreeWidgetItem(data)
-                    child.setData(0, self.SortDataRole, orig_data)
+            combined_filter = []
+            if cur_filters[i]:
+                combined_filter = cur_filters[i]
+            if filter_:
+                combined_filter.append(filter_)
+            newFilters = ' AND '.join(combined_filter)
+            child.setData(0, self.FiltersRole, newFilters)
 
-                if filters:
-                    newFilters = f"{filters} AND {newFilters}"
+            if fields[0] == 'status':
+                icon = statusIcon(cur_value[i][0])
+            else:
+                icon = self.reference.getIcon(fields[0], cur_value[i][0])
+            if icon:
+                child.setIcon(0, icon)
 
-                child.setData(0, self.ParamRole, paramIndex)
-                child.setData(0, self.FiltersRole, newFilters)
-                child.setData(0, self.FieldsRole, fields)
+            item.addChild(child)
 
-                if fields[0] == 'status':
-                    icon = statusIcon(orig_data[0])
-                else:
-                    icon = self.reference.getIcon(fields[0], data[0])
-                if icon:
-                    child.setIcon(0, icon)
-
-                item.addChild(child)
-
-                # Restore selection
-                if newFilters == self.model.extFilter:
-                    self.currentItemChanged.disconnect(self.itemActivatedEvent)
-                    self.setCurrentItem(child)
-                    self.currentItemChanged.connect(self.itemActivatedEvent)
+            # Restore selection
+            if newFilters == self.model.extFilter:
+                self.currentItemChanged.disconnect(self.itemActivatedEvent)
+                self.setCurrentItem(child)
+                self.currentItemChanged.connect(self.itemActivatedEvent)
 
         item.sortChildren(0, Qt.AscendingOrder)
 
-        if hasEmpty and len(fields) == 1 and item.childCount() > 0:
+#        if hasEmpty and len(fields) == 1 and item.childCount() > 0:
+        if hasEmpty and len(fields) == 1:
             text = self.tr("Other")
             newFilters = f"ifnull({fields[0]},'')=''"
-            if filters:
-                newFilters = f"{filters} AND {newFilters}"
+            if filter_:
+                newFilters = f"{filter_} AND {newFilters}"
 
             child = QTreeWidgetItem([text, ])
-            child.setData(0, self.ParamRole, paramIndex)
+            child.setData(0, self.ParamRole, paramIndex + 1)
             child.setData(0, self.FiltersRole, newFilters)
             child.setData(0, self.FieldsRole, fields)
             item.addChild(child)
@@ -228,9 +287,13 @@ class TreeView(QTreeWidget):
                 self.setCurrentItem(child)
                 self.currentItemChanged.connect(self.itemActivatedEvent)
 
+        # TODO: Skip when only Other
         # Recursion for next field if nothing selected
-        if item.childCount() == 0:
-            self.__updateChilds(item, paramIndex + 1, filters)
+#        if item.childCount() == 0:
+#            self.__fillChilds(item, paramIndex + 1)
+
+    def collapsedEvent(self, _parentItem):
+        self.resizeColumnToContents(0)
 
     def modelChanged(self):
         if self.changingEnabled:
@@ -241,7 +304,7 @@ class TreeView(QTreeWidget):
             rootItem.takeChildren()  # remove all children
             self.currentItemChanged.connect(self.itemActivatedEvent)
 
-            self.__updateChilds(rootItem)
+            self.__fillRoot(rootItem)
             self.expandItem(rootItem)
 
     def rowChangedEvent(self, current):
