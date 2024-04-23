@@ -585,7 +585,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Grade</source>
-        <translation>Качество</translation>
+        <translation>Оценка</translation>
     </message>
     <message>
         <source>Label</source>
@@ -1849,11 +1849,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;Normal Size</source>
-        <translation>&amp;Нормален размер</translation>
+        <translation>&amp;Действителен размер</translation>
     </message>
     <message>
         <source>&amp;Fit to Window</source>
-        <translation>&amp;Побери в прозореца</translation>
+        <translation>&amp;Побиране в прозореца</translation>
     </message>
     <message>
         <source>Show Tool Bar</source>
@@ -3351,7 +3351,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Remove page</source>
-        <translation>Премахване на страница</translation>
+        <translation>Премахване на списък</translation>
     </message>
     <message>
         <source>Can't close latest opened page.
@@ -3367,15 +3367,15 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Remove the page &apos;%s&apos; permanently?</source>
-        <translation>Да се премахне ли трайно страницата &apos;%s&apos;?</translation>
+        <translation>Да се премахне ли завинаги списък &apos;%s&apos;?</translation>
     </message>
     <message>
         <source>Remove pages</source>
-        <translation>Премахване на страници</translation>
+        <translation>Премахване на списъците</translation>
     </message>
     <message>
         <source>Remove all closed pages permanently?</source>
-        <translation>Да се премахнат ли трайно всички затворени страници?</translation>
+        <translation>Да се премахнат ли завинаги всички затворени списъци?</translation>
     </message>
 </context>
 <context>
