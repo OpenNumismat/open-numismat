@@ -1,4 +1,4 @@
-pyside6
+pyside6==6.6.3.1
 imagehash
 jinja2
 lxml
