@@ -98,8 +98,6 @@ else:
         "QtBluetooth",
         "QtDesigner",
         "QtLocation",
-        "QtMultimedia",
-        "QtMultimediaWidgets",
         "QtNfc",
         "QtQuickParticles",
         "QtQuickTemplates2",
