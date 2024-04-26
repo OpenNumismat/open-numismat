@@ -380,6 +380,7 @@ class TreeView(QTreeWidget):
         if dialog.exec_() == QDialog.Accepted:
             self.treeParam.save()
             self.modelChanged()
+        dialog.deleteLater()
 
     def _addCoin(self):
         self.changingEnabled = False
@@ -471,6 +472,7 @@ class TreeView(QTreeWidget):
             self.model.submitAll()
             progressDlg.reset()
 
+        dialog.deleteLater()
         self.model.setFilter(storedFilter)
 
     def clearSelection(self):

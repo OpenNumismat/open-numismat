@@ -218,6 +218,7 @@ class BaseTableView(QTableView):
         if indexes:
             preview = PreviewDialog(self.model(), indexes, self)
             preview.exec_()
+            preview.deleteLater()
         else:
             QMessageBox.information(
                 self, QApplication.translate('BaseTableView', "Report preview"),
@@ -245,6 +246,8 @@ class BaseTableView(QTableView):
             QMessageBox.information(
                 self, QApplication.translate('BaseTableView', "Report preview"),
                 QApplication.translate('BaseTableView', "Nothing selected"))
+
+        report.deleteLater()
 
     def saveTable(self):
         filters = (QApplication.translate('BaseTableView', "Excel document (*.xlsx)"),
@@ -343,6 +346,7 @@ class BaseTableView(QTableView):
 
             if record_id == self.model().record(index.row()).value('id'):
                 self.scrollToIndex(index)
+        dialog.deleteLater()
 
     def _multiEdit(self, indexes=None):
         if not indexes:
@@ -414,6 +418,7 @@ class BaseTableView(QTableView):
             self.model().submitAll()
 
             progressDlg.reset()
+        dialog.deleteLater()
 
     def _copy(self, indexes=None):
         if not indexes:
@@ -458,7 +463,9 @@ class BaseTableView(QTableView):
         if result == QDialog.Accepted:
             self.model().appendRecord(record)
 
-        return dialog.clickedButton
+        button = dialog.clickedButton
+        dialog.deleteLater()
+        return button
 
     def _paste(self):
         clipboard = QApplication.clipboard()
@@ -715,6 +722,7 @@ class ListView(BaseTableView):
 
             for param in self.listParam.columns:
                 self.setColumnHidden(param.fieldid, not param.enabled)
+        dialog.deleteLater()
 
     def sectionDoubleClicked(self, index):
         # NOTE: When section double-clicked it also clicked => sorting is

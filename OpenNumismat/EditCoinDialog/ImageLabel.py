@@ -116,6 +116,7 @@ class ImageLabel(QLabel):
 
         viewer.setTitle(self.title)
         viewer.exec_()
+        viewer.deleteLater()
 
     def imageSaved(self, image):
         self._setImage(image)

@@ -553,6 +553,7 @@ class MainWindow(QMainWindow):
                         QMessageBox.Yes)
             if result == QMessageBox.Yes:
                 self.restart()
+        dialog.deleteLater()
 
     def changeViewEvent(self):
         type_ = self.sender().data()
@@ -568,16 +569,19 @@ class MainWindow(QMainWindow):
         model = self.viewTab.currentModel()
         dialog = FindDialog(model, self)
         dialog.exec_()
+        dialog.deleteLater()
 
     def colnectEvent(self):
         model = self.viewTab.currentModel()
         dialog = ColnectDialog(model, self)
         dialog.exec_()
+        dialog.deleteLater()
 
     def ansEvent(self):
         model = self.viewTab.currentModel()
         dialog = AnsDialog(model, self)
         dialog.exec_()
+        dialog.deleteLater()
 
     def updateInfoType(self, info_type):
         self.detailsAct.setChecked(False)
@@ -619,6 +623,7 @@ class MainWindow(QMainWindow):
         model = self.viewTab.currentModel()
         dialog = SummaryDialog(model, self)
         dialog.exec_()
+        dialog.deleteLater()
 
     def tagsEvent(self):
         model = self.viewTab.currentModel()
@@ -626,6 +631,7 @@ class MainWindow(QMainWindow):
         res = dialog.exec_()
         if res == QDialog.Accepted:
             model.tagsChanged.emit()
+        dialog.deleteLater()
 
     def restart(self):
         self.close()
@@ -737,6 +743,7 @@ class MainWindow(QMainWindow):
         res = dialog.exec_()
         if res == QDialog.Accepted:
             self.collection.exportToMobile(dialog.params)
+        dialog.deleteLater()
 
     def exportJson(self):
         self.collection.exportToJson()
@@ -815,10 +822,12 @@ class MainWindow(QMainWindow):
     def descriptionCollectionEvent(self):
         dialog = DescriptionDialog(self.collection.getDescription(), self)
         dialog.exec_()
+        dialog.deleteLater()
 
     def passwordCollectionEvent(self):
         dialog = PasswordSetDialog(self.collection.settings, self)
         dialog.exec_()
+        dialog.deleteLater()
 
     def backupCollectionEvent(self):
         self.collection.backup()
@@ -928,6 +937,7 @@ class MainWindow(QMainWindow):
         dlg.buttonBox.clear()
         dlg.buttonBox.addButton(QDialogButtonBox.Close)
         dlg.exec()
+        dlg.deleteLater()
 
     def referencesGenerator(self):
         self._openUrl("http://opennumismat.github.io/references/")

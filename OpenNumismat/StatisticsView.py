@@ -1621,6 +1621,7 @@ class StatisticsView(QWidget):
         res = dialog.exec_()
         if res == QDialog.Accepted:
             self.applySettings()
+        dialog.deleteLater()
 
     def applySettings(self):
         self.modelChanged()

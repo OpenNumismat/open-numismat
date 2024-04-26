@@ -193,6 +193,7 @@ class CollectionModel(QSqlTableModel):
         result = dialog.exec_()
         if result == QDialog.Accepted:
             self.appendRecord(record)
+        dialog.deleteLater()
 
     def appendRecord(self, record):
         rowCount = self.rowCount()
@@ -1079,6 +1080,7 @@ class Collection(QObject):
     def editReference(self):
         dialog = AllReferenceDialog(self.reference, self.parent())
         dialog.exec_()
+        dialog.deleteLater()
 
     def attachReference(self):
         result = QMessageBox.information(

@@ -114,6 +114,7 @@ class BaseReferenceSection(QObject):
                 self.changed.emit(index.data())
             else:
                 self.changed.emit(old_text)
+        dialog.deleteLater()
 
     def setSort(self):
         self.model.sort(self.sort)

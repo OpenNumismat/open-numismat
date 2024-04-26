@@ -564,6 +564,7 @@ class DetailsTabWidget(QTabWidget):
                 self.items['grade'].widget().setText(result['grade'])
             if 'url' in result:
                 self.items['url'].widget().setText(result['url'])
+        dlg.deleteLater()
 
     def clickedButtonGrader(self):
         grader = self.items['grader'].value().upper()
@@ -673,6 +674,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         if res == QDialog.Accepted:
             self.tags_item.update()
             self.model.tagsChanged.emit()
+        dialog.deleteLater()
 
     def createImagePage(self):
         images = self.imagesLayout()
@@ -930,6 +932,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         if dlg.exec_() == QDialog.Accepted:
             self.items['year'].widget().setText(dlg.year())
             self.items['native_year'].widget().setText(dlg.nativeYear())
+        dlg.deleteLater()
 
     def _createTrafficParts(self, status):
         if self.oldStatus == 'pass':
