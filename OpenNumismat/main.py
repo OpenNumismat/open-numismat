@@ -116,7 +116,7 @@ def exceptHook(type_, value, tback):
     msgBox.setDetailedText(stack)
     msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     if msgBox.exec_() == QMessageBox.Yes:
-        line = traceback.extract_tb(tback)[-1]
+        line = traceback.extract_tb(tback, -1)[0]
         subject = "[v%s] %s - %s:%d" % (version.Version, type_.__name__,
                                         line[0], line[1])
 
