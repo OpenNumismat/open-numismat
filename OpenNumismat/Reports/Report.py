@@ -6,30 +6,29 @@ try:
 except ImportError:
     print('jinja2 module missed. Report engine not available')
 
-from PySide6 import QtCore
-from PySide6.QtCore import Qt, QCryptographicHash, QLocale
+from PySide6.QtCore import Qt, QCryptographicHash, QDate, QDir, QFile, QFileInfo, QLocale, QObject
 
 from OpenNumismat.Tools import Gui
 import OpenNumismat
 
 
 def copyFolder(sourceFolder, destFolder):
-    sourceDir = QtCore.QDir(sourceFolder)
+    sourceDir = QDir(sourceFolder)
     if not sourceDir.exists():
         return
 
-    destDir = QtCore.QDir(destFolder)
+    destDir = QDir(destFolder)
     if not destDir.exists():
         destDir.mkpath(destFolder)
 
-    files = sourceDir.entryList('', QtCore.QDir.Files)
+    files = sourceDir.entryList('', QDir.Files)
     for file in files:
         srcName = os.path.join(sourceFolder, file)
         destName = os.path.join(destFolder, file)
-        QtCore.QFile.remove(destName)  # remove if existing
-        QtCore.QFile.copy(srcName, destName)
+        QFile.remove(destName)  # remove if existing
+        QFile.copy(srcName, destName)
 
-    files = sourceDir.entryList('', QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+    files = sourceDir.entryList('', QDir.AllDirs | QDir.NoDotAndDotDot)
     for file in files:
         srcName = os.path.join(sourceFolder, file)
         destName = os.path.join(destFolder, file)
@@ -40,23 +39,23 @@ def scanTemplates():
     templates = []
 
     path = os.path.join(OpenNumismat.HOME_PATH, 'templates')
-    sourceDir = QtCore.QDir(path)
+    sourceDir = QDir(path)
     if sourceDir.exists():
-        files = sourceDir.entryList('', QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+        files = sourceDir.entryList('', QDir.AllDirs | QDir.NoDotAndDotDot)
         for file in files:
             templates.append((file, os.path.join(path, file)))
 
     path = os.path.join(OpenNumismat.PRJ_PATH, 'templates')
-    sourceDir = QtCore.QDir(path)
+    sourceDir = QDir(path)
     if sourceDir.exists():
-        files = sourceDir.entryList('', QtCore.QDir.AllDirs | QtCore.QDir.NoDotAndDotDot)
+        files = sourceDir.entryList('', QDir.AllDirs | QDir.NoDotAndDotDot)
         for file in files:
             templates.append((file, os.path.join(path, file)))
 
     return templates
 
 
-class Report(QtCore.QObject):
+class Report(QObject):
     def __init__(self, model, template, dstPath, parent=None):
         super().__init__(parent)
 
@@ -64,7 +63,7 @@ class Report(QtCore.QObject):
         self.srcFolder = template
         self.img_file_dict = {}
 
-        fileInfo = QtCore.QFileInfo(dstPath)
+        fileInfo = QFileInfo(dstPath)
         if fileInfo.exists() and fileInfo.isDir():
             self.dstFolder = dstPath
             self.fileName = None
@@ -80,7 +79,7 @@ class Report(QtCore.QObject):
             single_file = True
 
         self.mapping = {'single_file': single_file,
-                        'date': QLocale.system().toString(QtCore.QDate.currentDate(), QLocale.LongFormat)}
+                        'date': QLocale.system().toString(QDate.currentDate(), QLocale.LongFormat)}
 
         self.mapping['collection'] = {'title': self.model.description.title,
                             'description': self.model.description.description,
@@ -91,7 +90,7 @@ class Report(QtCore.QObject):
                 self.fileName = "coin_%d.htm" % self.__getId(indexes[0])
             else:
                 self.fileName = "coins.htm"
-        static_files = QtCore.QFileInfo(self.fileName).baseName() + '_files'
+        static_files = QFileInfo(self.fileName).baseName() + '_files'
         self.contentDir = os.path.join(self.dstFolder, static_files)
 
         self.mapping['static_files'] = static_files

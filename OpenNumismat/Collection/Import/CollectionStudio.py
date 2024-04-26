@@ -10,7 +10,8 @@ except ImportError:
     print('lxml module missed. Importing from CollectionStudio not available')
     available = False
 
-from PySide6 import QtCore, QtGui
+from PySide6.QtCore import QDate
+from PySide6.QtGui import QImage
 
 from OpenNumismat.Collection.Import import _Import
 from OpenNumismat.Tools.Converters import stringToMoney
@@ -109,7 +110,7 @@ class ImportCollectionStudio(_Import):
                 rawData = row.find(srcColumn).text
                 if rawData:
                     if srcColumn == 'Income':
-                        value = QtCore.QDate.fromString(rawData, 'ddMMyyyy')
+                        value = QDate.fromString(rawData, 'ddMMyyyy')
                     elif srcColumn == 'Year' and rawData == 'N/A':
                         value = None
                     elif srcColumn in ['Nominal', 'Diameter', 'Thickness',
@@ -157,7 +158,7 @@ class ImportCollectionStudio(_Import):
             for element in imageElements.iter('Data'):
                 if element.text:
                     value = base64.b64decode(bytes(element.text, 'latin-1'))
-                    image = QtGui.QImage()
+                    image = QImage()
                     image.loadFromData(value)
                     record.setValue(imgFields[imageNo], image)
                     imageNo = imageNo + 1

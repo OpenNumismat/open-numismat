@@ -1,10 +1,11 @@
-from PySide6 import QtCore
+from PySide6.QtCore import QObject
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 
-class TreeParam(QtCore.QObject):
+class TreeParam(QObject):
+
     def __init__(self, page):
-        QtCore.QObject.__init__(self, page)
+        super().__init__(page)
 
         self.pageId = page.id
         self.db = page.db

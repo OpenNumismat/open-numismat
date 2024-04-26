@@ -16,7 +16,7 @@ import tempfile
 import urllib
 import zipfile
 
-from PySide6 import QtGui
+from PySide6.QtGui import QImage
 
 from OpenNumismat.Collection.Import import _Import
 from OpenNumismat.Tools.Converters import stringToMoney
@@ -329,7 +329,7 @@ class ImportTellico(_Import):
                 if element:
                     element = urllib.parse.unquote(element)
                     extension = os.path.splitext(element)[1]
-                    image = QtGui.QImage()
+                    image = QImage()
                     if element[:7] == 'file://':
                         image.load(element[7:])
                     elif extension in imageSuffixes:

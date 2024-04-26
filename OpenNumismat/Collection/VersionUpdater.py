@@ -1,13 +1,13 @@
-from PySide6 import QtCore
-from PySide6.QtWidgets import QApplication
+from PySide6.QtCore import QSettings, QObject
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtCore import QSettings
+from PySide6.QtWidgets import QApplication
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools import Gui
 
 
-class Updater(QtCore.QObject):
+class Updater(QObject):
+
     def __init__(self, collection, parent=None):
         super().__init__(parent)
 
@@ -61,7 +61,7 @@ class Updater(QtCore.QObject):
         pass
 
 
-class _Updater(QtCore.QObject):
+class _Updater(QObject):
     def __init__(self, collection, parent=None):
         super().__init__(parent)
 

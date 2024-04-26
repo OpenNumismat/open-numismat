@@ -1,4 +1,4 @@
-from PySide6 import QtCore
+from PySide6.QtCore import QObject
 from PySide6.QtSql import QSqlQuery
 
 from OpenNumismat.Collection.CollectionFields import CollectionFields
@@ -19,9 +19,9 @@ class CollectionPageTypes:
     Map = 0x20
 
 
-class CollectionPageParam(QtCore.QObject):
+class CollectionPageParam(QObject):
     def __init__(self, record, parent=None):
-        QtCore.QObject.__init__(self, parent)
+        super().__init__(parent)
 
         for name in ('id', 'title', 'isopen'):
             setattr(self, name, record.value(name))
@@ -31,7 +31,7 @@ class CollectionPageParam(QtCore.QObject):
         setattr(self, 'info_type', info_type)
 
 
-class CollectionPages(QtCore.QObject):
+class CollectionPages(QObject):
     def __init__(self, db, parent=None):
         super().__init__(parent)
 

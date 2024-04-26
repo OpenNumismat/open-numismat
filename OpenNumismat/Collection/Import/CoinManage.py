@@ -5,7 +5,8 @@ try:
 except ImportError:
     pass
 
-from PySide6 import QtCore, QtGui
+from PySide6.QtCore import QDir
+from PySide6.QtGui import QImage
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QFileDialog
 
@@ -94,7 +95,7 @@ class ImportCoinManage(_Import):
     @staticmethod
     def defaultDir():
         # Search for default default dir in default location on disk
-        dir_ = QtCore.QDir(OpenNumismat.HOME_PATH)
+        dir_ = QDir(OpenNumismat.HOME_PATH)
         dirNames = ["CoinManage/Data", "CoinManage UK/Data", "CoinManage Canada/Data"]
         for dirName in dirNames:
             if dir_.cd(dirName):
@@ -123,24 +124,24 @@ class ImportCoinManage(_Import):
                 raise _DatabaseServerError(db.lastError().text())
 
         # Check images folder
-        self.imgDir = QtCore.QDir(src)
+        self.imgDir = QDir(src)
         if not self.imgDir.cd('../../CoinImages'):
             directory = QFileDialog.getExistingDirectory(self.parent(),
                             self.tr("Select directory with images"),
                             OpenNumismat.HOME_PATH)
             if directory:
-                self.imgDir = QtCore.QDir(directory)
+                self.imgDir = QDir(directory)
             else:
                 return False
 
         # Check predefined images folder
-        self.defImgDir = QtCore.QDir(src)
+        self.defImgDir = QDir(src)
         if not self.defImgDir.cd('../../Images'):
             directory = QFileDialog.getExistingDirectory(self.parent(),
                             self.tr("Select directory with pre-defined images"),
                             OpenNumismat.HOME_PATH)
             if directory:
-                self.defImgDir = QtCore.QDir(directory)
+                self.defImgDir = QDir(directory)
             else:
                 return False
 
@@ -252,7 +253,7 @@ class ImportCoinManage(_Import):
         self.__processPrices(row, record, uncFields, 'price4')
 
         # Processing images
-        image = QtGui.QImage()
+        image = QImage()
         rowId = row.value('ID')
         if image.load(self.imgDir.absoluteFilePath('Coin%d(1)' % rowId)):
             record.setValue('obverseimg', image)
@@ -268,17 +269,17 @@ class ImportCoinManage(_Import):
         country = row.value('Country')
         typeId = row.value('Type ID')
         if country:
-            dir_ = QtCore.QDir(self.defImgDir)
+            dir_ = QDir(self.defImgDir)
             dir_.cd(country)
         if value and country:
-            image = QtGui.QImage()
+            image = QImage()
             if image.load(dir_.absoluteFilePath(value)):
                 if record.isNull('obverseimg'):
                     record.setValue('obverseimg', image)
                 else:
                     record.setValue('photo3', image)
         if typeId and country:
-            image = QtGui.QImage()
+            image = QImage()
             if image.load(dir_.absoluteFilePath(str(typeId))):
                 if record.isNull('obverseimg'):
                     record.setValue('obverseimg', image)

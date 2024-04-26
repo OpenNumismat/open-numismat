@@ -1,4 +1,4 @@
-from PySide6 import QtCore
+from PySide6.QtCore import QObject
 from PySide6.QtSql import QSqlQuery, QSqlRecord
 
 from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
@@ -21,7 +21,7 @@ class ColumnListParam:
             self.width = width
 
 
-class ListPageParam(QtCore.QObject):
+class ListPageParam(QObject):
     def __init__(self, page):
         super().__init__(page)
 

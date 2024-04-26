@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from PySide6 import QtCore, QtGui
+from PySide6.QtCore import QDir
+from PySide6.QtGui import QImage
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QFileDialog
 
@@ -87,13 +88,13 @@ class ImportCoinManagePredefined(_Import):
                 raise _DatabaseServerError(db.lastError().text())
 
         # Check images folder
-        self.imgDir = QtCore.QDir(src)
+        self.imgDir = QDir(src)
         if not self.imgDir.cd('../../Images'):
             directory = QFileDialog.getExistingDirectory(self.parent(),
                             self.tr("Select directory with pre-defined images"),
                             OpenNumismat.HOME_PATH)
             if directory:
-                self.imgDir = QtCore.QDir(directory)
+                self.imgDir = QDir(directory)
             else:
                 return False
 
@@ -170,15 +171,15 @@ class ImportCoinManagePredefined(_Import):
         country = row.value('Country')
         typeId = row.value('Type ID')
         if value and country:
-            dir_ = QtCore.QDir(self.imgDir)
+            dir_ = QDir(self.imgDir)
             dir_.cd(country)
-            image = QtGui.QImage()
+            image = QImage()
             if image.load(dir_.absoluteFilePath(value)):
                 record.setValue('obverseimg', image)
         if typeId and country:
-            dir_ = QtCore.QDir(self.imgDir)
+            dir_ = QDir(self.imgDir)
             dir_.cd(country)
-            image = QtGui.QImage()
+            image = QImage()
             if image.load(dir_.absoluteFilePath(str(typeId))):
                 if record.isNull('obverseimg'):
                     record.setValue('obverseimg', image)
