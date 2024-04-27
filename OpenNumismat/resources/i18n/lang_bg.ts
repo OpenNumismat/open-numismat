@@ -242,10 +242,6 @@ Close the file and try again.</source>
 Затворете файла и опитайте отново.</translation>
     </message>
     <message>
-        <source>Updating records</source>
-        <translation>Актуализиране на записите</translation>
-    </message>
-    <message>
         <source>Saving...</source>
         <translation>Записване...</translation>
     </message>
@@ -2282,10 +2278,6 @@ drag-n-drop to add an image)</source>
         <source>Use webcam</source>
         <translation>Използване на уеб камера</translation>
     </message>
-    <message>
-        <source>Show splash screen at startup</source>
-        <translation>Показване на начален екран при стартиране</translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -3433,14 +3425,6 @@ Add a new one first.</source>
     <message>
         <source>Customize tree...</source>
         <translation>Персонализиране на дървото...</translation>
-    </message>
-    <message>
-        <source>Updating records</source>
-        <translation>Актуализиране на записите</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Отказ</translation>
     </message>
 </context>
 <context>
