@@ -1225,11 +1225,9 @@ class Collection(QObject):
 
             self.__updateAttachAction()
 
-    def __updateAttachAction(self):
-        try:
+    def __updateAttachAction(self, is_connected=True):
+        if is_connected:
             self.attachReferenceAct.triggered.disconnect()
-        except RuntimeError:
-            pass  # nothing is connected yet
 
         if self.isReferenceAttached():
             self.attachReferenceAct.setText(self.tr("Detach current reference"))
@@ -1249,7 +1247,7 @@ class Collection(QObject):
         separator.setSeparator(True)
 
         self.attachReferenceAct = QAction(parent)
-        self.__updateAttachAction()
+        self.__updateAttachAction(False)
 
         acts = (fillReferenceAct, editReferenceAct,
                 separator, self.attachReferenceAct)
