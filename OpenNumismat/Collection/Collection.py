@@ -359,6 +359,39 @@ class CollectionModel(QSqlTableModel):
 
         return super().setRecord(row, record)
 
+    def setMultiRecord(self, multiRecord, usedFields, rows=None, parent=None):
+        if not rows:
+            rows = range(self.rowCount())
+
+        progressDlg = Gui.ProgressDialog(self.tr("Updating records"),
+                            self.tr("Cancel"), len(rows), parent)
+
+        new_tags = multiRecord.value('tags')
+
+        for i in rows:
+            progressDlg.step()
+            if progressDlg.wasCanceled():
+                break
+
+            record = self.record(i)
+            for j in range(multiRecord.count()):
+                if usedFields[j] == Qt.Checked:
+                    record.setValue(j, multiRecord.value(j))
+            cur_tags = record.value('tags')
+            for tag_id, state in new_tags.items():
+                if state == Qt.Checked:
+                    if tag_id not in cur_tags:
+                        cur_tags.append(tag_id)
+                elif state == Qt.Unchecked:
+                    if tag_id in cur_tags:
+                        cur_tags.remove(tag_id)
+            record.setValue('tags', cur_tags)
+            self.setRecord(i, record)
+
+        progressDlg.setLabelText(self.tr("Saving..."))
+        self.submitAll()
+        progressDlg.reset()
+
     def record(self, row=-1):
         if row >= 0:
             record = super().record(row)

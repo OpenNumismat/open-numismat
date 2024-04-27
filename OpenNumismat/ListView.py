@@ -354,50 +354,17 @@ class BaseTableView(QTableView):
         rows = []
         for index in indexes:
             rows.append(index.row())
+
         multiRecord, usedFields = self.model().multiRecord(rows)
 
         dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
         result = dialog.exec_()
         if result == QDialog.Accepted:
-            progressDlg = Gui.ProgressDialog(
-                QApplication.translate('BaseTableView', "Updating records"),
-                QApplication.translate('BaseTableView', "Cancel"),
-                len(indexes), self)
-
-            # Fill records by used fields in multi record
-            multiRecord = dialog.record
-            usedFields = dialog.getUsedFields()
-            new_tags = multiRecord.value('tags')
-
             # Sort and reverse indexes for updating records that out
             # filtered after updating
-            rindexes = sorted(indexes, key=operator.methodcaller('row'),
-                              reverse=True)
-            for index in rindexes:
-                progressDlg.step()
-                if progressDlg.wasCanceled():
-                    break
+            rows.sort(reverse=True)
+            self.model().setMultiRecord(multiRecord, dialog.getUsedFields(), rows, parent=self)
 
-                record = self.model().record(index.row())
-                for i in range(multiRecord.count()):
-                    if usedFields[i] == Qt.Checked:
-                        record.setValue(i, multiRecord.value(i))
-                cur_tags = record.value('tags')
-                for tag_id, state in new_tags.items():
-                    if state == Qt.Checked:
-                        if tag_id not in cur_tags:
-                            cur_tags.append(tag_id)
-                    elif state == Qt.Unchecked:
-                        if tag_id in cur_tags:
-                            cur_tags.remove(tag_id)
-                record.setValue('tags', cur_tags)
-                self.model().setRecord(index.row(), record)
-
-            progressDlg.setLabelText(
-                QApplication.translate('BaseTableView', "Saving..."))
-            self.model().submitAll()
-
-            progressDlg.reset()
         dialog.deleteLater()
 
     def _copy(self, indexes=None):
