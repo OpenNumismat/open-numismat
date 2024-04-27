@@ -2204,11 +2204,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Make autobackup</source>
-        <translation>Прави автоматично резервно копие</translation>
+        <translation>Автоматично създаване на резервно копие</translation>
     </message>
     <message>
         <source>Coin changes before autobackup</source>
-        <translation>Промени в монетите преди автоматичното резервно копие</translation>
+        <translation>Променени брой записи преди автоматичното резервно копие</translation>
     </message>
     <message>
         <source>Send error info to author</source>
