@@ -404,6 +404,36 @@ class CollectionModel(QSqlTableModel):
 
         return record
 
+    # Fill multi record for editing
+    def multiRecord(self, rows=None):
+        if not rows:
+            rows = range(self.rowCount())
+
+        multiRecord = self.record(rows[0])
+        tags = {}
+        for tag_id in multiRecord.value('tags'):
+            tags[tag_id] = Qt.Checked
+        usedFields = [Qt.Checked] * multiRecord.count()
+        for i in rows[1:]:
+            record = self.record(i)
+
+            tags_diff = set(tags).symmetric_difference(record.value('tags'))
+            for tag_id in tags_diff:
+                tags[tag_id] = Qt.PartiallyChecked
+
+            for j in range(multiRecord.count()):
+                field = record.field(j)
+                if field.name() == 'tags':
+                    usedFields[j] = Qt.Unchecked
+                else:
+                    value = field.value()
+                    if multiRecord.value(j) != value or not value:
+                        multiRecord.setNull(j)
+                        usedFields[j] = Qt.Unchecked
+        multiRecord.setValue('tags', tags)
+
+        return multiRecord, usedFields
+
     def removeRow(self, row):
         record = super().record(row)
 

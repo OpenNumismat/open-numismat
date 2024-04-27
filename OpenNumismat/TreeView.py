@@ -414,29 +414,7 @@ class TreeView(QTreeWidget):
         self.model.setFilter('')
         self.changingEnabled = True
 
-        # Fill multi record for editing
-        multiRecord = self.model.record(0)
-        tags = {}
-        for tag_id in multiRecord.value('tags'):
-            tags[tag_id] = Qt.Checked
-        usedFields = [Qt.Checked] * multiRecord.count()
-        for i in range(self.model.rowCount()):
-            record = self.model.record(i)
-
-            tags_diff = set(tags).symmetric_difference(record.value('tags'))
-            for tag_id in tags_diff:
-                tags[tag_id] = Qt.PartiallyChecked
-
-            for j in range(multiRecord.count()):
-                field = record.field(j)
-                if field.name() == 'tags':
-                    usedFields[j] = Qt.Unchecked
-                else:
-                    value = field.value()
-                    if multiRecord.value(j) != value or not value:
-                        multiRecord.setNull(j)
-                        usedFields[j] = Qt.Unchecked
-        multiRecord.setValue('tags', tags)
+        multiRecord, usedFields = self.model.multiRecord()
 
         # TODO: Make identical with ListView._multiEdit
         dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)

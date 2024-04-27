@@ -352,29 +352,10 @@ class BaseTableView(QTableView):
         if not indexes:
             indexes = self.selectedCoins()
 
-        # Fill multi record for editing
-        multiRecord = self.model().record(indexes[0].row())
-        tags = {}
-        for tag_id in multiRecord.value('tags'):
-            tags[tag_id] = Qt.Checked
-        usedFields = [Qt.Checked] * multiRecord.count()
+        rows = []
         for index in indexes:
-            record = self.model().record(index.row())
-
-            tags_diff = set(tags).symmetric_difference(record.value('tags'))
-            for tag_id in tags_diff:
-                tags[tag_id] = Qt.PartiallyChecked
-
-            for j in range(multiRecord.count()):
-                field = record.field(j)
-                if field.name() == 'tags':
-                    usedFields[j] = Qt.Unchecked
-                else:
-                    value = field.value()
-                    if multiRecord.value(j) != value or not value:
-                        multiRecord.setNull(j)
-                        usedFields[j] = Qt.Unchecked
-        multiRecord.setValue('tags', tags)
+            rows.append(index.row())
+        multiRecord, usedFields = self.model().multiRecord(rows)
 
         dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
         result = dialog.exec_()
