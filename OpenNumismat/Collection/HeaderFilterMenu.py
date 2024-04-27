@@ -129,16 +129,10 @@ class FilterMenuButton(QPushButton):
                 item.setData(Qt.DisplayRole, label)
                 item.setData(Qt.UserRole, data)
                 item.setData(Qt.UserRole + 1, orig_data)
-                if data in appliedValues:
-                    if revert:
-                        item.setCheckState(Qt.Checked)
-                    else:
-                        item.setCheckState(Qt.Unchecked)
+                if (data in appliedValues) ^ revert:
+                    item.setCheckState(Qt.Unchecked)
                 else:
-                    if revert:
-                        item.setCheckState(Qt.Unchecked)
-                    else:
-                        item.setCheckState(Qt.Checked)
+                    item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
@@ -192,16 +186,10 @@ class FilterMenuButton(QPushButton):
                 icon = statusIcon(value)
                 item.setIcon(icon)
 
-                if value in appliedValues:
-                    if revert:
-                        item.setCheckState(Qt.Checked)
-                    else:
-                        item.setCheckState(Qt.Unchecked)
+                if (value in appliedValues) ^ revert:
+                    item.setCheckState(Qt.Unchecked)
                 else:
-                    if revert:
-                        item.setCheckState(Qt.Unchecked)
-                    else:
-                        item.setCheckState(Qt.Checked)
+                    item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
@@ -229,16 +217,10 @@ class FilterMenuButton(QPushButton):
                 item.setData(Qt.DisplayRole, label)
                 item.setData(Qt.UserRole, data)
                 item.setData(Qt.UserRole + 1, orig_data)
-                if data in appliedValues:
-                    if revert:
-                        item.setCheckState(Qt.Checked)
-                    else:
-                        item.setCheckState(Qt.Unchecked)
+                if (data in appliedValues) ^ revert:
+                    item.setCheckState(Qt.Unchecked)
                 else:
-                    if revert:
-                        item.setCheckState(Qt.Unchecked)
-                    else:
-                        item.setCheckState(Qt.Checked)
+                    item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
@@ -267,16 +249,10 @@ class FilterMenuButton(QPushButton):
                 item.setData(Qt.UserRole, data)
                 if icon:
                     item.setIcon(icon)
-                if data in appliedValues:
-                    if revert:
-                        item.setCheckState(Qt.Checked)
-                    else:
-                        item.setCheckState(Qt.Unchecked)
+                if (data in appliedValues) ^ revert:
+                    item.setCheckState(Qt.Unchecked)
                 else:
-                    if revert:
-                        item.setCheckState(Qt.Unchecked)
-                    else:
-                        item.setCheckState(Qt.Checked)
+                    item.setCheckState(Qt.Checked)
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
