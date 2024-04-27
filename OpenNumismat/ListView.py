@@ -340,8 +340,7 @@ class BaseTableView(QTableView):
         dialog = EditCoinDialog(self.model(), record, self)
         result = dialog.exec_()
         if result == QDialog.Accepted:
-            updatedRecord = dialog.record
-            self.model().setRecord(index.row(), updatedRecord)
+            self.model().setRecord(index.row(), record)
             self.model().submitAll()
 
             if record_id == self.model().record(index.row()).value('id'):
