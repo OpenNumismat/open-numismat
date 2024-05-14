@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtCore import Qt, QCollator, QLocale, QEvent
 from PySide6.QtWidgets import (
@@ -11,11 +13,17 @@ from PySide6.QtWidgets import (
 
 from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.CustomizeTreeDialog import CustomizeTreeDialog
-from OpenNumismat.Tools import Gui
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction, compareYears
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Settings import Settings
+
+
+@dataclass(slots=True)
+class ChildItem():
+    label: str
+    datas: list
+    filters: list
 
 
 class YearTreeWidgetItem(QTreeWidgetItem):
@@ -153,7 +161,7 @@ class TreeView(QTreeWidget):
             return self.tr("Other")
 
     def __processChilds(self, parent_fields, cur_fields, filters):
-        result = {}
+        child_items = {}
 
         sql_fields = ','.join(cur_fields + parent_fields)
         sql = f"SELECT DISTINCT {sql_fields} FROM coins"
@@ -162,6 +170,10 @@ class TreeView(QTreeWidget):
         query = QSqlQuery(sql, self.db)
         while query.next():
             record = query.record()
+
+            label = self.__record2label(record, parent_fields)
+            if label not in child_items:
+                child_items[label] = []
 
             child_label = self.__record2label(record, cur_fields)
 
@@ -178,15 +190,10 @@ class TreeView(QTreeWidget):
                 else:
                     child_filters.append(f"ifnull({field},'')=''")
 
-            label = self.__record2label(record, parent_fields)
-            if label in result:
-                result[label][0].append(child_label)
-                result[label][1].append(orig_data)
-                result[label][2].append(child_filters)
-            else:
-                result[label] = ([child_label, ], [orig_data, ], [child_filters, ])
+            child_item = ChildItem(child_label, orig_data, child_filters)
+            child_items[label].append(child_item)
 
-        return result
+        return child_items
 
     def __fillRoot(self, item):
         paramIndex = item.data(0, self.ParamRole)
@@ -196,65 +203,61 @@ class TreeView(QTreeWidget):
         if not fields:
             return
 
-        res = self.__processChilds([], fields, filters)
+        child_items = self.__processChilds([], fields, filters)
 
         label = self.tr("Other")
-        self.__addChilds(item, res, label)
+        self.__addChilds(item, child_items, label)
 
     def __fillChilds(self, item):
         paramIndex = item.data(0, self.ParamRole)
         filters = item.data(0, self.FiltersRole)
 
-        fields1 = self.treeParam.fieldNames(paramIndex)
-        if not fields1:
-            return
-
-        fields = self.treeParam.fieldNames(paramIndex + 1)
+        fields = self.treeParam.fieldNames(paramIndex)
         if not fields:
             return
 
-        res = self.__processChilds(fields1, fields, filters)
+        fields_child = self.treeParam.fieldNames(paramIndex + 1)
+        if not fields_child:
+            return
+
+        child_items = self.__processChilds(fields, fields_child, filters)
 
         for i in range(item.childCount()):
             child = item.child(i)
             if child.childCount() == 0:
-                self.__addChilds(child, res, child.text(0))
+                self.__addChilds(child, child_items, child.text(0))
 
-    def __addChilds(self, item, res, label):
+    def __addChilds(self, item, child_items, label):
         filter_ = item.data(0, self.FiltersRole)
         paramIndex = item.data(0, self.ParamRole)
         fields = self.treeParam.fieldNames(paramIndex)
 
-        cur_labels = res[label][0]
-        cur_value = res[label][1]
-        cur_filters = res[label][2]
-
         hasEmpty = False
-        for i, cur_label in enumerate(cur_labels):
-            if cur_label == self.tr("Other"):
+        for child_item in child_items[label]:
+            if child_item.label == self.tr("Other"):
                 hasEmpty = True
                 continue
 
             if len(fields) == 1 and fields[0] == 'year':
-                child = YearTreeWidgetItem([cur_label, ])
+                child = YearTreeWidgetItem([child_item.label, ])
             else:
-                child = TreeWidgetItem([cur_label, ])
-            child.setData(0, self.SortDataRole, cur_value[i])
+                child = TreeWidgetItem([child_item.label, ])
+            child.setData(0, self.SortDataRole, child_item.datas)
             child.setData(0, self.ParamRole, paramIndex + 1)
             child.setData(0, self.FieldsRole, fields)
 
             combined_filter = []
-            if cur_filters[i]:
-                combined_filter = cur_filters[i]
+            if child_item.filters:
+                combined_filter = child_item.filters
             if filter_:
                 combined_filter.append(filter_)
             newFilters = ' AND '.join(combined_filter)
             child.setData(0, self.FiltersRole, newFilters)
 
             if fields[0] == 'status':
-                icon = statusIcon(cur_value[i][0])
+                icon = statusIcon(child_item.datas[0])
             else:
-                icon = self.reference.getIcon(fields[0], cur_value[i][0])
+                icon = self.reference.getIcon(fields[0], child_item.datas[0])
             if icon:
                 child.setIcon(0, icon)
 
