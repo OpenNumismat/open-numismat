@@ -242,10 +242,6 @@ Close the file and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Updating records</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2271,10 +2267,6 @@ drag-n-drop to add an image)</source>
         <source>Use webcam</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Show splash screen at startup</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -3414,14 +3406,6 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Customize tree...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Updating records</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
