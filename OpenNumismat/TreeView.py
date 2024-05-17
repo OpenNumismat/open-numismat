@@ -29,8 +29,8 @@ class ChildItem():
 class YearTreeWidgetItem(QTreeWidgetItem):
 
     def __lt__(self, other):
-        left = self.data(0, Qt.UserRole + 3)
-        right = other.data(0, Qt.UserRole + 3)
+        left = self.data(0, TreeView.SortDataRole)
+        right = other.data(0, TreeView.SortDataRole)
 
         if not left or not right:
             return super().__lt__(other)
