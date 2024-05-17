@@ -90,7 +90,8 @@ class TreeView(QTreeWidget):
     FiltersRole = Qt.UserRole
     FieldsRole = Qt.UserRole + 1
     ParamRole = Qt.UserRole + 2
-    SortDataRole = Qt.UserRole + 3
+    ParamChildRole = Qt.UserRole + 3
+    SortDataRole = Qt.UserRole + 4
 
     def __init__(self, treeParam, parent=None):
         super().__init__(parent)
@@ -123,6 +124,7 @@ class TreeView(QTreeWidget):
         self.treeParam.rootTitle = model.title
         rootItem = QTreeWidgetItem([model.title, ])
         rootItem.setData(0, self.ParamRole, 0)
+        rootItem.setData(0, self.ParamChildRole, 1)
         rootItem.setData(0, self.FiltersRole, '')
 
         self.addTopLevelItem(rootItem)
@@ -195,6 +197,30 @@ class TreeView(QTreeWidget):
 
         return child_items
 
+    def __isEmptyChilds(self, child_items):
+        if len(child_items) == 0 or \
+                (len(child_items[self.tr("Other")]) == 1 and \
+                 child_items[self.tr("Other")][0].label == self.tr("Other")):
+            return True
+        elif len(child_items) == 0 or \
+                (len(child_items[self.tr("Other")]) == 2 and \
+                 child_items[self.tr("Other")][0].label == self.tr("Other") and \
+                 child_items[self.tr("Other")][1].label == self.tr("Other")):
+            return True
+        else:
+            return False
+
+    def __isEmptyChild(self, child_items):
+        if len(child_items) == 1 and \
+                child_items[0].label == self.tr("Other"):
+            return True
+        elif len(child_items) == 2 and \
+                child_items[0].label == self.tr("Other") and \
+                child_items[1].label == self.tr("Other"):
+            return True
+        else:
+            return False
+
     def __fillRoot(self, item):
         paramIndex = item.data(0, self.ParamRole)
         filters = item.data(0, self.FiltersRole)
@@ -204,11 +230,23 @@ class TreeView(QTreeWidget):
             return
 
         child_items = self.__processChilds([], fields, filters)
+        if self.__isEmptyChilds(child_items):
+            paramIndex += 1
+            item.setData(0, self.ParamRole, paramIndex)
+            item.setData(0, self.ParamChildRole, paramIndex + 1)
+
+            self.__fillRoot(item)
+            return
 
         label = self.tr("Other")
-        self.__addChilds(item, child_items, label)
+        self.__addChilds(item, child_items[label])
 
     def __fillChilds(self, item):
+        paramChildIndex = item.data(0, self.ParamChildRole)
+
+        self.__fillChilds1(item, paramChildIndex)
+
+    def __fillChilds1(self, item, paramChildIndex):
         paramIndex = item.data(0, self.ParamRole)
         filters = item.data(0, self.FiltersRole)
 
@@ -216,24 +254,39 @@ class TreeView(QTreeWidget):
         if not fields:
             return
 
-        fields_child = self.treeParam.fieldNames(paramIndex + 1)
+        fields_child = self.treeParam.fieldNames(paramChildIndex)
         if not fields_child:
             return
 
         child_items = self.__processChilds(fields, fields_child, filters)
 
+        good_children = []
+        bad_children = []
+        for child_label, child in child_items.items():
+            if not self.__isEmptyChild(child):
+                good_children.append(child_label)
+            else:
+                bad_children.append(child_label)
+
         for i in range(item.childCount()):
             child = item.child(i)
-            if child.childCount() == 0:
-                self.__addChilds(child, child_items, child.text(0))
+            child_label = child.text(0)
+            if child.childCount() == 0 and child_label in good_children:
+                child.setData(0, self.ParamRole, paramChildIndex)
+                child.setData(0, self.ParamChildRole, paramChildIndex + 1)
+                self.__addChilds(child, child_items[child_label])
 
-    def __addChilds(self, item, child_items, label):
+        if bad_children:
+            self.__fillChilds1(item, paramChildIndex + 1)
+
+    def __addChilds(self, item, child_items):
         filter_ = item.data(0, self.FiltersRole)
         paramIndex = item.data(0, self.ParamRole)
+        paramChildIndex = item.data(0, self.ParamChildRole)
         fields = self.treeParam.fieldNames(paramIndex)
 
         hasEmpty = False
-        for child_item in child_items[label]:
+        for child_item in child_items:
             if child_item.label == self.tr("Other"):
                 hasEmpty = True
                 continue
@@ -243,7 +296,8 @@ class TreeView(QTreeWidget):
             else:
                 child = TreeWidgetItem([child_item.label, ])
             child.setData(0, self.SortDataRole, child_item.datas)
-            child.setData(0, self.ParamRole, paramIndex + 1)
+            child.setData(0, self.ParamRole, paramChildIndex)
+            child.setData(0, self.ParamChildRole, paramChildIndex + 1)
             child.setData(0, self.FieldsRole, fields)
 
             combined_filter = []
@@ -271,15 +325,15 @@ class TreeView(QTreeWidget):
 
         item.sortChildren(0, Qt.AscendingOrder)
 
-#        if hasEmpty and len(fields) == 1 and item.childCount() > 0:
-        if hasEmpty and len(fields) == 1:
+        if hasEmpty and len(fields) == 1 and item.childCount() > 0:
             text = self.tr("Other")
             newFilters = f"ifnull({fields[0]},'')=''"
             if filter_:
                 newFilters = f"{filter_} AND {newFilters}"
 
             child = QTreeWidgetItem([text, ])
-            child.setData(0, self.ParamRole, paramIndex + 1)
+            child.setData(0, self.ParamRole, paramChildIndex)
+            child.setData(0, self.ParamChildRole, paramChildIndex + 1)
             child.setData(0, self.FiltersRole, newFilters)
             child.setData(0, self.FieldsRole, fields)
             item.addChild(child)
@@ -289,11 +343,6 @@ class TreeView(QTreeWidget):
                 self.currentItemChanged.disconnect(self.itemActivatedEvent)
                 self.setCurrentItem(child)
                 self.currentItemChanged.connect(self.itemActivatedEvent)
-
-        # TODO: Skip when only Other
-        # Recursion for next field if nothing selected
-#        if item.childCount() == 0:
-#            self.__fillChilds(item, paramIndex + 1)
 
     def collapsedEvent(self, _parentItem):
         self.resizeColumnToContents(0)
