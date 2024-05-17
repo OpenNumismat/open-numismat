@@ -242,10 +242,6 @@ Close the file and try again.</source>
 Закройте файл и повторите.</translation>
     </message>
     <message>
-        <source>Updating records</source>
-        <translation>Обновление записей</translation>
-    </message>
-    <message>
         <source>Saving...</source>
         <translation>Сохранение...</translation>
     </message>
@@ -3429,14 +3425,6 @@ Add a new one first.</source>
     <message>
         <source>Customize tree...</source>
         <translation>Настроить дерево...</translation>
-    </message>
-    <message>
-        <source>Updating records</source>
-        <translation>Обновление записей</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
     </message>
 </context>
 <context>
