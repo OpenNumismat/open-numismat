@@ -242,10 +242,6 @@ Close the file and try again.</source>
 Feche o ficheiro e tente novamente.</translation>
     </message>
     <message>
-        <source>Updating records</source>
-        <translation>A actualizar registos</translation>
-    </message>
-    <message>
         <source>Saving...</source>
         <translation>A gravar...</translation>
     </message>
@@ -2282,10 +2278,6 @@ arraste e largue para adicionar)</translation>
         <source>Use webcam</source>
         <translation>Utilizar a câmara</translation>
     </message>
-    <message>
-        <source>Show splash screen at startup</source>
-        <translation>Mostrar ecrã de logótipo no arranque</translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -3433,14 +3425,6 @@ Adicione uma nova primeiro.</translation>
     <message>
         <source>Customize tree...</source>
         <translation>Personalizar árvore...</translation>
-    </message>
-    <message>
-        <source>Updating records</source>
-        <translation>A actualizar registos</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
