@@ -198,17 +198,10 @@ class TreeView(QTreeWidget):
         return child_items
 
     def __isEmptyChilds(self, child_items):
-        if len(child_items) == 0 or \
-                (len(child_items[self.tr("Other")]) == 1 and \
-                 child_items[self.tr("Other")][0].label == self.tr("Other")):
+        if len(child_items) == 0:
             return True
-        elif len(child_items) == 0 or \
-                (len(child_items[self.tr("Other")]) == 2 and \
-                 child_items[self.tr("Other")][0].label == self.tr("Other") and \
-                 child_items[self.tr("Other")][1].label == self.tr("Other")):
-            return True
-        else:
-            return False
+
+        return self.__isEmptyChild(child_items[self.tr("Other")])
 
     def __isEmptyChild(self, child_items):
         if len(child_items) == 1 and \
@@ -261,12 +254,12 @@ class TreeView(QTreeWidget):
         child_items = self.__processChilds(fields, fields_child, filters)
 
         good_children = []
-        bad_children = []
+        has_empty_children = False
         for child_label, child in child_items.items():
             if not self.__isEmptyChild(child):
                 good_children.append(child_label)
             else:
-                bad_children.append(child_label)
+                has_empty_children = True
 
         for i in range(item.childCount()):
             child = item.child(i)
@@ -276,7 +269,7 @@ class TreeView(QTreeWidget):
                 child.setData(0, self.ParamChildRole, paramChildIndex + 1)
                 self.__addChilds(child, child_items[child_label])
 
-        if bad_children:
+        if has_empty_children:
             self.__fillChilds1(item, paramChildIndex + 1)
 
     def __addChilds(self, item, child_items):
