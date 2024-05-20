@@ -129,10 +129,147 @@ class TreeView(QTreeWidget):
 
         self.addTopLevelItem(rootItem)
 
+    def modelChanged(self):
+        if self.changingEnabled:
+            self.collapseAll()
+            rootItem = self.topLevelItem(0)
+
+            self.currentItemChanged.disconnect(self.itemActivatedEvent)
+            rootItem.takeChildren()  # remove all children
+            self.currentItemChanged.connect(self.itemActivatedEvent)
+
+            self.__fillRoot(rootItem)
+            self.expandItem(rootItem)
+
     def expandedEvent(self, item):
         self.__fillChilds(item)
 
         self.resizeColumnToContents(0)
+
+    def collapsedEvent(self, _parentItem):
+        self.resizeColumnToContents(0)
+
+    def rowChangedEvent(self, current):
+        if self.changingEnabled:
+            if current.isValid():
+                self.collapseAll()
+                self.scrollToIndex(current)
+
+    def scrollToIndex(self, index, parent=None):
+        if not parent:
+            parent = self.topLevelItem(0)
+
+        for i in range(parent.childCount()):
+            subItem = parent.child(i)
+            fields = subItem.data(0, self.FieldsRole)
+            text1 = subItem.text(0)
+            textPart = []
+            for field in fields:
+                index = self.model.index(index.row(),
+                                         self.model.fieldIndex(field))
+                if field in ('status', 'year'):
+                    textPart.append(str(index.data()))
+                else:
+                    val = str(index.data(Qt.UserRole))
+                    if val:
+                        textPart.append(val)
+            text2 = ' '.join(textPart)
+            if text1 == text2 or (not text2 and text1 == self.tr("Other")):
+                self.expandItem(parent)
+                self.scrollToItem(subItem)
+                self.scrollToIndex(index, subItem)
+                break
+
+    def scrollToItem(self, item, hint=QTreeWidget.EnsureVisible):
+        super().scrollToItem(item, hint)
+
+        parentItem = item.parent()
+        if parentItem:
+            itemRect = self.visualItemRect(parentItem)
+            if itemRect.x() < 0:
+                columnWidth = self.columnWidth(0)
+                itemWidth = itemRect.width()
+                self.horizontalScrollBar().setValue(columnWidth - itemWidth)
+            elif self.viewport().width() / 2 < itemRect.x():
+                columnWidth = self.columnWidth(0)
+                itemWidth = itemRect.width()
+                self.horizontalScrollBar().setValue(itemRect.x())
+
+    def itemActivatedEvent(self, current, _previous):
+        if current:
+            self.scrollToItem(current)
+            self.resizeColumnToContents(0)
+
+            self.changingEnabled = False
+            filter_ = current.data(0, self.FiltersRole)
+            self.model.setAdditionalFilter(filter_)
+            self.changingEnabled = True
+
+    def clearSelection(self):
+        super().clearSelection()
+        self.setCurrentItem(None)
+
+    def contextMenuEvent(self, event):
+        menu = QMenu(self)
+        act = menu.addAction(self.tr("Add new coin..."), self._addCoin)
+        if not (self.model.rowCount() and self.selectedItems()):
+            act.setDisabled(True)
+        act = menu.addAction(self.tr("Edit coins..."), self._multiEdit)
+        if not (self.model.rowCount() and self.selectedItems()):
+            act.setDisabled(True)
+        menu.addSeparator()
+        menu.addAction(self.tr("Customize tree..."), self.customizeTree)
+        menu.exec_(self.mapToGlobal(event.pos()))
+
+    def customizeTree(self):
+        dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
+        if dialog.exec_() == QDialog.Accepted:
+            self.treeParam.save()
+            self.modelChanged()
+        dialog.deleteLater()
+
+    def _addCoin(self):
+        self.changingEnabled = False
+        storedFilter = self.model.intFilter
+        # TODO: This change ListView!
+        self.model.setFilter('')
+        self.changingEnabled = True
+
+        newRecord = self.model.record()
+        # Fill new record with values of first record
+        for j in range(newRecord.count()):
+            newRecord.setValue(j, self.model.record(0).value(j))
+        tag_ids = self.model.record(0).value('tags')
+
+        for i in range(self.model.rowCount()):
+            record = self.model.record(i)
+            for j in range(newRecord.count()):
+                value = record.value(j)
+                if newRecord.value(j) != value or not value:
+                    newRecord.setNull(j)
+            tag_ids = list([tag_id for tag_id in tag_ids if tag_id in record.value('tags')])
+        newRecord.setValue('tags', tag_ids)
+
+        self.model.addCoin(newRecord, self)
+
+        self.model.setFilter(storedFilter)
+
+    def _multiEdit(self):
+        self.changingEnabled = False
+        storedFilter = self.model.intFilter
+        self.model.setFilter('')
+        self.changingEnabled = True
+
+        multiRecord, usedFields = self.model.multiRecord()
+
+        # TODO: Make identical with ListView._multiEdit
+        dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
+        result = dialog.exec_()
+        if result == QDialog.Accepted:
+            self.model.setMultiRecord(multiRecord, dialog.getUsedFields(), parent=self)
+
+        dialog.deleteLater()
+        self.model.setFilter(storedFilter)
 
     def __value2label(self, field, text):
         if field == 'status':
@@ -336,140 +473,3 @@ class TreeView(QTreeWidget):
                 self.currentItemChanged.disconnect(self.itemActivatedEvent)
                 self.setCurrentItem(child)
                 self.currentItemChanged.connect(self.itemActivatedEvent)
-
-    def collapsedEvent(self, _parentItem):
-        self.resizeColumnToContents(0)
-
-    def modelChanged(self):
-        if self.changingEnabled:
-            self.collapseAll()
-            rootItem = self.topLevelItem(0)
-
-            self.currentItemChanged.disconnect(self.itemActivatedEvent)
-            rootItem.takeChildren()  # remove all children
-            self.currentItemChanged.connect(self.itemActivatedEvent)
-
-            self.__fillRoot(rootItem)
-            self.expandItem(rootItem)
-
-    def rowChangedEvent(self, current):
-        if self.changingEnabled:
-            if current.isValid():
-                self.collapseAll()
-                self.scrollToIndex(current)
-
-    def scrollToIndex(self, index, parent=None):
-        if not parent:
-            parent = self.topLevelItem(0)
-
-        for i in range(parent.childCount()):
-            subItem = parent.child(i)
-            fields = subItem.data(0, self.FieldsRole)
-            text1 = subItem.text(0)
-            textPart = []
-            for field in fields:
-                index = self.model.index(index.row(),
-                                         self.model.fieldIndex(field))
-                if field in ('status', 'year'):
-                    textPart.append(str(index.data()))
-                else:
-                    val = str(index.data(Qt.UserRole))
-                    if val:
-                        textPart.append(val)
-            text2 = ' '.join(textPart)
-            if text1 == text2 or (not text2 and text1 == self.tr("Other")):
-                self.expandItem(parent)
-                self.scrollToItem(subItem)
-                self.scrollToIndex(index, subItem)
-                break
-
-    def scrollToItem(self, item, hint=QTreeWidget.EnsureVisible):
-        super().scrollToItem(item, hint)
-
-        parentItem = item.parent()
-        if parentItem:
-            itemRect = self.visualItemRect(parentItem)
-            if itemRect.x() < 0:
-                columnWidth = self.columnWidth(0)
-                itemWidth = itemRect.width()
-                self.horizontalScrollBar().setValue(columnWidth - itemWidth)
-            elif self.viewport().width() / 2 < itemRect.x():
-                columnWidth = self.columnWidth(0)
-                itemWidth = itemRect.width()
-                self.horizontalScrollBar().setValue(itemRect.x())
-
-    def itemActivatedEvent(self, current, _previous):
-        if current:
-            self.scrollToItem(current)
-            self.resizeColumnToContents(0)
-
-            self.changingEnabled = False
-            filter_ = current.data(0, self.FiltersRole)
-            self.model.setAdditionalFilter(filter_)
-            self.changingEnabled = True
-
-    def contextMenuEvent(self, event):
-        menu = QMenu(self)
-        act = menu.addAction(self.tr("Add new coin..."), self._addCoin)
-        if not (self.model.rowCount() and self.selectedItems()):
-            act.setDisabled(True)
-        act = menu.addAction(self.tr("Edit coins..."), self._multiEdit)
-        if not (self.model.rowCount() and self.selectedItems()):
-            act.setDisabled(True)
-        menu.addSeparator()
-        menu.addAction(self.tr("Customize tree..."), self.customizeTree)
-        menu.exec_(self.mapToGlobal(event.pos()))
-
-    def customizeTree(self):
-        dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
-        if dialog.exec_() == QDialog.Accepted:
-            self.treeParam.save()
-            self.modelChanged()
-        dialog.deleteLater()
-
-    def _addCoin(self):
-        self.changingEnabled = False
-        storedFilter = self.model.intFilter
-        # TODO: This change ListView!
-        self.model.setFilter('')
-        self.changingEnabled = True
-
-        newRecord = self.model.record()
-        # Fill new record with values of first record
-        for j in range(newRecord.count()):
-            newRecord.setValue(j, self.model.record(0).value(j))
-        tag_ids = self.model.record(0).value('tags')
-
-        for i in range(self.model.rowCount()):
-            record = self.model.record(i)
-            for j in range(newRecord.count()):
-                value = record.value(j)
-                if newRecord.value(j) != value or not value:
-                    newRecord.setNull(j)
-            tag_ids = list([tag_id for tag_id in tag_ids if tag_id in record.value('tags')])
-        newRecord.setValue('tags', tag_ids)
-
-        self.model.addCoin(newRecord, self)
-
-        self.model.setFilter(storedFilter)
-
-    def _multiEdit(self):
-        self.changingEnabled = False
-        storedFilter = self.model.intFilter
-        self.model.setFilter('')
-        self.changingEnabled = True
-
-        multiRecord, usedFields = self.model.multiRecord()
-
-        # TODO: Make identical with ListView._multiEdit
-        dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
-            self.model.setMultiRecord(multiRecord, dialog.getUsedFields(), parent=self)
-
-        dialog.deleteLater()
-        self.model.setFilter(storedFilter)
-
-    def clearSelection(self):
-        super().clearSelection()
-        self.setCurrentItem(None)
