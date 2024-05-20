@@ -138,6 +138,9 @@ class TreeView(QTreeWidget):
             rootItem.takeChildren()  # remove all children
             self.currentItemChanged.connect(self.itemActivatedEvent)
 
+            rootItem.setData(0, self.ParamRole, 0)
+            rootItem.setData(0, self.ParamChildRole, 1)
+            rootItem.setData(0, self.FiltersRole, '')
             self.__fillRoot(rootItem)
             self.expandItem(rootItem)
 
