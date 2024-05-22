@@ -940,7 +940,7 @@ class MainWindow(QMainWindow):
         dlg.deleteLater()
 
     def referencesGenerator(self):
-        self._openUrl("http://opennumismat.github.io/references/")
+        self._openUrl("https://opennumismat.github.io/references/")
 
     def about(self):
         QMessageBox.about(self, self.tr("About %s") % version.AppName,
@@ -950,7 +950,7 @@ class MainWindow(QMainWindow):
                         version.AppName)
 
     def onlineHelp(self):
-        self._openUrl("http://opennumismat.github.io/open-numismat/manual.html")
+        self._openUrl("https://opennumismat.github.io/open-numismat/manual.html")
 
     def visitWeb(self):
         self._openUrl(version.Web)
@@ -1001,7 +1001,7 @@ class MainWindow(QMainWindow):
         from xml.dom.minidom import parseString
 
         try:
-            url = "http://opennumismat.github.io/data/pad.xml"
+            url = "https://opennumismat.github.io/data/pad.xml"
             req = urllib.request.Request(url)
             data = urllib.request.urlopen(req, timeout=2).read()
             xml = parseString(data)

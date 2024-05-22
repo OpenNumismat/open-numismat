@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# This file is part of OpenNumismat (http://opennumismat.github.io/).
+# This file is part of OpenNumismat (https://opennumismat.github.io/).
 #
 # OpenNumismat is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with OpenNumismat; If not, see <http://www.gnu.org/licenses/>.
+# along with OpenNumismat; If not, see <https://www.gnu.org/licenses/>.
 
 
 ###############################################################################
@@ -46,7 +46,7 @@ Main features:
   Latvian, Swedish, Persian
 - Cross-platform: Windows, Linux, MacOS X
 
-.. image:: http://opennumismat.github.io/images/screenMain.png
+.. image:: https://opennumismat.github.io/images/screenMain.png
 
 OpenNumismat based on PyQt framework with SQLite database engine to store data
 collection.
@@ -96,7 +96,7 @@ params = {
     "author_email": 'opennumismat@gmail.com',
     "description": 'OpenNumismat',
     "long_description": __doc__,
-    "url": 'http://opennumismat.github.io/',
+    "url": 'https://opennumismat.github.io/',
     "license": "GPLv3",
     "keywords": "numismatics, coins, qt, pyqt, collecting, cataloging",
     "classifiers": [

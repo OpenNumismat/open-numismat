@@ -9,7 +9,7 @@
 
 
 # OpenNumismat
-http://opennumismat.github.io/
+https://opennumismat.github.io/
 
 OpenNumismat, is intended primarily for registering a collection of coins. But
 it is also suitable for other types of collectibles - stamps, postcards, badges
@@ -18,7 +18,7 @@ and more exotic things.
 Since all components are cross-platform, then OpenNumismat has builds for
 Windows, Linux (Debian/Ubuntu), macOS.
 
-![Main window](http://opennumismat.github.io/images/screenMain.png)
+![Main window](https://opennumismat.github.io/images/screenMain.png)
 
 ## Requirements
 Main Windows version based on:

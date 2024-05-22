@@ -1,6 +1,6 @@
-Format: http://dep.debian.net/deps/dep5
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: open-numismat
-Source: http://opennumismat.github.io/
+Source: https://opennumismat.github.io/
 
 Files: *
 Copyright: 2011-2024 Vitaly Ignatov <opennumismat@gmail.com>
@@ -18,7 +18,7 @@ License: GPL-3.0+
  GNU General Public License for more details.
  .
  You should have received a copy of the GNU General Public License
- along with this program. If not, see <http://www.gnu.org/licenses/>.
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
  .
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".

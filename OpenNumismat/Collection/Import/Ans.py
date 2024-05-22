@@ -245,7 +245,7 @@ class AnsDialog(QDialog):
 
         mainLabel = QLabel(self.tr(
             "Catalog information courtesy of"
-            " the <a href=\"http://numismatics.org/search/\">"
+            " the <a href=\"https://numismatics.org/search/\">"
             "American Numismatic Society</a> collections database."))
         mainLabel.setTextFormat(Qt.RichText)
         mainLabel.setTextInteractionFlags(Qt.TextBrowserInteraction)
@@ -258,7 +258,7 @@ class AnsDialog(QDialog):
             "All images of objects produced on or before 1925 are in the"
             " <a href=\"https://creativecommons.org/choose/mark/\">"
             "Public Domain</a>. Others are available for Non-Commercial purposes."
-            " <a href=\"http://numismatics.org/photography-permissions/\">Policy</a>."))
+            " <a href=\"https://numismatics.org/collections/photography-permissions/\">Policy</a>."))
         licenseLabel.setTextFormat(Qt.RichText)
         licenseLabel.setTextInteractionFlags(Qt.TextBrowserInteraction)
         licenseLabel.setOpenExternalLinks(True)

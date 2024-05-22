@@ -148,7 +148,7 @@ def exceptHook(type_, value, tback):
         errorMessage.append('')
         errorMessage.append(stack)
 
-        url = QUrl('http://opennumismat.idea.informer.com/proj/')
+        url = QUrl('https://opennumismat.idea.informer.com/proj/')
         query = QUrlQuery()
         query.addQueryItem('mod', 'add')
         query.addQueryItem('cat', '3')

@@ -11,7 +11,7 @@
   <metadata_license>FTL</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <launchable type="desktop-id">org.opennumismat.OpenNumismat.desktop</launchable>
-  <url type="homepage">http://opennumismat.github.io/</url>
+  <url type="homepage">https://opennumismat.github.io/</url>
   <update_contact>opennumismat@gmail.com</update_contact>
   <content_rating type="oars-1.1"/>
   <screenshots>

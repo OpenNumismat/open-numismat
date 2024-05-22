@@ -455,7 +455,7 @@ class BaseTableView(QTableView):
         elif mime.hasText():
             # Load data stored by another application (Excel)
             # TODO: Process fields with \n and \t
-            # http://docs.python.org/3.2/library/csv.html#csv.excel_tab
+            # https://docs.python.org/3.2/library/csv.html#csv.excel_tab
             textData = clipboard.text().split('\n')
             for progress, recordData in enumerate(textData):
                 if progressDlg:

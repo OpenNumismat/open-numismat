@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# This file is part of OpenNumismat (http://opennumismat.github.io/).
+# This file is part of OpenNumismat (https://opennumismat.github.io/).
 #
 # OpenNumismat is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with OpenNumismat; If not, see <http://www.gnu.org/licenses/>.
+# along with OpenNumismat; If not, see <https://www.gnu.org/licenses/>.
 
 if __name__ == "__main__":
     from OpenNumismat import run

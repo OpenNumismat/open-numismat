@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Vitaly Ignatov <opennumismat@gmail.com>
 Build-Depends: debhelper (>= 10), python3, dh-python, dh-virtualenv
 Standards-Version: 4.0.0
-Homepage: http://opennumismat.github.io/
+Homepage: https://opennumismat.github.io/
 
 Package: open-numismat
 Architecture: all
