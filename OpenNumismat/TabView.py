@@ -217,8 +217,8 @@ class TabView(QTabWidget):
 
         settings = self.collection.settings
         self.setCurrentIndex(settings['current_page'])
-        if self.count() == 1:
-            self.activatedPage(0)
+        if settings['current_page'] == self.count() - 1:
+            self.activatedPage(settings['current_page'])
 
         # If no pages exists => create default page
         if self.count() == 0:
