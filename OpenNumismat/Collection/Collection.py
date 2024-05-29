@@ -858,16 +858,12 @@ class CollectionSettings(BaseSettings):
             record = query.record()
             title = record.value('title')
             if title in self.keys():
-                if title in ('Version', 'ImageSideLen', 'colnect_country',
-                             'stars_count', 'current_page'):
+                default_value_type = type(self.Default[title])
+                if default_value_type == int:
                     value = int(record.value('value'))
-                elif title in ('image_height',):
+                elif default_value_type == float:
                     value = float(record.value('value'))
-                elif title in ('free_numeric', 'convert_fraction',
-                               'images_at_bottom', 'enable_bc', 'rich_text',
-                               'relative_url', 'axis_in_hours', 'tags_used'):
-                    value = record.value('value').lower() in ('true', '1')
-                elif '_status_used' in title:
+                elif default_value_type == bool:
                     value = record.value('value').lower() in ('true', '1')
                 else:
                     value = record.value('value')

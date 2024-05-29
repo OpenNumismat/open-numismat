@@ -110,46 +110,13 @@ class Settings(BaseSettings):
         return self.Default.keys()
 
     def _getValue(self, key):
-        if key in (
-            'error',
-            'updates',
-            'autobackup',
-            'colnect_skip_currency',
-            'ans_split_denomination',
-            'ans_locale_en',
-            'ans_trim_title',
-            'built_in_viewer',
-            'numista_split_denomination',
-            'use_blaf_palette',
-            'multicolor_chart',
-            'show_chart_legend',
-            'nice_years_chart',
-            'use_webcam',
-        ):
-            value = self.settings.value('mainwindow/' + key, self.Default[key],
-                                        type=bool)
-        elif key in (
-            'images_by_default',
-            'autobackup_depth',
-            'speedup',
-            'map_type',
-            'font_size',
-            'chart_theme',
-            'chart_legend_pos',
-        ):
-            value = self.settings.value('mainwindow/' + key, self.Default[key],
-                                        type=int)
-        elif key in (
-            'transparent_color',
-        ):
-            value = self.settings.value('mainwindow/' + key, self.Default[key],
-                                        type=QColor)
-        else:
-            value = self.settings.value('mainwindow/' + key, self.Default[key])
+        default_value_type = type(self.Default[key])
+        value = self.settings.value('mainwindow/' + key, self.Default[key],
+                                    type=default_value_type)
 
-            if key == 'template':
-                if not os.path.isdir(value):
-                    value = self.default_template
+        if key == 'template':
+            if not os.path.isdir(value):
+                value = self.default_template
 
         return value
 
