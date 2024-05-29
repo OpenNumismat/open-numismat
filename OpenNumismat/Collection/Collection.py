@@ -843,6 +843,7 @@ class CollectionSettings(BaseSettings):
             'axis_in_hours': False,
             'stars_count': 10,
             'tags_used': True,
+            'current_page': 0,
     }
 
     def __init__(self, db):
@@ -858,7 +859,7 @@ class CollectionSettings(BaseSettings):
             title = record.value('title')
             if title in self.keys():
                 if title in ('Version', 'ImageSideLen', 'colnect_country',
-                             'stars_count'):
+                             'stars_count', 'current_page'):
                     value = int(record.value('value'))
                 elif title in ('image_height',):
                     value = float(record.value('value'))

@@ -510,11 +510,6 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.viewTab)
 
-        settings = QSettings()
-        pageIndex = settings.value('tabwindow/page', 0)
-        if pageIndex is not None:
-            self.viewTab.setCurrentIndex(int(pageIndex))
-
     def createStatusBar(self):
         self.collectionFileLabel = QLabel()
         self.statusBar().addWidget(self.collectionFileLabel)
@@ -911,10 +906,6 @@ class MainWindow(QMainWindow):
         self.__saveParams()
 
         settings = QSettings()
-
-        if self.collection.fileName:
-            # Save latest opened page
-            settings.setValue('tabwindow/page', self.viewTab.currentIndex())
 
         # Save main window size
         settings.setValue('mainwindow/geometry', self.saveGeometry())

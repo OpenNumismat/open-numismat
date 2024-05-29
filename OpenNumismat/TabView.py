@@ -215,7 +215,8 @@ class TabView(QTabWidget):
 
         self.currentChanged.connect(self.activatedPage)
 
-        self.setCurrentIndex(0)
+        settings = self.collection.settings
+        self.setCurrentIndex(settings['current_page'])
         if self.count() == 1:
             self.activatedPage(0)
 
@@ -318,6 +319,11 @@ class TabView(QTabWidget):
             self.collection.pages().savePositions(pages)
 
             self.__pages_changed = False
+
+        # Save latest opened page
+        settings = self.collection.settings
+        settings['current_page'] = self.currentIndex()
+        settings.save()
 
     def openPage(self, pageParam):
         pageView = self.__createPage(pageParam)
