@@ -1,4 +1,6 @@
 import os.path
+import sys
+import uuid
 
 from PySide6.QtCharts import QChart
 from PySide6.QtCore import Qt, QLocale, QSettings
@@ -67,6 +69,28 @@ def _getLocale():
         return locale
 
 
+def _getUuid():
+    if sys.platform == 'win32':
+        try:
+            import winreg
+
+            key = r'SOFTWARE\Microsoft\Cryptography'
+            hkey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key)
+            value = winreg.QueryValueEx(hkey, 'MachineGuid')[0]
+            winreg.CloseKey(hkey)
+            return value
+        except:
+            pass
+    elif sys.platform.startswith('linux'):
+        try:
+            with open('/var/lib/dbus/machine-id') as f:
+                return f.read().strip()
+        except:
+            pass
+
+    return str(uuid.uuid1())
+
+
 class Settings(BaseSettings):
     default_template = os.path.join(OpenNumismat.PRJ_PATH, 'templates', 'full')
     Default = {
@@ -99,6 +123,7 @@ class Settings(BaseSettings):
         'nice_years_chart': False,
         'transparent_color': QColor(Qt.white),
         'use_webcam': True,
+        'UUID': _getUuid().replace('-', ''),
     }
 
     def __init__(self, autoSave=False):

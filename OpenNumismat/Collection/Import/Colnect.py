@@ -49,6 +49,7 @@ class ColnectConnector(QObject):
         self.cache = Cache()
         self.skip_currency = Settings()['colnect_skip_currency']
         self.lang = Settings()['colnect_locale']
+        self.uuid = Settings()['UUID']
 
     def makeItem(self, category, data, record):
         fields = self.getFields(category)
@@ -166,7 +167,7 @@ class ColnectConnector(QObject):
 
     @waitCursorDecorator
     def getFields(self, category):
-        url = "https://%s/en/api/%s/fields/cat/%s" % (COLNECT_PROXY, COLNECT_KEY, category)
+        url = f"{COLNECT_PROXY}/{self.uuid}/en/api/{COLNECT_KEY}/fields/cat/{category}"
 
         raw_data = self.cache.get(url)
         if raw_data:
@@ -238,7 +239,7 @@ class ColnectConnector(QObject):
         return name
 
     def _baseUrl(self):
-        url = "https://%s/%s/api/%s/" % (COLNECT_PROXY, self.lang, COLNECT_KEY)
+        url = f"{COLNECT_PROXY}/{self.uuid}/{self.lang}/api/{COLNECT_KEY}/"
         return url
 
     def _makeQuery(self, category, country=None, series=None,
