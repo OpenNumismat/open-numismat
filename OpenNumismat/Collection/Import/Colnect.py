@@ -2,7 +2,7 @@ import csv
 import io
 import json
 import re
-import urllib.request
+import urllib3
 from socket import timeout
 
 from PySide6.QtCore import Qt, QObject
@@ -46,6 +46,11 @@ class ColnectConnector(QObject):
     def __init__(self, parent):
         super().__init__(parent)
 
+        urllib3.disable_warnings()
+        self.http = urllib3.PoolManager(num_pools=2,
+                                        headers={'User-Agent': version.AppName},
+                                        timeout=urllib3.Timeout(connect=5.0, read=10.0),
+                                        cert_reqs="CERT_NONE")
         self.cache = Cache()
         self.skip_currency = Settings()['colnect_skip_currency']
         self.lang = Settings()['colnect_locale']
@@ -175,9 +180,8 @@ class ColnectConnector(QObject):
             return data
 
         try:
-            req = urllib.request.Request(url,
-                                    headers={'User-Agent': version.AppName})
-            raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+            resp = self.http.request("GET", url)
+            raw_data = resp.data.decode()
         except timeout:
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect proxy-server not response"))
@@ -206,9 +210,8 @@ class ColnectConnector(QObject):
                 return data
 
         try:
-            req = urllib.request.Request(url,
-                                    headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req, timeout=30).read()
+            resp = self.http.request("GET", url, timeout=30.0)
+            data = resp.data
         except:
             return None
 
@@ -279,9 +282,8 @@ class ColnectConnector(QObject):
             return data
 
         try:
-            req = urllib.request.Request(url,
-                                    headers={'User-Agent': version.AppName})
-            raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+            resp = self.http.request("GET", url)
+            raw_data = resp.data.decode()
         except timeout:
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect proxy-server not response"))
@@ -301,8 +303,8 @@ class ColnectConnector(QObject):
             self.cache.set(url, '[]')
             return []
 
-        data = json.loads(raw_data)
-        self.cache.set(url, raw_data)
+        data = json.loads(raw_data)  # resp.json()
+        self.cache.set(url, raw_data)  # self.cache.set(url, json.dumps(data, ensure_ascii=False))
 
         return data
 
