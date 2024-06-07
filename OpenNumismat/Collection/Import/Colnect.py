@@ -39,6 +39,9 @@ except ImportError:
     print('Importing from Colnect not available')
     colnectAvailable = False
 
+CONNECTION_TIMEOUT = 5
+MAX_ITEMS = 100
+
 
 class ColnectConnector(QObject):
 
@@ -46,9 +49,11 @@ class ColnectConnector(QObject):
         super().__init__(parent)
 
         urllib3.disable_warnings()
+        timeout = urllib3.Timeout(connect=CONNECTION_TIMEOUT / 2,
+                                  read=CONNECTION_TIMEOUT)
         self.http = urllib3.PoolManager(num_pools=2,
                                         headers={'User-Agent': version.AppName},
-                                        timeout=urllib3.Timeout(connect=3.0, read=5.0),
+                                        timeout=timeout,
                                         cert_reqs="CERT_NONE")
         self.cache = Cache()
         self.skip_currency = Settings()['colnect_skip_currency']
@@ -209,7 +214,7 @@ class ColnectConnector(QObject):
                 return data
 
         try:
-            resp = self.http.request("GET", url, timeout=30.0)
+            resp = self.http.request("GET", url, timeout=CONNECTION_TIMEOUT * 3)
             data = resp.data
         except:
             return None
@@ -680,7 +685,7 @@ class ColnectDialog(QDialog):
             if count == 0:
                 self.label_empty.show()
                 self.label.hide()
-            elif ((series or distribution) and year and value and currency) or (count < 100):
+            elif ((series or distribution) and year and value and currency) or (count < MAX_ITEMS):
                 self.previewButton.setEnabled(True)
                 self.label.hide()
 
