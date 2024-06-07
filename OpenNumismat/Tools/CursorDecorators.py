@@ -8,7 +8,13 @@ def waitCursorDecorator(f):
     @wraps(f)
     def wrapper(*args, **kwds):
         QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-        res = f(*args, **kwds)
+        try:
+            res = f(*args, **kwds)
+
+        except Exception as e:
+            QApplication.restoreOverrideCursor()
+            raise e
+
         QApplication.restoreOverrideCursor()
         return res
 
