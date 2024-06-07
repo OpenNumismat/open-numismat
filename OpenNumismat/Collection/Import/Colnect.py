@@ -3,7 +3,6 @@ import io
 import json
 import re
 import urllib3
-from socket import timeout
 
 from PySide6.QtCore import Qt, QObject
 from PySide6.QtGui import QImage, QPixmap, QIcon
@@ -49,7 +48,7 @@ class ColnectConnector(QObject):
         urllib3.disable_warnings()
         self.http = urllib3.PoolManager(num_pools=2,
                                         headers={'User-Agent': version.AppName},
-                                        timeout=urllib3.Timeout(connect=5.0, read=10.0),
+                                        timeout=urllib3.Timeout(connect=3.0, read=5.0),
                                         cert_reqs="CERT_NONE")
         self.cache = Cache()
         self.skip_currency = Settings()['colnect_skip_currency']
@@ -182,7 +181,7 @@ class ColnectConnector(QObject):
         try:
             resp = self.http.request("GET", url)
             raw_data = resp.data.decode()
-        except timeout:
+        except urllib3.exceptions.MaxRetryError:
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect proxy-server not response"))
             return []
@@ -284,7 +283,7 @@ class ColnectConnector(QObject):
         try:
             resp = self.http.request("GET", url)
             raw_data = resp.data.decode()
-        except timeout:
+        except urllib3.exceptions.MaxRetryError:
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect proxy-server not response"))
             return []
@@ -294,6 +293,10 @@ class ColnectConnector(QObject):
         if raw_data.startswith('Invalid key'):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect service not available"))
+            return []
+        elif raw_data.startswith('Limits exceeded'):
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Number of requests exceeded"))
             return []
         elif raw_data.startswith('Visit colnect.com'):
             QMessageBox.warning(self.parent(), "Colnect",
