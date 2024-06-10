@@ -35,14 +35,6 @@
 <context>
     <name>AnsDialog</name>
     <message>
-        <source>Catalog information courtesy of the &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
-        <translation>Informação do catálogo da base de dados de colecções por cortesia da &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
-        <translation>Todas as imagens de objectos produzidas em ou antes de 1925 são do &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Domínio público&lt;/a&gt;. As outras estão disponíveis para fins não comerciais. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Política&lt;/a&gt;.</translation>
-    </message>
-    <message>
         <source>Greek</source>
         <translation>Grego</translation>
     </message>
@@ -125,6 +117,14 @@
     <message>
         <source>Cancel</source>
         <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Catalog information courtesy of the &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
+        <translation>Informação do catálogo por cortesia da &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
+        <translation>Todas as imagens de objectos  produzidas em, ou antes de 1925 são de &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;domínio público&lt;/a&gt;. Há outras disponíveis para fins não comerciais. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Política&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1078,6 +1078,10 @@ A aplicação tem de reiniciar agora.</translation>
     <message>
         <source>Colnect data not recognised</source>
         <translation>Dados Colnect não reconhecidos</translation>
+    </message>
+    <message>
+        <source>Number of requests exceeded</source>
+        <translation>Excedeu o número de pedidos</translation>
     </message>
 </context>
 <context>
