@@ -35,14 +35,6 @@
 <context>
     <name>AnsDialog</name>
     <message>
-        <source>Catalog information courtesy of the &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
-        <translation>Информацията в каталога е предоставена с любезното съдействие на &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; база данни за колекциите.</translation>
-    </message>
-    <message>
-        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
-        <translation>Всички изображения на обекти, произведени през или преди 1925 г., са &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;обществено достояние&lt;/a&gt;. Другите са достъпни за некомерсиални цели. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Политика&lt;/a&gt;.</translation>
-    </message>
-    <message>
         <source>Greek</source>
         <translation>гръцки</translation>
     </message>
@@ -125,6 +117,14 @@
     <message>
         <source>Cancel</source>
         <translation>Отказ</translation>
+    </message>
+    <message>
+        <source>Catalog information courtesy of the &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
+        <translation>Информацията за каталога е любезно предоставена от базата данни на колекциите на &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
+        <translation>Всички изображения на обекти, произведени преди или през 1925 г., са в &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Обществено достояние&lt;/a&gt;. Останалите са достъпни за некомерсиални цели. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Политика&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1078,6 +1078,10 @@ The application will need to restart now.</source>
     <message>
         <source>Colnect data not recognised</source>
         <translation>Данните от Colnect не се разпознават</translation>
+    </message>
+    <message>
+        <source>Number of requests exceeded</source>
+        <translation>Броят на заявките е надвишен</translation>
     </message>
 </context>
 <context>
