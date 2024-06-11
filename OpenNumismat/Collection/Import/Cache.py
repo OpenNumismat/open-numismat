@@ -78,7 +78,7 @@ class Cache(QObject):
 
     def _compact(self):
         if self.db:
-            sql = "DELETE FROM cache WHERE createdat < date('now', '-30 day')"
+            sql = "DELETE FROM cache WHERE createdat < date('now', '-10 day')"
             QSqlQuery(sql, self.db)
 
     @staticmethod
