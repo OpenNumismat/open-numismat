@@ -126,6 +126,10 @@
         <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
         <translation>Всички изображения на обекти, произведени преди или през 1925 г., са в &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Обществено достояние&lt;/a&gt;. Останалите са достъпни за некомерсиални цели. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Политика&lt;/a&gt;.</translation>
     </message>
+    <message>
+        <source>Inserting records</source>
+        <translation>Вмъкване на записи</translation>
+    </message>
 </context>
 <context>
     <name>AreaNiceSeries</name>
@@ -1141,6 +1145,10 @@ The application will need to restart now.</source>
     <message>
         <source>Cancel</source>
         <translation>Отказ</translation>
+    </message>
+    <message>
+        <source>Inserting records</source>
+        <translation>Вмъкване на записи</translation>
     </message>
 </context>
 <context>
