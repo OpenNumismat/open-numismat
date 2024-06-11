@@ -559,8 +559,10 @@ class AnsDialog(QDialog):
             year = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateOnObject/nuds:date")
         if year:
             if self.enable_bc and 'BC' in year:
-                year = year.replace('BC', '').strip()
+                year = year.replace('BCE', '').replace('BC', '').strip()
                 year = -int(year)
+            elif 'CE' in year:
+                year = year.replace('CE', '').strip()
 
             record.setValue('year', year)
         el1 = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:dateRange/nuds:fromDate")
@@ -761,7 +763,10 @@ class AnsDialog(QDialog):
                 url = self._getAttrib(tree, "./nuds:descMeta/nuds:refDesc/nuds:reference",
                                      '{http://www.w3.org/1999/xlink}href')
                 if url:
-                    url = url + '.xml'
+                    if url.startswith('https://rpc.ashmus.ox.ac.uk'):
+                        url = url + '/xml'
+                    else:
+                        url = url + '.xml'
                     raw_data = self.connector.download_data(url)
                     if raw_data:
                         tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
