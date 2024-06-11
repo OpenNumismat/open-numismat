@@ -39,7 +39,7 @@ except ImportError:
     print('Importing from Colnect not available')
     colnectAvailable = False
 
-CONNECTION_TIMEOUT = 5
+CONNECTION_TIMEOUT = 10
 MAX_ITEMS = 100
 
 
