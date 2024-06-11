@@ -1,7 +1,6 @@
 import re
-import urllib.request
+import urllib3
 from urllib.parse import quote_plus
-from socket import timeout
 
 ansAvailable = True
 
@@ -39,12 +38,21 @@ from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import ProgressDialog
 
+CONNECTION_TIMEOUT = 10
+
 
 class AnsConnector(QObject):
 
     def __init__(self, parent):
         super().__init__(parent)
 
+        urllib3.disable_warnings()
+        timeout = urllib3.Timeout(connect=CONNECTION_TIMEOUT / 2,
+                                  read=CONNECTION_TIMEOUT)
+        self.http = urllib3.PoolManager(num_pools=5,
+                                        headers={'User-Agent': version.AppName},
+                                        timeout=timeout,
+                                        cert_reqs="CERT_NONE")
         self.cache = Cache()
         if Settings()['ans_locale_en']:
             self.lang = 'en'
@@ -65,9 +73,8 @@ class AnsConnector(QObject):
                 return data
 
         try:
-            req = urllib.request.Request(url,
-                                    headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req, timeout=30).read()
+            resp = self.http.request("GET", url, timeout=CONNECTION_TIMEOUT * 3)
+            data = resp.data
         except:
             return None
 
@@ -82,10 +89,9 @@ class AnsConnector(QObject):
         is_cashed = bool(raw_data)
         if not is_cashed:
             try:
-                req = urllib.request.Request(url,
-                                        headers={'User-Agent': version.AppName})
-                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
-            except timeout:
+                resp = self.http.request("GET", url)
+                raw_data = resp.data.decode()
+            except urllib3.exceptions.MaxRetryError:
                 QMessageBox.warning(self.parent(), "ANS",
                                     self.tr("American Numismatic Society not response"))
                 return ''
@@ -129,7 +135,7 @@ class AnsConnector(QObject):
                  ruler=None, denomination=None, material=None, type_=None):
         query = self._makeQuery(images, department, country, year, dynasty,
                  ruler, denomination, material, type_)
-        action = "apis/search?q=" + query + "&format=rss"
+        action = f"apis/search?q={query}&format=rss"
         
         raw_data = self.download_data(self._baseUrl() + action)
 
@@ -197,7 +203,7 @@ class AnsConnector(QObject):
                  ruler=None, denomination=None, material=None, type_=None):
         query = self._makeQuery(images, department, country, year, dynasty,
                  ruler, denomination, material, type_)
-        action = "get_facet_options?q=" + query + "&category=" + target + "&mincount=1&pipeline=results&lang=" + self.lang
+        action = f"get_facet_options?q={query}&category={target}&mincount=1&pipeline=results&lang={self.lang}"
 
         raw_data = self.download_data(self._baseUrl() + action)
 
