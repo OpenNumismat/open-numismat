@@ -856,16 +856,15 @@ class ListView(BaseTableView):
     def selectedCoins(self):
         indexes = self.selectedIndexes()
         if not indexes:
-            if self.currentIndex().row() >= 0:
-                indexes.append(self.currentIndex())
-                self.selectRow(self.currentIndex().row())
+            current_index = self.currentIndex()
+            if current_index.row() >= 0:
+                self.selectRow(current_index.row())
+                return [current_index, ]
+            else:
+                return []
         else:
-            rowsIndexes = {}
-            for index in indexes:
-                rowsIndexes[index.row()] = self._mapToSource(index)
-            indexes = list(rowsIndexes.values())
-
-        return indexes
+            indexes = self.selectionModel().selectedRows()
+            return [self._mapToSource(index) for index in indexes]
 
     def _filter(self, index=None):
         if not index:
