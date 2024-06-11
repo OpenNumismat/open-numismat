@@ -1,4 +1,3 @@
-import operator
 import pickle
 import os.path
 
@@ -402,18 +401,6 @@ class BaseTableView(QTableView):
         clipboard = QApplication.clipboard()
         clipboard.setMimeData(mime)
 
-    def __insertCoin(self, record, count):
-        dialog = EditCoinDialog(self.model(), record, self)
-        if count > 1:
-            dialog.setManyCoins()
-        result = dialog.exec_()
-        if result == QDialog.Accepted:
-            self.model().appendRecord(record)
-
-        button = dialog.clickedButton
-        dialog.deleteLater()
-        return button
-
     def _paste(self):
         clipboard = QApplication.clipboard()
         mime = clipboard.mimeData()
@@ -440,7 +427,7 @@ class BaseTableView(QTableView):
                 if progressDlg:
                     self.model().appendRecord(record)
                 else:
-                    btn = self.__insertCoin(record, len(pickleData) - progress)
+                    btn = self.model().addCoins(record, len(pickleData) - progress)
                     if btn == QDialogButtonBox.Abort:
                         break
                     if btn == QDialogButtonBox.SaveAll:
@@ -475,7 +462,7 @@ class BaseTableView(QTableView):
                 if progressDlg:
                     self.model().appendRecord(record)
                 else:
-                    btn = self.__insertCoin(record, len(textData) - progress)
+                    btn = self.model().addCoins(record, len(textData) - progress)
                     if btn == QDialogButtonBox.Abort:
                         break
                     if btn == QDialogButtonBox.SaveAll:

@@ -544,20 +544,16 @@ class ColnectDialog(QDialog):
             part.setEnabled(enabled)
 
     def tableClicked(self, index):
-        if not index:
-            return
+        if index and index.row() < len(self.items):
+            record = self.makeCoin(index)
+            self.model.addCoin(record, self)
 
-        self.addCoin(index, False)
-
-    def addCoin(self, index, close):
-        if index.row() < len(self.items):
-            data = self.items[index.row()]
-            category = self.categorySelector.currentData()
-            newRecord = self.model.record()
-            self.colnect.makeItem(category, data, newRecord)
-            if close:
-                self.accept()
-            self.model.addCoin(newRecord, self)
+    def makeCoin(self, index):
+        data = self.items[index.row()]
+        category = self.categorySelector.currentData()
+        record = self.model.record()
+        self.colnect.makeItem(category, data, record)
+        return record
     
     def _isDistributionEnabled(self, category):
         return category in ('coins', 'stamps')
@@ -803,15 +799,44 @@ class ColnectDialog(QDialog):
                                                    category[:-1], item_id)
         return url
 
+    def addCoins(self, indexes):
+        progressDlg = None
+
+        for progress, index in enumerate(indexes):
+            if index.row() >= len(self.items):
+                break
+
+            if progressDlg:
+                progressDlg.setValue(progress)
+                if progressDlg.wasCanceled():
+                    break
+
+            record = self.makeCoin(index)
+
+            if progressDlg:
+                if not record.value('status'):
+                    record.setValue('status', self.model.settings['default_status'])
+                self.model.appendRecord(record)
+            else:
+                btn = self.model.addCoins(record, len(indexes) - progress)
+                if btn == QDialogButtonBox.Abort:
+                    break
+                if btn == QDialogButtonBox.SaveAll:
+                    progressDlg = ProgressDialog(
+                        self.tr("Inserting records"),
+                        self.tr("Cancel"),
+                        len(indexes), self)
+
+        if progressDlg:
+            progressDlg.reset()
+
     def clicked(self, button):
         if button == self.addButton:
-            for index in self.table.selectedIndexes():
-                if index.column() == 0:
-                    self.addCoin(index, False)
+            indexes = self.table.selectionModel().selectedRows()
+            self.addCoins(indexes)
         elif button == self.addCloseButton:
-            for index in self.table.selectedIndexes():
-                if index.column() == 0:
-                    self.addCoin(index, True)
+            indexes = self.table.selectionModel().selectedRows()
+            self.addCoins(indexes)
 
             self.accept()
         else:

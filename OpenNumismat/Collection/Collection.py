@@ -195,6 +195,22 @@ class CollectionModel(QSqlTableModel):
             self.appendRecord(record)
         dialog.deleteLater()
 
+    def addCoins(self, record, count, parent=None):
+        record.setNull('id')  # remove ID value from record
+        if not record.value('status'):
+            record.setValue('status', self.settings['default_status'])
+
+        dialog = EditCoinDialog(self, record, parent)
+        if count > 1:
+            dialog.setManyCoins()
+        result = dialog.exec_()
+        if result == QDialog.Accepted:
+            self.appendRecord(record)
+
+        button = dialog.clickedButton
+        dialog.deleteLater()
+        return button
+
     def appendRecord(self, record):
         rowCount = self.rowCount()
 
