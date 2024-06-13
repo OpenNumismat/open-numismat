@@ -1077,7 +1077,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Colnect service not available</source>
-        <translation>Colnect услугата не е налична</translation>
+        <translation>Услугата Colnect не е налична</translation>
     </message>
     <message>
         <source>Colnect data not recognised</source>
