@@ -1073,7 +1073,7 @@ The application will need to restart now.</source>
     <name>ColnectConnector</name>
     <message>
         <source>Colnect proxy-server not response</source>
-        <translation>Colnect прокси сървърът не отговаря</translation>
+        <translation>Прокси сървърът за Colnect не отговаря</translation>
     </message>
     <message>
         <source>Colnect service not available</source>
