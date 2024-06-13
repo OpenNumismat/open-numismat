@@ -2,7 +2,7 @@
 
 import json
 import re
-import urllib.request
+import urllib3
 
 from PySide6.QtCore import Qt, QUrl, QMargins
 from PySide6.QtGui import QDesktopServices, QImage
@@ -53,16 +53,11 @@ class NumistaAuthentication(QDialog):
         self.page.urlChanged.connect(self.onUrlChanged)
 
         redirect_uri = 'local'  # Should normally be a URL to your application
-        url_template = ('https://{language}.numista.com/api/oauth_authorize.php'
+        authorization_url = (f'https://{self.language}.numista.com/api/oauth_authorize.php'
                         '?response_type=code'
-                        '&client_id={client_id}'
-                        '&redirect_uri={redirect_uri}'
-                        '&scope={scope}')
-        authorization_url = url_template.format(
-          language=self.language,
-          client_id='opennumismat',
-          redirect_uri=redirect_uri,
-          scope='view_collection')
+                        '&client_id=opennumismat'
+                        f'&redirect_uri={redirect_uri}'
+                        '&scope=view_collection')
         self.page.load(QUrl(authorization_url))
 
         layout = QVBoxLayout()
@@ -92,6 +87,7 @@ class NumistaAuthentication(QDialog):
 
 class ImportNumista(_Import2):
     ENDPOINT = 'https://api.numista.com/api/v3'
+    CONNECTION_TIMEOUT = 10
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -105,6 +101,13 @@ class ImportNumista(_Import2):
         else:
             self.language = 'en'
 
+        urllib3.disable_warnings()
+        timeout = urllib3.Timeout(connect=self.CONNECTION_TIMEOUT / 2,
+                                  read=self.CONNECTION_TIMEOUT)
+        self.http = urllib3.PoolManager(num_pools=2,
+                                        headers={'User-Agent': version.AppName},
+                                        timeout=timeout,
+                                        cert_reqs="CERT_NONE")
         self.cache = Cache()
 
     @staticmethod
@@ -116,9 +119,8 @@ class ImportNumista(_Import2):
         is_cashed = bool(raw_data)
         if not is_cashed:
             try:
-                req = urllib.request.Request(url,
-                        headers={'Numista-API-Key': NUMISTA_API_KEY})
-                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+                resp = self.http.request("GET", url, headers={'Numista-API-Key': NUMISTA_API_KEY})
+                raw_data = resp.data.decode()
             except:
                 return ''
         
@@ -132,14 +134,14 @@ class ImportNumista(_Import2):
 
         result = dialog.exec_()
         if result == QDialog.Accepted:
-            url = self.ENDPOINT + '/oauth_token?' + \
-                'code=' + dialog.authorization_code + \
-                '&client_id=opennumismat' + \
-                '&client_secret=' + NUMISTA_API_KEY + \
-                '&redirect_uri=local'
+            url = (f"{self.ENDPOINT}/oauth_token?"
+                   f"code={dialog.authorization_code}"
+                   "&client_id=opennumismat"
+                   f"&client_secret={NUMISTA_API_KEY}"
+                   "&redirect_uri=local")
             try:
-                req = urllib.request.Request(url)
-                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+                resp = self.http.request("GET", url)
+                raw_data = resp.data.decode()
             except:
                 return False
 
@@ -147,13 +149,12 @@ class ImportNumista(_Import2):
             access_token = data['access_token']
             user_id = data['user_id']
 
-            url = self.ENDPOINT + '/users/' + str(user_id) + '/collected_items?' + \
-                'lang=' + self.language
+            url = f"{self.ENDPOINT}/users/{user_id}/collected_items?lang={self.language}"
             try:
-                req = urllib.request.Request(url,
-                        headers={'Numista-API-Key': NUMISTA_API_KEY,
-                                 'Authorization': 'Bearer ' + access_token})
-                raw_data = urllib.request.urlopen(req, timeout=10).read().decode()
+                headers = {'Numista-API-Key': NUMISTA_API_KEY,
+                           'Authorization': f'Bearer {access_token}'}
+                resp = self.http.request("GET", url, headers=headers)
+                raw_data = resp.data.decode()
             except:
                 return False
 
@@ -213,8 +214,7 @@ class ImportNumista(_Import2):
         record.setValue('category', item['type']['category'])
 
         type_id = item['type']['id']
-        url = self.ENDPOINT + '/types/' + str(type_id) + '?' + \
-            'lang=' + self.language
+        url = f"{self.ENDPOINT}/types/{type_id}?lang={self.language}"
         raw_data = self._download_cache(url)
         if not raw_data:
             return
@@ -332,8 +332,8 @@ class ImportNumista(_Import2):
     def _getImage(self, url):
         try:
             image = QImage()
-            req = urllib.request.Request(url, headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req, timeout=30).read()
+            resp = self.http.request("GET", url, timeout=self.CONNECTION_TIMEOUT * 3)
+            data = resp.data
             image.loadFromData(data)
             return image
         except:
