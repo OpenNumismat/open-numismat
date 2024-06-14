@@ -128,6 +128,10 @@
         <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Inserting records</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AreaNiceSeries</name>
@@ -1132,6 +1136,10 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inserting records</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
