@@ -202,7 +202,7 @@ jobs:
         --standalone
         --enable-plugin=pyside6
         --include-qt-plugins=sqldrivers,multimedia
-        --disable-console
+        --windows-console-mode=disable
         --include-data-dir=OpenNumismat/templates=templates
         --include-data-dir=OpenNumismat/db=db
         --include-data-files=COPYING=COPYING
@@ -258,7 +258,7 @@ jobs:
         --standalone
         --enable-plugin=pyside6
         --include-qt-plugins=sqldrivers,multimedia
-        --disable-console
+        --windows-console-mode=disable
         --include-data-dir=OpenNumismat/templates=templates
         --include-data-dir=OpenNumismat/db=db
         --include-data-files=COPYING=COPYING
