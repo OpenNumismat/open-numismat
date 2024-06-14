@@ -92,7 +92,7 @@ class EditCoinDialog(QDialog):
             if not self.usedFields:
                 if not self.items['title'].value():
                     msg_box = QMessageBox(QMessageBox.Warning, self.tr("Save"),
-                                          self.tr("Coin title not set. Save without title?"),
+                                          self.tr("Title not set. Save without title?"),
                                           QMessageBox.Save | QMessageBox.No,
                                           self)
                     msg_box.setDefaultButton(QMessageBox.No)
@@ -172,7 +172,7 @@ class EditCoinDialog(QDialog):
             if not self.usedFields:
                 if self.model.isExist(self.record):
                     msg_box = QMessageBox(QMessageBox.Warning, self.tr("Save"),
-                                          self.tr("Similar coin already exists. Save?"),
+                                          self.tr("Similar record already exists. Save?"),
                                           QMessageBox.Save | QMessageBox.No,
                                           self)
                     msg_box.setDefaultButton(QMessageBox.No)

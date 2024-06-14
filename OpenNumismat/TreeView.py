@@ -217,7 +217,7 @@ class TreeView(QTreeWidget):
         act = menu.addAction(self.tr("Add new coin..."), self._addCoin)
         if not (self.model.rowCount() and self.selectedItems()):
             act.setDisabled(True)
-        act = menu.addAction(self.tr("Edit coins..."), self._multiEdit)
+        act = menu.addAction(self.tr("Multi edit..."), self._multiEdit)
         if not (self.model.rowCount() and self.selectedItems()):
             act.setDisabled(True)
         menu.addSeparator()
