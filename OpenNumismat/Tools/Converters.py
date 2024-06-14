@@ -137,29 +137,37 @@ def htmlToPlainText(text):
     return text
 
 
+def _toYear(string):
+    value_began = False
+    year = ''
+    for c in string:
+        if c in '0123456789':
+            year += c
+            value_began = True
+        elif c == '-' and not value_began:
+            year = '-'
+        else:
+            break
+
+    if value_began:
+        return year
+    else:
+        return string
+
+
 def _compareYearStrings(left, right):
-    if left and left[0] == '-' and right and right[0] == '-':
-        left_year = 0
-        right_year = 0
-        for c in left[1:]:
-            if c.isdigit():
-                left_year = left_year * 10 + (ord(c) - ord('0'))
-            else:
-                break
-        for c in right[1:]:
-            if c.isdigit():
-                right_year = right_year * 10 + (ord(c) - ord('0'))
-            else:
-                break
+    if left and right:
+        left_year = _toYear(left)
+        right_year = _toYear(right)
 
         if left_year != right_year:
-            # Invert comparing for negative years
-            return -(left_year - right_year)
+            try:
+                return int(left_year) - int(right_year)
+            except ValueError:
+                pass
 
     if left < right:
         return -1
-    # elif left == right:
-    #    return 0
     else:
         return 1
 
