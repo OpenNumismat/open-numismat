@@ -1073,11 +1073,11 @@ The application will need to restart now.</source>
     <name>ColnectConnector</name>
     <message>
         <source>Colnect proxy-server not response</source>
-        <translation>Colnect прокси сървърът не отговаря</translation>
+        <translation>Прокси сървърът за Colnect не отговаря</translation>
     </message>
     <message>
         <source>Colnect service not available</source>
-        <translation>Colnect услугата не е налична</translation>
+        <translation>Услугата за Colnect не е налична</translation>
     </message>
     <message>
         <source>Colnect data not recognised</source>
@@ -1092,7 +1092,7 @@ The application will need to restart now.</source>
     <name>ColnectDialog</name>
     <message>
         <source>Catalog information courtesy of &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;, an online collectors community.</source>
-        <translation>Каталожната информация е предоставена от &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;. Онлайн колекционерска общност.</translation>
+        <translation>Каталожната информация е предоставена с любезното съдействие на &lt;a href=&quot;https://colnect.com/&quot;&gt;Colnect&lt;/a&gt;. Онлайн колекционерска общност.</translation>
     </message>
     <message>
         <source>Coins</source>
