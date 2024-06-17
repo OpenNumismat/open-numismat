@@ -56,6 +56,11 @@ class ExportToExcel(__ExportBase):
                 self._ws.add_image(img, cell.coordinate)
 
                 row[i] = None
+            elif isinstance(item, str):
+                # Replace illegal openpyxl characters with space
+                ILLEGAL_CHARACTERS_RE = openpyxl.cell.cell.ILLEGAL_CHARACTERS_RE
+                if next(ILLEGAL_CHARACTERS_RE.finditer(row[i]), None):
+                    row[i] = ' '.join(ILLEGAL_CHARACTERS_RE.split(row[i]))
 
         self._ws.append(row)
 
