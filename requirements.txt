@@ -4,7 +4,7 @@ jinja2
 lxml
 opencv-python-headless
 openpyxl
-numpy
+numpy==1.26.4
 pillow
 python-dateutil
 pywin32; sys_platform == 'win32'
