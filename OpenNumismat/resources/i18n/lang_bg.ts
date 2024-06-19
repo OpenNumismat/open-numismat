@@ -191,7 +191,7 @@
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
-        <translation>Не са избрани записа</translation>
+        <translation>Не са избрани записи</translation>
     </message>
     <message>
         <source>Custom sorting</source>
