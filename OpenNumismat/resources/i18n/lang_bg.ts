@@ -1348,10 +1348,6 @@ The application will need to restart now.</source>
         <translation>Записване</translation>
     </message>
     <message>
-        <source>Coin title not set. Save without title?</source>
-        <translation>Монетата е без заглавие. Желаете ли да я запишете без заглавие?</translation>
-    </message>
-    <message>
         <source>Don&apos;t show this again</source>
         <translation>Не показвай това съобщение отново</translation>
     </message>
@@ -1372,8 +1368,12 @@ The application will need to restart now.</source>
         <translation>Продажната цена е по-малка от общата приходна цена. Запазване?</translation>
     </message>
     <message>
-        <source>Similar coin already exists. Save?</source>
-        <translation>Такава монета вече съществува. Сигурни ли сте, че искате да направите запис?</translation>
+        <source>Title not set. Save without title?</source>
+        <translation>Записът е без заглавие. Желаете ли да го запишете без заглавие?</translation>
+    </message>
+    <message>
+        <source>Similar record already exists. Save?</source>
+        <translation>Такъв запис вече съществува. Сигурни ли сте, че искате да го запишете?</translation>
     </message>
 </context>
 <context>
@@ -2289,6 +2289,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Use webcam</source>
         <translation>Използване на уеб камера</translation>
+    </message>
+    <message>
+        <source>Show counter in tree</source>
+        <translation>Показване на брояча в дървото</translation>
     </message>
 </context>
 <context>
@@ -3431,12 +3435,12 @@ Add a new one first.</source>
         <translation>Добавяне на монета...</translation>
     </message>
     <message>
-        <source>Edit coins...</source>
-        <translation>Редактиране на монети...</translation>
-    </message>
-    <message>
         <source>Customize tree...</source>
         <translation>Персонализиране на дървото...</translation>
+    </message>
+    <message>
+        <source>Multi edit...</source>
+        <translation>Групова редакция...</translation>
     </message>
 </context>
 <context>
