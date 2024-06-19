@@ -24,6 +24,7 @@ class ChildItem():
     label: str
     datas: list
     filters: list
+    count: int
 
 
 class YearTreeWidgetItem(QTreeWidgetItem):
@@ -92,6 +93,7 @@ class TreeView(QTreeWidget):
     ParamRole = Qt.UserRole + 2
     ParamChildRole = Qt.UserRole + 3
     SortDataRole = Qt.UserRole + 4
+    TextRole = Qt.UserRole + 5
 
     def __init__(self, treeParam, parent=None):
         super().__init__(parent)
@@ -113,6 +115,8 @@ class TreeView(QTreeWidget):
         locale = Settings()['locale']
         self.collator = QCollator(QLocale(locale))
         self.collator.setNumericMode(True)
+
+        self.showCounter = Settings()['tree_counter']
 
         self.setItemDelegate(AutoToolTipDelegate())
 
@@ -145,7 +149,9 @@ class TreeView(QTreeWidget):
             self.expandItem(rootItem)
 
     def expandedEvent(self, item):
-        self.__fillChilds(item)
+        paramChildIndex = item.data(0, self.ParamChildRole)
+
+        self.__fillChilds(item, paramChildIndex)
 
         self.resizeColumnToContents(0)
 
@@ -165,7 +171,7 @@ class TreeView(QTreeWidget):
         for i in range(parent.childCount()):
             subItem = parent.child(i)
             fields = subItem.data(0, self.FieldsRole)
-            text1 = subItem.text(0)
+            text1 = subItem.data(0, self.TextRole)
             textPart = []
             for field in fields:
                 index = self.model.index(index.row(),
@@ -177,7 +183,7 @@ class TreeView(QTreeWidget):
                     if val:
                         textPart.append(val)
             text2 = ' '.join(textPart)
-            if text1 == text2 or (not text2 and text1 == self.tr("Other")):
+            if text1 == text2 or (not text2 and not text1):
                 self.expandItem(parent)
                 self.scrollToItem(subItem)
                 self.scrollToIndex(index, subItem)
@@ -300,15 +306,21 @@ class TreeView(QTreeWidget):
         if label_parts:
             return ' '.join(label_parts)
         else:
-            return self.tr("Other")
+            return ''
 
     def __processChilds(self, parent_fields, cur_fields, filters):
         child_items = {}
 
         sql_fields = ','.join(cur_fields + parent_fields)
-        sql = f"SELECT DISTINCT {sql_fields} FROM coins"
-        if filters:
-            sql += f" WHERE {filters}"
+        if self.showCounter:
+            sql = f"SELECT {sql_fields}, COUNT(*) counter FROM coins"
+            if filters:
+                sql += f" WHERE {filters}"
+            sql += f" GROUP BY {sql_fields}"
+        else:
+            sql = f"SELECT DISTINCT {sql_fields} FROM coins"
+            if filters:
+                sql += f" WHERE {filters}"
         query = QSqlQuery(sql, self.db)
         while query.next():
             record = query.record()
@@ -332,7 +344,11 @@ class TreeView(QTreeWidget):
                 else:
                     child_filters.append(f"ifnull({field},'')=''")
 
-            child_item = ChildItem(child_label, orig_data, child_filters)
+            if self.showCounter:
+                count = record.value('counter')
+            else:
+                count = 0
+            child_item = ChildItem(child_label, orig_data, child_filters, count)
             child_items[label].append(child_item)
 
         return child_items
@@ -341,15 +357,15 @@ class TreeView(QTreeWidget):
         if len(child_items) == 0:
             return True
 
-        return self.__isEmptyChild(child_items[self.tr("Other")])
+        return self.__isEmptyChild(child_items[''])
 
     def __isEmptyChild(self, child_items):
         if len(child_items) == 1 and \
-                child_items[0].label == self.tr("Other"):
+                not child_items[0].label:
             return True
         elif len(child_items) == 2 and \
-                child_items[0].label == self.tr("Other") and \
-                child_items[1].label == self.tr("Other"):
+                not child_items[0].label and \
+                not child_items[1].label:
             return True
         else:
             return False
@@ -371,15 +387,10 @@ class TreeView(QTreeWidget):
             self.__fillRoot(item)
             return
 
-        label = self.tr("Other")
+        label = ''
         self.__addChilds(item, child_items[label])
 
-    def __fillChilds(self, item):
-        paramChildIndex = item.data(0, self.ParamChildRole)
-
-        self.__fillChilds1(item, paramChildIndex)
-
-    def __fillChilds1(self, item, paramChildIndex):
+    def __fillChilds(self, item, paramChildIndex):
         paramIndex = item.data(0, self.ParamRole)
         filters = item.data(0, self.FiltersRole)
 
@@ -403,14 +414,14 @@ class TreeView(QTreeWidget):
 
         for i in range(item.childCount()):
             child = item.child(i)
-            child_label = child.text(0)
+            child_label = child.data(0, self.TextRole)
             if child.childCount() == 0 and child_label in good_children:
                 child.setData(0, self.ParamRole, paramChildIndex)
                 child.setData(0, self.ParamChildRole, paramChildIndex + 1)
                 self.__addChilds(child, child_items[child_label])
 
         if has_empty_children:
-            self.__fillChilds1(item, paramChildIndex + 1)
+            self.__fillChilds(item, paramChildIndex + 1)
 
     def __addChilds(self, item, child_items):
         filter_ = item.data(0, self.FiltersRole)
@@ -419,15 +430,22 @@ class TreeView(QTreeWidget):
         fields = self.treeParam.fieldNames(paramIndex)
 
         hasEmpty = False
+        countEmpty = 0
         for child_item in child_items:
-            if child_item.label == self.tr("Other"):
+            if not child_item.label:
                 hasEmpty = True
+                countEmpty += child_item.count
                 continue
 
-            if len(fields) == 1 and fields[0] == 'year':
-                child = YearTreeWidgetItem([child_item.label, ])
+            if self.showCounter:
+                label = f"{child_item.label} [{child_item.count}]"
             else:
-                child = TreeWidgetItem([child_item.label, ])
+                label = child_item.label
+            if len(fields) == 1 and fields[0] == 'year':
+                child = YearTreeWidgetItem([label, ])
+            else:
+                child = TreeWidgetItem([label, ])
+            child.setData(0, self.TextRole, child_item.label)
             child.setData(0, self.SortDataRole, child_item.datas)
             child.setData(0, self.ParamRole, paramChildIndex)
             child.setData(0, self.ParamChildRole, paramChildIndex + 1)
@@ -460,11 +478,14 @@ class TreeView(QTreeWidget):
 
         if hasEmpty and len(fields) == 1 and item.childCount() > 0:
             text = self.tr("Other")
+            if self.showCounter:
+                text = f"{text} [{countEmpty}]"
             newFilters = f"ifnull({fields[0]},'')=''"
             if filter_:
                 newFilters = f"{filter_} AND {newFilters}"
 
             child = QTreeWidgetItem([text, ])
+            child.setData(0, self.TextRole, '')
             child.setData(0, self.ParamRole, paramChildIndex)
             child.setData(0, self.ParamChildRole, paramChildIndex + 1)
             child.setData(0, self.FiltersRole, newFilters)

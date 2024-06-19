@@ -124,6 +124,7 @@ class Settings(BaseSettings):
         'transparent_color': QColor(Qt.white),
         'use_webcam': True,
         'UUID': _getUuid().replace('-', ''),
+        'tree_counter': False,
     }
 
     def __init__(self, autoSave=False):

@@ -161,6 +161,11 @@ class MainSettingsPage(QWidget):
                                            QSizePolicy.Fixed)
         layout.addRow(self.tr("Images count by default"), self.imagesByDefault)
 
+        self.treeCounter = QCheckBox(
+                        self.tr("Show counter in tree"), self)
+        self.treeCounter.setChecked(settings['tree_counter'])
+        layout.addRow(self.treeCounter)
+
         self.builtInViewer = QCheckBox(
                         self.tr("Use built-in image viewer"), self)
         self.builtInViewer.setChecked(settings['built_in_viewer'])
@@ -263,6 +268,7 @@ class MainSettingsPage(QWidget):
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['transparent_color'] = self.transparent_color
+        settings['tree_counter'] = self.treeCounter.isChecked()
 
         settings.save()
 
