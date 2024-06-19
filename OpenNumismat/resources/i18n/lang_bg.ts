@@ -191,7 +191,7 @@
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
-        <translation>Не са избрани записи</translation>
+        <translation>Не са избрани записа</translation>
     </message>
     <message>
         <source>Custom sorting</source>
@@ -205,7 +205,7 @@ Changing item position avalaible only on default sort order. Clear sort order no
     </message>
     <message>
         <source>%d/%d records</source>
-        <translation>%d/%d записи</translation>
+        <translation>%d/%d записа</translation>
     </message>
     <message>
         <source>Report preview</source>
