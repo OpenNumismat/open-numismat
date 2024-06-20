@@ -153,7 +153,7 @@ jobs:
         submodules: 'recursive'
     - uses: actions/setup-python@v3
       with:
-        python-version: '3.11'
+        python-version: '3.12'
     - name: install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -206,7 +206,7 @@ jobs:
         submodules: 'recursive'
     - uses: actions/setup-python@v3
       with:
-        python-version: '3.11'
+        python-version: '3.12'
     - name: install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -275,7 +275,7 @@ jobs:
         submodules: 'recursive'
     - uses: actions/setup-python@v3
       with:
-        python-version: '3.11'
+        python-version: '3.12'
     - name: install dependencies
       run: |
         python -m pip install --upgrade pip
