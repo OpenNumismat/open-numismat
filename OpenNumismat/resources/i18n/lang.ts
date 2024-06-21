@@ -1340,10 +1340,6 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Coin title not set. Save without title?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1364,7 +1360,11 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Similar coin already exists. Save?</source>
+        <source>Title not set. Save without title?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Similar record already exists. Save?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2277,6 +2277,10 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Use webcam</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show counter in tree</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3413,11 +3417,11 @@ Add a new one first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit coins...</source>
+        <source>Customize tree...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Customize tree...</source>
+        <source>Multi edit...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
