@@ -1348,6 +1348,10 @@ A aplicação tem de reiniciar agora.</translation>
         <translation>Gravar</translation>
     </message>
     <message>
+        <source>Coin title not set. Save without title?</source>
+        <translation>Título da moeda não definido. Gravar sem título?</translation>
+    </message>
+    <message>
         <source>Don&apos;t show this again</source>
         <translation>Não mostrar novamente</translation>
     </message>
@@ -1368,12 +1372,8 @@ A aplicação tem de reiniciar agora.</translation>
         <translation>O preço de venda é menor que a receita total. Gravar?</translation>
     </message>
     <message>
-        <source>Title not set. Save without title?</source>
-        <translation>Não definiu um título. Deseja gravar mesmo assim?</translation>
-    </message>
-    <message>
-        <source>Similar record already exists. Save?</source>
-        <translation>Já existe um registo semelhante. Gravar?</translation>
+        <source>Similar coin already exists. Save?</source>
+        <translation>Já existe uma moeda similar. Gravar?</translation>
     </message>
 </context>
 <context>
@@ -2289,10 +2289,6 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Use webcam</source>
         <translation>Utilizar a câmara</translation>
-    </message>
-    <message>
-        <source>Show counter in tree</source>
-        <translation>Mostrar contador na árvore</translation>
     </message>
 </context>
 <context>
@@ -3435,12 +3431,12 @@ Adicione uma nova primeiro.</translation>
         <translation>Adicionar nova moeda...</translation>
     </message>
     <message>
-        <source>Customize tree...</source>
-        <translation>Personalizar árvore...</translation>
+        <source>Edit coins...</source>
+        <translation>Editar moedas...</translation>
     </message>
     <message>
-        <source>Multi edit...</source>
-        <translation>Editar várias...</translation>
+        <source>Customize tree...</source>
+        <translation>Personalizar árvore...</translation>
     </message>
 </context>
 <context>
