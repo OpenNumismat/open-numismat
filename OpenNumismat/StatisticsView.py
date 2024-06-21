@@ -309,7 +309,7 @@ class PieChart(BaseChart):
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.legend = Settings['show_chart_legend']
+        self.legend = Settings()['show_chart_legend']
         if self.legend:
             self.chart().legend().show()
             self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
