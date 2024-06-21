@@ -2189,7 +2189,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Clear icon</source>
-        <translation>Изчисти икона</translation>
+        <translation>Изчистване на икона</translation>
     </message>
     <message>
         <source>Open File</source>
