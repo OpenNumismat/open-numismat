@@ -1909,7 +1909,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Върни</translation>
+        <translation>Възстановяване</translation>
     </message>
     <message>
         <source>Window color</source>
