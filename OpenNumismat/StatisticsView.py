@@ -13,6 +13,7 @@ from PySide6.QtCharts import (
     QHorizontalStackedBarSeries,
     QLineSeries,
     QPieSeries,
+    QPieSlice,
     QStackedBarSeries,
     QValueAxis,
 )
@@ -177,6 +178,15 @@ class BaseChart(QChartView):
     def setLabelY(self, text):
         self.label_y = text
 
+    def xLabels(self):
+        if Settings()['tree_counter']:
+            labels = []
+            for x, y in zip(self.xx, self.yy):
+                labels.append(f"{x} [{y}]")
+            return labels
+        else:
+            return self.xx
+
     def hover(self, status, index, _barset):
         if status:
             QToolTip.showText(QCursor.pos(), self.tooltip(index))
@@ -227,7 +237,7 @@ class BarChart(BaseChart):
         self.chart().addSeries(series)
 
         axisX = QBarCategoryAxis()
-        axisX.append(xx)
+        axisX.append(self.xLabels())
         self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
 
@@ -278,9 +288,21 @@ class BarHChart(BaseChart):
         axisX.applyNiceNumbers()
 
         axisY = QBarCategoryAxis()
-        axisY.append(xx)
+        axisY.append(self.xLabels())
         self.chart().addAxis(axisY, Qt.AlignLeft)
         series.attachAxis(axisY)
+
+
+class PieSlice(QPieSlice):
+
+    def __init__(self, label, value, parent=None):
+        self.tooltip_label = label
+        if Settings()['tree_counter']:
+            label = f"{label} [{value}]"
+        super().__init__(label, value, parent)
+
+    def tooltipLabel(self):
+        return self.tooltip_label
 
 
 class PieChart(BaseChart):
@@ -301,11 +323,13 @@ class PieChart(BaseChart):
 
         if self.use_blaf_palette:
             for i, (x, y) in enumerate(zip(xx, yy)):
-                _slice = series.append(x, y)
+                _slice = PieSlice(x, y)
                 _slice.setBrush(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                series.append(_slice)
         else:
             for x, y in zip(xx, yy):
-                series.append(x, y)
+                _slice = PieSlice(x, y)
+                series.append(_slice)
 
         self.chart().addSeries(series)
         if not self.legend:
@@ -313,7 +337,7 @@ class PieChart(BaseChart):
 
     def hover(self, slice_, state):
         if state:
-            tooltip = "%s: %s\n%s: %d" % (self.label_y, slice_.label(),
+            tooltip = "%s: %s\n%s: %d" % (self.label_y, slice_.tooltipLabel(),
                                           self.label, slice_.value())
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
@@ -329,6 +353,16 @@ class StackedBarChart(BaseChart):
 
     def setLabelZ(self, text):
         self.label_z = text
+
+    def xLabels(self):
+        if Settings()['tree_counter']:
+            labels = []
+            for i, x in enumerate(self.xx):
+                s = sum([yy[i] for yy in self.yy])
+                labels.append(f"{x} [{s}]")
+            return labels
+        else:
+            return self.xx
 
     def setData(self, xx, yy, zz):
         self.xx = xx
@@ -355,7 +389,7 @@ class StackedBarChart(BaseChart):
         axisX.applyNiceNumbers()
 
         axisY = QBarCategoryAxis()
-        axisY.append(xx)
+        axisY.append(self.xLabels())
         self.chart().addAxis(axisY, Qt.AlignLeft)
         series.attachAxis(axisY)
 
@@ -412,7 +446,7 @@ class ProgressChart(BaseChart):
         self.chart().addSeries(self.lineseries)
 
         axisX = QBarCategoryAxis()
-        axisX.append(xx)
+        axisX.append(self.xLabels())
         self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
         self.lineseries.attachAxis(axisX)

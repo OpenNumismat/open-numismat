@@ -162,7 +162,7 @@ class MainSettingsPage(QWidget):
         layout.addRow(self.tr("Images count by default"), self.imagesByDefault)
 
         self.treeCounter = QCheckBox(
-                        self.tr("Show counter in tree"), self)
+                        self.tr("Show counter in tree and statistics"), self)
         self.treeCounter.setChecked(settings['tree_counter'])
         layout.addRow(self.treeCounter)
 
