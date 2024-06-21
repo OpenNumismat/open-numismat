@@ -237,6 +237,7 @@ class BarChart(BaseChart):
         self.chart().addSeries(series)
 
         axisX = QBarCategoryAxis()
+        axisX.setTitleText(self.label_y)
         axisX.append(self.xLabels())
         self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
@@ -288,6 +289,7 @@ class BarHChart(BaseChart):
         axisX.applyNiceNumbers()
 
         axisY = QBarCategoryAxis()
+        axisY.setTitleText(self.label_y)
         axisY.append(self.xLabels())
         self.chart().addAxis(axisY, Qt.AlignLeft)
         series.attachAxis(axisY)
@@ -334,6 +336,7 @@ class PieChart(BaseChart):
         self.chart().addSeries(series)
         if not self.legend:
             series.setLabelsVisible(True)
+        self.chart().setTitle(self.label_y)
 
     def hover(self, slice_, state):
         if state:
@@ -389,6 +392,7 @@ class StackedBarChart(BaseChart):
         axisX.applyNiceNumbers()
 
         axisY = QBarCategoryAxis()
+        axisY.setTitleText(self.label_y)
         axisY.append(self.xLabels())
         self.chart().addAxis(axisY, Qt.AlignLeft)
         series.attachAxis(axisY)
@@ -1224,8 +1228,8 @@ class StatisticsView(QWidget):
         else:
             zz = dict(sorted(zz.items(), key=cmp_to_key(self.sortStrings)))
 
-        chart.setData(list(zz), list(zz.values()))
         chart.setLabelY(self.fieldSelector.currentText())
+        chart.setData(list(zz), list(zz.values()))
 
         return chart
     
