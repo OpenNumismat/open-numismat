@@ -1905,7 +1905,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Отмени</translation>
+        <translation>Отмяна</translation>
     </message>
     <message>
         <source>Redo</source>
