@@ -1751,7 +1751,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Постави</translation>
+        <translation>Поставяне</translation>
     </message>
     <message>
         <source>Clone</source>
@@ -1790,7 +1790,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Постави</translation>
+        <translation>Поставяне</translation>
     </message>
     <message>
         <source>Copy</source>
@@ -1901,7 +1901,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Постави</translation>
+        <translation>Поставяне</translation>
     </message>
     <message>
         <source>Undo</source>
