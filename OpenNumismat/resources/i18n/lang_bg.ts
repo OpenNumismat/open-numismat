@@ -2141,7 +2141,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Постави</translation>
+        <translation>Поставяне</translation>
     </message>
     <message>
         <source>Clone</source>
