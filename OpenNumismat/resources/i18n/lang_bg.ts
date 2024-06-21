@@ -2399,7 +2399,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Копирай</translation>
+        <translation>Копиране</translation>
     </message>
     <message>
         <source>Paste</source>
