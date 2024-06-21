@@ -2185,7 +2185,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Paste icon</source>
-        <translation>Постави икона</translation>
+        <translation>Поставяне на икона</translation>
     </message>
     <message>
         <source>Clear icon</source>
