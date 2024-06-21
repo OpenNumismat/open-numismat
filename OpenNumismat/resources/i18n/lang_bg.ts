@@ -2177,7 +2177,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Change icon...</source>
-        <translation>Смени икона...</translation>
+        <translation>Промяна на икона...</translation>
     </message>
     <message>
         <source>Add icon...</source>
