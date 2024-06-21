@@ -1348,6 +1348,10 @@ The application will need to restart now.</source>
         <translation>Сохранить</translation>
     </message>
     <message>
+        <source>Coin title not set. Save without title?</source>
+        <translation>Не указано название монеты. Сохранить без названия?</translation>
+    </message>
+    <message>
         <source>Don&apos;t show this again</source>
         <translation>Больше не показывать</translation>
     </message>
@@ -1368,12 +1372,8 @@ The application will need to restart now.</source>
         <translation>Цена продажи ниже чем выручка. Сохранить?</translation>
     </message>
     <message>
-        <source>Title not set. Save without title?</source>
-        <translation>Не указано название. Сохранить без названия?</translation>
-    </message>
-    <message>
-        <source>Similar record already exists. Save?</source>
-        <translation>Похожая запись уже есть. Все равно сохранить?</translation>
+        <source>Similar coin already exists. Save?</source>
+        <translation>Похожая монета уже есть. Все равно сохранить?</translation>
     </message>
 </context>
 <context>
@@ -2289,10 +2289,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Use webcam</source>
         <translation>Использовать камеру</translation>
-    </message>
-    <message>
-        <source>Show counter in tree</source>
-        <translation>Показывать количество в дереве</translation>
     </message>
 </context>
 <context>
@@ -3435,12 +3431,12 @@ Add a new one first.</source>
         <translation>Добавить новую монету...</translation>
     </message>
     <message>
-        <source>Customize tree...</source>
-        <translation>Настроить дерево...</translation>
+        <source>Edit coins...</source>
+        <translation>Редактировать монеты...</translation>
     </message>
     <message>
-        <source>Multi edit...</source>
-        <translation>Редактировать все...</translation>
+        <source>Customize tree...</source>
+        <translation>Настроить дерево...</translation>
     </message>
 </context>
 <context>
