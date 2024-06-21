@@ -2280,7 +2280,7 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show counter in tree</source>
+        <source>Show counter in tree and statistics</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
