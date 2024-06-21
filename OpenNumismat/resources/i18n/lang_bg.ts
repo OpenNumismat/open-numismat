@@ -1038,7 +1038,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Use relative paths for invoices</source>
-        <translation>Използване на относителни пътища за фактури</translation>
+        <translation>Използване на относителни пътища за полето &quot;Фактура&quot;</translation>
     </message>
     <message>
         <source>Die axis in hours</source>
