@@ -40,7 +40,7 @@ except ImportError:
     colnectAvailable = False
 
 CONNECTION_TIMEOUT = 10
-MAX_ITEMS = 100
+MAX_ITEMS = 150
 
 
 class ColnectConnector(QObject):
