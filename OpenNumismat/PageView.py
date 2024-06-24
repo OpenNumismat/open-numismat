@@ -1,6 +1,6 @@
 from PySide6.QtCore import Qt, QEvent
 from PySide6.QtGui import QKeyEvent
-from PySide6.QtWidgets import QBoxLayout
+from PySide6.QtWidgets import QBoxLayout, QWidget
 
 from OpenNumismat.ImageView import ImageView
 from OpenNumismat.DetailsView import DetailsView
@@ -48,10 +48,7 @@ class PageView(Splitter):
         splitter2.addWidget(splitter3)
         splitter2.addWidget(self.listView)
         self.splitter1.addWidget(splitter2)
-        if self.imagesAtBottom:
-            self.splitter1.addWidget(self.imageView)
-        else:
-            self.splitter1.addWidget(self.detailsView)
+        self.splitter1.addWidget(QWidget())
 
         self.statisticsView = StatisticsView(pageParam.statisticsParam)
         self.statisticsView.setMinimumHeight(200)
