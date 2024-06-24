@@ -395,9 +395,10 @@ class FilterMenuButton(QPushButton):
         self.setIcon(QIcon())
 
     def applySearch(self, text):
+        text = text.lower()
         for i in range(self.listWidget.count()):
             item = self.listWidget.item(i)
-            if item.text().find(text) >= 0:
+            if item.text().lower().find(text) >= 0:
                 item.setHidden(False)
             else:
                 item.setHidden(True)
