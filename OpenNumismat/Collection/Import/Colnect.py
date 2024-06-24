@@ -299,6 +299,18 @@ class ColnectConnector(QObject):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect service not available"))
             return []
+        elif raw_data.startswith('Limits exceeded daily'):
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Daily request limit reached"))
+            return []
+        elif raw_data.startswith('Limits exceeded weekly'):
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Weekly request limit reached"))
+            return []
+        elif raw_data.startswith('Limits exceeded monthly'):
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Monthly request limit reached"))
+            return []
         elif raw_data.startswith('Limits exceeded'):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Number of requests exceeded"))
