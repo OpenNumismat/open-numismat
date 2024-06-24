@@ -1087,6 +1087,18 @@ A aplicação tem de reiniciar agora.</translation>
         <source>Number of requests exceeded</source>
         <translation>Excedeu o número de pedidos</translation>
     </message>
+    <message>
+        <source>Daily request limit reached</source>
+        <translation>Atingiu o máximo de pedidos diários</translation>
+    </message>
+    <message>
+        <source>Weekly request limit reached</source>
+        <translation>Atingiu o máximo de pedidos semanais</translation>
+    </message>
+    <message>
+        <source>Monthly request limit reached</source>
+        <translation>Atingiu o máximo de pedidos mensais</translation>
+    </message>
 </context>
 <context>
     <name>ColnectDialog</name>
