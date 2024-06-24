@@ -245,8 +245,10 @@ class ColnectConnector(QObject):
 
         return name
 
-    def _baseUrl(self):
-        url = f"{COLNECT_PROXY}/{self.uuid}/{self.lang}/api/{COLNECT_KEY}/"
+    def _baseUrl(self, lang=None):
+        if lang is None:
+            lang = self.lang
+        url = f"{COLNECT_PROXY}/{self.uuid}/{lang}/api/{COLNECT_KEY}/"
         return url
 
     def _makeQuery(self, category, country=None, series=None,
@@ -274,12 +276,12 @@ class ColnectConnector(QObject):
                  distribution=None, year=None, value=None, currency=None):
         action = "list_id" + self._makeQuery(category, country, series,
                  distribution, year, value, currency)
-        item_ids = self.getData(action)
+        item_ids = self.getData(action, 'en')
         return len(item_ids)
     
     @waitCursorDecorator
-    def getData(self, action):
-        url = self._baseUrl() + action
+    def getData(self, action, lang=None):
+        url = self._baseUrl(lang) + action
         raw_data = self.cache.get(url)
         if raw_data:
             data = json.loads(raw_data)
@@ -332,7 +334,7 @@ class ColnectConnector(QObject):
                  distribution=None, year=None, value=None, currency=None):
         action = "list_id" + self._makeQuery(category, country, series,
                  distribution, year, value, currency)
-        item_ids = self.getData(action)
+        item_ids = self.getData(action, 'en')
         return item_ids
     
     def getCountries(self, category):
