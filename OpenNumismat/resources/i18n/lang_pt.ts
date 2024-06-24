@@ -1348,10 +1348,6 @@ A aplicação tem de reiniciar agora.</translation>
         <translation>Gravar</translation>
     </message>
     <message>
-        <source>Coin title not set. Save without title?</source>
-        <translation>Título da moeda não definido. Gravar sem título?</translation>
-    </message>
-    <message>
         <source>Don&apos;t show this again</source>
         <translation>Não mostrar novamente</translation>
     </message>
@@ -1372,8 +1368,12 @@ A aplicação tem de reiniciar agora.</translation>
         <translation>O preço de venda é menor que a receita total. Gravar?</translation>
     </message>
     <message>
-        <source>Similar coin already exists. Save?</source>
-        <translation>Já existe uma moeda similar. Gravar?</translation>
+        <source>Title not set. Save without title?</source>
+        <translation>Não definiu um título. Deseja gravar mesmo assim?</translation>
+    </message>
+    <message>
+        <source>Similar record already exists. Save?</source>
+        <translation>Já existe um registo semelhante. Gravar?</translation>
     </message>
 </context>
 <context>
@@ -2289,6 +2289,10 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Use webcam</source>
         <translation>Utilizar a câmara</translation>
+    </message>
+    <message>
+        <source>Show counter in tree and statistics</source>
+        <translation>Mostrar contador na árvore e nas estatísticas</translation>
     </message>
 </context>
 <context>
@@ -3431,12 +3435,12 @@ Adicione uma nova primeiro.</translation>
         <translation>Adicionar nova moeda...</translation>
     </message>
     <message>
-        <source>Edit coins...</source>
-        <translation>Editar moedas...</translation>
-    </message>
-    <message>
         <source>Customize tree...</source>
         <translation>Personalizar árvore...</translation>
+    </message>
+    <message>
+        <source>Multi edit...</source>
+        <translation>Editar várias...</translation>
     </message>
 </context>
 <context>
