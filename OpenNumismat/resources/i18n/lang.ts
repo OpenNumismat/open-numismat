@@ -1079,6 +1079,18 @@ The application will need to restart now.</source>
         <source>Number of requests exceeded</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Daily request limit reached</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weekly request limit reached</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monthly request limit reached</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColnectDialog</name>
