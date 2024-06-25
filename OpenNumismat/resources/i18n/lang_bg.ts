@@ -1087,6 +1087,18 @@ The application will need to restart now.</source>
         <source>Number of requests exceeded</source>
         <translation>Броят на заявките е надвишен</translation>
     </message>
+    <message>
+        <source>Daily request limit reached</source>
+        <translation>Достигнат е дневният лимит на заявките</translation>
+    </message>
+    <message>
+        <source>Weekly request limit reached</source>
+        <translation>Достигнат е седмичният лимит на заявките</translation>
+    </message>
+    <message>
+        <source>Monthly request limit reached</source>
+        <translation>Достигнат е месечният лимит на заявките</translation>
+    </message>
 </context>
 <context>
     <name>ColnectDialog</name>
