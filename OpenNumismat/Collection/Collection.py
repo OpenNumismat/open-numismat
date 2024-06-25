@@ -472,14 +472,15 @@ class CollectionModel(QSqlTableModel):
 
             for j in range(multiRecord.count()):
                 field = record.field(j)
-                if field.name() == 'tags':
-                    usedFields[j] = Qt.Unchecked
-                else:
+                if field.name() != 'tags':
                     value = field.value()
                     if multiRecord.value(j) != value or not value:
                         multiRecord.setNull(j)
                         usedFields[j] = Qt.Unchecked
+
         multiRecord.setValue('tags', tags)
+        tags_index = multiRecord.indexOf('tags')
+        usedFields[tags_index] = Qt.Unchecked
 
         return multiRecord, usedFields
 
