@@ -1087,6 +1087,18 @@ The application will need to restart now.</source>
         <source>Number of requests exceeded</source>
         <translation>Превышено количество запросов</translation>
     </message>
+    <message>
+        <source>Daily request limit reached</source>
+        <translation>Достигнут суточный лимит запросов</translation>
+    </message>
+    <message>
+        <source>Weekly request limit reached</source>
+        <translation>Достигнут недельный лимит запросов</translation>
+    </message>
+    <message>
+        <source>Monthly request limit reached</source>
+        <translation>Достигнут месячный лимит запросов</translation>
+    </message>
 </context>
 <context>
     <name>ColnectDialog</name>
