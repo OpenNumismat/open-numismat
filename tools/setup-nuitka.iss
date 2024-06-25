@@ -180,3 +180,4 @@ Type: files; Name: {app}\base_library.zip;
 Type: files; Name: {app}\ucrtbase.dll;
 Type: files; Name: {app}\api-ms-win-*-0.dll;
 Type: files; Name: {app}\PySide6\*.dll;
+Type: files; Name: {app}\shiboken6\shiboken6.abi3.dll;

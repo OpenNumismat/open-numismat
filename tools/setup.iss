@@ -175,6 +175,7 @@ Type: filesandordirs; Name: {app}\win32com;
 Type: filesandordirs; Name: {app}\matplotlib;
 Type: filesandordirs; Name: {app}\numpy;
 Type: filesandordirs; Name: {app}\PyQt5;
+Type: filesandordirs; Name: {app}\zstandard;
 Type: files; Name: {app}\*.cp39-win_amd64.pyd;
 Type: files; Name: {app}\*.cp310-win_amd64.pyd;
 Type: files; Name: {app}\win32*.pyd;
