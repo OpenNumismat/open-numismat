@@ -79,7 +79,7 @@ class FilterMenuButton(QPushButton):
         self.setFixedWidth(self.height())
         self.setObjectName("FilterMenuButton")
         padding = self.style().pixelMetric(QStyle.PM_MenuButtonIndicator) + off
-        self.setStyleSheet("QPushButton#FilterMenuButton {padding-left:%dpx;}" % padding)
+        self.setStyleSheet(f"QPushButton#FilterMenuButton {{padding-left:{padding}px;}}")
         if self.fieldid in self.filters.keys():
             self.setIcon(QIcon(':/filters.ico'))
 
