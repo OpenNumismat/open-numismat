@@ -1154,6 +1154,12 @@ The application will need to restart now.</source>
         <source>Inserting records</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Colnect API changed.
+Please clear import cache from Settings-&gt;Import-&gt;Clear cache
+and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConvertButton</name>
