@@ -1166,7 +1166,7 @@ The application will need to restart now.</source>
         <source>Colnect API changed.
 Please clear import cache from Settings-&gt;Import-&gt;Clear cache
 and try again.</source>
-        <translation>Colnect API е променен.
+        <translation>API на Colnect е променен.
 Моля, изчистете кеша за импортиране от Настройки-&gt;Импортиране-&gt;Изчистване на кешът
 и опитайте отново.</translation>
     </message>
