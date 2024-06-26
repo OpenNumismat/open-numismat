@@ -104,7 +104,7 @@ class ColnectConnector(QObject):
             elif column[0] == 'catalognum1':
                 codes = value.split(',', 3)
                 for i, code in enumerate(codes):
-                    field = 'catalognum%d' % (i + 1)
+                    field = f"catalognum{i + 1}"
                     record.setValue(field, code.strip())
                 continue
             elif column[0] == 'obversecolor':
@@ -255,20 +255,20 @@ class ColnectConnector(QObject):
                  distribution=None, year=None, value=None, currency=None):
         params = "/cat/%s" % category
         if country:
-            params += "/producer/%d" % country
+            params += f"/producer/{country}"
         if series:
-            params += "/series/%s" % series
+            params += f"/series/{series}"
         if distribution:
             if category == 'coins':
-                params += "/distribution/%s" % distribution
+                params += f"/distribution/{distribution}"
             elif category == 'stamps':
-                params += "/emission/%s" % distribution
+                params += f"/emission/{distribution}"
         if year:
-            params += "/year/%s" % year
+            params += f"/year/{year}"
         if value:
-            params += "/face_value/%s" % value
+            params += f"/face_value/{value}"
         if currency:
-            params += "/currency/%s" % currency
+            params += f"/currency/{currency}"
         
         return params
 
@@ -729,7 +729,7 @@ class ColnectDialog(QDialog):
                 if progressDlg.wasCanceled():
                     break
 
-                action = "item/cat/%s/id/%d" % (category, item_id)
+                action = f"item/cat/{category}/id/{item_id}"
                 data = self.colnect.getData(action)
 
                 if len(data) != len(fields):
@@ -767,7 +767,7 @@ class ColnectDialog(QDialog):
                     if value > 5000:
                         value -= 10000
                     if self.enable_bc and value < 0:
-                        value = "%d BC" % -value
+                        value = f"{-value} BC"
                 item = QTableWidgetItem(str(value))
                 self.table.setItem(i, 4, item)
                 if category == 'philatelic_products':
@@ -816,8 +816,7 @@ class ColnectDialog(QDialog):
         return image
 
     def _itemUrl(self, category, item_id):
-        url = "https://colnect.com/%s/%s/%s/%d" % (self.lang, category,
-                                                   category[:-1], item_id)
+        url = "https://colnect.com/{self.lang}/{category}/{category[:-1]}/{item_id}"
         return url
 
     def addCoins(self, indexes):
