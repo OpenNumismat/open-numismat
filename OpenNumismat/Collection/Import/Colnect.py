@@ -731,6 +731,13 @@ class ColnectDialog(QDialog):
 
                 action = "item/cat/%s/id/%d" % (category, item_id)
                 data = self.colnect.getData(action)
+
+                if len(data) != len(fields):
+                    progressDlg.reset()
+                    QMessageBox.warning(self, "Colnect",
+                                        self.tr("Colnect API changed.\nPlease clear import cache from Settings->Import->Clear cache\nand try again."))
+                    break
+
                 data.append(self._itemUrl(category, item_id))
                 self.items.append(data)
 
