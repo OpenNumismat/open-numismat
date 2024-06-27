@@ -1167,7 +1167,7 @@ A aplicação tem de reiniciar agora.</translation>
 Please clear import cache from Settings-&gt;Import-&gt;Clear cache
 and try again.</source>
         <translation>A API da Colnect mudou.
-Por favor, limpe a memória em Preferências-&gt;Importar-&gt;Limpar memória
+Por favor, limpe a memória em Definições-&gt;Importar-&gt;Limpar memória
 e tente novamente.</translation>
     </message>
 </context>
