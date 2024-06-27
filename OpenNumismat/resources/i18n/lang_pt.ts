@@ -1162,6 +1162,14 @@ A aplicação tem de reiniciar agora.</translation>
         <source>Inserting records</source>
         <translation>A inserir registos</translation>
     </message>
+    <message>
+        <source>Colnect API changed.
+Please clear import cache from Settings-&gt;Import-&gt;Clear cache
+and try again.</source>
+        <translation>A API da Colnect mudou.
+Por favor, limpe a memória em Preferências-&gt;Importar-&gt;Limpar memória
+e tente novamente.</translation>
+    </message>
 </context>
 <context>
     <name>ConvertButton</name>
