@@ -3141,7 +3141,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Bidding</source>
-        <translation>Наддаване</translation>
+        <translation>В наддаване</translation>
     </message>
     <message>
         <source>Ordered</source>
