@@ -3169,7 +3169,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Продажба</translation>
+        <translation>За продажба</translation>
     </message>
     <message>
         <source>Missing</source>
