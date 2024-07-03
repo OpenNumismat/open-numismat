@@ -1162,6 +1162,14 @@ The application will need to restart now.</source>
         <source>Inserting records</source>
         <translation>Вставка записей</translation>
     </message>
+    <message>
+        <source>Colnect API changed.
+Please clear import cache from Settings-&gt;Import-&gt;Clear cache
+and try again.</source>
+        <translation>Изменено API Colnect.
+Очистите кэш из Настройки-&gt;Импорт-&gt;Очистить кэш
+и попробуйте еще раз.</translation>
+    </message>
 </context>
 <context>
     <name>ConvertButton</name>
