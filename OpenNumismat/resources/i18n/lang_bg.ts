@@ -3256,7 +3256,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Count biddings: %d</source>
-        <translation>Брой наддавания: %d</translation>
+        <translation>Брой в наддавания: %d</translation>
     </message>
     <message>
         <source>Count missing: %d</source>
