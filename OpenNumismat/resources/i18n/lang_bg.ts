@@ -263,7 +263,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>%d record(s) selected</source>
-        <translation>%d избран/и запис/и</translation>
+        <translation>%d избран/и запис/а</translation>
     </message>
     <message>
         <source>Are you sure to remove a %d coin(s)?</source>
