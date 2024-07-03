@@ -1708,7 +1708,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Available format 12.5 or 10%</source>
-        <translation>Наличен формат 12.5 или 10%</translation>
+        <translation>Възможно форматиране на стойността: 12,5 или 10%</translation>
     </message>
     <message>
         <source>Edit...</source>
