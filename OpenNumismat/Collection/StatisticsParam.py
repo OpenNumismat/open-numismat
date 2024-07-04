@@ -20,7 +20,7 @@ class StatisticsParam(BaseSettings):
         self.pageId = page.id
         self.db = page.db
         if 'statistics' not in self.db.tables():
-            self.create(self.db)
+            self.create()
 
         self._load()
 
@@ -76,8 +76,7 @@ class StatisticsParam(BaseSettings):
         query.addBindValue(self.pageId)
         query.exec_()
 
-    @staticmethod
-    def create(db=QSqlDatabase()):
+    def create(self):
         sql = """CREATE TABLE statistics (
             id INTEGER NOT NULL PRIMARY KEY,
             pageid INTEGER,
@@ -88,4 +87,4 @@ class StatisticsParam(BaseSettings):
             items TEXT,
             period TEXT,
             color INTEGER)"""
-        QSqlQuery(sql, db)
+        QSqlQuery(sql, self.db)

@@ -357,7 +357,7 @@ class CollectionFields(CollectionFieldsBase):
         self.db = db
 
         if 'fields' not in self.db.tables():
-            self.create(self.db)
+            self.create()
 
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM fields")
@@ -391,20 +391,19 @@ class CollectionFields(CollectionFieldsBase):
 
         self.db.commit()
 
-    @staticmethod
-    def create(db=QSqlDatabase()):
-        db.transaction()
+    def create(self):
+        self.db.transaction()
 
         sql = """CREATE TABLE fields (
             id INTEGER NOT NULL PRIMARY KEY,
             title TEXT,
             enabled INTEGER)"""
-        QSqlQuery(sql, db)
+        QSqlQuery(sql, self.db)
 
         fields = CollectionFieldsBase()
 
         for field in fields:
-            query = QSqlQuery(db)
+            query = QSqlQuery(self.db)
             query.prepare("""INSERT INTO fields (id, title, enabled)
                 VALUES (?, ?, ?)""")
             query.addBindValue(field.id)
@@ -413,4 +412,4 @@ class CollectionFields(CollectionFieldsBase):
             query.addBindValue(int(enabled))
             query.exec_()
 
-        db.commit()
+        self.db.commit()

@@ -10,7 +10,7 @@ class TreeParam(QObject):
         self.pageId = page.id
         self.db = page.db
         if 'treeparam' not in self.db.tables():
-            self.create(self.db)
+            self.create()
 
         self.fields = page.fields
         self._params = []
@@ -108,11 +108,10 @@ class TreeParam(QObject):
         self.index = self.index + 1
         return self._params[self.index - 1]
 
-    @staticmethod
-    def create(db=QSqlDatabase()):
+    def create(self):
         sql = """CREATE TABLE treeparam (
             id INTEGER NOT NULL PRIMARY KEY,
             pageid INTEGER,
             fieldid INTEGER,
             position INTEGER)"""
-        QSqlQuery(sql, db)
+        QSqlQuery(sql, self.db)

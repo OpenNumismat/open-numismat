@@ -878,7 +878,7 @@ class CollectionSettings(BaseSettings):
                 )
 
         if 'settings' not in self.db.tables():
-            self.create(self.db)
+            self.create()
 
         query = QSqlQuery("SELECT * FROM settings", self.db)
         while query.next():
@@ -918,24 +918,23 @@ class CollectionSettings(BaseSettings):
 
         self.db.commit()
 
-    @staticmethod
-    def create(db=QSqlDatabase()):
-        db.transaction()
+    def create(self):
+        self.db.transaction()
 
         sql = """CREATE TABLE settings (
             title CHAR NOT NULL UNIQUE,
             value CHAR)"""
-        QSqlQuery(sql, db)
+        QSqlQuery(sql, self.db)
 
         for key, value in CollectionSettings.Default.items():
-            query = QSqlQuery(db)
+            query = QSqlQuery(self.db)
             query.prepare("INSERT INTO settings (title, value)"
                           " VALUES (?, ?)")
             query.addBindValue(key)
             query.addBindValue(str(value))
             query.exec_()
 
-        db.commit()
+        self.db.commit()
 
 
 class Collection(QObject):
