@@ -867,6 +867,16 @@ class CollectionSettings(BaseSettings):
         super().__init__()
         self.db = db
 
+        for status, title in Status().items():
+            # Fill default status titles
+            self.Default[status + '_status_title'] = QApplication.translate("Status", title)
+
+        for key in self.keys():
+            if '_group_title' in key:
+                self.Default[key] = QApplication.translate(
+                    "CollectionSettings", self.Default[key]
+                )
+
         if 'settings' not in self.db.tables():
             self.create(self.db)
 
@@ -886,17 +896,8 @@ class CollectionSettings(BaseSettings):
                     value = record.value('value')
                 self.__setitem__(title, value)
 
-        for status, title in Status().items():
-            # Fill default status titles
-            self.Default[status + '_status_title'] = QApplication.translate("Status", title)
         # Fill global statuses from settings
         Statuses.init(self)
-
-        for key in self.keys():
-            if '_group_title' in key:
-                self.Default[key] = QApplication.translate(
-                    "CollectionSettings", self.Default[key]
-                )
 
     def keys(self):
         return self.Default.keys()
