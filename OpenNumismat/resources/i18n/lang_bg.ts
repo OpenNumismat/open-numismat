@@ -263,7 +263,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>%d record(s) selected</source>
-        <translation>%d избран/и запис/и</translation>
+        <translation>%d избран/и запис/а</translation>
     </message>
     <message>
         <source>Are you sure to remove a %d coin(s)?</source>
@@ -1708,7 +1708,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Available format 12.5 or 10%</source>
-        <translation>Наличен формат 12.5 или 10%</translation>
+        <translation>Възможно форматиране на стойността: 12,5 или 10%</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -3141,7 +3141,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Bidding</source>
-        <translation>Наддаване</translation>
+        <translation>В наддаване</translation>
     </message>
     <message>
         <source>Ordered</source>
@@ -3169,7 +3169,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Продажба</translation>
+        <translation>За продажба</translation>
     </message>
     <message>
         <source>Missing</source>
@@ -3256,7 +3256,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Count biddings: %d</source>
-        <translation>Брой наддавания: %d</translation>
+        <translation>Брой в наддавания: %d</translation>
     </message>
     <message>
         <source>Count missing: %d</source>
