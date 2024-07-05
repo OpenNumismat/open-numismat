@@ -196,7 +196,7 @@ class ImportNumista(_Import2):
         if 'value' not in item['price']:
             item['price']['value'] = ''
         if 'issuer' not in item['type']:
-            item['coin']['issuer'] = {'name': ''}
+            item['type']['issuer'] = {'name': ''}
 
         record.setValue('title', item['type']['title'])
         record.setValue('country', item['type']['issuer']['name'])
