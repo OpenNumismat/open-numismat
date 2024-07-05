@@ -516,7 +516,10 @@ class AnsDialog(QDialog):
         url = self._getAttrib(tree, "./nuds:descMeta/nuds:refDesc/nuds:reference",
                              '{http://www.w3.org/1999/xlink}href')
         if url:
-            url = url + '.xml'
+            if url.startswith('https://rpc.ashmus.ox.ac.uk'):
+                url += '/xml'
+            else:
+                url += '.xml'
             raw_data = self.connector.download_data(url)
             if raw_data:
                 tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
@@ -764,9 +767,9 @@ class AnsDialog(QDialog):
                                      '{http://www.w3.org/1999/xlink}href')
                 if url:
                     if url.startswith('https://rpc.ashmus.ox.ac.uk'):
-                        url = url + '/xml'
+                        url += '/xml'
                     else:
-                        url = url + '.xml'
+                        url += '.xml'
                     raw_data = self.connector.download_data(url)
                     if raw_data:
                         tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
