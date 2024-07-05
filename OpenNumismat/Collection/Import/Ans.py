@@ -148,7 +148,7 @@ class AnsConnector(QObject):
         return int(count[0].text)
     
     def getTranslation(self, src, lang):
-        url = "https://nomisma.org/apis/getLabel?uri=" + src + "&lang=" + lang
+        url = f"https://nomisma.org/apis/getLabel?uri={src}&lang={lang}"
         raw_data = self.download_data(url)
         if raw_data:
             tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
