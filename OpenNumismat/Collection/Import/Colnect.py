@@ -816,7 +816,7 @@ class ColnectDialog(QDialog):
         return image
 
     def _itemUrl(self, category, item_id):
-        url = "https://colnect.com/{self.lang}/{category}/{category[:-1]}/{item_id}"
+        url = f"https://colnect.com/{self.lang}/{category}/{category[:-1]}/{item_id}"
         return url
 
     def addCoins(self, indexes):
