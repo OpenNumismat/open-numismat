@@ -112,7 +112,7 @@ class MainSettingsPage(QWidget):
 
         self.autobackup = QCheckBox(self.tr("Make autobackup"), self)
         self.autobackup.setChecked(settings['autobackup'])
-        self.autobackup.stateChanged.connect(self.autobackupClicked)
+        self.autobackup.checkStateChanged.connect(self.autobackupClicked)
         layout.addRow(self.autobackup)
 
         self.autobackupDepth = QSpinBox(self)

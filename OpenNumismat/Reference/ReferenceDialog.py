@@ -204,7 +204,7 @@ class ReferenceWidget(QWidget):
         self.sortButton = QCheckBox(
                             QApplication.translate('ReferenceWidget', "Sort"))
         self.sortButton.setChecked(section.sort)
-        self.sortButton.stateChanged.connect(self.sortChanged)
+        self.sortButton.checkStateChanged.connect(self.sortChanged)
 
         hlayout = QHBoxLayout()
         hlayout.addWidget(self.sortButton)

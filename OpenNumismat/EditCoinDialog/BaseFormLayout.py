@@ -34,7 +34,7 @@ class FormItem(object):
             self._label = QCheckBox(title, parent)
             self._label.setSizePolicy(QSizePolicy.Fixed,
                                       QSizePolicy.Preferred)
-            self._label.stateChanged.connect(self.checkBoxChanged)
+            self._label.checkStateChanged.connect(self.checkBoxChanged)
         else:
             self._label = QLabel(title, parent)
             self._label.setSizePolicy(QSizePolicy.Fixed,

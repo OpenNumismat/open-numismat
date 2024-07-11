@@ -347,7 +347,7 @@ class AnsDialog(QDialog):
         self.imagesSelector = QCheckBox(self.tr("Has images"))
         if self.model.settings['ans_has_image']:
             self.imagesSelector.setCheckState(Qt.Checked)
-        self.imagesSelector.stateChanged.connect(self.partChanged)
+        self.imagesSelector.checkStateChanged.connect(self.partChanged)
         layout.addRow(self.imagesSelector)
 
         self.parts = (self.countrySelector, self.dynastySelector,

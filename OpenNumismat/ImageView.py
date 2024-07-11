@@ -77,7 +77,7 @@ class ImageView(QWidget):
             button = QCheckBox(self)
             button.setToolTip(field.title)
             button.setDisabled(True)
-            button.stateChanged.connect(self.buttonClicked)
+            button.checkStateChanged.connect(self.buttonClicked)
             self.imageButtons.append(button)
             self.buttonLayout.addWidget(button)
 
@@ -113,7 +113,7 @@ class ImageView(QWidget):
         self.clear()
 
         for i, field in enumerate(self.imageFields):
-            self.imageButtons[i].stateChanged.disconnect(self.buttonClicked)
+            self.imageButtons[i].checkStateChanged.disconnect(self.buttonClicked)
             self.imageButtons[i].setCheckState(Qt.Unchecked)
             self.imageButtons[i].setDisabled(True)
 
@@ -133,7 +133,7 @@ class ImageView(QWidget):
 
                 self.imageButtons[i].setDisabled(False)
 
-            self.imageButtons[i].stateChanged.connect(self.buttonClicked)
+            self.imageButtons[i].checkStateChanged.connect(self.buttonClicked)
 
     def imageEdited(self, image):
         record = self.model.record(self.currentIndex.row())
