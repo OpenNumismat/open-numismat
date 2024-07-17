@@ -102,7 +102,6 @@ class ImportCoinSnap(_Import):
 
     def __getImage(self, url):
         if url:
-            image = QImage()
             try:
                 resp = self.http.request("GET", url)
                 data = resp.data
@@ -113,6 +112,7 @@ class ImportCoinSnap(_Import):
             except:
                 return None
 
+            image = QImage()
             if image.loadFromData(data):
                 return self.__fixTransparentImage(image)
 
