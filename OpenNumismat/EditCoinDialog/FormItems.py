@@ -977,9 +977,9 @@ class DenominationEdit(MoneyEdit):
                 QLineEdit.setText(self, text)
 
 
-RICH_PREFIX = ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" '\
+RICH_PREFIX = ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" '
                '"http://www.w3.org/TR/REC-html40/strict.dtd">',
-               '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" '\
+               '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" '
                '"https://www.w3.org/TR/REC-html40/strict.dtd">')
 
 
