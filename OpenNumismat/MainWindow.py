@@ -247,6 +247,14 @@ class MainWindow(QMainWindow):
             self.collectionActs.append(importTellicoAct)
             importMenu.addAction(importTellicoAct)
 
+        if ImportCoinSnap.isAvailable():
+            importCoinSnapAct = QAction(
+                                    QIcon(':/coinsnap.png'),
+                                    "CoinSnap", self)
+            importCoinSnapAct.triggered.connect(self.importCoinSnap)
+            self.collectionActs.append(importCoinSnapAct)
+            importMenu.addAction(importCoinSnapAct)
+
         mergeCollectionAct = QAction(
                                     QIcon(':/refresh.png'),
                                     self.tr("Synchronize..."), self)
@@ -732,6 +740,14 @@ class MainWindow(QMainWindow):
     def importNumista(self):
         imp = ImportNumista(self)
         imp.importData('Numista', self.viewTab.currentModel())
+
+    def importCoinSnap(self):
+        defaultDir = ImportCoinSnap.defaultDir()
+        file, _selectedFilter = QFileDialog.getOpenFileName(
+            self, self.tr("Select file"), defaultDir, "*.csv")
+        if file:
+            imp = ImportCoinSnap(self)
+            imp.importData(file, self.viewTab.currentModel())
 
     def exportMobile(self):
         dialog = ExportDialog(self.collection, self)

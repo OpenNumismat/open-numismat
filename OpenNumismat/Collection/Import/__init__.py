@@ -198,7 +198,9 @@ from OpenNumismat.Collection.Import.Tellico import ImportTellico
 from OpenNumismat.Collection.Import.Excel import ImportExcel
 from OpenNumismat.Collection.Import.Colnect import ImportColnect
 from OpenNumismat.Collection.Import.Numista import ImportNumista
+from OpenNumismat.Collection.Import.CoinSnap import ImportCoinSnap
 
 __all__ = ("ImportCoinManage", "ImportCoinManagePredefined",
            "ImportCollectionStudio", "ImportUcoin", "ImportUcoin2",
-           "ImportTellico", "ImportExcel", "ImportColnect", "ImportNumista")
+           "ImportTellico", "ImportExcel", "ImportColnect", "ImportNumista",
+           "ImportCoinSnap")
