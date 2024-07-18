@@ -86,6 +86,7 @@ class ImageView(QWidget):
             item = self.imageLayout.takeAt(0)
             w = item.widget()
             self.imageLayout.removeItem(item)
+            w.clear()
             w.deleteLater()
 
     def buttonClicked(self, _state):
