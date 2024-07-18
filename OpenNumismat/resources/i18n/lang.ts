@@ -2076,6 +2076,21 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ImportCoinSnap</name>
+    <message>
+        <source>No mint mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Common series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CoinSnap not response</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportExcel</name>
     <message>
         <source>&lt;Ignore&gt;</source>
