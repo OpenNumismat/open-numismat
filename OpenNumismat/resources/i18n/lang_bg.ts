@@ -2089,6 +2089,21 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ImportCoinSnap</name>
+    <message>
+        <source>No mint mark</source>
+        <translation>Без знак на монетния двор</translation>
+    </message>
+    <message>
+        <source>Common series</source>
+        <translation>Обща серия</translation>
+    </message>
+    <message>
+        <source>CoinSnap not response</source>
+        <translation>CoinSnap не отговаря</translation>
+    </message>
+</context>
+<context>
     <name>ImportExcel</name>
     <message>
         <source>&lt;Ignore&gt;</source>
