@@ -2089,6 +2089,21 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
+    <name>ImportCoinSnap</name>
+    <message>
+        <source>No mint mark</source>
+        <translation>Sem marca de cunhagem</translation>
+    </message>
+    <message>
+        <source>Common series</source>
+        <translation>Série comum</translation>
+    </message>
+    <message>
+        <source>CoinSnap not response</source>
+        <translation>Sem resposta do CoinSnap</translation>
+    </message>
+</context>
+<context>
     <name>ImportExcel</name>
     <message>
         <source>&lt;Ignore&gt;</source>
