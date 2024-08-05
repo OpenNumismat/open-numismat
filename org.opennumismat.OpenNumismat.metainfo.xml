@@ -36,6 +36,7 @@
     <name>Janis</name>
   </developer>
   <releases>
+    <release date="2024-08-05" version="1.9.11"/>
     <release date="2024-07-03" version="1.9.10"/>
     <release date="2024-06-14" version="1.9.9"/>
     <release date="2024-05-20" version="1.9.8"/>
