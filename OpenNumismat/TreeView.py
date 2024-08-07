@@ -311,7 +311,9 @@ class TreeView(QTreeWidget):
     def __processChilds(self, parent_fields, cur_fields, filters):
         child_items = {}
 
-        sql_fields = ','.join(cur_fields + parent_fields)
+        fields = cur_fields + parent_fields
+        fields = [f"COALESCE(NULLIF({field}, ''), '') AS {field}" for field in fields]
+        sql_fields = ','.join(fields)
         if self.showCounter:
             sql = f"SELECT {sql_fields}, COUNT(*) counter FROM coins"
             if filters:
