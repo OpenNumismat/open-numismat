@@ -312,13 +312,14 @@ class TreeView(QTreeWidget):
         child_items = {}
 
         fields = cur_fields + parent_fields
-        fields = [f"COALESCE(NULLIF({field}, ''), '') AS {field}" for field in fields]
-        sql_fields = ','.join(fields)
+        coalse_fields = [f"COALESCE(NULLIF({field}, ''), '') AS {field}" for field in fields]
+        sql_fields = ','.join(coalse_fields)
         if self.showCounter:
             sql = f"SELECT {sql_fields}, COUNT(*) counter FROM coins"
             if filters:
                 sql += f" WHERE {filters}"
-            sql += f" GROUP BY {sql_fields}"
+            sql_group_fields = ','.join(fields)
+            sql += f" GROUP BY {sql_group_fields}"
         else:
             sql = f"SELECT DISTINCT {sql_fields} FROM coins"
             if filters:
