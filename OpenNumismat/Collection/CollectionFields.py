@@ -171,6 +171,7 @@ TreeFields = (
     'defect',
     'storage',
     'composition',
+    'native_year',
 )
 StatisticsFields = (
     'category',
