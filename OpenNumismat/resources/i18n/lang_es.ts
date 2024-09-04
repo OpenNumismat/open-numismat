@@ -3400,13 +3400,13 @@ Por favor, actualiza OpenNumismat</translation>
         <source>Can't close latest opened page.
 Add a new one first.</source>
         <translation>No se puede cerrar la última página abierta.
-Añada una nueva primero.</translation>
+Añade una nueva primero.</translation>
     </message>
     <message>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
         <translation>No se puede eliminar la última página abierta.
-Añada una nueva primero.</translation>
+Añade una nueva primero.</translation>
     </message>
     <message>
         <source>Remove the page &apos;%s&apos; permanently?</source>
