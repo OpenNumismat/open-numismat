@@ -1,24 +1,5 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
 <context>
-    <name/>
-    <message>
-        <source>Country</source>
-        <translation>País</translation>
-    </message>
-    <message>
-        <source>Quantity</source>
-        <translation>Cantidad</translation>
-    </message>
-    <message>
-        <source>Saving</source>
-        <translation>Guardando</translation>
-    </message>
-    <message>
-        <source>Image not ready. Please try again later</source>
-        <translation>Imagen no lista. Inténtelo más tarde</translation>
-    </message>
-</context>
-<context>
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
@@ -37,11 +18,11 @@
     </message>
     <message>
         <source>Something went wrong when saving. Please restart</source>
-        <translation>Algo ha salido mal al guardar. Por favor, reinicie</translation>
+        <translation>Algo ha salido mal al guardar. Por favor, reinicia</translation>
     </message>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
-        <translation>Algo ha salido mal al cancelar. Por favor, reinicie</translation>
+        <translation>Algo ha salido mal al cancelar. Por favor, reinicia</translation>
     </message>
 </context>
 <context>
@@ -53,14 +34,6 @@
 </context>
 <context>
     <name>AnsDialog</name>
-    <message>
-        <source>Catalog information courtesy of the &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
-        <translation>Información de catálogo cortesía de la base de datos de colecciones de la &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; .</translation>
-    </message>
-    <message>
-        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
-        <translation>Todas las imágenes de objetos producidas en o antes de 1925 están en el &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Dominio Público&lt;/a&gt;. Otras están disponibles para propósitos no comerciales. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Política&lt;/a&gt;.</translation>
-    </message>
     <message>
         <source>Greek</source>
         <translation>Griego</translation>
@@ -127,7 +100,7 @@
     </message>
     <message>
         <source>Specify more parameters</source>
-        <translation>Especifique más parámetros</translation>
+        <translation>Especifica más parámetros</translation>
     </message>
     <message>
         <source>Nothing found</source>
@@ -144,6 +117,18 @@
     <message>
         <source>Cancel</source>
         <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Catalog information courtesy of the &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
+        <translation>Información del catálogo cortesía de la base de datos de colecciones de la &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; .</translation>
+    </message>
+    <message>
+        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
+        <translation>Todas las imágenes de objetos producidas en 1925 o antes están en el  &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Dominio Público&lt;/a&gt;. Otras están disponibles para propósitos No-Comerciales. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Política&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>Inserting records</source>
+        <translation>Insertando registros</translation>
     </message>
 </context>
 <context>
@@ -189,18 +174,17 @@
     </message>
 </context>
 <context>
+    <name>BarcodeLineEdit</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Escanear código de barras</translation>
+    </message>
+</context>
+<context>
     <name>BaseCanvas</name>
     <message>
         <source>Quantity</source>
         <translation>Cantidad</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Imágenes (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos los archivos (*.*)</translation>
     </message>
 </context>
 <context>
@@ -224,12 +208,8 @@ Cambio de posición del artículo disponible sólo en el orden predeterminado. �
         <translation>%d/%d registros</translation>
     </message>
     <message>
-        <source>%n record(s) selected</source>
-        <translation>%n registro(s) seleccionado(s)</translation>
-    </message>
-    <message>
         <source>Report preview</source>
-        <translation>Vista del informe</translation>
+        <translation>Vista previa del informe</translation>
     </message>
     <message>
         <source>Nothing selected</source>
@@ -266,10 +246,6 @@ Close the file and try again.</source>
 Cierre el archivo y pruebe de nuevo.</translation>
     </message>
     <message>
-        <source>Updating records</source>
-        <translation>Actualizando registros</translation>
-    </message>
-    <message>
         <source>Saving...</source>
         <translation>Guardando...</translation>
     </message>
@@ -284,6 +260,14 @@ Cierre el archivo y pruebe de nuevo.</translation>
     <message>
         <source>Deleting records</source>
         <translation>Eliminar registro</translation>
+    </message>
+    <message>
+        <source>%d record(s) selected</source>
+        <translation>%d registro(s) seleccionado(s)</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove a %d coin(s)?</source>
+        <translation>¿Seguro que quiere eliminar %d moneda(s)?</translation>
     </message>
 </context>
 <context>
@@ -306,6 +290,25 @@ Cierre el archivo y pruebe de nuevo.</translation>
     <message>
         <source>Clean</source>
         <translation>Limpiar</translation>
+    </message>
+</context>
+<context>
+    <name>CameraDialog</name>
+    <message>
+        <source>Shoot</source>
+        <translation>Disparar</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Error de cámara</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Cámara no disponible</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Cámara no disponible o desactivada por antivirus</translation>
     </message>
 </context>
 <context>
@@ -336,7 +339,7 @@ Cierre el archivo y pruebe de nuevo.</translation>
     <message>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation>Hay una nueva versión de la Colección %s
+        <translation>Nueva versión de la Colección %s
 Por favor, actualice OpenNumismat</translation>
     </message>
     <message>
@@ -485,7 +488,7 @@ Por favor, actualice OpenNumismat</translation>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
         <translation>La colección %s está en formato antiguo.
-(Intente abrirla antes de combinarla.)</translation>
+(Intenta abrirla antes de combinarla.)</translation>
     </message>
     <message>
         <source>Inserted %d coins, updated %d coins.
@@ -885,7 +888,7 @@ La aplicación deberá reiniciarse ahora.</translation>
     </message>
     <message>
         <source>file is readonly</source>
-        <translation>El archivo es sólo de lectura</translation>
+        <translation>El archivo es de sólo lectura</translation>
     </message>
     <message>
         <source>Saving</source>
@@ -1042,10 +1045,6 @@ La aplicación deberá reiniciarse ahora.</translation>
         <translation>Eje de alineación en horas</translation>
     </message>
     <message>
-        <source>Used statuses:</source>
-        <translation>Estatus usados:</translation>
-    </message>
-    <message>
         <source>Default status for new coin</source>
         <translation>Estado predeterminado para la nueva moneda</translation>
     </message>
@@ -1065,6 +1064,10 @@ La aplicación deberá reiniciarse ahora.</translation>
         <source>Enable tags</source>
         <translation>Habilitar etiquetas</translation>
     </message>
+    <message>
+        <source>Used statuses (double-click for rename):</source>
+        <translation>Estatus usados (doble-clic para renombrar):</translation>
+    </message>
 </context>
 <context>
     <name>ColnectConnector</name>
@@ -1079,6 +1082,22 @@ La aplicación deberá reiniciarse ahora.</translation>
     <message>
         <source>Colnect data not recognised</source>
         <translation>Datos de Colnect no reconocidos</translation>
+    </message>
+    <message>
+        <source>Number of requests exceeded</source>
+        <translation>Número de peticiones excedida</translation>
+    </message>
+    <message>
+        <source>Daily request limit reached</source>
+        <translation>Límite de peticiones diario alcanzado</translation>
+    </message>
+    <message>
+        <source>Weekly request limit reached</source>
+        <translation>Límite de peticiones semanal alcanzado</translation>
+    </message>
+    <message>
+        <source>Monthly request limit reached</source>
+        <translation>Límite de peticiones mensual alcanzado</translation>
     </message>
 </context>
 <context>
@@ -1121,7 +1140,7 @@ La aplicación deberá reiniciarse ahora.</translation>
     </message>
     <message>
         <source>Specify more parameters</source>
-        <translation>Especifique más parámetros</translation>
+        <translation>Especifica más parámetros</translation>
     </message>
     <message>
         <source>Nothing found</source>
@@ -1138,6 +1157,18 @@ La aplicación deberá reiniciarse ahora.</translation>
     <message>
         <source>Cancel</source>
         <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Inserting records</source>
+        <translation>Insertando registros</translation>
+    </message>
+    <message>
+        <source>Colnect API changed.
+Please clear import cache from Settings-&gt;Import-&gt;Clear cache
+and try again.</source>
+        <translation>API de Colnect cambiada.
+Por favor vacía la caché de importación en Configuración-&gt;Importar-&gt;Limpiar caché
+y prueba de nuevo.</translation>
     </message>
 </context>
 <context>
@@ -1285,7 +1316,7 @@ La aplicación deberá reiniciarse ahora.</translation>
     </message>
     <message>
         <source>Hold down the Ctrl key to combine two fields (Value + Unit)</source>
-        <translation>Mantenga presionada la tecla Ctrl para combinar dos campos (Valor + Unidad)</translation>
+        <translation>Mantén presionada la tecla Ctrl para combinar dos campos (Valor + Unidad)</translation>
     </message>
 </context>
 <context>
@@ -1307,7 +1338,7 @@ La aplicación deberá reiniciarse ahora.</translation>
     <name>DetailsTabWidget</name>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
-        <translation>Nada que mostrar. Cambie el estado de la moneda en la pestaña anterior</translation>
+        <translation>Nada que mostrar. Cambia el estado de la moneda en la pestaña anterior</translation>
     </message>
     <message>
         <source>Pass</source>
@@ -1337,10 +1368,6 @@ La aplicación deberá reiniciarse ahora.</translation>
         <translation>Guardar</translation>
     </message>
     <message>
-        <source>Coin title not set. Save without title?</source>
-        <translation>Moneda sin título. ¿Guardar de todas maneras?</translation>
-    </message>
-    <message>
         <source>Don&apos;t show this again</source>
         <translation>No mostrar de nuevo esto</translation>
     </message>
@@ -1361,8 +1388,12 @@ La aplicación deberá reiniciarse ahora.</translation>
         <translation>Precio de venta es menor que el precio total de ingresos. ¿Guardar?</translation>
     </message>
     <message>
-        <source>Similar coin already exists. Save?</source>
-        <translation>Existe una moneda similar, ¿guardar de todas maneras?</translation>
+        <source>Title not set. Save without title?</source>
+        <translation>Título no asignado. ¿Guardar sin título?</translation>
+    </message>
+    <message>
+        <source>Similar record already exists. Save?</source>
+        <translation>Ya existe un registro similar. ¿Guardar?</translation>
     </message>
 </context>
 <context>
@@ -1385,7 +1416,7 @@ La aplicación deberá reiniciarse ahora.</translation>
     </message>
     <message>
         <source>Enter value</source>
-        <translation>Introduzca valor</translation>
+        <translation>Introduce valor</translation>
     </message>
 </context>
 <context>
@@ -1398,7 +1429,7 @@ La aplicación deberá reiniciarse ahora.</translation>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
         <translation>Ha ocurrido un error de sistema.
-¿Desea enviar un mensaje de error al autor?</translation>
+¿Deseas enviar un mensaje de error al autor?</translation>
     </message>
 </context>
 <context>
@@ -1548,6 +1579,10 @@ Do you want to send an error message to the author?</source>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
+    <message>
+        <source>Search by image</source>
+        <translation>Búsqueda por imagen</translation>
+    </message>
 </context>
 <context>
     <name>FormDetailsTabWidget</name>
@@ -1681,6 +1716,25 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
+    <name>GeoChart</name>
+    <message>
+        <source>Country</source>
+        <translation>País</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Cantidad</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Guardando</translation>
+    </message>
+    <message>
+        <source>Image not ready. Please try again later</source>
+        <translation>Imagen no lista. Inténtelo más tarde</translation>
+    </message>
+</context>
+<context>
     <name>GeoChartCanvas</name>
     <message>
         <source>Web page (*.htm *.html)</source>
@@ -1744,7 +1798,7 @@ Do you want to send an error message to the author?</source>
     <name>ImageEdit</name>
     <message>
         <source>Exchange with</source>
-        <translation>Intercambio con</translation>
+        <translation>Intercambiar con</translation>
     </message>
     <message>
         <source>Load...</source>
@@ -1792,45 +1846,22 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Enter new image name</source>
-        <translation>Introduzca nuevo nombre de imagen</translation>
+        <translation>Introduce nuevo nombre de imagen</translation>
     </message>
 </context>
 <context>
-    <name>ImageLabel</name>
-    <message>
-        <source>Open</source>
-        <translation>Abrir</translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation>Editar...</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Copiar</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation>Guardar como...</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Imágenes (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Todos los archivos (*.*)</translation>
-    </message>
-</context>
-<context>
-    <name>ImageViewer</name>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>&amp;Salir</translation>
-    </message>
+    <name>ImageEditorDialog</name>
     <message>
         <source>Browse in viewer</source>
         <translation>Ver en visor</translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation>&amp;Guardar como...</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Salir</translation>
     </message>
     <message>
         <source>Full Screen</source>
@@ -1850,7 +1881,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>&amp;Fit to Window</source>
-        <translation>&amp;Ajustar a ventana</translation>
+        <translation>A&amp;justar a ventana</translation>
     </message>
     <message>
         <source>Show Tool Bar</source>
@@ -1901,6 +1932,18 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Rehacer</translation>
     </message>
     <message>
+        <source>Window color</source>
+        <translation>Color de ventana</translation>
+    </message>
+    <message>
+        <source>Cut left half</source>
+        <translation>Cortar mitad izquierda</translation>
+    </message>
+    <message>
+        <source>Cut right half</source>
+        <translation>Cortar mitad derecha</translation>
+    </message>
+    <message>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
@@ -1913,20 +1956,102 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>&amp;Ver</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Imágenes (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+        <source>Settings</source>
+        <translation>Configuración</translation>
     </message>
     <message>
-        <source>All files (*.*)</source>
-        <translation>Todos los archivos (*.*)</translation>
+        <source>Image editor</source>
+        <translation>Editor de imagen</translation>
     </message>
     <message>
         <source>Image was changed. Save changes?</source>
         <translation>La imagen ha cambiado ¿Guardar cambios?</translation>
     </message>
     <message>
-        <source>&amp;Save As...</source>
-        <translation>&amp;Guardar como...</translation>
+        <source>Save changes to current image?</source>
+        <translation>¿Grabar cambios a imagen actual?</translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>No mostrar de nuevo esto</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <translation>&amp;Abrir...</translation>
+    </message>
+    <message>
+        <source>Show Scroll Panel</source>
+        <translation>Mostrar Panel de Desplazamiento</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Cámara</translation>
+    </message>
+    <message>
+        <source>Previous image</source>
+        <translation>Imagen anterior</translation>
+    </message>
+    <message>
+        <source>Next image</source>
+        <translation>Imagen siguiente</translation>
+    </message>
+    <message>
+        <source>Previous record</source>
+        <translation>Registro anterior</translation>
+    </message>
+    <message>
+        <source>Next record</source>
+        <translation>Registro siguiente</translation>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation>Navegación</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Abrir archivo</translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>Background color</source>
+        <translation>Color de fondo</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Guardar</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>La imagen ha cambiado ¿Guardar cambios?</translation>
+    </message>
+    <message>
+        <source>Open folder...</source>
+        <translation>Abrir carpeta...</translation>
+    </message>
+    <message>
+        <source>Open image folder</source>
+        <translation>Abrir carpeta de imagen</translation>
+    </message>
+</context>
+<context>
+    <name>ImageLabel</name>
+    <message>
+        <source>Open</source>
+        <translation>Abrir</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Editar...</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Copiar</translation>
+    </message>
+    <message>
+        <source>Save as...</source>
+        <translation>Guardar como...</translation>
     </message>
 </context>
 <context>
@@ -1960,7 +2085,22 @@ arrastrar y soltar para añadir una imagen)</translation>
     <name>ImportCoinManagePredefined</name>
     <message>
         <source>Select directory with pre-defined images</source>
-        <translation>Seleccione directorio con imágenes predefinidas</translation>
+        <translation>Selecciona directorio con imágenes predefinidas</translation>
+    </message>
+</context>
+<context>
+    <name>ImportCoinSnap</name>
+    <message>
+        <source>No mint mark</source>
+        <translation>Sin marca de ceca</translation>
+    </message>
+    <message>
+        <source>Common series</source>
+        <translation>Series comunes</translation>
+    </message>
+    <message>
+        <source>CoinSnap not response</source>
+        <translation>CoinSnap no responde</translation>
     </message>
 </context>
 <context>
@@ -2064,7 +2204,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Enter value</source>
-        <translation>Introduzca valor</translation>
+        <translation>Introduce valor</translation>
     </message>
     <message>
         <source>Add</source>
@@ -2085,10 +2225,6 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Clear icon</source>
         <translation>Limpiar icono</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
-        <translation>Imágenes (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</translation>
     </message>
     <message>
         <source>Open File</source>
@@ -2180,6 +2316,18 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Select reference</source>
         <translation>Seleccione referencia</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Color de fondo de imagen</translation>
+    </message>
+    <message>
+        <source>Use webcam</source>
+        <translation>Usar webcam</translation>
+    </message>
+    <message>
+        <source>Show counter in tree and statistics</source>
+        <translation>Mostrar contador en árbol y estadísticas</translation>
     </message>
 </context>
 <context>
@@ -2378,15 +2526,15 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
-        <translation>Antes de importar debería exportar la colección existente de Collection Studio a una tabla XML (en Collection Studio, elija el menú Herramientas &gt; Exportar...).</translation>
+        <translation>Antes de importar deberías exportar la colección existente de Collection Studio a una tabla XML (en Collection Studio, elige el menú Herramientas &gt; Exportar...).</translation>
     </message>
     <message>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation>Antes de importar, debe exportar la colección existente desde uCoin.net a formato (CSV) separado por comas.</translation>
+        <translation>Antes de importar, debes exportar la colección existente desde uCoin.net a formato (CSV) separado por comas.</translation>
     </message>
     <message>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
-        <translation>Antes de importar, debe exportar la colección existente de uCoin.net a Microsoft Excel (XLS) o al formato separado por comas (CSV).</translation>
+        <translation>Antes de importar, debes exportar la colección existente de uCoin.net a Microsoft Excel (XLS) o al formato separado por comas (CSV).</translation>
     </message>
     <message>
         <source>Open collection</source>
@@ -2414,7 +2562,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>You already have the latest version.</source>
-        <translation>Ya tiene la última versión.</translation>
+        <translation>Ya tienes la última versión.</translation>
     </message>
     <message>
         <source>New version</source>
@@ -2422,11 +2570,34 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>New version is available. Download it now?</source>
-        <translation>Nueva versión disponible. ¿Desea descargarla?</translation>
+        <translation>Nueva versión disponible. ¿Deseas descargarla?</translation>
     </message>
     <message>
         <source>Tags...</source>
         <translation>Etiquetas...</translation>
+    </message>
+    <message>
+        <source>Search by image...</source>
+        <translation>Búsqueda por imagen...</translation>
+    </message>
+    <message>
+        <source>Year calculator</source>
+        <translation>Calculador de año</translation>
+    </message>
+    <message>
+        <source>References generator</source>
+        <translation>Generador de referencias</translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation>Herramientas</translation>
+    </message>
+</context>
+<context>
+    <name>NGCBarcodeDialog</name>
+    <message>
+        <source>NGC barcode parser</source>
+        <translation>Procesador de código de barras NGC</translation>
     </message>
 </context>
 <context>
@@ -2441,6 +2612,20 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Numista</source>
         <translation>Numista</translation>
+    </message>
+</context>
+<context>
+    <name>OldPCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>Procesador de código de barras PCGS</translation>
+    </message>
+</context>
+<context>
+    <name>PCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>Procesador de código de barras PCGS</translation>
     </message>
 </context>
 <context>
@@ -2701,6 +2886,25 @@ Por favor, actualiza OpenNumismat</translation>
     <message>
         <source>Show grid</source>
         <translation>Ver parrilla</translation>
+    </message>
+</context>
+<context>
+    <name>ScanBarcodeDialog</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Escanear código de barras</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Cámara no disponible</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Cámara no disponible o desactivada por antivirus</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Error de cámara</translation>
     </message>
 </context>
 <context>
@@ -3266,20 +3470,12 @@ Añada una nueva primero.</translation>
         <translation>Agregar moneda nueva...</translation>
     </message>
     <message>
-        <source>Edit coins...</source>
-        <translation>Editar monedas...</translation>
-    </message>
-    <message>
         <source>Customize tree...</source>
         <translation>Personalizar árbol...</translation>
     </message>
     <message>
-        <source>Updating records</source>
-        <translation>Actualizando registros</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <source>Multi edit...</source>
+        <translation>Edición múltiple...</translation>
     </message>
 </context>
 <context>
@@ -3341,14 +3537,6 @@ Añada una nueva primero.</translation>
         <translation>Islámico</translation>
     </message>
     <message>
-        <source>Solar hijri</source>
-        <translation>Hijri solar</translation>
-    </message>
-    <message>
-        <source>Japan</source>
-        <translation>Japón</translation>
-    </message>
-    <message>
         <source>Year</source>
         <translation>Año</translation>
     </message>
@@ -3367,6 +3555,14 @@ Añada una nueva primero.</translation>
     <message>
         <source>Burmese</source>
         <translation>Birmano</translation>
+    </message>
+    <message>
+        <source>Iranian</source>
+        <translation>Iraní</translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Japonés</translation>
     </message>
 </context>
 <context>
@@ -3419,6 +3615,24 @@ Añada una nueva primero.</translation>
     <message>
         <source>Updating records</source>
         <translation>Actualizando registros</translation>
+    </message>
+</context>
+<context>
+    <name>readImageFilters</name>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Imágenes (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos los archivos (*.*)</translation>
+    </message>
+</context>
+<context>
+    <name>saveImageFilters</name>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Todos los archivos (*.*)</translation>
     </message>
 </context>
 </TS>
