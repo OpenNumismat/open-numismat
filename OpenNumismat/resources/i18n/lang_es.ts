@@ -3592,7 +3592,7 @@ Añade una nueva primero.</translation>
     </message>
     <message>
         <source>DB server connection problem. Check additional software.</source>
-        <translation>Problema de conexión con el servidor de BD. Verifique el software adicional.</translation>
+        <translation>Problema de conexión con el servidor de BD. Verifica el software adicional.</translation>
     </message>
 </context>
 <context>
