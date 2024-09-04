@@ -3452,11 +3452,11 @@ Añade una nueva primero.</translation>
     </message>
     <message>
         <source>Something went wrong when saving. Please restart</source>
-        <translation>Algo ha salido mal al guardar. Por favor, reinicie</translation>
+        <translation>Algo ha salido mal al guardar. Por favor, reinicia</translation>
     </message>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
-        <translation>Algo ha salido mal al cancelar. Por favor, reinicie</translation>
+        <translation>Algo ha salido mal al cancelar. Por favor, reinicia</translation>
     </message>
 </context>
 <context>
