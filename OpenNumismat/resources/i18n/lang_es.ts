@@ -2678,7 +2678,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     <name>PreviewDialog</name>
     <message>
         <source>Report preview</source>
-        <translation>Vista del informe</translation>
+        <translation>Vista previa del informe</translation>
     </message>
     <message>
         <source>Save as MS Word document</source>
