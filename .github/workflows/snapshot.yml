@@ -385,7 +385,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv
+        sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv build-essential
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
