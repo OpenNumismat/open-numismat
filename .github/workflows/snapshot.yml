@@ -374,6 +374,50 @@ jobs:
         path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
         if-no-files-found: error
 
+  ubuntu-24:
+    needs: [version, title]
+    name: Ubuntu
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: Patch build
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: debian/changelog
+        old-string: "open-numismat (.*) oneiric; urgency=low"
+        new-string: "open-numismat (${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}) unstable; urgency=low"
+    - name: Build
+      run: |
+        debuild -b -us -uc
+        mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
+        ls
+    - name: upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
+        path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        if-no-files-found: error
+
   macos:
     needs: [version, title]
     name: macOS
@@ -484,6 +528,13 @@ jobs:
         upload_url: ${{ steps.release.outputs.upload_url }}
         asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb/open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
         asset_name: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        asset_content_type: application/octet-stream
+    - name: upload-ubuntu-24
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb-24/open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        asset_name: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all_24.deb
         asset_content_type: application/octet-stream
     - name: upload-macos
       uses: actions/upload-release-asset@v1
