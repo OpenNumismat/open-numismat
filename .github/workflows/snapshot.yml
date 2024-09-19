@@ -332,7 +332,7 @@ jobs:
 
   ubuntu:
     needs: [version, title]
-    name: Ubuntu
+    name: Ubuntu 22.04
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -376,7 +376,7 @@ jobs:
 
   ubuntu-24:
     needs: [version, title]
-    name: Ubuntu
+    name: Ubuntu 24.04
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
@@ -470,7 +470,7 @@ jobs:
 
   prerelease:
     name: Create pre-release
-    needs: [version, title, windows, innosetup, ubuntu, macos, cx_freeze, nuitka, nuitka_innosetup]
+    needs: [version, title, windows, innosetup, ubuntu, ubuntu-24, macos, cx_freeze, nuitka, nuitka_innosetup]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
