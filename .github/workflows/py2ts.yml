@@ -37,7 +37,7 @@ jobs:
       run: |
         python misc/py2ts.py
     - name: Commit & Push changes
-      uses: actions-js/push@v1.4
+      uses: actions-js/push@v1.5
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: master
