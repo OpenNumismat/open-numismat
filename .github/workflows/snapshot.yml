@@ -80,7 +80,7 @@ jobs:
         move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
         cd ..
     - name: upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-zip
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
@@ -137,7 +137,7 @@ jobs:
         ISCC.exe tools/setup.iss
         move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
     - name: upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}
         path: ${{ needs.title.outputs.PACKAGENAME }}.exe
@@ -190,7 +190,7 @@ jobs:
         move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
         cd ..
     - name: upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-cx_freeze
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
@@ -259,7 +259,7 @@ jobs:
         move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
         cd ..
     - name: upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
@@ -324,7 +324,7 @@ jobs:
         ISCC.exe tools/setup-nuitka.iss
         move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
     - name: upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-innosetup
         path: ${{ needs.title.outputs.PACKAGENAME }}.exe
@@ -368,7 +368,7 @@ jobs:
         mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
         ls
     - name: upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb
         path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
@@ -412,7 +412,7 @@ jobs:
         mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
         ls
     - name: upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
         path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
@@ -462,7 +462,7 @@ jobs:
         cd ..
         mv dist/${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg .
     - name: upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg
         path: ${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg
