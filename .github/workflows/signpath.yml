@@ -1,0 +1,331 @@
+name: "SignPath"
+
+on:
+  push:
+    branches: [ "signpath" ]
+    paths-ignore:
+      - 'OpenNumismat/resources/i18n/*'
+      - 'icons/*'
+      - 'OpenNumismat/resources/resources.qrc'
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  version:
+    name: Version
+    uses: ./.github/workflows/job_version.yml
+
+  title:
+    needs: version
+    name: Title
+    runs-on: ubuntu-latest
+    outputs:
+      PACKAGENAME: ${{ needs.version.outputs.APPNAME }}-${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+      APPNAME: ${{ needs.version.outputs.APPNAME }}
+    steps:
+      - run: "true"
+
+  windows:
+    needs: [version, title]
+    name: Windows
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install pyinstaller pyinstaller-versionfile
+    - name: Create versionfile
+      run: |
+        touch metadata.yml
+        echo "FileDescription: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: Patch portable
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Portable = False"
+        new-string: "Portable = True"
+    - name: build
+      run: |
+        SET PYTHONOPTIMIZE=1
+        pyinstaller open-numismat-portable.spec
+    - name: package
+      run: |
+        cd dist
+        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
+        cd ..
+    - name: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-zip
+        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        if-no-files-found: error
+
+  innosetup:
+    needs: [version, title]
+    name: InnoSetup
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install pyinstaller pyinstaller-versionfile
+    - name: Create versionfile
+      run: |
+        touch metadata.yml
+        echo "FileDescription: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: Patch build
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: tools/setup.iss
+        old-string: "AppVersion=.*"
+        new-string: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: build
+      run: |
+        SET PYTHONOPTIMIZE=1
+        pyinstaller open-numismat.spec
+    - name: package
+      run: |
+        ISCC.exe tools/setup.iss
+        move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
+    - name: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}
+        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        if-no-files-found: error
+
+  cx_freeze:
+    needs: [version, title]
+    name: cx_Freeze
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install cx_freeze
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: Patch portable
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Portable = False"
+        new-string: "Portable = True"
+    - name: build
+      run: |
+        SET PYTHONOPTIMIZE=1
+        python setup.py build_exe
+    - name: package
+      run: |
+        cd build
+        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
+        cd ..
+    - name: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-cx_freeze
+        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        if-no-files-found: error
+
+  nuitka:
+    needs: [version, title]
+    name: Nuitka
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install nuitka
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: Patch portable
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Portable = False"
+        new-string: "Portable = True"
+    - name: build
+      run: >-
+        python -m nuitka open-numismat.py
+        --jobs=2
+        --assume-yes-for-downloads
+        --msvc=latest
+        --lto=yes
+        --show-modules
+        --standalone
+        --enable-plugin=pyside6
+        --include-qt-plugins=sqldrivers,multimedia
+        --windows-console-mode=disable
+        --include-data-dir=OpenNumismat/templates=templates
+        --include-data-dir=OpenNumismat/db=db
+        --include-data-files=COPYING=COPYING
+        --windows-icon-from-ico=icons/main.ico
+        --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        --output-filename=${{ needs.title.outputs.APPNAME }}.exe
+    - name: package
+      run: |
+        cd open-numismat.dist
+        mkdir ${{ needs.title.outputs.APPNAME }}
+        robocopy . ${{ needs.title.outputs.APPNAME }}  /move /e /xd ${{ needs.title.outputs.APPNAME }}
+        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
+        cd ..
+    - name: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
+        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        if-no-files-found: error
+
+  nuitka_innosetup:
+    needs: [version, title]
+    name: Nuitka InnoSetup
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install nuitka
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: Patch build
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: tools/setup-nuitka.iss
+        old-string: "AppVersion=.*"
+        new-string: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: build
+      run: >-
+        python -m nuitka open-numismat.py
+        --jobs=2
+        --assume-yes-for-downloads
+        --msvc=latest
+        --lto=yes
+        --show-modules
+        --standalone
+        --enable-plugin=pyside6
+        --include-qt-plugins=sqldrivers,multimedia
+        --windows-console-mode=disable
+        --include-data-dir=OpenNumismat/templates=templates
+        --include-data-dir=OpenNumismat/db=db
+        --include-data-files=COPYING=COPYING
+        --windows-icon-from-ico=icons/main.ico
+        --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        --output-filename=${{ needs.title.outputs.APPNAME }}.exe
+    - name: package
+      run: |
+        ISCC.exe tools/setup-nuitka.iss
+        move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
+    - name: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-innosetup
+        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        if-no-files-found: error
