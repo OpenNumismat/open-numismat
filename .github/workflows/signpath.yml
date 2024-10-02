@@ -137,6 +137,7 @@ jobs:
         ISCC.exe tools/setup.iss
         move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
     - name: upload
+      id: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}
