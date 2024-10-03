@@ -94,7 +94,7 @@ jobs:
     - name: Build InnoSetup package
       run: |
         ISCC.exe tools/setup.iss
-        move tools/${{ needs.title.outputs.PACKAGENAME }} .
+#        move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
     - name: Upload InnoSetup package
       id: upload
       uses: actions/upload-artifact@v4
