@@ -89,11 +89,8 @@ jobs:
         signing-policy-slug: 'test-signing'
         artifact-configuration-slug: 'test-zip'
         github-artifact-id: '${{steps.upload-exe.outputs.artifact-id}}'
-        output-artifact-directory: .
+        output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
         wait-for-completion: true
-    - name: Unzip signed file
-      run: dir
-#      run: 7z x ${{ needs.version.outputs.APPNAME }}.zip -odist/${{ needs.version.outputs.APPNAME }} -aoa
     - name: Build InnoSetup package
       run: |
         ISCC.exe tools/setup.iss
@@ -116,11 +113,6 @@ jobs:
         github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
         output-artifact-directory: .
         wait-for-completion: true
-    - name: dir
-      run: |
-        dir
-    - name: Unzip signed InnoSetup package
-      run: 7z x ${{ needs.version.outputs.PACKAGENAME }}.zip
     - name: upload-signed
       uses: actions/upload-artifact@v4
       with:
