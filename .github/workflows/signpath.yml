@@ -13,22 +13,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-#  version:
-#    name: Version
-#    uses: ./.github/workflows/job_version.yml
+  version:
+    name: Version
+    uses: ./.github/workflows/job_version.yml
 
-#  title:
-#    needs: version
-#    name: Title
-#    runs-on: ubuntu-latest
-#    outputs:
-#      PACKAGENAME: ${{ needs.version.outputs.APPNAME }}-${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
-#      APPNAME: ${{ needs.version.outputs.APPNAME }}
-#    steps:
-#      - run: "true"
+  title:
+    needs: version
+    name: Title
+    runs-on: ubuntu-latest
+    outputs:
+      PACKAGENAME: ${{ needs.version.outputs.APPNAME }}-${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+      APPNAME: ${{ needs.version.outputs.APPNAME }}
+    steps:
+      - run: "true"
 
   innosetup:
-#    needs: [version, title]
+    needs: [version, title]
     name: InnoSetup
     runs-on: windows-latest
     steps:
@@ -78,5 +78,7 @@ jobs:
         organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
         project-slug: 'open-numismat'
         signing-policy-slug: 'test-signing'
+        artifact-configuration-slug: 'test-zip'
         github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
+        output-artifact-directory: .
         wait-for-completion: true
