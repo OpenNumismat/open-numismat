@@ -1,7 +1,6 @@
 name: "SignPath"
 
 on:
-  workflow_dispatch:
   push:
     branches: [ "signpath" ]
     paths-ignore:
