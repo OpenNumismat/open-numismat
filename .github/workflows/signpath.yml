@@ -46,9 +46,9 @@ jobs:
     - name: Create versionfile
       run: |
         touch metadata.yml
-        echo "FileDescription: OpenNumismat" >> metadata.yml
-        echo "InternalName: OpenNumismat" >> metadata.yml
-        create-version-file metadata.yml --outfile versionfile.txt --version 1.9.11
+        echo "FileDescription: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
+        create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -56,22 +56,53 @@ jobs:
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: Patch build
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: tools/setup.iss
+        old-string: "AppVersion=.*"
+        new-string: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
       run: |
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat.spec
-    - name: package
+    - name: Upload
+      id: upload-exe
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.version.outputs.APPNAME }}
+        path: dist/${{ needs.version.outputs.APPNAME }}/${{ needs.version.outputs.APPNAME }}.exe
+        if-no-files-found: error
+    - name: Signing
+      uses: signpath/github-action-submit-signing-request@v1
+      with:
+        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
+        project-slug: 'open-numismat'
+        signing-policy-slug: 'test-signing'
+        artifact-configuration-slug: 'test-zip'
+        github-artifact-id: '${{steps.upload-exe.outputs.artifact-id}}'
+        output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
+        wait-for-completion: true
+    - name: Build InnoSetup package
       run: |
         ISCC.exe tools/setup.iss
-        move tools/OpenNumismat-1.9.11.exe .
-    - name: upload
+        move tools/${{ needs.title.outputs.PACKAGENAME }} .
+    - name: Upload InnoSetup package
       id: upload
       uses: actions/upload-artifact@v4
       with:
-        name: OpenNumismat-1.9.11
-        path: OpenNumismat-1.9.11.exe
+        name: ${{ needs.title.outputs.PACKAGENAME }}
+        path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
-    - name: signing
+    - name: Signing InnoSetup package
       uses: signpath/github-action-submit-signing-request@v1
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
@@ -82,3 +113,12 @@ jobs:
         github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
         output-artifact-directory: .
         wait-for-completion: true
+    - name: dir
+      run: |
+        dir
+    - name: upload-signed
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-signed
+        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        if-no-files-found: error
