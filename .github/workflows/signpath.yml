@@ -92,7 +92,8 @@ jobs:
         output-artifact-directory: .
         wait-for-completion: true
     - name: Unzip signed file
-      run: 7z x ${{ needs.version.outputs.APPNAME }}.zip -odist/${{ needs.version.outputs.APPNAME }} -aoa
+      run: dir
+#      run: 7z x ${{ needs.version.outputs.APPNAME }}.zip -odist/${{ needs.version.outputs.APPNAME }} -aoa
     - name: Build InnoSetup package
       run: |
         ISCC.exe tools/setup.iss
