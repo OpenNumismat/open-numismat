@@ -18,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       APPNAME: OpenNumismat
-      VERSION: ${{ steps.bump.outputs.current-version }}.{{ steps.bump.outputs.current-release }}
-      PACKAGENAME: OpenNumismat-${{ steps.bump.outputs.current-version }}.{{ steps.bump.outputs.current-release }}
+      VERSION: ${{ steps.bump.outputs.current-version }}.${{ steps.bump.outputs.current-release }}
+      PACKAGENAME: OpenNumismat-${{ steps.bump.outputs.current-version }}.${{ steps.bump.outputs.current-release }}
     steps:
     - uses: actions/checkout@v4
       with:
