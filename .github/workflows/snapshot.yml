@@ -18,10 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       APPNAME: OpenNumismat
-      VERSION: ${{ steps.bump.outputs.current-version }}
-      PACKAGENAME: OpenNumismat-${{ steps.bump.outputs.current-version }}
+      VERSION: ${{ steps.bump.outputs.current-version }}.{{ steps.bump.outputs.current-release }}
+      PACKAGENAME: OpenNumismat-${{ steps.bump.outputs.current-version }}.{{ steps.bump.outputs.current-release }}
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
@@ -35,6 +37,7 @@ jobs:
       run: |
         bump-my-version bump commit --no-commit --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
         echo "current-version=$(bump-my-version show current_version)" >> $GITHUB_OUTPUT
+        echo "current-release=$(bump-my-version show scm_info.distance_to_latest_tag)" >> $GITHUB_OUTPUT
 
   windows:
     needs: title
