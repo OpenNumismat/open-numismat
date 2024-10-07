@@ -2,7 +2,7 @@ name: "Snapshot"
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "bump-my-version" ]
     paths-ignore:
       - 'OpenNumismat/resources/i18n/*'
       - 'icons/*'
@@ -35,7 +35,6 @@ jobs:
       id: bump
       shell: bash
       run: |
-        bump-my-version bump commit --no-commit --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
         echo "current-version=$(bump-my-version show current_version)" >> $GITHUB_OUTPUT
         echo "current-release=$(bump-my-version show scm_info.distance_to_latest_tag)" >> $GITHUB_OUTPUT
 
@@ -46,6 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        fetch-depth: 0
         submodules: 'recursive'
     - uses: actions/setup-python@v5
       with:
@@ -102,6 +102,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        fetch-depth: 0
         submodules: 'recursive'
     - uses: actions/setup-python@v5
       with:
@@ -150,6 +151,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        fetch-depth: 0
         submodules: 'recursive'
     - uses: actions/setup-python@v5
       with:
@@ -200,6 +202,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        fetch-depth: 0
         submodules: 'recursive'
     - uses: actions/setup-python@v5
       with:
@@ -266,6 +269,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        fetch-depth: 0
         submodules: 'recursive'
     - uses: actions/setup-python@v5
       with:
@@ -322,6 +326,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        fetch-depth: 0
         submodules: 'recursive'
     - uses: actions/setup-python@v5
       with:
@@ -362,6 +367,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        fetch-depth: 0
         submodules: 'recursive'
     - uses: actions/setup-python@v5
       with:
@@ -402,6 +408,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        fetch-depth: 0
         submodules: 'recursive'
     - uses: actions/setup-python@v5
       with:
