@@ -1,0 +1,38 @@
+[tool.bumpversion]
+current_version = "1.9.11"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+serialize = ["{major}.{minor}.{patch}"]
+search = "{current_version}"
+replace = "{new_version}"
+regex = false
+ignore_missing_version = false
+ignore_missing_files = false
+tag = false
+sign_tags = false
+tag_name = "{new_version}"
+tag_message = "Bump version: {current_version} → {new_version}"
+allow_dirty = false
+commit = false
+message = "Bump version: {current_version} → {new_version}"
+commit_args = ""
+setup_hooks = []
+pre_commit_hooks = []
+post_commit_hooks = []
+[[tool.bumpversion.files]]
+filename = "debian/changelog"
+[[tool.bumpversion.files]]
+filename = "debian/changelog"
+search = "\\S{{3}}, \\d{{2}} \\S{{3}} \\d{{4}}"  # Fri, 03 Jul 2024
+replace = "{now:%a, %d %b %Y}"
+regex = true
+[[tool.bumpversion.files]]
+filename = "OpenNumismat/version.py"
+[[tool.bumpversion.files]]
+filename = "tools/setup.iss"
+[[tool.bumpversion.files]]
+filename = "tools/setup-nuitka.iss"
+[[tool.bumpversion.files]]
+filename = "org.opennumismat.OpenNumismat.metainfo.xml"
+search = "<releases>"
+replace = "<releases>\n    <release date=\"{now:%Y-%m-%d}\" version=\"{new_version}\"/>"
+regex = true
