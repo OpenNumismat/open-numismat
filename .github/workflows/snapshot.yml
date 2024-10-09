@@ -73,14 +73,32 @@ jobs:
       run: |
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat-portable.spec
+    - name: Upload
+      id: upload-portable
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.version.outputs.APPNAME }}-portable
+        path: dist/${{ needs.version.outputs.APPNAME }}/${{ needs.version.outputs.APPNAME }}.exe
+        if-no-files-found: error
+    - name: Signing
+      uses: signpath/github-action-submit-signing-request@v1
+      with:
+        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
+        project-slug: 'open-numismat'
+        signing-policy-slug: 'test-signing'
+        artifact-configuration-slug: 'test-zip'
+        github-artifact-id: '${{steps.upload-portable.outputs.artifact-id}}'
+        output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
+        wait-for-completion: true
     - name: package
       run: |
         cd dist
         7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
-    - name: upload
+    - name: Upload zip
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.title.outputs.PACKAGENAME }}-zip
+        name: ${{ needs.title.outputs.PACKAGENAME }}-portable-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
         if-no-files-found: error
 
@@ -130,14 +148,50 @@ jobs:
       run: |
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat.spec
+    - name: Upload
+      id: upload-exe
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.version.outputs.APPNAME }}-exe
+        path: dist/${{ needs.version.outputs.APPNAME }}/${{ needs.version.outputs.APPNAME }}.exe
+        if-no-files-found: error
+    - name: Signing
+      uses: signpath/github-action-submit-signing-request@v1
+      with:
+        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
+        project-slug: 'open-numismat'
+        signing-policy-slug: 'test-signing'
+        artifact-configuration-slug: 'test-zip'
+        github-artifact-id: '${{steps.upload-exe.outputs.artifact-id}}'
+        output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
+        wait-for-completion: true
     - name: package
       run: |
         ISCC.exe tools/setup.iss
-    - name: upload
+    - name: Upload InnoSetup package
+      id: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}
         path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
+        if-no-files-found: error
+    - name: Signing InnoSetup package
+      uses: signpath/github-action-submit-signing-request@v1
+      with:
+        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
+        project-slug: 'open-numismat'
+        signing-policy-slug: 'test-signing'
+        artifact-configuration-slug: 'test-zip'
+        github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
+        output-artifact-directory: .
+        wait-for-completion: true
+    - name: upload-signed
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-signed
+        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
 
   cx_freeze:
@@ -245,16 +299,34 @@ jobs:
         --windows-icon-from-ico=icons/main.ico
         --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
+    - name: Upload
+      id: upload-nuitka-portable
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.version.outputs.APPNAME }}-nuitka-portable
+        path: open-numismat.dist/${{ needs.version.outputs.APPNAME }}.exe
+        if-no-files-found: error
+    - name: Signing
+      uses: signpath/github-action-submit-signing-request@v1
+      with:
+        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
+        project-slug: 'open-numismat'
+        signing-policy-slug: 'test-signing'
+        artifact-configuration-slug: 'test-zip'
+        github-artifact-id: '${{steps.upload-nuitka-portable.outputs.artifact-id}}'
+        output-artifact-directory: open-numismat.dist/${{ needs.version.outputs.APPNAME }}
+        wait-for-completion: true
     - name: package
       run: |
         cd open-numismat.dist
         mkdir ${{ needs.title.outputs.APPNAME }}
-        robocopy . ${{ needs.title.outputs.APPNAME }}  /move /e /xd ${{ needs.title.outputs.APPNAME }}
+        robocopy . ${{ needs.title.outputs.APPNAME }} /move /e /xd ${{ needs.title.outputs.APPNAME }}
         7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
+        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
         if-no-files-found: error
 
@@ -312,14 +384,50 @@ jobs:
         --windows-icon-from-ico=icons/main.ico
         --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
+    - name: Upload
+      id: upload-nuitka-exe
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.version.outputs.APPNAME }}-nuitka-exe
+        path: open-numismat.dist/${{ needs.version.outputs.APPNAME }}.exe
+        if-no-files-found: error
+    - name: Signing
+      uses: signpath/github-action-submit-signing-request@v1
+      with:
+        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
+        project-slug: 'open-numismat'
+        signing-policy-slug: 'test-signing'
+        artifact-configuration-slug: 'test-zip'
+        github-artifact-id: '${{steps.upload-nuitka-exe.outputs.artifact-id}}'
+        output-artifact-directory: open-numismat.dist/${{ needs.version.outputs.APPNAME }}
+        wait-for-completion: true
     - name: package
       run: |
         ISCC.exe tools/setup-nuitka.iss
-    - name: upload
+    - name: Upload InnoSetup package
+      id: upload
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-innosetup
+        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
         path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
+        if-no-files-found: error
+    - name: Signing InnoSetup package
+      uses: signpath/github-action-submit-signing-request@v1
+      with:
+        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
+        project-slug: 'open-numismat'
+        signing-policy-slug: 'test-signing'
+        artifact-configuration-slug: 'test-zip'
+        github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
+        output-artifact-directory: .
+        wait-for-completion: true
+    - name: upload-signed
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed
+        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
 
   ubuntu:
@@ -357,11 +465,12 @@ jobs:
     - name: Build
       run: |
         debuild -b -us -uc
+        mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb
-        path: ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
         if-no-files-found: error
 
   ubuntu-24:
@@ -399,11 +508,12 @@ jobs:
     - name: Build
       run: |
         debuild -b -us -uc
+        mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
-        path: ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
         if-no-files-found: error
 
   macos:
@@ -477,14 +587,14 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-zip/${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-portable-signed/${{ needs.title.outputs.PACKAGENAME }}.zip
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}.zip
         asset_content_type: application/zip
     - name: upload-innosetup
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-signed/${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_content_type: application/octet-stream
     - name: upload-cx_freeze
@@ -498,14 +608,14 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka/${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed/${{ needs.title.outputs.PACKAGENAME }}.zip
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip
         asset_content_type: application/octet-stream
     - name: upload-nuitka-innosetup
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-innosetup/${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed/${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
         asset_content_type: application/octet-stream
     - name: upload-ubuntu
