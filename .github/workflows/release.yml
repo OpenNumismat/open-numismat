@@ -281,7 +281,7 @@ jobs:
         cd open-numismat.dist
         mkdir ${{ needs.title.outputs.APPNAME }}
         robocopy . ${{ needs.title.outputs.APPNAME }} /move /e /xd ${{ needs.title.outputs.APPNAME }}
-        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
@@ -348,6 +348,9 @@ jobs:
         github-artifact-id: '${{steps.upload-nuitka-exe.outputs.artifact-id}}'
         output-artifact-directory: open-numismat.dist
         wait-for-completion: true
+    - name: package
+      run: |
+        ISCC.exe tools/setup-nuitka.iss
     - name: Upload InnoSetup package
       id: upload
       uses: actions/upload-artifact@v4
