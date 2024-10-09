@@ -46,14 +46,14 @@ class ExportToExcel(__ExportBase):
         self._ws.append(headers)
 
     def writeRow(self, row):
+        image_cells = []
         for i, item in enumerate(row):
             if isinstance(item, QByteArray):
                 image_data = item.data()
                 image = Image.open(io.BytesIO(image_data))
                 img = openpyxl.drawing.image.Image(image)
 
-                cell = self._ws.cell(self._current_row + 1, i + 1)
-                self._ws.add_image(img, cell.coordinate)
+                image_cells.append((img, self._current_row + 1, i + 1))
 
                 row[i] = None
             elif isinstance(item, str):
@@ -63,6 +63,10 @@ class ExportToExcel(__ExportBase):
                     row[i] = ' '.join(ILLEGAL_CHARACTERS_RE.split(row[i]))
 
         self._ws.append(row)
+        # Add images after text data to avoid empty lines
+        for image_cell in image_cells:
+            cell = self._ws.cell(image_cell[1], image_cell[2])
+            self._ws.add_image(image_cell[0], cell.coordinate)
 
         self._current_row += 1
 
