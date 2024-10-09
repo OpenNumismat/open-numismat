@@ -76,9 +76,7 @@ jobs:
     - name: package
       run: |
         cd dist
-        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
-        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
-        cd ..
+        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
@@ -135,12 +133,11 @@ jobs:
     - name: package
       run: |
         ISCC.exe tools/setup.iss
-        move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}
-        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
 
   cx_freeze:
@@ -186,9 +183,7 @@ jobs:
     - name: package
       run: |
         cd build
-        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
-        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
-        cd ..
+        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
@@ -255,9 +250,7 @@ jobs:
         cd open-numismat.dist
         mkdir ${{ needs.title.outputs.APPNAME }}
         robocopy . ${{ needs.title.outputs.APPNAME }}  /move /e /xd ${{ needs.title.outputs.APPNAME }}
-        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
-        move ${{ needs.title.outputs.PACKAGENAME }}.zip ..
-        cd ..
+        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
@@ -322,12 +315,11 @@ jobs:
     - name: package
       run: |
         ISCC.exe tools/setup-nuitka.iss
-        move tools/${{ needs.title.outputs.PACKAGENAME }}.exe .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-innosetup
-        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
 
   ubuntu:
@@ -365,13 +357,11 @@ jobs:
     - name: Build
       run: |
         debuild -b -us -uc
-        mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
-        ls
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb
-        path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        path: ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
         if-no-files-found: error
 
   ubuntu-24:
@@ -409,13 +399,11 @@ jobs:
     - name: Build
       run: |
         debuild -b -us -uc
-        mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
-        ls
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
-        path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        path: ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
         if-no-files-found: error
 
   macos:
@@ -459,13 +447,11 @@ jobs:
         mv OpenNumismat.app vol
         ln -s /Applications vol/Applications
         hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
-        cd ..
-        mv dist/${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg
-        path: ${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg
+        path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos11.dmg
         if-no-files-found: error
 
   prerelease:
