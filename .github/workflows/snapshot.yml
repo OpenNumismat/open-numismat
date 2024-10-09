@@ -315,7 +315,7 @@ jobs:
         signing-policy-slug: 'test-signing'
         artifact-configuration-slug: 'test-zip'
         github-artifact-id: '${{steps.upload-nuitka-portable.outputs.artifact-id}}'
-        output-artifact-directory: open-numismat.dist/${{ needs.version.outputs.APPNAME }}
+        output-artifact-directory: open-numismat.dist
         wait-for-completion: true
     - name: package
       run: |
@@ -400,7 +400,7 @@ jobs:
         signing-policy-slug: 'test-signing'
         artifact-configuration-slug: 'test-zip'
         github-artifact-id: '${{steps.upload-nuitka-exe.outputs.artifact-id}}'
-        output-artifact-directory: open-numismat.dist/${{ needs.version.outputs.APPNAME }}
+        output-artifact-directory: open-numismat.dist
         wait-for-completion: true
     - name: package
       run: |
