@@ -500,14 +500,14 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-portable/${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-portable-signed/${{ needs.title.outputs.PACKAGENAME }}.zip
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}.zip
         asset_content_type: application/zip
     - name: upload-innosetup
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-signed/${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_content_type: application/octet-stream
     - name: upload-cx_freeze
@@ -521,14 +521,14 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable/${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed/${{ needs.title.outputs.PACKAGENAME }}.zip
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip
         asset_content_type: application/octet-stream
     - name: upload-nuitka-innosetup
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka/${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed/${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
         asset_content_type: application/octet-stream
     - name: upload-ubuntu
