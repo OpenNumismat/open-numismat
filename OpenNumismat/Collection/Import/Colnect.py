@@ -297,7 +297,11 @@ class ColnectConnector(QObject):
         except:
             return []
 
-        if raw_data.startswith('Invalid key'):
+        if "<title>404 Not Found</title>" in raw_data:
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Colnect proxy-server not response"))
+            return []
+        elif raw_data.startswith('Invalid key'):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect service not available"))
             return []
