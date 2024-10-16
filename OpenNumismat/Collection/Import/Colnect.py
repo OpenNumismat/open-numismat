@@ -297,7 +297,7 @@ class ColnectConnector(QObject):
         except:
             return []
 
-        if "<title>404 Not Found</title>" in raw_data:
+        if resp.status == 404:
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect proxy-server not response"))
             return []
