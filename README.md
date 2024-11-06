@@ -1,4 +1,5 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/opennumismat/open-numismat/badge)](https://www.codefactor.io/repository/github/opennumismat/open-numismat)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b7462c1f99f0d9eb039f/maintainability)](https://codeclimate.com/github/OpenNumismat/open-numismat/maintainability)
 [![GitHub release](https://img.shields.io/github/release/opennumismat/open-numismat.svg)](https://github.com/opennumismat/open-numismat/releases/)
 [![GitHub all releases](https://img.shields.io/github/downloads/opennumismat/open-numismat/total.svg)](https://hanadigital.github.io/grev/?user=OpenNumismat&repo=open-numismat)
 [![GitHub release (latest by date)](https://img.shields.io/github/downloads/opennumismat/open-numismat/latest/total.svg)](https://hanadigital.github.io/grev/?user=OpenNumismat&repo=open-numismat)
