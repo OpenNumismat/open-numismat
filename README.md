@@ -21,17 +21,24 @@ Windows, Linux (Debian/Ubuntu), macOS.
 
 ![Main window](https://opennumismat.github.io/images/screenMain.png)
 
-## Requirements
-Main Windows version based on:
-* Python 3.11.6
-* PySide6 6.5.3
-* Jinja2 3.1.2 (for reports)
-* openpyxl 3.1.2 (for import/export to Excel)
+## Stack
+
+* Python 3.12
+* PySide6
+* Jinja2 (for reports)
+* Pillow
+* openpyxl (for import/export to Excel)
 * pywin32-306 (for saving report as Word Document)
-* lxml 4.9.3 (for importing from Tellico, Collection Studio and ANS)
-* python-dateutil 2.8.2 (for importing from Excel)
-* pyinstaller 6.1.0 (for deploy)
-* Inno Setup 6.2.1 (for deploy)
+* lxml (for importing from Tellico, Collection Studio and ANS)
+* python-dateutil (for importing from Excel)
+* urllib3 (for import from ANS, CoinSnap, Colnect and Numista)
+* pyinstaller (for deploy)
+* imagehash (for find by image)
+* numpy (for find by image and image editor)
+* opencv-python-headless (for find by image)
+* zxing-cpp (for scan bar-code)
+* Nuitka (for deploy)
+* Inno Setup (for deploy)
 
 For running from source code and development requirements can be installed like so:
 `pip3 install -r requirements.txt`
