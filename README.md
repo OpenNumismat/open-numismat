@@ -28,7 +28,7 @@ Windows, Linux (Debian/Ubuntu), macOS.
 * Jinja2 (for reports)
 * Pillow
 * openpyxl (for import/export to Excel)
-* pywin32-306 (for saving report as Word Document)
+* pywin32 (for saving report as Word Document)
 * lxml (for importing from Tellico, Collection Studio and ANS)
 * python-dateutil (for importing from Excel)
 * urllib3 (for import from ANS, CoinSnap, Colnect and Numista)
@@ -37,6 +37,7 @@ Windows, Linux (Debian/Ubuntu), macOS.
 * numpy (for find by image and image editor)
 * opencv-python-headless (for find by image)
 * zxing-cpp (for scan bar-code)
+* pyinstaller (for deploy)
 * Nuitka (for deploy)
 * Inno Setup (for deploy)
 
