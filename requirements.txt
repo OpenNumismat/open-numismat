@@ -8,5 +8,5 @@ numpy~=1.26.4
 pillow~=11.0.0
 python-dateutil==2.9.0.post0
 pywin32==308; sys_platform == 'win32'
-urllib3~=2.2.3
+urllib3~=2.3.0
 zxing-cpp~=2.2.0
