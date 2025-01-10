@@ -582,7 +582,7 @@ class StatusBrowser(QLineEdit):
 class ShortLineEdit(QLineEdit):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setMaxLength(10)
+        self.setMaxLength(15)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
