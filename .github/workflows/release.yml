@@ -379,7 +379,7 @@ jobs:
   ubuntu:
     needs: [version, title]
     name: Ubuntu 22.04
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
       with:
