@@ -325,6 +325,10 @@ class ColnectConnector(QObject):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect data not recognised"))
             return []
+        elif raw_data.startswith('404 Not Found'):
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Colnect data not recognised"))
+            return []
         elif raw_data.startswith('<!DOCTYPE html>'):
             self.cache.set(url, '[]')
             return []
