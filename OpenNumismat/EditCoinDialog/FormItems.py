@@ -895,7 +895,7 @@ class ValueEdit(_DoubleEdit):
 
 class CoordEdit(_DoubleEdit):
     def __init__(self, parent=None):
-        super().__init__(-180, 180, 4, parent)
+        super().__init__(-180, 180, 6, parent)
         self.setMaxLength(9)
         self.setMinimumWidth(100)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
