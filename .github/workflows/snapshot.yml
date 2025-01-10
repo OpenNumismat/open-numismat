@@ -176,23 +176,6 @@ jobs:
         name: ${{ needs.title.outputs.PACKAGENAME }}
         path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
-    - name: Signing InnoSetup package
-      uses: signpath/github-action-submit-signing-request@v1
-      with:
-        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
-        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
-        project-slug: 'open-numismat'
-        signing-policy-slug: 'test-signing'
-        artifact-configuration-slug: 'test-zip'
-        github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
-        output-artifact-directory: .
-        wait-for-completion: true
-    - name: upload-signed
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ needs.title.outputs.PACKAGENAME }}-signed
-        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
-        if-no-files-found: error
 
   cx_freeze:
     needs: [version, title]
@@ -412,23 +395,6 @@ jobs:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
         path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
-    - name: Signing InnoSetup package
-      uses: signpath/github-action-submit-signing-request@v1
-      with:
-        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
-        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
-        project-slug: 'open-numismat'
-        signing-policy-slug: 'test-signing'
-        artifact-configuration-slug: 'test-zip'
-        github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
-        output-artifact-directory: .
-        wait-for-completion: true
-    - name: upload-signed
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed
-        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
-        if-no-files-found: error
 
   ubuntu:
     needs: [version, title]
@@ -594,7 +560,7 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-signed/${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_content_type: application/octet-stream
     - name: upload-cx_freeze
@@ -615,7 +581,7 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed/${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka/${{ needs.title.outputs.PACKAGENAME }}.exe
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
         asset_content_type: application/octet-stream
     - name: upload-ubuntu
