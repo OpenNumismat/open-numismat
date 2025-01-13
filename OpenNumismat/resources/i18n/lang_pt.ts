@@ -2282,10 +2282,6 @@ arraste e largue para adicionar)</translation>
         <translation>Modelo predefinido</translation>
     </message>
     <message>
-        <source>Images count by default</source>
-        <translation>Total de imagens predefinido</translation>
-    </message>
-    <message>
         <source>Use built-in image viewer</source>
         <translation>Utilizar visualizador interno</translation>
     </message>
