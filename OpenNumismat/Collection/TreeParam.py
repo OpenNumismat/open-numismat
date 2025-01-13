@@ -1,5 +1,5 @@
 from PySide6.QtCore import QObject
-from PySide6.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtSql import QSqlQuery
 
 
 class TreeParam(QObject):

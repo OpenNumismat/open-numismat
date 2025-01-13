@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from PySide6.QtCore import QT_TRANSLATE_NOOP, QObject
 from PySide6.QtWidgets import QApplication
-from PySide6.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtSql import QSqlQuery
 
 
 class FieldTypes():
