@@ -18,6 +18,8 @@ def readImageFilters():
         formats += " *.webp"
     if b'jp2' in supported_formats:
         formats += " *.jp2"
+    if b'jxl' in supported_formats:
+        formats += " *.jxl"
     if b'avif' in supported_formats:
         formats += " *.avif"
 
@@ -40,6 +42,8 @@ def saveImageFilters():
         filters.append("WEBP - WebP (*.webp)")
     if b'jp2' in supported_formats:
         filters.append("JP2 - JPEG-2000 (*.jp2)")
+    if b'jxl' in supported_formats:
+        filters.append("JXL - JPEG XL (*.jxl)")
     if b'avif' in supported_formats:
         filters.append("AVIF - AVIF (*.avif)")
     filters.append("BMP - Windows Bitmaps (*.bmp)")
