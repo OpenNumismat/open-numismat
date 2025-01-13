@@ -2282,10 +2282,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Plantilla por defecto</translation>
     </message>
     <message>
-        <source>Images count by default</source>
-        <translation>Imágenes contadas por defecto</translation>
-    </message>
-    <message>
         <source>Use built-in image viewer</source>
         <translation>Usar editor de imagen integrado</translation>
     </message>
