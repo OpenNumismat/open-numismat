@@ -103,7 +103,6 @@ class Settings(BaseSettings):
         'speedup': 1,
         'updates': False,
         'template': default_template,
-        'images_by_default': 2,
         'colnect_locale': _getLocale(),
         'colnect_skip_currency': True,
         'ans_split_denomination': True,

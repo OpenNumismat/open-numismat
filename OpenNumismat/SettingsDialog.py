@@ -34,7 +34,7 @@ from PySide6.QtWidgets import (
 )
 
 from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
-from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase, CollectionField, ImageFields
+from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase, CollectionField
 from OpenNumismat.Reports import Report
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import statusIcon
@@ -154,13 +154,6 @@ class MainSettingsPage(QWidget):
 
         layout.addRow(self.tr("Default template"), self.templateSelector)
 
-        self.imagesByDefault = QSpinBox(self)
-        self.imagesByDefault.setRange(1, len(ImageFields))
-        self.imagesByDefault.setValue(settings['images_by_default'])
-        self.imagesByDefault.setSizePolicy(QSizePolicy.Fixed,
-                                           QSizePolicy.Fixed)
-        layout.addRow(self.tr("Images count by default"), self.imagesByDefault)
-
         self.treeCounter = QCheckBox(
                         self.tr("Show counter in tree and statistics"), self)
         self.treeCounter.setChecked(settings['tree_counter'])
@@ -261,7 +254,6 @@ class MainSettingsPage(QWidget):
         settings['updates'] = self.checkUpdates.isChecked()
         settings['speedup'] = self.speedup.currentData()
         settings['template'] = self.templateSelector.currentData()
-        settings['images_by_default'] = self.imagesByDefault.value()
         settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['use_webcam'] = self.useWebcam.isChecked()

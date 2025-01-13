@@ -12,7 +12,6 @@ from PySide6.QtWidgets import (
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageLabel
 from OpenNumismat.ImageEditor import ImageProxy, ImageScrollLabel
-from OpenNumismat.Settings import Settings
 
 
 class ImageView(QWidget):
@@ -69,8 +68,7 @@ class ImageView(QWidget):
             if field.type == Type.Image:
                 self.imageFields.append(field)
 
-        # By default show only first 2 images
-        self.showedCount = Settings()['images_by_default']
+        self.showedCount = self.model.settings['images_by_default']
 
         self.imageButtons = []
         for field in self.imageFields:
@@ -108,6 +106,9 @@ class ImageView(QWidget):
                 self.imageLayout.addWidget(image)
 
                 self.showedCount += 1
+
+        self.model.settings['images_by_default'] = self.showedCount
+        self.model.settings.save()
 
     def rowChangedEvent(self, current):
         self.currentIndex = current
