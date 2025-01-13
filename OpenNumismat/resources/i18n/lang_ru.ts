@@ -2282,10 +2282,6 @@ drag-n-drop to add an image)</source>
         <translation>Шаблон по умолчанию</translation>
     </message>
     <message>
-        <source>Images count by default</source>
-        <translation>Количество изображений по умолчанию</translation>
-    </message>
-    <message>
         <source>Use built-in image viewer</source>
         <translation>Использовать встроенный редактор изображений</translation>
     </message>
