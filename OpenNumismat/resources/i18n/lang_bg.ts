@@ -2282,10 +2282,6 @@ drag-n-drop to add an image)</source>
         <translation>Шаблон по подразбиране</translation>
     </message>
     <message>
-        <source>Images count by default</source>
-        <translation>Брой снимки по подразбиране</translation>
-    </message>
-    <message>
         <source>Use built-in image viewer</source>
         <translation>Използване на вграденият преглед на изображения</translation>
     </message>
