@@ -67,7 +67,7 @@ class BaseMapWidget(QWebView):
         if filter_:
             sql += " AND " + filter_
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         while query.next():
             record = query.record()
             lat = record.value(0)

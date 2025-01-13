@@ -216,7 +216,7 @@ class BaseTableView(QTableView):
 
         if indexes:
             preview = PreviewDialog(self.model(), indexes, self)
-            preview.exec_()
+            preview.exec()
             preview.deleteLater()
         else:
             QMessageBox.information(
@@ -337,7 +337,7 @@ class BaseTableView(QTableView):
         record = self.model().record(index.row())
         record_id = record.value('id')
         dialog = EditCoinDialog(self.model(), record, self)
-        result = dialog.exec_()
+        result = dialog.exec()
         if result == QDialog.Accepted:
             self.model().setRecord(index.row(), record)
             self.model().submitAll()
@@ -357,7 +357,7 @@ class BaseTableView(QTableView):
         multiRecord, usedFields = self.model().multiRecord(rows)
 
         dialog = EditCoinDialog(self.model(), multiRecord, self, usedFields)
-        result = dialog.exec_()
+        result = dialog.exec()
         if result == QDialog.Accepted:
             # Sort and reverse indexes for updating records that out
             # filtered after updating
@@ -632,7 +632,7 @@ class ListView(BaseTableView):
         menu.addAction(self.tr("Hide"), self._hideColumn)
         menu.addSeparator()
         menu.addAction(self.tr("Adjust size"), self._adjustColumn)
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec(self.mapToGlobal(pos))
         self.pos = None
 
     def _adjustColumn(self):
@@ -648,7 +648,7 @@ class ListView(BaseTableView):
 
     def selectColumns(self):
         dialog = SelectColumnsDialog(self.listParam, self)
-        result = dialog.exec_()
+        result = dialog.exec()
         if result == QDialog.Accepted:
             self.listParam.save_lists()
 
@@ -842,7 +842,7 @@ class ListView(BaseTableView):
         icon = style.standardIcon(QStyle.SP_TrashIcon)
         menu.addAction(icon, self.tr("Delete"),
                        self._delete, QKeySequence.Delete)
-        menu.exec_(self.mapToGlobal(event.pos()))
+        menu.exec(self.mapToGlobal(event.pos()))
 
         self.upAct.setEnabled(True)
         self.downAct.setEnabled(True)
@@ -1310,7 +1310,7 @@ class IconView(BaseTableView):
         icon = style.standardIcon(QStyle.SP_TrashIcon)
         menu.addAction(icon, QApplication.translate('IconView', "Delete"),
                        self._delete, QKeySequence.Delete)
-        menu.exec_(self.mapToGlobal(event.pos()))
+        menu.exec(self.mapToGlobal(event.pos()))
 
     def currentChanged(self, current, previous):
         if (current.row() != previous.row()) or (current.column() != previous.column()):

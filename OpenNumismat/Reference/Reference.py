@@ -105,7 +105,7 @@ class BaseReferenceSection(QObject):
         old_text = self.parent.text()
 
         dialog = self._getDialog()
-        result = dialog.exec_()
+        result = dialog.exec()
         if result == QDialog.Accepted:
             self.reload()
 
@@ -123,7 +123,7 @@ class BaseReferenceSection(QObject):
         query = QSqlQuery(self.db)
         query.prepare("SELECT sort FROM sections WHERE name=?")
         query.addBindValue(self.name)
-        query.exec_()
+        query.exec()
         if query.first():
             data = query.record().value(0)
             if data:
@@ -142,7 +142,7 @@ class BaseReferenceSection(QObject):
             query.prepare("UPDATE sections SET sort=? WHERE name=?")
             query.addBindValue(int(sort))
             query.addBindValue(self.name)
-            query.exec_()
+            query.exec()
 
         self.setSort()
 
@@ -179,7 +179,7 @@ class BaseReferenceSection(QObject):
             else:
                 query.addBindValue('country')
         query.addBindValue(int(self.sort))
-        query.exec_()
+        query.exec()
 
         if in_transaction:
             db.commit()
@@ -224,7 +224,7 @@ class ReferenceSection(BaseReferenceSection):
                                             (self.table_name, self.table_name))
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(value)
-            fillQuery.exec_()
+            fillQuery.exec()
 
 
 class CrossReferenceSection(BaseReferenceSection):
@@ -273,7 +273,7 @@ class CrossReferenceSection(BaseReferenceSection):
             fillQuery.addBindValue(parentId)
             fillQuery.addBindValue(value)
             fillQuery.addBindValue(parentId)
-            fillQuery.exec_()
+            fillQuery.exec()
 
 
 class Reference(QObject):
@@ -362,7 +362,7 @@ class Reference(QObject):
         query = QSqlQuery(self.db)
         query.prepare("INSERT INTO ref (title, value) VALUES ('version', ?)")
         query.addBindValue(self.VERSION)
-        query.exec_()
+        query.exec()
 
         for section in self.sections:
             section.create(self.db)
@@ -430,7 +430,7 @@ class Reference(QObject):
             self.__updateTo1()
 
         query = QSqlQuery("SELECT value FROM ref WHERE title='version'", self.db)
-        query.exec_()
+        query.exec()
         if query.first():
             current_version = int(query.record().value(0))
             if current_version > self.VERSION:
@@ -448,7 +448,7 @@ class Reference(QObject):
             name = section.table_name
             sql = "SELECT 1 FROM %s WHERE icon IS NOT NULL LIMIT 1" % name
             query = QSqlQuery(sql, self.db)
-            query.exec_()
+            query.exec()
             if query.first():
                 self.sections_with_icons.append(name)
 
@@ -501,7 +501,7 @@ class Reference(QObject):
             sql = "SELECT icon FROM %s WHERE value=?" % table_name
             query = QSqlQuery(sql, self.db)
             query.addBindValue(value)
-            query.exec_()
+            query.exec()
             if query.first():
                 data = query.record().value(0)
                 if data:

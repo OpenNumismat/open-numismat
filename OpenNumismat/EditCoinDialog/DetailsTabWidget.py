@@ -554,7 +554,7 @@ class DetailsTabWidget(QTabWidget):
 
     def clickedButtonScanBarcode(self):
         dlg = ScanBarcodeDialog(self)
-        if dlg.exec_() == QDialog.Accepted:
+        if dlg.exec() == QDialog.Accepted:
             result = parseBarcode(dlg.barcode)
             if 'barcode' in result:
                 self.items['barcode'].widget().setText(result['barcode'])
@@ -670,7 +670,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def clickEditTags(self):
         dialog = TagsDialog(self.model.database(), self)
-        res = dialog.exec_()
+        res = dialog.exec()
         if res == QDialog.Accepted:
             self.tags_item.update()
             self.model.tagsChanged.emit()
@@ -929,7 +929,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         else:
             calendar = YearCalculatorDialog.CALENDARS.DEFAULT
         dlg = YearCalculatorDialog(year, native_year, calendar, self)
-        if dlg.exec_() == QDialog.Accepted:
+        if dlg.exec() == QDialog.Accepted:
             self.items['year'].widget().setText(dlg.year())
             self.items['native_year'].widget().setText(dlg.nativeYear())
         dlg.deleteLater()

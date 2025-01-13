@@ -24,7 +24,7 @@ class TagsView(QTreeWidget):
 
         sql = "SELECT id, tag, position, parent_id FROM tags ORDER BY position"
         query = QSqlQuery(self.db)
-        query.exec_(sql)
+        query.exec(sql)
 
         items = {}
         while query.next():
@@ -61,7 +61,7 @@ class TagsView(QTreeWidget):
             tag_id = current.data(0, Qt.UserRole)
             sql = f"SELECT coin_id FROM coins_tags WHERE tag_id={tag_id}"
             query = QSqlQuery(self.db)
-            query.exec_(sql)
+            query.exec(sql)
             coin_ids = []
             while query.next():
                 record = query.record()

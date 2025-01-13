@@ -124,7 +124,7 @@ class TabView(QTabWidget):
         menu.addAction(self.__actions['clone'])
         menu.addSeparator()
         menu.addAction(self.__actions['remove'])
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec(self.mapToGlobal(pos))
 
     def _clone(self):
         index = self.currentIndex()

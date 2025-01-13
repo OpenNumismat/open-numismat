@@ -228,11 +228,11 @@ class TreeView(QTreeWidget):
             act.setDisabled(True)
         menu.addSeparator()
         menu.addAction(self.tr("Customize tree..."), self.customizeTree)
-        menu.exec_(self.mapToGlobal(event.pos()))
+        menu.exec(self.mapToGlobal(event.pos()))
 
     def customizeTree(self):
         dialog = CustomizeTreeDialog(self.model, self.treeParam, self)
-        if dialog.exec_() == QDialog.Accepted:
+        if dialog.exec() == QDialog.Accepted:
             self.treeParam.save()
             self.modelChanged()
         dialog.deleteLater()
@@ -273,7 +273,7 @@ class TreeView(QTreeWidget):
 
         # TODO: Make identical with ListView._multiEdit
         dialog = EditCoinDialog(self.model, multiRecord, self, usedFields)
-        result = dialog.exec_()
+        result = dialog.exec()
         if result == QDialog.Accepted:
             self.model.setMultiRecord(multiRecord, dialog.getUsedFields(), parent=self)
 

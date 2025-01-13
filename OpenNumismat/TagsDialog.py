@@ -38,7 +38,7 @@ class TagsTreeWidget(QTreeWidget):
 
         sql = "SELECT id, tag, position, parent_id FROM tags ORDER BY position"
         query = QSqlQuery(self.db)
-        query.exec_(sql)
+        query.exec(sql)
 
         items = {}
         while query.next():
@@ -137,7 +137,7 @@ class EditTagsTreeWidget(QTreeWidget):
 
         sql = "SELECT id, tag, position, parent_id FROM tags ORDER BY position"
         query = QSqlQuery(self.db)
-        query.exec_(sql)
+        query.exec(sql)
 
         items = {}
         while query.next():
@@ -187,7 +187,7 @@ class EditTagsTreeWidget(QTreeWidget):
         act = menu.addAction(icon, self.tr("Delete"), QKeySequence.Delete, self.deleteItem)
         act.setEnabled(index.isValid())
 
-        menu.exec_(self.mapToGlobal(event.pos()))
+        menu.exec(self.mapToGlobal(event.pos()))
 
     def addItem(self):
         parent_item = self.currentItem()
@@ -215,7 +215,7 @@ class EditTagsTreeWidget(QTreeWidget):
     def _getNewPosition(self):
         sql = "SELECT MAX(id) FROM tags"
         query = QSqlQuery(sql, self.db)
-        query.exec_()
+        query.exec()
         query.first()
         max_id = query.record().value(0)
 
@@ -248,13 +248,13 @@ class EditTagsTreeWidget(QTreeWidget):
         query = QSqlQuery(self.db)
         query.prepare(sql)
         query.addBindValue(tag_id)
-        query.exec_()
+        query.exec()
 
         sql = "DELETE FROM coins_tags WHERE tag_id=?"
         query = QSqlQuery(self.db)
         query.prepare(sql)
         query.addBindValue(tag_id)
-        query.exec_()
+        query.exec()
 
     def commitData(self, editor):
         text = editor.text().strip()
@@ -296,7 +296,7 @@ class EditTagsTreeWidget(QTreeWidget):
         else:
             query.addBindValue(None)
 
-        query.exec_()
+        query.exec()
 
         tag_id = query.lastInsertId()
         item.setData(0, Qt.UserRole, tag_id)

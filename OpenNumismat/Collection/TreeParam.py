@@ -56,7 +56,7 @@ class TreeParam(QObject):
         query.prepare("SELECT COUNT(DISTINCT position) "
                       "FROM treeparam WHERE pageid=?")
         query.addBindValue(self.pageId)
-        query.exec_()
+        query.exec()
         if query.first():
             count = query.record().value(0)
 
@@ -67,7 +67,7 @@ class TreeParam(QObject):
             query = QSqlQuery(self.db)
             query.prepare("SELECT * FROM treeparam WHERE pageid=?")
             query.addBindValue(self.pageId)
-            query.exec_()
+            query.exec()
 
             while query.next():
                 record = query.record()
@@ -88,7 +88,7 @@ class TreeParam(QObject):
                 query.addBindValue(self.pageId)
                 query.addBindValue(field.id)
                 query.addBindValue(position)
-                query.exec_()
+                query.exec()
 
         self.db.commit()
 
@@ -96,7 +96,7 @@ class TreeParam(QObject):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM treeparam WHERE pageid=?")
         query.addBindValue(self.pageId)
-        query.exec_()
+        query.exec()
 
     def __iter__(self):
         self.index = 0

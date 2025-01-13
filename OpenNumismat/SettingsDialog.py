@@ -238,7 +238,7 @@ class MainSettingsPage(QWidget):
         color = settings['transparent_color']
 
         dlg = QColorDialog(color, self)
-        if dlg.exec_() == QDialog.Accepted:
+        if dlg.exec() == QDialog.Accepted:
             self.transparent_color = dlg.currentColor()
             settings['transparent_color'] = self.transparent_color
             self.updateTransparentColorButton(self.transparent_color)

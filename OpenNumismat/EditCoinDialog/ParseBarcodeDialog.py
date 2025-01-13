@@ -88,7 +88,7 @@ def parseBarcode(barcode, parent=None):
 
     if len(barcode) == 20 or len(barcode) == 18:  # NGC
         dlg = NGCBarcodeDialog(barcode, parent)
-        if dlg.exec_() == QDialog.Accepted:
+        if dlg.exec() == QDialog.Accepted:
             result["barcode"] = dlg.barcode
             result["grader"] = dlg.grader
             result["grade"] = dlg.grade
@@ -96,7 +96,7 @@ def parseBarcode(barcode, parent=None):
         dlg.deleteLater()
     elif len(barcode) == 22:  # PCGS
         dlg = PCGSBarcodeDialog(barcode, parent)
-        if dlg.exec_() == QDialog.Accepted:
+        if dlg.exec() == QDialog.Accepted:
             result["barcode"] = dlg.barcode
             result["grader"] = dlg.grader
             result["grade"] = dlg.grade
@@ -104,7 +104,7 @@ def parseBarcode(barcode, parent=None):
         dlg.deleteLater()
     elif len(barcode) == 16:  # old PCGS
         dlg = OldPCGSBarcodeDialog(barcode, parent)
-        if dlg.exec_() == QDialog.Accepted:
+        if dlg.exec() == QDialog.Accepted:
             result["barcode"] = dlg.barcode
             result["grader"] = dlg.grader
             result["grade"] = dlg.grade

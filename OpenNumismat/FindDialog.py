@@ -336,7 +336,7 @@ class FindDialog(QDialog):
         query = QSqlQuery(self.model.database())
         query.prepare("SELECT image FROM photos WHERE id=?")
         query.addBindValue(photo_id)
-        query.exec_()
+        query.exec()
         if query.first():
             record = query.record()
             return record.value(0)

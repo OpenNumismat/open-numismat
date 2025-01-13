@@ -64,7 +64,7 @@ def main():
     mainWindow.raise_()  # this will raise the window on Mac OS X
     mainWindow.openStartCollection()
 
-    status = app.exec_()
+    status = app.exec()
 
     # Clear temporary files
     TemporaryDir.remove()
@@ -115,7 +115,7 @@ def exceptHook(type_, value, tback):
     msgBox = QMessageBox(QMessageBox.Information, title, text)
     msgBox.setDetailedText(stack)
     msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-    if msgBox.exec_() == QMessageBox.Yes:
+    if msgBox.exec() == QMessageBox.Yes:
         line = traceback.extract_tb(tback, -1)[0]
         subject = "[v%s] %s - %s:%d" % (version.Version, type_.__name__,
                                         line[0], line[1])

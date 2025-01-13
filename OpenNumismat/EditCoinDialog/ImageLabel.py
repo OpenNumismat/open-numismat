@@ -88,7 +88,7 @@ class ImageLabel(QLabel):
         menu.addAction(save)
         menu.addSeparator()
         menu.addAction(copy)
-        menu.exec_(self.mapToGlobal(event.pos()))
+        menu.exec(self.mapToGlobal(event.pos()))
 
     def openImage(self):
         if Settings()['built_in_viewer']:
@@ -115,7 +115,7 @@ class ImageLabel(QLabel):
                 viewer.setImageProxy(proxy)
 
         viewer.setTitle(self.title)
-        viewer.exec_()
+        viewer.exec()
         viewer.deleteLater()
 
     def imageSaved(self, image):
@@ -282,7 +282,7 @@ class ImageEdit(ImageLabel):
         menu.addAction(copy_act)
         menu.addAction(paste_act)
         menu.addAction(delete_act)
-        menu.exec_(self.mapToGlobal(event.pos()))
+        menu.exec(self.mapToGlobal(event.pos()))
 
     def mouseDoubleClickEvent(self, _e):
         if self.image.isNull():

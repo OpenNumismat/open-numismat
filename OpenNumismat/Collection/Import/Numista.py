@@ -132,7 +132,7 @@ class ImportNumista(_Import2):
     def _connect(self, src):
         dialog = NumistaAuthentication(self.parent())
 
-        result = dialog.exec_()
+        result = dialog.exec()
         if result == QDialog.Accepted:
             url = (f"{self.ENDPOINT}/oauth_token?"
                    f"code={dialog.authorization_code}"

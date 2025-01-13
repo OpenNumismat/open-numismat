@@ -53,7 +53,7 @@ class Cache(QObject):
         query = QSqlQuery(self.db)
         query.prepare("SELECT data FROM cache WHERE url=?")
         query.addBindValue(url)
-        query.exec_()
+        query.exec()
         if query.first():
             record = query.record()
             return record.value('data')
@@ -74,7 +74,7 @@ class Cache(QObject):
         if isinstance(data, bytes):
             data = QByteArray(data)
         query.addBindValue(data)
-        query.exec_()
+        query.exec()
 
     def _compact(self):
         if self.db:

@@ -35,7 +35,7 @@ class CollectionDescription(QObject):
         query.addBindValue(self.title)
         query.addBindValue(self.description)
         query.addBindValue(self.author)
-        query.exec_()
+        query.exec()
 
         self.db.commit()
 
@@ -55,7 +55,7 @@ class CollectionDescription(QObject):
         query.addBindValue(collection.getCollectionName())
         query.addBindValue('')
         query.addBindValue('')
-        query.exec_()
+        query.exec()
 
         self.db.commit()
 

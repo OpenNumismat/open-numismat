@@ -1206,7 +1206,7 @@ class StatisticsView(QWidget):
         sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins %s GROUP BY %s" % (
             sql_field, sql_filter, sql_field)
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         zz = {}
         while query.next():
             record = query.record()
@@ -1270,7 +1270,7 @@ class StatisticsView(QWidget):
               " %s GROUP BY %s, IFNULL(%s,'')" % (
                         subfield, subfield, sql_field, sql_filter, sql_field, subfield)
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         xx = []
         yy = []
         zz = []
@@ -1410,7 +1410,7 @@ class StatisticsView(QWidget):
                       sql_field, date_format, ' AND '.join(sql_filters),
                       date_format)
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         xx = {}
         while query.next():
             record = query.record()
@@ -1475,7 +1475,7 @@ class StatisticsView(QWidget):
                     ' AND '.join(sql_filters),
                     date_field, sql_field)
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         xx = {}
         zz = []
         while query.next():
@@ -1547,7 +1547,7 @@ class StatisticsView(QWidget):
               " %s"\
               " GROUP BY %s" % (date_field, sql_filter, date_field)
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         xx = {}
         while query.next():
             record = query.record()
@@ -1568,7 +1568,7 @@ class StatisticsView(QWidget):
               " WHERE %s"\
               " GROUP BY %s" % (date_field, ' AND '.join(sql_filters), date_field)
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         while query.next():
             record = query.record()
             count = record.value(0)
@@ -1591,7 +1591,7 @@ class StatisticsView(QWidget):
               " WHERE %s"\
               " GROUP BY %s" % (date_field, ' AND '.join(sql_filters), date_field)
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         while query.next():
             record = query.record()
             count = record.value(0)
@@ -1628,7 +1628,7 @@ class StatisticsView(QWidget):
 
         sql = "SELECT sum(iif(quantity!='',quantity,1)), IFNULL(country,'') FROM coins %s GROUP BY IFNULL(country,'')" % sql_filter
         query = QSqlQuery(self.model.database())
-        query.exec_(sql)
+        query.exec(sql)
         xx = []
         yy = []
         while query.next():
@@ -1656,7 +1656,7 @@ class StatisticsView(QWidget):
     def settings(self):
         dialog = SettingsDialog(self)
         dialog.applyClicked.connect(self.applySettings)
-        res = dialog.exec_()
+        res = dialog.exec()
         if res == QDialog.Accepted:
             self.applySettings()
         dialog.deleteLater()

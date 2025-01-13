@@ -94,7 +94,7 @@ class _Import(QObject):
                                    parent=self.parent())
         if text:
             msgBox.setDetailedText(text)
-        msgBox.exec_()
+        msgBox.exec()
 
     def __invalidDbMessage(self, src, text=''):
         self.__errorMessage(QApplication.translate('_Import', "'%s' is not a valid database") % src, text)
@@ -181,7 +181,7 @@ class _Import2(QObject):
                              parent=self.parent())
         if text:
             msgBox.setDetailedText(text)
-        msgBox.exec_()
+        msgBox.exec()
 
     def __invalidDbMessage(self, src, text=''):
         self.__errorMessage(QApplication.translate('_Import', "'%s' is not a valid database") % src, text)

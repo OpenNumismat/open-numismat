@@ -547,7 +547,7 @@ class MainWindow(QMainWindow):
 
     def settingsEvent(self):
         dialog = SettingsDialog(self.collection, self)
-        res = dialog.exec_()
+        res = dialog.exec()
         if res == QDialog.Accepted:
             result = QMessageBox.question(self, self.tr("Settings"),
                         self.tr("The application will need to restart to apply "
@@ -571,19 +571,19 @@ class MainWindow(QMainWindow):
     def findEvent(self):
         model = self.viewTab.currentModel()
         dialog = FindDialog(model, self)
-        dialog.exec_()
+        dialog.exec()
         dialog.deleteLater()
 
     def colnectEvent(self):
         model = self.viewTab.currentModel()
         dialog = ColnectDialog(model, self)
-        dialog.exec_()
+        dialog.exec()
         dialog.deleteLater()
 
     def ansEvent(self):
         model = self.viewTab.currentModel()
         dialog = AnsDialog(model, self)
-        dialog.exec_()
+        dialog.exec()
         dialog.deleteLater()
 
     def updateInfoType(self, info_type):
@@ -625,13 +625,13 @@ class MainWindow(QMainWindow):
     def summaryEvent(self):
         model = self.viewTab.currentModel()
         dialog = SummaryDialog(model, self)
-        dialog.exec_()
+        dialog.exec()
         dialog.deleteLater()
 
     def tagsEvent(self):
         model = self.viewTab.currentModel()
         dialog = TagsDialog(model.database(), self)
-        res = dialog.exec_()
+        res = dialog.exec()
         if res == QDialog.Accepted:
             model.tagsChanged.emit()
         dialog.deleteLater()
@@ -751,7 +751,7 @@ class MainWindow(QMainWindow):
 
     def exportMobile(self):
         dialog = ExportDialog(self.collection, self)
-        res = dialog.exec_()
+        res = dialog.exec()
         if res == QDialog.Accepted:
             self.collection.exportToMobile(dialog.params)
         dialog.deleteLater()
@@ -832,12 +832,12 @@ class MainWindow(QMainWindow):
 
     def descriptionCollectionEvent(self):
         dialog = DescriptionDialog(self.collection.getDescription(), self)
-        dialog.exec_()
+        dialog.exec()
         dialog.deleteLater()
 
     def passwordCollectionEvent(self):
         dialog = PasswordSetDialog(self.collection.settings, self)
-        dialog.exec_()
+        dialog.exec()
         dialog.deleteLater()
 
     def backupCollectionEvent(self):

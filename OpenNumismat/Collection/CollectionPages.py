@@ -60,7 +60,7 @@ class CollectionPages(QObject):
         query.addBindValue(title)
         query.addBindValue(int(True))
         query.addBindValue(CollectionPageTypes.Default)
-        query.exec_()
+        query.exec()
 
         query = QSqlQuery("SELECT * FROM pages WHERE id=last_insert_rowid()",
                           self.db)
@@ -71,21 +71,21 @@ class CollectionPages(QObject):
         query.prepare("UPDATE pages SET title=? WHERE id=?")
         query.addBindValue(title)
         query.addBindValue(page.id)
-        query.exec_()
+        query.exec()
 
     def closePage(self, page):
         query = QSqlQuery(self.db)
         query.prepare("UPDATE pages SET isopen=? WHERE id=?")
         query.addBindValue(int(False))
         query.addBindValue(page.id)
-        query.exec_()
+        query.exec()
 
     def openPage(self, page):
         query = QSqlQuery(self.db)
         query.prepare("UPDATE pages SET isopen=? WHERE id=?")
         query.addBindValue(int(True))
         query.addBindValue(page.id)
-        query.exec_()
+        query.exec()
 
     def removePage(self, page):
         page.listParam.remove()
@@ -95,7 +95,7 @@ class CollectionPages(QObject):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM pages WHERE id=?")
         query.addBindValue(page.id)
-        query.exec_()
+        query.exec()
 
     def savePositions(self, pages):
         for position, page in enumerate(pages):
@@ -103,13 +103,13 @@ class CollectionPages(QObject):
             query.prepare("UPDATE pages SET position=? WHERE id=?")
             query.addBindValue(position)
             query.addBindValue(page.id)
-            query.exec_()
+            query.exec()
 
     def closedPages(self):
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM pages WHERE isopen=? ORDER BY title")
         query.addBindValue(int(False))
-        query.exec_()
+        query.exec()
         return self.__queryToParam(query)
 
     def changeView(self, page, type_):
@@ -117,14 +117,14 @@ class CollectionPages(QObject):
         query.prepare("UPDATE pages SET type=? WHERE id=?")
         query.addBindValue(type_ | page.info_type)
         query.addBindValue(page.id)
-        query.exec_()
+        query.exec()
 
     def changeInfoType(self, page, info_type):
         query = QSqlQuery(self.db)
         query.prepare("UPDATE pages SET type=? WHERE id=?")
         query.addBindValue(info_type | page.type)
         query.addBindValue(page.id)
-        query.exec_()
+        query.exec()
 
     def __queryToParam(self, query):
         pagesParam = []

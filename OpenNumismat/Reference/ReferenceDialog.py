@@ -101,7 +101,7 @@ class ListView(QListView):
                 not self.selectedIndex().data(Qt.DecorationRole):
             act.setDisabled(True)
 
-        menu.exec_(self.mapToGlobal(event.pos()))
+        menu.exec(self.mapToGlobal(event.pos()))
 
     def addItem(self):
         self.widget.addItem()

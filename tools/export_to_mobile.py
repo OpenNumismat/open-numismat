@@ -23,7 +23,7 @@ if __docDirs:
     HOME_PATH = os.path.join(__docDirs[0], "OpenNumismat")
 
 dialog = ExportDialog(None)
-res = dialog.exec_()
+res = dialog.exec()
 if res == QDialog.Accepted:
     collection = Collection(None)
     collection.open(dialog.params['file'])

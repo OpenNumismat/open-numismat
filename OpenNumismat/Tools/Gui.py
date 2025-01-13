@@ -108,6 +108,6 @@ def infoMessageBox(key, title, text, parent=None):
         cb = QCheckBox(QApplication.translate("InfoMessageBox", "Don't show this again"))
         msg_box = QMessageBox(QMessageBox.Information, title, text, parent=parent)
         msg_box.setCheckBox(cb)
-        msg_box.exec_()
+        msg_box.exec()
         if cb.isChecked():
             settings.setValue(key, False)

@@ -98,7 +98,7 @@ class EditCoinDialog(QDialog):
                     msg_box.setDefaultButton(QMessageBox.No)
                     cb = QCheckBox(self.tr("Don't show this again"))
                     msg_box.setCheckBox(cb)
-                    result = msg_box.exec_()
+                    result = msg_box.exec()
                     if result != QMessageBox.Save:
                         return
                     else:
@@ -178,7 +178,7 @@ class EditCoinDialog(QDialog):
                     msg_box.setDefaultButton(QMessageBox.No)
                     cb = QCheckBox(self.tr("Don't show this again"))
                     msg_box.setCheckBox(cb)
-                    result = msg_box.exec_()
+                    result = msg_box.exec()
                     if result != QMessageBox.Save:
                         return
                     else:
@@ -187,8 +187,8 @@ class EditCoinDialog(QDialog):
 
         self.accept()
 
-    def exec_(self):
-        result = super().exec_()
+    def exec(self):
+        result = super().exec()
 
         widget = self.items['region'].widget()
         if isinstance(widget, LineEditRef) and widget.hasDependents():

@@ -74,7 +74,7 @@ if json_file_name:
                     VALUES (?, ?)""")
             query.addBindValue(key)
             query.addBindValue(str(value))
-            query.exec_()
+            query.exec()
 
         sql = """CREATE TABLE patches (
             id INTEGER PRIMARY KEY,
@@ -150,7 +150,7 @@ if json_file_name:
                             VALUES (?)""")
                     ba = QtCore.QByteArray(img_data)
                     query.addBindValue(ba)
-                    query.exec_()
+                    query.exec()
                     img_id = query.lastInsertId()
                     coin.setValue(field_name, img_id)
 
@@ -199,7 +199,7 @@ if json_file_name:
                         VALUES (?, ?)""")
                 query.addBindValue(action)
                 query.addBindValue(coin_id)
-                query.exec_()
+                query.exec()
             else:
                 query = QSqlQuery(db)
                 query.prepare("""INSERT INTO patches (action, src_id, dst_id)
@@ -207,7 +207,7 @@ if json_file_name:
                 query.addBindValue(action)
                 query.addBindValue(coin_id)
                 query.addBindValue(coin_id - 1)
-                query.exec_()
+                query.exec()
 
         dest_model.submitAll()
         db.close()

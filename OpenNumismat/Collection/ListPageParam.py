@@ -43,7 +43,7 @@ class ListPageParam(QObject):
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM lists WHERE pageid=? ORDER BY position")
         query.addBindValue(self.page.id)
-        query.exec_()
+        query.exec()
         self.columns = []
         while query.next():
             param = ColumnListParam(query.record())
@@ -75,7 +75,7 @@ class ListPageParam(QObject):
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM filters WHERE pageid=?")
         query.addBindValue(self.page.id)
-        query.exec_()
+        query.exec()
         self.filters = {}
         while query.next():
             fieldId = query.record().value('fieldid')
@@ -130,7 +130,7 @@ class ListPageParam(QObject):
                 if not param.enabled:
                     param.width = None
                 query.addBindValue(param.width)
-                query.exec_()
+                query.exec()
 
             self.db.commit()
 
@@ -165,7 +165,7 @@ class ListPageParam(QObject):
                 else:
                     revert = None
                 query.addBindValue(revert)
-                query.exec_()
+                query.exec()
 
         self.db.commit()
 
@@ -177,10 +177,10 @@ class ListPageParam(QObject):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM lists WHERE pageid=?")
         query.addBindValue(self.page.id)
-        query.exec_()
+        query.exec()
 
     def __remove_filters(self):
         query = QSqlQuery(self.db)
         query.prepare("DELETE FROM filters WHERE pageid=?")
         query.addBindValue(self.page.id)
-        query.exec_()
+        query.exec()

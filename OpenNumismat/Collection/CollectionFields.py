@@ -362,7 +362,7 @@ class CollectionFields(CollectionFieldsBase):
 
         query = QSqlQuery(self.db)
         query.prepare("SELECT * FROM fields")
-        query.exec_()
+        query.exec()
         self.userFields = []
         self.disabledFields = []
         while query.next():
@@ -388,7 +388,7 @@ class CollectionFields(CollectionFieldsBase):
             query.addBindValue(field.title)
             query.addBindValue(int(field.enabled))
             query.addBindValue(field.id)
-            query.exec_()
+            query.exec()
 
         self.db.commit()
 
@@ -411,6 +411,6 @@ class CollectionFields(CollectionFieldsBase):
             query.addBindValue(field.title)
             enabled = field in fields.userFields
             query.addBindValue(int(enabled))
-            query.exec_()
+            query.exec()
 
         self.db.commit()

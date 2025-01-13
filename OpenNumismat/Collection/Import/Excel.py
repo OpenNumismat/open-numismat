@@ -182,7 +182,7 @@ class ImportExcel(_Import2):
             self.comboBoxes.append(combo)
         dialog.comboChanged(0)
 
-        result = dialog.exec_()
+        result = dialog.exec()
         if result == QDialog.Accepted:
             self.selected_fields = []
             self.has_title = False

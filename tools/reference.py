@@ -88,7 +88,7 @@ for lang in langs:
             code = country['code']
             image = convertImage("ref/flags/%s.png" % code.lower())
             query.addBindValue(image)
-            query.exec_()
+            query.exec()
             country_id = query.lastInsertId()
 
             for unit in country['units']:
@@ -99,7 +99,7 @@ for lang in langs:
                 query.prepare("INSERT INTO ref_unit (value, parentid) VALUES (?, ?)")
                 query.addBindValue(unit_name)
                 query.addBindValue(country_id)
-                query.exec_()
+                query.exec()
 
     ref.db.commit()
 

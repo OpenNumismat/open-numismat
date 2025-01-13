@@ -153,7 +153,7 @@ class PreviewDialog(QDialog):
 
     def _q_print(self):
         printDialog = QPrintDialog(self.printer, self)
-        if printDialog.exec_() == QDialog.Accepted:
+        if printDialog.exec() == QDialog.Accepted:
             self.webView.print(self.printer)
 
             self.accept()

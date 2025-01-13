@@ -56,7 +56,7 @@ def exportToMobile(model, params):
                 VALUES (?, ?)""")
         query.addBindValue(key)
         query.addBindValue(str(value))
-        query.exec_()
+        query.exec()
 
     sql = """CREATE TABLE updates (
         title CHAR NOT NULL UNIQUE,
@@ -172,7 +172,7 @@ def exportToMobile(model, params):
                 query.prepare("""INSERT INTO photos (image)
                         VALUES (?)""")
                 query.addBindValue(save_data)
-                query.exec_()
+                query.exec()
                 img_id = query.lastInsertId()
                 dest_record.setValue('obverseimg', img_id)
             if not obverseImage.isNull():
@@ -201,7 +201,7 @@ def exportToMobile(model, params):
                 query.prepare("""INSERT INTO photos (image)
                         VALUES (?)""")
                 query.addBindValue(save_data)
-                query.exec_()
+                query.exec()
                 img_id = query.lastInsertId()
                 dest_record.setValue('reverseimg', img_id)
             if not reverseImage.isNull():
@@ -235,7 +235,7 @@ def exportToMobile(model, params):
             query.prepare("""INSERT INTO photos (image)
                     VALUES (?)""")
             query.addBindValue(ba)
-            query.exec_()
+            query.exec()
             img_id = query.lastInsertId()
             dest_record.setValue('image', img_id)
 
@@ -288,7 +288,7 @@ if __docDirs:
     HOME_PATH = os.path.join(__docDirs[0], "OpenNumismat")
 
 dialog = ExportDialog(None)
-res = dialog.exec_()
+res = dialog.exec()
 if res == QDialog.Accepted:
     collection = Collection(None)
     collection.open(dialog.params['file'])
