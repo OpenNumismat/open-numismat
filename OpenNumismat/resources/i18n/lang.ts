@@ -2269,10 +2269,6 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images count by default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use built-in image viewer</source>
         <translation type="unfinished"></translation>
     </message>
