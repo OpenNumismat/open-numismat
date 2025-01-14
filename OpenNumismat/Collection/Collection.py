@@ -861,7 +861,7 @@ class CollectionSettings(BaseSettings):
             'stars_count': 10,
             'tags_used': True,
             'current_page': 0,
-            'images_by_default': 2,
+            'images_view_mask': (1 << 1) | (1 << 0),
     }
 
     def __init__(self, db):

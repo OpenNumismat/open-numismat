@@ -68,7 +68,7 @@ class ImageView(QWidget):
             if field.type == Type.Image:
                 self.imageFields.append(field)
 
-        self.showedCount = self.model.settings['images_by_default']
+        self.showedMask = self.model.settings['images_view_mask']
 
         self.imageButtons = []
         for field in self.imageFields:
@@ -91,7 +91,6 @@ class ImageView(QWidget):
         self.clear()
 
         current = self.currentIndex
-        self.showedCount = 0
         for i, field in enumerate(self.imageFields):
             if self.imageButtons[i].isChecked():
                 index = self.model.index(current.row(), field.id)
@@ -105,9 +104,12 @@ class ImageView(QWidget):
 
                 self.imageLayout.addWidget(image)
 
-                self.showedCount += 1
+                self.showedMask |= 1 << i
+            else:
+                if self.imageButtons[i].isEnabled():
+                    self.showedMask &= ~(1 << i)
 
-        self.model.settings['images_by_default'] = self.showedCount
+        self.model.settings['images_view_mask'] = self.showedMask
         self.model.settings.save()
 
     def rowChangedEvent(self, current):
@@ -123,7 +125,7 @@ class ImageView(QWidget):
             data = index.data(Qt.UserRole)
             img = self.model.getImage(data)
             if img and not img.isNull():
-                if self.imageLayout.count() < self.showedCount:
+                if self.showedMask & (1 << i):
                     image = ImageLabel(field.name, field.title, self)
                     image.loadFromData(img)
                     title = self.model.getImageTitle(data)
