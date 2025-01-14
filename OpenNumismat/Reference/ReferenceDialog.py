@@ -1,6 +1,6 @@
 import sys
 
-from PySide6.QtCore import Qt, QByteArray, QFileInfo, QIODevice, QBuffer, QRect, QPoint
+from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer, QRect, QPoint
 from PySide6.QtGui import QImage, QKeySequence, QPainter
 from PySide6.QtWidgets import (
     QAbstractItemDelegate,
@@ -153,14 +153,13 @@ class ListView(QListView):
         else:
             scaledImage = image
 
-        ba = QByteArray()
-        buffer = QBuffer(ba)
+        buffer = QBuffer()
         buffer.open(QIODevice.WriteOnly)
         scaledImage.save(buffer, 'png')
 
         model = self.model()
         index = model.index(self.selectedIndex().row(), model.sourceModel().fieldIndex('icon'))
-        model.setData(index, ba)
+        model.setData(index, buffer.data())
 
     def _clearIcon(self):
         model = self.model()

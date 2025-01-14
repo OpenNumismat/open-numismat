@@ -531,8 +531,7 @@ class CollectionModel(QSqlTableModel):
                     # as string
                     record.setNull(field.name)
                 elif isinstance(image, QImage):
-                    ba = QByteArray()
-                    buffer = QBuffer(ba)
+                    buffer = QBuffer()
                     buffer.open(QIODevice.WriteOnly)
 
                     # Resize big images for storing in DB
@@ -545,7 +544,7 @@ class CollectionModel(QSqlTableModel):
                                     Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
                     image.save(buffer, self.IMAGE_FORMAT)
-                    record.setValue(field.name, ba)
+                    record.setValue(field.name, buffer.data())
                 elif isinstance(image, bytes):
                     ba = QByteArray(image)
                     record.setValue(field.name, ba)
@@ -592,13 +591,12 @@ class CollectionModel(QSqlTableModel):
                                 QRectF(0, 0, reverseImage.width(), height))
             paint.end()
 
-            ba = QByteArray()
-            buffer = QBuffer(ba)
+            buffer = QBuffer()
             buffer.open(QIODevice.WriteOnly)
 
             # Store as PNG for better view
             image.save(buffer, 'png')
-            record.setValue('image', ba)
+            record.setValue('image', buffer.data())
 
     def moveRows(self, row1, row2):
         if self.proxy:
@@ -1513,8 +1511,7 @@ class Collection(QObject):
                 reverseImage = QImage()
 
                 if is_obverse_present:
-                    ba = QByteArray()
-                    buffer = QBuffer(ba)
+                    buffer = QBuffer()
                     buffer.open(QIODevice.WriteOnly)
 
                     obverseImage.loadFromData(coin.value('obverseimg'))
@@ -1522,11 +1519,11 @@ class Collection(QObject):
                         scaledImage = obverseImage.scaled(maxHeight, maxHeight,
                                 Qt.KeepAspectRatio, Qt.SmoothTransformation)
                         scaledImage.save(buffer, IMAGE_FORMAT, 50)
-                        save_data = ba
+                        save_data = buffer.data()
                     else:
                         if not obverseImage.isNull():
                             obverseImage.save(buffer, IMAGE_FORMAT, 50)
-                            save_data = ba
+                            save_data = buffer.data()
                         else:
                             save_data = coin.value('obverseimg')
 
@@ -1542,8 +1539,7 @@ class Collection(QObject):
                                                             Qt.SmoothTransformation)
 
                 if is_reverse_present:
-                    ba = QByteArray()
-                    buffer = QBuffer(ba)
+                    buffer = QBuffer()
                     buffer.open(QIODevice.WriteOnly)
 
                     reverseImage.loadFromData(coin.value('reverseimg'))
@@ -1551,11 +1547,11 @@ class Collection(QObject):
                         scaledImage = reverseImage.scaled(maxHeight, maxHeight,
                                 Qt.KeepAspectRatio, Qt.SmoothTransformation)
                         scaledImage.save(buffer, IMAGE_FORMAT, 50)
-                        save_data = ba
+                        save_data = buffer.data()
                     else:
                         if not reverseImage.isNull():
                             reverseImage.save(buffer, IMAGE_FORMAT, 50)
-                            save_data = ba
+                            save_data = buffer.data()
                         else:
                             save_data = coin.value('reverseimg')
 
@@ -1588,13 +1584,12 @@ class Collection(QObject):
                                     QRectF(0, 0, reverseImage.width(), height))
                 paint.end()
 
-                ba = QByteArray()
-                buffer = QBuffer(ba)
+                buffer = QBuffer()
                 buffer.open(QIODevice.WriteOnly)
 
                 # Store as PNG for better view
                 image.save(buffer, 'png')
-                dest_record.setValue('image', ba)
+                dest_record.setValue('image', buffer.data())
 
             dest_model.insertRecord(-1, dest_record)
 
