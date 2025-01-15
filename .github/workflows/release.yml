@@ -77,6 +77,7 @@ jobs:
         github-artifact-id: '${{steps.upload-portable.outputs.artifact-id}}'
         output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
         wait-for-completion: true
+        wait-for-completion-timeout-in-seconds: 1800
     - name: package
       run: |
         cd dist
@@ -139,6 +140,7 @@ jobs:
         github-artifact-id: '${{steps.upload-exe.outputs.artifact-id}}'
         output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
         wait-for-completion: true
+        wait-for-completion-timeout-in-seconds: 1800
     - name: package
       run: |
         ISCC.exe tools/setup.iss
@@ -160,6 +162,7 @@ jobs:
         github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
         output-artifact-directory: .
         wait-for-completion: true
+        wait-for-completion-timeout-in-seconds: 1800
     - name: upload-signed
       uses: actions/upload-artifact@v4
       with:
@@ -276,6 +279,7 @@ jobs:
         github-artifact-id: '${{steps.upload-nuitka-portable.outputs.artifact-id}}'
         output-artifact-directory: open-numismat.dist
         wait-for-completion: true
+        wait-for-completion-timeout-in-seconds: 1800
     - name: package
       run: |
         cd open-numismat.dist
@@ -348,6 +352,7 @@ jobs:
         github-artifact-id: '${{steps.upload-nuitka-exe.outputs.artifact-id}}'
         output-artifact-directory: open-numismat.dist
         wait-for-completion: true
+        wait-for-completion-timeout-in-seconds: 1800
     - name: package
       run: |
         ISCC.exe tools/setup-nuitka.iss
@@ -369,6 +374,7 @@ jobs:
         github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
         output-artifact-directory: .
         wait-for-completion: true
+        wait-for-completion-timeout-in-seconds: 1800
     - name: upload-signed
       uses: actions/upload-artifact@v4
       with:
