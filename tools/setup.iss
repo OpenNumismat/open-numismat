@@ -8,7 +8,7 @@ UninstallDisplayIcon={app}\OpenNumismat.exe
 OutputDir="."
 OutputBaseFilename=OpenNumismat-{#SetupSetting('AppVersion')}
 AllowNoIcons=yes
-AppCopyright=Copyright 2011-2024 by Vitaly Ignatov
+AppCopyright=Copyright 2011-2025 by Vitaly Ignatov
 AppPublisher=Janis
 ArchitecturesInstallIn64BitMode=x64
 
