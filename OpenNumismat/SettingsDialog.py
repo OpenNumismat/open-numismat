@@ -192,6 +192,15 @@ class MainSettingsPage(QWidget):
                                          QSizePolicy.Fixed)
         layout.addRow(self.tr("Style"), self.styleSelector)
 
+        self.colorSchemeSelector = QComboBox(self)
+        self.colorSchemeSelector.addItem(self.tr("System"))
+        self.colorSchemeSelector.addItem(self.tr("Light"))
+        self.colorSchemeSelector.addItem(self.tr("Dark"))
+        self.colorSchemeSelector.setCurrentIndex(settings['color_scheme'])
+        self.colorSchemeSelector.setSizePolicy(QSizePolicy.Fixed,
+                                               QSizePolicy.Fixed)
+        layout.addRow(self.tr("Color scheme"), self.colorSchemeSelector)
+
         self.fontSizeSelector = QComboBox(self)
         self.fontSizeSelector.addItem(self.tr("Normal"))
         self.fontSizeSelector.addItem(self.tr("Large"))
@@ -261,6 +270,7 @@ class MainSettingsPage(QWidget):
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['transparent_color'] = self.transparent_color
         settings['tree_counter'] = self.treeCounter.isChecked()
+        settings['color_scheme'] = self.colorSchemeSelector.currentIndex()
 
         settings.save()
 

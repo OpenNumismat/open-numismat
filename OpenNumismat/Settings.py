@@ -124,6 +124,7 @@ class Settings(BaseSettings):
         'use_webcam': True,
         'UUID': _getUuid().replace('-', ''),
         'tree_counter': False,
+        'color_scheme': Qt.ColorScheme.Unknown.value,
     }
 
     def __init__(self, autoSave=False):

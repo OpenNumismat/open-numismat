@@ -5,7 +5,16 @@ import ssl
 import sys
 import traceback
 
-from PySide6.QtCore import QCoreApplication, QTranslator, QUrl, QUrlQuery, QSettings, QLibraryInfo, QLocale
+from PySide6.QtCore import (
+    Qt,
+    QCoreApplication,
+    QLibraryInfo,
+    QLocale,
+    QSettings,
+    QTranslator,
+    QUrl,
+    QUrlQuery,
+)
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtGui import QDesktopServices
 from PySide6 import __version__ as PYQT_VERSION_STR
@@ -37,6 +46,8 @@ def main():
     elif settings['font_size'] == 2:
         app.setStyleSheet("QWidget{font-size: 13pt;}")
     app.setStyle(settings['style'])
+    styleHints = app.styleHints()
+    styleHints.setColorScheme(Qt.ColorScheme(settings['color_scheme']))
 
     if settings['error']:
         sys.excepthook = exceptHook
