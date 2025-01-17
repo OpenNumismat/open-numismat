@@ -2327,7 +2327,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>System</source>
-        <translation>Системни</translation>
+        <translation>Системна</translation>
     </message>
     <message>
         <source>Light</source>
