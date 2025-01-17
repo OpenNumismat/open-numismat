@@ -2325,6 +2325,22 @@ arraste e largue para adicionar)</translation>
         <source>Show counter in tree and statistics</source>
         <translation>Mostrar contador na árvore e nas estatísticas</translation>
     </message>
+    <message>
+        <source>System</source>
+        <translation>Sistema</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>Claro</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Escuro</translation>
+    </message>
+    <message>
+        <source>Color scheme</source>
+        <translation>Esquema de cores</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
