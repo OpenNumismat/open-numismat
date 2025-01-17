@@ -2325,6 +2325,22 @@ drag-n-drop to add an image)</source>
         <source>Show counter in tree and statistics</source>
         <translation>Показване на брояча в дървото и статистиката</translation>
     </message>
+    <message>
+        <source>System</source>
+        <translation>Системни</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>Светла</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Тъмна</translation>
+    </message>
+    <message>
+        <source>Color scheme</source>
+        <translation>Цветова схема</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
