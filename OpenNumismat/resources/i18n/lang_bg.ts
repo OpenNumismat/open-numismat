@@ -3411,8 +3411,8 @@ Please update OpenNumismat</source>
     <message>
         <source>Can't close latest opened page.
 Add a new one first.</source>
-        <translation>Не може да се затвори последната отворена страница.
-Първо добавете нова.</translation>
+        <translation>Не може да затворите последния отворен списък.
+Първо добавете нов.</translation>
     </message>
     <message>
         <source>Can't remove latest opened page.
