@@ -1779,7 +1779,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Групова редакция...</translation>
+        <translation>Групово редактиране...</translation>
     </message>
     <message>
         <source>Move up</source>
@@ -3487,7 +3487,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Групова редакция...</translation>
+        <translation>Групово редактиране...</translation>
     </message>
 </context>
 <context>
