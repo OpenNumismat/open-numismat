@@ -1,4 +1,4 @@
-from PySide6.QtCore import QSettings, QUrl
+from PySide6.QtCore import Qt, QSettings, QUrl
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QSizePolicy
@@ -24,6 +24,7 @@ class WebEnginePage(QWebEnginePage):
 class QWebView(QWebEngineView):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setAttribute(Qt.WA_NativeWindow)
         self.setPage(WebEnginePage(self))
 
     def contextMenuEvent(self, _event):
