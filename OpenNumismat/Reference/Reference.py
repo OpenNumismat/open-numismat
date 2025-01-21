@@ -153,14 +153,16 @@ class BaseReferenceSection(QObject):
                      'unit', 'mint', 'series')
 
         if self.name in cross_ref:
-            sql = "CREATE TABLE %s (\
+            sql = f"CREATE TABLE {self.table_name} (\
                 id INTEGER PRIMARY KEY,\
                 parentid INTEGER,\
-                value TEXT, icon BLOB)" % self.table_name
+                value TEXT, icon BLOB,\
+                position INTEGER, description TEXT)"
         else:
-            sql = "CREATE TABLE %s (\
+            sql = f"CREATE TABLE {self.table_name} (\
                 id INTEGER PRIMARY KEY,\
-                value TEXT, icon BLOB)" % self.table_name
+                value TEXT, icon BLOB,\
+                position INTEGER, description TEXT)"
         QSqlQuery(sql, db)
 
         query = QSqlQuery(db)
@@ -277,7 +279,7 @@ class CrossReferenceSection(BaseReferenceSection):
 
 
 class Reference(QObject):
-    VERSION = 1
+    VERSION = 2
 
     def __init__(self, fields, parent=None, db=None):
         super().__init__(parent)
@@ -433,6 +435,11 @@ class Reference(QObject):
         query.exec()
         if query.first():
             current_version = int(query.record().value(0))
+            if current_version == 1:
+                # Update reference DB for version 1.10
+                self.__updateTo2()
+                current_version = 2
+
             if current_version > self.VERSION:
                 QMessageBox.critical(self.parent(),
                         self.tr("Open reference"),
@@ -551,6 +558,31 @@ class Reference(QObject):
 
         sql = """INSERT INTO ref (title, value)
             VALUES ('version', 1)"""
+        QSqlQuery(sql, self.db)
+
+        self.db.commit()
+
+    def __updateTo2(self):
+        self.backup()
+
+        self.db.transaction()
+
+        tables = (
+            'ref_category', 'ref_color', 'ref_composition', 'ref_condition',
+            'ref_country', 'ref_defect', 'ref_edge', 'ref_emitent',
+            'ref_format', 'ref_grade', 'ref_grader', 'ref_material',
+            'ref_mint', 'ref_modification', 'ref_obvrev', 'ref_period',
+            'ref_place', 'ref_quality', 'ref_rarity', 'ref_region',
+            'ref_ruler', 'ref_series', 'ref_shape', 'ref_storage',
+            'ref_technique', 'ref_type', 'ref_unit',
+        )
+        for table in tables:
+            sql = f"ALTER TABLE {table} ADD COLUMN position INTEGER"
+            QSqlQuery(sql, self.db)
+            sql = f"ALTER TABLE {table} ADD COLUMN description TEXT"
+            QSqlQuery(sql, self.db)
+
+        sql = """UPDATE ref SET value=2 WHERE title='version'"""
         QSqlQuery(sql, self.db)
 
         self.db.commit()
