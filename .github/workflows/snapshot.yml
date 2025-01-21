@@ -530,9 +530,57 @@ jobs:
         path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
         if-no-files-found: error
 
+  macos-arm64:
+    needs: [version, title]
+    name: macOS
+    runs-on: macos-14-arm64
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install pyinstaller
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+    - name: build
+      run: |
+        PYTHONOPTIMIZE=1
+        pyinstaller open-numismat.spec
+    - name: package
+      run: |
+        cd dist
+        mkdir vol
+        mv OpenNumismat.app vol
+        ln -s /Applications vol/Applications
+        hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
+    - name: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-dmg
+        path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
+        if-no-files-found: error
+
   prerelease:
     name: Create pre-release
-    needs: [version, title, windows, innosetup, ubuntu, ubuntu-24, macos, cx_freeze, nuitka, nuitka_innosetup]
+    needs: [version, title, windows, innosetup, ubuntu, ubuntu-24, macos, macos-arm64, cx_freeze, nuitka, nuitka_innosetup]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -604,4 +652,11 @@ jobs:
         upload_url: ${{ steps.release.outputs.upload_url }}
         asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
+        asset_content_type: application/octet-stream
+    - name: upload-macos-arm64
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
         asset_content_type: application/octet-stream
