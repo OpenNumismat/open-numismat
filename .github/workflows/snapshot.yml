@@ -533,7 +533,7 @@ jobs:
   macos-arm64:
     needs: [version, title]
     name: macOS arm64
-    runs-on: macos-14-arm64
+    runs-on: macos-14
     steps:
     - uses: actions/checkout@v4
       with:
