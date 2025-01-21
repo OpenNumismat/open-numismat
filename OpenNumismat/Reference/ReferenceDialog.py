@@ -1,7 +1,7 @@
 import sys
 
 from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer, QRect, QPoint
-from PySide6.QtGui import QImage, QKeySequence, QPainter
+from PySide6.QtGui import QImage, QKeySequence, QPainter, QIcon
 from PySide6.QtWidgets import (
     QAbstractItemDelegate,
     QAbstractItemView,
@@ -85,6 +85,20 @@ class ListView(QListView):
 
         menu.addSeparator()
 
+        row = self.currentIndex().row()
+
+        act = menu.addAction(QIcon(':/bullet_arrow_up.png'), self.tr("Move up"),
+                             self.moveUp)
+        if not self.selectedIndex() or row == 0 or self.model().parent().is_sorted:
+            act.setDisabled(True)
+
+        act = menu.addAction(QIcon(':/bullet_arrow_down.png'), self.tr("Move down"),
+                             self.moveDown)
+        if not self.selectedIndex() or row >= self.model().rowCount() - 1 or self.model().parent().is_sorted:
+            act.setDisabled(True)
+
+        menu.addSeparator()
+
         if self.selectedIndex() and self.selectedIndex().data(Qt.DecorationRole):
             act = menu.addAction(self.tr("Change icon..."), self._addIcon)
         else:
@@ -108,6 +122,24 @@ class ListView(QListView):
 
     def deleteItem(self):
         self.widget.deleteItem()
+
+    def moveUp(self):
+        index1 = self.currentIndex()
+        if index1.row() == 0:
+            return
+
+        index2 = self.model().index(index1.row() - 1, 0)
+
+        self.model().parent().moveRows(index1.row(), index2.row())
+
+    def moveDown(self):
+        index1 = self.currentIndex()
+        if index1.row() >= self.model().rowCount() - 1:
+            return
+
+        index2 = self.model().index(index1.row() + 1, 0)
+
+        self.model().parent().moveRows(index1.row(), index2.row())
 
     def _addIcon(self):
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,

@@ -14,6 +14,8 @@ class SqlTableModel(QSqlTableModel):
     def __init__(self, parent, db):
         super().__init__(parent, db)
 
+        self.is_sorted = False
+
         self._proxyModel = QSortFilterProxyModel(self)
         self._proxyModel.setSortLocaleAware(True)
         self._proxyModel.setSourceModel(self)
@@ -35,15 +37,45 @@ class SqlTableModel(QSqlTableModel):
         return self._proxyModel
 
     def sort(self, sort=True):
+        self.is_sorted = sort
+
         if sort:
             self._proxyModel.sort(self.fieldIndex('value'))
         else:
-            self._proxyModel.sort(-1)
+            self._proxyModel.sort(self.fieldIndex('position'))
+
+    def moveRows(self, row1, row2):
+        row_rang = []
+        if row2 == -1:
+            row_rang = range(row1 + 1, self.rowCount())
+        elif row1 > row2:
+            row_rang = range(row1 - 1, row2 - 1, -1)
+        elif row1 < row2:
+            row_rang = range(row1 + 1, row2 + 1)
+
+        sort_column_id = self.fieldIndex('position')
+        super().sort(sort_column_id, Qt.AscendingOrder)
+
+        if row_rang:
+            record = self.record(row1)
+            old_sort_id = record.value('position')
+            for row in row_rang:
+                record1 = self.record(row)
+                sort_id = record1.value('position')
+                record1.setValue('position', old_sort_id)
+                self.setRecord(row, record1)
+                old_sort_id = sort_id
+            record.setValue('position', old_sort_id)
+            self.setRecord(row1, record)
+
+        super().sort(-1, Qt.AscendingOrder)
 
 
 class SqlRelationalTableModel(QSqlRelationalTableModel):
     def __init__(self, model, parent, db):
         super().__init__(parent, db)
+
+        self.is_sorted = False
 
         self.model = model
         self._proxyModel = QSortFilterProxyModel(self)
@@ -70,10 +102,38 @@ class SqlRelationalTableModel(QSqlRelationalTableModel):
         return self._proxyModel
 
     def sort(self, sort=True):
+        self.is_sorted = sort
+
         if sort:
             self._proxyModel.sort(self.fieldIndex('value'))
         else:
-            self._proxyModel.sort(-1)
+            self._proxyModel.sort(self.fieldIndex('position'))
+
+    def moveRows(self, row1, row2):
+        row_rang = []
+        if row2 == -1:
+            row_rang = range(row1 + 1, self.rowCount())
+        elif row1 > row2:
+            row_rang = range(row1 - 1, row2 - 1, -1)
+        elif row1 < row2:
+            row_rang = range(row1 + 1, row2 + 1)
+
+        sort_column_id = self.fieldIndex('position')
+        super().sort(sort_column_id, Qt.AscendingOrder)
+
+        if row_rang:
+            record = self.record(row1)
+            old_sort_id = record.value('position')
+            for row in row_rang:
+                record1 = self.record(row)
+                sort_id = record1.value('position')
+                record1.setValue('position', old_sort_id)
+                self.setRecord(row, record1)
+                old_sort_id = sort_id
+            record.setValue('position', old_sort_id)
+            self.setRecord(row1, record)
+
+        super().sort(-1, Qt.AscendingOrder)
 
 
 class BaseReferenceSection(QObject):
@@ -580,6 +640,9 @@ class Reference(QObject):
             sql = f"ALTER TABLE {table} ADD COLUMN position INTEGER"
             QSqlQuery(sql, self.db)
             sql = f"ALTER TABLE {table} ADD COLUMN description TEXT"
+            QSqlQuery(sql, self.db)
+
+            sql = f"UPDATE {table} SET position=id"
             QSqlQuery(sql, self.db)
 
         sql = """UPDATE ref SET value=2 WHERE title='version'"""
