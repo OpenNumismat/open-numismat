@@ -432,6 +432,14 @@ class TreeView(QTreeWidget):
         paramChildIndex = item.data(0, self.ParamChildRole)
         fields = self.treeParam.fieldNames(paramIndex)
 
+        is_references = []
+        for i in range(len(fields)):
+            section = self.reference.section(fields[i])
+            if section and not section.getSort():
+                is_references.append(True)
+            else:
+                is_references.append(False)
+
         hasEmpty = False
         countEmpty = 0
         for child_item in child_items:
@@ -449,10 +457,18 @@ class TreeView(QTreeWidget):
             else:
                 child = TreeWidgetItem([label, ])
             child.setData(0, self.TextRole, child_item.label)
-            child.setData(0, self.SortDataRole, child_item.datas)
             child.setData(0, self.ParamRole, paramChildIndex)
             child.setData(0, self.ParamChildRole, paramChildIndex + 1)
             child.setData(0, self.FieldsRole, fields)
+
+            positions = []
+            for i, is_reference in enumerate(is_references):
+                if is_reference:
+                    position = self.reference.getPosition(fields[i], child_item.datas[i])
+                    positions.append(position)
+                else:
+                    positions.append(child_item.datas[i])
+            child.setData(0, self.SortDataRole, positions)
 
             combined_filter = []
             if child_item.filters:

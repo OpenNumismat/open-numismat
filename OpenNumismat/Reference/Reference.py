@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 from PySide6.QtCore import Qt, QSortFilterProxyModel, QObject, QFile, QFileInfo, QDateTime
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QPixmap, QIcon
@@ -593,6 +595,27 @@ class Reference(QObject):
                         icon = QIcon(pixmap)
                         return icon
         return None
+
+    def getPosition(self, section, value):
+        if section in ('payplace', 'saleplace'):
+            section = 'place'
+        elif section in ('obversecolor', 'reversecolor'):
+            section = 'color'
+        elif section in ('edge', 'signaturetype'):
+            section = 'edge'
+        elif section in ('material', 'material2'):
+            section = 'material'
+
+        sql = f"SELECT position FROM ref_{section} WHERE value=?"
+        query = QSqlQuery(sql, self.db)
+        query.addBindValue(value)
+        query.exec()
+        if query.first():
+            data = query.record().value(0)
+            if isinstance(data, int):
+                return data
+
+        return sys.maxsize
 
     def backup(self):
         if self.fileName:
