@@ -70,6 +70,18 @@ class SqlTableModel(QSqlTableModel):
 
         super().sort(-1, Qt.AscendingOrder)
 
+    def nextPosition(self):
+        new_position = 0
+        query = QSqlQuery(self.database())
+        query.prepare(f"SELECT MAX(position) FROM {self.tableName()}")
+        query.exec()
+        if query.first():
+            max_position = query.record().value(0)
+            if isinstance(max_position, int):
+                new_position = query.record().value(0) + 1
+
+        return new_position
+
 
 class SqlRelationalTableModel(QSqlRelationalTableModel):
     def __init__(self, model, parent, db):
@@ -270,8 +282,11 @@ class ReferenceSection(BaseReferenceSection):
         return ReferenceDialog(copy, self.parent.text(), self.parent)
 
     def addItem(self, value, icon=None):
+        new_position = self.model.nextPosition()
+
         record = self.model.record()
         record.setValue('value', value)
+        record.setValue('position', new_position)
         if icon:
             record.setValue('icon', icon)
         self.model.insertRecord(-1, record)
@@ -280,8 +295,9 @@ class ReferenceSection(BaseReferenceSection):
         while query.next():
             value = query.record().value(0)
             fillQuery = QSqlQuery(self.db)
-            fillQuery.prepare(f"INSERT INTO {self.table_name} (value) "
-                    "SELECT ? "
+            fillQuery.prepare(f"INSERT INTO {self.table_name} (value, position) "
+                    "SELECT ?, "
+                    f"(SELECT ifnull(MAX(position)+1, 0) FROM {self.table_name}) "
                     "WHERE NOT EXISTS "
                     f"(SELECT 1 FROM {self.table_name} WHERE value=?)")
             fillQuery.addBindValue(value)
@@ -326,8 +342,9 @@ class CrossReferenceSection(BaseReferenceSection):
         while query.next():
             value = query.record().value(0)
             fillQuery = QSqlQuery(self.db)
-            fillQuery.prepare(f"INSERT INTO {self.table_name} (value, parentid) "
-                        "SELECT ?, ? "
+            fillQuery.prepare(f"INSERT INTO {self.table_name} (value, parentid, position) "
+                        "SELECT ?, ?, "
+                        f"(SELECT ifnull(MAX(position)+1, 0) FROM {self.table_name}) "
                         "WHERE NOT EXISTS "
                         f"(SELECT 1 FROM {self.table_name} WHERE value=? AND parentid=?)")
             fillQuery.addBindValue(value)
