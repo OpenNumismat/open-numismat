@@ -231,21 +231,21 @@ class BaseReferenceSection(QObject):
                 id INTEGER PRIMARY KEY,
                 parentid INTEGER,
                 value TEXT, icon BLOB,
-                position INTEGER, description TEXT)"""
+                position INTEGER, description TEXT, plural TEXT)"""
         else:
             sql = f"""CREATE TABLE {self.table_name} (
                 id INTEGER PRIMARY KEY,
                 value TEXT, icon BLOB,
-                position INTEGER, description TEXT)"""
+                position INTEGER, description TEXT, plural TEXT)"""
         QSqlQuery(sql, db)
 
         query = QSqlQuery(db)
         if self.name in cross_ref:
-            sql = """INSERT INTO sections (name, letter, parent, sort)
-                VALUES (?, ?, ?, ?)"""
+            sql = """INSERT INTO sections (name, letter, parent, sort, plural)
+                VALUES (?, ?, ?, ?, ?)"""
         else:
-            sql = """INSERT INTO sections (name, letter, sort)
-                VALUES (?, ?, ?)"""
+            sql = """INSERT INTO sections (name, letter, sort, plural)
+                VALUES (?, ?, ?, ?)"""
         query.prepare(sql)
         query.addBindValue(self.name)
         query.addBindValue(self.letter)
@@ -255,6 +255,11 @@ class BaseReferenceSection(QObject):
             else:
                 query.addBindValue('country')
         query.addBindValue(int(self.sort))
+        if self.name == 'unit':
+            query.addBindValue(1)
+        else:
+            query.addBindValue(0)
+
         query.exec()
 
         if in_transaction:
@@ -431,7 +436,8 @@ class Reference(QObject):
             icon BLOB,
             letter TEXT,
             parent TEXT,
-            sort INTEGER)"""
+            sort INTEGER,
+            plural INTEGER)"""
         QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE ref (
@@ -680,9 +686,16 @@ class Reference(QObject):
             QSqlQuery(sql, self.db)
             sql = f"ALTER TABLE {table} ADD COLUMN description TEXT"
             QSqlQuery(sql, self.db)
+            sql = f"ALTER TABLE {table} ADD COLUMN plural TEXT"
+            QSqlQuery(sql, self.db)
 
             sql = f"UPDATE {table} SET position=id"
             QSqlQuery(sql, self.db)
+
+        sql = f"ALTER TABLE sections ADD COLUMN plural INTEGER"
+        QSqlQuery(sql, self.db)
+        sql = f"UPDATE sections SET plural=1 WHERE name='unit'"
+        QSqlQuery(sql, self.db)
 
         sql = "UPDATE ref SET value=2 WHERE title='version'"
         QSqlQuery(sql, self.db)
