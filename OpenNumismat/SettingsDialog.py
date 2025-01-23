@@ -369,6 +369,10 @@ class CollectionSettingsPage(QWidget):
         self.tagsEnabled.setChecked(self.settings['tags_used'])
         layout.addRow(self.tagsEnabled)
 
+        self.sortByRef = QCheckBox(self.tr("Sort tree by references"), self)
+        self.sortByRef.setChecked(self.settings['sort_by_reference'])
+        layout.addRow(self.sortByRef)
+
         self.statusUsed = {}
         statusesList = QListWidget(self)
         statusesList.setWrapping(True)
@@ -430,6 +434,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['axis_in_hours'] = self.axisHours.isChecked()
         self.settings['stars_count'] = 5 if self.starsCount.isChecked() else 10
         self.settings['tags_used'] = self.tagsEnabled.isChecked()
+        self.settings['sort_by_reference'] = self.sortByRef.isChecked()
         default_status = self.defaultStatus.currentData()
         self.settings['default_status'] = default_status
 

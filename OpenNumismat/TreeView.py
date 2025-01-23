@@ -432,13 +432,17 @@ class TreeView(QTreeWidget):
         paramChildIndex = item.data(0, self.ParamChildRole)
         fields = self.treeParam.fieldNames(paramIndex)
 
-        is_references = []
-        for i in range(len(fields)):
-            section = self.reference.section(fields[i])
-            if section and not section.getSort():
-                is_references.append(True)
-            else:
-                is_references.append(False)
+        sort_by_reference = self.model.settings['sort_by_reference']
+        if sort_by_reference:
+            is_references = []
+            for i in range(len(fields)):
+                section = self.reference.section(fields[i])
+                if section and not section.getSort():
+                    is_references.append(True)
+                else:
+                    is_references.append(False)
+        else:
+            is_references = [False] * len(fields)
 
         hasEmpty = False
         countEmpty = 0

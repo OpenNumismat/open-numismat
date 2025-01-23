@@ -860,6 +860,7 @@ class CollectionSettings(BaseSettings):
             'tags_used': True,
             'current_page': 0,
             'images_view_mask': (1 << 1) | (1 << 0),
+            'sort_by_reference': True,
     }
 
     def __init__(self, db):
