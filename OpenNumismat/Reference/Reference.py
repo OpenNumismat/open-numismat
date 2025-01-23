@@ -149,6 +149,18 @@ class SqlRelationalTableModel(QSqlRelationalTableModel):
 
         super().sort(-1, Qt.AscendingOrder)
 
+    def nextPosition(self):
+        new_position = 0
+        query = QSqlQuery(self.database())
+        query.prepare(f"SELECT MAX(position) FROM {self.tableName()}")
+        query.exec()
+        if query.first():
+            max_position = query.record().value(0)
+            if isinstance(max_position, int):
+                new_position = query.record().value(0) + 1
+
+        return new_position
+
 
 class BaseReferenceSection(QObject):
     changed = pyqtSignal(object)

@@ -132,6 +132,9 @@ class ListView(QListView):
 
         self.model().parent().moveRows(index1.row(), index2.row())
 
+        index = self.model().index(index1.row() - 1, 1)
+        self.setCurrentIndex(index)
+
     def moveDown(self):
         index1 = self.currentIndex()
         if index1.row() >= self.model().rowCount() - 1:
@@ -140,6 +143,9 @@ class ListView(QListView):
         index2 = self.model().index(index1.row() + 1, 0)
 
         self.model().parent().moveRows(index1.row(), index2.row())
+
+        index = self.model().index(index1.row() + 1, 1)
+        self.setCurrentIndex(index)
 
     def _addIcon(self):
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
