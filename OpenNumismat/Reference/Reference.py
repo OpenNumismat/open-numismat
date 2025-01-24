@@ -2,7 +2,7 @@
 
 import sys
 
-from PySide6.QtCore import Qt, QSortFilterProxyModel, QObject, QFile, QFileInfo, QDateTime
+from PySide6.QtCore import Qt, QSortFilterProxyModel, QObject, QFile, QFileInfo, QDateTime, QDataStream
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel, QSqlRelationalTableModel, QSqlRelation
@@ -13,6 +13,8 @@ from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferen
 
 class SqlTableModel(QSqlTableModel):
 
+    MimeType = "application/x-qabstractitemmodeldatalist"
+
     def __init__(self, parent, db):
         super().__init__(parent, db)
 
@@ -21,6 +23,42 @@ class SqlTableModel(QSqlTableModel):
         self._proxyModel = QSortFilterProxyModel(self)
         self._proxyModel.setSortLocaleAware(True)
         self._proxyModel.setSourceModel(self)
+
+    def supportedDropActions(self):
+        return Qt.MoveAction
+
+    def flags(self, index):
+        defaultFlags = super().flags(index)
+
+        if self.is_sorted:
+            return defaultFlags
+
+        if index.isValid():
+            return Qt.ItemIsDragEnabled | defaultFlags
+        else:
+            return Qt.ItemIsDropEnabled | defaultFlags
+
+    def dropMimeData(self, data, action, row, column, parent):
+        if action == Qt.IgnoreAction:
+            return True
+
+        encodedData = data.data(self.MimeType)
+        stream = QDataStream(encodedData)
+        row1 = stream.readInt32()
+        proxyIndex = self.index(row1, 0)
+        index = self._proxyModel.mapFromSource(proxyIndex)
+        row1 = index.row()
+
+        proxyIndex = self.index(row, 0)
+        index = self._proxyModel.mapFromSource(proxyIndex)
+        row2 = index.row()
+
+        if row1 > row2:
+            self.moveRows(row1, row2)
+        else:
+            self.moveRows(row1, row2 - 1)
+
+        return True
 
     def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DecorationRole:
@@ -86,6 +124,9 @@ class SqlTableModel(QSqlTableModel):
 
 
 class SqlRelationalTableModel(QSqlRelationalTableModel):
+
+    MimeType = "application/x-qabstractitemmodeldatalist"
+
     def __init__(self, model, parent, db):
         super().__init__(parent, db)
 
@@ -95,6 +136,42 @@ class SqlRelationalTableModel(QSqlRelationalTableModel):
         self._proxyModel = QSortFilterProxyModel(self)
         self._proxyModel.setSortLocaleAware(True)
         self._proxyModel.setSourceModel(self)
+
+    def supportedDropActions(self):
+        return Qt.MoveAction
+
+    def flags(self, index):
+        defaultFlags = super().flags(index)
+
+        if self.is_sorted:
+            return defaultFlags
+
+        if index.isValid():
+            return Qt.ItemIsDragEnabled | defaultFlags
+        else:
+            return Qt.ItemIsDropEnabled | defaultFlags
+
+    def dropMimeData(self, data, action, row, column, parent):
+        if action == Qt.IgnoreAction:
+            return True
+
+        encodedData = data.data(self.MimeType)
+        stream = QDataStream(encodedData)
+        row1 = stream.readInt32()
+        proxyIndex = self.index(row1, 0)
+        index = self._proxyModel.mapFromSource(proxyIndex)
+        row1 = index.row()
+
+        proxyIndex = self.index(row, 0)
+        index = self._proxyModel.mapFromSource(proxyIndex)
+        row2 = index.row()
+
+        if row1 > row2:
+            self.moveRows(row1, row2)
+        else:
+            self.moveRows(row1, row2 - 1)
+
+        return True
 
     def relationModel(self, _column):
         return self.model

@@ -37,6 +37,12 @@ class ListView(QListView):
     def __init__(self, widget, parent=None):
         super().__init__(parent)
 
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setDragEnabled(True)
+        self.setAcceptDrops(True)
+        self.setDragDropMode(QAbstractItemView.InternalMove)
+        self.setDefaultDropAction(Qt.MoveAction)
+
         self.widget = widget
 
     def commitData(self, editor):
@@ -212,8 +218,6 @@ class ReferenceWidget(QWidget):
         self.model = section.model
 
         self.listWidget = ListView(self, parent)
-        self.listWidget.setSelectionMode(
-                                    QAbstractItemView.SingleSelection)
         self.proxyModel = self.model.proxyModel()
         self.listWidget.setModel(self.proxyModel)
         self.listWidget.setModelColumn(self.model.fieldIndex('value'))
