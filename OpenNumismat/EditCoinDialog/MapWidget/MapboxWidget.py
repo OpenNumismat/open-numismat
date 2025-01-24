@@ -19,8 +19,8 @@ class MapboxWidget(BaseMapWidget):
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.3/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.3/mapbox-gl.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v1.0.0/mapbox-gl-language.js'></script>
     <style type="text/css">
         html {
@@ -67,7 +67,7 @@ function initialize() {
   mapboxgl.accessToken = 'ACCESS_TOKEN';
   map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
+    style: 'mapbox://styles/mapbox/streets-v12',
     center: [LONGITUDE, LATITUDE],
     minZoom: 1,
     zoom: ZOOM
@@ -155,14 +155,14 @@ function gmap_fitBounds() {
   map.fitBounds(bounds, {maxZoom: 15, padding: 50});
 }
 function gmap_geocode(address) {
-  url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + address + ".json?access_token=ACCESS_TOKEN";
+  url = "https://api.mapbox.com/search/geocode/v6/forward?q=" + address + "&access_token=ACCESS_TOKEN";
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("GET", url, false);
   xmlHttp.send(null);
   if (xmlHttp.status == 200) {
       results = JSON.parse(xmlHttp.responseText);
       if (results['features'].length > 0) {
-        coordinates = results['features'][0]['center']
+        coordinates = results['features'][0]['geometry']['coordinates']
         lat = parseFloat(coordinates[1]);
         lng = parseFloat(coordinates[0]);
         gmap_moveMarker(lat, lng);
@@ -185,13 +185,13 @@ function gmap_geocode(address) {
 
     @waitCursorDecorator
     def reverseGeocode(self, lat, lng):
-        url = "https://api.mapbox.com/geocoding/v5/mapbox.places/%f,%f.json?access_token=%s&language=%s&types=country,region,district,place,address" % (lng, lat, MAPBOX_ACCESS_TOKEN, self.language)
+        url = "https://api.mapbox.com/search/geocode/v6/reverse?longitude=%f&latitude=%f&access_token=%s&language=%s&types=country,region,district,place,address" % (lng, lat, MAPBOX_ACCESS_TOKEN, self.language)
 
         try:
             req = urllib.request.Request(url,
                                          headers={'User-Agent': version.AppName})
             data = urllib.request.urlopen(req, timeout=10).read()
             json_data = json.loads(data.decode())
-            return json_data['features'][0]['place_name']
+            return json_data['features'][0]['properties']['full_address']
         except:
             return ''
