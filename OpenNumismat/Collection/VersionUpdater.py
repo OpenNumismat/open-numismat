@@ -46,6 +46,9 @@ class Updater(QObject):
             if self.currentVersion < 9:
                 updater = UpdaterTo9(self.collection)
                 updater.update()
+            if self.currentVersion < 10:
+                updater = UpdaterTo10(self.collection)
+                updater.update()
 
             self.__finalize()
 
@@ -609,6 +612,50 @@ class UpdaterTo9(_Updater):
         self._updateRecord()
 
         self.collection.settings['Version'] = 9
+        self.collection.settings.save()
+
+        self.db.commit()
+
+        self._finish()
+
+
+class UpdaterTo10(_Updater):
+
+    def __init__(self, collection):
+        super().__init__(collection)
+        self.progressDlg.setMinimumDuration(0)
+
+    def getTotalCount(self):
+        return 4
+
+    def update(self):
+        self._begin()
+
+        self.db.transaction()
+
+        self._updateRecord()
+
+        sql = "ALTER TABLE photos ADD COLUMN author TEXT"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE photos ADD COLUMN license TEXT"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE photos ADD COLUMN source TEXT"
+        QSqlQuery(sql, self.db)
+
+        self._updateRecord()
+
+        sql = "ALTER TABLE tags ADD COLUMN description TEXT"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE tags ADD COLUMN icon BLOB"
+        QSqlQuery(sql, self.db)
+
+        self._updateRecord()
+
+        self.collection.createPricesTable()
+
+        self._updateRecord()
+
+        self.collection.settings['Version'] = 10
         self.collection.settings.save()
 
         self.db.commit()

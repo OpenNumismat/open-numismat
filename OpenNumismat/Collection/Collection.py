@@ -795,7 +795,7 @@ class CollectionModel(QSqlTableModel):
 
 class CollectionSettings(BaseSettings):
     Default = {
-            'Version': 9,
+            'Version': 10,
             'Type': version.AppName,
             'Password': cryptPassword(),
             'ImageSideLen': 1024,
@@ -1032,6 +1032,7 @@ class Collection(QObject):
 
         self.createCoinsTable()
         self.createTagsTable()
+        self.createPricesTable()
 
         self.fileName = fileName
 
@@ -1084,6 +1085,20 @@ class Collection(QObject):
         sql = """CREATE TABLE coins_tags (
                     coin_id INTEGER,
                     tag_id INTEGER)"""
+        QSqlQuery(sql, self.db)
+
+    def createPricesTable(self):
+        sql = """CREATE TABLE prices (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    coin_id INTEGER,
+                    action TEXT,
+                    date TEXT,
+                    quantity INTEGER,
+                    price NUMERIC,
+                    currency TEXT,
+                    commission NUMERIC,
+                    shipping NUMERIC,
+                    grade TEXT)"""
         QSqlQuery(sql, self.db)
 
     def isReferenceAttached(self):
