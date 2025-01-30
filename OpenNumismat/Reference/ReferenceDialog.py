@@ -78,6 +78,8 @@ class ListView(QListView):
         return None
 
     def contextMenuEvent(self, event):
+        index = self.selectedIndex()
+
         menu = QMenu(self)
 
         act = menu.addAction(self.tr("Add"), self.addItem)
@@ -86,7 +88,7 @@ class ListView(QListView):
 
         act = menu.addAction(self.tr("Delete"), self.deleteItem)
         act.setShortcut(QKeySequence.Delete)
-        if not self.selectedIndex():
+        if not index:
             act.setDisabled(True)
 
         menu.addSeparator()
@@ -95,30 +97,29 @@ class ListView(QListView):
 
         act = menu.addAction(QIcon(':/bullet_arrow_up.png'), self.tr("Move up"),
                              self.moveUp)
-        if not self.selectedIndex() or row == 0 or self.model().parent().is_sorted:
+        if not index or row == 0 or self.model().parent().is_sorted:
             act.setDisabled(True)
 
         act = menu.addAction(QIcon(':/bullet_arrow_down.png'), self.tr("Move down"),
                              self.moveDown)
-        if not self.selectedIndex() or row >= self.model().rowCount() - 1 or self.model().parent().is_sorted:
+        if not index or row >= self.model().rowCount() - 1 or self.model().parent().is_sorted:
             act.setDisabled(True)
 
         menu.addSeparator()
 
-        if self.selectedIndex() and self.selectedIndex().data(Qt.DecorationRole):
-            act = menu.addAction(self.tr("Change icon..."), self._addIcon)
+        if index and index.data(Qt.DecorationRole):
+            act = menu.addAction(self.tr("Change icon..."), self.addIcon)
         else:
-            act = menu.addAction(self.tr("Add icon..."), self._addIcon)
-        if not self.selectedIndex():
+            act = menu.addAction(self.tr("Add icon..."), self.addIcon)
+        if not index:
             act.setDisabled(True)
 
-        act = menu.addAction(self.tr("Paste icon"), self._pasteIcon)
-        if not self.selectedIndex():
+        act = menu.addAction(self.tr("Paste icon"), self.pasteIcon)
+        if not index:
             act.setDisabled(True)
 
-        act = menu.addAction(self.tr("Clear icon"), self._clearIcon)
-        if not self.selectedIndex() or \
-                not self.selectedIndex().data(Qt.DecorationRole):
+        act = menu.addAction(self.tr("Clear icon"), self.clearIcon)
+        if not index or not index.data(Qt.DecorationRole):
             act.setDisabled(True)
 
         menu.exec(self.mapToGlobal(event.pos()))
@@ -153,7 +154,7 @@ class ListView(QListView):
         index = self.model().index(index1.row() + 1, 1)
         self.setCurrentIndex(index)
 
-    def _addIcon(self):
+    def addIcon(self):
         fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
                 self.tr("Open File"), self.latestDir,
                 ';;'.join(readImageFilters()))
@@ -163,7 +164,7 @@ class ListView(QListView):
 
             self.loadFromFile(fileName)
 
-    def _pasteIcon(self):
+    def pasteIcon(self):
         mime = QApplication.clipboard().mimeData()
         if mime.hasImage():
             image = mime.imageData()
@@ -205,7 +206,7 @@ class ListView(QListView):
         index = model.index(self.selectedIndex().row(), model.sourceModel().fieldIndex('icon'))
         model.setData(index, buffer.data())
 
-    def _clearIcon(self):
+    def clearIcon(self):
         model = self.model()
         index = model.index(self.selectedIndex().row(), model.sourceModel().fieldIndex('icon'))
         model.setData(index, None)
