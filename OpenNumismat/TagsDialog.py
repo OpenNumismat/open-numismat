@@ -1,11 +1,12 @@
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QIcon, QKeySequence
+from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer
+from PySide6.QtGui import QIcon, QImage, QKeySequence, QPainter, QPixmap
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
     QAbstractItemDelegate,
     QApplication,
     QDialog,
     QDialogButtonBox,
+    QFileDialog,
     QHBoxLayout,
     QMenu,
     QMessageBox,
@@ -16,7 +17,10 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
 )
 
+import OpenNumismat
+from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+from OpenNumismat.Tools.misc import readImageFilters
 
 
 class TagsTreeWidget(QTreeWidget):
@@ -36,7 +40,7 @@ class TagsTreeWidget(QTreeWidget):
     def update(self):
         self.clear()
 
-        sql = "SELECT id, tag, position, parent_id FROM tags ORDER BY position"
+        sql = "SELECT id, tag, position, parent_id, icon FROM tags ORDER BY position"
         query = QSqlQuery(self.db)
         query.exec(sql)
 
@@ -48,11 +52,17 @@ class TagsTreeWidget(QTreeWidget):
             position = record.value(2)
             tag = record.value(1)
             parent_id = record.value(3)
+            icon_data = record.value(4)
             
             item = QTreeWidgetItem((tag,))
             item.setData(0, Qt.UserRole, tag_id)
             item.setData(0, Qt.UserRole + 1, position)
             item.setData(0, Qt.UserRole + 2, parent_id)
+            if icon_data:
+                pixmap = QPixmap()
+                if pixmap.loadFromData(icon_data):
+                    item.setData(0, Qt.DecorationRole, pixmap)
+
             if self.readonly:
                 item.setFlags(Qt.ItemIsEnabled)
             else:
@@ -127,6 +137,7 @@ class TagsTreeWidget(QTreeWidget):
 
 
 class EditTagsTreeWidget(QTreeWidget):
+    latestDir = OpenNumismat.IMAGE_PATH
 
     def __init__(self, db, parent=None):
         super().__init__(parent)
@@ -135,7 +146,7 @@ class EditTagsTreeWidget(QTreeWidget):
 
         self.setHeaderHidden(True)
 
-        sql = "SELECT id, tag, position, parent_id FROM tags ORDER BY position"
+        sql = "SELECT id, tag, position, parent_id, icon FROM tags ORDER BY position"
         query = QSqlQuery(self.db)
         query.exec(sql)
 
@@ -147,11 +158,16 @@ class EditTagsTreeWidget(QTreeWidget):
             position = record.value(2)
             tag = record.value(1)
             parent_id = record.value(3)
+            icon_data = record.value(4)
 
             item = QTreeWidgetItem((tag,))
             item.setData(0, Qt.UserRole, tag_id)
             item.setData(0, Qt.UserRole + 1, position)
             item.setData(0, Qt.UserRole + 2, parent_id)
+            if icon_data:
+                pixmap = QPixmap()
+                if pixmap.loadFromData(icon_data):
+                    item.setData(0, Qt.DecorationRole, pixmap)
             item.setFlags(item.flags() | Qt.ItemIsEditable)
 
             items[tag_id] = item
@@ -170,22 +186,48 @@ class EditTagsTreeWidget(QTreeWidget):
         self.expandAll()
 
     def contextMenuEvent(self, event):
-        index = self.currentIndex()
+        indexes = self.selectedIndexes()
+        if indexes:
+            index = indexes[-1]
+        else:
+            index = None
 
         menu = QMenu(self)
 
         menu.addAction(QIcon(':/add.png'), self.tr("New tag"), Qt.Key_Insert, self.addItem)
 
         act = menu.addAction(self.tr("New subtag"), self.addSubItem)
-        act.setEnabled(index.isValid())
+        if not index:
+            act.setDisabled(True)
+
         menu.addSeparator()
+
+        if index and index.data(Qt.DecorationRole):
+            act = menu.addAction(self.tr("Change icon..."), self.addIcon)
+        else:
+            act = menu.addAction(self.tr("Add icon..."), self.addIcon)
+        if not index:
+            act.setDisabled(True)
+
+        act = menu.addAction(self.tr("Paste icon"), self.pasteIcon)
+        if not index:
+            act.setDisabled(True)
+
+        act = menu.addAction(self.tr("Clear icon"), self.clearIcon)
+        if not index or not index.data(Qt.DecorationRole):
+            act.setDisabled(True)
+
+        menu.addSeparator()
+
         act = menu.addAction(QIcon(':/pencil.png'), self.tr("Rename"), self.renameItem)
-        act.setEnabled(index.isValid())
+        if not index:
+            act.setDisabled(True)
 
         style = QApplication.style()
         icon = style.standardIcon(QStyle.SP_TrashIcon)
         act = menu.addAction(icon, self.tr("Delete"), QKeySequence.Delete, self.deleteItem)
-        act.setEnabled(index.isValid())
+        if not index:
+            act.setDisabled(True)
 
         menu.exec(self.mapToGlobal(event.pos()))
 
@@ -240,6 +282,82 @@ class EditTagsTreeWidget(QTreeWidget):
                 self.takeTopLevelItem(index.row())
 
             self.execForItem(self.remove, item)
+
+    def addIcon(self):
+        fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
+                self.tr("Open File"), self.latestDir,
+                ';;'.join(readImageFilters()))
+        if fileName:
+            file_info = QFileInfo(fileName)
+            self.latestDir = file_info.absolutePath()
+
+            self.loadFromFile(fileName)
+
+    def pasteIcon(self):
+        mime = QApplication.clipboard().mimeData()
+        if mime.hasImage():
+            image = mime.imageData()
+            if image.hasAlphaChannel():
+                # Fill transparent color if present
+                color = Settings()['transparent_color']
+                fixedImage = QImage(image.size(), QImage.Format_RGB32)
+                fixedImage.fill(color)
+                painter = QPainter(fixedImage)
+                painter.drawImage(0, 0, image)
+                painter.end()
+            else:
+                fixedImage = image
+
+            self._setNewImage(fixedImage)
+        elif mime.hasUrls():
+            url = mime.urls()[0]
+            self.loadFromFile(url.toLocalFile())
+
+    def clearIcon(self):
+        item = self.currentItem()
+        if item:
+            tag_id = item.data(0, Qt.UserRole)
+
+            sql = "UPDATE tags SET icon=NULL WHERE id=?"
+            query = QSqlQuery(self.db)
+            query.prepare(sql)
+            query.addBindValue(tag_id)
+            query.exec()
+
+            item.setData(0, Qt.DecorationRole, None)
+
+    def loadFromFile(self, fileName):
+        image = QImage()
+        if image.load(fileName):
+            self._setNewImage(image)
+
+    def _setNewImage(self, image):
+        maxWidth = 16
+        maxHeight = 16
+        if image.width() > maxWidth or image.height() > maxHeight:
+            scaledImage = image.scaled(maxWidth, maxHeight,
+                    Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        else:
+            scaledImage = image
+
+        buffer = QBuffer()
+        buffer.open(QIODevice.WriteOnly)
+        scaledImage.save(buffer, 'png')
+
+        item = self.currentItem()
+        if item:
+            tag_id = item.data(0, Qt.UserRole)
+
+            sql = "UPDATE tags SET icon=? WHERE id=?"
+            query = QSqlQuery(self.db)
+            query.prepare(sql)
+            query.addBindValue(buffer.data())
+            query.addBindValue(tag_id)
+            query.exec()
+
+            pixmap = QPixmap()
+            if pixmap.loadFromData(buffer.data()):
+                item.setData(0, Qt.DecorationRole, pixmap)
 
     def remove(self, item):
         tag_id = item.data(0, Qt.UserRole)

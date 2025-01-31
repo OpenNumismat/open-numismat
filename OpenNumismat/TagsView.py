@@ -1,5 +1,6 @@
-from PySide6.QtSql import QSqlQuery
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QPixmap
+from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QTreeWidget, QTreeWidgetItem
 
 
@@ -22,7 +23,7 @@ class TagsView(QTreeWidget):
     def update(self):
         self.clear()
 
-        sql = "SELECT id, tag, position, parent_id FROM tags ORDER BY position"
+        sql = "SELECT id, tag, position, parent_id, icon FROM tags ORDER BY position"
         query = QSqlQuery(self.db)
         query.exec(sql)
 
@@ -34,11 +35,16 @@ class TagsView(QTreeWidget):
             # position = record.value(2)
             tag = record.value(1)
             parent_id = record.value(3)
+            icon_data = record.value(4)
 
             item = QTreeWidgetItem((tag,))
             item.setData(0, Qt.UserRole, tag_id)
             # item.setData(0, Qt.UserRole + 1, position)
             item.setData(0, Qt.UserRole + 2, parent_id)
+            if icon_data:
+                pixmap = QPixmap()
+                if pixmap.loadFromData(icon_data):
+                    item.setData(0, Qt.DecorationRole, pixmap)
 
             items[tag_id] = item
 
