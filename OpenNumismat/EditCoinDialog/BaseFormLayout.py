@@ -20,6 +20,7 @@ from OpenNumismat.EditCoinDialog.FormItems import *
 from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Settings import Settings
+from OpenNumismat.Tools.dependencies import HAS_ZXING
 
 
 class FormItem(object):
@@ -51,7 +52,7 @@ class FormItem(object):
                     self._widget = AddressLineEdit(parent)
                 elif self._field == 'grader':
                     self._widget = GraderLineEdit(parent)
-                elif self._field == 'barcode' and Settings()['use_webcam']:
+                elif self._field == 'barcode' and Settings()['use_webcam'] and HAS_ZXING:
                     self._widget = BarcodeLineEdit(parent)
                 elif self._field == 'native_year':
                     self._widget = NativeYearEdit(parent)

@@ -1,5 +1,4 @@
 from PIL import ImageQt
-import zxingcpp
 
 from PySide6.QtCore import QTimer, QThread, QSettings, Qt, QRectF
 from PySide6.QtCore import Signal as pyqtSignal
@@ -10,6 +9,10 @@ from PySide6.QtWidgets import QComboBox, QDialog, QMessageBox, QVBoxLayout
 from PySide6.QtWidgets import QGraphicsScene, QGraphicsView, QGraphicsPixmapItem
 
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+from OpenNumismat.Tools.dependencies import HAS_ZXING
+
+if HAS_ZXING:
+    import zxingcpp
 
 MASK_OPACITY = 0.3
 QR_SIZE = 0.7  # Size of rectangle for QR capture
