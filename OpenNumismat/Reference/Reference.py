@@ -240,7 +240,8 @@ class SqlRelationalTableModel(QSqlRelationalTableModel):
 
 
 class BaseReferenceSection(QObject):
-    changed = pyqtSignal(object)
+    beforeReload = pyqtSignal()
+    afterReload = pyqtSignal()
 
     def __init__(self, name, title, letter, sort=False, parent=None):
         super().__init__(parent)
@@ -253,31 +254,11 @@ class BaseReferenceSection(QObject):
         self.parent_name = None
 
     def reload(self):
+        self.beforeReload.emit()
         self.getSort()
         self.setSort()
         self.model.select()
-
-    def button(self, parent=None):
-        self.parent = parent
-        button = QPushButton(self.letter, parent)
-        button.setFixedWidth(25)
-        button.clicked.connect(self.clickedButton)
-        return button
-
-    def clickedButton(self):
-        old_text = self.parent.text()
-
-        dialog = self._getDialog()
-        result = dialog.exec()
-        if result == QDialog.Accepted:
-            self.reload()
-
-            index = dialog.selectedIndex()
-            if index:
-                self.changed.emit(index.data())
-            else:
-                self.changed.emit(old_text)
-        dialog.deleteLater()
+        self.afterReload.emit()
 
     def setSort(self):
         self.model.sort(self.sort)
@@ -370,12 +351,12 @@ class ReferenceSection(BaseReferenceSection):
 
         self.reload()
 
-    def _getDialog(self):
+    def _getDialog(self, parent):
         copy = ReferenceSection(self.name, self.title,
-                                self.letter, self.sort, self.parent)
+                                self.letter, self.sort, parent)
         copy.load(self.db)
 
-        return ReferenceDialog(copy, self.parent.text(), self.parent)
+        return ReferenceDialog(copy, parent.text(), parent)
 
     def addItem(self, value, icon=None):
         new_position = self.model.nextPosition()
@@ -426,13 +407,13 @@ class CrossReferenceSection(BaseReferenceSection):
 
         self.reload()
 
-    def _getDialog(self):
+    def _getDialog(self, parent):
         copy = CrossReferenceSection(self.name, self.parentRef, self.title,
-                                     self.letter, self.sort, self.parent)
+                                     self.letter, self.sort, parent)
         copy.load(self.db)
 
         return CrossReferenceDialog(copy, self.parentIndex,
-                                    self.parent.text(), self.parent)
+                                    parent.text(), parent)
 
     def fillFromQuery(self, parentId, query):
         while query.next():

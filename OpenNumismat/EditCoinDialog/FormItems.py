@@ -24,6 +24,7 @@ from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
     QDateEdit,
+    QDialog,
     QFileDialog,
     QHBoxLayout,
     QLabel,
@@ -449,16 +450,38 @@ class LineEditRef(QWidget):
         self.comboBox.setCurrentIndex(-1)
 
         self.reference = reference
-        self.reference.changed.connect(self.setText)
+        self.reference.beforeReload.connect(self.beforeReload)
+        self.reference.afterReload.connect(self.afterReload)
+
+        button = QPushButton(self.reference.letter, self)
+        button.setFixedWidth(25)
+        button.clicked.connect(self.clickedButton)
 
         layout = QHBoxLayout()
         layout.addWidget(self.comboBox)
-        layout.addWidget(reference.button(self))
+        layout.addWidget(button)
         layout.setContentsMargins(QMargins())
 
         self.setLayout(layout)
 
         self.dependents = []
+
+    def beforeReload(self):
+        self.old_text = self.text()
+
+    def afterReload(self):
+        self.setText(self.old_text)
+
+    def clickedButton(self):
+        dialog = self.reference._getDialog(self)
+        result = dialog.exec()
+        if result == QDialog.Accepted:
+            self.reference.reload()
+
+            index = dialog.selectedIndex()
+            if index:
+                self.setText(index.data())
+        dialog.deleteLater()
 
     def clear(self):
         self.comboBox.setCurrentIndex(-1)
