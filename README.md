@@ -12,7 +12,7 @@
 # OpenNumismat
 https://opennumismat.github.io/
 
-OpenNumismat, is intended primarily for registering a collection of coins. But
+OpenNumismat, is intended primarily for registering a collection of coins. But xxx
 it is also suitable for other types of collectibles - stamps, postcards, badges
 and more exotic things.
 
