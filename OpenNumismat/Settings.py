@@ -121,6 +121,7 @@ class Settings(BaseSettings):
         'chart_legend_pos': Qt.AlignRight.value,
         'nice_years_chart': False,
         'transparent_color': QColor(Qt.white),
+        'transparent_store': False,
         'use_webcam': True,
         'UUID': _getUuid().replace('-', ''),
         'tree_counter': False,

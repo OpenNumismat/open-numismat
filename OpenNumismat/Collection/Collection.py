@@ -579,9 +579,14 @@ class CollectionModel(QSqlTableModel):
                 reverseImage = reverseImage.scaledToHeight(height,
                                                     Qt.SmoothTransformation)
 
-            image = QImage(obverseImage.width() + reverseImage.width(),
-                                 height, QImage.Format_RGB32)
-            image.fill(Qt.white)
+            if obverseImage.hasAlphaChannel() or reverseImage.hasAlphaChannel():
+                image = QImage(obverseImage.width() + reverseImage.width(),
+                               height, QImage.Format_ARGB32)
+                image.fill(Qt.transparent)
+            else:
+                image = QImage(obverseImage.width() + reverseImage.width(),
+                               height, QImage.Format_RGB32)
+                image.fill(Qt.white)
 
             paint = QPainter(image)
             if not record.isNull('obverseimg'):

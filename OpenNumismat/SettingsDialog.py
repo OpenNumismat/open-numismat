@@ -22,6 +22,7 @@ from PySide6.QtWidgets import (
     QMenu,
     QMessageBox,
     QPushButton,
+    QRadioButton,
     QSizePolicy,
     QSpinBox,
     QStyle,
@@ -215,10 +216,34 @@ class MainSettingsPage(QWidget):
                                                   QSizePolicy.Fixed)
         self.transparent_color = settings['transparent_color']
         self.updateTransparentColorButton(self.transparent_color)
-        layout.addRow(self.tr("Image background color"), self.transparentColorButton)
         self.transparentColorButton.clicked.connect(self.transparentColorButtonClicked)
 
+        self.transparentRadio = QRadioButton(self.tr("Transparent"))
+        self.transparentRadio.toggled.connect(self.transparentRadioToggled)
+        self.colorRadio = QRadioButton(self.tr("Color"))
+        if settings['transparent_store']:
+            self.transparentRadio.setChecked(True)
+        else:
+            self.colorRadio.setChecked(True)
+
+        colorBtnLayout = QHBoxLayout()
+        colorBtnLayout.addWidget(self.colorRadio)
+        colorBtnLayout.addWidget(self.transparentColorButton)
+        colorBtnLayout.setAlignment(Qt.AlignLeft)
+
+        colorLayout = QHBoxLayout()
+        colorLayout.addWidget(self.transparentRadio)
+        colorLayout.addLayout(colorBtnLayout)
+
+        colorGroup = QGroupBox(self.tr("Image background color"), self)
+        colorGroup.setLayout(colorLayout)
+
+        layout.addRow(colorGroup)
+
         self.setLayout(layout)
+
+    def transparentRadioToggled(self, checked):
+        self.transparentColorButton.setDisabled(checked)
 
     def backupButtonClicked(self):
         folder = QFileDialog.getExistingDirectory(
@@ -269,6 +294,7 @@ class MainSettingsPage(QWidget):
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['transparent_color'] = self.transparent_color
+        settings['transparent_store'] = self.transparentRadio.isChecked()
         settings['tree_counter'] = self.treeCounter.isChecked()
         settings['color_scheme'] = self.colorSchemeSelector.currentIndex()
 

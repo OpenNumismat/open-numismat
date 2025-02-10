@@ -168,7 +168,7 @@ class ListView(QListView):
         mime = QApplication.clipboard().mimeData()
         if mime.hasImage():
             image = mime.imageData()
-            if image.hasAlphaChannel():
+            if image.hasAlphaChannel() and not Settings()['transparent_store']:
                 # Fill transparent color if present
                 color = Settings()['transparent_color']
                 fixedImage = QImage(image.size(), QImage.Format_RGB32)

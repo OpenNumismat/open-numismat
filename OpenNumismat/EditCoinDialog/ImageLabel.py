@@ -432,7 +432,7 @@ class ImageEdit(ImageLabel):
         self.imageEdited.emit(self)
 
     def _setNewImage(self, image):
-        if image.hasAlphaChannel():
+        if image.hasAlphaChannel() and not Settings()['transparent_store']:
             # Fill transparent color if present
             color = Settings()['transparent_color']
             fixedImage = QImage(image.size(), QImage.Format_RGB32)
