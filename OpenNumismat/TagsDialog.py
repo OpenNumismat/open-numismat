@@ -342,7 +342,7 @@ class EditTagsTreeWidget(QTreeWidget):
 
         buffer = QBuffer()
         buffer.open(QIODevice.WriteOnly)
-        scaledImage.save(buffer, 'png')
+        scaledImage.save(buffer, 'webp', 100)
 
         item = self.currentItem()
         if item:

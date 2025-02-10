@@ -61,7 +61,8 @@ class CollectionModel(QSqlTableModel):
     rowInserted = pyqtSignal(object)
     modelChanged = pyqtSignal()
     tagsChanged = pyqtSignal()
-    IMAGE_FORMAT = 'jpg'
+    IMAGE_FORMAT = 'webp'
+    IMAGE_QUALITY = 80
     SQLITE_READONLY = '8'
 
     def __init__(self, collection, parent=None):
@@ -543,7 +544,7 @@ class CollectionModel(QSqlTableModel):
                             image = image.scaled(maxWidth, maxHeight,
                                     Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
-                    image.save(buffer, self.IMAGE_FORMAT)
+                    image.save(buffer, self.IMAGE_FORMAT, self.IMAGE_QUALITY)
                     record.setValue(field.name, buffer.data())
                 elif isinstance(image, bytes):
                     ba = QByteArray(image)
@@ -594,8 +595,8 @@ class CollectionModel(QSqlTableModel):
             buffer = QBuffer()
             buffer.open(QIODevice.WriteOnly)
 
-            # Store as PNG for better view
-            image.save(buffer, 'png')
+            # Store as lossless WebP for better view
+            image.save(buffer, 'webp', 100)
             record.setValue('image', buffer.data())
 
     def moveRows(self, row1, row2):

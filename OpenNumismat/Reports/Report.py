@@ -166,11 +166,14 @@ class Report(QObject):
                 record_mapping[field.name] = ''
             else:
                 if field.name in imgFields:
-                    if field.name == 'image':
+                    data_prefix = value.data()[:4]
+                    if data_prefix == b'RIFF':
+                        ext = 'webp'
+                    elif data_prefix == b'\x89PNG':
                         ext = 'png'
                     else:
                         ext = 'jpg'
-                    
+
                     hash_ = QCryptographicHash.hash(value, QCryptographicHash.Sha1)
                     if hash_ in self.img_file_dict:
                         img_file_title = self.img_file_dict[hash_]

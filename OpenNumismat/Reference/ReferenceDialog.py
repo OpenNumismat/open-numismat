@@ -200,7 +200,7 @@ class ListView(QListView):
 
         buffer = QBuffer()
         buffer.open(QIODevice.WriteOnly)
-        scaledImage.save(buffer, 'png')
+        scaledImage.save(buffer, 'webp', 100)
 
         model = self.model()
         index = model.index(self.selectedIndex().row(), model.sourceModel().fieldIndex('icon'))
