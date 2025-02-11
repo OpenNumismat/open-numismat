@@ -574,7 +574,7 @@ jobs:
     - name: upload
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.title.outputs.PACKAGENAME }}-dmg
+        name: ${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64
         path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
         if-no-files-found: error
 
@@ -657,6 +657,6 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64/${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
         asset_content_type: application/octet-stream
