@@ -13,22 +13,33 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  version:
-    name: Version
-    uses: ./.github/workflows/job_version.yml
-
   title:
-    needs: version
     name: Title
     runs-on: ubuntu-latest
     outputs:
-      PACKAGENAME: ${{ needs.version.outputs.APPNAME }}-${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
-      APPNAME: ${{ needs.version.outputs.APPNAME }}
+      APPNAME: OpenNumismat
+      VERSION: ${{ steps.bump.outputs.current-version }}.${{ steps.bump.outputs.current-release }}
+      PACKAGENAME: OpenNumismat-${{ steps.bump.outputs.current-version }}.${{ steps.bump.outputs.current-release }}
     steps:
-      - run: "true"
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install bump-my-version
+    - name: Get current version
+      id: bump
+      shell: bash
+      run: |
+        echo "current-version=$(bump-my-version show current_version)" >> $GITHUB_OUTPUT
+        echo "current-release=$(bump-my-version show scm_info.distance_to_latest_tag)" >> $GITHUB_OUTPUT
 
   windows:
-    needs: [version, title]
+    needs: [title]
     name: Windows
     runs-on: windows-latest
     steps:
@@ -42,13 +53,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install pyinstaller pyinstaller-versionfile
-    - name: Create versionfile
+        python -m pip install bump-my-version pyinstaller
+    - name: Bump pre-release version
       run: |
-        touch metadata.yml
-        echo "FileDescription: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
-        echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
-        create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -56,13 +64,6 @@ jobs:
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
-    - name: Patch version
-      uses: ./.github/actions/replace-string-in-file
-      with:
-        file: OpenNumismat/version.py
-        old-string: "Version = .*"
-        new-string: >-
-          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: Patch portable
       uses: ./.github/actions/replace-string-in-file
       with:
@@ -77,8 +78,8 @@ jobs:
       id: upload-portable
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.version.outputs.APPNAME }}-portable
-        path: dist/${{ needs.version.outputs.APPNAME }}/${{ needs.version.outputs.APPNAME }}.exe
+        name: ${{ needs.title.outputs.APPNAME }}-portable
+        path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
       uses: signpath/github-action-submit-signing-request@v1
@@ -89,7 +90,7 @@ jobs:
         signing-policy-slug: 'test-signing'
         artifact-configuration-slug: 'test-zip'
         github-artifact-id: '${{steps.upload-portable.outputs.artifact-id}}'
-        output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
+        output-artifact-directory: dist/${{ needs.title.outputs.APPNAME }}
         wait-for-completion: true
     - name: package
       run: |
@@ -103,7 +104,7 @@ jobs:
         if-no-files-found: error
 
   innosetup:
-    needs: [version, title]
+    needs: [title]
     name: InnoSetup
     runs-on: windows-latest
     steps:
@@ -117,13 +118,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install pyinstaller pyinstaller-versionfile
-    - name: Create versionfile
+        python -m pip install bump-my-version pyinstaller
+    - name: Bump pre-release version
       run: |
-        touch metadata.yml
-        echo "FileDescription: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
-        echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
-        create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -131,19 +129,6 @@ jobs:
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
-    - name: Patch version
-      uses: ./.github/actions/replace-string-in-file
-      with:
-        file: OpenNumismat/version.py
-        old-string: "Version = .*"
-        new-string: >-
-          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
-    - name: Patch build
-      uses: ./.github/actions/replace-string-in-file
-      with:
-        file: tools/setup.iss
-        old-string: "AppVersion=.*"
-        new-string: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
       run: |
         SET PYTHONOPTIMIZE=1
@@ -152,8 +137,8 @@ jobs:
       id: upload-exe
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.version.outputs.APPNAME }}-exe
-        path: dist/${{ needs.version.outputs.APPNAME }}/${{ needs.version.outputs.APPNAME }}.exe
+        name: ${{ needs.title.outputs.APPNAME }}-exe
+        path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
       uses: signpath/github-action-submit-signing-request@v1
@@ -164,7 +149,7 @@ jobs:
         signing-policy-slug: 'test-signing'
         artifact-configuration-slug: 'test-zip'
         github-artifact-id: '${{steps.upload-exe.outputs.artifact-id}}'
-        output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
+        output-artifact-directory: dist/${{ needs.title.outputs.APPNAME }}
         wait-for-completion: true
     - name: package
       run: |
@@ -178,7 +163,7 @@ jobs:
         if-no-files-found: error
 
   cx_freeze:
-    needs: [version, title]
+    needs: [title]
     name: cx_Freeze
     runs-on: windows-latest
     steps:
@@ -192,7 +177,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install cx_freeze
+        python -m pip install bump-my-version cx_freeze
+    - name: Bump pre-release version
+      run: |
+        bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -200,13 +188,6 @@ jobs:
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
-    - name: Patch version
-      uses: ./.github/actions/replace-string-in-file
-      with:
-        file: OpenNumismat/version.py
-        old-string: "Version = .*"
-        new-string: >-
-          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: Patch portable
       uses: ./.github/actions/replace-string-in-file
       with:
@@ -229,7 +210,7 @@ jobs:
         if-no-files-found: error
 
   nuitka:
-    needs: [version, title]
+    needs: [title]
     name: Nuitka
     runs-on: windows-latest
     steps:
@@ -243,7 +224,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install nuitka
+        python -m pip install bump-my-version nuitka
+    - name: Bump pre-release version
+      run: |
+        bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -251,13 +235,6 @@ jobs:
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
-    - name: Patch version
-      uses: ./.github/actions/replace-string-in-file
-      with:
-        file: OpenNumismat/version.py
-        old-string: "Version = .*"
-        new-string: >-
-          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: Patch portable
       uses: ./.github/actions/replace-string-in-file
       with:
@@ -280,14 +257,14 @@ jobs:
         --include-data-dir=OpenNumismat/db=db
         --include-data-files=COPYING=COPYING
         --windows-icon-from-ico=icons/main.ico
-        --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        --windows-file-version=${{ needs.title.outputs.VERSION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: Upload
       id: upload-nuitka-portable
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.version.outputs.APPNAME }}-nuitka-portable
-        path: open-numismat.dist/${{ needs.version.outputs.APPNAME }}.exe
+        name: ${{ needs.title.outputs.APPNAME }}-nuitka-portable
+        path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
       uses: signpath/github-action-submit-signing-request@v1
@@ -314,7 +291,7 @@ jobs:
         if-no-files-found: error
 
   nuitka_innosetup:
-    needs: [version, title]
+    needs: [title]
     name: Nuitka InnoSetup
     runs-on: windows-latest
     steps:
@@ -328,7 +305,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install nuitka
+        python -m pip install bump-my-version nuitka
+    - name: Bump pre-release version
+      run: |
+        bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -336,19 +316,6 @@ jobs:
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
-    - name: Patch version
-      uses: ./.github/actions/replace-string-in-file
-      with:
-        file: OpenNumismat/version.py
-        old-string: "Version = .*"
-        new-string: >-
-          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
-    - name: Patch build
-      uses: ./.github/actions/replace-string-in-file
-      with:
-        file: tools/setup-nuitka.iss
-        old-string: "AppVersion=.*"
-        new-string: "AppVersion=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
       run: >-
         python -m nuitka open-numismat.py
@@ -365,14 +332,14 @@ jobs:
         --include-data-dir=OpenNumismat/db=db
         --include-data-files=COPYING=COPYING
         --windows-icon-from-ico=icons/main.ico
-        --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        --windows-file-version=${{ needs.title.outputs.VERSION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: Upload
       id: upload-nuitka-exe
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.version.outputs.APPNAME }}-nuitka-exe
-        path: open-numismat.dist/${{ needs.version.outputs.APPNAME }}.exe
+        name: ${{ needs.title.outputs.APPNAME }}-nuitka-exe
+        path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
       uses: signpath/github-action-submit-signing-request@v1
@@ -397,7 +364,7 @@ jobs:
         if-no-files-found: error
 
   ubuntu:
-    needs: [version, title]
+    needs: [title]
     name: Ubuntu 22.04
     runs-on: ubuntu-22.04
     steps:
@@ -421,26 +388,26 @@ jobs:
         file: OpenNumismat/version.py
         old-string: "Version = .*"
         new-string: >-
-          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+          Version = "${{ needs.title.outputs.VERSION }}"
     - name: Patch build
       uses: ./.github/actions/replace-string-in-file
       with:
         file: debian/changelog
         old-string: "open-numismat (.*) oneiric; urgency=low"
-        new-string: "open-numismat (${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}) unstable; urgency=low"
+        new-string: "open-numismat (${{ needs.title.outputs.VERSION }}) unstable; urgency=low"
     - name: Build
       run: |
         debuild -b -us -uc
-        mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
+        mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb
-        path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        path: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
         if-no-files-found: error
 
   ubuntu-24:
-    needs: [version, title]
+    needs: [title]
     name: Ubuntu 24.04
     runs-on: ubuntu-24.04
     steps:
@@ -464,26 +431,26 @@ jobs:
         file: OpenNumismat/version.py
         old-string: "Version = .*"
         new-string: >-
-          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
+          Version = "${{ needs.title.outputs.VERSION }}"
     - name: Patch build
       uses: ./.github/actions/replace-string-in-file
       with:
         file: debian/changelog
         old-string: "open-numismat (.*) oneiric; urgency=low"
-        new-string: "open-numismat (${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}) unstable; urgency=low"
+        new-string: "open-numismat (${{ needs.title.outputs.VERSION }}) unstable; urgency=low"
     - name: Build
       run: |
         debuild -b -us -uc
-        mv ../open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb .
+        mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
-        path: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        path: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
         if-no-files-found: error
 
   macos:
-    needs: [version, title]
+    needs: [title]
     name: macOS
     runs-on: macos-13
     steps:
@@ -497,7 +464,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install pyinstaller
+        python -m pip install bump-my-version pyinstaller
+    - name: Bump pre-release version
+      run: |
+        bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -505,13 +475,6 @@ jobs:
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
-    - name: Patch version
-      uses: ./.github/actions/replace-string-in-file
-      with:
-        file: OpenNumismat/version.py
-        old-string: "Version = .*"
-        new-string: >-
-          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
       run: |
         PYTHONOPTIMIZE=1
@@ -531,7 +494,7 @@ jobs:
         if-no-files-found: error
 
   macos-arm64:
-    needs: [version, title]
+    needs: [title]
     name: macOS arm64
     runs-on: macos-14
     steps:
@@ -545,7 +508,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install pyinstaller
+        python -m pip install bump-my-version pyinstaller
+    - name: Bump pre-release version
+      run: |
+        bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -553,13 +519,6 @@ jobs:
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
         echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
-    - name: Patch version
-      uses: ./.github/actions/replace-string-in-file
-      with:
-        file: OpenNumismat/version.py
-        old-string: "Version = .*"
-        new-string: >-
-          Version = "${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}"
     - name: build
       run: |
         PYTHONOPTIMIZE=1
@@ -636,15 +595,15 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb/open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
-        asset_name: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb/open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
+        asset_name: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
         asset_content_type: application/octet-stream
     - name: upload-ubuntu-24
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb-24/open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all.deb
-        asset_name: open-numismat_${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}_all_24.deb
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb-24/open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
+        asset_name: open-numismat_${{ needs.title.outputs.VERSION }}_all_24.deb
         asset_content_type: application/octet-stream
     - name: upload-macos
       uses: actions/upload-release-asset@v1

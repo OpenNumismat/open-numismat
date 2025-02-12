@@ -1,0 +1,72 @@
+[tool.bumpversion]
+current_version = "1.10.0"
+parse = """(?x)
+    (?P<major>0|[1-9]\\d*)\\.
+    (?P<minor>0|[1-9]\\d*)\\.
+    (?P<patch>0|[1-9]\\d*)
+    (?:
+        .                             # dot separator for pre-release section
+        (?P<pre>0|[1-9]\\d*)          # commit version number
+    )?                                # pre-release section is optional
+"""
+serialize = [
+    "{major}.{minor}.{patch}.{distance_to_latest_tag}",
+    "{major}.{minor}.{patch}",
+]
+search = "{current_version}"
+replace = "{new_version}"
+regex = false
+ignore_missing_version = false
+ignore_missing_files = false
+tag = false
+sign_tags = false
+tag_name = "[0-9].[0-9]*"
+tag_message = "Bump version: {current_version} → {new_version}"
+allow_dirty = false
+commit = false
+message = "Bump version: {current_version} → {new_version}"
+moveable_tags = []
+commit_args = ""
+setup_hooks = []
+pre_commit_hooks = []
+post_commit_hooks = []
+
+[[tool.bumpversion.files]]
+filename = "OpenNumismat/version.py"
+[[tool.bumpversion.files]]
+filename = "debian/changelog"
+[[tool.bumpversion.files]]
+filename = "debian/changelog"
+search = "\\S{{3}}, \\d{{2}} \\S{{3}} \\d{{4}}"  # Fri, 03 Jul 2024
+replace = "{now:%a, %d %b %Y}"
+regex = true
+[[tool.bumpversion.files]]
+filename = "tools/setup.iss"
+[[tool.bumpversion.files]]
+filename = "tools/setup-nuitka.iss"
+[[tool.bumpversion.files]]
+filename = "io.github.opennumismat.OpenNumismat.metainfo.xml"
+search = "<releases>"
+replace = "<releases>\n    <release date=\"{now:%Y-%m-%d}\" version=\"{new_version}\"/>"
+regex = true
+[[tool.bumpversion.files]]
+filename = "org.opennumismat.OpenNumismat.metainfo.xml"
+search = "<releases>"
+replace = "<releases>\n    <release date=\"{now:%Y-%m-%d}\" version=\"{new_version}\"/>"
+regex = true
+[[tool.bumpversion.files]]
+filename = "versionfile.txt"
+search = "filevers=({current_major}, {current_minor}, {current_patch}, 0)"
+replace = "filevers=({new_major}, {new_minor}, {new_patch}, {distance_to_latest_tag})"
+[[tool.bumpversion.files]]
+filename = "versionfile.txt"
+search = "prodvers=({current_major}, {current_minor}, {current_patch}, 0)"
+replace = "prodvers=({new_major}, {new_minor}, {new_patch}, {distance_to_latest_tag})"
+[[tool.bumpversion.files]]
+filename = "versionfile.txt"
+search = "StringStruct('FileVersion', '{current_version}.0')"
+replace = "StringStruct('FileVersion', '{new_version}')"
+[[tool.bumpversion.files]]
+filename = "versionfile.txt"
+search = "StringStruct('ProductVersion', '{current_version}')"
+replace = "StringStruct('ProductVersion', '{new_version}')"
