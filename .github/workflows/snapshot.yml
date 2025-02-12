@@ -539,7 +539,7 @@ jobs:
 
   prerelease:
     name: Create pre-release
-    needs: [version, title, windows, innosetup, ubuntu, ubuntu-24, macos, macos-arm64, cx_freeze, nuitka, nuitka_innosetup]
+    needs: [title, windows, innosetup, ubuntu, ubuntu-24, macos, macos-arm64, cx_freeze, nuitka, nuitka_innosetup]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
