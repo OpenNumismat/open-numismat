@@ -33,6 +33,8 @@ jobs:
       id: bump
       shell: bash
       run: |
+        bump-my-version show current_version
+        bump-my-version show scm_info.distance_to_latest_tag
         echo "current-version=$(bump-my-version show current_version)" >> $GITHUB_OUTPUT
         echo "current-release=$(bump-my-version show scm_info.distance_to_latest_tag)" >> $GITHUB_OUTPUT
 
