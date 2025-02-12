@@ -57,11 +57,11 @@ regex = true
 [[tool.bumpversion.files]]
 filename = "versionfile.txt"
 search = "filevers=({current_major}, {current_minor}, {current_patch}, 0)"
-replace = "filevers=({new_major}, {new_minor}, {new_patch}, {distance_to_latest_tag})"
+replace = "filevers=({new_major}, {new_minor}, {new_patch}, {new_pre})"
 [[tool.bumpversion.files]]
 filename = "versionfile.txt"
 search = "prodvers=({current_major}, {current_minor}, {current_patch}, 0)"
-replace = "prodvers=({new_major}, {new_minor}, {new_patch}, {distance_to_latest_tag})"
+replace = "prodvers=({new_major}, {new_minor}, {new_patch}, {new_pre})"
 [[tool.bumpversion.files]]
 filename = "versionfile.txt"
 search = "StringStruct('FileVersion', '{current_version}.0')"
