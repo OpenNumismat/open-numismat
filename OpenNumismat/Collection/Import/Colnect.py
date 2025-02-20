@@ -301,6 +301,10 @@ class ColnectConnector(QObject):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect proxy-server not response"))
             return []
+        elif resp.status == 500:
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Colnect data not recognised"))
+            return []
         elif raw_data.startswith('Invalid key'):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect service not available"))
