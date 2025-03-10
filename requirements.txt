@@ -1,5 +1,5 @@
 pyside6~=6.8.2
-jinja2~=3.1.5
+jinja2~=3.1.6
 lxml~=5.3.1
 opencv-python-headless~=4.10.0.84
 openpyxl~=3.1.5
