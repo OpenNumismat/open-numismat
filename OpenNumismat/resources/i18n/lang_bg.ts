@@ -1779,7 +1779,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Групово редактиране...</translation>
+        <translation>Групова редакция...</translation>
     </message>
     <message>
         <source>Move up</source>
@@ -2324,22 +2324,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Показване на брояча в дървото и статистиката</translation>
-    </message>
-    <message>
-        <source>System</source>
-        <translation>Системна</translation>
-    </message>
-    <message>
-        <source>Light</source>
-        <translation>Светла</translation>
-    </message>
-    <message>
-        <source>Dark</source>
-        <translation>Тъмна</translation>
-    </message>
-    <message>
-        <source>Color scheme</source>
-        <translation>Цветова схема</translation>
     </message>
 </context>
 <context>
@@ -3411,8 +3395,8 @@ Please update OpenNumismat</source>
     <message>
         <source>Can't close latest opened page.
 Add a new one first.</source>
-        <translation>Не можете да затворите последния отворен списък.
-Първо добавете нов.</translation>
+        <translation>Не може да се затвори последната отворена страница.
+Първо добавете нова.</translation>
     </message>
     <message>
         <source>Can't remove latest opened page.
@@ -3487,7 +3471,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Групово редактиране...</translation>
+        <translation>Групова редакция...</translation>
     </message>
 </context>
 <context>
