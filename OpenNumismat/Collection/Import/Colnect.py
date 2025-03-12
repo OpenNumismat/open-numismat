@@ -338,6 +338,9 @@ class ColnectConnector(QObject):
             return []
 
         data = json.loads(raw_data)  # resp.json()
+        if 'error' in data:
+            QMessageBox.warning(self.parent(), "Colnect",
+                                self.tr("Colnect service not available"))
         self.cache.set(url, raw_data)  # self.cache.set(url, json.dumps(data, ensure_ascii=False))
 
         return data
