@@ -1060,6 +1060,10 @@ The application will need to restart now.</source>
         <source>Used statuses (double-click for rename):</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Sort tree by references</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColnectConnector</name>
@@ -1406,6 +1410,26 @@ and try again.</source>
     </message>
     <message>
         <source>Enter value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change icon...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add icon...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2326,6 +2350,14 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Color scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
