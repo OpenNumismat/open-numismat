@@ -2371,7 +2371,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Color</source>
-        <translation>Цвят</translation>
+        <translation>Цветен</translation>
     </message>
 </context>
 <context>
