@@ -1068,6 +1068,10 @@ A aplicação tem de reiniciar agora.</translation>
         <source>Used statuses (double-click for rename):</source>
         <translation>Estados usados (duplo clique para renomear)</translation>
     </message>
+    <message>
+        <source>Sort tree by references</source>
+        <translation>Ordenar por referências</translation>
+    </message>
 </context>
 <context>
     <name>ColnectConnector</name>
@@ -1417,6 +1421,26 @@ e tente novamente.</translation>
     <message>
         <source>Enter value</source>
         <translation>Inserir valor</translation>
+    </message>
+    <message>
+        <source>Change icon...</source>
+        <translation>Alterar ícone...</translation>
+    </message>
+    <message>
+        <source>Add icon...</source>
+        <translation>Adicionar ícone...</translation>
+    </message>
+    <message>
+        <source>Paste icon</source>
+        <translation>Colar ícone</translation>
+    </message>
+    <message>
+        <source>Clear icon</source>
+        <translation>Limpar ícone</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Abrir ficheiro</translation>
     </message>
 </context>
 <context>
@@ -2324,6 +2348,30 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Mostrar contador na árvore e nas estatísticas</translation>
+    </message>
+    <message>
+        <source>System</source>
+        <translation>Sistema</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>Claro</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Escuro</translation>
+    </message>
+    <message>
+        <source>Color scheme</source>
+        <translation>Esquema de cores</translation>
+    </message>
+    <message>
+        <source>Transparent</source>
+        <translation>Transparente</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Cor</translation>
     </message>
 </context>
 <context>
