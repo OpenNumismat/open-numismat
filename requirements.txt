@@ -6,7 +6,7 @@ openpyxl~=3.1.5
 numpy~=2.2.2
 pillow~=11.1.0
 python-dateutil==2.9.0.post0
-pywin32==308; sys_platform == 'win32'
+pywin32==310; sys_platform == 'win32'
 urllib3~=2.3.0
 zxing-cpp~=2.3.0
 imagehash @ git+https://github.com/OpenNumismat/imagehash
