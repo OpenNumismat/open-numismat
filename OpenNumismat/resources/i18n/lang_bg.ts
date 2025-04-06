@@ -1068,6 +1068,10 @@ The application will need to restart now.</source>
         <source>Used statuses (double-click for rename):</source>
         <translation>Използвани статуси (кликнете два пъти за преименуване):</translation>
     </message>
+    <message>
+        <source>Sort tree by references</source>
+        <translation>Сортиране на дървото по номенклатурите</translation>
+    </message>
 </context>
 <context>
     <name>ColnectConnector</name>
@@ -1417,6 +1421,26 @@ and try again.</source>
     <message>
         <source>Enter value</source>
         <translation>Въведете стойност</translation>
+    </message>
+    <message>
+        <source>Change icon...</source>
+        <translation>Промяна на икона...</translation>
+    </message>
+    <message>
+        <source>Add icon...</source>
+        <translation>Добавяне на икона...</translation>
+    </message>
+    <message>
+        <source>Paste icon</source>
+        <translation>Поставяне на икона</translation>
+    </message>
+    <message>
+        <source>Clear icon</source>
+        <translation>Изчистване на икона</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Отваряне на файл</translation>
     </message>
 </context>
 <context>
@@ -1779,7 +1803,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Групова редакция...</translation>
+        <translation>Групово редактиране...</translation>
     </message>
     <message>
         <source>Move up</source>
@@ -2324,6 +2348,30 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Показване на брояча в дървото и статистиката</translation>
+    </message>
+    <message>
+        <source>System</source>
+        <translation>Системна</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>Светла</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Тъмна</translation>
+    </message>
+    <message>
+        <source>Color scheme</source>
+        <translation>Цветова схема</translation>
+    </message>
+    <message>
+        <source>Transparent</source>
+        <translation>Прозрачен</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Цветен</translation>
     </message>
 </context>
 <context>
@@ -3395,8 +3443,8 @@ Please update OpenNumismat</source>
     <message>
         <source>Can't close latest opened page.
 Add a new one first.</source>
-        <translation>Не може да се затвори последната отворена страница.
-Първо добавете нова.</translation>
+        <translation>Не можете да затворите последния отворен списък.
+Първо добавете нов.</translation>
     </message>
     <message>
         <source>Can't remove latest opened page.
@@ -3471,7 +3519,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Групова редакция...</translation>
+        <translation>Групово редактиране...</translation>
     </message>
 </context>
 <context>
