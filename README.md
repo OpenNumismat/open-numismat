@@ -26,13 +26,12 @@ Windows, Linux (Debian/Ubuntu), macOS.
 * Python 3.12
 * PySide6
 * Jinja2 (for reports)
-* Pillow
+* Pillow (for export to Excel, scan bar-code, find by image and image editor)
 * openpyxl (for import/export to Excel)
 * pywin32 (for saving report as Word Document)
 * lxml (for importing from Tellico, Collection Studio and ANS)
 * python-dateutil (for importing from Excel)
 * urllib3 (for import from ANS, CoinSnap, Colnect and Numista)
-* pyinstaller (for deploy)
 * imagehash (for find by image)
 * numpy (for find by image and image editor)
 * opencv-python-headless (for find by image)
