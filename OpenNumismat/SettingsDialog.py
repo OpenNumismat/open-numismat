@@ -38,6 +38,7 @@ from OpenNumismat.EditCoinDialog.FormItems import NumberEdit
 from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase, CollectionField
 from OpenNumismat.Reports import Report
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
+from OpenNumismat.Tools.Gui import ColorButton
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Gui import infoMessageBox
 from OpenNumismat.Settings import Settings
@@ -211,12 +212,8 @@ class MainSettingsPage(QWidget):
                                             QSizePolicy.Fixed)
         layout.addRow(self.tr("Font size"), self.fontSizeSelector)
 
-        self.transparentColorButton = QPushButton(self)
-        self.transparentColorButton.setSizePolicy(QSizePolicy.Fixed,
-                                                  QSizePolicy.Fixed)
-        self.transparent_color = settings['transparent_color']
-        self.updateTransparentColorButton(self.transparent_color)
-        self.transparentColorButton.clicked.connect(self.transparentColorButtonClicked)
+        color = settings['transparent_color']
+        self.transparentColorButton = ColorButton(color, self)
 
         self.transparentRadio = QRadioButton(self.tr("Transparent"))
         self.transparentRadio.toggled.connect(self.transparentRadioToggled)
@@ -260,22 +257,6 @@ class MainSettingsPage(QWidget):
         if file:
             self.reference.setText(file)
 
-    def transparentColorButtonClicked(self):
-        settings = Settings()
-        color = settings['transparent_color']
-
-        dlg = QColorDialog(color, self)
-        if dlg.exec() == QDialog.Accepted:
-            self.transparent_color = dlg.currentColor()
-            settings['transparent_color'] = self.transparent_color
-            self.updateTransparentColorButton(self.transparent_color)
-
-    def updateTransparentColorButton(self, color):
-        pixmap = QPixmap(16, 16)
-        pixmap.fill(color)
-        icon = QIcon(pixmap)
-        self.transparentColorButton.setIcon(icon)
-
     def save(self):
         settings = Settings()
 
@@ -293,7 +274,7 @@ class MainSettingsPage(QWidget):
         settings['use_webcam'] = self.useWebcam.isChecked()
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
-        settings['transparent_color'] = self.transparent_color
+        settings['transparent_color'] = self.transparentColorButton.color()
         settings['transparent_store'] = self.transparentRadio.isChecked()
         settings['tree_counter'] = self.treeCounter.isChecked()
         settings['color_scheme'] = self.colorSchemeSelector.currentIndex()
