@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install bump-my-version
+        python -m pip install bump-my-version==0.32.1
     - name: Get current version
       id: bump
       shell: bash
@@ -54,7 +54,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install bump-my-version pyinstaller
+        python -m pip install bump-my-version==0.32.1 pyinstaller
     - name: Bump pre-release version
       run: |
         bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
@@ -120,7 +120,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install bump-my-version pyinstaller
+        python -m pip install bump-my-version==0.32.1 pyinstaller
     - name: Bump pre-release version
       run: |
         bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
@@ -180,7 +180,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install bump-my-version cx_freeze
+        python -m pip install bump-my-version==0.32.1 cx_freeze
     - name: Bump pre-release version
       run: |
         bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
@@ -228,7 +228,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install bump-my-version nuitka
+        python -m pip install bump-my-version==0.32.1 nuitka
     - name: Bump pre-release version
       run: |
         bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
@@ -310,7 +310,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install bump-my-version nuitka
+        python -m pip install bump-my-version==0.32.1 nuitka
     - name: Bump pre-release version
       run: |
         bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
@@ -472,7 +472,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install bump-my-version pyinstaller
+        python -m pip install bump-my-version==0.32.1 pyinstaller
     - name: Bump pre-release version
       run: |
         bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
@@ -517,7 +517,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install bump-my-version pyinstaller
+        python -m pip install bump-my-version==0.32.1 pyinstaller
     - name: Bump pre-release version
       run: |
         bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
