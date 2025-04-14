@@ -6,28 +6,39 @@ on:
       - '[0-9]+.*'
 
 jobs:
-  version:
-    name: Version
-    uses: ./.github/workflows/job_version.yml
-
   title:
-    needs: version
     name: Title
     runs-on: ubuntu-latest
     outputs:
-      PACKAGENAME: ${{ needs.version.outputs.APPNAME }}-${{ needs.version.outputs.VERSION }}
-      APPNAME: ${{ needs.version.outputs.APPNAME }}
+      APPNAME: OpenNumismat
+      VERSION: ${{ steps.bump.outputs.current-version }}
+      PACKAGENAME: OpenNumismat-${{ steps.bump.outputs.current-version }}
     steps:
-      - run: "true"
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install bump-my-version==0.32.1
+    - name: Get current version
+      id: bump
+      shell: bash
+      run: |
+        echo "current-version=$(bump-my-version show current_version)" >> $GITHUB_OUTPUT
 
   windows:
-    needs: [version, title]
+    needs: [title]
     name: Windows
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
+        fetch-depth: 0
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
@@ -35,13 +46,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install pyinstaller pyinstaller-versionfile
-    - name: Create versionfile
-      run: |
-        touch metadata.yml
-        echo "FileDescription: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
-        echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
-        create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}
+        python -m pip install pyinstaller
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -63,8 +68,8 @@ jobs:
       id: upload-portable
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.version.outputs.APPNAME }}-portable
-        path: dist/${{ needs.version.outputs.APPNAME }}/${{ needs.version.outputs.APPNAME }}.exe
+        name: ${{ needs.title.outputs.APPNAME }}-portable
+        path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
       uses: signpath/github-action-submit-signing-request@v1
@@ -75,28 +80,29 @@ jobs:
         signing-policy-slug: 'release-signing'
         artifact-configuration-slug: 'test-zip'
         github-artifact-id: '${{steps.upload-portable.outputs.artifact-id}}'
-        output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
+        output-artifact-directory: dist/${{ needs.title.outputs.APPNAME }}
         wait-for-completion: true
         wait-for-completion-timeout-in-seconds: 1800
     - name: package
       run: |
         cd dist
-        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-portable-signed
-        path: dist/${{ needs.title.outputs.PACKAGENAME }}.zip
+        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
         if-no-files-found: error
 
   innosetup:
-    needs: [version, title]
+    needs: [title]
     name: InnoSetup
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
+        fetch-depth: 0
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
@@ -104,13 +110,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install pyinstaller pyinstaller-versionfile
-    - name: Create versionfile
-      run: |
-        touch metadata.yml
-        echo "FileDescription: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
-        echo "InternalName: ${{ needs.title.outputs.APPNAME }}" >> metadata.yml
-        create-version-file metadata.yml --outfile versionfile.txt --version ${{ needs.version.outputs.VERSION }}
+        python -m pip install pyinstaller
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -126,8 +126,8 @@ jobs:
       id: upload-exe
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.version.outputs.APPNAME }}-exe
-        path: dist/${{ needs.version.outputs.APPNAME }}/${{ needs.version.outputs.APPNAME }}.exe
+        name: ${{ needs.title.outputs.APPNAME }}-exe
+        path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
       uses: signpath/github-action-submit-signing-request@v1
@@ -138,7 +138,7 @@ jobs:
         signing-policy-slug: 'release-signing'
         artifact-configuration-slug: 'test-zip'
         github-artifact-id: '${{steps.upload-exe.outputs.artifact-id}}'
-        output-artifact-directory: dist/${{ needs.version.outputs.APPNAME }}
+        output-artifact-directory: dist/${{ needs.title.outputs.APPNAME }}
         wait-for-completion: true
         wait-for-completion-timeout-in-seconds: 1800
     - name: package
@@ -171,13 +171,14 @@ jobs:
         if-no-files-found: error
 
   cx_freeze:
-    needs: [version, title]
+    needs: [title]
     name: cx_Freeze
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
+        fetch-depth: 0
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
@@ -185,7 +186,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install cx_freeze
+        python -m pip install cx_freeze==7.2.10
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
@@ -206,22 +207,23 @@ jobs:
     - name: package
       run: |
         cd build
-        7z a -r ${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-cx_freeze
-        path: build/${{ needs.title.outputs.PACKAGENAME }}.zip
+        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
         if-no-files-found: error
 
   nuitka:
-    needs: [version, title]
+    needs: [title]
     name: Nuitka
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
+        fetch-depth: 0
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
@@ -259,14 +261,14 @@ jobs:
         --include-data-dir=OpenNumismat/db=db
         --include-data-files=COPYING=COPYING
         --windows-icon-from-ico=icons/main.ico
-        --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        --windows-file-version=${{ needs.title.outputs.VERSION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: Upload
       id: upload-nuitka-portable
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.version.outputs.APPNAME }}-nuitka-portable
-        path: open-numismat.dist/${{ needs.version.outputs.APPNAME }}.exe
+        name: ${{ needs.title.outputs.APPNAME }}-nuitka-portable
+        path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
       uses: signpath/github-action-submit-signing-request@v1
@@ -294,13 +296,14 @@ jobs:
         if-no-files-found: error
 
   nuitka_innosetup:
-    needs: [version, title]
+    needs: [title]
     name: Nuitka InnoSetup
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
+        fetch-depth: 0
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
@@ -332,14 +335,14 @@ jobs:
         --include-data-dir=OpenNumismat/db=db
         --include-data-files=COPYING=COPYING
         --windows-icon-from-ico=icons/main.ico
-        --windows-file-version=${{ needs.version.outputs.VERSION }}.${{ needs.version.outputs.REVISION }}
+        --windows-file-version=${{ needs.title.outputs.VERSION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: Upload
       id: upload-nuitka-exe
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ needs.version.outputs.APPNAME }}-nuitka-exe
-        path: open-numismat.dist/${{ needs.version.outputs.APPNAME }}.exe
+        name: ${{ needs.title.outputs.APPNAME }}-nuitka-exe
+        path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
       uses: signpath/github-action-submit-signing-request@v1
@@ -383,13 +386,14 @@ jobs:
         if-no-files-found: error
 
   ubuntu:
-    needs: [version, title]
+    needs: [title]
     name: Ubuntu 22.04
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
+        fetch-depth: 0
     - name: Install dependencies
       run: |
         sudo apt update
@@ -404,22 +408,23 @@ jobs:
     - name: Build
       run: |
         debuild -b -us -uc
-        mv ../open-numismat_${{ needs.version.outputs.VERSION }}_all.deb .
+        mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb
-        path: open-numismat_${{ needs.version.outputs.VERSION }}_all.deb
+        path: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
         if-no-files-found: error
 
   ubuntu-24:
-    needs: [version, title]
+    needs: [title]
     name: Ubuntu 24.04
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
+        fetch-depth: 0
     - name: Install dependencies
       run: |
         sudo apt update
@@ -434,25 +439,26 @@ jobs:
     - name: Build
       run: |
         debuild -b -us -uc
-        mv ../open-numismat_${{ needs.version.outputs.VERSION }}_all.deb .
+        mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
-        path: open-numismat_${{ needs.version.outputs.VERSION }}_all.deb
+        path: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
         if-no-files-found: error
 
   macos:
-    needs: [version, title]
+    needs: [title]
     name: macOS
     runs-on: macos-13
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
+        fetch-depth: 0
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.12'
+        python-version: '3.13'
     - name: install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -476,18 +482,61 @@ jobs:
         mv OpenNumismat.app vol
         ln -s /Applications vol/Applications
         hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
-        cd ..
-        mv dist/${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg .
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg
-        path: ${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
+        path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
+        if-no-files-found: error
+
+  macos-arm64:
+    needs: [title]
+    name: macOS arm64
+    runs-on: macos-14
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+        fetch-depth: 0
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install bump-my-version==0.32.1 pyinstaller
+    - name: Bump pre-release version
+      run: |
+        bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: build
+      run: |
+        PYTHONOPTIMIZE=1
+        pyinstaller open-numismat.spec
+    - name: package
+      run: |
+        cd dist
+        mkdir vol
+        mv OpenNumismat.app vol
+        ln -s /Applications vol/Applications
+        hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
+    - name: upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64
+        path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
         if-no-files-found: error
 
   release:
     name: Create release
-    needs: [version, title, windows, innosetup, ubuntu, ubuntu-24, macos, cx_freeze, nuitka, nuitka_innosetup]
+    needs: [title, windows, innosetup, ubuntu, ubuntu-24, macos, macos-arm64, cx_freeze, nuitka, nuitka_innosetup]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -541,15 +590,15 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb/open-numismat_${{ needs.version.outputs.VERSION }}_all.deb
-        asset_name: open-numismat_${{ needs.version.outputs.VERSION }}_all.deb
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb/open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
+        asset_name: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
         asset_content_type: application/octet-stream
     - name: upload-ubuntu-24
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb-24/open-numismat_${{ needs.version.outputs.VERSION }}_all.deb
-        asset_name: open-numismat_${{ needs.version.outputs.VERSION }}_all_24.deb
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb-24/open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
+        asset_name: open-numismat_${{ needs.title.outputs.VERSION }}_all_24.deb
         asset_content_type: application/octet-stream
     - name: upload-macos
       uses: actions/upload-release-asset@v1
@@ -557,4 +606,11 @@ jobs:
         upload_url: ${{ steps.release.outputs.upload_url }}
         asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
+        asset_content_type: application/octet-stream
+    - name: upload-macos-arm64
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64/${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
         asset_content_type: application/octet-stream
