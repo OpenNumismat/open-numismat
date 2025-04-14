@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.opennumismat.OpenNumismat</id>
+  <id>io.github.opennumismat.open-numismat</id>
   <name>OpenNumismat</name>
   <summary>Custom coin collection catalog</summary>
   <description>
@@ -10,7 +10,7 @@
   </description>
   <metadata_license>FTL</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  <launchable type="desktop-id">io.github.opennumismat.OpenNumismat.desktop</launchable>
+  <launchable type="desktop-id">io.github.opennumismat.open-numismat.desktop</launchable>
   <url type="homepage">https://opennumismat.github.io/</url>
   <update_contact>opennumismat@gmail.com</update_contact>
   <content_rating type="oars-1.1"/>
