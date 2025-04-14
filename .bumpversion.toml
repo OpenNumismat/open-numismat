@@ -45,7 +45,7 @@ filename = "tools/setup.iss"
 [[tool.bumpversion.files]]
 filename = "tools/setup-nuitka.iss"
 [[tool.bumpversion.files]]
-filename = "io.github.opennumismat.OpenNumismat.metainfo.xml"
+filename = "io.github.opennumismat.open-numismat.metainfo.xml"
 search = "<releases>"
 replace = "<releases>\n    <release date=\"{now:%Y-%m-%d}\" version=\"{new_version}\"/>"
 regex = true
