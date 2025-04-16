@@ -10,7 +10,7 @@ OutputBaseFilename=OpenNumismat-{#SetupSetting('AppVersion')}
 AllowNoIcons=yes
 AppCopyright=Copyright 2011-2025 by Vitaly Ignatov
 AppPublisher=Janis
-ArchitecturesInstallIn64BitMode=x64
+ArchitecturesInstallIn64BitMode=x64compatible
 
 [Languages]
 Name: en; MessagesFile: "compiler:Default.isl"; InfoBeforeFile: license_en.txt
