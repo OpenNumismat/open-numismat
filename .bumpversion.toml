@@ -50,11 +50,6 @@ search = "<releases>"
 replace = "<releases>\n    <release date=\"{now:%Y-%m-%d}\" version=\"{new_version}\"/>"
 regex = true
 [[tool.bumpversion.files]]
-filename = "org.opennumismat.OpenNumismat.metainfo.xml"
-search = "<releases>"
-replace = "<releases>\n    <release date=\"{now:%Y-%m-%d}\" version=\"{new_version}\"/>"
-regex = true
-[[tool.bumpversion.files]]
 filename = "versionfile.txt"
 search = "filevers=({current_major}, {current_minor}, {current_patch}, 0)"
 replace = "filevers=({new_major}, {new_minor}, {new_patch}, {distance_to_latest_tag})"
