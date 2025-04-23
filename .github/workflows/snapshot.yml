@@ -256,6 +256,7 @@ jobs:
         --standalone
         --enable-plugin=pyside6
         --include-qt-plugins=sqldrivers,multimedia
+        --module-parameter=numba-disable-jit=yes
         --windows-console-mode=disable
         --include-data-dir=OpenNumismat/templates=templates
         --include-data-dir=OpenNumismat/db=db
@@ -332,6 +333,7 @@ jobs:
         --standalone
         --enable-plugin=pyside6
         --include-qt-plugins=sqldrivers,multimedia
+        --module-parameter=numba-disable-jit=yes
         --windows-console-mode=disable
         --include-data-dir=OpenNumismat/templates=templates
         --include-data-dir=OpenNumismat/db=db
