@@ -1068,6 +1068,10 @@ The application will need to restart now.</source>
         <source>Used statuses (double-click for rename):</source>
         <translation>Используемые статусы (двойной щелчок для переименования)</translation>
     </message>
+    <message>
+        <source>Sort tree by references</source>
+        <translation>Сортировать Дерево по справочнику</translation>
+    </message>
 </context>
 <context>
     <name>ColnectConnector</name>
@@ -1417,6 +1421,26 @@ and try again.</source>
     <message>
         <source>Enter value</source>
         <translation>Введите значение</translation>
+    </message>
+    <message>
+        <source>Change icon...</source>
+        <translation>Изменить иконку...</translation>
+    </message>
+    <message>
+        <source>Add icon...</source>
+        <translation>Добавить иконку...</translation>
+    </message>
+    <message>
+        <source>Paste icon</source>
+        <translation>Вставить иконку</translation>
+    </message>
+    <message>
+        <source>Clear icon</source>
+        <translation>Очистить иконку</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Открыть файл</translation>
     </message>
 </context>
 <context>
@@ -1932,10 +1956,6 @@ drag-n-drop to add an image)</source>
         <translation>Повторить</translation>
     </message>
     <message>
-        <source>Window color</source>
-        <translation>Цвет окна</translation>
-    </message>
-    <message>
         <source>Cut left half</source>
         <translation>Вырезать левую половину</translation>
     </message>
@@ -1954,10 +1974,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation>Настройки</translation>
     </message>
     <message>
         <source>Image editor</source>
@@ -2011,13 +2027,29 @@ drag-n-drop to add an image)</source>
         <source>Open File</source>
         <translation>Открыть файл</translation>
     </message>
+    <message>
+        <source>Settings...</source>
+        <translation>Настройки...</translation>
+    </message>
+    <message>
+        <source>Remove background</source>
+        <translation>Удалить фон</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Скачивание</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d Mb)</source>
+        <translation>Скачивание ИИ модели %s (%d Мб)</translation>
+    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
-    <message>
-        <source>Background color</source>
-        <translation>Цвет фона</translation>
-    </message>
     <message>
         <source>Save</source>
         <translation>Сохранить</translation>
@@ -2324,6 +2356,30 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Показывать количество в дереве и статистике</translation>
+    </message>
+    <message>
+        <source>System</source>
+        <translation>Системные</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>Светлый</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Темный</translation>
+    </message>
+    <message>
+        <source>Color scheme</source>
+        <translation>Цветовая схема</translation>
+    </message>
+    <message>
+        <source>Transparent</source>
+        <translation>Прозрачный</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Цвет</translation>
     </message>
 </context>
 <context>
@@ -3008,6 +3064,14 @@ Please update OpenNumismat</source>
         <source>Nice years (Area)</source>
         <translation>Приятные года (области)</translation>
     </message>
+    <message>
+        <source>Backround remover AI model</source>
+        <translation>ИИ модель для удаления фона</translation>
+    </message>
+    <message>
+        <source>Window backgroud color</source>
+        <translation>Цвет фона окна</translation>
+    </message>
 </context>
 <context>
     <name>StatisticsView</name>
@@ -3512,6 +3576,21 @@ Add a new one first.</source>
     <message>
         <source>Select file</source>
         <translation>Открыть</translation>
+    </message>
+</context>
+<context>
+    <name>WindowSettingsDialog</name>
+    <message>
+        <source>Transparent</source>
+        <translation>Прозрачный</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Цвет</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Цвет фона изображения</translation>
     </message>
 </context>
 <context>
