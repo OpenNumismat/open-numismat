@@ -1956,10 +1956,6 @@ arraste e largue para adicionar)</translation>
         <translation>Refazer</translation>
     </message>
     <message>
-        <source>Window color</source>
-        <translation>Cor da janela</translation>
-    </message>
-    <message>
         <source>Cut left half</source>
         <translation>Cortar a metade esquerda</translation>
     </message>
@@ -1978,10 +1974,6 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>&amp;View</source>
         <translation>&amp;Ver</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation>Definições</translation>
     </message>
     <message>
         <source>Image editor</source>
@@ -2035,13 +2027,29 @@ arraste e largue para adicionar)</translation>
         <source>Open File</source>
         <translation>Abrir ficheiro</translation>
     </message>
+    <message>
+        <source>Settings...</source>
+        <translation>Definições...</translation>
+    </message>
+    <message>
+        <source>Remove background</source>
+        <translation>Remover o fundo</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>A transferir</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d Mb)</source>
+        <translation>A transferir modelo de IA %s (%d MB)</translation>
+    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
-    <message>
-        <source>Background color</source>
-        <translation>Cor do fundo</translation>
-    </message>
     <message>
         <source>Save</source>
         <translation>Gravar</translation>
@@ -3056,6 +3064,14 @@ Por favor, actualize o Openumismat.</translation>
         <source>Nice years (Area)</source>
         <translation>Anos bons (área)</translation>
     </message>
+    <message>
+        <source>Backround remover AI model</source>
+        <translation>Modelo IA de remoção de fundo</translation>
+    </message>
+    <message>
+        <source>Window backgroud color</source>
+        <translation>Cor de fundo da janela</translation>
+    </message>
 </context>
 <context>
     <name>StatisticsView</name>
@@ -3560,6 +3576,21 @@ Adicione uma nova primeiro.</translation>
     <message>
         <source>Select file</source>
         <translation>Seleccionar ficheiro</translation>
+    </message>
+</context>
+<context>
+    <name>WindowSettingsDialog</name>
+    <message>
+        <source>Transparent</source>
+        <translation>Transparente</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Cor</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Cor de fundo da imagem</translation>
     </message>
 </context>
 <context>
