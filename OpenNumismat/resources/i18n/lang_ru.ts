@@ -1956,10 +1956,6 @@ drag-n-drop to add an image)</source>
         <translation>Повторить</translation>
     </message>
     <message>
-        <source>Window color</source>
-        <translation>Цвет окна</translation>
-    </message>
-    <message>
         <source>Cut left half</source>
         <translation>Вырезать левую половину</translation>
     </message>
@@ -1978,10 +1974,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation>Настройки</translation>
     </message>
     <message>
         <source>Image editor</source>
@@ -2035,13 +2027,29 @@ drag-n-drop to add an image)</source>
         <source>Open File</source>
         <translation>Открыть файл</translation>
     </message>
+    <message>
+        <source>Settings...</source>
+        <translation>Настройки...</translation>
+    </message>
+    <message>
+        <source>Remove background</source>
+        <translation>Удалить фон</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Скачивание</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d Mb)</source>
+        <translation>Скачивание ИИ модели %s (%d Мб)</translation>
+    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
-    <message>
-        <source>Background color</source>
-        <translation>Цвет фона</translation>
-    </message>
     <message>
         <source>Save</source>
         <translation>Сохранить</translation>
@@ -3056,6 +3064,14 @@ Please update OpenNumismat</source>
         <source>Nice years (Area)</source>
         <translation>Приятные года (области)</translation>
     </message>
+    <message>
+        <source>Backround remover AI model</source>
+        <translation>ИИ модель для удаления фона</translation>
+    </message>
+    <message>
+        <source>Window backgroud color</source>
+        <translation>Цвет фона окна</translation>
+    </message>
 </context>
 <context>
     <name>StatisticsView</name>
@@ -3560,6 +3576,21 @@ Add a new one first.</source>
     <message>
         <source>Select file</source>
         <translation>Открыть</translation>
+    </message>
+</context>
+<context>
+    <name>WindowSettingsDialog</name>
+    <message>
+        <source>Transparent</source>
+        <translation>Прозрачный</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Цвет</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Цвет фона изображения</translation>
     </message>
 </context>
 <context>
