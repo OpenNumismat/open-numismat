@@ -1,9 +1,7 @@
-import cv2
 import imagehash
 import io
 from dataclasses import dataclass
 from PIL import Image
-import numpy as np
 
 from PySide6.QtCore import Qt, QBuffer, QMargins, QRect, QRectF, QSettings
 from PySide6.QtGui import QImage, QPixmap, QIcon, QTextOption, QPalette, QColor
@@ -486,6 +484,9 @@ class CardDelegate(QStyledItemDelegate):
 
 
 def img2orientedBRIEF(image, nfeatures=2000):
+    import cv2
+    import numpy as np
+
     if isinstance(image, Image.Image):  # convert PIL to cv2
         image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
