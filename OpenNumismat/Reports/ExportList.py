@@ -51,6 +51,11 @@ class ExportToExcel(__ExportBase):
             if isinstance(item, QByteArray):
                 image_data = item.data()
                 image = Image.open(io.BytesIO(image_data))
+                if image.format in ('WEBP', 'AVIF'):
+                    img_png = io.BytesIO()
+                    image.save(img_png, format='PNG')
+                    image = img_png
+
                 img = openpyxl.drawing.image.Image(image)
 
                 image_cells.append((img, self._current_row + 1, i + 1))
