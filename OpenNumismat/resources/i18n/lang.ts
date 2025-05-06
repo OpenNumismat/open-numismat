@@ -1943,10 +1943,6 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Window color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cut left half</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1964,10 +1960,6 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2022,13 +2014,29 @@ drag-n-drop to add an image)</source>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Settings...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d Mb)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
-    <message>
-        <source>Background color</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
@@ -3038,6 +3046,14 @@ Please update OpenNumismat</source>
         <source>Nice years (Area)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Backround remover AI model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Window backgroud color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StatisticsView</name>
@@ -3539,6 +3555,21 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Select file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WindowSettingsDialog</name>
+    <message>
+        <source>Transparent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image background color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
