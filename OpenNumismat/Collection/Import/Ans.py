@@ -474,6 +474,7 @@ class AnsDialog(QDialog):
 
     def makeItem(self, item_id, record):
         data = self.connector.getData(item_id)
+        data = data.replace('xml:id="', 'xml:id="XXid')
         tree = lxml.etree.fromstring(data.encode('utf-8'))
 
         id_ = self._getValue(tree, "./nuds:control/nuds:recordId")
@@ -737,6 +738,7 @@ class AnsDialog(QDialog):
                 self.items.append(item_id)
                 
                 data = self.connector.getData(item_id)
+                data = data.replace('xml:id="', 'xml:id="XXid')
                 tree = lxml.etree.fromstring(data.encode('utf-8'))
 
                 url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='obverse']/mets:file[@USE='thumbnail']/mets:FLocat",
