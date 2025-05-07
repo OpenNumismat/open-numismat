@@ -96,7 +96,7 @@ class ImportNumista(_Import2):
 
         self.split_denomination = settings['numista_split_denomination']
         self.currency = settings['numista_currency']
-        if settings['locale'] in ('fr', 'es'):
+        if settings['locale'] in ('fr', 'es', 'de', 'it', 'nl', 'pt', 'ru'):
             self.language = settings['locale']
         else:
             self.language = 'en'
