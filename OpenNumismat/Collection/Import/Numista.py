@@ -114,15 +114,24 @@ class ImportNumista(_Import2):
     def isAvailable():
         return numistaAvailable
     
-    def _download_cache(self, url):
+    def _download_cache(self, url, get_image=False):
         raw_data = self.cache.get(url)
         is_cashed = bool(raw_data)
         if not is_cashed:
             try:
-                resp = self.http.request("GET", url, headers={'Numista-API-Key': NUMISTA_API_KEY})
-                raw_data = resp.data.decode()
+                headers = None
+                if not get_image:
+                    headers = {'Numista-API-Key': NUMISTA_API_KEY}
+                resp = self.http.request("GET", url, headers=headers, retries=False)
+                if resp.status == 200:
+                    if not get_image:
+                        raw_data = resp.data.decode()
+                    else:
+                        raw_data = resp.data
+                else:
+                    return None
             except:
-                return ''
+                return None
         
         if not is_cashed:
             self.cache.set(url, raw_data)
@@ -331,9 +340,11 @@ class ImportNumista(_Import2):
 
     def _getImage(self, url):
         try:
+            data = self._download_cache(url, True)
+            if not data:
+                return None
+
             image = QImage()
-            resp = self.http.request("GET", url, timeout=self.CONNECTION_TIMEOUT * 3)
-            data = resp.data
             image.loadFromData(data)
             return image
         except:
