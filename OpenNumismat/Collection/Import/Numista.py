@@ -133,7 +133,7 @@ class ImportNumista(_Import2):
                 elif resp.status == 429:
                     if not self.already_warned:
                         QMessageBox.warning(self.parent(), "Numista",
-                                self.tr("Too many requests. Try letter"))
+                                self.tr("Too many requests. Try later"))
                         self.already_warned = True
                     return None
                 else:
