@@ -2143,13 +2143,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try letter</source>
-        <translation>Слишком много запросов. Попробуйте позже</translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2664,6 +2657,13 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Year calculator</source>
         <translation>Калькулятор дат</translation>
+    </message>
+</context>
+<context>
+    <name>NumistaAuthentication</name>
+    <message>
+        <source>Numista</source>
+        <translation>Numista</translation>
     </message>
 </context>
 <context>
