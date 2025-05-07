@@ -17,7 +17,10 @@ it is also suitable for other types of collectibles - stamps, postcards, badges
 and more exotic things.
 
 Since all components are cross-platform, then OpenNumismat has builds for
-Windows, Linux (Debian/Ubuntu), macOS.
+
+ * Windows,
+ * Linux (Debian/Ubuntu),
+ * macOS.
 
 ![Main window](https://opennumismat.github.io/images/screenMain.png)
 
@@ -44,9 +47,11 @@ For running from source code and development requirements can be installed like 
 `pip3 install -r requirements.txt`
 
 ## Building
-Befor building installation package may be necessary:
-* compile translations file with: `python3 tools/build_resources.py`
-* create `OpenNumismat/private_keys.py` with content: `MAPS_API_KEY = '<your Google API key>'`
+Before building you may need to install packages specific to your platform:
+
+  * compile translations file with: `python3 tools/build_resources.py`
+  * create `OpenNumismat/private_keys.py` with content:  
+ `MAPS_API_KEY = '<your Google API key>'`
 
 #### For Windows
     pip3 install pyinstaller
