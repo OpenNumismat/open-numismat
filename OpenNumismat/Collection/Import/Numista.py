@@ -6,7 +6,7 @@ import urllib3
 
 from PySide6.QtCore import Qt, QUrl, QMargins
 from PySide6.QtGui import QDesktopServices, QImage
-from PySide6.QtWidgets import QDialog, QVBoxLayout
+from PySide6.QtWidgets import QDialog, QMessageBox, QVBoxLayout
 from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
@@ -65,7 +65,7 @@ class NumistaAuthentication(QDialog):
         layout.setContentsMargins(QMargins())
         self.setLayout(layout)
 
-        self.setWindowTitle(self.tr("Numista"))
+        self.setWindowTitle("Numista")
 
     def onLinkClicked(self, url):
         executor = QDesktopServices()
@@ -110,6 +110,8 @@ class ImportNumista(_Import2):
                                         cert_reqs="CERT_NONE")
         self.cache = Cache()
 
+        self.already_warned = False
+
     @staticmethod
     def isAvailable():
         return numistaAvailable
@@ -128,6 +130,12 @@ class ImportNumista(_Import2):
                         raw_data = resp.data.decode()
                     else:
                         raw_data = resp.data
+                elif resp.status == 429:
+                    if not self.already_warned:
+                        QMessageBox.warning(self.parent(), "Numista",
+                                self.tr("Too many requests. Try letter"))
+                        self.already_warned = True
+                    return None
                 else:
                     return None
             except:
