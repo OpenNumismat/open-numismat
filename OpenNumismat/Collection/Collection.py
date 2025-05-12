@@ -1706,7 +1706,10 @@ class Collection(QObject):
                         if hash_ in img_file_dict:
                             img_file_title = img_file_dict[hash_]
                         else:
-                            img_file_title = "%d_%s.jpg" % (i + 1, field.name)
+                            if val.data()[:4] == b"RIFF":
+                                img_file_title = f"{i + 1}_{field.name}.webp"
+                            else:
+                                img_file_title = f"{i + 1}_{field.name}.jpg"
                             img_file_name = os.path.join(image_path, img_file_title)
                             img_file = open(img_file_name, 'wb')
                             img_file.write(val.data())
