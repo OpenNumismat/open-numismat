@@ -2132,7 +2132,7 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportNumista</name>
     <message>
-        <source>Too many requests. Try letter</source>
+        <source>Too many requests. Try later</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
