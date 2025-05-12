@@ -176,7 +176,11 @@ class ImageLabel(QLabel):
 
     def _saveTmpImage(self):
         tmpDir = QDir(TemporaryDir.path())
-        file = QTemporaryFile(tmpDir.absoluteFilePath("img_XXXXXX.jpg"))
+        if self.image.format() == QImage.Format.Format_ARGB32:
+            file_name_template = "img_XXXXXX.webp"
+        else:
+            file_name_template = "img_XXXXXX.jpg"
+        file = QTemporaryFile(tmpDir.absoluteFilePath(file_name_template))
         file.setAutoRemove(False)
         file.open()
 
