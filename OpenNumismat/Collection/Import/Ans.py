@@ -847,7 +847,7 @@ class AnsDialog(QDialog):
                     record.setValue('status', self.model.settings['default_status'])
                 self.model.appendRecord(record)
             else:
-                btn = self.model.addCoins(record, len(indexes) - progress)
+                btn = self.model.addCoins(record, len(indexes) - progress, self)
                 if btn == QDialogButtonBox.Abort:
                     break
                 if btn == QDialogButtonBox.SaveAll:
