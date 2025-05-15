@@ -2138,6 +2138,13 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ImportNumista</name>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Troppe richieste. Riprova più tardi</translation>
+    </message>
+</context>
+<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2652,13 +2659,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Year calculator</source>
         <translation>Calcolatore della data</translation>
-    </message>
-</context>
-<context>
-    <name>NumistaAuthentication</name>
-    <message>
-        <source>Numista</source>
-        <translation>Numista</translation>
     </message>
 </context>
 <context>
