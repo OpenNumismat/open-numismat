@@ -531,7 +531,12 @@ class CollectionModel(QSqlTableModel):
                     # Copying record as text (from Excel) store missed images
                     # as string
                     record.setNull(field.name)
-                elif isinstance(image, QImage):
+                elif isinstance(image, QImage) or isinstance(image, bytes):
+                    if isinstance(image, bytes):
+                        img = QImage()
+                        img.loadFromData(image)
+                        image = img
+
                     buffer = QBuffer()
                     buffer.open(QIODevice.WriteOnly)
 
@@ -546,9 +551,6 @@ class CollectionModel(QSqlTableModel):
 
                     image.save(buffer, self.IMAGE_FORMAT, self.IMAGE_QUALITY)
                     record.setValue(field.name, buffer.data())
-                elif isinstance(image, bytes):
-                    ba = QByteArray(image)
-                    record.setValue(field.name, ba)
 
         # Creating preview image for list
         self._recalculateImage(record)
