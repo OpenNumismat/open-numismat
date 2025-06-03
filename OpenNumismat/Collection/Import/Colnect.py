@@ -66,9 +66,10 @@ class ColnectConnector(QObject):
         # construct Record object from data json
         columns = {'coins': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
                              ('mintage', 'Known mintage'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Composition'),
-                             ('diameter', 'Diameter'), ('weight', 'Weight'), ('subject', 'Description'), ('type', 'Distribution'),
+                             ('weight', 'Weight'), ('subject', 'Description'), ('type', 'Distribution'),
                              ('issuedate', 'Issued on'), ('edge', 'EdgeVariety'), ('shape', 'Shape'), ('obvrev', 'Orientation'),
                              ('catalognum1', 'Catalog Codes'), ('thickness', 'Thickness'), ('fineness', 'Composition Details'),
+                             ('diameter', 'Width'),
                             ),
                    'banknotes': (('title', 'Name'), ('country', 'Country'), ('series', 'Series'), ('year', 'Issued on'),
                                  ('mintage', 'Mintage'), ('unit', 'Currency'), ('value', 'FaceValue'), ('material', 'Composition'),
@@ -297,7 +298,7 @@ class ColnectConnector(QObject):
         except:
             return []
 
-        if resp.status == 404:
+        if resp.status in (404, 502):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect proxy-server not response"))
             return []
@@ -361,7 +362,7 @@ class ColnectConnector(QObject):
                   value=None, currency=None):
         action = "years" + self._makeQuery(category, country, series,
                  distribution, None, value, currency)
-        return self.getData(action)
+        return self.getData(action, 'en')
 
     def getSeries(self, category, country, distribution=None, year=None,
                   value=None, currency=None):
@@ -390,7 +391,7 @@ class ColnectConnector(QObject):
                   year=None, currency=None):
         action = "face_values" + self._makeQuery(category, country, series,
                  distribution, year, None, currency)
-        return self.getData(action)
+        return self.getData(action, 'en')
 
     def getCurrencies(self, category, country, series=None, distribution=None,
                       year=None, value=None):
