@@ -1068,6 +1068,10 @@ La aplicación deberá reiniciarse ahora.</translation>
         <source>Used statuses (double-click for rename):</source>
         <translation>Estatus usados (doble-clic para renombrar):</translation>
     </message>
+    <message>
+        <source>Sort tree by references</source>
+        <translation>Ordenar árbol por referencias</translation>
+    </message>
 </context>
 <context>
     <name>ColnectConnector</name>
@@ -1417,6 +1421,26 @@ y prueba de nuevo.</translation>
     <message>
         <source>Enter value</source>
         <translation>Introduce valor</translation>
+    </message>
+    <message>
+        <source>Change icon...</source>
+        <translation>Cambiar icono</translation>
+    </message>
+    <message>
+        <source>Add icon...</source>
+        <translation>Añadir icono</translation>
+    </message>
+    <message>
+        <source>Paste icon</source>
+        <translation>Pegar icono</translation>
+    </message>
+    <message>
+        <source>Clear icon</source>
+        <translation>Limpiar icono</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Abrir archivo</translation>
     </message>
 </context>
 <context>
@@ -1932,10 +1956,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Rehacer</translation>
     </message>
     <message>
-        <source>Window color</source>
-        <translation>Color de ventana</translation>
-    </message>
-    <message>
         <source>Cut left half</source>
         <translation>Cortar mitad izquierda</translation>
     </message>
@@ -1954,10 +1974,6 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>&amp;View</source>
         <translation>&amp;Ver</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation>Configuración</translation>
     </message>
     <message>
         <source>Image editor</source>
@@ -2011,13 +2027,29 @@ arrastrar y soltar para añadir una imagen)</translation>
         <source>Open File</source>
         <translation>Abrir archivo</translation>
     </message>
+    <message>
+        <source>Settings...</source>
+        <translation>Configuración...</translation>
+    </message>
+    <message>
+        <source>Remove background</source>
+        <translation>Eliminar fondo</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Descargando</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d Mb)</source>
+        <translation>Descargando modelo de IA %s (%d Mb)</translation>
+    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
-    <message>
-        <source>Background color</source>
-        <translation>Color de fondo</translation>
-    </message>
     <message>
         <source>Save</source>
         <translation>Guardar</translation>
@@ -2108,6 +2140,13 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ignore&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>ImportNumista</name>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Demasiadas solicitudes. Pueba más tarde</translation>
     </message>
 </context>
 <context>
@@ -2324,6 +2363,30 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Mostrar contador en árbol y estadísticas</translation>
+    </message>
+    <message>
+        <source>System</source>
+        <translation>Sistema</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>Claro</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Oscuro</translation>
+    </message>
+    <message>
+        <source>Color scheme</source>
+        <translation>Esquema de color</translation>
+    </message>
+    <message>
+        <source>Transparent</source>
+        <translation>Transparente</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Color</translation>
     </message>
 </context>
 <context>
@@ -2601,13 +2664,6 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Year calculator</source>
         <translation>Calculador de año</translation>
-    </message>
-</context>
-<context>
-    <name>NumistaAuthentication</name>
-    <message>
-        <source>Numista</source>
-        <translation>Numista</translation>
     </message>
 </context>
 <context>
@@ -3007,6 +3063,14 @@ Por favor, actualiza OpenNumismat</translation>
     <message>
         <source>Nice years (Area)</source>
         <translation>Años bonitos (Area)</translation>
+    </message>
+    <message>
+        <source>Backround remover AI model</source>
+        <translation>Modelo de IA eliminador de fondo</translation>
+    </message>
+    <message>
+        <source>Window backgroud color</source>
+        <translation>Color de fondo de ventana</translation>
     </message>
 </context>
 <context>
@@ -3512,6 +3576,21 @@ Añade una nueva primero.</translation>
     <message>
         <source>Select file</source>
         <translation>Seleccionar archivo</translation>
+    </message>
+</context>
+<context>
+    <name>WindowSettingsDialog</name>
+    <message>
+        <source>Transparent</source>
+        <translation>Transparente</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Color</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Color de fondo de imagen</translation>
     </message>
 </context>
 <context>
