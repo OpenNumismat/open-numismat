@@ -125,6 +125,7 @@ class ColnectConnector(QObject):
                 elif type(value) is str:
                     result = ''
                     if '/1000' in value:
+                        value = value.replace('..', '-')  # fix 500..600/1000
                         pos = value.find('/1000') - 1
                         while pos >= 0 and value[pos] in '0123456789.,':
                             result = value[pos] + result
@@ -142,6 +143,7 @@ class ColnectConnector(QObject):
                             result += value[pos]
                             pos += 1
                     elif '%' in value:
+                        value = value.replace('..', '-')  # fix 10..20%
                         pos = value.find('%') - 1
                         while pos >= 0 and value[pos] in '0123456789.,':
                             result = value[pos] + result
