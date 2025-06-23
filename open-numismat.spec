@@ -101,7 +101,6 @@ else:
         "QtNfc",
         "QtQuickParticles",
         "QtQuickTemplates2",
-        "QtQmlWorkerScript",
         "QtQuick3D",
         "QtQuick3DAssetImport",
         "QtQuick3DRender",
