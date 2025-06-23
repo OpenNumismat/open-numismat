@@ -123,20 +123,21 @@ class GeoChart(QWebView):
 
     def save(self, fileName, selectedFilter):
         if selectedFilter == self.filters()[1]:
-            img = self.page().mainFrame().evaluateJavaScript("chart.getImageURI()")
-            if img:
-                ba = QByteArray()
-                ba.append(img[22:])
-                by = QByteArray.fromBase64(ba)
-                image = QImage.fromData(by, "PNG")
-                image.save(fileName)
-            else:
-                QMessageBox.warning(self.parent(),
-                            self.tr("Saving"),
-                            self.tr("Image not ready. Please try again later"))
+            self.__fileName = fileName
+            self.page().runJavaScript("chart.getImageURI()", self.saveResponse)
         else:
             with open(fileName, 'wb') as f:
                 f.write(bytes(self.html_data, 'utf-8'))
+
+    def saveResponse(self, img):
+        if img:
+            by = QByteArray.fromBase64(img[22:].encode('utf-8'))
+            image = QImage.fromData(by, "PNG")
+            image.save(self.__fileName)
+        else:
+            QMessageBox.warning(self.parent(),
+                        self.tr("Saving"),
+                        self.tr("Image not ready. Please try again later"))
 
     def mouseDoubleClickEvent(self, event):
         self.doubleClicked.emit(event.position().toPoint())
