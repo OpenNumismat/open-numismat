@@ -1,9 +1,9 @@
 import imagehash
 import io
 from dataclasses import dataclass
-from PIL import Image
+from PIL import Image, ImageQt
 
-from PySide6.QtCore import Qt, QBuffer, QMargins, QRect, QRectF, QSettings
+from PySide6.QtCore import Qt, QMargins, QRect, QRectF, QSettings
 from PySide6.QtGui import QImage, QPixmap, QIcon, QTextOption, QPalette, QColor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
@@ -173,16 +173,12 @@ class FindDialog(QDialog):
 
         img = self.targetImgLabel.data()
         if isinstance(img, QImage):
-            buffer = QBuffer()
-            buffer.open(QBuffer.ReadWrite)
-            img.save(buffer, 'png')
-            target_data = buffer.data()
+            pil_target_img = ImageQt.fromqimage(img)
         else:
-            target_data = img
+            pil_target_img = Image.open(io.BytesIO(img))
 
         method = self.methodSelector.currentData()
 
-        pil_target_img = Image.open(io.BytesIO(target_data))
         target_hash = self._imageHash(pil_target_img, method)
 
         fields = []
