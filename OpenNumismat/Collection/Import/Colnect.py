@@ -256,9 +256,9 @@ class ColnectConnector(QObject):
 
     def _makeQuery(self, category, country=None, series=None,
                  distribution=None, year=None, value=None, currency=None):
-        params = "/cat/%s" % category
+        params = f"/cat/{category}"
         if country:
-            params += f"/producer/{country}"
+            params += f"/country/{country}"
         if series:
             params += f"/series/{series}"
         if distribution:
@@ -357,7 +357,7 @@ class ColnectConnector(QObject):
         return item_ids
     
     def getCountries(self, category):
-        action = "countries/cat/%s" % category
+        action = f"countries/cat/{category}"
         return self.getData(action)
 
     def getYears(self, category, country, series=None, distribution=None,
@@ -373,7 +373,7 @@ class ColnectConnector(QObject):
         return self.getData(action)
 
     def getColors(self, category):
-        action = "colors/cat/%s/producer/252" % category    # TODO: Remove producer filter
+        action = f"colors/cat/{category}"
         return self.getData(action)
 
     def getDistributions(self, category, country, series=None, year=None,
