@@ -107,7 +107,7 @@ class DoubleValidator(QDoubleValidator):
 
 class DenominationValidator(DoubleValidator):
     def __init__(self, parent=None):
-        super().__init__(0, 9999999999., 2, parent)
+        super().__init__(0, 9999999999999., 2, parent)
         self.setNotation(QDoubleValidator.StandardNotation)
 
     def validate(self, input_, pos):
@@ -970,7 +970,8 @@ class UserDenominationEdit(UserNumericEdit):
 class DenominationEdit(MoneyEdit):
     def __init__(self, parent=None):
         super().__init__(parent)
-        
+        self.setMaxLength(20)
+
         validator = DenominationValidator()
         self.setValidator(validator)
 
