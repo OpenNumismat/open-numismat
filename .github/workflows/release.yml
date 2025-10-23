@@ -82,7 +82,7 @@ jobs:
         github-artifact-id: '${{steps.upload-portable.outputs.artifact-id}}'
         output-artifact-directory: dist/${{ needs.title.outputs.APPNAME }}
         wait-for-completion: true
-        wait-for-completion-timeout-in-seconds: 1800
+        wait-for-completion-timeout-in-seconds: 3600
     - name: package
       run: |
         cd dist
@@ -140,7 +140,7 @@ jobs:
         github-artifact-id: '${{steps.upload-exe.outputs.artifact-id}}'
         output-artifact-directory: dist/${{ needs.title.outputs.APPNAME }}
         wait-for-completion: true
-        wait-for-completion-timeout-in-seconds: 1800
+        wait-for-completion-timeout-in-seconds: 3600
     - name: package
       run: |
         ISCC.exe tools/setup.iss
@@ -162,7 +162,7 @@ jobs:
         github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
         output-artifact-directory: .
         wait-for-completion: true
-        wait-for-completion-timeout-in-seconds: 1800
+        wait-for-completion-timeout-in-seconds: 3600
     - name: upload-signed
       uses: actions/upload-artifact@v4
       with:
@@ -237,7 +237,7 @@ jobs:
         github-artifact-id: '${{steps.upload-nuitka-portable.outputs.artifact-id}}'
         output-artifact-directory: open-numismat.dist
         wait-for-completion: true
-        wait-for-completion-timeout-in-seconds: 1800
+        wait-for-completion-timeout-in-seconds: 3600
     - name: package
       run: |
         cd open-numismat.dist
@@ -312,7 +312,7 @@ jobs:
         github-artifact-id: '${{steps.upload-nuitka-exe.outputs.artifact-id}}'
         output-artifact-directory: open-numismat.dist
         wait-for-completion: true
-        wait-for-completion-timeout-in-seconds: 1800
+        wait-for-completion-timeout-in-seconds: 3600
     - name: package
       run: |
         ISCC.exe tools/setup-nuitka.iss
@@ -334,7 +334,7 @@ jobs:
         github-artifact-id: '${{steps.upload.outputs.artifact-id}}'
         output-artifact-directory: .
         wait-for-completion: true
-        wait-for-completion-timeout-in-seconds: 1800
+        wait-for-completion-timeout-in-seconds: 3600
     - name: upload-signed
       uses: actions/upload-artifact@v4
       with:
@@ -462,10 +462,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
-        python -m pip install bump-my-version==0.32.1 pyinstaller
-    - name: Bump pre-release version
-      run: |
-        bump-my-version bump pre --no-commit --allow-dirty --verbose --serialize "{major}.{minor}.{patch}.{distance_to_latest_tag}"
+        python -m pip install pyinstaller
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
