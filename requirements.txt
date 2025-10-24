@@ -9,6 +9,6 @@ python-dateutil==2.9.0.post0
 pywin32==308; sys_platform == 'win32'
 rembg[cpu]~=2.0.65
 scipy~=1.14.0
-urllib3~=2.3.0
+urllib3~=2.5.0
 zxing-cpp~=2.3.0
 imagehash @ git+https://github.com/OpenNumismat/imagehash
