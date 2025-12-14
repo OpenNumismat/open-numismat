@@ -2800,7 +2800,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>U</source>
-        <translation>E</translation>
+        <translation>U</translation>
     </message>
     <message>
         <source>S</source>
