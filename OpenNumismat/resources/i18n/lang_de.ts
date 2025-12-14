@@ -2929,7 +2929,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Auto crop</source>
-        <translation>Auto-Crop-Schnitt</translation>
+        <translation>Auto-Schnitt</translation>
     </message>
     <message>
         <source>Show grid</source>
