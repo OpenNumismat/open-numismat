@@ -2874,7 +2874,8 @@ Created new one</source>
     <message>
         <source>Can't create reference:
 %s</source>
-        <translation>Kann Auswahlliste %s nicht erstellen</translation>
+        <translation>Kann Auswahlliste:
+%s nicht erstellen</translation>
     </message>
     <message>
         <source>Reference is a newer version.
