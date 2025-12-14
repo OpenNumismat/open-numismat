@@ -2086,7 +2086,7 @@ drag-n-drop to add an image)</source>
     <name>ImportCoinManage</name>
     <message>
         <source>Select directory with images</source>
-        <translation>Bildverzeichnis wählen</translation>
+        <translation>Verzeichnis mit Bildern wählen</translation>
     </message>
     <message>
         <source>Select directory with pre-defined images</source>
