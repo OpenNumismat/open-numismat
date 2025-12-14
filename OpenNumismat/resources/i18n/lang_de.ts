@@ -3101,7 +3101,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Chart:</source>
-        <translation>Chart:</translation>
+        <translation>Diagramm:</translation>
     </message>
     <message>
         <source>Field:</source>
