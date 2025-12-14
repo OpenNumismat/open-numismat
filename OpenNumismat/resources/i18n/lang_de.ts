@@ -2605,7 +2605,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Create new collection or open one of the existing</source>
-        <translation>Neue Sammlung erstellen oder existierende öffnen</translation>
+        <translation>Neue Sammlung erstellen oder eine vorhandene öffnen</translation>
     </message>
     <message>
         <source>%s is freeware licensed under a GPLv3.</source>
