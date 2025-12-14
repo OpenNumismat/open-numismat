@@ -1186,7 +1186,7 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation>Auto</translation>
+        <translation>Automatisch</translation>
     </message>
     <message>
         <source>X</source>
