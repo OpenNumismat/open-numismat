@@ -2437,7 +2437,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>Ö&amp;ffnen...</translation>
+        <translation>Öffnen...</translation>
     </message>
     <message>
         <source>Backup</source>
