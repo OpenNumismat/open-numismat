@@ -1089,7 +1089,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Daily request limit reached</source>
-        <translation>Tägliches Limit für Anfragen überstiegen</translation>
+        <translation>Tägliches Limit für Anfragen erreicht</translation>
     </message>
     <message>
         <source>Weekly request limit reached</source>
