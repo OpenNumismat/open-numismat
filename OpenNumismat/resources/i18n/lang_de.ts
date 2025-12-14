@@ -411,7 +411,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     <message>
         <source>Can't clear attached reference:
 %s</source>
-        <translation>Kann Auswahlliste nicht leeren:
+        <translation>Kann angefügte Auswahlliste nicht leeren
 %s</translation>
     </message>
     <message>
