@@ -2393,7 +2393,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Icon view</source>
-        <translation>Icon Ansicht</translation>
+        <translation>Icon-Ansicht</translation>
     </message>
     <message>
         <source>Card view</source>
