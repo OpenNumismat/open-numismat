@@ -1961,7 +1961,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Datei</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
