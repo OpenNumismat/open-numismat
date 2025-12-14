@@ -1969,7 +1969,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Ansehen</translation>
+        <translation>Ansehen</translation>
     </message>
     <message>
         <source>Image editor</source>
