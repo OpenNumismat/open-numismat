@@ -2990,7 +2990,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation>leicht</translation>
+        <translation>Hell</translation>
     </message>
     <message>
         <source>Blue Cerulean</source>
