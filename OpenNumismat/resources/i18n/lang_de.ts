@@ -1377,7 +1377,7 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>Pay price is great than total paid price. Save?</source>
-        <translation>Bezahlter Preis ist höher als der gesamte Preis. Trotzdem speichern?</translation>
+        <translation>Bezahlter Preis ist höher als der Gesamtpreis. Trotzdem speichern?</translation>
     </message>
     <message>
         <source>Total revenue price is negative. Save?</source>
