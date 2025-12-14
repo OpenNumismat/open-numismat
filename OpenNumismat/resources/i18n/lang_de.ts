@@ -677,7 +677,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation>Bemerkungen</translation>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Revenue</source>
