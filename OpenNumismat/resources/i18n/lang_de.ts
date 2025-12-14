@@ -2573,7 +2573,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Importing</source>
-        <translation>Import</translation>
+        <translation>Importiere</translation>
     </message>
     <message>
         <source>Import pre-defined coins?</source>
