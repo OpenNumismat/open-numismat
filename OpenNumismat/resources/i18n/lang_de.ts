@@ -927,7 +927,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Angeboten</translation>
+        <translation>Verkauf</translation>
     </message>
     <message>
         <source>Map</source>
