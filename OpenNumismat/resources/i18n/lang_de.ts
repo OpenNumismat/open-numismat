@@ -1026,7 +1026,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Enable BC</source>
-        <translation>Aktiviere v.Chr.</translation>
+        <translation>Aktiviere v. Chr.</translation>
     </message>
     <message>
         <source>Use RichText format</source>
