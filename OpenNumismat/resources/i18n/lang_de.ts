@@ -477,7 +477,8 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     <message>
         <source>Can't open collection:
 %s</source>
-        <translation>Kann Sammlung %s nicht öffnen</translation>
+        <translation>Kann Sammlung
+%s nicht öffnen</translation>
     </message>
     <message>
         <source>Collection %s in old format.
