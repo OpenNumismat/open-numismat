@@ -3240,7 +3240,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Angeboten</translation>
+        <translation>Verkauf</translation>
     </message>
     <message>
         <source>Missing</source>
