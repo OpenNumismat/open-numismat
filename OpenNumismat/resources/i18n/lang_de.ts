@@ -363,7 +363,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Attach</source>
-        <translation>Füge an</translation>
+        <translation>Anfügen</translation>
     </message>
     <message>
         <source>Attach current reference to a collection file?</source>
