@@ -1175,7 +1175,7 @@ und noch einmal versuchen.</translation>
     <name>ConvertButton</name>
     <message>
         <source>Convert</source>
-        <translation>konvertieren</translation>
+        <translation>Konvertieren</translation>
     </message>
 </context>
 <context>
