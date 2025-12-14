@@ -2738,7 +2738,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Save as PDF file</source>
-        <translation>Als PDF-datei speichern</translation>
+        <translation>Als PDF-Datei speichern</translation>
     </message>
     <message>
         <source>Word documents (*.doc)</source>
