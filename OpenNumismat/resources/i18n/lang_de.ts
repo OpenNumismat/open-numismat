@@ -444,7 +444,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Backup saved as %s</source>
-        <translation>Sicherung als %s</translation>
+        <translation>Sicherung gespeichert unter %s</translation>
     </message>
     <message>
         <source>Create mobile collection</source>
