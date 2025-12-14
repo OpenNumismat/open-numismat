@@ -1097,7 +1097,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Monthly request limit reached</source>
-        <translation>Monatliches Limit für Anfragen überstiegen</translation>
+        <translation>Monatliches Limit für Anfragen erreicht</translation>
     </message>
 </context>
 <context>
