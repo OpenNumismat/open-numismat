@@ -2742,7 +2742,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Word documents (*.doc)</source>
-        <translation>Word-Dokument (*.doc)</translation>
+        <translation>Word-Dokumente (*.doc)</translation>
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
