@@ -2754,7 +2754,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Report saving</source>
-        <translation>Speicherung des Berichts</translation>
+        <translation>Bericht wird gespeichert</translation>
     </message>
     <message>
         <source>Report saved as %s</source>
