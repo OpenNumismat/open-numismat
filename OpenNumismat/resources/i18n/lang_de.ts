@@ -262,7 +262,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>%d record(s) selected</source>
-        <translation>%d Einträge ausgewählt</translation>
+        <translation>%d Datensätze ausgewählt</translation>
     </message>
     <message>
         <source>Are you sure to remove a %d coin(s)?</source>
