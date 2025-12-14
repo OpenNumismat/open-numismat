@@ -753,7 +753,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Ruler</source>
-        <translation>Herrscher</translation>
+        <translation>Regent</translation>
     </message>
     <message>
         <source>Region</source>
