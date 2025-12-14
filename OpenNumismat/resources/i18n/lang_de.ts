@@ -483,7 +483,8 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     <message>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
-        <translation>Die Sammlung %s hat ein altes Format. (Versuche, sie vor dem Zusammenfügen zu öffnen)</translation>
+        <translation>Die Sammlung %s hat ein altes Format.
+(Versuche, sie vor dem Zusammenfügen zu öffnen)</translation>
     </message>
     <message>
         <source>Inserted %d coins, updated %d coins.
