@@ -388,7 +388,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Detaching reference</source>
-        <translation>Auswahlliste </translation>
+        <translation>Entferne Auswahlliste </translation>
     </message>
     <message>
         <source>Detach reference</source>
