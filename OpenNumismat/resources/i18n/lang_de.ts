@@ -1077,7 +1077,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Colnect service not available</source>
-        <translation>Colnect Dienst nicht verfügbar</translation>
+        <translation>Colnect Dienst nicht verfūgbar</translation>
     </message>
     <message>
         <source>Colnect data not recognised</source>
