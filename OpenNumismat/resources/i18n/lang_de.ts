@@ -3169,7 +3169,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Save chart</source>
-        <translation>Speichere Chart</translation>
+        <translation>Speichere Diagramm</translation>
     </message>
     <message>
         <source>Settings</source>
