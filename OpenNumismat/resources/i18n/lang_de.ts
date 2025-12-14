@@ -201,7 +201,7 @@
         <source>Default sort order changed.
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>Standard Sortierreihenfolge geändert.
-Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreihenfolge möglich. Sollt die Sortierreihenfolge jetzt gelösch werden?</translation>
+Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreihenfolge möglich. Soll die Sortierreihenfolge jetzt gelöscht werden?</translation>
     </message>
     <message>
         <source>%d/%d records</source>
