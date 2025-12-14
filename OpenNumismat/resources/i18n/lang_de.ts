@@ -3438,7 +3438,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Enter list title</source>
-        <translation>Katalognamen eingeben</translation>
+        <translation>Listennamen eingeben</translation>
     </message>
     <message>
         <source>Rename list</source>
