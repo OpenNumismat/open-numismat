@@ -3442,7 +3442,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Rename list</source>
-        <translation>Katalog umbenennen</translation>
+        <translation>Liste umbenennen</translation>
     </message>
     <message>
         <source>Enter new list title</source>
