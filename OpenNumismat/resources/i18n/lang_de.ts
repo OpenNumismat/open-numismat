@@ -1577,7 +1577,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Hashing method</source>
-        <translation>Hashing-Methode</translation>
+        <translation>Suchmethode</translation>
     </message>
     <message>
         <source>Start</source>
