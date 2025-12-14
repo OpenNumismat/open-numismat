@@ -489,7 +489,8 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     <message>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
-        <translation>%d Münzen eingefügt, %d Münzen aktualisiert. Die Anwendung muss jetzt neu gestartet werden.</translation>
+        <translation>%d Münzen eingefügt, %d Münzen aktualisiert.
+Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Collections looks like identical</source>
