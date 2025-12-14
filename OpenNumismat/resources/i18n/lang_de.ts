@@ -1889,11 +1889,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Zoom &amp;In (25%)</source>
-        <translation>&amp;Vergrößern (25%)</translation>
+        <translation>Vergrößern (25%)</translation>
     </message>
     <message>
         <source>Zoom &amp;Out (25%)</source>
-        <translation>&amp;Verkleinern (25%)</translation>
+        <translation>Verkleinern (25%)</translation>
     </message>
     <message>
         <source>&amp;Normal Size</source>
