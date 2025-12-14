@@ -3093,7 +3093,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Area</source>
-        <translation>Gebiet</translation>
+        <translation>Bereich</translation>
     </message>
     <message>
         <source>GeoChart</source>
