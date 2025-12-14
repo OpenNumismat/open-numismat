@@ -1945,7 +1945,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Undo</source>
-        <translation>rückgängig machen</translation>
+        <translation>rückgängig</translation>
     </message>
     <message>
         <source>Redo</source>
