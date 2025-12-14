@@ -1949,7 +1949,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Wiederholung</translation>
+        <translation>Wiederholen</translation>
     </message>
     <message>
         <source>Cut left half</source>
