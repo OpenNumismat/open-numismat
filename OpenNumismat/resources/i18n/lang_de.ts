@@ -1901,7 +1901,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;Fit to Window</source>
-        <translation>&amp;An Fenster anpassen</translation>
+        <translation>An &amp;Fenster anpassen</translation>
     </message>
     <message>
         <source>Show Tool Bar</source>
