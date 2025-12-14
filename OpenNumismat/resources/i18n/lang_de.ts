@@ -1476,7 +1476,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Default filter by</source>
-        <translation>Standarmäßig filtern nach</translation>
+        <translation>Standardmäßig filtern nach</translation>
     </message>
     <message>
         <source>Image</source>
