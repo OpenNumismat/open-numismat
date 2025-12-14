@@ -2191,7 +2191,7 @@ drag-n-drop to add an image)</source>
     <name>ListView</name>
     <message>
         <source>Select columns...</source>
-        <translation>Spalte auswählen...</translation>
+        <translation>Spalten auswählen...</translation>
     </message>
     <message>
         <source>Hide</source>
