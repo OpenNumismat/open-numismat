@@ -205,7 +205,7 @@ Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreih
     </message>
     <message>
         <source>%d/%d records</source>
-        <translation>%d/%d Sätze</translation>
+        <translation>%d/%d Datensätze</translation>
     </message>
     <message>
         <source>Report preview</source>
