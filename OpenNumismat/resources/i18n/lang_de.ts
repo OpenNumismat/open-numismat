@@ -2497,7 +2497,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Record</source>
-        <translation>Satz</translation>
+        <translation>Datensatz</translation>
     </message>
     <message>
         <source>Details</source>
