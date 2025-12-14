@@ -1965,7 +1965,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Bearbeiten</translation>
+        <translation>B&amp;earbeiten</translation>
     </message>
     <message>
         <source>&amp;View</source>
