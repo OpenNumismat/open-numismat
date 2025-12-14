@@ -1093,7 +1093,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Weekly request limit reached</source>
-        <translation>Wöchentliches Limit für Anfragen überstiegen</translation>
+        <translation>Wöchentliches Limit für Anfragen erreicht</translation>
     </message>
     <message>
         <source>Monthly request limit reached</source>
