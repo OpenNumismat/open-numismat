@@ -124,7 +124,7 @@
     </message>
     <message>
         <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
-        <translation>Alle Bilder von Objekten, die bis einschließlich 1925 hergestellt wurden, sind in der &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&lt;/a&gt; Public Domain. Andere sind für nicht kommerzielle Zwecke &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;grundsätzlich verfügbar.&lt;/a&gt;.</translation>
+        <translation>Alle Bilder von Objekten, die bis einschließlich 1925 hergestellt wurden, sind in der  &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Andere sind für nicht kommerzielle Zwecke &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;grundsätzlich verfügbar.&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Inserting records</source>
