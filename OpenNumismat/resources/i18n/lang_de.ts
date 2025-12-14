@@ -2864,7 +2864,8 @@ drag-n-drop to add an image)</source>
         <source>Can't open reference:
 %s
 Created new one</source>
-        <translation>Kann Auswahlliste %s nicht öffnen. Neue Liste erstellt.</translation>
+        <translation>Kann Auswahlliste:
+%s nicht öffnen. Neue Liste erstellt.</translation>
     </message>
     <message>
         <source>Create reference</source>
