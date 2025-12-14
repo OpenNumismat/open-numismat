@@ -3446,7 +3446,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Enter new list title</source>
-        <translation>Neuen Katalognamen eingeben</translation>
+        <translation>Neuen Listennamen eingeben</translation>
     </message>
     <message>
         <source>Remove page</source>
