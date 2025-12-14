@@ -2397,7 +2397,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Card view</source>
-        <translation>Card View</translation>
+        <translation>Karten-Ansicht</translation>
     </message>
     <message>
         <source>Change view</source>
