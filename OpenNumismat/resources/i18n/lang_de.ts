@@ -3097,7 +3097,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>GeoChart</source>
-        <translation>GeoChart</translation>
+        <translation>Landkarte</translation>
     </message>
     <message>
         <source>Chart:</source>
