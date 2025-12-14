@@ -2525,7 +2525,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Save current list...</source>
-        <translation>Aktuellen Katalog speichern...</translation>
+        <translation>Aktuellen Liste speichern...</translation>
     </message>
     <message>
         <source>Report</source>
