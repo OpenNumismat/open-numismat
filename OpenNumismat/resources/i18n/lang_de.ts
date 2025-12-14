@@ -1929,7 +1929,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Autocrop</source>
-        <translation>Autocrop-Schnitt</translation>
+        <translation>Auto-Schnitt</translation>
     </message>
     <message>
         <source>Save</source>
