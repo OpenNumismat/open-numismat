@@ -2763,7 +2763,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Report saving failed</source>
-        <translation>Bericht konnte nicht geschrieben werden</translation>
+        <translation>Bericht konnte nicht gespeichert werden</translation>
     </message>
 </context>
 <context>
