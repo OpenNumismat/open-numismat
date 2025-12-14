@@ -233,7 +233,7 @@ Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreih
     </message>
     <message>
         <source>Saving list</source>
-        <translation>Speichere Katalog</translation>
+        <translation>Speichere Liste</translation>
     </message>
     <message>
         <source>Cancel</source>
