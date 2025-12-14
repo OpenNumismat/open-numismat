@@ -2509,11 +2509,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>View in browser</source>
-        <translation>In Browser betrachten</translation>
+        <translation>Im Browser anzeigen</translation>
     </message>
     <message>
         <source>List</source>
-        <translation>Katalog</translation>
+        <translation>Liste</translation>
     </message>
     <message>
         <source>Reference</source>
