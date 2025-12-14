@@ -3081,7 +3081,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Pie</source>
-        <translation>Kuchen</translation>
+        <translation>Torte</translation>
     </message>
     <message>
         <source>Stacked bar</source>
