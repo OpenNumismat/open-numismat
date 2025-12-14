@@ -2792,7 +2792,7 @@ drag-n-drop to add an image)</source>
     <name>Reference</name>
     <message>
         <source>C</source>
-        <translation>L</translation>
+        <translation>C</translation>
     </message>
     <message>
         <source>P</source>
