@@ -2429,7 +2429,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>B&amp;eenden</translation>
+        <translation>Beenden</translation>
     </message>
     <message>
         <source>&amp;New...</source>
