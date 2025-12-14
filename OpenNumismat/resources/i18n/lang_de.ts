@@ -191,7 +191,7 @@
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
-        <translation>0 Sätze ausgewählt</translation>
+        <translation>0 Datensätze ausgewählt</translation>
     </message>
     <message>
         <source>Custom sorting</source>
