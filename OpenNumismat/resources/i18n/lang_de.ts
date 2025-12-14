@@ -2633,7 +2633,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Search by image...</source>
-        <translation>Suche nach Bild</translation>
+        <translation>Suche nach Bild...</translation>
     </message>
     <message>
         <source>Year calculator</source>
