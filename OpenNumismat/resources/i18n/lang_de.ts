@@ -2857,7 +2857,8 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Can't open reference:
 %s</source>
-        <translation>Kann Auswahlliste nicht öffnen: %s</translation>
+        <translation>Kann Auswahlliste:
+%s nicht öffnen</translation>
     </message>
     <message>
         <source>Can't open reference:
