@@ -3038,7 +3038,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Top</source>
-        <translation>oben</translation>
+        <translation>Oben</translation>
     </message>
     <message>
         <source>Right</source>
