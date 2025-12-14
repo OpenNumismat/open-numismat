@@ -3434,7 +3434,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>New list</source>
-        <translation>Neuer Katalog</translation>
+        <translation>Neue Liste</translation>
     </message>
     <message>
         <source>Enter list title</source>
