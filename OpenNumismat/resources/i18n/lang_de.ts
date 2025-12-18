@@ -3455,7 +3455,7 @@ Bitte OpenNumismat aktualisieren</translation>
     <message>
         <source>Can't close latest opened page.
 Add a new one first.</source>
-        <translation>Kann die letzte geöffnete Seite nicht schließen. 
+        <translation>Kann die letzte geöffnete Liste nicht schließen. 
 Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
