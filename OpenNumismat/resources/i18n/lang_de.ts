@@ -3466,11 +3466,11 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>Remove the page &apos;%s&apos; permanently?</source>
-        <translation>Die Seite &apos;%s&apos; dauerhaft entfernen?</translation>
+        <translation>Die Liste &apos;%s&apos; dauerhaft entfernen?</translation>
     </message>
     <message>
         <source>Remove pages</source>
-        <translation>Seiten entfernen</translation>
+        <translation>Listen entfernen</translation>
     </message>
     <message>
         <source>Remove all closed pages permanently?</source>
