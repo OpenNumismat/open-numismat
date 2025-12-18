@@ -2,7 +2,6 @@
 
 import csv
 import sys
-import urllib.request
 import urllib3
 
 from PySide6.QtCore import QStandardPaths
