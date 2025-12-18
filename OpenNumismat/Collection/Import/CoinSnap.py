@@ -78,22 +78,26 @@ class ImportCoinSnap(_Import):
 #                value = value.replace('.', '')
             record.setValue('value', value)
             record.setValue('unit', unit)
-            record.setValue('year', row[3])
-            mintmark = row[4]
-            if mintmark in (self.tr("No mint mark"), "No mint mark", "Sem marca da casa da moeda"):
+            record.setValue('year', row[5])
+            mintmark = row[6]
+            if mintmark in (self.tr("No mint mark"), "No mint mark",
+                            "Sem marca da casa da moeda", "Kein Münzzeichen"):
                 mintmark = None
             record.setValue('mintmark', mintmark)
-            subjectshort = row[5]
-            if subjectshort in (self.tr("Common series"), "Common series", "Séries comuns"):
+            subjectshort = row[3]
+            if subjectshort in (self.tr("Common series"), "Common series",
+                                "Séries comuns", "Gemeinsame Serie"):
                 subjectshort = None
             record.setValue('subjectshort', subjectshort)
-            record.setValue('price3', row[6])
-            record.setValue('catalognum1', row[7])
-            record.setValue('payprice', row[8])
-            record.setValue('features', row[10])
+            record.setValue('price3', row[8])
+            record.setValue('catalognum1', row[4])
+            record.setValue('payprice', row[11])
+            record.setValue('grade', row[7])
+            record.setValue('material', row[9])
+            record.setValue('features', row[16])
 
-            record.setValue('obverseimg', self.__getImage(row[11]))
-            record.setValue('reverseimg', self.__getImage(row[12]))
+            record.setValue('obverseimg', self.__getImage(row[12]))
+            record.setValue('reverseimg', self.__getImage(row[13]))
         except IndexError:
             pass
 
