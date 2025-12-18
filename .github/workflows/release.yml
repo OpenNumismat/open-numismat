@@ -407,7 +407,7 @@ jobs:
   macos:
     needs: [title]
     name: macOS
-    runs-on: macos-13
+    runs-on: macos-14-large
     steps:
     - uses: actions/checkout@v4
       with:
@@ -438,7 +438,7 @@ jobs:
         mkdir vol
         mv OpenNumismat.app vol
         ln -s /Applications vol/Applications
-        hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
+        hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos14.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
     - name: upload
       uses: actions/upload-artifact@v4
       with:
