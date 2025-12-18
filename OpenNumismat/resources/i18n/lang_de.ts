@@ -3450,7 +3450,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Remove page</source>
-        <translation>Seite entfernen</translation>
+        <translation>Liste entfernen</translation>
     </message>
     <message>
         <source>Can't close latest opened page.
