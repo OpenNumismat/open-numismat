@@ -1,199 +1,5 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de">
 <context>
-    <name/>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>&amp;Beenden</translation>
-    </message>
-    <message>
-        <source>Full Screen</source>
-        <translation>Vollbild</translation>
-    </message>
-    <message>
-        <source>Zoom &amp;In (25%)</source>
-        <translation>&amp;Vergrößern (25%)</translation>
-    </message>
-    <message>
-        <source>Zoom &amp;Out (25%)</source>
-        <translation>&amp;Verkleinern (25%)</translation>
-    </message>
-    <message>
-        <source>&amp;Normal Size</source>
-        <translation>&amp;Normalgröße</translation>
-    </message>
-    <message>
-        <source>&amp;Fit to Window</source>
-        <translation>An Fentster anpassen</translation>
-    </message>
-    <message>
-        <source>Show Tool Bar</source>
-        <translation>Zeige Werkzeugleiste</translation>
-    </message>
-    <message>
-        <source>Show Status Bar</source>
-        <translation>Zeige Statusleiste</translation>
-    </message>
-    <message>
-        <source>Rotate to Left</source>
-        <translation>Linksdrehung</translation>
-    </message>
-    <message>
-        <source>Rotate to Right</source>
-        <translation>Rechtsdrehung</translation>
-    </message>
-    <message>
-        <source>Rotate...</source>
-        <translation>Drehen...</translation>
-    </message>
-    <message>
-        <source>Crop...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Autocrop</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Kopieren</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation>Einfügen</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation>&amp;Datei</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Bearbeiten</translation>
-    </message>
-    <message>
-        <source>&amp;View</source>
-        <translation>&amp;Ansehen</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Bilder (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Alle Dateien (*.*)</translation>
-    </message>
-    <message>
-        <source>Image was changed. Save changes?</source>
-        <translation>Das Bild wurde geändert. Änderungen speichern?</translation>
-    </message>
-    <message>
-        <source>Country</source>
-        <translation>Land</translation>
-    </message>
-    <message>
-        <source>Number of coins</source>
-        <translation>Anzahl von Münzen</translation>
-    </message>
-    <message>
-        <source>Saving</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <source>Image not ready. Please try again later</source>
-        <translation>Bild nicht verfügbar. Bitte versuchen Sie es später noch einmal</translation>
-    </message>
-    <message>
-        <source>Total price</source>
-        <translation>Gesamtpreis</translation>
-    </message>
-    <message>
-        <source>Total paid</source>
-        <translation>Insgesamt bezahlt</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Komprimieren...</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation>Speichern als</translation>
-    </message>
-    <message>
-        <source>Exporting records</source>
-        <translation>Exportiere Datensätze</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-    <message>
-        <source>Synchronizing</source>
-        <translation>Synchronisiere...</translation>
-    </message>
-    <message>
-        <source>Can't open collection:
-%s</source>
-        <translation>Kann Sammlung %s nicht öffnen</translation>
-    </message>
-    <message>
-        <source>Collection %s in wrong format</source>
-        <translation>Sammlung %s hat ein falsches Format</translation>
-    </message>
-    <message>
-        <source>Collection %s in old format.
-(Try to open it before merging.)</source>
-        <translation>Die Sammlung %s hat ein altes Format. (Versuche, sie vor dem Zusammenfügen zu öffnen)</translation>
-    </message>
-    <message>
-        <source>Inserted %d coins, updated %d coins.
-The application will need to restart now.</source>
-        <translation>%d Münzen eingefügt, %d Münzen aktualisiert. Die Anwendung muss jetzt neu gestartet werden.</translation>
-    </message>
-    <message>
-        <source>Collections looks like identical</source>
-        <translation>Die Sammlungen scheinen identisch zu sein</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Umbenennen</translation>
-    </message>
-    <message>
-        <source>Revert to default</source>
-        <translation>auf Standard zurücksetzen</translation>
-    </message>
-    <message>
-        <source>Global enabled fields:</source>
-        <translation>Allgemein aktivierte Felder:</translation>
-    </message>
-    <message>
-        <source>New tag</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>New subtag</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Löschen</translation>
-    </message>
-    <message>
-        <source>Enter value</source>
-        <translation>Wert eingeben</translation>
-    </message>
-</context>
-<context>
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
@@ -223,70 +29,62 @@ The application will need to restart now.</source>
     <name>AnsConnector</name>
     <message>
         <source>American Numismatic Society not response</source>
-        <translation type="unfinished"/>
+        <translation>American Numismatic Society keine Antwort</translation>
     </message>
 </context>
 <context>
     <name>AnsDialog</name>
     <message>
-        <source>Catalog information courtesy of the &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Greek</source>
-        <translation type="unfinished"/>
+        <translation>griechisch</translation>
     </message>
     <message>
         <source>Roman</source>
-        <translation type="unfinished"/>
+        <translation>römisch</translation>
     </message>
     <message>
         <source>Byzantine</source>
-        <translation type="unfinished"/>
+        <translation>byzantinisch</translation>
     </message>
     <message>
         <source>Islamic</source>
-        <translation type="unfinished"/>
+        <translation>islamisch </translation>
     </message>
     <message>
         <source>East Asia</source>
-        <translation type="unfinished"/>
+        <translation>Ostasien</translation>
     </message>
     <message>
         <source>South Asia</source>
-        <translation type="unfinished"/>
+        <translation>Südasien</translation>
     </message>
     <message>
         <source>Medieval</source>
-        <translation type="unfinished"/>
+        <translation>mittelalterlich</translation>
     </message>
     <message>
         <source>Modern</source>
-        <translation type="unfinished"/>
+        <translation>modern</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"/>
+        <translation>Nordamerika</translation>
     </message>
     <message>
         <source>Latin America</source>
-        <translation type="unfinished"/>
+        <translation>Lateinamerika</translation>
     </message>
     <message>
         <source>Medals And Decorations</source>
-        <translation type="unfinished"/>
+        <translation>Medaillen und Orden</translation>
     </message>
     <message>
         <source>Decoration</source>
-        <translation type="unfinished"/>
+        <translation>Orden</translation>
     </message>
     <message>
         <source>Has images</source>
-        <translation type="unfinished"/>
+        <translation>hat Bilder</translation>
     </message>
     <message>
         <source>Add</source>
@@ -320,66 +118,81 @@ The application will need to restart now.</source>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
+    <message>
+        <source>Catalog information courtesy of the &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
+        <translation>Kataloginformationen mit freundlicher Genehmigung der &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</translation>
+    </message>
+    <message>
+        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
+        <translation>Alle Bilder von Objekten, die bis einschließlich 1925 hergestellt wurden, sind in der  &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Andere sind für nicht kommerzielle Zwecke &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;grundsätzlich verfügbar.&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>Inserting records</source>
+        <translation>Einfügen von Datensätzen</translation>
+    </message>
 </context>
 <context>
     <name>AreaNiceSeries</name>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Gesamt</translation>
     </message>
 </context>
 <context>
     <name>AreaNiceStatusChart</name>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Gesamt</translation>
     </message>
 </context>
 <context>
     <name>AreaSeries</name>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Gesamt</translation>
     </message>
 </context>
 <context>
     <name>AreaStatusChart</name>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Gesamt</translation>
     </message>
 </context>
 <context>
     <name>AxisHourEdit</name>
     <message>
         <source>h</source>
-        <translation type="unfinished"/>
+        <translation>h</translation>
     </message>
 </context>
 <context>
     <name>BackButton</name>
     <message>
         <source>Backspace</source>
-        <translation type="unfinished"/>
+        <translation>Rücktaste</translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeLineEdit</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Barcode scannen</translation>
     </message>
 </context>
 <context>
     <name>BaseCanvas</name>
     <message>
-        <source>Number of coins</source>
-        <translation>Anzahl von Münzen</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Alle Dateien (*.*)</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Bilder (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+        <source>Quantity</source>
+        <translation>Anzahl</translation>
     </message>
 </context>
 <context>
     <name>BaseTableView</name>
+    <message>
+        <source>0 records selected</source>
+        <translation>0 Datensätze ausgewählt</translation>
+    </message>
     <message>
         <source>Custom sorting</source>
         <translation>Benutzerdefinierte Sortierung</translation>
@@ -388,7 +201,11 @@ The application will need to restart now.</source>
         <source>Default sort order changed.
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>Standard Sortierreihenfolge geändert.
-Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreihenfolge möglich. Sollt die Sortierreihenfolge jetzt gelösch werden?</translation>
+Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreihenfolge möglich. Soll die Sortierreihenfolge jetzt gelöscht werden?</translation>
+    </message>
+    <message>
+        <source>%d/%d records</source>
+        <translation>%d/%d Datensätze</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -400,7 +217,7 @@ Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreih
     </message>
     <message>
         <source>Excel document (*.xlsx)</source>
-        <translation type="unfinished"/>
+        <translation>Excel-Dokument (*.xlsx)</translation>
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
@@ -416,7 +233,7 @@ Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreih
     </message>
     <message>
         <source>Saving list</source>
-        <translation>Speichere Katalog</translation>
+        <translation>Speichere Liste</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -426,10 +243,6 @@ Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreih
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
         <translation>Die Datei ist in einer anderen Anwendung geöffnet oder die nötigen Rechte fehlen. Schließe die Datei und versuche es noch einmal.</translation>
-    </message>
-    <message>
-        <source>Updating records</source>
-        <translation>Aktualisiere Datensätze</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -448,16 +261,12 @@ Close the file and try again.</source>
         <translation>Löschen von Datensätzen</translation>
     </message>
     <message>
-        <source>0 records selected</source>
-        <translation type="unfinished"/>
+        <source>%d record(s) selected</source>
+        <translation>%d Datensätze ausgewählt</translation>
     </message>
     <message>
-        <source>%d/%d records</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%n record(s) selected</source>
-        <translation type="unfinished"/>
+        <source>Are you sure to remove a %d coin(s)?</source>
+        <translation>Wollen Sie wirklich %n Münze(n) entfernen?</translation>
     </message>
 </context>
 <context>
@@ -468,7 +277,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Can&apos;t open cache</source>
-        <translation type="unfinished"/>
+        <translation>Cache-Speicher kann nicht geöffnet werden</translation>
     </message>
 </context>
 <context>
@@ -479,7 +288,26 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Clean</source>
-        <translation type="unfinished"/>
+        <translation>bereinigen</translation>
+    </message>
+</context>
+<context>
+    <name>CameraDialog</name>
+    <message>
+        <source>Shoot</source>
+        <translation>Aufnahme</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Kamera-Fehler</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Kamera nicht verfügbar</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Kamera nicht verfügbar oder durch Antivirus gesperrt</translation>
     </message>
 </context>
 <context>
@@ -535,7 +363,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Attach</source>
-        <translation>Füge an</translation>
+        <translation>Anfügen</translation>
     </message>
     <message>
         <source>Attach current reference to a collection file?</source>
@@ -560,7 +388,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Detaching reference</source>
-        <translation>Auswahlliste </translation>
+        <translation>Entferne Auswahlliste </translation>
     </message>
     <message>
         <source>Detach reference</source>
@@ -583,8 +411,8 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     <message>
         <source>Can't clear attached reference:
 %s</source>
-        <translation>Kann Auswahlliste nicht leeren:
-%s</translation>
+        <translation>Kann angefügte Auswahlliste
+%s nicht leeren</translation>
     </message>
     <message>
         <source>Detach current reference</source>
@@ -616,7 +444,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Backup saved as %s</source>
-        <translation type="unfinished"/>
+        <translation>Sicherung gespeichert unter %s</translation>
     </message>
     <message>
         <source>Create mobile collection</source>
@@ -633,6 +461,40 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     <message>
         <source>Compact...</source>
         <translation>Komprimiere...</translation>
+    </message>
+    <message>
+        <source>Vacuum...</source>
+        <translation>Komprimieren...</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Speichern als</translation>
+    </message>
+    <message>
+        <source>Synchronizing</source>
+        <translation>Synchronisiere...</translation>
+    </message>
+    <message>
+        <source>Can't open collection:
+%s</source>
+        <translation>Kann Sammlung
+%s nicht öffnen</translation>
+    </message>
+    <message>
+        <source>Collection %s in old format.
+(Try to open it before merging.)</source>
+        <translation>Die Sammlung %s hat ein altes Format.
+(Versuche, sie vor dem Zusammenfügen zu öffnen)</translation>
+    </message>
+    <message>
+        <source>Inserted %d coins, updated %d coins.
+The application will need to restart now.</source>
+        <translation>%d Münzen eingefügt, %d Münzen aktualisiert.
+Die Anwendung muss jetzt neu gestartet werden.</translation>
+    </message>
+    <message>
+        <source>Collections looks like identical</source>
+        <translation>Die Sammlungen scheinen identisch zu sein</translation>
     </message>
 </context>
 <context>
@@ -815,11 +677,11 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation>Bemerkungen</translation>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Revenue</source>
-        <translation type="unfinished"/>
+        <translation>Einnahmen</translation>
     </message>
     <message>
         <source>Buyer</source>
@@ -891,7 +753,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Ruler</source>
-        <translation>Herrscher</translation>
+        <translation>Regent</translation>
     </message>
     <message>
         <source>Region</source>
@@ -955,23 +817,23 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Grader</source>
-        <translation type="unfinished"/>
+        <translation>Zertifizierer</translation>
     </message>
     <message>
         <source>Seat</source>
-        <translation type="unfinished"/>
+        <translation>Aufnahme</translation>
     </message>
     <message>
         <source>Year on coin</source>
-        <translation type="unfinished"/>
+        <translation>Jahr auf Münze</translation>
     </message>
     <message>
         <source>Composition</source>
-        <translation type="unfinished"/>
+        <translation>Zusammensetzung</translation>
     </message>
     <message>
         <source>Material 2</source>
-        <translation type="unfinished"/>
+        <translation>2. Material</translation>
     </message>
     <message>
         <source>Width</source>
@@ -983,27 +845,31 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Technique</source>
-        <translation type="unfinished"/>
+        <translation>Verfahren</translation>
     </message>
     <message>
         <source>Modification</source>
-        <translation type="unfinished"/>
+        <translation>Abweichung</translation>
     </message>
     <message>
         <source>Die axis</source>
-        <translation type="unfinished"/>
+        <translation>Achse</translation>
     </message>
     <message>
         <source>Rating</source>
-        <translation type="unfinished"/>
+        <translation>Bewertung</translation>
     </message>
     <message>
         <source>Invoice</source>
-        <translation type="unfinished"/>
+        <translation>Rechnung</translation>
     </message>
 </context>
 <context>
     <name>CollectionModel</name>
+    <message>
+        <source>h</source>
+        <translation>h</translation>
+    </message>
     <message>
         <source>Updating records</source>
         <translation>Aktualisieren von Datensätzen</translation>
@@ -1036,13 +902,13 @@ Bitte aktualisieren Sie OpenNumismat</translation>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Filter ist zu komplex. Wird ignoriert</translation>
     </message>
-    <message>
-        <source>h</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>CollectionSettings</name>
+    <message>
+        <source>Overall</source>
+        <translation>insgesamt</translation>
+    </message>
     <message>
         <source>Main details</source>
         <translation>Übersicht</translation>
@@ -1061,15 +927,23 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Angeboten</translation>
+        <translation>Verkauf</translation>
     </message>
     <message>
         <source>Map</source>
         <translation>Karte</translation>
     </message>
     <message>
+        <source>Technical data</source>
+        <translation>Technische Daten</translation>
+    </message>
+    <message>
         <source>Parameters</source>
         <translation>Parameter</translation>
+    </message>
+    <message>
+        <source>Specificity</source>
+        <translation>Genauigkeit</translation>
     </message>
     <message>
         <source>Minting</source>
@@ -1112,27 +986,19 @@ Bitte aktualisieren Sie OpenNumismat</translation>
         <translation>Abbildungen</translation>
     </message>
     <message>
-        <source>Overall</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Technical data</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Specificity</source>
-        <translation type="unfinished"/>
+        <source>Tags</source>
+        <translation>Markierungen</translation>
     </message>
 </context>
 <context>
     <name>CollectionSettingsPage</name>
     <message>
         <source>Add field</source>
-        <translation type="unfinished"/>
+        <translation>Feld hinzufügen</translation>
     </message>
     <message>
         <source>Title template</source>
-        <translation type="unfinished"/>
+        <translation>Vorlagen-Name</translation>
     </message>
     <message>
         <source>Max image side len</source>
@@ -1160,15 +1026,19 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Enable BC</source>
-        <translation>Aktiviere v.Chr.</translation>
+        <translation>Aktiviere v. Chr.</translation>
     </message>
     <message>
         <source>Use RichText format</source>
         <translation>Benutze RichText Format</translation>
     </message>
     <message>
-        <source>Used statuses:</source>
-        <translation type="unfinished"/>
+        <source>Use relative paths for invoices</source>
+        <translation>relative Pfade für Rechnungen verwenden</translation>
+    </message>
+    <message>
+        <source>Die axis in hours</source>
+        <translation>Stempelstellung als Stundenwert</translation>
     </message>
     <message>
         <source>Default status for new coin</source>
@@ -1183,12 +1053,20 @@ Bitte aktualisieren Sie OpenNumismat</translation>
         <translation>Vorschaugröße geändert. Neuberechnung?</translation>
     </message>
     <message>
-        <source>Use relative paths for invoices</source>
-        <translation type="unfinished"/>
+        <source>5 stars in rating</source>
+        <translation>5-Sterne-Bewertung</translation>
     </message>
     <message>
-        <source>Die axis in hours</source>
-        <translation type="unfinished"/>
+        <source>Enable tags</source>
+        <translation>Markierungen aktivieren</translation>
+    </message>
+    <message>
+        <source>Used statuses (double-click for rename):</source>
+        <translation>Benutzte Stati (Doppelklick zum Entfernen)</translation>
+    </message>
+    <message>
+        <source>Sort tree by references</source>
+        <translation>Sortiere Baum nach Auswahllisten</translation>
     </message>
 </context>
 <context>
@@ -1199,11 +1077,27 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Colnect service not available</source>
-        <translation>Colnect Service nicht erreichbar</translation>
+        <translation>Colnect Dienst nicht verfūgbar</translation>
     </message>
     <message>
         <source>Colnect data not recognised</source>
         <translation>Colnect Daten nicht erkannt</translation>
+    </message>
+    <message>
+        <source>Number of requests exceeded</source>
+        <translation>Anzahl zulässiger Anfragen überstiegen</translation>
+    </message>
+    <message>
+        <source>Daily request limit reached</source>
+        <translation>Tägliches Limit für Anfragen erreicht</translation>
+    </message>
+    <message>
+        <source>Weekly request limit reached</source>
+        <translation>Wöchentliches Limit für Anfragen erreicht</translation>
+    </message>
+    <message>
+        <source>Monthly request limit reached</source>
+        <translation>Monatliches Limit für Anfragen erreicht</translation>
     </message>
 </context>
 <context>
@@ -1226,7 +1120,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Philatelic products</source>
-        <translation type="unfinished"/>
+        <translation>philatelistische Produkte</translation>
     </message>
     <message>
         <source>Category</source>
@@ -1264,12 +1158,24 @@ Bitte aktualisieren Sie OpenNumismat</translation>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
+    <message>
+        <source>Inserting records</source>
+        <translation>Einfügen von Datensätzen</translation>
+    </message>
+    <message>
+        <source>Colnect API changed.
+Please clear import cache from Settings-&gt;Import-&gt;Clear cache
+and try again.</source>
+        <translation>Die Colnect API wurde geändert.
+Import cache löschen unter Einstellungen-&gt;Import-&gt;Cache löschen
+und noch einmal versuchen.</translation>
+    </message>
 </context>
 <context>
     <name>ConvertButton</name>
     <message>
         <source>Convert</source>
-        <translation type="unfinished"/>
+        <translation>Konvertieren</translation>
     </message>
 </context>
 <context>
@@ -1280,7 +1186,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Automatisch</translation>
     </message>
     <message>
         <source>X</source>
@@ -1462,10 +1368,6 @@ Bitte aktualisieren Sie OpenNumismat</translation>
         <translation>Speichern</translation>
     </message>
     <message>
-        <source>Coin title not set. Save without title?</source>
-        <translation>Münze ohne Titel. Trotzdem speichern?</translation>
-    </message>
-    <message>
         <source>Don&apos;t show this again</source>
         <translation>Nicht mehr anzeigen</translation>
     </message>
@@ -1475,19 +1377,66 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Pay price is great than total paid price. Save?</source>
-        <translation>Bezahlter Preis ist höher als der gesamte Preis. Trotzdem speichern?</translation>
+        <translation>Bezahlter Preis ist höher als der Gesamtpreis. Trotzdem speichern?</translation>
     </message>
     <message>
         <source>Total revenue price is negative. Save?</source>
-        <translation type="unfinished"/>
+        <translation>Der Gesamtumsatzpreis ist negativ. Speichern?</translation>
     </message>
     <message>
         <source>Sale price is less than total revenue price. Save?</source>
-        <translation type="unfinished"/>
+        <translation>Der Verkaufspreis liegt unter dem Gesamtumsatzpreis. Speichern?</translation>
     </message>
     <message>
-        <source>Similar coin already exists. Save?</source>
-        <translation>Eine ähnliche Münze existiert bereits. Trotzdem speichern?</translation>
+        <source>Title not set. Save without title?</source>
+        <translation>Es wurde kein Titel angegeben. Ohne Titel speichern?</translation>
+    </message>
+    <message>
+        <source>Similar record already exists. Save?</source>
+        <translation>Ein ähnlicher Eintrag ist schon vorhanden. Trotzdem speichern?</translation>
+    </message>
+</context>
+<context>
+    <name>EditTagsTreeWidget</name>
+    <message>
+        <source>New tag</source>
+        <translation>neue Markierung</translation>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation>neue Unter-Markierung</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Umbenennen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation>Wert eingeben</translation>
+    </message>
+    <message>
+        <source>Change icon...</source>
+        <translation>Symbol ändern...</translation>
+    </message>
+    <message>
+        <source>Add icon...</source>
+        <translation>Symbol hinzufügen...</translation>
+    </message>
+    <message>
+        <source>Paste icon</source>
+        <translation>Symbol einfügen</translation>
+    </message>
+    <message>
+        <source>Clear icon</source>
+        <translation>Symbol löschen</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Datei öffnen</translation>
     </message>
 </context>
 <context>
@@ -1527,7 +1476,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Default filter by</source>
-        <translation>Standarmäßig filtern nach</translation>
+        <translation>Standardmäßig filtern nach</translation>
     </message>
     <message>
         <source>Image</source>
@@ -1572,6 +1521,18 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
         <source>System</source>
         <translation>System</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Umbenennen</translation>
+    </message>
+    <message>
+        <source>Revert to default</source>
+        <translation>auf Standard zurücksetzen</translation>
+    </message>
+    <message>
+        <source>Global enabled fields:</source>
+        <translation>Allgemein aktivierte Felder:</translation>
+    </message>
 </context>
 <context>
     <name>FilterMenuButton</name>
@@ -1608,35 +1569,39 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <name>FindDialog</name>
     <message>
         <source>Find</source>
-        <translation type="unfinished"/>
+        <translation>Suche</translation>
     </message>
     <message>
         <source>Field</source>
-        <translation type="unfinished"/>
+        <translation>Feld</translation>
     </message>
     <message>
         <source>Hashing method</source>
-        <translation type="unfinished"/>
+        <translation>Suchmethode</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation type="unfinished"/>
+        <translation>Start</translation>
     </message>
     <message>
         <source>Similarity</source>
-        <translation type="unfinished"/>
+        <translation>Ähnlichkeit</translation>
     </message>
     <message>
         <source>No image fields selected</source>
-        <translation type="unfinished"/>
+        <translation>keine Bild-Felder ausgewählt</translation>
     </message>
     <message>
         <source>Processing...</source>
-        <translation type="unfinished"/>
+        <translation>Verarbeitung…</translation>
     </message>
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Search by image</source>
+        <translation>Suche nach Bild</translation>
     </message>
 </context>
 <context>
@@ -1751,7 +1716,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Burma</source>
-        <translation type="unfinished"/>
+        <translation>Burma</translation>
     </message>
     <message>
         <source>Myanmar</source>
@@ -1763,7 +1728,30 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Available format 12.5 or 10%</source>
-        <translation type="unfinished"/>
+        <translation>verfügbares Format 12,5 oder 10 %</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Bearbeiten...</translation>
+    </message>
+</context>
+<context>
+    <name>GeoChart</name>
+    <message>
+        <source>Country</source>
+        <translation>Land</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Anzahl</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Image not ready. Please try again later</source>
+        <translation>Bild nicht verfügbar. Bitte versuchen Sie es später noch einmal</translation>
     </message>
 </context>
 <context>
@@ -1788,7 +1776,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <name>GraderLineEdit</name>
     <message>
         <source>View on grader site</source>
-        <translation type="unfinished"/>
+        <translation>Anzeige auf Webseite des Zertifizierers</translation>
     </message>
 </context>
 <context>
@@ -1830,7 +1818,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <name>ImageEdit</name>
     <message>
         <source>Exchange with</source>
-        <translation type="unfinished"/>
+        <translation>Austausch mit</translation>
     </message>
     <message>
         <source>Load...</source>
@@ -1868,7 +1856,9 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
         <source>No image available
 (double-click, right-click or
 drag-n-drop to add an image)</source>
-        <translation type="unfinished"/>
+        <translation>Kein Bild verfügbar
+(Doppelklick, Rechtsklick oder
+„drag-n-drop“, um Bild hinzuzufügen )</translation>
     </message>
     <message>
         <source>Rename image</source>
@@ -1877,6 +1867,200 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Enter new image name</source>
         <translation>Neuen Bildnamen eingeben</translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorDialog</name>
+    <message>
+        <source>Browse in viewer</source>
+        <translation>Anzeige im Viewer</translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation>&amp;Speichern unter...</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Beenden</translation>
+    </message>
+    <message>
+        <source>Full Screen</source>
+        <translation>Vollbild</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;In (25%)</source>
+        <translation>Vergrößern (25%)</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;Out (25%)</source>
+        <translation>Verkleinern (25%)</translation>
+    </message>
+    <message>
+        <source>&amp;Normal Size</source>
+        <translation>&amp;Normalgröße</translation>
+    </message>
+    <message>
+        <source>&amp;Fit to Window</source>
+        <translation>An &amp;Fenster anpassen</translation>
+    </message>
+    <message>
+        <source>Show Tool Bar</source>
+        <translation>Zeige Werkzeugleiste</translation>
+    </message>
+    <message>
+        <source>Show Status Bar</source>
+        <translation>Zeige Statusleiste</translation>
+    </message>
+    <message>
+        <source>Rotate to Left</source>
+        <translation>Linksdrehung</translation>
+    </message>
+    <message>
+        <source>Rotate to Right</source>
+        <translation>Rechtsdrehung</translation>
+    </message>
+    <message>
+        <source>Rotate...</source>
+        <translation>Drehen...</translation>
+    </message>
+    <message>
+        <source>Crop...</source>
+        <translation>Schnitt</translation>
+    </message>
+    <message>
+        <source>Autocrop</source>
+        <translation>Auto-Schnitt</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopieren</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Einfügen</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>rückgängig</translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <translation>Wiederholen</translation>
+    </message>
+    <message>
+        <source>Cut left half</source>
+        <translation>Linke Hälfte abschneiden</translation>
+    </message>
+    <message>
+        <source>Cut right half</source>
+        <translation>Rechte Hälfte abschneiden</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>Datei</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>B&amp;earbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>Ansehen</translation>
+    </message>
+    <message>
+        <source>Image editor</source>
+        <translation>Bildbearbeiter</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>Das Bild wurde geändert. Änderungen speichern?</translation>
+    </message>
+    <message>
+        <source>Save changes to current image?</source>
+        <translation>Änderungen im aktuellen Bild speichern?</translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Nicht mehr anzeigen</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <translation>Öffnen...</translation>
+    </message>
+    <message>
+        <source>Show Scroll Panel</source>
+        <translation>Bildlauf anzeigen</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Kamera</translation>
+    </message>
+    <message>
+        <source>Previous image</source>
+        <translation>Vorheriges Bild</translation>
+    </message>
+    <message>
+        <source>Next image</source>
+        <translation>Nächstes Bild</translation>
+    </message>
+    <message>
+        <source>Previous record</source>
+        <translation>Vorheriger Eintrag</translation>
+    </message>
+    <message>
+        <source>Next record</source>
+        <translation>Nächster Eintrag</translation>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation>Navigation</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Datei öffnen</translation>
+    </message>
+    <message>
+        <source>Settings...</source>
+        <translation>Einstellungen...</translation>
+    </message>
+    <message>
+        <source>Remove background</source>
+        <translation>Hintergrund entfernen</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Herunterladen</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d Mb)</source>
+        <translation>KI-Modell %s (%d Mb) wird heruntergeladen</translation>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>Das Bild wurde geändert. Änderungen speichern?</translation>
+    </message>
+    <message>
+        <source>Open folder...</source>
+        <translation>Ordner öffnen</translation>
+    </message>
+    <message>
+        <source>Open image folder</source>
+        <translation>Bildordner öffnen</translation>
     </message>
 </context>
 <context>
@@ -1897,31 +2081,12 @@ drag-n-drop to add an image)</source>
         <source>Save as...</source>
         <translation>Speichern unter...</translation>
     </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Bilder (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Alle Dateien (*.*)</translation>
-    </message>
-</context>
-<context>
-    <name>ImageViewer</name>
-    <message>
-        <source>Browse in viewer</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&amp;Save As...</source>
-        <translation>&amp;Speichern unter...</translation>
-    </message>
 </context>
 <context>
     <name>ImportCoinManage</name>
     <message>
         <source>Select directory with images</source>
-        <translation>Bildverzeichnis wählen</translation>
+        <translation>Verzeichnis mit Bildern wählen</translation>
     </message>
     <message>
         <source>Select directory with pre-defined images</source>
@@ -1952,10 +2117,32 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ImportCoinSnap</name>
+    <message>
+        <source>No mint mark</source>
+        <translation>Kein Münzzeichen</translation>
+    </message>
+    <message>
+        <source>Common series</source>
+        <translation>Allgemeine Serien</translation>
+    </message>
+    <message>
+        <source>CoinSnap not response</source>
+        <translation>CoinSnap antwortet nicht</translation>
+    </message>
+</context>
+<context>
     <name>ImportExcel</name>
     <message>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ignore&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>ImportNumista</name>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Zu viele Anfragen. Versuchen Sie es später noch einmal.</translation>
     </message>
 </context>
 <context>
@@ -1970,19 +2157,19 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>English language</source>
-        <translation type="unfinished"/>
+        <translation>Englische Sprache</translation>
     </message>
     <message>
         <source>Split denomination</source>
-        <translation type="unfinished"/>
+        <translation>getrennte Stückelung</translation>
     </message>
     <message>
         <source>Trim ID in title</source>
-        <translation type="unfinished"/>
+        <translation>Kennung im Titel kürzen</translation>
     </message>
     <message>
         <source>Price currency</source>
-        <translation type="unfinished"/>
+        <translation>Währung des Preises</translation>
     </message>
     <message>
         <source>Clear cache</source>
@@ -1990,7 +2177,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Import cache cleared</source>
-        <translation type="unfinished"/>
+        <translation>Import-Cache-Speicher gelöscht</translation>
     </message>
 </context>
 <context>
@@ -2004,7 +2191,7 @@ drag-n-drop to add an image)</source>
     <name>ListView</name>
     <message>
         <source>Select columns...</source>
-        <translation>Spalte auswählen...</translation>
+        <translation>Spalten auswählen...</translation>
     </message>
     <message>
         <source>Hide</source>
@@ -2036,7 +2223,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Filter in</source>
-        <translation type="unfinished"/>
+        <translation>Filter</translation>
     </message>
     <message>
         <source>Move up</source>
@@ -2075,10 +2262,6 @@ drag-n-drop to add an image)</source>
         <translation>Symbol löschen</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
-        <translation>Abbildungen (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Alle Dateien (*.*)</translation>
-    </message>
-    <message>
         <source>Open File</source>
         <translation>Datei öffnen</translation>
     </message>
@@ -2103,7 +2286,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Coin changes before autobackup</source>
-        <translation type="unfinished"/>
+        <translation>Änderungen vor Auto-Backup</translation>
     </message>
     <message>
         <source>Send error info to author</source>
@@ -2134,10 +2317,6 @@ drag-n-drop to add an image)</source>
         <translation>Standardvorlage</translation>
     </message>
     <message>
-        <source>Images count by default</source>
-        <translation>Anzahl der Bilder standardmässig ermitteln</translation>
-    </message>
-    <message>
         <source>Use built-in image viewer</source>
         <translation>Integrierten Bildbetrachter benutzen</translation>
     </message>
@@ -2147,19 +2326,19 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"/>
+        <translation>normal</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation type="unfinished"/>
+        <translation>groß</translation>
     </message>
     <message>
         <source>Huge</source>
-        <translation type="unfinished"/>
+        <translation>riesig</translation>
     </message>
     <message>
         <source>Font size</source>
@@ -2168,6 +2347,42 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Select reference</source>
         <translation>Wert auswählen</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Bild Hintergrundfarbe</translation>
+    </message>
+    <message>
+        <source>Use webcam</source>
+        <translation>Webcam benutzen</translation>
+    </message>
+    <message>
+        <source>Show counter in tree and statistics</source>
+        <translation>Zeige Zähler in Baum und Statistiken</translation>
+    </message>
+    <message>
+        <source>System</source>
+        <translation>System</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>leicht</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Dunkel</translation>
+    </message>
+    <message>
+        <source>Color scheme</source>
+        <translation>Farbschema</translation>
+    </message>
+    <message>
+        <source>Transparent</source>
+        <translation>Durchsichtig</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Farbe</translation>
     </message>
 </context>
 <context>
@@ -2178,15 +2393,15 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Icon view</source>
-        <translation>Icon Ansicht</translation>
+        <translation>Icon-Ansicht</translation>
     </message>
     <message>
         <source>Card view</source>
-        <translation>Card View</translation>
+        <translation>Karten-Ansicht</translation>
     </message>
     <message>
         <source>Change view</source>
-        <translation type="unfinished"/>
+        <translation>Ansicht ändern</translation>
     </message>
     <message>
         <source>Info panel</source>
@@ -2214,7 +2429,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>&amp;Beenden</translation>
+        <translation>Beenden</translation>
     </message>
     <message>
         <source>&amp;New...</source>
@@ -2222,7 +2437,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>Ö&amp;ffnen...</translation>
+        <translation>Öffnen...</translation>
     </message>
     <message>
         <source>Backup</source>
@@ -2258,7 +2473,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Datei</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>Add</source>
@@ -2281,20 +2496,24 @@ drag-n-drop to add an image)</source>
         <translation>Einfügen</translation>
     </message>
     <message>
+        <source>Record</source>
+        <translation>Datensatz</translation>
+    </message>
+    <message>
         <source>Details</source>
         <translation>Details</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Ansehen</translation>
+        <translation>Ansehen</translation>
     </message>
     <message>
         <source>View in browser</source>
-        <translation>In Browser betrachten</translation>
+        <translation>Im Browser anzeigen</translation>
     </message>
     <message>
         <source>List</source>
-        <translation>Katalog</translation>
+        <translation>Liste</translation>
     </message>
     <message>
         <source>Reference</source>
@@ -2306,7 +2525,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Save current list...</source>
-        <translation>Aktuellen Katalog speichern...</translation>
+        <translation>Aktuelle Liste speichern...</translation>
     </message>
     <message>
         <source>Report</source>
@@ -2354,7 +2573,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Importing</source>
-        <translation>Import</translation>
+        <translation>Importiere</translation>
     </message>
     <message>
         <source>Import pre-defined coins?</source>
@@ -2386,7 +2605,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Create new collection or open one of the existing</source>
-        <translation>Neue Sammlung erstellen oder existierende öffnen</translation>
+        <translation>Neue Sammlung erstellen oder eine vorhandene öffnen</translation>
     </message>
     <message>
         <source>%s is freeware licensed under a GPLv3.</source>
@@ -2409,26 +2628,52 @@ drag-n-drop to add an image)</source>
         <translation>Neue Version verfügbar. Jetzt herunterladen?</translation>
     </message>
     <message>
-        <source>Record</source>
-        <translation type="unfinished"/>
+        <source>Tags...</source>
+        <translation>Markierungen…</translation>
     </message>
     <message>
-        <source>Tags...</source>
-        <translation type="unfinished"/>
+        <source>Search by image...</source>
+        <translation>Suche nach Bild...</translation>
+    </message>
+    <message>
+        <source>Year calculator</source>
+        <translation>Jahresrechner</translation>
+    </message>
+    <message>
+        <source>References generator</source>
+        <translation>Referenzgenerator</translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation>Werkzeuge</translation>
+    </message>
+</context>
+<context>
+    <name>NGCBarcodeDialog</name>
+    <message>
+        <source>NGC barcode parser</source>
+        <translation>NGC Barcodeleser</translation>
     </message>
 </context>
 <context>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
-        <translation type="unfinished"/>
+        <translation>Jahresrechner</translation>
     </message>
 </context>
 <context>
-    <name>NumistaAuthentication</name>
+    <name>OldPCGSBarcodeDialog</name>
     <message>
-        <source>Numista</source>
-        <translation>Numista</translation>
+        <source>PCGS barcode parser</source>
+        <translation>PCGS Barcodeleser</translation>
+    </message>
+</context>
+<context>
+    <name>PCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation>PCGS Barcodeleser</translation>
     </message>
 </context>
 <context>
@@ -2493,11 +2738,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Save as PDF file</source>
-        <translation>Als PDF-datei speichern</translation>
+        <translation>Als PDF-Datei speichern</translation>
     </message>
     <message>
         <source>Word documents (*.doc)</source>
-        <translation>Word-Dokument (*.doc)</translation>
+        <translation>Word-Dokumente (*.doc)</translation>
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
@@ -2509,26 +2754,27 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Report saving</source>
-        <translation type="unfinished"/>
+        <translation>Bericht wird gespeichert</translation>
     </message>
     <message>
         <source>Report saved as %s</source>
-        <translation type="unfinished"/>
+        <translation>Bericht wurde unter
+%s gespeichert</translation>
     </message>
     <message>
         <source>Report saving failed</source>
-        <translation type="unfinished"/>
+        <translation>Bericht konnte nicht gespeichert werden</translation>
     </message>
 </context>
 <context>
     <name>ProgressChart</name>
     <message>
         <source>Trend</source>
-        <translation type="unfinished"/>
+        <translation>Trend</translation>
     </message>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Gesamt</translation>
     </message>
 </context>
 <context>
@@ -2546,7 +2792,7 @@ drag-n-drop to add an image)</source>
     <name>Reference</name>
     <message>
         <source>C</source>
-        <translation>L</translation>
+        <translation>C</translation>
     </message>
     <message>
         <source>P</source>
@@ -2554,7 +2800,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>U</source>
-        <translation>E</translation>
+        <translation>U</translation>
     </message>
     <message>
         <source>S</source>
@@ -2563,10 +2809,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>G</source>
         <translation>G</translation>
-    </message>
-    <message>
-        <source>M</source>
-        <translation>M</translation>
     </message>
     <message>
         <source>F</source>
@@ -2601,19 +2843,29 @@ drag-n-drop to add an image)</source>
         <translation>Rand</translation>
     </message>
     <message>
+        <source>Material</source>
+        <translation>Material</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation>M</translation>
+    </message>
+    <message>
         <source>Open reference</source>
         <translation>Auswahlliste öffnen</translation>
     </message>
     <message>
         <source>Can't open reference:
 %s</source>
-        <translation>Kann Auswahlliste nicht öffnen: %s</translation>
+        <translation>Kann Auswahlliste:
+%s nicht öffnen</translation>
     </message>
     <message>
         <source>Can't open reference:
 %s
 Created new one</source>
-        <translation>Kann Auswahlliste %s nicht öffnen. Neue Liste erstellt.</translation>
+        <translation>Kann Auswahlliste:
+%s nicht öffnen. Neue Liste erstellt.</translation>
     </message>
     <message>
         <source>Create reference</source>
@@ -2622,16 +2874,14 @@ Created new one</source>
     <message>
         <source>Can't create reference:
 %s</source>
-        <translation>Kann Auswahlliste %s nicht erstellen</translation>
-    </message>
-    <message>
-        <source>Material</source>
-        <translation>Material</translation>
+        <translation>Kann Auswahlliste:
+%s nicht erstellen</translation>
     </message>
     <message>
         <source>Reference is a newer version.
 Please update OpenNumismat</source>
-        <translation type="unfinished"/>
+        <translation>Referenz hat eine neuere Version.
+Bitte OpenNumismat aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -2675,15 +2925,34 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Angle</source>
-        <translation type="unfinished"/>
+        <translation>Perspektive</translation>
     </message>
     <message>
         <source>Auto crop</source>
-        <translation type="unfinished"/>
+        <translation>Auto-Schnitt</translation>
     </message>
     <message>
         <source>Show grid</source>
         <translation>Raster anzeigen</translation>
+    </message>
+</context>
+<context>
+    <name>ScanBarcodeDialog</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation>Barcode scannen</translation>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation>Kamera nicht verfügbar</translation>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation>Kamera nicht verfügbar oder durch Antivirus gesperrt</translation>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation>Kamera-Fehler</translation>
     </message>
 </context>
 <context>
@@ -2717,35 +2986,35 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Chart settings</source>
-        <translation type="unfinished"/>
+        <translation>Diagramm-Einstellungen</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"/>
+        <translation>Hell</translation>
     </message>
     <message>
         <source>Blue Cerulean</source>
-        <translation type="unfinished"/>
+        <translation>Himmelblau</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"/>
+        <translation>Dunkel</translation>
     </message>
     <message>
         <source>Brown Sand</source>
-        <translation type="unfinished"/>
+        <translation>Sandbraun</translation>
     </message>
     <message>
         <source>Blue Ncs</source>
-        <translation type="unfinished"/>
+        <translation>Blau NCS</translation>
     </message>
     <message>
         <source>High Contrast</source>
-        <translation type="unfinished"/>
+        <translation>Hoher Kontrast</translation>
     </message>
     <message>
         <source>Blue Icy</source>
-        <translation type="unfinished"/>
+        <translation>Eisblau</translation>
     </message>
     <message>
         <source>Qt</source>
@@ -2753,7 +3022,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Chart theme</source>
-        <translation type="unfinished"/>
+        <translation>Thema des Diagramms</translation>
     </message>
     <message>
         <source>Multicolor</source>
@@ -2761,35 +3030,43 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Use BLAF palette</source>
-        <translation type="unfinished"/>
+        <translation>Benutze BLAF-Palette</translation>
     </message>
     <message>
         <source>Show legend (Pie)</source>
-        <translation type="unfinished"/>
+        <translation>Zeige Beschriftung (Tortendiagramm)</translation>
     </message>
     <message>
         <source>Top</source>
-        <translation type="unfinished"/>
+        <translation>Oben</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"/>
+        <translation>Rechts</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"/>
+        <translation>Unten</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"/>
+        <translation>Links</translation>
     </message>
     <message>
         <source>Legend position</source>
-        <translation type="unfinished"/>
+        <translation>Postion der Beschriftung</translation>
     </message>
     <message>
         <source>Nice years (Area)</source>
-        <translation type="unfinished"/>
+        <translation>Nette Jahre (Bereich)</translation>
+    </message>
+    <message>
+        <source>Backround remover AI model</source>
+        <translation>Hintergrund-Entferner AI Modell</translation>
+    </message>
+    <message>
+        <source>Window backgroud color</source>
+        <translation>Fenster-Hintergrundfarbe</translation>
     </message>
 </context>
 <context>
@@ -2804,11 +3081,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Pie</source>
-        <translation>Kuchen</translation>
+        <translation>Torte</translation>
     </message>
     <message>
         <source>Stacked bar</source>
-        <translation type="unfinished"/>
+        <translation>Balkendigramm</translation>
     </message>
     <message>
         <source>Progress</source>
@@ -2816,15 +3093,15 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Area</source>
-        <translation type="unfinished"/>
+        <translation>Bereich</translation>
     </message>
     <message>
         <source>GeoChart</source>
-        <translation>GeoChart</translation>
+        <translation>Landkarte</translation>
     </message>
     <message>
         <source>Chart:</source>
-        <translation>Chart:</translation>
+        <translation>Diagramm:</translation>
     </message>
     <message>
         <source>Field:</source>
@@ -2836,7 +3113,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Sum per:</source>
-        <translation type="unfinished"/>
+        <translation>Summe pro:</translation>
     </message>
     <message>
         <source>Year</source>
@@ -2856,11 +3133,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Items:</source>
-        <translation type="unfinished"/>
+        <translation>Artikel:</translation>
     </message>
     <message>
         <source>Status changing</source>
-        <translation type="unfinished"/>
+        <translation>Statusänderung</translation>
     </message>
     <message>
         <source>Region:</source>
@@ -2892,7 +3169,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Save chart</source>
-        <translation>Speichere Chart</translation>
+        <translation>Speichere Diagramm</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -2900,19 +3177,31 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Zoom In (25%)</source>
-        <translation type="unfinished"/>
+        <translation>Vergrößern (25%)</translation>
     </message>
     <message>
         <source>Zoom Out (25%)</source>
-        <translation type="unfinished"/>
+        <translation>Verkleinern (25%)</translation>
     </message>
     <message>
         <source>Pay date</source>
-        <translation type="unfinished"/>
+        <translation>Datum der Zahlung</translation>
     </message>
     <message>
         <source>Sale date</source>
-        <translation type="unfinished"/>
+        <translation>Verkaufsdatum</translation>
+    </message>
+    <message>
+        <source>Total price</source>
+        <translation>Gesamtpreis</translation>
+    </message>
+    <message>
+        <source>Total paid</source>
+        <translation>Insgesamt bezahlt</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Anzahl</translation>
     </message>
 </context>
 <context>
@@ -2939,7 +3228,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Replacement</source>
-        <translation type="unfinished"/>
+        <translation>Ersatz</translation>
     </message>
     <message>
         <source>Sold</source>
@@ -2951,7 +3240,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Angeboten</translation>
+        <translation>Verkauf</translation>
     </message>
     <message>
         <source>Missing</source>
@@ -2970,7 +3259,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>[Selected]</source>
-        <translation type="unfinished"/>
+        <translation>[ausgewählt]</translation>
     </message>
     <message>
         <source>[All]</source>
@@ -3066,7 +3355,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Total (paid - earned): %s</source>
-        <translation type="unfinished"/>
+        <translation>Gesamt (bezahlt - verdient): %s</translation>
     </message>
     <message>
         <source>First purchase: %s</source>
@@ -3120,6 +3409,22 @@ Please update OpenNumismat</source>
         <translation>Entfernen</translation>
     </message>
     <message>
+        <source>Clear all filters</source>
+        <translation>Alle Filter löschen</translation>
+    </message>
+    <message>
+        <source>Clear sort order</source>
+        <translation>Sortierreihenfolge löschen</translation>
+    </message>
+    <message>
+        <source>Save sort order</source>
+        <translation>Sortierreihenfolge speichern</translation>
+    </message>
+    <message>
+        <source>Customize tree...</source>
+        <translation>Baum anpassen...</translation>
+    </message>
+    <message>
         <source> (clone)</source>
         <translation>(duplizieren)</translation>
     </message>
@@ -3129,19 +3434,19 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>New list</source>
-        <translation>Neuer Katalog</translation>
+        <translation>Neue Liste</translation>
     </message>
     <message>
         <source>Enter list title</source>
-        <translation>Katalognamen eingeben</translation>
+        <translation>Listennamen eingeben</translation>
     </message>
     <message>
         <source>Rename list</source>
-        <translation>Katalog umbenennen</translation>
+        <translation>Liste umbenennen</translation>
     </message>
     <message>
         <source>Enter new list title</source>
-        <translation>Neuen Katalognamen eingeben</translation>
+        <translation>Neuen Listennamen eingeben</translation>
     </message>
     <message>
         <source>Remove page</source>
@@ -3171,22 +3476,6 @@ Fügen Sie erst eine Neue ein.</translation>
         <source>Remove all closed pages permanently?</source>
         <translation>Alle geschlossenen Seiten dauerhaft entfernen?</translation>
     </message>
-    <message>
-        <source>Clear all filters</source>
-        <translation>Alle Filter löschen</translation>
-    </message>
-    <message>
-        <source>Clear sort order</source>
-        <translation>Sortierreihenfolge löschen</translation>
-    </message>
-    <message>
-        <source>Save sort order</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Customize tree...</source>
-        <translation>Baum anpassen...</translation>
-    </message>
 </context>
 <context>
     <name>TableDialog</name>
@@ -3199,11 +3488,11 @@ Fügen Sie erst eine Neue ein.</translation>
     <name>TagsDialog</name>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation>Markierungen</translation>
     </message>
     <message>
         <source>New tag</source>
-        <translation type="unfinished"/>
+        <translation>Neue Markierung</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -3215,7 +3504,7 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>Save tags</source>
-        <translation type="unfinished"/>
+        <translation>Markierungen sichern</translation>
     </message>
     <message>
         <source>Something went wrong when saving. Please restart</source>
@@ -3237,20 +3526,12 @@ Fügen Sie erst eine Neue ein.</translation>
         <translation>Neue Münze hinzufügen</translation>
     </message>
     <message>
-        <source>Edit coins...</source>
-        <translation>Münzen bearbeiten...</translation>
-    </message>
-    <message>
         <source>Customize tree...</source>
         <translation>Baum anpassen...</translation>
     </message>
     <message>
-        <source>Updating records</source>
-        <translation>Aktualisiere Datensätze</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <source>Multi edit...</source>
+        <translation>Mehrfach bearbeiten...</translation>
     </message>
 </context>
 <context>
@@ -3294,30 +3575,37 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
 </context>
 <context>
+    <name>WindowSettingsDialog</name>
+    <message>
+        <source>Transparent</source>
+        <translation>Durchsichtig</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Farbe</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation>Bild Hintergrundfarbe</translation>
+    </message>
+</context>
+<context>
     <name>YearCalculatorDialog</name>
     <message>
         <source>Year calculator</source>
-        <translation type="unfinished"/>
+        <translation>Jahresrechner </translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation type="unfinished"/>
+        <translation>hebräisch</translation>
     </message>
     <message>
         <source>Units</source>
-        <translation type="unfinished"/>
+        <translation>Stückzahl</translation>
     </message>
     <message>
         <source>Islamic</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Solar hijri</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Japan</source>
-        <translation>Japan</translation>
+        <translation>islamisch</translation>
     </message>
     <message>
         <source>Year</source>
@@ -3325,7 +3613,7 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>Roman</source>
-        <translation type="unfinished"/>
+        <translation>römisch</translation>
     </message>
     <message>
         <source>Nepal</source>
@@ -3333,11 +3621,19 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>Thai</source>
-        <translation type="unfinished"/>
+        <translation>Thai</translation>
     </message>
     <message>
         <source>Burmese</source>
-        <translation type="unfinished"/>
+        <translation>birmanisch</translation>
+    </message>
+    <message>
+        <source>Iranian</source>
+        <translation>Iranisch/Persisch</translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Japanisch</translation>
     </message>
 </context>
 <context>
@@ -3390,6 +3686,24 @@ Fügen Sie erst eine Neue ein.</translation>
     <message>
         <source>Updating records</source>
         <translation>Aktualisiere Datensätze</translation>
+    </message>
+</context>
+<context>
+    <name>readImageFilters</name>
+    <message>
+        <source>Images (%s)</source>
+        <translation>Bilder (%s)</translation>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Alle Dateien (*.*)</translation>
+    </message>
+</context>
+<context>
+    <name>saveImageFilters</name>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Alle Dateien (*.*)</translation>
     </message>
 </context>
 </TS>
