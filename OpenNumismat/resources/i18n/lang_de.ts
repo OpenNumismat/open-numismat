@@ -3461,7 +3461,7 @@ Fügen Sie erst eine Neue ein.</translation>
     <message>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
-        <translation>Kann die letzte geöffnete Seite nicht entfernen. 
+        <translation>Kann die letzte geöffnete Liste nicht entfernen. 
 Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
