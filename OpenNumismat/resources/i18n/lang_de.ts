@@ -3474,7 +3474,7 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>Remove all closed pages permanently?</source>
-        <translation>Alle geschlossenen Seiten dauerhaft entfernen?</translation>
+        <translation>Alle geschlossenen Listen dauerhaft entfernen?</translation>
     </message>
 </context>
 <context>
