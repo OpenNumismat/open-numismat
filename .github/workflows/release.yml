@@ -407,7 +407,7 @@ jobs:
   macos:
     needs: [title]
     name: macOS
-    runs-on: macos-14-large
+    runs-on: macos-15-intel
     steps:
     - uses: actions/checkout@v4
       with:
@@ -438,18 +438,18 @@ jobs:
         mkdir vol
         mv OpenNumismat.app vol
         ln -s /Applications vol/Applications
-        hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos14.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
+        hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg
-        path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
+        path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg
         if-no-files-found: error
 
   macos-arm64:
     needs: [title]
     name: macOS arm64
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
     - uses: actions/checkout@v4
       with:
@@ -480,12 +480,12 @@ jobs:
         mkdir vol
         mv OpenNumismat.app vol
         ln -s /Applications vol/Applications
-        hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
+        hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64
-        path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
+        path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg
         if-no-files-found: error
 
   release:
@@ -551,13 +551,13 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
-        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos13.dmg
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg
         asset_content_type: application/octet-stream
     - name: upload-macos-arm64
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64/${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
-        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos14-arm64.dmg
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64/${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg
+        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg
         asset_content_type: application/octet-stream
