@@ -3450,31 +3450,31 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Remove page</source>
-        <translation>Seite entfernen</translation>
+        <translation>Liste entfernen</translation>
     </message>
     <message>
         <source>Can't close latest opened page.
 Add a new one first.</source>
-        <translation>Kann die letzte geöffnete Seite nicht schließen. 
+        <translation>Kann die zuletzt geöffnete Seite nicht schließen. 
 Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
-        <translation>Kann die letzte geöffnete Seite nicht entfernen. 
+        <translation>Kann die letzte geöffnete Liste nicht entfernen. 
 Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>Remove the page &apos;%s&apos; permanently?</source>
-        <translation>Die Seite &apos;%s&apos; dauerhaft entfernen?</translation>
+        <translation>Die Liste &apos;%s&apos; dauerhaft entfernen?</translation>
     </message>
     <message>
         <source>Remove pages</source>
-        <translation>Seiten entfernen</translation>
+        <translation>Listen entfernen</translation>
     </message>
     <message>
         <source>Remove all closed pages permanently?</source>
-        <translation>Alle geschlossenen Seiten dauerhaft entfernen?</translation>
+        <translation>Alle geschlossenen Listen dauerhaft entfernen?</translation>
     </message>
 </context>
 <context>
