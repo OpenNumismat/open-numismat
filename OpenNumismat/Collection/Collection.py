@@ -1075,7 +1075,13 @@ class Collection(QObject):
         sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
         QSqlQuery(sql, self.db)
 
-        sql = "CREATE TABLE photos (id INTEGER PRIMARY KEY, title TEXT, image BLOB)"
+        sql = """CREATE TABLE photos (
+                    id INTEGER PRIMARY KEY,
+                    title TEXT,
+                    image BLOB,
+                    author TEXT,
+                    license TEXT,
+                    source TEXT)"""
         QSqlQuery(sql, self.db)
 
         sql = "CREATE TABLE images (id INTEGER PRIMARY KEY, image BLOB)"
@@ -1086,7 +1092,9 @@ class Collection(QObject):
                     id INTEGER NOT NULL PRIMARY KEY,
                     tag TEXT,
                     parent_id INTEGER,
-                    position INTEGER)"""
+                    position INTEGER,
+                    description TEXT,
+                    icon BLOB)"""
         QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE coins_tags (
