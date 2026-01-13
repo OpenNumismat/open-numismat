@@ -33,7 +33,7 @@ VSVersionInfo(
         StringStruct('FileDescription', 'OpenNumismat'),
         StringStruct('FileVersion', '1.10.3.0'),
         StringStruct('InternalName', 'OpenNumismat.exe'),
-        StringStruct('LegalCopyright', 'Copyright (C) 2011-2025 Vitaly Ignatov'),
+        StringStruct('LegalCopyright', 'Copyright (C) 2011-2026 Vitaly Ignatov'),
         StringStruct('LegalTrademarks', ''),
         StringStruct('OriginalFilename', 'OpenNumismat.exe'),
         StringStruct('ProductName', 'OpenNumismat'),
