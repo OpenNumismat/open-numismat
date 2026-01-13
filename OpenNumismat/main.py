@@ -45,6 +45,9 @@ def main():
         app.setStyleSheet("QWidget{font-size: 11pt;}")
     elif settings['font_size'] == 2:
         app.setStyleSheet("QWidget{font-size: 13pt;}")
+    # TODO: Warning: To ensure that the application's style is set correctly,
+    # it is best to call this function before the QApplication constructor,
+    # if possible. (https://doc.qt.io/qt-6/qapplication.html#setStyle)
     app.setStyle(settings['style'])
     styleHints = app.styleHints()
     styleHints.setColorScheme(Qt.ColorScheme(settings['color_scheme']))

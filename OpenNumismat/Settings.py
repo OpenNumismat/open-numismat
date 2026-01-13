@@ -91,6 +91,13 @@ def _getUuid():
     return str(uuid.uuid1())
 
 
+def _getStyle():
+    if sys.platform == 'win32':
+        return'windowsvista'
+    else:
+        return ''
+
+
 class Settings(BaseSettings):
     default_template = os.path.join(OpenNumismat.PRJ_PATH, 'templates', 'full')
     Default = {
@@ -113,7 +120,7 @@ class Settings(BaseSettings):
         'map_type': 0,
         'built_in_viewer': True,
         'font_size': 0,
-        'style': '',
+        'style': _getStyle(),
         'chart_theme': QChart.ChartThemeLight.value,
         'multicolor_chart': False,
         'use_blaf_palette': True,
