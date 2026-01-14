@@ -451,24 +451,8 @@ Please update OpenNumismat</source>
         <translation>Записано е резервно копие като %s</translation>
     </message>
     <message>
-        <source>Create mobile collection</source>
-        <translation>Създаване на мобилна колекция</translation>
-    </message>
-    <message>
         <source>Exporting records</source>
         <translation>Експортиране на записите</translation>
-    </message>
-    <message>
-        <source>Saving...</source>
-        <translation>Записване...</translation>
-    </message>
-    <message>
-        <source>Compact...</source>
-        <translation>Compact...</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Vacuum...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -1013,6 +997,10 @@ The application will need to restart now.</source>
         <translation>0 за съхранение в оригинален размер</translation>
     </message>
     <message>
+        <source>Image quality, %</source>
+        <translation>Качество на изображението, %</translation>
+    </message>
+    <message>
         <source>Preview image height</source>
         <translation>Височина на изображенията в предварителен преглед</translation>
     </message>
@@ -1055,6 +1043,10 @@ The application will need to restart now.</source>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Височината на изображението в предварителен преглед беше променена. Да се преизчисли ли?</translation>
+    </message>
+    <message>
+        <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
+        <translation>Настройката за запазване на изображения беше променена. Да се приложи ли новата настройка към всички съхранени изображения в базата сега (възможно е качеството да се влоши)?</translation>
     </message>
     <message>
         <source>5 stars in rating</source>
@@ -1454,69 +1446,6 @@ and try again.</source>
 Do you want to send an error message to the author?</source>
         <translation>Възникна системна грешка.
 Искате ли да изпратите съобщението за грешката на автора?</translation>
-    </message>
-</context>
-<context>
-    <name>ExportDialog</name>
-    <message>
-        <source>Export to mobile</source>
-        <translation>Експортиране към мобилни устройства</translation>
-    </message>
-    <message>
-        <source>Target density of the display</source>
-        <translation>Показва плътността на пикселите</translation>
-    </message>
-    <message>
-        <source>Countries</source>
-        <translation>Държави</translation>
-    </message>
-    <message>
-        <source>Series</source>
-        <translation>Серия</translation>
-    </message>
-    <message>
-        <source>Denomination</source>
-        <translation>Деноминация</translation>
-    </message>
-    <message>
-        <source>Default filter by</source>
-        <translation>Филтър по подразбиране</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>Изображение</translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation>Лицева страна</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Обратна страна</translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation>И двете</translation>
-    </message>
-    <message>
-        <source>Export a full-sized image</source>
-        <translation>Експорт на оригиналното изображение</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation>Дестинация</translation>
-    </message>
-    <message>
-        <source>Select destination</source>
-        <translation>Избор на дестинация</translation>
-    </message>
-    <message>
-        <source>Create mobile collection</source>
-        <translation>Създаване на мобилна колекция</translation>
-    </message>
-    <message>
-        <source>Destination file not specified</source>
-        <translation>Местоназначението на файла не е посочено</translation>
     </message>
 </context>
 <context>
@@ -2470,10 +2399,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Export</source>
         <translation>Експорт</translation>
-    </message>
-    <message>
-        <source>For Android version</source>
-        <translation>За Android версия</translation>
     </message>
     <message>
         <source>&amp;File</source>
