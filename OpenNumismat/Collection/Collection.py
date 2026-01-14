@@ -253,7 +253,7 @@ class CollectionModel(QSqlTableModel):
             if value:
                 query = QSqlQuery(self.database())
                 query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
-                query.addBindValue(record.value(field + '_title'))
+                query.addBindValue(record.value(f"{field}_title"))
                 query.addBindValue(value)
                 query.exec()
 
@@ -262,8 +262,8 @@ class CollectionModel(QSqlTableModel):
                 img_id = None
 
             record.setValue(field, img_id)
-            record.remove(record.indexOf(field + '_id'))
-            record.remove(record.indexOf(field + '_title'))
+            record.remove(record.indexOf(f"{field}_id"))
+            record.remove(record.indexOf(f"{field}_title"))
 
         value = record.value('image')
         if value:
@@ -288,7 +288,7 @@ class CollectionModel(QSqlTableModel):
         self.database().transaction()
         # TODO : check that images was realy changed
         for field in ImageFields:
-            img_id = record.value(field + '_id')
+            img_id = record.value(f"{field}_id")
             value = record.value(field)
             if not value:
                 if img_id:
@@ -302,14 +302,14 @@ class CollectionModel(QSqlTableModel):
                 if img_id:
                     query = QSqlQuery(self.database())
                     query.prepare("UPDATE photos SET title=?, image=? WHERE id=?")
-                    query.addBindValue(record.value(field + '_title'))
+                    query.addBindValue(record.value(f"{field}_title"))
                     query.addBindValue(record.value(field))
                     query.addBindValue(img_id)
                     query.exec()
                 else:
                     query = QSqlQuery(self.database())
                     query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
-                    query.addBindValue(record.value(field + '_title'))
+                    query.addBindValue(record.value(f"{field}_title"))
                     query.addBindValue(record.value(field))
                     query.exec()
 
@@ -319,8 +319,8 @@ class CollectionModel(QSqlTableModel):
                 record.setValue(field, img_id)
             else:
                 record.setNull(field)
-            record.remove(record.indexOf(field + '_id'))
-            record.remove(record.indexOf(field + '_title'))
+            record.remove(record.indexOf(f"{field}_id"))
+            record.remove(record.indexOf(f"{field}_title"))
 
         img_id = record.value('image_id')
         value = record.value('image')
@@ -413,15 +413,15 @@ class CollectionModel(QSqlTableModel):
             record = super().record()
 
         for field in ImageFields:
-            record.append(QSqlField(field + '_title'))
-            record.append(QSqlField(field + '_id'))
+            record.append(QSqlField(f"{field}_title"))
+            record.append(QSqlField(f"{field}_id"))
 
             img_id = record.value(field)
             if img_id:
                 data = self.getImage(img_id)
                 record.setValue(field, data)
-                record.setValue(field + '_title', self.getImageTitle(img_id))
-                record.setValue(field + '_id', img_id)
+                record.setValue(f"{field}_title", self.getImageTitle(img_id))
+                record.setValue(f"{field}_id", img_id)
             else:
                 record.setValue(field, None)
 
