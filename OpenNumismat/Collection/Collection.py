@@ -60,7 +60,6 @@ class CollectionModel(QSqlTableModel):
     modelChanged = pyqtSignal()
     tagsChanged = pyqtSignal()
     IMAGE_FORMAT = 'webp'
-    IMAGE_QUALITY = 80
     SQLITE_READONLY = '8'
 
     def __init__(self, collection, parent=None):
@@ -521,34 +520,8 @@ class CollectionModel(QSqlTableModel):
         if self.proxy:
             self.proxy.setDynamicSortFilter(False)
 
-        for field in self.fields.userFields:
-            if field.type == Type.Image:
-                # Convert image to DB format
-                image = record.value(field.name)
-                if isinstance(image, str):
-                    # Copying record as text (from Excel) store missed images
-                    # as string
-                    record.setNull(field.name)
-                elif isinstance(image, QImage) or isinstance(image, bytes):
-                    if isinstance(image, bytes):
-                        img = QImage()
-                        img.loadFromData(image)
-                        image = img
-
-                    buffer = QBuffer()
-                    buffer.open(QIODevice.WriteOnly)
-
-                    # Resize big images for storing in DB
-                    sideLen = self.settings['ImageSideLen']
-                    if sideLen > 0:
-                        maxWidth = sideLen
-                        maxHeight = sideLen
-                        if image.width() > maxWidth or image.height() > maxHeight:
-                            image = image.scaled(maxWidth, maxHeight,
-                                    Qt.KeepAspectRatio, Qt.SmoothTransformation)
-
-                    image.save(buffer, self.IMAGE_FORMAT, self.IMAGE_QUALITY)
-                    record.setValue(field.name, buffer.data())
+        # Convert images to DB format and size
+        self._recalculatePhotos(record)
 
         # Creating preview image for list
         self._recalculateImage(record)
@@ -556,6 +529,42 @@ class CollectionModel(QSqlTableModel):
         currentTime = QDateTime.currentDateTimeUtc()
         # currentTime.setTimeSpec(Qt.LocalTime)
         record.setValue('updatedat', currentTime.toString(Qt.ISODateWithMs))
+
+    # Convert QImage to DB format and size bytes
+    def _recalculatePhoto(self, image):
+        imageSideLen = self.settings['ImageSideLen']
+        imageQuality = self.settings['image_quality']
+
+        buffer = QBuffer()
+        buffer.open(QIODevice.WriteOnly)
+
+        # Resize big images for storing in DB
+        if imageSideLen > 0:
+            maxWidth = imageSideLen
+            maxHeight = imageSideLen
+            if image.width() > maxWidth or image.height() > maxHeight:
+                image = image.scaled(maxWidth, maxHeight,
+                        Qt.KeepAspectRatio, Qt.SmoothTransformation)
+
+        image.save(buffer, self.IMAGE_FORMAT, imageQuality)
+
+        return buffer.data()
+
+    def _recalculatePhotos(self, record):
+        for field in ImageFields:
+            image = record.value(field)
+            if isinstance(image, str):
+                # Copying record as text (from Excel) store missed images
+                # as string
+                record.setNull(field)
+            elif isinstance(image, QImage) or isinstance(image, bytes):
+                if isinstance(image, bytes):
+                    img = QImage()
+                    img.loadFromData(image)
+                    image = img
+
+                value = self._recalculatePhoto(image)
+                record.setValue(field, value)
 
     def _recalculateImage(self, record):
         # Creating preview image for list
@@ -674,6 +683,46 @@ class CollectionModel(QSqlTableModel):
                 query.addBindValue(record.value('image'))
                 query.addBindValue(img_id)
                 query.exec()
+
+        progressDlg.setLabelText(self.tr("Saving..."))
+
+        self.database().commit()
+
+        progressDlg.reset()
+
+    def recalculateAllPhotos(self, parent=None):
+        while self.canFetchMore():
+            self.fetchMore()
+        rowCount = self.rowCount()
+
+        if not parent:
+            parent = self.parent()
+
+        progressDlg = Gui.ProgressDialog(self.tr("Updating records"),
+                                         self.tr("Cancel"), rowCount, parent)
+
+        self.database().transaction()
+
+        for row in range(rowCount):
+            progressDlg.step()
+            if progressDlg.wasCanceled():
+                break
+
+            record = self.record(row)
+            self._recalculatePhotos(record)
+            for field in ImageFields:
+                photo_id = record.value(f"{field}_id")
+                photo = record.value(field)
+                if photo and photo_id:
+                    image = QImage()
+                    image.loadFromData(photo)
+                    photo = self._recalculatePhoto(image)
+
+                    query = QSqlQuery(self.database())
+                    query.prepare("UPDATE photos SET image=? WHERE id=?")
+                    query.addBindValue(photo)
+                    query.addBindValue(photo_id)
+                    query.exec()
 
         progressDlg.setLabelText(self.tr("Saving..."))
 
@@ -867,6 +916,7 @@ class CollectionSettings(BaseSettings):
             'current_page': 0,
             'images_view_mask': (1 << 1) | (1 << 0),
             'sort_by_reference': True,
+            'image_quality': 80,
     }
 
     def __init__(self, db):

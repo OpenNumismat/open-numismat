@@ -329,6 +329,13 @@ class CollectionSettingsPage(QWidget):
         self.imageSideLen.setText(str(self.settings['ImageSideLen']))
         self.imageSideLen.setToolTip(self.tr("0 for storing in original size"))
 
+        self.imageQuality = QSpinBox(self)
+        self.imageQuality.setRange(50, 100)
+        self.imageQuality.setValue(self.settings['image_quality'])
+        self.imageQuality.setSizePolicy(QSizePolicy.Fixed,
+                                        QSizePolicy.Fixed)
+        layout.addRow(self.tr("Image quality, %"), self.imageQuality)
+
         self.imageHeight = QDoubleSpinBox(self)
         self.imageHeight.setRange(1, 3)
         self.imageHeight.setDecimals(1)
@@ -431,6 +438,7 @@ class CollectionSettingsPage(QWidget):
         self.settings['title_template'] = self.titleTemplate.text()
         self.settings['free_numeric'] = self.freeNumeric.isChecked()
         self.settings['convert_fraction'] = self.convertFraction.isChecked()
+        old_image_side_len = self.settings['ImageSideLen']
         self.settings['ImageSideLen'] = int(self.imageSideLen.text())
         old_image_height = self.settings['image_height']
         self.settings['image_height'] = self.imageHeight.value()
@@ -444,6 +452,8 @@ class CollectionSettingsPage(QWidget):
         self.settings['sort_by_reference'] = self.sortByRef.isChecked()
         default_status = self.defaultStatus.currentData()
         self.settings['default_status'] = default_status
+        old_image_quality = self.settings['image_quality']
+        self.settings['image_quality'] = self.imageQuality.value()
 
         for status in Statuses:
             title = self.statusUsed[status].text()
@@ -462,6 +472,14 @@ class CollectionSettingsPage(QWidget):
                     QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
             if result == QMessageBox.Yes:
                 self.model.recalculateAllImages(self)
+
+        if (self.settings['ImageSideLen'] < old_image_side_len or
+                self.settings['image_quality'] < old_image_quality):
+            result = QMessageBox.question(self, self.tr("Settings"),
+                    self.tr("Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?"),
+                    QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+            if result == QMessageBox.Yes:
+                self.model.recalculateAllPhotos(self)
 
 
 class FieldsSettingsPage(QWidget):
