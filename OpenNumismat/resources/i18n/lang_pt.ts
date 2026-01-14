@@ -1046,7 +1046,7 @@ A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
         <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
-        <translation>As definições de imagem mudaram. Deseja aplicar a todas as imagens? Pode causar perda de qualidade.</translation>
+        <translation>As definições de imagem mudaram. Deseja aplicar a todas as imagens (pode causar perda de qualidade)?</translation>
     </message>
     <message>
         <source>5 stars in rating</source>
