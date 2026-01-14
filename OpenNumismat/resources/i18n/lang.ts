@@ -446,23 +446,7 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Create mobile collection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Exporting records</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Saving...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Compact...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1005,6 +989,10 @@ The application will need to restart now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Image quality, %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Preview image height</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1046,6 +1034,10 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1442,69 +1434,6 @@ and try again.</source>
     <message>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ExportDialog</name>
-    <message>
-        <source>Export to mobile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target density of the display</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Countries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Series</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Denomination</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default filter by</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export a full-sized image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select destination</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Create mobile collection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Destination file not specified</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2456,10 +2385,6 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>For Android version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
