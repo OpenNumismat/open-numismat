@@ -9,7 +9,6 @@ import shutil
 from PySide6.QtCore import (
     Qt,
     QBuffer,
-    QByteArray,
     QCryptographicHash,
     QDate,
     QDateTime,
