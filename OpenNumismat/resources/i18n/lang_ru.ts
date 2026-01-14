@@ -1014,7 +1014,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Preview image height</source>
-        <translation>Высота изображения предпросмотра</translation>
+        <translation>Высота изображение предпросмотра</translation>
     </message>
     <message>
         <source>Images at bottom</source>
