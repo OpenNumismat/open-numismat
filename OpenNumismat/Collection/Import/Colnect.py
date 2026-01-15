@@ -900,7 +900,7 @@ class ImportColnect(_Import2):
 
     @staticmethod
     def isAvailable():
-        return True
+        return colnectAvailable
 
     def _connect(self, src):
         csvFile = io.open(src, "r", encoding='utf-8-sig')
