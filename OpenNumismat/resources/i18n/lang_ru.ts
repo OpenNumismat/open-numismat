@@ -451,24 +451,8 @@ Please update OpenNumismat</source>
         <translation>Резервная копия сохранена как %s</translation>
     </message>
     <message>
-        <source>Create mobile collection</source>
-        <translation>Создание коллекции для мобильного</translation>
-    </message>
-    <message>
         <source>Exporting records</source>
         <translation>Экспорт записей</translation>
-    </message>
-    <message>
-        <source>Saving...</source>
-        <translation>Сохранение...</translation>
-    </message>
-    <message>
-        <source>Compact...</source>
-        <translation>Сжатие...</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Сжатие...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -1013,8 +997,12 @@ The application will need to restart now.</source>
         <translation>0 для сохранения в оригинальном размере</translation>
     </message>
     <message>
+        <source>Image quality, %</source>
+        <translation>Качество изображения, %</translation>
+    </message>
+    <message>
         <source>Preview image height</source>
-        <translation>Высота изображение предпросмотра</translation>
+        <translation>Высота изображения предпросмотра</translation>
     </message>
     <message>
         <source>Images at bottom</source>
@@ -1055,6 +1043,10 @@ The application will need to restart now.</source>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Высота изображения предпросмотра была изменена. Пересчитать их сейчас?</translation>
+    </message>
+    <message>
+        <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
+        <translation>Настройки изображения были изменены. Примените новые настройки ко всем сохраненным изображениям (качество может быть снижено)?</translation>
     </message>
     <message>
         <source>5 stars in rating</source>
@@ -1454,69 +1446,6 @@ and try again.</source>
 Do you want to send an error message to the author?</source>
         <translation>Произошла ошибка.
 Вы хотите отправить сообщение об ошибке разработчику?</translation>
-    </message>
-</context>
-<context>
-    <name>ExportDialog</name>
-    <message>
-        <source>Export to mobile</source>
-        <translation>Экспорт для мобильного</translation>
-    </message>
-    <message>
-        <source>Target density of the display</source>
-        <translation>Плотность пикселей дисплея</translation>
-    </message>
-    <message>
-        <source>Countries</source>
-        <translation>Страны</translation>
-    </message>
-    <message>
-        <source>Series</source>
-        <translation>Серии</translation>
-    </message>
-    <message>
-        <source>Denomination</source>
-        <translation>Номинал</translation>
-    </message>
-    <message>
-        <source>Default filter by</source>
-        <translation>Фильтр по умолчанию</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>Изображение</translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation>Аверс</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Реверс</translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation>Оба</translation>
-    </message>
-    <message>
-        <source>Export a full-sized image</source>
-        <translation>Экспортировать полноразмерные изображения</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation>Целевой файл</translation>
-    </message>
-    <message>
-        <source>Select destination</source>
-        <translation>Выбор файла</translation>
-    </message>
-    <message>
-        <source>Create mobile collection</source>
-        <translation>Создать коллекцию для мобильного</translation>
-    </message>
-    <message>
-        <source>Destination file not specified</source>
-        <translation>Целевой файл не указан</translation>
     </message>
 </context>
 <context>
@@ -2470,10 +2399,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Export</source>
         <translation>Экспорт</translation>
-    </message>
-    <message>
-        <source>For Android version</source>
-        <translation>Версия для Android</translation>
     </message>
     <message>
         <source>&amp;File</source>
