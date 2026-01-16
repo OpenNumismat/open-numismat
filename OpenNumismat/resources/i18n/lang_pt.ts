@@ -451,24 +451,8 @@ Por favor, actualize o OpenNumismat</translation>
         <translation>Salvaguarda gravada como %s</translation>
     </message>
     <message>
-        <source>Create mobile collection</source>
-        <translation>Criar colecção móvel</translation>
-    </message>
-    <message>
         <source>Exporting records</source>
         <translation>Exportar registos</translation>
-    </message>
-    <message>
-        <source>Saving...</source>
-        <translation>A gravar...</translation>
-    </message>
-    <message>
-        <source>Compact...</source>
-        <translation>Comprimir...</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Vácuo...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -1013,6 +997,10 @@ A aplicação tem de reiniciar agora.</translation>
         <translation>0 para gravar no tamanho original</translation>
     </message>
     <message>
+        <source>Image quality, %</source>
+        <translation>Qualidade da imagem, %</translation>
+    </message>
+    <message>
         <source>Preview image height</source>
         <translation>Antever altura da imagem</translation>
     </message>
@@ -1055,6 +1043,10 @@ A aplicação tem de reiniciar agora.</translation>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Antever altura da imagem foi alterado. Recalcular agora?</translation>
+    </message>
+    <message>
+        <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
+        <translation>As definições de imagem mudaram. Deseja aplicar a todas as imagens (pode causar perda de qualidade)?</translation>
     </message>
     <message>
         <source>5 stars in rating</source>
@@ -1454,69 +1446,6 @@ e tente novamente.</translation>
 Do you want to send an error message to the author?</source>
         <translation>Ocorreu um erro de sistema.
 Quer enviar uma mensagem de erro ao autor?</translation>
-    </message>
-</context>
-<context>
-    <name>ExportDialog</name>
-    <message>
-        <source>Export to mobile</source>
-        <translation>Exportar para móvel</translation>
-    </message>
-    <message>
-        <source>Target density of the display</source>
-        <translation>Densidade alvo do monitor</translation>
-    </message>
-    <message>
-        <source>Countries</source>
-        <translation>Países</translation>
-    </message>
-    <message>
-        <source>Series</source>
-        <translation>Séries</translation>
-    </message>
-    <message>
-        <source>Denomination</source>
-        <translation>Denominação</translation>
-    </message>
-    <message>
-        <source>Default filter by</source>
-        <translation>Filtro predefinido</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>Imagem</translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation>Obverso</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Reverso</translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation>Ambos</translation>
-    </message>
-    <message>
-        <source>Export a full-sized image</source>
-        <translation>Exportar imagem de tamanho completo</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation>Destino</translation>
-    </message>
-    <message>
-        <source>Select destination</source>
-        <translation>Seleccionar destino</translation>
-    </message>
-    <message>
-        <source>Create mobile collection</source>
-        <translation>Criar colecção móvel</translation>
-    </message>
-    <message>
-        <source>Destination file not specified</source>
-        <translation>Ficheiro destino não especificado</translation>
     </message>
 </context>
 <context>
@@ -2470,10 +2399,6 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Export</source>
         <translation>Exportar</translation>
-    </message>
-    <message>
-        <source>For Android version</source>
-        <translation>Para versão Android</translation>
     </message>
     <message>
         <source>&amp;File</source>
