@@ -54,6 +54,7 @@ from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportToCsv, ExportToCsvUtf8
 from OpenNumismat.Tools.Gui import getSaveFileName, statusColor
+from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
 
 
@@ -635,6 +636,7 @@ class ListView(BaseTableView):
         menu.exec(self.mapToGlobal(pos))
         self.pos = None
 
+    @waitCursorDecorator
     def _adjustColumn(self):
         index = self.horizontalHeader().logicalIndexAt(self.pos)
         self.resizeColumnToContents(index)

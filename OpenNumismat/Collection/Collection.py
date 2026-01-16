@@ -21,6 +21,7 @@ from PySide6.QtCore import (
     QModelIndex,
     QObject,
     QRectF,
+    QSize,
     QT_TRANSLATE_NOOP,
 )
 from PySide6.QtCore import Signal as pyqtSignal
@@ -176,6 +177,27 @@ class CollectionModel(QSqlTableModel):
             field = self.fields.fields[index.column()]
             if field.type == Type.BigInt:
                 return Qt.AlignRight | Qt.AlignVCenter
+        elif role == Qt.SizeHintRole:
+            field = self.fields.fields[index.column()]
+            if field.type in (Type.PreviewImage, Type.Image):
+                data = super().data(index, Qt.DisplayRole)
+                if data:
+                    tmp = QTableView()
+                    height_multiplex = self.settings['image_height']
+                    height = int(tmp.verticalHeader().defaultSectionSize() * height_multiplex - 1)
+
+                    if field.type == Type.PreviewImage:
+                        img = self.getPreviewImage(data)
+                        image = QImage()
+                        image.loadFromData(img)
+                        return QSize(image.width(), height)
+                    elif field.type == Type.Image:
+                        img = self.getImage(data)
+                        image = QImage()
+                        image.loadFromData(img)
+                        if image.height():
+                            width = math.ceil(image.width() / image.height() * height)
+                            return QSize(width, height)
 
         return super().data(index, role)
 
