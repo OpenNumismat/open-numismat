@@ -931,3 +931,6 @@ class ImportColnect(_Import2):
         data = self.colnect.getData(action)
         data.append(url)
         self.colnect.makeItem(category, data, record)
+
+    def _close(self, _connection):
+        self.colnect.close()
