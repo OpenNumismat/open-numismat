@@ -929,8 +929,9 @@ class ImportColnect(_Import2):
         item_id = url_parts[3]
         action = "item/cat/%s/id/%s" % (category, item_id)
         data = self.colnect.getData(action)
-        data.append(url)
-        self.colnect.makeItem(category, data, record)
+        if data:
+            data.append(url)
+            self.colnect.makeItem(category, data, record)
 
     def _close(self, _connection):
         self.colnect.close()

@@ -146,6 +146,7 @@ class _Import2(QObject):
 
                     record = model.record()
                     self._setRecord(record, row)
+                    # TODO: If record isn't filled, don't append it
                     model.appendRecord(record)
 
                 progressDlg.reset()
