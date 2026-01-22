@@ -17,7 +17,10 @@ it is also suitable for other types of collectibles - stamps, postcards, badges
 and more exotic things.
 
 Since all components are cross-platform, then OpenNumismat has builds for
-Windows, Linux (Debian/Ubuntu), macOS.
+
+ * Windows,
+ * Linux (Debian/Ubuntu),
+ * macOS.
 
 ![Main window](https://opennumismat.github.io/images/screenMain.png)
 
@@ -44,30 +47,38 @@ For running from source code and development requirements can be installed like 
 `pip3 install -r requirements.txt`
 
 ## Building
-Befor building installation package may be necessary:
-* compile translations file with: `python3 tools/build_resources.py`
-* create `OpenNumismat/private_keys.py` with content: `MAPS_API_KEY = '<your Google API key>'`
+Before building you may need to install packages specific to your platform:
+
+  * compile translations file with: `python3 tools/build_resources.py`
+  * create `OpenNumismat/private_keys.py` with content:  
+ `MAPS_API_KEY = '<your Google API key>'`
 
 #### For Windows
-    pip3 install pyinstaller
-    SET PYTHONOPTIMIZE=1
-    pyinstaller --clean --noconfirm open-numismat.spec
-    "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" tools\setup.iss
+
+```sh
+pip3 install pyinstaller
+SET PYTHONOPTIMIZE=1
+pyinstaller --clean --noconfirm open-numismat.spec
+"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" tools\setup.iss
+```
 
 #### For Windows portable version
-    pip3 install pyinstaller
-    SET PYTHONOPTIMIZE=1
-    pyinstaller --clean --noconfirm open-numismat-portable.spec
+
+pip3 install pyinstaller
+SET PYTHONOPTIMIZE=1
+pyinstaller --clean --noconfirm open-numismat-portable.spec
 
 #### For macOS
-    pyinstaller --clean --noconfirm open-numismat.spec
-    cd dist
-    mkdir vol
-    VERSION=$(grep Version ../OpenNumismat/version.py | grep -o -E "\d+.\d+.\d+")
-    mv OpenNumismat.app vol
-    ln -s /Applications vol/Applications
-    hdiutil create OpenNumismat-$VERSION-macos11.dmg -volname "OpenNumismat-$VERSION" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
+
+pyinstaller --clean --noconfirm open-numismat.spec
+cd dist
+mkdir vol
+VERSION=$(grep Version ../OpenNumismat/version.py | grep -o -E "\d+.\d+.\d+")
+mv OpenNumismat.app vol
+ln -s /Applications vol/Applications
+hdiutil create OpenNumismat-$VERSION-macos11.dmg -volname "OpenNumismat-$VERSION" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
 
 #### For Linux
-    sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv
-    debuild -b -us -uc
+
+sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv
+debuild -b -us -uc
