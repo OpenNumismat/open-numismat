@@ -1,9 +1,12 @@
 import urllib.request
 
 from PySide6.QtCore import (
+    QBuffer,
     QDir,
     QFileInfo,
+    QIODevice,
     QMimeData,
+    QMimeDatabase,
     QSettings,
     QTemporaryFile,
     QUrl,
@@ -39,7 +42,6 @@ from OpenNumismat.Tools.misc import readImageFilters, saveImageFilters
 
 
 class ImageLabel(QLabel):
-    MimeType = 'num/image'
     imageEdited = pyqtSignal(QLabel)
 
     def __init__(self, field=None, title=None, parent=None):
@@ -200,7 +202,15 @@ class ImageLabel(QLabel):
         if not self.image.isNull():
             mime = QMimeData()
             mime.setImageData(self.image)
-            mime.setData(ImageLabel.MimeType, self._data)
+
+            mime_db = QMimeDatabase()
+            mime_type = mime_db.mimeTypeForData(self._data).name()
+            mime.setData(mime_type, self._data)
+
+            buffer = QBuffer()
+            buffer.open(QIODevice.WriteOnly)
+            self.image.save(buffer, 'png')
+            mime.setData('application/x-qt-windows-mime;value="PNG"', buffer.data())
 
             clipboard = QApplication.clipboard()
             clipboard.setMimeData(mime)
@@ -316,15 +326,26 @@ class ImageEdit(ImageLabel):
             mime = QMimeData()
             mime.setImageData(self.image)
             if not self.changed:
-                mime.setData(ImageLabel.MimeType, self._data)
+                mime_db = QMimeDatabase()
+                mime_type = mime_db.mimeTypeForData(self._data).name()
+                mime.setData(mime_type, self._data)
+
+            buffer = QBuffer()
+            buffer.open(QIODevice.WriteOnly)
+            self.image.save(buffer, 'png')
+            mime.setData('application/x-qt-windows-mime;value="PNG"', buffer.data())
 
             clipboard = QApplication.clipboard()
             clipboard.setMimeData(mime)
 
     def pasteImage(self):
         mime = QApplication.clipboard().mimeData()
-        if mime.hasFormat(ImageLabel.MimeType):
-            self.loadFromData(mime.data(ImageLabel.MimeType))
+        if mime.hasFormat('image/webp'):
+            data = mime.data('image/webp')
+            self.loadFromData(data)
+        elif mime.hasFormat('application/x-qt-windows-mime;value="PNG"'):
+            data = mime.data('application/x-qt-windows-mime;value="PNG"')
+            self.loadFromData(data)
         elif mime.hasImage():
             self._setNewImage(mime.imageData())
         elif mime.hasUrls():
