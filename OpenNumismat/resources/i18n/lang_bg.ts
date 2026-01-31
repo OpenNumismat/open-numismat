@@ -2510,7 +2510,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
-        <translation>Преди да импортирате, трябва да експортирате съществуващата колекции от Collection Studio в таблица XML (изберете Collection Studio от менюто Инструменти &gt; Експортиране...).</translation>
+        <translation>Преди да импортирате, трябва да експортирате съществуващата колекции от Collection Studio в таблица XML (изберете Collection Studio от меню Инструменти &gt; Експортиране...).</translation>
     </message>
     <message>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
