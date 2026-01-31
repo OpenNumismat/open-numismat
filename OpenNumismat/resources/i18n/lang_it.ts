@@ -1045,8 +1045,7 @@ L&apos;applicazione deve essere riavviata.</translation>
     </message>
     <message>
         <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
-        <translation>Le impostazioni dell&apos;immagine sono state cambiate. Vuoi applicare le nuove impostazioni a tutte le immagini archiviate (la qualità potrebbe essere ridotta)?
-Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</translation>
+        <translation>Le impostazioni dell&apos;immagine sono state cambiate. Vuoi applicare le nuove impostazioni a tutte le immagini archiviate (la qualità potrebbe essere ridotta)?</translation>
     </message>
     <message>
         <source>5 stars in rating</source>
