@@ -450,24 +450,8 @@ Si prega di aggiornare OpenNumismat</translation>
         <translation>Backup salvato come %s</translation>
     </message>
     <message>
-        <source>Create mobile collection</source>
-        <translation>Crea collezione mobile</translation>
-    </message>
-    <message>
         <source>Exporting records</source>
         <translation>Esportazione dati</translation>
-    </message>
-    <message>
-        <source>Saving...</source>
-        <translation>Salvataggio...</translation>
-    </message>
-    <message>
-        <source>Compact...</source>
-        <translation>Compatta...</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Compressione...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -1012,6 +996,10 @@ L&apos;applicazione deve essere riavviata.</translation>
         <translation>0 per la memorizzazione nella dimensione originale</translation>
     </message>
     <message>
+        <source>Image quality, %</source>
+        <translation>Qualità immagine, %</translation>
+    </message>
+    <message>
         <source>Preview image height</source>
         <translation>Anteprima altezza immagine</translation>
     </message>
@@ -1054,6 +1042,11 @@ L&apos;applicazione deve essere riavviata.</translation>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>L&apos;altezza dell&apos;immagine di anteprima è stata modificata. Ricalcolo ora?</translation>
+    </message>
+    <message>
+        <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
+        <translation>Le impostazioni dell&apos;immagine sono state cambiate. Vuoi applicare le nuove impostazioni a tutte le immagini archiviate (la qualità potrebbe essere ridotta)?
+Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</translation>
     </message>
     <message>
         <source>5 stars in rating</source>
@@ -1451,69 +1444,6 @@ and try again.</source>
 Do you want to send an error message to the author?</source>
         <translation>Si è verificato un errore di sistema.
 Vuoi mandare un messaggio di errore agli autori?</translation>
-    </message>
-</context>
-<context>
-    <name>ExportDialog</name>
-    <message>
-        <source>Export to mobile</source>
-        <translation>Esporta su mobile</translation>
-    </message>
-    <message>
-        <source>Target density of the display</source>
-        <translation>Densità ottimale dello schermo</translation>
-    </message>
-    <message>
-        <source>Countries</source>
-        <translation>Nazioni</translation>
-    </message>
-    <message>
-        <source>Series</source>
-        <translation>Serie</translation>
-    </message>
-    <message>
-        <source>Denomination</source>
-        <translation>Denominazione</translation>
-    </message>
-    <message>
-        <source>Default filter by</source>
-        <translation>Filtro predefinito da</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>Immagine</translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation>Dritto</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Rovescio</translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation>Entrambi</translation>
-    </message>
-    <message>
-        <source>Export a full-sized image</source>
-        <translation>Esportare un&apos;immagine alla massima dimensione</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation>Destinazione</translation>
-    </message>
-    <message>
-        <source>Select destination</source>
-        <translation>Seleziona destinazione</translation>
-    </message>
-    <message>
-        <source>Create mobile collection</source>
-        <translation>Crea collezione mobile</translation>
-    </message>
-    <message>
-        <source>Destination file not specified</source>
-        <translation>File di destinazione non specificato</translation>
     </message>
 </context>
 <context>
@@ -2465,10 +2395,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Export</source>
         <translation>Esporta</translation>
-    </message>
-    <message>
-        <source>For Android version</source>
-        <translation>Per la versione Android</translation>
     </message>
     <message>
         <source>&amp;File</source>
