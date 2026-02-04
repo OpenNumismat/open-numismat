@@ -7,7 +7,7 @@ numpy~=2.2.2
 pillow~=11.1.0
 python-dateutil==2.9.0.post0
 pywin32==308; sys_platform == 'win32'
-rembg[cpu]~=2.0.65
+rembg[cpu]==2.0.66
 scipy~=1.14.0
 urllib3~=2.6.3
 zxing-cpp~=2.3.0
