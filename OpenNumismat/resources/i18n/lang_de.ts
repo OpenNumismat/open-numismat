@@ -266,7 +266,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Are you sure to remove a %d coin(s)?</source>
-        <translation>Wollen Sie wirklich %n Münze(n) entfernen?</translation>
+        <translation>Wollen Sie wirklich %d Münze(n) entfernen?</translation>
     </message>
 </context>
 <context>
