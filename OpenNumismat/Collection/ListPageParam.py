@@ -28,6 +28,7 @@ class ListPageParam(QObject):
         self.__lists_changed = False
         self.page = page
         self.db = page.db
+        self.fields = page.fields
 
         if 'lists' not in self.db.tables():
             sql = """CREATE TABLE lists (
@@ -47,9 +48,10 @@ class ListPageParam(QObject):
         self.columns = []
         while query.next():
             param = ColumnListParam(query.record())
+            field = self.fields.field(param.fieldid)
+            if not field.enabled:
+                param.enabled = 0
             self.columns.append(param)
-
-        self.fields = page.fields
 
         # Create default parameters
         if not self.columns:
