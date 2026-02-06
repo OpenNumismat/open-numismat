@@ -3193,14 +3193,6 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Gold coins: %d</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Gold coins: %d/%d</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>(calculated for %d coins)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3209,23 +3201,7 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Gold weight: %s gramm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Silver</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Silver coins: %d</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Silver coins: %d/%d</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Silver weight: %s gramm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3282,6 +3258,54 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Count images: %d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gold coins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gold weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silver coins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silver weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Platinum coins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Platinum weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palladium coins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palladium weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>calculated for %d coins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>calculated for %d/%d coins</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
