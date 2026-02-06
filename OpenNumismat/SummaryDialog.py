@@ -15,6 +15,8 @@ class SummaryDialog(QDialog):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
+        self.locale = QLocale.system()
+
         self.setWindowTitle(self.tr("Summary"))
 
         buttonBox = QDialogButtonBox(Qt.Horizontal)
@@ -47,7 +49,6 @@ class SummaryDialog(QDialog):
 
     def fillSummary(self, model, filter_=None):
         lines = []
-        locale = QLocale.system()
 
         sql = "SELECT count(*) FROM coins"
         sql = self.makeSql(sql, filter_)
@@ -72,41 +73,10 @@ class SummaryDialog(QDialog):
         else:
             lines.append(self.tr("Count owned: %d/%d") % (quantity_owned, count_owned))
 
-        count_gold, quantity_gold = self.materialCount(
-                ("Gold", self.tr("Gold"), "Au"), model, filter_)
-        if count_gold:
-            if count_gold == quantity_gold:
-                lines.append(self.tr("Gold coins: %d") % count_gold)
-            else:
-                lines.append(self.tr("Gold coins: %d/%d") % (quantity_gold, count_gold))
-
-            gold_weight, gold_count, gold_quantity = self.materialWeight(
-                ("Gold", self.tr("Gold"), "Au"), model, filter_)
-            if gold_weight:
-                if gold_count == gold_quantity:
-                    comment = self.tr("(calculated for %d coins)") % gold_quantity
-                else:
-                    comment = self.tr("(calculated for %d/%d coins)") % (gold_quantity, gold_count)
-                gold_weight_str = locale.toString(float(gold_weight), 'f', precision=2)
-                lines.append(' '.join((self.tr("Gold weight: %s gramm") % gold_weight_str, comment)))
-
-        count_silver, quantity_silver = self.materialCount(
-                ("Silver", self.tr("Silver"), "Ag"), model, filter_)
-        if count_silver:
-            if count_silver == quantity_silver:
-                lines.append(self.tr("Silver coins: %d") % count_silver)
-            else:
-                lines.append(self.tr("Silver coins: %d/%d") % (quantity_silver, count_silver))
-
-            silver_weight, silver_count, silver_quantity = self.materialWeight(
-                ("Silver", self.tr("Silver"), "Ag"), model, filter_)
-            if silver_weight:
-                if silver_count == silver_quantity:
-                    comment = self.tr("(calculated for %d coins)") % silver_quantity
-                else:
-                    comment = self.tr("(calculated for %d/%d coins)") % (silver_quantity, silver_count)
-                silver_weight_str = locale.toString(float(silver_weight), 'f', precision=2)
-                lines.append(' '.join((self.tr("Silver weight: %s gramm") % silver_weight_str, comment)))
+        material_lines = self.fillMaterial('gold', model, filter_)
+        lines.extend(material_lines)
+        material_lines = self.fillMaterial('silver', model, filter_)
+        lines.extend(material_lines)
 
         sql = "SELECT count(*) FROM coins WHERE status='wish'"
         sql = self.makeSql(sql, filter_)
@@ -155,12 +125,12 @@ class SummaryDialog(QDialog):
                     paid_without_commission = query.record().value(0)
                     if paid_without_commission:
                         commission = self.tr("(commission %d%%)") % ((paid - paid_without_commission) / paid_without_commission * 100)
-                paid_str = locale.toString(float(paid), 'f', precision=2)
+                paid_str = self.locale.toString(float(paid), 'f', precision=2)
                 lines.append(' '.join((self.tr("Paid: %s") % paid_str, commission)))
 
                 if count_owned:
                     val = paid / count_owned
-                    val_str = locale.toString(float(val), 'f', precision=2)
+                    val_str = self.locale.toString(float(val), 'f', precision=2)
                     lines.append(self.tr("Average paid per item: %s") % val_str)
 
         earned = 0
@@ -178,17 +148,17 @@ class SummaryDialog(QDialog):
                     earn_without_commission = query.record().value(0)
                     if earn_without_commission:
                         commission = self.tr("(commission %d%%)") % ((earn_without_commission - earned) / earn_without_commission * 100)
-                earned_str = locale.toString(float(earned), 'f', precision=2)
+                earned_str = self.locale.toString(float(earned), 'f', precision=2)
                 lines.append(' '.join((self.tr("Earned: %s") % earned_str, commission)))
 
                 if count_sold:
                     val = earned / count_sold
-                    val_str = locale.toString(float(val), 'f', precision=2)
+                    val_str = self.locale.toString(float(val), 'f', precision=2)
                     lines.append(self.tr("Average earn per item: %s") % val_str)
 
         if paid and earned:
             total = paid - earned
-            total_str = locale.toString(float(total), 'f', precision=2)
+            total_str = self.locale.toString(float(total), 'f', precision=2)
             lines.append(self.tr("Total (paid - earned): %s") % total_str)
 
         sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
@@ -196,7 +166,7 @@ class SummaryDialog(QDialog):
         query = QSqlQuery(sql, model.database())
         if query.first():
             date = QDate.fromString(query.record().value(0), Qt.ISODate)
-            paydate = locale.toString(date, QLocale.ShortFormat)
+            paydate = self.locale.toString(date, QLocale.ShortFormat)
             lines.append(self.tr("First purchase: %s") % paydate)
 
         sql = "SELECT UPPER(grade), price1, price2, price3, price4, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
@@ -282,6 +252,41 @@ class SummaryDialog(QDialog):
         if query.first():
             count = query.record().value(0)
             lines.append(self.tr("Count images: %d") % count)
+
+        return lines
+
+    def fillMaterial(self, material, model, filter_):
+        lines = []
+
+        materials = {
+            'gold': ("Gold", self.tr("Gold"), "Au", "Aurum"),
+            'silver': ("Silver", self.tr("Silver"), "Ag", "Argentum"),
+        }
+        titles = {
+            'gold': (self.tr("Gold coins: %d"), self.tr("Gold coins: %d/%d"),
+                     self.tr("Gold weight: %s gramm")),
+            'silver': (self.tr("Silver coins: %d"), self.tr("Silver coins: %d/%d"),
+                     self.tr("Silver weight: %s gramm")),
+        }
+
+        material_count, material_quantity = self.materialCount(
+                materials[material], model, filter_)
+        if material_count:
+            if material_count == material_quantity:
+                lines.append(titles[material][0] % material_count)
+            else:
+                lines.append(titles[material][1] % (material_quantity, material_count))
+
+            weight, weight_count, weight_quantity = self.materialWeight(
+                materials[material], model, filter_)
+            if weight:
+                if weight_count == weight_quantity:
+                    comment = self.tr("(calculated for %d coins)") % weight_quantity
+                else:
+                    comment = self.tr("(calculated for %d/%d coins)") % (weight_quantity, weight_count)
+                weight_str = self.locale.toString(float(weight), 'f', precision=2)
+
+                lines.append(f"{titles[material][2] % weight_str} {comment}")
 
         return lines
 
