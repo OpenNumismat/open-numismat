@@ -77,6 +77,10 @@ class SummaryDialog(QDialog):
         lines.extend(material_lines)
         material_lines = self.fillMaterial('silver', model, filter_)
         lines.extend(material_lines)
+        material_lines = self.fillMaterial('platinum', model, filter_)
+        lines.extend(material_lines)
+        material_lines = self.fillMaterial('palladium', model, filter_)
+        lines.extend(material_lines)
 
         sql = "SELECT count(*) FROM coins WHERE status='wish'"
         sql = self.makeSql(sql, filter_)
@@ -261,32 +265,34 @@ class SummaryDialog(QDialog):
         materials = {
             'gold': ("Gold", self.tr("Gold"), "Au", "Aurum"),
             'silver': ("Silver", self.tr("Silver"), "Ag", "Argentum"),
+            'platinum': ("Platinum", self.tr("Platinum"), "Pt"),
+            'palladium': ("Palladium", self.tr("Palladium"), "Pd"),
         }
         titles = {
-            'gold': (self.tr("Gold coins: %d"), self.tr("Gold coins: %d/%d"),
-                     self.tr("Gold weight: %s gramm")),
-            'silver': (self.tr("Silver coins: %d"), self.tr("Silver coins: %d/%d"),
-                     self.tr("Silver weight: %s gramm")),
+            'gold': (self.tr("Gold coins"), self.tr("Gold weight")),
+            'silver': (self.tr("Silver coins"), self.tr("Silver weight")),
+            'platinum': (self.tr("Platinum coins"), self.tr("Platinum weight")),
+            'palladium': (self.tr("Palladium coins"), self.tr("Palladium weight")),
         }
 
         material_count, material_quantity = self.materialCount(
                 materials[material], model, filter_)
         if material_count:
             if material_count == material_quantity:
-                lines.append(titles[material][0] % material_count)
+                lines.append(f"{titles[material][0]}: {material_count}")
             else:
-                lines.append(titles[material][1] % (material_quantity, material_count))
+                lines.append(f"{titles[material][0]}: {material_quantity}/{material_count}")
 
             weight, weight_count, weight_quantity = self.materialWeight(
                 materials[material], model, filter_)
             if weight:
                 if weight_count == weight_quantity:
-                    comment = self.tr("(calculated for %d coins)") % weight_quantity
+                    comment = self.tr("calculated for %d coins") % weight_quantity
                 else:
-                    comment = self.tr("(calculated for %d/%d coins)") % (weight_quantity, weight_count)
+                    comment = self.tr("calculated for %d/%d coins") % (weight_quantity, weight_count)
                 weight_str = self.locale.toString(float(weight), 'f', precision=2)
 
-                lines.append(f"{titles[material][2] % weight_str} {comment}")
+                lines.append(f"{titles[material][1]}: {weight_str} {self.tr('gram')} ({comment})")
 
         return lines
 
