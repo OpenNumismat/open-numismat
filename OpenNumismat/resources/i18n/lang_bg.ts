@@ -3288,7 +3288,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Gold coins</source>
-        <translation>Златни монети</translation>
+        <translation>Златни монети (брой)</translation>
     </message>
     <message>
         <source>Gold weight</source>
