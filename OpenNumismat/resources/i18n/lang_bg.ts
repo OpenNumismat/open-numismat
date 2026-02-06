@@ -3296,7 +3296,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Silver coins</source>
-        <translation>Сребърни монети</translation>
+        <translation>Сребърни монети (брой)</translation>
     </message>
     <message>
         <source>Silver weight</source>
