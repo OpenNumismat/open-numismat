@@ -3304,7 +3304,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Platinum coins</source>
-        <translation>Платинени монети</translation>
+        <translation>Платинени монети (брой)</translation>
     </message>
     <message>
         <source>Platinum weight</source>
