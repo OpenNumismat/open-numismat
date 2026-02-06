@@ -3312,7 +3312,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Palladium coins</source>
-        <translation>Паладиеви монети</translation>
+        <translation>Паладиеви монети (брой)</translation>
     </message>
     <message>
         <source>Palladium weight</source>
