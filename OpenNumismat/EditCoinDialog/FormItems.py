@@ -884,6 +884,17 @@ class _DoubleEdit(QLineEdit):
                 super().setText(text)
 
 
+class FinenessEdit(_DoubleEdit):
+
+    def __init__(self, parent=None):
+        super().__init__(0, 9999., 4, parent)  # 4 decimals for .9999
+
+        self.setMaxLength(6)  # 0.9999
+        self.setMinimumWidth(50)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,
+                                       QSizePolicy.Fixed, QSizePolicy.SpinBox))
+
+
 class BigIntEdit(_DoubleEdit):
     def __init__(self, parent=None):
         super().__init__(0, 999999999999999., 0, parent)

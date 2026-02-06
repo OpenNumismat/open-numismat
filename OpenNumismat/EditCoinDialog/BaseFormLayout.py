@@ -72,6 +72,11 @@ class FormItem(object):
                     self._widget = UserNumericEdit(parent)
                 else:
                     self._widget = AxisDegreeEdit(parent)
+            elif self._field == 'fineness':
+                if settings['free_numeric']:
+                    self._widget = UserNumericEdit(parent)
+                else:
+                    self._widget = FinenessEdit(parent)
             else:
                 if settings['free_numeric']:
                     self._widget = UserNumericEdit(parent)
