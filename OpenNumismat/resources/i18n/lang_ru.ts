@@ -3284,7 +3284,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Palladium</source>
-        <translation>Паладий</translation>
+        <translation>Палладий</translation>
     </message>
     <message>
         <source>Gold coins</source>
