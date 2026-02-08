@@ -3211,14 +3211,6 @@ Please update OpenNumismat</source>
         <translation>Золото</translation>
     </message>
     <message>
-        <source>Gold coins: %d</source>
-        <translation>Золотых монет: %d</translation>
-    </message>
-    <message>
-        <source>Gold coins: %d/%d</source>
-        <translation>Золотых монет: %d/%d</translation>
-    </message>
-    <message>
         <source>(calculated for %d coins)</source>
         <translation>(подсчитано для %d монет)</translation>
     </message>
@@ -3227,24 +3219,8 @@ Please update OpenNumismat</source>
         <translation>(подсчитано для %d/%d монет)</translation>
     </message>
     <message>
-        <source>Gold weight: %s gramm</source>
-        <translation>Вес золота: %s грамм</translation>
-    </message>
-    <message>
         <source>Silver</source>
         <translation>Серебро</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d</source>
-        <translation>Серебряных монет: %d</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d/%d</source>
-        <translation>Серебряных монет: %d/%d</translation>
-    </message>
-    <message>
-        <source>Silver weight: %s gramm</source>
-        <translation>Вес серебра: %s грамм</translation>
     </message>
     <message>
         <source>Count wish: %d</source>
@@ -3301,6 +3277,54 @@ Please update OpenNumismat</source>
     <message>
         <source>Count images: %d</source>
         <translation>Количество изображений: %d</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Паладий</translation>
+    </message>
+    <message>
+        <source>Gold coins</source>
+        <translation>Золотых монет</translation>
+    </message>
+    <message>
+        <source>Gold weight</source>
+        <translation>Вес золота</translation>
+    </message>
+    <message>
+        <source>Silver coins</source>
+        <translation>Серебряных монет</translation>
+    </message>
+    <message>
+        <source>Silver weight</source>
+        <translation>Вес серебра</translation>
+    </message>
+    <message>
+        <source>Platinum coins</source>
+        <translation>Платиновых монет</translation>
+    </message>
+    <message>
+        <source>Platinum weight</source>
+        <translation>Вес платины</translation>
+    </message>
+    <message>
+        <source>Palladium coins</source>
+        <translation>Палладиевых монет</translation>
+    </message>
+    <message>
+        <source>Palladium weight</source>
+        <translation>Вес палладия</translation>
+    </message>
+    <message>
+        <source>calculated for %d coins</source>
+        <translation>подсчитано для %d монет</translation>
+    </message>
+    <message>
+        <source>calculated for %d/%d coins</source>
+        <translation>подсчитано для %d/%d монет</translation>
     </message>
 </context>
 <context>
