@@ -2903,7 +2903,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Collection</source>
-        <translation>Coleção</translation>
+        <translation>Colecção</translation>
     </message>
     <message>
         <source>Fields</source>
