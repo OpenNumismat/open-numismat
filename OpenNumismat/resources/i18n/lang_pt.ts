@@ -2223,7 +2223,7 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Send error info to author</source>
-        <translation>Enviar informação do erro para o autor</translation>
+        <translation>Enviar informação de erros para o autor</translation>
     </message>
     <message>
         <source>Automatically check for updates</source>
