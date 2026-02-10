@@ -13,3 +13,4 @@ urllib3~=2.6.3
 zxing-cpp~=2.3.0
 imagehash @ git+https://github.com/OpenNumismat/imagehash
 llvmlite~=0.45.1 # for build macOS x86_64
+pymatting==1.1.14 # fix version for rembg
