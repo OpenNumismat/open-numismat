@@ -273,7 +273,7 @@ class TabView(QTabWidget):
     def closePage(self, index=None):
         if self.count() <= 1:
             QMessageBox.information(self, self.tr("Remove page"),
-                    self.tr("Can't close latest opened page.\n"
+                    self.tr("Can't close latest opened list.\n"
                             "Add a new one first."))
             return
 
