@@ -2223,7 +2223,7 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Send error info to author</source>
-        <translation>Enviar informação do erro para o autor</translation>
+        <translation>Enviar informação de erros para o autor</translation>
     </message>
     <message>
         <source>Automatically check for updates</source>
@@ -2903,7 +2903,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Collection</source>
-        <translation>Coleção</translation>
+        <translation>Colecção</translation>
     </message>
     <message>
         <source>Fields</source>
@@ -2990,11 +2990,15 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Anos bons (área)</translation>
     </message>
     <message>
-        <source>Backround remover AI model</source>
-        <translation>Modelo IA de remoção de fundo</translation>
+        <source>Background remover AI model</source>
+        <translation>Modelo IA de remoção de fundos</translation>
     </message>
     <message>
-        <source>Window backgroud color</source>
+        <source>Crop after background remover</source>
+        <translation>Cortar após remoção do fundo</translation>
+    </message>
+    <message>
+        <source>Window background color</source>
         <translation>Cor de fundo da janela</translation>
     </message>
 </context>
@@ -3211,14 +3215,6 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Ouro</translation>
     </message>
     <message>
-        <source>Gold coins: %d</source>
-        <translation>Moedas de ouro: %d</translation>
-    </message>
-    <message>
-        <source>Gold coins: %d/%d</source>
-        <translation>Moedas de ouro: %d/%d</translation>
-    </message>
-    <message>
         <source>(calculated for %d coins)</source>
         <translation>(calculado para %d moedas)</translation>
     </message>
@@ -3227,24 +3223,8 @@ Por favor, actualize o Openumismat.</translation>
         <translation>(calculado para %d/%d moedas)</translation>
     </message>
     <message>
-        <source>Gold weight: %s gramm</source>
-        <translation>Peso em ouro: %s grama</translation>
-    </message>
-    <message>
         <source>Silver</source>
         <translation>Prata</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d</source>
-        <translation>Moedas de prata: %d</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d/%d</source>
-        <translation>Moedas de prata: %d/%d</translation>
-    </message>
-    <message>
-        <source>Silver weight: %s gramm</source>
-        <translation>Peso em prata: %s grama</translation>
     </message>
     <message>
         <source>Count wish: %d</source>
@@ -3301,6 +3281,54 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>Count images: %d</source>
         <translation>Imagens: %d</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platina</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Paládio</translation>
+    </message>
+    <message>
+        <source>Gold coins</source>
+        <translation>Moedas de ouro</translation>
+    </message>
+    <message>
+        <source>Gold weight</source>
+        <translation>Peso em ouro</translation>
+    </message>
+    <message>
+        <source>Silver coins</source>
+        <translation>Moedas de prata</translation>
+    </message>
+    <message>
+        <source>Silver weight</source>
+        <translation>Peso em prata</translation>
+    </message>
+    <message>
+        <source>Platinum coins</source>
+        <translation>Moedas de platina</translation>
+    </message>
+    <message>
+        <source>Platinum weight</source>
+        <translation>Peso em platina</translation>
+    </message>
+    <message>
+        <source>Palladium coins</source>
+        <translation>Moedas de paládio</translation>
+    </message>
+    <message>
+        <source>Palladium weight</source>
+        <translation>Peso em paládio</translation>
+    </message>
+    <message>
+        <source>calculated for %d coins</source>
+        <translation>calculado para %d moedas</translation>
+    </message>
+    <message>
+        <source>calculated for %d/%d coins</source>
+        <translation>calculado para %d/%d moedas</translation>
     </message>
 </context>
 <context>
@@ -3382,9 +3410,9 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Remover página</translation>
     </message>
     <message>
-        <source>Can't close latest opened page.
+        <source>Can't close latest opened list.
 Add a new one first.</source>
-        <translation>Impossível fechar a última página aberta.
+        <translation>Impossível fechar a última lista aberta.
 Adicione uma nova primeiro.</translation>
     </message>
     <message>
