@@ -6,7 +6,7 @@ from PySide6.QtCore import Qt, QSortFilterProxyModel, QObject, QFile, QFileInfo,
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel, QSqlRelationalTableModel, QSqlRelation
-from PySide6.QtWidgets import QDialog, QMessageBox, QPushButton
+from PySide6.QtWidgets import QMessageBox
 
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
 
