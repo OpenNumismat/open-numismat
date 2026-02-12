@@ -1386,14 +1386,16 @@ class Collection(QObject):
                 res = query.exec()
 
             if res:
-                self.db.commit()
+                res = self.db.commit()
+
+            if res:
                 self.reference = reference
             else:
                 self.db.rollback()
                 QMessageBox.critical(self.parent(),
                             self.tr("Create reference"),
                             self.tr("Can't clear attached reference:\n%s") %
-                                    query.lastError().text())
+                                    query.lastError().text() + self.db.lastError().text())
 
             QSqlQuery("DETACH ref", reference.db)
 
