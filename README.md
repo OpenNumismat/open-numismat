@@ -64,12 +64,15 @@ pyinstaller --clean --noconfirm open-numismat.spec
 
 #### For Windows portable version
 
+```
 pip3 install pyinstaller
 SET PYTHONOPTIMIZE=1
 pyinstaller --clean --noconfirm open-numismat-portable.spec
+```
 
 #### For macOS
 
+```
 pyinstaller --clean --noconfirm open-numismat.spec
 cd dist
 mkdir vol
@@ -77,8 +80,11 @@ VERSION=$(grep Version ../OpenNumismat/version.py | grep -o -E "\d+.\d+.\d+")
 mv OpenNumismat.app vol
 ln -s /Applications vol/Applications
 hdiutil create OpenNumismat-$VERSION-macos11.dmg -volname "OpenNumismat-$VERSION" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
+```
 
 #### For Linux
 
+```sh
 sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv
 debuild -b -us -uc
+```
