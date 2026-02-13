@@ -191,3 +191,4 @@ Type: files; Name: {app}\d3dcompiler_47.dll;
 Type: files; Name: {app}\libopenblas.*.gfortran-win_amd64.dll;
 Type: files; Name: {app}\python39.dll;
 Type: files; Name: {app}\python310.dll;
+Type: files; Name: {app}\python312.dll;

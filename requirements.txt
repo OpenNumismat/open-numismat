@@ -1,16 +1,16 @@
-pyside6~=6.8.3
-jinja2~=3.1.5
-lxml~=5.3.1
-opencv-python-headless~=4.10.0.84
+pyside6~=6.10.2
+jinja2~=3.1.6
+lxml~=6.0.2
+opencv-python-headless~=4.13.0.92
 openpyxl~=3.1.5
-numpy~=2.2.2
-pillow~=11.1.0
+numpy~=2.3.5
+pillow~=12.1.1
 python-dateutil==2.9.0.post0
-pywin32==308; sys_platform == 'win32'
-rembg[cpu]==2.0.66
-scipy~=1.14.0
+pywin32==311; sys_platform == 'win32'
+rembg[cpu]==2.0.72
+scipy~=1.17.0
 urllib3~=2.6.3
-zxing-cpp~=2.3.0
+zxing-cpp~=3.0.0
 imagehash @ git+https://github.com/OpenNumismat/imagehash
-llvmlite~=0.45.1 # for build macOS x86_64
+llvmlite~=0.45.1; sys_platform == 'darwin' and platform_machine == "x86_64" # for build macOS x86_64
 pymatting==1.1.14 # fix version for rembg
