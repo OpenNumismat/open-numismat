@@ -292,7 +292,8 @@ class SummaryDialog(QDialog):
                     comment = self.tr("calculated for %d/%d coins") % (weight_quantity, weight_count)
                 weight_str = self.locale.toString(float(weight), 'f', precision=2)
 
-                lines.append(f"{titles[material][1]}: {weight_str} {self.tr('gram')} ({comment})")
+                gram_str = self.tr('gram')
+                lines.append(f"{titles[material][1]}: {weight_str} {gram_str} ({comment})")
 
         return lines
 
