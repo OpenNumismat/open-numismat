@@ -3332,7 +3332,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>gram</source>
-        <translation>g</translation>
+        <translation>г</translation>
     </message>
 </context>
 <context>
