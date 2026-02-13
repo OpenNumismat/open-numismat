@@ -2984,16 +2984,12 @@ Please update OpenNumismat</source>
         <translation>Anni significativi (Area)</translation>
     </message>
     <message>
-        <source>Background remover AI model</source>
-        <translation>Modello IA per la rimozione dello sfondo</translation>
+        <source>Backround remover AI model</source>
+        <translation>Modello di IA per la rimozione dello sfondo</translation>
     </message>
     <message>
-        <source>Crop after background remover</source>
-        <translation>Ritaglia dopo la rimozione dello sfondo</translation>
-    </message>
-    <message>
-        <source>Window background color</source>
-        <translation>Colore di sfondo della finestra</translation>
+        <source>Window backgroud color</source>
+        <translation>Colore dello sfondo della finestra</translation>
     </message>
 </context>
 <context>
@@ -3209,6 +3205,14 @@ Please update OpenNumismat</source>
         <translation>Oro</translation>
     </message>
     <message>
+        <source>Gold coins: %d</source>
+        <translation>Monete d&apos;Oro: %d</translation>
+    </message>
+    <message>
+        <source>Gold coins: %d/%d</source>
+        <translation>Monete d&apos;Oro: %d/%d</translation>
+    </message>
+    <message>
         <source>(calculated for %d coins)</source>
         <translation>(calcolato per %d monete)</translation>
     </message>
@@ -3217,8 +3221,24 @@ Please update OpenNumismat</source>
         <translation>(calcolato per %d/%d monete)</translation>
     </message>
     <message>
+        <source>Gold weight: %s gramm</source>
+        <translation>Peso dell&apos;Oro: %s grammi</translation>
+    </message>
+    <message>
         <source>Silver</source>
         <translation>Argento</translation>
+    </message>
+    <message>
+        <source>Silver coins: %d</source>
+        <translation>Monete d&apos;Argento: %d</translation>
+    </message>
+    <message>
+        <source>Silver coins: %d/%d</source>
+        <translation>Monete d&apos;Argento: %d/%d</translation>
+    </message>
+    <message>
+        <source>Silver weight: %s gramm</source>
+        <translation>Peso dell&apos;Argento: %s grammi</translation>
     </message>
     <message>
         <source>Count wish: %d</source>
@@ -3275,54 +3295,6 @@ Please update OpenNumismat</source>
     <message>
         <source>Count images: %d</source>
         <translation>Numero di immagini: %d</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Platino</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Palladio</translation>
-    </message>
-    <message>
-        <source>Gold coins</source>
-        <translation>Monete d&apos;oro</translation>
-    </message>
-    <message>
-        <source>Gold weight</source>
-        <translation>Peso dell’oro</translation>
-    </message>
-    <message>
-        <source>Silver coins</source>
-        <translation>Monete d&apos;argento</translation>
-    </message>
-    <message>
-        <source>Silver weight</source>
-        <translation>Peso dell&apos;argento</translation>
-    </message>
-    <message>
-        <source>Platinum coins</source>
-        <translation>Monete di platino</translation>
-    </message>
-    <message>
-        <source>Platinum weight</source>
-        <translation>Peso del platino</translation>
-    </message>
-    <message>
-        <source>Palladium coins</source>
-        <translation>Monete di palladio</translation>
-    </message>
-    <message>
-        <source>Palladium weight</source>
-        <translation>Peso del palladio</translation>
-    </message>
-    <message>
-        <source>calculated for %d coins</source>
-        <translation>calcolato per %d monete</translation>
-    </message>
-    <message>
-        <source>calculated for %d/%d coins</source>
-        <translation>calcolato per %d/%d monete</translation>
     </message>
 </context>
 <context>
@@ -3404,10 +3376,10 @@ Please update OpenNumismat</source>
         <translation>Rimuovi pagina</translation>
     </message>
     <message>
-        <source>Can't close latest opened list.
+        <source>Can't close latest opened page.
 Add a new one first.</source>
-        <translation>Non è possibile chiudere l&apos;ultima lista aperta.
-Aggiungine prima una nuova.</translation>
+        <translation>Impossibile chiudere l&apos;ultima pagina aperta.
+Aggiungi una nuova pagina prima.</translation>
     </message>
     <message>
         <source>Can't remove latest opened page.
