@@ -451,24 +451,8 @@ Por favor, actualice OpenNumismat</translation>
         <translation>Copia de seguridad guardada como %s</translation>
     </message>
     <message>
-        <source>Create mobile collection</source>
-        <translation>Crear colección móvil</translation>
-    </message>
-    <message>
         <source>Exporting records</source>
         <translation>Exportar registros</translation>
-    </message>
-    <message>
-        <source>Saving...</source>
-        <translation>Guardando...</translation>
-    </message>
-    <message>
-        <source>Compact...</source>
-        <translation>Comprimiendo...</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Vaciando...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -1013,6 +997,10 @@ La aplicación deberá reiniciarse ahora.</translation>
         <translation>0 para almacenar en tamaño original</translation>
     </message>
     <message>
+        <source>Image quality, %</source>
+        <translation>Calidad de imagen, %</translation>
+    </message>
+    <message>
         <source>Preview image height</source>
         <translation>Altura de imagen previa</translation>
     </message>
@@ -1055,6 +1043,10 @@ La aplicación deberá reiniciarse ahora.</translation>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>La altura de la imagen de vista previa ha cambiado. ¿Recalcularla ahora?</translation>
+    </message>
+    <message>
+        <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
+        <translation>Se cambiaron los ajustes de imagen. ¿Aplicar los nuevos ajustes a todas las imágenes guardadas? (la calidad puede verse reducida)</translation>
     </message>
     <message>
         <source>5 stars in rating</source>
@@ -1454,69 +1446,6 @@ y prueba de nuevo.</translation>
 Do you want to send an error message to the author?</source>
         <translation>Ha ocurrido un error de sistema.
 ¿Deseas enviar un mensaje de error al autor?</translation>
-    </message>
-</context>
-<context>
-    <name>ExportDialog</name>
-    <message>
-        <source>Export to mobile</source>
-        <translation>Exportar al móvil</translation>
-    </message>
-    <message>
-        <source>Target density of the display</source>
-        <translation>Densidad en pantalla de destino</translation>
-    </message>
-    <message>
-        <source>Countries</source>
-        <translation>Países</translation>
-    </message>
-    <message>
-        <source>Series</source>
-        <translation>Series</translation>
-    </message>
-    <message>
-        <source>Denomination</source>
-        <translation>Denominación</translation>
-    </message>
-    <message>
-        <source>Default filter by</source>
-        <translation>Filtro defecto por</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>Imagen</translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation>Anverso</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Reverso</translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation>Ambos</translation>
-    </message>
-    <message>
-        <source>Export a full-sized image</source>
-        <translation>Exportar imagen a tamaño completo</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation>Destino</translation>
-    </message>
-    <message>
-        <source>Select destination</source>
-        <translation>Seleccionar destino</translation>
-    </message>
-    <message>
-        <source>Create mobile collection</source>
-        <translation>Crear una colección móvil</translation>
-    </message>
-    <message>
-        <source>Destination file not specified</source>
-        <translation>Archivo destino no especificado</translation>
     </message>
 </context>
 <context>
@@ -2472,10 +2401,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Exportar</translation>
     </message>
     <message>
-        <source>For Android version</source>
-        <translation>Para versión Android</translation>
-    </message>
-    <message>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
@@ -3065,12 +2990,16 @@ Por favor, actualiza OpenNumismat</translation>
         <translation>Años bonitos (Area)</translation>
     </message>
     <message>
-        <source>Backround remover AI model</source>
-        <translation>Modelo de IA eliminador de fondo</translation>
+        <source>Background remover AI model</source>
+        <translation>Modelo de IA de eliminación de fondo</translation>
     </message>
     <message>
-        <source>Window backgroud color</source>
-        <translation>Color de fondo de ventana</translation>
+        <source>Crop after background remover</source>
+        <translation>Recortar después de eliminar el fondo</translation>
+    </message>
+    <message>
+        <source>Window background color</source>
+        <translation>Color de fondo de la ventana</translation>
     </message>
 </context>
 <context>
@@ -3286,14 +3215,6 @@ Por favor, actualiza OpenNumismat</translation>
         <translation>Oro</translation>
     </message>
     <message>
-        <source>Gold coins: %d</source>
-        <translation>Monedas de oro: %d</translation>
-    </message>
-    <message>
-        <source>Gold coins: %d/%d</source>
-        <translation>Monedas de oro: %d/%d</translation>
-    </message>
-    <message>
         <source>(calculated for %d coins)</source>
         <translation>(calculado para %d monedas)</translation>
     </message>
@@ -3302,24 +3223,8 @@ Por favor, actualiza OpenNumismat</translation>
         <translation>(calculado para %d/%d monedas)</translation>
     </message>
     <message>
-        <source>Gold weight: %s gramm</source>
-        <translation>Peso de oro: %s gramos</translation>
-    </message>
-    <message>
         <source>Silver</source>
         <translation>Plata</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d</source>
-        <translation>Monedas de plata: %d</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d/%d</source>
-        <translation>Monedas de plata: %d/%d</translation>
-    </message>
-    <message>
-        <source>Silver weight: %s gramm</source>
-        <translation>Peso de plata: %s gramos</translation>
     </message>
     <message>
         <source>Count wish: %d</source>
@@ -3376,6 +3281,54 @@ Por favor, actualiza OpenNumismat</translation>
     <message>
         <source>Count images: %d</source>
         <translation>Recuento imágenes: %d</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platino</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Paladio</translation>
+    </message>
+    <message>
+        <source>Gold coins</source>
+        <translation>Monedas de oro</translation>
+    </message>
+    <message>
+        <source>Gold weight</source>
+        <translation>Peso oro</translation>
+    </message>
+    <message>
+        <source>Silver coins</source>
+        <translation>Monedas de plata</translation>
+    </message>
+    <message>
+        <source>Silver weight</source>
+        <translation>Peso plata</translation>
+    </message>
+    <message>
+        <source>Platinum coins</source>
+        <translation>Monedas de platino</translation>
+    </message>
+    <message>
+        <source>Platinum weight</source>
+        <translation>Peso platino</translation>
+    </message>
+    <message>
+        <source>Palladium coins</source>
+        <translation>Monedas de paladio</translation>
+    </message>
+    <message>
+        <source>Palladium weight</source>
+        <translation>Peso paladio</translation>
+    </message>
+    <message>
+        <source>calculated for %d coins</source>
+        <translation>calculado para %d monedas</translation>
+    </message>
+    <message>
+        <source>calculated for %d/%d coins</source>
+        <translation>calculado para %d/%d monedas</translation>
     </message>
 </context>
 <context>
@@ -3457,9 +3410,9 @@ Por favor, actualiza OpenNumismat</translation>
         <translation>Eliminar página</translation>
     </message>
     <message>
-        <source>Can't close latest opened page.
+        <source>Can't close latest opened list.
 Add a new one first.</source>
-        <translation>No se puede cerrar la última página abierta.
+        <translation>No se puede cerrar la última lista abierta.
 Añade una nueva primero.</translation>
     </message>
     <message>
