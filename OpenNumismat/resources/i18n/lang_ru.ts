@@ -3330,6 +3330,10 @@ Please update OpenNumismat</source>
         <source>calculated for %d/%d coins</source>
         <translation>подсчитано для %d/%d монет</translation>
     </message>
+    <message>
+        <source>gram</source>
+        <translation>грамм</translation>
+    </message>
 </context>
 <context>
     <name>TabView</name>
