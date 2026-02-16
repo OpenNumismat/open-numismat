@@ -3330,6 +3330,10 @@ Por favor, actualize o Openumismat.</translation>
         <source>calculated for %d/%d coins</source>
         <translation>calculado para %d/%d moedas</translation>
     </message>
+    <message>
+        <source>gram</source>
+        <translation>grama</translation>
+    </message>
 </context>
 <context>
     <name>TabView</name>
