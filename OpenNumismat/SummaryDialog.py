@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
+import urllib3
+import json
 
 from PySide6.QtCore import Qt, QDate, QLocale
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
+from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox, QMessageBox
 
+from OpenNumismat import version
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
+from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+
+OZ_TO_GRAM = 31.1034768
+DB_NOMICS_TIMEOUT = 5
 
 
 @storeDlgSizeDecorator
@@ -16,6 +23,7 @@ class SummaryDialog(QDialog):
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.locale = QLocale.system()
+        self.http = None
 
         self.setWindowTitle(self.tr("Summary"))
 
@@ -269,10 +277,10 @@ class SummaryDialog(QDialog):
             'palladium': ("Palladium", self.tr("Palladium"), "Pd"),
         }
         titles = {
-            'gold': (self.tr("Gold coins"), self.tr("Gold weight")),
-            'silver': (self.tr("Silver coins"), self.tr("Silver weight")),
-            'platinum': (self.tr("Platinum coins"), self.tr("Platinum weight")),
-            'palladium': (self.tr("Palladium coins"), self.tr("Palladium weight")),
+            'gold': (self.tr("Gold coins"), self.tr("Gold weight"), self.tr("Gold price")),
+            'silver': (self.tr("Silver coins"), self.tr("Silver weight"), self.tr("Silver price")),
+            'platinum': (self.tr("Platinum coins"), self.tr("Platinum weight"), self.tr("Platinum price")),
+            'palladium': (self.tr("Palladium coins"), self.tr("Palladium weight"), self.tr("Palladium price")),
         }
 
         material_count, material_quantity = self.materialCount(
@@ -294,6 +302,12 @@ class SummaryDialog(QDialog):
 
                 gram_str = self.tr('gram')
                 lines.append(f"{titles[material][1]}: {weight_str} {gram_str} ({comment})")
+
+                price_gram = self.materialPrice(material)
+                if price_gram:
+                    price_material = price_gram * weight
+                    price_material_str = self.locale.toString(float(price_material), 'f', precision=2)
+                    lines.append(f"{titles[material][2]}: ${price_material_str} ({comment})")
 
         return lines
 
@@ -350,3 +364,48 @@ class SummaryDialog(QDialog):
             material_quantity += quantity
 
         return material_weight, material_count, material_quantity
+
+    @waitCursorDecorator
+    def materialPrice(self, material):
+        urls = {
+            'gold': "https://api.db.nomics.world/v22/series/LBMA/gold_D/gold_D_USD_AM?observations=1",
+            'silver': "https://api.db.nomics.world/v22/series/LBMA/silver_D/silver_D_USD?observations=1",
+            'platinum': "https://api.db.nomics.world/v22/series/LBMA/platinum_D/platinum_D_USD_AM?observations=1",
+            'palladium': "https://api.db.nomics.world/v22/series/LBMA/palladium_D/palladium_D_USD_AM?observations=1",
+        }
+
+        if not self.http:
+            self.http = self._createHttp()
+
+        try:
+            response = self.http.request("GET", urls[material])
+        except (urllib3.exceptions.MaxRetryError, urllib3.exceptions.ReadTimeoutError):
+            QMessageBox.warning(self, "Summary",
+                                self.tr("DBnomics not response"))
+            return None
+
+        if response.status == 200:
+            data = json.loads(response.data.decode('utf-8'))
+
+            series = data['series']['docs'][0]
+            dates = series['period']
+            values = series['value']
+
+            last_date = dates[-1]
+            price_oz = values[-1]
+            price_gram = price_oz / OZ_TO_GRAM
+
+            return price_gram
+        else:
+            return None
+
+    def _createHttp(self):
+        urllib3.disable_warnings()
+        timeout = urllib3.Timeout(connect=DB_NOMICS_TIMEOUT / 2,
+                                  read=DB_NOMICS_TIMEOUT)
+        http = urllib3.PoolManager(num_pools=2,
+                                   headers={'User-Agent': version.AppName},
+                                   timeout=timeout,
+                                   retries=False,
+                                   cert_reqs="CERT_NONE")
+        return http
