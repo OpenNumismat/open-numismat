@@ -372,43 +372,54 @@ class SummaryDialog(QDialog):
 
     @waitCursorDecorator
     def materialPrice(self, material, currency):
-        metal_series = {
-            'gold': "gold_D",
-            'silver': "silver_D",
-            'platinum': "platinum_D",
-            'palladium': "palladium_D",
-        }
-        currency_series = {
-            'EUR': "EUR_AM",
-            'GBP': "GBP_AM",
-            'USD': "USD_AM",
-        }
-        url = f"https://api.db.nomics.world/v22/series/LBMA/{metal_series[material]}/{metal_series[material]}_{currency_series[currency]}?observations=1"
+        metal_url = f"https://api.db.nomics.world/v22/series/LBMA/{material}_D/{material}_D_USD_AM?observations=1"
+        print(metal_url)
 
         if not self.http:
             self.http = self._createHttp()
 
         try:
-            response = self.http.request("GET", url)
+            response = self.http.request("GET", metal_url)
         except (urllib3.exceptions.MaxRetryError, urllib3.exceptions.ReadTimeoutError):
             QMessageBox.warning(self, "Summary",
                                 self.tr("DBnomics not response"))
             return None
 
-        if response.status == 200:
-            data = json.loads(response.data.decode('utf-8'))
-
-            series = data['series']['docs'][0]
-            dates = series['period']
-            values = series['value']
-
-            last_date = dates[-1]
-            price_oz = values[-1]
-            price_gram = price_oz / OZ_TO_GRAM
-
-            return price_gram
-        else:
+        if response.status != 200:
             return None
+
+        data = json.loads(response.data.decode('utf-8'))
+
+        series = data['series']['docs'][0]
+        dates = series['period']
+        values = series['value']
+
+        last_date = dates[-1]
+        price_oz = values[-1]
+        price_gram = price_oz / OZ_TO_GRAM
+
+        if currency == 'USD':
+            return price_gram
+
+        currency_url = f"https://theratesapi.com/api/{last_date}/?base=USD&symbols={currency}"
+        try:
+            response = self.http.request("GET", currency_url)
+        except (urllib3.exceptions.MaxRetryError, urllib3.exceptions.ReadTimeoutError):
+            QMessageBox.warning(self, "Summary",
+                                self.tr("The Rates API not response"))
+            return None
+
+        if response.status != 200:
+            return None
+
+        data = json.loads(response.data.decode('utf-8'))
+
+        rates = data['rates']
+        rate = rates[currency]
+
+        price_gram = price_gram * rate
+
+        return price_gram
 
     def _createHttp(self):
         urllib3.disable_warnings()
