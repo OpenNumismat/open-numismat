@@ -2,11 +2,10 @@
 
 from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
 from PySide6.QtCore import Signal as pyqtSignal
-from PySide6.QtGui import QIcon, QAction, QPixmap
+from PySide6.QtGui import QIcon, QAction
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
-    QColorDialog,
     QComboBox,
     QDialog,
     QDialogButtonBox,
@@ -171,6 +170,11 @@ class MainSettingsPage(QWidget):
         self.useWebcam.setChecked(settings['use_webcam'])
         layout.addRow(self.useWebcam)
 
+        self.useDBnomics = QCheckBox(
+                        self.tr("Get metal prices from DBnomics"), self)
+        self.useDBnomics.setChecked(settings['use_db_nomics'])
+        layout.addRow(self.useDBnomics)
+
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap', MapType.OSM.value)
         if gmapsAvailable:
@@ -272,6 +276,7 @@ class MainSettingsPage(QWidget):
         settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['use_webcam'] = self.useWebcam.isChecked()
+        settings['use_db_nomics'] = self.useDBnomics.isChecked()
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['transparent_color'] = self.transparentColorButton.color()

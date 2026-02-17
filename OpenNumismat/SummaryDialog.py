@@ -7,6 +7,7 @@ from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox, QMessageBox
 
 from OpenNumismat import version
+from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
@@ -24,6 +25,8 @@ class SummaryDialog(QDialog):
 
         self.locale = QLocale.system()
         self.http = None
+
+        self.useDBnomics = Settings()['use_db_nomics']
 
         self.setWindowTitle(self.tr("Summary"))
 
@@ -303,11 +306,12 @@ class SummaryDialog(QDialog):
                 gram_str = self.tr('gram')
                 lines.append(f"{titles[material][1]}: {weight_str} {gram_str} ({comment})")
 
-                price_gram = self.materialPrice(material)
-                if price_gram:
-                    price_material = price_gram * weight
-                    price_material_str = self.locale.toString(float(price_material), 'f', precision=2)
-                    lines.append(f"{titles[material][2]}: ${price_material_str} ({comment})")
+                if self.useDBnomics:
+                    price_gram = self.materialPrice(material)
+                    if price_gram:
+                        price_material = price_gram * weight
+                        price_material_str = self.locale.toString(float(price_material), 'f', precision=2)
+                        lines.append(f"{titles[material][2]}: ${price_material_str} ({comment})")
 
         return lines
 

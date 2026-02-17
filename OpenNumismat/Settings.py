@@ -130,6 +130,7 @@ class Settings(BaseSettings):
         'transparent_color': QColor(Qt.white),
         'transparent_store': False,
         'use_webcam': True,
+        'use_db_nomics': False,
         'UUID': _getUuid().replace('-', ''),
         'tree_counter': False,
         'color_scheme': Qt.ColorScheme.Unknown.value,
