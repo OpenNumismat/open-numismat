@@ -286,6 +286,13 @@ class SummaryDialog(QDialog):
             'platinum': (self.tr("Platinum coins"), self.tr("Platinum weight"), self.tr("Platinum price")),
             'palladium': (self.tr("Palladium coins"), self.tr("Palladium weight"), self.tr("Palladium price")),
         }
+        currency_symbols = {
+            'USD': "$",
+            'EUR': "€",
+            'GBP': "£",
+            'RUB': "₽",
+            'PLN': "zł",
+        }
 
         material_count, material_quantity = self.materialCount(
                 materials[material], model, filter_)
@@ -312,7 +319,11 @@ class SummaryDialog(QDialog):
                     if price_gram:
                         price_material = price_gram * weight
                         price_material_str = self.locale.toString(float(price_material), 'f', precision=2)
-                        lines.append(f"{titles[material][2]}: {self.dbnomicsCurrency}{price_material_str} ({comment})")
+                        if self.dbnomicsCurrency in currency_symbols:
+                            symbol = currency_symbols[self.dbnomicsCurrency]
+                        else:
+                            symbol = self.dbnomicsCurrency
+                        lines.append(f"{titles[material][2]}: {price_material_str}{symbol} ({comment})")
 
         return lines
 
@@ -372,11 +383,10 @@ class SummaryDialog(QDialog):
 
     @waitCursorDecorator
     def materialPrice(self, material, currency):
-        metal_url = f"https://api.db.nomics.world/v22/series/LBMA/{material}_D/{material}_D_USD_AM?observations=1"
-        print(metal_url)
-
         if not self.http:
             self.http = self._createHttp()
+
+        metal_url = f"https://api.db.nomics.world/v22/series/LBMA/{material}_D/{material}_D_USD_AM?observations=1"
 
         try:
             response = self.http.request("GET", metal_url)
