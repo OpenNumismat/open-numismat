@@ -2241,6 +2241,10 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Get metal prices from DBnomics with currency:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Maps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3281,11 +3285,19 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Gold price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Silver coins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Silver weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silver price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3297,11 +3309,19 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Platinum price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Palladium coins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Palladium weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palladium price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3314,6 +3334,10 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>gram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DBnomics not response</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
