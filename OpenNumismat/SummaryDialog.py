@@ -13,7 +13,7 @@ from OpenNumismat.Tools.Converters import stringToMoney
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 
 OZ_TO_GRAM = 31.1034768
-DB_NOMICS_TIMEOUT = 5
+DB_NOMICS_TIMEOUT = 10
 
 
 @storeDlgSizeDecorator
@@ -26,7 +26,8 @@ class SummaryDialog(QDialog):
         self.locale = QLocale.system()
         self.http = None
 
-        self.useDBnomics = Settings()['use_db_nomics']
+        self.dbnomicsEnabled = Settings()['dbnomics_enabled']
+        self.dbnomicsCurrency = Settings()['dbnomics_currency']
 
         self.setWindowTitle(self.tr("Summary"))
 
@@ -306,12 +307,12 @@ class SummaryDialog(QDialog):
                 gram_str = self.tr('gram')
                 lines.append(f"{titles[material][1]}: {weight_str} {gram_str} ({comment})")
 
-                if self.useDBnomics:
-                    price_gram = self.materialPrice(material)
+                if self.dbnomicsEnabled:
+                    price_gram = self.materialPrice(material, self.dbnomicsCurrency)
                     if price_gram:
                         price_material = price_gram * weight
                         price_material_str = self.locale.toString(float(price_material), 'f', precision=2)
-                        lines.append(f"{titles[material][2]}: ${price_material_str} ({comment})")
+                        lines.append(f"{titles[material][2]}: {self.dbnomicsCurrency}{price_material_str} ({comment})")
 
         return lines
 
@@ -370,19 +371,25 @@ class SummaryDialog(QDialog):
         return material_weight, material_count, material_quantity
 
     @waitCursorDecorator
-    def materialPrice(self, material):
-        urls = {
-            'gold': "https://api.db.nomics.world/v22/series/LBMA/gold_D/gold_D_USD_AM?observations=1",
-            'silver': "https://api.db.nomics.world/v22/series/LBMA/silver_D/silver_D_USD?observations=1",
-            'platinum': "https://api.db.nomics.world/v22/series/LBMA/platinum_D/platinum_D_USD_AM?observations=1",
-            'palladium': "https://api.db.nomics.world/v22/series/LBMA/palladium_D/palladium_D_USD_AM?observations=1",
+    def materialPrice(self, material, currency):
+        metal_series = {
+            'gold': "gold_D",
+            'silver': "silver_D",
+            'platinum': "platinum_D",
+            'palladium': "palladium_D",
         }
+        currency_series = {
+            'EUR': "EUR_AM",
+            'GBP': "GBP_AM",
+            'USD': "USD_AM",
+        }
+        url = f"https://api.db.nomics.world/v22/series/LBMA/{metal_series[material]}/{metal_series[material]}_{currency_series[currency]}?observations=1"
 
         if not self.http:
             self.http = self._createHttp()
 
         try:
-            response = self.http.request("GET", urls[material])
+            response = self.http.request("GET", url)
         except (urllib3.exceptions.MaxRetryError, urllib3.exceptions.ReadTimeoutError):
             QMessageBox.warning(self, "Summary",
                                 self.tr("DBnomics not response"))

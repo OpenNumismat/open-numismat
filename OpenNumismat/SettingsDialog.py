@@ -57,6 +57,20 @@ class MainSettingsPage(QWidget):
                  ("Русский", 'ru'), ("Svenska", 'sv'), ("Türkçe", 'tr'),
                  ("Український", 'uk'),
                  )
+    Currencies = (
+#        ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazilian real")),
+#        ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarusian ruble")),
+#        ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech koruna")),
+        ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Euro")),
+        ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - Pound sterling")),
+#        ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungarian forint")),
+#        ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Polish złoty")),
+#        ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
+#        ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Swedish krona")),
+#        ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkish lira")),
+#        ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukrainian hryvnia")),
+        ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States dollar"))
+    )
 
     def __init__(self, collection, parent=None):
         super().__init__(parent)
@@ -170,10 +184,27 @@ class MainSettingsPage(QWidget):
         self.useWebcam.setChecked(settings['use_webcam'])
         layout.addRow(self.useWebcam)
 
-        self.useDBnomics = QCheckBox(
-                        self.tr("Get metal prices from DBnomics"), self)
-        self.useDBnomics.setChecked(settings['use_db_nomics'])
-        layout.addRow(self.useDBnomics)
+        self.dbnomicsEnabled = QCheckBox(
+                        self.tr("Get metal prices from DBnomics with currency:"), self)
+        self.dbnomicsEnabled.setChecked(settings['dbnomics_enabled'])
+        self.dbnomicsEnabled.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+
+        self.dbnomicsCurrency = QComboBox(self)
+        for curr in self.Currencies:
+            self.dbnomicsCurrency.addItem(QApplication.translate("Currency", curr[1]), curr[0])
+        current = self.dbnomicsCurrency.findData(settings['dbnomics_currency'])
+        if current == -1:
+            current = 0
+        self.dbnomicsCurrency.setCurrentIndex(current)
+        self.dbnomicsCurrency.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.dbnomicsCurrency.setEnabled(settings['dbnomics_enabled'])
+
+        self.dbnomicsEnabled.toggled.connect(self.dbnomicsCurrency.setEnabled)
+
+        dbnomicsLayout = QHBoxLayout()
+        dbnomicsLayout.addWidget(self.dbnomicsEnabled)
+        dbnomicsLayout.addWidget(self.dbnomicsCurrency)
+        layout.addRow(dbnomicsLayout)
 
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap', MapType.OSM.value)
@@ -276,13 +307,14 @@ class MainSettingsPage(QWidget):
         settings['map_type'] = self.mapSelector.currentData()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['use_webcam'] = self.useWebcam.isChecked()
-        settings['use_db_nomics'] = self.useDBnomics.isChecked()
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['transparent_color'] = self.transparentColorButton.color()
         settings['transparent_store'] = self.transparentRadio.isChecked()
         settings['tree_counter'] = self.treeCounter.isChecked()
         settings['color_scheme'] = self.colorSchemeSelector.currentIndex()
+        settings['dbnomics_enabled'] = self.dbnomicsEnabled.isChecked()
+        settings['dbnomics_currency'] = self.dbnomicsCurrency.currentData()
 
         settings.save()
 
