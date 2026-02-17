@@ -3340,6 +3340,10 @@ Please update OpenNumismat</source>
         <source>DBnomics not response</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The Rates API not response</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabView</name>
