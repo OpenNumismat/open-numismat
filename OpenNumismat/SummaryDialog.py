@@ -383,13 +383,18 @@ class SummaryDialog(QDialog):
 
     @waitCursorDecorator
     def materialPrice(self, material, currency):
+        metal_urls = {
+            'gold': "https://api.db.nomics.world/v22/series/LBMA/gold_D/gold_D_USD_AM?observations=1",
+            'silver': "https://api.db.nomics.world/v22/series/LBMA/silver_D/silver_D_USD?observations=1",
+            'platinum': "https://api.db.nomics.world/v22/series/LBMA/platinum_D/platinum_D_USD_AM?observations=1",
+            'palladium': "https://api.db.nomics.world/v22/series/LBMA/palladium_D/palladium_D_USD_AM?observations=1",
+        }
+
         if not self.http:
             self.http = self._createHttp()
 
-        metal_url = f"https://api.db.nomics.world/v22/series/LBMA/{material}_D/{material}_D_USD_AM?observations=1"
-
         try:
-            response = self.http.request("GET", metal_url)
+            response = self.http.request("GET", metal_urls[material])
         except (urllib3.exceptions.MaxRetryError, urllib3.exceptions.ReadTimeoutError):
             QMessageBox.warning(self, "Summary",
                                 self.tr("DBnomics not response"))
