@@ -55,6 +55,7 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.CollectionFields import StatisticsFields
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
+from OpenNumismat.Tools.Converters import stringToMoney
 from OpenNumismat.Tools.misc import saveImageFilters
 from OpenNumismat.Settings import Settings
 
@@ -470,6 +471,75 @@ class ProgressChart(BaseChart):
             pos = int(point.x() + 0.5)
             count = self.lineseries.at(pos).y()
             tooltip = "%s: %d" % (self.tr("Total"), count)
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
+
+
+class ProgressPreciousChart(BaseChart):
+
+    def setData(self, xx, yy):
+        self.xx = xx
+        self.yy = yy
+
+        if self.colors:
+            series = QStackedBarSeries()
+        else:
+            series = QBarSeries()
+        series.hovered.connect(self.hover)
+
+        if self.colors and len(yy) < 500:
+            for i, y in enumerate(yy):
+                lst = [0] * len(yy)
+                lst[i] = y
+                setY = QBarSet(self.label_y)
+                setY.append(lst)
+                if self.use_blaf_palette:
+                    setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                series.append(setY)
+        else:
+            setY = QBarSet(self.label_y)
+            setY.append(yy)
+            series.append(setY)
+
+        self.chart().addSeries(series)
+
+        self.lineseries = QLineSeries(self)
+        self.lineseries.setName(self.tr("Trend"))
+        self.lineseries.hovered.connect(self.line_hover)
+
+        cur_y = 0
+        for i, y in enumerate(yy):
+            cur_y += y
+            self.lineseries.append(i, cur_y)
+
+        self.chart().addSeries(self.lineseries)
+
+        axisX = QBarCategoryAxis()
+        axisX.append(self.xLabels())
+        self.chart().addAxis(axisX, Qt.AlignBottom)
+        series.attachAxis(axisX)
+        self.lineseries.attachAxis(axisX)
+
+        axisY = QValueAxis()
+        axisY.setTitleText(self.label)
+        axisY.setLabelFormat("%d")
+        self.chart().addAxis(axisY, Qt.AlignLeft)
+        self.lineseries.attachAxis(axisY)
+        series.attachAxis(axisY)
+        axisY.setMin(0)
+        axisY.applyNiceNumbers()
+
+    def tooltip(self, pos):
+        x = self.xx[pos]
+        y = self.yy[pos]
+        return "%s: %s\n%s: %.2f" % (self.label_y, x, self.label, y)
+
+    def line_hover(self, point, state):
+        if state:
+            pos = int(point.x() + 0.5)
+            count = self.lineseries.at(pos).y()
+            tooltip = "%s: %.2f" % (self.tr("Total"), count)
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
@@ -1052,6 +1122,8 @@ class StatisticsView(QWidget):
                 self.itemsSelector.addItem(field.title, field.name)
             elif field.name == 'paydate':
                 self.itemsSelector.addItem(self.tr("Pay date"), field.name)
+            elif field.name == 'fineness':
+                self.itemsSelector.addItem(self.tr("Precious weight"), field.name)
 
         # TODO: Store field name instead field ID
         fieldid = self.statisticsParam['fieldid']
@@ -1330,6 +1402,10 @@ class StatisticsView(QWidget):
         return chart
 
     def progressChart(self):
+        items = self.itemsSelector.currentData()
+        if items == 'fineness':
+            return self.progressPreciousChart()
+
         chart = ProgressChart(self)
 
         items = self.itemsSelector.currentData()
@@ -1433,6 +1509,70 @@ class StatisticsView(QWidget):
                         xx[str(x)] = 0
 
             xx = dict(sorted(xx.items()))
+
+        chart.setData(list(xx), list(xx.values()))
+        chart.setLabelY(self.periodSelector.currentText())
+
+        return chart
+
+    def progressPreciousChart(self):
+        chart = ProgressPreciousChart(self)
+        chart.setLabel(self.tr("Weight"))
+
+        sql_field = "weight,quantity,fineness"
+
+        period = self.periodSelector.currentData()
+        if period == 'month':
+            date_format = '%m'
+        elif period == 'week':
+            date_format = '%W'
+        elif period == 'day':
+            date_format = '%d'
+        else:
+            date_format = '%Y'
+
+        sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
+
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filters.append(filter_)
+
+        if period == 'month':
+            sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
+        elif period == 'week':
+            sql_filters.append("paydate > datetime('now', '-11 months')")
+        elif period == 'day':
+            sql_filters.append("paydate > datetime('now', '-1 month')")
+        
+        sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
+              " WHERE %s"\
+              " ORDER BY paydate" % (
+                  sql_field, date_format, ' AND '.join(sql_filters))
+
+        query = QSqlQuery(self.model.database())
+        query.exec(sql)
+        xx = {}
+        while query.next():
+            record = query.record()
+            weight = record.value('weight') or 0
+            if isinstance(weight, str):
+                weight = stringToMoney(weight)
+            quantity = record.value('quantity') or 1
+            fineness = record.value('fineness') or 0
+            if isinstance(fineness, str):
+                fineness = stringToMoney(fineness)
+            if isinstance(fineness, float):
+                if fineness > 1:
+                    fineness = str(fineness).replace('.', '')
+                else:
+                    fineness = str(fineness).replace('0.', '')
+            fineness = float("0.%s" % fineness)
+            val = str(record.value(4))
+
+            if val in xx:
+                xx[val] += weight * fineness * quantity
+            else:
+                xx[val] = weight * fineness * quantity
 
         chart.setData(list(xx), list(xx.values()))
         chart.setLabelY(self.periodSelector.currentText())
