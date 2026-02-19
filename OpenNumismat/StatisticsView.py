@@ -29,7 +29,7 @@ from PySide6.QtCore import (
     QSize,
 )
 from PySide6.QtCore import Signal as pyqtSignal
-from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor
+from PySide6.QtGui import QImage, QIcon, QCursor, QPainter, QColor, QPen
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
     QApplication,
@@ -476,70 +476,92 @@ class ProgressChart(BaseChart):
             QToolTip.showText(QPoint(), "")
 
 
+class LineSeries(QLineSeries):
+
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.hovered.connect(self.line_hover)
+
+    def line_hover(self, point, state):
+        if state:
+            pos = int(point.x() + 0.5)
+            value = self.at(pos).y()
+            tooltip = f"{self.name()}: {value:.2f}"
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
+
+
 class ProgressPreciousChart(BaseChart):
 
     def setData(self, xx, yy):
+        metals = list(set().union(*yy))
         self.xx = xx
         self.yy = yy
 
-        if self.colors:
-            series = QStackedBarSeries()
-        else:
-            series = QBarSeries()
+        series = QStackedBarSeries()
         series.hovered.connect(self.hover)
 
-        if self.colors and len(yy) < 500:
-            for i, y in enumerate(yy):
-                lst = [0] * len(yy)
-                lst[i] = y
-                setY = QBarSet(self.label_y)
-                setY.append(lst)
-                if self.use_blaf_palette:
-                    setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
-                series.append(setY)
-        else:
-            setY = QBarSet(self.label_y)
-            setY.append(yy)
+        barsets = {}
+
+        for i, metal in enumerate(metals):
+            lst = [0] * len(yy)
+            for j, y in enumerate(yy):
+                if metal in y:
+                    lst[j] = y[metal]
+
+            setY = QBarSet(metal)
+            setY.append(lst)
+            if self.use_blaf_palette:
+                setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+            barsets[metal] = setY
             series.append(setY)
 
         self.chart().addSeries(series)
 
-        self.lineseries = QLineSeries(self)
-        self.lineseries.setName(self.tr("Trend"))
-        self.lineseries.hovered.connect(self.line_hover)
+        self.lineseries = []
+        for i, metal in enumerate(metals):
+            line_series = LineSeries(self)
+            line_series.setName(metal)
+            pen = QPen(barsets[metal].color())
+            pen.setWidth(2)
+            line_series.setPen(pen)
 
-        cur_y = 0
-        for i, y in enumerate(yy):
-            cur_y += y
-            self.lineseries.append(i, cur_y)
+            cur_y = 0
+            for i, y in enumerate(yy):
+                if metal in y:
+                    cur_y += y[metal]
+                line_series.append(i, cur_y)
 
-        self.chart().addSeries(self.lineseries)
+            self.lineseries.append(line_series)
+
+            self.chart().addSeries(line_series)
 
         axisX = QBarCategoryAxis()
         axisX.append(self.xLabels())
         self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
-        self.lineseries.attachAxis(axisX)
+        for i in range(len(metals)):
+            self.lineseries[i].attachAxis(axisX)
 
         axisY = QValueAxis()
         axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
         self.chart().addAxis(axisY, Qt.AlignLeft)
-        self.lineseries.attachAxis(axisY)
+        for i in range(len(metals)):
+            self.lineseries[i].attachAxis(axisY)
         series.attachAxis(axisY)
         axisY.setMin(0)
         axisY.applyNiceNumbers()
 
-    def tooltip(self, pos):
-        x = self.xx[pos]
-        y = self.yy[pos]
-        return "%s: %s\n%s: %.2f" % (self.label_y, x, self.label, y)
+    def hover(self, status, index, barset):
+        if status:
+            y = barset.at(index)
+            z = barset.label()
 
-    def line_hover(self, point, state):
-        if state:
-            pos = int(point.x() + 0.5)
-            count = self.lineseries.at(pos).y()
-            tooltip = "%s: %.2f" % (self.tr("Total"), count)
+            metal_str = self.tr("Metal")
+            tooltip = f"{metal_str}: {z}\n{self.label}: {y:.2f}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
@@ -1519,7 +1541,7 @@ class StatisticsView(QWidget):
         chart = ProgressPreciousChart(self)
         chart.setLabel(self.tr("Weight"))
 
-        sql_field = "weight,quantity,fineness"
+        sql_field = "weight,quantity,fineness,material"
 
         period = self.periodSelector.currentData()
         if period == 'month':
@@ -1567,12 +1589,17 @@ class StatisticsView(QWidget):
                 else:
                     fineness = str(fineness).replace('0.', '')
             fineness = float("0.%s" % fineness)
+            metal = record.value('material')
             val = str(record.value(4))
 
-            if val in xx:
-                xx[val] += weight * fineness * quantity
+            if val not in xx:
+                xx[val] = {}
+
+            total_weight = weight * fineness * quantity
+            if metal in xx[val]:
+                xx[val][metal] += total_weight
             else:
-                xx[val] = weight * fineness * quantity
+                xx[val][metal] = total_weight
 
         chart.setData(list(xx), list(xx.values()))
         chart.setLabelY(self.periodSelector.currentText())
