@@ -1551,6 +1551,13 @@ class StatisticsView(QWidget):
         return chart
 
     def progressPreciousChart(self):
+        metals = (
+            ("Gold", self.tr("Gold"), "Au", "Aurum"),
+            ("Silver", self.tr("Silver"), "Ag", "Argentum"),
+            ("Platinum", self.tr("Platinum"), "Pt"),
+            ("Palladium", self.tr("Palladium"), "Pd"),
+        )
+
         chart = ProgressPreciousChart(self)
         chart.setLabel(self.tr("Weight"))
 
@@ -1576,6 +1583,8 @@ class StatisticsView(QWidget):
         if filter_:
             sql_filters.append(filter_)
 
+        sql_filters.append("material IS NOT NULL")
+        sql_filters.append("material <> ''")
         sql_filters.append("paydate IS NOT NULL")
         sql_filters.append("paydate <> ''")
         if period == 'month':
@@ -1597,10 +1606,13 @@ class StatisticsView(QWidget):
         max_paydate = None
         while query.next():
             record = query.record()
+
             weight = record.value('weight') or 0
             if isinstance(weight, str):
                 weight = stringToMoney(weight)
+
             quantity = record.value('quantity') or 1
+
             fineness = record.value('fineness') or 0
             if isinstance(fineness, str):
                 fineness = stringToMoney(fineness)
@@ -1610,7 +1622,16 @@ class StatisticsView(QWidget):
                 else:
                     fineness = str(fineness).replace('0.', '')
             fineness = float("0.%s" % fineness)
-            metal = record.value('material')
+
+            material = record.value('material').capitalize()
+            metal = None
+            for metal_titles in metals:
+                if material in metal_titles:
+                    metal = metal_titles[1]
+                    break
+            if not metal:
+                continue
+
             paydate = record.value('paydate')
             paydate = datetime.strptime(paydate, '%Y-%m-%d')
             if not min_paydate:
@@ -1630,14 +1651,15 @@ class StatisticsView(QWidget):
         current_date = min_paydate
 
         normalized_data = {}
-        while current_date <= max_paydate:
-            period_item = current_date.strftime(date_format)
-            if period_item in data:
-                normalized_data[period_item] = data[period_item]
-            else:
-                normalized_data[period_item] = {}
+        if data:
+            while current_date <= max_paydate:
+                period_item = current_date.strftime(date_format)
+                if period_item in data:
+                    normalized_data[period_item] = data[period_item]
+                else:
+                    normalized_data[period_item] = {}
 
-            current_date = current_date + delta
+                current_date = current_date + delta
 
         chart.setData(list(normalized_data), list(normalized_data.values()))
         chart.setLabelY(self.periodSelector.currentText())
