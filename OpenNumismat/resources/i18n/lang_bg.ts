@@ -2254,10 +2254,6 @@ drag-n-drop to add an image)</source>
         <translation>Използване на вграденият преглед на изображения</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation>Извличане на цени на метали от DBnomics с валута</translation>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Карти</translation>
     </message>
@@ -3303,20 +3299,12 @@ Please update OpenNumismat</source>
         <translation>Злато (тегло)</translation>
     </message>
     <message>
-        <source>Gold price</source>
-        <translation>Цена на златото</translation>
-    </message>
-    <message>
         <source>Silver coins</source>
         <translation>Сребърни монети (брой)</translation>
     </message>
     <message>
         <source>Silver weight</source>
         <translation>Сребро (тегло)</translation>
-    </message>
-    <message>
-        <source>Silver price</source>
-        <translation>Цена на среброто</translation>
     </message>
     <message>
         <source>Platinum coins</source>
@@ -3327,20 +3315,12 @@ Please update OpenNumismat</source>
         <translation>Платина (тегло)</translation>
     </message>
     <message>
-        <source>Platinum price</source>
-        <translation>Цена на платината</translation>
-    </message>
-    <message>
         <source>Palladium coins</source>
         <translation>Паладиеви монети (брой)</translation>
     </message>
     <message>
         <source>Palladium weight</source>
         <translation>Паладий (тегло)</translation>
-    </message>
-    <message>
-        <source>Palladium price</source>
-        <translation>Цена на паладий</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
@@ -3353,14 +3333,6 @@ Please update OpenNumismat</source>
     <message>
         <source>gram</source>
         <translation>г</translation>
-    </message>
-    <message>
-        <source>DBnomics not response</source>
-        <translation>DBnomics не отговаря</translation>
-    </message>
-    <message>
-        <source>The Rates API not response</source>
-        <translation>Rates API не отговаря</translation>
     </message>
 </context>
 <context>
