@@ -1,4 +1,6 @@
 import math
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from functools import cmp_to_key
 
 from PySide6.QtCharts import (
@@ -1552,17 +1554,21 @@ class StatisticsView(QWidget):
         chart = ProgressPreciousChart(self)
         chart.setLabel(self.tr("Weight"))
 
-        sql_field = "weight,quantity,fineness,material"
+        sql_field = "weight,quantity,fineness,material,paydate"
 
         period = self.periodSelector.currentData()
         if period == 'month':
             date_format = '%m'
+            delta = relativedelta(months=1)
         elif period == 'week':
             date_format = '%W'
+            delta = relativedelta(weeks=1)
         elif period == 'day':
             date_format = '%d'
+            delta = relativedelta(days=1)
         else:
             date_format = '%Y'
+            delta = relativedelta(years=1)
 
         sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
 
@@ -1570,6 +1576,8 @@ class StatisticsView(QWidget):
         if filter_:
             sql_filters.append(filter_)
 
+        sql_filters.append("paydate IS NOT NULL")
+        sql_filters.append("paydate <> ''")
         if period == 'month':
             sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
         elif period == 'week':
@@ -1577,14 +1585,16 @@ class StatisticsView(QWidget):
         elif period == 'day':
             sql_filters.append("paydate > datetime('now', '-1 month')")
         
-        sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
+        sql = "SELECT %s FROM coins"\
               " WHERE %s"\
               " ORDER BY paydate" % (
-                  sql_field, date_format, ' AND '.join(sql_filters))
+                  sql_field, ' AND '.join(sql_filters))
 
         query = QSqlQuery(self.model.database())
         query.exec(sql)
-        xx = {}
+        data = {}
+        min_paydate = None
+        max_paydate = None
         while query.next():
             record = query.record()
             weight = record.value('weight') or 0
@@ -1601,18 +1611,35 @@ class StatisticsView(QWidget):
                     fineness = str(fineness).replace('0.', '')
             fineness = float("0.%s" % fineness)
             metal = record.value('material')
-            val = str(record.value(4))
+            paydate = record.value('paydate')
+            paydate = datetime.strptime(paydate, '%Y-%m-%d')
+            if not min_paydate:
+                min_paydate = paydate
+            max_paydate = paydate
+            period_item = paydate.strftime(date_format)
 
-            if val not in xx:
-                xx[val] = {}
+            if period_item not in data:
+                data[period_item] = {}
 
             total_weight = weight * fineness * quantity
-            if metal in xx[val]:
-                xx[val][metal] += total_weight
+            if metal in data[period_item]:
+                data[period_item][metal] += total_weight
             else:
-                xx[val][metal] = total_weight
+                data[period_item][metal] = total_weight
 
-        chart.setData(list(xx), list(xx.values()))
+        current_date = min_paydate
+
+        normalized_data = {}
+        while current_date <= max_paydate:
+            period_item = current_date.strftime(date_format)
+            if period_item in data:
+                normalized_data[period_item] = data[period_item]
+            else:
+                normalized_data[period_item] = {}
+
+            current_date = current_date + delta
+
+        chart.setData(list(normalized_data), list(normalized_data.values()))
         chart.setLabelY(self.periodSelector.currentText())
 
         return chart
