@@ -2697,6 +2697,13 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChart</name>
+    <message>
+        <source>Metal</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3111,6 +3118,10 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Precious weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Total price</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3120,6 +3131,26 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Quantity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weight</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
