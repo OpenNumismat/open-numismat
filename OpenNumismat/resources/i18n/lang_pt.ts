@@ -2254,10 +2254,6 @@ arraste e largue para adicionar)</translation>
         <translation>Utilizar visualizador interno</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation>Obter cotações de metais de DBnomics com moeda:</translation>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Mapas</translation>
     </message>
@@ -3303,20 +3299,12 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Peso em ouro</translation>
     </message>
     <message>
-        <source>Gold price</source>
-        <translation>Cotação do ouro</translation>
-    </message>
-    <message>
         <source>Silver coins</source>
         <translation>Moedas de prata</translation>
     </message>
     <message>
         <source>Silver weight</source>
         <translation>Peso em prata</translation>
-    </message>
-    <message>
-        <source>Silver price</source>
-        <translation>Cotação da prata</translation>
     </message>
     <message>
         <source>Platinum coins</source>
@@ -3327,20 +3315,12 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Peso em platina</translation>
     </message>
     <message>
-        <source>Platinum price</source>
-        <translation>Cotação da platina</translation>
-    </message>
-    <message>
         <source>Palladium coins</source>
         <translation>Moedas de paládio</translation>
     </message>
     <message>
         <source>Palladium weight</source>
         <translation>Peso em paládio</translation>
-    </message>
-    <message>
-        <source>Palladium price</source>
-        <translation>Cotação do paládio</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
@@ -3353,14 +3333,6 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>gram</source>
         <translation>grama</translation>
-    </message>
-    <message>
-        <source>DBnomics not response</source>
-        <translation>DBnomics não responde</translation>
-    </message>
-    <message>
-        <source>The Rates API not response</source>
-        <translation>Rates API não responde</translation>
     </message>
 </context>
 <context>
