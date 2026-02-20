@@ -16,6 +16,7 @@ from PySide6.QtCharts import (
     QPieSlice,
     QStackedBarSeries,
     QValueAxis,
+    QXYLegendMarker,
 )
 from PySide6.QtCore import (
     Qt,
@@ -495,6 +496,11 @@ class LineSeries(QLineSeries):
 
 class ProgressPreciousChart(BaseChart):
 
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.chart().legend().show()
+        self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
+
     def setData(self, xx, yy):
         metals = list(set().union(*yy))
         self.xx = xx
@@ -537,6 +543,11 @@ class ProgressPreciousChart(BaseChart):
             self.lineseries.append(line_series)
 
             self.chart().addSeries(line_series)
+
+        markers = self.chart().legend().markers()
+        for marker in markers:
+            if isinstance(marker, QXYLegendMarker):
+                marker.setVisible(False)
 
         axisX = QBarCategoryAxis()
         axisX.append(self.xLabels())
