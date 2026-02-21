@@ -2254,6 +2254,10 @@ arraste e largue para adicionar)</translation>
         <translation>Utilizar visualizador interno</translation>
     </message>
     <message>
+        <source>Get metal prices from DBnomics with currency:</source>
+        <translation>Obter cotações de metais de DBnomics com moeda:</translation>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Mapas</translation>
     </message>
@@ -2706,6 +2710,13 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChart</name>
+    <message>
+        <source>Metal</source>
+        <translation>Metal</translation>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3125,6 +3136,10 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Data de venda</translation>
     </message>
     <message>
+        <source>Precious weight</source>
+        <translation>Preço precioso</translation>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Preço total</translation>
     </message>
@@ -3135,6 +3150,26 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>Quantity</source>
         <translation>Quantidade</translation>
+    </message>
+    <message>
+        <source>Gold</source>
+        <translation>Ouro</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Prata</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platina</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Paládio</translation>
+    </message>
+    <message>
+        <source>Weight</source>
+        <translation>Peso</translation>
     </message>
 </context>
 <context>
@@ -3299,12 +3334,20 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Peso em ouro</translation>
     </message>
     <message>
+        <source>Gold price</source>
+        <translation>Cotação do ouro</translation>
+    </message>
+    <message>
         <source>Silver coins</source>
         <translation>Moedas de prata</translation>
     </message>
     <message>
         <source>Silver weight</source>
         <translation>Peso em prata</translation>
+    </message>
+    <message>
+        <source>Silver price</source>
+        <translation>Cotação da prata</translation>
     </message>
     <message>
         <source>Platinum coins</source>
@@ -3315,12 +3358,20 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Peso em platina</translation>
     </message>
     <message>
+        <source>Platinum price</source>
+        <translation>Cotação da platina</translation>
+    </message>
+    <message>
         <source>Palladium coins</source>
         <translation>Moedas de paládio</translation>
     </message>
     <message>
         <source>Palladium weight</source>
         <translation>Peso em paládio</translation>
+    </message>
+    <message>
+        <source>Palladium price</source>
+        <translation>Cotação do paládio</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
@@ -3333,6 +3384,14 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>gram</source>
         <translation>grama</translation>
+    </message>
+    <message>
+        <source>DBnomics not response</source>
+        <translation>DBnomics não responde</translation>
+    </message>
+    <message>
+        <source>The Rates API not response</source>
+        <translation>Rates API não responde</translation>
     </message>
 </context>
 <context>
