@@ -1,202 +1,5 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk">
 <context>
-    <name/>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>В&amp;ихід</translation>
-    </message>
-    <message>
-        <source>Full Screen</source>
-        <translation>На весь екран</translation>
-    </message>
-    <message>
-        <source>Zoom &amp;In (25%)</source>
-        <translation>Збільшити (25%)</translation>
-    </message>
-    <message>
-        <source>Zoom &amp;Out (25%)</source>
-        <translation>Зменшити (25%)</translation>
-    </message>
-    <message>
-        <source>&amp;Normal Size</source>
-        <translation>Вихідний розмір</translation>
-    </message>
-    <message>
-        <source>&amp;Fit to Window</source>
-        <translation>Заповнити вікно</translation>
-    </message>
-    <message>
-        <source>Show Tool Bar</source>
-        <translation>Відобразити панель інструментів</translation>
-    </message>
-    <message>
-        <source>Show Status Bar</source>
-        <translation>Відобразити рядок стану</translation>
-    </message>
-    <message>
-        <source>Rotate to Left</source>
-        <translation>Повернути ліворуч</translation>
-    </message>
-    <message>
-        <source>Rotate to Right</source>
-        <translation>Повернути праворуч</translation>
-    </message>
-    <message>
-        <source>Rotate...</source>
-        <translation>Поворот...</translation>
-    </message>
-    <message>
-        <source>Crop...</source>
-        <translation>Обрізати...</translation>
-    </message>
-    <message>
-        <source>Autocrop</source>
-        <translation>Автообрізання</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Зберегти</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Копіювати</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation>Вставити</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation>Скасувати</translation>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation>Повторити</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation>&amp;Файл</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Виправлення</translation>
-    </message>
-    <message>
-        <source>&amp;View</source>
-        <translation>&amp;Вид</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Зображення (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Всі файли (*.*)</translation>
-    </message>
-    <message>
-        <source>Image was changed. Save changes?</source>
-        <translation>Зображення змінено. Зберегти зміни?</translation>
-    </message>
-    <message>
-        <source>Country</source>
-        <translation>Країна</translation>
-    </message>
-    <message>
-        <source>Number of coins</source>
-        <translation>Кількість монет</translation>
-    </message>
-    <message>
-        <source>Saving</source>
-        <translation>Збереження</translation>
-    </message>
-    <message>
-        <source>Image not ready. Please try again later</source>
-        <translation>Зображення не готове. Спробуй пізніше</translation>
-    </message>
-    <message>
-        <source>Total price</source>
-        <translation>Кінцева ціна</translation>
-    </message>
-    <message>
-        <source>Total paid</source>
-        <translation>Усього сплачено</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Стиснення...</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation>Зберегти як</translation>
-    </message>
-    <message>
-        <source>Exporting records</source>
-        <translation>Експорт записів</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Скасувати</translation>
-    </message>
-    <message>
-        <source>Synchronizing</source>
-        <translation>Синхронізація</translation>
-    </message>
-    <message>
-        <source>Can't open collection:
-%s</source>
-        <translation>Не вдалося відкрити колекцію:
-%s</translation>
-    </message>
-    <message>
-        <source>Collection %s in wrong format</source>
-        <translation>Колекція %s у неправильному форматі</translation>
-    </message>
-    <message>
-        <source>Collection %s in old format.
-(Try to open it before merging.)</source>
-        <translation>Початкова колекція %s у старому форматі.
-(Спробуйте відкрити її перед &apos;об&apos;єднанням.)</translation>
-    </message>
-    <message>
-        <source>Inserted %d coins, updated %d coins.
-The application will need to restart now.</source>
-        <translation>Вставлено %d монет, оновлено %d монет.
-Необхідно перезапустити додаток.</translation>
-    </message>
-    <message>
-        <source>Collections looks like identical</source>
-        <translation>Колекції виглядають однаково</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Перейменувати</translation>
-    </message>
-    <message>
-        <source>Revert to default</source>
-        <translation>Відновити за умовчанням</translation>
-    </message>
-    <message>
-        <source>Global enabled fields:</source>
-        <translation>Увімкнені поля:</translation>
-    </message>
-    <message>
-        <source>New tag</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>New subtag</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Видалити</translation>
-    </message>
-    <message>
-        <source>Enter value</source>
-        <translation>Введіть значення</translation>
-    </message>
-</context>
-<context>
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
@@ -232,16 +35,8 @@ The application will need to restart now.</source>
 <context>
     <name>AnsDialog</name>
     <message>
-        <source>Catalog information courtesy of the &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
-        <translation>Інформація каталогу надана базою даних колекцій &lt;a href=&quot;http://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
-        <translation>Всі зображення об&apos;єктів, створених до 1925 року, знаходяться в &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;громадському надбанні&lt;/a&gt;. Інші доступні для некомерційних цілей. &lt;a href=&quot;http://numismatics.org/photography-permissions/&quot;&gt;Правила&lt;/a&gt;.</translation>
-    </message>
-    <message>
         <source>Greek</source>
-        <translation>Греція</translation>
+        <translation>Грецький </translation>
     </message>
     <message>
         <source>Roman</source>
@@ -249,7 +44,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Byzantine</source>
-        <translation>Візантія</translation>
+        <translation>Візантійський</translation>
     </message>
     <message>
         <source>Islamic</source>
@@ -323,6 +118,18 @@ The application will need to restart now.</source>
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
+    <message>
+        <source>Catalog information courtesy of the &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Inserting records</source>
+        <translation>Вставка записів</translation>
+    </message>
 </context>
 <context>
     <name>AreaNiceSeries</name>
@@ -367,22 +174,25 @@ The application will need to restart now.</source>
     </message>
 </context>
 <context>
+    <name>BarcodeLineEdit</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>BaseCanvas</name>
     <message>
-        <source>Number of coins</source>
-        <translation>Кількість монет</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Всі файли (*.*)</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Зображення (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
+        <source>Quantity</source>
+        <translation>Кількість</translation>
     </message>
 </context>
 <context>
     <name>BaseTableView</name>
+    <message>
+        <source>0 records selected</source>
+        <translation>Вибрано 0 записів</translation>
+    </message>
     <message>
         <source>Custom sorting</source>
         <translation>Ручне сортування</translation>
@@ -392,6 +202,10 @@ The application will need to restart now.</source>
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
         <translation>Сортування змінено. 
 Зміна позиції елементів доступна лише при скинутому сортуванні. Скинути сортування зараз?</translation>
+    </message>
+    <message>
+        <source>%d/%d records</source>
+        <translation>%d/%d записів</translation>
     </message>
     <message>
         <source>Report preview</source>
@@ -432,10 +246,6 @@ Close the file and try again.</source>
 Закрийте файл та повторіть.</translation>
     </message>
     <message>
-        <source>Updating records</source>
-        <translation>Оновлення записів</translation>
-    </message>
-    <message>
         <source>Saving...</source>
         <translation>Збереження...</translation>
     </message>
@@ -452,16 +262,12 @@ Close the file and try again.</source>
         <translation>Видалення записів</translation>
     </message>
     <message>
-        <source>0 records selected</source>
-        <translation>Вибрано 0 записів</translation>
+        <source>%d record(s) selected</source>
+        <translation>Вибрано %d запис(ів).</translation>
     </message>
     <message>
-        <source>%d/%d records</source>
-        <translation>%d/%d записів</translation>
-    </message>
-    <message>
-        <source>%n record(s) selected</source>
-        <translation>Вибрано %n запис(ів).</translation>
+        <source>Are you sure to remove a %d coin(s)?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -484,6 +290,25 @@ Close the file and try again.</source>
     <message>
         <source>Clean</source>
         <translation>Очистити</translation>
+    </message>
+</context>
+<context>
+    <name>CameraDialog</name>
+    <message>
+        <source>Shoot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -626,20 +451,38 @@ Please update OpenNumismat</source>
         <translation>Резервна копія збережена як %s</translation>
     </message>
     <message>
-        <source>Create mobile collection</source>
-        <translation>Створення колекції для мобільного</translation>
-    </message>
-    <message>
         <source>Exporting records</source>
         <translation>Експорт записів</translation>
     </message>
     <message>
-        <source>Saving...</source>
-        <translation>Збереження...</translation>
+        <source>Save as</source>
+        <translation>Зберегти як</translation>
     </message>
     <message>
-        <source>Compact...</source>
-        <translation>Стиснення...</translation>
+        <source>Synchronizing</source>
+        <translation>Синхронізація</translation>
+    </message>
+    <message>
+        <source>Can't open collection:
+%s</source>
+        <translation>Не вдалося відкрити колекцію:
+%s</translation>
+    </message>
+    <message>
+        <source>Collection %s in old format.
+(Try to open it before merging.)</source>
+        <translation>Початкова колекція %s у старому форматі.
+(Спробуйте відкрити її перед об&apos;єднанням.)</translation>
+    </message>
+    <message>
+        <source>Inserted %d coins, updated %d coins.
+The application will need to restart now.</source>
+        <translation>Вставлено %d монет, оновлено %d монет.
+Необхідно перезапустити додаток.</translation>
+    </message>
+    <message>
+        <source>Collections looks like identical</source>
+        <translation>Колекції виглядають однаково</translation>
     </message>
 </context>
 <context>
@@ -1012,6 +855,10 @@ Please update OpenNumismat</source>
 <context>
     <name>CollectionModel</name>
     <message>
+        <source>h</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Updating records</source>
         <translation>Оновлення записів</translation>
     </message>
@@ -1043,13 +890,13 @@ Please update OpenNumismat</source>
         <source>Filter is too complex. Will be ignored</source>
         <translation>Фільтр надто складний. Буде проігноровано</translation>
     </message>
-    <message>
-        <source>h</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>CollectionSettings</name>
+    <message>
+        <source>Overall</source>
+        <translation>Загалом</translation>
+    </message>
     <message>
         <source>Main details</source>
         <translation>Опис</translation>
@@ -1075,8 +922,16 @@ Please update OpenNumismat</source>
         <translation>Мапа</translation>
     </message>
     <message>
+        <source>Technical data</source>
+        <translation>Технічні дані</translation>
+    </message>
+    <message>
         <source>Parameters</source>
         <translation>Параметри</translation>
+    </message>
+    <message>
+        <source>Specificity</source>
+        <translation>Специфіка</translation>
     </message>
     <message>
         <source>Minting</source>
@@ -1119,16 +974,8 @@ Please update OpenNumismat</source>
         <translation>Зображення</translation>
     </message>
     <message>
-        <source>Overall</source>
-        <translation>Загалом</translation>
-    </message>
-    <message>
-        <source>Technical data</source>
-        <translation>Технічні дані</translation>
-    </message>
-    <message>
-        <source>Specificity</source>
-        <translation type="unfinished"/>
+        <source>Tags</source>
+        <translation>Теги</translation>
     </message>
 </context>
 <context>
@@ -1148,6 +995,10 @@ Please update OpenNumismat</source>
     <message>
         <source>0 for storing in original size</source>
         <translation>0 для збереження в оригінальному розмірі</translation>
+    </message>
+    <message>
+        <source>Image quality, %</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Preview image height</source>
@@ -1174,8 +1025,12 @@ Please update OpenNumismat</source>
         <translation>Використовувати формат RichText</translation>
     </message>
     <message>
-        <source>Used statuses:</source>
-        <translation>Використані статуси:</translation>
+        <source>Use relative paths for invoices</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Die axis in hours</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Default status for new coin</source>
@@ -1190,11 +1045,23 @@ Please update OpenNumismat</source>
         <translation>Висоту зображення попереднього перегляду було змінено. Перерахувати їх зараз?</translation>
     </message>
     <message>
-        <source>Use relative paths for invoices</source>
+        <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Die axis in hours</source>
+        <source>5 stars in rating</source>
+        <translation>5 зірок у рейтингу</translation>
+    </message>
+    <message>
+        <source>Enable tags</source>
+        <translation>Додати тег</translation>
+    </message>
+    <message>
+        <source>Used statuses (double-click for rename):</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sort tree by references</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1211,6 +1078,22 @@ Please update OpenNumismat</source>
     <message>
         <source>Colnect data not recognised</source>
         <translation>Дані Colnect не розпізнані</translation>
+    </message>
+    <message>
+        <source>Number of requests exceeded</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Daily request limit reached</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Weekly request limit reached</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Monthly request limit reached</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1270,6 +1153,16 @@ Please update OpenNumismat</source>
     <message>
         <source>Cancel</source>
         <translation>Скасувати</translation>
+    </message>
+    <message>
+        <source>Inserting records</source>
+        <translation>Вставка записів</translation>
+    </message>
+    <message>
+        <source>Colnect API changed.
+Please clear import cache from Settings-&gt;Import-&gt;Clear cache
+and try again.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1469,10 +1362,6 @@ Please update OpenNumismat</source>
         <translation>Зберегти</translation>
     </message>
     <message>
-        <source>Coin title not set. Save without title?</source>
-        <translation>Не вказано назву монети. Зберегти без назви?</translation>
-    </message>
-    <message>
         <source>Don&apos;t show this again</source>
         <translation>Більше не показувати</translation>
     </message>
@@ -1493,8 +1382,55 @@ Please update OpenNumismat</source>
         <translation>Ціна продажу нижче ніж виторг. Зберегти?</translation>
     </message>
     <message>
-        <source>Similar coin already exists. Save?</source>
-        <translation>Подібна монета вже існує. Все одно зберегти?</translation>
+        <source>Title not set. Save without title?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Similar record already exists. Save?</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>EditTagsTreeWidget</name>
+    <message>
+        <source>New tag</source>
+        <translation>Новий тег</translation>
+    </message>
+    <message>
+        <source>New subtag</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Перейменувати</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Видалити</translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation>Введіть значення</translation>
+    </message>
+    <message>
+        <source>Change icon...</source>
+        <translation>Змінити іконку...</translation>
+    </message>
+    <message>
+        <source>Add icon...</source>
+        <translation>Додати іконку...</translation>
+    </message>
+    <message>
+        <source>Paste icon</source>
+        <translation>Вставити іконку</translation>
+    </message>
+    <message>
+        <source>Clear icon</source>
+        <translation>Очистити іконку</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Відкрити файл</translation>
     </message>
 </context>
 <context>
@@ -1511,73 +1447,22 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
-    <name>ExportDialog</name>
-    <message>
-        <source>Export to mobile</source>
-        <translation>Експорт для мобільного</translation>
-    </message>
-    <message>
-        <source>Target density of the display</source>
-        <translation>Щільність пікселів дісплею</translation>
-    </message>
-    <message>
-        <source>Countries</source>
-        <translation>Країни</translation>
-    </message>
-    <message>
-        <source>Series</source>
-        <translation>Серії</translation>
-    </message>
-    <message>
-        <source>Denomination</source>
-        <translation>Номінал</translation>
-    </message>
-    <message>
-        <source>Default filter by</source>
-        <translation>Фільтр за умовчанням</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>Зображення</translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation>Аверс</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Реверс</translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation>Обидва</translation>
-    </message>
-    <message>
-        <source>Export a full-sized image</source>
-        <translation>Експортувати повнорозмірні зображення</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation>Цільовий файл</translation>
-    </message>
-    <message>
-        <source>Select destination</source>
-        <translation>Вибір файлу</translation>
-    </message>
-    <message>
-        <source>Create mobile collection</source>
-        <translation>Створити колекцію для мобільного</translation>
-    </message>
-    <message>
-        <source>Destination file not specified</source>
-        <translation>Цільовий файл не вказаний</translation>
-    </message>
-</context>
-<context>
     <name>FieldsSettingsPage</name>
     <message>
         <source>System</source>
         <translation>Системні</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Перейменувати</translation>
+    </message>
+    <message>
+        <source>Revert to default</source>
+        <translation>Відновити за умовчанням</translation>
+    </message>
+    <message>
+        <source>Global enabled fields:</source>
+        <translation>Увімкнені поля:</translation>
     </message>
 </context>
 <context>
@@ -1644,6 +1529,10 @@ Do you want to send an error message to the author?</source>
     <message>
         <source>Cancel</source>
         <translation>Відмінити</translation>
+    </message>
+    <message>
+        <source>Search by image</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1772,6 +1661,29 @@ Do you want to send an error message to the author?</source>
         <source>Available format 12.5 or 10%</source>
         <translation>Доступний формат: 12.5 або 10%</translation>
     </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Редагувати...</translation>
+    </message>
+</context>
+<context>
+    <name>GeoChart</name>
+    <message>
+        <source>Country</source>
+        <translation>Країна</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Кількість</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Збереження</translation>
+    </message>
+    <message>
+        <source>Image not ready. Please try again later</source>
+        <translation>Зображення не готове. Спробуй пізніше</translation>
+    </message>
 </context>
 <context>
     <name>GeoChartCanvas</name>
@@ -1889,6 +1801,200 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ImageEditorDialog</name>
+    <message>
+        <source>Browse in viewer</source>
+        <translation>Відкрити у програмі перегляду</translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation>Зберегти як...</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>В&amp;вихід</translation>
+    </message>
+    <message>
+        <source>Full Screen</source>
+        <translation>На весь екран</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;In (25%)</source>
+        <translation>Збільшити (25%)</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;Out (25%)</source>
+        <translation>Зменшити (25%)</translation>
+    </message>
+    <message>
+        <source>&amp;Normal Size</source>
+        <translation>Вихідний розмір</translation>
+    </message>
+    <message>
+        <source>&amp;Fit to Window</source>
+        <translation>Заповнити вікно</translation>
+    </message>
+    <message>
+        <source>Show Tool Bar</source>
+        <translation>Відобразити панель інструментів</translation>
+    </message>
+    <message>
+        <source>Show Status Bar</source>
+        <translation>Відобразити рядок стану</translation>
+    </message>
+    <message>
+        <source>Rotate to Left</source>
+        <translation>Повернути вліво</translation>
+    </message>
+    <message>
+        <source>Rotate to Right</source>
+        <translation>Повернути праворуч</translation>
+    </message>
+    <message>
+        <source>Rotate...</source>
+        <translation>Поворот...</translation>
+    </message>
+    <message>
+        <source>Crop...</source>
+        <translation>Обрізати...</translation>
+    </message>
+    <message>
+        <source>Autocrop</source>
+        <translation>Автообрізання</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Зберегти</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Копіювати</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Вставити</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Скасувати</translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <translation>Повторити</translation>
+    </message>
+    <message>
+        <source>Cut left half</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cut right half</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Файл</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Виправлення</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Вид</translation>
+    </message>
+    <message>
+        <source>Image editor</source>
+        <translation>Редактор зображень</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>Зображення змінено. Зберегти зміни?</translation>
+    </message>
+    <message>
+        <source>Save changes to current image?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Більше не показувати</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <translation>&amp;Відкрити...</translation>
+    </message>
+    <message>
+        <source>Show Scroll Panel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Previous image</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Next image</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Previous record</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Next record</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Відкрити файл</translation>
+    </message>
+    <message>
+        <source>Settings...</source>
+        <translation>Налаштування...</translation>
+    </message>
+    <message>
+        <source>Remove background</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Скасувати</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Завантаження</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d Mb)</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ImageEditorWindow</name>
+    <message>
+        <source>Save</source>
+        <translation>Зберегти</translation>
+    </message>
+    <message>
+        <source>Image was changed. Save changes?</source>
+        <translation>Зображення змінено. Зберегти зміни?</translation>
+    </message>
+    <message>
+        <source>Open folder...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open image folder</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ImageLabel</name>
     <message>
         <source>Open</source>
@@ -1904,25 +2010,6 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Зберегти як...</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</source>
-        <translation>Зображення (*.jpg *.jpeg *.bmp *.png *.tiff *.gif)</translation>
-    </message>
-    <message>
-        <source>All files (*.*)</source>
-        <translation>Всі файли (*.*)</translation>
-    </message>
-</context>
-<context>
-    <name>ImageViewer</name>
-    <message>
-        <source>Browse in viewer</source>
-        <translation>Відкрити у програмі перегляду</translation>
-    </message>
-    <message>
-        <source>&amp;Save As...</source>
         <translation>Зберегти як...</translation>
     </message>
 </context>
@@ -1961,10 +2048,32 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ImportCoinSnap</name>
+    <message>
+        <source>No mint mark</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Common series</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>CoinSnap not response</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ImportExcel</name>
     <message>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ігнор&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>ImportNumista</name>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2084,10 +2193,6 @@ drag-n-drop to add an image)</source>
         <translation>Очистити іконку</translation>
     </message>
     <message>
-        <source>Images (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;All files (*.*)</source>
-        <translation>Зображення (*.jpg *.jpeg *.bmp *.png *.tiff *.gif *.ico);;Всі файли (*.*)</translation>
-    </message>
-    <message>
         <source>Open File</source>
         <translation>Відкрити файл</translation>
     </message>
@@ -2143,12 +2248,12 @@ drag-n-drop to add an image)</source>
         <translation>Шаблон за умовчанням</translation>
     </message>
     <message>
-        <source>Images count by default</source>
-        <translation>Кількість зображень за замовчуванням</translation>
-    </message>
-    <message>
         <source>Use built-in image viewer</source>
         <translation>Використати вбудований редактор зображень</translation>
+    </message>
+    <message>
+        <source>Get metal prices from DBnomics with currency:</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Maps</source>
@@ -2177,6 +2282,42 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Select reference</source>
         <translation>Вибір довідника</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Use webcam</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show counter in tree and statistics</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>System</source>
+        <translation>Системні</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>Світло</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Темний</translation>
+    </message>
+    <message>
+        <source>Color scheme</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Transparent</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Колір</translation>
     </message>
 </context>
 <context>
@@ -2262,10 +2403,6 @@ drag-n-drop to add an image)</source>
         <translation>Експортувати</translation>
     </message>
     <message>
-        <source>For Android version</source>
-        <translation>Версія для Android</translation>
-    </message>
-    <message>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
@@ -2288,6 +2425,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Paste</source>
         <translation>Вставити</translation>
+    </message>
+    <message>
+        <source>Record</source>
+        <translation>Запис</translation>
     </message>
     <message>
         <source>Details</source>
@@ -2418,11 +2559,30 @@ drag-n-drop to add an image)</source>
         <translation>Доступна нова версія. Завантажити зараз?</translation>
     </message>
     <message>
-        <source>Record</source>
-        <translation>Запис</translation>
+        <source>Tags...</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Tags...</source>
+        <source>Search by image...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Year calculator</source>
+        <translation>Калькулятор років</translation>
+    </message>
+    <message>
+        <source>References generator</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>NGCBarcodeDialog</name>
+    <message>
+        <source>NGC barcode parser</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2434,10 +2594,17 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>NumistaAuthentication</name>
+    <name>OldPCGSBarcodeDialog</name>
     <message>
-        <source>Numista</source>
-        <translation>Numista</translation>
+        <source>PCGS barcode parser</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>PCGSBarcodeDialog</name>
+    <message>
+        <source>PCGS barcode parser</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2541,6 +2708,13 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChart</name>
+    <message>
+        <source>Metal</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -2572,10 +2746,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>G</source>
         <translation>G</translation>
-    </message>
-    <message>
-        <source>M</source>
-        <translation>M</translation>
     </message>
     <message>
         <source>F</source>
@@ -2610,6 +2780,14 @@ drag-n-drop to add an image)</source>
         <translation>Гурт</translation>
     </message>
     <message>
+        <source>Material</source>
+        <translation>Матеріал</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation>M</translation>
+    </message>
+    <message>
         <source>Open reference</source>
         <translation>Відкрити довідник</translation>
     </message>
@@ -2635,10 +2813,6 @@ Created new one</source>
         <source>Can't create reference:
 %s</source>
         <translation>Не вдалося створити довідник: </translation>
-    </message>
-    <message>
-        <source>Material</source>
-        <translation>Матеріал</translation>
     </message>
     <message>
         <source>Reference is a newer version.
@@ -2696,6 +2870,25 @@ Please update OpenNumismat</source>
     <message>
         <source>Show grid</source>
         <translation>Відобразити сітку</translation>
+    </message>
+</context>
+<context>
+    <name>ScanBarcodeDialog</name>
+    <message>
+        <source>Scan barcode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Camera not available</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Camera not available or disabled by antivirus</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Camera Error</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2802,6 +2995,18 @@ Please update OpenNumismat</source>
     <message>
         <source>Nice years (Area)</source>
         <translation>Гарні роки (область)</translation>
+    </message>
+    <message>
+        <source>Background remover AI model</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Crop after background remover</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Window background color</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2926,6 +3131,42 @@ Please update OpenNumismat</source>
         <source>Sale date</source>
         <translation>Дата продажу</translation>
     </message>
+    <message>
+        <source>Precious weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Total price</source>
+        <translation>Кінцева ціна</translation>
+    </message>
+    <message>
+        <source>Total paid</source>
+        <translation>Усього сплачено</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Кількість</translation>
+    </message>
+    <message>
+        <source>Gold</source>
+        <translation>Золото</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Срібло</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Паладій</translation>
+    </message>
+    <message>
+        <source>Weight</source>
+        <translation>Маса</translation>
+    </message>
 </context>
 <context>
     <name>Status</name>
@@ -3005,14 +3246,6 @@ Please update OpenNumismat</source>
         <translation>Золото</translation>
     </message>
     <message>
-        <source>Gold coins: %d</source>
-        <translation>Золотих монет: %d</translation>
-    </message>
-    <message>
-        <source>Gold coins: %d/%d</source>
-        <translation>Золотих монет: %d/%d</translation>
-    </message>
-    <message>
         <source>(calculated for %d coins)</source>
         <translation>(підраховано для %d монет)</translation>
     </message>
@@ -3021,24 +3254,8 @@ Please update OpenNumismat</source>
         <translation>(підраховано для %d/%d монет)</translation>
     </message>
     <message>
-        <source>Gold weight: %s gramm</source>
-        <translation>Вага золота: %s грамм</translation>
-    </message>
-    <message>
         <source>Silver</source>
         <translation>Срібло</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d</source>
-        <translation>Срібних монет: %d</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d/%d</source>
-        <translation>Срібних монет: %d/%d</translation>
-    </message>
-    <message>
-        <source>Silver weight: %s gramm</source>
-        <translation>Вага срібла: %s грамм</translation>
     </message>
     <message>
         <source>Count wish: %d</source>
@@ -3096,6 +3313,82 @@ Please update OpenNumismat</source>
         <source>Count images: %d</source>
         <translation>Кількість зображень: %d</translation>
     </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Паладій</translation>
+    </message>
+    <message>
+        <source>Gold coins</source>
+        <translation>Золотих монет</translation>
+    </message>
+    <message>
+        <source>Gold weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Gold price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silver coins</source>
+        <translation>Срібних монет</translation>
+    </message>
+    <message>
+        <source>Silver weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silver price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Platinum coins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Platinum weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Platinum price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Palladium coins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Palladium weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Palladium price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>calculated for %d coins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>calculated for %d/%d coins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>gram</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>DBnomics not response</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The Rates API not response</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>TabView</name>
@@ -3132,6 +3425,22 @@ Please update OpenNumismat</source>
         <translation>Видалити</translation>
     </message>
     <message>
+        <source>Clear all filters</source>
+        <translation>Скинути всі фільтри</translation>
+    </message>
+    <message>
+        <source>Clear sort order</source>
+        <translation>ССкинути все сортування</translation>
+    </message>
+    <message>
+        <source>Save sort order</source>
+        <translation>Зберегти поточне сортування</translation>
+    </message>
+    <message>
+        <source>Customize tree...</source>
+        <translation>Налаштувати дерево...</translation>
+    </message>
+    <message>
         <source> (clone)</source>
         <translation> (копія)</translation>
     </message>
@@ -3160,9 +3469,9 @@ Please update OpenNumismat</source>
         <translation>Видалити вкладку</translation>
     </message>
     <message>
-        <source>Can't close latest opened page.
+        <source>Can't close latest opened list.
 Add a new one first.</source>
-        <translation>Неможливо закрити останню вкладку. Спочатку додайте нову.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Can't remove latest opened page.
@@ -3181,22 +3490,6 @@ Add a new one first.</source>
         <source>Remove all closed pages permanently?</source>
         <translation>Видалити всі закриті вкладки назавжди?</translation>
     </message>
-    <message>
-        <source>Clear all filters</source>
-        <translation>Скинути всі фільтри</translation>
-    </message>
-    <message>
-        <source>Clear sort order</source>
-        <translation>ССкинути все сортування</translation>
-    </message>
-    <message>
-        <source>Save sort order</source>
-        <translation>Зберегти поточне сортування</translation>
-    </message>
-    <message>
-        <source>Customize tree...</source>
-        <translation>Налаштувати дерево...</translation>
-    </message>
 </context>
 <context>
     <name>TableDialog</name>
@@ -3209,11 +3502,11 @@ Add a new one first.</source>
     <name>TagsDialog</name>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation>Теги</translation>
     </message>
     <message>
         <source>New tag</source>
-        <translation type="unfinished"/>
+        <translation>Новий тег</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -3247,20 +3540,12 @@ Add a new one first.</source>
         <translation>Додати нову монету...</translation>
     </message>
     <message>
-        <source>Edit coins...</source>
-        <translation>Редагувати монети...</translation>
-    </message>
-    <message>
         <source>Customize tree...</source>
         <translation>Налаштувати дерево...</translation>
     </message>
     <message>
-        <source>Updating records</source>
-        <translation>Оновлення записів</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Відмінити</translation>
+        <source>Multi edit...</source>
+        <translation>Редагувати все...</translation>
     </message>
 </context>
 <context>
@@ -3304,6 +3589,21 @@ Add a new one first.</source>
     </message>
 </context>
 <context>
+    <name>WindowSettingsDialog</name>
+    <message>
+        <source>Transparent</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Колір</translation>
+    </message>
+    <message>
+        <source>Image background color</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>YearCalculatorDialog</name>
     <message>
         <source>Year calculator</source>
@@ -3320,14 +3620,6 @@ Add a new one first.</source>
     <message>
         <source>Islamic</source>
         <translation>Ісламська</translation>
-    </message>
-    <message>
-        <source>Solar hijri</source>
-        <translation>Сонячна хіджра</translation>
-    </message>
-    <message>
-        <source>Japan</source>
-        <translation>Японія</translation>
     </message>
     <message>
         <source>Year</source>
@@ -3348,6 +3640,14 @@ Add a new one first.</source>
     <message>
         <source>Burmese</source>
         <translation>Бірманський</translation>
+    </message>
+    <message>
+        <source>Iranian</source>
+        <translation>Іранський</translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Японський</translation>
     </message>
 </context>
 <context>
@@ -3400,6 +3700,24 @@ Add a new one first.</source>
     <message>
         <source>Updating records</source>
         <translation>Оновлення записів</translation>
+    </message>
+</context>
+<context>
+    <name>readImageFilters</name>
+    <message>
+        <source>Images (%s)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Всі файли (*.*)</translation>
+    </message>
+</context>
+<context>
+    <name>saveImageFilters</name>
+    <message>
+        <source>All files (*.*)</source>
+        <translation>Всі файли (*.*)</translation>
     </message>
 </context>
 </TS>
