@@ -2713,7 +2713,7 @@ drag-n-drop to add an image)</source>
     <name>ProgressPreciousChart</name>
     <message>
         <source>Metal</source>
-        <translation type="unfinished"/>
+        <translation>Метал</translation>
     </message>
 </context>
 <context>
@@ -3137,7 +3137,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Precious weight</source>
-        <translation type="unfinished"/>
+        <translation>Тегло на благородния метал</translation>
     </message>
     <message>
         <source>Total price</source>
