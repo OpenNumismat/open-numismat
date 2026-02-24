@@ -1552,10 +1552,10 @@ class StatisticsView(QWidget):
 
     def progressPreciousChart(self):
         metals = (
-            ("Gold", self.tr("Gold"), "Au", "Aurum"),
-            ("Silver", self.tr("Silver"), "Ag", "Argentum"),
-            ("Platinum", self.tr("Platinum"), "Pt"),
-            ("Palladium", self.tr("Palladium"), "Pd"),
+            ("gold", self.tr("Gold").lower(), "au", "aurum"),
+            ("silver", self.tr("Silver").lower(), "ag", "argentum"),
+            ("platinum", self.tr("Platinum").lower(), "pt"),
+            ("palladium", self.tr("Palladium").lower(), "pd"),
         )
 
         chart = ProgressPreciousChart(self)
@@ -1623,7 +1623,7 @@ class StatisticsView(QWidget):
                     fineness = str(fineness).replace('0.', '')
             fineness = float("0.%s" % fineness)
 
-            material = record.value('material').capitalize()
+            material = record.value('material').lower()
             metal = None
             for metal_titles in metals:
                 if material in metal_titles:
