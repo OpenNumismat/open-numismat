@@ -447,24 +447,8 @@ Bitte aktualisieren Sie OpenNumismat</translation>
         <translation>Sicherung gespeichert unter %s</translation>
     </message>
     <message>
-        <source>Create mobile collection</source>
-        <translation>Erstelle mobile Sammlung</translation>
-    </message>
-    <message>
         <source>Exporting records</source>
         <translation>Exportiere Datensätze</translation>
-    </message>
-    <message>
-        <source>Saving...</source>
-        <translation>Speichern...</translation>
-    </message>
-    <message>
-        <source>Compact...</source>
-        <translation>Komprimiere...</translation>
-    </message>
-    <message>
-        <source>Vacuum...</source>
-        <translation>Komprimieren...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -1009,6 +993,10 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
         <translation>0 um in Originalgröße zu speichern</translation>
     </message>
     <message>
+        <source>Image quality, %</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Preview image height</source>
         <translation>Vorschaugröße Bilder</translation>
     </message>
@@ -1051,6 +1039,10 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
         <translation>Vorschaugröße geändert. Neuberechnung?</translation>
+    </message>
+    <message>
+        <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>5 stars in rating</source>
@@ -1450,69 +1442,6 @@ und noch einmal versuchen.</translation>
 Do you want to send an error message to the author?</source>
         <translation>Es ist ein Systemfehler aufgetreten.
 Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
-    </message>
-</context>
-<context>
-    <name>ExportDialog</name>
-    <message>
-        <source>Export to mobile</source>
-        <translation>Für mobile Anwendung exportieren</translation>
-    </message>
-    <message>
-        <source>Target density of the display</source>
-        <translation>Punktdichte auf dem Zielsystem</translation>
-    </message>
-    <message>
-        <source>Countries</source>
-        <translation>Länder</translation>
-    </message>
-    <message>
-        <source>Series</source>
-        <translation>Serie</translation>
-    </message>
-    <message>
-        <source>Denomination</source>
-        <translation>Nennwert</translation>
-    </message>
-    <message>
-        <source>Default filter by</source>
-        <translation>Standardmäßig filtern nach</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>Abbildung</translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation>Vorderseite</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Rückseite</translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation>Beide</translation>
-    </message>
-    <message>
-        <source>Export a full-sized image</source>
-        <translation>Bild in Originalgröße exportieren</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation>Ziel</translation>
-    </message>
-    <message>
-        <source>Select destination</source>
-        <translation>Wähle Ziel</translation>
-    </message>
-    <message>
-        <source>Create mobile collection</source>
-        <translation>Erstelle mobile Sammlung</translation>
-    </message>
-    <message>
-        <source>Destination file not specified</source>
-        <translation>Zieldatei nicht festgelegt</translation>
     </message>
 </context>
 <context>
@@ -2321,6 +2250,10 @@ drag-n-drop to add an image)</source>
         <translation>Integrierten Bildbetrachter benutzen</translation>
     </message>
     <message>
+        <source>Get metal prices from DBnomics with currency:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Karten</translation>
     </message>
@@ -2466,10 +2399,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Export</source>
         <translation>Exportieren</translation>
-    </message>
-    <message>
-        <source>For Android version</source>
-        <translation>Für Android</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -2778,6 +2707,13 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChart</name>
+    <message>
+        <source>Metal</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3061,12 +2997,16 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation>Nette Jahre (Bereich)</translation>
     </message>
     <message>
-        <source>Backround remover AI model</source>
-        <translation>Hintergrund-Entferner AI Modell</translation>
+        <source>Background remover AI model</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Window backgroud color</source>
-        <translation>Fenster-Hintergrundfarbe</translation>
+        <source>Crop after background remover</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Window background color</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3192,6 +3132,10 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation>Verkaufsdatum</translation>
     </message>
     <message>
+        <source>Precious weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Gesamtpreis</translation>
     </message>
@@ -3202,6 +3146,26 @@ Bitte OpenNumismat aktualisieren</translation>
     <message>
         <source>Quantity</source>
         <translation>Anzahl</translation>
+    </message>
+    <message>
+        <source>Gold</source>
+        <translation>Gold</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Silber</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platin</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Palladium</translation>
+    </message>
+    <message>
+        <source>Weight</source>
+        <translation>Gewicht</translation>
     </message>
 </context>
 <context>
@@ -3282,14 +3246,6 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation>Gold</translation>
     </message>
     <message>
-        <source>Gold coins: %d</source>
-        <translation>Goldmünzen: %d</translation>
-    </message>
-    <message>
-        <source>Gold coins: %d/%d</source>
-        <translation>Goldmünzen: %d/%d</translation>
-    </message>
-    <message>
         <source>(calculated for %d coins)</source>
         <translation>(berechnet für %d Münzen)</translation>
     </message>
@@ -3298,24 +3254,8 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation>(berechnet für %d/%d Münzen)</translation>
     </message>
     <message>
-        <source>Gold weight: %s gramm</source>
-        <translation>Goldgewicht: %s Gramm</translation>
-    </message>
-    <message>
         <source>Silver</source>
         <translation>Silber</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d</source>
-        <translation>Silbermünzen: %d</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d/%d</source>
-        <translation>Silbermünzen: %d/%d</translation>
-    </message>
-    <message>
-        <source>Silver weight: %s gramm</source>
-        <translation>Silbergewicht: %s Gramm</translation>
     </message>
     <message>
         <source>Count wish: %d</source>
@@ -3372,6 +3312,82 @@ Bitte OpenNumismat aktualisieren</translation>
     <message>
         <source>Count images: %d</source>
         <translation>Anzahl Bilder: %d</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platin</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Palladium</translation>
+    </message>
+    <message>
+        <source>Gold coins</source>
+        <translation>Goldmünzen</translation>
+    </message>
+    <message>
+        <source>Gold weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Gold price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silver coins</source>
+        <translation>Silbermünzen</translation>
+    </message>
+    <message>
+        <source>Silver weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silver price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Platinum coins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Platinum weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Platinum price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Palladium coins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Palladium weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Palladium price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>calculated for %d coins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>calculated for %d/%d coins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>gram</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>DBnomics not response</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The Rates API not response</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3453,10 +3469,9 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation>Liste entfernen</translation>
     </message>
     <message>
-        <source>Can't close latest opened page.
+        <source>Can't close latest opened list.
 Add a new one first.</source>
-        <translation>Kann die zuletzt geöffnete Seite nicht schließen. 
-Fügen Sie erst eine Neue ein.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Can't remove latest opened page.

@@ -2254,6 +2254,10 @@ drag-n-drop to add an image)</source>
         <translation>Использовать встроенный редактор изображений</translation>
     </message>
     <message>
+        <source>Get metal prices from DBnomics with currency:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Карты</translation>
     </message>
@@ -2706,6 +2710,13 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChart</name>
+    <message>
+        <source>Metal</source>
+        <translation>Металл</translation>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3125,6 +3136,10 @@ Please update OpenNumismat</source>
         <translation>Дата продажи</translation>
     </message>
     <message>
+        <source>Precious weight</source>
+        <translation>Вес драгметалла</translation>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Полная цена</translation>
     </message>
@@ -3135,6 +3150,26 @@ Please update OpenNumismat</source>
     <message>
         <source>Quantity</source>
         <translation>Количество</translation>
+    </message>
+    <message>
+        <source>Gold</source>
+        <translation>Золото</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Серебро</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Палладий</translation>
+    </message>
+    <message>
+        <source>Weight</source>
+        <translation>Масса</translation>
     </message>
 </context>
 <context>
@@ -3299,12 +3334,20 @@ Please update OpenNumismat</source>
         <translation>Вес золота</translation>
     </message>
     <message>
+        <source>Gold price</source>
+        <translation>Стоимость золота</translation>
+    </message>
+    <message>
         <source>Silver coins</source>
         <translation>Серебряных монет</translation>
     </message>
     <message>
         <source>Silver weight</source>
         <translation>Вес серебра</translation>
+    </message>
+    <message>
+        <source>Silver price</source>
+        <translation>Стоимость серебра</translation>
     </message>
     <message>
         <source>Platinum coins</source>
@@ -3315,12 +3358,20 @@ Please update OpenNumismat</source>
         <translation>Вес платины</translation>
     </message>
     <message>
+        <source>Platinum price</source>
+        <translation>Стоимость платины</translation>
+    </message>
+    <message>
         <source>Palladium coins</source>
         <translation>Палладиевых монет</translation>
     </message>
     <message>
         <source>Palladium weight</source>
         <translation>Вес палладия</translation>
+    </message>
+    <message>
+        <source>Palladium price</source>
+        <translation>Стоимость палладия</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
@@ -3333,6 +3384,14 @@ Please update OpenNumismat</source>
     <message>
         <source>gram</source>
         <translation>грамм</translation>
+    </message>
+    <message>
+        <source>DBnomics not response</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The Rates API not response</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

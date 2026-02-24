@@ -2249,6 +2249,10 @@ drag-n-drop to add an image)</source>
         <translation>Usa il visualizzatore di immagini integrato</translation>
     </message>
     <message>
+        <source>Get metal prices from DBnomics with currency:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Mappe</translation>
     </message>
@@ -2701,6 +2705,13 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChart</name>
+    <message>
+        <source>Metal</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -2984,12 +2995,16 @@ Please update OpenNumismat</source>
         <translation>Anni significativi (Area)</translation>
     </message>
     <message>
-        <source>Backround remover AI model</source>
-        <translation>Modello di IA per la rimozione dello sfondo</translation>
+        <source>Background remover AI model</source>
+        <translation>Modello IA per la rimozione dello sfondo</translation>
     </message>
     <message>
-        <source>Window backgroud color</source>
-        <translation>Colore dello sfondo della finestra</translation>
+        <source>Crop after background remover</source>
+        <translation>Ritaglia dopo la rimozione dello sfondo</translation>
+    </message>
+    <message>
+        <source>Window background color</source>
+        <translation>Colore di sfondo della finestra</translation>
     </message>
 </context>
 <context>
@@ -3115,6 +3130,10 @@ Please update OpenNumismat</source>
         <translation>Data della vendita</translation>
     </message>
     <message>
+        <source>Precious weight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Prezzo totale</translation>
     </message>
@@ -3125,6 +3144,26 @@ Please update OpenNumismat</source>
     <message>
         <source>Quantity</source>
         <translation>Quantità</translation>
+    </message>
+    <message>
+        <source>Gold</source>
+        <translation>Oro</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Argento</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platino</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Palladio</translation>
+    </message>
+    <message>
+        <source>Weight</source>
+        <translation>Peso</translation>
     </message>
 </context>
 <context>
@@ -3205,14 +3244,6 @@ Please update OpenNumismat</source>
         <translation>Oro</translation>
     </message>
     <message>
-        <source>Gold coins: %d</source>
-        <translation>Monete d&apos;Oro: %d</translation>
-    </message>
-    <message>
-        <source>Gold coins: %d/%d</source>
-        <translation>Monete d&apos;Oro: %d/%d</translation>
-    </message>
-    <message>
         <source>(calculated for %d coins)</source>
         <translation>(calcolato per %d monete)</translation>
     </message>
@@ -3221,24 +3252,8 @@ Please update OpenNumismat</source>
         <translation>(calcolato per %d/%d monete)</translation>
     </message>
     <message>
-        <source>Gold weight: %s gramm</source>
-        <translation>Peso dell&apos;Oro: %s grammi</translation>
-    </message>
-    <message>
         <source>Silver</source>
         <translation>Argento</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d</source>
-        <translation>Monete d&apos;Argento: %d</translation>
-    </message>
-    <message>
-        <source>Silver coins: %d/%d</source>
-        <translation>Monete d&apos;Argento: %d/%d</translation>
-    </message>
-    <message>
-        <source>Silver weight: %s gramm</source>
-        <translation>Peso dell&apos;Argento: %s grammi</translation>
     </message>
     <message>
         <source>Count wish: %d</source>
@@ -3295,6 +3310,82 @@ Please update OpenNumismat</source>
     <message>
         <source>Count images: %d</source>
         <translation>Numero di immagini: %d</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platino</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Palladio</translation>
+    </message>
+    <message>
+        <source>Gold coins</source>
+        <translation>Monete d&apos;oro</translation>
+    </message>
+    <message>
+        <source>Gold weight</source>
+        <translation>Peso dell’oro</translation>
+    </message>
+    <message>
+        <source>Gold price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Silver coins</source>
+        <translation>Monete d&apos;argento</translation>
+    </message>
+    <message>
+        <source>Silver weight</source>
+        <translation>Peso dell&apos;argento</translation>
+    </message>
+    <message>
+        <source>Silver price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Platinum coins</source>
+        <translation>Monete di platino</translation>
+    </message>
+    <message>
+        <source>Platinum weight</source>
+        <translation>Peso del platino</translation>
+    </message>
+    <message>
+        <source>Platinum price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Palladium coins</source>
+        <translation>Monete di palladio</translation>
+    </message>
+    <message>
+        <source>Palladium weight</source>
+        <translation>Peso del palladio</translation>
+    </message>
+    <message>
+        <source>Palladium price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>calculated for %d coins</source>
+        <translation>calcolato per %d monete</translation>
+    </message>
+    <message>
+        <source>calculated for %d/%d coins</source>
+        <translation>calcolato per %d/%d monete</translation>
+    </message>
+    <message>
+        <source>gram</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>DBnomics not response</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The Rates API not response</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3376,10 +3467,10 @@ Please update OpenNumismat</source>
         <translation>Rimuovi pagina</translation>
     </message>
     <message>
-        <source>Can't close latest opened page.
+        <source>Can't close latest opened list.
 Add a new one first.</source>
-        <translation>Impossibile chiudere l&apos;ultima pagina aperta.
-Aggiungi una nuova pagina prima.</translation>
+        <translation>Non è possibile chiudere l&apos;ultima lista aperta.
+Aggiungine prima una nuova.</translation>
     </message>
     <message>
         <source>Can't remove latest opened page.
