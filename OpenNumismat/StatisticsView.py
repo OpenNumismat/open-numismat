@@ -58,7 +58,7 @@ from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.CollectionFields import StatisticsFields
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
-from OpenNumismat.Tools.Converters import stringToMoney
+from OpenNumismat.Tools.Converters import stringToMoney, normalizeFineness
 from OpenNumismat.Tools.misc import saveImageFilters
 from OpenNumismat.Settings import Settings
 
@@ -1614,14 +1614,7 @@ class StatisticsView(QWidget):
             quantity = record.value('quantity') or 1
 
             fineness = record.value('fineness') or 0
-            if isinstance(fineness, str):
-                fineness = stringToMoney(fineness)
-            if isinstance(fineness, float):
-                if fineness > 1:
-                    fineness = str(fineness).replace('.', '')
-                else:
-                    fineness = str(fineness).replace('0.', '')
-            fineness = float("0.%s" % fineness)
+            fineness = normalizeFineness(fineness)
 
             material = record.value('material').lower()
             metal = None

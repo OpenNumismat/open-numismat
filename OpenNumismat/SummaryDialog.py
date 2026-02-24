@@ -9,7 +9,7 @@ from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox,
 from OpenNumismat import version
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
-from OpenNumismat.Tools.Converters import stringToMoney
+from OpenNumismat.Tools.Converters import stringToMoney, normalizeFineness
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 
 OZ_TO_GRAM = 31.1034768
@@ -364,18 +364,12 @@ class SummaryDialog(QDialog):
         while query.next():
             record = query.record()
             fineness = record.value('fineness')
-            if isinstance(fineness, str):
-                fineness = stringToMoney(fineness)
-            if isinstance(fineness, float):
-                if fineness > 1:
-                    fineness = str(fineness).replace('.', '')
-                else:
-                    fineness = str(fineness).replace('0.', '')
+            fineness = normalizeFineness(fineness)
             weight = record.value('weight')
             if isinstance(weight, str):
                 weight = stringToMoney(weight)
             quantity = int(record.value('quantity') or 1)
-            material_weight += weight * float("0.%s" % fineness) * quantity
+            material_weight += weight * fineness * quantity
             material_count += 1
             material_quantity += quantity
 

@@ -32,6 +32,18 @@ def stringToMoney(string):
         return 0.
 
 
+def normalizeFineness(fineness):
+    if isinstance(fineness, str):
+        fineness = stringToMoney(fineness)
+    if isinstance(fineness, float):
+        if fineness > 1:
+            fineness = str(fineness).replace('.', '')
+        else:
+            fineness = str(fineness).replace('0.', '')
+
+    return float("0.%s" % fineness)
+
+
 def numberWithFraction(string, enabled=True):
     if enabled:
         try:
