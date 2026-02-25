@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
-import urllib3
 import json
 
 from PySide6.QtCore import Qt, QDate, QLocale
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox, QMessageBox
+from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
 
-from OpenNumismat import version
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney, normalizeFineness
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 
 OZ_TO_GRAM = 31.1034768
-DB_NOMICS_TIMEOUT = 10
 
 
 @storeDlgSizeDecorator
@@ -24,7 +22,7 @@ class SummaryDialog(QDialog):
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
         self.locale = QLocale.system()
-        self.http = None
+        self.http = CachedPoolManager(self)
 
         self.dbnomicsEnabled = Settings()['dbnomics_enabled']
         self.dbnomicsCurrency = Settings()['dbnomics_currency']
@@ -384,17 +382,11 @@ class SummaryDialog(QDialog):
             'palladium': "https://api.db.nomics.world/v22/series/LBMA/palladium_D/palladium_D_USD_AM?observations=1",
         }
 
-        if not self.http:
-            self.http = self._createHttp()
-
-        try:
-            response = self.http.request("GET", metal_urls[material])
-        except (urllib3.exceptions.MaxRetryError, urllib3.exceptions.ReadTimeoutError):
-            QMessageBox.warning(self, "Summary",
-                                self.tr("DBnomics not response"))
+        if not self.http.isAvailable():
             return None
 
-        if response.status != 200:
+        response = self.http.get(metal_urls[material])
+        if not response or response.status != 200:
             return None
 
         data = json.loads(response.data.decode('utf-8'))
@@ -411,11 +403,8 @@ class SummaryDialog(QDialog):
             return price_gram
 
         currency_url = f"https://theratesapi.com/api/{last_date}/?base=USD&symbols={currency}"
-        try:
-            response = self.http.request("GET", currency_url)
-        except (urllib3.exceptions.MaxRetryError, urllib3.exceptions.ReadTimeoutError):
-            QMessageBox.warning(self, "Summary",
-                                self.tr("The Rates API not response"))
+        response = self.http.get(currency_url)
+        if not response:
             return None
 
         if response.status != 200:
@@ -429,14 +418,3 @@ class SummaryDialog(QDialog):
         price_gram = price_gram * rate
 
         return price_gram
-
-    def _createHttp(self):
-        urllib3.disable_warnings()
-        timeout = urllib3.Timeout(connect=DB_NOMICS_TIMEOUT / 2,
-                                  read=DB_NOMICS_TIMEOUT)
-        http = urllib3.PoolManager(num_pools=2,
-                                   headers={'User-Agent': version.AppName},
-                                   timeout=timeout,
-                                   retries=False,
-                                   cert_reqs="CERT_NONE")
-        return http
