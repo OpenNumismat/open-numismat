@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
+import json
 import math
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 from functools import cmp_to_key
 
@@ -60,6 +62,7 @@ from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Tools.Converters import stringToMoney, normalizeFineness
 from OpenNumismat.Tools.misc import saveImageFilters
+from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 from OpenNumismat.Settings import Settings
 
 try:
@@ -555,15 +558,15 @@ class ProgressPreciousChart(BaseChart):
         axisX.append(self.xLabels())
         self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
-        for i in range(len(metals)):
-            self.lineseries[i].attachAxis(axisX)
+        for lineseries in self.lineseries:
+            lineseries.attachAxis(axisX)
 
         axisY = QValueAxis()
         axisY.setTitleText(self.label)
         axisY.setLabelFormat("%d")
         self.chart().addAxis(axisY, Qt.AlignLeft)
-        for i in range(len(metals)):
-            self.lineseries[i].attachAxis(axisY)
+        for lineseries in self.lineseries:
+            lineseries.attachAxis(axisY)
         series.attachAxis(axisY)
         axisY.setMin(0)
         axisY.applyNiceNumbers()
@@ -575,6 +578,89 @@ class ProgressPreciousChart(BaseChart):
 
             metal_str = self.tr("Metal")
             tooltip = f"{metal_str}: {z}\n{self.label}: {y:.2f}"
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
+
+
+class ProgressPreciousPriceChart(BaseChart):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.chart().legend().show()
+        self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
+
+    def setData(self, xx, yy, zz):
+        metals = list(set().union(*yy))
+        self.xx = xx
+        self.yy = yy
+
+        series = QStackedBarSeries()
+        series.hovered.connect(self.hover)
+
+        barsets = {}
+
+        for i, metal in enumerate(metals):
+            lst = [0] * len(yy)
+            for j, y in enumerate(yy):
+                if metal in y:
+                    lst[j] = y[metal]
+
+            setY = QBarSet(metal)
+            setY.append(lst)
+            if self.use_blaf_palette:
+                setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+            barsets[metal] = setY
+            series.append(setY)
+
+        self.chart().addSeries(series)
+
+        self.lineseries = QLineSeries(self)
+        self.lineseries.setName(self.tr("Trend"))
+        self.lineseries.hovered.connect(self.line_hover)
+
+        for i, z in enumerate(zz):
+            self.lineseries.append(i, z)
+
+        self.chart().addSeries(self.lineseries)
+
+        markers = self.chart().legend().markers()
+        for marker in markers:
+            if isinstance(marker, QXYLegendMarker):
+                marker.setVisible(False)
+
+        axisX = QBarCategoryAxis()
+        axisX.append(self.xLabels())
+        self.chart().addAxis(axisX, Qt.AlignBottom)
+        series.attachAxis(axisX)
+        self.lineseries.attachAxis(axisX)
+
+        axisY = QValueAxis()
+        axisY.setTitleText(self.label)
+        axisY.setLabelFormat("%d")
+        self.chart().addAxis(axisY, Qt.AlignLeft)
+        self.lineseries.attachAxis(axisY)
+        series.attachAxis(axisY)
+        axisY.setMin(0)
+        axisY.applyNiceNumbers()
+
+    def hover(self, status, index, barset):
+        if status:
+            y = barset.at(index)
+            z = barset.label()
+
+            metal_str = self.tr("Metal")
+            tooltip = f"{metal_str}: {z}\n{self.label}: {y:.2f}"
+            QToolTip.showText(QCursor.pos(), tooltip)
+        else:
+            QToolTip.showText(QPoint(), "")
+
+    def line_hover(self, point, state):
+        if state:
+            pos = int(point.x() + 0.5)
+            count = self.lineseries.at(pos).y()
+            total_str = self.tr("Total")
+            tooltip = f"{total_str}: {count:.2f}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
@@ -1128,6 +1214,8 @@ class StatisticsView(QWidget):
         self.setLayout(layout)
         layout.addWidget(self.scroll)
 
+        self.http = CachedPoolManager(self)
+
     def setModel(self, model):
         self.model = model
 
@@ -1157,8 +1245,10 @@ class StatisticsView(QWidget):
                 self.itemsSelector.addItem(field.title, field.name)
             elif field.name == 'paydate':
                 self.itemsSelector.addItem(self.tr("Pay date"), field.name)
-            elif field.name == 'fineness':
+            elif field.name == 'weight':
                 self.itemsSelector.addItem(self.tr("Precious weight"), field.name)
+            elif field.name == 'fineness':
+                self.itemsSelector.addItem(self.tr("Precious price"), field.name)
 
         # TODO: Store field name instead field ID
         fieldid = self.statisticsParam['fieldid']
@@ -1438,8 +1528,10 @@ class StatisticsView(QWidget):
 
     def progressChart(self):
         items = self.itemsSelector.currentData()
-        if items == 'fineness':
+        if items == 'weight':
             return self.progressPreciousChart()
+        elif items == 'fineness':
+            return self.progressPreciousPriceChart()
 
         chart = ProgressChart(self)
 
@@ -1655,6 +1747,168 @@ class StatisticsView(QWidget):
                 current_date = current_date + delta
 
         chart.setData(list(normalized_data), list(normalized_data.values()))
+        chart.setLabelY(self.periodSelector.currentText())
+
+        return chart
+
+    def progressPreciousPriceChart(self):
+        metals = (
+            ("gold", self.tr("Gold").lower(), "au", "aurum"),
+            ("silver", self.tr("Silver").lower(), "ag", "argentum"),
+            ("platinum", self.tr("Platinum").lower(), "pt"),
+            ("palladium", self.tr("Palladium").lower(), "pd"),
+        )
+        currency_symbols = {
+            'USD': "$",
+            'EUR': "€",
+            'GBP': "£",
+            'RUB': "₽",
+            'PLN': "zł",
+        }
+
+        dbnomicsCurrency = Settings()['dbnomics_currency']
+
+        if dbnomicsCurrency in currency_symbols:
+            symbol = currency_symbols[dbnomicsCurrency]
+        else:
+            symbol = dbnomicsCurrency
+
+        title = self.tr("Price")
+        chart = ProgressPreciousPriceChart(self)
+        chart.setLabel(f"{title}, {symbol}")
+
+        sql_field = "weight,quantity,fineness,material,paydate"
+
+        period = self.periodSelector.currentData()
+        if period == 'month':
+            date_format = '%m'
+            delta = relativedelta(months=1)
+        elif period == 'week':
+            date_format = '%W'
+            delta = relativedelta(weeks=1)
+        elif period == 'day':
+            date_format = '%d'
+            delta = relativedelta(days=1)
+        else:
+            date_format = '%Y'
+            delta = relativedelta(years=1)
+
+        sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
+
+        filter_ = self.model.filter()
+        if filter_:
+            sql_filters.append(filter_)
+
+        sql_filters.append("material IS NOT NULL")
+        sql_filters.append("material <> ''")
+        sql_filters.append("paydate IS NOT NULL")
+        sql_filters.append("paydate <> ''")
+        if period == 'month':
+            sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
+        elif period == 'week':
+            sql_filters.append("paydate > datetime('now', '-11 months')")
+        elif period == 'day':
+            sql_filters.append("paydate > datetime('now', '-1 month')")
+
+        sql = "SELECT %s FROM coins"\
+              " WHERE %s"\
+              " ORDER BY paydate" % (
+                  sql_field, ' AND '.join(sql_filters))
+
+        query = QSqlQuery(self.model.database())
+        query.exec(sql)
+
+        data = {}
+        min_paydate = None
+        max_paydate = None
+        while query.next():
+            record = query.record()
+
+            weight = record.value('weight') or 0
+            if isinstance(weight, str):
+                weight = stringToMoney(weight)
+
+            quantity = record.value('quantity') or 1
+
+            fineness = record.value('fineness') or 0
+            fineness = normalizeFineness(fineness)
+
+            material = record.value('material').lower()
+            metal = None
+            for metal_titles in metals:
+                if material in metal_titles:
+                    metal = metal_titles[0]
+                    break
+            if not metal:
+                continue
+
+            paydate_raw = record.value('paydate')
+            paydate = datetime.strptime(paydate_raw, '%Y-%m-%d')
+
+            if period == 'month':
+                paydate_start = date(paydate.year, paydate.month, 1)
+            elif period == 'week':
+                paydate_start = paydate - timedelta(days=paydate.weekday())
+            elif period == 'day':
+                paydate_start = paydate
+            else:
+                paydate_start = date(paydate.year, 1, 1)
+            period_item = paydate_start.strftime('%Y-%m-%d')
+
+            if not min_paydate:
+                min_paydate = paydate_start
+            max_paydate = paydate_start
+
+            if period_item not in data:
+                data[period_item] = {}
+
+            total_weight = weight * fineness * quantity
+
+            if metal in data[period_item]:
+                data[period_item][metal] += total_weight
+            else:
+                data[period_item][metal] = total_weight
+
+        current_date = min_paydate
+
+        normalized_data = {}
+        normalized_linear_data = {}
+        if data:
+            total_weight = {'gold': 0, 'silver': 0, 'platinum': 0, 'palladium': 0}
+
+            while current_date <= max_paydate:
+                period_item = current_date.strftime('%Y-%m-%d')
+                normalized_period_item = current_date.strftime(date_format)
+
+                total_price = 0
+                for metal, weight in total_weight.items():
+                    if weight > 0:
+                        price = self.metalPrice(metal, dbnomicsCurrency, period_item)
+                        if not price:
+                            price = 0
+                        total_price += weight * price
+                normalized_linear_data[normalized_period_item] = total_price
+
+                if period_item in data:
+                    item_data = {}
+                    for metal, weight in data[period_item].items():
+                        price = self.metalPrice(metal, dbnomicsCurrency, period_item)
+                        if not price:
+                            price = 0
+
+                        metal_title = self.tr(metal.capitalize())
+                        item_data[metal_title] = weight * price
+                        total_weight[metal] += weight
+                    normalized_data[normalized_period_item] = item_data
+
+                    normalized_linear_data[normalized_period_item] += sum(item_data.values())
+                else:
+                    normalized_data[normalized_period_item] = {}
+
+                current_date = current_date + delta
+
+        chart.setData(list(normalized_data), list(normalized_data.values()),
+                      list(normalized_linear_data.values()))
         chart.setLabelY(self.periodSelector.currentText())
 
         return chart
@@ -2001,6 +2255,59 @@ class StatisticsView(QWidget):
             return 1
         else:
             return 0
+
+    def metalPrice(self, metal, currency, paydate=None):
+        OZ_TO_GRAM = 31.1034768
+        metal_urls = {
+            'gold': "https://api.db.nomics.world/v22/series/LBMA/gold_D/gold_D_USD_AM?observations=1",
+            'silver': "https://api.db.nomics.world/v22/series/LBMA/silver_D/silver_D_USD?observations=1",
+            'platinum': "https://api.db.nomics.world/v22/series/LBMA/platinum_D/platinum_D_USD_AM?observations=1",
+            'palladium': "https://api.db.nomics.world/v22/series/LBMA/palladium_D/palladium_D_USD_AM?observations=1",
+        }
+
+        if not self.http.isAvailable():
+            return None
+
+        response = self.http.get(metal_urls[metal])
+        if not response or response.status != 200:
+            return None
+
+        data = json.loads(response.data.decode('utf-8'))
+
+        series = data['series']['docs'][0]
+        dates = series['period']
+        values = series['value']
+
+        if paydate:
+            for i, date in enumerate(dates):
+                if paydate < date:
+                    break
+                last_date = date
+                price_oz = values[i]
+        else:
+            last_date = dates[-1]
+            price_oz = values[-1]
+        price_gram = price_oz / OZ_TO_GRAM
+
+        if currency == 'USD':
+            return price_gram
+
+        currency_url = f"https://theratesapi.com/api/{last_date}/?base=USD&symbols={currency}"
+        response = self.http.get(currency_url)
+        if not response:
+            return None
+
+        if response.status != 200:
+            return None
+
+        data = json.loads(response.data.decode('utf-8'))
+
+        rates = data['rates']
+        rate = rates[currency]
+
+        price_gram = price_gram * rate
+
+        return price_gram
 
 
 class SettingsDialog(QDialog):
