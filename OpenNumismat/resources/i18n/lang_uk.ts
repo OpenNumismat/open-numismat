@@ -282,14 +282,14 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Завантаження</translation>
     </message>
 </context>
 <context>
     <name>CachedPoolManager</name>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Завантаження</translation>
     </message>
     <message>
         <source>Server not response</source>
@@ -2733,7 +2733,7 @@ drag-n-drop to add an image)</source>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
-        <translation type="unfinished"/>
+        <translation>Тренд</translation>
     </message>
     <message>
         <source>Metal</source>
@@ -2741,7 +2741,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Всього</translation>
     </message>
 </context>
 <context>
@@ -3203,7 +3203,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Ціна</translation>
     </message>
 </context>
 <context>
