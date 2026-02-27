@@ -280,6 +280,21 @@ Feche o ficheiro e tente novamente.</translation>
         <source>Can&apos;t open cache</source>
         <translation>Impossível abrir a memória</translation>
     </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>CachedPoolManager</name>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Server not response</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CalendarWidget</name>
@@ -2717,6 +2732,21 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousPriceChart</name>
+    <message>
+        <source>Trend</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Metal</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3140,6 +3170,10 @@ Por favor, actualize o Openumismat.</translation>
         <translation>Preço precioso</translation>
     </message>
     <message>
+        <source>Precious price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Preço total</translation>
     </message>
@@ -3170,6 +3204,10 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>Weight</source>
         <translation>Peso</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3384,14 +3422,6 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>gram</source>
         <translation>grama</translation>
-    </message>
-    <message>
-        <source>DBnomics not response</source>
-        <translation>DBnomics não responde</translation>
-    </message>
-    <message>
-        <source>The Rates API not response</source>
-        <translation>Rates API não responde</translation>
     </message>
 </context>
 <context>
