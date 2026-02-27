@@ -293,7 +293,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Server not response</source>
-        <translation type="unfinished"/>
+        <translation>Сървърът не отговаря</translation>
     </message>
 </context>
 <context>
