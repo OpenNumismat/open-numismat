@@ -3171,7 +3171,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Precious price</source>
-        <translation type="unfinished"/>
+        <translation>Стойност на благородния метал</translation>
     </message>
     <message>
         <source>Total price</source>
