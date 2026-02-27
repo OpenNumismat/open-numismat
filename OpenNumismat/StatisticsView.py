@@ -1305,7 +1305,13 @@ class StatisticsView(QWidget):
         elif chart == 'stacked':
             self.chart = self.stackedChart()
         elif chart == 'progress':
-            self.chart = self.progressChart()
+            items = self.itemsSelector.currentData()
+            if items == 'weight':
+                self.chart = self.progressPreciousChart()
+            elif items == 'fineness':
+                self.chart = self.progressPreciousPriceChart()
+            else:
+                self.chart = self.progressChart()
         elif chart == 'area':
             area = self.areaSelector.currentData()
             if area == 'status':
@@ -1527,12 +1533,6 @@ class StatisticsView(QWidget):
         return chart
 
     def progressChart(self):
-        items = self.itemsSelector.currentData()
-        if items == 'weight':
-            return self.progressPreciousChart()
-        elif items == 'fineness':
-            return self.progressPreciousPriceChart()
-
         chart = ProgressChart(self)
 
         items = self.itemsSelector.currentData()
