@@ -279,6 +279,21 @@ Close the file and try again.</source>
         <source>Can&apos;t open cache</source>
         <translation>Cache-Speicher kann nicht geöffnet werden</translation>
     </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>CachedPoolManager</name>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Server not response</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CalendarWidget</name>
@@ -2714,6 +2729,21 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousPriceChart</name>
+    <message>
+        <source>Trend</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Metal</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3136,6 +3166,10 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Precious price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Gesamtpreis</translation>
     </message>
@@ -3166,6 +3200,10 @@ Bitte OpenNumismat aktualisieren</translation>
     <message>
         <source>Weight</source>
         <translation>Gewicht</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3379,14 +3417,6 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>gram</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>DBnomics not response</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The Rates API not response</source>
         <translation type="unfinished"/>
     </message>
 </context>
