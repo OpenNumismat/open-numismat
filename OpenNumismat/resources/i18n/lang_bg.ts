@@ -282,7 +282,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Изтегляне</translation>
     </message>
 </context>
 <context>
