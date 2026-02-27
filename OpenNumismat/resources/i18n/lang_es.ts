@@ -282,14 +282,14 @@ Cierre el archivo y pruebe de nuevo.</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Descargando</translation>
     </message>
 </context>
 <context>
     <name>CachedPoolManager</name>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Descargando</translation>
     </message>
     <message>
         <source>Server not response</source>
@@ -2735,7 +2735,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
-        <translation type="unfinished"/>
+        <translation>Tendencia</translation>
     </message>
     <message>
         <source>Metal</source>
@@ -2743,7 +2743,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Total</translation>
     </message>
 </context>
 <context>
@@ -3207,7 +3207,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Precio</translation>
     </message>
 </context>
 <context>
