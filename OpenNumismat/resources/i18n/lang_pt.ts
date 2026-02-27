@@ -282,14 +282,14 @@ Feche o ficheiro e tente novamente.</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>A transferir</translation>
     </message>
 </context>
 <context>
     <name>CachedPoolManager</name>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>A transferir</translation>
     </message>
     <message>
         <source>Server not response</source>
@@ -2735,15 +2735,15 @@ arraste e largue para adicionar)</translation>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
-        <translation type="unfinished"/>
+        <translation>Fio</translation>
     </message>
     <message>
         <source>Metal</source>
-        <translation type="unfinished"/>
+        <translation>Metal</translation>
     </message>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Total</translation>
     </message>
 </context>
 <context>
@@ -3207,7 +3207,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Preço</translation>
     </message>
 </context>
 <context>
