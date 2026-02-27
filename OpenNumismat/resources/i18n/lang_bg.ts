@@ -289,7 +289,7 @@ Close the file and try again.</source>
     <name>CachedPoolManager</name>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Изтегляне</translation>
     </message>
     <message>
         <source>Server not response</source>
@@ -3207,7 +3207,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Цена</translation>
     </message>
 </context>
 <context>
