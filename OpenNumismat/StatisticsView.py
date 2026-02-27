@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
 import math
 from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
@@ -61,8 +60,9 @@ from OpenNumismat.Collection.CollectionFields import StatisticsFields
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Tools.Converters import stringToMoney, normalizeFineness
-from OpenNumismat.Tools.misc import saveImageFilters
+from OpenNumismat.Tools.misc import saveImageFilters, metalPrice
 from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
+from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
 
 try:
@@ -1751,6 +1751,7 @@ class StatisticsView(QWidget):
 
         return chart
 
+    @waitCursorDecorator
     def progressPreciousPriceChart(self):
         metals = (
             ("gold", self.tr("Gold").lower(), "au", "aurum"),
@@ -1883,21 +1884,18 @@ class StatisticsView(QWidget):
                 total_price = 0
                 for metal, weight in total_weight.items():
                     if weight > 0:
-                        price = self.metalPrice(metal, dbnomicsCurrency, period_item)
-                        if not price:
-                            price = 0
-                        total_price += weight * price
+                        price = metalPrice(self.http, metal, dbnomicsCurrency, period_item)
+                        if price:
+                            total_price += weight * price
                 normalized_linear_data[normalized_period_item] = total_price
 
                 if period_item in data:
                     item_data = {}
                     for metal, weight in data[period_item].items():
-                        price = self.metalPrice(metal, dbnomicsCurrency, period_item)
-                        if not price:
-                            price = 0
-
-                        metal_title = self.tr(metal.capitalize())
-                        item_data[metal_title] = weight * price
+                        price = metalPrice(self.http, metal, dbnomicsCurrency, period_item)
+                        if price:
+                            metal_title = self.tr(metal.capitalize())
+                            item_data[metal_title] = weight * price
                         total_weight[metal] += weight
                     normalized_data[normalized_period_item] = item_data
 
@@ -2255,59 +2253,6 @@ class StatisticsView(QWidget):
             return 1
         else:
             return 0
-
-    def metalPrice(self, metal, currency, paydate=None):
-        OZ_TO_GRAM = 31.1034768
-        metal_urls = {
-            'gold': "https://api.db.nomics.world/v22/series/LBMA/gold_D/gold_D_USD_AM?observations=1",
-            'silver': "https://api.db.nomics.world/v22/series/LBMA/silver_D/silver_D_USD?observations=1",
-            'platinum': "https://api.db.nomics.world/v22/series/LBMA/platinum_D/platinum_D_USD_AM?observations=1",
-            'palladium': "https://api.db.nomics.world/v22/series/LBMA/palladium_D/palladium_D_USD_AM?observations=1",
-        }
-
-        if not self.http.isAvailable():
-            return None
-
-        response = self.http.get(metal_urls[metal])
-        if not response or response.status != 200:
-            return None
-
-        data = json.loads(response.data.decode('utf-8'))
-
-        series = data['series']['docs'][0]
-        dates = series['period']
-        values = series['value']
-
-        if paydate:
-            for i, date in enumerate(dates):
-                if paydate < date:
-                    break
-                last_date = date
-                price_oz = values[i]
-        else:
-            last_date = dates[-1]
-            price_oz = values[-1]
-        price_gram = price_oz / OZ_TO_GRAM
-
-        if currency == 'USD':
-            return price_gram
-
-        currency_url = f"https://theratesapi.com/api/{last_date}/?base=USD&symbols={currency}"
-        response = self.http.get(currency_url)
-        if not response:
-            return None
-
-        if response.status != 200:
-            return None
-
-        data = json.loads(response.data.decode('utf-8'))
-
-        rates = data['rates']
-        rate = rates[currency]
-
-        price_gram = price_gram * rate
-
-        return price_gram
 
 
 class SettingsDialog(QDialog):

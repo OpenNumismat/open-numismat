@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
-
 from PySide6.QtCore import Qt, QDate, QLocale
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
@@ -10,8 +8,7 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney, normalizeFineness
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
-
-OZ_TO_GRAM = 31.1034768
+from OpenNumismat.Tools.misc import metalPrice
 
 
 @storeDlgSizeDecorator
@@ -269,6 +266,7 @@ class SummaryDialog(QDialog):
 
         return lines
 
+    @waitCursorDecorator
     def fillMaterial(self, material, model, filter_):
         lines = []
 
@@ -313,7 +311,7 @@ class SummaryDialog(QDialog):
                 lines.append(f"{titles[material][1]}: {weight_str} {gram_str} ({comment})")
 
                 if self.dbnomicsEnabled:
-                    price_gram = self.materialPrice(material, self.dbnomicsCurrency)
+                    price_gram = metalPrice(self.http, material, self.dbnomicsCurrency)
                     if price_gram:
                         price_material = price_gram * weight
                         price_material_str = self.locale.toString(float(price_material), 'f', precision=2)
@@ -372,49 +370,3 @@ class SummaryDialog(QDialog):
             material_quantity += quantity
 
         return material_weight, material_count, material_quantity
-
-    @waitCursorDecorator
-    def materialPrice(self, material, currency):
-        metal_urls = {
-            'gold': "https://api.db.nomics.world/v22/series/LBMA/gold_D/gold_D_USD_AM?observations=1",
-            'silver': "https://api.db.nomics.world/v22/series/LBMA/silver_D/silver_D_USD?observations=1",
-            'platinum': "https://api.db.nomics.world/v22/series/LBMA/platinum_D/platinum_D_USD_AM?observations=1",
-            'palladium': "https://api.db.nomics.world/v22/series/LBMA/palladium_D/palladium_D_USD_AM?observations=1",
-        }
-
-        if not self.http.isAvailable():
-            return None
-
-        response = self.http.get(metal_urls[material])
-        if not response or response.status != 200:
-            return None
-
-        data = json.loads(response.data.decode('utf-8'))
-
-        series = data['series']['docs'][0]
-        dates = series['period']
-        values = series['value']
-
-        last_date = dates[-1]
-        price_oz = values[-1]
-        price_gram = price_oz / OZ_TO_GRAM
-
-        if currency == 'USD':
-            return price_gram
-
-        currency_url = f"https://theratesapi.com/api/{last_date}/?base=USD&symbols={currency}"
-        response = self.http.get(currency_url)
-        if not response:
-            return None
-
-        if response.status != 200:
-            return None
-
-        data = json.loads(response.data.decode('utf-8'))
-
-        rates = data['rates']
-        rate = rates[currency]
-
-        price_gram = price_gram * rate
-
-        return price_gram
