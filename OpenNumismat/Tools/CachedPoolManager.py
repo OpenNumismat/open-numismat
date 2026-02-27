@@ -139,7 +139,10 @@ class CachedPoolManager(QObject):
             self._http = self._createHttp()
 
         try:
-            response = self._http.request("GET", url, timeout=timeout)
+            request_kwargs = {}
+            if timeout:
+                request_kwargs['timeout'] = timeout
+            response = self._http.request("GET", url, **request_kwargs)
         except (urllib3.exceptions.MaxRetryError,
                 urllib3.exceptions.ReadTimeoutError,
                 urllib3.exceptions.ProtocolError):
@@ -160,11 +163,11 @@ class CachedPoolManager(QObject):
 
     def _createHttp(self):
         urllib3.disable_warnings()
-        timeout = urllib3.Timeout(connect=TIMEOUT / 2,
-                                  read=TIMEOUT)
-        http = urllib3.PoolManager(num_pools=2,
+        retries = urllib3.Retry(1)
+        timeout = urllib3.Timeout(TIMEOUT)
+        http = urllib3.PoolManager(num_pools=3,
                                    headers={'User-Agent': version.AppName},
                                    timeout=timeout,
-                                   retries=False,
+                                   retries=retries,
                                    cert_reqs="CERT_NONE")
         return http
