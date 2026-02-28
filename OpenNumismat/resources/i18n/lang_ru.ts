@@ -2270,7 +2270,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Get metal prices from DBnomics with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Получать цены драгметаллов из DBnomics в валюте:</translation>
     </message>
     <message>
         <source>Maps</source>
