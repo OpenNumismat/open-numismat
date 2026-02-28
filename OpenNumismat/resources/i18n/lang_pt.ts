@@ -3171,7 +3171,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Precious price</source>
-        <translation type="unfinished"/>
+        <translation>Preço precioso</translation>
     </message>
     <message>
         <source>Total price</source>
