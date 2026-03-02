@@ -154,9 +154,17 @@ class CachedPoolManager(QObject):
             return None
 
         raw_data = response.data
-        self._cache.set(url, raw_data)
+        if raw_data:
+            self._cache.set(url, raw_data)
 
-        return response
+            return response
+        else:
+            QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
+            QMessageBox.warning(self.parent(), self.tr("Downloading"), self.tr("Server not response"))
+            QApplication.restoreOverrideCursor()
+
+            self._available = False
+            return None
 
     def isAvailable(self):
         return self._available
