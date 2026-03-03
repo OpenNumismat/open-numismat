@@ -66,11 +66,11 @@ def metalPrice(http, metal, currency, paydate=None):
     if not http.isAvailable():
         return None
 
-    response = http.get(metal_urls[metal])
-    if not response or response.status != 200:
+    response_data = http.get(metal_urls[metal])
+    if not response_data:
         return None
 
-    data = json.loads(response.data.decode('utf-8'))
+    data = json.loads(response_data.decode('utf-8'))
 
     series = data['series']['docs'][0]
     dates = series['period']
@@ -91,11 +91,11 @@ def metalPrice(http, metal, currency, paydate=None):
         return price_gram
 
     currency_url = f"https://theratesapi.com/api/{last_date}/?base=USD&symbols={currency}"
-    response = http.get(currency_url)
-    if not response or response.status != 200:
+    response_data = http.get(currency_url)
+    if not response_data:
         return None
 
-    data = json.loads(response.data.decode('utf-8'))
+    data = json.loads(response_data.decode('utf-8'))
 
     rates = data['rates']
     rate = rates[currency]

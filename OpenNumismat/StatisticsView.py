@@ -1214,8 +1214,6 @@ class StatisticsView(QWidget):
         self.setLayout(layout)
         layout.addWidget(self.scroll)
 
-        self.http = CachedPoolManager(self)
-
     def setModel(self, model):
         self.model = model
 
@@ -1875,6 +1873,8 @@ class StatisticsView(QWidget):
         normalized_data = {}
         normalized_linear_data = {}
         if data:
+            http = CachedPoolManager(chart)
+
             total_weight = {'gold': 0, 'silver': 0, 'platinum': 0, 'palladium': 0}
 
             while current_date <= max_paydate:
@@ -1884,7 +1884,7 @@ class StatisticsView(QWidget):
                 total_price = 0
                 for metal, weight in total_weight.items():
                     if weight > 0:
-                        price = metalPrice(self.http, metal, dbnomicsCurrency, period_item)
+                        price = metalPrice(http, metal, dbnomicsCurrency, period_item)
                         if price:
                             total_price += weight * price
                 normalized_linear_data[normalized_period_item] = total_price
@@ -1892,7 +1892,7 @@ class StatisticsView(QWidget):
                 if period_item in data:
                     item_data = {}
                     for metal, weight in data[period_item].items():
-                        price = metalPrice(self.http, metal, dbnomicsCurrency, period_item)
+                        price = metalPrice(http, metal, dbnomicsCurrency, period_item)
                         if price:
                             metal_title = self.tr(metal.capitalize())
                             item_data[metal_title] = weight * price
@@ -1904,6 +1904,8 @@ class StatisticsView(QWidget):
                     normalized_data[normalized_period_item] = {}
 
                 current_date = current_date + delta
+
+            http.setParent(None)
 
         chart.setData(list(normalized_data), list(normalized_data.values()),
                       list(normalized_linear_data.values()))

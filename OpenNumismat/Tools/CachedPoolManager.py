@@ -128,9 +128,7 @@ class CachedPoolManager(QObject):
 
         cached_data = self._cache.get(url)
         if cached_data:
-            response = urllib3.response.HTTPResponse(body=cached_data,
-                                                     status=200)
-            return response
+            return cached_data
 
         if not self._available:
             return None
@@ -153,11 +151,11 @@ class CachedPoolManager(QObject):
             self._available = False
             return None
 
-        raw_data = response.data
-        if raw_data:
-            self._cache.set(url, raw_data)
+        response_data = response.data
+        if response.status == 200 and response_data:
+            self._cache.set(url, response_data)
 
-            return response
+            return response_data
         else:
             QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
             QMessageBox.warning(self.parent(), self.tr("Downloading"), self.tr("Server not response"))
@@ -172,7 +170,7 @@ class CachedPoolManager(QObject):
     def _createHttp(self):
         urllib3.disable_warnings()
         retries = urllib3.Retry(1)
-        timeout = urllib3.Timeout(TIMEOUT)
+        timeout = urllib3.Timeout(connect=2.5, read=TIMEOUT)
         http = urllib3.PoolManager(num_pools=3,
                                    headers={'User-Agent': version.AppName},
                                    timeout=timeout,
