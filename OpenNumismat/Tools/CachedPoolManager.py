@@ -104,7 +104,12 @@ class Cache(QObject):
     def clear():
         file_name = Cache._file_name()
         if os.path.exists(file_name):
-            os.remove(file_name)
+            try:
+                os.remove(file_name)
+            except PermissionError:
+                return False
+
+        return True
 
 
 class CachedPoolManager(QObject):
