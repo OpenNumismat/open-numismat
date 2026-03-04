@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>American Numismatic Society sem resposta</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -273,10 +266,6 @@ Feche o ficheiro e tente novamente.</translation>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Importar</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Impossível abrir a memória</translation>
     </message>
@@ -294,6 +283,10 @@ Feche o ficheiro e tente novamente.</translation>
     <message>
         <source>Server not response</source>
         <translation>O servidor não responde</translation>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Demasiados pedidos, por favor tente mais tarde</translation>
     </message>
 </context>
 <context>
@@ -1082,10 +1075,6 @@ A aplicação tem de reiniciar agora.</translation>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Servidor proxy Colnect sem resposta</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Serviço Colnect indisponível</translation>
@@ -2087,13 +2076,6 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation>Demasiados pedidos, por favor tente mais tarde</translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2126,6 +2108,10 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Import cache cleared</source>
         <translation>Memória de importação limpa</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
