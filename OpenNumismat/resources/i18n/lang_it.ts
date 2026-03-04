@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>Il sito dell&apos;American Numismatic Society non risponde</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -272,10 +265,6 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Importa</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Impossibile aprire la cache</translation>
     </message>
@@ -293,6 +282,10 @@ Close the file and try again.</source>
     <message>
         <source>Server not response</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Troppe richieste. Riprova più tardi</translation>
     </message>
 </context>
 <context>
@@ -1081,10 +1074,6 @@ L&apos;applicazione deve essere riavviata.</translation>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Il server di Colnect non risponde</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Colnect non è al momento disponibile</translation>
@@ -2082,13 +2071,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation>Troppe richieste. Riprova più tardi</translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2121,6 +2103,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Import cache cleared</source>
         <translation>Cache di importazione cancellata</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
