@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>American Numismatic Society не отговоря</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -273,10 +266,6 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Импортиране</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Не може да се отвори кеш паметта</translation>
     </message>
@@ -294,6 +283,10 @@ Close the file and try again.</source>
     <message>
         <source>Server not response</source>
         <translation>Сървърът не отговаря</translation>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Твърде много заявки. Опитайте по-късно</translation>
     </message>
 </context>
 <context>
@@ -1082,10 +1075,6 @@ The application will need to restart now.</source>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Прокси сървърът за Colnect не отговаря</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Услугата за Colnect не е налична</translation>
@@ -2087,13 +2076,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation>Твърде много заявки. Опитайте по-късно</translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2126,6 +2108,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Import cache cleared</source>
         <translation>Изчистване на кеша за импортиране</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
