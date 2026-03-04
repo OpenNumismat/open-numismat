@@ -2,19 +2,17 @@
 
 import json
 import re
-import urllib3
 
 from PySide6.QtCore import Qt, QUrl, QMargins
 from PySide6.QtGui import QDesktopServices, QImage
-from PySide6.QtWidgets import QDialog, QMessageBox, QVBoxLayout
+from PySide6.QtWidgets import QDialog, QVBoxLayout
 from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
-from OpenNumismat import version
 from OpenNumismat.Collection.Import import _Import2
-from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.Converters import numberToFraction
+from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 
 numistaAvailable = True
@@ -85,6 +83,7 @@ class NumistaAuthentication(QDialog):
     def onSslErrors(self, reply, errors):
         reply.ignoreSslErrors()
 
+
 class ImportNumista(_Import2):
     ENDPOINT = 'https://api.numista.com/api/v3'
     CONNECTION_TIMEOUT = 10
@@ -101,49 +100,26 @@ class ImportNumista(_Import2):
         else:
             self.language = 'en'
 
-        urllib3.disable_warnings()
-        timeout = urllib3.Timeout(connect=self.CONNECTION_TIMEOUT / 2,
-                                  read=self.CONNECTION_TIMEOUT)
-        self.http = urllib3.PoolManager(num_pools=2,
-                                        headers={'User-Agent': version.AppName},
-                                        timeout=timeout,
-                                        cert_reqs="CERT_NONE")
-        self.cache = Cache()
-
-        self.already_warned = False
+        self.http = CachedPoolManager(parent)
 
     @staticmethod
     def isAvailable():
         return numistaAvailable
     
     def _download_cache(self, url, get_image=False):
-        raw_data = self.cache.get(url)
-        is_cashed = bool(raw_data)
-        if not is_cashed:
-            try:
-                headers = None
-                if not get_image:
-                    headers = {'Numista-API-Key': NUMISTA_API_KEY}
-                resp = self.http.request("GET", url, headers=headers, retries=False)
-                if resp.status == 200:
-                    if not get_image:
-                        raw_data = resp.data.decode()
-                    else:
-                        raw_data = resp.data
-                elif resp.status == 429:
-                    if not self.already_warned:
-                        QMessageBox.warning(self.parent(), "Numista",
-                                self.tr("Too many requests. Try later"))
-                        self.already_warned = True
-                    return None
-                else:
-                    return None
-            except:
-                return None
-        
-        if not is_cashed:
-            self.cache.set(url, raw_data)
+        headers = None
+        if not get_image:
+            headers = {'Numista-API-Key': NUMISTA_API_KEY}
+        response_data = self.http.get(url, headers=headers)
 
+        if response_data:
+            if not get_image:
+                raw_data = response_data.decode()
+            else:
+                raw_data = response_data
+        else:
+            return None
+        
         return raw_data
 
     def _connect(self, src):
@@ -156,9 +132,9 @@ class ImportNumista(_Import2):
                    "&client_id=opennumismat"
                    f"&client_secret={NUMISTA_API_KEY}"
                    "&redirect_uri=local")
+            response_data = self.http.get(url, cache=False)
             try:
-                resp = self.http.request("GET", url)
-                raw_data = resp.data.decode()
+                raw_data = response_data.decode()
             except:
                 return False
 
@@ -167,11 +143,11 @@ class ImportNumista(_Import2):
             user_id = data['user_id']
 
             url = f"{self.ENDPOINT}/users/{user_id}/collected_items?lang={self.language}"
+            headers = {'Numista-API-Key': NUMISTA_API_KEY,
+                       'Authorization': f'Bearer {access_token}'}
+            response_data = self.http.get(url, headers=headers, cache=False)
             try:
-                headers = {'Numista-API-Key': NUMISTA_API_KEY,
-                           'Authorization': f'Bearer {access_token}'}
-                resp = self.http.request("GET", url, headers=headers)
-                raw_data = resp.data.decode()
+                raw_data = response_data.decode()
             except:
                 return False
 
@@ -359,4 +335,4 @@ class ImportNumista(_Import2):
             return None
 
     def _close(self, connection):
-        self.cache.close()
+        self.http.close()

@@ -370,3 +370,8 @@ class SummaryDialog(QDialog):
             material_quantity += quantity
 
         return material_weight, material_count, material_quantity
+
+    def done(self, r):
+        self.http.close()
+
+        super().done(r)

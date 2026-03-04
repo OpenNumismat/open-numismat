@@ -116,19 +116,14 @@ class CachedPoolManager(QObject):
         self._cache = None
         self._available = True
 
-    def __del__(self):
-        if self._http:
-            self._http.clear()
-        if self._cache:
-            self._cache.close()
+    def get(self, url, timeout=None, retries=None, headers=None, cache=True):
+        if cache:
+            if not self._cache:
+                self._cache = Cache(self.parent())
 
-    def get(self, url, timeout=None):
-        if not self._cache:
-            self._cache = Cache(self.parent())
-
-        cached_data = self._cache.get(url)
-        if cached_data:
-            return cached_data
+            cached_data = self._cache.get(url)
+            if cached_data:
+                return cached_data
 
         if not self._available:
             return None
@@ -138,8 +133,12 @@ class CachedPoolManager(QObject):
 
         try:
             request_kwargs = {}
-            if timeout:
+            if timeout is not None:
                 request_kwargs['timeout'] = timeout
+            if retries is not None:
+                request_kwargs['retries'] = retries
+            if headers is not None:
+                request_kwargs['headers'] = headers
             response = self._http.request("GET", url, **request_kwargs)
         except (urllib3.exceptions.MaxRetryError,
                 urllib3.exceptions.ReadTimeoutError,
@@ -151,9 +150,19 @@ class CachedPoolManager(QObject):
             self._available = False
             return None
 
+        if response.status == 429:
+            QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
+            QMessageBox.warning(self.parent(), self.tr("Downloading"),
+                                self.tr("Too many requests. Try later"))
+            QApplication.restoreOverrideCursor()
+
+            self._available = False
+            return None
+
         response_data = response.data
         if response.status == 200 and response_data:
-            self._cache.set(url, response_data)
+            if cache:
+                self._cache.set(url, response_data)
 
             return response_data
         else:
@@ -177,3 +186,11 @@ class CachedPoolManager(QObject):
                                    retries=retries,
                                    cert_reqs="CERT_NONE")
         return http
+
+    def close(self):
+        if self._http:
+            self._http.clear()
+            self._http = None
+        if self._cache:
+            self._cache.close()
+            self._cache = None

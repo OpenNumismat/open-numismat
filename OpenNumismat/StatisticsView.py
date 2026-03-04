@@ -1905,7 +1905,7 @@ class StatisticsView(QWidget):
 
                 current_date = current_date + delta
 
-            http.setParent(None)
+            http.close()
 
         chart.setData(list(normalized_data), list(normalized_data.values()),
                       list(normalized_linear_data.values()))

@@ -1,5 +1,4 @@
 import re
-import urllib3
 from urllib.parse import quote_plus
 
 ansAvailable = True
@@ -22,7 +21,6 @@ from PySide6.QtWidgets import (
     QFormLayout,
     QHBoxLayout,
     QLabel,
-    QMessageBox,
     QPushButton,
     QSizePolicy,
     QTableWidget,
@@ -31,14 +29,13 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from OpenNumismat import version
-from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import ProgressDialog
+from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 
-CONNECTION_TIMEOUT = 10
+IMAGE_CONNECTION_TIMEOUT = 30
 
 
 class AnsConnector(QObject):
@@ -46,62 +43,31 @@ class AnsConnector(QObject):
     def __init__(self, parent):
         super().__init__(parent)
 
-        urllib3.disable_warnings()
-        timeout = urllib3.Timeout(connect=CONNECTION_TIMEOUT / 2,
-                                  read=CONNECTION_TIMEOUT)
-        self.http = urllib3.PoolManager(num_pools=5,
-                                        headers={'User-Agent': version.AppName},
-                                        timeout=timeout,
-                                        cert_reqs="CERT_NONE")
-        self.cache = Cache()
+        self.http = CachedPoolManager(parent)
+
         if Settings()['ans_locale_en']:
             self.lang = 'en'
         else:
             self.lang = Settings()['locale']
 
     @waitCursorDecorator
-    def getImage(self, url, full):
-        data = None
-
+    def getImage(self, url):
         if not url:
-            return data
-
-        if not full:
-            # full images was not cached - store previous behaviour
-            data = self.cache.get(url)
-            if data:
-                return data
-
-        try:
-            resp = self.http.request("GET", url, timeout=CONNECTION_TIMEOUT * 3)
-            data = resp.data
-        except:
             return None
 
-        if not full:
-            self.cache.set(url, data)
+        response_data = self.http.get(url, timeout=IMAGE_CONNECTION_TIMEOUT)
+        if not response_data:
+            return None
 
-        return data
+        return response_data
 
     @waitCursorDecorator
     def download_data(self, url):
-        raw_data = self.cache.get(url)
-        is_cashed = bool(raw_data)
-        if not is_cashed:
-            try:
-                resp = self.http.request("GET", url)
-                raw_data = resp.data.decode()
-            except urllib3.exceptions.MaxRetryError:
-                QMessageBox.warning(self.parent(), "ANS",
-                                    self.tr("American Numismatic Society not response"))
-                return ''
-            except:
-                return ''
+        response_data = self.http.get(url)
+        if not response_data:
+            return ''
 
-        if not is_cashed:
-            self.cache.set(url, raw_data)
-
-        return raw_data
+        return response_data
 
     def _baseUrl(self):
         url = "https://numismatics.org/search/"
@@ -142,7 +108,7 @@ class AnsConnector(QObject):
         if not raw_data:
             return 0
 
-        tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
+        tree = lxml.etree.fromstring(raw_data)
         count = tree.xpath("./channel/opensearch:totalResults", namespaces=tree.nsmap)
     
         return int(count[0].text)
@@ -151,7 +117,7 @@ class AnsConnector(QObject):
         url = f"https://nomisma.org/apis/getLabel?uri={src}&lang={lang}"
         raw_data = self.download_data(url)
         if raw_data:
-            tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
+            tree = lxml.etree.fromstring(raw_data)
             data = tree.xpath("/response")
             if data:
                 return data[0].text
@@ -181,7 +147,7 @@ class AnsConnector(QObject):
             raw_data = self.download_data(self._baseUrl() + action)
     
             if raw_data:
-                tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
+                tree = lxml.etree.fromstring(raw_data)
                 rows = tree.xpath("./channel/item/link")
                 
                 res.extend([row.text.split('/')[-1] for row in rows])
@@ -207,7 +173,7 @@ class AnsConnector(QObject):
 
         raw_data = self.download_data(self._baseUrl() + action)
 
-        if not raw_data or "<option disabled>No options available</option>" in raw_data:
+        if not raw_data or b"<option disabled>No options available</option>" in raw_data:
             return []
 
         tree = lxml.html.fromstring(raw_data)
@@ -216,7 +182,7 @@ class AnsConnector(QObject):
         return [(row.values()[0], row.text) for row in rows]
 
     def close(self):
-        self.cache.close()
+        self.http.close()
 
 
 @storeDlgSizeDecorator
@@ -474,8 +440,8 @@ class AnsDialog(QDialog):
 
     def makeItem(self, item_id, record):
         data = self.connector.getData(item_id)
-        data = data.replace('xml:id="', 'xml:id="XXid')
-        tree = lxml.etree.fromstring(data.encode('utf-8'))
+        data = data.replace(b'xml:id="', b'xml:id="XXid')
+        tree = lxml.etree.fromstring(data)
 
         id_ = self._getValue(tree, "./nuds:control/nuds:recordId")
         record.setValue('url', f"https://numismatics.org/collection/{id_}")
@@ -505,13 +471,13 @@ class AnsDialog(QDialog):
         url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='obverse']/mets:file[@USE='archive']/mets:FLocat",
                              '{http://www.w3.org/1999/xlink}href')
         if url:
-            image = self.connector.getImage(url, True)
+            image = self.connector.getImage(url)
             record.setValue('obverseimg', image)
 
         url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='reverse']/mets:file[@USE='archive']/mets:FLocat",
                              '{http://www.w3.org/1999/xlink}href')
         if url:
-            image = self.connector.getImage(url, True)
+            image = self.connector.getImage(url)
             record.setValue('reverseimg', image)
 
         url = self._getAttrib(tree, "./nuds:descMeta/nuds:refDesc/nuds:reference",
@@ -523,7 +489,7 @@ class AnsDialog(QDialog):
                 url += '.xml'
             raw_data = self.connector.download_data(url)
             if raw_data:
-                tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
+                tree = lxml.etree.fromstring(raw_data)
 
         denomination = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination")
         if denomination:
@@ -738,8 +704,8 @@ class AnsDialog(QDialog):
                 self.items.append(item_id)
                 
                 data = self.connector.getData(item_id)
-                data = data.replace('xml:id="', 'xml:id="XXid')
-                tree = lxml.etree.fromstring(data.encode('utf-8'))
+                data = data.replace(b'xml:id="', b'xml:id="XXid')
+                tree = lxml.etree.fromstring(data)
 
                 url = self._getAttrib(tree, "./nuds:digRep/mets:fileSec/mets:fileGrp[@USE='obverse']/mets:file[@USE='thumbnail']/mets:FLocat",
                                      '{http://www.w3.org/1999/xlink}href')
@@ -774,7 +740,7 @@ class AnsDialog(QDialog):
                         url += '.xml'
                     raw_data = self.connector.download_data(url)
                     if raw_data:
-                        tree = lxml.etree.fromstring(raw_data.encode('utf-8'))
+                        tree = lxml.etree.fromstring(raw_data)
 
                 value = self._getValue(tree, "./nuds:descMeta/nuds:typeDesc/nuds:denomination")
                 item = QTableWidgetItem(value)
@@ -821,7 +787,7 @@ class AnsDialog(QDialog):
         if not url:
             return image
 
-        result = image.loadFromData(self.connector.getImage(url, False))
+        result = image.loadFromData(self.connector.getImage(url))
         if result:
             if image.height() > self.HEIGHT:
                 image = image.scaled(self.HEIGHT, self.HEIGHT,

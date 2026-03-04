@@ -2,7 +2,6 @@ import csv
 import io
 import json
 import re
-import urllib3
 
 from PySide6.QtCore import Qt, QObject
 from PySide6.QtGui import QImage, QPixmap, QIcon
@@ -23,10 +22,9 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from OpenNumismat import version
-from OpenNumismat.Collection.Import.Cache import Cache
 from OpenNumismat.Collection.Import import _Import2
 from OpenNumismat.Settings import Settings
+from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import ProgressDialog
@@ -39,7 +37,7 @@ except ImportError:
     print('Importing from Colnect not available')
     colnectAvailable = False
 
-CONNECTION_TIMEOUT = 10
+IMAGE_CONNECTION_TIMEOUT = 30
 MAX_ITEMS = 150
 
 
@@ -48,14 +46,7 @@ class ColnectConnector(QObject):
     def __init__(self, parent):
         super().__init__(parent)
 
-        urllib3.disable_warnings()
-        timeout = urllib3.Timeout(connect=CONNECTION_TIMEOUT / 2,
-                                  read=CONNECTION_TIMEOUT)
-        self.http = urllib3.PoolManager(num_pools=2,
-                                        headers={'User-Agent': version.AppName},
-                                        timeout=timeout,
-                                        cert_reqs="CERT_NONE")
-        self.cache = Cache()
+        self.http = CachedPoolManager(parent)
         self.skip_currency = Settings()['colnect_skip_currency']
         self.lang = Settings()['colnect_locale']
         self.uuid = Settings()['UUID']
@@ -181,51 +172,28 @@ class ColnectConnector(QObject):
     def getFields(self, category):
         url = f"{COLNECT_PROXY}/{self.uuid}/en/api/{COLNECT_KEY}/fields/cat/{category}"
 
-        raw_data = self.cache.get(url)
-        if raw_data:
-            data = json.loads(raw_data)
-            return data
+        response_data = self.http.get(url)
+        if not response_data:
+            return []
 
-        try:
-            resp = self.http.request("GET", url)
-            raw_data = resp.data.decode()
-        except urllib3.exceptions.MaxRetryError:
-            QMessageBox.warning(self.parent(), "Colnect",
-                                self.tr("Colnect proxy-server not response"))
-            return []
-        except:
-            return []
+        raw_data = response_data.decode()
 
         data = json.loads(raw_data)
-        self.cache.set(url, raw_data)
 
         return data
 
     @waitCursorDecorator
     def getImage(self, image_id, name, full):
-        data = None
-
         if not image_id:
-            return data
+            return None
 
         url = self._imageUrl(image_id, name, full)
 
-        if not full:
-            # full images was not cached - store previous behaviour
-            data = self.cache.get(url)
-            if data:
-                return data
-
-        try:
-            resp = self.http.request("GET", url, timeout=CONNECTION_TIMEOUT * 3)
-            data = resp.data
-        except:
+        response_data = self.http.get(url, timeout=IMAGE_CONNECTION_TIMEOUT)
+        if not response_data:
             return None
 
-        if not full:
-            self.cache.set(url, data)
-
-        return data
+        return response_data
 
     def _imageUrl(self, image_id, name, full):
         name = self._urlize(name)
@@ -285,30 +253,14 @@ class ColnectConnector(QObject):
     @waitCursorDecorator
     def getData(self, action, lang=None):
         url = self._baseUrl(lang) + action
-        raw_data = self.cache.get(url)
-        if raw_data:
-            data = json.loads(raw_data)
-            return data
 
-        try:
-            resp = self.http.request("GET", url)
-            raw_data = resp.data.decode()
-        except urllib3.exceptions.MaxRetryError:
-            QMessageBox.warning(self.parent(), "Colnect",
-                                self.tr("Colnect proxy-server not response"))
-            return []
-        except:
+        response_data = self.http.get(url)
+        if not response_data:
             return []
 
-        if resp.status in (404, 502):
-            QMessageBox.warning(self.parent(), "Colnect",
-                                self.tr("Colnect proxy-server not response"))
-            return []
-        elif resp.status == 500:
-            QMessageBox.warning(self.parent(), "Colnect",
-                                self.tr("Colnect data not recognised"))
-            return []
-        elif raw_data.startswith('Invalid key'):
+        raw_data = response_data.decode()
+
+        if raw_data.startswith('Invalid key'):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect service not available"))
             return []
@@ -345,7 +297,6 @@ class ColnectConnector(QObject):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect service not available"))
             return []
-        self.cache.set(url, raw_data)  # self.cache.set(url, json.dumps(data, ensure_ascii=False))
 
         return data
 
@@ -402,7 +353,7 @@ class ColnectConnector(QObject):
         return self.getData(action)
 
     def close(self):
-        self.cache.close()
+        self.http.close()
 
 
 @storeDlgSizeDecorator
