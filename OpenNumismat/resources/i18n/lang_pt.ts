@@ -2111,7 +2111,7 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Failed to clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao limpar a memória</translation>
     </message>
 </context>
 <context>
