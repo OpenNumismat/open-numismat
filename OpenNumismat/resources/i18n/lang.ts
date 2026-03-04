@@ -28,13 +28,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -273,10 +266,6 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation type="unfinished"></translation>
     </message>
@@ -293,6 +282,10 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Server not response</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1074,10 +1067,6 @@ The application will need to restart now.</source>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation type="unfinished"></translation>
@@ -2074,13 +2063,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2112,6 +2094,10 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Import cache cleared</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
