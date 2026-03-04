@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>American Numismatic Society keine Antwort</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -272,10 +265,6 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Importieren</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Cache-Speicher kann nicht geöffnet werden</translation>
     </message>
@@ -293,6 +282,10 @@ Close the file and try again.</source>
     <message>
         <source>Server not response</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Zu viele Anfragen. Versuchen Sie es später noch einmal.</translation>
     </message>
 </context>
 <context>
@@ -1078,10 +1071,6 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Keine Antwort vom Colnect Proxy-Server</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Colnect Dienst nicht verfūgbar</translation>
@@ -2083,13 +2072,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation>Zu viele Anfragen. Versuchen Sie es später noch einmal.</translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2122,6 +2104,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Import cache cleared</source>
         <translation>Import-Cache-Speicher gelöscht</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
