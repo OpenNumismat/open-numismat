@@ -70,7 +70,7 @@ def metalPrice(http, metal, currency, paydate=None):
     if not response_data:
         return None
 
-    data = json.loads(response_data.decode('utf-8'))
+    data = json.loads(response_data.decode())
 
     series = data['series']['docs'][0]
     dates = series['period']
@@ -95,7 +95,7 @@ def metalPrice(http, metal, currency, paydate=None):
     if not response_data:
         return None
 
-    data = json.loads(response_data.decode('utf-8'))
+    data = json.loads(response_data.decode())
 
     rates = data['rates']
     rate = rates[currency]

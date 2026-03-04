@@ -42,7 +42,7 @@ from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Gui import infoMessageBox
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses, TitleTemplateFields
-from OpenNumismat.Collection.Import.Cache import Cache
+from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 from OpenNumismat.EditCoinDialog.MapWidget import MapType
 from OpenNumismat.EditCoinDialog.MapWidget.GMapsWidget import gmapsAvailable
 from OpenNumismat.EditCoinDialog.MapWidget.MapboxWidget import mapboxAvailable
@@ -855,7 +855,7 @@ class ImportSettingsPage(QWidget):
         self.setLayout(layout)
 
     def clearCache(self):
-        Cache.clear()
+        CachedPoolManager.clear()
 
         infoMessageBox("clear", self.tr("Clear cache"),
                        self.tr("Import cache cleared"),

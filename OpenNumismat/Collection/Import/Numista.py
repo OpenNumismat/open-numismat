@@ -133,12 +133,10 @@ class ImportNumista(_Import2):
                    f"&client_secret={NUMISTA_API_KEY}"
                    "&redirect_uri=local")
             response_data = self.http.get(url, cache=False)
-            try:
-                raw_data = response_data.decode()
-            except:
+            if not response_data:
                 return False
 
-            data = json.loads(raw_data)
+            data = json.loads(response_data.decode())
             access_token = data['access_token']
             user_id = data['user_id']
 
@@ -146,12 +144,10 @@ class ImportNumista(_Import2):
             headers = {'Numista-API-Key': NUMISTA_API_KEY,
                        'Authorization': f'Bearer {access_token}'}
             response_data = self.http.get(url, headers=headers, cache=False)
-            try:
-                raw_data = response_data.decode()
-            except:
+            if not response_data:
                 return False
 
-            self.coins_data = json.loads(raw_data)
+            self.coins_data = json.loads(response_data.decode())
 
             return True
 

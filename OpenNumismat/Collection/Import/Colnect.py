@@ -176,9 +176,7 @@ class ColnectConnector(QObject):
         if not response_data:
             return []
 
-        raw_data = response_data.decode()
-
-        data = json.loads(raw_data)
+        data = json.loads(response_data.decode())
 
         return data
 
@@ -292,7 +290,7 @@ class ColnectConnector(QObject):
             self.cache.set(url, '[]')
             return []
 
-        data = json.loads(raw_data)  # resp.json()
+        data = json.loads(raw_data)
         if 'error' in data:
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect service not available"))
