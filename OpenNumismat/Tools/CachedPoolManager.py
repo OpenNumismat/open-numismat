@@ -35,14 +35,25 @@ class Cache(QObject):
         QSqlQuery("PRAGMA synchronous=OFF", db)
         QSqlQuery("PRAGMA journal_mode=OFF", db)
 
-        if 'cache' not in db.tables():
-            sql = "CREATE TABLE cache (\
+        sql_create_table = "CREATE TABLE cache (\
                 id INTEGER PRIMARY KEY,\
                 url TEXT, data BLOB,\
-                createdat TEXT DEFAULT CURRENT_DATE)"
+                expires_at INTEGER DEFAULT (strftime('%s', 'now') + 864000))"
+        if 'cache' not in db.tables():
+            QSqlQuery(sql_create_table, db)
+            sql = "CREATE INDEX index_cache_url ON cache(url)"
             QSqlQuery(sql, db)
-            sql = "CREATE INDEX index_cache_url ON cache (url)"
-            QSqlQuery(sql, db)
+        else:
+            sql = "SELECT count(*) FROM pragma_table_info('cache') WHERE name='expires_at'"
+            query = QSqlQuery(sql, db)
+            if query.first():
+                data = query.record().value(0)
+                query.finish()
+                if data == 0:
+                    QSqlQuery("DROP TABLE IF EXISTS cache", db)
+                    QSqlQuery(sql_create_table, db)
+                    sql = "CREATE INDEX index_cache_url ON cache(url)"
+                    QSqlQuery(sql, db)
 
         return db
 
@@ -71,7 +82,7 @@ class Cache(QObject):
 
         return None
 
-    def set(self, url, data):
+    def set(self, url, data, cache_expiry_days=None):
         if not self.db:
             return
 
@@ -79,17 +90,23 @@ class Cache(QObject):
             return
 
         query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO cache (url, data)"
-                      " VALUES (?, ?)")
+        if cache_expiry_days is not None:
+            query.prepare("INSERT INTO cache (url, data, expires_at)"
+                          " VALUES (?, ?, (strftime('%s', 'now') + ?))")
+        else:
+            query.prepare("INSERT INTO cache (url, data)"
+                          " VALUES (?, ?)")
         query.addBindValue(url)
         if isinstance(data, bytes):
             data = QByteArray(data)
         query.addBindValue(data)
+        if cache_expiry_days is not None:
+            query.addBindValue(int(cache_expiry_days * 60 * 60 * 24))
         query.exec()
 
     def _compact(self):
         if self.db:
-            sql = "DELETE FROM cache WHERE createdat < date('now', '-10 day')"
+            sql = "DELETE FROM cache WHERE expires_at < strftime('%s', 'now')"
             QSqlQuery(sql, self.db)
 
     @staticmethod
@@ -121,8 +138,8 @@ class CachedPoolManager(QObject):
         self._cache = None
         self._available = True
 
-    def get(self, url, timeout=None, retries=None, headers=None, cache=True):
-        if cache:
+    def get(self, url, timeout=None, retries=None, headers=None, cache=None):
+        if cache != False:
             if not self._cache:
                 self._cache = Cache(self.parent())
 
@@ -166,8 +183,8 @@ class CachedPoolManager(QObject):
 
         response_data = response.data
         if response.status == 200 and response_data:
-            if cache:
-                self._cache.set(url, response_data)
+            if cache != False:
+                self._cache.set(url, response_data, cache)
 
             return response_data
         else:

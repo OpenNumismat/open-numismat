@@ -66,7 +66,7 @@ def metalPrice(http, metal, currency, paydate=None):
     if not http.isAvailable():
         return None
 
-    response_data = http.get(metal_urls[metal])
+    response_data = http.get(metal_urls[metal], cache=1)
     if not response_data:
         return None
 
@@ -91,7 +91,7 @@ def metalPrice(http, metal, currency, paydate=None):
         return price_gram
 
     currency_url = f"https://theratesapi.com/api/{last_date}/?base=USD&symbols={currency}"
-    response_data = http.get(currency_url)
+    response_data = http.get(currency_url, cache=30)
     if not response_data:
         return None
 
