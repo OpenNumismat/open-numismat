@@ -3259,7 +3259,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Total count: %d</source>
-        <translation>Общо брой: %d</translation>
+        <translation>Общ брой: %d</translation>
     </message>
     <message>
         <source>Count owned: %d</source>
