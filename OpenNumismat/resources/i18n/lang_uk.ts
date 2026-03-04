@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>American Numismatic Society не відповідає</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -273,10 +266,6 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Імпортувати</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Не вдалося відкрити кеш</translation>
     </message>
@@ -293,6 +282,10 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Server not response</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1082,10 +1075,6 @@ The application will need to restart now.</source>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Проксі-сервер Colnect не відповідає</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Сервіс Colnect недосяжний</translation>
@@ -2085,13 +2074,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2124,6 +2106,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Import cache cleared</source>
         <translation>Кеш імпорту очищено</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
