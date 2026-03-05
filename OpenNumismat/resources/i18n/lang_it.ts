@@ -3377,7 +3377,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Platinum price</source>
-        <translation>Prezzo del Platino</translation>
+        <translation>Quotazione del Platino</translation>
     </message>
     <message>
         <source>Palladium coins</source>
