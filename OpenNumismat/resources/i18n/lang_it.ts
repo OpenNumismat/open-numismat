@@ -2251,7 +2251,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Get metal prices from DBnomics with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Ottieni i prezzi dei metalli da DBnomics nella valuta:</translation>
     </message>
     <message>
         <source>Maps</source>
