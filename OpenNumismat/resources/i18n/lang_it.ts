@@ -3389,7 +3389,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Palladium price</source>
-        <translation>Prezzo del Palladio</translation>
+        <translation>Quotazione del Palladio</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
