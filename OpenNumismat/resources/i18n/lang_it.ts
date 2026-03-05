@@ -3365,7 +3365,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Silver price</source>
-        <translation>Prezzo dell&apos;argento</translation>
+        <translation>Prezzo dell&apos;Argento</translation>
     </message>
     <message>
         <source>Platinum coins</source>
