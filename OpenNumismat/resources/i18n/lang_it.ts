@@ -3401,7 +3401,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>gram</source>
-        <translation type="unfinished"/>
+        <translation>grammo</translation>
     </message>
 </context>
 <context>
