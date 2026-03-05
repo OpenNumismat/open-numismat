@@ -3353,7 +3353,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Gold price</source>
-        <translation>Prezzo dell&apos;Oro</translation>
+        <translation>Quotazione dell&apos;Oro</translation>
     </message>
     <message>
         <source>Silver coins</source>
@@ -3365,7 +3365,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Silver price</source>
-        <translation>Prezzo dell&apos;Argento</translation>
+        <translation>Quotazione dell&apos;Argento</translation>
     </message>
     <message>
         <source>Platinum coins</source>
