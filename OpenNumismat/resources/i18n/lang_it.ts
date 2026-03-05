@@ -3147,7 +3147,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Precious weight</source>
-        <translation type="unfinished"/>
+        <translation>Peso fino</translation>
     </message>
     <message>
         <source>Precious price</source>
