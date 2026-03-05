@@ -3353,7 +3353,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Gold price</source>
-        <translation type="unfinished"/>
+        <translation>Prezzo dell&apos;Oro</translation>
     </message>
     <message>
         <source>Silver coins</source>
