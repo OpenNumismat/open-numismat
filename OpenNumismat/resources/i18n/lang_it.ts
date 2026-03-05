@@ -281,7 +281,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Server not response</source>
-        <translation type="unfinished"/>
+        <translation>Il server non risponde</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
@@ -2106,7 +2106,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Failed to clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile cancellare la cache</translation>
     </message>
 </context>
 <context>
