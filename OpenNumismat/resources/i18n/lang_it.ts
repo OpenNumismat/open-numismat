@@ -3151,7 +3151,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Precious price</source>
-        <translation type="unfinished"/>
+        <translation>Valore intrinseco</translation>
     </message>
     <message>
         <source>Total price</source>
