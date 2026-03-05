@@ -2111,7 +2111,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Failed to clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось очистить кэш</translation>
     </message>
 </context>
 <context>
