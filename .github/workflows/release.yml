@@ -14,7 +14,7 @@ jobs:
       VERSION: ${{ steps.bump.outputs.current-version }}
       PACKAGENAME: OpenNumismat-${{ steps.bump.outputs.current-version }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
     - uses: actions/setup-python@v6
@@ -35,7 +35,7 @@ jobs:
     name: Windows
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -99,7 +99,7 @@ jobs:
     name: InnoSetup
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -175,7 +175,7 @@ jobs:
     name: Nuitka
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -256,7 +256,7 @@ jobs:
     name: Nuitka InnoSetup
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -347,7 +347,7 @@ jobs:
     name: Ubuntu 22.04
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -378,7 +378,7 @@ jobs:
     name: Ubuntu 24.04
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -409,7 +409,7 @@ jobs:
     name: macOS
     runs-on: macos-15-intel
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -451,7 +451,7 @@ jobs:
     name: macOS arm64
     runs-on: macos-15
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
