@@ -577,7 +577,9 @@ class ProgressPreciousChart(BaseChart):
             z = barset.label()
 
             metal_str = self.tr("Metal")
-            tooltip = f"{metal_str}: {z}\n{self.label}: {y:.2f}"
+            locale = QLocale.system()
+            weight_str = locale.toString(float(y), 'f', precision=2)
+            tooltip = f"{metal_str}: {z}\n{self.label}: {weight_str}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
@@ -650,7 +652,9 @@ class ProgressPreciousPriceChart(BaseChart):
             z = barset.label()
 
             metal_str = self.tr("Metal")
-            tooltip = f"{metal_str}: {z}\n{self.label}: {y:.2f}"
+            locale = QLocale.system()
+            price_str = locale.toString(float(y), 'f', precision=2)
+            tooltip = f"{metal_str}: {z}\n{self.label}: {price_str}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
@@ -660,7 +664,9 @@ class ProgressPreciousPriceChart(BaseChart):
             pos = int(point.x() + 0.5)
             count = self.lineseries.at(pos).y()
             total_str = self.tr("Total")
-            tooltip = f"{total_str}: {count:.2f}"
+            locale = QLocale.system()
+            price_str = locale.toString(float(count), 'f', precision=2)
+            tooltip = f"{total_str}: {price_str}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
