@@ -1,5 +1,6 @@
 import os
 import urllib3
+from urllib.parse import urlparse
 
 from PySide6.QtCore import QObject, QByteArray, QStandardPaths, Qt
 from PySide6.QtGui import QCursor
@@ -10,6 +11,15 @@ import OpenNumismat
 from OpenNumismat import version
 
 TIMEOUT = 10
+SITES_CATALOG = {
+    "theratesapi.com": "The Rates API",
+    "api.db.nomics.world": "DBnomics",
+    "opennumismat.duckdns.org": "Colnect proxy",
+    "numismatics.org": "American Numismatic Society",
+    "nomisma.org": "Nomisma.org",
+    "api.numista.com": "Numista",
+    "en.numista.com": "Numista",
+}
 
 
 class Cache(QObject):
@@ -165,9 +175,7 @@ class CachedPoolManager(QObject):
         except (urllib3.exceptions.MaxRetryError,
                 urllib3.exceptions.ReadTimeoutError,
                 urllib3.exceptions.ProtocolError):
-            QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
-            QMessageBox.warning(self.parent(), self.tr("Downloading"), self.tr("Server not response"))
-            QApplication.restoreOverrideCursor()
+            self._showServerNotResponseMessage(url)
 
             self._available = False
             return None
@@ -188,9 +196,7 @@ class CachedPoolManager(QObject):
 
             return response_data
         else:
-            QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
-            QMessageBox.warning(self.parent(), self.tr("Downloading"), self.tr("Server not response"))
-            QApplication.restoreOverrideCursor()
+            self._showServerNotResponseMessage(url)
 
             self._available = False
             return None
@@ -216,3 +222,18 @@ class CachedPoolManager(QObject):
         if self._cache:
             self._cache.close()
             self._cache = None
+
+    def _showServerNotResponseMessage(self, url):
+        parsed_url = urlparse(url)
+        domain = parsed_url.netloc
+        if domain in SITES_CATALOG:
+            site = SITES_CATALOG[domain]
+        else:
+            site = self.tr("Server")
+
+        error_str = self.tr("not response")
+        message = f"{site} {error_str}"
+
+        QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
+        QMessageBox.warning(self.parent(), self.tr("Downloading"), message)
+        QApplication.restoreOverrideCursor()
