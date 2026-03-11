@@ -62,6 +62,12 @@ def metalPrice(http, metal, currency, paydate=None):
         'platinum': "https://api.db.nomics.world/v22/series/LBMA/platinum_D/platinum_D_USD_AM?observations=1",
         'palladium': "https://api.db.nomics.world/v22/series/LBMA/palladium_D/palladium_D_USD_AM?observations=1",
     }
+    metal_finenesses = {
+        'gold': 0.995,
+        'silver': 0.999,
+        'platinum': 0.9995,
+        'palladium': 0.9995,
+    }
 
     if not http.isAvailable():
         return None
@@ -85,7 +91,7 @@ def metalPrice(http, metal, currency, paydate=None):
     else:
         last_date = dates[-1]
         price_oz = values[-1]
-    price_gram = price_oz / OZ_TO_GRAM
+    price_gram = price_oz / OZ_TO_GRAM / metal_finenesses[metal]
 
     if currency == 'USD':
         return price_gram

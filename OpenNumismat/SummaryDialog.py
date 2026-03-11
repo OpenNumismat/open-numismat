@@ -314,12 +314,12 @@ class SummaryDialog(QDialog):
                     price_gram = metalPrice(self.http, material, self.dbnomicsCurrency)
                     if price_gram:
                         price_material = price_gram * weight
-                        price_material_str = self.locale.toString(float(price_material), 'f', precision=2)
                         if self.dbnomicsCurrency in currency_symbols:
                             symbol = currency_symbols[self.dbnomicsCurrency]
                         else:
                             symbol = self.dbnomicsCurrency
-                        lines.append(f"{titles[material][2]}: {price_material_str}{symbol} ({comment})")
+                        price_material_str = self.locale.toCurrencyString(float(price_material), symbol)
+                        lines.append(f"{titles[material][2]}: {price_material_str} ({comment})")
 
         return lines
 
