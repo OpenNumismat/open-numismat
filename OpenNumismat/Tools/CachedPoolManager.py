@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 from PySide6.QtCore import QObject, QByteArray, QStandardPaths, Qt
 from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
-from PySide6.QtWidgets import QApplication, QMessageBox
+from PySide6.QtWidgets import QApplication, QMessageBox, QProgressDialog
 
 import OpenNumismat
 from OpenNumismat import version
@@ -175,7 +175,9 @@ class CachedPoolManager(QObject):
         except (urllib3.exceptions.MaxRetryError,
                 urllib3.exceptions.ReadTimeoutError,
                 urllib3.exceptions.ProtocolError):
-            self._showServerNotResponseMessage(url)
+            result = self._showServerNotResponseMessage(url)
+            if result == QMessageBox.Retry:
+                return self.get(url, timeout, retries, headers, cache)
 
             self._available = False
             return None
@@ -196,7 +198,9 @@ class CachedPoolManager(QObject):
 
             return response_data
         else:
-            self._showServerNotResponseMessage(url)
+            result = self._showServerNotResponseMessage(url)
+            if result == QMessageBox.Retry:
+                return self.get(url, timeout, retries, headers, cache)
 
             self._available = False
             return None
@@ -235,5 +239,18 @@ class CachedPoolManager(QObject):
         message = f"{site} {error_str}"
 
         QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
-        QMessageBox.warning(self.parent(), self.tr("Downloading"), message)
+
+        parent = self.parent()
+        if parent:
+            progress_dlg = self.parent().findChild(QProgressDialog)
+            if progress_dlg:
+                parent = progress_dlg
+        msgBox = QMessageBox(QMessageBox.Warning,
+                             self.tr("Downloading"), message,
+                             QMessageBox.Retry | QMessageBox.Cancel,
+                             parent)
+        result = msgBox.exec()
+
         QApplication.restoreOverrideCursor()
+
+        return result

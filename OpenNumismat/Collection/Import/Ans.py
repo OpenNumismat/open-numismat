@@ -440,6 +440,8 @@ class AnsDialog(QDialog):
 
     def makeItem(self, item_id, record):
         data = self.connector.getData(item_id)
+        if not data:
+            return
         data = data.replace(b'xml:id="', b'xml:id="XXid')
         tree = lxml.etree.fromstring(data)
 
@@ -704,6 +706,8 @@ class AnsDialog(QDialog):
                 self.items.append(item_id)
                 
                 data = self.connector.getData(item_id)
+                if not data:
+                    break
                 data = data.replace(b'xml:id="', b'xml:id="XXid')
                 tree = lxml.etree.fromstring(data)
 
