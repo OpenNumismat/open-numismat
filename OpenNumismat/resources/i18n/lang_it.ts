@@ -280,8 +280,12 @@ Close the file and try again.</source>
         <translation>Download in corso</translation>
     </message>
     <message>
-        <source>Server not response</source>
-        <translation>Il server non risponde</translation>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>not response</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Too many requests. Try later</source>
