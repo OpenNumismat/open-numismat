@@ -281,8 +281,12 @@ Close the file and try again.</source>
         <translation>Скачивание</translation>
     </message>
     <message>
-        <source>Server not response</source>
-        <translation>Сервер не отвечает</translation>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>not response</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Too many requests. Try later</source>
