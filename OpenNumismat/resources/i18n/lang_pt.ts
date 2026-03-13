@@ -281,8 +281,12 @@ Feche o ficheiro e tente novamente.</translation>
         <translation>A transferir</translation>
     </message>
     <message>
-        <source>Server not response</source>
-        <translation>O servidor não responde</translation>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>not response</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Too many requests. Try later</source>
