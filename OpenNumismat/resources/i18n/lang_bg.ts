@@ -286,7 +286,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>not response</source>
-        <translation type="unfinished"/>
+        <translation>не отговаря</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
