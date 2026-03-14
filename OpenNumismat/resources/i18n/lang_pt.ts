@@ -282,7 +282,7 @@ Feche o ficheiro e tente novamente.</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"/>
+        <translation>Servidor</translation>
     </message>
     <message>
         <source>not response</source>
