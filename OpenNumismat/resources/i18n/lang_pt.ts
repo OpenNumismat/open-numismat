@@ -286,7 +286,7 @@ Feche o ficheiro e tente novamente.</translation>
     </message>
     <message>
         <source>not response</source>
-        <translation type="unfinished"/>
+        <translation>sem resposta</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
