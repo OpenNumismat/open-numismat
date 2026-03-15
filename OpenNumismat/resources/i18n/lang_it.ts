@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>Il sito dell&apos;American Numismatic Society non risponde</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -272,12 +265,31 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Importa</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Impossibile aprire la cache</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Download in corso</translation>
+    </message>
+</context>
+<context>
+    <name>CachedPoolManager</name>
+    <message>
+        <source>Downloading</source>
+        <translation>Download in corso</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>not response</source>
+        <translation>non risponde</translation>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Troppe richieste. Riprova più tardi</translation>
     </message>
 </context>
 <context>
@@ -1066,10 +1078,6 @@ L&apos;applicazione deve essere riavviata.</translation>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Il server di Colnect non risponde</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Colnect non è al momento disponibile</translation>
@@ -2067,13 +2075,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation>Troppe richieste. Riprova più tardi</translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2106,6 +2107,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Import cache cleared</source>
         <translation>Cache di importazione cancellata</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation>Impossibile cancellare la cache</translation>
     </message>
 </context>
 <context>
@@ -2250,7 +2255,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Get metal prices from DBnomics with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Ottieni i prezzi dei metalli da DBnomics nella valuta:</translation>
     </message>
     <message>
         <source>Maps</source>
@@ -2708,7 +2713,22 @@ drag-n-drop to add an image)</source>
     <name>ProgressPreciousChart</name>
     <message>
         <source>Metal</source>
-        <translation type="unfinished"/>
+        <translation>Metallo</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressPreciousPriceChart</name>
+    <message>
+        <source>Trend</source>
+        <translation>Tendenza</translation>
+    </message>
+    <message>
+        <source>Metal</source>
+        <translation>Metallo</translation>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation>Totale</translation>
     </message>
 </context>
 <context>
@@ -3131,7 +3151,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Precious weight</source>
-        <translation type="unfinished"/>
+        <translation>Peso fino</translation>
+    </message>
+    <message>
+        <source>Precious price</source>
+        <translation>Valore intrinseco</translation>
     </message>
     <message>
         <source>Total price</source>
@@ -3164,6 +3188,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Weight</source>
         <translation>Peso</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Prezzo</translation>
     </message>
 </context>
 <context>
@@ -3329,7 +3357,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Gold price</source>
-        <translation type="unfinished"/>
+        <translation>Quotazione dell&apos;Oro</translation>
     </message>
     <message>
         <source>Silver coins</source>
@@ -3341,7 +3369,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Silver price</source>
-        <translation type="unfinished"/>
+        <translation>Quotazione dell&apos;Argento</translation>
     </message>
     <message>
         <source>Platinum coins</source>
@@ -3353,7 +3381,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Platinum price</source>
-        <translation type="unfinished"/>
+        <translation>Quotazione del Platino</translation>
     </message>
     <message>
         <source>Palladium coins</source>
@@ -3365,7 +3393,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Palladium price</source>
-        <translation type="unfinished"/>
+        <translation>Quotazione del Palladio</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
@@ -3377,15 +3405,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>gram</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>DBnomics not response</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The Rates API not response</source>
-        <translation type="unfinished"/>
+        <translation>grammo</translation>
     </message>
 </context>
 <context>

@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>American Numismatic Society не отвечает</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -273,12 +266,31 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Импортировать</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Не удалось открыть кэш</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Скачивание</translation>
+    </message>
+</context>
+<context>
+    <name>CachedPoolManager</name>
+    <message>
+        <source>Downloading</source>
+        <translation>Скачивание</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Сервер</translation>
+    </message>
+    <message>
+        <source>not response</source>
+        <translation>не отвечает</translation>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Слишком много запросов. Попробуйте позже</translation>
     </message>
 </context>
 <context>
@@ -1067,10 +1079,6 @@ The application will need to restart now.</source>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Прокси-сервер Colnect не отвечает</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Сервис Colnect не доступен</translation>
@@ -2072,13 +2080,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation>Слишком много запросов. Попробуйте позже</translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2111,6 +2112,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Import cache cleared</source>
         <translation>Кэш импорта очищен</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation>Не удалось очистить кэш</translation>
     </message>
 </context>
 <context>
@@ -2255,7 +2260,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Get metal prices from DBnomics with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Получать цены драгметаллов из DBnomics в валюте:</translation>
     </message>
     <message>
         <source>Maps</source>
@@ -2717,6 +2722,21 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousPriceChart</name>
+    <message>
+        <source>Trend</source>
+        <translation>Тренд</translation>
+    </message>
+    <message>
+        <source>Metal</source>
+        <translation>Металл</translation>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation>Всего</translation>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3140,6 +3160,10 @@ Please update OpenNumismat</source>
         <translation>Вес драгметалла</translation>
     </message>
     <message>
+        <source>Precious price</source>
+        <translation>Стоимость драгметаллов</translation>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Полная цена</translation>
     </message>
@@ -3170,6 +3194,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Weight</source>
         <translation>Масса</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Цена</translation>
     </message>
 </context>
 <context>
@@ -3384,14 +3412,6 @@ Please update OpenNumismat</source>
     <message>
         <source>gram</source>
         <translation>грамм</translation>
-    </message>
-    <message>
-        <source>DBnomics not response</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The Rates API not response</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>
