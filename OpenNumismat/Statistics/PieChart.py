@@ -11,8 +11,6 @@ class PieSlice(QPieSlice):
 
     def __init__(self, label, value, parent=None):
         self.tooltip_label = label
-        if Settings()['tree_counter']:
-            label = f"{label} [{value}]"
         super().__init__(label, value, parent)
 
     def tooltipLabel(self):
@@ -24,6 +22,7 @@ class PieChart(BaseChartView):
     def __init__(self, model, parent=None):
         super().__init__(model, parent)
 
+        self.tree_counter = Settings()['tree_counter']
         self.legend = Settings()['show_chart_legend']
         if self.legend:
             self.chart().legend().show()
@@ -33,15 +32,13 @@ class PieChart(BaseChartView):
         series = QPieSeries()
         series.hovered.connect(self.hover)
 
-        if self.use_blaf_palette:
-            for i, (x, y) in enumerate(zip(self.model.x_data, self.model.y_data)):
-                _slice = PieSlice(x, y)
+        for i, (x, y) in enumerate(zip(self.model.x_data, self.model.y_data)):
+            _slice = PieSlice(x, y)
+            if self.tree_counter:
+                _slice.setLabel(f"{x} [{y}]")
+            if self.use_blaf_palette:
                 _slice.setBrush(self.blafColor(i))
-                series.append(_slice)
-        else:
-            for x, y in zip(self.model.x_data, self.model.y_data):
-                _slice = PieSlice(x, y)
-                series.append(_slice)
+            series.append(_slice)
 
         self.chart().addSeries(series)
         if not self.legend:
