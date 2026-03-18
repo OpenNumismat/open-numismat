@@ -8,18 +8,12 @@ from PySide6.QtCharts import (
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor
 
-from OpenNumismat.Statistics.BaseChart import BaseChartView
+from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
 
 
 class BarHChart(BaseChartView):
     
-    def updateChart(self, xx, yy):
-        xx.reverse()
-        yy.reverse()
-
-        self.xx = xx
-        self.yy = yy
-        
+    def updateChart(self):
         if self.colors:
             series = QHorizontalStackedBarSeries()
         else:
@@ -27,8 +21,8 @@ class BarHChart(BaseChartView):
         series.hovered.connect(self.hover)
 
         if self.colors:
-            for i, y in enumerate(yy):
-                lst = [0] * len(yy)
+            for i, y in enumerate(self.model.y_data):
+                lst = [0] * len(self.model.y_data)
                 lst[i] = y
                 setY = QBarSet(self.label_y)
                 setY.append(lst)
@@ -37,7 +31,7 @@ class BarHChart(BaseChartView):
                 series.append(setY)
         else:
             setY = QBarSet(self.label_y)
-            setY.append(yy)
+            setY.append(self.model.y_data)
             series.append(setY)
 
         self.chart().addSeries(series)
@@ -56,7 +50,10 @@ class BarHChart(BaseChartView):
         series.attachAxis(axisY)
 
 
-def barHChart(view):
-    chart = BarHChart(view)
-    view.fillBarChart(chart)
-    return chart
+class BarHChartModel(BaseChartModel):
+
+    def loadData(self, field):
+        super().loadData(field)
+
+        self.x_data.reverse()
+        self.y_data.reverse()

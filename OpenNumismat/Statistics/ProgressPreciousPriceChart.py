@@ -20,20 +20,18 @@ from OpenNumismat.Tools.misc import metalPrice
 from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Statistics.BaseChart import BaseChartView
+from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
 
 
 class ProgressPreciousPriceChart(BaseChartView):
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, model, parent=None):
+        super().__init__(model, parent)
         self.chart().legend().show()
         self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
 
-    def setData(self, xx, yy, zz):
-        metals = list(set().union(*yy))
-        self.xx = xx
-        self.yy = yy
+    def updateChart(self):
+        metals = list(set().union(*self.model.y_data))
 
         series = QStackedBarSeries()
         series.hovered.connect(self.hover)
@@ -41,8 +39,8 @@ class ProgressPreciousPriceChart(BaseChartView):
         barsets = {}
 
         for i, metal in enumerate(metals):
-            lst = [0] * len(yy)
-            for j, y in enumerate(yy):
+            lst = [0] * len(self.model.y_data)
+            for j, y in enumerate(self.model.y_data):
                 if metal in y:
                     lst[j] = y[metal]
 
@@ -59,7 +57,7 @@ class ProgressPreciousPriceChart(BaseChartView):
         self.lineseries.setName(self.tr("Trend"))
         self.lineseries.hovered.connect(self.line_hover)
 
-        for i, z in enumerate(zz):
+        for i, z in enumerate(self.model.z_data):
             self.lineseries.append(i, z)
 
         self.chart().addSeries(self.lineseries)
@@ -110,166 +108,152 @@ class ProgressPreciousPriceChart(BaseChartView):
             QToolTip.showText(QPoint(), "")
 
 
-@waitCursorDecorator
-def progressPreciousPriceChart(view):
-    metals = (
-        ("gold", view.tr("Gold").lower(), "au", "aurum"),
-        ("silver", view.tr("Silver").lower(), "ag", "argentum"),
-        ("platinum", view.tr("Platinum").lower(), "pt"),
-        ("palladium", view.tr("Palladium").lower(), "pd"),
-    )
-    currency_symbols = {
-        'USD': "$",
-        'EUR': "€",
-        'GBP': "£",
-        'RUB': "₽",
-        'PLN': "zł",
-    }
+class ProgressPreciousPriceChartModel(BaseChartModel):
 
-    dbnomicsCurrency = Settings()['dbnomics_currency']
+    def __init__(self, db, filter_, parent=None):
+        super().__init__(db, filter_, parent)
 
-    if dbnomicsCurrency in currency_symbols:
-        symbol = currency_symbols[dbnomicsCurrency]
-    else:
-        symbol = dbnomicsCurrency
+        self.dbnomicsCurrency = Settings()['dbnomics_currency']
+        self.z_data = []
 
-    title = view.tr("Price")
-    chart = ProgressPreciousPriceChart(view)
-    chart.setLabel(f"{title}, {symbol}")
+    @waitCursorDecorator
+    def loadData(self, period):
+        metals = (
+            ("gold", self.tr("Gold").lower(), "au", "aurum"),
+            ("silver", self.tr("Silver").lower(), "ag", "argentum"),
+            ("platinum", self.tr("Platinum").lower(), "pt"),
+            ("palladium", self.tr("Palladium").lower(), "pd"),
+        )
 
-    sql_field = "weight,quantity,fineness,material,paydate"
-
-    period = view.periodSelector.currentData()
-    if period == 'month':
-        date_format = '%m'
-        delta = relativedelta(months=1)
-    elif period == 'week':
-        date_format = '%W'
-        delta = relativedelta(weeks=1)
-    elif period == 'day':
-        date_format = '%d'
-        delta = relativedelta(days=1)
-    else:
-        date_format = '%Y'
-        delta = relativedelta(years=1)
-
-    sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
-
-    filter_ = view.model.filter()
-    if filter_:
-        sql_filters.append(filter_)
-
-    sql_filters.append("material IS NOT NULL")
-    sql_filters.append("material <> ''")
-    sql_filters.append("paydate IS NOT NULL")
-    sql_filters.append("paydate <> ''")
-    if period == 'month':
-        sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
-    elif period == 'week':
-        sql_filters.append("paydate > datetime('now', '-11 months')")
-    elif period == 'day':
-        sql_filters.append("paydate > datetime('now', '-1 month')")
-
-    sql = "SELECT %s FROM coins"\
-          " WHERE %s"\
-          " ORDER BY paydate" % (
-              sql_field, ' AND '.join(sql_filters))
-
-    query = QSqlQuery(view.model.database())
-    query.exec(sql)
-
-    data = {}
-    min_paydate = None
-    max_paydate = None
-    while query.next():
-        record = query.record()
-
-        weight = record.value('weight') or 0
-        if isinstance(weight, str):
-            weight = stringToMoney(weight)
-
-        quantity = record.value('quantity') or 1
-
-        fineness = record.value('fineness') or 0
-        fineness = normalizeFineness(fineness)
-
-        material = record.value('material').lower()
-        metal = None
-        for metal_titles in metals:
-            if material in metal_titles:
-                metal = metal_titles[0]
-                break
-        if not metal:
-            continue
-
-        paydate_raw = record.value('paydate')
-        paydate = datetime.strptime(paydate_raw, '%Y-%m-%d')
+        sql_field = "weight,quantity,fineness,material,paydate"
 
         if period == 'month':
-            paydate_start = date(paydate.year, paydate.month, 1)
+            date_format = '%m'
+            delta = relativedelta(months=1)
         elif period == 'week':
-            paydate_start = paydate - timedelta(days=paydate.weekday())
+            date_format = '%W'
+            delta = relativedelta(weeks=1)
         elif period == 'day':
-            paydate_start = paydate
+            date_format = '%d'
+            delta = relativedelta(days=1)
         else:
-            paydate_start = date(paydate.year, 1, 1)
-        period_item = paydate_start.strftime('%Y-%m-%d')
+            date_format = '%Y'
+            delta = relativedelta(years=1)
 
-        if not min_paydate:
-            min_paydate = paydate_start
-        max_paydate = paydate_start
+        sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
 
-        if period_item not in data:
-            data[period_item] = {}
+        if self.filter:
+            sql_filters.append(self.filter)
 
-        total_weight = weight * fineness * quantity
+        sql_filters.append("material IS NOT NULL")
+        sql_filters.append("material <> ''")
+        sql_filters.append("paydate IS NOT NULL")
+        sql_filters.append("paydate <> ''")
+        if period == 'month':
+            sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
+        elif period == 'week':
+            sql_filters.append("paydate > datetime('now', '-11 months')")
+        elif period == 'day':
+            sql_filters.append("paydate > datetime('now', '-1 month')")
 
-        if metal in data[period_item]:
-            data[period_item][metal] += total_weight
-        else:
-            data[period_item][metal] = total_weight
+        sql = "SELECT %s FROM coins"\
+              " WHERE %s"\
+              " ORDER BY paydate" % (
+                  sql_field, ' AND '.join(sql_filters))
 
-    current_date = min_paydate
+        query = QSqlQuery(self.db)
+        query.exec(sql)
 
-    normalized_data = {}
-    normalized_linear_data = {}
-    if data:
-        http = CachedPoolManager(chart)
+        data = {}
+        min_paydate = None
+        max_paydate = None
+        while query.next():
+            record = query.record()
 
-        total_weight = {'gold': 0, 'silver': 0, 'platinum': 0, 'palladium': 0}
+            weight = record.value('weight') or 0
+            if isinstance(weight, str):
+                weight = stringToMoney(weight)
 
-        while current_date <= max_paydate:
-            period_item = current_date.strftime('%Y-%m-%d')
-            normalized_period_item = current_date.strftime(date_format)
+            quantity = record.value('quantity') or 1
 
-            total_price = 0
-            for metal, weight in total_weight.items():
-                if weight > 0:
-                    price = metalPrice(http, metal, dbnomicsCurrency, period_item)
-                    if price:
-                        total_price += weight * price
-            normalized_linear_data[normalized_period_item] = total_price
+            fineness = record.value('fineness') or 0
+            fineness = normalizeFineness(fineness)
 
-            if period_item in data:
-                item_data = {}
-                for metal, weight in data[period_item].items():
-                    price = metalPrice(http, metal, dbnomicsCurrency, period_item)
-                    if price:
-                        metal_title = view.tr(metal.capitalize())
-                        item_data[metal_title] = weight * price
-                    total_weight[metal] += weight
-                normalized_data[normalized_period_item] = item_data
+            material = record.value('material').lower()
+            metal = None
+            for metal_titles in metals:
+                if material in metal_titles:
+                    metal = metal_titles[0]
+                    break
+            if not metal:
+                continue
 
-                normalized_linear_data[normalized_period_item] += sum(item_data.values())
+            paydate_raw = record.value('paydate')
+            paydate = datetime.strptime(paydate_raw, '%Y-%m-%d')
+
+            if period == 'month':
+                paydate_start = date(paydate.year, paydate.month, 1)
+            elif period == 'week':
+                paydate_start = paydate - timedelta(days=paydate.weekday())
+            elif period == 'day':
+                paydate_start = paydate
             else:
-                normalized_data[normalized_period_item] = {}
+                paydate_start = date(paydate.year, 1, 1)
+            period_item = paydate_start.strftime('%Y-%m-%d')
 
-            current_date = current_date + delta
+            if not min_paydate:
+                min_paydate = paydate_start
+            max_paydate = paydate_start
 
-        http.close()
+            if period_item not in data:
+                data[period_item] = {}
 
-    chart.setData(list(normalized_data), list(normalized_data.values()),
-                  list(normalized_linear_data.values()))
-    chart.setLabelY(view.periodSelector.currentText())
+            total_weight = weight * fineness * quantity
 
-    return chart
+            if metal in data[period_item]:
+                data[period_item][metal] += total_weight
+            else:
+                data[period_item][metal] = total_weight
+
+        current_date = min_paydate
+
+        normalized_data = {}
+        normalized_linear_data = {}
+        if data:
+            http = CachedPoolManager(self)
+
+            total_weight = {'gold': 0, 'silver': 0, 'platinum': 0, 'palladium': 0}
+
+            while current_date <= max_paydate:
+                period_item = current_date.strftime('%Y-%m-%d')
+                normalized_period_item = current_date.strftime(date_format)
+
+                total_price = 0
+                for metal, weight in total_weight.items():
+                    if weight > 0:
+                        price = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
+                        if price:
+                            total_price += weight * price
+                normalized_linear_data[normalized_period_item] = total_price
+
+                if period_item in data:
+                    item_data = {}
+                    for metal, weight in data[period_item].items():
+                        price = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
+                        if price:
+                            metal_title = self.tr(metal.capitalize())
+                            item_data[metal_title] = weight * price
+                        total_weight[metal] += weight
+                    normalized_data[normalized_period_item] = item_data
+
+                    normalized_linear_data[normalized_period_item] += sum(item_data.values())
+                else:
+                    normalized_data[normalized_period_item] = {}
+
+                current_date = current_date + delta
+
+            http.close()
+
+        self.x_data = list(normalized_data)
+        self.y_data = list(normalized_data.values())
+        self.z_data = list(normalized_linear_data.values())

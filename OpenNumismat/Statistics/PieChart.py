@@ -21,27 +21,25 @@ class PieSlice(QPieSlice):
 
 class PieChart(BaseChartView):
     
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, model, parent=None):
+        super().__init__(model, parent)
+
         self.legend = Settings()['show_chart_legend']
         if self.legend:
             self.chart().legend().show()
             self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
 
-    def setData(self, xx, yy):
-        self.xx = xx
-        self.yy = yy
-        
+    def updateChart(self):
         series = QPieSeries()
         series.hovered.connect(self.hover)
 
         if self.use_blaf_palette:
-            for i, (x, y) in enumerate(zip(xx, yy)):
+            for i, (x, y) in enumerate(zip(self.model.x_data, self.model.y_data)):
                 _slice = PieSlice(x, y)
                 _slice.setBrush(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
                 series.append(_slice)
         else:
-            for x, y in zip(xx, yy):
+            for x, y in zip(self.model.x_data, self.model.y_data):
                 _slice = PieSlice(x, y)
                 series.append(_slice)
 
@@ -57,9 +55,3 @@ class PieChart(BaseChartView):
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
-
-
-def pieChart(view):
-    chart = PieChart(view)
-    view.fillBarChart(chart)
-    return chart

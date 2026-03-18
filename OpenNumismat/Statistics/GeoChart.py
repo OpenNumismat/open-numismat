@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 from OpenNumismat.Settings import Settings
+from OpenNumismat.Statistics.BaseChart import BaseChartModel
 
 try:
     from OpenNumismat.private_keys import MAPS_API_KEY
@@ -58,12 +59,17 @@ class GeoChart(QWebView):
 </html>
     """
 
-    def setData(self, xx, yy, region):
-        data = ','.join(["['%s', %d]" % (x, y) for x, y in zip(xx, yy)])
+    def __init__(self, model, parent=None):
+        super().__init__(parent)
+
+        self.model = model
+
+    def updateChart(self):
+        data = ','.join(["['%s', %d]" % (x, y) for x, y in zip(self.model.x_data, self.model.y_data)])
         header = "['%s', '%s']" % (self.tr("Country"), self.tr("Quantity"))
         data = ','.join((header, data))
         locale = Settings()['locale']
-        self.html_data = self.HTML % (locale, MAPS_API_KEY, region, data)
+        self.html_data = self.HTML % (locale, MAPS_API_KEY, self.model.region, data)
         self.setHtml(self.html_data)
 
     def filters(self):
@@ -95,26 +101,31 @@ class GeoChart(QWebView):
         pass
 
 
-def geoChart(model, region, parent=None):
-    filter_ = model.filter()
-    if filter_:
-        sql_filter = "WHERE %s" % filter_
-    else:
-        sql_filter = ""
+class GeoChartModel(BaseChartModel):
 
-    sql = "SELECT sum(iif(quantity!='',quantity,1)), IFNULL(country,'') FROM coins %s GROUP BY IFNULL(country,'')" % sql_filter
-    query = QSqlQuery(model.database())
-    query.exec(sql)
-    xx = []
-    yy = []
-    while query.next():
-        record = query.record()
-        count = record.value(0)
-        val = str(record.value(1))
-        xx.append(val)
-        yy.append(count)
+    def __init__(self, db, filter_, parent=None):
+        super().__init__(db, filter_, parent)
 
-    chart = GeoChart(parent)
-    chart.setData(xx, yy, region)
+        self.region = None
+
+    def loadData(self, region):
+        if self.filter:
+            sql_filter = "WHERE %s" % filter
+        else:
+            sql_filter = ""
+
+        sql = "SELECT sum(iif(quantity!='',quantity,1)), IFNULL(country,'') FROM coins %s GROUP BY IFNULL(country,'')" % sql_filter
+        query = QSqlQuery(self.db)
+        query.exec(sql)
+        xx = []
+        yy = []
+        while query.next():
+            record = query.record()
+            count = record.value(0)
+            val = str(record.value(1))
+            xx.append(val)
+            yy.append(count)
     
-    return chart
+        self.x_data = xx
+        self.y_data = yy
+        self.region = region

@@ -16,7 +16,7 @@ from PySide6.QtWidgets import QToolTip
 
 from OpenNumismat.Tools.Converters import stringToMoney, normalizeFineness
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Statistics.BaseChart import BaseChartView
+from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
 
 
 class LineSeries(QLineSeries):
@@ -38,15 +38,13 @@ class LineSeries(QLineSeries):
 
 class ProgressPreciousChart(BaseChartView):
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, model, parent=None):
+        super().__init__(model, parent)
         self.chart().legend().show()
         self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
 
-    def setData(self, xx, yy):
-        metals = list(set().union(*yy))
-        self.xx = xx
-        self.yy = yy
+    def updateChart(self):
+        metals = list(set().union(*self.model.y_data))
 
         series = QStackedBarSeries()
         series.hovered.connect(self.hover)
@@ -54,8 +52,8 @@ class ProgressPreciousChart(BaseChartView):
         barsets = {}
 
         for i, metal in enumerate(metals):
-            lst = [0] * len(yy)
-            for j, y in enumerate(yy):
+            lst = [0] * len(self.model.y_data)
+            for j, y in enumerate(self.model.y_data):
                 if metal in y:
                     lst[j] = y[metal]
 
@@ -77,7 +75,7 @@ class ProgressPreciousChart(BaseChartView):
             line_series.setPen(pen)
 
             cur_y = 0
-            for i, y in enumerate(yy):
+            for i, y in enumerate(self.model.y_data):
                 if metal in y:
                     cur_y += y[metal]
                 line_series.append(i, cur_y)
@@ -122,111 +120,106 @@ class ProgressPreciousChart(BaseChartView):
             QToolTip.showText(QPoint(), "")
 
 
-def progressPreciousChart(view):
-    metals = (
-        ("gold", view.tr("Gold").lower(), "au", "aurum"),
-        ("silver", view.tr("Silver").lower(), "ag", "argentum"),
-        ("platinum", view.tr("Platinum").lower(), "pt"),
-        ("palladium", view.tr("Palladium").lower(), "pd"),
-    )
+class ProgressPreciousChartModel(BaseChartModel):
 
-    chart = ProgressPreciousChart(view)
-    chart.setLabel(view.tr("Weight"))
+    def loadData(self, period):
+        metals = (
+            ("gold", self.tr("Gold").lower(), "au", "aurum"),
+            ("silver", self.tr("Silver").lower(), "ag", "argentum"),
+            ("platinum", self.tr("Platinum").lower(), "pt"),
+            ("palladium", self.tr("Palladium").lower(), "pd"),
+        )
 
-    sql_field = "weight,quantity,fineness,material,paydate"
-
-    period = view.periodSelector.currentData()
-    if period == 'month':
-        date_format = '%m'
-        delta = relativedelta(months=1)
-    elif period == 'week':
-        date_format = '%W'
-        delta = relativedelta(weeks=1)
-    elif period == 'day':
-        date_format = '%d'
-        delta = relativedelta(days=1)
-    else:
-        date_format = '%Y'
-        delta = relativedelta(years=1)
-
-    sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
-
-    filter_ = view.model.filter()
-    if filter_:
-        sql_filters.append(filter_)
-
-    sql_filters.append("material IS NOT NULL")
-    sql_filters.append("material <> ''")
-    sql_filters.append("paydate IS NOT NULL")
-    sql_filters.append("paydate <> ''")
-    if period == 'month':
-        sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
-    elif period == 'week':
-        sql_filters.append("paydate > datetime('now', '-11 months')")
-    elif period == 'day':
-        sql_filters.append("paydate > datetime('now', '-1 month')")
+        sql_field = "weight,quantity,fineness,material,paydate"
     
-    sql = "SELECT %s FROM coins"\
-          " WHERE %s"\
-          " ORDER BY paydate" % (
-              sql_field, ' AND '.join(sql_filters))
-
-    query = QSqlQuery(view.model.database())
-    query.exec(sql)
-    data = {}
-    min_paydate = None
-    max_paydate = None
-    while query.next():
-        record = query.record()
-
-        weight = record.value('weight') or 0
-        if isinstance(weight, str):
-            weight = stringToMoney(weight)
-
-        quantity = record.value('quantity') or 1
-
-        fineness = record.value('fineness') or 0
-        fineness = normalizeFineness(fineness)
-
-        material = record.value('material').lower()
-        metal = None
-        for metal_titles in metals:
-            if material in metal_titles:
-                metal = metal_titles[1]
-                break
-        if not metal:
-            continue
-
-        paydate = record.value('paydate')
-        paydate = datetime.strptime(paydate, '%Y-%m-%d')
-        if not min_paydate:
-            min_paydate = paydate
-        max_paydate = paydate
-        period_item = paydate.strftime(date_format)
-
-        if period_item not in data:
-            data[period_item] = {}
-
-        total_weight = weight * fineness * quantity
-        if metal in data[period_item]:
-            data[period_item][metal] += total_weight
+        if period == 'month':
+            date_format = '%m'
+            delta = relativedelta(months=1)
+        elif period == 'week':
+            date_format = '%W'
+            delta = relativedelta(weeks=1)
+        elif period == 'day':
+            date_format = '%d'
+            delta = relativedelta(days=1)
         else:
-            data[period_item][metal] = total_weight
+            date_format = '%Y'
+            delta = relativedelta(years=1)
 
-    current_date = min_paydate
+        sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
 
-    normalized_data = {}
-    if data:
-        while current_date <= max_paydate:
-            period_item = current_date.strftime(date_format)
-            if period_item in data:
-                normalized_data[period_item] = data[period_item]
+        if self.filter:
+            sql_filters.append(self.filter)
+
+        sql_filters.append("material IS NOT NULL")
+        sql_filters.append("material <> ''")
+        sql_filters.append("paydate IS NOT NULL")
+        sql_filters.append("paydate <> ''")
+        if period == 'month':
+            sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
+        elif period == 'week':
+            sql_filters.append("paydate > datetime('now', '-11 months')")
+        elif period == 'day':
+            sql_filters.append("paydate > datetime('now', '-1 month')")
+
+        sql = "SELECT %s FROM coins"\
+              " WHERE %s"\
+              " ORDER BY paydate" % (
+                  sql_field, ' AND '.join(sql_filters))
+
+        query = QSqlQuery(self.db)
+        query.exec(sql)
+        data = {}
+        min_paydate = None
+        max_paydate = None
+        while query.next():
+            record = query.record()
+
+            weight = record.value('weight') or 0
+            if isinstance(weight, str):
+                weight = stringToMoney(weight)
+
+            quantity = record.value('quantity') or 1
+
+            fineness = record.value('fineness') or 0
+            fineness = normalizeFineness(fineness)
+
+            material = record.value('material').lower()
+            metal = None
+            for metal_titles in metals:
+                if material in metal_titles:
+                    metal = metal_titles[1]
+                    break
+            if not metal:
+                continue
+
+            paydate = record.value('paydate')
+            paydate = datetime.strptime(paydate, '%Y-%m-%d')
+            if not min_paydate:
+                min_paydate = paydate
+            max_paydate = paydate
+            period_item = paydate.strftime(date_format)
+
+            if period_item not in data:
+                data[period_item] = {}
+
+            total_weight = weight * fineness * quantity
+            if metal in data[period_item]:
+                data[period_item][metal] += total_weight
             else:
-                normalized_data[period_item] = {}
+                data[period_item][metal] = total_weight
 
-            current_date = current_date + delta
+        current_date = min_paydate
 
-    chart.setData(list(normalized_data), list(normalized_data.values()))
-    chart.setLabelY(view.periodSelector.currentText())
+        normalized_data = {}
+        if data:
+            while current_date <= max_paydate:
+                period_item = current_date.strftime(date_format)
+                if period_item in data:
+                    normalized_data[period_item] = data[period_item]
+                else:
+                    normalized_data[period_item] = {}
 
-    return chart
+                current_date = current_date + delta
+
+        self.x_data = list(normalized_data)
+        self.y_data = list(normalized_data.values())

@@ -1,5 +1,4 @@
-from functools import cmp_to_key
-
+# -*- coding: utf-8 -*-
 from PySide6.QtCharts import QChart
 from PySide6.QtCore import (
     Qt,
@@ -11,7 +10,6 @@ from PySide6.QtCore import (
 )
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QIcon
-from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -31,19 +29,18 @@ import OpenNumismat
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.CollectionFields import StatisticsFields
 from OpenNumismat.Tools.Gui import getSaveFileName
-from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel
-from OpenNumismat.Statistics.GeoChart import geoChart
+from OpenNumismat.Statistics.GeoChart import GeoChart, GeoChartModel
 from OpenNumismat.Statistics.BarChart import BarChart
-from OpenNumismat.Statistics.BarHChart import barHChart
-from OpenNumismat.Statistics.PieChart import pieChart
-from OpenNumismat.Statistics.StackedBarChart import stackedBarChart
+from OpenNumismat.Statistics.BarHChart import BarHChart, BarHChartModel
+from OpenNumismat.Statistics.PieChart import PieChart
+from OpenNumismat.Statistics.StackedBarChart import StackedBarChart, StackedBarChartModel
 from OpenNumismat.Statistics.AreaChart import AreaChart, AreaChartModel, AreaNiceChart
-from OpenNumismat.Statistics.AreaStatusChart import areaStatusChart
+from OpenNumismat.Statistics.AreaStatusChart import AreaNiceStatusChart, AreaStatusChart, AreaStatusChartModel
 from OpenNumismat.Statistics.ProgressChart import ProgressChart, ProgressChartModel
-from OpenNumismat.Statistics.ProgressPreciousChart import progressPreciousChart
-from OpenNumismat.Statistics.ProgressPreciousPriceChart import progressPreciousPriceChart
+from OpenNumismat.Statistics.ProgressPreciousChart import ProgressPreciousChart, ProgressPreciousChartModel
+from OpenNumismat.Statistics.ProgressPreciousPriceChart import ProgressPreciousPriceChart, ProgressPreciousPriceChartModel
 
 
 class StatisticsView(QWidget):
@@ -332,52 +329,6 @@ class StatisticsView(QWidget):
 
         self.modelChanged()
     
-    def fillBarChart(self, chart):
-        fieldId = self.fieldSelector.currentData()
-        field = self.model.fields.field(fieldId).name
-        if field == 'fineness':
-            sql_field = "IFNULL(material,''),IFNULL(fineness,'')"
-        elif field == 'unit':
-            sql_field = "IFNULL(value,''),IFNULL(unit,'')"
-        else:
-            sql_field = "IFNULL(%s,'')" % field
-
-        filter_ = self.model.filter()
-        if filter_:
-            sql_filter = "WHERE %s" % filter_
-        else:
-            sql_filter = ""
-        
-        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins %s GROUP BY %s" % (
-            sql_field, sql_filter, sql_field)
-        query = QSqlQuery(self.model.database())
-        query.exec(sql)
-        zz = {}
-        while query.next():
-            record = query.record()
-            count = record.value(0)
-            val = str(record.value(1))
-            if field == 'unit':
-                val = numberWithFraction(val)[0] + ' ' + str(record.value(2))
-            elif field == 'fineness':
-                val += ' ' + str(record.value(2))
-            zz[val] = count
-
-        if field == 'status':
-            sorted_zz = dict(sorted(zz.items(), key=lambda x: Statuses.order(x[0])))
-            zz = {}
-            for key, val in sorted_zz.items():
-                zz[Statuses[key]] = val
-        elif field == 'year':
-            pass
-        else:
-            zz = dict(sorted(zz.items(), key=cmp_to_key(self.sortStrings)))
-
-        chart.setLabelY(self.fieldSelector.currentText())
-        chart.setData(list(zz), list(zz.values()))
-
-        return chart
-    
     def barChart(self):
         db = self.model.database()
         filter_ = self.model.filter()
@@ -395,15 +346,54 @@ class StatisticsView(QWidget):
         return chart
     
     def barHChart(self):
-        return barHChart(self)
+        db = self.model.database()
+        filter_ = self.model.filter()
+        model = BarHChartModel(db, filter_)
+
+        field_id = self.fieldSelector.currentData()
+        field = self.model.fields.field(field_id).name
+        model.loadData(field)
+
+        chart = BarHChart(model, self)
+        field_title = self.fieldSelector.currentText()
+        chart.setLabelY(field_title)
+        chart.updateChart()
+
+        return chart
 
     def pieChart(self):
-        chart = pieChart(self)
-        self.fillBarChart(chart)
+        db = self.model.database()
+        filter_ = self.model.filter()
+        model = BaseChartModel(db, filter_)
+
+        field_id = self.fieldSelector.currentData()
+        field = self.model.fields.field(field_id).name
+        model.loadData(field)
+
+        chart = PieChart(model, self)
+        field_title = self.fieldSelector.currentText()
+        chart.setLabelY(field_title)
+        chart.updateChart()
+
         return chart
 
     def stackedChart(self):
-        return stackedBarChart(self)
+        db = self.model.database()
+        filter_ = self.model.filter()
+        model = StackedBarChartModel(db, filter_)
+
+        field_id = self.fieldSelector.currentData()
+        field = self.model.fields.field(field_id).name
+        subfield_id = self.subfieldSelector.currentData()
+        subfield = self.model.fields.field(subfield_id).name
+        model.loadData(field, subfield)
+
+        chart = StackedBarChart(model, self)
+        subfield_title = self.subfieldSelector.currentText()
+        chart.setLabelZ(subfield_title)
+        chart.updateChart()
+
+        return chart
 
     def progressChart(self):
         db = self.model.database()
@@ -429,10 +419,52 @@ class StatisticsView(QWidget):
         return chart
 
     def progressPreciousChart(self):
-        return progressPreciousChart(self)
+        db = self.model.database()
+        filter_ = self.model.filter()
+        model = ProgressPreciousChartModel(db, filter_)
+
+        period = self.periodSelector.currentData()
+        model.loadData(period)
+
+        chart = ProgressPreciousChart(model, self)
+        field_title = self.periodSelector.currentText()
+        chart.setLabelY(field_title)
+        chart.setLabel(self.tr("Weight"))
+        chart.updateChart()
+
+        return chart
 
     def progressPreciousPriceChart(self):
-        return progressPreciousPriceChart(self)
+        db = self.model.database()
+        filter_ = self.model.filter()
+        model = ProgressPreciousPriceChartModel(db, filter_)
+
+        period = self.periodSelector.currentData()
+        model.loadData(period)
+
+        currency_symbols = {
+            'USD': "$",
+            'EUR': "€",
+            'GBP': "£",
+            'RUB': "₽",
+            'PLN': "zł",
+        }
+
+        dbnomicsCurrency = Settings()['dbnomics_currency']
+
+        if dbnomicsCurrency in currency_symbols:
+            symbol = currency_symbols[dbnomicsCurrency]
+        else:
+            symbol = dbnomicsCurrency
+
+        chart = ProgressPreciousPriceChart(model, self)
+        field_title = self.periodSelector.currentText()
+        chart.setLabelY(field_title)
+        title = self.tr("Price")
+        chart.setLabel(f"{title}, {symbol}")
+        chart.updateChart()
+
+        return chart
 
     def areaChart(self):
         db = self.model.database()
@@ -456,11 +488,33 @@ class StatisticsView(QWidget):
         return chart
 
     def areaStatusChart(self):
-        return areaStatusChart(self)
+        db = self.model.database()
+        filter_ = self.model.filter()
+        model = AreaStatusChartModel(db, filter_)
+
+        model.loadData()
+
+        nice_years = Settings()['nice_years_chart']
+        if nice_years:
+            chart = AreaNiceStatusChart(model, self)
+        else:
+            chart = AreaStatusChart(model, self)
+        chart.updateChart()
+
+        return chart
 
     def geoChart(self):
+        db = self.model.database()
+        filter_ = self.model.filter()
+        model = GeoChartModel(db, filter_)
+
         region = self.regionSelector.currentData()
-        return geoChart(self.model, region, self)
+        model.loadData(region)
+
+        chart = GeoChart(model, self)
+        chart.updateChart()
+
+        return chart
 
     def save(self):
         defaultFileName = "%s_%s" % (self.chartSelector.currentText(),
@@ -560,45 +614,6 @@ class StatisticsView(QWidget):
             h2 = old_size.height() - scroll_size.height()
             scale = h2 / h1
             self.scroll.verticalScrollBar().setValue(old_pos_v / scale)
-
-    def sortStrings(self, leftData, rightData):
-        if type(leftData) is tuple:
-            leftData = leftData[0]
-        if type(rightData) is tuple:
-            rightData = rightData[0]
-
-        return self.collator.compare(leftData, rightData)
-
-    def sortStatuses(self, leftData, rightData):
-        if type(leftData) is tuple:
-            leftData = leftData[0]
-        if type(rightData) is tuple:
-            rightData = rightData[0]
-
-        leftData = Statuses.reverse(leftData)
-        rightData = Statuses.reverse(rightData)
-
-        return Statuses.compare(leftData, rightData)
-
-    def sortYears(self, leftData, rightData):
-        if type(leftData) is tuple:
-            leftData = leftData[0]
-        if type(rightData) is tuple:
-            rightData = rightData[0]
-
-        try:
-            leftData = int(leftData)
-            rightData = int(rightData)
-        except ValueError:
-            leftData = str(leftData)
-            rightData = str(rightData)
-
-        if leftData < rightData:
-            return -1
-        elif leftData > rightData:
-            return 1
-        else:
-            return 0
 
 
 class SettingsDialog(QDialog):
