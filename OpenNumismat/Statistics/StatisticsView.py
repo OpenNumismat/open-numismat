@@ -26,7 +26,6 @@ from PySide6.QtWidgets import (
 )
 
 import OpenNumismat
-from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Collection.CollectionFields import StatisticsFields
 from OpenNumismat.Tools.Gui import getSaveFileName
 from OpenNumismat.Settings import Settings
@@ -412,8 +411,6 @@ class StatisticsView(QWidget):
             chart.setLabel(self.tr("Total price"))
         elif items == 'totalpayprice':
             chart.setLabel(self.tr("Total paid"))
-        else:
-            chart.setLabel(self.tr("Quantity"))
         chart.updateChart()
 
         return chart
