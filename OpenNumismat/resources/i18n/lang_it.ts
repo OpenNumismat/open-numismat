@@ -2717,6 +2717,25 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>Oro</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Argento</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platino</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Palladio</translation>
+    </message>
+</context>
+<context>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
@@ -2729,6 +2748,25 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Total</source>
         <translation>Totale</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressPreciousPriceChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>Oro</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Argento</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platino</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Palladio</translation>
     </message>
 </context>
 <context>
@@ -3168,22 +3206,6 @@ Please update OpenNumismat</source>
     <message>
         <source>Quantity</source>
         <translation>Quantità</translation>
-    </message>
-    <message>
-        <source>Gold</source>
-        <translation>Oro</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>Argento</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Platino</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Palladio</translation>
     </message>
     <message>
         <source>Weight</source>
