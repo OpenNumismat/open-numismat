@@ -281,7 +281,11 @@ Close the file and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Server not response</source>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>not response</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
