@@ -90,7 +90,7 @@ class ProgressPreciousChart(BaseChartView):
                 marker.setVisible(False)
 
         axisX = QBarCategoryAxis()
-        axisX.append(self.xLabels())
+        axisX.append(self.model.x_data)
         self.chart().addAxis(axisX, Qt.AlignBottom)
         series.attachAxis(axisX)
         for lineseries in self.lineseries:
