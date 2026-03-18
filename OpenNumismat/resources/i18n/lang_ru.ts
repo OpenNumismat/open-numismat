@@ -2722,6 +2722,25 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>Золото</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Серебро</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Палладий</translation>
+    </message>
+</context>
+<context>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
@@ -2734,6 +2753,25 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Total</source>
         <translation>Всего</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressPreciousPriceChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>Золото</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Серебро</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Палладий</translation>
     </message>
 </context>
 <context>
@@ -3174,22 +3212,6 @@ Please update OpenNumismat</source>
     <message>
         <source>Quantity</source>
         <translation>Количество</translation>
-    </message>
-    <message>
-        <source>Gold</source>
-        <translation>Золото</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>Серебро</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Платина</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Палладий</translation>
     </message>
     <message>
         <source>Weight</source>
