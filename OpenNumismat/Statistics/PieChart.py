@@ -22,11 +22,12 @@ class PieChart(BaseChartView):
     def __init__(self, model, parent=None):
         super().__init__(model, parent)
 
-        self.tree_counter = Settings()['tree_counter']
-        self.legend = Settings()['show_chart_legend']
+        settings = Settings()
+        self.tree_counter = settings['tree_counter']
+        self.legend = settings['show_chart_legend']
         if self.legend:
             self.chart().legend().show()
-            self.chart().legend().setAlignment(Qt.Alignment(Settings()['chart_legend_pos']))
+            self.chart().legend().setAlignment(Qt.Alignment(settings['chart_legend_pos']))
 
     def updateChart(self):
         series = QPieSeries()
