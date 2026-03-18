@@ -66,7 +66,7 @@ jobs:
         pyinstaller open-numismat-portable.spec
     - name: Upload
       id: upload-portable
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.APPNAME }}-portable
         path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
@@ -88,7 +88,7 @@ jobs:
         cd dist
         7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-portable-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
@@ -124,7 +124,7 @@ jobs:
         pyinstaller open-numismat.spec
     - name: Upload
       id: upload-exe
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.APPNAME }}-exe
         path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
@@ -146,7 +146,7 @@ jobs:
         ISCC.exe tools/setup.iss
     - name: Upload InnoSetup package
       id: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}
         path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
@@ -164,7 +164,7 @@ jobs:
         wait-for-completion: true
         wait-for-completion-timeout-in-seconds: 3600
     - name: upload-signed
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.exe
@@ -221,7 +221,7 @@ jobs:
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: Upload
       id: upload-nuitka-portable
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.APPNAME }}-nuitka-portable
         path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
@@ -245,7 +245,7 @@ jobs:
         robocopy . ${{ needs.title.outputs.APPNAME }} /move /e /xd ${{ needs.title.outputs.APPNAME }}
         7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
@@ -296,7 +296,7 @@ jobs:
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: Upload
       id: upload-nuitka-exe
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.APPNAME }}-nuitka-exe
         path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
@@ -318,7 +318,7 @@ jobs:
         ISCC.exe tools/setup-nuitka.iss
     - name: Upload InnoSetup package
       id: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
         path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
@@ -336,7 +336,7 @@ jobs:
         wait-for-completion: true
         wait-for-completion-timeout-in-seconds: 3600
     - name: upload-signed
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.exe
@@ -367,7 +367,7 @@ jobs:
         debuild -b -us -uc
         mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb .
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb
         path: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
@@ -398,7 +398,7 @@ jobs:
         debuild -b -us -uc
         mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb .
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
         path: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
@@ -440,7 +440,7 @@ jobs:
         ln -s /Applications vol/Applications
         hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg
         path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg
@@ -482,7 +482,7 @@ jobs:
         ln -s /Applications vol/Applications
         hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64
         path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg
