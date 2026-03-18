@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>American Numismatic Society keine Antwort</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -272,12 +265,31 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Importieren</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Cache-Speicher kann nicht geöffnet werden</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Herunterladen</translation>
+    </message>
+</context>
+<context>
+    <name>CachedPoolManager</name>
+    <message>
+        <source>Downloading</source>
+        <translation>Herunterladen</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>not response</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Zu viele Anfragen. Versuchen Sie es später noch einmal.</translation>
     </message>
 </context>
 <context>
@@ -1063,10 +1075,6 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Keine Antwort vom Colnect Proxy-Server</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Colnect Dienst nicht verfūgbar</translation>
@@ -2068,13 +2076,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation>Zu viele Anfragen. Versuchen Sie es später noch einmal.</translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2107,6 +2108,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Import cache cleared</source>
         <translation>Import-Cache-Speicher gelöscht</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2714,6 +2719,59 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>Gold</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Silber</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platin</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Palladium</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressPreciousPriceChart</name>
+    <message>
+        <source>Trend</source>
+        <translation>Trend</translation>
+    </message>
+    <message>
+        <source>Metal</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation>Gesamt</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressPreciousPriceChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>Gold</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Silber</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Platin</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Palladium</translation>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3136,6 +3194,10 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Precious price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Gesamtpreis</translation>
     </message>
@@ -3148,24 +3210,12 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation>Anzahl</translation>
     </message>
     <message>
-        <source>Gold</source>
-        <translation>Gold</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>Silber</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Platin</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Palladium</translation>
-    </message>
-    <message>
         <source>Weight</source>
         <translation>Gewicht</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Preis</translation>
     </message>
 </context>
 <context>
@@ -3379,14 +3429,6 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>gram</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>DBnomics not response</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The Rates API not response</source>
         <translation type="unfinished"/>
     </message>
 </context>

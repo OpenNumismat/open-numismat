@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>American Numismatic Society не відповідає</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -273,12 +266,31 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Імпортувати</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Не вдалося відкрити кеш</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Завантаження</translation>
+    </message>
+</context>
+<context>
+    <name>CachedPoolManager</name>
+    <message>
+        <source>Downloading</source>
+        <translation>Завантаження</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>not response</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1067,10 +1079,6 @@ The application will need to restart now.</source>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Проксі-сервер Colnect не відповідає</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Сервіс Colnect недосяжний</translation>
@@ -2070,13 +2078,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2109,6 +2110,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Import cache cleared</source>
         <translation>Кеш імпорту очищено</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2715,6 +2720,59 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>Золото</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Срібло</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Паладій</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressPreciousPriceChart</name>
+    <message>
+        <source>Trend</source>
+        <translation>Тренд</translation>
+    </message>
+    <message>
+        <source>Metal</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation>Всього</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressPreciousPriceChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>Золото</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>Срібло</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>Платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>Паладій</translation>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3136,6 +3194,10 @@ Please update OpenNumismat</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Precious price</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Кінцева ціна</translation>
     </message>
@@ -3148,24 +3210,12 @@ Please update OpenNumismat</source>
         <translation>Кількість</translation>
     </message>
     <message>
-        <source>Gold</source>
-        <translation>Золото</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>Срібло</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Платина</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Паладій</translation>
-    </message>
-    <message>
         <source>Weight</source>
         <translation>Маса</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Ціна</translation>
     </message>
 </context>
 <context>
@@ -3379,14 +3429,6 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>gram</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>DBnomics not response</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The Rates API not response</source>
         <translation type="unfinished"/>
     </message>
 </context>
