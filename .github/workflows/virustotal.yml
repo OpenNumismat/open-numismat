@@ -11,7 +11,7 @@ jobs:
     - name: Pause
       run: sleep 5m
     - name: VirusTotal Scan
-      uses: crazy-max/ghaction-virustotal@v4
+      uses: crazy-max/ghaction-virustotal@v5
       with:
         vt_api_key: ${{ secrets.VT_API_KEY }}
         files: |
