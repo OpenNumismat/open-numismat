@@ -13,7 +13,7 @@ from PySide6.QtCore import (
     QDateTime,
     QPoint,
 )
-from PySide6.QtGui import QCursor, QColor
+from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
@@ -69,7 +69,7 @@ class AreaStatusChart(BaseChartView):
 
         for i, series in enumerate(serieses):
             if self.use_blaf_palette:
-                series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                series.setColor(self.blafColor(i))
             series.setOpacity(0.5)
             series.hovered.connect(self.hover)
             self.chart().addSeries(series)
@@ -198,7 +198,7 @@ class AreaNiceStatusChart(BaseChartView):
 
         for i, series in enumerate(serieses):
             if self.use_blaf_palette:
-                series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                series.setColor(self.blafColor(i))
             series.setOpacity(0.5)
             series.hovered.connect(self.hover)
             self.chart().addSeries(series)

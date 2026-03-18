@@ -3,7 +3,7 @@ from functools import cmp_to_key
 from PySide6.QtCharts import QChart, QChartView
 from PySide6.QtCore import QCollator, QLocale, QObject, QPoint
 from PySide6.QtCore import Signal as pyqtSignal
-from PySide6.QtGui import QCursor, QPainter
+from PySide6.QtGui import QColor, QCursor, QPainter
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QApplication, QToolTip
 
@@ -79,6 +79,10 @@ class BaseChartView(QChartView):
 
     def mouseDoubleClickEvent(self, event):
         self.doubleClicked.emit(event.position().toPoint())
+
+    def blafColor(self, index):
+        blaf_index = index % len(self.BLAF_PALETTE)
+        return QColor(self.BLAF_PALETTE[blaf_index])
 
 
 class BaseChartModel(QObject):

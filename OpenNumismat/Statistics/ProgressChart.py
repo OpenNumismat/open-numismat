@@ -7,7 +7,7 @@ from PySide6.QtCharts import (
     QValueAxis,
 )
 from PySide6.QtCore import Qt, QPoint
-from PySide6.QtGui import QCursor, QColor
+from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
@@ -30,7 +30,7 @@ class ProgressChart(BaseChartView):
                 setY = QBarSet(self.label_y)
                 setY.append(lst)
                 if self.use_blaf_palette:
-                    setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                    setY.setColor(self.blafColor(i))
                 series.append(setY)
         else:
             setY = QBarSet(self.label_y)

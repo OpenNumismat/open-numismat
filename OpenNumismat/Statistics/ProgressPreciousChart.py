@@ -10,7 +10,7 @@ from PySide6.QtCharts import (
     QXYLegendMarker,
 )
 from PySide6.QtCore import Qt, QLocale, QPoint
-from PySide6.QtGui import QCursor, QColor, QPen
+from PySide6.QtGui import QCursor, QPen
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
@@ -60,7 +60,7 @@ class ProgressPreciousChart(BaseChartView):
             setY = QBarSet(metal)
             setY.append(lst)
             if self.use_blaf_palette:
-                setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                setY.setColor(self.blafColor(i))
             barsets[metal] = setY
             series.append(setY)
 

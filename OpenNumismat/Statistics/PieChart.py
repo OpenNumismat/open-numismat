@@ -1,6 +1,6 @@
 from PySide6.QtCharts import QPieSeries, QPieSlice
 from PySide6.QtCore import Qt, QPoint
-from PySide6.QtGui import QCursor, QColor
+from PySide6.QtGui import QCursor
 from PySide6.QtWidgets import QToolTip
 
 from OpenNumismat.Settings import Settings
@@ -36,7 +36,7 @@ class PieChart(BaseChartView):
         if self.use_blaf_palette:
             for i, (x, y) in enumerate(zip(self.model.x_data, self.model.y_data)):
                 _slice = PieSlice(x, y)
-                _slice.setBrush(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                _slice.setBrush(self.blafColor(i))
                 series.append(_slice)
         else:
             for x, y in zip(self.model.x_data, self.model.y_data):

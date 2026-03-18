@@ -15,7 +15,7 @@ from PySide6.QtCore import (
     QDateTime,
     QPoint,
 )
-from PySide6.QtGui import QCursor, QColor
+from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
@@ -82,7 +82,7 @@ class AreaChart(BaseChartView):
         for i, z in enumerate(self.model.z_data):
             series = AreaSeries(lines[z], lineseries_prev)
             if self.use_blaf_palette:
-                series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                series.setColor(self.blafColor(i))
             lineseries_prev = lines[z]
             series.setName(z)
             series.hovered.connect(series.hover)
@@ -198,7 +198,7 @@ class AreaNiceChart(BaseChartView):
         for i, z in enumerate(self.model.z_data):
             series = AreaNiceSeries(lines[z], lineseries_prev)
             if self.use_blaf_palette:
-                series.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                series.setColor(self.blafColor(i))
             lineseries_prev = lines[z]
             series.setName(z)
             series.hovered.connect(series.hover)

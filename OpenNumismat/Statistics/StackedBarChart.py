@@ -7,7 +7,7 @@ from PySide6.QtCharts import (
     QValueAxis,
 )
 from PySide6.QtCore import Qt, QPoint
-from PySide6.QtGui import QCursor, QColor
+from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
@@ -45,7 +45,7 @@ class StackedBarChart(BaseChartView):
             setY = QBarSet(z)
             setY.append(y)
             if self.use_blaf_palette:
-                setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                setY.setColor(self.blafColor(i))
             series.append(setY)
 
         self.chart().addSeries(series)

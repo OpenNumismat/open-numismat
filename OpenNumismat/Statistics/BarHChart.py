@@ -6,7 +6,6 @@ from PySide6.QtCharts import (
     QValueAxis,
 )
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QColor
 
 from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
 
@@ -27,7 +26,7 @@ class BarHChart(BaseChartView):
                 setY = QBarSet(self.label_y)
                 setY.append(lst)
                 if self.use_blaf_palette:
-                    setY.setColor(QColor(self.BLAF_PALETTE[i % len(self.BLAF_PALETTE)]))
+                    setY.setColor(self.blafColor(i))
                 series.append(setY)
         else:
             setY = QBarSet(self.label_y)
