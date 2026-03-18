@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QBoxLayout
 from OpenNumismat.ImageView import ImageView
 from OpenNumismat.DetailsView import DetailsView
 from OpenNumismat.ListView import ListView, CardView, IconView
-from OpenNumismat.StatisticsView import StatisticsView
+from OpenNumismat.Statistics.StatisticsView import StatisticsView
 from OpenNumismat.TagsView import TagsView
 from OpenNumismat.TreeView import TreeView
 from OpenNumismat.Settings import Settings

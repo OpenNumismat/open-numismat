@@ -4,7 +4,7 @@ from PySide6.QtSql import QSqlQuery
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.ListPageParam import ListPageParam
 from OpenNumismat.Collection.TreeParam import TreeParam
-from OpenNumismat.Collection.StatisticsParam import StatisticsParam
+from OpenNumismat.Statistics.StatisticsParam import StatisticsParam
 
 
 class CollectionPageTypes:
