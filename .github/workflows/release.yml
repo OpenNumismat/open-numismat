@@ -14,7 +14,7 @@ jobs:
       VERSION: ${{ steps.bump.outputs.current-version }}
       PACKAGENAME: OpenNumismat-${{ steps.bump.outputs.current-version }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
     - uses: actions/setup-python@v6
@@ -35,7 +35,7 @@ jobs:
     name: Windows
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -66,13 +66,13 @@ jobs:
         pyinstaller open-numismat-portable.spec
     - name: Upload
       id: upload-portable
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.APPNAME }}-portable
         path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
-      uses: signpath/github-action-submit-signing-request@v1
+      uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
         organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
@@ -88,7 +88,7 @@ jobs:
         cd dist
         7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-portable-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
@@ -99,7 +99,7 @@ jobs:
     name: InnoSetup
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -124,13 +124,13 @@ jobs:
         pyinstaller open-numismat.spec
     - name: Upload
       id: upload-exe
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.APPNAME }}-exe
         path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
-      uses: signpath/github-action-submit-signing-request@v1
+      uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
         organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
@@ -146,13 +146,13 @@ jobs:
         ISCC.exe tools/setup.iss
     - name: Upload InnoSetup package
       id: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}
         path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
     - name: Signing InnoSetup package
-      uses: signpath/github-action-submit-signing-request@v1
+      uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
         organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
@@ -164,7 +164,7 @@ jobs:
         wait-for-completion: true
         wait-for-completion-timeout-in-seconds: 3600
     - name: upload-signed
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.exe
@@ -175,7 +175,7 @@ jobs:
     name: Nuitka
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -221,13 +221,13 @@ jobs:
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: Upload
       id: upload-nuitka-portable
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.APPNAME }}-nuitka-portable
         path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
-      uses: signpath/github-action-submit-signing-request@v1
+      uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
         organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
@@ -245,7 +245,7 @@ jobs:
         robocopy . ${{ needs.title.outputs.APPNAME }} /move /e /xd ${{ needs.title.outputs.APPNAME }}
         7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
@@ -256,7 +256,7 @@ jobs:
     name: Nuitka InnoSetup
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -296,13 +296,13 @@ jobs:
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: Upload
       id: upload-nuitka-exe
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.APPNAME }}-nuitka-exe
         path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
-      uses: signpath/github-action-submit-signing-request@v1
+      uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
         organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
@@ -318,13 +318,13 @@ jobs:
         ISCC.exe tools/setup-nuitka.iss
     - name: Upload InnoSetup package
       id: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
         path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
         if-no-files-found: error
     - name: Signing InnoSetup package
-      uses: signpath/github-action-submit-signing-request@v1
+      uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
         organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
@@ -336,7 +336,7 @@ jobs:
         wait-for-completion: true
         wait-for-completion-timeout-in-seconds: 3600
     - name: upload-signed
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed
         path: ${{ needs.title.outputs.PACKAGENAME }}.exe
@@ -347,7 +347,7 @@ jobs:
     name: Ubuntu 22.04
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -367,7 +367,7 @@ jobs:
         debuild -b -us -uc
         mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb .
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb
         path: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
@@ -378,7 +378,7 @@ jobs:
     name: Ubuntu 24.04
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -398,7 +398,7 @@ jobs:
         debuild -b -us -uc
         mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb .
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
         path: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
@@ -409,7 +409,7 @@ jobs:
     name: macOS
     runs-on: macos-15-intel
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -440,7 +440,7 @@ jobs:
         ln -s /Applications vol/Applications
         hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg
         path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg
@@ -451,7 +451,7 @@ jobs:
     name: macOS arm64
     runs-on: macos-15
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: 'recursive'
         fetch-depth: 0
@@ -482,7 +482,7 @@ jobs:
         ln -s /Applications vol/Applications
         hdiutil create ${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg -volname "${{ needs.title.outputs.PACKAGENAME }}" -srcfolder vol -fs HFSX -format UDZO -imagekey zlib-level=9
     - name: upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64
         path: dist/${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg
@@ -496,7 +496,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         path: artifacts
     - name: release

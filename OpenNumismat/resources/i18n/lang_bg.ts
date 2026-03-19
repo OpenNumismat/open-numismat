@@ -26,13 +26,6 @@
     </message>
 </context>
 <context>
-    <name>AnsConnector</name>
-    <message>
-        <source>American Numismatic Society not response</source>
-        <translation>American Numismatic Society не отговоря</translation>
-    </message>
-</context>
-<context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
@@ -273,12 +266,31 @@ Close the file and try again.</source>
 <context>
     <name>Cache</name>
     <message>
-        <source>Import</source>
-        <translation>Импортиране</translation>
-    </message>
-    <message>
         <source>Can&apos;t open cache</source>
         <translation>Не може да се отвори кеш паметта</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>Изтегляне</translation>
+    </message>
+</context>
+<context>
+    <name>CachedPoolManager</name>
+    <message>
+        <source>Downloading</source>
+        <translation>Изтегляне</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Сървърът</translation>
+    </message>
+    <message>
+        <source>not response</source>
+        <translation>не отговаря</translation>
+    </message>
+    <message>
+        <source>Too many requests. Try later</source>
+        <translation>Твърде много заявки. Опитайте по-късно</translation>
     </message>
 </context>
 <context>
@@ -1067,10 +1079,6 @@ The application will need to restart now.</source>
 </context>
 <context>
     <name>ColnectConnector</name>
-    <message>
-        <source>Colnect proxy-server not response</source>
-        <translation>Прокси сървърът за Colnect не отговаря</translation>
-    </message>
     <message>
         <source>Colnect service not available</source>
         <translation>Услугата за Colnect не е налична</translation>
@@ -2072,13 +2080,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ImportNumista</name>
-    <message>
-        <source>Too many requests. Try later</source>
-        <translation>Твърде много заявки. Опитайте по-късно</translation>
-    </message>
-</context>
-<context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
@@ -2111,6 +2112,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Import cache cleared</source>
         <translation>Изчистване на кеша за импортиране</translation>
+    </message>
+    <message>
+        <source>Failed to clear cache</source>
+        <translation>Неуспешно изчистване на кеша</translation>
     </message>
 </context>
 <context>
@@ -2717,6 +2722,59 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>ProgressPreciousChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>злато</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>сребро</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>паладий</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressPreciousPriceChart</name>
+    <message>
+        <source>Trend</source>
+        <translation>Тенденция</translation>
+    </message>
+    <message>
+        <source>Metal</source>
+        <translation>Метал</translation>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation>Общо</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressPreciousPriceChartModel</name>
+    <message>
+        <source>Gold</source>
+        <translation>злато</translation>
+    </message>
+    <message>
+        <source>Silver</source>
+        <translation>сребро</translation>
+    </message>
+    <message>
+        <source>Platinum</source>
+        <translation>платина</translation>
+    </message>
+    <message>
+        <source>Palladium</source>
+        <translation>паладий</translation>
+    </message>
+</context>
+<context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
@@ -3140,6 +3198,10 @@ Please update OpenNumismat</source>
         <translation>Тегло на благородния метал</translation>
     </message>
     <message>
+        <source>Precious price</source>
+        <translation>Стойност на благородния метал</translation>
+    </message>
+    <message>
         <source>Total price</source>
         <translation>Обща цена</translation>
     </message>
@@ -3152,24 +3214,12 @@ Please update OpenNumismat</source>
         <translation>Количество</translation>
     </message>
     <message>
-        <source>Gold</source>
-        <translation>злато</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>сребро</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>платина</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>паладий</translation>
-    </message>
-    <message>
         <source>Weight</source>
         <translation>Тегло</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Цена</translation>
     </message>
 </context>
 <context>
@@ -3235,7 +3285,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Total count: %d</source>
-        <translation>Общо брой: %d</translation>
+        <translation>Общ брой: %d</translation>
     </message>
     <message>
         <source>Count owned: %d</source>
@@ -3384,14 +3434,6 @@ Please update OpenNumismat</source>
     <message>
         <source>gram</source>
         <translation>г</translation>
-    </message>
-    <message>
-        <source>DBnomics not response</source>
-        <translation>DBnomics не отговаря</translation>
-    </message>
-    <message>
-        <source>The Rates API not response</source>
-        <translation>Rates API не отговаря</translation>
     </message>
 </context>
 <context>
