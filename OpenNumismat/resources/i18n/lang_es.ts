@@ -1707,6 +1707,17 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
+    <name>GeoChartModel</name>
+    <message>
+        <source>Translate country names</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+</context>
+<context>
     <name>GetSaveFileName</name>
     <message>
         <source>Save as</source>
@@ -3208,10 +3219,6 @@ Por favor, actualiza OpenNumismat</translation>
     <message>
         <source>Total paid</source>
         <translation>Total pagado</translation>
-    </message>
-    <message>
-        <source>Quantity</source>
-        <translation>Cantidad</translation>
     </message>
     <message>
         <source>Weight</source>
