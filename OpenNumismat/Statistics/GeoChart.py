@@ -136,7 +136,7 @@ class GeoChartModel(BaseChartModel):
         self.region = region
 
     def translateCountries(self, countries):
-        progressDlg = ProgressDialog(self.tr("Translate country names"),
+        progressDlg = ProgressDialog(self.tr("Translation of country names"),
                             self.tr("Cancel"), len(countries), self.parent())
 
         delay = 1  # maximum of 1 request per second
