@@ -1705,7 +1705,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
 <context>
     <name>GeoChartModel</name>
     <message>
-        <source>Translate country names</source>
+        <source>Translation of country names</source>
         <translation type="unfinished"/>
     </message>
     <message>
