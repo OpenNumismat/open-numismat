@@ -1707,6 +1707,17 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
 </context>
 <context>
+    <name>GeoChartModel</name>
+    <message>
+        <source>Translate country names</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+</context>
+<context>
     <name>GetSaveFileName</name>
     <message>
         <source>Save as</source>
@@ -3208,10 +3219,6 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>Total paid</source>
         <translation>Total pago</translation>
-    </message>
-    <message>
-        <source>Quantity</source>
-        <translation>Quantidade</translation>
     </message>
     <message>
         <source>Weight</source>
