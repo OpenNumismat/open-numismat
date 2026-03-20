@@ -1710,7 +1710,7 @@ Do you want to send an error message to the author?</source>
     <name>GeoChartModel</name>
     <message>
         <source>Translation of country names</source>
-        <translation type="unfinished"/>
+        <translation>Превод на имената на държавите</translation>
     </message>
     <message>
         <source>Cancel</source>
