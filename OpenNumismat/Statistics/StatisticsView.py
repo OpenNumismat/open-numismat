@@ -503,7 +503,7 @@ class StatisticsView(QWidget):
     def geoChart(self):
         db = self.model.database()
         filter_ = self.model.filter()
-        model = GeoChartModel(db, filter_)
+        model = GeoChartModel(db, filter_, self)
 
         region = self.regionSelector.currentData()
         model.loadData(region)

@@ -10,6 +10,7 @@ from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel
 from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
+from OpenNumismat.Tools.Gui import ProgressDialog
 
 try:
     from OpenNumismat.private_keys import MAPS_API_KEY
@@ -135,16 +136,25 @@ class GeoChartModel(BaseChartModel):
         self.region = region
 
     def translateCountries(self, countries):
+        progressDlg = ProgressDialog(self.tr("Translate country names"),
+                            self.tr("Cancel"), len(countries), self.parent())
+
+        delay = 1  # maximum of 1 request per second
         for i, country in enumerate(countries):
+            progressDlg.step()
+            if progressDlg.wasCanceled():
+                break
+
             if country:
-                # TODO: maximum of 1 request per second
                 url = f"https://nominatim.openstreetmap.org/?q={country}&format=json&limit=1&accept-language=en"
-                response_data = self.http.get(url, cache=30)
+                response_data = self.http.get(url, cache=30, delay=delay)
                 if not response_data:
                     break
 
                 data = json.loads(response_data.decode())
                 if data and 'name' in data[0]:
                     countries[i] = data[0]['name']
+
+        progressDlg.reset()
 
         return countries

@@ -1,4 +1,5 @@
 import os
+import time
 import urllib3
 from urllib.parse import urlparse
 
@@ -148,8 +149,9 @@ class CachedPoolManager(QObject):
         self._http = None
         self._cache = None
         self._available = True
+        self._last_request_time = 0
 
-    def get(self, url, timeout=None, retries=None, headers=None, cache=None):
+    def get(self, url, timeout=None, retries=None, headers=None, cache=None, delay=None):
         if cache != False:
             if not self._cache:
                 self._cache = Cache(self.parent())
@@ -164,14 +166,22 @@ class CachedPoolManager(QObject):
         if not self._http:
             self._http = self._createHttp()
 
+        if delay:
+            if self._last_request_time:
+                elapsed_time = time.time() - self._last_request_time
+                wait_time = delay - elapsed_time
+                if wait_time > 0:
+                    time.sleep(wait_time)
+            self._last_request_time = time.time()
+
+        request_kwargs = {}
+        if timeout is not None:
+            request_kwargs['timeout'] = timeout
+        if retries is not None:
+            request_kwargs['retries'] = retries
+        if headers is not None:
+            request_kwargs['headers'] = headers
         try:
-            request_kwargs = {}
-            if timeout is not None:
-                request_kwargs['timeout'] = timeout
-            if retries is not None:
-                request_kwargs['retries'] = retries
-            if headers is not None:
-                request_kwargs['headers'] = headers
             response = self._http.request("GET", url, **request_kwargs)
         except (urllib3.exceptions.MaxRetryError,
                 urllib3.exceptions.ReadTimeoutError,
