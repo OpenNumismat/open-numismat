@@ -1698,7 +1698,7 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>GeoChartModel</name>
     <message>
-        <source>Translate country names</source>
+        <source>Translation of country names</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
