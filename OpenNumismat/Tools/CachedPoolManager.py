@@ -19,6 +19,7 @@ SITES_CATALOG = {
     "nomisma.org": "Nomisma.org",
     "api.numista.com": "Numista",
     "en.numista.com": "Numista",
+    "nominatim.openstreetmap.org": "OpenStreetMap Nominatim",
 }
 
 
@@ -183,10 +184,9 @@ class CachedPoolManager(QObject):
             return None
 
         if response.status == 429:
-            QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
-            QMessageBox.warning(self.parent(), self.tr("Downloading"),
-                                self.tr("Too many requests. Try later"))
-            QApplication.restoreOverrideCursor()
+            result = self._showTooManyRequestsMessage()
+            if result == QMessageBox.Retry:
+                return self.get(url, timeout, retries, headers, cache)
 
             self._available = False
             return None
@@ -238,6 +238,12 @@ class CachedPoolManager(QObject):
         error_str = self.tr("not response")
         message = f"{site} {error_str}"
 
+        return self._showErrorMessage(message)
+
+    def _showTooManyRequestsMessage(self):
+        return self._showErrorMessage(self.tr("Too many requests. Try later"))
+
+    def _showErrorMessage(self, message):
         QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
 
         parent = self.parent()

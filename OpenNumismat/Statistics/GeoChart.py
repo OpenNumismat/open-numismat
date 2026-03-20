@@ -1,3 +1,5 @@
+import json
+
 from PySide6.QtCore import QByteArray, QPoint
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QImage
@@ -7,6 +9,7 @@ from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel
+from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 
 try:
     from OpenNumismat.private_keys import MAPS_API_KEY
@@ -107,6 +110,7 @@ class GeoChartModel(BaseChartModel):
         super().__init__(db, filter_, parent)
 
         self.region = None
+        self.http = CachedPoolManager(parent)
 
     def loadData(self, region):
         if self.filter:
@@ -126,6 +130,21 @@ class GeoChartModel(BaseChartModel):
             xx.append(val)
             yy.append(count)
     
-        self.x_data = xx
+        self.x_data = self.translateCountries(xx)
         self.y_data = yy
         self.region = region
+
+    def translateCountries(self, countries):
+        for i, country in enumerate(countries):
+            if country:
+                # TODO: maximum of 1 request per second
+                url = f"https://nominatim.openstreetmap.org/?q={country}&format=json&limit=1&accept-language=en"
+                response_data = self.http.get(url, cache=30)
+                if not response_data:
+                    break
+
+                data = json.loads(response_data.decode())
+                if data and 'name' in data[0]:
+                    countries[i] = data[0]['name']
+
+        return countries
