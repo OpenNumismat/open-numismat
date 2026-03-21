@@ -490,7 +490,7 @@ Please update OpenNumismat</source>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
         <translation>Вмъкнати %d монети, актуализирани %d монети.
-Трябва да рестартирате приложението.</translation>
+Трябва да рестартирате програмата.</translation>
     </message>
     <message>
         <source>Collections looks like identical</source>
