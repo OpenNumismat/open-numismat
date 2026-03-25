@@ -44,7 +44,6 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses, TitleTemplateFields
 from OpenNumismat.Tools.CachedPoolManager import Cache
 from OpenNumismat.EditCoinDialog.MapWidget import MapType
-from OpenNumismat.EditCoinDialog.MapWidget.GMapsWidget import gmapsAvailable
 from OpenNumismat.EditCoinDialog.MapWidget.MapboxWidget import mapboxAvailable
 
 
@@ -208,8 +207,6 @@ class MainSettingsPage(QWidget):
 
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap', MapType.OSM.value)
-        if gmapsAvailable:
-            self.mapSelector.addItem('Google Maps', MapType.GMaps.value)
         if mapboxAvailable:
             self.mapSelector.addItem('Mapbox', MapType.Mapbox.value)
         self.mapSelector.addItem('Roman Empire (DARE)', MapType.DARE.value)
