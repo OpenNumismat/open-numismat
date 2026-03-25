@@ -260,7 +260,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Are you sure to remove a %d coin(s)?</source>
-        <translation>Сигурни ли сте, че искате да изтриете избраната/ите %d монета/и?</translation>
+        <translation>Сигурни ли сте, че искате да изтриете избраните %d монети?</translation>
     </message>
 </context>
 <context>
