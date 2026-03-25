@@ -2514,7 +2514,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
-        <translation>Приложението ще трябва да се рестартира, за да се приложат новите настройки. Да се рестартира ли сега?</translation>
+        <translation>Приложението трябва да се рестартира, за да се приложат новите настройки. Да се рестартира ли сега?</translation>
     </message>
     <message>
         <source>Select file</source>
