@@ -13,7 +13,7 @@
 import os
 import shutil
 import tempfile
-import urllib
+import urllib.parse
 import zipfile
 
 from PySide6.QtGui import QImage
