@@ -1707,6 +1707,17 @@ Do you want to send an error message to the author?</source>
     </message>
 </context>
 <context>
+    <name>GeoChartModel</name>
+    <message>
+        <source>Translation of country names</source>
+        <translation>Превеждане на имената на държавите</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отказ</translation>
+    </message>
+</context>
+<context>
     <name>GetSaveFileName</name>
     <message>
         <source>Save as</source>
@@ -2503,7 +2514,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
-        <translation>Програмата ще трябва да се рестартира, за да се приложат новите настройки. Да се рестартира ли сега?</translation>
+        <translation>Приложението ще трябва да се рестартира, за да се приложат новите настройки. Да се рестартира ли сега?</translation>
     </message>
     <message>
         <source>Select file</source>
@@ -3208,10 +3219,6 @@ Please update OpenNumismat</source>
     <message>
         <source>Total paid</source>
         <translation>Общо платено</translation>
-    </message>
-    <message>
-        <source>Quantity</source>
-        <translation>Количество</translation>
     </message>
     <message>
         <source>Weight</source>
