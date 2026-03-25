@@ -3312,7 +3312,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>(calculated for %d/%d coins)</source>
-        <translation>(изчислено за %d/%d монета/и)</translation>
+        <translation>(изчислено за %d/%d монети)</translation>
     </message>
     <message>
         <source>Silver</source>
@@ -3432,11 +3432,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>calculated for %d coins</source>
-        <translation>изчислено за %d монета/и</translation>
+        <translation>изчислено за %d монети</translation>
     </message>
     <message>
         <source>calculated for %d/%d coins</source>
-        <translation>изчислено за %d/%d монета/и</translation>
+        <translation>изчислено за %d/%d монети</translation>
     </message>
     <message>
         <source>gram</source>
