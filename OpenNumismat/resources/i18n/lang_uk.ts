@@ -2076,10 +2076,6 @@ drag-n-drop to add an image)</source>
         <source>Common series</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <source>CoinSnap not response</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>ImportExcel</name>
@@ -2274,6 +2270,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Maps</source>
         <translation>Мапи</translation>
+    </message>
+    <message>
+        <source>Verify SSL certifiacte</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Style</source>
