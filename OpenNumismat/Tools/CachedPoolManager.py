@@ -21,6 +21,7 @@ SITES_CATALOG = {
     "api.numista.com": "Numista",
     "en.numista.com": "Numista",
     "nominatim.openstreetmap.org": "OpenStreetMap Nominatim",
+    "static.coinidentifierai.com": "CoinSnap",
 }
 
 

@@ -2,22 +2,22 @@
 
 import csv
 import sys
-import urllib3
 
 from PySide6.QtCore import QStandardPaths
 from PySide6.QtGui import QImage, QPainter
-from PySide6.QtWidgets import QMessageBox
 
 from OpenNumismat.Collection.Import import _Import
 from OpenNumismat.Settings import Settings
-from OpenNumismat import version
+from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 
-CONNECTION_TIMEOUT = 30
+IMAGE_CONNECTION_TIMEOUT = 30
 
 
 class ImportCoinSnap(_Import):
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        self.http = CachedPoolManager(parent)
 
     @staticmethod
     def isAvailable():
@@ -32,14 +32,6 @@ class ImportCoinSnap(_Import):
             return ''
 
     def _connect(self, src):
-        urllib3.disable_warnings()
-        timeout = urllib3.Timeout(connect=CONNECTION_TIMEOUT / 2,
-                                  read=CONNECTION_TIMEOUT)
-        self.http = urllib3.PoolManager(num_pools=1,
-                                        headers={'User-Agent': version.AppName},
-                                        timeout=timeout,
-                                        cert_reqs="CERT_NONE")
-
         return src
 
     def _getRows(self, srcFile):
@@ -105,18 +97,12 @@ class ImportCoinSnap(_Import):
 
     def __getImage(self, url):
         if url:
-            try:
-                resp = self.http.request("GET", url)
-                data = resp.data
-            except urllib3.exceptions.MaxRetryError:
-                QMessageBox.warning(self.parent(), "CoinSnap",
-                                    self.tr("CoinSnap not response"))
-                return None
-            except:
+            response_data = self.http.get(url, timeout=IMAGE_CONNECTION_TIMEOUT)
+            if not response_data:
                 return None
 
             image = QImage()
-            if image.loadFromData(data):
+            if image.loadFromData(response_data):
                 return self.__fixTransparentImage(image)
 
         return None
