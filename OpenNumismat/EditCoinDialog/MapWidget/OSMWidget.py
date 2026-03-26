@@ -1,8 +1,7 @@
 import json
-import urllib.request
 
-from OpenNumismat import version
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
 from .MapWidget import BaseMapWidget
 
 class OSMWidget(BaseMapWidget):
@@ -154,11 +153,12 @@ function gmap_geocode(address) {
     def reverseGeocode(self, lat, lng):
         url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=%f&lon=%f&zoom=18&addressdetails=0&accept-language=%s" % (lat, lng, self.language)
 
-        try:
-            req = urllib.request.Request(url,
-                                         headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req, timeout=10).read()
-            json_data = json.loads(data.decode())
-            return json_data['display_name']
-        except:
-            return ''
+        data = singleHttpRequest(url, parent=self)
+        if data:
+            try:
+                json_data = json.loads(data.decode())
+                return json_data['display_name']
+            except:
+                pass
+
+        return ''

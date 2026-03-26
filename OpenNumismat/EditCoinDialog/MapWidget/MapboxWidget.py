@@ -1,8 +1,7 @@
 import json
-import urllib.request
 
-from OpenNumismat import version
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
 from .MapWidget import BaseMapWidget
 
 mapboxAvailable = True
@@ -187,11 +186,12 @@ function gmap_geocode(address) {
     def reverseGeocode(self, lat, lng):
         url = "https://api.mapbox.com/search/geocode/v6/reverse?longitude=%f&latitude=%f&access_token=%s&language=%s&types=country,region,district,place,address" % (lng, lat, MAPBOX_ACCESS_TOKEN, self.language)
 
-        try:
-            req = urllib.request.Request(url,
-                                         headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req, timeout=10).read()
-            json_data = json.loads(data.decode())
-            return json_data['features'][0]['properties']['full_address']
-        except:
-            return ''
+        data = singleHttpRequest(url, parent=self)
+        if data:
+            try:
+                json_data = json.loads(data.decode())
+                return json_data['features'][0]['properties']['full_address']
+            except:
+                pass
+
+        return ''

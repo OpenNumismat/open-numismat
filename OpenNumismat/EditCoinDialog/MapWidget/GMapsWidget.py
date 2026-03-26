@@ -1,7 +1,7 @@
 import json
-import urllib.request
 
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
 from .MapWidget import BaseMapWidget
 
 gmapsAvailable = True
@@ -184,10 +184,12 @@ function gmap_geocode(address) {
     def reverseGeocode(self, lat, lng):
         url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&key=%s&language=%s" % (lat, lng, MAPS_API_KEY, self.language)
 
-        try:
-            req = urllib.request.Request(url)
-            data = urllib.request.urlopen(req, timeout=10).read()
-            json_data = json.loads(data.decode())
-            return json_data['results'][0]['formatted_address']
-        except:
-            return ''
+        data = singleHttpRequest(url, parent=self)
+        if data:
+            try:
+                json_data = json.loads(data.decode())
+                return json_data['results'][0]['formatted_address']
+            except:
+                pass
+
+        return ''

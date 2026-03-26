@@ -1,8 +1,8 @@
 import json
-import urllib.request
 
 from OpenNumismat import version
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
+from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
 from .MapWidget import BaseMapWidget
 
 class DAREWidget(BaseMapWidget):
@@ -180,12 +180,13 @@ function gmap_geocode(address) {
     def reverseGeocode(self, lat, lng):
         url = "https://imperium.ahlfeldt.se/api/geojson.php?point=%f,%f" % (lng, lat)
 
-        try:
-            req = urllib.request.Request(url,
-                                         headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req, timeout=10).read()
-            json_data = json.loads(data.decode())
-            properties = json_data['features'][0]['properties']
-            return "%s (%s)" % (properties['name'], properties['ancient'])
-        except:
-            return ''
+        data = singleHttpRequest(url, parent=self)
+        if data:
+            try:
+                json_data = json.loads(data.decode())
+                properties = json_data['features'][0]['properties']
+                return "%s (%s)" % (properties['name'], properties['ancient'])
+            except:
+                pass
+
+        return ''

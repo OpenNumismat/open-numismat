@@ -1,6 +1,5 @@
 from datetime import datetime
 import sys
-import urllib.request
 
 from PySide6.QtCore import (
     QDate,
@@ -52,6 +51,7 @@ from OpenNumismat.Collection.Import.Ans import AnsDialog, ansAvailable
 from OpenNumismat.Collection.CollectionPages import CollectionPageTypes
 from OpenNumismat.TagsDialog import TagsDialog
 from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
+from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
 
 from OpenNumismat.Collection.Import import *
 
@@ -994,10 +994,12 @@ class MainWindow(QMainWindow):
     def __getNewVersion(self):
         from xml.dom.minidom import parseString
 
+        url = "https://opennumismat.github.io/data/pad.xml"
+        data = singleHttpRequest(url, timeout=2, retries=0, quiet=True)
+        if not data:
+            return "0.0.0"
+
         try:
-            url = "https://opennumismat.github.io/data/pad.xml"
-            req = urllib.request.Request(url)
-            data = urllib.request.urlopen(req, timeout=2).read()
             xml = parseString(data)
             tag = xml.getElementsByTagName('Program_Version')[0]
             newVersion = tag.firstChild.nodeValue

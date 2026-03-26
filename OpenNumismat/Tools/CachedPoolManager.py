@@ -152,7 +152,7 @@ class CachedPoolManager(QObject):
         self._available = True
         self._last_request_time = 0
 
-    def get(self, url, timeout=None, retries=None, headers=None, cache=None, delay=None):
+    def get(self, url, timeout=None, retries=None, headers=None, cache=None, delay=None, quiet=False):
         if cache != False:
             if not self._cache:
                 self._cache = Cache(self.parent())
@@ -187,17 +187,19 @@ class CachedPoolManager(QObject):
         except (urllib3.exceptions.MaxRetryError,
                 urllib3.exceptions.ReadTimeoutError,
                 urllib3.exceptions.ProtocolError):
-            result = self._showServerNotResponseMessage(url)
-            if result == QMessageBox.Retry:
-                return self.get(url, timeout, retries, headers, cache)
+            if not quiet:
+                result = self._showServerNotResponseMessage(url)
+                if result == QMessageBox.Retry:
+                    return self.get(url, timeout, retries, headers, cache)
 
             self._available = False
             return None
 
         if response.status == 429:
-            result = self._showTooManyRequestsMessage()
-            if result == QMessageBox.Retry:
-                return self.get(url, timeout, retries, headers, cache)
+            if not quiet:
+                result = self._showTooManyRequestsMessage()
+                if result == QMessageBox.Retry:
+                    return self.get(url, timeout, retries, headers, cache)
 
             self._available = False
             return None
@@ -209,9 +211,10 @@ class CachedPoolManager(QObject):
 
             return response_data
         else:
-            result = self._showServerNotResponseMessage(url)
-            if result == QMessageBox.Retry:
-                return self.get(url, timeout, retries, headers, cache)
+            if not quiet:
+                result = self._showServerNotResponseMessage(url)
+                if result == QMessageBox.Retry:
+                    return self.get(url, timeout, retries, headers, cache)
 
             self._available = False
             return None
@@ -271,3 +274,10 @@ class CachedPoolManager(QObject):
         QApplication.restoreOverrideCursor()
 
         return result
+
+
+def singleHttpRequest(url, parent=None, timeout=None, retries=None, quiet=False):
+    http = CachedPoolManager(parent)
+    response_data = http.get(url, cache=False, timeout=timeout, retries=retries, quiet=quiet)
+    http.close()
+    return response_data

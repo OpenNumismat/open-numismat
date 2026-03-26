@@ -1,7 +1,6 @@
 import datetime
 import openpyxl
 import os
-import urllib.request
 
 from dateutil import parser
 
@@ -13,7 +12,7 @@ from OpenNumismat.Collection.Import import _Import2, _InvalidDatabaseError
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Settings import Settings
-from OpenNumismat import version
+from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
 
 
 @storeDlgSizeDecorator
@@ -78,18 +77,13 @@ class TableDialog(QDialog):
                     fileName = item.text()
                     image = QImage()
                     if fileName.startswith('http'):
-                        try:
-                            # Wikipedia require any header
-                            req = urllib.request.Request(fileName,
-                                    headers={'User-Agent': version.AppName})
-                            data = urllib.request.urlopen(req, timeout=30).read()
+                        data = singleHttpRequest(fileName, parent=self, timeout=30)
+                        if data:
                             result = image.loadFromData(data)
                             if result:
                                 pixmap = QPixmap.fromImage(image)
                                 item.setData(Qt.DecorationRole, pixmap)
                                 item.setText('')
-                        except:
-                            pass
                     else:
                         if not os.path.isabs(fileName):
                             fileName = os.path.join(self.path, fileName)
@@ -233,17 +227,12 @@ class ImportExcel(_Import2):
                 elif val:
                     image = QImage()
                     if val.startswith('http'):
-                        try:
-                            # Wikipedia require any header
-                            req = urllib.request.Request(val,
-                                    headers={'User-Agent': version.AppName})
-                            data = urllib.request.urlopen(req, timeout=30).read()
+                        url = val
+                        val = None
+                        data = singleHttpRequest(url, parent=self.parent(), timeout=30)
+                        if data:
                             if image.loadFromData(data):
                                 val = self.__fixTransparentImage(image)
-                            else:
-                                val = None
-                        except:
-                            val = None
                     else:
                         if os.path.isabs(val):
                             fileName = val

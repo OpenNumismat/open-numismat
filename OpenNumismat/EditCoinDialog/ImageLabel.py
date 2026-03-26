@@ -1,5 +1,3 @@
-import urllib.request
-
 from PySide6.QtCore import (
     QBuffer,
     QDir,
@@ -37,8 +35,8 @@ from OpenNumismat.ImageEditor import ImageEditorDialog
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.Gui import getSaveFileName
-from OpenNumismat import version
 from OpenNumismat.Tools.misc import readImageFilters, saveImageFilters
+from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
 
 
 class ImageLabel(QLabel):
@@ -391,17 +389,12 @@ class ImageEdit(ImageLabel):
     def loadFromUrl(self, url):
         result = False
 
-        try:
-            # Wikipedia require any header
-            req = urllib.request.Request(url,
-                                    headers={'User-Agent': version.AppName})
-            data = urllib.request.urlopen(req, timeout=30).read()
+        data = singleHttpRequest(url, parent=self, timeout=30)
+        if data:
             image = QImage()
             result = image.loadFromData(data)
             if result:
                 self._setNewImage(image)
-        except:
-            pass
 
         return result
 
