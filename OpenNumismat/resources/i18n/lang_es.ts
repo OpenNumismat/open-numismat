@@ -2078,10 +2078,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <source>Common series</source>
         <translation>Series comunes</translation>
     </message>
-    <message>
-        <source>CoinSnap not response</source>
-        <translation>CoinSnap no responde</translation>
-    </message>
 </context>
 <context>
     <name>ImportExcel</name>
@@ -2276,6 +2272,10 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Maps</source>
         <translation>Mapas</translation>
+    </message>
+    <message>
+        <source>Verify SSL certifiacte</source>
+        <translation>Verificar certificado SSL</translation>
     </message>
     <message>
         <source>Style</source>
