@@ -2078,10 +2078,6 @@ arraste e largue para adicionar)</translation>
         <source>Common series</source>
         <translation>Série comum</translation>
     </message>
-    <message>
-        <source>CoinSnap not response</source>
-        <translation>Sem resposta do CoinSnap</translation>
-    </message>
 </context>
 <context>
     <name>ImportExcel</name>
@@ -2276,6 +2272,10 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Maps</source>
         <translation>Mapas</translation>
+    </message>
+    <message>
+        <source>Verify SSL certifiacte</source>
+        <translation>Verificar certificado SSL</translation>
     </message>
     <message>
         <source>Style</source>
