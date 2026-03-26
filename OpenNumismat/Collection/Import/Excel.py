@@ -12,7 +12,9 @@ from OpenNumismat.Collection.Import import _Import2, _InvalidDatabaseError
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Settings import Settings
-from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
+from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
+
+IMAGE_CONNECTION_TIMEOUT = 30
 
 
 @storeDlgSizeDecorator
@@ -21,6 +23,8 @@ class TableDialog(QDialog):
     def __init__(self, parent, path):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
+
+        self.http = CachedPoolManager(self)
 
         self.path = path
 
@@ -77,7 +81,7 @@ class TableDialog(QDialog):
                     fileName = item.text()
                     image = QImage()
                     if fileName.startswith('http'):
-                        data = singleHttpRequest(fileName, parent=self, timeout=30)
+                        data = self.http.get(fileName, timeout=IMAGE_CONNECTION_TIMEOUT)
                         if data:
                             result = image.loadFromData(data)
                             if result:
@@ -99,6 +103,8 @@ class ImportExcel(_Import2):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        self.http = CachedPoolManager(parent)
 
     @staticmethod
     def isAvailable():
@@ -229,7 +235,7 @@ class ImportExcel(_Import2):
                     if val.startswith('http'):
                         url = val
                         val = None
-                        data = singleHttpRequest(url, parent=self.parent(), timeout=30)
+                        data = self.http.get(url, timeout=IMAGE_CONNECTION_TIMEOUT)
                         if data:
                             if image.loadFromData(data):
                                 val = self.__fixTransparentImage(image)
