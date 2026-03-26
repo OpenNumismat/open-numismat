@@ -2074,10 +2074,6 @@ drag-n-drop to add an image)</source>
         <source>Common series</source>
         <translation>Allgemeine Serien</translation>
     </message>
-    <message>
-        <source>CoinSnap not response</source>
-        <translation>CoinSnap antwortet nicht</translation>
-    </message>
 </context>
 <context>
     <name>ImportExcel</name>
@@ -2272,6 +2268,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Maps</source>
         <translation>Karten</translation>
+    </message>
+    <message>
+        <source>Verify SSL certifiacte</source>
+        <translation>Verifiziere SSL Zertifikat</translation>
     </message>
     <message>
         <source>Style</source>
