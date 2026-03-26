@@ -10,6 +10,7 @@ from PySide6.QtWidgets import QApplication, QMessageBox, QProgressDialog
 
 import OpenNumismat
 from OpenNumismat import version
+from OpenNumismat.Settings import Settings
 
 TIMEOUT = 10
 SITES_CATALOG = {
@@ -223,6 +224,11 @@ class CachedPoolManager(QObject):
         return self._available
 
     def _createHttp(self):
+        if Settings()['verify_ssl']:
+            cert_reqs = None
+        else:
+            cert_reqs = "CERT_NONE"
+
         urllib3.disable_warnings()
         retries = urllib3.Retry(1)
         timeout = urllib3.Timeout(connect=2.5, read=TIMEOUT)
@@ -230,7 +236,7 @@ class CachedPoolManager(QObject):
                                    headers={'User-Agent': version.AppName},
                                    timeout=timeout,
                                    retries=retries,
-                                   cert_reqs="CERT_NONE")
+                                   cert_reqs=cert_reqs)
         return http
 
     def close(self):

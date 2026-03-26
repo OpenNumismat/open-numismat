@@ -118,6 +118,7 @@ class Settings(BaseSettings):
         'numista_split_denomination': True,
         'numista_currency': 'EUR',
         'map_type': 0,
+        'verify_ssl': False,
         'built_in_viewer': True,
         'font_size': 0,
         'style': _getStyle(),

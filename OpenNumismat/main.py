@@ -70,8 +70,8 @@ def main():
     if translator.load(locale, 'qtbase', '_', path):
         app.installTranslator(translator)
 
-    # TODO: Enable SSL verification
-    ssl._create_default_https_context = ssl._create_unverified_context
+    if not settings['verify_ssl']:
+        ssl._create_default_https_context = ssl._create_unverified_context
 
     mainWindow = MainWindow()
     mainWindow.show()

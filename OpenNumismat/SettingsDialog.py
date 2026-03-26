@@ -218,6 +218,11 @@ class MainSettingsPage(QWidget):
                                        QSizePolicy.Fixed)
         layout.addRow(self.tr("Maps"), self.mapSelector)
 
+        self.verifySsl = QCheckBox(
+                        self.tr("Verify SSL certifiacte"), self)
+        self.verifySsl.setChecked(settings['verify_ssl'])
+        layout.addRow(self.verifySsl)
+
         self.styleSelector = QComboBox(self)
         for key in QStyleFactory.keys():
             self.styleSelector.addItem(key)
@@ -302,6 +307,7 @@ class MainSettingsPage(QWidget):
         settings['speedup'] = self.speedup.currentData()
         settings['template'] = self.templateSelector.currentData()
         settings['map_type'] = self.mapSelector.currentData()
+        settings['verify_ssl'] = self.verifySsl.isChecked()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['use_webcam'] = self.useWebcam.isChecked()
         settings['style'] = self.styleSelector.currentText()
