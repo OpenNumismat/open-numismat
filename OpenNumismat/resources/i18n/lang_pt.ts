@@ -2311,7 +2311,7 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Verify SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>Verificar certificado SSL</translation>
     </message>
     <message>
         <source>System</source>
