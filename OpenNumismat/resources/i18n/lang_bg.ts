@@ -289,6 +289,10 @@ Close the file and try again.</source>
         <translation>не отговаря</translation>
     </message>
     <message>
+        <source>response with error or empty data</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Too many requests. Try later</source>
         <translation>Твърде много заявки. Опитайте по-късно</translation>
     </message>
@@ -2226,14 +2230,6 @@ drag-n-drop to add an image)</source>
         <translation>Папка за резервно копие</translation>
     </message>
     <message>
-        <source>Make autobackup</source>
-        <translation>Автоматично създаване на резервно копие</translation>
-    </message>
-    <message>
-        <source>Coin changes before autobackup</source>
-        <translation>Променени брой записи преди автоматичното резервно копие</translation>
-    </message>
-    <message>
         <source>Send error info to author</source>
         <translation>Изпращане на информация за грешка на автора</translation>
     </message>
@@ -2274,10 +2270,6 @@ drag-n-drop to add an image)</source>
         <translation>Карти</translation>
     </message>
     <message>
-        <source>Verify SSL certifiacte</source>
-        <translation>Проверете SSL сертификата</translation>
-    </message>
-    <message>
         <source>Style</source>
         <translation>Стил</translation>
     </message>
@@ -2312,6 +2304,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Показване на брояча в дървото и статистиката</translation>
+    </message>
+    <message>
+        <source>Make autobackup after record changes:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Verify SSL certificate</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System</source>
