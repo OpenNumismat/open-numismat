@@ -289,6 +289,10 @@ Close the file and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>response with error or empty data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Too many requests. Try later</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2213,14 +2217,6 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make autobackup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Coin changes before autobackup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Send error info to author</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2261,10 +2257,6 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Verify SSL certifiacte</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2298,6 +2290,14 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Show counter in tree and statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make autobackup after record changes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Verify SSL certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
