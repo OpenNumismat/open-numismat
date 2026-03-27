@@ -223,7 +223,7 @@ class MainSettingsPage(QWidget):
         layout.addRow(self.tr("Maps"), self.mapSelector)
 
         self.verifySsl = QCheckBox(
-                        self.tr("Verify SSL certifiacte"), self)
+                        self.tr("Verify SSL certificate"), self)
         self.verifySsl.setChecked(settings['verify_ssl'])
         layout.addRow(self.verifySsl)
 
