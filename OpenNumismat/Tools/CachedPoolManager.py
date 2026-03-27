@@ -213,7 +213,7 @@ class CachedPoolManager(QObject):
             return response_data
         else:
             if not quiet:
-                result = self._showServerNotResponseMessage(url)
+                result = self._showErrorResponseMessage(url, response.status)
                 if result == QMessageBox.Retry:
                     return self.get(url, timeout, retries, headers, cache)
 
@@ -257,6 +257,19 @@ class CachedPoolManager(QObject):
 
         error_str = self.tr("not response")
         message = f"{site} {error_str}"
+
+        return self._showErrorMessage(message)
+
+    def _showErrorResponseMessage(self, url, status):
+        parsed_url = urlparse(url)
+        domain = parsed_url.netloc
+        if domain in SITES_CATALOG:
+            site = SITES_CATALOG[domain]
+        else:
+            site = self.tr("Server")
+
+        error_str = self.tr("response with error or empty data")
+        message = f"{site} {error_str} ({status})"
 
         return self._showErrorMessage(message)
 
