@@ -220,7 +220,7 @@ class ProgressPreciousPriceChartModel(BaseChartModel):
         normalized_data = {}
         normalized_linear_data = {}
         if data:
-            http = CachedPoolManager(self)
+            http = CachedPoolManager(self.parent())
 
             total_weight = {'gold': 0, 'silver': 0, 'platinum': 0, 'palladium': 0}
 
