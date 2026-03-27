@@ -2307,7 +2307,7 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Make autobackup after record changes:</source>
-        <translation type="unfinished"/>
+        <translation>Fazer salvaguarda automática após alterações</translation>
     </message>
     <message>
         <source>Verify SSL certificate</source>
