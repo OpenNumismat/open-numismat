@@ -124,19 +124,23 @@ class MainSettingsPage(QWidget):
 
         layout.addRow(self.tr("Backup folder"), hLayout)
 
-        self.autobackup = QCheckBox(self.tr("Make autobackup"), self)
+        self.autobackup = QCheckBox(self.tr("Make autobackup after record changes:"), self)
         self.autobackup.setChecked(settings['autobackup'])
-        self.autobackup.checkStateChanged.connect(self.autobackupClicked)
-        layout.addRow(self.autobackup)
+        self.autobackup.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
         self.autobackupDepth = QSpinBox(self)
         self.autobackupDepth.setRange(1, 1000)
         self.autobackupDepth.setValue(settings['autobackup_depth'])
         self.autobackupDepth.setSizePolicy(QSizePolicy.Fixed,
                                            QSizePolicy.Fixed)
-        layout.addRow(self.tr("Coin changes before autobackup"),
-                      self.autobackupDepth)
         self.autobackupDepth.setEnabled(settings['autobackup'])
+
+        self.autobackup.toggled.connect(self.autobackupDepth.setEnabled)
+
+        autobackupLayout = QHBoxLayout()
+        autobackupLayout.addWidget(self.autobackup)
+        autobackupLayout.addWidget(self.autobackupDepth)
+        layout.addRow(autobackupLayout)
 
         self.errorSending = QCheckBox(
                             self.tr("Send error info to author"), self)
@@ -284,9 +288,6 @@ class MainSettingsPage(QWidget):
             self, self.tr("Backup folder"), self.backupFolder.text())
         if folder:
             self.backupFolder.setText(folder)
-
-    def autobackupClicked(self, state):
-        self.autobackupDepth.setEnabled(state == Qt.Checked)
 
     def referenceButtonClicked(self):
         file, _selectedFilter = QFileDialog.getOpenFileName(
