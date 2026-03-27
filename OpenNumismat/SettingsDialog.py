@@ -187,6 +187,11 @@ class MainSettingsPage(QWidget):
         self.useWebcam.setChecked(settings['use_webcam'])
         layout.addRow(self.useWebcam)
 
+        self.verifySsl = QCheckBox(
+                        self.tr("Verify SSL certificate"), self)
+        self.verifySsl.setChecked(settings['verify_ssl'])
+        layout.addRow(self.verifySsl)
+
         self.dbnomicsEnabled = QCheckBox(
                         self.tr("Get metal prices from DBnomics with currency:"), self)
         self.dbnomicsEnabled.setChecked(settings['dbnomics_enabled'])
@@ -221,11 +226,6 @@ class MainSettingsPage(QWidget):
         self.mapSelector.setSizePolicy(QSizePolicy.Fixed,
                                        QSizePolicy.Fixed)
         layout.addRow(self.tr("Maps"), self.mapSelector)
-
-        self.verifySsl = QCheckBox(
-                        self.tr("Verify SSL certificate"), self)
-        self.verifySsl.setChecked(settings['verify_ssl'])
-        layout.addRow(self.verifySsl)
 
         self.styleSelector = QComboBox(self)
         for key in QStyleFactory.keys():
@@ -430,6 +430,9 @@ class CollectionSettingsPage(QWidget):
 
         self.statusUsed = {}
         statusesList = QListWidget(self)
+        statusesList.setMaximumHeight(100)
+        statusesList.setSizePolicy(QSizePolicy.Policy.Expanding,
+                                   QSizePolicy.Policy.Fixed)
         statusesList.setWrapping(True)
         for status in Statuses:
             title = self.settings[status + '_status_title']
