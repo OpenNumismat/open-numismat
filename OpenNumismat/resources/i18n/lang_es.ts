@@ -289,6 +289,10 @@ Cierre el archivo y pruebe de nuevo.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>response with error or empty data</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Too many requests. Try later</source>
         <translation>Demasiadas solicitudes. Pueba más tarde</translation>
     </message>
@@ -2226,14 +2230,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Carpeta respaldo</translation>
     </message>
     <message>
-        <source>Make autobackup</source>
-        <translation>Realizar auto respaldo</translation>
-    </message>
-    <message>
-        <source>Coin changes before autobackup</source>
-        <translation>Cambios en moneda antes de auto respaldo</translation>
-    </message>
-    <message>
         <source>Send error info to author</source>
         <translation>Enviar información del error al autor</translation>
     </message>
@@ -2274,10 +2270,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Mapas</translation>
     </message>
     <message>
-        <source>Verify SSL certifiacte</source>
-        <translation>Verificar certificado SSL</translation>
-    </message>
-    <message>
         <source>Style</source>
         <translation>Estilo</translation>
     </message>
@@ -2312,6 +2304,14 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Mostrar contador en árbol y estadísticas</translation>
+    </message>
+    <message>
+        <source>Make autobackup after record changes:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Verify SSL certificate</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System</source>
