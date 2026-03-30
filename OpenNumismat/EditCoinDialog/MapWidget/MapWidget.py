@@ -5,11 +5,12 @@ from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtCore import Slot as pyqtSlot
 from PySide6.QtWebChannel import QWebChannel
-from PySide6.QtWebEngineCore import QWebEnginePage
+from PySide6.QtWebEngineCore import QWebEnginePage, QWebEngineProfile
 from PySide6.QtWebEngineWidgets import QWebEngineView
 
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Settings import Settings
+from OpenNumismat import version
 
 
 class WebEnginePage(QWebEnginePage):
@@ -57,6 +58,9 @@ class BaseMapWidget(QWebView):
         self.page().setWebChannel(channel)
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        profile = QWebEngineProfile.defaultProfile()
+        profile.setHttpUserAgent(version.UserAgent)
 
     def setModel(self, model):
         self.model = model

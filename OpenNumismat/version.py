@@ -6,3 +6,4 @@ Author = 'Vitaly Ignatov'
 EMail = 'opennumismat@gmail.com'
 License = 'GPLv3'
 Portable = False
+UserAgent = f"{AppName}/{Version} (+{Web}; contact: {EMail})"

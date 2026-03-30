@@ -233,7 +233,7 @@ class CachedPoolManager(QObject):
         retries = urllib3.Retry(1)
         timeout = urllib3.Timeout(connect=2.5, read=TIMEOUT)
         http = urllib3.PoolManager(num_pools=3,
-                                   headers={'User-Agent': version.AppName},
+                                   headers={'User-Agent': version.UserAgent},
                                    timeout=timeout,
                                    retries=retries,
                                    cert_reqs=cert_reqs)

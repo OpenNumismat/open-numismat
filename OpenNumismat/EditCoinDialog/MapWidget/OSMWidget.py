@@ -1,10 +1,7 @@
 import json
 
-from PySide6.QtWebEngineCore import QWebEngineProfile
-
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
-from OpenNumismat import version
 from .MapWidget import BaseMapWidget
 
 
@@ -153,12 +150,6 @@ function gmap_geocode(address) {
 </body>
 </html>
 '''
-
-    def __init__(self, global_, static, parent):
-        super().__init__(global_, static, parent)
-
-        profile = QWebEngineProfile.defaultProfile()
-        profile.setHttpUserAgent(version.AppName)
 
     @waitCursorDecorator
     def reverseGeocode(self, lat, lng):
