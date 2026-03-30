@@ -290,7 +290,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>response with error or empty data</source>
-        <translation type="unfinished"/>
+        <translation>ответил с ошибкой или пустыми данными</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
