@@ -1,8 +1,12 @@
 import json
 
+from PySide6.QtWebEngineCore import QWebEngineProfile
+
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Tools.CachedPoolManager import singleHttpRequest
+from OpenNumismat import version
 from .MapWidget import BaseMapWidget
+
 
 class OSMWidget(BaseMapWidget):
     HTML = '''
@@ -46,7 +50,8 @@ function onload() {
 function initialize() {
   var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       osmAttrib = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      osm = L.tileLayer(osmUrl, {attribution: osmAttrib});
+      osm = L.tileLayer(osmUrl, {attribution: osmAttrib,
+                                 referrerPolicy: 'no-referrer-when-downgrade'});
 
   map = L.map('map').setView([LATITUDE, LONGITUDE], ZOOM).addLayer(osm);
 
@@ -148,6 +153,12 @@ function gmap_geocode(address) {
 </body>
 </html>
 '''
+
+    def __init__(self, global_, static, parent):
+        super().__init__(global_, static, parent)
+
+        profile = QWebEngineProfile.defaultProfile()
+        profile.setHttpUserAgent(version.AppName)
 
     @waitCursorDecorator
     def reverseGeocode(self, lat, lng):
