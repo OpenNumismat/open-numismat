@@ -311,6 +311,14 @@ class AddressLineEdit(QWidget):
 
         self.setLayout(layout)
 
+    def keyPressEvent(self, event):
+        if event.key() in (Qt.Key_Return, Qt.Key_Enter):
+            self.lineEdit.returnPressed.emit()
+            event.accept()
+            return
+
+        super().keyPressEvent(event)
+
     def clickedButtonAddress(self):
         text = self.text().strip()
         if text:
