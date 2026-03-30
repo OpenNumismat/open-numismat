@@ -9,7 +9,7 @@ OutputDir="."
 OutputBaseFilename=OpenNumismat-{#SetupSetting('AppVersion')}
 AllowNoIcons=yes
 AppCopyright=Copyright 2011-2026 by Vitaly Ignatov
-AppPublisher=Janis
+AppPublisher=OpenNumismat
 ArchitecturesInstallIn64BitMode=x64compatible
 
 [Languages]
