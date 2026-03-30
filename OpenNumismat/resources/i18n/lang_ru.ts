@@ -2311,7 +2311,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Verify SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>Проверять сертификаты SSL</translation>
     </message>
     <message>
         <source>System</source>
