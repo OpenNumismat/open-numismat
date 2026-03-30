@@ -256,11 +256,11 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>%d record(s) selected</source>
-        <translation>%d избран/и запис/а</translation>
+        <translation>%d избрани записа</translation>
     </message>
     <message>
         <source>Are you sure to remove a %d coin(s)?</source>
-        <translation>Сигурни ли сте, че искате да изтриете избраната/ите %d монета/и?</translation>
+        <translation>Сигурни ли сте, че искате да изтриете избраните %d монети?</translation>
     </message>
 </context>
 <context>
@@ -287,6 +287,10 @@ Close the file and try again.</source>
     <message>
         <source>not response</source>
         <translation>не отговаря</translation>
+    </message>
+    <message>
+        <source>response with error or empty data</source>
+        <translation>отговор с грешка или празни данни</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
@@ -489,8 +493,8 @@ Please update OpenNumismat</source>
     <message>
         <source>Inserted %d coins, updated %d coins.
 The application will need to restart now.</source>
-        <translation>Вмъкнати %d монети, актуализирани %d монети.
-Трябва да рестартирате приложението.</translation>
+        <translation>Добавени са %d монети, обновени са %d монети.
+Приложението трябва да се рестартира.</translation>
     </message>
     <message>
         <source>Collections looks like identical</source>
@@ -2078,10 +2082,6 @@ drag-n-drop to add an image)</source>
         <source>Common series</source>
         <translation>Обща серия</translation>
     </message>
-    <message>
-        <source>CoinSnap not response</source>
-        <translation>CoinSnap не отговаря</translation>
-    </message>
 </context>
 <context>
     <name>ImportExcel</name>
@@ -2230,14 +2230,6 @@ drag-n-drop to add an image)</source>
         <translation>Папка за резервно копие</translation>
     </message>
     <message>
-        <source>Make autobackup</source>
-        <translation>Автоматично създаване на резервно копие</translation>
-    </message>
-    <message>
-        <source>Coin changes before autobackup</source>
-        <translation>Променени брой записи преди автоматичното резервно копие</translation>
-    </message>
-    <message>
         <source>Send error info to author</source>
         <translation>Изпращане на информация за грешка на автора</translation>
     </message>
@@ -2312,6 +2304,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Показване на брояча в дървото и статистиката</translation>
+    </message>
+    <message>
+        <source>Make autobackup after record changes:</source>
+        <translation>Автоматично архивиране след определен брой промени в записи</translation>
+    </message>
+    <message>
+        <source>Verify SSL certificate</source>
+        <translation>Проверка на SSL сертификат</translation>
     </message>
     <message>
         <source>System</source>
@@ -2514,7 +2514,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
-        <translation>Приложението ще трябва да се рестартира, за да се приложат новите настройки. Да се рестартира ли сега?</translation>
+        <translation>Приложението трябва да се рестартира, за да се приложат новите настройки. Да се рестартира ли сега?</translation>
     </message>
     <message>
         <source>Select file</source>
@@ -3308,11 +3308,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>(calculated for %d coins)</source>
-        <translation>(изчислено за %d монета/и)</translation>
+        <translation>(изчислено за %d монети)</translation>
     </message>
     <message>
         <source>(calculated for %d/%d coins)</source>
-        <translation>(изчислено за %d/%d монета/и)</translation>
+        <translation>(изчислено за %d/%d монети)</translation>
     </message>
     <message>
         <source>Silver</source>
@@ -3432,11 +3432,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>calculated for %d coins</source>
-        <translation>изчислено за %d монета/и</translation>
+        <translation>изчислено за %d монети</translation>
     </message>
     <message>
         <source>calculated for %d/%d coins</source>
-        <translation>изчислено за %d/%d монета/и</translation>
+        <translation>изчислено за %d/%d монети</translation>
     </message>
     <message>
         <source>gram</source>

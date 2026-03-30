@@ -289,6 +289,10 @@ Feche o ficheiro e tente novamente.</translation>
         <translation>sem resposta</translation>
     </message>
     <message>
+        <source>response with error or empty data</source>
+        <translation>resposta com erros ou vazia</translation>
+    </message>
+    <message>
         <source>Too many requests. Try later</source>
         <translation>Demasiados pedidos, por favor tente mais tarde</translation>
     </message>
@@ -2078,10 +2082,6 @@ arraste e largue para adicionar)</translation>
         <source>Common series</source>
         <translation>Série comum</translation>
     </message>
-    <message>
-        <source>CoinSnap not response</source>
-        <translation>Sem resposta do CoinSnap</translation>
-    </message>
 </context>
 <context>
     <name>ImportExcel</name>
@@ -2230,14 +2230,6 @@ arraste e largue para adicionar)</translation>
         <translation>Pasta de segurança</translation>
     </message>
     <message>
-        <source>Make autobackup</source>
-        <translation>Fazer segurança automática</translation>
-    </message>
-    <message>
-        <source>Coin changes before autobackup</source>
-        <translation>Alterações da moeda antes da segurança automática</translation>
-    </message>
-    <message>
         <source>Send error info to author</source>
         <translation>Enviar informação de erros para o autor</translation>
     </message>
@@ -2312,6 +2304,14 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Mostrar contador na árvore e nas estatísticas</translation>
+    </message>
+    <message>
+        <source>Make autobackup after record changes:</source>
+        <translation>Fazer salvaguarda automática após alterações</translation>
+    </message>
+    <message>
+        <source>Verify SSL certificate</source>
+        <translation>Verificar certificado SSL</translation>
     </message>
     <message>
         <source>System</source>

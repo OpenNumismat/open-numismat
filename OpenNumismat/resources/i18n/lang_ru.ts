@@ -289,6 +289,10 @@ Close the file and try again.</source>
         <translation>не отвечает</translation>
     </message>
     <message>
+        <source>response with error or empty data</source>
+        <translation>ответил с ошибкой или пустыми данными</translation>
+    </message>
+    <message>
         <source>Too many requests. Try later</source>
         <translation>Слишком много запросов. Попробуйте позже</translation>
     </message>
@@ -1710,7 +1714,7 @@ Do you want to send an error message to the author?</source>
     <name>GeoChartModel</name>
     <message>
         <source>Translation of country names</source>
-        <translation type="unfinished"/>
+        <translation>Перевод названий стран</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2078,10 +2082,6 @@ drag-n-drop to add an image)</source>
         <source>Common series</source>
         <translation>Без серии</translation>
     </message>
-    <message>
-        <source>CoinSnap not response</source>
-        <translation>CoinSnap не отвечает</translation>
-    </message>
 </context>
 <context>
     <name>ImportExcel</name>
@@ -2230,14 +2230,6 @@ drag-n-drop to add an image)</source>
         <translation>Путь к резервным копиям</translation>
     </message>
     <message>
-        <source>Make autobackup</source>
-        <translation>Делать резервные копии автоматически</translation>
-    </message>
-    <message>
-        <source>Coin changes before autobackup</source>
-        <translation>Измененных монет для резервного копирования</translation>
-    </message>
-    <message>
         <source>Send error info to author</source>
         <translation>Отправлять отчет об ошибках автору</translation>
     </message>
@@ -2312,6 +2304,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Show counter in tree and statistics</source>
         <translation>Показывать количество в дереве и статистике</translation>
+    </message>
+    <message>
+        <source>Make autobackup after record changes:</source>
+        <translation>Выполнять резервное копирование после изменения записей:</translation>
+    </message>
+    <message>
+        <source>Verify SSL certificate</source>
+        <translation>Проверять сертификаты SSL</translation>
     </message>
     <message>
         <source>System</source>
