@@ -3,14 +3,13 @@ from functools import cmp_to_key
 from PySide6.QtCharts import QChart, QChartView
 from PySide6.QtCore import QCollator, QLocale, QObject, QRect, QPoint
 from PySide6.QtCore import Signal as pyqtSignal
-from PySide6.QtGui import QColor, QCursor, QPainter
+from PySide6.QtGui import QColor, QCursor, QImageReader, QPainter
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtSvg import QSvgGenerator
 from PySide6.QtWidgets import QApplication, QToolTip
 
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Converters import numberWithFraction
-from OpenNumismat.Tools.misc import saveImageFilters
 from OpenNumismat.Settings import Settings
 
 
@@ -73,8 +72,16 @@ class BaseChartView(QChartView):
         return "%s: %s\n%s: %d" % (self.label_y, x, self.label, y)
 
     def filters(self):
-        filter_list = saveImageFilters()
+        supported_formats = QImageReader.supportedImageFormats()
+
+        filter_list = []
+        filter_list.append("PNG - Portable Network Graphics (*.png)")
+        if b'webp' in supported_formats:
+            filter_list.append("WEBP - WebP (*.webp)")
         filter_list.append("SVG - Scalable Vector Graphics (*.svg)")
+        filter_list.append("JPG - JPEG (*.jpg *.jpeg)")
+        filter_list.append(QApplication.translate("saveImageFilters", "All files (*.*)"))
+
         return filter_list
 
     def save(self, fileName, selectedFilter):
