@@ -1,10 +1,11 @@
 from functools import cmp_to_key
 
 from PySide6.QtCharts import QChart, QChartView
-from PySide6.QtCore import QCollator, QLocale, QObject, QPoint
+from PySide6.QtCore import QCollator, QLocale, QObject, QRect, QPoint
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QColor, QCursor, QPainter
 from PySide6.QtSql import QSqlQuery
+from PySide6.QtSvg import QSvgGenerator
 from PySide6.QtWidgets import QApplication, QToolTip
 
 from OpenNumismat.Collection.CollectionFields import Statuses
@@ -72,10 +73,26 @@ class BaseChartView(QChartView):
         return "%s: %s\n%s: %d" % (self.label_y, x, self.label, y)
 
     def filters(self):
-        return saveImageFilters()
+        filter_list = saveImageFilters()
+        filter_list.append("SVG - Scalable Vector Graphics (*.svg)")
+        return filter_list
 
-    def save(self, fileName, _selectedFilter):
-        self.grab().save(fileName)
+    def save(self, fileName, selectedFilter):
+        if selectedFilter[:3] == 'SVG':
+            generator = QSvgGenerator()
+            generator.setFileName(fileName)
+
+            size = self.size()
+            generator.setSize(size)
+            generator.setViewBox(QRect(0, 0, size.width(), size.height()))
+
+            painter = QPainter()
+            if painter.begin(generator):
+                painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+                self.render(painter)
+                painter.end()
+        else:
+            self.grab().save(fileName)
 
     def mouseDoubleClickEvent(self, event):
         self.doubleClicked.emit(event.position().toPoint())
