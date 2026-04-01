@@ -25,8 +25,12 @@ class WebEnginePage(QWebEnginePage):
 class QWebView(QWebEngineView):
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        profile = QWebEngineProfile(self)
+        profile.setHttpUserAgent(version.UserAgent)
+
         self.setAttribute(Qt.WA_NativeWindow)
-        self.setPage(WebEnginePage(self))
+        self.setPage(WebEnginePage(profile, self))
 
     def contextMenuEvent(self, _event):
         pass
@@ -58,9 +62,6 @@ class BaseMapWidget(QWebView):
         self.page().setWebChannel(channel)
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-
-        profile = QWebEngineProfile.defaultProfile()
-        profile.setHttpUserAgent(version.UserAgent)
 
     def setModel(self, model):
         self.model = model
