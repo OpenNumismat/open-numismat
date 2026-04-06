@@ -2307,7 +2307,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Make autobackup after record changes:</source>
-        <translation type="unfinished"/>
+        <translation>Hacer autoguardado tras cambios en registro:</translation>
     </message>
     <message>
         <source>Verify SSL certificate</source>
