@@ -286,7 +286,7 @@ Cierre el archivo y pruebe de nuevo.</translation>
     </message>
     <message>
         <source>not response</source>
-        <translation type="unfinished"/>
+        <translation>sin respuesta</translation>
     </message>
     <message>
         <source>response with error or empty data</source>
