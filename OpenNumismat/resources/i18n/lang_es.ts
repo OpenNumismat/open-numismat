@@ -2263,7 +2263,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Get metal prices from DBnomics with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Obtener precios del metal desde DBnomics con moneda:</translation>
     </message>
     <message>
         <source>Maps</source>
