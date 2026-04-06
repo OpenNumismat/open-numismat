@@ -3416,7 +3416,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Platinum price</source>
-        <translation type="unfinished"/>
+        <translation>Precio platino</translation>
     </message>
     <message>
         <source>Palladium coins</source>
@@ -3428,7 +3428,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Palladium price</source>
-        <translation type="unfinished"/>
+        <translation>Precio paladio</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
