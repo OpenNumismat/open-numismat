@@ -3404,7 +3404,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Silver price</source>
-        <translation type="unfinished"/>
+        <translation>Precio plata</translation>
     </message>
     <message>
         <source>Platinum coins</source>
