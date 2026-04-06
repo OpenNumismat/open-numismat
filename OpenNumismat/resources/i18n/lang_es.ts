@@ -3210,7 +3210,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Precious price</source>
-        <translation type="unfinished"/>
+        <translation>Precio precioso</translation>
     </message>
     <message>
         <source>Total price</source>
