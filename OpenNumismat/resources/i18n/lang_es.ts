@@ -2729,7 +2729,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     <name>ProgressPreciousChart</name>
     <message>
         <source>Metal</source>
-        <translation type="unfinished"/>
+        <translation>Metal</translation>
     </message>
 </context>
 <context>
@@ -2759,7 +2759,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Metal</source>
-        <translation type="unfinished"/>
+        <translation>Metal</translation>
     </message>
     <message>
         <source>Total</source>
