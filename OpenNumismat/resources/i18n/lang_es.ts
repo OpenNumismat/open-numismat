@@ -2126,7 +2126,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Failed to clear cache</source>
-        <translation type="unfinished"/>
+        <translation>No se pudo limpiar la caché</translation>
     </message>
 </context>
 <context>
