@@ -3206,7 +3206,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Precious weight</source>
-        <translation type="unfinished"/>
+        <translation>Peso precioso</translation>
     </message>
     <message>
         <source>Precious price</source>
