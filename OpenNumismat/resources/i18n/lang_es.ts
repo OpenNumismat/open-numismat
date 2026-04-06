@@ -3392,7 +3392,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Gold price</source>
-        <translation type="unfinished"/>
+        <translation>Precio oro</translation>
     </message>
     <message>
         <source>Silver coins</source>
