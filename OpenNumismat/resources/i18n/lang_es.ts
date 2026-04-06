@@ -3440,7 +3440,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>gram</source>
-        <translation type="unfinished"/>
+        <translation>gramo</translation>
     </message>
 </context>
 <context>
