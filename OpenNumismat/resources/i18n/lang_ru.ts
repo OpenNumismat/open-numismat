@@ -2262,10 +2262,6 @@ drag-n-drop to add an image)</source>
         <translation>Использовать встроенный редактор изображений</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation>Получать цены драгметаллов из DBnomics в валюте:</translation>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Карты</translation>
     </message>
