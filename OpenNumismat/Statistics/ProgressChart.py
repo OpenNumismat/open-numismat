@@ -125,7 +125,7 @@ class ProgressChartModel(BaseChartModel):
             date_format = '%Y'
 
         if self.filter:
-            sql_filters.append(self.filter_)
+            sql_filters.append(self.filter)
 
         if items == 'createdat':
             sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
