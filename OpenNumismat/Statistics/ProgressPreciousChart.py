@@ -123,13 +123,6 @@ class ProgressPreciousChart(BaseChartView):
 class ProgressPreciousChartModel(BaseChartModel):
 
     def loadData(self, period):
-        metals = (
-            ("gold", self.tr("Gold").lower(), "au", "aurum"),
-            ("silver", self.tr("Silver").lower(), "ag", "argentum"),
-            ("platinum", self.tr("Platinum").lower(), "pt"),
-            ("palladium", self.tr("Palladium").lower(), "pd"),
-        )
-
         sql_field = "weight,quantity,fineness,material,paydate"
     
         if period == 'month':
@@ -180,17 +173,13 @@ class ProgressPreciousChartModel(BaseChartModel):
 
             quantity = record.value('quantity') or 1
 
-            fineness = record.value('fineness') or 0
-            fineness = normalizeFineness(fineness)
+            fineness = record.value('fineness')
+            if fineness:
+                fineness = normalizeFineness(fineness)
+            else:
+                fineness = 1
 
-            material = record.value('material').lower()
-            metal = None
-            for metal_titles in metals:
-                if material in metal_titles:
-                    metal = metal_titles[1]
-                    break
-            if not metal:
-                continue
+            material = record.value('material')
 
             paydate = record.value('paydate')
             paydate = datetime.strptime(paydate, '%Y-%m-%d')
@@ -203,10 +192,10 @@ class ProgressPreciousChartModel(BaseChartModel):
                 data[period_item] = {}
 
             total_weight = weight * fineness * quantity
-            if metal in data[period_item]:
-                data[period_item][metal] += total_weight
+            if material in data[period_item]:
+                data[period_item][material] += total_weight
             else:
-                data[period_item][metal] = total_weight
+                data[period_item][material] = total_weight
 
         current_date = min_paydate
 
