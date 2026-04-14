@@ -2122,7 +2122,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Import cache cleared</source>
-        <translation>Изчистване на кеша за импортиране</translation>
+        <translation>Кешът за импортиране е изчистен</translation>
     </message>
     <message>
         <source>Failed to clear cache</source>
