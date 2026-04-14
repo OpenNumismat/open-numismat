@@ -2118,7 +2118,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Clear cache</source>
-        <translation>Изчистване на кешът</translation>
+        <translation>Изчистване на кеша</translation>
     </message>
     <message>
         <source>Import cache cleared</source>
