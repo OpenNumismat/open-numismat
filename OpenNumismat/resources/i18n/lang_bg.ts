@@ -2262,10 +2262,6 @@ drag-n-drop to add an image)</source>
         <translation>Използване на вграденият преглед на изображения</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation>Извличане на цени на метали от DBnomics с валута</translation>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Карти</translation>
     </message>
