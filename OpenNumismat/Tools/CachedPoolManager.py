@@ -17,6 +17,7 @@ SITES_CATALOG = {
     "theratesapi.com": "The Rates API",
     "api.db.nomics.world": "DBnomics",
     "opennumismat.duckdns.org": "Colnect proxy",
+    "i.colnect.net": "Colnect",
     "numismatics.org": "American Numismatic Society",
     "nomisma.org": "Nomisma.org",
     "api.numista.com": "Numista",
