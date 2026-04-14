@@ -2262,10 +2262,6 @@ arraste e largue para adicionar)</translation>
         <translation>Utilizar visualizador interno</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation>Obter cotações de metais de DBnomics com moeda:</translation>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Mapas</translation>
     </message>
