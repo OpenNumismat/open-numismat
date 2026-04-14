@@ -2262,10 +2262,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Usar editor de imagen integrado</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation>Obtener precios del metal desde DBnomics con moneda:</translation>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Mapas</translation>
     </message>
