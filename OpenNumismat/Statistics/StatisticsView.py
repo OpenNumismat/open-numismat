@@ -156,6 +156,8 @@ class StatisticsView(QWidget):
     def setModel(self, model):
         self.model = model
 
+        dbnomicsEnabled = Settings()['dbnomics_enabled']
+
         default_subfieldid = 0
         for field in self.model.fields.userFields:
             if field.name in StatisticsFields:
@@ -184,7 +186,7 @@ class StatisticsView(QWidget):
                 self.itemsSelector.addItem(self.tr("Pay date"), field.name)
             elif field.name == 'weight':
                 self.itemsSelector.addItem(self.tr("Precious weight"), field.name)
-            elif field.name == 'fineness':
+            elif dbnomicsEnabled and field.name == 'fineness':
                 self.itemsSelector.addItem(self.tr("Precious price"), field.name)
 
         # TODO: Store field name instead field ID
@@ -242,10 +244,11 @@ class StatisticsView(QWidget):
         elif chart == 'stacked':
             self.chart = self.stackedChart()
         elif chart == 'progress':
+            dbnomicsEnabled = Settings()['dbnomics_enabled']
             items = self.itemsSelector.currentData()
             if items == 'weight':
                 self.chart = self.progressPreciousChart()
-            elif items == 'fineness':
+            elif dbnomicsEnabled and items == 'fineness':
                 self.chart = self.progressPreciousPriceChart()
             else:
                 self.chart = self.progressChart()

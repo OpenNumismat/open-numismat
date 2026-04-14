@@ -192,27 +192,28 @@ class MainSettingsPage(QWidget):
         self.verifySsl.setChecked(settings['verify_ssl'])
         layout.addRow(self.verifySsl)
 
-        self.dbnomicsEnabled = QCheckBox(
-                        self.tr("Get metal prices from DBnomics with currency:"), self)
-        self.dbnomicsEnabled.setChecked(settings['dbnomics_enabled'])
-        self.dbnomicsEnabled.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        # TODO: Disabled while LBMA have been removed from DBnomics
+        # self.dbnomicsEnabled = QCheckBox(
+        #                 self.tr("Get metal prices from DBnomics with currency:"), self)
+        # self.dbnomicsEnabled.setChecked(settings['dbnomics_enabled'])
+        # self.dbnomicsEnabled.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
-        self.dbnomicsCurrency = QComboBox(self)
-        for curr in self.Currencies:
-            self.dbnomicsCurrency.addItem(QApplication.translate("Currency", curr[1]), curr[0])
-        current = self.dbnomicsCurrency.findData(settings['dbnomics_currency'])
-        if current == -1:
-            current = 0
-        self.dbnomicsCurrency.setCurrentIndex(current)
-        self.dbnomicsCurrency.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        self.dbnomicsCurrency.setEnabled(settings['dbnomics_enabled'])
+        # self.dbnomicsCurrency = QComboBox(self)
+        # for curr in self.Currencies:
+        #     self.dbnomicsCurrency.addItem(QApplication.translate("Currency", curr[1]), curr[0])
+        # current = self.dbnomicsCurrency.findData(settings['dbnomics_currency'])
+        # if current == -1:
+        #     current = 0
+        # self.dbnomicsCurrency.setCurrentIndex(current)
+        # self.dbnomicsCurrency.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        # self.dbnomicsCurrency.setEnabled(settings['dbnomics_enabled'])
 
-        self.dbnomicsEnabled.toggled.connect(self.dbnomicsCurrency.setEnabled)
+        # self.dbnomicsEnabled.toggled.connect(self.dbnomicsCurrency.setEnabled)
 
-        dbnomicsLayout = QHBoxLayout()
-        dbnomicsLayout.addWidget(self.dbnomicsEnabled)
-        dbnomicsLayout.addWidget(self.dbnomicsCurrency)
-        layout.addRow(dbnomicsLayout)
+        # dbnomicsLayout = QHBoxLayout()
+        # dbnomicsLayout.addWidget(self.dbnomicsEnabled)
+        # dbnomicsLayout.addWidget(self.dbnomicsCurrency)
+        # layout.addRow(dbnomicsLayout)
 
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap', MapType.OSM.value)
