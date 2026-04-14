@@ -318,8 +318,9 @@ class MainSettingsPage(QWidget):
         settings['transparent_store'] = self.transparentRadio.isChecked()
         settings['tree_counter'] = self.treeCounter.isChecked()
         settings['color_scheme'] = self.colorSchemeSelector.currentIndex()
-        settings['dbnomics_enabled'] = self.dbnomicsEnabled.isChecked()
-        settings['dbnomics_currency'] = self.dbnomicsCurrency.currentData()
+        # TODO: Disabled while LBMA have been removed from DBnomics
+        # settings['dbnomics_enabled'] = self.dbnomicsEnabled.isChecked()
+        # settings['dbnomics_currency'] = self.dbnomicsCurrency.currentData()
 
         settings.save()
 
