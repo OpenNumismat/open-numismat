@@ -2729,25 +2729,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ProgressPreciousChartModel</name>
-    <message>
-        <source>Gold</source>
-        <translation>Золото</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>Серебро</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Платина</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Палладий</translation>
-    </message>
-</context>
-<context>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
@@ -3064,6 +3045,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Nice years (Area)</source>
         <translation>Приятные года (области)</translation>
+    </message>
+    <message>
+        <source>Continuous time scale (Progress)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Background remover AI model</source>
