@@ -683,6 +683,10 @@ class SettingsDialog(QDialog):
         self.niceYearsCheck.setChecked(settings['nice_years_chart'])
         formLayout.addRow(self.niceYearsCheck)
 
+        self.continuousTimeCheck = QCheckBox(self.tr("Continuous time scale (Progress)"), self)
+        self.continuousTimeCheck.setChecked(settings['continuous_time_chart'])
+        formLayout.addRow(self.continuousTimeCheck)
+
         buttonBox = QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QDialogButtonBox.Ok)
         buttonBox.addButton(QDialogButtonBox.Cancel)
@@ -714,5 +718,6 @@ class SettingsDialog(QDialog):
         settings['show_chart_legend'] = self.legendCheck.isChecked()
         settings['chart_legend_pos'] = self.legendPosSelector.currentData()
         settings['nice_years_chart'] = self.niceYearsCheck.isChecked()
+        settings['continuous_time_chart'] = self.continuousTimeCheck.isChecked()
 
         settings.save()

@@ -128,6 +128,7 @@ class Settings(BaseSettings):
         'show_chart_legend': False,
         'chart_legend_pos': Qt.AlignRight.value,
         'nice_years_chart': False,
+        'continuous_time_chart': False,
         'transparent_color': QColor(Qt.white),
         'transparent_store': False,
         'use_webcam': True,

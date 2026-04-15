@@ -123,6 +123,8 @@ class ProgressPreciousChart(BaseChartView):
 class ProgressPreciousChartModel(BaseChartModel):
 
     def loadData(self, period):
+        continuous_time = Settings()['continuous_time_chart']
+
         sql_field = "weight,quantity,fineness,material,paydate"
     
         if period == 'month':
@@ -197,18 +199,21 @@ class ProgressPreciousChartModel(BaseChartModel):
             else:
                 data[period_item][material] = total_weight
 
-        current_date = min_paydate
-
         normalized_data = {}
         if data:
-            while current_date <= max_paydate:
-                period_item = current_date.strftime(date_format)
-                if period_item in data:
-                    normalized_data[period_item] = data[period_item]
-                else:
-                    normalized_data[period_item] = {}
+            if continuous_time:
+                current_date = min_paydate
 
-                current_date = current_date + delta
+                while current_date <= max_paydate:
+                    period_item = current_date.strftime(date_format)
+                    if period_item in data:
+                        normalized_data[period_item] = data[period_item]
+                    else:
+                        normalized_data[period_item] = {}
+
+                    current_date = current_date + delta
+            else:
+                normalized_data = data
 
         self.x_data = list(normalized_data)
         self.y_data = list(normalized_data.values())

@@ -1,3 +1,6 @@
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
 from PySide6.QtCharts import (
     QBarCategoryAxis,
     QBarSeries,
@@ -11,6 +14,7 @@ from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
+from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
 
 
@@ -78,6 +82,8 @@ class ProgressChart(BaseChartView):
 class ProgressChartModel(BaseChartModel):
 
     def loadData(self, items, period):
+        continuous_time = Settings()['continuous_time_chart']
+
         if items == 'payprice':
             sql_field = 'sum(payprice)'
         elif items == 'totalpayprice':
@@ -103,8 +109,10 @@ class ProgressChartModel(BaseChartModel):
                 sql_filters = ["issuedate > datetime('now', '-1 month')"]
             else:  # year
                 sql_filters = ["1=1"]
+            sql_filters.append("issuedate IS NOT NULL")
+            sql_filters.append("issuedate <> ''")
         elif items == 'year':
-            sql_filters = ["1=1"]
+            sql_filters = ["year IS NOT NULL", "year <> ''"]
         else:
             sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
 
@@ -114,65 +122,91 @@ class ProgressChartModel(BaseChartModel):
                 sql_filters.append("paydate > datetime('now', '-11 months')")
             elif period == 'day':
                 sql_filters.append("paydate > datetime('now', '-1 month')")
+            sql_filters.append("paydate IS NOT NULL")
+            sql_filters.append("paydate <> ''")
 
         if period == 'month':
             date_format = '%m'
+            delta = relativedelta(months=1)
         elif period == 'week':
             date_format = '%W'
+            delta = relativedelta(weeks=1)
         elif period == 'day':
             date_format = '%d'
+            delta = relativedelta(days=1)
         else:
             date_format = '%Y'
+            delta = relativedelta(years=1)
 
         if self.filter:
             sql_filters.append(self.filter)
 
         if items == 'createdat':
-            sql = "SELECT %s, strftime('%s', createdat) FROM coins"\
+            sql = "SELECT %s, createdat FROM coins"\
                   " WHERE %s"\
-                  " GROUP BY strftime('%s', createdat) ORDER BY createdat" % (
-                      sql_field, date_format, ' AND '.join(sql_filters),
-                      date_format)
+                  " GROUP BY createdat ORDER BY createdat" % (
+                      sql_field, ' AND '.join(sql_filters))
         elif items == 'issuedate':
-            sql = "SELECT %s, strftime('%s', issuedate) FROM coins"\
+            sql = "SELECT %s, issuedate FROM coins"\
                   " WHERE %s"\
-                  " GROUP BY strftime('%s', issuedate) ORDER BY issuedate" % (
-                      sql_field, date_format, ' AND '.join(sql_filters),
-                      date_format)
+                  " GROUP BY issuedate ORDER BY issuedate" % (
+                      sql_field, ' AND '.join(sql_filters))
         elif items == 'year':
             sql = "SELECT %s, year FROM coins"\
                   " WHERE %s"\
                   " GROUP BY year" % (
                       sql_field, ' AND '.join(sql_filters))
         else:
-            sql = "SELECT %s, strftime('%s', paydate) FROM coins"\
+            sql = "SELECT %s, paydate FROM coins"\
                   " WHERE %s"\
-                  " GROUP BY strftime('%s', paydate) ORDER BY paydate" % (
-                      sql_field, date_format, ' AND '.join(sql_filters),
-                      date_format)
+                  " GROUP BY paydate ORDER BY paydate" % (
+                      sql_field, ' AND '.join(sql_filters))
         query = QSqlQuery(self.db)
         query.exec(sql)
         xx = {}
+        min_paydate = None
+        max_paydate = None
         while query.next():
             record = query.record()
             count = record.value(0) or 0
             val = str(record.value(1))
-            xx[val] = count
-
-        if period == 'year':
-            years = []
-            for year in xx.keys():
+            if val:
                 try:
-                    years.append(int(year))
+                    if items == 'year':
+                        paydate = datetime.strptime(val, '%Y')
+                    else:
+                        if 'T' in val:
+                            # Trim Thh:mm:ssZ
+                            val = val[:10]
+                        paydate = datetime.strptime(val, '%Y-%m-%d')
                 except ValueError:
-                    pass
+                    continue
 
-            if len(years) > 2:
-                for x in range(int(min(years)), int(max(years))):
-                    if str(x) not in xx:
-                        xx[str(x)] = 0
+                if not min_paydate:
+                    min_paydate = paydate
+                max_paydate = paydate
+                val = paydate.strftime(date_format)
 
-            xx = dict(sorted(xx.items()))
+            if val in xx:
+                xx[val] += count
+            else:
+                xx[val] = count
 
-        self.x_data = list(xx)
-        self.y_data = list(xx.values())
+        normalized_data = {}
+        if xx:
+            if continuous_time:
+                current_date = min_paydate
+
+                while current_date <= max_paydate:
+                    period_item = current_date.strftime(date_format)
+                    if period_item in xx:
+                        normalized_data[period_item] = xx[period_item]
+                    else:
+                        normalized_data[period_item] = 0
+
+                    current_date = current_date + delta
+            else:
+                normalized_data = xx
+
+        self.x_data = list(normalized_data)
+        self.y_data = list(normalized_data.values())
