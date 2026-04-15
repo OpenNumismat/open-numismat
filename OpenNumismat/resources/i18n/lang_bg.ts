@@ -2342,7 +2342,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Icon view</source>
-        <translation>Икони изглед</translation>
+        <translation>Иконен изглед</translation>
     </message>
     <message>
         <source>Card view</source>
