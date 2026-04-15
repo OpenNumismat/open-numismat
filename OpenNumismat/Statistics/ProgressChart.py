@@ -9,7 +9,7 @@ from PySide6.QtCharts import (
     QStackedBarSeries,
     QValueAxis,
 )
-from PySide6.QtCore import Qt, QPoint
+from PySide6.QtCore import Qt, QLocale, QPoint
 from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
@@ -73,7 +73,12 @@ class ProgressChart(BaseChartView):
         if state:
             pos = int(point.x() + 0.5)
             count = self.lineseries.at(pos).y()
-            tooltip = "%s: %d" % (self.tr("Total"), count)
+
+            total_str = self.tr("Total")
+            locale = QLocale.system()
+            count_str = locale.toString(int(count))
+            tooltip = f"{total_str}: {count_str}"
+
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
