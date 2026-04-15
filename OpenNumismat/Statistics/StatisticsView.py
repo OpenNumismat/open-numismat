@@ -302,6 +302,11 @@ class StatisticsView(QWidget):
             self.fieldSelector.setDisabled(area == 'status')
         else:
             self.fieldSelector.setDisabled(False)
+        if chart == 'progress':
+            items = self.itemsSelector.currentData()
+            self.periodSelector.setDisabled(items == 'year')
+        else:
+            self.periodSelector.setDisabled(False)
         self.regionLabel.setVisible(chart == 'geochart')
         self.regionSelector.setVisible(chart == 'geochart')
 
@@ -314,6 +319,8 @@ class StatisticsView(QWidget):
     def itemsChaged(self, _text):
         items = self.itemsSelector.currentData()
         self.statisticsParam['items'] = items
+
+        self.periodSelector.setDisabled(items == 'year')
 
         self.modelChanged()
 

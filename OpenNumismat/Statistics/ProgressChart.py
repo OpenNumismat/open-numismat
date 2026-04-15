@@ -121,13 +121,13 @@ class ProgressChartModel(BaseChartModel):
             elif period == 'day':
                 sql_filters.append("paydate > datetime('now', '-1 month')")
 
-        if period == 'month':
+        if period == 'month' and items != 'year':
             date_format = '%m'
             delta = relativedelta(months=1)
-        elif period == 'week':
+        elif period == 'week' and items != 'year':
             date_format = '%W'
             delta = relativedelta(weeks=1)
-        elif period == 'day':
+        elif period == 'day' and items != 'year':
             date_format = '%d'
             delta = relativedelta(days=1)
         else:
