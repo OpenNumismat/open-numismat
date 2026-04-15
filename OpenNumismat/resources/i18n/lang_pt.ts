@@ -2729,25 +2729,6 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
-    <name>ProgressPreciousChartModel</name>
-    <message>
-        <source>Gold</source>
-        <translation>Ouro</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>Prata</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Platina</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Paládio</translation>
-    </message>
-</context>
-<context>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
@@ -3064,6 +3045,10 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>Nice years (Area)</source>
         <translation>Anos bons (área)</translation>
+    </message>
+    <message>
+        <source>Continuous time scale (Progress)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Background remover AI model</source>
