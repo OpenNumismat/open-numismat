@@ -1,4 +1,4 @@
-from datetime import datetime
+from dateutil import parser
 from dateutil.relativedelta import relativedelta
 
 from PySide6.QtCharts import (
@@ -183,8 +183,12 @@ class ProgressPreciousChartModel(BaseChartModel):
 
             material = record.value('material')
 
-            paydate = record.value('paydate')
-            paydate = datetime.strptime(paydate, '%Y-%m-%d')
+            val = record.value('paydate')
+            try:
+                paydate = parser.parse(val)
+            except parser.ParserError:
+                continue
+
             if not min_paydate:
                 min_paydate = paydate
             max_paydate = paydate

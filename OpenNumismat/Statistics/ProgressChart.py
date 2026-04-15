@@ -1,4 +1,4 @@
-from datetime import datetime
+from dateutil import parser
 from dateutil.relativedelta import relativedelta
 
 from PySide6.QtCharts import (
@@ -109,10 +109,8 @@ class ProgressChartModel(BaseChartModel):
                 sql_filters = ["issuedate > datetime('now', '-1 month')"]
             else:  # year
                 sql_filters = ["1=1"]
-            sql_filters.append("issuedate IS NOT NULL")
-            sql_filters.append("issuedate <> ''")
         elif items == 'year':
-            sql_filters = ["year IS NOT NULL", "year <> ''"]
+            sql_filters = ["1=1"]
         else:
             sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
 
@@ -122,8 +120,6 @@ class ProgressChartModel(BaseChartModel):
                 sql_filters.append("paydate > datetime('now', '-11 months')")
             elif period == 'day':
                 sql_filters.append("paydate > datetime('now', '-1 month')")
-            sql_filters.append("paydate IS NOT NULL")
-            sql_filters.append("paydate <> ''")
 
         if period == 'month':
             date_format = '%m'
@@ -154,7 +150,7 @@ class ProgressChartModel(BaseChartModel):
         elif items == 'year':
             sql = "SELECT %s, year FROM coins"\
                   " WHERE %s"\
-                  " GROUP BY year" % (
+                  " GROUP BY year ORDER BY year" % (
                       sql_field, ' AND '.join(sql_filters))
         else:
             sql = "SELECT %s, paydate FROM coins"\
@@ -164,28 +160,22 @@ class ProgressChartModel(BaseChartModel):
         query = QSqlQuery(self.db)
         query.exec(sql)
         xx = {}
-        min_paydate = None
-        max_paydate = None
+        min_date = None
+        max_date = None
         while query.next():
             record = query.record()
             count = record.value(0) or 0
             val = str(record.value(1))
-            if val:
-                try:
-                    if items == 'year':
-                        paydate = datetime.strptime(val, '%Y')
-                    else:
-                        if 'T' in val:
-                            # Trim Thh:mm:ssZ
-                            val = val[:10]
-                        paydate = datetime.strptime(val, '%Y-%m-%d')
-                except ValueError:
-                    continue
 
-                if not min_paydate:
-                    min_paydate = paydate
-                max_paydate = paydate
-                val = paydate.strftime(date_format)
+            try:
+                date = parser.parse(val)
+            except parser.ParserError:
+                pass
+            else:
+                if not min_date:
+                    min_date = date
+                max_date = date
+                val = date.strftime(date_format)
 
             if val in xx:
                 xx[val] += count
@@ -193,20 +183,19 @@ class ProgressChartModel(BaseChartModel):
                 xx[val] = count
 
         normalized_data = {}
-        if xx:
-            if continuous_time:
-                current_date = min_paydate
+        if continuous_time and min_date and max_date:
+            current_date = min_date
 
-                while current_date <= max_paydate:
-                    period_item = current_date.strftime(date_format)
-                    if period_item in xx:
-                        normalized_data[period_item] = xx[period_item]
-                    else:
-                        normalized_data[period_item] = 0
+            while current_date <= max_date:
+                period_item = current_date.strftime(date_format)
+                if period_item in xx:
+                    normalized_data[period_item] = xx[period_item]
+                else:
+                    normalized_data[period_item] = 0
 
-                    current_date = current_date + delta
-            else:
-                normalized_data = xx
+                current_date = current_date + delta
+        else:
+            normalized_data = xx
 
         self.x_data = list(normalized_data)
         self.y_data = list(normalized_data.values())
