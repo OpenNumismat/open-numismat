@@ -3048,7 +3048,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Continuous time scale (Progress)</source>
-        <translation type="unfinished"/>
+        <translation>Непрекъсната времева линия (напредък)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>
