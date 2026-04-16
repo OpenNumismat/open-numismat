@@ -3048,7 +3048,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Continuous time scale (Progress)</source>
-        <translation type="unfinished"/>
+        <translation>Escala de tempo contínua (progresso)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>
