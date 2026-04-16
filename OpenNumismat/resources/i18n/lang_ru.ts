@@ -2262,10 +2262,6 @@ drag-n-drop to add an image)</source>
         <translation>Использовать встроенный редактор изображений</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation>Получать цены драгметаллов из DBnomics в валюте:</translation>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Карты</translation>
     </message>
@@ -2733,25 +2729,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ProgressPreciousChartModel</name>
-    <message>
-        <source>Gold</source>
-        <translation>Золото</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>Серебро</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Платина</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Палладий</translation>
-    </message>
-</context>
-<context>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
@@ -3068,6 +3045,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Nice years (Area)</source>
         <translation>Приятные года (области)</translation>
+    </message>
+    <message>
+        <source>Continuous time scale (Progress)</source>
+        <translation>Непрерывная временная шкала (Прогресс)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>
