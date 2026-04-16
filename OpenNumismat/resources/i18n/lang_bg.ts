@@ -290,7 +290,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>response with error or empty data</source>
-        <translation>отговор с грешка или празни данни</translation>
+        <translation>отговори с грешка или празни данни</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
@@ -1175,7 +1175,7 @@ The application will need to restart now.</source>
 Please clear import cache from Settings-&gt;Import-&gt;Clear cache
 and try again.</source>
         <translation>API на Colnect е променен.
-Моля, изчистете кеша за импортиране от Настройки-&gt;Импортиране-&gt;Изчистване на кешът
+Моля, изчистете кеша за импортиране от Настройки-&gt;Импортиране-&gt;Изчистване на кеша
 и опитайте отново.</translation>
     </message>
 </context>
@@ -2118,11 +2118,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Clear cache</source>
-        <translation>Изчистване на кешът</translation>
+        <translation>Изчистване на кеша</translation>
     </message>
     <message>
         <source>Import cache cleared</source>
-        <translation>Изчистване на кеша за импортиране</translation>
+        <translation>Кешът за импортиране е изчистен</translation>
     </message>
     <message>
         <source>Failed to clear cache</source>
@@ -2262,10 +2262,6 @@ drag-n-drop to add an image)</source>
         <translation>Използване на вграденият преглед на изображения</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation>Извличане на цени на метали от DBnomics с валута</translation>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Карти</translation>
     </message>
@@ -2346,7 +2342,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Icon view</source>
-        <translation>Икони изглед</translation>
+        <translation>Иконен изглед</translation>
     </message>
     <message>
         <source>Card view</source>
@@ -2733,25 +2729,6 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
-    <name>ProgressPreciousChartModel</name>
-    <message>
-        <source>Gold</source>
-        <translation>злато</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>сребро</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>платина</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>паладий</translation>
-    </message>
-</context>
-<context>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
@@ -3068,6 +3045,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Nice years (Area)</source>
         <translation>Красиви години (Площна диаграма)</translation>
+    </message>
+    <message>
+        <source>Continuous time scale (Progress)</source>
+        <translation>Непрекъсната времева линия (напредък)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>

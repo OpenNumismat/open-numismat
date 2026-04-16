@@ -282,15 +282,15 @@ Cierre el archivo y pruebe de nuevo.</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"/>
+        <translation>Servidor</translation>
     </message>
     <message>
         <source>not response</source>
-        <translation type="unfinished"/>
+        <translation>sin respuesta</translation>
     </message>
     <message>
         <source>response with error or empty data</source>
-        <translation type="unfinished"/>
+        <translation>respuesta con error o datos vacíos</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
@@ -1714,7 +1714,7 @@ Do you want to send an error message to the author?</source>
     <name>GeoChartModel</name>
     <message>
         <source>Translation of country names</source>
-        <translation type="unfinished"/>
+        <translation>Traducción de los nombres de país</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2126,7 +2126,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Failed to clear cache</source>
-        <translation type="unfinished"/>
+        <translation>No se pudo limpiar la caché</translation>
     </message>
 </context>
 <context>
@@ -2262,10 +2262,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Usar editor de imagen integrado</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Mapas</translation>
     </message>
@@ -2307,11 +2303,11 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Make autobackup after record changes:</source>
-        <translation type="unfinished"/>
+        <translation>Hacer autoguardado tras cambios en registro:</translation>
     </message>
     <message>
         <source>Verify SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>Verificar certificado SSL</translation>
     </message>
     <message>
         <source>System</source>
@@ -2729,26 +2725,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     <name>ProgressPreciousChart</name>
     <message>
         <source>Metal</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>ProgressPreciousChartModel</name>
-    <message>
-        <source>Gold</source>
-        <translation>Oro</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>Plata</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Platino</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Paladio</translation>
+        <translation>Metal</translation>
     </message>
 </context>
 <context>
@@ -2759,7 +2736,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Metal</source>
-        <translation type="unfinished"/>
+        <translation>Metal</translation>
     </message>
     <message>
         <source>Total</source>
@@ -3070,6 +3047,10 @@ Por favor, actualiza OpenNumismat</translation>
         <translation>Años bonitos (Area)</translation>
     </message>
     <message>
+        <source>Continuous time scale (Progress)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Background remover AI model</source>
         <translation>Modelo de IA de eliminación de fondo</translation>
     </message>
@@ -3206,11 +3187,11 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Precious weight</source>
-        <translation type="unfinished"/>
+        <translation>Peso precioso</translation>
     </message>
     <message>
         <source>Precious price</source>
-        <translation type="unfinished"/>
+        <translation>Precio precioso</translation>
     </message>
     <message>
         <source>Total price</source>
@@ -3392,7 +3373,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Gold price</source>
-        <translation type="unfinished"/>
+        <translation>Precio oro</translation>
     </message>
     <message>
         <source>Silver coins</source>
@@ -3404,7 +3385,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Silver price</source>
-        <translation type="unfinished"/>
+        <translation>Precio plata</translation>
     </message>
     <message>
         <source>Platinum coins</source>
@@ -3416,7 +3397,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Platinum price</source>
-        <translation type="unfinished"/>
+        <translation>Precio platino</translation>
     </message>
     <message>
         <source>Palladium coins</source>
@@ -3428,7 +3409,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Palladium price</source>
-        <translation type="unfinished"/>
+        <translation>Precio paladio</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
@@ -3440,7 +3421,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>gram</source>
-        <translation type="unfinished"/>
+        <translation>gramo</translation>
     </message>
 </context>
 <context>

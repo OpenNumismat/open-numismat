@@ -2262,10 +2262,6 @@ arraste e largue para adicionar)</translation>
         <translation>Utilizar visualizador interno</translation>
     </message>
     <message>
-        <source>Get metal prices from DBnomics with currency:</source>
-        <translation>Obter cotações de metais de DBnomics com moeda:</translation>
-    </message>
-    <message>
         <source>Maps</source>
         <translation>Mapas</translation>
     </message>
@@ -2733,25 +2729,6 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
-    <name>ProgressPreciousChartModel</name>
-    <message>
-        <source>Gold</source>
-        <translation>Ouro</translation>
-    </message>
-    <message>
-        <source>Silver</source>
-        <translation>Prata</translation>
-    </message>
-    <message>
-        <source>Platinum</source>
-        <translation>Platina</translation>
-    </message>
-    <message>
-        <source>Palladium</source>
-        <translation>Paládio</translation>
-    </message>
-</context>
-<context>
     <name>ProgressPreciousPriceChart</name>
     <message>
         <source>Trend</source>
@@ -3068,6 +3045,10 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>Nice years (Area)</source>
         <translation>Anos bons (área)</translation>
+    </message>
+    <message>
+        <source>Continuous time scale (Progress)</source>
+        <translation>Escala de tempo contínua (progresso)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>
