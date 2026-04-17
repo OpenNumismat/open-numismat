@@ -21,7 +21,8 @@ class SummaryDialog(QDialog):
         self.locale = QLocale.system()
         self.http = CachedPoolManager(self)
 
-        self.dbnomicsEnabled = Settings()['dbnomics_enabled']
+        # self.dbnomicsEnabled = Settings()['dbnomics_enabled']
+        self.dbnomicsEnabled = False
         self.dbnomicsCurrency = Settings()['dbnomics_currency']
 
         self.setWindowTitle(self.tr("Summary"))

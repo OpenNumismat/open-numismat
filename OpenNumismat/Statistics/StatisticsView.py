@@ -156,7 +156,8 @@ class StatisticsView(QWidget):
     def setModel(self, model):
         self.model = model
 
-        dbnomicsEnabled = Settings()['dbnomics_enabled']
+        # dbnomicsEnabled = Settings()['dbnomics_enabled']
+        dbnomicsEnabled = False
 
         default_subfieldid = 0
         for field in self.model.fields.userFields:
@@ -244,7 +245,8 @@ class StatisticsView(QWidget):
         elif chart == 'stacked':
             self.chart = self.stackedChart()
         elif chart == 'progress':
-            dbnomicsEnabled = Settings()['dbnomics_enabled']
+            # dbnomicsEnabled = Settings()['dbnomics_enabled']
+            dbnomicsEnabled = False
             items = self.itemsSelector.currentData()
             if items == 'weight':
                 self.chart = self.progressPreciousChart()
