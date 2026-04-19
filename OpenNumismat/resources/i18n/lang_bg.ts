@@ -3044,7 +3044,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Nice years (Area)</source>
-        <translation>Красиви години (Площна диаграма)</translation>
+        <translation>Красиви години (Площна)</translation>
     </message>
     <message>
         <source>Continuous time scale (Progress)</source>
