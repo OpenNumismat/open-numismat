@@ -1006,7 +1006,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Max image side len</source>
-        <translation>Максимална големина на изображението</translation>
+        <translation>Максимална дължина на страната на изображението</translation>
     </message>
     <message>
         <source>0 for storing in original size</source>
