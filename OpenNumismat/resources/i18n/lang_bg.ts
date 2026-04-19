@@ -3020,7 +3020,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Show legend (Pie)</source>
-        <translation>Показвай легенда (Кръгова)</translation>
+        <translation>Показване на легенда (Кръгова)</translation>
     </message>
     <message>
         <source>Top</source>
