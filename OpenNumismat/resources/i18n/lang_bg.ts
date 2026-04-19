@@ -464,7 +464,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Backup saved as %s</source>
-        <translation>Записано е резервно копие като %s</translation>
+        <translation>Резервното копие е запазено като %s</translation>
     </message>
     <message>
         <source>Exporting records</source>
