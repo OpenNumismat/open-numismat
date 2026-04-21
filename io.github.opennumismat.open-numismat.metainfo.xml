@@ -15,6 +15,7 @@
   <project_license>GPL-3.0-or-later</project_license>
   <launchable type="desktop-id">io.github.opennumismat.open-numismat.desktop</launchable>
   <url type="homepage">https://opennumismat.github.io/</url>
+  <url type="vcs-browser">https://github.com/OpenNumismat/open-numismat</url>
   <url type="bugtracker">https://github.com/OpenNumismat/open-numismat/issues</url>
   <update_contact>opennumismat@gmail.com</update_contact>
   <content_rating type="oars-1.1"/>
