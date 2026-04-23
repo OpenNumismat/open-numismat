@@ -2249,6 +2249,10 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Get metal prices from Finance Service with currency:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Maps</source>
         <translation type="unfinished"></translation>
     </message>
