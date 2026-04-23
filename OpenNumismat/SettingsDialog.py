@@ -319,7 +319,7 @@ class MainSettingsPage(QWidget):
         settings['transparent_store'] = self.transparentRadio.isChecked()
         settings['tree_counter'] = self.treeCounter.isChecked()
         settings['color_scheme'] = self.colorSchemeSelector.currentIndex()
-        if financeServiceAvailable:
+        if FINANCE_AVAILABLE:
             settings['finance_service_enabled'] = self.financeServiceEnabled.isChecked()
             settings['finance_service_currency'] = self.financeServiceCurrency.currentData()
 
