@@ -2262,6 +2262,10 @@ drag-n-drop to add an image)</source>
         <translation>Использовать встроенный редактор изображений</translation>
     </message>
     <message>
+        <source>Get metal prices from Finance Service with currency:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Карты</translation>
     </message>
