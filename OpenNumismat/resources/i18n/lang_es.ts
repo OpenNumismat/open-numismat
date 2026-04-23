@@ -2262,6 +2262,10 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Usar editor de imagen integrado</translation>
     </message>
     <message>
+        <source>Get metal prices from Finance Service with currency:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Mapas</translation>
     </message>
