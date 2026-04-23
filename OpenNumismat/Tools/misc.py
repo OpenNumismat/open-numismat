@@ -3,6 +3,11 @@ import sys
 from PySide6.QtGui import QImageReader
 from PySide6.QtWidgets import QApplication
 
+try:
+    from OpenNumismat.private_keys import FINANCE_PROXY
+except ImportError:
+    pass
+
 
 def versiontuple(v):
     try:
@@ -56,12 +61,6 @@ def saveImageFilters():
 
 def metalPrice(http, metal, currency, paydate=None):
     OZ_TO_GRAM = 31.1034768
-    metal_urls = {
-        'gold': "https://api.db.nomics.world/v22/series/LBMA/gold_D/gold_D_USD_AM?observations=1",
-        'silver': "https://api.db.nomics.world/v22/series/LBMA/silver_D/silver_D_USD?observations=1",
-        'platinum': "https://api.db.nomics.world/v22/series/LBMA/platinum_D/platinum_D_USD_AM?observations=1",
-        'palladium': "https://api.db.nomics.world/v22/series/LBMA/palladium_D/palladium_D_USD_AM?observations=1",
-    }
     metal_finenesses = {
         'gold': 0.995,
         'silver': 0.999,
@@ -72,26 +71,16 @@ def metalPrice(http, metal, currency, paydate=None):
     if not http.isAvailable():
         return None
 
-    response_data = http.get(metal_urls[metal], cache=1)
+    metal_url = f"{FINANCE_PROXY}/metal/{metal}"
+
+    response_data = http.get(metal_url)
     if not response_data:
         return None
 
     data = json.loads(response_data.decode())
-
-    series = data['series']['docs'][0]
-    dates = series['period']
-    values = series['value']
-
-    if paydate:
-        for i, date in enumerate(dates):
-            if paydate < date:
-                break
-            last_date = date
-            price_oz = values[i]
-    else:
-        last_date = dates[-1]
-        price_oz = values[-1]
+    price_oz = data['price']
     price_gram = price_oz / OZ_TO_GRAM / metal_finenesses[metal]
+    last_date = data['date']
 
     if currency == 'USD':
         return price_gram

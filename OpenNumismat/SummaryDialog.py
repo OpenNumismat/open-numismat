@@ -21,9 +21,8 @@ class SummaryDialog(QDialog):
         self.locale = QLocale.system()
         self.http = CachedPoolManager(self)
 
-        # self.dbnomicsEnabled = Settings()['dbnomics_enabled']
-        self.dbnomicsEnabled = False
-        self.dbnomicsCurrency = Settings()['dbnomics_currency']
+        self.financeServiceEnabled = Settings()['finance_service_enabled']
+        self.financeServiceCurrency = Settings()['finance_service_currency']
 
         self.setWindowTitle(self.tr("Summary"))
 
@@ -311,14 +310,14 @@ class SummaryDialog(QDialog):
                 gram_str = self.tr('gram')
                 lines.append(f"{titles[material][1]}: {weight_str} {gram_str} ({comment})")
 
-                if self.dbnomicsEnabled:
-                    price_gram = metalPrice(self.http, material, self.dbnomicsCurrency)
+                if self.financeServiceEnabled:
+                    price_gram = metalPrice(self.http, material, self.financeServiceCurrency)
                     if price_gram:
                         price_material = price_gram * weight
-                        if self.dbnomicsCurrency in currency_symbols:
-                            symbol = currency_symbols[self.dbnomicsCurrency]
+                        if self.financeServiceCurrency in currency_symbols:
+                            symbol = currency_symbols[self.financeServiceCurrency]
                         else:
-                            symbol = self.dbnomicsCurrency
+                            symbol = self.financeServiceCurrency
                         price_material_str = self.locale.toCurrencyString(float(price_material), symbol)
                         lines.append(f"{titles[material][2]}: {price_material_str} ({comment})")
 

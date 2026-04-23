@@ -113,7 +113,7 @@ class ProgressPreciousPriceChartModel(BaseChartModel):
     def __init__(self, db, filter_, parent=None):
         super().__init__(db, filter_, parent)
 
-        self.dbnomicsCurrency = Settings()['dbnomics_currency']
+        self.dbnomicsCurrency = Settings()['finance_service_currency']
         self.z_data = []
 
     @waitCursorDecorator

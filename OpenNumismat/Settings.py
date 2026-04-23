@@ -7,6 +7,7 @@ from PySide6.QtCore import Qt, QLocale, QSettings
 from PySide6.QtGui import QColor
 
 import OpenNumismat
+from OpenNumismat.Tools.dependencies import FINANCE_AVAILABLE
 
 
 class BaseSettings(dict):
@@ -135,8 +136,8 @@ class Settings(BaseSettings):
         'UUID': _getUuid().replace('-', ''),
         'tree_counter': False,
         'color_scheme': Qt.ColorScheme.Unknown.value,
-        'dbnomics_enabled': False,
-        'dbnomics_currency': 'EUR',
+        'finance_service_enabled': False,
+        'finance_service_currency': 'EUR',
     }
 
     def __init__(self, autoSave=False):
@@ -155,6 +156,9 @@ class Settings(BaseSettings):
         if key == 'template':
             if not os.path.isdir(value):
                 value = self.default_template
+        elif key == 'finance_service_enabled':
+            if not FINANCE_AVAILABLE:
+                value = False
 
         return value
 

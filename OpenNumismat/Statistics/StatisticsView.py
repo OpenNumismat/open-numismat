@@ -156,8 +156,7 @@ class StatisticsView(QWidget):
     def setModel(self, model):
         self.model = model
 
-        # dbnomicsEnabled = Settings()['dbnomics_enabled']
-        dbnomicsEnabled = False
+        financeServiceEnabled = Settings()['finance_service_enabled']
 
         default_subfieldid = 0
         for field in self.model.fields.userFields:
@@ -187,7 +186,7 @@ class StatisticsView(QWidget):
                 self.itemsSelector.addItem(self.tr("Pay date"), field.name)
             elif field.name == 'weight':
                 self.itemsSelector.addItem(self.tr("Precious weight"), field.name)
-            elif dbnomicsEnabled and field.name == 'fineness':
+            elif financeServiceEnabled and field.name == 'fineness':
                 self.itemsSelector.addItem(self.tr("Precious price"), field.name)
 
         # TODO: Store field name instead field ID
@@ -245,12 +244,11 @@ class StatisticsView(QWidget):
         elif chart == 'stacked':
             self.chart = self.stackedChart()
         elif chart == 'progress':
-            # dbnomicsEnabled = Settings()['dbnomics_enabled']
-            dbnomicsEnabled = False
+            financeServiceEnabled = Settings()['finance_service_enabled']
             items = self.itemsSelector.currentData()
             if items == 'weight':
                 self.chart = self.progressPreciousChart()
-            elif dbnomicsEnabled and items == 'fineness':
+            elif financeServiceEnabled and items == 'fineness':
                 self.chart = self.progressPreciousPriceChart()
             else:
                 self.chart = self.progressChart()
@@ -459,12 +457,12 @@ class StatisticsView(QWidget):
             'PLN': "zł",
         }
 
-        dbnomicsCurrency = Settings()['dbnomics_currency']
+        financeServiceCurrency = Settings()['finance_service_currency']
 
-        if dbnomicsCurrency in currency_symbols:
-            symbol = currency_symbols[dbnomicsCurrency]
+        if financeServiceCurrency in currency_symbols:
+            symbol = currency_symbols[financeServiceCurrency]
         else:
-            symbol = dbnomicsCurrency
+            symbol = financeServiceCurrency
 
         chart = ProgressPreciousPriceChart(model, self)
         field_title = self.periodSelector.currentText()

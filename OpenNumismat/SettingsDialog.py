@@ -43,6 +43,7 @@ from OpenNumismat.Tools.Gui import infoMessageBox
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses, TitleTemplateFields
 from OpenNumismat.Tools.CachedPoolManager import Cache
+from OpenNumismat.Tools.dependencies import FINANCE_AVAILABLE
 from OpenNumismat.EditCoinDialog.MapWidget import MapType
 from OpenNumismat.EditCoinDialog.MapWidget.MapboxWidget import mapboxAvailable
 
@@ -58,16 +59,16 @@ class MainSettingsPage(QWidget):
                  )
     Currencies = (
         ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazilian real")),
-#        ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarusian ruble")),
+        ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarusian ruble")),
         ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech koruna")),
         ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Euro")),
         ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - Pound sterling")),
         ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungarian forint")),
         ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Polish złoty")),
-#        ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
+        ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
         ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Swedish krona")),
         ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkish lira")),
-#        ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukrainian hryvnia")),
+        ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukrainian hryvnia")),
         ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States dollar"))
     )
 
@@ -192,28 +193,28 @@ class MainSettingsPage(QWidget):
         self.verifySsl.setChecked(settings['verify_ssl'])
         layout.addRow(self.verifySsl)
 
-        # TODO: Disabled while LBMA have been removed from DBnomics
-        # self.dbnomicsEnabled = QCheckBox(
-        #                 self.tr("Get metal prices from DBnomics with currency:"), self)
-        # self.dbnomicsEnabled.setChecked(settings['dbnomics_enabled'])
-        # self.dbnomicsEnabled.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        if FINANCE_AVAILABLE:
+            self.financeServiceEnabled = QCheckBox(
+                            self.tr("Get metal prices from Finance Service with currency:"), self)
+            self.financeServiceEnabled.setChecked(settings['finance_service_enabled'])
+            self.financeServiceEnabled.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
-        # self.dbnomicsCurrency = QComboBox(self)
-        # for curr in self.Currencies:
-        #     self.dbnomicsCurrency.addItem(QApplication.translate("Currency", curr[1]), curr[0])
-        # current = self.dbnomicsCurrency.findData(settings['dbnomics_currency'])
-        # if current == -1:
-        #     current = 0
-        # self.dbnomicsCurrency.setCurrentIndex(current)
-        # self.dbnomicsCurrency.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        # self.dbnomicsCurrency.setEnabled(settings['dbnomics_enabled'])
+            self.financeServiceCurrency = QComboBox(self)
+            for curr in self.Currencies:
+                self.financeServiceCurrency.addItem(QApplication.translate("Currency", curr[1]), curr[0])
+            current = self.financeServiceCurrency.findData(settings['finance_service_currency'])
+            if current == -1:
+                current = 0
+            self.financeServiceCurrency.setCurrentIndex(current)
+            self.financeServiceCurrency.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+            self.financeServiceCurrency.setEnabled(settings['finance_service_enabled'])
 
-        # self.dbnomicsEnabled.toggled.connect(self.dbnomicsCurrency.setEnabled)
+            self.financeServiceEnabled.toggled.connect(self.financeServiceCurrency.setEnabled)
 
-        # dbnomicsLayout = QHBoxLayout()
-        # dbnomicsLayout.addWidget(self.dbnomicsEnabled)
-        # dbnomicsLayout.addWidget(self.dbnomicsCurrency)
-        # layout.addRow(dbnomicsLayout)
+            financeServiceLayout = QHBoxLayout()
+            financeServiceLayout.addWidget(self.financeServiceEnabled)
+            financeServiceLayout.addWidget(self.financeServiceCurrency)
+            layout.addRow(financeServiceLayout)
 
         self.mapSelector = QComboBox(self)
         self.mapSelector.addItem('OpenStreetMap', MapType.OSM.value)
@@ -318,9 +319,9 @@ class MainSettingsPage(QWidget):
         settings['transparent_store'] = self.transparentRadio.isChecked()
         settings['tree_counter'] = self.treeCounter.isChecked()
         settings['color_scheme'] = self.colorSchemeSelector.currentIndex()
-        # TODO: Disabled while LBMA have been removed from DBnomics
-        # settings['dbnomics_enabled'] = self.dbnomicsEnabled.isChecked()
-        # settings['dbnomics_currency'] = self.dbnomicsCurrency.currentData()
+        if financeServiceAvailable:
+            settings['finance_service_enabled'] = self.financeServiceEnabled.isChecked()
+            settings['finance_service_currency'] = self.financeServiceCurrency.currentData()
 
         settings.save()
 
