@@ -2258,6 +2258,10 @@ drag-n-drop to add an image)</source>
         <translation>Integrierten Bildbetrachter benutzen</translation>
     </message>
     <message>
+        <source>Get metal prices from Finance Service with currency:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Karten</translation>
     </message>
