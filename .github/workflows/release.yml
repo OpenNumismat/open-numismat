@@ -50,6 +50,7 @@ jobs:
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
+        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
@@ -114,6 +115,7 @@ jobs:
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
+        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
@@ -190,6 +192,7 @@ jobs:
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
+        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
@@ -271,6 +274,7 @@ jobs:
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
+        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
@@ -358,6 +362,7 @@ jobs:
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
+        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
@@ -389,6 +394,7 @@ jobs:
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
+        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
@@ -424,6 +430,7 @@ jobs:
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
+        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
@@ -466,6 +473,7 @@ jobs:
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
+        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
