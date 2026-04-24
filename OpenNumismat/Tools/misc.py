@@ -71,7 +71,9 @@ def metalPrice(http, metal, currency, paydate=None):
     if not http.isAvailable():
         return None
 
-    metal_url = f"{FINANCE_PROXY}/metal/{metal}"
+    metal_url = f"{FINANCE_PROXY}/metal/{metal}_{currency}"
+    if paydate:
+        metal_url += f"?date={paydate}"
 
     response_data = http.get(metal_url)
     if not response_data:
@@ -81,20 +83,5 @@ def metalPrice(http, metal, currency, paydate=None):
     price_oz = data['price']
     price_gram = price_oz / OZ_TO_GRAM / metal_finenesses[metal]
     last_date = data['date']
-
-    if currency == 'USD':
-        return price_gram
-
-    currency_url = f"https://theratesapi.com/api/{last_date}/?base=USD&symbols={currency}"
-    response_data = http.get(currency_url, cache=30)
-    if not response_data:
-        return None
-
-    data = json.loads(response_data.decode())
-
-    rates = data['rates']
-    rate = rates[currency]
-
-    price_gram = price_gram * rate
 
     return price_gram

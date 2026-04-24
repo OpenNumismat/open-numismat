@@ -14,8 +14,8 @@ from OpenNumismat.Settings import Settings
 
 TIMEOUT = 10
 SITES_CATALOG = {
-    "theratesapi.com": "The Rates API",
-    "api.db.nomics.world": "DBnomics",
+    # "theratesapi.com": "The Rates API",
+    # "api.db.nomics.world": "DBnomics",
     "opennumismat.duckdns.org": "OpenNumismat proxy",
     "i.colnect.net": "Colnect",
     "numismatics.org": "American Numismatic Society",
