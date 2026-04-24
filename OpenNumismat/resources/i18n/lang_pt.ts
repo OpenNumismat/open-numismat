@@ -2263,7 +2263,7 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Get metal prices from Finance Service with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Obter preços de metais do Finance Service na moeda:</translation>
     </message>
     <message>
         <source>Maps</source>
