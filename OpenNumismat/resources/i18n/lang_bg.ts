@@ -2263,7 +2263,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Get metal prices from Finance Service with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Извличане на цени на метали от Finance Service с валута:</translation>
     </message>
     <message>
         <source>Maps</source>
