@@ -2743,6 +2743,10 @@ drag-n-drop to add an image)</source>
         <translation>Металл</translation>
     </message>
     <message>
+        <source>Date</source>
+        <translation>Дата</translation>
+    </message>
+    <message>
         <source>Total</source>
         <translation>Всего</translation>
     </message>
