@@ -2743,6 +2743,10 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Metal</translation>
     </message>
     <message>
+        <source>Date</source>
+        <translation>Fecha</translation>
+    </message>
+    <message>
         <source>Total</source>
         <translation>Total</translation>
     </message>
