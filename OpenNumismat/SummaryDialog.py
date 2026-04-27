@@ -311,15 +311,18 @@ class SummaryDialog(QDialog):
                 lines.append(f"{titles[material][1]}: {weight_str} {gram_str} ({comment})")
 
                 if self.financeServiceEnabled:
-                    price_gram = metalPrice(self.http, material, self.financeServiceCurrency)
+                    price_gram, date = metalPrice(self.http, material, self.financeServiceCurrency)
                     if price_gram:
+                        date_obj = QDate.fromString(date, Qt.ISODate)
+                        date_str = self.locale.toString(date_obj, QLocale.ShortFormat)
+                        date_comment = self.tr("at %s") % date_str
                         price_material = price_gram * weight
                         if self.financeServiceCurrency in currency_symbols:
                             symbol = currency_symbols[self.financeServiceCurrency]
                         else:
                             symbol = self.financeServiceCurrency
                         price_material_str = self.locale.toCurrencyString(float(price_material), symbol)
-                        lines.append(f"{titles[material][2]}: {price_material_str} ({comment})")
+                        lines.append(f"{titles[material][2]}: {price_material_str} ({date_comment})")
 
         return lines
 

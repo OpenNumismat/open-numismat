@@ -86,4 +86,4 @@ def metalPrice(http, metal, currency, paydate=None):
     price_gram = price_oz / OZ_TO_GRAM / metal_finenesses[metal]
     last_date = data['date']
 
-    return price_gram
+    return price_gram, last_date
