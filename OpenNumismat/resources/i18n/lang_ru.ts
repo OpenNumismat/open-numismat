@@ -3427,6 +3427,10 @@ Please update OpenNumismat</source>
         <source>gram</source>
         <translation>грамм</translation>
     </message>
+    <message>
+        <source>at %s</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>TabView</name>
