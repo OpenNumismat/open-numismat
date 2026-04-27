@@ -529,7 +529,7 @@ jobs:
         prerelease: true
         name: "Development Build"
         generate_release_notes: true
-        make_latest: true
+#        make_latest: true
 #    - name: release
 #      id: release
 #      uses: marvinpinto/action-automatic-releases@latest
