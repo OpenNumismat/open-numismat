@@ -69,7 +69,7 @@ def metalPrice(http, metal, currency, paydate=None):
     }
 
     if not http.isAvailable():
-        return None
+        return None, None
 
     metal_url = f"{FINANCE_PROXY}/metal/{metal}_{currency}"
     cache = 1
@@ -79,7 +79,7 @@ def metalPrice(http, metal, currency, paydate=None):
 
     response_data = http.get(metal_url, cache=cache)
     if not response_data:
-        return None
+        return None, None
 
     data = json.loads(response_data.decode())
     price_oz = data['price']
