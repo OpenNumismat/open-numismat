@@ -3427,6 +3427,10 @@ Por favor, actualize o Openumismat.</translation>
         <source>gram</source>
         <translation>grama</translation>
     </message>
+    <message>
+        <source>at %s</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>TabView</name>
