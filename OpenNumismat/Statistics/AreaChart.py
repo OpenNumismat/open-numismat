@@ -13,7 +13,6 @@ from PySide6.QtCore import (
     Qt,
     QDate,
     QDateTime,
-    QPoint,
 )
 from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery

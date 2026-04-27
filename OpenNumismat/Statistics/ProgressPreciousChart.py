@@ -9,7 +9,7 @@ from PySide6.QtCharts import (
     QValueAxis,
     QXYLegendMarker,
 )
-from PySide6.QtCore import Qt, QLocale, QPoint
+from PySide6.QtCore import Qt, QLocale
 from PySide6.QtGui import QCursor, QPen
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip

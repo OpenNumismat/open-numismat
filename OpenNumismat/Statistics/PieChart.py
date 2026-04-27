@@ -1,5 +1,5 @@
 from PySide6.QtCharts import QPieSeries, QPieSlice
-from PySide6.QtCore import Qt, QPoint
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QCursor
 from PySide6.QtWidgets import QToolTip
 

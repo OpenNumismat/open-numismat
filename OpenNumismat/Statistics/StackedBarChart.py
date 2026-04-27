@@ -6,7 +6,7 @@ from PySide6.QtCharts import (
     QHorizontalStackedBarSeries,
     QValueAxis,
 )
-from PySide6.QtCore import Qt, QPoint
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
