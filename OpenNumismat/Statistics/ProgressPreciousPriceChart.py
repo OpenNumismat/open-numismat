@@ -231,7 +231,7 @@ class ProgressPreciousPriceChartModel(BaseChartModel):
                 total_price = 0
                 for metal, weight in total_weight.items():
                     if weight > 0:
-                        price, date = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
+                        price, date_at = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
                         if price:
                             total_price += weight * price
                 normalized_linear_data[normalized_period_item] = total_price
@@ -239,7 +239,7 @@ class ProgressPreciousPriceChartModel(BaseChartModel):
                 if period_item in data:
                     item_data = {}
                     for metal, weight in data[period_item].items():
-                        price, date = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
+                        price, date_at = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
                         if price:
                             metal_title = self.tr(metal.capitalize())
                             item_data[metal_title] = weight * price
