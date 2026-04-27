@@ -3433,7 +3433,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>at %s</source>
-        <translation type="unfinished"/>
+        <translation>в %s</translation>
     </message>
 </context>
 <context>
