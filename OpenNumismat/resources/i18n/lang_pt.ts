@@ -2743,6 +2743,10 @@ arraste e largue para adicionar)</translation>
         <translation>Metal</translation>
     </message>
     <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
         <source>Total</source>
         <translation>Total</translation>
     </message>
