@@ -2741,6 +2741,10 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Date</source>
+        <translation>Дата</translation>
+    </message>
+    <message>
         <source>Total</source>
         <translation>Всього</translation>
     </message>
