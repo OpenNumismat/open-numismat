@@ -72,10 +72,12 @@ def metalPrice(http, metal, currency, paydate=None):
         return None
 
     metal_url = f"{FINANCE_PROXY}/metal/{metal}_{currency}"
+    cache = 1
     if paydate:
         metal_url += f"?date={paydate}"
+        cache = 30
 
-    response_data = http.get(metal_url)
+    response_data = http.get(metal_url, cache=cache)
     if not response_data:
         return None
 
