@@ -10,7 +10,7 @@ from PySide6.QtCharts import (
     QValueAxis,
     QXYLegendMarker,
 )
-from PySide6.QtCore import Qt, QLocale, QPoint
+from PySide6.QtCore import Qt, QDate, QLocale, QPoint
 from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
@@ -84,25 +84,37 @@ class ProgressPreciousPriceChart(BaseChartView):
 
     def hover(self, status, index, barset):
         if status:
+            locale = QLocale.system()
+
             y = barset.at(index)
             z = barset.label()
+            date = self.model.dates[index]
+            date_obj = QDate.fromString(date, Qt.ISODate)
+            date_str = locale.toString(date_obj, QLocale.ShortFormat)
 
-            metal_str = self.tr("Metal")
-            locale = QLocale.system()
+            metal_label = self.tr("Metal")
             price_str = locale.toString(float(y), 'f', precision=2)
-            tooltip = f"{metal_str}: {z}\n{self.label}: {price_str}"
+            date_label = self.tr("Date")
+            tooltip = f"{metal_label}: {z}\n{self.label}: {price_str}\n{date_label}: {date_str}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
 
     def line_hover(self, point, state):
         if state:
+            locale = QLocale.system()
+
             pos = int(point.x() + 0.5)
             count = self.lineseries.at(pos).y()
-            total_str = self.tr("Total")
-            locale = QLocale.system()
             price_str = locale.toString(float(count), 'f', precision=2)
-            tooltip = f"{total_str}: {price_str}"
+            total_label = self.tr("Total")
+
+            date = self.model.dates[pos]
+            date_obj = QDate.fromString(date, Qt.ISODate)
+            date_str = locale.toString(date_obj, QLocale.ShortFormat)
+            date_label = self.tr("Date")
+
+            tooltip = f"{total_label}: {price_str}\n{date_label}: {date_str}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
             QToolTip.showText(QPoint(), "")
@@ -219,6 +231,7 @@ class ProgressPreciousPriceChartModel(BaseChartModel):
 
         normalized_data = {}
         normalized_linear_data = {}
+        self.dates = []
         if data:
             http = CachedPoolManager(self.parent())
 
@@ -231,7 +244,7 @@ class ProgressPreciousPriceChartModel(BaseChartModel):
                 total_price = 0
                 for metal, weight in total_weight.items():
                     if weight > 0:
-                        price, date_at = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
+                        price, _ = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
                         if price:
                             total_price += weight * price
                 normalized_linear_data[normalized_period_item] = total_price
@@ -239,7 +252,7 @@ class ProgressPreciousPriceChartModel(BaseChartModel):
                 if period_item in data:
                     item_data = {}
                     for metal, weight in data[period_item].items():
-                        price, date_at = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
+                        price, _ = metalPrice(http, metal, self.dbnomicsCurrency, period_item)
                         if price:
                             metal_title = self.tr(metal.capitalize())
                             item_data[metal_title] = weight * price
@@ -249,6 +262,8 @@ class ProgressPreciousPriceChartModel(BaseChartModel):
                     normalized_linear_data[normalized_period_item] += sum(item_data.values())
                 else:
                     normalized_data[normalized_period_item] = {}
+
+                self.dates.append(period_item)
 
                 current_date = current_date + delta
 
