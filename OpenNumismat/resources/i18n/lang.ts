@@ -2730,6 +2730,10 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Total</source>
         <translation type="unfinished"></translation>
     </message>
