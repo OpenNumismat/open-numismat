@@ -73,7 +73,7 @@ class StackedBarChart(BaseChartView):
                                                      self.label, y, s)
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
 
 class StackedBarChartModel(BaseChartModel):

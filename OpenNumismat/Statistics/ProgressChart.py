@@ -81,7 +81,7 @@ class ProgressChart(BaseChartView):
 
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
 
 class ProgressChartModel(BaseChartModel):

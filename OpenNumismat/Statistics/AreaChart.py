@@ -44,7 +44,7 @@ class AreaSeries(QAreaSeries):
                                              cur_y, self.tr("Total"), max_y)
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
     
 
 class AreaChart(BaseChartView):
@@ -129,7 +129,7 @@ class AreaNiceSeries(QAreaSeries):
                                              cur_y, self.tr("Total"), max_y)
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
     def getPoint(self, series, pos):
         prev_point = series.points()[0]

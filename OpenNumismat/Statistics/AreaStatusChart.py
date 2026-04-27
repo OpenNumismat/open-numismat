@@ -106,7 +106,7 @@ class AreaStatusChart(BaseChartView):
                 tooltip += "\n%s: %d" % (Statuses['sold'], sold)
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
 
 class AreaNiceStatusChart(BaseChartView):
@@ -231,7 +231,7 @@ class AreaNiceStatusChart(BaseChartView):
 
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
 
 class AreaStatusChartModel(BaseChartModel):

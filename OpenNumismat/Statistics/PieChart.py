@@ -52,4 +52,4 @@ class PieChart(BaseChartView):
                                           self.label, slice_.value())
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()

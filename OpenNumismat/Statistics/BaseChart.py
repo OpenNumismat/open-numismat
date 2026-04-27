@@ -64,7 +64,7 @@ class BaseChartView(QChartView):
         if status:
             QToolTip.showText(QCursor.pos(), self.tooltip(index))
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
     def tooltip(self, pos):
         x = self.model.x_data[pos]

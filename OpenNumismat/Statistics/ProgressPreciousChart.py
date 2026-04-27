@@ -33,7 +33,7 @@ class LineSeries(QLineSeries):
             tooltip = f"{self.name()}: {value:.2f}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
 
 class ProgressPreciousChart(BaseChartView):
@@ -117,7 +117,7 @@ class ProgressPreciousChart(BaseChartView):
             tooltip = f"{metal_str}: {z}\n{self.label}: {weight_str}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
 
 class ProgressPreciousChartModel(BaseChartModel):

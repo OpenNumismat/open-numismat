@@ -98,7 +98,7 @@ class ProgressPreciousPriceChart(BaseChartView):
             tooltip = f"{metal_label}: {z}\n{self.label}: {price_str}\n{date_label}: {date_str}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
     def line_hover(self, point, state):
         if state:
@@ -117,7 +117,7 @@ class ProgressPreciousPriceChart(BaseChartView):
             tooltip = f"{total_label}: {price_str}\n{date_label}: {date_str}"
             QToolTip.showText(QCursor.pos(), tooltip)
         else:
-            QToolTip.showText(QPoint(), "")
+            QToolTip.hideText()
 
 
 class ProgressPreciousPriceChartModel(BaseChartModel):
