@@ -2738,6 +2738,10 @@ drag-n-drop to add an image)</source>
         <translation>Metallo</translation>
     </message>
     <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
         <source>Total</source>
         <translation>Totale</translation>
     </message>
