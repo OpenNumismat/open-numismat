@@ -3409,6 +3409,10 @@ Please update OpenNumismat</source>
         <source>gram</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>at %s</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabView</name>
