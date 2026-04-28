@@ -2247,7 +2247,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Extra fast (dangerous)</source>
-        <translation>Допълнително бързо (опасно)</translation>
+        <translation>Изключително бързо (опасно)</translation>
     </message>
     <message>
         <source>Acceleration of storage</source>
