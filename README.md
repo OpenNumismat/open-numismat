@@ -71,3 +71,11 @@ Befor building installation package may be necessary:
 #### For Linux
     sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv
     debuild -b -us -uc
+
+### Run from source
+    git clone https://github.com/OpenNumismat/open-numismat.git
+    cd open-numismat
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    python open-numismat.py
