@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 
@@ -10,7 +9,7 @@ from PySide6.QtCharts import (
     QValueAxis,
     QXYLegendMarker,
 )
-from PySide6.QtCore import Qt, QDate, QLocale, QPoint
+from PySide6.QtCore import Qt, QDate, QLocale
 from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
