@@ -520,6 +520,11 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         path: artifacts
+    - name: Clear old release assets
+      run: |
+        gh release view latest --json assets --jq '.assets[].name' | xargs -I {} gh release delete-asset latest "{}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: release
       id: release
       uses: softprops/action-gh-release@v3
