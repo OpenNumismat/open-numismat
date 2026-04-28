@@ -242,12 +242,12 @@ jobs:
         cd open-numismat.dist
         mkdir ${{ needs.title.outputs.APPNAME }}
         robocopy . ${{ needs.title.outputs.APPNAME }} /move /e /xd ${{ needs.title.outputs.APPNAME }}
-        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
       uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed
-        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        path: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip
         if-no-files-found: error
 
   nuitka_innosetup:
@@ -323,7 +323,7 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
-        path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
+        path: tools/${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
         if-no-files-found: error
 
   ubuntu:
@@ -409,12 +409,12 @@ jobs:
     - name: Build
       run: |
         debuild -b -us -uc
-        mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb .
+        mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb ./open-numismat_${{ needs.title.outputs.VERSION }}_all_24.deb
     - name: upload
       uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
-        path: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
+        path: open-numismat_${{ needs.title.outputs.VERSION }}_all_24.deb
         if-no-files-found: error
 
   macos:
@@ -516,13 +516,15 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Download artifacts
       uses: actions/download-artifact@v8
       with:
         path: artifacts
-    - name: Clear old release assets
-      run: |
-        gh release view latest --json assets --jq '.assets[].name' | xargs -I {} gh release delete-asset latest "{}"
+    - name: Delete old release
+      run: gh release delete latest --yes --cleanup-tag || echo "Not found"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: release
@@ -534,59 +536,12 @@ jobs:
         prerelease: true
         name: "Development Build"
         generate_release_notes: true
-    - name: upload-windows
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-portable-signed/${{ needs.title.outputs.PACKAGENAME }}.zip
-        asset_name: ${{ needs.title.outputs.PACKAGENAME }}.zip
-        asset_content_type: application/zip
-    - name: upload-innosetup
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.exe
-        asset_name: ${{ needs.title.outputs.PACKAGENAME }}.exe
-        asset_content_type: application/octet-stream
-    - name: upload-nuitka
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed/${{ needs.title.outputs.PACKAGENAME }}.zip
-        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip
-        asset_content_type: application/octet-stream
-    - name: upload-nuitka-innosetup
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka/${{ needs.title.outputs.PACKAGENAME }}.exe
-        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
-        asset_content_type: application/octet-stream
-    - name: upload-ubuntu
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb/open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
-        asset_name: open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
-        asset_content_type: application/octet-stream
-    - name: upload-ubuntu-24
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb-24/open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
-        asset_name: open-numismat_${{ needs.title.outputs.VERSION }}_all_24.deb
-        asset_content_type: application/octet-stream
-    - name: upload-macos
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg
-        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg
-        asset_content_type: application/octet-stream
-    - name: upload-macos-arm64
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64/${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg
-        asset_name: ${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg
-        asset_content_type: application/octet-stream
+        files: |
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}-portable-signed/${{ needs.title.outputs.PACKAGENAME }}.zip
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}/${{ needs.title.outputs.PACKAGENAME }}.exe
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed/${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka/${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb/open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb-24/open-numismat_${{ needs.title.outputs.VERSION }}_all_24.deb
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64/${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg
