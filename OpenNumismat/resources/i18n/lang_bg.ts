@@ -464,7 +464,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Backup saved as %s</source>
-        <translation>Записано е резервно копие като %s</translation>
+        <translation>Резервното копие е запазено като %s</translation>
     </message>
     <message>
         <source>Exporting records</source>
@@ -1006,7 +1006,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Max image side len</source>
-        <translation>Максимална големина на изображението</translation>
+        <translation>Максимална дължина на страната на изображението</translation>
     </message>
     <message>
         <source>0 for storing in original size</source>
@@ -2262,6 +2262,10 @@ drag-n-drop to add an image)</source>
         <translation>Използване на вграденият преглед на изображения</translation>
     </message>
     <message>
+        <source>Get metal prices from Finance Service with currency:</source>
+        <translation>Извличане на цени на метали от Finance Service с валута:</translation>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Карти</translation>
     </message>
@@ -2739,6 +2743,10 @@ drag-n-drop to add an image)</source>
         <translation>Метал</translation>
     </message>
     <message>
+        <source>Date</source>
+        <translation>Дата</translation>
+    </message>
+    <message>
         <source>Total</source>
         <translation>Общо</translation>
     </message>
@@ -3020,7 +3028,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Show legend (Pie)</source>
-        <translation>Покажи легендата (Кръгова)</translation>
+        <translation>Показване на легенда (Кръгова)</translation>
     </message>
     <message>
         <source>Top</source>
@@ -3044,11 +3052,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Nice years (Area)</source>
-        <translation>Красиви години (Площна диаграма)</translation>
+        <translation>Красиви години (Площна)</translation>
     </message>
     <message>
         <source>Continuous time scale (Progress)</source>
-        <translation>Непрекъсната времева линия (напредък)</translation>
+        <translation>Непрекъсната времева линия (Линейна)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>
@@ -3422,6 +3430,10 @@ Please update OpenNumismat</source>
     <message>
         <source>gram</source>
         <translation>г</translation>
+    </message>
+    <message>
+        <source>at %s</source>
+        <translation>в %s</translation>
     </message>
 </context>
 <context>

@@ -2262,6 +2262,10 @@ drag-n-drop to add an image)</source>
         <translation>Использовать встроенный редактор изображений</translation>
     </message>
     <message>
+        <source>Get metal prices from Finance Service with currency:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Карты</translation>
     </message>
@@ -2737,6 +2741,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Metal</source>
         <translation>Металл</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Дата</translation>
     </message>
     <message>
         <source>Total</source>
@@ -3422,6 +3430,10 @@ Please update OpenNumismat</source>
     <message>
         <source>gram</source>
         <translation>грамм</translation>
+    </message>
+    <message>
+        <source>at %s</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

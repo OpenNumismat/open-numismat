@@ -522,12 +522,22 @@ jobs:
         path: artifacts
     - name: release
       id: release
-      uses: marvinpinto/action-automatic-releases@latest
+      uses: softprops/action-gh-release@v2
       with:
-        repo_token: "${{ secrets.PAT }}"
-        automatic_release_tag: "latest"
+        token: "${{ secrets.PAT }}"
+        tag_name: "latest"
         prerelease: true
-        title: "Development Build"
+        name: "Development Build"
+        generate_release_notes: true
+#        make_latest: true
+#    - name: release
+#      id: release
+#      uses: marvinpinto/action-automatic-releases@latest
+#      with:
+#        repo_token: "${{ secrets.PAT }}"
+#        automatic_release_tag: "latest"
+#        prerelease: true
+#        title: "Development Build"
     - name: upload-windows
       uses: actions/upload-release-asset@v1
       with:

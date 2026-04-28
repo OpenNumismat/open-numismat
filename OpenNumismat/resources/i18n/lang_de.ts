@@ -2258,6 +2258,10 @@ drag-n-drop to add an image)</source>
         <translation>Integrierten Bildbetrachter benutzen</translation>
     </message>
     <message>
+        <source>Get metal prices from Finance Service with currency:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Maps</source>
         <translation>Karten</translation>
     </message>
@@ -2734,6 +2738,10 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Metal</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
     </message>
     <message>
         <source>Total</source>
@@ -3417,6 +3425,10 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>gram</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>at %s</source>
         <translation type="unfinished"/>
     </message>
 </context>
