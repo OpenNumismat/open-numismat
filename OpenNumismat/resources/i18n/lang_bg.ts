@@ -1034,7 +1034,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Enable BC</source>
-        <translation>Активиране &quot;пр. Хр.&quot;</translation>
+        <translation>Активиране на отметка &quot;пр. Хр.&quot;</translation>
     </message>
     <message>
         <source>Use RichText format</source>
