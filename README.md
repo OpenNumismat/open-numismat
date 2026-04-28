@@ -73,7 +73,7 @@ Befor building installation package may be necessary:
     debuild -b -us -uc
 
 ### Run from source
-    git clone https://github.com/OpenNumismat/open-numismat.git
+    git clone --recurse-submodules https://github.com/OpenNumismat/open-numismat.git
     cd open-numismat
     python3 -m venv .venv
     source .venv/bin/activate
