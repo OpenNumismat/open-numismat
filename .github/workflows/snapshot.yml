@@ -97,7 +97,7 @@ jobs:
     - name: package
       run: |
         cd dist
-        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
+        7z a -tzip -mx=9 -mfb=258 -mpass=15 -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: Upload zip
       uses: actions/upload-artifact@v7
       with:
@@ -242,7 +242,7 @@ jobs:
         cd open-numismat.dist
         mkdir ${{ needs.title.outputs.APPNAME }}
         robocopy . ${{ needs.title.outputs.APPNAME }} /move /e /xd ${{ needs.title.outputs.APPNAME }}
-        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip ${{ needs.title.outputs.APPNAME }}
+        7z a -tzip -mx=9 -mfb=258 -mpass=15 -r ../${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip ${{ needs.title.outputs.APPNAME }}
     - name: upload
       uses: actions/upload-artifact@v7
       with:
