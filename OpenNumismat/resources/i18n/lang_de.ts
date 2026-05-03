@@ -1010,7 +1010,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Image quality, %</source>
-        <translation type="unfinished"/>
+        <translation>Bildqualität, %</translation>
     </message>
     <message>
         <source>Preview image height</source>
