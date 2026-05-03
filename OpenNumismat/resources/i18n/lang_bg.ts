@@ -1034,7 +1034,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Enable BC</source>
-        <translation>Активиране &quot;пр. Хр.&quot;</translation>
+        <translation>Активиране на отметка &quot;пр. Хр.&quot;</translation>
     </message>
     <message>
         <source>Use RichText format</source>
@@ -1070,7 +1070,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Enable tags</source>
-        <translation>Активиране на етикети</translation>
+        <translation>Активиране на екран Етикети</translation>
     </message>
     <message>
         <source>Used statuses (double-click for rename):</source>
@@ -2247,7 +2247,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Extra fast (dangerous)</source>
-        <translation>Допълнително бързо (опасно)</translation>
+        <translation>Изключително бързо (опасно)</translation>
     </message>
     <message>
         <source>Acceleration of storage</source>
@@ -3433,7 +3433,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>at %s</source>
-        <translation>в %s</translation>
+        <translation>към %s</translation>
     </message>
 </context>
 <context>
