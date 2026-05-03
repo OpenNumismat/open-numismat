@@ -3385,7 +3385,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Silver weight</source>
-        <translation type="unfinished"/>
+        <translation>Silber-Gewicht</translation>
     </message>
     <message>
         <source>Silver price</source>
