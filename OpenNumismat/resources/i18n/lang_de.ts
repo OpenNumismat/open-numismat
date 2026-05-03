@@ -3060,11 +3060,11 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Crop after background remover</source>
-        <translation type="unfinished"/>
+        <translation>Zuschneiden nach Hintergrundentfernung</translation>
     </message>
     <message>
         <source>Window background color</source>
-        <translation type="unfinished"/>
+        <translation>Hintergrundfarbe des Fensters</translation>
     </message>
 </context>
 <context>
