@@ -1058,7 +1058,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
-        <translation type="unfinished"/>
+        <translation>Die Bildeinstellungen wurden geändert. Neue Einstellungen jetzt auf alle gespeicherten Bilder anwenden (die Qualität kann dadurch beeinträchtigt werden)?</translation>
     </message>
     <message>
         <source>5 stars in rating</source>
@@ -1710,7 +1710,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <name>GeoChartModel</name>
     <message>
         <source>Translation of country names</source>
-        <translation type="unfinished"/>
+        <translation>Übersetzung der Ländernamen</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2122,7 +2122,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Failed to clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Cache-Speicher konnte nicht geleert werden</translation>
     </message>
 </context>
 <context>
