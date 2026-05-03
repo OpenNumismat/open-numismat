@@ -3373,7 +3373,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Gold weight</source>
-        <translation type="unfinished"/>
+        <translation>Gold-Gewicht</translation>
     </message>
     <message>
         <source>Gold price</source>
