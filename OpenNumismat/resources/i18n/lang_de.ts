@@ -3413,7 +3413,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Palladium price</source>
-        <translation type="unfinished"/>
+        <translation>Palladium-Preis</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
