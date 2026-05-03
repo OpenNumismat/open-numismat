@@ -289,7 +289,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>response with error or empty data</source>
-        <translation type="unfinished"/>
+        <translation>errore nella risposta o dati mancanti</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
