@@ -285,11 +285,11 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>not response</source>
-        <translation type="unfinished"/>
+        <translation>Keine Antwort</translation>
     </message>
     <message>
         <source>response with error or empty data</source>
-        <translation type="unfinished"/>
+        <translation>Antwort mit Fehler oder leeren Daten</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
