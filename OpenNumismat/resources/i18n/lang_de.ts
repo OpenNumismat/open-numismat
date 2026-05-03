@@ -3425,7 +3425,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>gram</source>
-        <translation type="unfinished"/>
+        <translation>Gramm</translation>
     </message>
     <message>
         <source>at %s</source>
