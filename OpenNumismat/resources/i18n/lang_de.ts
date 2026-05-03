@@ -3421,7 +3421,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>calculated for %d/%d coins</source>
-        <translation type="unfinished"/>
+        <translation>berechnet für %d/%d Münzen</translation>
     </message>
     <message>
         <source>gram</source>
