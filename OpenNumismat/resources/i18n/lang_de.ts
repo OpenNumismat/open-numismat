@@ -3513,7 +3513,8 @@ Bitte OpenNumismat aktualisieren</translation>
     <message>
         <source>Can't close latest opened list.
 Add a new one first.</source>
-        <translation type="unfinished"/>
+        <translation>Die zuletzt geöffnete Liste kann nicht geschlossen werden..
+ Fügen Sie zuerst eine neue Liste hinzu.</translation>
     </message>
     <message>
         <source>Can't remove latest opened page.
