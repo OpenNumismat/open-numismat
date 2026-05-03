@@ -3417,7 +3417,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
-        <translation type="unfinished"/>
+        <translation>berechnet für %d Münzen</translation>
     </message>
     <message>
         <source>calculated for %d/%d coins</source>
