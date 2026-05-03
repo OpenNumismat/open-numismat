@@ -3433,7 +3433,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>at %s</source>
-        <translation type="unfinished"/>
+        <translation>em %s</translation>
     </message>
 </context>
 <context>
