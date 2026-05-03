@@ -767,7 +767,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Format</source>
-        <translation type="unfinished"/>
+        <translation>Oblika</translation>
     </message>
     <message>
         <source>Condition</source>
@@ -2260,7 +2260,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"/>
+        <translation>Normalno</translation>
     </message>
     <message>
         <source>Large</source>
