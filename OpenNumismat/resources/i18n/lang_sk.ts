@@ -1,282 +1,284 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sk">
 <context>
     <name>AddressLineEdit</name>
     <message>
         <source>Find address</source>
-        <translation type="unfinished"/>
+        <translation>Nájsť adresu</translation>
     </message>
 </context>
 <context>
     <name>AllReferenceDialog</name>
     <message>
         <source>Reference</source>
-        <translation>Referentie</translation>
+        <translation>Odkaz</translation>
     </message>
     <message>
         <source>Save reference</source>
-        <translation>Bewaar referentie</translation>
+        <translation>Uložiť odkaz</translation>
     </message>
     <message>
         <source>Something went wrong when saving. Please restart</source>
-        <translation>Er is iets misgegaan bij het opslaan. herstart</translation>
+        <translation>Pri ukladaní sa niečo pokazilo. Prosím reštartujte</translation>
     </message>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
-        <translation>Er is iets misgegaan bij het annuleren. herstart</translation>
+        <translation>Pri rušení sa vyskytla chyba. Prosím reštartujte</translation>
     </message>
 </context>
 <context>
     <name>AnsDialog</name>
     <message>
         <source>Greek</source>
-        <translation type="unfinished"/>
+        <translation>Grécky</translation>
     </message>
     <message>
         <source>Roman</source>
-        <translation type="unfinished"/>
+        <translation>Rímsky</translation>
     </message>
     <message>
         <source>Byzantine</source>
-        <translation type="unfinished"/>
+        <translation>Byzantský</translation>
     </message>
     <message>
         <source>Islamic</source>
-        <translation type="unfinished"/>
+        <translation>Islamský</translation>
     </message>
     <message>
         <source>East Asia</source>
-        <translation type="unfinished"/>
+        <translation>Východná Ázia</translation>
     </message>
     <message>
         <source>South Asia</source>
-        <translation type="unfinished"/>
+        <translation>Južná Ázia</translation>
     </message>
     <message>
         <source>Medieval</source>
-        <translation type="unfinished"/>
+        <translation>Stredovek</translation>
     </message>
     <message>
         <source>Modern</source>
-        <translation type="unfinished"/>
+        <translation>Moderna</translation>
     </message>
     <message>
         <source>North America</source>
-        <translation type="unfinished"/>
+        <translation>Severná Amerika</translation>
     </message>
     <message>
         <source>Latin America</source>
-        <translation type="unfinished"/>
+        <translation>Latinská Amerika</translation>
     </message>
     <message>
         <source>Medals And Decorations</source>
-        <translation type="unfinished"/>
+        <translation>Medaily a Vyznamenania</translation>
     </message>
     <message>
         <source>Decoration</source>
-        <translation type="unfinished"/>
+        <translation>Vyznamenanie</translation>
     </message>
     <message>
         <source>Has images</source>
-        <translation type="unfinished"/>
+        <translation>Má obrázky</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation>Pridať</translation>
     </message>
     <message>
         <source>Add and close</source>
-        <translation type="unfinished"/>
+        <translation>Pridať a zavrieť</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished"/>
+        <translation>Ukážka</translation>
     </message>
     <message>
         <source>Specify more parameters</source>
-        <translation type="unfinished"/>
+        <translation>Zadajte viac parametrov</translation>
     </message>
     <message>
         <source>Nothing found</source>
-        <translation type="unfinished"/>
+        <translation>Nič sa nenašlo</translation>
     </message>
     <message>
         <source>(All)</source>
-        <translation type="unfinished"/>
+        <translation>(Všetko)</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Sťahovanie</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <source>Catalog information courtesy of the &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
-        <translation type="unfinished"/>
+        <translation>Katalógové informácie poskytnuté s láskavým dovolením z databázy zbierok &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;Americkej numizmatickej spoločnosti&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>All images of objects produced on or before 1925 are in the &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;Public Domain&lt;/a&gt;. Others are available for Non-Commercial purposes. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Policy&lt;/a&gt;.</source>
-        <translation type="unfinished"/>
+        <translation>Všetky obrázky predmetov vyrobených v alebo pred rokom 1925 sú &lt;a href=&quot;https://creativecommons.org/choose/mark/&quot;&gt;verejne dostupné&lt;/a&gt;. Ostatné sú dostupné len pre Nekomerčné účely. &lt;a href=&quot;https://numismatics.org/collections/photography-permissions/&quot;&gt;Politika&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Inserting records</source>
-        <translation>data toevoegen</translation>
+        <translation>Vkladanie záznamov</translation>
     </message>
 </context>
 <context>
     <name>AreaNiceSeries</name>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Spolu</translation>
     </message>
 </context>
 <context>
     <name>AreaNiceStatusChart</name>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Spolu</translation>
     </message>
 </context>
 <context>
     <name>AreaSeries</name>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Spolu</translation>
     </message>
 </context>
 <context>
     <name>AreaStatusChart</name>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Spolu</translation>
     </message>
 </context>
 <context>
     <name>AxisHourEdit</name>
     <message>
         <source>h</source>
-        <translation type="unfinished"/>
+        <translation>h</translation>
     </message>
 </context>
 <context>
     <name>BackButton</name>
     <message>
         <source>Backspace</source>
-        <translation type="unfinished"/>
+        <translation>Backspace - krok späť</translation>
     </message>
 </context>
 <context>
     <name>BarcodeLineEdit</name>
     <message>
         <source>Scan barcode</source>
-        <translation type="unfinished"/>
+        <translation>Naskenujte čiarový kód</translation>
     </message>
 </context>
 <context>
     <name>BaseCanvas</name>
     <message>
         <source>Quantity</source>
-        <translation>Aantal</translation>
+        <translation>Množstvo</translation>
     </message>
 </context>
 <context>
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
-        <translation type="unfinished"/>
+        <translation>0 vybratých záznamov</translation>
     </message>
     <message>
         <source>Custom sorting</source>
-        <translation type="unfinished"/>
+        <translation>Vlastné triedenie</translation>
     </message>
     <message>
         <source>Default sort order changed.
 Changing item position avalaible only on default sort order. Clear sort order now?</source>
-        <translation type="unfinished"/>
+        <translation>Predvolené poradie zoradenia zmenené.
+Zmena pozície položky je k dispozícii iba pri predvolenom poradí triedenia. Chcete teraz vymazať poradie zoradenia?</translation>
     </message>
     <message>
         <source>%d/%d records</source>
-        <translation type="unfinished"/>
+        <translation>%d/%d záznamov</translation>
     </message>
     <message>
         <source>Report preview</source>
-        <translation>Voorbeeldrapport</translation>
+        <translation>Ukážka prehľadu</translation>
     </message>
     <message>
         <source>Nothing selected</source>
-        <translation type="unfinished"/>
+        <translation>Nie je vybraté nič</translation>
     </message>
     <message>
         <source>Excel document (*.xlsx)</source>
-        <translation type="unfinished"/>
+        <translation>Excel dokument (*.xlsx)</translation>
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web pagina (*.htm *.html)</translation>
+        <translation>Web stránka (*.htm *.html)</translation>
     </message>
     <message>
         <source>Text file (*.csv)</source>
-        <translation>Tekst bestand (*.csv)</translation>
+        <translation>Textový súbor (*.csv)</translation>
     </message>
     <message>
         <source>Text file UTF-8 (*.csv)</source>
-        <translation>Tekst bestand UTF-8 (*.csv)</translation>
+        <translation>Textový súbor UTF-8 (*.csv)</translation>
     </message>
     <message>
         <source>Saving list</source>
-        <translation>Lijst opslaan</translation>
+        <translation>Ukladá sa zoznam</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
-        <translation type="unfinished"/>
+        <translation>Súbor je otvorený v inom programe alebo je potrebné povolenie..
+Zatvorte súbor a skúste to znova.</translation>
     </message>
     <message>
         <source>Saving...</source>
-        <translation>Opslaan...</translation>
+        <translation>Ukladanie...</translation>
     </message>
     <message>
         <source>Inserting records</source>
-        <translation>data toevoegen</translation>
+        <translation>Vkladanie záznamov</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Zmazať</translation>
     </message>
     <message>
         <source>Deleting records</source>
-        <translation>data verwijderen</translation>
+        <translation>Mazanie záznamov</translation>
     </message>
     <message>
         <source>%d record(s) selected</source>
-        <translation type="unfinished"/>
+        <translation>%d záznam(y) vybrané</translation>
     </message>
     <message>
         <source>Are you sure to remove a %d coin(s)?</source>
-        <translation type="unfinished"/>
+        <translation>Naozaj chcete odstrániť %d mincu(e)?</translation>
     </message>
 </context>
 <context>
     <name>Cache</name>
     <message>
         <source>Can&apos;t open cache</source>
-        <translation type="unfinished"/>
+        <translation>Nie je možné otvoriť vyrovnávaciu pamäť</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Sťahovanie</translation>
     </message>
 </context>
 <context>
     <name>CachedPoolManager</name>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Sťahovanie</translation>
     </message>
     <message>
         <source>Server</source>
@@ -299,178 +301,182 @@ Close the file and try again.</source>
     <name>CalendarWidget</name>
     <message>
         <source>Today</source>
-        <translation type="unfinished"/>
+        <translation>Dnes</translation>
     </message>
     <message>
         <source>Clean</source>
-        <translation type="unfinished"/>
+        <translation>Čistý</translation>
     </message>
 </context>
 <context>
     <name>CameraDialog</name>
     <message>
         <source>Shoot</source>
-        <translation type="unfinished"/>
+        <translation>Odfotiť</translation>
     </message>
     <message>
         <source>Camera Error</source>
-        <translation type="unfinished"/>
+        <translation>Chyba kamery</translation>
     </message>
     <message>
         <source>Camera not available</source>
-        <translation type="unfinished"/>
+        <translation>Kamera nie je k dispozícii</translation>
     </message>
     <message>
         <source>Camera not available or disabled by antivirus</source>
-        <translation type="unfinished"/>
+        <translation>Kamera nie je k dispozícii alebo je vypnutá antivírusom</translation>
     </message>
 </context>
 <context>
     <name>ClearButton</name>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Jasný</translation>
     </message>
 </context>
 <context>
     <name>Collection</name>
     <message>
         <source>Open collection</source>
-        <translation>Open verzameling</translation>
+        <translation>Otvoriť kolekciu</translation>
     </message>
     <message>
         <source>Can&apos;t open collection %s</source>
-        <translation>Kan de verzameling niet openen %s</translation>
+        <translation>Nie je možné otvoriť zbierku %s</translation>
     </message>
     <message>
         <source>Collection %s not exists</source>
-        <translation>Collectie %s bestaat niet</translation>
+        <translation>Zbierka %s neexistuje</translation>
     </message>
     <message>
         <source>Collection %s in wrong format</source>
-        <translation type="unfinished"/>
+        <translation>Zbierka %s je v zlom formáte</translation>
     </message>
     <message>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation>De verzameling %s heeft een nieuwere versie.
-Update OpenNumismat naar de laatste versie</translation>
+        <translation>Zbierka %s je v novšej verzii.
+Prosím, aktualizujte si OpenNumismat</translation>
     </message>
     <message>
         <source>Create collection</source>
-        <translation>verzameling aanmaken</translation>
+        <translation>Vytvoriť zbierku</translation>
     </message>
     <message>
         <source>Specified file already exists</source>
-        <translation>Opgegegeven bestand bestaat al</translation>
+        <translation>Zadaný súbor už existuje</translation>
     </message>
     <message>
         <source>Can&apos;t open collection</source>
-        <translation>Kan de  collectie niet openen</translation>
+        <translation>Nie je možné otvoriť zbierku</translation>
     </message>
     <message>
         <source>Updating reference</source>
-        <translation>Referentie bijwerken</translation>
+        <translation>Aktualizuje sa odkaz</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <source>Attach</source>
-        <translation type="unfinished"/>
+        <translation>Priložiť</translation>
     </message>
     <message>
         <source>Attach current reference to a collection file?</source>
-        <translation type="unfinished"/>
+        <translation>Pripojiť aktuálny odkaz do súboru zbierky?</translation>
     </message>
     <message>
         <source>Attaching reference</source>
-        <translation type="unfinished"/>
+        <translation>Pripája sa odkaz</translation>
     </message>
     <message>
         <source>Can't attach reference:
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Nedá sa pripojiť odkaz:
+%s</translation>
     </message>
     <message>
         <source>Save reference as</source>
-        <translation type="unfinished"/>
+        <translation>Uložiť odkaz ako</translation>
     </message>
     <message>
         <source>Reference (*.ref)</source>
-        <translation type="unfinished"/>
+        <translation>Odkaz (*.ref)</translation>
     </message>
     <message>
         <source>Detaching reference</source>
-        <translation type="unfinished"/>
+        <translation>Odpájanie odkazu</translation>
     </message>
     <message>
         <source>Detach reference</source>
-        <translation type="unfinished"/>
+        <translation>Odpojiť odkaz</translation>
     </message>
     <message>
         <source>Can't detach reference:
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Nedá sa odpojiť odkaz:
+%s</translation>
     </message>
     <message>
         <source>Create reference</source>
-        <translation type="unfinished"/>
+        <translation>Vytvoriť odkaz</translation>
     </message>
     <message>
         <source>Can't create reference:
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Nedá sa vytvoriť odkaz:
+%s</translation>
     </message>
     <message>
         <source>Can't clear attached reference:
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Nedá sa vymazať pripojený odkaz:
+%s</translation>
     </message>
     <message>
         <source>Detach current reference</source>
-        <translation type="unfinished"/>
+        <translation>Odpojiť aktuálny odkaz</translation>
     </message>
     <message>
         <source>Attach current reference</source>
-        <translation type="unfinished"/>
+        <translation>Pripojiť aktuálny odkaz</translation>
     </message>
     <message>
         <source>Fill from collection</source>
-        <translation>Vullen uit de collectie</translation>
+        <translation>Naplňte zo zbierky</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken.....</translation>
+        <translation>Editovať...</translation>
     </message>
     <message>
         <source>Backup collection</source>
-        <translation>back-up collectie</translation>
+        <translation>Zálohovať zbierku</translation>
     </message>
     <message>
         <source>Can&apos;t make a collection backup at %s</source>
-        <translation>Kan een verzameling back-up  niet maken %s</translation>
+        <translation>Nie je možné vytvoriť zálohu zbierky na  %s</translation>
     </message>
     <message>
         <source>Backup</source>
-        <translation>Backup</translation>
+        <translation>Záloha</translation>
     </message>
     <message>
         <source>Backup saved as %s</source>
-        <translation type="unfinished"/>
+        <translation>Záloha uložená ako %s</translation>
     </message>
     <message>
         <source>Exporting records</source>
-        <translation>Data export</translation>
+        <translation>Export záznamov</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Opslaan als</translation>
+        <translation>Uložiť ako</translation>
     </message>
     <message>
         <source>Synchronizing</source>
-        <translation type="unfinished"/>
+        <translation>Synchronizácia</translation>
     </message>
     <message>
         <source>Can't open collection:
@@ -496,179 +502,179 @@ The application will need to restart now.</source>
     <name>CollectionFieldsBase</name>
     <message>
         <source>ID</source>
-        <translation>ID</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Naam</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation>Waarde</translation>
-    </message>
-    <message>
-        <source>Unit</source>
-        <translation>Eenheid</translation>
-    </message>
-    <message>
-        <source>Country</source>
-        <translation>Land</translation>
-    </message>
-    <message>
-        <source>Year</source>
-        <translation>Jaar</translation>
-    </message>
-    <message>
-        <source>Period</source>
-        <translation>Periode</translation>
-    </message>
-    <message>
-        <source>Mint</source>
-        <translation>Munthuis</translation>
-    </message>
-    <message>
-        <source>Mint mark</source>
-        <translation>Muntteken</translation>
-    </message>
-    <message>
-        <source>Date of issue</source>
-        <translation>Uitgiftedatum</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Type</translation>
-    </message>
-    <message>
-        <source>Series</source>
-        <translation>Uitvoering</translation>
-    </message>
-    <message>
-        <source>Subject</source>
-        <translation>Onderwerp</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation>Status</translation>
-    </message>
-    <message>
-        <source>Material</source>
-        <translation>Materiaal</translation>
-    </message>
-    <message>
-        <source>Fineness</source>
-        <translation>Gehalte</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation>Vorm</translation>
-    </message>
-    <message>
-        <source>Diameter</source>
-        <translation>Diameter</translation>
-    </message>
-    <message>
-        <source>Thickness</source>
-        <translation>Dikte</translation>
-    </message>
-    <message>
-        <source>Weight</source>
-        <translation>Gewicht</translation>
-    </message>
-    <message>
-        <source>Grade</source>
-        <translation>Kwaliteitsgraad</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
-    </message>
-    <message>
-        <source>ObvRev</source>
-        <translation>Voor/achter</translation>
-    </message>
-    <message>
-        <source>Quality</source>
-        <translation>Kwaliteit</translation>
-    </message>
-    <message>
-        <source>Mintage</source>
-        <translation>Gemunt</translation>
-    </message>
-    <message>
-        <source>Emission period</source>
-        <translation>Uitgifte periode</translation>
-    </message>
-    <message>
-        <source>1#</source>
-        <translation>1#</translation>
-    </message>
-    <message>
-        <source>2#</source>
-        <translation>2#</translation>
-    </message>
-    <message>
-        <source>3#</source>
-        <translation>3#</translation>
-    </message>
-    <message>
-        <source>4#</source>
-        <translation>4#</translation>
-    </message>
-    <message>
-        <source>Rarity</source>
-        <translation>Zeldzaam</translation>
-    </message>
-    <message>
-        <source>Fine</source>
-        <translation>Fraai</translation>
-    </message>
-    <message>
-        <source>VF</source>
-        <translation>Zeer fraai</translation>
-    </message>
-    <message>
-        <source>XF</source>
-        <translation>Prachtig</translation>
-    </message>
-    <message>
-        <source>Unc</source>
-        <translation>Unc</translation>
-    </message>
-    <message>
-        <source>Variety</source>
-        <translation>Variant</translation>
-    </message>
-    <message>
-        <source>Obverse</source>
-        <translation>Voorzijde</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation>Achterzijde</translation>
-    </message>
-    <message>
-        <source>Edge</source>
-        <translation>Rand</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation>Datum</translation>
-    </message>
-    <message>
-        <source>Price</source>
-        <translation>Prijs</translation>
-    </message>
-    <message>
-        <source>Paid</source>
-        <translation>Betaald</translation>
-    </message>
-    <message>
-        <source>Seller</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Name</source>
+        <translation>Názov</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Hodnota</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation>Jednotka</translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation>Krajina</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation>Rok</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation>Obdobie</translation>
+    </message>
+    <message>
+        <source>Mint</source>
+        <translation>Mincovňa</translation>
+    </message>
+    <message>
+        <source>Mint mark</source>
+        <translation>Značka mincovne</translation>
+    </message>
+    <message>
+        <source>Date of issue</source>
+        <translation>Dátum vydania</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Series</source>
+        <translation>Séria</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Motív</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Stav</translation>
+    </message>
+    <message>
+        <source>Material</source>
+        <translation>Materiál</translation>
+    </message>
+    <message>
+        <source>Fineness</source>
+        <translation>Jemnosť</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation>Tvar</translation>
+    </message>
+    <message>
+        <source>Diameter</source>
+        <translation>Priemer</translation>
+    </message>
+    <message>
+        <source>Thickness</source>
+        <translation>Hrúbka</translation>
+    </message>
+    <message>
+        <source>Weight</source>
+        <translation>Hmotnosť</translation>
+    </message>
+    <message>
+        <source>Grade</source>
+        <translation>Stupeň</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>Štítok</translation>
+    </message>
+    <message>
+        <source>ObvRev</source>
+        <translation>Averz/Reverz</translation>
+    </message>
+    <message>
+        <source>Quality</source>
+        <translation>Kvalita</translation>
+    </message>
+    <message>
+        <source>Mintage</source>
+        <translation>Razba-mincová značka</translation>
+    </message>
+    <message>
+        <source>Emission period</source>
+        <translation>Obdobie emisie</translation>
+    </message>
+    <message>
+        <source>1#</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>2#</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>3#</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>4#</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Rarity</source>
+        <translation>Vzácnosť</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Variety</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Obverse</source>
+        <translation>Averz</translation>
+    </message>
+    <message>
+        <source>Reverse</source>
+        <translation>Reverz</translation>
+    </message>
+    <message>
+        <source>Edge</source>
+        <translation>Hrana</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Dátum</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Cena</translation>
+    </message>
+    <message>
+        <source>Paid</source>
+        <translation>Zaplatené</translation>
+    </message>
+    <message>
+        <source>Seller</source>
+        <translation>Predajca</translation>
+    </message>
+    <message>
         <source>Place</source>
-        <translation>Plaats</translation>
+        <translation>Miesto</translation>
     </message>
     <message>
         <source>Info</source>
@@ -680,23 +686,23 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Buyer</source>
-        <translation>Koper</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Note</source>
-        <translation>Notitie</translation>
+        <translation>Poznámka</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation>Afbeelding</translation>
+        <translation>Obrázok</translation>
     </message>
     <message>
         <source>Design</source>
-        <translation>Ontwerp</translation>
+        <translation>Dizajn</translation>
     </message>
     <message>
         <source>Designer</source>
-        <translation>Ontwerper</translation>
+        <translation>Dizajnér</translation>
     </message>
     <message>
         <source>Photo 1</source>
@@ -716,99 +722,99 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Defect</source>
-        <translation>Beschadiging</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <source>Storage</source>
-        <translation>Opslag</translation>
+        <translation>Skladovanie</translation>
     </message>
     <message>
         <source>Features</source>
-        <translation>Kenmerken</translation>
+        <translation>Vlastnosti</translation>
     </message>
     <message>
         <source>Created at</source>
-        <translation>Gemaakt bij</translation>
+        <translation>Vytvorené</translation>
     </message>
     <message>
         <source>Updated at</source>
-        <translation>Bijgewerkt op</translation>
+        <translation>Aktualizované</translation>
     </message>
     <message>
         <source>Quantity</source>
-        <translation>Aantal</translation>
+        <translation>Množstvo</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation>Webadres</translation>
+        <translation>web adresa URL</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation>Barcode</translation>
+        <translation>Čiarový kód</translation>
     </message>
     <message>
         <source>Ruler</source>
-        <translation>Heerser</translation>
+        <translation>Pravítko</translation>
     </message>
     <message>
         <source>Region</source>
-        <translation>Regio</translation>
+        <translation>Oblasť</translation>
     </message>
     <message>
         <source>Engraver</source>
-        <translation type="unfinished"/>
+        <translation>Rytec</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Farba</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation>Omschrijving</translation>
+        <translation>Popis</translation>
     </message>
     <message>
         <source>Format</source>
-        <translation type="unfinished"/>
+        <translation>Formát</translation>
     </message>
     <message>
         <source>Condition</source>
-        <translation type="unfinished"/>
+        <translation>Stav</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished"/>
+        <translation>Kategória</translation>
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Pozícia</translation>
     </message>
     <message>
         <source>Emitent</source>
-        <translation type="unfinished"/>
+        <translation>Emitent-vydavateľ</translation>
     </message>
     <message>
         <source>Signature</source>
-        <translation type="unfinished"/>
+        <translation>Podpis</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished"/>
+        <translation>Adresa</translation>
     </message>
     <message>
         <source>Latitude</source>
-        <translation type="unfinished"/>
+        <translation>Zemepisná šírka</translation>
     </message>
     <message>
         <source>Longitude</source>
-        <translation type="unfinished"/>
+        <translation>Zemepisná dĺžka</translation>
     </message>
     <message>
         <source>Photo 5</source>
-        <translation type="unfinished"/>
+        <translation>Foto 5</translation>
     </message>
     <message>
         <source>Photo 6</source>
-        <translation type="unfinished"/>
+        <translation>Foto 6</translation>
     </message>
     <message>
         <source>Grader</source>
@@ -816,11 +822,11 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Seat</source>
-        <translation type="unfinished"/>
+        <translation>Seat-umiestnenie</translation>
     </message>
     <message>
         <source>Year on coin</source>
-        <translation type="unfinished"/>
+        <translation>Rok na minci</translation>
     </message>
     <message>
         <source>Composition</source>
@@ -828,15 +834,15 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Material 2</source>
-        <translation type="unfinished"/>
+        <translation>Materiál 2</translation>
     </message>
     <message>
         <source>Width</source>
-        <translation type="unfinished"/>
+        <translation>Šírka</translation>
     </message>
     <message>
         <source>Height</source>
-        <translation type="unfinished"/>
+        <translation>Výška</translation>
     </message>
     <message>
         <source>Technique</source>
@@ -863,19 +869,19 @@ The application will need to restart now.</source>
     <name>CollectionModel</name>
     <message>
         <source>h</source>
-        <translation type="unfinished"/>
+        <translation>h</translation>
     </message>
     <message>
         <source>Updating records</source>
-        <translation>data bijwerken</translation>
+        <translation>Aktualizácia záznamov</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <source>Saving...</source>
-        <translation>Opslaan...</translation>
+        <translation>Ukladanie...</translation>
     </message>
     <message>
         <source>file is readonly</source>
@@ -883,7 +889,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Saving</source>
-        <translation>Opslaan</translation>
+        <translation>Ukladanie</translation>
     </message>
     <message>
         <source>Can&apos;t save data: %s</source>
@@ -891,11 +897,11 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Filtering</source>
-        <translation>Filteren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Filter is too complex. Will be ignored</source>
-        <translation>Filter is te complex. Word genegeerd</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -910,7 +916,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Štát</translation>
     </message>
     <message>
         <source>Market</source>
@@ -918,23 +924,23 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Buy</source>
-        <translation type="unfinished"/>
+        <translation>Kúpiť</translation>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Verkoop</translation>
+        <translation>Predať</translation>
     </message>
     <message>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Mapa</translation>
     </message>
     <message>
         <source>Technical data</source>
-        <translation type="unfinished"/>
+        <translation>Technické údaje</translation>
     </message>
     <message>
         <source>Parameters</source>
-        <translation type="unfinished"/>
+        <translation>Parametre</translation>
     </message>
     <message>
         <source>Specificity</source>
@@ -946,19 +952,19 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Design</source>
-        <translation>Ontwerp</translation>
+        <translation>Dizajn</translation>
     </message>
     <message>
         <source>Obverse</source>
-        <translation>Voorzijde</translation>
+        <translation>Averz</translation>
     </message>
     <message>
         <source>Reverse</source>
-        <translation>Achterzijde</translation>
+        <translation>Reverz</translation>
     </message>
     <message>
         <source>Edge</source>
-        <translation>Rand</translation>
+        <translation>Hrana</translation>
     </message>
     <message>
         <source>Classification</source>
@@ -966,11 +972,11 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Catalogue</source>
-        <translation type="unfinished"/>
+        <translation>Katalóg</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation>Prijs</translation>
+        <translation>Cena</translation>
     </message>
     <message>
         <source>Variation</source>
@@ -978,11 +984,11 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"/>
+        <translation>Obrázky</translation>
     </message>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation>Štítky</translation>
     </message>
 </context>
 <context>
@@ -997,7 +1003,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Max image side len</source>
-        <translation>Max beeldformaat len</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>0 for storing in original size</source>
@@ -1017,7 +1023,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Free format numeric fields</source>
-        <translation>Vrij format voor numerieke velden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
@@ -1045,7 +1051,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Instellingen</translation>
+        <translation>Nastavenia</translation>
     </message>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
@@ -1107,59 +1113,59 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Coins</source>
-        <translation>Munten</translation>
+        <translation>Mince</translation>
     </message>
     <message>
         <source>Banknotes</source>
-        <translation type="unfinished"/>
+        <translation>Bankovky</translation>
     </message>
     <message>
         <source>Stamps</source>
-        <translation type="unfinished"/>
+        <translation>Známky</translation>
     </message>
     <message>
         <source>Philatelic products</source>
-        <translation type="unfinished"/>
+        <translation>Filatelistické produkty</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished"/>
+        <translation>Kategória</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation>Pridať</translation>
     </message>
     <message>
         <source>Add and close</source>
-        <translation type="unfinished"/>
+        <translation>Pridať a zavrieť</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished"/>
+        <translation>Ukážka</translation>
     </message>
     <message>
         <source>Specify more parameters</source>
-        <translation type="unfinished"/>
+        <translation>Zadajte viac parametrov</translation>
     </message>
     <message>
         <source>Nothing found</source>
-        <translation type="unfinished"/>
+        <translation>Nič sa nenašlo</translation>
     </message>
     <message>
         <source>(All)</source>
-        <translation type="unfinished"/>
+        <translation>(Všetko)</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Sťahovanie</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <source>Inserting records</source>
-        <translation>data toevoegen</translation>
+        <translation>Vkladanie záznamov</translation>
     </message>
     <message>
         <source>Colnect API changed.
@@ -1172,34 +1178,34 @@ and try again.</source>
     <name>ConvertButton</name>
     <message>
         <source>Convert</source>
-        <translation type="unfinished"/>
+        <translation>Konvertovať</translation>
     </message>
 </context>
 <context>
     <name>CropDialog</name>
     <message>
         <source>Crop</source>
-        <translation type="unfinished"/>
+        <translation>Orezať</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Auto</translation>
     </message>
     <message>
         <source>X</source>
-        <translation type="unfinished"/>
+        <translation>X</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"/>
+        <translation>Y</translation>
     </message>
     <message>
         <source>Width</source>
-        <translation type="unfinished"/>
+        <translation>Šírka</translation>
     </message>
     <message>
         <source>Height</source>
-        <translation type="unfinished"/>
+        <translation>Výška</translation>
     </message>
     <message>
         <source>X1</source>
@@ -1305,11 +1311,11 @@ and try again.</source>
     <name>CustomizeTreeDialog</name>
     <message>
         <source>Customize tree</source>
-        <translation>Aanpassen zoekboom</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Vyčistiť</translation>
     </message>
     <message>
         <source>Hold down the Ctrl key to combine two fields (Value + Unit)</source>
@@ -1320,15 +1326,15 @@ and try again.</source>
     <name>DescriptionDialog</name>
     <message>
         <source>Description</source>
-        <translation>Omschrijving</translation>
+        <translation>Popis</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation>Titel</translation>
+        <translation>Názov</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation>Auteur</translation>
+        <translation>Autor</translation>
     </message>
 </context>
 <context>
@@ -1339,30 +1345,30 @@ and try again.</source>
     </message>
     <message>
         <source>Pass</source>
-        <translation>Ophouden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Commission</source>
-        <translation>Commissie</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>EditCoinDialog</name>
     <message>
         <source>Multi edit</source>
-        <translation>Meerdere bewerkingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>New</source>
-        <translation>Nieuw</translation>
+        <translation>Nový</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Bewerken</translation>
+        <translation>Editovať</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Opslaan</translation>
+        <translation>Uložiť</translation>
     </message>
     <message>
         <source>Don&apos;t show this again</source>
@@ -1370,11 +1376,11 @@ and try again.</source>
     </message>
     <message>
         <source>Total paid price is negative. Save?</source>
-        <translation>Totaal betaalde prijs is negatief. Opslaan?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Pay price is great than total paid price. Save?</source>
-        <translation>Koopprijs hoger is dan de totale prijs betaald. Opslaan?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Total revenue price is negative. Save?</source>
@@ -1405,23 +1411,23 @@ and try again.</source>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Hernoemen</translation>
+        <translation>Premenovať</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Zmazať</translation>
     </message>
     <message>
         <source>Enter value</source>
-        <translation>waarde ingeven</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Change icon...</source>
-        <translation>Icoon aanpassen</translation>
+        <translation>Zmeniť ikonu...</translation>
     </message>
     <message>
         <source>Add icon...</source>
-        <translation>Ikoon toevoegen</translation>
+        <translation>Pridať ikonu...</translation>
     </message>
     <message>
         <source>Paste icon</source>
@@ -1429,24 +1435,23 @@ and try again.</source>
     </message>
     <message>
         <source>Clear icon</source>
-        <translation>Ikoon wissen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Open bestand</translation>
+        <translation>Otvoriť súbor</translation>
     </message>
 </context>
 <context>
     <name>ExcpHook</name>
     <message>
         <source>System error</source>
-        <translation>systeem fout</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
-        <translation>Een systeemfout is opgetreden.
-Wilt u een foutmelding te sturen naar de author?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1457,46 +1462,46 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Hernoemen</translation>
+        <translation>Premenovať</translation>
     </message>
     <message>
         <source>Revert to default</source>
-        <translation>Terugkeren naar standaardwaarden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Global enabled fields:</source>
-        <translation>Algemeen geactiveerde velden:</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>FilterMenuButton</name>
     <message>
         <source>Filter items</source>
-        <translation>Selecteer eenheden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(Images)</source>
-        <translation>(afbeeldingen)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(Text)</source>
-        <translation>(tekst)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(Data)</source>
-        <translation>(Data)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(Select all)</source>
-        <translation>(Selecteer alles)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(Blanks)</source>
-        <translation>(leeg)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Filter</source>
-        <translation>(Filter)</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1531,7 +1536,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <source>Search by image</source>
@@ -1542,19 +1547,19 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <name>FormDetailsTabWidget</name>
     <message>
         <source>Generate</source>
-        <translation>Genereren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Israel</source>
-        <translation>Israël</translation>
+        <translation>Izrael</translation>
     </message>
     <message>
         <source>Bahrain</source>
-        <translation>Bahrein</translation>
+        <translation>Bahrajn</translation>
     </message>
     <message>
         <source>Jordan</source>
-        <translation>Jordanië</translation>
+        <translation>Jordánsko</translation>
     </message>
     <message>
         <source>Iraq</source>
@@ -1566,79 +1571,79 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Qatar</source>
-        <translation>Qatar</translation>
+        <translation>Katar</translation>
     </message>
     <message>
         <source>Kuwait</source>
-        <translation>Koeweit</translation>
+        <translation>Kuvajt</translation>
     </message>
     <message>
         <source>Maldives</source>
-        <translation>Maldiven</translation>
+        <translation>Maldivy</translation>
     </message>
     <message>
         <source>Oman</source>
-        <translation>Oman</translation>
+        <translation>Omán</translation>
     </message>
     <message>
         <source>Syria</source>
-        <translation>Syrië</translation>
+        <translation>Sýria</translation>
     </message>
     <message>
         <source>United Arab Emirates</source>
-        <translation>Verenigde Arabische Emiraten</translation>
+        <translation>Spojené arabské emiráty</translation>
     </message>
     <message>
         <source>Saudi Arabia</source>
-        <translation>Saoedi-Arabië</translation>
+        <translation>Saudská Arábia</translation>
     </message>
     <message>
         <source>Turkey</source>
-        <translation>Turkije</translation>
+        <translation>Turecko</translation>
     </message>
     <message>
         <source>Algeria</source>
-        <translation>Algerije</translation>
+        <translation>Alžírsko</translation>
     </message>
     <message>
         <source>Egypt</source>
-        <translation>Egypte</translation>
+        <translation>Egypt</translation>
     </message>
     <message>
         <source>Libya</source>
-        <translation>Libië</translation>
+        <translation>Líbya</translation>
     </message>
     <message>
         <source>Mauritania</source>
-        <translation>Mauritanië</translation>
+        <translation>Mauritánia</translation>
     </message>
     <message>
         <source>Morocco</source>
-        <translation>Marokko</translation>
+        <translation>Maroko</translation>
     </message>
     <message>
         <source>Sudan</source>
-        <translation>Soedan</translation>
+        <translation>Sudán</translation>
     </message>
     <message>
         <source>Tunisia</source>
-        <translation>Tunesië</translation>
+        <translation>Tunisko</translation>
     </message>
     <message>
         <source>Afghanistan</source>
-        <translation>Afghanistan</translation>
+        <translation>Afganistan</translation>
     </message>
     <message>
         <source>Iran</source>
-        <translation>Iran</translation>
+        <translation>Irán</translation>
     </message>
     <message>
         <source>Japan</source>
-        <translation>Japan</translation>
+        <translation>Japonsko</translation>
     </message>
     <message>
         <source>Nepal</source>
-        <translation>Nepal</translation>
+        <translation>Nepál</translation>
     </message>
     <message>
         <source>India</source>
@@ -1646,7 +1651,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Thailand</source>
-        <translation>Thailand</translation>
+        <translation>Thajsko</translation>
     </message>
     <message>
         <source>Burma</source>
@@ -1654,11 +1659,11 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Myanmar</source>
-        <translation>Myanmar</translation>
+        <translation>Mjanmarsko</translation>
     </message>
     <message>
         <source>Commission</source>
-        <translation>Commissie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Available format 12.5 or 10%</source>
@@ -1666,22 +1671,22 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Editovať...</translation>
     </message>
 </context>
 <context>
     <name>GeoChart</name>
     <message>
         <source>Country</source>
-        <translation>Land</translation>
+        <translation>Krajina</translation>
     </message>
     <message>
         <source>Quantity</source>
-        <translation>Aantal</translation>
+        <translation>Množstvo</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation>Opslaan</translation>
+        <translation>Ukladanie</translation>
     </message>
     <message>
         <source>Image not ready. Please try again later</source>
@@ -1692,7 +1697,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <name>GeoChartCanvas</name>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web pagina (*.htm *.html)</translation>
+        <translation>Web stránka (*.htm *.html)</translation>
     </message>
     <message>
         <source>PNG image (*.png)</source>
@@ -1707,14 +1712,14 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
 </context>
 <context>
     <name>GetSaveFileName</name>
     <message>
         <source>Save as</source>
-        <translation>Opslaan als</translation>
+        <translation>Uložiť ako</translation>
     </message>
 </context>
 <context>
@@ -1728,23 +1733,23 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <name>IconView</name>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Editovať...</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopírovať</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Vložiť</translation>
     </message>
     <message>
         <source>Clone</source>
-        <translation>Klonen</translation>
+        <translation>Duplikovať</translation>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Meerdere berwerken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Move up</source>
@@ -1756,7 +1761,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Zmazať</translation>
     </message>
 </context>
 <context>
@@ -1767,35 +1772,35 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Laden...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Open</source>
-        <translation>Open</translation>
+        <translation>Otvoriť</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Vložiť</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopírovať</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Zmazať</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Opslaan als...</translation>
+        <translation>Uložiť ako...</translation>
     </message>
     <message>
         <source>Rename...</source>
-        <translation>Hernoemen</translation>
+        <translation>Premenovať...</translation>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Open bestand</translation>
+        <translation>Otvoriť súbor</translation>
     </message>
     <message>
         <source>No image available
@@ -1805,7 +1810,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Rename image</source>
-        <translation type="unfinished"/>
+        <translation>Premenovať obrázok</translation>
     </message>
     <message>
         <source>Enter new image name</source>
@@ -1820,15 +1825,15 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Uložiť ako...</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>E&amp;inde</translation>
+        <translation>U&amp;končiť</translation>
     </message>
     <message>
         <source>Full Screen</source>
-        <translation type="unfinished"/>
+        <translation>Celá obrazovka</translation>
     </message>
     <message>
         <source>Zoom &amp;In (25%)</source>
@@ -1864,27 +1869,27 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Rotate...</source>
-        <translation type="unfinished"/>
+        <translation>Otočiť...</translation>
     </message>
     <message>
         <source>Crop...</source>
-        <translation type="unfinished"/>
+        <translation>Orezať</translation>
     </message>
     <message>
         <source>Autocrop</source>
-        <translation type="unfinished"/>
+        <translation>Automatické orezanie</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Opslaan</translation>
+        <translation>Uložiť</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopírovať</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Vložiť</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -1904,7 +1909,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Bestand</translation>
+        <translation>&amp;Súbor</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
@@ -1912,7 +1917,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Zobraziť</translation>
     </message>
     <message>
         <source>Image editor</source>
@@ -1932,7 +1937,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>&amp;Open</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show Scroll Panel</source>
@@ -1964,11 +1969,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Open bestand</translation>
+        <translation>Otvoriť súbor</translation>
     </message>
     <message>
         <source>Settings...</source>
-        <translation>Instellingen...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove background</source>
@@ -1976,11 +1981,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Sťahovanie</translation>
     </message>
     <message>
         <source>Downloading AI model %s (%d Mb)</source>
@@ -1991,7 +1996,7 @@ drag-n-drop to add an image)</source>
     <name>ImageEditorWindow</name>
     <message>
         <source>Save</source>
-        <translation>Opslaan</translation>
+        <translation>Uložiť</translation>
     </message>
     <message>
         <source>Image was changed. Save changes?</source>
@@ -2010,53 +2015,53 @@ drag-n-drop to add an image)</source>
     <name>ImageLabel</name>
     <message>
         <source>Open</source>
-        <translation>Open</translation>
+        <translation>Otvoriť</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Editovať...</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopírovať</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Opslaan als...</translation>
+        <translation>Uložiť ako...</translation>
     </message>
 </context>
 <context>
     <name>ImportCoinManage</name>
     <message>
         <source>Select directory with images</source>
-        <translation>Selecteer de map met afbeeldingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Select directory with pre-defined images</source>
-        <translation>Kies een map met vooraf gedefinieerde afbeeldingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Error: %s</source>
-        <translation>Fout: %s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Field 1: %s</source>
-        <translation>veld 1: %s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Field 2: %s</source>
-        <translation>veld 2: %s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Defect: %s</source>
-        <translation>Defect: %s</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ImportCoinManagePredefined</name>
     <message>
         <source>Select directory with pre-defined images</source>
-        <translation>Kies een map met vooraf gedefinieerde afbeeldingen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2081,7 +2086,7 @@ drag-n-drop to add an image)</source>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
-        <translation>Taal</translation>
+        <translation>Jazyk</translation>
     </message>
     <message>
         <source>Skip currency symbol</source>
@@ -2127,35 +2132,35 @@ drag-n-drop to add an image)</source>
     <name>ListView</name>
     <message>
         <source>Select columns...</source>
-        <translation>Kolommen selecteren ...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Hide</source>
-        <translation>Verbergen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Adjust size</source>
-        <translation>Aanpassen grootte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Editovať...</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopírovať</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Vložiť</translation>
     </message>
     <message>
         <source>Clone</source>
-        <translation>Klonen</translation>
+        <translation>Duplikovať</translation>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Meerdere berwerken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Filter in</source>
@@ -2171,23 +2176,23 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Zmazať</translation>
     </message>
     <message>
         <source>Enter value</source>
-        <translation>waarde ingeven</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation>Pridať</translation>
     </message>
     <message>
         <source>Change icon...</source>
-        <translation>Icoon aanpassen</translation>
+        <translation>Zmeniť ikonu...</translation>
     </message>
     <message>
         <source>Add icon...</source>
-        <translation>Ikoon toevoegen</translation>
+        <translation>Pridať ikonu...</translation>
     </message>
     <message>
         <source>Paste icon</source>
@@ -2195,34 +2200,34 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Clear icon</source>
-        <translation>Ikoon wissen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Open bestand</translation>
+        <translation>Otvoriť súbor</translation>
     </message>
 </context>
 <context>
     <name>MainSettingsPage</name>
     <message>
         <source>Language</source>
-        <translation>Taal</translation>
+        <translation>Jazyk</translation>
     </message>
     <message>
         <source>Reference</source>
-        <translation>Referentie</translation>
+        <translation>Odkaz</translation>
     </message>
     <message>
         <source>Backup folder</source>
-        <translation>Backup map</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Send error info to author</source>
-        <translation>Verzend de fout naar de auteur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Automatically check for updates</source>
-        <translation>Automatisch controleren op update&apos;s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reliable</source>
@@ -2242,7 +2247,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Default template</source>
-        <translation>standaardsjabloon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use built-in image viewer</source>
@@ -2262,7 +2267,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normaal</translation>
+        <translation>Normálne</translation>
     </message>
     <message>
         <source>Large</source>
@@ -2278,7 +2283,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Select reference</source>
-        <translation>selecteer referentie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Image background color</source>
@@ -2322,7 +2327,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Farba</translation>
     </message>
 </context>
 <context>
@@ -2349,11 +2354,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Statistics</source>
-        <translation>Statistieken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Map</source>
-        <translation type="unfinished"/>
+        <translation>Mapa</translation>
     </message>
     <message>
         <source>Summary</source>
@@ -2361,7 +2366,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Settings...</source>
-        <translation>Instellingen...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Sort by drag-n-drop mode</source>
@@ -2369,35 +2374,35 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>E&amp;inde</translation>
+        <translation>U&amp;končiť</translation>
     </message>
     <message>
         <source>&amp;New...</source>
-        <translation>&amp;nieuw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>&amp;Open</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backup</source>
-        <translation>Backup</translation>
+        <translation>Záloha</translation>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation>Comprimeren...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Description</source>
-        <translation>Omschrijving</translation>
+        <translation>Popis</translation>
     </message>
     <message>
         <source>Set password...</source>
-        <translation>Wachtwoord instellen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importeren</translation>
+        <translation>Importovať</translation>
     </message>
     <message>
         <source>Synchronize...</source>
@@ -2405,35 +2410,35 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Export</source>
-        <translation>Exporteren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Bestand</translation>
+        <translation>&amp;Súbor</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation>Pridať</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Editovať...</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Zmazať</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopírovať</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Vložiť</translation>
     </message>
     <message>
         <source>Record</source>
-        <translation type="unfinished"/>
+        <translation>Záznam</translation>
     </message>
     <message>
         <source>Details</source>
@@ -2441,35 +2446,35 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Zobraziť</translation>
     </message>
     <message>
         <source>View in browser</source>
-        <translation>Bekijk in de browser</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>List</source>
-        <translation>Lijst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reference</source>
-        <translation>Referentie</translation>
+        <translation>Odkaz</translation>
     </message>
     <message>
         <source>Report...</source>
-        <translation>Rapport</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save current list...</source>
-        <translation>Sla huidige lijst op</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Report</source>
-        <translation>Rapport</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>User manual</source>
-        <translation>Gebruikershandleiding</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Visit web-site</source>
@@ -2477,19 +2482,19 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Check for updates</source>
-        <translation>Controleren op update&apos;s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>About %s</source>
-        <translation>Over %s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>&amp;Help</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Toolbar</source>
-        <translation>Toolbar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Quick search</source>
@@ -2497,31 +2502,31 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Instellingen</translation>
+        <translation>Nastavenia</translation>
     </message>
     <message>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
-        <translation>De applicatie moet opnieuw opstarten om de nieuwe instellingen te verwerken. Nu opnieuw starten?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Select file</source>
-        <translation>Selecteer bestand</translation>
+        <translation>Vyberte súbor</translation>
     </message>
     <message>
         <source>Importing</source>
-        <translation>Bezig met Importeren</translation>
+        <translation>Importuje sa</translation>
     </message>
     <message>
         <source>Import pre-defined coins?</source>
-        <translation>Importeer voorgedefinieerde munten?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
-        <translation>Voordat u importeert moet u uw bestaande verzameling exporteren vanuit Collection Studio naar een XML tabel (kies Collection Studio menu Tools &gt; Export...)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation>Voordat u importeert moet u uw bestaande verzameling exporteren van uCoin.net naar Comma-Separated (CSV) formaat.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
@@ -2529,19 +2534,19 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Open collection</source>
-        <translation>Open verzameling</translation>
+        <translation>Otvoriť kolekciu</translation>
     </message>
     <message>
         <source>Collections (*.db)</source>
-        <translation>verzamelingen (*.db)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>New collection</source>
-        <translation>Nieuwe verzameling</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create new collection or open one of the existing</source>
-        <translation>Maak een nieuwe verzameling aan of open een bestaande</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>%s is freeware licensed under a GPLv3.</source>
@@ -2549,19 +2554,19 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Updates</source>
-        <translation>Updates</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>You already have the latest version.</source>
-        <translation>Je beschikt al over de laatste versie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>New version</source>
-        <translation>nieuwe versie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>New version is available. Download it now?</source>
-        <translation>Nieuwe versie beschikbaar, nu downloaden?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Tags...</source>
@@ -2573,7 +2578,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Year calculator</source>
-        <translation type="unfinished"/>
+        <translation>Kalkulačka na výpočet roku</translation>
     </message>
     <message>
         <source>References generator</source>
@@ -2581,7 +2586,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Tools</source>
-        <translation type="unfinished"/>
+        <translation>Nástroje</translation>
     </message>
 </context>
 <context>
@@ -2595,7 +2600,7 @@ drag-n-drop to add an image)</source>
     <name>NativeYearEdit</name>
     <message>
         <source>Year calculator</source>
-        <translation type="unfinished"/>
+        <translation>Kalkulačka na výpočet roku</translation>
     </message>
 </context>
 <context>
@@ -2616,77 +2621,77 @@ drag-n-drop to add an image)</source>
     <name>PasswordDialog</name>
     <message>
         <source>Password</source>
-        <translation>Wachtwoord</translation>
+        <translation>Heslo</translation>
     </message>
     <message>
         <source>Open collection</source>
-        <translation>Open verzameling</translation>
+        <translation>Otvoriť kolekciu</translation>
     </message>
     <message>
         <source>Incorrect password</source>
-        <translation>fout wachtwoord</translation>
+        <translation>Nesprávne heslo</translation>
     </message>
 </context>
 <context>
     <name>PasswordSetDialog</name>
     <message>
         <source>Set password</source>
-        <translation>Wachtwoord instellen</translation>
+        <translation>Nastaviť heslo</translation>
     </message>
     <message>
         <source>Current password</source>
-        <translation>Huidig wachtwoord</translation>
+        <translation>Aktuálne heslo</translation>
     </message>
     <message>
         <source>New password</source>
-        <translation>Nieuw wachtwoord</translation>
+        <translation>Nové heslo</translation>
     </message>
     <message>
         <source>Confirm password</source>
-        <translation>Bevestig wachtwoord</translation>
+        <translation>Potvrdiť heslo</translation>
     </message>
     <message>
         <source>Change password</source>
-        <translation>Verander wachtwoord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The new password and confirmation password must match</source>
-        <translation>Het nieuwe wachtwoord en de bevestiging moeten gelijk zijn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Incorrect password</source>
-        <translation>fout wachtwoord</translation>
+        <translation>Nesprávne heslo</translation>
     </message>
 </context>
 <context>
     <name>PreviewDialog</name>
     <message>
         <source>Report preview</source>
-        <translation>Voorbeeldrapport</translation>
+        <translation>Ukážka prehľadu</translation>
     </message>
     <message>
         <source>Save as MS Word document</source>
-        <translation>Opslaan als MS Word bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save as HTML files</source>
-        <translation>Opslaan als HTML bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save as PDF file</source>
-        <translation>Opslaan als PDF bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Word documents (*.doc)</source>
-        <translation>Word document (*.doc)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web pagina (*.htm *.html)</translation>
+        <translation>Web stránka (*.htm *.html)</translation>
     </message>
     <message>
         <source>PDF file (*.pdf)</source>
-        <translation>PDF bestand (*.pdf)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Report saving</source>
@@ -2709,7 +2714,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Spolu</translation>
     </message>
 </context>
 <context>
@@ -2731,22 +2736,22 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Date</source>
-        <translation>Datum</translation>
+        <translation>Dátum</translation>
     </message>
     <message>
         <source>Total</source>
-        <translation type="unfinished"/>
+        <translation>Spolu</translation>
     </message>
 </context>
 <context>
     <name>ProgressPreciousPriceChartModel</name>
     <message>
         <source>Gold</source>
-        <translation>Goud</translation>
+        <translation>Zlato</translation>
     </message>
     <message>
         <source>Silver</source>
-        <translation>Zilver</translation>
+        <translation>Striebro</translation>
     </message>
     <message>
         <source>Platinum</source>
@@ -2761,101 +2766,99 @@ drag-n-drop to add an image)</source>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
-        <translation>Printen</translation>
+        <translation>Tlačiť</translation>
     </message>
     <message>
         <source>Page setup</source>
-        <translation>Pagina instelling</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>Reference</name>
     <message>
         <source>C</source>
-        <translation>L</translation>
-    </message>
-    <message>
-        <source>P</source>
-        <translation>P</translation>
-    </message>
-    <message>
-        <source>U</source>
-        <translation>E</translation>
-    </message>
-    <message>
-        <source>S</source>
-        <translation>U</translation>
-    </message>
-    <message>
-        <source>G</source>
-        <translation>K</translation>
-    </message>
-    <message>
-        <source>F</source>
-        <translation>V</translation>
-    </message>
-    <message>
-        <source>Q</source>
-        <translation>K</translation>
-    </message>
-    <message>
-        <source>R</source>
-        <translation>Z</translation>
-    </message>
-    <message>
-        <source>T</source>
-        <translation>T</translation>
-    </message>
-    <message>
-        <source>D</source>
-        <translation>B</translation>
-    </message>
-    <message>
-        <source>Place</source>
-        <translation>Plaats</translation>
-    </message>
-    <message>
-        <source>Color</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>P</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>U</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>S</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>G</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>F</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Q</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>R</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>T</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>D</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Place</source>
+        <translation>Miesto</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Farba</translation>
+    </message>
+    <message>
         <source>Edge</source>
-        <translation>Rand</translation>
+        <translation>Hrana</translation>
     </message>
     <message>
         <source>Material</source>
-        <translation>Materiaal</translation>
+        <translation>Materiál</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Open reference</source>
-        <translation>Open referentie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Can't open reference:
 %s</source>
-        <translation>Kan de referentie niet openen:
-%s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Can't open reference:
 %s
 Created new one</source>
-        <translation>Kan de referentie niet openen:
-%s
-Nieuwe aangemaakt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create reference</source>
-        <translation type="unfinished"/>
+        <translation>Vytvoriť odkaz</translation>
     </message>
     <message>
         <source>Can't create reference:
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Nedá sa vytvoriť odkaz:
+%s</translation>
     </message>
     <message>
         <source>Reference is a newer version.
@@ -2867,33 +2870,33 @@ Please update OpenNumismat</source>
     <name>ReferenceDialog</name>
     <message>
         <source>Reference</source>
-        <translation>Referentie</translation>
+        <translation>Odkaz</translation>
     </message>
 </context>
 <context>
     <name>ReferenceWidget</name>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation>Pridať</translation>
     </message>
     <message>
         <source>Del</source>
-        <translation>Verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Sort</source>
-        <translation>Sorteren</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>Report</name>
     <message>
         <source>Generating report</source>
-        <translation>Rapport genereren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
 </context>
 <context>
@@ -2919,37 +2922,37 @@ Please update OpenNumismat</source>
     <name>ScanBarcodeDialog</name>
     <message>
         <source>Scan barcode</source>
-        <translation type="unfinished"/>
+        <translation>Oskenuj čiarový kód</translation>
     </message>
     <message>
         <source>Camera not available</source>
-        <translation type="unfinished"/>
+        <translation>Kamera nie je k dispozícii</translation>
     </message>
     <message>
         <source>Camera not available or disabled by antivirus</source>
-        <translation type="unfinished"/>
+        <translation>Kamera nie je k dispozícii alebo je vypnutá antivírusom</translation>
     </message>
     <message>
         <source>Camera Error</source>
-        <translation type="unfinished"/>
+        <translation>Chyba kamery</translation>
     </message>
 </context>
 <context>
     <name>SelectColumnsDialog</name>
     <message>
         <source>Columns</source>
-        <translation>Kolommen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
     <message>
         <source>Settings</source>
-        <translation>Instellingen</translation>
+        <translation>Nastavenia</translation>
     </message>
     <message>
         <source>Main</source>
-        <translation>Begin</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Collection</source>
@@ -2957,11 +2960,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Fields</source>
-        <translation>Velden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importeren</translation>
+        <translation>Importovať</translation>
     </message>
     <message>
         <source>Chart settings</source>
@@ -3005,7 +3008,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Multicolor</source>
-        <translation type="unfinished"/>
+        <translation>Viacfarebné</translation>
     </message>
     <message>
         <source>Use BLAF palette</source>
@@ -3076,7 +3079,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Progress</source>
-        <translation type="unfinished"/>
+        <translation>Priebeh</translation>
     </message>
     <message>
         <source>Area</source>
@@ -3104,7 +3107,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Year</source>
-        <translation>Jaar</translation>
+        <translation>Rok</translation>
     </message>
     <message>
         <source>Month</source>
@@ -3132,27 +3135,27 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>All</source>
-        <translation>Alle</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Europe</source>
-        <translation>Europe</translation>
+        <translation>Európa</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation>Africa</translation>
+        <translation>Afrika</translation>
     </message>
     <message>
         <source>Americas</source>
-        <translation>Americas</translation>
+        <translation>Amerika</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation>Asia</translation>
+        <translation>Ázia</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation>Oceania</translation>
+        <translation>Oceánia</translation>
     </message>
     <message>
         <source>Save chart</source>
@@ -3160,7 +3163,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Instellingen</translation>
+        <translation>Nastavenia</translation>
     </message>
     <message>
         <source>Zoom In (25%)</source>
@@ -3196,30 +3199,30 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Weight</source>
-        <translation>Gewicht</translation>
+        <translation>Hmotnosť</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation>Prijs</translation>
+        <translation>Cena</translation>
     </message>
 </context>
 <context>
     <name>Status</name>
     <message>
         <source>Demo</source>
-        <translation>Demo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Bidding</source>
-        <translation>Bod</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ordered</source>
-        <translation>Besteld</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Owned</source>
-        <translation>Eigendom</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Duplicate</source>
@@ -3231,23 +3234,23 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Sold</source>
-        <translation>Verkocht</translation>
+        <translation>Predané</translation>
     </message>
     <message>
         <source>Wish</source>
-        <translation>Wens</translation>
+        <translation>Priane</translation>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Verkoop</translation>
+        <translation>Predať</translation>
     </message>
     <message>
         <source>Missing</source>
-        <translation type="unfinished"/>
+        <translation>Chýbajúce</translation>
     </message>
     <message>
         <source>Pass</source>
-        <translation>Ophouden</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3278,7 +3281,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Gold</source>
-        <translation>Goud</translation>
+        <translation>Zlato</translation>
     </message>
     <message>
         <source>(calculated for %d coins)</source>
@@ -3290,7 +3293,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Silver</source>
-        <translation>Zilver</translation>
+        <translation>Striebro</translation>
     </message>
     <message>
         <source>Count wish: %d</source>
@@ -3425,39 +3428,39 @@ Please update OpenNumismat</source>
     <name>TabView</name>
     <message>
         <source>&amp;New...</source>
-        <translation>&amp;nieuw...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Clone</source>
-        <translation>Klonen</translation>
+        <translation>Duplikovať</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Open</translation>
+        <translation>Otvoriť</translation>
     </message>
     <message>
         <source>Remove all</source>
-        <translation>Alles verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Rename...</source>
-        <translation>Hernoemen</translation>
+        <translation>Premenovať...</translation>
     </message>
     <message>
         <source>Select columns...</source>
-        <translation>Kolommen selecteren ...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Close</source>
-        <translation>Sluiten</translation>
+        <translation>Zavrieť</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Verwijderren</translation>
+        <translation>Odstrániť</translation>
     </message>
     <message>
         <source>Clear all filters</source>
-        <translation>Wis alle filters</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Clear sort order</source>
@@ -3469,35 +3472,35 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Customize tree...</source>
-        <translation>Bewerk zoekboom...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source> (clone)</source>
-        <translation>(Klonen)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Coins</source>
-        <translation>Munten</translation>
+        <translation>Mince</translation>
     </message>
     <message>
         <source>New list</source>
-        <translation>Nieuwe lijst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter list title</source>
-        <translation>Geef lijsttitel op</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Rename list</source>
-        <translation>Verwijder lijst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter new list title</source>
-        <translation>Geef nieuwe lijsttitel op</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove page</source>
-        <translation>Verwijder pagina</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Can't close latest opened list.
@@ -3507,19 +3510,19 @@ Add a new one first.</source>
     <message>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
-        <translation>Kan de laatste pagina niet verwijderen. Voeg eerst een nieuwe toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove the page &apos;%s&apos; permanently?</source>
-        <translation>Verwijder pagina &apos;%s&apos; permanent?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove pages</source>
-        <translation>Verwijder pagina&apos;s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove all closed pages permanently?</source>
-        <translation>Verwijder alle gesloten pagina&apos;s permanent?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3533,7 +3536,7 @@ Add a new one first.</source>
     <name>TagsDialog</name>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation>Štítky</translation>
     </message>
     <message>
         <source>New tag</source>
@@ -3541,11 +3544,11 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Hernoemen</translation>
+        <translation>Premenovať</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Zmazať</translation>
     </message>
     <message>
         <source>Save tags</source>
@@ -3553,70 +3556,70 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Something went wrong when saving. Please restart</source>
-        <translation>Er is iets misgegaan bij het opslaan. herstart</translation>
+        <translation>Pri ukladaní sa niečo pokazilo. Prosím reštartujte</translation>
     </message>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
-        <translation>Er is iets misgegaan bij het annuleren. herstart</translation>
+        <translation>Pri rušení sa vyskytla chyba. Prosím reštartujte</translation>
     </message>
 </context>
 <context>
     <name>TreeView</name>
     <message>
         <source>Other</source>
-        <translation>Overig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add new coin...</source>
-        <translation>nieuwe Ikoon toevoegen</translation>
+        <translation>Pridať novú mincu</translation>
     </message>
     <message>
         <source>Customize tree...</source>
-        <translation>Bewerk zoekboom...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Meerdere berwerken</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>UpdaterTo2</name>
     <message>
         <source>Saving...</source>
-        <translation>Opslaan...</translation>
+        <translation>Ukladanie...</translation>
     </message>
     <message>
         <source>Vacuum...</source>
-        <translation>Comprimeren...</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>UpdaterTo4</name>
     <message>
         <source>Saving...</source>
-        <translation>Opslaan...</translation>
+        <translation>Ukladanie...</translation>
     </message>
 </context>
 <context>
     <name>UpdaterTo5</name>
     <message>
         <source>Saving...</source>
-        <translation>Opslaan...</translation>
+        <translation>Ukladanie...</translation>
     </message>
 </context>
 <context>
     <name>UrlLineEdit</name>
     <message>
         <source>Open specified URL</source>
-        <translation>Open een specifiek webadres</translation>
+        <translation>Otvorte zadanú adresu URL</translation>
     </message>
     <message>
         <source>Select file from disc</source>
-        <translation>Kies een bestand van schijf</translation>
+        <translation>Vyberte súbor z disku</translation>
     </message>
     <message>
         <source>Select file</source>
-        <translation>Selecteer bestand</translation>
+        <translation>Vyberte súbor</translation>
     </message>
 </context>
 <context>
@@ -3627,7 +3630,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Farba</translation>
     </message>
     <message>
         <source>Image background color</source>
@@ -3638,7 +3641,7 @@ Add a new one first.</source>
     <name>YearCalculatorDialog</name>
     <message>
         <source>Year calculator</source>
-        <translation type="unfinished"/>
+        <translation>Kalkulačka na výpočet roku</translation>
     </message>
     <message>
         <source>Hebrew</source>
@@ -3646,27 +3649,27 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Units</source>
-        <translation type="unfinished"/>
+        <translation>Jednotky</translation>
     </message>
     <message>
         <source>Islamic</source>
-        <translation type="unfinished"/>
+        <translation>Islamský</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation>Jaar</translation>
+        <translation>Rok</translation>
     </message>
     <message>
         <source>Roman</source>
-        <translation type="unfinished"/>
+        <translation>Rímsky</translation>
     </message>
     <message>
         <source>Nepal</source>
-        <translation>Nepal</translation>
+        <translation>Nepál</translation>
     </message>
     <message>
         <source>Thai</source>
-        <translation type="unfinished"/>
+        <translation>Thajsky</translation>
     </message>
     <message>
         <source>Burmese</source>
@@ -3674,81 +3677,81 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Iranian</source>
-        <translation type="unfinished"/>
+        <translation>Iránsky</translation>
     </message>
     <message>
         <source>Japanese</source>
-        <translation type="unfinished"/>
+        <translation>Japonský</translation>
     </message>
 </context>
 <context>
     <name>YearEdit</name>
     <message>
         <source>BC</source>
-        <translation>BC</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>_Import</name>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <source>Importing</source>
-        <translation>Bezig met importeren</translation>
+        <translation>Importuje sa</translation>
     </message>
     <message>
         <source>Importing from %s</source>
-        <translation>Importeren van %s</translation>
+        <translation>Importuje sa z %s</translation>
     </message>
     <message>
         <source>&apos;%s&apos; is not a valid database</source>
-        <translation>&apos;%s&apos; is geen geldige database</translation>
+        <translation>&apos;%s&apos; nie je platná databáza</translation>
     </message>
     <message>
         <source>DB server connection problem. Check additional software.</source>
-        <translation>DB server verbindingsfout. Controleer databasesoftware</translation>
+        <translation>Problém s pripojením k DB serveru. Skontrolujte ďalší softvér.</translation>
     </message>
 </context>
 <context>
     <name>_Import2</name>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Zrušiť</translation>
     </message>
     <message>
         <source>Importing</source>
-        <translation>Bezig met importeren</translation>
+        <translation>Importuje sa</translation>
     </message>
     <message>
         <source>Importing from %s</source>
-        <translation>Importeren van %s</translation>
+        <translation>Importuje sa z %s</translation>
     </message>
 </context>
 <context>
     <name>_Updater</name>
     <message>
         <source>Updating records</source>
-        <translation>data bijwerken</translation>
+        <translation>Aktualizácia záznamov</translation>
     </message>
 </context>
 <context>
     <name>readImageFilters</name>
     <message>
         <source>Images (%s)</source>
-        <translation type="unfinished"/>
+        <translation>Obrázky (%s)</translation>
     </message>
     <message>
         <source>All files (*.*)</source>
-        <translation>Alle bestanden (*.*)</translation>
+        <translation>Všetky súbory (*.*)</translation>
     </message>
 </context>
 <context>
     <name>saveImageFilters</name>
     <message>
         <source>All files (*.*)</source>
-        <translation>Alle bestanden (*.*)</translation>
+        <translation>Všetky súbory (*.*)</translation>
     </message>
 </context>
 </TS>

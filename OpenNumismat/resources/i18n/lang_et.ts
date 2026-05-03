@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="et">
 <context>
     <name>AddressLineEdit</name>
     <message>
@@ -10,19 +10,19 @@
     <name>AllReferenceDialog</name>
     <message>
         <source>Reference</source>
-        <translation>Referentie</translation>
+        <translation>Viide</translation>
     </message>
     <message>
         <source>Save reference</source>
-        <translation>Bewaar referentie</translation>
+        <translation>Salvesta viide</translation>
     </message>
     <message>
         <source>Something went wrong when saving. Please restart</source>
-        <translation>Er is iets misgegaan bij het opslaan. herstart</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
-        <translation>Er is iets misgegaan bij het annuleren. herstart</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -81,7 +81,7 @@
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add and close</source>
@@ -105,11 +105,11 @@
     </message>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Allalaadimine</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
     <message>
         <source>Catalog information courtesy of the &lt;a href=&quot;https://numismatics.org/search/&quot;&gt;American Numismatic Society&lt;/a&gt; collections database.</source>
@@ -121,7 +121,7 @@
     </message>
     <message>
         <source>Inserting records</source>
-        <translation>data toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -177,7 +177,7 @@
     <name>BaseCanvas</name>
     <message>
         <source>Quantity</source>
-        <translation>Aantal</translation>
+        <translation>Kogus</translation>
     </message>
 </context>
 <context>
@@ -201,7 +201,7 @@ Changing item position avalaible only on default sort order. Clear sort order no
     </message>
     <message>
         <source>Report preview</source>
-        <translation>Voorbeeldrapport</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Nothing selected</source>
@@ -213,23 +213,23 @@ Changing item position avalaible only on default sort order. Clear sort order no
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web pagina (*.htm *.html)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Text file (*.csv)</source>
-        <translation>Tekst bestand (*.csv)</translation>
+        <translation>Tekstifail (*.csv)</translation>
     </message>
     <message>
         <source>Text file UTF-8 (*.csv)</source>
-        <translation>Tekst bestand UTF-8 (*.csv)</translation>
+        <translation>Tekstifail UTF-8 (*.csv)</translation>
     </message>
     <message>
         <source>Saving list</source>
-        <translation>Lijst opslaan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
     <message>
         <source>File is open in another program or permission required.
@@ -238,19 +238,19 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Saving...</source>
-        <translation>Opslaan...</translation>
+        <translation>Salvestamine...</translation>
     </message>
     <message>
         <source>Inserting records</source>
-        <translation>data toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Kustuta</translation>
     </message>
     <message>
         <source>Deleting records</source>
-        <translation>data verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>%d record(s) selected</source>
@@ -269,14 +269,14 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Allalaadimine</translation>
     </message>
 </context>
 <context>
     <name>CachedPoolManager</name>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Allalaadimine</translation>
     </message>
     <message>
         <source>Server</source>
@@ -329,22 +329,22 @@ Close the file and try again.</source>
     <name>ClearButton</name>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Puhasta</translation>
     </message>
 </context>
 <context>
     <name>Collection</name>
     <message>
         <source>Open collection</source>
-        <translation>Open verzameling</translation>
+        <translation>Ava kollektsioon</translation>
     </message>
     <message>
         <source>Can&apos;t open collection %s</source>
-        <translation>Kan de verzameling niet openen %s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Collection %s not exists</source>
-        <translation>Collectie %s bestaat niet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Collection %s in wrong format</source>
@@ -353,28 +353,27 @@ Close the file and try again.</source>
     <message>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation>De verzameling %s heeft een nieuwere versie.
-Update OpenNumismat naar de laatste versie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create collection</source>
-        <translation>verzameling aanmaken</translation>
+        <translation>Loo kollektsioon</translation>
     </message>
     <message>
         <source>Specified file already exists</source>
-        <translation>Opgegegeven bestand bestaat al</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Can&apos;t open collection</source>
-        <translation>Kan de  collectie niet openen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Updating reference</source>
-        <translation>Referentie bijwerken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
     <message>
         <source>Attach</source>
@@ -438,23 +437,23 @@ Update OpenNumismat naar de laatste versie</translation>
     </message>
     <message>
         <source>Fill from collection</source>
-        <translation>Vullen uit de collectie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken.....</translation>
+        <translation>Redigeeri...</translation>
     </message>
     <message>
         <source>Backup collection</source>
-        <translation>back-up collectie</translation>
+        <translation>Varunda kollektsioon</translation>
     </message>
     <message>
         <source>Can&apos;t make a collection backup at %s</source>
-        <translation>Kan een verzameling back-up  niet maken %s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backup</source>
-        <translation>Backup</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backup saved as %s</source>
@@ -462,15 +461,15 @@ Update OpenNumismat naar de laatste versie</translation>
     </message>
     <message>
         <source>Exporting records</source>
-        <translation>Data export</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Opslaan als</translation>
+        <translation>Salvesta kui</translation>
     </message>
     <message>
         <source>Synchronizing</source>
-        <translation type="unfinished"/>
+        <translation>Sünkroniseerimine</translation>
     </message>
     <message>
         <source>Can't open collection:
@@ -500,103 +499,103 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation>Nimetus</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation>Waarde</translation>
+        <translation>Väärtus</translation>
     </message>
     <message>
         <source>Unit</source>
-        <translation>Eenheid</translation>
+        <translation>Ühik</translation>
     </message>
     <message>
         <source>Country</source>
-        <translation>Land</translation>
+        <translation>Riik</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation>Jaar</translation>
+        <translation>Aasta</translation>
     </message>
     <message>
         <source>Period</source>
-        <translation>Periode</translation>
+        <translation>Periood</translation>
     </message>
     <message>
         <source>Mint</source>
-        <translation>Munthuis</translation>
+        <translation>Rahapaja</translation>
     </message>
     <message>
         <source>Mint mark</source>
-        <translation>Muntteken</translation>
+        <translation>Rahapaja tähis</translation>
     </message>
     <message>
         <source>Date of issue</source>
-        <translation>Uitgiftedatum</translation>
+        <translation>Väljalaskeaeg </translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation>Tüüp</translation>
     </message>
     <message>
         <source>Series</source>
-        <translation>Uitvoering</translation>
+        <translation>Seeria</translation>
     </message>
     <message>
         <source>Subject</source>
-        <translation>Onderwerp</translation>
+        <translation>Teema</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Status</translation>
+        <translation>Olek</translation>
     </message>
     <message>
         <source>Material</source>
-        <translation>Materiaal</translation>
+        <translation>Materjal</translation>
     </message>
     <message>
         <source>Fineness</source>
-        <translation>Gehalte</translation>
+        <translation>Proov</translation>
     </message>
     <message>
         <source>Shape</source>
-        <translation>Vorm</translation>
+        <translation>Kuju</translation>
     </message>
     <message>
         <source>Diameter</source>
-        <translation>Diameter</translation>
+        <translation>Läbimõõt</translation>
     </message>
     <message>
         <source>Thickness</source>
-        <translation>Dikte</translation>
+        <translation>Paksus</translation>
     </message>
     <message>
         <source>Weight</source>
-        <translation>Gewicht</translation>
+        <translation>Kaal</translation>
     </message>
     <message>
         <source>Grade</source>
-        <translation>Kwaliteitsgraad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Label</source>
-        <translation>Label</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>ObvRev</source>
-        <translation>Voor/achter</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Quality</source>
-        <translation>Kwaliteit</translation>
+        <translation>Kvaliteet</translation>
     </message>
     <message>
         <source>Mintage</source>
-        <translation>Gemunt</translation>
+        <translation>Tiraaž</translation>
     </message>
     <message>
         <source>Emission period</source>
-        <translation>Uitgifte periode</translation>
+        <translation>Emissiooniperiood</translation>
     </message>
     <message>
         <source>1#</source>
@@ -616,59 +615,59 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Rarity</source>
-        <translation>Zeldzaam</translation>
+        <translation>Rariteetsus</translation>
     </message>
     <message>
         <source>Fine</source>
-        <translation>Fraai</translation>
+        <translation>Fine</translation>
     </message>
     <message>
         <source>VF</source>
-        <translation>Zeer fraai</translation>
+        <translation>VF</translation>
     </message>
     <message>
         <source>XF</source>
-        <translation>Prachtig</translation>
+        <translation>XF</translation>
     </message>
     <message>
         <source>Unc</source>
-        <translation>Unc</translation>
+        <translation>UNC</translation>
     </message>
     <message>
         <source>Variety</source>
-        <translation>Variant</translation>
+        <translation>Variatsioon</translation>
     </message>
     <message>
         <source>Obverse</source>
-        <translation>Voorzijde</translation>
+        <translation>Avers</translation>
     </message>
     <message>
         <source>Reverse</source>
-        <translation>Achterzijde</translation>
+        <translation>Revers</translation>
     </message>
     <message>
         <source>Edge</source>
-        <translation>Rand</translation>
+        <translation>Serv</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation>Datum</translation>
-    </message>
-    <message>
-        <source>Price</source>
-        <translation>Prijs</translation>
-    </message>
-    <message>
-        <source>Paid</source>
-        <translation>Betaald</translation>
-    </message>
-    <message>
-        <source>Seller</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Price</source>
+        <translation>Hind</translation>
+    </message>
+    <message>
+        <source>Paid</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Seller</source>
+        <translation>Müüja</translation>
+    </message>
+    <message>
         <source>Place</source>
-        <translation>Plaats</translation>
+        <translation>Koht</translation>
     </message>
     <message>
         <source>Info</source>
@@ -680,23 +679,23 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Buyer</source>
-        <translation>Koper</translation>
+        <translation>Ostja</translation>
     </message>
     <message>
         <source>Note</source>
-        <translation>Notitie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Image</source>
-        <translation>Afbeelding</translation>
+        <translation>Pilt</translation>
     </message>
     <message>
         <source>Design</source>
-        <translation>Ontwerp</translation>
+        <translation>Disain</translation>
     </message>
     <message>
         <source>Designer</source>
-        <translation>Ontwerper</translation>
+        <translation>Disainer</translation>
     </message>
     <message>
         <source>Photo 1</source>
@@ -716,63 +715,63 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Defect</source>
-        <translation>Beschadiging</translation>
+        <translation>Defekt</translation>
     </message>
     <message>
         <source>Storage</source>
-        <translation>Opslag</translation>
+        <translation>Hoiukoht</translation>
     </message>
     <message>
         <source>Features</source>
-        <translation>Kenmerken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Created at</source>
-        <translation>Gemaakt bij</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Updated at</source>
-        <translation>Bijgewerkt op</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Quantity</source>
-        <translation>Aantal</translation>
+        <translation>Kogus</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation>Webadres</translation>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation>Barcode</translation>
+        <translation>Triipkood</translation>
     </message>
     <message>
         <source>Ruler</source>
-        <translation>Heerser</translation>
+        <translation>Valitseja</translation>
     </message>
     <message>
         <source>Region</source>
-        <translation>Regio</translation>
+        <translation>Regioon</translation>
     </message>
     <message>
         <source>Engraver</source>
-        <translation type="unfinished"/>
+        <translation>Graveerija</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Värv</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation>Omschrijving</translation>
+        <translation>Kirjeldus</translation>
     </message>
     <message>
         <source>Format</source>
-        <translation type="unfinished"/>
+        <translation>Formaat</translation>
     </message>
     <message>
         <source>Condition</source>
-        <translation type="unfinished"/>
+        <translation>Seisukord</translation>
     </message>
     <message>
         <source>Category</source>
@@ -867,23 +866,23 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Updating records</source>
-        <translation>data bijwerken</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Annuleren</translation>
-    </message>
-    <message>
-        <source>Saving...</source>
-        <translation>Opslaan...</translation>
-    </message>
-    <message>
-        <source>file is readonly</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Tühista</translation>
+    </message>
+    <message>
+        <source>Saving...</source>
+        <translation>Salvestamine...</translation>
+    </message>
+    <message>
+        <source>file is readonly</source>
+        <translation>Fail on kirjutuskaitstud</translation>
+    </message>
+    <message>
         <source>Saving</source>
-        <translation>Opslaan</translation>
+        <translation>Salvestamine</translation>
     </message>
     <message>
         <source>Can&apos;t save data: %s</source>
@@ -891,11 +890,11 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Filtering</source>
-        <translation>Filteren</translation>
+        <translation>Filtreerimine</translation>
     </message>
     <message>
         <source>Filter is too complex. Will be ignored</source>
-        <translation>Filter is te complex. Word genegeerd</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -906,7 +905,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Main details</source>
-        <translation type="unfinished"/>
+        <translation>Põhidetailid</translation>
     </message>
     <message>
         <source>State</source>
@@ -922,7 +921,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Verkoop</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Map</source>
@@ -934,7 +933,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Parameters</source>
-        <translation type="unfinished"/>
+        <translation>Parameetrid</translation>
     </message>
     <message>
         <source>Specificity</source>
@@ -946,19 +945,19 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Design</source>
-        <translation>Ontwerp</translation>
+        <translation>Disain</translation>
     </message>
     <message>
         <source>Obverse</source>
-        <translation>Voorzijde</translation>
+        <translation>Avers</translation>
     </message>
     <message>
         <source>Reverse</source>
-        <translation>Achterzijde</translation>
+        <translation>Revers</translation>
     </message>
     <message>
         <source>Edge</source>
-        <translation>Rand</translation>
+        <translation>Serv</translation>
     </message>
     <message>
         <source>Classification</source>
@@ -966,19 +965,19 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Catalogue</source>
-        <translation type="unfinished"/>
+        <translation>Kataloog</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation>Prijs</translation>
+        <translation>Hind</translation>
     </message>
     <message>
         <source>Variation</source>
-        <translation type="unfinished"/>
+        <translation>Variatsioon</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"/>
+        <translation>Pildid</translation>
     </message>
     <message>
         <source>Tags</source>
@@ -997,7 +996,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Max image side len</source>
-        <translation>Max beeldformaat len</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>0 for storing in original size</source>
@@ -1017,7 +1016,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Free format numeric fields</source>
-        <translation>Vrij format voor numerieke velden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
@@ -1045,7 +1044,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Instellingen</translation>
+        <translation>Seaded</translation>
     </message>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
@@ -1107,7 +1106,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Coins</source>
-        <translation>Munten</translation>
+        <translation>Mündid</translation>
     </message>
     <message>
         <source>Banknotes</source>
@@ -1127,7 +1126,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add and close</source>
@@ -1151,15 +1150,15 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Allalaadimine</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
     <message>
         <source>Inserting records</source>
-        <translation>data toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Colnect API changed.
@@ -1305,11 +1304,11 @@ and try again.</source>
     <name>CustomizeTreeDialog</name>
     <message>
         <source>Customize tree</source>
-        <translation>Aanpassen zoekboom</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Puhasta</translation>
     </message>
     <message>
         <source>Hold down the Ctrl key to combine two fields (Value + Unit)</source>
@@ -1320,15 +1319,15 @@ and try again.</source>
     <name>DescriptionDialog</name>
     <message>
         <source>Description</source>
-        <translation>Omschrijving</translation>
+        <translation>Kirjeldus</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation>Titel</translation>
+        <translation>Nimetus</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation>Auteur</translation>
+        <translation>Autor</translation>
     </message>
 </context>
 <context>
@@ -1339,30 +1338,30 @@ and try again.</source>
     </message>
     <message>
         <source>Pass</source>
-        <translation>Ophouden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Commission</source>
-        <translation>Commissie</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>EditCoinDialog</name>
     <message>
         <source>Multi edit</source>
-        <translation>Meerdere bewerkingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>New</source>
-        <translation>Nieuw</translation>
+        <translation>Uus</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Bewerken</translation>
+        <translation>Redigeeri</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Opslaan</translation>
+        <translation>Salvesta</translation>
     </message>
     <message>
         <source>Don&apos;t show this again</source>
@@ -1370,11 +1369,11 @@ and try again.</source>
     </message>
     <message>
         <source>Total paid price is negative. Save?</source>
-        <translation>Totaal betaalde prijs is negatief. Opslaan?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Pay price is great than total paid price. Save?</source>
-        <translation>Koopprijs hoger is dan de totale prijs betaald. Opslaan?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Total revenue price is negative. Save?</source>
@@ -1405,48 +1404,47 @@ and try again.</source>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Hernoemen</translation>
+        <translation>Nimeta ümber</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Kustuta</translation>
     </message>
     <message>
         <source>Enter value</source>
-        <translation>waarde ingeven</translation>
-    </message>
-    <message>
-        <source>Change icon...</source>
-        <translation>Icoon aanpassen</translation>
-    </message>
-    <message>
-        <source>Add icon...</source>
-        <translation>Ikoon toevoegen</translation>
-    </message>
-    <message>
-        <source>Paste icon</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Change icon...</source>
+        <translation>Muuda ikooni...</translation>
+    </message>
+    <message>
+        <source>Add icon...</source>
+        <translation>Lisa ikoon...</translation>
+    </message>
+    <message>
+        <source>Paste icon</source>
+        <translation>Kleebi ikoon</translation>
+    </message>
+    <message>
         <source>Clear icon</source>
-        <translation>Ikoon wissen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Open bestand</translation>
+        <translation>Ava</translation>
     </message>
 </context>
 <context>
     <name>ExcpHook</name>
     <message>
         <source>System error</source>
-        <translation>systeem fout</translation>
+        <translation>Süsteemi viga</translation>
     </message>
     <message>
         <source>A system error occurred.
 Do you want to send an error message to the author?</source>
-        <translation>Een systeemfout is opgetreden.
-Wilt u een foutmelding te sturen naar de author?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1457,46 +1455,46 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Hernoemen</translation>
+        <translation>Nimeta ümber</translation>
     </message>
     <message>
         <source>Revert to default</source>
-        <translation>Terugkeren naar standaardwaarden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Global enabled fields:</source>
-        <translation>Algemeen geactiveerde velden:</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>FilterMenuButton</name>
     <message>
         <source>Filter items</source>
-        <translation>Selecteer eenheden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(Images)</source>
-        <translation>(afbeeldingen)</translation>
+        <translation>(Pildid)</translation>
     </message>
     <message>
         <source>(Text)</source>
-        <translation>(tekst)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(Data)</source>
-        <translation>(Data)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(Select all)</source>
-        <translation>(Selecteer alles)</translation>
+        <translation>(Vali kõik)</translation>
     </message>
     <message>
         <source>(Blanks)</source>
-        <translation>(leeg)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Filter</source>
-        <translation>(Filter)</translation>
+        <translation>Filtreeri</translation>
     </message>
 </context>
 <context>
@@ -1531,7 +1529,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
     <message>
         <source>Search by image</source>
@@ -1542,11 +1540,11 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <name>FormDetailsTabWidget</name>
     <message>
         <source>Generate</source>
-        <translation>Genereren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Israel</source>
-        <translation>Israël</translation>
+        <translation>Iisrael</translation>
     </message>
     <message>
         <source>Bahrain</source>
@@ -1554,87 +1552,87 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Jordan</source>
-        <translation>Jordanië</translation>
+        <translation>Jordaania</translation>
     </message>
     <message>
         <source>Iraq</source>
-        <translation>Irak</translation>
+        <translation>Iraak</translation>
     </message>
     <message>
         <source>Yemen</source>
-        <translation>Jemen</translation>
+        <translation>Jeemen</translation>
     </message>
     <message>
         <source>Qatar</source>
-        <translation>Qatar</translation>
+        <translation>Katar</translation>
     </message>
     <message>
         <source>Kuwait</source>
-        <translation>Koeweit</translation>
+        <translation>Kuveit</translation>
     </message>
     <message>
         <source>Maldives</source>
-        <translation>Maldiven</translation>
+        <translation>Maldiivid</translation>
     </message>
     <message>
         <source>Oman</source>
-        <translation>Oman</translation>
+        <translation>Omaan</translation>
     </message>
     <message>
         <source>Syria</source>
-        <translation>Syrië</translation>
+        <translation>Süüria</translation>
     </message>
     <message>
         <source>United Arab Emirates</source>
-        <translation>Verenigde Arabische Emiraten</translation>
+        <translation>Araabia Ühendemiraadid</translation>
     </message>
     <message>
         <source>Saudi Arabia</source>
-        <translation>Saoedi-Arabië</translation>
+        <translation>Saudi Araabia</translation>
     </message>
     <message>
         <source>Turkey</source>
-        <translation>Turkije</translation>
+        <translation>Türgi</translation>
     </message>
     <message>
         <source>Algeria</source>
-        <translation>Algerije</translation>
+        <translation>Alžeeria</translation>
     </message>
     <message>
         <source>Egypt</source>
-        <translation>Egypte</translation>
+        <translation>Egiptus</translation>
     </message>
     <message>
         <source>Libya</source>
-        <translation>Libië</translation>
+        <translation>Liibüa</translation>
     </message>
     <message>
         <source>Mauritania</source>
-        <translation>Mauritanië</translation>
+        <translation>Mauritaania</translation>
     </message>
     <message>
         <source>Morocco</source>
-        <translation>Marokko</translation>
+        <translation>Maroko</translation>
     </message>
     <message>
         <source>Sudan</source>
-        <translation>Soedan</translation>
+        <translation>Sudaan</translation>
     </message>
     <message>
         <source>Tunisia</source>
-        <translation>Tunesië</translation>
+        <translation>Tuneesia</translation>
     </message>
     <message>
         <source>Afghanistan</source>
-        <translation>Afghanistan</translation>
+        <translation>Afganistan</translation>
     </message>
     <message>
         <source>Iran</source>
-        <translation>Iran</translation>
+        <translation>Iraan</translation>
     </message>
     <message>
         <source>Japan</source>
-        <translation>Japan</translation>
+        <translation>Jaapan</translation>
     </message>
     <message>
         <source>Nepal</source>
@@ -1646,7 +1644,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Thailand</source>
-        <translation>Thailand</translation>
+        <translation>Tai</translation>
     </message>
     <message>
         <source>Burma</source>
@@ -1658,7 +1656,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Commission</source>
-        <translation>Commissie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Available format 12.5 or 10%</source>
@@ -1666,22 +1664,22 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Redigeeri...</translation>
     </message>
 </context>
 <context>
     <name>GeoChart</name>
     <message>
         <source>Country</source>
-        <translation>Land</translation>
+        <translation>Riik</translation>
     </message>
     <message>
         <source>Quantity</source>
-        <translation>Aantal</translation>
+        <translation>Kogus</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation>Opslaan</translation>
+        <translation>Salvestamine</translation>
     </message>
     <message>
         <source>Image not ready. Please try again later</source>
@@ -1692,7 +1690,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <name>GeoChartCanvas</name>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web pagina (*.htm *.html)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>PNG image (*.png)</source>
@@ -1707,14 +1705,14 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
 </context>
 <context>
     <name>GetSaveFileName</name>
     <message>
         <source>Save as</source>
-        <translation>Opslaan als</translation>
+        <translation>Salvesta kui</translation>
     </message>
 </context>
 <context>
@@ -1728,23 +1726,23 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     <name>IconView</name>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Redigeeri...</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopeeri</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Kleebi</translation>
     </message>
     <message>
         <source>Clone</source>
-        <translation>Klonen</translation>
+        <translation>Klooni</translation>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Meerdere berwerken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Move up</source>
@@ -1756,7 +1754,7 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Kustuta</translation>
     </message>
 </context>
 <context>
@@ -1767,35 +1765,35 @@ Wilt u een foutmelding te sturen naar de author?</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Laden...</translation>
+        <translation>Lae...</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Open</translation>
+        <translation>Ava</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Kleebi</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopeeri</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Kustuta</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Opslaan als...</translation>
+        <translation>Salvesta kui</translation>
     </message>
     <message>
         <source>Rename...</source>
-        <translation>Hernoemen</translation>
+        <translation>Nimeta ümber...</translation>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Open bestand</translation>
+        <translation>Ava</translation>
     </message>
     <message>
         <source>No image available
@@ -1805,11 +1803,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Rename image</source>
-        <translation type="unfinished"/>
+        <translation>Nimeta pilt ümber</translation>
     </message>
     <message>
         <source>Enter new image name</source>
-        <translation type="unfinished"/>
+        <translation>Sisesta pildi uus nimi</translation>
     </message>
 </context>
 <context>
@@ -1824,7 +1822,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>E&amp;inde</translation>
+        <translation>V&amp;älju</translation>
     </message>
     <message>
         <source>Full Screen</source>
@@ -1876,15 +1874,15 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Save</source>
-        <translation>Opslaan</translation>
+        <translation>Salvesta</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopeeri</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Kleebi</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -1904,7 +1902,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Edit</source>
@@ -1932,7 +1930,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>&amp;Open</translation>
+        <translation>&amp;Ava...</translation>
     </message>
     <message>
         <source>Show Scroll Panel</source>
@@ -1964,11 +1962,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Open bestand</translation>
+        <translation>Ava</translation>
     </message>
     <message>
         <source>Settings...</source>
-        <translation>Instellingen...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove background</source>
@@ -1976,11 +1974,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>downloading</translation>
+        <translation>Allalaadimine</translation>
     </message>
     <message>
         <source>Downloading AI model %s (%d Mb)</source>
@@ -1991,7 +1989,7 @@ drag-n-drop to add an image)</source>
     <name>ImageEditorWindow</name>
     <message>
         <source>Save</source>
-        <translation>Opslaan</translation>
+        <translation>Salvesta</translation>
     </message>
     <message>
         <source>Image was changed. Save changes?</source>
@@ -2010,53 +2008,53 @@ drag-n-drop to add an image)</source>
     <name>ImageLabel</name>
     <message>
         <source>Open</source>
-        <translation>Open</translation>
+        <translation>Ava</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Redigeeri...</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopeeri</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Opslaan als...</translation>
+        <translation>Salvesta kui</translation>
     </message>
 </context>
 <context>
     <name>ImportCoinManage</name>
     <message>
         <source>Select directory with images</source>
-        <translation>Selecteer de map met afbeeldingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Select directory with pre-defined images</source>
-        <translation>Kies een map met vooraf gedefinieerde afbeeldingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Error: %s</source>
-        <translation>Fout: %s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Field 1: %s</source>
-        <translation>veld 1: %s</translation>
+        <translation>Väli 1: %s</translation>
     </message>
     <message>
         <source>Field 2: %s</source>
-        <translation>veld 2: %s</translation>
+        <translation>Väli 2: %s</translation>
     </message>
     <message>
         <source>Defect: %s</source>
-        <translation>Defect: %s</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ImportCoinManagePredefined</name>
     <message>
         <source>Select directory with pre-defined images</source>
-        <translation>Kies een map met vooraf gedefinieerde afbeeldingen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2074,14 +2072,14 @@ drag-n-drop to add an image)</source>
     <name>ImportExcel</name>
     <message>
         <source>&lt;Ignore&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;Ignore&gt;</translation>
     </message>
 </context>
 <context>
     <name>ImportSettingsPage</name>
     <message>
         <source>Language</source>
-        <translation>Taal</translation>
+        <translation>Keel</translation>
     </message>
     <message>
         <source>Skip currency symbol</source>
@@ -2127,35 +2125,35 @@ drag-n-drop to add an image)</source>
     <name>ListView</name>
     <message>
         <source>Select columns...</source>
-        <translation>Kolommen selecteren ...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Hide</source>
-        <translation>Verbergen</translation>
+        <translation>Peida</translation>
     </message>
     <message>
         <source>Adjust size</source>
-        <translation>Aanpassen grootte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Redigeeri...</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopeeri</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Kleebi</translation>
     </message>
     <message>
         <source>Clone</source>
-        <translation>Klonen</translation>
+        <translation>Klooni</translation>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Meerdere berwerken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Filter in</source>
@@ -2171,58 +2169,58 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Kustuta</translation>
     </message>
     <message>
         <source>Enter value</source>
-        <translation>waarde ingeven</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>Toevoegen</translation>
-    </message>
-    <message>
-        <source>Change icon...</source>
-        <translation>Icoon aanpassen</translation>
-    </message>
-    <message>
-        <source>Add icon...</source>
-        <translation>Ikoon toevoegen</translation>
-    </message>
-    <message>
-        <source>Paste icon</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Add</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Change icon...</source>
+        <translation>Muuda ikooni...</translation>
+    </message>
+    <message>
+        <source>Add icon...</source>
+        <translation>Lisa ikoon...</translation>
+    </message>
+    <message>
+        <source>Paste icon</source>
+        <translation>Kleebi ikoon</translation>
+    </message>
+    <message>
         <source>Clear icon</source>
-        <translation>Ikoon wissen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Open bestand</translation>
+        <translation>Ava</translation>
     </message>
 </context>
 <context>
     <name>MainSettingsPage</name>
     <message>
         <source>Language</source>
-        <translation>Taal</translation>
+        <translation>Keel</translation>
     </message>
     <message>
         <source>Reference</source>
-        <translation>Referentie</translation>
+        <translation>Viide</translation>
     </message>
     <message>
         <source>Backup folder</source>
-        <translation>Backup map</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Send error info to author</source>
-        <translation>Verzend de fout naar de auteur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Automatically check for updates</source>
-        <translation>Automatisch controleren op update&apos;s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reliable</source>
@@ -2230,11 +2228,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Fast</source>
-        <translation type="unfinished"/>
+        <translation>Kiire</translation>
     </message>
     <message>
         <source>Extra fast (dangerous)</source>
-        <translation type="unfinished"/>
+        <translation>Ülikiire (ohtlik)</translation>
     </message>
     <message>
         <source>Acceleration of storage</source>
@@ -2242,7 +2240,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Default template</source>
-        <translation>standaardsjabloon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use built-in image viewer</source>
@@ -2262,7 +2260,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Large</source>
@@ -2278,7 +2276,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Select reference</source>
-        <translation>selecteer referentie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Image background color</source>
@@ -2322,7 +2320,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Värv</translation>
     </message>
 </context>
 <context>
@@ -2345,11 +2343,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Info panel</source>
-        <translation type="unfinished"/>
+        <translation>Infopaneel</translation>
     </message>
     <message>
         <source>Statistics</source>
-        <translation>Statistieken</translation>
+        <translation>Statistika</translation>
     </message>
     <message>
         <source>Map</source>
@@ -2357,11 +2355,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Summary</source>
-        <translation type="unfinished"/>
+        <translation>Kokkuvõte</translation>
     </message>
     <message>
         <source>Settings...</source>
-        <translation>Instellingen...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Sort by drag-n-drop mode</source>
@@ -2369,35 +2367,35 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>E&amp;inde</translation>
+        <translation>V&amp;älju</translation>
     </message>
     <message>
         <source>&amp;New...</source>
-        <translation>&amp;nieuw</translation>
+        <translation>&amp;Uus...</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>&amp;Open</translation>
+        <translation>&amp;Ava...</translation>
     </message>
     <message>
         <source>Backup</source>
-        <translation>Backup</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation>Comprimeren...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Description</source>
-        <translation>Omschrijving</translation>
+        <translation>Kirjeldus</translation>
     </message>
     <message>
         <source>Set password...</source>
-        <translation>Wachtwoord instellen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importeren</translation>
+        <translation>Impordi</translation>
     </message>
     <message>
         <source>Synchronize...</source>
@@ -2405,31 +2403,31 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Export</source>
-        <translation>Exporteren</translation>
+        <translation>Ekspordi</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>bewerken...</translation>
+        <translation>Redigeeri...</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Kustuta</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiëren</translation>
+        <translation>Kopeeri</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Plakken</translation>
+        <translation>Kleebi</translation>
     </message>
     <message>
         <source>Record</source>
@@ -2445,83 +2443,83 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>View in browser</source>
-        <translation>Bekijk in de browser</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>List</source>
-        <translation>Lijst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reference</source>
-        <translation>Referentie</translation>
+        <translation>Viide</translation>
     </message>
     <message>
         <source>Report...</source>
-        <translation>Rapport</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save current list...</source>
-        <translation>Sla huidige lijst op</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Report</source>
-        <translation>Rapport</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>User manual</source>
-        <translation>Gebruikershandleiding</translation>
+        <translation>Kasutusjuhend</translation>
     </message>
     <message>
         <source>Visit web-site</source>
-        <translation type="unfinished"/>
+        <translation>Külasta veebilehte</translation>
     </message>
     <message>
         <source>Check for updates</source>
-        <translation>Controleren op update&apos;s</translation>
+        <translation>Kontrolli uuendusi</translation>
     </message>
     <message>
         <source>About %s</source>
-        <translation>Over %s</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation>&amp;Help</translation>
-    </message>
-    <message>
-        <source>Toolbar</source>
-        <translation>Toolbar</translation>
-    </message>
-    <message>
-        <source>Quick search</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>&amp;Help</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Toolbar</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Quick search</source>
+        <translation>Kiirotsing</translation>
+    </message>
+    <message>
         <source>Settings</source>
-        <translation>Instellingen</translation>
+        <translation>Seaded</translation>
     </message>
     <message>
         <source>The application will need to restart to apply the new settings. Restart it now?</source>
-        <translation>De applicatie moet opnieuw opstarten om de nieuwe instellingen te verwerken. Nu opnieuw starten?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Select file</source>
-        <translation>Selecteer bestand</translation>
+        <translation>Vali fail</translation>
     </message>
     <message>
         <source>Importing</source>
-        <translation>Bezig met Importeren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import pre-defined coins?</source>
-        <translation>Importeer voorgedefinieerde munten?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Before importing you should export existing collection from Collection Studio to XML Table (choose Collection Studio menu Tools &gt; Export...).</source>
-        <translation>Voordat u importeert moet u uw bestaande verzameling exporteren vanuit Collection Studio naar een XML tabel (kies Collection Studio menu Tools &gt; Export...)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Before importing you should export existing collection from uCoin.net to Comma-Separated (CSV) format.</source>
-        <translation>Voordat u importeert moet u uw bestaande verzameling exporteren van uCoin.net naar Comma-Separated (CSV) formaat.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Before importing you should export existing collection from uCoin.net to Microsoft Excel (XLS) or Comma-Separated (CSV) format.</source>
@@ -2529,19 +2527,19 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Open collection</source>
-        <translation>Open verzameling</translation>
+        <translation>Ava kollektsioon</translation>
     </message>
     <message>
         <source>Collections (*.db)</source>
-        <translation>verzamelingen (*.db)</translation>
+        <translation>Kollektsioonid (*.db)</translation>
     </message>
     <message>
         <source>New collection</source>
-        <translation>Nieuwe verzameling</translation>
+        <translation>Uus kollektsioon</translation>
     </message>
     <message>
         <source>Create new collection or open one of the existing</source>
-        <translation>Maak een nieuwe verzameling aan of open een bestaande</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>%s is freeware licensed under a GPLv3.</source>
@@ -2549,19 +2547,19 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Updates</source>
-        <translation>Updates</translation>
+        <translation>Uuendused</translation>
     </message>
     <message>
         <source>You already have the latest version.</source>
-        <translation>Je beschikt al over de laatste versie</translation>
+        <translation>Sul juba on uusim versioon.</translation>
     </message>
     <message>
         <source>New version</source>
-        <translation>nieuwe versie</translation>
+        <translation>Uus versioon</translation>
     </message>
     <message>
         <source>New version is available. Download it now?</source>
-        <translation>Nieuwe versie beschikbaar, nu downloaden?</translation>
+        <translation>Uus versioon on saadaval. Lae kohe alla?</translation>
     </message>
     <message>
         <source>Tags...</source>
@@ -2616,77 +2614,77 @@ drag-n-drop to add an image)</source>
     <name>PasswordDialog</name>
     <message>
         <source>Password</source>
-        <translation>Wachtwoord</translation>
+        <translation>Parool</translation>
     </message>
     <message>
         <source>Open collection</source>
-        <translation>Open verzameling</translation>
+        <translation>Ava kollektsioon</translation>
     </message>
     <message>
         <source>Incorrect password</source>
-        <translation>fout wachtwoord</translation>
+        <translation>Vale parool</translation>
     </message>
 </context>
 <context>
     <name>PasswordSetDialog</name>
     <message>
         <source>Set password</source>
-        <translation>Wachtwoord instellen</translation>
+        <translation>Määra parool</translation>
     </message>
     <message>
         <source>Current password</source>
-        <translation>Huidig wachtwoord</translation>
+        <translation>Praegune parool</translation>
     </message>
     <message>
         <source>New password</source>
-        <translation>Nieuw wachtwoord</translation>
+        <translation>Uus parool</translation>
     </message>
     <message>
         <source>Confirm password</source>
-        <translation>Bevestig wachtwoord</translation>
+        <translation>Kinnita parool</translation>
     </message>
     <message>
         <source>Change password</source>
-        <translation>Verander wachtwoord</translation>
+        <translation>Muuda parooli</translation>
     </message>
     <message>
         <source>The new password and confirmation password must match</source>
-        <translation>Het nieuwe wachtwoord en de bevestiging moeten gelijk zijn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Incorrect password</source>
-        <translation>fout wachtwoord</translation>
+        <translation>Vale parool</translation>
     </message>
 </context>
 <context>
     <name>PreviewDialog</name>
     <message>
         <source>Report preview</source>
-        <translation>Voorbeeldrapport</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save as MS Word document</source>
-        <translation>Opslaan als MS Word bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save as HTML files</source>
-        <translation>Opslaan als HTML bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save as PDF file</source>
-        <translation>Opslaan als PDF bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Word documents (*.doc)</source>
-        <translation>Word document (*.doc)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web pagina (*.htm *.html)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>PDF file (*.pdf)</source>
-        <translation>PDF bestand (*.pdf)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Report saving</source>
@@ -2731,7 +2729,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Date</source>
-        <translation>Datum</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Total</source>
@@ -2742,11 +2740,11 @@ drag-n-drop to add an image)</source>
     <name>ProgressPreciousPriceChartModel</name>
     <message>
         <source>Gold</source>
-        <translation>Goud</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Silver</source>
-        <translation>Zilver</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Platinum</source>
@@ -2761,92 +2759,89 @@ drag-n-drop to add an image)</source>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Print</source>
-        <translation>Printen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Page setup</source>
-        <translation>Pagina instelling</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>Reference</name>
     <message>
         <source>C</source>
-        <translation>L</translation>
-    </message>
-    <message>
-        <source>P</source>
-        <translation>P</translation>
-    </message>
-    <message>
-        <source>U</source>
-        <translation>E</translation>
-    </message>
-    <message>
-        <source>S</source>
-        <translation>U</translation>
-    </message>
-    <message>
-        <source>G</source>
-        <translation>K</translation>
-    </message>
-    <message>
-        <source>F</source>
-        <translation>V</translation>
-    </message>
-    <message>
-        <source>Q</source>
-        <translation>K</translation>
-    </message>
-    <message>
-        <source>R</source>
-        <translation>Z</translation>
-    </message>
-    <message>
-        <source>T</source>
-        <translation>T</translation>
-    </message>
-    <message>
-        <source>D</source>
-        <translation>B</translation>
-    </message>
-    <message>
-        <source>Place</source>
-        <translation>Plaats</translation>
-    </message>
-    <message>
-        <source>Color</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>P</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>U</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>S</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>G</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>F</source>
+        <translation>F</translation>
+    </message>
+    <message>
+        <source>Q</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>R</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>T</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>D</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Place</source>
+        <translation>Koht</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Värv</translation>
+    </message>
+    <message>
         <source>Edge</source>
-        <translation>Rand</translation>
+        <translation>Serv</translation>
     </message>
     <message>
         <source>Material</source>
-        <translation>Materiaal</translation>
+        <translation>Materjal</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Open reference</source>
-        <translation>Open referentie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Can't open reference:
 %s</source>
-        <translation>Kan de referentie niet openen:
-%s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Can't open reference:
 %s
 Created new one</source>
-        <translation>Kan de referentie niet openen:
-%s
-Nieuwe aangemaakt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Create reference</source>
@@ -2867,33 +2862,33 @@ Please update OpenNumismat</source>
     <name>ReferenceDialog</name>
     <message>
         <source>Reference</source>
-        <translation>Referentie</translation>
+        <translation>Viide</translation>
     </message>
 </context>
 <context>
     <name>ReferenceWidget</name>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Del</source>
-        <translation>Verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Sort</source>
-        <translation>Sorteren</translation>
+        <translation>Sorteeri</translation>
     </message>
 </context>
 <context>
     <name>Report</name>
     <message>
         <source>Generating report</source>
-        <translation>Rapport genereren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
 </context>
 <context>
@@ -2938,30 +2933,30 @@ Please update OpenNumismat</source>
     <name>SelectColumnsDialog</name>
     <message>
         <source>Columns</source>
-        <translation>Kolommen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
     <message>
         <source>Settings</source>
-        <translation>Instellingen</translation>
+        <translation>Seaded</translation>
     </message>
     <message>
         <source>Main</source>
-        <translation>Begin</translation>
-    </message>
-    <message>
-        <source>Collection</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Collection</source>
+        <translation>Kollektsioon</translation>
+    </message>
+    <message>
         <source>Fields</source>
-        <translation>Velden</translation>
+        <translation>Väljad</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importeren</translation>
+        <translation>Impordi</translation>
     </message>
     <message>
         <source>Chart settings</source>
@@ -3005,7 +3000,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Multicolor</source>
-        <translation type="unfinished"/>
+        <translation>Mitmevärviline</translation>
     </message>
     <message>
         <source>Use BLAF palette</source>
@@ -3076,7 +3071,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Progress</source>
-        <translation type="unfinished"/>
+        <translation>Progress</translation>
     </message>
     <message>
         <source>Area</source>
@@ -3092,7 +3087,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Field:</source>
-        <translation type="unfinished"/>
+        <translation>Väli:</translation>
     </message>
     <message>
         <source>Additional field:</source>
@@ -3104,19 +3099,19 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Year</source>
-        <translation>Jaar</translation>
+        <translation>Aasta</translation>
     </message>
     <message>
         <source>Month</source>
-        <translation type="unfinished"/>
+        <translation>Kuu</translation>
     </message>
     <message>
         <source>Week</source>
-        <translation type="unfinished"/>
+        <translation>Nädal</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation type="unfinished"/>
+        <translation>Päev</translation>
     </message>
     <message>
         <source>Items:</source>
@@ -3132,27 +3127,27 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>All</source>
-        <translation>Alle</translation>
+        <translation>Kõik</translation>
     </message>
     <message>
         <source>Europe</source>
-        <translation>Europe</translation>
+        <translation>Euroopa</translation>
     </message>
     <message>
         <source>Africa</source>
-        <translation>Africa</translation>
+        <translation>Aafrika</translation>
     </message>
     <message>
         <source>Americas</source>
-        <translation>Americas</translation>
+        <translation>Ameerikad</translation>
     </message>
     <message>
         <source>Asia</source>
-        <translation>Asia</translation>
+        <translation>Aasia</translation>
     </message>
     <message>
         <source>Oceania</source>
-        <translation>Oceania</translation>
+        <translation>Okeaania</translation>
     </message>
     <message>
         <source>Save chart</source>
@@ -3160,7 +3155,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Instellingen</translation>
+        <translation>Seaded</translation>
     </message>
     <message>
         <source>Zoom In (25%)</source>
@@ -3196,11 +3191,11 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Weight</source>
-        <translation>Gewicht</translation>
+        <translation>Kaal</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation>Prijs</translation>
+        <translation>Hind</translation>
     </message>
 </context>
 <context>
@@ -3211,15 +3206,15 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Bidding</source>
-        <translation>Bod</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ordered</source>
-        <translation>Besteld</translation>
+        <translation>Tellitud</translation>
     </message>
     <message>
         <source>Owned</source>
-        <translation>Eigendom</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Duplicate</source>
@@ -3231,15 +3226,15 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Sold</source>
-        <translation>Verkocht</translation>
+        <translation>Müüdud</translation>
     </message>
     <message>
         <source>Wish</source>
-        <translation>Wens</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Sale</source>
-        <translation>Verkoop</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Missing</source>
@@ -3247,14 +3242,14 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Pass</source>
-        <translation>Ophouden</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>SummaryDialog</name>
     <message>
         <source>Summary</source>
-        <translation type="unfinished"/>
+        <translation>Kokkuvõte</translation>
     </message>
     <message>
         <source>[Selected]</source>
@@ -3278,7 +3273,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Gold</source>
-        <translation>Goud</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>(calculated for %d coins)</source>
@@ -3290,7 +3285,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Silver</source>
-        <translation>Zilver</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Count wish: %d</source>
@@ -3425,39 +3420,39 @@ Please update OpenNumismat</source>
     <name>TabView</name>
     <message>
         <source>&amp;New...</source>
-        <translation>&amp;nieuw...</translation>
+        <translation>&amp;Uus...</translation>
     </message>
     <message>
         <source>Clone</source>
-        <translation>Klonen</translation>
+        <translation>Klooni</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Open</translation>
+        <translation>Ava</translation>
     </message>
     <message>
         <source>Remove all</source>
-        <translation>Alles verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Rename...</source>
-        <translation>Hernoemen</translation>
+        <translation>Nimeta ümber...</translation>
     </message>
     <message>
         <source>Select columns...</source>
-        <translation>Kolommen selecteren ...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Close</source>
-        <translation>Sluiten</translation>
+        <translation>Sulge</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Verwijderren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Clear all filters</source>
-        <translation>Wis alle filters</translation>
+        <translation>Puhasta kõik filtrid</translation>
     </message>
     <message>
         <source>Clear sort order</source>
@@ -3469,35 +3464,35 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Customize tree...</source>
-        <translation>Bewerk zoekboom...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source> (clone)</source>
-        <translation>(Klonen)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Coins</source>
-        <translation>Munten</translation>
+        <translation>Mündid</translation>
     </message>
     <message>
         <source>New list</source>
-        <translation>Nieuwe lijst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter list title</source>
-        <translation>Geef lijsttitel op</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Rename list</source>
-        <translation>Verwijder lijst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter new list title</source>
-        <translation>Geef nieuwe lijsttitel op</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove page</source>
-        <translation>Verwijder pagina</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Can't close latest opened list.
@@ -3507,19 +3502,19 @@ Add a new one first.</source>
     <message>
         <source>Can't remove latest opened page.
 Add a new one first.</source>
-        <translation>Kan de laatste pagina niet verwijderen. Voeg eerst een nieuwe toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove the page &apos;%s&apos; permanently?</source>
-        <translation>Verwijder pagina &apos;%s&apos; permanent?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove pages</source>
-        <translation>Verwijder pagina&apos;s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove all closed pages permanently?</source>
-        <translation>Verwijder alle gesloten pagina&apos;s permanent?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3541,11 +3536,11 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Hernoemen</translation>
+        <translation>Nimeta ümber</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation>Kustuta</translation>
     </message>
     <message>
         <source>Save tags</source>
@@ -3553,70 +3548,70 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Something went wrong when saving. Please restart</source>
-        <translation>Er is iets misgegaan bij het opslaan. herstart</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
-        <translation>Er is iets misgegaan bij het annuleren. herstart</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>TreeView</name>
     <message>
         <source>Other</source>
-        <translation>Overig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add new coin...</source>
-        <translation>nieuwe Ikoon toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Customize tree...</source>
-        <translation>Bewerk zoekboom...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Multi edit...</source>
-        <translation>Meerdere berwerken</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>UpdaterTo2</name>
     <message>
         <source>Saving...</source>
-        <translation>Opslaan...</translation>
+        <translation>Salvestamine...</translation>
     </message>
     <message>
         <source>Vacuum...</source>
-        <translation>Comprimeren...</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>UpdaterTo4</name>
     <message>
         <source>Saving...</source>
-        <translation>Opslaan...</translation>
+        <translation>Salvestamine...</translation>
     </message>
 </context>
 <context>
     <name>UpdaterTo5</name>
     <message>
         <source>Saving...</source>
-        <translation>Opslaan...</translation>
+        <translation>Salvestamine...</translation>
     </message>
 </context>
 <context>
     <name>UrlLineEdit</name>
     <message>
         <source>Open specified URL</source>
-        <translation>Open een specifiek webadres</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Select file from disc</source>
-        <translation>Kies een bestand van schijf</translation>
+        <translation>Vali kettalt fail</translation>
     </message>
     <message>
         <source>Select file</source>
-        <translation>Selecteer bestand</translation>
+        <translation>Vali fail</translation>
     </message>
 </context>
 <context>
@@ -3627,7 +3622,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Värv</translation>
     </message>
     <message>
         <source>Image background color</source>
@@ -3654,7 +3649,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Year</source>
-        <translation>Jaar</translation>
+        <translation>Aasta</translation>
     </message>
     <message>
         <source>Roman</source>
@@ -3685,52 +3680,52 @@ Add a new one first.</source>
     <name>YearEdit</name>
     <message>
         <source>BC</source>
-        <translation>BC</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>_Import</name>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
     <message>
         <source>Importing</source>
-        <translation>Bezig met importeren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Importing from %s</source>
-        <translation>Importeren van %s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&apos;%s&apos; is not a valid database</source>
-        <translation>&apos;%s&apos; is geen geldige database</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>DB server connection problem. Check additional software.</source>
-        <translation>DB server verbindingsfout. Controleer databasesoftware</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>_Import2</name>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Tühista</translation>
     </message>
     <message>
         <source>Importing</source>
-        <translation>Bezig met importeren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Importing from %s</source>
-        <translation>Importeren van %s</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>_Updater</name>
     <message>
         <source>Updating records</source>
-        <translation>data bijwerken</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3741,14 +3736,14 @@ Add a new one first.</source>
     </message>
     <message>
         <source>All files (*.*)</source>
-        <translation>Alle bestanden (*.*)</translation>
+        <translation>Kõik failid (*.*)</translation>
     </message>
 </context>
 <context>
     <name>saveImageFilters</name>
     <message>
         <source>All files (*.*)</source>
-        <translation>Alle bestanden (*.*)</translation>
+        <translation>Kõik failid (*.*)</translation>
     </message>
 </context>
 </TS>
