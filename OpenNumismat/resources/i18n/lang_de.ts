@@ -2307,7 +2307,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Verify SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>Prüfe SSL-Zertifikat</translation>
     </message>
     <message>
         <source>System</source>
