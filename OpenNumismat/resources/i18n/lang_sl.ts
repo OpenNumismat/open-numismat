@@ -2790,7 +2790,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>F</source>
-        <translation type="unfinished"/>
+        <translation>F</translation>
     </message>
     <message>
         <source>Q</source>
