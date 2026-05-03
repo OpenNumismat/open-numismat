@@ -3052,7 +3052,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Continuous time scale (Progress)</source>
-        <translation type="unfinished"/>
+        <translation>Kontinuierliche Zeitskala (Fortschritt)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>
