@@ -3389,7 +3389,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Silver price</source>
-        <translation type="unfinished"/>
+        <translation>Silver-Preis</translation>
     </message>
     <message>
         <source>Platinum coins</source>
