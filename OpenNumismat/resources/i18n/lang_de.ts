@@ -2303,7 +2303,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Make autobackup after record changes:</source>
-        <translation type="unfinished"/>
+        <translation>Automatische Datensicherung nach Datensatzänderungen erstellen:</translation>
     </message>
     <message>
         <source>Verify SSL certificate</source>
