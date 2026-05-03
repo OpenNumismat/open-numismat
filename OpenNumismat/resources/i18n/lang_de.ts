@@ -3429,7 +3429,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>at %s</source>
-        <translation type="unfinished"/>
+        <translation>bei %s</translation>
     </message>
 </context>
 <context>
