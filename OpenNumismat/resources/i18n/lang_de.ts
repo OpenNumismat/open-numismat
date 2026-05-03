@@ -3405,7 +3405,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Palladium coins</source>
-        <translation type="unfinished"/>
+        <translation>Palladium-Münzen</translation>
     </message>
     <message>
         <source>Palladium weight</source>
