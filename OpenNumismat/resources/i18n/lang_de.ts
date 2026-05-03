@@ -3409,7 +3409,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Palladium weight</source>
-        <translation type="unfinished"/>
+        <translation>Palladium-Gewicht</translation>
     </message>
     <message>
         <source>Palladium price</source>
