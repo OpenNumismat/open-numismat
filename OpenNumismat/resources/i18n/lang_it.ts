@@ -3427,7 +3427,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>at %s</source>
-        <translation type="unfinished"/>
+        <translation>a %s</translation>
     </message>
 </context>
 <context>
