@@ -2258,7 +2258,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Get metal prices from Finance Service with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Ottieni i prezzi dei metalli da Finance Service con valuta:</translation>
     </message>
     <message>
         <source>Maps</source>
