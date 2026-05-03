@@ -3393,7 +3393,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Platinum coins</source>
-        <translation type="unfinished"/>
+        <translation>Platin-Münzen</translation>
     </message>
     <message>
         <source>Platinum weight</source>
