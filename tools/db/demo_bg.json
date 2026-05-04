@@ -146,7 +146,7 @@
   "thickness": 2.38,
   "title": "50 цента DE",
   "type": "редовна емисия",
-  "unit": "Цент",
+  "unit": "цент",
   "value": 50,
   "weight": 7.8
 },
@@ -170,7 +170,7 @@
   "thickness": 2.38,
   "title": "50 cent DE (new map)",
   "type": "редовна емисия",
-  "unit": "Цент",
+  "unit": "цент",
   "value": 50,
   "weight": 7.8
 },
@@ -443,7 +443,7 @@
   "thickness": 1.67,
   "title": "1 cent DE",
   "type": "редовна емисия",
-  "unit": "Цент",
+  "unit": "цент",
   "value": 1,
   "weight": 2.3
 },
@@ -466,7 +466,7 @@
   "thickness": 1.67,
   "title": "2 cent DE",
   "type": "редовна емисия",
-  "unit": "Цент",
+  "unit": "цент",
   "value": 2,
   "weight": 3.06
 },
