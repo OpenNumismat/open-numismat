@@ -281,15 +281,15 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"/>
+        <translation>Server</translation>
     </message>
     <message>
         <source>not response</source>
-        <translation type="unfinished"/>
+        <translation>Keine Antwort</translation>
     </message>
     <message>
         <source>response with error or empty data</source>
-        <translation type="unfinished"/>
+        <translation>Antwort mit Fehler oder leeren Daten</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
@@ -1010,7 +1010,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Image quality, %</source>
-        <translation type="unfinished"/>
+        <translation>Bildqualität, %</translation>
     </message>
     <message>
         <source>Preview image height</source>
@@ -1058,7 +1058,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
-        <translation type="unfinished"/>
+        <translation>Die Bildeinstellungen wurden geändert. Neue Einstellungen jetzt auf alle gespeicherten Bilder anwenden (die Qualität kann dadurch beeinträchtigt werden)?</translation>
     </message>
     <message>
         <source>5 stars in rating</source>
@@ -1710,7 +1710,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     <name>GeoChartModel</name>
     <message>
         <source>Translation of country names</source>
-        <translation type="unfinished"/>
+        <translation>Übersetzung der Ländernamen</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2122,7 +2122,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Failed to clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Cache-Speicher konnte nicht geleert werden</translation>
     </message>
 </context>
 <context>
@@ -2259,7 +2259,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Get metal prices from Finance Service with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Metallpreise vom Finanzdienst erhalten in Währung:</translation>
     </message>
     <message>
         <source>Maps</source>
@@ -2303,11 +2303,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Make autobackup after record changes:</source>
-        <translation type="unfinished"/>
+        <translation>Automatische Datensicherung nach Datensatzänderungen erstellen:</translation>
     </message>
     <message>
         <source>Verify SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>Prüfe SSL-Zertifikat</translation>
     </message>
     <message>
         <source>System</source>
@@ -2726,7 +2726,7 @@ drag-n-drop to add an image)</source>
     <name>ProgressPreciousChart</name>
     <message>
         <source>Metal</source>
-        <translation type="unfinished"/>
+        <translation>Metall</translation>
     </message>
 </context>
 <context>
@@ -2737,7 +2737,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Metal</source>
-        <translation type="unfinished"/>
+        <translation>Metall</translation>
     </message>
     <message>
         <source>Date</source>
@@ -3052,19 +3052,19 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Continuous time scale (Progress)</source>
-        <translation type="unfinished"/>
+        <translation>Kontinuierliche Zeitskala (Fortschritt)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>
-        <translation type="unfinished"/>
+        <translation>KI-Modell zur Hintergrundentfernung</translation>
     </message>
     <message>
         <source>Crop after background remover</source>
-        <translation type="unfinished"/>
+        <translation>Zuschneiden nach Hintergrundentfernung</translation>
     </message>
     <message>
         <source>Window background color</source>
-        <translation type="unfinished"/>
+        <translation>Hintergrundfarbe des Fensters</translation>
     </message>
 </context>
 <context>
@@ -3373,11 +3373,11 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Gold weight</source>
-        <translation type="unfinished"/>
+        <translation>Gold-Gewicht</translation>
     </message>
     <message>
         <source>Gold price</source>
-        <translation type="unfinished"/>
+        <translation>Goldpreis</translation>
     </message>
     <message>
         <source>Silver coins</source>
@@ -3385,51 +3385,51 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Silver weight</source>
-        <translation type="unfinished"/>
+        <translation>Silber-Gewicht</translation>
     </message>
     <message>
         <source>Silver price</source>
-        <translation type="unfinished"/>
+        <translation>Silver-Preis</translation>
     </message>
     <message>
         <source>Platinum coins</source>
-        <translation type="unfinished"/>
+        <translation>Platin-Münzen</translation>
     </message>
     <message>
         <source>Platinum weight</source>
-        <translation type="unfinished"/>
+        <translation>Platin-Gewicht</translation>
     </message>
     <message>
         <source>Platinum price</source>
-        <translation type="unfinished"/>
+        <translation>Platin-Preis</translation>
     </message>
     <message>
         <source>Palladium coins</source>
-        <translation type="unfinished"/>
+        <translation>Palladium-Münzen</translation>
     </message>
     <message>
         <source>Palladium weight</source>
-        <translation type="unfinished"/>
+        <translation>Palladium-Gewicht</translation>
     </message>
     <message>
         <source>Palladium price</source>
-        <translation type="unfinished"/>
+        <translation>Palladium-Preis</translation>
     </message>
     <message>
         <source>calculated for %d coins</source>
-        <translation type="unfinished"/>
+        <translation>berechnet für %d Münzen</translation>
     </message>
     <message>
         <source>calculated for %d/%d coins</source>
-        <translation type="unfinished"/>
+        <translation>berechnet für %d/%d Münzen</translation>
     </message>
     <message>
         <source>gram</source>
-        <translation type="unfinished"/>
+        <translation>Gramm</translation>
     </message>
     <message>
         <source>at %s</source>
-        <translation type="unfinished"/>
+        <translation>bei %s</translation>
     </message>
 </context>
 <context>
@@ -3513,7 +3513,8 @@ Bitte OpenNumismat aktualisieren</translation>
     <message>
         <source>Can't close latest opened list.
 Add a new one first.</source>
-        <translation type="unfinished"/>
+        <translation>Die zuletzt geöffnete Liste kann nicht geschlossen werden..
+ Fügen Sie zuerst eine neue Liste hinzu.</translation>
     </message>
     <message>
         <source>Can't remove latest opened page.

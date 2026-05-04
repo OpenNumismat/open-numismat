@@ -289,7 +289,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>response with error or empty data</source>
-        <translation type="unfinished"/>
+        <translation>errore nella risposta o dati mancanti</translation>
     </message>
     <message>
         <source>Too many requests. Try later</source>
@@ -2258,7 +2258,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Get metal prices from Finance Service with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Ottieni i prezzi dei metalli da Finance Service con valuta:</translation>
     </message>
     <message>
         <source>Maps</source>
@@ -2302,11 +2302,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Make autobackup after record changes:</source>
-        <translation type="unfinished"/>
+        <translation>Esegui il backup automatico dopo le modifiche alle schede:</translation>
     </message>
     <message>
         <source>Verify SSL certificate</source>
-        <translation type="unfinished"/>
+        <translation>Verifica il certificato SSL</translation>
     </message>
     <message>
         <source>System</source>
@@ -3050,7 +3050,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Continuous time scale (Progress)</source>
-        <translation type="unfinished"/>
+        <translation>Scala temporale continua (Avanzamento)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>
@@ -3427,7 +3427,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>at %s</source>
-        <translation type="unfinished"/>
+        <translation>a %s</translation>
     </message>
 </context>
 <context>
