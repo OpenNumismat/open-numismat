@@ -226,7 +226,7 @@
   "country": "Alemanha",
   "dateemis": "2002 - 2006",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "material": "Outer copper-nickel/inner three layered",
   "obversedesigner": "Heinz Hoyer, Sneschana Russewa-Hoyer",
   "obverseimg": "10_obverseimg.webp",
@@ -249,7 +249,7 @@
   "country": "Alemanha",
   "dateemis": "2007 -",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "material": "Outer copper-nickel/inner three layered",
   "obversedesigner": "Heinz Hoyer, Sneschana Russewa-Hoyer",
   "obverseimg": "10_obverseimg.webp",
@@ -271,7 +271,7 @@
 {
   "country": "Grécia",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "issuedate": "2004-03-01",
   "material": "Outer copper-nickel/inner three layered",
   "mintage": 35000000,
@@ -297,7 +297,7 @@
 {
   "country": "Itália",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "issuedate": "2004-12-15",
   "material": "Outer copper-nickel/inner three layered",
   "mintage": 16000000,
@@ -323,7 +323,7 @@
 {
   "country": "Luxemburgo",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "issuedate": "2004-06-23",
   "material": "Outer copper-nickel/inner three layered",
   "mintage": 2501800,
@@ -349,7 +349,7 @@
 {
   "country": "São Marinho",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "issuedate": "2004-12-16",
   "material": "Outer copper-nickel/inner three layered",
   "mintage": 110000,
@@ -375,7 +375,7 @@
 {
   "country": "Santa Sé",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "issuedate": "2004-12-15",
   "material": "Outer copper-nickel/inner three layered",
   "mintage": 85000,
@@ -401,7 +401,7 @@
 {
   "country": "Finlândia",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "issuedate": "2004-06-01",
   "material": "Outer copper-nickel/inner three layered",
   "mintage": 1000000,
@@ -473,7 +473,7 @@
 {
   "country": "Santa Sé",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "grade": "Bela",
   "issuedate": "2004-12-15",
   "material": "Outer copper-nickel/inner three layered",
@@ -501,7 +501,7 @@
 {
   "country": "São Marinho",
   "diameter": 25.75,
-  "edge": "lettering/fine milled",
+  "edge": "letras/fresagem fina",
   "grade": "Bela",
   "issuedate": "2004-12-16",
   "material": "Outer copper-nickel/inner three layered",
