@@ -2482,7 +2482,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>User manual</source>
-        <translation>Ръководство за употреба</translation>
+        <translation>Ръководство за потребителя</translation>
     </message>
     <message>
         <source>Visit web-site</source>
