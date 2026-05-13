@@ -1492,7 +1492,7 @@ class Collection(QObject):
     @staticmethod
     def fileNameToCollectionName(fileName):
         file = QFileInfo(fileName)
-        return file.baseName()
+        return file.completeBaseName()
 
     def exportToJson(self):
         file = self.getFileName()
