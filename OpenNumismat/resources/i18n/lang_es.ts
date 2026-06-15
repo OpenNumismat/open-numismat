@@ -2263,7 +2263,7 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
     <message>
         <source>Get metal prices from Finance Service with currency:</source>
-        <translation type="unfinished"/>
+        <translation>Obtener precios de metales del Servicio Financiero con la moneda:</translation>
     </message>
     <message>
         <source>Maps</source>
@@ -3056,7 +3056,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>Continuous time scale (Progress)</source>
-        <translation type="unfinished"/>
+        <translation>Escala de tiempo continua (Progreso)</translation>
     </message>
     <message>
         <source>Background remover AI model</source>
@@ -3433,7 +3433,7 @@ Por favor, actualiza OpenNumismat</translation>
     </message>
     <message>
         <source>at %s</source>
-        <translation type="unfinished"/>
+        <translation>a %s</translation>
     </message>
 </context>
 <context>
