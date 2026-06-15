@@ -388,7 +388,6 @@ jobs:
       run: |
         touch OpenNumismat/private_keys.py
         echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
-        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
         echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
         echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
@@ -415,6 +414,51 @@ jobs:
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-deb-24
         path: open-numismat_${{ needs.title.outputs.VERSION }}_all_24.deb
+        if-no-files-found: error
+
+  ubuntu-26:
+    needs: [title]
+    name: Ubuntu 26.04
+    runs-on: ubuntu-26.04
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        submodules: 'recursive'
+        fetch-depth: 0
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install dpkg devscripts debhelper dh-python dh-virtualenv python3-venv build-essential
+    - name: Create private keys
+      run: |
+        touch OpenNumismat/private_keys.py
+        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
+        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
+        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
+    - name: Patch version
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: OpenNumismat/version.py
+        old-string: "Version = .*"
+        new-string: >-
+          Version = "${{ needs.title.outputs.VERSION }}"
+    - name: Patch build
+      uses: ./.github/actions/replace-string-in-file
+      with:
+        file: debian/changelog
+        old-string: "open-numismat (.*) oneiric; urgency=low"
+        new-string: "open-numismat (${{ needs.title.outputs.VERSION }}) unstable; urgency=low"
+    - name: Build
+      run: |
+        debuild -b -us -uc
+        mv ../open-numismat_${{ needs.title.outputs.VERSION }}_all.deb ./open-numismat_${{ needs.title.outputs.VERSION }}_all_26.deb
+    - name: upload
+      uses: actions/upload-artifact@v7
+      with:
+        name: ${{ needs.title.outputs.PACKAGENAME }}-deb-26
+        path: open-numismat_${{ needs.title.outputs.VERSION }}_all_26.deb
         if-no-files-found: error
 
   macos:
@@ -511,7 +555,7 @@ jobs:
 
   prerelease:
     name: Create pre-release
-    needs: [title, windows, innosetup, ubuntu, ubuntu-24, macos, macos-arm64, nuitka, nuitka_innosetup]
+    needs: [title, windows, innosetup, ubuntu, ubuntu-24, ubuntu-26, macos, macos-arm64, nuitka, nuitka_innosetup]
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -543,5 +587,6 @@ jobs:
           artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka/${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
           artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb/open-numismat_${{ needs.title.outputs.VERSION }}_all.deb
           artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb-24/open-numismat_${{ needs.title.outputs.VERSION }}_all_24.deb
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}-deb-26/open-numismat_${{ needs.title.outputs.VERSION }}_all_26.deb
           artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg/${{ needs.title.outputs.PACKAGENAME }}-macos15.dmg
           artifacts/${{ needs.title.outputs.PACKAGENAME }}-dmg-arm64/${{ needs.title.outputs.PACKAGENAME }}-macos15-arm64.dmg
