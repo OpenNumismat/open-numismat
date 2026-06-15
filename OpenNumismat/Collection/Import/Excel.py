@@ -127,6 +127,9 @@ class ImportExcel(_Import2):
 
         self.sheet = book.active
 
+        MAX_COLUMN_COUNT = 50  # len(self.fields.fields)
+        sheet_max_column = min(self.sheet.max_column, MAX_COLUMN_COUNT)
+
         self.images = {}
         for image in self.sheet._images:
             img = QImage()
@@ -142,10 +145,10 @@ class ImportExcel(_Import2):
         rows = min(self.sheet.max_row, 10)
 
         dialog.table.setRowCount(rows)
-        dialog.table.setColumnCount(self.sheet.max_column)
+        dialog.table.setColumnCount(sheet_max_column)
 
         for row in range(rows):
-            for col in range(self.sheet.max_column):
+            for col in range(sheet_max_column):
                 cell = self.sheet.cell(row + 1, col + 1)
                 val = cell.value
 
@@ -168,7 +171,7 @@ class ImportExcel(_Import2):
         dialog.hlayout.addSpacing(dialog.table.verticalHeader().width())
 
         self.comboBoxes = []
-        for col in range(self.sheet.max_column):
+        for col in range(sheet_max_column):
             combo = QComboBox()
             combo.addItem(self.tr("<Ignore>"))
             for f in self.fields.userFields:
