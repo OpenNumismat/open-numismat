@@ -499,7 +499,9 @@ class LineEditRef(QWidget):
         if index >= 0:
             self.comboBox.setCurrentIndex(index)
         else:
+            self.comboBox.blockSignals(True)
             self.comboBox.setCurrentIndex(-1)
+            self.comboBox.blockSignals(False)
             self.comboBox.lineEdit().setText(text)
             self.comboBox.lineEdit().setCursorPosition(0)
 
@@ -511,8 +513,9 @@ class LineEditRef(QWidget):
 
     def addDependent(self, reference):
         # Clear reference
-        reference.reference.model.setFilter(None)
         reference.reference.parentIndex = None
+        reference.reference.model.setFilter(None)
+        reference.comboBox.setCurrentIndex(-1)
 
         if not self.dependents:
             # TODO: For support nonunique values uncomment next line
