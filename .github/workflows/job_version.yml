@@ -20,7 +20,7 @@ jobs:
       SHA_SHORT: ${{ steps.get_desc.outputs.SHA_SHORT }}
       BUILD_NUM: ${{ steps.get_desc.outputs.BUILD_NUM }}
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         fetch-depth: 0
     - name: Desc
