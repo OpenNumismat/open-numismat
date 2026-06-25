@@ -191,6 +191,8 @@ class FindDialog(QDialog):
                                 self.tr("No image fields selected"))
             return
 
+        self.model.database().transaction()
+
         # Get count of coins with photos
         row_count = 0
         sql = "SELECT COUNT(*) FROM coins"
@@ -205,10 +207,14 @@ class FindDialog(QDialog):
 
         sql_fileds = ""
         for field in fields:
-            sql_fileds += ", %s.image AS %s_image, %s.id AS %s_id" % (field, field, field, field)
+            sql_fileds += (
+                f", {field}.image AS {field}_image"
+                f", {field}.id AS {field}_id"
+                f", {field}.phash AS {field}_phash"
+            )
         sql = "SELECT coins.id, coins.title, coins.status%s FROM coins" % sql_fileds
         for field in fields:
-            sql += " LEFT JOIN photos %s ON coins.%s=%s.id" % (field, field, field)
+            sql += f" LEFT JOIN photos {field} ON coins.{field}={field}.id"
         if self.model.filter():
             # TODO: Filter by title fail this request
             sql += " WHERE " + self.model.filter()
@@ -233,10 +239,22 @@ class FindDialog(QDialog):
 
             record_distances = {}
             for field in fields:
-                img = record.value('%s_image' % field)
-                if img:
+                img = record.value(f'{field}_image')
+                phash = record.value(f'{field}_phash')
+                if phash and method == 'phash':
+                    hash_ = self._int2hash(phash)
+                    record_distances[field] = target_hash - hash_
+                elif img:
                     pil_img = Image.open(io.BytesIO(img))
                     hash_ = self._imageHash(pil_img, method)
+                    if method == 'phash':
+                        photo_id = record.value('%s_id' % field)
+
+                        query_update = QSqlQuery(self.model.database())
+                        query_update.prepare('UPDATE photos SET phash=? WHERE id=?')
+                        query_update.addBindValue(int(hash_))
+                        query_update.addBindValue(photo_id)
+                        query_update.exec()
 
                     # TODO: Test similarity threshold here
                     record_distances[field] = target_hash - hash_
@@ -256,6 +274,8 @@ class FindDialog(QDialog):
                 ))
 
         progressDlg.reset()
+
+        self.model.database().commit()
 
         comparison_results = sorted(comparison_results, key=lambda x: x.distance)
 
@@ -314,6 +334,16 @@ class FindDialog(QDialog):
             return imagehash.colorhash(image)
         elif method == 'crop_resistant_hash':
             return imagehash.crop_resistant_hash(image)
+
+    def _int2hash(self, hash_int):
+        # Convert the signed int64 to an unsigned 64-bit integer
+        unsigned_uint64 = hash_int & 0xFFFFFFFFFFFFFFFF
+
+        # Format as a 16-character, zero-padded hex string
+        hex_str = f"{unsigned_uint64:016x}"
+
+        # Convert hex string back to an ImageHash object
+        return imagehash.hex_to_hash(hex_str)
 
     def _updateTableSizes(self):
         defaultHeight = self.table.verticalHeader().defaultSectionSize()

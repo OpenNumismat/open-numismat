@@ -323,7 +323,7 @@ class CollectionModel(QSqlTableModel):
             else:
                 if img_id:
                     query = QSqlQuery(self.database())
-                    query.prepare("UPDATE photos SET title=?, image=? WHERE id=?")
+                    query.prepare("UPDATE photos SET title=?, image=?, phash=NULL WHERE id=?")
                     query.addBindValue(record.value(f"{field}_title"))
                     query.addBindValue(record.value(field))
                     query.addBindValue(img_id)
@@ -872,7 +872,7 @@ class CollectionModel(QSqlTableModel):
 
 class CollectionSettings(BaseSettings):
     Default = {
-            'Version': 10,
+            'Version': 11,
             'Type': version.AppName,
             'Password': cryptPassword(),
             'ImageSideLen': 1024,
@@ -1692,7 +1692,7 @@ class Collection(QObject):
                             img_id = sel_query.record().value(field)
                             old_img_id = sel_query.record().value('coins_%s' % field)
                             if img_id and old_img_id:
-                                sql = "UPDATE photos SET title=(SELECT title FROM src.photos WHERE id=?), image=(SELECT image FROM src.photos WHERE id=?) WHERE id=?"
+                                sql = "UPDATE photos SET title=(SELECT title FROM src.photos WHERE id=?), image=(SELECT image FROM src.photos WHERE id=?), phash=NULL WHERE id=?"
                                 img_query = QSqlQuery(sql, self.db)
                                 img_query.addBindValue(img_id)
                                 img_query.addBindValue(img_id)

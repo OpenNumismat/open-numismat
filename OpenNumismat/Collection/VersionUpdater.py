@@ -50,9 +50,9 @@ class Updater(QObject):
                 updater = UpdaterTo10(self.collection)
                 updater.update()
             # TODO: Fix tags and photos tables. Apply on next DB format update
-            # if self.currentVersion < 11:
-            #     updater = UpdaterTo11(self.collection)
-            #     updater.update()
+            if self.currentVersion < 11:
+                updater = UpdaterTo11(self.collection)
+                updater.update()
 
             self.__finalize()
 
@@ -688,6 +688,8 @@ class UpdaterTo11(_Updater):
         sql = "ALTER TABLE photos ADD COLUMN license TEXT"
         QSqlQuery(sql, self.db)
         sql = "ALTER TABLE photos ADD COLUMN source TEXT"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE photos ADD COLUMN phash INTEGER"
         QSqlQuery(sql, self.db)
 
         sql = "ALTER TABLE tags ADD COLUMN description TEXT"
