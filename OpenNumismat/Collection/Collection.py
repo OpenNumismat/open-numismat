@@ -1256,7 +1256,8 @@ class Collection(QObject):
                     image BLOB,
                     author TEXT,
                     license TEXT,
-                    source TEXT)"""
+                    source TEXT,
+                    phash INTEGER)"""
         QSqlQuery(sql, self.db)
 
         sql = "CREATE TABLE images (id INTEGER PRIMARY KEY, image BLOB)"
