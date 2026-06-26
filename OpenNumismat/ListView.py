@@ -56,6 +56,7 @@ from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportT
 from OpenNumismat.Tools.Gui import getSaveFileName, statusColor
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
+from OpenNumismat.Collection.CollectionFields import ImageFields
 
 
 def textToClipboard(text):
@@ -541,6 +542,11 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         self.setSourceModel(model)
         self.status_id = model.fields.status.id
         self.year_id = model.fields.year.id
+        self.image_id = model.fields.image.id
+        self.image_field_ids = {}
+        for field in ImageFields:
+            id_ = getattr(model.fields, field).id
+            self.image_field_ids[id_] = field
 
         self.setDynamicSortFilter(True)
 
@@ -549,13 +555,38 @@ class SortFilterProxyModel(QSortFilterProxyModel):
         self.collator.setNumericMode(True)
 
     def lessThan(self, left, right):
-        leftData = self.model.dataDisplayRole(left)
-        rightData = self.model.dataDisplayRole(right)
+        sort_field_id = left.column()
 
-        if left.column() == self.status_id:
+        if sort_field_id != self.image_id:
+            leftData = self.model.dataDisplayRole(left)
+            rightData = self.model.dataDisplayRole(right)
+
+        if sort_field_id == self.status_id:
             return Statuses.compare(leftData, rightData) < 0
-        elif left.column() == self.year_id:
+        elif sort_field_id == self.year_id:
             return compareYears(leftData, rightData) < 0
+        elif sort_field_id == self.image_id:
+            left_index = left.siblingAtColumn(self.model.fields.obverseimg.id)
+            right_index = right.siblingAtColumn(self.model.fields.obverseimg.id)
+            left_id = self.model.data(left_index, Qt.UserRole)
+            right_id = self.model.data(right_index, Qt.UserRole)
+
+            photo_order_map = self.model.getPhotoOrderMap('obverseimg')
+            left_weight = photo_order_map.get(left_id, 0)
+            right_weight = photo_order_map.get(right_id, 0)
+            return left_weight < right_weight
+        elif sort_field_id in self.image_field_ids:
+            field = self.image_field_ids[sort_field_id]
+
+            left_index = left.siblingAtColumn(sort_field_id)
+            right_index = right.siblingAtColumn(sort_field_id)
+            left_id = self.model.data(left_index, Qt.UserRole)
+            right_id = self.model.data(right_index, Qt.UserRole)
+
+            photo_order_map = self.model.getPhotoOrderMap(field)
+            left_weight = photo_order_map.get(left_id, 0)
+            right_weight = photo_order_map.get(right_id, 0)
+            return left_weight < right_weight
         else:
             if isinstance(leftData, str):
                 rightData = str(rightData)

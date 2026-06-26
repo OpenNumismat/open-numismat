@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import codecs
+import io
 import json
 import math
 import os
 import shutil
+import numpy as np
+from PIL import Image
+from scipy.spatial.distance import pdist
+from scipy.cluster.hierarchy import linkage, leaves_list
 
 from PySide6.QtCore import (
     Qt,
@@ -54,6 +59,7 @@ from OpenNumismat.Tools.Gui import infoMessageBox
 from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
+from OpenNumismat.Tools import imagehash
 
 
 class CollectionModel(QSqlTableModel):
@@ -75,6 +81,7 @@ class CollectionModel(QSqlTableModel):
         self.description = collection.description
         self.settings = collection.settings
         self.proxy = None
+        self.photo_order_map = {}
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
 
@@ -392,6 +399,8 @@ class CollectionModel(QSqlTableModel):
         else:
             record.setNull('image')
         record.remove(record.indexOf('image_id'))
+
+        self.photo_order_map = {}
 
         return super().setRecord(row, record)
 
@@ -868,6 +877,61 @@ class CollectionModel(QSqlTableModel):
             return True
 
         return False
+
+    @waitCursorDecorator
+    def _getPhotoHashes(self, field):
+        id_array = []
+        phash_array = []
+
+        self.database().transaction()
+
+        sql = ("SELECT photos.id, photos.phash, photos.image FROM photos"
+               f" INNER JOIN coins ON photos.id = coins.{field}")
+        query = QSqlQuery(sql, self.database())
+        while query.next():
+            photo_id = query.value(0)
+            phash = query.value(1)
+
+            if not phash:
+                img = query.value(2)
+                if img:
+                    pil_img = Image.open(io.BytesIO(img))
+                    hash_ = imagehash.image_hash(pil_img, 'phash')
+                    phash = int(hash_)
+
+                    query_update = QSqlQuery(self.database())
+                    query_update.prepare('UPDATE photos SET phash=? WHERE id=?')
+                    query_update.addBindValue(phash)
+                    query_update.addBindValue(photo_id)
+                    query_update.exec()
+
+            id_array.append(photo_id)
+            phash_array.append(phash or 0)
+
+        self.database().commit()
+
+        return id_array, phash_array
+
+    def getPhotoOrderMap(self, field):
+        if field in self.photo_order_map:
+            return self.photo_order_map[field]
+
+        ids, hashes = self._getPhotoHashes(field)
+        if not hashes:
+            self.photo_order_map[field] = {}
+            return self.photo_order_map[field]
+
+        hash_array = np.array(hashes, dtype=np.int64)
+        bit_matrix = ((hash_array[:, None] & (1 << np.arange(64))) > 0).astype(np.int8)
+
+        dist_matrix = pdist(bit_matrix, metric='hamming')
+        Z = linkage(dist_matrix, method='complete')
+
+        optimized_indices = leaves_list(Z)
+
+        self.photo_order_map[field] = {ids[idx]: weight for weight, idx in enumerate(optimized_indices)}
+
+        return self.photo_order_map[field]
 
 
 class CollectionSettings(BaseSettings):
