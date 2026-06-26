@@ -1,13 +1,19 @@
-from PySide6.QtCore import Qt, QObject
+from PySide6.QtCore import Qt, QBuffer, QIODevice, QObject
+from PySide6.QtGui import QImage, QPixmap
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
+    QFileDialog,
     QFormLayout,
     QLineEdit,
+    QPushButton,
     QTextEdit,
     QVBoxLayout,
 )
+
+import OpenNumismat
+from OpenNumismat.Tools.misc import readImageFilters
 
 
 class CollectionDescription(QObject):
@@ -25,16 +31,18 @@ class CollectionDescription(QObject):
         self.title = record.value('title')
         self.description = record.value('description')
         self.author = record.value('author')
+        self.icon = record.value('icon')
 
     def save(self):
         self.db.transaction()
 
         query = QSqlQuery(self.db)
         query.prepare("UPDATE description SET title=?, description=?,"
-                      " author=? WHERE id=1")
+                      " author=?, icon=? WHERE id=1")
         query.addBindValue(self.title)
         query.addBindValue(self.description)
         query.addBindValue(self.author)
+        query.addBindValue(self.icon)
         query.exec()
 
         self.db.commit()
@@ -46,7 +54,8 @@ class CollectionDescription(QObject):
             id INTEGER PRIMARY KEY,
             title TEXT,
             description TEXT,
-            author TEXT)"""
+            author TEXT,
+            icon BLOB)"""
         QSqlQuery(sql, self.db)
 
         query = QSqlQuery(self.db)
@@ -81,6 +90,16 @@ class DescriptionDialog(QDialog):
         self.authorWidget = QLineEdit(self.description.author, self)
         mainLayout.addRow(self.tr("Author"), self.authorWidget)
 
+        self.iconButton = QPushButton('…', self)
+        if self.description.icon:
+            self.iconButton.setProperty('new_icon', self.description.icon)
+            pixmap = QPixmap()
+            if pixmap.loadFromData(self.description.icon):
+                self.iconButton.setIcon(pixmap)
+                self.iconButton.setText('')
+        self.iconButton.clicked.connect(self.iconButtonClicked)
+        mainLayout.addRow(self.tr("Icon"), self.iconButton)
+
         buttonBox = QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QDialogButtonBox.Ok)
         buttonBox.addButton(QDialogButtonBox.Cancel)
@@ -93,10 +112,28 @@ class DescriptionDialog(QDialog):
 
         self.setLayout(layout)
 
+    def iconButtonClicked(self):
+        fileName, _selectedFilter = QFileDialog.getOpenFileName(self,
+                self.tr("Open File"), OpenNumismat.IMAGE_PATH,
+                ';;'.join(readImageFilters()))
+        if fileName:
+            image = QImage()
+            if image.load(fileName):
+                buffer = QBuffer()
+                buffer.open(QIODevice.WriteOnly)
+                image.save(buffer, 'webp', 100)
+
+                self.iconButton.setProperty('new_icon', buffer.data())
+
+                pixmap = QPixmap.fromImage(image)
+                self.iconButton.setIcon(pixmap)
+                self.iconButton.setText('')
+
     def save(self):
         self.description.title = self.titleWidget.text()
         self.description.description = self.descriptionWidget.toPlainText()
         self.description.author = self.authorWidget.text()
+        self.description.icon = self.iconButton.property('new_icon')
         self.description.save()
 
         self.accept()

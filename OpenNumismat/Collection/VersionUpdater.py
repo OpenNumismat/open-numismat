@@ -697,6 +697,9 @@ class UpdaterTo11(_Updater):
         sql = "ALTER TABLE tags ADD COLUMN icon BLOB"
         QSqlQuery(sql, self.db)
 
+        sql = "ALTER TABLE description ADD COLUMN icon BLOB"
+        QSqlQuery(sql, self.db)
+
         self.db.commit()
 
         self._updateRecord()
