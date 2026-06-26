@@ -933,6 +933,45 @@ class CollectionModel(QSqlTableModel):
 
         return self.photo_order_map[field]
 
+    def getImageOrderMap(self):
+        if 'image' in self.photo_order_map:
+            return self.photo_order_map['image']
+
+        obverse_ids, obverse_hashes = self._getPhotoHashes('obverseimg')
+        reverse_ids, reverse_hashes = self._getPhotoHashes('reverseimg')
+        if not obverse_hashes and not reverse_hashes:
+            self.photo_order_map['image'] = {}
+            return self.photo_order_map['image']
+
+        ids = list(set(obverse_ids + reverse_ids))
+        obverse_dict = dict(zip(obverse_ids, obverse_hashes))
+        reverse_dict = dict(zip(reverse_ids, reverse_hashes))
+
+        obverse_hashes = [obverse_dict.get(i, 0) for i in ids]
+        reverse_hashes = [reverse_dict.get(i, 0) for i in ids]
+
+        hash_array = np.array(obverse_hashes, dtype=np.int64)
+        bit_obverse = ((hash_array[:, None] & (1 << np.arange(64))) > 0).astype(np.float64)
+        hash_array = np.array(reverse_hashes, dtype=np.int64)
+        bit_reverse = ((hash_array[:, None] & (1 << np.arange(64))) > 0).astype(np.float64)
+
+        weight_obverse = self.settings['obverse_reverse_weight']
+        weight_reverse = 1. - weight_obverse
+
+        bit_obverse *= weight_obverse
+        bit_reverse *= weight_reverse
+
+        full_features = np.hstack((bit_obverse, bit_reverse))
+
+        dist_matrix = pdist(full_features, metric='euclidean')
+        Z = linkage(dist_matrix, method='complete')
+
+        optimized_indices = leaves_list(Z)
+
+        self.photo_order_map['image'] = {ids[idx]: weight for weight, idx in enumerate(optimized_indices)}
+
+        return self.photo_order_map['image']
+
 
 class CollectionSettings(BaseSettings):
     Default = {
@@ -1003,6 +1042,7 @@ class CollectionSettings(BaseSettings):
             'images_view_mask': (1 << 1) | (1 << 0),
             'sort_by_reference': True,
             'image_quality': 80,
+            'obverse_reverse_weight': 0.5,
     }
 
     def __init__(self, db):

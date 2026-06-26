@@ -571,21 +571,16 @@ class SortFilterProxyModel(QSortFilterProxyModel):
             left_id = self.model.data(left_index, Qt.UserRole)
             right_id = self.model.data(right_index, Qt.UserRole)
 
-            photo_order_map = self.model.getPhotoOrderMap('obverseimg')
+            photo_order_map = self.model.getImageOrderMap()
             left_weight = photo_order_map.get(left_id, 0)
             right_weight = photo_order_map.get(right_id, 0)
             return left_weight < right_weight
         elif sort_field_id in self.image_field_ids:
             field = self.image_field_ids[sort_field_id]
 
-            left_index = left.siblingAtColumn(sort_field_id)
-            right_index = right.siblingAtColumn(sort_field_id)
-            left_id = self.model.data(left_index, Qt.UserRole)
-            right_id = self.model.data(right_index, Qt.UserRole)
-
             photo_order_map = self.model.getPhotoOrderMap(field)
-            left_weight = photo_order_map.get(left_id, 0)
-            right_weight = photo_order_map.get(right_id, 0)
+            left_weight = photo_order_map.get(leftData, 0)
+            right_weight = photo_order_map.get(rightData, 0)
             return left_weight < right_weight
         else:
             if isinstance(leftData, str):
