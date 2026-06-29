@@ -2341,6 +2341,18 @@ arraste e largue para adicionar)</translation>
 <context>
     <name>MainWindow</name>
     <message>
+        <source>Open built-in Brazilian coins collection</source>
+        <translation>Abrir colecção interna de moedas brasileiras</translation>
+    </message>
+    <message>
+        <source>Brazilian coins</source>
+        <translation>Moedas brasileiras</translation>
+    </message>
+    <message>
+        <source>The built-in Brazilian coins collection is not available in this installation.</source>
+        <translation>A colecção interna de moedas brasileiras não está disponível nesta instalação.</translation>
+    </message>
+    <message>
         <source>Table view</source>
         <translation>Vista Tabela</translation>
     </message>

@@ -2328,6 +2328,18 @@ drag-n-drop to add an image)</source>
 <context>
     <name>MainWindow</name>
     <message>
+        <source>Open built-in Brazilian coins collection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian coins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The built-in Brazilian coins collection is not available in this installation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Table view</source>
         <translation type="unfinished"></translation>
     </message>
