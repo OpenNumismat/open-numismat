@@ -157,6 +157,11 @@ class MainWindow(QMainWindow):
         openCollectionAct.setShortcut(QKeySequence.Open)
         openCollectionAct.triggered.connect(self.openCollectionEvent)
 
+        openBrazilCollectionAct = QAction(
+            self.tr("Open built-in Brazilian coins collection"), self)
+        openBrazilCollectionAct.triggered.connect(
+            self.openBrazilCollectionEvent)
+
         backupCollectionAct = QAction(
                                     QIcon(':/database_backup.png'),
                                     self.tr("Backup"), self)
@@ -272,6 +277,7 @@ class MainWindow(QMainWindow):
 
         file.addAction(newCollectionAct)
         file.addAction(openCollectionAct)
+        file.addAction(openBrazilCollectionAct)
         file.addSeparator()
         file.addAction(backupCollectionAct)
         file.addAction(vacuumCollectionAct)
@@ -806,6 +812,33 @@ class MainWindow(QMainWindow):
                 self.tr("Collections (*.db)"))
         if fileName:
             self.openCollection(fileName)
+
+    def openBrazilCollectionEvent(self):
+        # The Brazilian coins collection is bundled read-only with the
+        # application (built offline via tools/build_brazil_collection.py).
+        # Copy it into the user's home folder on first use so it stays
+        # editable, then open that writable copy.
+        import os
+        import shutil
+        import OpenNumismat
+
+        src = os.path.join(OpenNumismat.PRJ_PATH, 'db', 'brazil_coins.db')
+        if not os.path.exists(src):
+            QMessageBox.information(self, self.tr("Brazilian coins"),
+                self.tr("The built-in Brazilian coins collection is not "
+                        "available in this installation."))
+            return
+
+        dst = os.path.join(OpenNumismat.HOME_PATH, 'brazil_coins.db')
+        if not os.path.exists(dst):
+            try:
+                os.makedirs(OpenNumismat.HOME_PATH, exist_ok=True)
+                shutil.copy(src, dst)
+            except OSError:
+                # Fall back to opening the bundled file directly.
+                dst = src
+
+        self.openCollection(dst)
 
     def newCollectionEvent(self):
         fileName, _selectedFilter = QFileDialog.getSaveFileName(self,
