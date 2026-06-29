@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 
-from PySide6.QtSql import QSqlQuery
 from PySide6.QtCore import Qt, QCollator, QLocale, QEvent
+from PySide6.QtGui import QPixmap
+from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
     QDialog,
     QMenu,
@@ -127,6 +128,10 @@ class TreeView(QTreeWidget):
 
         self.treeParam.rootTitle = model.title
         rootItem = QTreeWidgetItem([model.title, ])
+        if self.model.icon:
+            pixmap = QPixmap()
+            if pixmap.loadFromData(self.model.icon):
+                rootItem.setIcon(0, pixmap)
         rootItem.setData(0, self.ParamRole, 0)
         rootItem.setData(0, self.ParamChildRole, 1)
         rootItem.setData(0, self.FiltersRole, '')

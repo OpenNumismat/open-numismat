@@ -119,13 +119,21 @@ class DescriptionDialog(QDialog):
         if fileName:
             image = QImage()
             if image.load(fileName):
+                maxWidth = 16
+                maxHeight = 16
+                if image.width() > maxWidth or image.height() > maxHeight:
+                    scaledImage = image.scaled(maxWidth, maxHeight,
+                            Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                else:
+                    scaledImage = image
+
                 buffer = QBuffer()
                 buffer.open(QIODevice.WriteOnly)
-                image.save(buffer, 'webp', 100)
+                scaledImage.save(buffer, 'webp', 100)
 
                 self.iconButton.setProperty('new_icon', buffer.data())
 
-                pixmap = QPixmap.fromImage(image)
+                pixmap = QPixmap.fromImage(scaledImage)
                 self.iconButton.setIcon(pixmap)
                 self.iconButton.setText('')
 

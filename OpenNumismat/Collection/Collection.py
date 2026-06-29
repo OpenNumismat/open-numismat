@@ -82,6 +82,7 @@ class CollectionModel(QSqlTableModel):
         self.settings = collection.settings
         self.proxy = None
         self.photo_order_map = {}
+        self.icon = None
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
 
@@ -1321,6 +1322,7 @@ class Collection(QObject):
     def createModel(self):
         model = CollectionModel(self)
         model.title = self.getCollectionName()
+        model.icon = self.description.icon
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         model.setTable('coins')
         model.select()
