@@ -1290,7 +1290,13 @@ class Collection(QObject):
                     currency TEXT,
                     commission NUMERIC,
                     shipping NUMERIC,
-                    grade TEXT)"""
+                    grade TEXT,
+                    url TEXT,
+                    source TEXT,
+                    number TEXT,
+                    counterparty TEXT,
+                    info TEXT,
+                    start_bid TEXT)"""
         QSqlQuery(sql, self.db)
 
     def isReferenceAttached(self):
