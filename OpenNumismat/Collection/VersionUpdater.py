@@ -689,7 +689,7 @@ class UpdaterTo11(_Updater):
         query = QSqlQuery(sql, self.db)
         query.first()
         count = query.record().value(0)
-        return count + 2
+        return count + 4
 
     def update(self):
         self._begin()
@@ -697,6 +697,19 @@ class UpdaterTo11(_Updater):
         self._updateRecord()
 
         self.db.transaction()
+
+        sql = "ALTER TABLE fields ADD COLUMN name TEXT"
+        QSqlQuery(sql, self.db)
+
+        sql = "UPDATE fields SET name=? WHERE id=?"
+        for field in self.collection.fields:
+            price_query = QSqlQuery(self.db)
+            price_query.prepare(sql)
+            price_query.addBindValue(field.name)
+            price_query.addBindValue(field.id)
+            price_query.exec()
+
+        self._updateRecord()
 
         sql = "ALTER TABLE photos ADD COLUMN author TEXT"
         QSqlQuery(sql, self.db)
@@ -825,6 +838,15 @@ class UpdaterTo11(_Updater):
         for field in fields:
             sql = f"ALTER TABLE coins DROP COLUMN {field}"
             QSqlQuery(sql, self.db)
+
+        self._updateRecord()
+
+        tables = ('filters', 'lists', 'statistics', 'treeparam')
+        for table in tables:
+            for field_name in fields:
+                field = getattr(self.collection.fields, field_name)
+                sql = f"DELETE FROM {table} WHERE fieldid={field.id}"
+                QSqlQuery(sql, self.db)
 
         self._updateRecord()
 

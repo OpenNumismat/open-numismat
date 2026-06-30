@@ -398,7 +398,8 @@ class CollectionFields(CollectionFieldsBase):
         sql = """CREATE TABLE fields (
             id INTEGER NOT NULL PRIMARY KEY,
             title TEXT,
-            enabled INTEGER)"""
+            enabled INTEGER,
+            name TEXT)"""
         QSqlQuery(sql, self.db)
 
         fields = CollectionFieldsBase()
@@ -406,11 +407,12 @@ class CollectionFields(CollectionFieldsBase):
         for field in fields:
             query = QSqlQuery(self.db)
             query.prepare("""INSERT INTO fields (id, title, enabled)
-                VALUES (?, ?, ?)""")
+                VALUES (?, ?, ?, ?)""")
             query.addBindValue(field.id)
             query.addBindValue(field.title)
             enabled = field in fields.userFields
             query.addBindValue(int(enabled))
+            query.addBindValue(field.name)
             query.exec()
 
         self.db.commit()

@@ -802,7 +802,19 @@ class ListView(BaseTableView):
             self.horizontalHeader().moveSection(index, pos)
 
         col = list(range(self.model().columnCount()))
+        col2 = []
+        # TODO: Move it to CollectionFields
+        for i in range(self.model().columnCount()):
+            field_name = self.model().record().fieldName(i)
+            query = QSqlQuery(self.model().database())
+            query.prepare("SELECT id FROM fields WHERE name=?")
+            query.addBindValue(field_name)
+            query.exec()
+            if query.first():
+                field_id = query.record().value('id')
+                col2.append(field_id)
 
+        col = col2
         # Move columns
         height = self.defaultHeight
         for pos, param in enumerate(self.listParam.columns):
