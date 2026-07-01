@@ -1397,7 +1397,7 @@ and try again.</source>
     </message>
     <message>
         <source>Title not set. Save without title?</source>
-        <translation>Записът е без заглавие. Желаете ли да го запишете без заглавие?</translation>
+        <translation>Не е зададено наименование. Да се запази ли без наименование?</translation>
     </message>
     <message>
         <source>Similar record already exists. Save?</source>
