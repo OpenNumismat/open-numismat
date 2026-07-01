@@ -96,7 +96,10 @@ class CollectionModel(QSqlTableModel):
         if role == Qt.DisplayRole:
             # Localize values
             data = super().data(index, role)
-            field = self.fields.fields[index.column()]
+            # field = self.fields.field(index.column())
+            for field in self.fields:
+                if field.name == self.record().fieldName(index.column()):
+                    break
             try:
                 if field.name == 'status':
                     text = Statuses[data]
@@ -165,14 +168,20 @@ class CollectionModel(QSqlTableModel):
                 return data
             return text
         elif role == Qt.UserRole:
-            field = self.fields.fields[index.column()]
+            field = self.fields.field(index.column())
+            for field in self.fields:
+                if field.name == self.record().fieldName(index.column()):
+                    break
             if field.type == Type.Denomination:
                 data = super().data(index, Qt.DisplayRole)
                 data, _ = numberWithFraction(data, self.settings['convert_fraction'])
                 return data
             return super().data(index, Qt.DisplayRole)
         elif role == Qt.DecorationRole:
-            field = self.fields.fields[index.column()]
+            field = self.fields.field(index.column())
+            for field in self.fields:
+                if field.name == self.record().fieldName(index.column()):
+                    break
             data = super().data(index, Qt.DisplayRole)
             if data:
                 if field.name == 'status':
@@ -182,11 +191,17 @@ class CollectionModel(QSqlTableModel):
 
                 return icon
         elif role == Qt.TextAlignmentRole:
-            field = self.fields.fields[index.column()]
+            field = self.fields.field(index.column())
+            for field in self.fields:
+                if field.name == self.record().fieldName(index.column()):
+                    break
             if field.type == Type.BigInt:
                 return Qt.AlignRight | Qt.AlignVCenter
         elif role == Qt.SizeHintRole:
-            field = self.fields.fields[index.column()]
+            field = self.fields.field(index.column())
+            for field in self.fields:
+                if field.name == self.record().fieldName(index.column()):
+                    break
             if field.type in (Type.PreviewImage, Type.Image):
                 data = super().data(index, Qt.DisplayRole)
                 if data:
@@ -789,13 +804,13 @@ class CollectionModel(QSqlTableModel):
         if isinstance(column, QModelIndex):
             column = column.column()
 
-        return self.fields.fields[column].type
+        return self.fields.field(column).type
 
     def columnName(self, column):
         if isinstance(column, QModelIndex):
             column = column.column()
 
-        return self.fields.fields[column].name
+        return self.fields.field(column).name
 
     def getImage(self, img_id):
         query = QSqlQuery(self.database())
@@ -1332,8 +1347,8 @@ class Collection(QObject):
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         model.setTable('coins')
         model.select()
-        for field in self.fields:
-            model.setHeaderData(field.id, Qt.Horizontal, field.title)
+        for i, field in enumerate(self.fields):
+            model.setHeaderData(i, Qt.Horizontal, field.title)
 
         return model
 

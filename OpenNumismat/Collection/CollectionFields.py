@@ -246,26 +246,26 @@ class CollectionFieldsBase(QObject):
                 ('catalognum3', QApplication.translate('CollectionFieldsBase', "3#"), Type.String),
                 ('catalognum4', QApplication.translate('CollectionFieldsBase', "4#"), Type.String),
                 ('rarity', QApplication.translate('CollectionFieldsBase', "Rarity"), Type.String),
-                ('price1', QApplication.translate('CollectionFieldsBase', "Fine"), Type.Money),
-                ('price2', QApplication.translate('CollectionFieldsBase', "VF"), Type.Money),
-                ('price3', QApplication.translate('CollectionFieldsBase', "XF"), Type.Money),
-                ('price4', QApplication.translate('CollectionFieldsBase', "Unc"), Type.Money),
+#                ('price1', QApplication.translate('CollectionFieldsBase', "Fine"), Type.Money),
+#                ('price2', QApplication.translate('CollectionFieldsBase', "VF"), Type.Money),
+#                ('price3', QApplication.translate('CollectionFieldsBase', "XF"), Type.Money),
+#                ('price4', QApplication.translate('CollectionFieldsBase', "Unc"), Type.Money),
                 ('variety', QApplication.translate('CollectionFieldsBase', "Variety"), Type.String),
                 ('obversevar', QApplication.translate('CollectionFieldsBase', "Obverse"), Type.String),
                 ('reversevar', QApplication.translate('CollectionFieldsBase', "Reverse"), Type.String),
                 ('edgevar', QApplication.translate('CollectionFieldsBase', "Edge"), Type.String),
-                ('paydate', QApplication.translate('CollectionFieldsBase', "Date"), Type.Date),
-                ('payprice', QApplication.translate('CollectionFieldsBase', "Price"), Type.Money),
-                ('totalpayprice', QApplication.translate('CollectionFieldsBase', "Paid"), Type.Money),
-                ('saller', QApplication.translate('CollectionFieldsBase', "Seller"), Type.String),
-                ('payplace', QApplication.translate('CollectionFieldsBase', "Place"), Type.String),
-                ('payinfo', QApplication.translate('CollectionFieldsBase', "Info"), Type.Text),
-                ('saledate', QApplication.translate('CollectionFieldsBase', "Date"), Type.Date),
-                ('saleprice', QApplication.translate('CollectionFieldsBase', "Price"), Type.Money),
-                ('totalsaleprice', QApplication.translate('CollectionFieldsBase', "Revenue"), Type.Money),
-                ('buyer', QApplication.translate('CollectionFieldsBase', "Buyer"), Type.String),
-                ('saleplace', QApplication.translate('CollectionFieldsBase', "Place"), Type.String),
-                ('saleinfo', QApplication.translate('CollectionFieldsBase', "Info"), Type.Text),
+#                ('paydate', QApplication.translate('CollectionFieldsBase', "Date"), Type.Date),
+#                ('payprice', QApplication.translate('CollectionFieldsBase', "Price"), Type.Money),
+#                ('totalpayprice', QApplication.translate('CollectionFieldsBase', "Paid"), Type.Money),
+#                ('saller', QApplication.translate('CollectionFieldsBase', "Seller"), Type.String),
+#                ('payplace', QApplication.translate('CollectionFieldsBase', "Place"), Type.String),
+#                ('payinfo', QApplication.translate('CollectionFieldsBase', "Info"), Type.Text),
+#                ('saledate', QApplication.translate('CollectionFieldsBase', "Date"), Type.Date),
+#                ('saleprice', QApplication.translate('CollectionFieldsBase', "Price"), Type.Money),
+#                ('totalsaleprice', QApplication.translate('CollectionFieldsBase', "Revenue"), Type.Money),
+#                ('buyer', QApplication.translate('CollectionFieldsBase', "Buyer"), Type.String),
+#                ('saleplace', QApplication.translate('CollectionFieldsBase', "Place"), Type.String),
+#                ('saleinfo', QApplication.translate('CollectionFieldsBase', "Info"), Type.Text),
                 ('note', QApplication.translate('CollectionFieldsBase', "Note"), Type.Text),
                 ('image', QApplication.translate('CollectionFieldsBase', "Image"), Type.PreviewImage),
                 ('obverseimg', QApplication.translate('CollectionFieldsBase', "Obverse"), Type.Image),
@@ -322,8 +322,8 @@ class CollectionFieldsBase(QObject):
                 ('real_weight', QApplication.translate('CollectionFieldsBase', "Weight"), Type.Value),
                 ('real_diameter', QApplication.translate('CollectionFieldsBase', "Diameter"), Type.Value),
                 ('rating', QApplication.translate('CollectionFieldsBase', "Rating"), Type.String),
-                ('buying_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
-                ('sale_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
+#                ('buying_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
+#                ('sale_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
             ]
 
         self.fields = []
@@ -339,6 +339,9 @@ class CollectionFieldsBase(QObject):
             self.userFields.remove(item)
 
     def field(self, id_):
+        for f in self.fields:
+            if f.id == id_:
+                return f
         return self.fields[id_]
 
     def __iter__(self):
@@ -368,13 +371,16 @@ class CollectionFields(CollectionFieldsBase):
         while query.next():
             record = query.record()
             fieldId = record.value('id')
-            field = self.field(fieldId)
-            field.title = record.value('title')
-            field.enabled = bool(record.value('enabled'))
-            if field.enabled:
-                self.userFields.append(field)
-            else:
-                self.disabledFields.append(field)
+            field_name = record.value('name')
+            for field in self.fields:
+                if field.name == field_name:
+                    field.id = fieldId
+                    field.title = record.value('title')
+                    field.enabled = bool(record.value('enabled'))
+                    if field.enabled:
+                        self.userFields.append(field)
+                    else:
+                        self.disabledFields.append(field)
 
     def getCustomTitle(self, name):
         return self.__getattribute__(name).title

@@ -291,19 +291,19 @@ class DetailsTabWidget(QTabWidget):
         title = self.settings['market_buy_group_title']
         layout = BaseFormGroupBox(title)
 
-        layout.addRow(self.items['paydate'], self.items['payprice'])
+#        layout.addRow(self.items['paydate'], self.items['payprice'])
 
         # Add auxiliary field
-        if self.items['payprice'].hidden or self.items['totalpayprice'].hidden:
-            item = None
-        else:
-            item = self.addPayCommission()
+#        if self.items['payprice'].hidden or self.items['totalpayprice'].hidden:
+#            item = None
+#        else:
+#            item = self.addPayCommission()
 
-        layout.addRow(self.items['totalpayprice'], item)
-        layout.addRow(self.items['saller'])
-        layout.addRow(self.items['payplace'])
-        layout.addRow(self.items['buying_invoice'])
-        layout.addRow(self.items['payinfo'])
+#        layout.addRow(self.items['totalpayprice'], item)
+#        layout.addRow(self.items['saller'])
+#        layout.addRow(self.items['payplace'])
+#        layout.addRow(self.items['buying_invoice'])
+#        layout.addRow(self.items['payinfo'])
 
         return layout
 
@@ -311,19 +311,19 @@ class DetailsTabWidget(QTabWidget):
         title = self.settings['market_sale_group_title']
         layout = BaseFormGroupBox(title)
 
-        layout.addRow(self.items['saledate'], self.items['saleprice'])
+#        layout.addRow(self.items['saledate'], self.items['saleprice'])
 
         # Add auxiliary field
-        if self.items['saleprice'].hidden or self.items['totalsaleprice'].hidden:
-            item = None
-        else:
-            item = self.addSaleCommission()
+#        if self.items['saleprice'].hidden or self.items['totalsaleprice'].hidden:
+#            item = None
+#        else:
+#            item = self.addSaleCommission()
 
-        layout.addRow(self.items['totalsaleprice'], item)
-        layout.addRow(self.items['buyer'])
-        layout.addRow(self.items['saleplace'])
-        layout.addRow(self.items['sale_invoice'])
-        layout.addRow(self.items['saleinfo'])
+#        layout.addRow(self.items['totalsaleprice'], item)
+#        layout.addRow(self.items['buyer'])
+#        layout.addRow(self.items['saleplace'])
+#        layout.addRow(self.items['sale_invoice'])
+#        layout.addRow(self.items['saleinfo'])
 
         return layout
 
@@ -331,27 +331,27 @@ class DetailsTabWidget(QTabWidget):
         title = QApplication.translate('DetailsTabWidget', "Pass")
         layout = BaseFormGroupBox(title)
 
-        layout.addRow(self.items['saledate'], self.items['saleprice'])
+#        layout.addRow(self.items['saledate'], self.items['saleprice'])
 
         # Add auxiliary field
-        if self.items['saleprice'].hidden or self.items['totalpayprice'].hidden:
-            item = None
-        else:
-            item = self.addPayCommission()
-        layout.addRow(self.items['totalpayprice'], item)
-        self.items['saleprice'].widget().textChanged.connect(self.items['payprice'].widget().setText)
+#        if self.items['saleprice'].hidden or self.items['totalpayprice'].hidden:
+#            item = None
+#        else:
+#            item = self.addPayCommission()
+#        layout.addRow(self.items['totalpayprice'], item)
+#        self.items['saleprice'].widget().textChanged.connect(self.items['payprice'].widget().setText)
 
         # Add auxiliary field
-        if self.items['saleprice'].hidden or self.items['totalsaleprice'].hidden:
-            item = None
-        else:
-            item = self.addSaleCommission()
-        layout.addRow(self.items['totalsaleprice'], item)
+#        if self.items['saleprice'].hidden or self.items['totalsaleprice'].hidden:
+#            item = None
+#        else:
+#            item = self.addSaleCommission()
+#        layout.addRow(self.items['totalsaleprice'], item)
 
-        layout.addRow(self.items['saller'])
-        layout.addRow(self.items['buyer'])
-        layout.addRow(self.items['saleplace'])
-        layout.addRow(self.items['saleinfo'])
+#        layout.addRow(self.items['saller'])
+#        layout.addRow(self.items['buyer'])
+#        layout.addRow(self.items['saleplace'])
+#        layout.addRow(self.items['saleinfo'])
 
         return layout
 
@@ -464,8 +464,8 @@ class DetailsTabWidget(QTabWidget):
         title = self.settings['classification_price_group_title']
         layout = BaseFormGroupBox(title)
 
-        layout.addRow(self.items['price4'], self.items['price3'])
-        layout.addRow(self.items['price2'], self.items['price1'])
+#        layout.addRow(self.items['price4'], self.items['price3'])
+#        layout.addRow(self.items['price2'], self.items['price1'])
 
         return layout
 

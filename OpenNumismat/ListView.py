@@ -627,9 +627,9 @@ class ListView(BaseTableView):
         self.defaultHeight = self.verticalHeader().defaultSectionSize()
 
         # Show image data as images
-        for field in listParam.fields:
-            if field.type in Type.ImageTypes:
-                self.setItemDelegateForColumn(field.id, ImageDelegate(self))
+#        for field in listParam.fields:
+#            if field.type in Type.ImageTypes:
+#                self.setItemDelegateForColumn(field.id, ImageDelegate(self))
 
         self.upAct = QAction(QIcon(':/bullet_arrow_up.png'), self.tr("Move up"),
                           self, shortcut=Qt.ALT | Qt.Key_Up, triggered=self._moveUp)
@@ -727,6 +727,12 @@ class ListView(BaseTableView):
         super().setModel(self.proxyModel)
         model.proxy = self.proxyModel
 
+        # Show image data as images
+        for field in self.listParam.fields:
+            if field.type in Type.ImageTypes:
+                col = model.fieldIndex(field.name)
+                self.setItemDelegateForColumn(col, ImageDelegate(self))
+
         self.headerButtons = []
         for param in self.listParam.columns:
             btn = FilterMenuButton(param, self.listParam, self.model(),
@@ -749,11 +755,14 @@ class ListView(BaseTableView):
         self.clearSorting()
 
         for param in self.listParam.columns:
+            field = self.model().fields.field(param.fieldid)
+            col = self.model().fieldIndex(field.name)
+
             if param.enabled:
-                self.showColumn(param.fieldid)
+                self.showColumn(col)
 
             if param.width:
-                self.horizontalHeader().resizeSection(param.fieldid,
+                self.horizontalHeader().resizeSection(col,
                                                       param.width)
 
         self.horizontalHeader().sortIndicatorChanged.connect(
@@ -801,8 +810,7 @@ class ListView(BaseTableView):
             index = self.horizontalHeader().visualIndex(pos)
             self.horizontalHeader().moveSection(index, pos)
 
-        col = list(range(self.model().columnCount()))
-        col2 = []
+        col = []
         # TODO: Move it to CollectionFields
         for i in range(self.model().columnCount()):
             field_name = self.model().record().fieldName(i)
@@ -812,9 +820,8 @@ class ListView(BaseTableView):
             query.exec()
             if query.first():
                 field_id = query.record().value('id')
-                col2.append(field_id)
+                col.append(field_id)
 
-        col = col2
         # Move columns
         height = self.defaultHeight
         for pos, param in enumerate(self.listParam.columns):

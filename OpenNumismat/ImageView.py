@@ -93,7 +93,8 @@ class ImageView(QWidget):
         current = self.currentIndex
         for i, field in enumerate(self.imageFields):
             if self.imageButtons[i].isChecked():
-                index = self.model.index(current.row(), field.id)
+                col = self.model.fieldIndex(field.name)
+                index = self.model.index(current.row(), col)
                 data = index.data(Qt.UserRole)
                 img = self.model.getImage(data)
 
@@ -121,7 +122,8 @@ class ImageView(QWidget):
             self.imageButtons[i].setCheckState(Qt.Unchecked)
             self.imageButtons[i].setDisabled(True)
 
-            index = self.model.index(current.row(), field.id)
+            col = self.model.fieldIndex(field.name)
+            index = self.model.index(current.row(), col)
             data = index.data(Qt.UserRole)
             img = self.model.getImage(data)
             if img and not img.isNull():
@@ -156,7 +158,8 @@ class ImageView(QWidget):
         imageProxy.nextRecordEvent.connect(self.nextRecordEvent)
 
         for field in self.imageFields:
-            index = self.model.index(self.currentIndex.row(), field.id)
+            col = self.model.fieldIndex(field.name)
+            index = self.model.index(self.currentIndex.row(), col)
             data = index.data(Qt.UserRole)
             img = self.model.getImage(data)
             if img and not img.isNull():

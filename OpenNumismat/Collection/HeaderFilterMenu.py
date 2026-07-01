@@ -62,7 +62,7 @@ class FilterMenuButton(QPushButton):
         self.db = model.database()
         self.model = model
         self.reference = model.reference
-        self.columnName = self.model.fields.fields[columnParam.fieldid].name
+        self.columnName = self.model.fields.field(columnParam.fieldid).name
         self.fieldid = columnParam.fieldid
         self.filters = listParam.filters
         self.listParam = listParam
@@ -99,7 +99,7 @@ class FilterMenuButton(QPushButton):
 
         hasBlanks = False
         columnType = self.model.columnType(self.fieldid)
-        if self.model.columnName(self.fieldid) == 'year':
+        if self.columnName == 'year':
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
