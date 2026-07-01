@@ -701,13 +701,17 @@ class UpdaterTo11(_Updater):
         sql = "ALTER TABLE fields ADD COLUMN name TEXT"
         QSqlQuery(sql, self.db)
 
-        sql = "UPDATE fields SET name=? WHERE id=?"
-        for field in self.collection.fields:
-            price_query = QSqlQuery(self.db)
-            price_query.prepare(sql)
-            price_query.addBindValue(field.name)
-            price_query.addBindValue(field.id)
-            price_query.exec()
+        sql = "SELECT cid, name FROM pragma_table_info('coins')"
+        query = QSqlQuery(sql, self.db)
+        while query.next():
+            field_id = query.record().value('cid')
+            field_name = query.record().value('name')
+            sql = "UPDATE fields SET name=? WHERE id=?"
+            fields_query = QSqlQuery(self.db)
+            fields_query.prepare(sql)
+            fields_query.addBindValue(field_name)
+            fields_query.addBindValue(field_id)
+            fields_query.exec()
 
         self._updateRecord()
 
@@ -741,17 +745,25 @@ class UpdaterTo11(_Updater):
         sql = "ALTER TABLE prices ADD COLUMN start_bid TEXT"
         QSqlQuery(sql, self.db)
 
+        sql = """CREATE TABLE catalogs (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    coin_id INTEGER,
+                    catalog TEXT,
+                    number TEXT,
+                    year INTEGER,
+                    currency TEXT,
+                    price1 NUMERIC,
+                    price2 NUMERIC,
+                    price3 NUMERIC,
+                    price4 NUMERIC)"""
+        QSqlQuery(sql, self.db)
+
         fields = (
             'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace',
             'payinfo', 'buying_invoice', 'saledate', 'saleprice',
             'totalsaleprice', 'buyer', 'saleplace', 'saleinfo', 'sale_invoice',
             'price1', 'price2', 'price3', 'price4',
         )
-
-        price_fields = {'price1': '', 'price2': '', 'price3': '', 'price4': ''}
-        for field_name in price_fields.keys():
-            fieldDesc = getattr(self.collection.fields, field_name)
-            price_fields[field_name] = fieldDesc.title
 
         sql = f"SELECT id, {','.join(fields)} FROM coins"
         query = QSqlQuery(sql, self.db)
@@ -762,16 +774,20 @@ class UpdaterTo11(_Updater):
 
             coin_id = record.value('id')
 
-            price_sql = "INSERT INTO prices (coin_id, action, price, grade) VALUES (?, 'catalog', ?, ?)"
-            for field in price_fields.keys():
-                price = record.value(field)
-                if price:
-                    price_query = QSqlQuery(self.db)
-                    price_query.prepare(price_sql)
-                    price_query.addBindValue(coin_id)
-                    price_query.addBindValue(price)
-                    price_query.addBindValue(price_fields[field])
-                    price_query.exec()
+            price1 = record.value('price1')
+            price2 = record.value('price2')
+            price3 = record.value('price3')
+            price4 = record.value('price4')
+            if price1 or price2 or price3 or price4:
+                catalog_sql = "INSERT INTO catalogs (coin_id, price1, price2, price3, price4) VALUES (?, ?, ?, ?, ?)"
+                catalog_query = QSqlQuery(self.db)
+                catalog_query.prepare(catalog_sql)
+                catalog_query.addBindValue(coin_id)
+                catalog_query.addBindValue(price1)
+                catalog_query.addBindValue(price2)
+                catalog_query.addBindValue(price3)
+                catalog_query.addBindValue(price4)
+                catalog_query.exec()
 
             paydate = record.value('paydate')
             if paydate == '2000-01-01':
@@ -842,11 +858,15 @@ class UpdaterTo11(_Updater):
         self._updateRecord()
 
         tables = ('filters', 'lists', 'statistics', 'treeparam')
-        for table in tables:
-            for field_name in fields:
-                field = getattr(self.collection.fields, field_name)
-                sql = f"DELETE FROM {table} WHERE fieldid={field.id}"
-                QSqlQuery(sql, self.db)
+        for field in fields:
+            sql = f"SELECT id FROM fields WHERE name='{field}'"
+            query = QSqlQuery(sql, self.db)
+            if query.first():
+                field_id = query.record().value('id')
+
+                for table in tables:
+                    sql = f"DELETE FROM {table} WHERE fieldid={field_id}"
+                    QSqlQuery(sql, self.db)
 
         self._updateRecord()
 

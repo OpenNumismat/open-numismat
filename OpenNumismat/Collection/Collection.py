@@ -1199,6 +1199,9 @@ class Collection(QObject):
             self.fileName = None
             return False
 
+        # TODO: This is extra call for apply changing fields after DB update
+        self.fields = CollectionFields(self.db)
+
         self._pages = CollectionPages(self.db)
 
         self.description = CollectionDescription(self)
@@ -1231,6 +1234,7 @@ class Collection(QObject):
         self.createCoinsTable()
         self.createTagsTable()
         self.createPricesTable()
+        self.createCatalogsTable()
 
         self.fileName = fileName
 
@@ -1312,6 +1316,20 @@ class Collection(QObject):
                     counterparty TEXT,
                     info TEXT,
                     start_bid TEXT)"""
+        QSqlQuery(sql, self.db)
+
+    def createCatalogsTable(self):
+        sql = """CREATE TABLE catalogs (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    coin_id INTEGER,
+                    catalog TEXT,
+                    number TEXT,
+                    year INTEGER,
+                    currency TEXT,
+                    price1 NUMERIC,
+                    price2 NUMERIC,
+                    price3 NUMERIC,
+                    price4 NUMERIC)"""
         QSqlQuery(sql, self.db)
 
     def isReferenceAttached(self):
