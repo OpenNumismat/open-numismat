@@ -487,8 +487,8 @@ Please update OpenNumismat</source>
     <message>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
-        <translation>Оригинална колекция %s в стария формат.
-(Опитайте се да я отворите преди сливането.)</translation>
+        <translation>Колекцията %s е в стар формат.
+(Отворете я преди синхронизирането.)</translation>
     </message>
     <message>
         <source>Inserted %d coins, updated %d coins.
