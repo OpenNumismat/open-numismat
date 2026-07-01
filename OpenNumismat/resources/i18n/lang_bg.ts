@@ -1058,7 +1058,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
-        <translation>Височината на изображението в предварителен преглед беше променена. Да се преизчисли ли?</translation>
+        <translation>Височината на изображението в предварителния преглед е променена. Да се преизчисли ли сега?</translation>
     </message>
     <message>
         <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
