@@ -496,6 +496,69 @@ class CollectionModel(QSqlTableModel):
         record.append(QSqlField('tags'))
         record.setValue('tags', tag_ids)
 
+        price_fields = (
+            'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace',
+            'payinfo', 'saledate', 'saleprice', 'totalsaleprice', 'buyer',
+            'saleplace', 'saleinfo', 'buying_invoice', 'sale_invoice'
+        )
+
+        for price_field in price_fields:
+            record.append(QSqlField(price_field))
+
+        query = QSqlQuery(self.database())
+        query.prepare("SELECT date, price, commission, url, source, counterparty, info FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
+        query.addBindValue(coin_id)
+        query.exec()
+        if query.first():
+            val = query.record().value('date')
+            record.setValue('paydate', val)
+            price = query.record().value('price')
+            record.setValue('payprice', price)
+            commission = query.record().value('commission')
+            record.setValue('totalpayprice', price + commission)  # TODO: check types
+            val = query.record().value('url')
+            record.setValue('buying_invoice', val)
+            val = query.record().value('source')
+            record.setValue('payplace', val)
+            val = query.record().value('counterparty')
+            record.setValue('saller', val)
+            val = query.record().value('info')
+            record.setValue('payinfo', val)
+
+        query = QSqlQuery(self.database())
+        query.prepare("SELECT date, price, commission, url, source, counterparty, info FROM prices WHERE coin_id=? AND action='sell' LIMIT 1")
+        query.addBindValue(coin_id)
+        query.exec()
+        if query.first():
+            val = query.record().value('date')
+            record.setValue('saledate', val)
+            price = query.record().value('price')
+            record.setValue('saleprice', price)
+            commission = query.record().value('commission')
+            record.setValue('totalsaleprice', price - commission)  # TODO: check types
+            val = query.record().value('url')
+            record.setValue('sale_invoice', val)
+            val = query.record().value('source')
+            record.setValue('saleplace', val)
+            val = query.record().value('counterparty')
+            record.setValue('buyer', val)
+            val = query.record().value('info')
+            record.setValue('saleinfo', val)
+
+        price_fields = ('price1', 'price2', 'price3', 'price4')
+
+        for price_field in price_fields:
+            record.append(QSqlField(price_field))
+
+        query = QSqlQuery(self.database())
+        query.prepare(f"SELECT {','.join(price_fields)} FROM catalogs WHERE coin_id=? LIMIT 1")
+        query.addBindValue(coin_id)
+        query.exec()
+        if query.first():
+            for price_field in price_fields:
+                price = query.record().value(price_field)
+                record.setValue(price_field, price)
+
         return record
 
     # Fill multi record for editing

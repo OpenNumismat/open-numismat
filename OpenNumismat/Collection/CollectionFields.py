@@ -204,7 +204,7 @@ class CollectionField():
     name: str
     title: str
     type: int
-    enabled: bool
+    enabled: bool = False
 
 
 class CollectionFieldsBase(QObject):
@@ -338,6 +338,30 @@ class CollectionFieldsBase(QObject):
         for item in (self.id, self.createdat, self.updatedat, self.sort_id):
             self.userFields.remove(item)
 
+        self.catalogFields = [
+            CollectionField(1, 'price1', QApplication.translate('CollectionFieldsBase', "Fine"), Type.Money),
+            CollectionField(2, 'price2', QApplication.translate('CollectionFieldsBase', "VF"), Type.Money),
+            CollectionField(3, 'price3', QApplication.translate('CollectionFieldsBase', "XF"), Type.Money),
+            CollectionField(4, 'price4', QApplication.translate('CollectionFieldsBase', "Unc"), Type.Money),
+        ]
+
+        self.priceFields = [
+            CollectionField(1, 'paydate', QApplication.translate('CollectionFieldsBase', "Date"), Type.Date),
+            CollectionField(2, 'payprice', QApplication.translate('CollectionFieldsBase', "Price"), Type.Money),
+            CollectionField(3, 'totalpayprice', QApplication.translate('CollectionFieldsBase', "Paid"), Type.Money),
+            CollectionField(4, 'saller', QApplication.translate('CollectionFieldsBase', "Seller"), Type.String),
+            CollectionField(5, 'payplace', QApplication.translate('CollectionFieldsBase', "Place"), Type.String),
+            CollectionField(6, 'payinfo', QApplication.translate('CollectionFieldsBase', "Info"), Type.Text),
+            CollectionField(7, 'saledate', QApplication.translate('CollectionFieldsBase', "Date"), Type.Date),
+            CollectionField(8, 'saleprice', QApplication.translate('CollectionFieldsBase', "Price"), Type.Money),
+            CollectionField(9, 'totalsaleprice', QApplication.translate('CollectionFieldsBase', "Revenue"), Type.Money),
+            CollectionField(10, 'buyer', QApplication.translate('CollectionFieldsBase', "Buyer"), Type.String),
+            CollectionField(11, 'saleplace', QApplication.translate('CollectionFieldsBase', "Place"), Type.String),
+            CollectionField(12, 'saleinfo', QApplication.translate('CollectionFieldsBase', "Info"), Type.Text),
+            CollectionField(13, 'buying_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
+            CollectionField(14, 'sale_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
+        ]
+
     def field(self, id_):
         for f in self.fields:
             if f.id == id_:
@@ -381,6 +405,21 @@ class CollectionFields(CollectionFieldsBase):
                         self.userFields.append(field)
                     else:
                         self.disabledFields.append(field)
+                    continue
+
+            for field in self.catalogFields:
+                if field.name == field_name:
+                    field.id = fieldId
+                    field.title = record.value('title')
+                    field.enabled = bool(record.value('enabled'))
+                    continue
+
+            for field in self.priceFields:
+                if field.name == field_name:
+                    field.id = fieldId
+                    field.title = record.value('title')
+                    field.enabled = bool(record.value('enabled'))
+                    continue
 
     def getCustomTitle(self, name):
         return self.__getattribute__(name).title
