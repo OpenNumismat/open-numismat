@@ -837,7 +837,7 @@ class UpdaterTo11(_Updater):
             saleplace = record.value('saleplace')
             saleinfo = record.value('saleinfo')
             sale_invoice = record.value('sale_invoice')
-            if paydate or payprice or totalpayprice or saller or payplace or payinfo or buying_invoice:
+            if saledate or saleprice or totalsaleprice or buyer or saleplace or saleinfo or sale_invoice:
                 pay_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, source, counterparty, info) VALUES (?, 'sell', ?, ?, ?, ?, ?, ?, ?)"
                 pay_query = QSqlQuery(self.db)
                 pay_query.prepare(pay_sql)
