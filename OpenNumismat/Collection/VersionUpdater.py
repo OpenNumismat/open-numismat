@@ -765,7 +765,7 @@ class UpdaterTo11(_Updater):
             'price1', 'price2', 'price3', 'price4',
         )
 
-        sql = f"SELECT id, {','.join(fields)} FROM coins"
+        sql = f"SELECT id, status, {','.join(fields)} FROM coins"
         query = QSqlQuery(sql, self.db)
         while query.next():
             self._updateRecord()
@@ -773,6 +773,7 @@ class UpdaterTo11(_Updater):
             record = query.record()
 
             coin_id = record.value('id')
+            status = record.value('status')
 
             price1 = record.value('price1')
             price2 = record.value('price2')
@@ -789,67 +790,75 @@ class UpdaterTo11(_Updater):
                 catalog_query.addBindValue(price4)
                 catalog_query.exec()
 
-            paydate = record.value('paydate')
-            if paydate == '2000-01-01':
-                paydate = None
-            payprice = record.value('payprice')
-            totalpayprice = record.value('totalpayprice')
-            commission = None
-            if payprice and totalpayprice:
-                try:
-                    commission = totalpayprice - payprice
-                except TypeError:
-                    pass
-            elif totalpayprice:
-                payprice = totalpayprice
-            saller = record.value('saller')
-            payplace = record.value('payplace')
-            payinfo = record.value('payinfo')
-            buying_invoice = record.value('buying_invoice')
-            if paydate or payprice or totalpayprice or saller or payplace or payinfo or buying_invoice:
-                pay_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, source, counterparty, info) VALUES (?, 'buy', ?, ?, ?, ?, ?, ?, ?)"
-                pay_query = QSqlQuery(self.db)
-                pay_query.prepare(pay_sql)
-                pay_query.addBindValue(coin_id)
-                pay_query.addBindValue(paydate)
-                pay_query.addBindValue(payprice)
-                pay_query.addBindValue(commission)
-                pay_query.addBindValue(buying_invoice)
-                pay_query.addBindValue(payplace)
-                pay_query.addBindValue(saller)
-                pay_query.addBindValue(payinfo)
-                pay_query.exec()
+            if status in ('owned', 'ordered', 'sale', 'missing', 'bidding',
+                          'duplicate', 'replacement', 'sold'):
+                paydate = record.value('paydate')
+                if paydate == '2000-01-01':
+                    paydate = None
+                payprice = record.value('payprice')
+                totalpayprice = record.value('totalpayprice')
+                commission = None
+                if payprice and totalpayprice:
+                    try:
+                        commission = totalpayprice - payprice
+                    except TypeError:
+                        pass
+                elif totalpayprice:
+                    payprice = totalpayprice
+                saller = record.value('saller')
+                payplace = record.value('payplace')
+                payinfo = record.value('payinfo')
+                buying_invoice = record.value('buying_invoice')
+                if paydate or payprice or totalpayprice or saller or payplace or payinfo or buying_invoice:
+                    pay_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, source, counterparty, info) VALUES (?, 'buy', ?, ?, ?, ?, ?, ?, ?)"
+                    pay_query = QSqlQuery(self.db)
+                    pay_query.prepare(pay_sql)
+                    pay_query.addBindValue(coin_id)
+                    pay_query.addBindValue(paydate)
+                    pay_query.addBindValue(payprice)
+                    pay_query.addBindValue(commission)
+                    pay_query.addBindValue(buying_invoice)
+                    pay_query.addBindValue(payplace)
+                    pay_query.addBindValue(saller)
+                    pay_query.addBindValue(payinfo)
+                    pay_query.exec()
 
-            saledate = record.value('saledate')
-            if saledate == '2000-01-01':
-                saledate = None
-            saleprice = record.value('saleprice')
-            totalsaleprice = record.value('totalsaleprice')
-            commission = None
-            if saleprice and totalsaleprice:
-                try:
-                    commission = saleprice - totalsaleprice
-                except TypeError:
-                    pass
-            elif totalsaleprice:
-                saleprice = totalsaleprice
-            buyer = record.value('buyer')
-            saleplace = record.value('saleplace')
-            saleinfo = record.value('saleinfo')
-            sale_invoice = record.value('sale_invoice')
-            if saledate or saleprice or totalsaleprice or buyer or saleplace or saleinfo or sale_invoice:
-                pay_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, source, counterparty, info) VALUES (?, 'sell', ?, ?, ?, ?, ?, ?, ?)"
-                pay_query = QSqlQuery(self.db)
-                pay_query.prepare(pay_sql)
-                pay_query.addBindValue(coin_id)
-                pay_query.addBindValue(saledate)
-                pay_query.addBindValue(saleprice)
-                pay_query.addBindValue(commission)
-                pay_query.addBindValue(sale_invoice)
-                pay_query.addBindValue(saleplace)
-                pay_query.addBindValue(buyer)
-                pay_query.addBindValue(saleinfo)
-                pay_query.exec()
+            if status in ('sold', 'pass'):
+                saledate = record.value('saledate')
+                if saledate == '2000-01-01':
+                    saledate = None
+                saleprice = record.value('saleprice')
+                totalsaleprice = record.value('totalsaleprice')
+                commission = None
+                if saleprice and totalsaleprice:
+                    try:
+                        commission = saleprice - totalsaleprice
+                    except TypeError:
+                        pass
+                elif totalsaleprice:
+                    saleprice = totalsaleprice
+                buyer = record.value('buyer')
+                saleplace = record.value('saleplace')
+                saleinfo = record.value('saleinfo')
+                sale_invoice = record.value('sale_invoice')
+                if saledate or saleprice or totalsaleprice or buyer or saleplace or saleinfo or sale_invoice:
+                    if status == 'pass':
+                        action = 'auction'
+                    else:
+                        action = 'sell'
+                    sale_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, source, counterparty, info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    sale_query = QSqlQuery(self.db)
+                    sale_query.prepare(sale_sql)
+                    sale_query.addBindValue(coin_id)
+                    sale_query.addBindValue(action)
+                    sale_query.addBindValue(saledate)
+                    sale_query.addBindValue(saleprice)
+                    sale_query.addBindValue(commission)
+                    sale_query.addBindValue(sale_invoice)
+                    sale_query.addBindValue(saleplace)
+                    sale_query.addBindValue(buyer)
+                    sale_query.addBindValue(saleinfo)
+                    sale_query.exec()
 
         for field in fields:
             sql = f"ALTER TABLE coins DROP COLUMN {field}"
