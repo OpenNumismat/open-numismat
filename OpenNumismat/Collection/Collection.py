@@ -1378,7 +1378,7 @@ class Collection(QObject):
                     number TEXT,
                     counterparty TEXT,
                     info TEXT,
-                    start_bid TEXT)"""
+                    start_bid NUMERIC)"""
         QSqlQuery(sql, self.db)
 
     def createCatalogsTable(self):
