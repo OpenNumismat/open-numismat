@@ -14,6 +14,7 @@ src_dir = os.path.join(os.path.dirname(__file__), "../tools/db")
 dst_dir = os.path.join(os.path.dirname(__file__), "../OpenNumismat/db")
 
 app = QApplication([])
+current_translator = None
 
 for filename in os.listdir(src_dir):
     _, file_extension = os.path.splitext(filename)
@@ -22,12 +23,13 @@ for filename in os.listdir(src_dir):
         with open(json_file_name, 'r', encoding='utf-8') as file:
             data = json.load(file)
 
-        app.removeTranslator()
         file_title = filename[:-5]
         lang = file_title.split('_')[-1]
-        translator = QTranslator(app)
-        if translator.load(QLocale(lang), 'lang', '_', ':/i18n'):
-            app.installTranslator(translator)
+        current_translator = QTranslator(app)
+        if current_translator.load(QLocale(lang), 'lang', '_', ':/i18n'):
+            app.installTranslator(current_translator)
+        else:
+            current_translator = None
 
         dst_file_name = os.path.join(dst_dir, f"demo_{lang}.db")
         Path(dst_file_name).unlink(missing_ok=True)
@@ -50,3 +52,6 @@ for filename in os.listdir(src_dir):
                     record.setValue(field, value)
 
             model.appendRecord(record)
+
+        if current_translator:
+            app.removeTranslator(current_translator)
