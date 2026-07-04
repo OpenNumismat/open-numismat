@@ -487,8 +487,8 @@ Please update OpenNumismat</source>
     <message>
         <source>Collection %s in old format.
 (Try to open it before merging.)</source>
-        <translation>Оригинална колекция %s в стария формат.
-(Опитайте се да я отворите преди сливането.)</translation>
+        <translation>Колекцията %s е в стар формат.
+(Отворете я преди синхронизирането.)</translation>
     </message>
     <message>
         <source>Inserted %d coins, updated %d coins.
@@ -1058,7 +1058,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Preview image height was changed. Recalculate it now?</source>
-        <translation>Височината на изображението в предварителен преглед беше променена. Да се преизчисли ли?</translation>
+        <translation>Височината на изображението в предварителния преглед е променена. Да се преизчисли ли сега?</translation>
     </message>
     <message>
         <source>Image settings was changed. Apply new settings to all stored images now (quality may be reduced)?</source>
@@ -1397,7 +1397,7 @@ and try again.</source>
     </message>
     <message>
         <source>Title not set. Save without title?</source>
-        <translation>Записът е без заглавие. Желаете ли да го запишете без заглавие?</translation>
+        <translation>Не е зададено наименование. Да се запази ли без наименование?</translation>
     </message>
     <message>
         <source>Similar record already exists. Save?</source>
