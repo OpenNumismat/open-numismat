@@ -22,6 +22,7 @@ for filename in os.listdir(src_dir):
         with open(json_file_name, 'r', encoding='utf-8') as file:
             data = json.load(file)
 
+        app.removeTranslator()
         file_title = filename[:-5]
         lang = file_title.split('_')[-1]
         translator = QTranslator(app)
