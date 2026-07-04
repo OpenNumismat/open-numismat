@@ -1,5 +1,7 @@
 import json
 import os
+import sys
+import subprocess
 from pathlib import Path
 
 from PySide6.QtCore import QLocale, QTranslator
@@ -13,40 +15,52 @@ from OpenNumismat.Reference.Reference import Reference
 src_dir = os.path.join(os.path.dirname(__file__), "../tools/db")
 dst_dir = os.path.join(os.path.dirname(__file__), "../OpenNumismat/db")
 
-app = QApplication([])
+if len(sys.argv) == 1:
+    processes = []
+    env = os.environ.copy()
+    env["PYTHONPATH"] = os.getcwd() + os.pathsep + env.get("PYTHONPATH", "")
+    
+    for filename in os.listdir(src_dir):
+        _, file_extension = os.path.splitext(filename)
+        if file_extension == ".json":
+            command = [sys.executable, sys.argv[0], filename]
+            proc = subprocess.Popen(command, env=env)
+            processes.append(proc)
 
-for filename in os.listdir(src_dir):
-    _, file_extension = os.path.splitext(filename)
-    if file_extension == ".json":
-        json_file_name = os.path.join(src_dir, filename)
-        with open(json_file_name, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+    for proc in processes:
+        proc.wait()
+else:
+    app = QApplication([])
 
-        app.removeTranslator()
-        file_title = filename[:-5]
-        lang = file_title.split('_')[-1]
-        translator = QTranslator(app)
-        if translator.load(QLocale(lang), 'lang', '_', ':/i18n'):
-            app.installTranslator(translator)
+    filename = sys.argv[1]
+    json_file_name = os.path.join(src_dir, filename)
+    with open(json_file_name, 'r', encoding='utf-8') as file:
+        data = json.load(file)
 
-        dst_file_name = os.path.join(dst_dir, f"demo_{lang}.db")
-        Path(dst_file_name).unlink(missing_ok=True)
+    file_title = filename[:-5]
+    lang = file_title.split('_')[-1]
+    translator = QTranslator(app)
+    if translator.load(QLocale(lang), 'lang', '_', ':/i18n'):
+        app.installTranslator(translator)
 
-        collection = Collection()
-        collection.create(dst_file_name)
-        collection.reference = Reference(collection.fields)
+    dst_file_name = os.path.join(dst_dir, f"demo_{lang}.db")
+    Path(dst_file_name).unlink(missing_ok=True)
 
-        model = collection.model()
+    collection = Collection()
+    collection.create(dst_file_name)
+    collection.reference = Reference(collection.fields)
 
-        for coin in data['coins']:
-            record = model.record()
-            for field, value in coin.items():
-                if field in ImageFields:
-                    image_file_name = os.path.join(src_dir, f"demo_images/{value}")
-                    with open(image_file_name, 'rb') as file:
-                        image = file.read()
-                    record.setValue(field, image)
-                else:
-                    record.setValue(field, value)
+    model = collection.model()
 
-            model.appendRecord(record)
+    for coin in data['coins']:
+        record = model.record()
+        for field, value in coin.items():
+            if field in ImageFields:
+                image_file_name = os.path.join(src_dir, f"demo_images/{value}")
+                with open(image_file_name, 'rb') as file:
+                    image = file.read()
+                record.setValue(field, image)
+            else:
+                record.setValue(field, value)
+
+        model.appendRecord(record)
