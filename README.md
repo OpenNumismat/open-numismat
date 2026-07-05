@@ -23,7 +23,7 @@ Windows, Linux (Debian/Ubuntu), macOS.
 
 ## Stack
 
-* Python 3.12
+* Python 3.10-3.14
 * PySide6
 * Jinja2 (for reports)
 * Pillow (for export to Excel, scan bar-code, find by image and image editor)
