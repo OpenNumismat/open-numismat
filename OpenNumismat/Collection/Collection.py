@@ -496,34 +496,32 @@ class CollectionModel(QSqlTableModel):
         record.append(QSqlField('tags'))
         record.setValue('tags', tag_ids)
 
-        price_fields = (
-            'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace',
-            'payinfo', 'saledate', 'saleprice', 'totalsaleprice', 'buyer',
-            'saleplace', 'saleinfo', 'buying_invoice', 'sale_invoice'
-        )
+        pay_price_fields = {
+            'paydate': 'date', 'payprice': 'price',
+            'totalpayprice': 'total_price', 'saller': 'counterparty',
+            'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url'
+        }
 
-        for price_field in price_fields:
+        for price_field in pay_price_fields.keys():
             record.append(QSqlField(price_field))
 
         query = QSqlQuery(self.database())
-        query.prepare("SELECT date, price, total_price, url, place, counterparty, info FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
+        query.prepare(f"SELECT {','.join(pay_price_fields.values())} FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
         query.addBindValue(coin_id)
         query.exec()
         if query.first():
-            val = query.record().value('date')
-            record.setValue('paydate', val)
-            price = query.record().value('price')
-            record.setValue('payprice', price)
-            total_price = query.record().value('total_price')
-            record.setValue('totalpayprice', total_price)
-            val = query.record().value('url')
-            record.setValue('buying_invoice', val)
-            val = query.record().value('place')
-            record.setValue('payplace', val)
-            val = query.record().value('counterparty')
-            record.setValue('saller', val)
-            val = query.record().value('info')
-            record.setValue('payinfo', val)
+            for old_field, new_field in pay_price_fields.items():
+                val = query.record().value(new_field)
+                record.setValue(old_field, val)
+
+        sell_price_fields = {
+            'saledate': 'date', 'saleprice': 'price',
+            'totalsaleprice': 'total_price', 'buyer': 'counterparty',
+            'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url'
+        }
+
+        for price_field in sell_price_fields.keys():
+            record.append(QSqlField(price_field))
 
         status = record.value('status')
         if status in ('sold', 'pass'):
@@ -532,37 +530,26 @@ class CollectionModel(QSqlTableModel):
             else:
                 action = 'sell'
             query = QSqlQuery(self.database())
-            query.prepare("SELECT date, price, total_price, url, place, counterparty, info FROM prices WHERE coin_id=? AND action=? LIMIT 1")
+            query.prepare(f"SELECT {','.join(sell_price_fields.values())} FROM prices WHERE coin_id=? AND action=? LIMIT 1")
             query.addBindValue(coin_id)
             query.addBindValue(action)
             query.exec()
             if query.first():
-                val = query.record().value('date')
-                record.setValue('saledate', val)
-                price = query.record().value('price')
-                record.setValue('saleprice', price)
-                total_price = query.record().value('total_price')
-                record.setValue('totalsaleprice', total_price)
-                val = query.record().value('url')
-                record.setValue('sale_invoice', val)
-                val = query.record().value('place')
-                record.setValue('saleplace', val)
-                val = query.record().value('counterparty')
-                record.setValue('buyer', val)
-                val = query.record().value('info')
-                record.setValue('saleinfo', val)
+                for old_field, new_field in sell_price_fields.items():
+                    val = query.record().value(new_field)
+                    record.setValue(old_field, val)
 
-        price_fields = ('price1', 'price2', 'price3', 'price4')
+        catalog_fields = ('price1', 'price2', 'price3', 'price4')
 
-        for price_field in price_fields:
-            record.append(QSqlField(price_field))
+        for catalog_field in catalog_fields:
+            record.append(QSqlField(catalog_field))
 
         query = QSqlQuery(self.database())
-        query.prepare(f"SELECT {','.join(price_fields)} FROM catalogs WHERE coin_id=? LIMIT 1")
+        query.prepare(f"SELECT {','.join(catalog_fields)} FROM catalogs WHERE coin_id=? LIMIT 1")
         query.addBindValue(coin_id)
         query.exec()
         if query.first():
-            for price_field in price_fields:
+            for catalog_field in catalog_fields:
                 price = query.record().value(price_field)
                 record.setValue(price_field, price)
 
