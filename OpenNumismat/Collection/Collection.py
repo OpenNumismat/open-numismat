@@ -1251,8 +1251,6 @@ class Collection(QObject):
         self.fields = CollectionFields(self.db)
 
         self.fileName = fileName
-        if 'test_' not in fileName:
-            return False
 
         if not updateCollection(self):
             self.fileName = None
