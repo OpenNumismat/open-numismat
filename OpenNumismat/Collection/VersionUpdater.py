@@ -742,7 +742,7 @@ class UpdaterTo11(_Updater):
         QSqlQuery(sql, self.db)
         sql = "ALTER TABLE prices ADD COLUMN info TEXT"
         QSqlQuery(sql, self.db)
-        sql = "ALTER TABLE prices ADD COLUMN start_bid TEXT"
+        sql = "ALTER TABLE prices ADD COLUMN start_bid NUMERIC"
         QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE catalogs (
