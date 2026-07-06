@@ -734,7 +734,7 @@ class UpdaterTo11(_Updater):
 
         sql = "ALTER TABLE prices ADD COLUMN url TEXT"
         QSqlQuery(sql, self.db)
-        sql = "ALTER TABLE prices ADD COLUMN source TEXT"
+        sql = "ALTER TABLE prices ADD COLUMN place TEXT"
         QSqlQuery(sql, self.db)
         sql = "ALTER TABLE prices ADD COLUMN number TEXT"
         QSqlQuery(sql, self.db)
@@ -810,7 +810,7 @@ class UpdaterTo11(_Updater):
                 payinfo = record.value('payinfo')
                 buying_invoice = record.value('buying_invoice')
                 if paydate or payprice or totalpayprice or saller or payplace or payinfo or buying_invoice:
-                    pay_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, source, counterparty, info) VALUES (?, 'buy', ?, ?, ?, ?, ?, ?, ?)"
+                    pay_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, place, counterparty, info) VALUES (?, 'buy', ?, ?, ?, ?, ?, ?, ?)"
                     pay_query = QSqlQuery(self.db)
                     pay_query.prepare(pay_sql)
                     pay_query.addBindValue(coin_id)
@@ -846,7 +846,7 @@ class UpdaterTo11(_Updater):
                         action = 'auction'
                     else:
                         action = 'sell'
-                    sale_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, source, counterparty, info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    sale_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, place, counterparty, info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     sale_query = QSqlQuery(self.db)
                     sale_query.prepare(sale_sql)
                     sale_query.addBindValue(coin_id)
