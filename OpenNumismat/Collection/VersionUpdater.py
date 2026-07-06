@@ -744,6 +744,8 @@ class UpdaterTo11(_Updater):
         QSqlQuery(sql, self.db)
         sql = "ALTER TABLE prices ADD COLUMN start_bid NUMERIC"
         QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE prices RENAME COLUMN commission TO total_price"
+        QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE catalogs (
                     id INTEGER NOT NULL PRIMARY KEY,
@@ -796,27 +798,19 @@ class UpdaterTo11(_Updater):
                 if paydate == '2000-01-01':
                     paydate = None
                 payprice = record.value('payprice')
-                totalpayprice = record.value('totalpayprice')
-                commission = None
-                if payprice and totalpayprice:
-                    try:
-                        commission = totalpayprice - payprice
-                    except TypeError:
-                        pass
-                elif totalpayprice:
-                    payprice = totalpayprice
+                total_price = record.value('totalpayprice')
                 saller = record.value('saller')
                 payplace = record.value('payplace')
                 payinfo = record.value('payinfo')
                 buying_invoice = record.value('buying_invoice')
-                if paydate or payprice or totalpayprice or saller or payplace or payinfo or buying_invoice:
-                    pay_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, place, counterparty, info) VALUES (?, 'buy', ?, ?, ?, ?, ?, ?, ?)"
+                if paydate or payprice or total_price or saller or payplace or payinfo or buying_invoice:
+                    pay_sql = "INSERT INTO prices (coin_id, action, date, price, total_price, url, place, counterparty, info) VALUES (?, 'buy', ?, ?, ?, ?, ?, ?, ?)"
                     pay_query = QSqlQuery(self.db)
                     pay_query.prepare(pay_sql)
                     pay_query.addBindValue(coin_id)
                     pay_query.addBindValue(paydate or None)
                     pay_query.addBindValue(payprice or None)
-                    pay_query.addBindValue(commission or None)
+                    pay_query.addBindValue(total_price or None)
                     pay_query.addBindValue(buying_invoice or None)
                     pay_query.addBindValue(payplace or None)
                     pay_query.addBindValue(saller or None)
@@ -828,32 +822,24 @@ class UpdaterTo11(_Updater):
                 if saledate == '2000-01-01':
                     saledate = None
                 saleprice = record.value('saleprice')
-                totalsaleprice = record.value('totalsaleprice')
-                commission = None
-                if saleprice and totalsaleprice:
-                    try:
-                        commission = saleprice - totalsaleprice
-                    except TypeError:
-                        pass
-                elif totalsaleprice:
-                    saleprice = totalsaleprice
+                total_price = record.value('totalsaleprice')
                 buyer = record.value('buyer')
                 saleplace = record.value('saleplace')
                 saleinfo = record.value('saleinfo')
                 sale_invoice = record.value('sale_invoice')
-                if saledate or saleprice or totalsaleprice or buyer or saleplace or saleinfo or sale_invoice:
+                if saledate or saleprice or total_price or buyer or saleplace or saleinfo or sale_invoice:
                     if status == 'pass':
                         action = 'auction'
                     else:
                         action = 'sell'
-                    sale_sql = "INSERT INTO prices (coin_id, action, date, price, commission, url, place, counterparty, info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    sale_sql = "INSERT INTO prices (coin_id, action, date, price, total_price, url, place, counterparty, info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     sale_query = QSqlQuery(self.db)
                     sale_query.prepare(sale_sql)
                     sale_query.addBindValue(coin_id)
                     sale_query.addBindValue(action or None)
                     sale_query.addBindValue(saledate or None)
                     sale_query.addBindValue(saleprice or None)
-                    sale_query.addBindValue(commission or None)
+                    sale_query.addBindValue(total_price or None)
                     sale_query.addBindValue(sale_invoice or None)
                     sale_query.addBindValue(saleplace or None)
                     sale_query.addBindValue(buyer or None)

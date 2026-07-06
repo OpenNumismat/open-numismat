@@ -506,7 +506,7 @@ class CollectionModel(QSqlTableModel):
             record.append(QSqlField(price_field))
 
         query = QSqlQuery(self.database())
-        query.prepare("SELECT date, price, commission, url, place, counterparty, info FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
+        query.prepare("SELECT date, price, total_price, url, place, counterparty, info FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
         query.addBindValue(coin_id)
         query.exec()
         if query.first():
@@ -514,8 +514,8 @@ class CollectionModel(QSqlTableModel):
             record.setValue('paydate', val)
             price = query.record().value('price')
             record.setValue('payprice', price)
-            commission = query.record().value('commission')
-            record.setValue('totalpayprice', price + commission)  # TODO: check types
+            total_price = query.record().value('total_price')
+            record.setValue('totalpayprice', total_price)
             val = query.record().value('url')
             record.setValue('buying_invoice', val)
             val = query.record().value('place')
@@ -532,7 +532,7 @@ class CollectionModel(QSqlTableModel):
             else:
                 action = 'sell'
             query = QSqlQuery(self.database())
-            query.prepare("SELECT date, price, commission, url, place, counterparty, info FROM prices WHERE coin_id=? AND action=? LIMIT 1")
+            query.prepare("SELECT date, price, total_price, url, place, counterparty, info FROM prices WHERE coin_id=? AND action=? LIMIT 1")
             query.addBindValue(coin_id)
             query.addBindValue(action)
             query.exec()
@@ -541,8 +541,8 @@ class CollectionModel(QSqlTableModel):
                 record.setValue('saledate', val)
                 price = query.record().value('price')
                 record.setValue('saleprice', price)
-                commission = query.record().value('commission')
-                record.setValue('totalsaleprice', price - commission)  # TODO: check types
+                total_price = query.record().value('total_price')
+                record.setValue('totalsaleprice', total_price)
                 val = query.record().value('url')
                 record.setValue('sale_invoice', val)
                 val = query.record().value('place')
@@ -1264,6 +1264,8 @@ class Collection(QObject):
         self.fields = CollectionFields(self.db)
 
         self.fileName = fileName
+        if 'test_' not in fileName:
+            return False
 
         if not updateCollection(self):
             self.fileName = None
@@ -1377,7 +1379,7 @@ class Collection(QObject):
                     quantity INTEGER,
                     price NUMERIC,
                     currency TEXT,
-                    commission NUMERIC,
+                    total_price NUMERIC,
                     shipping NUMERIC,
                     grade TEXT,
                     url TEXT,
