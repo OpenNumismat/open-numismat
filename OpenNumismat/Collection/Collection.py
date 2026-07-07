@@ -96,10 +96,12 @@ class CollectionModel(QSqlTableModel):
         if role == Qt.DisplayRole:
             # Localize values
             data = super().data(index, role)
-            # field = self.fields.field(index.column())
-            for field in self.fields:
-                if field.name == self.record().fieldName(index.column()):
-                    break
+            field = self.fields.allFields[index.column()]
+
+            if field in self.fields.externalFields:
+                record = self.record(index.row())
+                data = record.value(field.name)
+
             try:
                 if field.name == 'status':
                     text = Statuses[data]
@@ -459,6 +461,68 @@ class CollectionModel(QSqlTableModel):
         else:
             record = super().record()
 
+        coin_id = record.value('id')
+
+        catalog_fields = ('price1', 'price2', 'price3', 'price4')
+
+        for catalog_field in catalog_fields:
+            record.append(QSqlField(catalog_field))
+
+        if coin_id:
+            query = QSqlQuery(self.database())
+            query.prepare(f"SELECT {','.join(catalog_fields)} FROM catalogs WHERE coin_id=? LIMIT 1")
+            query.addBindValue(coin_id)
+            query.exec()
+            if query.first():
+                for catalog_field in catalog_fields:
+                    price = query.record().value(catalog_field)
+                    record.setValue(catalog_field, price)
+
+        pay_price_fields = {
+            'paydate': 'date', 'payprice': 'price',
+            'totalpayprice': 'total_price', 'saller': 'counterparty',
+            'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url'
+        }
+
+        for price_field in pay_price_fields.keys():
+            record.append(QSqlField(price_field))
+
+        if coin_id:
+            query = QSqlQuery(self.database())
+            query.prepare(f"SELECT {','.join(pay_price_fields.values())} FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
+            query.addBindValue(coin_id)
+            query.exec()
+            if query.first():
+                for old_field, new_field in pay_price_fields.items():
+                    val = query.record().value(new_field)
+                    record.setValue(old_field, val)
+
+        sell_price_fields = {
+            'saledate': 'date', 'saleprice': 'price',
+            'totalsaleprice': 'total_price', 'buyer': 'counterparty',
+            'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url'
+        }
+
+        for price_field in sell_price_fields.keys():
+            record.append(QSqlField(price_field))
+
+        if coin_id:
+            status = record.value('status')
+            if status in ('sold', 'pass'):
+                if status == 'pass':
+                    action = 'auction'
+                else:
+                    action = 'sell'
+                query = QSqlQuery(self.database())
+                query.prepare(f"SELECT {','.join(sell_price_fields.values())} FROM prices WHERE coin_id=? AND action=? LIMIT 1")
+                query.addBindValue(coin_id)
+                query.addBindValue(action)
+                query.exec()
+                if query.first():
+                    for old_field, new_field in sell_price_fields.items():
+                        val = query.record().value(new_field)
+                        record.setValue(old_field, val)
+
         for field in ImageFields:
             record.append(QSqlField(f"{field}_title"))
             record.append(QSqlField(f"{field}_id"))
@@ -482,7 +546,6 @@ class CollectionModel(QSqlTableModel):
             record.setValue('image', None)
 
         tag_ids = []
-        coin_id = record.value('id')
         if coin_id:
             query = QSqlQuery(self.database())
             query.prepare("SELECT tag_id FROM coins_tags WHERE coin_id=?")
@@ -495,63 +558,6 @@ class CollectionModel(QSqlTableModel):
 
         record.append(QSqlField('tags'))
         record.setValue('tags', tag_ids)
-
-        pay_price_fields = {
-            'paydate': 'date', 'payprice': 'price',
-            'totalpayprice': 'total_price', 'saller': 'counterparty',
-            'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url'
-        }
-
-        for price_field in pay_price_fields.keys():
-            record.append(QSqlField(price_field))
-
-        query = QSqlQuery(self.database())
-        query.prepare(f"SELECT {','.join(pay_price_fields.values())} FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
-        query.addBindValue(coin_id)
-        query.exec()
-        if query.first():
-            for old_field, new_field in pay_price_fields.items():
-                val = query.record().value(new_field)
-                record.setValue(old_field, val)
-
-        sell_price_fields = {
-            'saledate': 'date', 'saleprice': 'price',
-            'totalsaleprice': 'total_price', 'buyer': 'counterparty',
-            'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url'
-        }
-
-        for price_field in sell_price_fields.keys():
-            record.append(QSqlField(price_field))
-
-        status = record.value('status')
-        if status in ('sold', 'pass'):
-            if status == 'pass':
-                action = 'auction'
-            else:
-                action = 'sell'
-            query = QSqlQuery(self.database())
-            query.prepare(f"SELECT {','.join(sell_price_fields.values())} FROM prices WHERE coin_id=? AND action=? LIMIT 1")
-            query.addBindValue(coin_id)
-            query.addBindValue(action)
-            query.exec()
-            if query.first():
-                for old_field, new_field in sell_price_fields.items():
-                    val = query.record().value(new_field)
-                    record.setValue(old_field, val)
-
-        catalog_fields = ('price1', 'price2', 'price3', 'price4')
-
-        for catalog_field in catalog_fields:
-            record.append(QSqlField(catalog_field))
-
-        query = QSqlQuery(self.database())
-        query.prepare(f"SELECT {','.join(catalog_fields)} FROM catalogs WHERE coin_id=? LIMIT 1")
-        query.addBindValue(coin_id)
-        query.exec()
-        if query.first():
-            for catalog_field in catalog_fields:
-                price = query.record().value(price_field)
-                record.setValue(price_field, price)
 
         return record
 
@@ -856,6 +862,17 @@ class CollectionModel(QSqlTableModel):
         self.modelChanged.emit()
 
         return ret
+
+    def columnCount(self, parent=QModelIndex()):
+        external_fields_count = len(self.fields.externalFields)
+        return super().columnCount(parent) + external_fields_count
+
+    def fieldIndex(self, fieldName):
+        for i, field in enumerate(self.fields.externalFields):
+            if field.name == fieldName:
+                return super().columnCount() + i
+
+        return super().fieldIndex(fieldName)
 
     def columnType(self, column):
         if isinstance(column, QModelIndex):
@@ -1422,7 +1439,7 @@ class Collection(QObject):
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         model.setTable('coins')
         model.select()
-        for i, field in enumerate(self.fields):
+        for i, field in enumerate(self.fields.allFields):
             model.setHeaderData(i, Qt.Horizontal, field.title)
 
         return model

@@ -201,11 +201,7 @@ class DetailsTabWidget(QTabWidget):
             if field not in fields.systemFields:
                 self.addItem(field)
 
-        fields = self.model.fields.catalogFields
-        for field in fields:
-            self.addItem(field)
-
-        fields = self.model.fields.priceFields
+        fields = self.model.fields.externalFields
         for field in fields:
             self.addItem(field)
 

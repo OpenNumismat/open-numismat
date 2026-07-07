@@ -574,7 +574,7 @@ class FieldsSettingsPage(QWidget):
         # reserve_item = QTreeWidgetItem(self.treeWidget, (self.tr("Reserve"),))
 
         self.fields = collection.fields
-        for field in self.fields:
+        for field in self.fields.allFields:
             item = QTreeWidgetItem((field.title,))
             item.setData(0, self.DataRole, field)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
