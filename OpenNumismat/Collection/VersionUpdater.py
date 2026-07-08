@@ -655,7 +655,18 @@ class UpdaterTo10(_Updater):
 
         self._updateRecord()
 
-        self.collection.createPricesTable()
+        sql = """CREATE TABLE prices (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    coin_id INTEGER,
+                    action TEXT,
+                    date TEXT,
+                    quantity INTEGER,
+                    price NUMERIC,
+                    currency TEXT,
+                    commission NUMERIC,
+                    shipping NUMERIC,
+                    grade TEXT)"""
+        QSqlQuery(sql, self.db)
 
         self._updateRecord()
 
@@ -674,7 +685,11 @@ class UpdaterTo11(_Updater):
         self.progressDlg.setMinimumDuration(0)
 
     def getTotalCount(self):
-        return 2
+        sql = "SELECT count(*) FROM coins"
+        query = QSqlQuery(sql, self.db)
+        query.first()
+        count = query.record().value(0)
+        return count + 2
 
     def update(self):
         self._begin()
@@ -700,11 +715,125 @@ class UpdaterTo11(_Updater):
         sql = "ALTER TABLE description ADD COLUMN icon BLOB"
         QSqlQuery(sql, self.db)
 
-        self.db.commit()
+        sql = "ALTER TABLE prices ADD COLUMN url TEXT"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE prices ADD COLUMN place TEXT"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE prices ADD COLUMN number TEXT"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE prices ADD COLUMN counterparty TEXT"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE prices ADD COLUMN info TEXT"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE prices ADD COLUMN start_bid NUMERIC"
+        QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE prices RENAME COLUMN commission TO total_price"
+        QSqlQuery(sql, self.db)
+
+        sql = """CREATE TABLE catalogs (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    coin_id INTEGER,
+                    catalog TEXT,
+                    number TEXT,
+                    year INTEGER,
+                    currency TEXT,
+                    price1 NUMERIC,
+                    price2 NUMERIC,
+                    price3 NUMERIC,
+                    price4 NUMERIC)"""
+        QSqlQuery(sql, self.db)
+
+        fields = (
+            'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace',
+            'payinfo', 'buying_invoice', 'saledate', 'saleprice',
+            'totalsaleprice', 'buyer', 'saleplace', 'saleinfo', 'sale_invoice',
+            'price1', 'price2', 'price3', 'price4',
+        )
+
+        sql = f"SELECT id, status, {','.join(fields)} FROM coins"
+        query = QSqlQuery(sql, self.db)
+        while query.next():
+            self._updateRecord()
+
+            record = query.record()
+
+            coin_id = record.value('id')
+            status = record.value('status')
+
+            price1 = record.value('price1')
+            price2 = record.value('price2')
+            price3 = record.value('price3')
+            price4 = record.value('price4')
+            if price1 or price2 or price3 or price4:
+                catalog_sql = "INSERT INTO catalogs (coin_id, price1, price2, price3, price4) VALUES (?, ?, ?, ?, ?)"
+                catalog_query = QSqlQuery(self.db)
+                catalog_query.prepare(catalog_sql)
+                catalog_query.addBindValue(coin_id)
+                catalog_query.addBindValue(price1 or None)
+                catalog_query.addBindValue(price2 or None)
+                catalog_query.addBindValue(price3 or None)
+                catalog_query.addBindValue(price4 or None)
+                catalog_query.exec()
+
+            if status in ('owned', 'ordered', 'sale', 'missing', 'bidding',
+                          'duplicate', 'replacement', 'sold'):
+                paydate = record.value('paydate')
+                if paydate == '2000-01-01':
+                    paydate = None
+                payprice = record.value('payprice')
+                total_price = record.value('totalpayprice')
+                saller = record.value('saller')
+                payplace = record.value('payplace')
+                payinfo = record.value('payinfo')
+                buying_invoice = record.value('buying_invoice')
+                if paydate or payprice or total_price or saller or payplace or payinfo or buying_invoice:
+                    pay_sql = "INSERT INTO prices (coin_id, action, date, price, total_price, url, place, counterparty, info) VALUES (?, 'buy', ?, ?, ?, ?, ?, ?, ?)"
+                    pay_query = QSqlQuery(self.db)
+                    pay_query.prepare(pay_sql)
+                    pay_query.addBindValue(coin_id)
+                    pay_query.addBindValue(paydate or None)
+                    pay_query.addBindValue(payprice or None)
+                    pay_query.addBindValue(total_price or None)
+                    pay_query.addBindValue(buying_invoice or None)
+                    pay_query.addBindValue(payplace or None)
+                    pay_query.addBindValue(saller or None)
+                    pay_query.addBindValue(payinfo or None)
+                    pay_query.exec()
+
+            if status in ('sold', 'pass'):
+                saledate = record.value('saledate')
+                if saledate == '2000-01-01':
+                    saledate = None
+                saleprice = record.value('saleprice')
+                total_price = record.value('totalsaleprice')
+                buyer = record.value('buyer')
+                saleplace = record.value('saleplace')
+                saleinfo = record.value('saleinfo')
+                sale_invoice = record.value('sale_invoice')
+                if saledate or saleprice or total_price or buyer or saleplace or saleinfo or sale_invoice:
+                    if status == 'pass':
+                        action = 'auction'
+                    else:
+                        action = 'sell'
+                    sale_sql = "INSERT INTO prices (coin_id, action, date, price, total_price, url, place, counterparty, info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                    sale_query = QSqlQuery(self.db)
+                    sale_query.prepare(sale_sql)
+                    sale_query.addBindValue(coin_id)
+                    sale_query.addBindValue(action or None)
+                    sale_query.addBindValue(saledate or None)
+                    sale_query.addBindValue(saleprice or None)
+                    sale_query.addBindValue(total_price or None)
+                    sale_query.addBindValue(sale_invoice or None)
+                    sale_query.addBindValue(saleplace or None)
+                    sale_query.addBindValue(buyer or None)
+                    sale_query.addBindValue(saleinfo or None)
+                    sale_query.exec()
+
+        for field in fields:
+            sql = f"ALTER TABLE coins DROP COLUMN {field}"
+            QSqlQuery(sql, self.db)
 
         self._updateRecord()
-
-        self.db.transaction()
 
         self.collection.settings['Version'] = 11
         self.collection.settings.save()

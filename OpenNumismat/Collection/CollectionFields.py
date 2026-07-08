@@ -338,6 +338,15 @@ class CollectionFieldsBase(QObject):
         for item in (self.id, self.createdat, self.updatedat, self.sort_id):
             self.userFields.remove(item)
 
+        self.externalFields = (
+            self.price1, self.price2, self.price3, self.price4,
+            self.paydate, self.payprice, self.totalpayprice,
+            self.saller, self.payplace, self.payinfo,
+            self.saledate, self.saleprice, self.totalsaleprice,
+            self.buyer, self.saleplace, self.saleinfo,
+            self.buying_invoice, self.sale_invoice,
+        )
+
     def field(self, id_):
         return self.fields[id_]
 

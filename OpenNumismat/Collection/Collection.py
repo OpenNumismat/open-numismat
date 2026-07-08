@@ -97,6 +97,11 @@ class CollectionModel(QSqlTableModel):
             # Localize values
             data = super().data(index, role)
             field = self.fields.fields[index.column()]
+
+            if field in self.fields.externalFields:
+                record = self.record(index.row())
+                data = record.value(field.name)
+
             try:
                 if field.name == 'status':
                     text = Statuses[data]
@@ -444,6 +449,59 @@ class CollectionModel(QSqlTableModel):
         else:
             record = super().record()
 
+        coin_id = record.value('id')
+        if coin_id:
+            for field in self.fields.externalFields:
+                record.setValue(field.name, None)
+
+            catalog_fields = ('price1', 'price2', 'price3', 'price4')
+
+            query = QSqlQuery(self.database())
+            query.prepare(f"SELECT {','.join(catalog_fields)} FROM catalogs WHERE coin_id=? LIMIT 1")
+            query.addBindValue(coin_id)
+            query.exec()
+            if query.first():
+                for catalog_field in catalog_fields:
+                    price = query.record().value(catalog_field)
+                    record.setValue(catalog_field, price)
+
+            pay_price_fields = {
+                'paydate': 'date', 'payprice': 'price',
+                'totalpayprice': 'total_price', 'saller': 'counterparty',
+                'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url'
+            }
+
+            query = QSqlQuery(self.database())
+            query.prepare(f"SELECT {','.join(pay_price_fields.values())} FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
+            query.addBindValue(coin_id)
+            query.exec()
+            if query.first():
+                for old_field, new_field in pay_price_fields.items():
+                    val = query.record().value(new_field)
+                    record.setValue(old_field, val)
+
+            sell_price_fields = {
+                'saledate': 'date', 'saleprice': 'price',
+                'totalsaleprice': 'total_price', 'buyer': 'counterparty',
+                'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url'
+            }
+
+            status = record.value('status')
+            if status in ('sold', 'pass'):
+                if status == 'pass':
+                    action = 'auction'
+                else:
+                    action = 'sell'
+                query = QSqlQuery(self.database())
+                query.prepare(f"SELECT {','.join(sell_price_fields.values())} FROM prices WHERE coin_id=? AND action=? LIMIT 1")
+                query.addBindValue(coin_id)
+                query.addBindValue(action)
+                query.exec()
+                if query.first():
+                    for old_field, new_field in sell_price_fields.items():
+                        val = query.record().value(new_field)
+                        record.setValue(old_field, val)
+
         for field in ImageFields:
             record.append(QSqlField(f"{field}_title"))
             record.append(QSqlField(f"{field}_id"))
@@ -467,7 +525,6 @@ class CollectionModel(QSqlTableModel):
             record.setValue('image', None)
 
         tag_ids = []
-        coin_id = record.value('id')
         if coin_id:
             query = QSqlQuery(self.database())
             query.prepare("SELECT tag_id FROM coins_tags WHERE coin_id=?")
@@ -837,6 +894,44 @@ class CollectionModel(QSqlTableModel):
     def setSearchFilter(self, filter_):
         self.searchFilter = filter_
         self.__applyFilter()
+
+    def selectStatement(self):
+        filter_ = super().filter()
+        if filter_:
+            filter_ = f" WHERE {filter_}"
+        # TODO: Process some records in prices/catalogs table
+        return '''
+        SELECT coins.id AS id, "title", "value", "unit", "country", coins.year AS year,
+ "period", "mint", "mintmark", "issuedate", "type", "series",
+ "subjectshort", "status", "material", "fineness", "shape",
+ "diameter", "thickness", "weight", coins.grade AS grade, "edge", "edgelabel",
+ "obvrev", "quality", "mintage", "dateemis", "catalognum1", "catalognum2",
+ "catalognum3", "catalognum4", "rarity",
+
+ c.price1 AS price1, c.price2 AS price2, c.price3 AS price3, c.price4 AS price4,
+
+ "variety", "obversevar",
+ "reversevar", "edgevar",
+
+ p.date AS paydate, p.price AS payprice, p.total_price AS totalpayprice,
+ p.counterparty AS saller, p.place AS payplace, p.info AS payinfo,
+ p.date AS saledate, p.price AS saleprice, p.total_price AS totalsaleprice,
+ p.counterparty AS buyer, p.place AS saleplace, p.info AS saleinfo,
+
+ "note", "image", "obverseimg",
+ "obversedesign", "obversedesigner", "reverseimg", "reversedesign",
+ "reversedesigner", "edgeimg", "subject", "photo1", "photo2", "photo3", "photo4",
+ "defect", "storage", "features", "createdat", "updatedat", coins.quantity AS quantity, coins.url AS url,
+ "barcode", "ruler", "region", "obverseengraver", "reverseengraver", "obversecolor",
+ "reversecolor", "varietydesc", "varietyimg", "format", "condition", "category", "sort_id",
+ "emitent", "signaturetype", "signature", "signatureimg", "address", "latitude",
+ "longitude", "photo5", "photo6", "grader", "seat", "native_year", "composition", "material2",
+ "width", "height", "technique", "modification", "axis", "real_weight", "real_diameter", "rating",
+
+ p.url AS buying_invoice, p.url AS sale_invoice
+
+ FROM "coins" LEFT JOIN catalogs c ON c.coin_id = coins.id LEFT JOIN prices p ON p.coin_id = coins.id
+        ''' + filter_
 
     def __applyFilter(self):
         filters = []
