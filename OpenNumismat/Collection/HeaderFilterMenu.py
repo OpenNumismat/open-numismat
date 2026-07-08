@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 )
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.CollectionFields import Statuses, PayPriceFields, SellPriceFields, CatalogFields
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction, compareYears
 
@@ -62,8 +62,7 @@ class FilterMenuButton(QPushButton):
         self.db = model.database()
         self.model = model
         self.reference = model.reference
-        self.columnName = self.model.fields.fields[columnParam.fieldid].name
-        self.fieldid = columnParam.fieldid
+        self.field = self.model.fields.field(columnParam.fieldid)
         self.filters = listParam.filters
         self.listParam = listParam
         self.settings = model.settings
@@ -80,7 +79,7 @@ class FilterMenuButton(QPushButton):
         self.setObjectName("FilterMenuButton")
         padding = self.style().pixelMetric(QStyle.PM_MenuButtonIndicator) + off
         self.setStyleSheet(f"QPushButton#FilterMenuButton {{padding-left:{padding}px;}}")
-        if self.fieldid in self.filters.keys():
+        if self.field.id in self.filters.keys():
             self.setIcon(QIcon(':/filters.ico'))
 
     def prepareMenu(self):
@@ -90,24 +89,102 @@ class FilterMenuButton(QPushButton):
         appliedValues = []
         columnFilters = None
         revert = False
-        if self.fieldid in filters.keys():
-            columnFilters = filters.pop(self.fieldid)
+        if self.field.id in filters.keys():
+            columnFilters = filters.pop(self.field.id)
             for filter_ in columnFilters.filters():
                 if filter_.isRevert():
                     revert = True
                 appliedValues.append(filter_.value)
 
         hasBlanks = False
-        columnType = self.model.columnType(self.fieldid)
-        if self.model.columnName(self.fieldid) == 'year':
+        if self.field in self.model.fields.priceFields:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
-            sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
+            if self.field.name in PayPriceFields:
+                ext_field_name = PayPriceFields[self.field.name]
+                # TODO: Process some records in prices/catalogs table
+                sql = (f"SELECT DISTINCT prices.{ext_field_name} AS {self.field.name}"
+                       " FROM coins"
+                       " LEFT JOIN prices ON prices.coin_id = coins.id"
+                       " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                       f" {filtersSql}")
+            else:
+                ext_field_name = SellPriceFields[self.field.name]
+                sql = (f"SELECT DISTINCT prices.{ext_field_name} AS {self.field.name}"
+                       " FROM coins"
+                       " LEFT JOIN prices ON prices.coin_id = coins.id"
+                       " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                       f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
             while query.next():
                 icon = None
+                if query.record().isNull(0):
+                    data = None
+                else:
+                    orig_data = query.record().value(0)
+                    data = str(orig_data)
+                    icon = self.reference.getIcon(self.field.name, data)
+
+                if not data:
+                    hasBlanks = True
+                    continue
+
+                item = QListWidgetItem()
+                item.setData(Qt.DisplayRole, orig_data)
+                item.setData(Qt.UserRole, data)
+                if icon:
+                    item.setIcon(icon)
+                if (data in appliedValues) ^ revert:
+                    item.setCheckState(Qt.Unchecked)
+                else:
+                    item.setCheckState(Qt.Checked)
+                self.listWidget.addItem(item)
+        elif self.field in self.model.fields.catalogFields:
+            filtersSql = self.filtersToSql(filters.values())
+            if filtersSql:
+                filtersSql = 'WHERE ' + filtersSql
+            ext_field_name = CatalogFields[self.field.name]
+            # TODO: Process some records in prices/catalogs table
+            sql = (f"SELECT DISTINCT catalogs.{ext_field_name} AS {self.field.name}"
+                   " FROM coins"
+                   " LEFT JOIN prices ON prices.coin_id = coins.id"
+                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {filtersSql}")
+            query = QSqlQuery(sql, self.db)
+
+            while query.next():
+                if query.record().isNull(0):
+                    data = None
+                else:
+                    orig_data = query.record().value(0)
+                    data = str(orig_data)
+
+                if not data:
+                    hasBlanks = True
+                    continue
+
+                item = QListWidgetItem()
+                item.setData(Qt.DisplayRole, orig_data)
+                item.setData(Qt.UserRole, data)
+                if (data in appliedValues) ^ revert:
+                    item.setCheckState(Qt.Unchecked)
+                else:
+                    item.setCheckState(Qt.Checked)
+                self.listWidget.addItem(item)
+        elif self.field.name == 'year':
+            filtersSql = self.filtersToSql(filters.values())
+            if filtersSql:
+                filtersSql = 'WHERE ' + filtersSql
+            sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
+                   " FROM coins"
+                   " LEFT JOIN prices ON prices.coin_id = coins.id"
+                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {filtersSql}")
+            query = QSqlQuery(sql, self.db)
+
+            while query.next():
                 if query.record().isNull(0):
                     data = None
                 else:
@@ -136,12 +213,16 @@ class FilterMenuButton(QPushButton):
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
-        elif columnType == Type.Text or columnType in Type.ImageTypes:
-            dataFilter = BlankFilter(self.columnName).toSql()
-            blanksFilter = DataFilter(self.columnName).toSql()
+        elif self.field.type == Type.Text or self.field.type in Type.ImageTypes:
+            dataFilter = BlankFilter(self.field.name).toSql()
+            blanksFilter = DataFilter(self.field.name).toSql()
 
             filtersSql = self.filtersToSql(filters.values())
-            sql = "SELECT 1 FROM coins WHERE " + filtersSql
+            sql = (f"SELECT 1"
+                   " FROM coins"
+                   " LEFT JOIN prices ON prices.coin_id = coins.id"
+                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {filtersSql}")
             if filtersSql:
                 sql += ' AND '
 
@@ -155,9 +236,9 @@ class FilterMenuButton(QPushButton):
             not_blank_sql = sql + dataFilter + " LIMIT 1"
             query = QSqlQuery(not_blank_sql, self.db)
             if query.first():
-                if columnType in Type.ImageTypes:
+                if self.field.type in Type.ImageTypes:
                     label = self.tr("(Images)")
-                elif columnType == Type.Text:
+                elif self.field.type == Type.Text:
                     label = self.tr("(Text)")
                 else:
                     label = self.tr("(Data)")
@@ -168,12 +249,15 @@ class FilterMenuButton(QPushButton):
                 if columnFilters and columnFilters.hasData():
                     item.setCheckState(Qt.Unchecked)
                 self.listWidget.addItem(item)
-        elif columnType == Type.Status:
+        elif self.field.type == Type.Status:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
-            sql = "SELECT DISTINCT %s FROM coins %s" % (
-                self.columnName, filtersSql)
+            sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
+                   " FROM coins"
+                   " LEFT JOIN prices ON prices.coin_id = coins.id"
+                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
             while query.next():
@@ -193,15 +277,18 @@ class FilterMenuButton(QPushButton):
                 self.listWidget.addItem(item)
 
             self.listWidget.sortItems()
-        elif columnType == Type.Denomination:
+        elif self.field.type == Type.Denomination:
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
-            sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
+            sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
+                   " FROM coins"
+                   " LEFT JOIN prices ON prices.coin_id = coins.id"
+                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
             while query.next():
-                icon = None
                 if query.record().isNull(0):
                     data = None
                 else:
@@ -228,7 +315,11 @@ class FilterMenuButton(QPushButton):
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
-            sql = "SELECT DISTINCT %s FROM coins %s" % (self.columnName, filtersSql)
+            sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
+                   " FROM coins"
+                   " LEFT JOIN prices ON prices.coin_id = coins.id"
+                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
             while query.next():
@@ -238,7 +329,7 @@ class FilterMenuButton(QPushButton):
                 else:
                     orig_data = query.record().value(0)
                     data = str(orig_data)
-                    icon = self.reference.getIcon(self.columnName, data)
+                    icon = self.reference.getIcon(self.field.name, data)
 
                 if not data:
                     hasBlanks = True
@@ -337,7 +428,7 @@ class FilterMenuButton(QPushButton):
         self.listWidget.itemChanged.connect(self.itemChanged)
 
     def apply(self):
-        filters = ColumnFilters(self.columnName)
+        filters = ColumnFilters(self.field.name)
         unchecked = 0
         checked = 0
         for i in range(1, self.listWidget.count()):
@@ -352,24 +443,24 @@ class FilterMenuButton(QPushButton):
             if unchecked > checked:
                 if item.checkState() == Qt.Checked:
                     if item.type() == FilterMenuButton.BlanksType:
-                        filter_ = BlankFilter(self.columnName)
+                        filter_ = BlankFilter(self.field.name)
                     elif item.type() == FilterMenuButton.DataType:
-                        filter_ = DataFilter(self.columnName)
+                        filter_ = DataFilter(self.field.name)
                     else:
                         value = item.data(Qt.UserRole)
-                        filter_ = ValueFilter(self.columnName, value)
+                        filter_ = ValueFilter(self.field.name, value)
 
                     filter_.revert = True
                     filters.addFilter(filter_)
             else:
                 if item.checkState() == Qt.Unchecked:
                     if item.type() == FilterMenuButton.BlanksType:
-                        filter_ = BlankFilter(self.columnName)
+                        filter_ = BlankFilter(self.field.name)
                     elif item.type() == FilterMenuButton.DataType:
-                        filter_ = DataFilter(self.columnName)
+                        filter_ = DataFilter(self.field.name)
                     else:
                         value = item.data(Qt.UserRole)
-                        filter_ = ValueFilter(self.columnName, value)
+                        filter_ = ValueFilter(self.field.name, value)
 
                     filters.addFilter(filter_)
 
@@ -380,11 +471,11 @@ class FilterMenuButton(QPushButton):
     def applyFilters(self, filters):
         if filters.filters():
             self.setIcon(QIcon(':/filters.ico'))
-            self.filters[self.fieldid] = filters
+            self.filters[self.field.id] = filters
         else:
             self.setIcon(QIcon())
-            if self.fieldid in self.filters.keys():
-                self.filters.pop(self.fieldid)
+            if self.field.id in self.filters.keys():
+                self.filters.pop(self.field.id)
 
         filtersSql = self.filtersToSql(self.filters.values())
         self.model.setFilter(filtersSql)
@@ -414,6 +505,14 @@ class FilterMenuButton(QPushButton):
 
 class BaseFilter:
     def __init__(self, name):
+        if name in PayPriceFields:
+            name = f"prices.{PayPriceFields[name]}"
+        elif name in SellPriceFields:
+            name = f"prices.{SellPriceFields[name]}"
+        elif name in CatalogFields:
+            name = f"catalogs.{CatalogFields[name]}"
+        else:
+            name = f"coins.{name}"
         self.name = name
         self.value = None
         self.revert = False
@@ -473,6 +572,14 @@ class BlankFilter(BaseFilter):
 
 class ColumnFilters:
     def __init__(self, name):
+        if name in PayPriceFields:
+            name = f"prices.{PayPriceFields[name]}"
+        elif name in SellPriceFields:
+            name = f"prices.{SellPriceFields[name]}"
+        elif name in CatalogFields:
+            name = f"catalogs.{CatalogFields[name]}"
+        else:
+            name = f"coins.{name}"
         self.name = name
         self._filters = []
         self._blank = None  # blank out filter

@@ -44,6 +44,7 @@ from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.CollectionFields import ImageFields
+from OpenNumismat.Collection.CollectionFields import PayPriceFields, SellPriceFields, CatalogFields
 from OpenNumismat.Collection.CollectionPages import CollectionPages
 from OpenNumismat.Collection.Password import cryptPassword, PasswordDialog
 from OpenNumismat.Collection.Description import CollectionDescription
@@ -454,37 +455,23 @@ class CollectionModel(QSqlTableModel):
             for field in self.fields.externalFields:
                 record.setValue(field.name, None)
 
-            catalog_fields = ('price1', 'price2', 'price3', 'price4')
-
             query = QSqlQuery(self.database())
-            query.prepare(f"SELECT {','.join(catalog_fields)} FROM catalogs WHERE coin_id=? LIMIT 1")
+            query.prepare(f"SELECT {','.join(CatalogFields.values())} FROM catalogs WHERE coin_id=? LIMIT 1")
             query.addBindValue(coin_id)
             query.exec()
             if query.first():
-                for catalog_field in catalog_fields:
-                    price = query.record().value(catalog_field)
-                    record.setValue(catalog_field, price)
-
-            pay_price_fields = {
-                'paydate': 'date', 'payprice': 'price',
-                'totalpayprice': 'total_price', 'saller': 'counterparty',
-                'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url'
-            }
-
-            query = QSqlQuery(self.database())
-            query.prepare(f"SELECT {','.join(pay_price_fields.values())} FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
-            query.addBindValue(coin_id)
-            query.exec()
-            if query.first():
-                for old_field, new_field in pay_price_fields.items():
+                for old_field, new_field in CatalogFields.items():
                     val = query.record().value(new_field)
                     record.setValue(old_field, val)
 
-            sell_price_fields = {
-                'saledate': 'date', 'saleprice': 'price',
-                'totalsaleprice': 'total_price', 'buyer': 'counterparty',
-                'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url'
-            }
+            query = QSqlQuery(self.database())
+            query.prepare(f"SELECT {','.join(PayPriceFields.values())} FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
+            query.addBindValue(coin_id)
+            query.exec()
+            if query.first():
+                for old_field, new_field in PayPriceFields.items():
+                    val = query.record().value(new_field)
+                    record.setValue(old_field, val)
 
             status = record.value('status')
             if status in ('sold', 'pass'):
@@ -493,12 +480,12 @@ class CollectionModel(QSqlTableModel):
                 else:
                     action = 'sell'
                 query = QSqlQuery(self.database())
-                query.prepare(f"SELECT {','.join(sell_price_fields.values())} FROM prices WHERE coin_id=? AND action=? LIMIT 1")
+                query.prepare(f"SELECT {','.join(SellPriceFields.values())} FROM prices WHERE coin_id=? AND action=? LIMIT 1")
                 query.addBindValue(coin_id)
                 query.addBindValue(action)
                 query.exec()
                 if query.first():
-                    for old_field, new_field in sell_price_fields.items():
+                    for old_field, new_field in SellPriceFields.items():
                         val = query.record().value(new_field)
                         record.setValue(old_field, val)
 
@@ -900,7 +887,7 @@ class CollectionModel(QSqlTableModel):
         if filter_:
             filter_ = f" WHERE {filter_}"
         # TODO: Process some records in prices/catalogs table
-        return '''
+        sql = '''
         SELECT coins.id AS id, "title", "value", "unit", "country", coins.year AS year,
  "period", "mint", "mintmark", "issuedate", "type", "series",
  "subjectshort", "status", "material", "fineness", "shape",
@@ -908,15 +895,15 @@ class CollectionModel(QSqlTableModel):
  "obvrev", "quality", "mintage", "dateemis", "catalognum1", "catalognum2",
  "catalognum3", "catalognum4", "rarity",
 
- c.price1 AS price1, c.price2 AS price2, c.price3 AS price3, c.price4 AS price4,
+ catalogs.price1 AS price1, catalogs.price2 AS price2, catalogs.price3 AS price3, catalogs.price4 AS price4,
 
  "variety", "obversevar",
  "reversevar", "edgevar",
 
- p.date AS paydate, p.price AS payprice, p.total_price AS totalpayprice,
- p.counterparty AS saller, p.place AS payplace, p.info AS payinfo,
- p.date AS saledate, p.price AS saleprice, p.total_price AS totalsaleprice,
- p.counterparty AS buyer, p.place AS saleplace, p.info AS saleinfo,
+ prices.date AS paydate, prices.price AS payprice, prices.total_price AS totalpayprice,
+ prices.counterparty AS saller, prices.place AS payplace, prices.info AS payinfo,
+ prices.date AS saledate, prices.price AS saleprice, prices.total_price AS totalsaleprice,
+ prices.counterparty AS buyer, prices.place AS saleplace, prices.info AS saleinfo,
 
  "note", "image", "obverseimg",
  "obversedesign", "obversedesigner", "reverseimg", "reversedesign",
@@ -928,10 +915,11 @@ class CollectionModel(QSqlTableModel):
  "longitude", "photo5", "photo6", "grader", "seat", "native_year", "composition", "material2",
  "width", "height", "technique", "modification", "axis", "real_weight", "real_diameter", "rating",
 
- p.url AS buying_invoice, p.url AS sale_invoice
+ prices.url AS buying_invoice, prices.url AS sale_invoice
 
- FROM "coins" LEFT JOIN catalogs c ON c.coin_id = coins.id LEFT JOIN prices p ON p.coin_id = coins.id
+ FROM "coins" LEFT JOIN catalogs ON catalogs.coin_id = coins.id LEFT JOIN prices ON prices.coin_id = coins.id
         ''' + filter_
+        return sql
 
     def __applyFilter(self):
         filters = []

@@ -784,7 +784,7 @@ class ListView(BaseTableView):
 
     def _updateHeaderButtons(self):
         for btn in self.headerButtons:
-            index = btn.fieldid
+            index = btn.field.id
             if self.isColumnHidden(index):
                 btn.hide()
             else:
@@ -920,7 +920,7 @@ class ListView(BaseTableView):
         filters = ColumnFilters(column_name)
         filters.addFilter(filter_)
         for btn in self.headerButtons:
-            if btn.fieldid == column:
+            if btn.field.id == column:
                 btn.applyFilters(filters)
                 break
 

@@ -196,6 +196,20 @@ StatisticsFields = (
     'unit',
     'composition',
 )
+PayPriceFields = {
+    'paydate': 'date', 'payprice': 'price',
+    'totalpayprice': 'total_price', 'saller': 'counterparty',
+    'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url',
+}
+SellPriceFields = {
+    'saledate': 'date', 'saleprice': 'price',
+    'totalsaleprice': 'total_price', 'buyer': 'counterparty',
+    'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url',
+}
+CatalogFields = {
+    'price1': 'price1', 'price2': 'price2',
+    'price3': 'price3', 'price4': 'price4',
+}
 
 
 @dataclass(slots=True)
@@ -338,14 +352,17 @@ class CollectionFieldsBase(QObject):
         for item in (self.id, self.createdat, self.updatedat, self.sort_id):
             self.userFields.remove(item)
 
-        self.externalFields = (
+        self.catalogFields = (
             self.price1, self.price2, self.price3, self.price4,
+        )
+        self.priceFields = (
             self.paydate, self.payprice, self.totalpayprice,
             self.saller, self.payplace, self.payinfo,
             self.saledate, self.saleprice, self.totalsaleprice,
             self.buyer, self.saleplace, self.saleinfo,
             self.buying_invoice, self.sale_invoice,
         )
+        self.externalFields = self.catalogFields + self.priceFields
 
     def field(self, id_):
         return self.fields[id_]

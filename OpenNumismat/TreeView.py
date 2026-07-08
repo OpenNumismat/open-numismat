@@ -348,9 +348,9 @@ class TreeView(QTreeWidget):
                 text = str(value)
                 if text:
                     escapedText = text.replace("'", "''")
-                    child_filters.append(f"{field}='{escapedText}'")
+                    child_filters.append(f"coins.{field}='{escapedText}'")
                 else:
-                    child_filters.append(f"ifnull({field},'')=''")
+                    child_filters.append(f"ifnull(coins.{field},'')=''")
 
             if self.showCounter:
                 count = record.value('counter')
@@ -508,7 +508,7 @@ class TreeView(QTreeWidget):
             text = self.tr("Other")
             if self.showCounter:
                 text = f"{text} [{countEmpty}]"
-            newFilters = f"ifnull({fields[0]},'')=''"
+            newFilters = f"ifnull(coins.{fields[0]},'')=''"
             if filter_:
                 newFilters = f"{filter_} AND {newFilters}"
 
