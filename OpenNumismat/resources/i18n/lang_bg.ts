@@ -1026,7 +1026,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Free format numeric fields</source>
-        <translation>Свободен формат в цифровите полета</translation>
+        <translation>Свободен формат в числовите полета</translation>
     </message>
     <message>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
