@@ -1489,7 +1489,6 @@ class Collection(QObject):
 
         self.createCoinsTable()
         self.createTagsTable()
-        self.createPricesTable()
 
         self.fileName = fileName
 
@@ -1520,9 +1519,42 @@ class Collection(QObject):
             if field.name == 'id':
                 sqlFields.append('id INTEGER PRIMARY KEY')
             else:
-                sqlFields.append("%s %s" % (field.name, Type.toSql(field.type)))
+                if field not in self.fields.externalFields:
+                    sqlFields.append(f"{field.name} {Type.toSql(field.type)}")
 
         sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
+        QSqlQuery(sql, self.db)
+
+        sql = """CREATE TABLE prices (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    coin_id INTEGER,
+                    action TEXT,
+                    date TEXT,
+                    quantity INTEGER,
+                    price NUMERIC,
+                    currency TEXT,
+                    total_price NUMERIC,
+                    shipping NUMERIC,
+                    grade TEXT,
+                    url TEXT,
+                    place TEXT,
+                    number TEXT,
+                    counterparty TEXT,
+                    info TEXT,
+                    start_bid NUMERIC)"""
+        QSqlQuery(sql, self.db)
+
+        sql = """CREATE TABLE catalogs (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    coin_id INTEGER,
+                    catalog TEXT,
+                    number TEXT,
+                    year INTEGER,
+                    currency TEXT,
+                    price1 NUMERIC,
+                    price2 NUMERIC,
+                    price3 NUMERIC,
+                    price4 NUMERIC)"""
         QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE photos (
@@ -1551,20 +1583,6 @@ class Collection(QObject):
         sql = """CREATE TABLE coins_tags (
                     coin_id INTEGER,
                     tag_id INTEGER)"""
-        QSqlQuery(sql, self.db)
-
-    def createPricesTable(self):
-        sql = """CREATE TABLE prices (
-                    id INTEGER NOT NULL PRIMARY KEY,
-                    coin_id INTEGER,
-                    action TEXT,
-                    date TEXT,
-                    quantity INTEGER,
-                    price NUMERIC,
-                    currency TEXT,
-                    commission NUMERIC,
-                    shipping NUMERIC,
-                    grade TEXT)"""
         QSqlQuery(sql, self.db)
 
     def isReferenceAttached(self):
