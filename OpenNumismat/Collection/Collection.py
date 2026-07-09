@@ -1091,10 +1091,10 @@ class CollectionModel(QSqlTableModel):
  "variety", "obversevar",
  "reversevar", "edgevar",
 
- prices.date AS paydate, prices.price AS payprice, prices.total_price AS totalpayprice,
- prices.counterparty AS saller, prices.place AS payplace, prices.info AS payinfo,
- prices.date AS saledate, prices.price AS saleprice, prices.total_price AS totalsaleprice,
- prices.counterparty AS buyer, prices.place AS saleplace, prices.info AS saleinfo,
+ pay_prices.date AS paydate, pay_prices.price AS payprice, pay_prices.total_price AS totalpayprice,
+ pay_prices.counterparty AS saller, pay_prices.place AS payplace, pay_prices.info AS payinfo,
+ sale_prices.date AS saledate, sale_prices.price AS saleprice, sale_prices.total_price AS totalsaleprice,
+ sale_prices.counterparty AS buyer, sale_prices.place AS saleplace, sale_prices.info AS saleinfo,
 
  "note", "image", "obverseimg",
  "obversedesign", "obversedesigner", "reverseimg", "reversedesign",
@@ -1106,9 +1106,24 @@ class CollectionModel(QSqlTableModel):
  "longitude", "photo5", "photo6", "grader", "seat", "native_year", "composition", "material2",
  "width", "height", "technique", "modification", "axis", "real_weight", "real_diameter", "rating",
 
- prices.url AS buying_invoice, prices.url AS sale_invoice
+ pay_prices.url AS buying_invoice, sale_prices.url AS sale_invoice
 
- FROM "coins" LEFT JOIN catalogs ON catalogs.coin_id = coins.id LEFT JOIN prices ON prices.coin_id = coins.id
+ FROM "coins"
+ LEFT JOIN catalogs ON catalogs.coin_id = coins.id
+ LEFT JOIN prices pay_prices ON pay_prices.id = (
+    SELECT id
+    FROM prices
+    WHERE coin_id = coins.id AND action = 'buy'
+    ORDER BY id
+    LIMIT 1
+ )
+ LEFT JOIN prices sale_prices ON sale_prices.id = (
+    SELECT id
+    FROM prices
+    WHERE coin_id = coins.id AND action = 'sell'
+    ORDER BY id
+    LIMIT 1
+ )
         ''' + filter_
         return sql
 
