@@ -251,6 +251,52 @@ class CollectionModel(QSqlTableModel):
         tag_ids = record.value('tags')
         record.remove(record.indexOf('tags'))
 
+        field_count = len(CatalogFields)
+        catalog_query_active = False
+        catalog_query = QSqlQuery(self.database())
+        catalog_query.prepare(f"INSERT INTO catalogs ({','.join(CatalogFields.values())}, coin_id)"
+                              f" VALUES ({'?,' * field_count} ?)")
+        for field in CatalogFields.keys():
+            value = record.value(field)
+            catalog_query.addBindValue(value or None)
+            if value:
+                catalog_query_active = True
+
+        status = record.value('status')
+
+        field_count = len(PayPriceFields)
+        pay_price_query_active = False
+        if status in ('owned', 'ordered', 'sale', 'missing', 'bidding',
+                      'duplicate', 'replacement', 'sold'):
+            pay_price_query = QSqlQuery(self.database())
+            pay_price_query.prepare(f"INSERT INTO prices (action, {','.join(PayPriceFields.values())}, coin_id)"
+                                    f" VALUES ('buy', {'?,' * field_count} ?)")
+            for field in PayPriceFields.keys():
+                value = record.value(field)
+                pay_price_query.addBindValue(value or None)
+                if value:
+                    pay_price_query_active = True
+
+        field_count = len(SellPriceFields)
+        sell_price_query_active = False
+        if status in ('sold', 'pass'):
+            sell_price_query = QSqlQuery(self.database())
+            sell_price_query.prepare(f"INSERT INTO prices (action, {','.join(SellPriceFields.values())}, coin_id)"
+                                     f" VALUES (?, {'?,' * field_count} ?)")
+            if status == 'pass':
+                action = 'auction'
+            else:
+                action = 'sell'
+            sell_price_query.addBindValue(action)
+            for field in SellPriceFields.keys():
+                value = record.value(field)
+                sell_price_query.addBindValue(value or None)
+                if value:
+                    sell_price_query_active = True
+
+        for field in self.fields.externalFields:
+            record.remove(record.indexOf(field.name))
+
         self.insertRecord(-1, record)
         self.submitAll()
 
@@ -266,6 +312,16 @@ class CollectionModel(QSqlTableModel):
                 query.addBindValue(coin_id)
                 query.addBindValue(tag_id)
                 query.exec()
+
+            if catalog_query_active:
+                catalog_query.addBindValue(coin_id)
+                catalog_query.exec()
+            if pay_price_query_active:
+                pay_price_query.addBindValue(coin_id)
+                pay_price_query.exec()
+            if sell_price_query_active:
+                sell_price_query.addBindValue(coin_id)
+                sell_price_query.exec()
 
         if rowCount < self.rowCount():  # inserted row visible in current model
             if self.insertedRowIndex.isValid():
@@ -384,6 +440,131 @@ class CollectionModel(QSqlTableModel):
                 img_id = query.lastInsertId()
 
         coin_id = record.value('id')
+
+        catalog_active = False
+        for field in CatalogFields.keys():
+            value = record.value(field)
+            if value:
+                catalog_active = True
+                break
+
+        query = QSqlQuery(self.database())
+        query.prepare("SELECT id FROM catalogs WHERE coin_id=? LIMIT 1")
+        query.addBindValue(coin_id)
+        query.exec()
+        if query.first():
+            if catalog_active:
+                catalog_id = query.value(0)
+                catalog_query = QSqlQuery(self.database())
+                sql_fields = ','.join(f"{item}=?" for item in CatalogFields.values())
+                catalog_query.prepare(f"UPDATE catalogs SET {sql_fields}"
+                                      " WHERE id=?")
+                for field in CatalogFields.keys():
+                    value = record.value(field)
+                    catalog_query.addBindValue(value or None)
+                catalog_query.addBindValue(catalog_id)
+                catalog_query.exec()
+            else:
+                catalog_query = QSqlQuery(self.database())
+                catalog_query.prepare("DELETE FROM catalogs WHERE coin_id=?")
+                catalog_query.addBindValue(coin_id)
+                catalog_query.exec()
+        else:
+            if catalog_active:
+                field_count = len(CatalogFields)
+                catalog_query = QSqlQuery(self.database())
+                catalog_query.prepare(f"INSERT INTO catalogs ({','.join(CatalogFields.values())}, coin_id)"
+                                      f" VALUES ({'?,' * field_count} ?)")
+                for field in CatalogFields.keys():
+                    value = record.value(field)
+                    catalog_query.addBindValue(value or None)
+                catalog_query.addBindValue(coin_id)
+                catalog_query.exec()
+
+        pay_price_active = False
+        for field in PayPriceFields.keys():
+            value = record.value(field)
+            if value:
+                pay_price_active = True
+                break
+
+        query = QSqlQuery(self.database())
+        query.prepare("SELECT id FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
+        query.addBindValue(coin_id)
+        query.exec()
+        if query.first():
+            if pay_price_active:
+                price_id = query.value(0)
+                price_query = QSqlQuery(self.database())
+                sql_fields = ','.join(f"{item}=?" for item in PayPriceFields.values())
+                price_query.prepare(f"UPDATE prices SET {sql_fields}"
+                                    " WHERE id=?")
+                for field in PayPriceFields.keys():
+                    value = record.value(field)
+                    price_query.addBindValue(value or None)
+                price_query.addBindValue(price_id)
+                price_query.exec()
+            else:
+                price_query = QSqlQuery(self.database())
+                price_query.prepare("DELETE FROM prices WHERE coin_id=? AND action='buy'")
+                price_query.addBindValue(coin_id)
+                price_query.exec()
+        else:
+            if pay_price_active:
+                field_count = len(PayPriceFields)
+                price_query = QSqlQuery(self.database())
+                price_query.prepare(f"INSERT INTO prices ({','.join(PayPriceFields.values())}, coin_id, action)"
+                                      f" VALUES ({'?,' * field_count} ?, 'buy')")
+                for field in PayPriceFields.keys():
+                    value = record.value(field)
+                    price_query.addBindValue(value or None)
+                price_query.addBindValue(coin_id)
+                price_query.exec()
+
+        # TODO: Process pass status
+
+        sell_price_active = False
+        for field in SellPriceFields.keys():
+            value = record.value(field)
+            if value:
+                sell_price_active = True
+                break
+
+        query = QSqlQuery(self.database())
+        query.prepare("SELECT id FROM prices WHERE coin_id=? AND action='sell' LIMIT 1")
+        query.addBindValue(coin_id)
+        query.exec()
+        if query.first():
+            if sell_price_active:
+                price_id = query.value(0)
+                price_query = QSqlQuery(self.database())
+                sql_fields = ','.join(f"{item}=?" for item in SellPriceFields.values())
+                price_query.prepare(f"UPDATE prices SET {sql_fields}"
+                                    " WHERE id=?")
+                for field in SellPriceFields.keys():
+                    value = record.value(field)
+                    price_query.addBindValue(value or None)
+                price_query.addBindValue(price_id)
+                price_query.exec()
+            else:
+                price_query = QSqlQuery(self.database())
+                price_query.prepare("DELETE FROM prices WHERE coin_id=? AND action='sell'")
+                price_query.addBindValue(coin_id)
+                price_query.exec()
+        else:
+            if sell_price_active:
+                field_count = len(SellPriceFields)
+                price_query = QSqlQuery(self.database())
+                price_query.prepare(f"INSERT INTO prices ({','.join(SellPriceFields.values())}, coin_id, action)"
+                                      f" VALUES ({'?,' * field_count} ?, 'sell')")
+                for field in SellPriceFields.keys():
+                    value = record.value(field)
+                    price_query.addBindValue(value or None)
+                price_query.addBindValue(coin_id)
+                price_query.exec()
+
+        for field in self.fields.externalFields:
+            record.remove(record.indexOf(field.name))
 
         query = QSqlQuery(self.database())
         query.prepare("DELETE FROM coins_tags WHERE coin_id=?")
@@ -587,6 +768,16 @@ class CollectionModel(QSqlTableModel):
         if coin_id:
             query = QSqlQuery(self.database())
             query.prepare("DELETE FROM coins_tags WHERE coin_id=?")
+            query.addBindValue(coin_id)
+            query.exec()
+
+            query = QSqlQuery(self.database())
+            query.prepare("DELETE FROM catalogs WHERE coin_id=?")
+            query.addBindValue(coin_id)
+            query.exec()
+
+            query = QSqlQuery(self.database())
+            query.prepare("DELETE FROM prices WHERE coin_id=?")
             query.addBindValue(coin_id)
             query.exec()
 
