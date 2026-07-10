@@ -3452,7 +3452,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Remove all</source>
-        <translation>Премахнете всички</translation>
+        <translation>Изтриване на всички</translation>
     </message>
     <message>
         <source>Rename...</source>
