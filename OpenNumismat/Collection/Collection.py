@@ -268,48 +268,22 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         tag_ids = record.value('tags')
         record.remove(record.indexOf('tags'))
 
-        field_count = len(CatalogFields)
-        catalog_query_active = False
-        catalog_query = QSqlQuery(self.database())
-        catalog_query.prepare(f"INSERT INTO catalogs ({','.join(CatalogFields.values())}, coin_id)"
-                              f" VALUES ({'?,' * field_count} ?)")
-        for field in CatalogFields.keys():
-            value = record.value(field)
-            catalog_query.addBindValue(value or None)
-            if value:
-                catalog_query_active = True
+        catalog_record_values = []
+        for rec_field in CatalogFields.keys():
+            catalog_record_values.append(record.value(rec_field) or None)
 
         status = record.value('status')
 
-        field_count = len(PayPriceFields)
-        pay_price_query_active = False
+        buy_price_record_values = []
         if status in ('owned', 'ordered', 'sale', 'missing', 'bidding',
                       'duplicate', 'replacement', 'sold'):
-            pay_price_query = QSqlQuery(self.database())
-            pay_price_query.prepare(f"INSERT INTO prices (action, {','.join(PayPriceFields.values())}, coin_id)"
-                                    f" VALUES ('buy', {'?,' * field_count} ?)")
-            for field in PayPriceFields.keys():
-                value = record.value(field)
-                pay_price_query.addBindValue(value or None)
-                if value:
-                    pay_price_query_active = True
+            for rec_field in PayPriceFields.keys():
+                buy_price_record_values.append(record.value(rec_field) or None)
 
-        field_count = len(SellPriceFields)
-        sell_price_query_active = False
+        sell_price_record_values = []
         if status in ('sold', 'pass'):
-            sell_price_query = QSqlQuery(self.database())
-            sell_price_query.prepare(f"INSERT INTO prices (action, {','.join(SellPriceFields.values())}, coin_id)"
-                                     f" VALUES (?, {'?,' * field_count} ?)")
-            if status == 'pass':
-                action = 'auction'
-            else:
-                action = 'sell'
-            sell_price_query.addBindValue(action)
-            for field in SellPriceFields.keys():
-                value = record.value(field)
-                sell_price_query.addBindValue(value or None)
-                if value:
-                    sell_price_query_active = True
+            for rec_field in SellPriceFields.keys():
+                sell_price_record_values.append(record.value(rec_field) or None)
 
         for field in self.fields.externalFields:
             record.remove(record.indexOf(field.name))
@@ -330,15 +304,18 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
                 query.addBindValue(tag_id)
                 query.exec()
 
-            if catalog_query_active:
-                catalog_query.addBindValue(coin_id)
-                catalog_query.exec()
-            if pay_price_query_active:
-                pay_price_query.addBindValue(coin_id)
-                pay_price_query.exec()
-            if sell_price_query_active:
-                sell_price_query.addBindValue(coin_id)
-                sell_price_query.exec()
+            if any(catalog_record_values):
+                self._insertRecordExt(catalog_record_values, coin_id, 'catalogs', CatalogFields)
+            if any(buy_price_record_values):
+                self._insertRecordExt(buy_price_record_values, coin_id, 'prices', PayPriceFields,
+                                      condition_col='action', condition_val='buy')
+            if any(sell_price_record_values):
+                if status == 'pass':
+                    action = 'auction'
+                else:
+                    action = 'sell'
+                self._insertRecordExt(sell_price_record_values, coin_id, 'prices', SellPriceFields,
+                                      condition_col='action', condition_val=action)
 
         if rowCount < self.rowCount():  # inserted row visible in current model
             if self.insertedRowIndex.isValid():
@@ -391,6 +368,22 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
 
         return super().insertRecord(row, record)
 
+    def _insertRecordExt(self, record_values, coin_id, table, field_map, condition_col=None, condition_val=None):
+        columns = list(field_map.values())
+        if condition_col:
+            columns += ['coin_id', condition_col]
+        else:
+            columns.append('coin_id')
+        placeholders = ','.join(['?'] * len(columns))
+        ins_query = QSqlQuery(self.database())
+        ins_query.prepare(f"INSERT INTO {table} ({','.join(columns)}) VALUES ({placeholders})")
+        for value in record_values:
+            ins_query.addBindValue(value)
+        ins_query.addBindValue(coin_id)
+        if condition_col:
+            ins_query.addBindValue(condition_val)
+        ins_query.exec()
+
     def _setRecordExt(self, record, coin_id, table, field_map, condition_col=None, condition_val=None):
         active = any(record.value(field) for field in field_map.keys())
 
@@ -429,20 +422,10 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         else:
             if active:
                 # INSERT
-                columns = list(field_map.values())
-                if condition_col:
-                    columns += ['coin_id', condition_col]
-                else:
-                    columns.append('coin_id')
-                placeholders = ','.join(['?'] * len(columns))
-                ins_query = QSqlQuery(self.database())
-                ins_query.prepare(f"INSERT INTO {table} ({','.join(columns)}) VALUES ({placeholders})")
+                record_values = []
                 for rec_field in field_map.keys():
-                    ins_query.addBindValue(record.value(rec_field) or None)
-                ins_query.addBindValue(coin_id)
-                if condition_col:
-                    ins_query.addBindValue(condition_val)
-                ins_query.exec()
+                    record_values.append(record.value(rec_field) or None)
+                self._insertRecordExt(record_values, coin_id, table, field_map, condition_col, condition_val)
 
     def setRecord(self, row, record):
         self._updateRecord(record)
