@@ -97,80 +97,7 @@ class FilterMenuButton(QPushButton):
                 appliedValues.append(filter_.value)
 
         hasBlanks = False
-        if self.field in self.model.fields.priceFields:
-            filtersSql = self.filtersToSql(filters.values())
-            if filtersSql:
-                filtersSql = 'WHERE ' + filtersSql
-            if self.field.name in PayPriceFields:
-                ext_field_name = PayPriceFields[self.field.name]
-                # TODO: Process some records in prices/catalogs table
-                sql = (f"SELECT DISTINCT buy_prices.{ext_field_name} AS {self.field.name}"
-                       " FROM coins"
-                       f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
-                       f" {filtersSql}")
-            else:
-                ext_field_name = SellPriceFields[self.field.name]
-                sql = (f"SELECT DISTINCT sell_prices.{ext_field_name} AS {self.field.name}"
-                       " FROM coins"
-                       f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
-                       f" {filtersSql}")
-            query = QSqlQuery(sql, self.db)
-
-            while query.next():
-                icon = None
-                if query.record().isNull(0):
-                    data = None
-                else:
-                    orig_data = query.record().value(0)
-                    data = str(orig_data)
-                    icon = self.reference.getIcon(self.field.name, data)
-
-                if not data:
-                    hasBlanks = True
-                    continue
-
-                item = QListWidgetItem()
-                item.setData(Qt.DisplayRole, orig_data)
-                item.setData(Qt.UserRole, data)
-                if icon:
-                    item.setIcon(icon)
-                if (data in appliedValues) ^ revert:
-                    item.setCheckState(Qt.Unchecked)
-                else:
-                    item.setCheckState(Qt.Checked)
-                self.listWidget.addItem(item)
-        elif self.field in self.model.fields.catalogFields:
-            filtersSql = self.filtersToSql(filters.values())
-            if filtersSql:
-                filtersSql = 'WHERE ' + filtersSql
-            ext_field_name = CatalogFields[self.field.name]
-            # TODO: Process some records in prices/catalogs table
-            sql = (f"SELECT DISTINCT catalogs.{ext_field_name} AS {self.field.name}"
-                   " FROM coins"
-                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
-                   f" {filtersSql}")
-            query = QSqlQuery(sql, self.db)
-
-            while query.next():
-                if query.record().isNull(0):
-                    data = None
-                else:
-                    orig_data = query.record().value(0)
-                    data = str(orig_data)
-
-                if not data:
-                    hasBlanks = True
-                    continue
-
-                item = QListWidgetItem()
-                item.setData(Qt.DisplayRole, orig_data)
-                item.setData(Qt.UserRole, data)
-                if (data in appliedValues) ^ revert:
-                    item.setCheckState(Qt.Unchecked)
-                else:
-                    item.setCheckState(Qt.Checked)
-                self.listWidget.addItem(item)
-        elif self.field.name == 'year':
+        if self.field.name == 'year':
             filtersSql = self.filtersToSql(filters.values())
             if filtersSql:
                 filtersSql = 'WHERE ' + filtersSql
@@ -305,13 +232,26 @@ class FilterMenuButton(QPushButton):
 
             self.listWidget.sortItems()
         else:
-            filtersSql = self.filtersToSql(filters.values())
-            if filtersSql:
-                filtersSql = 'WHERE ' + filtersSql
-            sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
-                   " FROM coins"
-                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
-                   f" {filtersSql}")
+            from_sql = f"FROM coins {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
+
+            filters_sql = self.filtersToSql(filters.values())
+            where_clause = f"WHERE {filters_sql}" if filters_sql else ""
+
+            if self.field.name in PayPriceFields:
+                table_name = 'buy_prices'
+                field_name = PayPriceFields[self.field.name]
+            elif self.field.name in SellPriceFields:
+                table_name = 'sell_prices'
+                field_name = SellPriceFields[self.field.name]
+            elif self.field.name in CatalogFields:
+                table_name = 'catalogs'
+                field_name = CatalogFields[self.field.name]
+            else:
+                table_name = 'coins'
+                field_name = self.field.name
+
+            sql = f"SELECT DISTINCT {table_name}.{field_name} AS {self.field.name} {from_sql} {where_clause}"
+
             query = QSqlQuery(sql, self.db)
 
             while query.next():
