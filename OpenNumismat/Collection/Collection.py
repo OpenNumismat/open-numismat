@@ -69,6 +69,23 @@ class CollectionModel(QSqlTableModel):
     tagsChanged = pyqtSignal()
     IMAGE_FORMAT = 'webp'
     SQLITE_READONLY = '8'
+    JOIN_BUY_PRICES = """
+LEFT JOIN prices buy_prices ON buy_prices.id = (
+  SELECT id
+  FROM prices
+  WHERE coin_id = coins.id AND action = 'buy'
+  ORDER BY id
+  LIMIT 1
+)"""
+    JOIN_SELL_PRICES = """
+LEFT JOIN prices sell_prices ON sell_prices.id = (
+  SELECT id
+  FROM prices
+  WHERE coin_id = coins.id AND action = 'sell'
+  ORDER BY id
+  LIMIT 1
+)"""
+    JOIN_CATALOGS = "LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
 
     def __init__(self, collection, parent=None):
         super().__init__(parent, collection.db)
@@ -1078,7 +1095,7 @@ class CollectionModel(QSqlTableModel):
         if filter_:
             filter_ = f" WHERE {filter_}"
         # TODO: Process some records in prices/catalogs table
-        sql = '''
+        sql = ('''
         SELECT coins.id AS id, "title", "value", "unit", "country", coins.year AS year,
  "period", "mint", "mintmark", "issuedate", "type", "series",
  "subjectshort", "status", "material", "fineness", "shape",
@@ -1091,10 +1108,10 @@ class CollectionModel(QSqlTableModel):
  "variety", "obversevar",
  "reversevar", "edgevar",
 
- pay_prices.date AS paydate, pay_prices.price AS payprice, pay_prices.total_price AS totalpayprice,
- pay_prices.counterparty AS saller, pay_prices.place AS payplace, pay_prices.info AS payinfo,
- sale_prices.date AS saledate, sale_prices.price AS saleprice, sale_prices.total_price AS totalsaleprice,
- sale_prices.counterparty AS buyer, sale_prices.place AS saleplace, sale_prices.info AS saleinfo,
+ buy_prices.date AS paydate, buy_prices.price AS payprice, buy_prices.total_price AS totalpayprice,
+ buy_prices.counterparty AS saller, buy_prices.place AS payplace, buy_prices.info AS payinfo,
+ sell_prices.date AS saledate, sell_prices.price AS saleprice, sell_prices.total_price AS totalsaleprice,
+ sell_prices.counterparty AS buyer, sell_prices.place AS saleplace, sell_prices.info AS saleinfo,
 
  "note", "image", "obverseimg",
  "obversedesign", "obversedesigner", "reverseimg", "reversedesign",
@@ -1106,25 +1123,12 @@ class CollectionModel(QSqlTableModel):
  "longitude", "photo5", "photo6", "grader", "seat", "native_year", "composition", "material2",
  "width", "height", "technique", "modification", "axis", "real_weight", "real_diameter", "rating",
 
- pay_prices.url AS buying_invoice, sale_prices.url AS sale_invoice
+ buy_prices.url AS buying_invoice, sell_prices.url AS sale_invoice
 
  FROM "coins"
- LEFT JOIN catalogs ON catalogs.coin_id = coins.id
- LEFT JOIN prices pay_prices ON pay_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'buy'
-    ORDER BY id
-    LIMIT 1
- )
- LEFT JOIN prices sale_prices ON sale_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'sell'
-    ORDER BY id
-    LIMIT 1
- )
-        ''' + filter_
+'''
+        f" {self.JOIN_BUY_PRICES} {self.JOIN_SELL_PRICES} {self.JOIN_CATALOGS}"
+        f" {filter_}")
         return sql
 
     def __applyFilter(self):

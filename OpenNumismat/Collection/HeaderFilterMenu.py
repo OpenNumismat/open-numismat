@@ -104,47 +104,15 @@ class FilterMenuButton(QPushButton):
             if self.field.name in PayPriceFields:
                 ext_field_name = PayPriceFields[self.field.name]
                 # TODO: Process some records in prices/catalogs table
-                sql = (f"SELECT DISTINCT pay_prices.{ext_field_name} AS {self.field.name}"
+                sql = (f"SELECT DISTINCT buy_prices.{ext_field_name} AS {self.field.name}"
                        " FROM coins"
-                       """
- LEFT JOIN prices pay_prices ON pay_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'buy'
-    ORDER BY id
-    LIMIT 1
- )
- LEFT JOIN prices sale_prices ON sale_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'sell'
-    ORDER BY id
-    LIMIT 1
- )
-                       """
-                       " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                       f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
                        f" {filtersSql}")
             else:
                 ext_field_name = SellPriceFields[self.field.name]
-                sql = (f"SELECT DISTINCT sale_prices.{ext_field_name} AS {self.field.name}"
+                sql = (f"SELECT DISTINCT sell_prices.{ext_field_name} AS {self.field.name}"
                        " FROM coins"
-                       """
- LEFT JOIN prices pay_prices ON pay_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'buy'
-    ORDER BY id
-    LIMIT 1
- )
- LEFT JOIN prices sale_prices ON sale_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'sell'
-    ORDER BY id
-    LIMIT 1
- )
-                       """
-                       " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                       f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
                        f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
@@ -179,23 +147,7 @@ class FilterMenuButton(QPushButton):
             # TODO: Process some records in prices/catalogs table
             sql = (f"SELECT DISTINCT catalogs.{ext_field_name} AS {self.field.name}"
                    " FROM coins"
-                       """
- LEFT JOIN prices pay_prices ON pay_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'buy'
-    ORDER BY id
-    LIMIT 1
- )
- LEFT JOIN prices sale_prices ON sale_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'sell'
-    ORDER BY id
-    LIMIT 1
- )
-                       """
-                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
                    f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
@@ -224,23 +176,7 @@ class FilterMenuButton(QPushButton):
                 filtersSql = 'WHERE ' + filtersSql
             sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
                    " FROM coins"
-                       """
- LEFT JOIN prices pay_prices ON pay_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'buy'
-    ORDER BY id
-    LIMIT 1
- )
- LEFT JOIN prices sale_prices ON sale_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'sell'
-    ORDER BY id
-    LIMIT 1
- )
-                       """
-                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
                    f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
@@ -280,23 +216,7 @@ class FilterMenuButton(QPushButton):
             filtersSql = self.filtersToSql(filters.values())
             sql = (f"SELECT 1"
                    " FROM coins"
-                       """
- LEFT JOIN prices pay_prices ON pay_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'buy'
-    ORDER BY id
-    LIMIT 1
- )
- LEFT JOIN prices sale_prices ON sale_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'sell'
-    ORDER BY id
-    LIMIT 1
- )
-                       """
-                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
                    f" {filtersSql}")
             if filtersSql:
                 sql += ' AND '
@@ -330,23 +250,7 @@ class FilterMenuButton(QPushButton):
                 filtersSql = 'WHERE ' + filtersSql
             sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
                    " FROM coins"
-                       """
- LEFT JOIN prices pay_prices ON pay_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'buy'
-    ORDER BY id
-    LIMIT 1
- )
- LEFT JOIN prices sale_prices ON sale_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'sell'
-    ORDER BY id
-    LIMIT 1
- )
-                       """
-                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
                    f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
@@ -373,23 +277,7 @@ class FilterMenuButton(QPushButton):
                 filtersSql = 'WHERE ' + filtersSql
             sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
                    " FROM coins"
-                       """
- LEFT JOIN prices pay_prices ON pay_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'buy'
-    ORDER BY id
-    LIMIT 1
- )
- LEFT JOIN prices sale_prices ON sale_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'sell'
-    ORDER BY id
-    LIMIT 1
- )
-                       """
-                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
                    f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
@@ -422,23 +310,7 @@ class FilterMenuButton(QPushButton):
                 filtersSql = 'WHERE ' + filtersSql
             sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
                    " FROM coins"
-                       """
- LEFT JOIN prices pay_prices ON pay_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'buy'
-    ORDER BY id
-    LIMIT 1
- )
- LEFT JOIN prices sale_prices ON sale_prices.id = (
-    SELECT id
-    FROM prices
-    WHERE coin_id = coins.id AND action = 'sell'
-    ORDER BY id
-    LIMIT 1
- )
-                       """
-                   " LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
                    f" {filtersSql}")
             query = QSqlQuery(sql, self.db)
 
@@ -626,9 +498,9 @@ class FilterMenuButton(QPushButton):
 class BaseFilter:
     def __init__(self, name):
         if name in PayPriceFields:
-            name = f"pay_prices.{PayPriceFields[name]}"
+            name = f"buy_prices.{PayPriceFields[name]}"
         elif name in SellPriceFields:
-            name = f"sale_prices.{SellPriceFields[name]}"
+            name = f"sell_prices.{SellPriceFields[name]}"
         elif name in CatalogFields:
             name = f"catalogs.{CatalogFields[name]}"
         else:
@@ -693,9 +565,9 @@ class BlankFilter(BaseFilter):
 class ColumnFilters:
     def __init__(self, name):
         if name in PayPriceFields:
-            name = f"pay_prices.{PayPriceFields[name]}"
+            name = f"buy_prices.{PayPriceFields[name]}"
         elif name in SellPriceFields:
-            name = f"sale_prices.{SellPriceFields[name]}"
+            name = f"sell_prices.{SellPriceFields[name]}"
         elif name in CatalogFields:
             name = f"catalogs.{CatalogFields[name]}"
         else:
