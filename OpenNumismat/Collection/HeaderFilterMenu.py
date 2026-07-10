@@ -96,15 +96,17 @@ class FilterMenuButton(QPushButton):
                     revert = True
                 appliedValues.append(filter_.value)
 
+        from_sql = ("FROM coins"
+                    f" {self.model.JOIN_BUY_PRICES}"
+                    f" {self.model.JOIN_SELL_PRICES}"
+                    f" {self.model.JOIN_CATALOGS}")
+
+        filters_sql = self.filtersToSql(filters.values())
+        where_clause = f"WHERE {filters_sql}" if filters_sql else ""
+
         hasBlanks = False
         if self.field.name == 'year':
-            filtersSql = self.filtersToSql(filters.values())
-            if filtersSql:
-                filtersSql = 'WHERE ' + filtersSql
-            sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
-                   " FROM coins"
-                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
-                   f" {filtersSql}")
+            sql = f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name} {from_sql} {where_clause}"
             query = QSqlQuery(sql, self.db)
 
             while query.next():
@@ -140,12 +142,8 @@ class FilterMenuButton(QPushButton):
             dataFilter = BlankFilter(self.field.name).toSql()
             blanksFilter = DataFilter(self.field.name).toSql()
 
-            filtersSql = self.filtersToSql(filters.values())
-            sql = (f"SELECT 1"
-                   " FROM coins"
-                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
-                   f" {filtersSql}")
-            if filtersSql:
+            sql = f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name} {from_sql} WHERE {filters_sql}"
+            if filters_sql:
                 sql += ' AND '
 
             # Get blank row count
@@ -172,13 +170,7 @@ class FilterMenuButton(QPushButton):
                     item.setCheckState(Qt.Unchecked)
                 self.listWidget.addItem(item)
         elif self.field.type == Type.Status:
-            filtersSql = self.filtersToSql(filters.values())
-            if filtersSql:
-                filtersSql = 'WHERE ' + filtersSql
-            sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
-                   " FROM coins"
-                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
-                   f" {filtersSql}")
+            sql = f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name} {from_sql} {where_clause}"
             query = QSqlQuery(sql, self.db)
 
             while query.next():
@@ -199,13 +191,7 @@ class FilterMenuButton(QPushButton):
 
             self.listWidget.sortItems()
         elif self.field.type == Type.Denomination:
-            filtersSql = self.filtersToSql(filters.values())
-            if filtersSql:
-                filtersSql = 'WHERE ' + filtersSql
-            sql = (f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name}"
-                   " FROM coins"
-                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
-                   f" {filtersSql}")
+            sql = f"SELECT DISTINCT coins.{self.field.name} AS {self.field.name} {from_sql} {where_clause}"
             query = QSqlQuery(sql, self.db)
 
             while query.next():
@@ -232,11 +218,6 @@ class FilterMenuButton(QPushButton):
 
             self.listWidget.sortItems()
         else:
-            from_sql = f"FROM coins {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES} {self.model.JOIN_CATALOGS}"
-
-            filters_sql = self.filtersToSql(filters.values())
-            where_clause = f"WHERE {filters_sql}" if filters_sql else ""
-
             if self.field.name in PayPriceFields:
                 table_name = 'buy_prices'
                 field_name = PayPriceFields[self.field.name]
@@ -251,7 +232,6 @@ class FilterMenuButton(QPushButton):
                 field_name = self.field.name
 
             sql = f"SELECT DISTINCT {table_name}.{field_name} AS {self.field.name} {from_sql} {where_clause}"
-
             query = QSqlQuery(sql, self.db)
 
             while query.next():
