@@ -1317,7 +1317,7 @@ and try again.</source>
     </message>
     <message>
         <source>RUB - Russian ruble</source>
-        <translation>RUB - руска рубла</translation>
+        <translation>RUB - Руска рубла</translation>
     </message>
     <message>
         <source>SEK - Swedish krona</source>
