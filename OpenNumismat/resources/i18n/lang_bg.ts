@@ -1289,7 +1289,7 @@ and try again.</source>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
-        <translation>CZK - Чешка крона</translation>
+        <translation>CZK - чешка крона</translation>
     </message>
     <message>
         <source>EUR - Euro</source>
@@ -1301,7 +1301,7 @@ and try again.</source>
     </message>
     <message>
         <source>HUF - Hungarian forint</source>
-        <translation>HUF - Унгарски форинт</translation>
+        <translation>HUF - унгарски форинт</translation>
     </message>
     <message>
         <source>INR - Indian rupee</source>
