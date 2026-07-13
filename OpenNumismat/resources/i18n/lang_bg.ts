@@ -1329,7 +1329,7 @@ and try again.</source>
     </message>
     <message>
         <source>UAH - Ukrainian hryvnia</source>
-        <translation>UAH - украинска гривна</translation>
+        <translation>UAH - Украинска гривна</translation>
     </message>
     <message>
         <source>USD - United States dollar</source>
