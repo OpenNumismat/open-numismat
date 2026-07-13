@@ -1281,7 +1281,7 @@ and try again.</source>
     </message>
     <message>
         <source>CAD - Canadian dollar</source>
-        <translation type="unfinished"/>
+        <translation>CAD - Канадски долар</translation>
     </message>
     <message>
         <source>CHF - Swiss franc</source>
