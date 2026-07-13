@@ -1285,7 +1285,7 @@ and try again.</source>
     </message>
     <message>
         <source>CHF - Swiss franc</source>
-        <translation type="unfinished"/>
+        <translation>CHF - Швейцарски франк</translation>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
