@@ -1301,7 +1301,7 @@ and try again.</source>
     </message>
     <message>
         <source>HUF - Hungarian forint</source>
-        <translation>HUF - унгарски форинт</translation>
+        <translation>HUF - Унгарски форинт</translation>
     </message>
     <message>
         <source>INR - Indian rupee</source>
