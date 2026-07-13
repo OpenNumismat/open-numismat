@@ -1277,7 +1277,7 @@ and try again.</source>
     </message>
     <message>
         <source>BYN - Belarusian ruble</source>
-        <translation>BYN - беларуска рубла</translation>
+        <translation>BYN - Беларуска рубла</translation>
     </message>
     <message>
         <source>CAD - Canadian dollar</source>
