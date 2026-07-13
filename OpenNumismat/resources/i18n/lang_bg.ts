@@ -1317,15 +1317,15 @@ and try again.</source>
     </message>
     <message>
         <source>RUB - Russian ruble</source>
-        <translation>RUB - Руска рубла</translation>
+        <translation>RUB - руска рубла</translation>
     </message>
     <message>
         <source>SEK - Swedish krona</source>
-        <translation>SEK - Шведска крона</translation>
+        <translation>SEK - шведска крона</translation>
     </message>
     <message>
         <source>TRY - Turkish lira</source>
-        <translation>TRY - Турска лира</translation>
+        <translation>TRY - турска лира</translation>
     </message>
     <message>
         <source>UAH - Ukrainian hryvnia</source>
