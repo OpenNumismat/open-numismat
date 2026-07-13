@@ -44,7 +44,7 @@ from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.CollectionFields import ImageFields
-from OpenNumismat.Collection.CollectionFields import PayPriceFields, SellPriceFields, CatalogFields
+from OpenNumismat.Collection.CollectionFields import BuyPriceFields, SellPriceFields, CatalogFields
 from OpenNumismat.Collection.CollectionPages import CollectionPages
 from OpenNumismat.Collection.Password import cryptPassword, PasswordDialog
 from OpenNumismat.Collection.Description import CollectionDescription
@@ -277,7 +277,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         buy_price_record_values = []
         if status in ('owned', 'ordered', 'sale', 'missing', 'bidding',
                       'duplicate', 'replacement', 'sold'):
-            for rec_field in PayPriceFields.keys():
+            for rec_field in BuyPriceFields.keys():
                 buy_price_record_values.append(record.value(rec_field) or None)
 
         sell_price_record_values = []
@@ -307,7 +307,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
             if any(catalog_record_values):
                 self._insertRecordExt(catalog_record_values, coin_id, 'catalogs', CatalogFields)
             if any(buy_price_record_values):
-                self._insertRecordExt(buy_price_record_values, coin_id, 'prices', PayPriceFields,
+                self._insertRecordExt(buy_price_record_values, coin_id, 'prices', BuyPriceFields,
                                       condition_col='action', condition_val='buy')
             if any(sell_price_record_values):
                 if status == 'pass':
@@ -495,7 +495,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         coin_id = record.value('id')
 
         self._setRecordExt(record, coin_id, 'catalogs', CatalogFields)
-        self._setRecordExt(record, coin_id, 'prices', PayPriceFields,
+        self._setRecordExt(record, coin_id, 'prices', BuyPriceFields,
                            condition_col='action', condition_val='buy')
         self._setRecordExt(record, coin_id, 'prices', SellPriceFields,
                            condition_col='action', condition_val='sell')
@@ -584,11 +584,11 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
                     record.setValue(old_field, val)
 
             query = QSqlQuery(self.database())
-            query.prepare(f"SELECT {','.join(PayPriceFields.values())} FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
+            query.prepare(f"SELECT {','.join(BuyPriceFields.values())} FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
             query.addBindValue(coin_id)
             query.exec()
             if query.first():
-                for old_field, new_field in PayPriceFields.items():
+                for old_field, new_field in BuyPriceFields.items():
                     val = query.record().value(new_field)
                     record.setValue(old_field, val)
 

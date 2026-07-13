@@ -196,7 +196,7 @@ StatisticsFields = (
     'unit',
     'composition',
 )
-PayPriceFields = {
+BuyPriceFields = {
     'paydate': 'date', 'payprice': 'price',
     'totalpayprice': 'total_price', 'saller': 'counterparty',
     'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url',

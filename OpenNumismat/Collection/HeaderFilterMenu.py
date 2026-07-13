@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 )
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import Statuses, PayPriceFields, SellPriceFields, CatalogFields
+from OpenNumismat.Collection.CollectionFields import Statuses, BuyPriceFields, SellPriceFields, CatalogFields
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction, compareYears
 
@@ -218,9 +218,9 @@ class FilterMenuButton(QPushButton):
 
             self.listWidget.sortItems()
         else:
-            if self.field.name in PayPriceFields:
+            if self.field.name in BuyPriceFields:
                 table_name = 'buy_prices'
-                field_name = PayPriceFields[self.field.name]
+                field_name = BuyPriceFields[self.field.name]
             elif self.field.name in SellPriceFields:
                 table_name = 'sell_prices'
                 field_name = SellPriceFields[self.field.name]
@@ -417,8 +417,8 @@ class FilterMenuButton(QPushButton):
 
 class BaseFilter:
     def __init__(self, name):
-        if name in PayPriceFields:
-            name = f"buy_prices.{PayPriceFields[name]}"
+        if name in BuyPriceFields:
+            name = f"buy_prices.{BuyPriceFields[name]}"
         elif name in SellPriceFields:
             name = f"sell_prices.{SellPriceFields[name]}"
         elif name in CatalogFields:
@@ -484,8 +484,8 @@ class BlankFilter(BaseFilter):
 
 class ColumnFilters:
     def __init__(self, name):
-        if name in PayPriceFields:
-            name = f"buy_prices.{PayPriceFields[name]}"
+        if name in BuyPriceFields:
+            name = f"buy_prices.{BuyPriceFields[name]}"
         elif name in SellPriceFields:
             name = f"sell_prices.{SellPriceFields[name]}"
         elif name in CatalogFields:
