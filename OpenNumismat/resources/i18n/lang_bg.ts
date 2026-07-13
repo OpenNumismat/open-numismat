@@ -1277,15 +1277,15 @@ and try again.</source>
     </message>
     <message>
         <source>BYN - Belarusian ruble</source>
-        <translation>BYN - Беларуска рубла</translation>
+        <translation>BYN - беларуска рубла</translation>
     </message>
     <message>
         <source>CAD - Canadian dollar</source>
-        <translation>CAD - Канадски долар</translation>
+        <translation>CAD - канадски долар</translation>
     </message>
     <message>
         <source>CHF - Swiss franc</source>
-        <translation>CHF - Швейцарски франк</translation>
+        <translation>CHF - швейцарски франк</translation>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
