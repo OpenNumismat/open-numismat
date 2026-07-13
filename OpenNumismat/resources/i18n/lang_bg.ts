@@ -1305,15 +1305,15 @@ and try again.</source>
     </message>
     <message>
         <source>INR - Indian rupee</source>
-        <translation>INR - Индийска рупия</translation>
+        <translation>INR - индийска рупия</translation>
     </message>
     <message>
         <source>NOK - Norwegian krone</source>
-        <translation>NOK - Норвежка крона</translation>
+        <translation>NOK - норвежка крона</translation>
     </message>
     <message>
         <source>PLN - Polish złoty</source>
-        <translation>PLN - Полска злота</translation>
+        <translation>PLN - полска злота</translation>
     </message>
     <message>
         <source>RUB - Russian ruble</source>
