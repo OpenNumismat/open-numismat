@@ -1321,7 +1321,7 @@ and try again.</source>
     </message>
     <message>
         <source>SEK - Swedish krona</source>
-        <translation>SEK - шведска крона</translation>
+        <translation>SEK - Шведска крона</translation>
     </message>
     <message>
         <source>TRY - Turkish lira</source>
