@@ -1313,7 +1313,7 @@ and try again.</source>
     </message>
     <message>
         <source>PLN - Polish złoty</source>
-        <translation>PLN - полска злота</translation>
+        <translation>PLN - Полска злота</translation>
     </message>
     <message>
         <source>RUB - Russian ruble</source>
