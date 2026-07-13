@@ -1269,11 +1269,11 @@ and try again.</source>
     </message>
     <message>
         <source>ARS - Argentine peso</source>
-        <translation>ARS - Аржентинско песо</translation>
+        <translation>ARS - аржентинско песо</translation>
     </message>
     <message>
         <source>AUD - Australian dollar</source>
-        <translation>AUD - Австралийски долар</translation>
+        <translation>AUD - австралийски долар</translation>
     </message>
     <message>
         <source>BYN - Belarusian ruble</source>
