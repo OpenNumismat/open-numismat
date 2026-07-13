@@ -2422,7 +2422,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation>Оптимизиране на базата данни (VACUUM)</translation>
+        <translation>Оптимизиране (VACUUM)</translation>
     </message>
     <message>
         <source>Description</source>
