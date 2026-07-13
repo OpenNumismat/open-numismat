@@ -1016,7 +1016,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
  "obvrev", "quality", "mintage", "dateemis", "catalognum1", "catalognum2",
  "catalognum3", "catalognum4", "rarity",
 
- catalogs.price1 AS price1, catalogs.price2 AS price2, catalogs.price3 AS price3, catalogs.price4 AS price4,
+ catalogs.price1 AS price1, catalogs.price2 AS price2, catalogs.price3 AS price3, catalogs.price5 AS price4,
 
  "variety", "obversevar",
  "reversevar", "edgevar",
@@ -1486,7 +1486,11 @@ class Collection(QObject):
                     price1 NUMERIC,
                     price2 NUMERIC,
                     price3 NUMERIC,
-                    price4 NUMERIC)"""
+                    price4 NUMERIC,
+                    price5 NUMERIC,
+                    price6 NUMERIC,
+                    price7 NUMERIC,
+                    price8 NUMERIC)"""
         QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE photos (

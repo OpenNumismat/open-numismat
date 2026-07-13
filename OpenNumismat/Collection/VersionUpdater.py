@@ -740,7 +740,11 @@ class UpdaterTo11(_Updater):
                     price1 NUMERIC,
                     price2 NUMERIC,
                     price3 NUMERIC,
-                    price4 NUMERIC)"""
+                    price4 NUMERIC,
+                    price5 NUMERIC,
+                    price6 NUMERIC,
+                    price7 NUMERIC,
+                    price8 NUMERIC)"""
         QSqlQuery(sql, self.db)
 
         fields = (
@@ -765,7 +769,7 @@ class UpdaterTo11(_Updater):
             price3 = record.value('price3')
             price4 = record.value('price4')
             if price1 or price2 or price3 or price4:
-                catalog_sql = "INSERT INTO catalogs (coin_id, price1, price2, price3, price4) VALUES (?, ?, ?, ?, ?)"
+                catalog_sql = "INSERT INTO catalogs (coin_id, price1, price2, price3, price5) VALUES (?, ?, ?, ?, ?)"
                 catalog_query = QSqlQuery(self.db)
                 catalog_query.prepare(catalog_sql)
                 catalog_query.addBindValue(coin_id)
