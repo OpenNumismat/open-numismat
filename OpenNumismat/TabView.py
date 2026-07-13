@@ -30,6 +30,8 @@ class TabView(QTabWidget):
     def __init__(self, parent):
         super().__init__(parent)
 
+        self.collection = None
+
         tabBar = TabBar(self)
         self.setTabBar(tabBar)
 
@@ -47,7 +49,8 @@ class TabView(QTabWidget):
         self.__createActions()
 
     def mouseDoubleClickEvent(self, _event):
-        self.newList()
+        if self.collection and self.collection.isOpen():
+            self.newList()
 
     def tabDClicked(self, index):
         self.renamePage(index)
@@ -337,18 +340,19 @@ class TabView(QTabWidget):
     def updateOpenPageMenu(self):
         menu = self.__actions['open']
         menu.clear()
-        closedPages = self.collection.pages().closedPages()
-        hasClosedPages = len(closedPages)
-        menu.setEnabled(hasClosedPages)
-        if hasClosedPages:
-            for pageParam in closedPages:
-                act = QAction(pageParam.title, self)
-                act.setData(pageParam)
-                act.triggered.connect(self.openPageEvent)
-                menu.addAction(act)
+        if self.collection:
+            closedPages = self.collection.pages().closedPages()
+            hasClosedPages = len(closedPages)
+            menu.setEnabled(hasClosedPages)
+            if hasClosedPages:
+                for pageParam in closedPages:
+                    act = QAction(pageParam.title, self)
+                    act.setData(pageParam)
+                    act.triggered.connect(self.openPageEvent)
+                    menu.addAction(act)
 
-            menu.addSeparator()
-            menu.addAction(self.__actions['removeAll'])
+                menu.addSeparator()
+                menu.addAction(self.__actions['removeAll'])
 
     def currentListView(self):
         return self.currentWidget().listView

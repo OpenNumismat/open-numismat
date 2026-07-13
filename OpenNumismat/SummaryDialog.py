@@ -70,8 +70,9 @@ class SummaryDialog(QDialog):
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         while query.next():
-            quantity = query.record().value('quantity')
-            if not isinstance(quantity, int):
+            try:
+                quantity = int(query.record().value('quantity'))
+            except (ValueError, TypeError):
                 quantity = 1
             quantity_owned += quantity
             count_owned += 1
@@ -194,7 +195,10 @@ class SummaryDialog(QDialog):
             price2 = record.value(2)
             price3 = record.value(3)
             price4 = record.value(4)
-            quantity = int(record.value(5) or 1)
+            try:
+                quantity = int(record.value('quantity'))
+            except (ValueError, TypeError):
+                quantity = 1
 
             try:
                 if grade[:2] in ('UN', 'MS'):
