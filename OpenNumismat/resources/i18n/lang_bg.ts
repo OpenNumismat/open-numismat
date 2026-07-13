@@ -355,7 +355,7 @@ Close the file and try again.</source>
     <message>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation>Колекцията %s е по-нова версия.
+        <translation>Колекцията %s е от по-нова версия на OpenNumismat.
 Моля, актуализирайте OpenNumismat</translation>
     </message>
     <message>
