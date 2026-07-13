@@ -1289,7 +1289,7 @@ and try again.</source>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
-        <translation>CZK - чешка крона</translation>
+        <translation>CZK - Чешка крона</translation>
     </message>
     <message>
         <source>EUR - Euro</source>
