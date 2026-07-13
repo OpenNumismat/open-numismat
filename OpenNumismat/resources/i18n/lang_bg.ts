@@ -1333,7 +1333,7 @@ and try again.</source>
     </message>
     <message>
         <source>USD - United States dollar</source>
-        <translation>USD - щатски долар</translation>
+        <translation>USD - Щатски долар</translation>
     </message>
 </context>
 <context>
