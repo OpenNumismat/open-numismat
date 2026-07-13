@@ -58,18 +58,24 @@ class MainSettingsPage(QWidget):
                  ("Український", 'uk'),
                  )
     Currencies = (
+        ('ARS', QT_TRANSLATE_NOOP("Currency", "ARS - Argentine peso")),
+        ('AUD', QT_TRANSLATE_NOOP("Currency", "AUD - Australian dollar")),
         ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazilian real")),
         ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarusian ruble")),
+        ('CAD', QT_TRANSLATE_NOOP("Currency", "CAD - Canadian dollar")),
+        ('CHF', QT_TRANSLATE_NOOP("Currency", "CHF - Swiss franc")),
         ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech koruna")),
         ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Euro")),
         ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - Pound sterling")),
         ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungarian forint")),
+        ('INR', QT_TRANSLATE_NOOP("Currency", "INR - Indian rupee")),
+        ('NOK', QT_TRANSLATE_NOOP("Currency", "NOK - Norwegian krone")),
         ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Polish złoty")),
         ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
         ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Swedish krona")),
         ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkish lira")),
         ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukrainian hryvnia")),
-        ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States dollar"))
+        ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States dollar")),
     )
 
     def __init__(self, collection, parent=None):
