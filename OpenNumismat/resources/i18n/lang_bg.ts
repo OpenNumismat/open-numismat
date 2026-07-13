@@ -214,7 +214,7 @@ Changing item position avalaible only on default sort order. Clear sort order no
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web страница (*.htm *.html)</translation>
+        <translation>Уебстраница (*.htm *.html)</translation>
     </message>
     <message>
         <source>Text file (*.csv)</source>
@@ -1727,7 +1727,7 @@ Do you want to send an error message to the author?</source>
     <name>GeoChartCanvas</name>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web страница (*.htm *.html)</translation>
+        <translation>Уебстраница (*.htm *.html)</translation>
     </message>
     <message>
         <source>PNG image (*.png)</source>
