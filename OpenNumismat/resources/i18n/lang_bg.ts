@@ -2898,7 +2898,7 @@ Created new one</source>
     <message>
         <source>Reference is a newer version.
 Please update OpenNumismat</source>
-        <translation>Номенклатурата е по-нова версия.
+        <translation>Номенклатурата е от по-нова версия на OpenNumismat.
 Моля, актуализирайте OpenNumismat</translation>
     </message>
 </context>
