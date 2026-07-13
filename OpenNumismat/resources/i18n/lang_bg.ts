@@ -1325,7 +1325,7 @@ and try again.</source>
     </message>
     <message>
         <source>TRY - Turkish lira</source>
-        <translation>TRY - турска лира</translation>
+        <translation>TRY - Турска лира</translation>
     </message>
     <message>
         <source>UAH - Ukrainian hryvnia</source>
