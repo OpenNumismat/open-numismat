@@ -1265,7 +1265,7 @@ and try again.</source>
     </message>
     <message>
         <source>BRL - Brazilian real</source>
-        <translation>BRL - Бразилски реал</translation>
+        <translation>BRL - бразилски реал</translation>
     </message>
     <message>
         <source>ARS - Argentine peso</source>
