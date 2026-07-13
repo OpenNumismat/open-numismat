@@ -2719,7 +2719,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web страница (*.htm *.html)</translation>
+        <translation>Уебстраница (*.htm *.html)</translation>
     </message>
     <message>
         <source>PDF file (*.pdf)</source>
