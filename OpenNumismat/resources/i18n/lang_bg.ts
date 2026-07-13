@@ -3628,7 +3628,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Vacuum...</source>
-        <translation>Vacuum...</translation>
+        <translation>Оптимизиране (VACUUM)...</translation>
     </message>
 </context>
 <context>
