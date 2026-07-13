@@ -1487,6 +1487,7 @@ class Collection(QObject):
 
     @waitCursorDecorator
     def vacuum(self):
+        QSqlQuery("PRAGMA page_size=4096", self.db)
         QSqlQuery("VACUUM", self.db)
 
     @staticmethod
