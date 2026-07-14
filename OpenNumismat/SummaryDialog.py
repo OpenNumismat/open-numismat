@@ -124,13 +124,19 @@ class SummaryDialog(QDialog):
 
         paid = 0
         commission = ""
-        sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
+        sql = ("SELECT SUM(buy_prices.total_price)"
+               " FROM coins"
+               f" {model.JOIN_BUY_PRICES}"
+               " WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND buy_prices.total_price<>'' AND buy_prices.total_price IS NOT NULL")
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             paid = query.record().value(0)
             if paid:
-                sql = "SELECT SUM(payprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND payprice<>'' AND payprice IS NOT NULL"
+                sql = ("SELECT SUM(buy_prices.price)"
+                       " FROM coins"
+                       f" {model.JOIN_BUY_PRICES}"
+                       " WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND buy_prices.price<>'' AND buy_prices.price IS NOT NULL")
                 sql = self.makeSql(sql, filter_)
                 query = QSqlQuery(sql, model.database())
                 if query.first():
@@ -147,13 +153,19 @@ class SummaryDialog(QDialog):
 
         earned = 0
         commission = ""
-        sql = "SELECT SUM(totalsaleprice) FROM coins WHERE status='sold' AND totalsaleprice<>'' AND totalsaleprice IS NOT NULL"
+        sql = ("SELECT SUM(sell_prices.total_price)"
+               " FROM coins"
+               f" {model.JOIN_SELL_PRICES}"
+               " WHERE status='sold' AND sell_prices.total_price<>'' AND sell_prices.total_price IS NOT NULL")
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
             earned = query.record().value(0)
             if earned:
-                sql = "SELECT SUM(saleprice) FROM coins WHERE status='sold' AND saleprice<>'' AND saleprice IS NOT NULL"
+                sql = ("SELECT SUM(sell_prices.price)"
+                       " FROM coins"
+                       f" {model.JOIN_SELL_PRICES}"
+                       " WHERE status='sold' AND sell_prices.price<>'' AND sell_prices.price IS NOT NULL")
                 sql = self.makeSql(sql, filter_)
                 query = QSqlQuery(sql, model.database())
                 if query.first():
@@ -173,7 +185,11 @@ class SummaryDialog(QDialog):
             total_str = self.locale.toString(float(total), 'f', precision=2)
             lines.append(self.tr("Total (paid - earned): %s") % total_str)
 
-        sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
+        sql = ("SELECT buy_prices.date AS paydate"
+               " FROM coins"
+               f" {model.JOIN_BUY_PRICES}"
+               " WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND paydate<>'' AND paydate IS NOT NULL"
+               " ORDER BY paydate LIMIT 1")
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         if query.first():
@@ -181,7 +197,11 @@ class SummaryDialog(QDialog):
             paydate = self.locale.toString(date, QLocale.ShortFormat)
             lines.append(self.tr("First purchase: %s") % paydate)
 
-        sql = "SELECT UPPER(grade), price1, price2, price3, price4, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
+        sql = ("SELECT UPPER(grade), catalogs.price1, catalogs.price2, catalogs.price3, catalogs.price5, quantity"
+               " FROM coins"
+               f" {model.JOIN_CATALOGS}"
+               " WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement')"
+               " AND (ifnull(catalogs.price1,'')<>'' OR ifnull(catalogs.price2,'')<>'' OR ifnull(catalogs.price3,'')<>'' OR ifnull(catalogs.price5,'')<>'')")
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         est_owned = 0
@@ -234,7 +254,11 @@ class SummaryDialog(QDialog):
 
         lines.append(' '.join((self.tr("Estimation owned: %d") % est_owned, comment)))
 
-        sql = "SELECT price1, price2, price3, price4 FROM coins WHERE status='wish' AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
+        sql = ("SELECT catalogs.price1, catalogs.price2, catalogs.price3, catalogs.price5"
+               " FROM coins"
+               f" {model.JOIN_CATALOGS}"
+               " WHERE status='wish'"
+               " AND (ifnull(catalogs.price1,'')<>'' OR ifnull(catalogs.price2,'')<>'' OR ifnull(catalogs.price3,'')<>'' OR ifnull(catalogs.price5,'')<>'')")
         sql = self.makeSql(sql, filter_)
         query = QSqlQuery(sql, model.database())
         est_wish = 0
