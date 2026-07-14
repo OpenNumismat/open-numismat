@@ -1,7 +1,7 @@
 from PySide6.QtCore import Qt, QSettings, QUrl
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtWidgets import QApplication, QSizePolicy
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtCore import Slot as pyqtSlot
 from PySide6.QtWebChannel import QWebChannel
@@ -29,7 +29,8 @@ class QWebView(QWebEngineView):
         profile = QWebEngineProfile(self)
         profile.setHttpUserAgent(version.UserAgent)
 
-        self.setAttribute(Qt.WA_NativeWindow)
+        if QApplication.platformName() != 'wayland':
+            self.setAttribute(Qt.WA_NativeWindow)
         self.setPage(WebEnginePage(profile, self))
 
     def contextMenuEvent(self, _event):

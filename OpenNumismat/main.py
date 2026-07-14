@@ -28,7 +28,15 @@ from OpenNumismat import resources
 from OpenNumismat import version
 
 
+def setupPlatform():
+    if (sys.platform.startswith('linux') and
+            os.environ.get('XDG_SESSION_TYPE', '').lower() == 'wayland'):
+        os.environ.setdefault('QT_QPA_PLATFORM', 'wayland;xcb')
+
+
 def main():
+    setupPlatform()
+
     app = QApplication(sys.argv)
 
     QCoreApplication.setOrganizationName(version.Company)
@@ -75,7 +83,8 @@ def main():
 
     mainWindow = MainWindow()
     mainWindow.show()
-    mainWindow.raise_()  # this will raise the window on Mac OS X
+    if sys.platform == 'darwin':
+        mainWindow.raise_()
     mainWindow.openStartCollection()
 
     status = app.exec()
