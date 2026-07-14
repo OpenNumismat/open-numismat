@@ -1265,7 +1265,23 @@ and try again.</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>ARS - Argentine peso</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>AUD - Australian dollar</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>BYN - Belarusian ruble</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>CAD - Canadian dollar</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>CHF - Swiss franc</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1282,6 +1298,14 @@ and try again.</source>
     </message>
     <message>
         <source>HUF - Hungarian forint</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>INR - Indian rupee</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>NOK - Norwegian krone</source>
         <translation type="unfinished"/>
     </message>
     <message>

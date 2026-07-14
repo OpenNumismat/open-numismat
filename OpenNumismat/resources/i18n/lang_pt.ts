@@ -1268,8 +1268,24 @@ e tente novamente.</translation>
         <translation>BRL - real brasileiro</translation>
     </message>
     <message>
+        <source>ARS - Argentine peso</source>
+        <translation>ARS - peso argentino</translation>
+    </message>
+    <message>
+        <source>AUD - Australian dollar</source>
+        <translation>AUD - dólar australiano</translation>
+    </message>
+    <message>
         <source>BYN - Belarusian ruble</source>
         <translation>BYN - rublo bielorrusso</translation>
+    </message>
+    <message>
+        <source>CAD - Canadian dollar</source>
+        <translation>CAD - dólar canadiano</translation>
+    </message>
+    <message>
+        <source>CHF - Swiss franc</source>
+        <translation>CHF - franco suíço</translation>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
@@ -1286,6 +1302,14 @@ e tente novamente.</translation>
     <message>
         <source>HUF - Hungarian forint</source>
         <translation>HUF - forint húngaro</translation>
+    </message>
+    <message>
+        <source>INR - Indian rupee</source>
+        <translation>INR - rupia indiana</translation>
+    </message>
+    <message>
+        <source>NOK - Norwegian krone</source>
+        <translation>NOK - coroa norueguesa</translation>
     </message>
     <message>
         <source>PLN - Polish złoty</source>

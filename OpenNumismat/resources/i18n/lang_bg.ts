@@ -214,7 +214,7 @@ Changing item position avalaible only on default sort order. Clear sort order no
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web страница (*.htm *.html)</translation>
+        <translation>Уебстраница (*.htm *.html)</translation>
     </message>
     <message>
         <source>Text file (*.csv)</source>
@@ -324,7 +324,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Camera not available or disabled by antivirus</source>
-        <translation>Камерата не е налична или е деактивирана от антивирусната програма</translation>
+        <translation>Камерата не е налична или е блокирана от антивирусната програма</translation>
     </message>
 </context>
 <context>
@@ -355,7 +355,7 @@ Close the file and try again.</source>
     <message>
         <source>Collection %s a newer version.
 Please update OpenNumismat</source>
-        <translation>Колекцията %s е по-нова версия.
+        <translation>Колекцията %s е от по-нова версия на OpenNumismat.
 Моля, актуализирайте OpenNumismat</translation>
     </message>
     <message>
@@ -1026,7 +1026,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Free format numeric fields</source>
-        <translation>Свободен формат в цифровите полета</translation>
+        <translation>Свободен формат в числовите полета</translation>
     </message>
     <message>
         <source>Convert 0.5 to ½ (support ¼, ⅓, ½, ¾, 1¼, 1½, 2½)</source>
@@ -1268,8 +1268,24 @@ and try again.</source>
         <translation>BRL - бразилски реал</translation>
     </message>
     <message>
+        <source>ARS - Argentine peso</source>
+        <translation>ARS - аржентинско песо</translation>
+    </message>
+    <message>
+        <source>AUD - Australian dollar</source>
+        <translation>AUD - австралийски долар</translation>
+    </message>
+    <message>
         <source>BYN - Belarusian ruble</source>
         <translation>BYN - беларуска рубла</translation>
+    </message>
+    <message>
+        <source>CAD - Canadian dollar</source>
+        <translation>CAD - канадски долар</translation>
+    </message>
+    <message>
+        <source>CHF - Swiss franc</source>
+        <translation>CHF - швейцарски франк</translation>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
@@ -1286,6 +1302,14 @@ and try again.</source>
     <message>
         <source>HUF - Hungarian forint</source>
         <translation>HUF - унгарски форинт</translation>
+    </message>
+    <message>
+        <source>INR - Indian rupee</source>
+        <translation>INR - индийска рупия</translation>
+    </message>
+    <message>
+        <source>NOK - Norwegian krone</source>
+        <translation>NOK - норвежка крона</translation>
     </message>
     <message>
         <source>PLN - Polish złoty</source>
@@ -1703,7 +1727,7 @@ Do you want to send an error message to the author?</source>
     <name>GeoChartCanvas</name>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web страница (*.htm *.html)</translation>
+        <translation>Уебстраница (*.htm *.html)</translation>
     </message>
     <message>
         <source>PNG image (*.png)</source>
@@ -2307,7 +2331,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Make autobackup after record changes:</source>
-        <translation>Автоматично архивиране след определен брой промени в записи</translation>
+        <translation>Автоматично архивиране след определен брой променени записи:</translation>
     </message>
     <message>
         <source>Verify SSL certificate</source>
@@ -2398,7 +2422,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation>Vacuum</translation>
+        <translation>Оптимизиране (VACUUM)</translation>
     </message>
     <message>
         <source>Description</source>
@@ -2695,7 +2719,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Web page (*.htm *.html)</source>
-        <translation>Web страница (*.htm *.html)</translation>
+        <translation>Уебстраница (*.htm *.html)</translation>
     </message>
     <message>
         <source>PDF file (*.pdf)</source>
@@ -2874,7 +2898,7 @@ Created new one</source>
     <message>
         <source>Reference is a newer version.
 Please update OpenNumismat</source>
-        <translation>Номенклатурата е по-нова версия.
+        <translation>Номенклатурата е от по-нова версия на OpenNumismat.
 Моля, актуализирайте OpenNumismat</translation>
     </message>
 </context>
@@ -2942,7 +2966,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Camera not available or disabled by antivirus</source>
-        <translation>Камерата не е налична или е деактивирана от антивирусната програма</translation>
+        <translation>Камерата не е налична или е блокирана от антивирусната програма</translation>
     </message>
     <message>
         <source>Camera Error</source>
@@ -3452,7 +3476,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Remove all</source>
-        <translation>Премахнете всички</translation>
+        <translation>Изтриване на всички</translation>
     </message>
     <message>
         <source>Rename...</source>
@@ -3604,7 +3628,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Vacuum...</source>
-        <translation>Vacuum...</translation>
+        <translation>Оптимизиране (VACUUM)...</translation>
     </message>
 </context>
 <context>
