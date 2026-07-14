@@ -143,7 +143,7 @@ def htmlToPlainText(text):
                    '"http://www.w3.org/TR/REC-html40/strict.dtd">',
                    '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" '
                    '"https://www.w3.org/TR/REC-html40/strict.dtd">')
-    if text.startswith(RICH_PREFIX):
+    if text and text.startswith(RICH_PREFIX):
         document = QTextDocument()
         document.setHtml(text)
         text = document.toPlainText()
