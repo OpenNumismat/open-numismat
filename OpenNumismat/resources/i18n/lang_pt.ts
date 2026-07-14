@@ -1305,7 +1305,7 @@ e tente novamente.</translation>
     </message>
     <message>
         <source>INR - Indian rupee</source>
-        <translation type="unfinished"/>
+        <translation>INR - rupia indiana</translation>
     </message>
     <message>
         <source>NOK - Norwegian krone</source>
