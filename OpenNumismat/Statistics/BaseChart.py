@@ -8,7 +8,8 @@ from PySide6.QtSql import QSqlQuery
 from PySide6.QtSvg import QSvgGenerator
 from PySide6.QtWidgets import QApplication, QToolTip
 
-from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.Collection import CollectionModel
+from OpenNumismat.Collection.CollectionFields import Statuses, BuyPriceFields, SellPriceFields
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Settings import Settings
 
@@ -163,22 +164,26 @@ class BaseChartModel(QObject):
             return 0
 
     def loadData(self, field):
+        from_sql = ("FROM coins"
+                    f" {CollectionModel.JOIN_BUY_PRICES}"
+                    f" {CollectionModel.JOIN_SELL_PRICES}"
+                    f" {CollectionModel.JOIN_CATALOGS}")
+
         if field == 'fineness':
             sql_field = "IFNULL(material,''),IFNULL(fineness,'')"
         elif field == 'unit':
             sql_field = "IFNULL(value,''),IFNULL(unit,'')"
+        elif field in BuyPriceFields:
+            sql_field = f"IFNULL(buy_prices.{BuyPriceFields[field]},'')"
+        elif field in SellPriceFields:
+            sql_field = f"IFNULL(sell_prices.{SellPriceFields[field]},'')"
         else:
-            sql_field = "IFNULL(%s,'')" % field
+            sql_field = f"IFNULL(coins.{field},'')"
 
-        if self.filter:
-            sql_filter = "WHERE %s" % self.filter
-        else:
-            sql_filter = ""
+        where_clause = f"WHERE {self.filter}" if self.filter else ""
 
-        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins %s GROUP BY %s" % (
-            sql_field, sql_filter, sql_field)
-        query = QSqlQuery(self.db)
-        query.exec(sql)
+        sql = f"SELECT sum(iif(coins.quantity!='',coins.quantity,1)), {sql_field} {from_sql} {where_clause} GROUP BY {sql_field}"
+        query = QSqlQuery(sql, self.db)
         zz = {}
         while query.next():
             record = query.record()

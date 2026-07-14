@@ -16,6 +16,7 @@ from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
+from OpenNumismat.Collection.Collection import CollectionModel
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
@@ -241,21 +242,22 @@ class AreaStatusChartModel(BaseChartModel):
         self.nice_years = Settings()['nice_years_chart']
 
     def loadData(self):
-        if self.filter:
-            sql_filter = "WHERE %s" % self.filter
-        else:
-            sql_filter = ""
+        from_sql = ("FROM coins"
+                    f" {CollectionModel.JOIN_BUY_PRICES}"
+                    f" {CollectionModel.JOIN_SELL_PRICES}"
+                    f" {CollectionModel.JOIN_CATALOGS}")
+
+        where_clause = f"WHERE {self.filter}" if self.filter else ""
 
         if self.nice_years:
             date_field = "strftime('%Y-%m', createdat)"
         else:
             date_field = "strftime('%Y', createdat)"
 
-        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins"\
-              " %s"\
-              " GROUP BY %s" % (date_field, sql_filter, date_field)
-        query = QSqlQuery(self.db)
-        query.exec(sql)
+        sql = f"SELECT sum(iif(coins.quantity!='',coins.quantity,1)), {date_field} {from_sql}"\
+              f" {where_clause}"\
+              f" GROUP BY {date_field}"
+        query = QSqlQuery(sql, self.db)
         xx = {}
         while query.next():
             record = query.record()
@@ -268,13 +270,13 @@ class AreaStatusChartModel(BaseChartModel):
             sql_filters.append(self.filter)
 
         if self.nice_years:
-            date_field = "strftime('%Y-%m', paydate)"
+            date_field = "strftime('%Y-%m', buy_prices.date)"
         else:
-            date_field = "strftime('%Y', paydate)"
+            date_field = "strftime('%Y', buy_prices.date)"
 
-        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins"\
+        sql = "SELECT sum(iif(coins.quantity!='',coins.quantity,1)), %s %s"\
               " WHERE %s"\
-              " GROUP BY %s" % (date_field, ' AND '.join(sql_filters), date_field)
+              " GROUP BY %s" % (date_field, from_sql, ' AND '.join(sql_filters), date_field)
         query = QSqlQuery(self.db)
         query.exec(sql)
         while query.next():
@@ -291,13 +293,13 @@ class AreaStatusChartModel(BaseChartModel):
             sql_filters.append(self.filter)
 
         if self.nice_years:
-            date_field = "strftime('%Y-%m', saledate)"
+            date_field = "strftime('%Y-%m', sell_prices.date)"
         else:
-            date_field = "strftime('%Y', saledate)"
+            date_field = "strftime('%Y', sell_prices.date)"
 
-        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s FROM coins"\
+        sql = "SELECT sum(iif(coins.quantity!='',coins.quantity,1)), %s %s"\
               " WHERE %s"\
-              " GROUP BY %s" % (date_field, ' AND '.join(sql_filters), date_field)
+              " GROUP BY %s" % (date_field, from_sql, ' AND '.join(sql_filters), date_field)
         query = QSqlQuery(self.db)
         query.exec(sql)
         while query.next():

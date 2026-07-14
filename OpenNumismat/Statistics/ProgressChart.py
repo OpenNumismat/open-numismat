@@ -14,6 +14,7 @@ from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
+from OpenNumismat.Collection.Collection import CollectionModel
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
 
@@ -89,12 +90,17 @@ class ProgressChartModel(BaseChartModel):
     def loadData(self, items, period):
         continuous_time = Settings()['continuous_time_chart']
 
+        from_sql = ("FROM coins"
+                    f" {CollectionModel.JOIN_BUY_PRICES}"
+                    f" {CollectionModel.JOIN_SELL_PRICES}"
+                    f" {CollectionModel.JOIN_CATALOGS}")
+
         if items == 'payprice':
-            sql_field = 'sum(payprice)'
+            sql_field = 'sum(buy_prices.price)'
         elif items == 'totalpayprice':
-            sql_field = 'sum(totalpayprice)'
+            sql_field = 'sum(buy_prices.total_price)'
         else:
-            sql_field = "sum(iif(quantity!='',quantity,1))"
+            sql_field = "sum(iif(coins.quantity!='',coins.quantity,1))"
 
         if items == 'createdat':
             if period == 'month':
@@ -120,11 +126,11 @@ class ProgressChartModel(BaseChartModel):
             sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
 
             if period == 'month':
-                sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
+                sql_filters.append("buy_prices.date >= datetime('now', 'start of month', '-11 months')")
             elif period == 'week':
-                sql_filters.append("paydate > datetime('now', '-11 months')")
+                sql_filters.append("buy_prices.date > datetime('now', '-11 months')")
             elif period == 'day':
-                sql_filters.append("paydate > datetime('now', '-1 month')")
+                sql_filters.append("buy_prices.date > datetime('now', '-1 month')")
 
         if period == 'month' and items != 'year':
             date_format = '%m'
@@ -143,27 +149,28 @@ class ProgressChartModel(BaseChartModel):
             sql_filters.append(self.filter)
 
         if items == 'createdat':
-            sql = "SELECT %s, createdat FROM coins"\
+            sql = "SELECT %s, createdat %s"\
                   " WHERE %s"\
                   " GROUP BY createdat ORDER BY createdat" % (
-                      sql_field, ' AND '.join(sql_filters))
+                      sql_field, from_sql, ' AND '.join(sql_filters))
         elif items == 'issuedate':
-            sql = "SELECT %s, issuedate FROM coins"\
+            sql = "SELECT %s, issuedate %s"\
                   " WHERE %s"\
                   " GROUP BY issuedate ORDER BY issuedate" % (
-                      sql_field, ' AND '.join(sql_filters))
+                      sql_field, from_sql, ' AND '.join(sql_filters))
         elif items == 'year':
-            sql = "SELECT %s, year FROM coins"\
+            sql = "SELECT %s, coins.year %s"\
                   " WHERE %s"\
-                  " GROUP BY year ORDER BY year" % (
-                      sql_field, ' AND '.join(sql_filters))
+                  " GROUP BY coins.year ORDER BY coins.year" % (
+                      sql_field, from_sql, ' AND '.join(sql_filters))
         else:
-            sql = "SELECT %s, paydate FROM coins"\
+            sql = "SELECT %s, buy_prices.date %s"\
                   " WHERE %s"\
-                  " GROUP BY paydate ORDER BY paydate" % (
-                      sql_field, ' AND '.join(sql_filters))
-        query = QSqlQuery(self.db)
-        query.exec(sql)
+                  " GROUP BY buy_prices.date ORDER BY buy_prices.date" % (
+                      sql_field, from_sql, ' AND '.join(sql_filters))
+
+        query = QSqlQuery(sql, self.db)
+
         xx = {}
         min_date = None
         max_date = None

@@ -14,6 +14,7 @@ from PySide6.QtGui import QCursor, QPen
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
+from OpenNumismat.Collection.Collection import CollectionModel
 from OpenNumismat.Tools.Converters import stringToMoney, normalizeFineness
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
@@ -125,8 +126,13 @@ class ProgressPreciousChartModel(BaseChartModel):
     def loadData(self, period):
         continuous_time = Settings()['continuous_time_chart']
 
-        sql_field = "weight,quantity,fineness,material,paydate"
-    
+        from_sql = ("FROM coins"
+                    f" {CollectionModel.JOIN_BUY_PRICES}"
+                    f" {CollectionModel.JOIN_SELL_PRICES}"
+                    f" {CollectionModel.JOIN_CATALOGS}")
+
+        sql_field = "weight,coins.quantity AS quantity,fineness,material,buy_prices.date AS paydate"
+
         if period == 'month':
             date_format = '%m'
             delta = relativedelta(months=1)
@@ -147,22 +153,22 @@ class ProgressPreciousChartModel(BaseChartModel):
 
         sql_filters.append("material IS NOT NULL")
         sql_filters.append("material <> ''")
-        sql_filters.append("paydate IS NOT NULL")
-        sql_filters.append("paydate <> ''")
+        sql_filters.append("buy_prices.date IS NOT NULL")
+        sql_filters.append("buy_prices.date <> ''")
         if period == 'month':
-            sql_filters.append("paydate >= datetime('now', 'start of month', '-11 months')")
+            sql_filters.append("buy_prices.date >= datetime('now', 'start of month', '-11 months')")
         elif period == 'week':
-            sql_filters.append("paydate > datetime('now', '-11 months')")
+            sql_filters.append("buy_prices.date > datetime('now', '-11 months')")
         elif period == 'day':
-            sql_filters.append("paydate > datetime('now', '-1 month')")
+            sql_filters.append("buy_prices.date > datetime('now', '-1 month')")
 
-        sql = "SELECT %s FROM coins"\
+        sql = "SELECT %s %s"\
               " WHERE %s"\
-              " ORDER BY paydate" % (
-                  sql_field, ' AND '.join(sql_filters))
+              " ORDER BY buy_prices.date" % (
+                  sql_field, from_sql, ' AND '.join(sql_filters))
 
-        query = QSqlQuery(self.db)
-        query.exec(sql)
+        query = QSqlQuery(sql, self.db)
+
         data = {}
         min_paydate = None
         max_paydate = None

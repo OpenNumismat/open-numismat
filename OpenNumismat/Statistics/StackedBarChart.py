@@ -11,7 +11,8 @@ from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
-from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.Collection import CollectionModel
+from OpenNumismat.Collection.CollectionFields import Statuses, BuyPriceFields, SellPriceFields
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
@@ -84,21 +85,33 @@ class StackedBarChartModel(BaseChartModel):
         self.z_data = []
 
     def loadData(self, field, subfield):
+        from_sql = ("FROM coins"
+                    f" {CollectionModel.JOIN_BUY_PRICES}"
+                    f" {CollectionModel.JOIN_SELL_PRICES}"
+                    f" {CollectionModel.JOIN_CATALOGS}")
+
         if field == 'fineness':
             sql_field = "IFNULL(material,''),IFNULL(fineness,'')"
         elif field == 'unit':
             sql_field = "IFNULL(value,''),IFNULL(unit,'')"
+        elif field in BuyPriceFields:
+            sql_field = f"IFNULL(buy_prices.{BuyPriceFields[field]},'')"
+        elif field in SellPriceFields:
+            sql_field = f"IFNULL(sell_prices.{SellPriceFields[field]},'')"
         else:
-            sql_field = "IFNULL(%s,'')" % field
+            sql_field = f"IFNULL(coins.{field},'')"
 
-        if self.filter:
-            sql_filter = "WHERE %s" % self.filter
+        if subfield in BuyPriceFields:
+            sql_subfield = f"IFNULL(buy_prices.{BuyPriceFields[subfield]},'')"
+        elif subfield in SellPriceFields:
+            sql_subfield = f"IFNULL(sell_prices.{SellPriceFields[subfield]},'')"
         else:
-            sql_filter = ""
+            sql_subfield = f"IFNULL(coins.{subfield},'')"
 
-        sql = "SELECT count(IFNULL(%s,'')), IFNULL(%s,''), %s FROM coins"\
-              " %s GROUP BY %s, IFNULL(%s,'')" % (
-                        subfield, subfield, sql_field, sql_filter, sql_field, subfield)
+        where_clause = f"WHERE {self.filter}" if self.filter else ""
+
+        sql = f"SELECT count({sql_subfield}), {sql_subfield}, {sql_field} {from_sql}"\
+              f" {where_clause} GROUP BY {sql_field}, {sql_subfield}"
         query = QSqlQuery(self.db)
         query.exec(sql)
         xx = []

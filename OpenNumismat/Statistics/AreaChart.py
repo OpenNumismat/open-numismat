@@ -18,7 +18,8 @@ from PySide6.QtGui import QCursor
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QToolTip
 
-from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.Collection import CollectionModel
+from OpenNumismat.Collection.CollectionFields import Statuses, BuyPriceFields, SellPriceFields
 from OpenNumismat.Tools.Converters import numberWithFraction
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel, BaseChartView
@@ -253,12 +254,21 @@ class AreaChartModel(BaseChartModel):
         return date
 
     def loadData(self, field, area):
+        from_sql = ("FROM coins"
+                    f" {CollectionModel.JOIN_BUY_PRICES}"
+                    f" {CollectionModel.JOIN_SELL_PRICES}"
+                    f" {CollectionModel.JOIN_CATALOGS}")
+
         if field == 'fineness':
             sql_field = "IFNULL(material,''),IFNULL(fineness,'')"
         elif field == 'unit':
             sql_field = "IFNULL(value,''),IFNULL(unit,'')"
+        elif field in BuyPriceFields:
+            sql_field = f"IFNULL(buy_prices.{BuyPriceFields[field]},'')"
+        elif field in SellPriceFields:
+            sql_field = f"IFNULL(sell_prices.{SellPriceFields[field]},'')"
         else:
-            sql_field = "IFNULL(%s,'')" % field
+            sql_field = f"IFNULL(coins.{field},'')"
 
         if area == 'paydate':
             sql_filters = ["status IN ('owned', 'ordered', 'sale', 'missing', 'duplicate', 'replacement')"]
@@ -270,21 +280,28 @@ class AreaChartModel(BaseChartModel):
         if self.filter:
             sql_filters.append(self.filter)
 
+        if area == 'paydate':
+            area_field = 'buy_prices.date'
+        elif area == 'saledate':
+            area_field = 'sell_prices.date'
+        else:
+            area_field = f"coins.{area}"
+
         if area in ('issuedate', 'paydate', 'saledate', 'createdat'):
             if self.nice_years:
-                date_field = "strftime('%%Y-%%m', %s)" % area
+                date_field = f"strftime('%Y-%m', {area_field})"
             else:
-                date_field = "strftime('%%Y', %s)" % area
+                date_field = f"strftime('%Y', {area_field})"
         else:
-            date_field = area
-        sql = "SELECT sum(iif(quantity!='',quantity,1)), %s, %s FROM coins"\
+            date_field = area_field
+        sql = "SELECT sum(iif(coins.quantity!='',coins.quantity,1)), %s, %s %s"\
               " WHERE %s"\
               " GROUP BY %s, %s" % (
                     date_field, sql_field,
+                    from_sql,
                     ' AND '.join(sql_filters),
                     date_field, sql_field)
-        query = QSqlQuery(self.db)
-        query.exec(sql)
+        query = QSqlQuery(sql, self.db)
         xx = {}
         zz = []
         while query.next():

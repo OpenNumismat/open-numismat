@@ -7,6 +7,7 @@ from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtWebEngineWidgets import QWebEngineView as QWebView
 
+from OpenNumismat.Collection.Collection import CollectionModel
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Statistics.BaseChart import BaseChartModel
 from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
@@ -114,14 +115,15 @@ class GeoChartModel(BaseChartModel):
         self.http = CachedPoolManager(parent)
 
     def loadData(self, region):
-        if self.filter:
-            sql_filter = "WHERE %s" % filter
-        else:
-            sql_filter = ""
+        from_sql = ("FROM coins"
+                    f" {CollectionModel.JOIN_BUY_PRICES}"
+                    f" {CollectionModel.JOIN_SELL_PRICES}"
+                    f" {CollectionModel.JOIN_CATALOGS}")
 
-        sql = "SELECT sum(iif(quantity!='',quantity,1)), IFNULL(country,'') FROM coins %s GROUP BY IFNULL(country,'')" % sql_filter
-        query = QSqlQuery(self.db)
-        query.exec(sql)
+        where_clause = f"WHERE {self.filter}" if self.filter else ""
+
+        sql = f"SELECT sum(iif(coins.quantity!='',coins.quantity,1)), IFNULL(country,'') {from_sql} {where_clause} GROUP BY IFNULL(country,'')"
+        query = QSqlQuery(sql, self.db)
         xx = []
         yy = []
         while query.next():
