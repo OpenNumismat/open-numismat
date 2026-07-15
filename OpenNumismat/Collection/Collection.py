@@ -1583,7 +1583,12 @@ class Collection(QObject):
                     refSection.fillFromQuery(parentId, query)
                     refSection.reload()
             else:
-                sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL" % (columnName, columnName, columnName)
+                if columnName in ('payplace', 'saleplace'):
+                    sql = (f"SELECT DISTINCT place AS {columnName} FROM prices"
+                           f" WHERE {columnName}<>'' AND {columnName} IS NOT NULL")
+                else:
+                    sql = (f"SELECT DISTINCT {columnName} FROM coins"
+                           f" WHERE {columnName}<>'' AND {columnName} IS NOT NULL")
                 query = QSqlQuery(sql, self.db)
                 refSection.fillFromQuery(query)
                 refSection.reload()
