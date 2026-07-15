@@ -16,7 +16,7 @@ from OpenNumismat.EditCoinDialog.EditCoinDialog import EditCoinDialog
 from OpenNumismat.CustomizeTreeDialog import CustomizeTreeDialog
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction, compareYears
-from OpenNumismat.Collection.CollectionFields import Statuses
+from OpenNumismat.Collection.CollectionFields import Statuses, BuyPriceFields, SellPriceFields
 from OpenNumismat.Settings import Settings
 
 
@@ -316,19 +316,40 @@ class TreeView(QTreeWidget):
     def __processChilds(self, parent_fields, cur_fields, filters):
         child_items = {}
 
+        from_sql = "FROM coins"
+        where_clause = f"WHERE {filters}" if filters else ""
+
         fields = cur_fields + parent_fields
-        coalse_fields = [f"COALESCE(NULLIF({field}, ''), '') AS {field}" for field in fields]
+
+        has_buy_prices = False
+        has_sell_prices = False
+        coalse_fields = []
+        for field in fields:
+            if field in BuyPriceFields:
+                table_name = 'buy_prices'
+                field_name = BuyPriceFields[field]
+                has_buy_prices = True
+            elif field in SellPriceFields:
+                table_name = 'sell_prices'
+                field_name = SellPriceFields[field]
+                has_sell_prices = True
+            else:
+                table_name = 'coins'
+                field_name = field
+            coalse_fields.append(f"COALESCE(NULLIF({table_name}.{field_name}, ''), '') AS {field}")
+
+        if has_buy_prices:
+            from_sql += f" {self.model.JOIN_BUY_PRICES}"
+        if has_sell_prices:
+            from_sql += f" {self.model.JOIN_SELL_PRICES}"
+
         sql_fields = ','.join(coalse_fields)
         if self.showCounter:
-            sql = f"SELECT {sql_fields}, COUNT(*) counter FROM coins"
-            if filters:
-                sql += f" WHERE {filters}"
+            sql = f"SELECT {sql_fields}, COUNT(*) counter {from_sql} {where_clause}"
             sql_group_fields = ','.join(fields)
             sql += f" GROUP BY {sql_group_fields}"
         else:
-            sql = f"SELECT DISTINCT {sql_fields} FROM coins"
-            if filters:
-                sql += f" WHERE {filters}"
+            sql = f"SELECT DISTINCT {sql_fields} {from_sql} {where_clause}"
         query = QSqlQuery(sql, self.db)
         while query.next():
             record = query.record()
@@ -344,13 +365,23 @@ class TreeView(QTreeWidget):
             for field in cur_fields:
                 value = record.value(field)
 
+                if field in BuyPriceFields:
+                    table_name = 'buy_prices'
+                    field_name = BuyPriceFields[field]
+                elif field in SellPriceFields:
+                    table_name = 'sell_prices'
+                    field_name = SellPriceFields[field]
+                else:
+                    table_name = 'coins'
+                    field_name = field
+
                 orig_data.append(value)
                 text = str(value)
                 if text:
                     escapedText = text.replace("'", "''")
-                    child_filters.append(f"coins.{field}='{escapedText}'")
+                    child_filters.append(f"{table_name}.{field_name}='{escapedText}'")
                 else:
-                    child_filters.append(f"ifnull(coins.{field},'')=''")
+                    child_filters.append(f"ifnull({table_name}.{field_name},'')=''")
 
             if self.showCounter:
                 count = record.value('counter')
@@ -508,7 +539,18 @@ class TreeView(QTreeWidget):
             text = self.tr("Other")
             if self.showCounter:
                 text = f"{text} [{countEmpty}]"
-            newFilters = f"ifnull(coins.{fields[0]},'')=''"
+
+            if fields[0] in BuyPriceFields:
+                table_name = 'buy_prices'
+                field_name = BuyPriceFields[fields[0]]
+            elif fields[0] in SellPriceFields:
+                table_name = 'sell_prices'
+                field_name = SellPriceFields[fields[0]]
+            else:
+                table_name = 'coins'
+                field_name = fields[0]
+
+            newFilters = f"ifnull({table_name}.{field_name},'')=''"
             if filter_:
                 newFilters = f"{filter_} AND {newFilters}"
 
