@@ -1064,18 +1064,22 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         super().setFilter(combinedFilter)
 
     def isExist(self, record):
+        from_sql = ("FROM coins"
+                    f" {self.JOIN_BUY_PRICES}"
+                    f" {self.JOIN_SELL_PRICES}")
         fields = ('title', 'value', 'unit', 'country', 'period', 'ruler',
                   'year', 'mint', 'mintmark', 'type', 'series', 'subjectshort',
-                  'status', 'material', 'quality', 'paydate', 'payprice',
-                  'saller', 'payplace', 'saledate', 'saleprice', 'buyer',
-                  'saleplace', 'variety', 'obversevar', 'reversevar',
-                  'edgevar')
+                  'status', 'material', 'quality', 'buy_prices.date',
+                  'buy_prices.price', 'buy_prices.counterparty',
+                  'buy_prices.place', 'sell_prices.date', 'sell_prices.price',
+                  'sell_prices.counterparty', 'sell_prices.place', 'variety',
+                  'obversevar', 'reversevar', 'edgevar')
         filterParts = [field + '=?' for field in fields]
         sqlFilter = ' AND '.join(filterParts)
 
         db = self.database()
         query = QSqlQuery(db)
-        query.prepare("SELECT 1 FROM coins WHERE id<>? AND " + sqlFilter + " LIMIT 1")
+        query.prepare(f"SELECT 1 {from_sql} WHERE coins.id<>? AND {sqlFilter} LIMIT 1")
         query.addBindValue(record.value('id'))
         for field in fields:
             query.addBindValue(record.value(field))
