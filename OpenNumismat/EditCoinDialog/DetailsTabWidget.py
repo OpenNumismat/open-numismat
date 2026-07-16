@@ -464,6 +464,7 @@ class DetailsTabWidget(QTabWidget):
         title = self.settings['classification_price_group_title']
         layout = BaseFormGroupBox(title)
 
+        layout.addRow(self.items['price6'], self.items['price5'])
         layout.addRow(self.items['price4'], self.items['price3'])
         layout.addRow(self.items['price2'], self.items['price1'])
 

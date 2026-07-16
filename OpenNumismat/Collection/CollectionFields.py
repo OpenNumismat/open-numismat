@@ -207,8 +207,8 @@ SellPriceFields = {
     'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url',
 }
 CatalogFields = {
-    'price1': 'price1', 'price2': 'price2',
-    'price3': 'price3', 'price4': 'price5',
+    'price1': 'price1', 'price2': 'price2', 'price3': 'price3',
+    'price4': 'price4', 'price5': 'price5', 'price6': 'price6',
 }
 
 
@@ -263,7 +263,7 @@ class CollectionFieldsBase(QObject):
                 ('price1', QApplication.translate('CollectionFieldsBase', "Fine"), Type.Money),
                 ('price2', QApplication.translate('CollectionFieldsBase', "VF"), Type.Money),
                 ('price3', QApplication.translate('CollectionFieldsBase', "XF"), Type.Money),
-                ('price4', QApplication.translate('CollectionFieldsBase', "Unc"), Type.Money),
+                ('price5', QApplication.translate('CollectionFieldsBase', "Unc"), Type.Money),
                 ('variety', QApplication.translate('CollectionFieldsBase', "Variety"), Type.String),
                 ('obversevar', QApplication.translate('CollectionFieldsBase', "Obverse"), Type.String),
                 ('reversevar', QApplication.translate('CollectionFieldsBase', "Reverse"), Type.String),
@@ -338,6 +338,8 @@ class CollectionFieldsBase(QObject):
                 ('rating', QApplication.translate('CollectionFieldsBase', "Rating"), Type.String),
                 ('buying_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
                 ('sale_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
+                ('price4', QApplication.translate('CollectionFieldsBase', "AU"), Type.Money),
+                ('price6', QApplication.translate('CollectionFieldsBase', "BU"), Type.Money),
             ]
 
         self.fields = []
@@ -353,7 +355,8 @@ class CollectionFieldsBase(QObject):
             self.userFields.remove(item)
 
         self.catalogFields = (
-            self.price1, self.price2, self.price3, self.price4,
+            self.price1, self.price2, self.price3,
+            self.price4, self.price5, self.price6,
         )
         self.priceFields = (
             self.paydate, self.payprice, self.totalpayprice,

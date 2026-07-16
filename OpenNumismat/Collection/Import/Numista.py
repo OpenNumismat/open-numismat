@@ -315,8 +315,10 @@ class ImportNumista(_Import2):
                     record.setValue('price2', "%.2f" % price['price'])
                 elif price['grade'] == 'xf':
                     record.setValue('price3', "%.2f" % price['price'])
-                elif price['grade'] == 'unc':
+                elif price['grade'] == 'au':
                     record.setValue('price4', "%.2f" % price['price'])
+                elif price['grade'] == 'unc':
+                    record.setValue('price5', "%.2f" % price['price'])
 
     def _getImage(self, url):
         try:

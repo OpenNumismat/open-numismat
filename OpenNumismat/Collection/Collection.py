@@ -1016,7 +1016,8 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
  "obvrev", "quality", "mintage", "dateemis", "catalognum1", "catalognum2",
  "catalognum3", "catalognum4", "rarity",
 
- catalogs.price1 AS price1, catalogs.price2 AS price2, catalogs.price3 AS price3, catalogs.price5 AS price4,
+ catalogs.price1 AS price1, catalogs.price2 AS price2, catalogs.price3 AS price3,
+ catalogs.price4 AS price4,
 
  "variety", "obversevar",
  "reversevar", "edgevar",
@@ -1036,7 +1037,8 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
  "longitude", "photo5", "photo6", "grader", "seat", "native_year", "composition", "material2",
  "width", "height", "technique", "modification", "axis", "real_weight", "real_diameter", "rating",
 
- buy_prices.url AS buying_invoice, sell_prices.url AS sale_invoice
+ buy_prices.url AS buying_invoice, sell_prices.url AS sale_invoice,
+ catalogs.price5 AS price5, catalogs.price6 AS price6
 
  FROM "coins"
 '''

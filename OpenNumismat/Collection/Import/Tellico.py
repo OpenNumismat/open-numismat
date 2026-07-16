@@ -68,7 +68,9 @@ class ImportTellico(_Import):
         'price1': None,  # Fine
         'price2': None,  # VF
         'price3': None,  # XF
-        'price4': 'value',  # Unc
+        'price4': None,  # AU
+        'price5': 'value',  # Unc
+        'price6': None,  # BU
         'variety': 'variety',
         'paydate': 'pur_date',
         'payprice': 'pur_price',

@@ -638,7 +638,8 @@ class FieldsSettingsPage(QWidget):
             elif field.name in ('catalognum1', 'catalognum2',
                                 'catalognum3', 'catalognum4',):
                 classification_catalogue_item.addChild(item)
-            elif field.name in ('price4', 'price3', 'price2', 'price1',):
+            elif field.name in ('price6', 'price5', 'price4',
+                                'price3', 'price2', 'price1',):
                 classification_price_item.addChild(item)
             elif field.name in ('variety', 'varietydesc', 'obversevar',
                                 'reversevar', 'edgevar', 'varietyimg',):

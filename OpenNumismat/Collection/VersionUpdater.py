@@ -698,6 +698,16 @@ class UpdaterTo11(_Updater):
 
         self.db.transaction()
 
+        query = QSqlQuery(self.db)
+        for field in ('price4', 'price6'):
+            fieldDesc = getattr(self.collection.fields, field)
+            query.prepare("INSERT INTO fields (id, title, enabled)"
+                          " VALUES (?, ?, ?)")
+            query.addBindValue(fieldDesc.id)
+            query.addBindValue(fieldDesc.title)
+            query.addBindValue(int(False))
+            query.exec()
+
         sql = "ALTER TABLE photos ADD COLUMN author TEXT"
         QSqlQuery(sql, self.db)
         sql = "ALTER TABLE photos ADD COLUMN license TEXT"
