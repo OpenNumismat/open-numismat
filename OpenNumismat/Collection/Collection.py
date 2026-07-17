@@ -117,7 +117,14 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
             field = self.fields.fields[index.column()]
 
             if field in self.fields.externalFields:
-                record = self.record(index.row())
+                row = index.row()
+                if row >= 0:
+                    record = super().record(row)
+                else:
+                    record = super().record()
+
+                # TODO: Fill only required field
+                self._fillExtRecord(record)
                 data = record.value(field.name)
 
             try:
@@ -563,19 +570,15 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         self.submitAll()
         progressDlg.reset()
 
-    def record(self, row=-1):
-        if row >= 0:
-            record = super().record(row)
-        else:
-            record = super().record()
-
+    def _fillExtRecord(self, record):
         coin_id = record.value('id')
         if coin_id:
             for field in self.fields.externalFields:
                 record.setValue(field.name, None)
 
             query = QSqlQuery(self.database())
-            query.prepare(f"SELECT {','.join(CatalogFields.values())} FROM catalogs WHERE coin_id=? LIMIT 1")
+
+            query.prepare(f"SELECT {','.join(CatalogFields.values())} FROM catalogs WHERE coin_id=? ORDER BY id LIMIT 1")
             query.addBindValue(coin_id)
             query.exec()
             if query.first():
@@ -583,8 +586,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
                     val = query.record().value(new_field)
                     record.setValue(old_field, val)
 
-            query = QSqlQuery(self.database())
-            query.prepare(f"SELECT {','.join(BuyPriceFields.values())} FROM prices WHERE coin_id=? AND action='buy' LIMIT 1")
+            query.prepare(f"SELECT {','.join(BuyPriceFields.values())} FROM prices WHERE coin_id=? AND action='buy' ORDER BY id LIMIT 1")
             query.addBindValue(coin_id)
             query.exec()
             if query.first():
@@ -598,8 +600,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
                     action = 'auction'
                 else:
                     action = 'sell'
-                query = QSqlQuery(self.database())
-                query.prepare(f"SELECT {','.join(SellPriceFields.values())} FROM prices WHERE coin_id=? AND action=? LIMIT 1")
+                query.prepare(f"SELECT {','.join(SellPriceFields.values())} FROM prices WHERE coin_id=? AND action=? ORDER BY id LIMIT 1")
                 query.addBindValue(coin_id)
                 query.addBindValue(action)
                 query.exec()
@@ -607,6 +608,14 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
                     for old_field, new_field in SellPriceFields.items():
                         val = query.record().value(new_field)
                         record.setValue(old_field, val)
+
+    def record(self, row=-1):
+        if row >= 0:
+            record = super().record(row)
+        else:
+            record = super().record()
+
+        self._fillExtRecord(record)
 
         for field in ImageFields:
             record.append(QSqlField(f"{field}_title"))
@@ -630,6 +639,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         else:
             record.setValue('image', None)
 
+        coin_id = record.value('id')
         tag_ids = []
         if coin_id:
             query = QSqlQuery(self.database())
