@@ -1050,7 +1050,8 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
  "width", "height", "technique", "modification", "axis", "real_weight", "real_diameter", "rating",
 
  buy_prices.url AS buying_invoice, sell_prices.url AS sale_invoice,
- catalogs.price5 AS price5, catalogs.price6 AS price6
+ catalogs.price5 AS price5, catalogs.price6 AS price6,
+ buy_prices.currency AS buying_currency, sell_prices.currency AS sale_currency
 
  FROM "coins"
 '''

@@ -58,6 +58,8 @@ class FormItem(object):
                     self._widget = NativeYearEdit(parent)
                 elif self._field == 'rating':
                     self._widget = RatingEdit(settings['stars_count'], parent)
+                elif self._field in ('buying_currency', 'sale_currency'):
+                    self._widget = CurrencyEdit(parent)
                 else:
                     self._widget = LineEdit(parent)
         elif self._type == Type.ShortString:

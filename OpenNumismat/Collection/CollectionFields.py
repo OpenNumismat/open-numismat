@@ -200,11 +200,13 @@ BuyPriceFields = {
     'paydate': 'date', 'payprice': 'price',
     'totalpayprice': 'total_price', 'saller': 'counterparty',
     'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url',
+    'buying_currency': 'currency',
 }
 SellPriceFields = {
     'saledate': 'date', 'saleprice': 'price',
     'totalsaleprice': 'total_price', 'buyer': 'counterparty',
     'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url',
+    'sale_currency': 'currency',
 }
 CatalogFields = {
     'price1': 'price1', 'price2': 'price2', 'price3': 'price3',
@@ -340,6 +342,8 @@ class CollectionFieldsBase(QObject):
                 ('sale_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
                 ('price4', QApplication.translate('CollectionFieldsBase', "AU"), Type.Money),
                 ('price6', QApplication.translate('CollectionFieldsBase', "BU"), Type.Money),
+                ('buying_currency', QApplication.translate('CollectionFieldsBase', "Currency"), Type.String),
+                ('sale_currency', QApplication.translate('CollectionFieldsBase', "Currency"), Type.String),
             ]
 
         self.fields = []
@@ -364,6 +368,7 @@ class CollectionFieldsBase(QObject):
             self.saledate, self.saleprice, self.totalsaleprice,
             self.buyer, self.saleplace, self.saleinfo,
             self.buying_invoice, self.sale_invoice,
+            self.buying_currency, self.sale_currency,
         )
         self.externalFields = self.catalogFields + self.priceFields
 

@@ -4,7 +4,7 @@ import math
 import os
 import re
 
-from PySide6.QtCore import QMargins, QDate, QLocale, QPointF, QSize, QUrl
+from PySide6.QtCore import QMargins, QDate, QLocale, QPointF, QSize, QUrl, QT_TRANSLATE_NOOP
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import (
     Qt,
@@ -1336,3 +1336,56 @@ class RatingEdit(QLabel):
 
     def sizeHint(self):
         return self.PaintingScaleFactor * QSize(self.maxStarCount, 1)
+
+
+class CurrencyEdit(QComboBox):
+    Currencies = (
+        ('ARS', QT_TRANSLATE_NOOP("Currency", "ARS - Argentine peso")),
+        ('AUD', QT_TRANSLATE_NOOP("Currency", "AUD - Australian dollar")),
+        ('BGN', QT_TRANSLATE_NOOP("Currency", "BGN - Bulgarian lev")),
+        ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazilian real")),
+        ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarusian ruble")),
+        ('CAD', QT_TRANSLATE_NOOP("Currency", "CAD - Canadian dollar")),
+        ('CHF', QT_TRANSLATE_NOOP("Currency", "CHF - Swiss franc")),
+        ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech koruna")),
+        ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Euro")),
+        ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - Pound sterling")),
+        ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungarian forint")),
+        ('INR', QT_TRANSLATE_NOOP("Currency", "INR - Indian rupee")),
+        ('NOK', QT_TRANSLATE_NOOP("Currency", "NOK - Norwegian krone")),
+        ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Polish złoty")),
+        ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
+        ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Swedish krona")),
+        ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkish lira")),
+        ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukrainian hryvnia")),
+        ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States dollar")),
+    )
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setMinimumWidth(120)
+        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+
+        self.addItem("")
+        for code, title in self.Currencies:
+            self.addItem(title, code)
+
+    def clear(self):
+        self.setCurrentIndex(0)
+
+    def setReadOnly(self, b):
+        self.setEnabled(not b)
+
+    def text(self):
+        return self.currentData()
+
+    def setText(self, text):
+        index = self.findData(text)
+        if index >= 0:
+            old_index = self.currentIndex()
+            self.setCurrentIndex(index)
+            if old_index == index:
+                self.currentIndexChanged.emit(index)
+
+    def home(self, _mark):
+        return

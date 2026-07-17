@@ -605,10 +605,12 @@ class FieldsSettingsPage(QWidget):
                                 'features', 'grader', 'seat', 'rating',):
                 coin_state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
-                                'saller', 'payplace', 'payinfo', 'buying_invoice'):
+                                'saller', 'payplace', 'payinfo', 'buying_invoice',
+                                'buying_currency'):
                 market_buy_item.addChild(item)
             elif field.name in ('saledate', 'saleprice', 'totalsaleprice',
-                                'buyer', 'saleplace', 'saleinfo', 'sale_invoice'):
+                                'buyer', 'saleplace', 'saleinfo', 'sale_invoice',
+                                'sale_currency'):
                 market_sale_item.addChild(item)
             elif field.name in ('address', 'latitude', 'longitude'):
                 map_item.addChild(item)
