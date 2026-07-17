@@ -699,7 +699,10 @@ class UpdaterTo11(_Updater):
         self.db.transaction()
 
         query = QSqlQuery(self.db)
-        for field in ('price4', 'price6', 'buying_currency', 'sale_currency'):
+        for field in ('buying_currency', 'buying_quantity', 'buying_grade',
+                      'sale_currency', 'sale_quantity', 'sale_grade',
+                      'price4', 'price6', 'catalog', 'catalog_number',
+                      'catalog_year', 'catalog_currency'):
             fieldDesc = getattr(self.collection.fields, field)
             query.prepare("INSERT INTO fields (id, title, enabled)"
                           " VALUES (?, ?, ?)")

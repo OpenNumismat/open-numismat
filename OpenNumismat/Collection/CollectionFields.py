@@ -200,17 +200,21 @@ BuyPriceFields = {
     'paydate': 'date', 'payprice': 'price',
     'totalpayprice': 'total_price', 'saller': 'counterparty',
     'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url',
-    'buying_currency': 'currency',
+    'buying_currency': 'currency', 'buying_quantity': 'quantity',
+    'buying_grade': 'grade',
 }
 SellPriceFields = {
     'saledate': 'date', 'saleprice': 'price',
     'totalsaleprice': 'total_price', 'buyer': 'counterparty',
     'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url',
-    'sale_currency': 'currency',
+    'sale_currency': 'currency', 'sale_quantity': 'quantity',
+    'sale_grade': 'grade',
 }
 CatalogFields = {
     'price1': 'price1', 'price2': 'price2', 'price3': 'price3',
     'price4': 'price4', 'price5': 'price5', 'price6': 'price6',
+    'catalog': 'catalog', 'catalog_number': 'number', 'catalog_year': 'year',
+    'catalog_currency': 'currency',
 }
 
 
@@ -340,10 +344,18 @@ class CollectionFieldsBase(QObject):
                 ('rating', QApplication.translate('CollectionFieldsBase', "Rating"), Type.String),
                 ('buying_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
                 ('sale_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
+                ('buying_currency', QApplication.translate('CollectionFieldsBase', "Currency"), Type.String),
+                ('buying_quantity', QApplication.translate('CollectionFieldsBase', "Quantity"), Type.Number),
+                ('buying_grade', QApplication.translate('CollectionFieldsBase', "Grade"), Type.String),
+                ('sale_currency', QApplication.translate('CollectionFieldsBase', "Currency"), Type.String),
+                ('sale_quantity', QApplication.translate('CollectionFieldsBase', "Quantity"), Type.Number),
+                ('sale_grade', QApplication.translate('CollectionFieldsBase', "Grade"), Type.String),
                 ('price4', QApplication.translate('CollectionFieldsBase', "AU"), Type.Money),
                 ('price6', QApplication.translate('CollectionFieldsBase', "BU"), Type.Money),
-                ('buying_currency', QApplication.translate('CollectionFieldsBase', "Currency"), Type.String),
-                ('sale_currency', QApplication.translate('CollectionFieldsBase', "Currency"), Type.String),
+                ('catalog', QApplication.translate('CollectionFieldsBase', "Catalog"), Type.String),
+                ('catalog_number', QApplication.translate('CollectionFieldsBase', "#"), Type.String),
+                ('catalog_year', QApplication.translate('CollectionFieldsBase', "Year"), Type.Number),
+                ('catalog_currency', QApplication.translate('CollectionFieldsBase', "Currency"), Type.String),
             ]
 
         self.fields = []
@@ -361,6 +373,8 @@ class CollectionFieldsBase(QObject):
         self.catalogFields = (
             self.price1, self.price2, self.price3,
             self.price4, self.price5, self.price6,
+            self.catalog, self.catalog_number, self.catalog_year,
+            self.catalog_currency,
         )
         self.priceFields = (
             self.paydate, self.payprice, self.totalpayprice,
@@ -369,6 +383,8 @@ class CollectionFieldsBase(QObject):
             self.buyer, self.saleplace, self.saleinfo,
             self.buying_invoice, self.sale_invoice,
             self.buying_currency, self.sale_currency,
+            self.buying_quantity, self.sale_quantity,
+            self.buying_grade, self.sale_grade,
         )
         self.externalFields = self.catalogFields + self.priceFields
 

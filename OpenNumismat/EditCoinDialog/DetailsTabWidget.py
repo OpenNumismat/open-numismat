@@ -301,6 +301,7 @@ class DetailsTabWidget(QTabWidget):
 
         layout.addRow(self.items['totalpayprice'], item)
         layout.addRow(self.items['buying_currency'])
+        layout.addRow(self.items['buying_quantity'], self.items['buying_grade'])
         layout.addRow(self.items['saller'])
         layout.addRow(self.items['payplace'])
         layout.addRow(self.items['buying_invoice'])
@@ -322,6 +323,7 @@ class DetailsTabWidget(QTabWidget):
 
         layout.addRow(self.items['totalsaleprice'], item)
         layout.addRow(self.items['sale_currency'])
+        layout.addRow(self.items['sale_quantity'], self.items['sale_grade'])
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
         layout.addRow(self.items['sale_invoice'])
@@ -351,6 +353,7 @@ class DetailsTabWidget(QTabWidget):
         layout.addRow(self.items['totalsaleprice'], item)
 
         layout.addRow(self.items['sale_currency'])
+        layout.addRow(self.items['sale_quantity'], self.items['sale_grade'])
         layout.addRow(self.items['saller'])
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
@@ -467,6 +470,8 @@ class DetailsTabWidget(QTabWidget):
         title = self.settings['classification_price_group_title']
         layout = BaseFormGroupBox(title)
 
+        layout.addRow(self.items['catalog'], self.items['catalog_year'])
+        layout.addRow(self.items['catalog_number'], self.items['catalog_currency'])
         layout.addRow(self.items['price6'], self.items['price5'])
         layout.addRow(self.items['price4'], self.items['price3'])
         layout.addRow(self.items['price2'], self.items['price1'])

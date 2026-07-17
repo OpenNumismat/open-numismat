@@ -606,11 +606,11 @@ class FieldsSettingsPage(QWidget):
                 coin_state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
                                 'saller', 'payplace', 'payinfo', 'buying_invoice',
-                                'buying_currency'):
+                                'buying_currency', 'buying_quantity', 'buying_grade'):
                 market_buy_item.addChild(item)
             elif field.name in ('saledate', 'saleprice', 'totalsaleprice',
                                 'buyer', 'saleplace', 'saleinfo', 'sale_invoice',
-                                'sale_currency'):
+                                'sale_currency', 'sale_quantity', 'sale_grade'):
                 market_sale_item.addChild(item)
             elif field.name in ('address', 'latitude', 'longitude'):
                 map_item.addChild(item)
@@ -641,7 +641,9 @@ class FieldsSettingsPage(QWidget):
                                 'catalognum3', 'catalognum4',):
                 classification_catalogue_item.addChild(item)
             elif field.name in ('price6', 'price5', 'price4',
-                                'price3', 'price2', 'price1',):
+                                'price3', 'price2', 'price1',
+                                'catalog', 'catalog_number', 'catalog_year',
+                                'catalog_currency',):
                 classification_price_item.addChild(item)
             elif field.name in ('variety', 'varietydesc', 'obversevar',
                                 'reversevar', 'edgevar', 'varietyimg',):
