@@ -124,7 +124,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
                     record = super().record()
 
                 # TODO: Fill only required field
-                self._fillExtRecord(record)
+                self._fillRecordExt(record)
                 data = record.value(field.name)
 
             try:
@@ -383,12 +383,14 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
             columns.append('coin_id')
         placeholders = ','.join(['?'] * len(columns))
         ins_query = QSqlQuery(self.database())
-        ins_query.prepare(f"INSERT INTO {table} ({','.join(columns)}) VALUES ({placeholders})")
+        ins_query.prepare(f"INSERT INTO {table} ({','.join(columns)}, position)"
+                          f" VALUES ({placeholders}, (SELECT COALESCE(MAX(position), 0) + 1 FROM {table} WHERE coin_id=?))")
         for value in record_values:
             ins_query.addBindValue(value)
         ins_query.addBindValue(coin_id)
         if condition_col:
             ins_query.addBindValue(condition_val)
+        ins_query.addBindValue(coin_id)
         ins_query.exec()
 
     def _setRecordExt(self, record, coin_id, table, field_map, condition_col=None, condition_val=None):
@@ -570,7 +572,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         self.submitAll()
         progressDlg.reset()
 
-    def _fillExtRecord(self, record):
+    def _fillRecordExt(self, record):
         coin_id = record.value('id')
         if coin_id:
             for field in self.fields.externalFields:
@@ -615,7 +617,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         else:
             record = super().record()
 
-        self._fillExtRecord(record)
+        self._fillRecordExt(record)
 
         for field in ImageFields:
             record.append(QSqlField(f"{field}_title"))
@@ -1489,12 +1491,14 @@ class Collection(QObject):
                     number TEXT,
                     counterparty TEXT,
                     info TEXT,
-                    start_bid NUMERIC)"""
+                    start_bid NUMERIC,
+                    position INTEGER)"""
         QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE catalogs (
                     id INTEGER NOT NULL PRIMARY KEY,
                     coin_id INTEGER,
+                    position INTEGER,
                     catalog TEXT,
                     number TEXT,
                     year INTEGER,
@@ -2087,8 +2091,8 @@ class Collection(QObject):
                     price_query.addBindValue(coin_id)
                     price_query.exec()
 
-                    sql = ("INSERT INTO prices (coin_id, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid)"
-                           " SELECT ?, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid FROM src.prices"
+                    sql = ("INSERT INTO prices (coin_id, position, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid)"
+                           " SELECT ?, position, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid FROM src.prices"
                            " WHERE coin_id=?")
                     price_query = QSqlQuery(sql, self.db)
                     price_query.addBindValue(coin_id)
@@ -2100,8 +2104,8 @@ class Collection(QObject):
                     catalog_query.addBindValue(coin_id)
                     catalog_query.exec()
 
-                    sql = ("INSERT INTO catalogs (coin_id, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8)"
-                           " SELECT ?, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8 FROM src.catalogs"
+                    sql = ("INSERT INTO catalogs (coin_id, position, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8)"
+                           " SELECT ?, position, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8 FROM src.catalogs"
                            " WHERE coin_id=?")
                     catalog_query = QSqlQuery(sql, self.db)
                     catalog_query.addBindValue(coin_id)
@@ -2159,16 +2163,16 @@ class Collection(QObject):
                         coin_id = last_id_query.value(0)
                         old_coin_id = sel_query.record().value('id')
 
-                        sql = ("INSERT INTO prices (coin_id, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid)"
-                               " SELECT ?, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid FROM src.prices"
+                        sql = ("INSERT INTO prices (coin_id, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid, position)"
+                               " SELECT ?, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid, position FROM src.prices"
                                " WHERE coin_id=?")
                         price_query = QSqlQuery(sql, self.db)
                         price_query.addBindValue(coin_id)
                         price_query.addBindValue(old_coin_id)
                         price_query.exec()
 
-                        sql = ("INSERT INTO catalogs (coin_id, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8)"
-                               " SELECT ?, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8 FROM src.catalogs"
+                        sql = ("INSERT INTO catalogs (coin_id, position, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8)"
+                               " SELECT ?, position, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8 FROM src.catalogs"
                                " WHERE coin_id=?")
                         catalog_query = QSqlQuery(sql, self.db)
                         catalog_query.addBindValue(coin_id)
