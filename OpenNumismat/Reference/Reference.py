@@ -458,7 +458,6 @@ class Reference(QObject):
         self.__createReferenceSection(ref_country, fields.mint)
         self.__createReferenceSection(ref_country, fields.series,
                                       self.tr("S"), True)
-        self.__createReferenceSection(None, fields.grade, self.tr("G"))
         self.__createReferenceSection(None, fields.shape, self.tr("F"))
         self.__createReferenceSection(None, fields.quality, self.tr("Q"))
         self.__createReferenceSection(None, fields.rarity, self.tr("R"))
@@ -472,6 +471,7 @@ class Reference(QObject):
         self.__createReferenceSection(None, fields.composition)
         self.__createReferenceSection(None, fields.technique)
         self.__createReferenceSection(None, fields.modification)
+        self.__createReferenceSection(None, fields.catalog)
 
         if 'payplace' in self.userFields or 'saleplace' in self.userFields:
             ref_place = ReferenceSection('place', self.tr("Place"))
@@ -485,6 +485,9 @@ class Reference(QObject):
         if 'material' in self.userFields or 'material2' in self.userFields:
             ref_material = ReferenceSection('material', self.tr("Material"), self.tr("M"))
             self.sections.append(ref_material)
+        if 'grade' in self.userFields or 'buying_grade' in self.userFields or 'sale_grade' in self.userFields:
+            ref_grade = ReferenceSection('grade', self.tr("Grade"), self.tr("G"))
+            self.sections.append(ref_grade)
 
     def __createReferenceSection(self, parentRef, field,
                                  letter='…', sort=False):
@@ -624,6 +627,8 @@ class Reference(QObject):
             name = 'edge'
         elif name in ('material', 'material2'):
             name = 'material'
+        elif name in ('grade', 'buying_grade', 'sale_grade'):
+            name = 'grade'
 
         for section in self.sections:
             if section.name == name:
@@ -642,6 +647,8 @@ class Reference(QObject):
                 sectionNames.extend(['edge', 'signaturetype'])
             elif section.name == 'material':
                 sectionNames.extend(['material', 'material2'])
+            elif section.name == 'grade':
+                sectionNames.extend(['grade', 'buying_grade', 'sale_grade'])
             else:
                 sectionNames.append(section.name)
 
@@ -656,6 +663,8 @@ class Reference(QObject):
             section = 'edge'
         elif section in ('material', 'material2'):
             section = 'material'
+        elif section in ('grade', 'buying_grade', 'sale_grade'):
+            section = 'grade'
 
         table_name = f"ref_{section}"
         if table_name in self.sections_with_icons:
@@ -681,6 +690,8 @@ class Reference(QObject):
             section = 'edge'
         elif section in ('material', 'material2'):
             section = 'material'
+        elif section in ('grade', 'buying_grade', 'sale_grade'):
+            section = 'grade'
 
         sql = f"SELECT position FROM ref_{section} WHERE value=?"
         query = QSqlQuery(sql, self.db)
