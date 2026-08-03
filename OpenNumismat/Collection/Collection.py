@@ -85,7 +85,14 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
   ORDER BY id
   LIMIT 1
 )"""
-    JOIN_CATALOGS = "LEFT JOIN catalogs ON catalogs.coin_id = coins.id"
+    JOIN_CATALOGS = """
+LEFT JOIN catalogs ON catalogs.coin_id = (
+  SELECT id
+  FROM catalogs
+  WHERE coin_id = coins.id
+  ORDER BY id
+  LIMIT 1
+)"""
 
     def __init__(self, collection, parent=None):
         super().__init__(parent, collection.db)
