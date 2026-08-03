@@ -21,6 +21,7 @@ from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdi
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
+from OpenNumismat.EditCoinDialog.ExtTable import ExtTableLayout
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.Collection.CollectionFields import TitleTemplateFields
@@ -44,6 +45,7 @@ class DetailsTabWidget(QTabWidget):
         self.settings = model.settings
         self.map_item = None
         self.tags_item = None
+        self.catalog_table = None
 
         self.createItems()
         self.createPages()
@@ -107,14 +109,21 @@ class DetailsTabWidget(QTabWidget):
     def createClassificationPage(self):
         catalogue = self.catalogueLayout()
         rarity = self.rarityLayout()
-        price = self.priceLayout()
+        if self.settings['catalogs_table']:
+            catalog_table = self.catalogTableLayout()
+        else:
+            price = self.priceLayout()
         variation = self.variationLayout()
         url = self.urlLayout()
 
-        if not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
+        if self.settings['catalogs_table'] or not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
             title = self.settings['classification_group_title']
-            self.addTabPage(title, [catalogue, rarity, price, self.Stretch,
-                                    variation, url])
+            if self.settings['catalogs_table']:
+                self.addTabPage(title, [catalog_table, self.Stretch, catalogue, rarity,
+                                        variation, url])
+            else:
+                self.addTabPage(title, [catalogue, rarity, price, self.Stretch,
+                                        variation, url])
 
     def _layoutToWidget(self, layout):
         widget = QWidget(self)
@@ -226,6 +235,9 @@ class DetailsTabWidget(QTabWidget):
 
             if self.tags_item:
                 self.tags_item.fill(record)
+
+            if self.catalog_table:
+                self.catalog_table.fill(record)
 
     def _fillItem(self, record, item):
         if not record.isNull(item.field()):
@@ -477,6 +489,13 @@ class DetailsTabWidget(QTabWidget):
             layout.addRow(*pair)
 
         return layout
+
+    def catalogTableLayout(self):
+        for i in range(6):
+            self.items.pop(f'price{i+1}')
+
+        self.catalog_table = ExtTableLayout(self.settings, self.model.database(), 'catalogs', self)
+        return self.catalog_table
 
     def variationLayout(self):
         title = self.settings['classification_variation_group_title']

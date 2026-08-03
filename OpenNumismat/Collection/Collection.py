@@ -1269,6 +1269,7 @@ class CollectionSettings(BaseSettings):
             'sort_by_reference': True,
             'image_quality': 80,
             'obverse_reverse_weight': 0.5,
+            'catalogs_table': False,
     }
 
     def __init__(self, db):

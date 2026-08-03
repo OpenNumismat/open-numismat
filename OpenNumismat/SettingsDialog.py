@@ -744,6 +744,28 @@ class FieldsSettingsPage(QWidget):
         return childs
 
 
+class ExtFieldsSettingsPage(QWidget):
+
+    def __init__(self, collection, parent=None):
+        super().__init__(parent)
+
+        self.settings = collection.settings
+
+        layout = QFormLayout()
+        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+
+        self.catalogsTableEnabled = QCheckBox(self.tr("Use catalog table"), self)
+        self.catalogsTableEnabled.setChecked(self.settings['catalogs_table'])
+        layout.addRow(self.catalogsTableEnabled)
+
+        self.setLayout(layout)
+
+    def save(self):
+        self.settings['catalogs_table'] = self.catalogsTableEnabled.isChecked()
+
+        self.settings.save()
+
+
 class ImportSettingsPage(QWidget):
     Languages = (
         ('ar', 'العربية'), ('az', 'Azərbaycanca'), ('be', 'Беларуская'),
@@ -918,6 +940,12 @@ class SettingsDialog(QDialog):
             self.tab.addTab(fieldsPage, self.tr("Fields"))
         else:
             index = self.tab.addTab(QWidget(), self.tr("Fields"))
+            self.tab.setTabEnabled(index, False)
+        if collection.isOpen():
+            extFieldsPage = ExtFieldsSettingsPage(collection, self)
+            self.tab.addTab(extFieldsPage, self.tr("Ext fields"))
+        else:
+            index = self.tab.addTab(QWidget(), self.tr("Ext fields"))
             self.tab.setTabEnabled(index, False)
         if collection.isOpen():
             importPage = ImportSettingsPage(self)
