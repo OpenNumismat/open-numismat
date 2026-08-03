@@ -467,9 +467,14 @@ class DetailsTabWidget(QTabWidget):
         title = self.settings['classification_price_group_title']
         layout = BaseFormGroupBox(title)
 
-        layout.addRow(self.items['price6'], self.items['price5'])
-        layout.addRow(self.items['price4'], self.items['price3'])
-        layout.addRow(self.items['price2'], self.items['price1'])
+        visible_items = []
+        for i in range(6, 0, -1):
+            if not self.items[f'price{i}'].hidden:
+                visible_items.append(self.items[f'price{i}'])
+
+        for i in range(0, len(visible_items), 2):
+            pair = visible_items[i:i + 2]
+            layout.addRow(*pair)
 
         return layout
 
