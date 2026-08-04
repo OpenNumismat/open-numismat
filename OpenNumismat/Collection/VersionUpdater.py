@@ -724,6 +724,8 @@ class UpdaterTo11(_Updater):
 
         sql = "ALTER TABLE description ADD COLUMN icon BLOB"
         QSqlQuery(sql, self.db)
+        sql = "ALTER TABLE pages ADD COLUMN icon BLOB"
+        QSqlQuery(sql, self.db)
 
         sql = "ALTER TABLE prices ADD COLUMN url TEXT"
         QSqlQuery(sql, self.db)
