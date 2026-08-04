@@ -1,6 +1,6 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QStandardItemModel, QStandardItem
-from PySide6.QtWidgets import QDataWidgetMapper, QHBoxLayout, QPushButton, QTableView, QVBoxLayout
+from PySide6.QtWidgets import QHBoxLayout, QPushButton, QTableView, QVBoxLayout
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, FormItem
@@ -32,13 +32,8 @@ class ExtTableLayout(QVBoxLayout):
 
         self.model = QStandardItemModel(0, len(self.items), self)
 
-        self.mapper = QDataWidgetMapper(self)
-        self.mapper.setModel(self.model)
-        self.mapper.setSubmitPolicy(QDataWidgetMapper.SubmitPolicy.ManualSubmit)
-
         for i, item in enumerate(self.items):
             self.model.setHeaderData(i, Qt.Horizontal, item.title())
-            self.mapper.addMapping(item.widget(), i)
 
         self.table_view = QTableView(parent)
         self.table_view.setModel(self.model)
@@ -84,11 +79,26 @@ class ExtTableLayout(QVBoxLayout):
             return
 
         self.current_row = target_row
-        self.mapper.setCurrentIndex(target_row)
+        for i, item in enumerate(self.items):
+            table_item = self.model.item(self.current_row, i)
+            if table_item:
+                value = table_item.data(Qt.EditRole)
+                item.setValue(value)
+            else:
+                item.clear()
 
     def save_record(self):
         if self.current_row != -1:
-            self.mapper.submit()
+            for i, item in enumerate(self.items):
+                value = item.value()
+                if value:
+                    table_item = QStandardItem(str(value))
+                    table_item.setData(value, Qt.EditRole)
+                    self.model.setItem(self.current_row, i, table_item)
+                else:
+                    index = self.model.index(self.current_row, i);
+                    self.model.clearItemData(index)
+
             return True
 
         return False
@@ -99,14 +109,14 @@ class ExtTableLayout(QVBoxLayout):
 
         self.table_view.selectRow(row)
         self.current_row = row
-        self.mapper.setCurrentIndex(self.current_row)
+        for item in self.items:
+            item.clear()
 
     def delete_record(self):
         if self.current_row != -1:
             self.model.removeRow(self.current_row)
 
             self.current_row = -1
-            self.mapper.setCurrentIndex(-1)
             for item in self.items:
                 item.clear()
             self.table_view.selectionModel().clearSelection()
@@ -119,12 +129,13 @@ class ExtTableLayout(QVBoxLayout):
         for catalog_data in catalogs_data:
             for i, item in enumerate(self.items):
                 value = catalog_data[i]
-                table_item = QStandardItem(value)
-                self.model.setItem(row_idx, i, table_item)
+                if value:
+                    table_item = QStandardItem(str(value))
+                    table_item.setData(value, Qt.EditRole)
+                    self.model.setItem(row_idx, i, table_item)
             row_idx += 1
 
         self.current_row = -1
-        self.mapper.setCurrentIndex(-1)
         for item in self.items:
             item.clear()
 
@@ -134,6 +145,10 @@ class ExtTableLayout(QVBoxLayout):
             row = []
             for c in range(self.model.columnCount()):
                 item = self.model.item(r, c)
-                row.append(item.text() if item else None)
+                if item:
+                    value = item.data(Qt.EditRole)
+                    row.append(value)
+                else:
+                    row.append(None)
             catalogs.append(row)
         return catalogs

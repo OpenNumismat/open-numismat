@@ -1384,8 +1384,10 @@ class CurrencyEdit(QComboBox):
         if index >= 0:
             old_index = self.currentIndex()
             self.setCurrentIndex(index)
-            if old_index == index:
+            if old_index != index:
                 self.currentIndexChanged.emit(index)
+        else:
+            self.setCurrentIndex(0)
 
     def home(self, _mark):
         return
