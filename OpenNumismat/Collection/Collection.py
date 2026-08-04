@@ -331,7 +331,7 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
                     query.addBindValue(position)
                     for value in catalog_data:
                         query.addBindValue(value)
-                    print(query.exec(), query.lastError().text())
+                    query.exec()
 
                     position += 1
             else:
@@ -529,25 +529,26 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         coin_id = record.value('id')
 
         if self.settings['catalogs_table']:
-            query = QSqlQuery(self.database())
-            query.prepare("DELETE FROM catalogs WHERE coin_id=?")
-            query.addBindValue(coin_id)
-            query.exec()
-
-            position = 1
-            placeholders = ','.join(['?'] * len(ExtCatalogsFields))
-            for catalog_data in record.value('catalogs'):
+            if record.contains("catalogs"):
                 query = QSqlQuery(self.database())
-                query.prepare(f"INSERT INTO catalogs(coin_id, position, {','.join(ExtCatalogsFields)}) VALUES(?, ?, {placeholders})")
+                query.prepare("DELETE FROM catalogs WHERE coin_id=?")
                 query.addBindValue(coin_id)
-                query.addBindValue(position)
-                for value in catalog_data:
-                    query.addBindValue(value)
                 query.exec()
 
-                position += 1
+                position = 1
+                placeholders = ','.join(['?'] * len(ExtCatalogsFields))
+                for catalog_data in record.value('catalogs'):
+                    query = QSqlQuery(self.database())
+                    query.prepare(f"INSERT INTO catalogs(coin_id, position, {','.join(ExtCatalogsFields)}) VALUES(?, ?, {placeholders})")
+                    query.addBindValue(coin_id)
+                    query.addBindValue(position)
+                    for value in catalog_data:
+                        query.addBindValue(value)
+                    query.exec()
 
-            record.remove(record.indexOf('catalogs'))
+                    position += 1
+
+                record.remove(record.indexOf('catalogs'))
         else:
             self._setRecordExt(record, coin_id, 'catalogs', CatalogFields)
 

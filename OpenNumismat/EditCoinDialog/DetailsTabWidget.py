@@ -119,11 +119,11 @@ class DetailsTabWidget(QTabWidget):
         if self.settings['catalogs_table'] or not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
             title = self.settings['classification_group_title']
             if self.settings['catalogs_table']:
-                self.addTabPage(title, [catalog_table, self.Stretch, catalogue, rarity,
-                                        variation, url])
+                elements = [catalog_table, self.Stretch] if catalog_table else []
+                elements.extend([catalogue, rarity, variation, url])
             else:
-                self.addTabPage(title, [catalogue, rarity, price, self.Stretch,
-                                        variation, url])
+                elements = [catalogue, rarity, price, self.Stretch, variation, url]
+            self.addTabPage(title, elements)
 
     def _layoutToWidget(self, layout):
         widget = QWidget(self)
@@ -840,11 +840,14 @@ class FormDetailsTabWidget(DetailsTabWidget):
         return layout
 
     def catalogTableLayout(self):
-        for i in range(6):
-            self.items.pop(f'price{i+1}')
+        if not self.usedFields:
+            for i in range(6):
+                self.items.pop(f'price{i+1}')
 
-        self.catalog_table = ExtTableLayout(self.settings, False, self)
-        return self.catalog_table
+            self.catalog_table = ExtTableLayout(self.settings, False, self)
+            return self.catalog_table
+        else:
+            return None
 
     def variationLayout(self):
         title = self.settings['classification_variation_group_title']
