@@ -212,6 +212,11 @@ CatalogFields = {
     'price1': 'price1', 'price2': 'price2', 'price3': 'price3',
     'price4': 'price4', 'price5': 'price5', 'price6': 'price6',
 }
+ExtCatalogsFields = (
+    'catalog', 'year', 'number', 'currency',
+    'price8', 'price7', 'price6', 'price5',
+    'price4', 'price3', 'price2', 'price1',
+)
 
 
 @dataclass(slots=True)

@@ -494,7 +494,7 @@ class DetailsTabWidget(QTabWidget):
         for i in range(6):
             self.items.pop(f'price{i+1}')
 
-        self.catalog_table = ExtTableLayout(True, self.settings, self.model.database(), 'catalogs', self)
+        self.catalog_table = ExtTableLayout(self.settings, True, self)
         return self.catalog_table
 
     def variationLayout(self):
@@ -843,7 +843,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
         for i in range(6):
             self.items.pop(f'price{i+1}')
 
-        self.catalog_table = ExtTableLayout(False, self.settings, self.model.database(), 'catalogs', self)
+        self.catalog_table = ExtTableLayout(self.settings, False, self)
         return self.catalog_table
 
     def variationLayout(self):

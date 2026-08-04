@@ -1,5 +1,5 @@
 from PySide6.QtCore import Qt
-from PySide6.QtSql import QSqlTableModel
+from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import QDataWidgetMapper, QHBoxLayout, QPushButton, QTableView, QVBoxLayout
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
@@ -8,34 +8,8 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, FormItem
 
 class ExtTableLayout(QVBoxLayout):
 
-    def __init__(self, readonly, settings, db, table, parent):
+    def __init__(self, settings, readonly, parent):
         super().__init__()
-
-        self.model = QSqlTableModel(self, db)
-        self.model.setTable(table)
-        # self.model.setEditStrategy(QSqlTableModel.EditStrategy.OnRowChange)
-        self.model.select()
-        self.model.setFilter("FALSE")
-
-        self.mapper = QDataWidgetMapper(self)
-        self.mapper.setModel(self.model)
-        self.mapper.setSubmitPolicy(QDataWidgetMapper.SubmitPolicy.ManualSubmit)
-
-        self.table_view = QTableView(parent)
-        self.table_view.setModel(self.model)
-        self.table_view.setSelectionBehavior(QTableView.SelectionBehavior.SelectRows)
-        self.table_view.setSelectionMode(QTableView.SelectionMode.SingleSelection)
-        self.table_view.setEditTriggers(QTableView.NoEditTriggers)
-        self.table_view.verticalHeader().hide()
-        self.table_view.clicked.connect(self.handle_row_click)
-
-        for column_name in ('id', 'coin_id', 'position'):
-            column_index = self.model.fieldIndex(column_name)
-            self.table_view.hideColumn(column_index)
-
-        self.addWidget(self.table_view)
-
-        layout = BaseFormLayout()
 
         additional_type = 0
         if readonly:
@@ -56,11 +30,27 @@ class ExtTableLayout(QVBoxLayout):
             FormItem(settings, 'price1', self.tr("Fine"), Type.Money | additional_type),
         )
 
-        for item in self.items:
-            column_index = self.model.fieldIndex(item.field())
-            self.model.setHeaderData(column_index, Qt.Horizontal, item.title())
+        self.model = QStandardItemModel(0, len(self.items), self)
 
-            self.mapper.addMapping(item.widget(), column_index)
+        self.mapper = QDataWidgetMapper(self)
+        self.mapper.setModel(self.model)
+        self.mapper.setSubmitPolicy(QDataWidgetMapper.SubmitPolicy.ManualSubmit)
+
+        for i, item in enumerate(self.items):
+            self.model.setHeaderData(i, Qt.Horizontal, item.title())
+            self.mapper.addMapping(item.widget(), i)
+
+        self.table_view = QTableView(parent)
+        self.table_view.setModel(self.model)
+        self.table_view.setSelectionBehavior(QTableView.SelectionBehavior.SelectRows)
+        self.table_view.setSelectionMode(QTableView.SelectionMode.SingleSelection)
+        self.table_view.setEditTriggers(QTableView.NoEditTriggers)
+        self.table_view.verticalHeader().hide()
+        self.table_view.clicked.connect(self.handle_row_click)
+
+        self.addWidget(self.table_view)
+
+        layout = BaseFormLayout()
 
         layout.addRow(self.items[0], self.items[1])
         layout.addRow(self.items[2], self.items[3])
@@ -87,7 +77,6 @@ class ExtTableLayout(QVBoxLayout):
             self.addLayout(buttons_layout)
 
         self.current_row = -1
-        self.coin_id = -1
 
     def handle_row_click(self, index):
         target_row = index.row()
@@ -100,41 +89,51 @@ class ExtTableLayout(QVBoxLayout):
     def save_record(self):
         if self.current_row != -1:
             self.mapper.submit()
-            if self.model.submitAll():
-                return True
+            return True
 
         return False
 
     def add_record(self):
-        if self.coin_id != -1:
-            row = self.model.rowCount()
-            self.model.insertRow(row)
+        row = self.model.rowCount()
+        self.model.insertRow(row)
 
-            column_index = self.model.fieldIndex('coin_id')
-            self.model.setData(self.model.index(row, column_index), self.coin_id)
-
-            if self.model.submitAll():
-                self.model.select()
-                self.table_view.selectRow(row)
-                self.current_row = row
-                self.mapper.setCurrentIndex(self.current_row)
+        self.table_view.selectRow(row)
+        self.current_row = row
+        self.mapper.setCurrentIndex(self.current_row)
 
     def delete_record(self):
         if self.current_row != -1:
             self.model.removeRow(self.current_row)
-            self.model.submitAll()
-            self.model.select()
 
             self.current_row = -1
             self.mapper.setCurrentIndex(-1)
             for item in self.items:
                 item.clear()
+            self.table_view.selectionModel().clearSelection()
 
     def fill(self, record):
-        self.coin_id = record.value('id')
-        self.model.setFilter(f"coin_id = {self.coin_id}")
+        self.model.setRowCount(0)
+
+        row_idx = 0
+        catalogs_data = record.value('catalogs')
+        for catalog_data in catalogs_data:
+            for i, item in enumerate(self.items):
+                value = catalog_data[i]
+                table_item = QStandardItem(value)
+                self.model.setItem(row_idx, i, table_item)
+            row_idx += 1
 
         self.current_row = -1
         self.mapper.setCurrentIndex(-1)
         for item in self.items:
             item.clear()
+
+    def getCatalogs(self):
+        catalogs = []
+        for r in range(self.model.rowCount()):
+            row = []
+            for c in range(self.model.columnCount()):
+                item = self.model.item(r, c)
+                row.append(item.text() if item else None)
+            catalogs.append(row)
+        return catalogs
