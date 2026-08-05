@@ -1,6 +1,6 @@
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QSettings
 from PySide6.QtGui import QStandardItemModel, QStandardItem
-from PySide6.QtWidgets import QHBoxLayout, QPushButton, QTableView, QVBoxLayout
+from PySide6.QtWidgets import QCheckBox, QHBoxLayout, QMessageBox, QPushButton, QTableView, QVBoxLayout
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, FormItem
@@ -10,6 +10,9 @@ class ExtTableLayout(QVBoxLayout):
 
     def __init__(self, settings, readonly, parent):
         super().__init__()
+
+        self.parent = parent
+        self.readonly = readonly
 
         additional_type = 0
         if readonly:
@@ -56,17 +59,19 @@ class ExtTableLayout(QVBoxLayout):
 
         self.addLayout(layout)
 
-        if not readonly:
+        if not self.readonly:
             buttons_layout = QHBoxLayout()
 
             self.btn_save = QPushButton(self.tr("Save"))
             self.btn_save.clicked.connect(self.save_record)
+            self.btn_save.setDisabled(True)
             buttons_layout.addWidget(self.btn_save)
             self.btn_add = QPushButton(self.tr("Add"))
             self.btn_add.clicked.connect(self.add_record)
             buttons_layout.addWidget(self.btn_add)
             self.btn_delete = QPushButton(self.tr("Delete"))
             self.btn_delete.clicked.connect(self.delete_record)
+            self.btn_delete.setDisabled(True)
             buttons_layout.addWidget(self.btn_delete)
 
             self.addLayout(buttons_layout)
@@ -86,6 +91,10 @@ class ExtTableLayout(QVBoxLayout):
                 item.setValue(value)
             else:
                 item.clear()
+
+        if not self.readonly:
+            self.btn_save.setEnabled(True)
+            self.btn_delete.setEnabled(True)
 
     def save_record(self):
         if self.current_row != -1:
@@ -114,12 +123,32 @@ class ExtTableLayout(QVBoxLayout):
 
     def delete_record(self):
         if self.current_row != -1:
+            key = 'show_warn/confirm_delete_catalogs'
+            settings = QSettings()
+            show = settings.value(key, True, type=bool)
+            if show:
+                msg_box = QMessageBox(QMessageBox.Warning, self.tr("Delete"),
+                                      self.tr("Are you sure to remove entry?"),
+                                      QMessageBox.Yes | QMessageBox.Cancel,
+                                      self.parent)
+                msg_box.setDefaultButton(QMessageBox.Cancel)
+                cb = QCheckBox(self.tr("Don't show this again"))
+                msg_box.setCheckBox(cb)
+                result = msg_box.exec()
+                if result != QMessageBox.Yes:
+                    return
+                else:
+                    if cb.isChecked():
+                        settings.setValue(key, False)
+
             self.model.removeRow(self.current_row)
 
             self.current_row = -1
             for item in self.items:
                 item.clear()
             self.table_view.selectionModel().clearSelection()
+            self.btn_save.setDisabled(True)
+            self.btn_delete.setDisabled(True)
 
     def fill(self, record):
         self.model.setRowCount(0)
