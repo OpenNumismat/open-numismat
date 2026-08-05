@@ -8,18 +8,22 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, FormItem
 
 class ExtTableLayout(QVBoxLayout):
 
-    def __init__(self, settings, readonly, parent):
+    def __init__(self, reference, settings, readonly, parent):
         super().__init__()
 
         self.parent = parent
         self.readonly = readonly
 
         additional_type = 0
+        catalog_section = None
         if readonly:
             additional_type = Type.Disabled
+        else:
+            catalog_section = reference.section('catalog')
 
         self.items = (
-            FormItem(settings, 'catalog', self.tr("Catalog"), Type.String | additional_type),
+            FormItem(settings, 'catalog', self.tr("Catalog"), Type.String | additional_type,
+                     reference=reference, section=catalog_section),
             FormItem(settings, 'catalogs.year', self.tr("Year"), Type.Number | additional_type),
             FormItem(settings, 'number', self.tr("#"), Type.String | additional_type),
             FormItem(settings, 'currency', self.tr("Currency"), Type.String | additional_type),
