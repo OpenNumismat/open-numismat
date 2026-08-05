@@ -73,18 +73,6 @@ class EditCoinDialog(QDialog):
         self.setWindowTitle(' - '.join(title))
 
     def save(self):
-        # Clear unused fields
-        status = self.items['status'].widget().data()
-        if status in ('demo', 'wish'):
-            for key in ('paydate', 'payprice', 'totalpayprice', 'saller',
-                        'payplace', 'payinfo'):
-                self.items[key].clear()
-        if status in ('demo', 'wish', 'owned', 'sale', 'ordered', 'missing',
-                      'bidding', 'duplicate', 'replacement'):
-            for key in ('saledate', 'saleprice', 'totalsaleprice', 'buyer',
-                        'saleplace', 'saleinfo'):
-                self.items[key].clear()
-
         settings = QSettings()
         key = 'show_info/save_without_title'
         show = settings.value(key, True, type=bool)
@@ -105,49 +93,62 @@ class EditCoinDialog(QDialog):
                         if cb.isChecked():
                             settings.setValue(key, False)
 
-        # Checking that TotalPrice not less than Price
-        payprice_str = self.items['payprice'].value()
-        totalpayprice_str = self.items['totalpayprice'].value()
-        if totalpayprice_str:
-            totalpayprice = stringToMoney(totalpayprice_str)
-            if totalpayprice < 0:
-                result = QMessageBox.warning(self, self.tr("Save"),
-                                self.tr("Total paid price is negative. Save?"),
+        if not self.tab.prices_table:
+            # Clear unused fields
+            status = self.items['status'].widget().data()
+            if status in ('demo', 'wish'):
+                for key in ('paydate', 'payprice', 'totalpayprice', 'saller',
+                            'payplace', 'payinfo'):
+                    self.items[key].clear()
+            if status in ('demo', 'wish', 'owned', 'sale', 'ordered', 'missing',
+                          'bidding', 'duplicate', 'replacement'):
+                for key in ('saledate', 'saleprice', 'totalsaleprice', 'buyer',
+                            'saleplace', 'saleinfo'):
+                    self.items[key].clear()
+
+            # Checking that TotalPrice not less than Price
+            payprice_str = self.items['payprice'].value()
+            totalpayprice_str = self.items['totalpayprice'].value()
+            if totalpayprice_str:
+                totalpayprice = stringToMoney(totalpayprice_str)
+                if totalpayprice < 0:
+                    result = QMessageBox.warning(self, self.tr("Save"),
+                                    self.tr("Total paid price is negative. Save?"),
+                                    QMessageBox.Save | QMessageBox.No,
+                                    QMessageBox.No)
+                    if result != QMessageBox.Save:
+                        return
+            if payprice_str and totalpayprice_str:
+                payprice = stringToMoney(payprice_str)
+                if totalpayprice < payprice:
+                    result = QMessageBox.warning(self, self.tr("Save"),
+                                self.tr("Pay price is great than total "
+                                        "paid price. Save?"),
                                 QMessageBox.Save | QMessageBox.No,
                                 QMessageBox.No)
-                if result != QMessageBox.Save:
-                    return
-        if payprice_str and totalpayprice_str:
-            payprice = stringToMoney(payprice_str)
-            if totalpayprice < payprice:
-                result = QMessageBox.warning(self, self.tr("Save"),
-                            self.tr("Pay price is great than total "
-                                    "paid price. Save?"),
-                            QMessageBox.Save | QMessageBox.No,
-                            QMessageBox.No)
-                if result != QMessageBox.Save:
-                    return
-        saleprice_str = self.items['saleprice'].value()
-        totalsaleprice_str = self.items['totalsaleprice'].value()
-        if totalsaleprice_str:
-            totalsaleprice = stringToMoney(totalsaleprice_str)
-            if totalsaleprice < 0:
-                result = QMessageBox.warning(self, self.tr("Save"),
-                                self.tr("Total revenue price is negative. Save?"),
+                    if result != QMessageBox.Save:
+                        return
+            saleprice_str = self.items['saleprice'].value()
+            totalsaleprice_str = self.items['totalsaleprice'].value()
+            if totalsaleprice_str:
+                totalsaleprice = stringToMoney(totalsaleprice_str)
+                if totalsaleprice < 0:
+                    result = QMessageBox.warning(self, self.tr("Save"),
+                                    self.tr("Total revenue price is negative. Save?"),
+                                    QMessageBox.Save | QMessageBox.No,
+                                    QMessageBox.No)
+                    if result != QMessageBox.Save:
+                        return
+            if saleprice_str and totalsaleprice_str:
+                saleprice = stringToMoney(saleprice_str)
+                if saleprice < totalsaleprice:
+                    result = QMessageBox.warning(self, self.tr("Save"),
+                                self.tr("Sale price is less than total "
+                                        "revenue price. Save?"),
                                 QMessageBox.Save | QMessageBox.No,
                                 QMessageBox.No)
-                if result != QMessageBox.Save:
-                    return
-        if saleprice_str and totalsaleprice_str:
-            saleprice = stringToMoney(saleprice_str)
-            if saleprice < totalsaleprice:
-                result = QMessageBox.warning(self, self.tr("Save"),
-                            self.tr("Sale price is less than total "
-                                    "revenue price. Save?"),
-                            QMessageBox.Save | QMessageBox.No,
-                            QMessageBox.No)
-                if result != QMessageBox.Save:
-                    return
+                    if result != QMessageBox.Save:
+                        return
 
         for item in self.items.values():
             value = item.value()
@@ -165,6 +166,10 @@ class EditCoinDialog(QDialog):
         if self.tab.catalog_table:
             catalogs = self.tab.catalog_table.getCatalogs()
             self.record.setValue('catalogs', catalogs)
+
+        if self.tab.prices_table:
+            prices = self.tab.prices_table.getPrices()
+            self.record.setValue('prices', prices)
 
         if self.tab.tags_item:
             tag_ids = self.tab.tags_item.getTags()

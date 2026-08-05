@@ -758,10 +758,15 @@ class ExtFieldsSettingsPage(QWidget):
         self.catalogsTableEnabled.setChecked(self.settings['catalogs_table'])
         layout.addRow(self.catalogsTableEnabled)
 
+        self.pricesTableEnabled = QCheckBox(self.tr("Use prices table"), self)
+        self.pricesTableEnabled.setChecked(self.settings['prices_table'])
+        layout.addRow(self.pricesTableEnabled)
+
         self.setLayout(layout)
 
     def save(self):
         self.settings['catalogs_table'] = self.catalogsTableEnabled.isChecked()
+        self.settings['prices_table'] = self.pricesTableEnabled.isChecked()
 
         self.settings.save()
 

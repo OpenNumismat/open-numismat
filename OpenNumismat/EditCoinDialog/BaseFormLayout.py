@@ -60,6 +60,8 @@ class FormItem(object):
                     self._widget = RatingEdit(settings['stars_count'], parent)
                 elif self._field in ('buying_currency', 'sale_currency', 'currency'):
                     self._widget = CurrencyEdit(parent)
+                elif self._field in ('action'):
+                    self._widget = PriceActionEdit(parent)
                 else:
                     self._widget = LineEdit(parent)
         elif self._type == Type.ShortString:

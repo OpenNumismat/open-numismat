@@ -21,9 +21,9 @@ from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdi
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
-from OpenNumismat.EditCoinDialog.ExtTable import ExtTableLayout
+from OpenNumismat.EditCoinDialog.ExtTable import ExtTableLayout, PricesTableLayout
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import ImageFields
+from OpenNumismat.Collection.CollectionFields import ImageFields, BuyPriceFields, SellPriceFields, CatalogFields
 from OpenNumismat.Collection.CollectionFields import TitleTemplateFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
@@ -46,13 +46,17 @@ class DetailsTabWidget(QTabWidget):
         self.map_item = None
         self.tags_item = None
         self.catalog_table = None
+        self.prices_table = None
 
         self.createItems()
         self.createPages()
 
     def createPages(self):
         self.createCoinPage()
-        self.createTrafficPage()
+        if self.settings['prices_table']:
+            self.createPricesPage()
+        else:
+            self.createTrafficPage()
         if self.settings['tags_used']:
             self.createTagsPage()
         self.createMapPage()
@@ -85,6 +89,11 @@ class DetailsTabWidget(QTabWidget):
     def createTrafficPage(self):
         title = self.settings['market_group_title']
         self.addTabPage(title, [])
+
+    def createPricesPage(self):
+        self.prices_table = self.pricesTableLayout()
+
+        self.addTabPage(self.tr("Prices"), [self.prices_table, ])
 
     def createParametersPage(self):
         parameters = self.parametersLayout()
@@ -238,6 +247,9 @@ class DetailsTabWidget(QTabWidget):
 
             if self.catalog_table:
                 self.catalog_table.fill(record)
+
+            if self.prices_table:
+                self.prices_table.fill(record)
 
     def _fillItem(self, record, item):
         if not record.isNull(item.field()):
@@ -491,11 +503,21 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def catalogTableLayout(self):
-        for i in range(6):
-            self.items.pop(f'price{i+1}')
+        for field_name in CatalogFields.keys():
+            self.items.pop(field_name)
 
-        self.catalog_table = ExtTableLayout(self.reference, self.settings, True, self)
-        return self.catalog_table
+        catalog_table = ExtTableLayout(self.reference, self.settings, True, self)
+        return catalog_table
+
+    def pricesTableLayout(self):
+        for field_name in BuyPriceFields.keys():
+            self.items.pop(field_name)
+
+        for field_name in SellPriceFields.keys():
+            self.items.pop(field_name)
+
+        prices_table = PricesTableLayout(self.reference, self.settings, True, self)
+        return prices_table
 
     def variationLayout(self):
         title = self.settings['classification_variation_group_title']
@@ -569,6 +591,9 @@ class DetailsTabWidget(QTabWidget):
         return pageParts
 
     def indexChangedState(self, index):
+        if self.settings['prices_table']:
+            return
+
         pageIndex = self.currentIndex()
 
         self.removeTab(1)
@@ -673,7 +698,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def createPages(self):
         self.createCoinPage()
         self.oldStatus = 'demo'
-        self.createTrafficPage()
+        if self.settings['prices_table']:
+            self.createPricesPage()
+        else:
+            self.createTrafficPage()
         if self.settings['tags_used']:
             self.createTagsPage()
         self.createMapPage()
@@ -841,11 +869,24 @@ class FormDetailsTabWidget(DetailsTabWidget):
 
     def catalogTableLayout(self):
         if not self.usedFields:
-            for i in range(6):
-                self.items.pop(f'price{i+1}')
+            for field_name in CatalogFields.keys():
+                self.items.pop(field_name)
 
-            self.catalog_table = ExtTableLayout(self.reference, self.settings, False, self)
-            return self.catalog_table
+            catalog_table = ExtTableLayout(self.reference, self.settings, False, self)
+            return catalog_table
+        else:
+            return None
+
+    def pricesTableLayout(self):
+        if not self.usedFields:
+            for field_name in BuyPriceFields.keys():
+                self.items.pop(field_name)
+
+            for field_name in SellPriceFields.keys():
+                self.items.pop(field_name)
+
+            prices_table = PricesTableLayout(self.reference, self.settings, False, self)
+            return prices_table
         else:
             return None
 

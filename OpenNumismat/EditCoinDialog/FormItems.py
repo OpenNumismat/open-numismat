@@ -1391,3 +1391,51 @@ class CurrencyEdit(QComboBox):
 
     def home(self, _mark):
         return
+
+
+class PriceActionEdit(QComboBox):
+    Actions = (
+        ('buy', QT_TRANSLATE_NOOP("PriceAction", "Buy")),
+        ('sell', QT_TRANSLATE_NOOP("PriceAction", "Sell")),
+        ('auction', QT_TRANSLATE_NOOP("PriceAction", "Auction")),
+    )
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setMinimumWidth(120)
+        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+
+        for code, title in self.Actions:
+            if code == 'buy':
+                self.addItem(statusIcon('owned'), title, code)
+            elif code == 'sell':
+                self.addItem(statusIcon('sold'), title, code)
+            elif code == 'auction':
+                self.addItem(statusIcon('pass'), title, code)
+            else:
+                self.addItem(title, code)
+
+    def clear(self):
+        if self.isEnabled():
+            self.setCurrentIndex(0)
+        else:
+            self.setCurrentIndex(-1)
+
+    def setReadOnly(self, b):
+        self.setEnabled(not b)
+
+    def text(self):
+        return self.currentData()
+
+    def setText(self, text):
+        index = self.findData(text)
+        if index >= 0:
+            old_index = self.currentIndex()
+            self.setCurrentIndex(index)
+            if old_index != index:
+                self.currentIndexChanged.emit(index)
+        else:
+            self.setCurrentIndex(0)
+
+    def home(self, _mark):
+        return

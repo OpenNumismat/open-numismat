@@ -44,7 +44,7 @@ from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.CollectionFields import ImageFields
-from OpenNumismat.Collection.CollectionFields import BuyPriceFields, SellPriceFields, CatalogFields, ExtCatalogsFields
+from OpenNumismat.Collection.CollectionFields import BuyPriceFields, SellPriceFields, CatalogFields, ExtCatalogsFields, ExtPricesFields
 from OpenNumismat.Collection.CollectionPages import CollectionPages
 from OpenNumismat.Collection.Password import cryptPassword, PasswordDialog
 from OpenNumismat.Collection.Description import CollectionDescription
@@ -285,6 +285,9 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         catalogs = record.value('catalogs')
         record.remove(record.indexOf('catalogs'))
 
+        prices = record.value('prices')
+        record.remove(record.indexOf('prices'))
+
         catalog_record_values = []
         for rec_field in CatalogFields.keys():
             catalog_record_values.append(record.value(rec_field) or None)
@@ -338,16 +341,30 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
                 if any(catalog_record_values):
                     self._insertRecordExt(catalog_record_values, coin_id, 'catalogs', CatalogFields)
 
-            if any(buy_price_record_values):
-                self._insertRecordExt(buy_price_record_values, coin_id, 'prices', BuyPriceFields,
-                                      condition_col='action', condition_val='buy')
-            if any(sell_price_record_values):
-                if status == 'pass':
-                    action = 'auction'
-                else:
-                    action = 'sell'
-                self._insertRecordExt(sell_price_record_values, coin_id, 'prices', SellPriceFields,
-                                      condition_col='action', condition_val=action)
+            if self.settings['prices_table']:
+                position = 1
+                placeholders = ','.join(['?'] * len(ExtPricesFields))
+                for price_data in prices:
+                    query = QSqlQuery(self.database())
+                    query.prepare(f"INSERT INTO prices(coin_id, position, {','.join(ExtPricesFields)}) VALUES(?, ?, {placeholders})")
+                    query.addBindValue(coin_id)
+                    query.addBindValue(position)
+                    for value in price_data:
+                        query.addBindValue(value)
+                    query.exec()
+
+                    position += 1
+            else:
+                if any(buy_price_record_values):
+                    self._insertRecordExt(buy_price_record_values, coin_id, 'prices', BuyPriceFields,
+                                          condition_col='action', condition_val='buy')
+                if any(sell_price_record_values):
+                    if status == 'pass':
+                        action = 'auction'
+                    else:
+                        action = 'sell'
+                    self._insertRecordExt(sell_price_record_values, coin_id, 'prices', SellPriceFields,
+                                          condition_col='action', condition_val=action)
 
         if rowCount < self.rowCount():  # inserted row visible in current model
             if self.insertedRowIndex.isValid():
@@ -529,7 +546,7 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         coin_id = record.value('id')
 
         if self.settings['catalogs_table']:
-            if record.contains("catalogs"):
+            if record.contains('catalogs'):
                 query = QSqlQuery(self.database())
                 query.prepare("DELETE FROM catalogs WHERE coin_id=?")
                 query.addBindValue(coin_id)
@@ -552,11 +569,33 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         else:
             self._setRecordExt(record, coin_id, 'catalogs', CatalogFields)
 
-        self._setRecordExt(record, coin_id, 'prices', BuyPriceFields,
-                           condition_col='action', condition_val='buy')
-        self._setRecordExt(record, coin_id, 'prices', SellPriceFields,
-                           condition_col='action', condition_val='sell')
-        # TODO: Process pass status
+        if self.settings['prices_table']:
+            if record.contains('prices'):
+                query = QSqlQuery(self.database())
+                query.prepare("DELETE FROM prices WHERE coin_id=?")
+                query.addBindValue(coin_id)
+                query.exec()
+
+                position = 1
+                placeholders = ','.join(['?'] * len(ExtPricesFields))
+                for price_data in record.value('prices'):
+                    query = QSqlQuery(self.database())
+                    query.prepare(f"INSERT INTO prices(coin_id, position, {','.join(ExtPricesFields)}) VALUES(?, ?, {placeholders})")
+                    query.addBindValue(coin_id)
+                    query.addBindValue(position)
+                    for value in price_data:
+                        query.addBindValue(value)
+                    query.exec()
+
+                    position += 1
+
+                record.remove(record.indexOf('prices'))
+        else:
+            self._setRecordExt(record, coin_id, 'prices', BuyPriceFields,
+                               condition_col='action', condition_val='buy')
+            self._setRecordExt(record, coin_id, 'prices', SellPriceFields,
+                               condition_col='action', condition_val='sell')
+            # TODO: Process pass status
 
         for field in self.fields.externalFields:
             record.remove(record.indexOf(field.name))
@@ -721,6 +760,24 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
 
             record.append(QSqlField('catalogs'))
             record.setValue('catalogs', catalogs)
+
+        if self.settings['prices_table']:
+            prices = []
+            if coin_id:
+                query = QSqlQuery(self.database())
+                query.prepare(f"SELECT * FROM prices WHERE coin_id=?")
+                query.addBindValue(coin_id)
+                query.exec()
+
+                while query.next():
+                    price_data = []
+                    for column_name in ExtPricesFields:
+                        value = query.record().value(column_name)
+                        price_data.append(value)
+                    prices.append(price_data)
+
+            record.append(QSqlField('prices'))
+            record.setValue('prices', prices)
 
         return record
 
@@ -1336,6 +1393,7 @@ class CollectionSettings(BaseSettings):
             'image_quality': 80,
             'obverse_reverse_weight': 0.5,
             'catalogs_table': False,
+            'prices_table': False,
     }
 
     def __init__(self, db):
