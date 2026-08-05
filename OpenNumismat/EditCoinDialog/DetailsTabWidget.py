@@ -21,7 +21,7 @@ from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdi
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
-from OpenNumismat.EditCoinDialog.ExtTable import ExtTableLayout, PricesTableLayout
+from OpenNumismat.EditCoinDialog.ExtTable import CatalogTableLayout, PricesTableLayout
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import ImageFields, BuyPriceFields, SellPriceFields, CatalogFields
 from OpenNumismat.Collection.CollectionFields import TitleTemplateFields
@@ -119,7 +119,7 @@ class DetailsTabWidget(QTabWidget):
         catalogue = self.catalogueLayout()
         rarity = self.rarityLayout()
         if self.settings['catalogs_table']:
-            catalog_table = self.catalogTableLayout()
+            self.catalog_table = self.catalogTableLayout()
         else:
             price = self.priceLayout()
         variation = self.variationLayout()
@@ -128,7 +128,7 @@ class DetailsTabWidget(QTabWidget):
         if self.settings['catalogs_table'] or not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
             title = self.settings['classification_group_title']
             if self.settings['catalogs_table']:
-                elements = [catalog_table, self.Stretch] if catalog_table else []
+                elements = [self.catalog_table, self.Stretch] if self.catalog_table else []
                 elements.extend([catalogue, rarity, variation, url])
             else:
                 elements = [catalogue, rarity, price, self.Stretch, variation, url]
@@ -246,10 +246,10 @@ class DetailsTabWidget(QTabWidget):
                 self.tags_item.fill(record)
 
             if self.catalog_table:
-                self.catalog_table.fill(record)
+                self.catalog_table.fill(record.value('catalogs'))
 
             if self.prices_table:
-                self.prices_table.fill(record)
+                self.prices_table.fill(record.value('prices'))
 
     def _fillItem(self, record, item):
         if not record.isNull(item.field()):
@@ -506,7 +506,7 @@ class DetailsTabWidget(QTabWidget):
         for field_name in CatalogFields.keys():
             self.items.pop(field_name)
 
-        catalog_table = ExtTableLayout(self.reference, self.settings, True, self)
+        catalog_table = CatalogTableLayout(self.reference, self.settings, True, self)
         return catalog_table
 
     def pricesTableLayout(self):
@@ -872,7 +872,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
             for field_name in CatalogFields.keys():
                 self.items.pop(field_name)
 
-            catalog_table = ExtTableLayout(self.reference, self.settings, False, self)
+            catalog_table = CatalogTableLayout(self.reference, self.settings, False, self)
             return catalog_table
         else:
             return None

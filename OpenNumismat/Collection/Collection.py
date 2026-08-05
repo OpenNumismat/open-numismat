@@ -325,35 +325,13 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
                 query.exec()
 
             if self.settings['catalogs_table']:
-                position = 1
-                placeholders = ','.join(['?'] * len(ExtCatalogsFields))
-                for catalog_data in catalogs:
-                    query = QSqlQuery(self.database())
-                    query.prepare(f"INSERT INTO catalogs(coin_id, position, {','.join(ExtCatalogsFields)}) VALUES(?, ?, {placeholders})")
-                    query.addBindValue(coin_id)
-                    query.addBindValue(position)
-                    for value in catalog_data:
-                        query.addBindValue(value)
-                    query.exec()
-
-                    position += 1
+                self._setTableExt(catalogs, coin_id, 'catalogs', ExtCatalogsFields)
             else:
                 if any(catalog_record_values):
                     self._insertRecordExt(catalog_record_values, coin_id, 'catalogs', CatalogFields)
 
             if self.settings['prices_table']:
-                position = 1
-                placeholders = ','.join(['?'] * len(ExtPricesFields))
-                for price_data in prices:
-                    query = QSqlQuery(self.database())
-                    query.prepare(f"INSERT INTO prices(coin_id, position, {','.join(ExtPricesFields)}) VALUES(?, ?, {placeholders})")
-                    query.addBindValue(coin_id)
-                    query.addBindValue(position)
-                    for value in price_data:
-                        query.addBindValue(value)
-                    query.exec()
-
-                    position += 1
+                self._setTableExt(prices, coin_id, 'prices', ExtPricesFields)
             else:
                 if any(buy_price_record_values):
                     self._insertRecordExt(buy_price_record_values, coin_id, 'prices', BuyPriceFields,
@@ -478,6 +456,25 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
                     record_values.append(record.value(rec_field) or None)
                 self._insertRecordExt(record_values, coin_id, table, field_map, condition_col, condition_val)
 
+    def _setTableExt(self, record_values, coin_id, table, fields):
+        query = QSqlQuery(self.database())
+
+        query.prepare(f"DELETE FROM {table} WHERE coin_id=?")
+        query.addBindValue(coin_id)
+        query.exec()
+
+        position = 1
+        placeholders = ','.join(['?'] * len(fields))
+        for data in record_values:
+            query.prepare(f"INSERT INTO {table}(coin_id, position, {','.join(fields)}) VALUES(?, ?, {placeholders})")
+            query.addBindValue(coin_id)
+            query.addBindValue(position)
+            for value in data:
+                query.addBindValue(value)
+            query.exec()
+
+            position += 1
+
     def setRecord(self, row, record):
         self._updateRecord(record)
 
@@ -547,23 +544,8 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
 
         if self.settings['catalogs_table']:
             if record.contains('catalogs'):
-                query = QSqlQuery(self.database())
-                query.prepare("DELETE FROM catalogs WHERE coin_id=?")
-                query.addBindValue(coin_id)
-                query.exec()
-
-                position = 1
-                placeholders = ','.join(['?'] * len(ExtCatalogsFields))
-                for catalog_data in record.value('catalogs'):
-                    query = QSqlQuery(self.database())
-                    query.prepare(f"INSERT INTO catalogs(coin_id, position, {','.join(ExtCatalogsFields)}) VALUES(?, ?, {placeholders})")
-                    query.addBindValue(coin_id)
-                    query.addBindValue(position)
-                    for value in catalog_data:
-                        query.addBindValue(value)
-                    query.exec()
-
-                    position += 1
+                catalogs = record.value('catalogs')
+                self._setTableExt(catalogs, coin_id, 'catalogs', ExtCatalogsFields)
 
                 record.remove(record.indexOf('catalogs'))
         else:
@@ -571,23 +553,8 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
 
         if self.settings['prices_table']:
             if record.contains('prices'):
-                query = QSqlQuery(self.database())
-                query.prepare("DELETE FROM prices WHERE coin_id=?")
-                query.addBindValue(coin_id)
-                query.exec()
-
-                position = 1
-                placeholders = ','.join(['?'] * len(ExtPricesFields))
-                for price_data in record.value('prices'):
-                    query = QSqlQuery(self.database())
-                    query.prepare(f"INSERT INTO prices(coin_id, position, {','.join(ExtPricesFields)}) VALUES(?, ?, {placeholders})")
-                    query.addBindValue(coin_id)
-                    query.addBindValue(position)
-                    for value in price_data:
-                        query.addBindValue(value)
-                    query.exec()
-
-                    position += 1
+                prices = record.value('prices')
+                self._setTableExt(prices, coin_id, 'prices', ExtPricesFields)
 
                 record.remove(record.indexOf('prices'))
         else:
