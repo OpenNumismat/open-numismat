@@ -41,13 +41,13 @@ class BaseExtTableLayout(QVBoxLayout):
         if not self.readonly:
             buttons_layout = QHBoxLayout()
 
+            self.btn_add = QPushButton(self.tr("Add"))
+            self.btn_add.clicked.connect(self.add_record)
+            buttons_layout.addWidget(self.btn_add)
             self.btn_save = QPushButton(self.tr("Save"))
             self.btn_save.clicked.connect(self.save_record)
             self.btn_save.setDisabled(True)
             buttons_layout.addWidget(self.btn_save)
-            self.btn_add = QPushButton(self.tr("Add"))
-            self.btn_add.clicked.connect(self.add_record)
-            buttons_layout.addWidget(self.btn_add)
             self.btn_delete = QPushButton(self.tr("Delete"))
             self.btn_delete.clicked.connect(self.delete_record)
             self.btn_delete.setDisabled(True)
@@ -147,9 +147,14 @@ class BaseExtTableLayout(QVBoxLayout):
                     self.model.setItem(row_idx, i, table_item)
             row_idx += 1
 
-        self.current_row = -1
-        for item in self.items:
-            item.clear()
+        if row_idx > 0:
+            self.table_view.selectRow(row_idx - 1)
+            index = self.model.index(row_idx - 1, 0)
+            self.handle_row_click(index)
+        else:
+            self.current_row = -1
+            for item in self.items:
+                item.clear()
 
     def getData(self):
         data = []
