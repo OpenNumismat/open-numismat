@@ -760,6 +760,7 @@ class ExtFieldsSettingsPage(QWidget):
         layout.addRow(self.catalogsTableEnabled)
 
         catalogs_table_list = QListWidget(self)
+        catalogs_table_list.setDragDropMode(QListWidget.InternalMove)
         catalogs_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
                                           QSizePolicy.Policy.Fixed)
         catalogs_table_list.setEnabled(self.settings['catalogs_table'])
@@ -772,7 +773,8 @@ class ExtFieldsSettingsPage(QWidget):
             item = QListWidgetItem(field.title)
             item.setData(self.DataRole, field.name)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
-                          Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+                          Qt.ItemIsEnabled | Qt.ItemIsSelectable |
+                          Qt.ItemFlag.ItemIsDragEnabled)
             checked = Qt.Unchecked
             if field.enabled:
                 checked = Qt.Checked
@@ -785,8 +787,9 @@ class ExtFieldsSettingsPage(QWidget):
         layout.addRow(self.pricesTableEnabled)
 
         prices_table_list = QListWidget(self)
+        prices_table_list.setDragDropMode(QListWidget.InternalMove)
         prices_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
-                                          QSizePolicy.Policy.Fixed)
+                                        QSizePolicy.Policy.Fixed)
         prices_table_list.setEnabled(self.settings['prices_table'])
         self.pricesTableEnabled.toggled.connect(prices_table_list.setEnabled)
         layout.addRow(prices_table_list)
@@ -797,7 +800,8 @@ class ExtFieldsSettingsPage(QWidget):
             item = QListWidgetItem(field.title)
             item.setData(self.DataRole, field.name)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
-                          Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+                          Qt.ItemIsEnabled | Qt.ItemIsSelectable |
+                          Qt.ItemFlag.ItemIsDragEnabled)
             checked = Qt.Unchecked
             if field.enabled:
                 checked = Qt.Checked
