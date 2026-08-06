@@ -44,8 +44,9 @@ from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.CollectionFields import ImageFields
-from OpenNumismat.Collection.CollectionFields import BuyPriceFields, SellPriceFields, CatalogFields, ExtCatalogsFields, ExtPricesFields
+from OpenNumismat.Collection.CollectionFields import BuyPriceFields, SellPriceFields, CatalogFields
 from OpenNumismat.Collection.CollectionPages import CollectionPages
+from OpenNumismat.Collection.ExtFields import ExtFields
 from OpenNumismat.Collection.Password import cryptPassword, PasswordDialog
 from OpenNumismat.Collection.Description import CollectionDescription
 from OpenNumismat.Reference.Reference import Reference
@@ -105,6 +106,8 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         self.fields = collection.fields
         self.description = collection.description
         self.settings = collection.settings
+        self.catalog_fields = collection.catalog_fields
+        self.prices_fields = collection.prices_fields
         self.proxy = None
         self.photo_order_map = {}
         self.icon = None
@@ -325,13 +328,13 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
                 query.exec()
 
             if self.settings['catalogs_table']:
-                self._setTableExt(catalogs, coin_id, 'catalogs', ExtCatalogsFields)
+                self._setTableExt(catalogs, coin_id, 'catalogs', self.catalog_fields)
             else:
                 if any(catalog_record_values):
                     self._insertRecordExt(catalog_record_values, coin_id, 'catalogs', CatalogFields)
 
             if self.settings['prices_table']:
-                self._setTableExt(prices, coin_id, 'prices', ExtPricesFields)
+                self._setTableExt(prices, coin_id, 'prices', self.prices_fields)
             else:
                 if any(buy_price_record_values):
                     self._insertRecordExt(buy_price_record_values, coin_id, 'prices', BuyPriceFields,
@@ -466,7 +469,7 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         position = 1
         placeholders = ','.join(['?'] * len(fields))
         for data in record_values:
-            query.prepare(f"INSERT INTO {table}(coin_id, position, {','.join(fields)}) VALUES(?, ?, {placeholders})")
+            query.prepare(f"INSERT INTO {table}(coin_id, position, {','.join(fields.names())}) VALUES(?, ?, {placeholders})")
             query.addBindValue(coin_id)
             query.addBindValue(position)
             for value in data:
@@ -545,7 +548,7 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         if self.settings['catalogs_table']:
             if record.contains('catalogs'):
                 catalogs = record.value('catalogs')
-                self._setTableExt(catalogs, coin_id, 'catalogs', ExtCatalogsFields)
+                self._setTableExt(catalogs, coin_id, 'catalogs', self.catalog_fields)
 
                 record.remove(record.indexOf('catalogs'))
         else:
@@ -554,7 +557,7 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         if self.settings['prices_table']:
             if record.contains('prices'):
                 prices = record.value('prices')
-                self._setTableExt(prices, coin_id, 'prices', ExtPricesFields)
+                self._setTableExt(prices, coin_id, 'prices', self.prices_fields)
 
                 record.remove(record.indexOf('prices'))
         else:
@@ -720,8 +723,8 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
 
                 while query.next():
                     catalog_data = []
-                    for column_name in ExtCatalogsFields:
-                        value = query.record().value(column_name)
+                    for field in self.catalog_fields:
+                        value = query.record().value(field.name)
                         catalog_data.append(value)
                     catalogs.append(catalog_data)
 
@@ -738,8 +741,8 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
 
                 while query.next():
                     price_data = []
-                    for column_name in ExtPricesFields:
-                        value = query.record().value(column_name)
+                    for field in self.prices_fields:
+                        value = query.record().value(field.name)
                         price_data.append(value)
                     prices.append(price_data)
 
@@ -1494,6 +1497,8 @@ class Collection(QObject):
                 return False
 
         self.fields = CollectionFields(self.db)
+        self.catalog_fields = ExtFields('catalogs', self.db, self)
+        self.prices_fields = ExtFields('prices', self.db, self)
 
         self.fileName = fileName
 
@@ -1604,6 +1609,16 @@ class Collection(QObject):
                     price6 NUMERIC,
                     price7 NUMERIC,
                     price8 NUMERIC)"""
+        QSqlQuery(sql, self.db)
+
+        sql = """CREATE TABLE ext_column_settings (
+                    table_name TEXT NOT NULL,
+                    column_name TEXT NOT NULL,
+                    title TEXT,
+                    enabled INTEGER DEFAULT 1,
+                    position INTEGER,
+                    width INTEGER DEFAULT 100,
+                    PRIMARY KEY (table_name, column_name))"""
         QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE photos (

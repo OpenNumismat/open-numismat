@@ -744,6 +744,16 @@ class UpdaterTo11(_Updater):
         sql = "ALTER TABLE prices RENAME COLUMN commission TO total_price"
         QSqlQuery(sql, self.db)
 
+        sql = """CREATE TABLE ext_column_settings (
+                    table_name TEXT NOT NULL,
+                    column_name TEXT NOT NULL,
+                    title TEXT,
+                    enabled INTEGER DEFAULT 1,
+                    position INTEGER,
+                    width INTEGER DEFAULT 100,
+                    PRIMARY KEY (table_name, column_name))"""
+        QSqlQuery(sql, self.db)
+
         sql = """CREATE TABLE catalogs (
                     id INTEGER NOT NULL PRIMARY KEY,
                     coin_id INTEGER,

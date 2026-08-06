@@ -8,9 +8,10 @@ from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, FormItem
 
 class BaseExtTableLayout(QVBoxLayout):
 
-    def __init__(self, reference, settings, readonly, parent):
+    def __init__(self, fields, reference, settings, readonly, parent):
         super().__init__()
 
+        self.fields = fields
         self.reference = reference
         self.settings = settings
         self.readonly = readonly
@@ -58,17 +59,30 @@ class BaseExtTableLayout(QVBoxLayout):
         self.current_row = -1
 
     def get_items(self):
-        return ()
+        additional_type = 0
+        if self.readonly:
+            additional_type = Type.Disabled
+
+        enable_bc = self.settings['enable_bc']
+        items = []
+        for field in self.fields:
+            section = None
+            if not self.readonly:
+                if self.reference:
+                    section = self.reference.section(field.name)
+
+            item = FormItem(self.settings, field.name, field.title, field.type | additional_type,
+                     section=section, reference=self.reference)
+            items.append(item)
+        self.settings['enable_bc'] = enable_bc
+
+        return items
 
     def fill_layout(self, layout):
         pass
 
     def handle_row_click(self, index):
-        target_row = index.row()
-        if target_row == self.current_row:
-            return
-
-        self.current_row = target_row
+        self.current_row = index.row()
         for i, item in enumerate(self.items):
             table_item = self.model.item(self.current_row, i)
             if table_item:
@@ -173,32 +187,6 @@ class BaseExtTableLayout(QVBoxLayout):
 
 class CatalogTableLayout(BaseExtTableLayout):
 
-    def get_items(self):
-        additional_type = 0
-        catalog_section = None
-        if self.readonly:
-            additional_type = Type.Disabled
-        else:
-            catalog_section = self.reference.section('catalog')
-
-        items = (
-            FormItem(self.settings, 'catalog', self.tr("Catalog"), Type.String | additional_type,
-                     reference=self.reference, section=catalog_section),
-            FormItem(self.settings, 'catalogs.year', self.tr("Year"), Type.Number | additional_type),
-            FormItem(self.settings, 'number', self.tr("#"), Type.String | additional_type),
-            FormItem(self.settings, 'currency', self.tr("Currency"), Type.String | additional_type),
-            FormItem(self.settings, 'price8', self.tr("MS-65"), Type.Money | additional_type),
-            FormItem(self.settings, 'price7', self.tr("MS-63"), Type.Money | additional_type),
-            FormItem(self.settings, 'price6', self.tr("BU"), Type.Money | additional_type),
-            FormItem(self.settings, 'price5', self.tr("Unc"), Type.Money | additional_type),
-            FormItem(self.settings, 'price4', self.tr("AU"), Type.Money | additional_type),
-            FormItem(self.settings, 'price3', self.tr("XF"), Type.Money | additional_type),
-            FormItem(self.settings, 'price2', self.tr("VF"), Type.Money | additional_type),
-            FormItem(self.settings, 'price1', self.tr("Fine"), Type.Money | additional_type),
-        )
-
-        return items
-
     def fill_layout(self, layout):
         layout.addRow(self.items[0], self.items[1])
         layout.addRow(self.items[2], self.items[3])
@@ -209,37 +197,6 @@ class CatalogTableLayout(BaseExtTableLayout):
 
 
 class PricesTableLayout(BaseExtTableLayout):
-
-    def get_items(self):
-        additional_type = 0
-        grade_section = None
-        place_section = None
-        if self.readonly:
-            additional_type = Type.Disabled
-        else:
-            grade_section = self.reference.section('grade')
-            place_section = self.reference.section('place')
-
-        items = (
-            FormItem(self.settings, 'action', self.tr("Action"), Type.String | additional_type),
-            FormItem(self.settings, 'date', self.tr("Date"), Type.Date | additional_type),
-            FormItem(self.settings, 'quantity', self.tr("Quantity"), Type.BigInt | additional_type),
-            FormItem(self.settings, 'price', self.tr("Price"), Type.Money | additional_type),
-            FormItem(self.settings, 'currency', self.tr("Currency"), Type.String | additional_type),
-            FormItem(self.settings, 'total_price', self.tr("Total price"), Type.Money | additional_type),
-            FormItem(self.settings, 'shipping', self.tr("Shipping"), Type.Money | additional_type),
-            FormItem(self.settings, 'grade', self.tr("Grade"), Type.String | additional_type,
-                     reference=self.reference, section=grade_section),
-            FormItem(self.settings, 'url', self.tr("URL"), Type.String | additional_type),
-            FormItem(self.settings, 'place', self.tr("Place"), Type.String | additional_type,
-                     reference=self.reference, section=place_section),
-            FormItem(self.settings, 'number', self.tr("#"), Type.String | additional_type),
-            FormItem(self.settings, 'counterparty', self.tr("Counterparty"), Type.String | additional_type),
-            FormItem(self.settings, 'info', self.tr("Info"), Type.Text | additional_type),
-            FormItem(self.settings, 'start_bid', self.tr("Start bid"), Type.Money | additional_type),
-        )
-
-        return items
 
     def fill_layout(self, layout):
         layout.addRow(self.items[0], self.items[1])

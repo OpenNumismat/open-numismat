@@ -745,6 +745,7 @@ class FieldsSettingsPage(QWidget):
 
 
 class ExtFieldsSettingsPage(QWidget):
+    DataRole = Qt.UserRole
 
     def __init__(self, collection, parent=None):
         super().__init__(parent)
@@ -758,9 +759,51 @@ class ExtFieldsSettingsPage(QWidget):
         self.catalogsTableEnabled.setChecked(self.settings['catalogs_table'])
         layout.addRow(self.catalogsTableEnabled)
 
+        catalogs_table_list = QListWidget(self)
+        catalogs_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
+                                          QSizePolicy.Policy.Fixed)
+        catalogs_table_list.setEnabled(self.settings['catalogs_table'])
+        self.catalogsTableEnabled.toggled.connect(catalogs_table_list.setEnabled)
+        layout.addRow(catalogs_table_list)
+
+        self.catalog_fields = collection.catalog_fields
+
+        for field in self.catalog_fields:
+            item = QListWidgetItem(field.title)
+            item.setData(self.DataRole, field.name)
+            item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
+                          Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+            checked = Qt.Unchecked
+            if field.enabled:
+                checked = Qt.Checked
+            item.setCheckState(checked)
+
+            catalogs_table_list.addItem(item)
+
         self.pricesTableEnabled = QCheckBox(self.tr("Use prices table"), self)
         self.pricesTableEnabled.setChecked(self.settings['prices_table'])
         layout.addRow(self.pricesTableEnabled)
+
+        prices_table_list = QListWidget(self)
+        prices_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
+                                          QSizePolicy.Policy.Fixed)
+        prices_table_list.setEnabled(self.settings['prices_table'])
+        self.pricesTableEnabled.toggled.connect(prices_table_list.setEnabled)
+        layout.addRow(prices_table_list)
+
+        self.prices_fields = collection.prices_fields
+
+        for field in self.prices_fields:
+            item = QListWidgetItem(field.title)
+            item.setData(self.DataRole, field.name)
+            item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
+                          Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+            checked = Qt.Unchecked
+            if field.enabled:
+                checked = Qt.Checked
+            item.setCheckState(checked)
+
+            prices_table_list.addItem(item)
 
         self.setLayout(layout)
 

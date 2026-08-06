@@ -45,7 +45,9 @@ class DetailsTabWidget(QTabWidget):
         self.settings = model.settings
         self.map_item = None
         self.tags_item = None
+        self.catalog_fields = model.catalog_fields
         self.catalog_table = None
+        self.prices_fields = model.prices_fields
         self.prices_table = None
 
         self.createItems()
@@ -506,7 +508,7 @@ class DetailsTabWidget(QTabWidget):
         for field_name in CatalogFields.keys():
             self.items.pop(field_name)
 
-        catalog_table = CatalogTableLayout(self.reference, self.settings, True, self)
+        catalog_table = CatalogTableLayout(self.catalog_fields, self.reference, self.settings, True, self)
         return catalog_table
 
     def pricesTableLayout(self):
@@ -516,7 +518,7 @@ class DetailsTabWidget(QTabWidget):
         for field_name in SellPriceFields.keys():
             self.items.pop(field_name)
 
-        prices_table = PricesTableLayout(self.reference, self.settings, True, self)
+        prices_table = PricesTableLayout(self.prices_fields, self.reference, self.settings, True, self)
         return prices_table
 
     def variationLayout(self):
@@ -872,7 +874,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
             for field_name in CatalogFields.keys():
                 self.items.pop(field_name)
 
-            catalog_table = CatalogTableLayout(self.reference, self.settings, False, self)
+            catalog_table = CatalogTableLayout(self.catalog_fields, self.reference, self.settings, False, self)
             return catalog_table
         else:
             return None
@@ -885,7 +887,7 @@ class FormDetailsTabWidget(DetailsTabWidget):
             for field_name in SellPriceFields.keys():
                 self.items.pop(field_name)
 
-            prices_table = PricesTableLayout(self.reference, self.settings, False, self)
+            prices_table = PricesTableLayout(self.prices_fields, self.reference, self.settings, False, self)
             return prices_table
         else:
             return None

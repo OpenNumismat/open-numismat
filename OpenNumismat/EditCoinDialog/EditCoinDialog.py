@@ -164,11 +164,11 @@ class EditCoinDialog(QDialog):
             self.record.setValue(image_field + '_title', value)
 
         if self.tab.catalog_table:
-            catalogs = self.tab.catalog_table.getCatalogs()
+            catalogs = self.tab.catalog_table.getData()
             self.record.setValue('catalogs', catalogs)
 
         if self.tab.prices_table:
-            prices = self.tab.prices_table.getPrices()
+            prices = self.tab.prices_table.getData()
             self.record.setValue('prices', prices)
 
         if self.tab.tags_item:
