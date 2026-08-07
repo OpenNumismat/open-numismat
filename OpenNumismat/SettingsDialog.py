@@ -759,17 +759,18 @@ class ExtFieldsSettingsPage(QWidget):
         self.catalogsTableEnabled.setChecked(self.settings['catalogs_table'])
         layout.addRow(self.catalogsTableEnabled)
 
-        catalogs_table_list = QListWidget(self)
-        catalogs_table_list.setDragDropMode(QListWidget.InternalMove)
-        catalogs_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
+        self.catalogs_table_list = QListWidget(self)
+        self.catalogs_table_list.setDragDropMode(QListWidget.InternalMove)
+        self.catalogs_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
                                           QSizePolicy.Policy.Fixed)
-        catalogs_table_list.setEnabled(self.settings['catalogs_table'])
-        self.catalogsTableEnabled.toggled.connect(catalogs_table_list.setEnabled)
-        layout.addRow(catalogs_table_list)
+        self.catalogs_table_list.setEnabled(self.settings['catalogs_table'])
+        self.catalogsTableEnabled.toggled.connect(self.catalogs_table_list.setEnabled)
+        layout.addRow(self.catalogs_table_list)
 
         self.catalog_fields = collection.catalog_fields
+        sorted_fields = sorted(self.catalog_fields.fields, key=lambda x: x.position)
 
-        for field in self.catalog_fields:
+        for field in sorted_fields:
             item = QListWidgetItem(field.title)
             item.setData(self.DataRole, field.name)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
@@ -780,23 +781,24 @@ class ExtFieldsSettingsPage(QWidget):
                 checked = Qt.Checked
             item.setCheckState(checked)
 
-            catalogs_table_list.addItem(item)
+            self.catalogs_table_list.addItem(item)
 
         self.pricesTableEnabled = QCheckBox(self.tr("Use prices table"), self)
         self.pricesTableEnabled.setChecked(self.settings['prices_table'])
         layout.addRow(self.pricesTableEnabled)
 
-        prices_table_list = QListWidget(self)
-        prices_table_list.setDragDropMode(QListWidget.InternalMove)
-        prices_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
+        self.prices_table_list = QListWidget(self)
+        self.prices_table_list.setDragDropMode(QListWidget.InternalMove)
+        self.prices_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
                                         QSizePolicy.Policy.Fixed)
-        prices_table_list.setEnabled(self.settings['prices_table'])
-        self.pricesTableEnabled.toggled.connect(prices_table_list.setEnabled)
-        layout.addRow(prices_table_list)
+        self.prices_table_list.setEnabled(self.settings['prices_table'])
+        self.pricesTableEnabled.toggled.connect(self.prices_table_list.setEnabled)
+        layout.addRow(self.prices_table_list)
 
         self.prices_fields = collection.prices_fields
+        sorted_fields = sorted(self.prices_fields.fields, key=lambda x: x.position)
 
-        for field in self.prices_fields:
+        for field in sorted_fields:
             item = QListWidgetItem(field.title)
             item.setData(self.DataRole, field.name)
             item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
@@ -807,15 +809,42 @@ class ExtFieldsSettingsPage(QWidget):
                 checked = Qt.Checked
             item.setCheckState(checked)
 
-            prices_table_list.addItem(item)
+            self.prices_table_list.addItem(item)
 
         self.setLayout(layout)
 
     def save(self):
         self.settings['catalogs_table'] = self.catalogsTableEnabled.isChecked()
         self.settings['prices_table'] = self.pricesTableEnabled.isChecked()
-
         self.settings.save()
+
+        if self.settings['catalogs_table']:
+            for i in range(self.catalogs_table_list.count()):
+                item = self.catalogs_table_list.item(i)
+                name = item.data(self.DataRole)
+                title = item.text()
+                enabled = (item.checkState() == Qt.CheckState.Checked)
+
+                field = self.catalog_fields.field(name)
+                field.title = title
+                field.enabled = enabled
+                field.position = i
+
+            self.catalog_fields.save()
+
+        if self.settings['prices_table']:
+            for i in range(self.prices_table_list.count()):
+                item = self.prices_table_list.item(i)
+                name = item.data(self.DataRole)
+                title = item.text()
+                enabled = (item.checkState() == Qt.CheckState.Checked)
+
+                field = self.prices_fields.field(name)
+                field.title = title
+                field.enabled = enabled
+                field.position = i
+
+            self.prices_fields.save()
 
 
 class ImportSettingsPage(QWidget):
@@ -995,9 +1024,9 @@ class SettingsDialog(QDialog):
             self.tab.setTabEnabled(index, False)
         if collection.isOpen():
             extFieldsPage = ExtFieldsSettingsPage(collection, self)
-            self.tab.addTab(extFieldsPage, self.tr("Ext fields"))
+            self.tab.addTab(extFieldsPage, self.tr("Ext. fields"))
         else:
-            index = self.tab.addTab(QWidget(), self.tr("Ext fields"))
+            index = self.tab.addTab(QWidget(), self.tr("Ext. fields"))
             self.tab.setTabEnabled(index, False)
         if collection.isOpen():
             importPage = ImportSettingsPage(self)

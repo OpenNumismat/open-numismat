@@ -70,6 +70,26 @@ class ExtFields(QObject):
         self.index = self.index + 1
         return self.fields[self.index - 1]
 
+    def save(self):
+        self.db.transaction()
+
+        query = QSqlQuery(self.db)
+
+        query.prepare("DELETE FROM ext_column_settings WHERE table_name=?")
+        query.addBindValue(self.table)
+        query.exec()
+
+        for field in self.fields:
+            query.prepare("INSERT INTO ext_column_settings(table_name, column_name, title, enabled, position) VALUES(?, ?, ?, ?, ?)")
+            query.addBindValue(self.table)
+            query.addBindValue(field.name)
+            query.addBindValue(field.title)
+            query.addBindValue(field.enabled)
+            query.addBindValue(field.position)
+            query.exec()
+
+        self.db.commit()
+
     def _default_catalog_fields(self):
         return (
             ('catalog', self.tr("Catalog"), Type.String, True),
@@ -98,7 +118,7 @@ class ExtFields(QObject):
             ('grade', self.tr("Grade"), Type.String, True),
             ('url', self.tr("URL"), Type.String, True),
             ('place', self.tr("Place"), Type.String, True),
-            ('number', self.tr("#"), Type.String, False),
+            ('number', self.tr("Lot number"), Type.String, False),
             ('counterparty', self.tr("Counterparty"), Type.String, True),
             ('info', self.tr("Info"), Type.Text, True),
             ('start_bid', self.tr("Start bid"), Type.Money, False),

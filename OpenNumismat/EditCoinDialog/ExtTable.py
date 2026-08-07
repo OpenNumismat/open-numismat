@@ -21,9 +21,6 @@ class BaseExtTableLayout(QVBoxLayout):
 
         self.model = QStandardItemModel(0, len(self.items), self)
 
-        for i, item in enumerate(self.items):
-            self.model.setHeaderData(i, Qt.Horizontal, item.title())
-
         self.table_view = QTableView(parent)
         self.table_view.setModel(self.model)
         self.table_view.setSelectionBehavior(QTableView.SelectionBehavior.SelectRows)
@@ -31,6 +28,22 @@ class BaseExtTableLayout(QVBoxLayout):
         self.table_view.setEditTriggers(QTableView.NoEditTriggers)
         self.table_view.verticalHeader().hide()
         self.table_view.clicked.connect(self.handle_row_click)
+
+        for i, field in enumerate(self.fields):
+            self.model.setHeaderData(i, Qt.Horizontal, field.title)
+            if not field.enabled:
+                self.table_view.hideColumn(i)
+
+        col = [field.name for field in self.fields]
+        sorted_fields = sorted(self.fields, key=lambda x: x.position)
+        header = self.table_view.horizontalHeader()
+        for pos, field in enumerate(sorted_fields):
+            if not field.enabled:
+                continue
+            index = col.index(field.name)
+            col.remove(field.name)
+            col.insert(pos, field.name)
+            header.moveSection(index, pos)
 
         self.addWidget(self.table_view)
 
@@ -156,7 +169,7 @@ class BaseExtTableLayout(QVBoxLayout):
 
         row_idx = 0
         for row_data in data:
-            for i, item in enumerate(self.items):
+            for i in range(len(self.fields)):
                 value = row_data[i]
                 if value:
                     table_item = QStandardItem(str(value))
