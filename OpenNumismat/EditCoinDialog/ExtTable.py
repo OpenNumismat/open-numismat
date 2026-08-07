@@ -35,7 +35,15 @@ class BaseExtTableLayout(QVBoxLayout):
         self.table_view.setSelectionMode(QTableView.SelectionMode.SingleSelection)
         self.table_view.setEditTriggers(QTableView.NoEditTriggers)
         self.table_view.verticalHeader().hide()
+        self.table_view.setSortingEnabled(True)
         self.table_view.clicked.connect(self.handle_row_click)
+        header = self.table_view.horizontalHeader()
+        header.setSortIndicator(-1, Qt.SortOrder.AscendingOrder)
+        header.setSectionsMovable(True)
+        # Make header font always bold
+        font = header.font()
+        font.setBold(True)
+        header.setFont(font)
 
         for i, field in enumerate(self.fields):
             self.model.setHeaderData(i, Qt.Horizontal, field.title)
@@ -179,6 +187,8 @@ class BaseExtTableLayout(QVBoxLayout):
             self.btn_delete.setDisabled(True)
 
     def fill(self, data):
+        header = self.table_view.horizontalHeader()
+        header.setSortIndicator(-1, Qt.SortOrder.AscendingOrder)
         self.model.setRowCount(0)
 
         row_idx = 0
