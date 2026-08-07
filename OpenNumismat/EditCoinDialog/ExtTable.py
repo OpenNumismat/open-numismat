@@ -1,4 +1,4 @@
-from PySide6.QtCore import Qt, QSettings
+from PySide6.QtCore import Qt, QDate, QLocale, QSettings
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import QCheckBox, QHBoxLayout, QMessageBox, QPushButton, QTableView, QVBoxLayout
 
@@ -16,6 +16,8 @@ class BaseExtTableLayout(QVBoxLayout):
         self.settings = settings
         self.readonly = readonly
         self.parent = parent
+
+        self.locale = QLocale.system()
 
         self.items = self.get_items()
 
@@ -102,7 +104,7 @@ class BaseExtTableLayout(QVBoxLayout):
         for i, item in enumerate(self.items):
             table_item = self.model.item(self.current_row, i)
             if table_item:
-                value = table_item.data(Qt.EditRole)
+                value = table_item.data(Qt.UserRole)
                 item.setValue(value)
             else:
                 item.clear()
@@ -114,10 +116,13 @@ class BaseExtTableLayout(QVBoxLayout):
     def save_record(self):
         if self.current_row != -1:
             for i, item in enumerate(self.items):
-                value = item.value()
-                if value:
-                    table_item = QStandardItem(str(value))
-                    table_item.setData(value, Qt.EditRole)
+                data = item.value()
+                if data:
+                    field = self.fields.field(item.field())
+                    text = self._format_data(field, data)
+
+                    table_item = QStandardItem(text)
+                    table_item.setData(data, Qt.UserRole)
                     self.model.setItem(self.current_row, i, table_item)
                 else:
                     index = self.model.index(self.current_row, i);
@@ -169,11 +174,13 @@ class BaseExtTableLayout(QVBoxLayout):
 
         row_idx = 0
         for row_data in data:
-            for i in range(len(self.fields)):
-                value = row_data[i]
-                if value:
-                    table_item = QStandardItem(str(value))
-                    table_item.setData(value, Qt.EditRole)
+            for i, field in enumerate(self.fields):
+                data = row_data[i]
+                if data:
+                    text = self._format_data(field, data)
+
+                    table_item = QStandardItem(text)
+                    table_item.setData(data, Qt.UserRole)
                     self.model.setItem(row_idx, i, table_item)
             row_idx += 1
 
@@ -193,12 +200,28 @@ class BaseExtTableLayout(QVBoxLayout):
             for c in range(self.model.columnCount()):
                 item = self.model.item(r, c)
                 if item:
-                    value = item.data(Qt.EditRole)
+                    value = item.data(Qt.UserRole)
                     row_data.append(value)
                 else:
                     row_data.append(None)
             data.append(row_data)
         return data
+
+    def _format_data(self, field, data):
+        try:
+            if field.type == Type.Money:
+                text = self.locale.toString(float(data), 'f', precision=2)
+                dp = self.locale.decimalPoint()
+                text = text.rstrip('0').rstrip(dp)
+            elif field.type == Type.Date:
+                date = QDate.fromString(data, Qt.ISODate)
+                text = self.locale.toString(date, QLocale.ShortFormat)
+            else:
+                text = str(data)
+        except (ValueError, TypeError):
+            text = str(data)
+
+        return text
 
 
 class CatalogTableLayout(BaseExtTableLayout):
