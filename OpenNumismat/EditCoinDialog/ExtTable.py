@@ -63,7 +63,8 @@ class BaseExtTableLayout(QVBoxLayout):
         if self.readonly:
             additional_type = Type.Disabled
 
-        enable_bc = self.settings['enable_bc']
+        old_enable_bc = self.settings['enable_bc']
+        self.settings['enable_bc'] = False
         items = []
         for field in self.fields:
             section = None
@@ -73,8 +74,10 @@ class BaseExtTableLayout(QVBoxLayout):
 
             item = FormItem(self.settings, field.name, field.title, field.type | additional_type,
                      section=section, reference=self.reference)
+            if not field.enabled:
+                item.setHidden()
             items.append(item)
-        self.settings['enable_bc'] = enable_bc
+        self.settings['enable_bc'] = old_enable_bc
 
         return items
 
@@ -200,9 +203,9 @@ class PricesTableLayout(BaseExtTableLayout):
 
     def fill_layout(self, layout):
         layout.addRow(self.items[0], self.items[1])
-        layout.addRow(self.items[2], self.items[3])
-        layout.addRow(self.items[4], self.items[5])
-        layout.addRow(self.items[6], self.items[7])
+        layout.addRow(self.items[2], self.items[7])
+        layout.addRow(self.items[3], self.items[5])
+        layout.addRow(self.items[6], self.items[4])
         layout.addRow(self.items[13], self.items[10])
         layout.addRow(self.items[9], self.items[11])
         layout.addRow(self.items[12])
