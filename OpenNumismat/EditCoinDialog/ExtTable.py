@@ -1,12 +1,18 @@
-from PySide6.QtCore import Qt, QDate, QLocale, QSettings
+from PySide6.QtCore import Qt, QDate, QLocale, QSettings, QT_TRANSLATE_NOOP
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import QCheckBox, QHBoxLayout, QMessageBox, QPushButton, QTableView, QVBoxLayout
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, FormItem
+from OpenNumismat.Tools.Gui import statusIcon
 
 
 class BaseExtTableLayout(QVBoxLayout):
+    Actions = (
+        ('buy', QT_TRANSLATE_NOOP("PriceAction", "Buy")),
+        ('sell', QT_TRANSLATE_NOOP("PriceAction", "Sell")),
+        ('auction', QT_TRANSLATE_NOOP("PriceAction", "Auction")),
+    )
 
     def __init__(self, fields, reference, settings, readonly, parent):
         super().__init__()
@@ -120,9 +126,12 @@ class BaseExtTableLayout(QVBoxLayout):
                 if data:
                     field = self.fields.field(item.field())
                     text = self._format_data(field, data)
+                    icon = self._format_icon(field, data)
 
                     table_item = QStandardItem(text)
                     table_item.setData(data, Qt.UserRole)
+                    if icon:
+                        table_item.setData(icon, Qt.DecorationRole)
                     self.model.setItem(self.current_row, i, table_item)
                 else:
                     index = self.model.index(self.current_row, i);
@@ -178,9 +187,12 @@ class BaseExtTableLayout(QVBoxLayout):
                 data = row_data[i]
                 if data:
                     text = self._format_data(field, data)
+                    icon = self._format_icon(field, data)
 
                     table_item = QStandardItem(text)
                     table_item.setData(data, Qt.UserRole)
+                    if icon:
+                        table_item.setData(icon, Qt.DecorationRole)
                     self.model.setItem(row_idx, i, table_item)
             row_idx += 1
 
@@ -216,12 +228,34 @@ class BaseExtTableLayout(QVBoxLayout):
             elif field.type == Type.Date:
                 date = QDate.fromString(data, Qt.ISODate)
                 text = self.locale.toString(date, QLocale.ShortFormat)
+            elif field.name == 'action':
+                text = data
+                for act, title in self.Actions:
+                    if act == data:
+                        text = title
+                        break
             else:
                 text = str(data)
         except (ValueError, TypeError):
             text = str(data)
 
         return text
+
+    def _format_icon(self, field, data):
+        icon = None
+        if field.name == 'action':
+            for act, _ in self.Actions:
+                if act == data:
+                    if act == 'sell':
+                        icon = statusIcon('sold')
+                    elif act == 'auction':
+                        icon = statusIcon('pass')
+                    else:
+                        icon = statusIcon('owned')
+                    break
+        else:
+            icon = self.reference.getIcon(field.name, data)
+        return icon
 
 
 class CatalogTableLayout(BaseExtTableLayout):
