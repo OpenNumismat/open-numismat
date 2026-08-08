@@ -1269,7 +1269,7 @@ y prueba de nuevo.</translation>
     </message>
     <message>
         <source>ARS - Argentine peso</source>
-        <translation type="unfinished"/>
+        <translation>ARS - Peso argentino</translation>
     </message>
     <message>
         <source>AUD - Australian dollar</source>
