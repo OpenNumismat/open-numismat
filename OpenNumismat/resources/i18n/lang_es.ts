@@ -1273,7 +1273,7 @@ y prueba de nuevo.</translation>
     </message>
     <message>
         <source>AUD - Australian dollar</source>
-        <translation type="unfinished"/>
+        <translation>AUD - Dólar australiano</translation>
     </message>
     <message>
         <source>BYN - Belarusian ruble</source>
