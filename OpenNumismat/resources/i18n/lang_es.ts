@@ -1309,7 +1309,7 @@ y prueba de nuevo.</translation>
     </message>
     <message>
         <source>NOK - Norwegian krone</source>
-        <translation type="unfinished"/>
+        <translation>NOK - Corona noruega</translation>
     </message>
     <message>
         <source>PLN - Polish złoty</source>
