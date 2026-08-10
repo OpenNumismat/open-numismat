@@ -192,8 +192,31 @@ class BaseExtTableLayout(QVBoxLayout):
         return False
 
     def add_record(self):
+        is_add_empty = False
+
+        if self.current_row != -1:
+            msg_box = QMessageBox(QMessageBox.Warning, self.tr("Add"),
+                                  self.tr("Add new empty record or clone current record?"),
+                                  QMessageBox.Cancel,
+                                  self.parent)
+            btn_add_empty = msg_box.addButton(self.tr("Add"), QMessageBox.YesRole)
+            msg_box.addButton(self.tr("Clone"), QMessageBox.NoRole)
+            msg_box.setDefaultButton(QMessageBox.Cancel)
+            result = msg_box.exec()
+            if result == QMessageBox.Cancel:
+                return
+            if msg_box.clickedButton() == btn_add_empty:
+                is_add_empty = True
+
         row = self.model.rowCount()
         self.model.insertRow(row)
+
+        if is_add_empty:
+            for item in self.items:
+                item.clear()
+
+        self.current_row = row
+        self.save_record()
 
         self.table_view.selectRow(row)
         index = self.model.index(row, 0)
