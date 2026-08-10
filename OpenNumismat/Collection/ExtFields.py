@@ -80,12 +80,13 @@ class ExtFields(QObject):
         query.exec()
 
         for field in self.fields:
-            query.prepare("INSERT INTO ext_column_settings(table_name, column_name, title, enabled, position) VALUES(?, ?, ?, ?, ?)")
+            query.prepare("INSERT INTO ext_column_settings(table_name, column_name, title, enabled, position, width) VALUES(?, ?, ?, ?, ?, ?)")
             query.addBindValue(self.table)
             query.addBindValue(field.name)
             query.addBindValue(field.title)
             query.addBindValue(field.enabled)
             query.addBindValue(field.position)
+            query.addBindValue(field.width)
             query.exec()
 
         self.db.commit()

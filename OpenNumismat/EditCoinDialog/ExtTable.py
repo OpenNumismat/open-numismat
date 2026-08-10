@@ -1,4 +1,4 @@
-from PySide6.QtCore import Qt, QDate, QLocale, QSettings, QT_TRANSLATE_NOOP
+from PySide6.QtCore import Qt, QDate, QLocale, QTimer, QSettings, QT_TRANSLATE_NOOP
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import QCheckBox, QHBoxLayout, QMessageBox, QPushButton, QTableView, QVBoxLayout
 
@@ -37,8 +37,8 @@ class BaseExtTableLayout(QVBoxLayout):
         self.table_view.verticalHeader().hide()
         self.table_view.setSortingEnabled(True)
         self.table_view.clicked.connect(self.handle_row_click)
+
         header = self.table_view.horizontalHeader()
-        header.setSortIndicator(-1, Qt.SortOrder.AscendingOrder)
         header.setSectionsMovable(True)
         # Make header font always bold
         font = header.font()
@@ -50,16 +50,15 @@ class BaseExtTableLayout(QVBoxLayout):
             if not field.enabled:
                 self.table_view.hideColumn(i)
 
-        col = [field.name for field in self.fields]
-        sorted_fields = sorted(self.fields, key=lambda x: x.position)
-        header = self.table_view.horizontalHeader()
-        for pos, field in enumerate(sorted_fields):
-            if not field.enabled:
-                continue
-            index = col.index(field.name)
-            col.remove(field.name)
-            col.insert(pos, field.name)
-            header.moveSection(index, pos)
+        self._update_header()
+
+        self.resize_timer = QTimer()
+        self.resize_timer.setSingleShot(True)
+        self.resize_timer.setInterval(500)
+        self.resize_timer.timeout.connect(self.save_column_sizes)
+
+        header.sectionMoved.connect(self.columnMoved)
+        header.sectionResized.connect(self.columnResized)
 
         self.addWidget(self.table_view)
 
@@ -86,6 +85,49 @@ class BaseExtTableLayout(QVBoxLayout):
             self.addLayout(buttons_layout)
 
         self.current_row = -1
+
+    def _update_header(self):
+        header = self.table_view.horizontalHeader()
+
+        header.blockSignals(True)
+
+        header.setSortIndicator(-1, Qt.SortOrder.AscendingOrder)
+
+        for i, field in enumerate(self.fields):
+            header.resizeSection(i, field.width)
+
+        # Revert to base state
+        for pos in range(len(self.fields)):
+            index = header.visualIndex(pos)
+            header.moveSection(index, pos)
+
+        col = [field.name for field in self.fields]
+        sorted_fields = sorted(self.fields, key=lambda x: x.position)
+        header = self.table_view.horizontalHeader()
+        for pos, field in enumerate(sorted_fields):
+            if not field.enabled:
+                continue
+            index = col.index(field.name)
+            col.remove(field.name)
+            col.insert(pos, field.name)
+            header.moveSection(index, pos)
+
+        header.blockSignals(False)
+
+    def columnMoved(self, _logicalIndex, _oldVisualIndex, _newVisualIndex):
+        header = self.table_view.horizontalHeader()
+        for logical_idx, field in enumerate(self.fields):
+            visual_idx = header.visualIndex(logical_idx)
+            field.position = visual_idx
+
+        self.fields.save()
+
+    def columnResized(self, index, _oldSize, newSize):
+        self.fields.fields[index].width = newSize
+        self.resize_timer.start()
+
+    def save_column_sizes(self):
+        self.fields.save()
 
     def get_items(self):
         additional_type = 0
@@ -187,9 +229,8 @@ class BaseExtTableLayout(QVBoxLayout):
             self.btn_delete.setDisabled(True)
 
     def fill(self, data):
-        header = self.table_view.horizontalHeader()
-        header.setSortIndicator(-1, Qt.SortOrder.AscendingOrder)
         self.model.setRowCount(0)
+        self._update_header()
 
         row_idx = 0
         for row_data in data:
