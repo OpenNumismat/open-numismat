@@ -699,7 +699,7 @@ class UpdaterTo11(_Updater):
         self.db.transaction()
 
         query = QSqlQuery(self.db)
-        for field in ('price4', 'price6', 'buying_currency', 'sale_currency'):
+        for field in ('buying_currency', 'sale_currency'):
             fieldDesc = getattr(self.collection.fields, field)
             query.prepare("INSERT INTO fields (id, title, enabled)"
                           " VALUES (?, ?, ?)")
@@ -754,29 +754,10 @@ class UpdaterTo11(_Updater):
                     PRIMARY KEY (table_name, column_name))"""
         QSqlQuery(sql, self.db)
 
-        sql = """CREATE TABLE catalogs (
-                    id INTEGER NOT NULL PRIMARY KEY,
-                    coin_id INTEGER,
-                    position INTEGER,
-                    catalog TEXT,
-                    number TEXT,
-                    year INTEGER,
-                    currency TEXT,
-                    price1 NUMERIC,
-                    price2 NUMERIC,
-                    price3 NUMERIC,
-                    price4 NUMERIC,
-                    price5 NUMERIC,
-                    price6 NUMERIC,
-                    price7 NUMERIC,
-                    price8 NUMERIC)"""
-        QSqlQuery(sql, self.db)
-
         fields = (
             'paydate', 'payprice', 'totalpayprice', 'saller', 'payplace',
             'payinfo', 'buying_invoice', 'saledate', 'saleprice',
             'totalsaleprice', 'buyer', 'saleplace', 'saleinfo', 'sale_invoice',
-            'price1', 'price2', 'price3', 'price4',
         )
 
         sql = f"SELECT id, status, {','.join(fields)} FROM coins"
@@ -788,22 +769,6 @@ class UpdaterTo11(_Updater):
 
             coin_id = record.value('id')
             status = record.value('status')
-
-            price1 = record.value('price1')
-            price2 = record.value('price2')
-            price3 = record.value('price3')
-            price4 = record.value('price4')
-            if price1 or price2 or price3 or price4:
-                catalog_sql = ("INSERT INTO catalogs (coin_id, position, price1, price2, price3, price5)"
-                               " VALUES (?, 1, ?, ?, ?, ?)")
-                catalog_query = QSqlQuery(self.db)
-                catalog_query.prepare(catalog_sql)
-                catalog_query.addBindValue(coin_id)
-                catalog_query.addBindValue(price1 or None)
-                catalog_query.addBindValue(price2 or None)
-                catalog_query.addBindValue(price3 or None)
-                catalog_query.addBindValue(price4 or None)
-                catalog_query.exec()
 
             prices_position = 1
             if status in ('owned', 'ordered', 'sale', 'missing', 'bidding',

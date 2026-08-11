@@ -486,9 +486,6 @@ class Reference(QObject):
             ref_material = ReferenceSection('material', self.tr("Material"), self.tr("M"))
             self.sections.append(ref_material)
 
-        ref_catalogs = ReferenceSection('catalog', self.tr("Catalog"))
-        self.sections.append(ref_catalogs)
-
     def __createReferenceSection(self, parentRef, field,
                                  letter='…', sort=False):
         if field.name in self.userFields:

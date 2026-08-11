@@ -332,17 +332,6 @@ class BaseExtTableLayout(QVBoxLayout):
         return icon
 
 
-class CatalogTableLayout(BaseExtTableLayout):
-
-    def fill_layout(self, layout):
-        layout.addRow(self.items[0], self.items[1])
-        layout.addRow(self.items[2], self.items[3])
-        layout.addRow(self.items[4], self.items[5])
-        layout.addRow(self.items[6], self.items[7])
-        layout.addRow(self.items[8], self.items[9])
-        layout.addRow(self.items[10], self.items[11])
-
-
 class PricesTableLayout(BaseExtTableLayout):
 
     def fill_layout(self, layout):

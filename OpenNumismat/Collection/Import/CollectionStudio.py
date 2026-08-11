@@ -54,8 +54,6 @@ class ImportCollectionStudio(_Import):
         'price2': None,
         'price3': None,
         'price4': 'CatalogPrice',
-        'price5': None,
-        'price6': None,
         'variety': None,
         'paydate': 'Income',
         'payprice': 'Price',

@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 )
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import Statuses, BuyPriceFields, SellPriceFields, CatalogFields
+from OpenNumismat.Collection.CollectionFields import Statuses, BuyPriceFields, SellPriceFields
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction, compareYears
 
@@ -98,8 +98,7 @@ class FilterMenuButton(QPushButton):
 
         from_sql = ("FROM coins"
                     f" {self.model.JOIN_BUY_PRICES}"
-                    f" {self.model.JOIN_SELL_PRICES}"
-                    f" {self.model.JOIN_CATALOGS}")
+                    f" {self.model.JOIN_SELL_PRICES}")
 
         filters_sql = self.filtersToSql(filters.values())
         where_clause = f"WHERE {filters_sql}" if filters_sql else ""
@@ -224,9 +223,6 @@ class FilterMenuButton(QPushButton):
             elif self.field.name in SellPriceFields:
                 table_name = 'sell_prices'
                 field_name = SellPriceFields[self.field.name]
-            elif self.field.name in CatalogFields:
-                table_name = 'catalogs'
-                field_name = CatalogFields[self.field.name]
             else:
                 table_name = 'coins'
                 field_name = self.field.name
@@ -421,8 +417,6 @@ class BaseFilter:
             name = f"buy_prices.{BuyPriceFields[name]}"
         elif name in SellPriceFields:
             name = f"sell_prices.{SellPriceFields[name]}"
-        elif name in CatalogFields:
-            name = f"catalogs.{CatalogFields[name]}"
         else:
             name = f"coins.{name}"
         self.name = name
@@ -488,8 +482,6 @@ class ColumnFilters:
             name = f"buy_prices.{BuyPriceFields[name]}"
         elif name in SellPriceFields:
             name = f"sell_prices.{SellPriceFields[name]}"
-        elif name in CatalogFields:
-            name = f"catalogs.{CatalogFields[name]}"
         else:
             name = f"coins.{name}"
         self.name = name

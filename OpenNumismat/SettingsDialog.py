@@ -640,8 +640,7 @@ class FieldsSettingsPage(QWidget):
             elif field.name in ('catalognum1', 'catalognum2',
                                 'catalognum3', 'catalognum4',):
                 classification_catalogue_item.addChild(item)
-            elif field.name in ('price6', 'price5', 'price4',
-                                'price3', 'price2', 'price1',):
+            elif field.name in ('price4', 'price3', 'price2', 'price1',):
                 classification_price_item.addChild(item)
             elif field.name in ('variety', 'varietydesc', 'obversevar',
                                 'reversevar', 'edgevar', 'varietyimg',):
@@ -755,34 +754,6 @@ class ExtFieldsSettingsPage(QWidget):
         layout = QFormLayout()
         layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
-        self.catalogsTableEnabled = QCheckBox(self.tr("Use catalog table"), self)
-        self.catalogsTableEnabled.setChecked(self.settings['catalogs_table'])
-        layout.addRow(self.catalogsTableEnabled)
-
-        self.catalogs_table_list = QListWidget(self)
-        self.catalogs_table_list.setDragDropMode(QListWidget.InternalMove)
-        self.catalogs_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
-                                          QSizePolicy.Policy.Fixed)
-        self.catalogs_table_list.setEnabled(self.settings['catalogs_table'])
-        self.catalogsTableEnabled.toggled.connect(self.catalogs_table_list.setEnabled)
-        layout.addRow(self.catalogs_table_list)
-
-        self.catalog_fields = collection.catalog_fields
-        sorted_fields = sorted(self.catalog_fields.fields, key=lambda x: x.position)
-
-        for field in sorted_fields:
-            item = QListWidgetItem(field.title)
-            item.setData(self.DataRole, field.name)
-            item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
-                          Qt.ItemIsEnabled | Qt.ItemIsSelectable |
-                          Qt.ItemFlag.ItemIsDragEnabled)
-            checked = Qt.Unchecked
-            if field.enabled:
-                checked = Qt.Checked
-            item.setCheckState(checked)
-
-            self.catalogs_table_list.addItem(item)
-
         self.pricesTableEnabled = QCheckBox(self.tr("Use prices table"), self)
         self.pricesTableEnabled.setChecked(self.settings['prices_table'])
         layout.addRow(self.pricesTableEnabled)
@@ -814,23 +785,8 @@ class ExtFieldsSettingsPage(QWidget):
         self.setLayout(layout)
 
     def save(self):
-        self.settings['catalogs_table'] = self.catalogsTableEnabled.isChecked()
         self.settings['prices_table'] = self.pricesTableEnabled.isChecked()
         self.settings.save()
-
-        if self.settings['catalogs_table']:
-            for i in range(self.catalogs_table_list.count()):
-                item = self.catalogs_table_list.item(i)
-                name = item.data(self.DataRole)
-                title = item.text()
-                enabled = (item.checkState() == Qt.CheckState.Checked)
-
-                field = self.catalog_fields.field(name)
-                field.title = title
-                field.enabled = enabled
-                field.position = i
-
-            self.catalog_fields.save()
 
         if self.settings['prices_table']:
             for i in range(self.prices_table_list.count()):

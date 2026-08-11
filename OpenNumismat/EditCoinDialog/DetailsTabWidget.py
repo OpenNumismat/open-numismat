@@ -21,9 +21,9 @@ from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdi
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
-from OpenNumismat.EditCoinDialog.ExtTable import CatalogTableLayout, PricesTableLayout
+from OpenNumismat.EditCoinDialog.ExtTable import PricesTableLayout
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import ImageFields, BuyPriceFields, SellPriceFields, CatalogFields
+from OpenNumismat.Collection.CollectionFields import ImageFields, BuyPriceFields, SellPriceFields
 from OpenNumismat.Collection.CollectionFields import TitleTemplateFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
@@ -45,8 +45,6 @@ class DetailsTabWidget(QTabWidget):
         self.settings = model.settings
         self.map_item = None
         self.tags_item = None
-        self.catalog_fields = model.catalog_fields
-        self.catalog_table = None
         self.prices_fields = model.prices_fields
         self.prices_table = None
 
@@ -120,20 +118,13 @@ class DetailsTabWidget(QTabWidget):
     def createClassificationPage(self):
         catalogue = self.catalogueLayout()
         rarity = self.rarityLayout()
-        if self.settings['catalogs_table']:
-            self.catalog_table = self.catalogTableLayout()
-        else:
-            price = self.priceLayout()
+        price = self.priceLayout()
         variation = self.variationLayout()
         url = self.urlLayout()
 
-        if self.settings['catalogs_table'] or not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
+        if not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
             title = self.settings['classification_group_title']
-            if self.settings['catalogs_table']:
-                elements = [self.catalog_table, self.Stretch] if self.catalog_table else []
-                elements.extend([catalogue, rarity, variation, url])
-            else:
-                elements = [catalogue, rarity, price, self.Stretch, variation, url]
+            elements = [catalogue, rarity, price, self.Stretch, variation, url]
             self.addTabPage(title, elements)
 
     def _layoutToWidget(self, layout):
@@ -246,9 +237,6 @@ class DetailsTabWidget(QTabWidget):
 
             if self.tags_item:
                 self.tags_item.fill(record)
-
-            if self.catalog_table:
-                self.catalog_table.fill(record.value('catalogs'))
 
             if self.prices_table:
                 self.prices_table.fill(record.value('prices'))
@@ -494,7 +482,7 @@ class DetailsTabWidget(QTabWidget):
         layout = BaseFormGroupBox(title)
 
         visible_items = []
-        for i in range(6, 0, -1):
+        for i in range(4, 0, -1):
             if not self.items[f'price{i}'].hidden:
                 visible_items.append(self.items[f'price{i}'])
 
@@ -503,13 +491,6 @@ class DetailsTabWidget(QTabWidget):
             layout.addRow(*pair)
 
         return layout
-
-    def catalogTableLayout(self):
-        for field_name in CatalogFields.keys():
-            self.items.pop(field_name)
-
-        catalog_table = CatalogTableLayout(self.catalog_fields, self.reference, self.settings, True, self)
-        return catalog_table
 
     def pricesTableLayout(self):
         for field_name in BuyPriceFields.keys():
@@ -868,16 +849,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['signature'])
 
         return layout
-
-    def catalogTableLayout(self):
-        if not self.usedFields:
-            for field_name in CatalogFields.keys():
-                self.items.pop(field_name)
-
-            catalog_table = CatalogTableLayout(self.catalog_fields, self.reference, self.settings, False, self)
-            return catalog_table
-        else:
-            return None
 
     def pricesTableLayout(self):
         if not self.usedFields:

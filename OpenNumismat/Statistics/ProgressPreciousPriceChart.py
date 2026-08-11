@@ -139,8 +139,7 @@ class ProgressPreciousPriceChartModel(BaseChartModel):
 
         from_sql = ("FROM coins"
                     f" {CollectionModel.JOIN_BUY_PRICES}"
-                    f" {CollectionModel.JOIN_SELL_PRICES}"
-                    f" {CollectionModel.JOIN_CATALOGS}")
+                    f" {CollectionModel.JOIN_SELL_PRICES}")
 
         sql_field = "weight,coins.quantity AS quantity,fineness,material,buy_prices.date AS paydate"
 

@@ -166,8 +166,7 @@ class BaseChartModel(QObject):
     def loadData(self, field):
         from_sql = ("FROM coins"
                     f" {CollectionModel.JOIN_BUY_PRICES}"
-                    f" {CollectionModel.JOIN_SELL_PRICES}"
-                    f" {CollectionModel.JOIN_CATALOGS}")
+                    f" {CollectionModel.JOIN_SELL_PRICES}")
 
         if field == 'fineness':
             sql_field = "IFNULL(material,''),IFNULL(fineness,'')"

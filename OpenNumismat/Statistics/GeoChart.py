@@ -117,8 +117,7 @@ class GeoChartModel(BaseChartModel):
     def loadData(self, region):
         from_sql = ("FROM coins"
                     f" {CollectionModel.JOIN_BUY_PRICES}"
-                    f" {CollectionModel.JOIN_SELL_PRICES}"
-                    f" {CollectionModel.JOIN_CATALOGS}")
+                    f" {CollectionModel.JOIN_SELL_PRICES}")
 
         where_clause = f"WHERE {self.filter}" if self.filter else ""
 

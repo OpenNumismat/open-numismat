@@ -26,9 +26,7 @@ class ExtFields(QObject):
         self.fields = []
         self.index = 0
 
-        if table == 'catalogs':
-            deafult_fields = self._default_catalog_fields()
-        elif table == 'prices':
+        if table == 'prices':
             deafult_fields = self._default_prices_fields()
 
         for i, field_data in enumerate(deafult_fields):
@@ -90,22 +88,6 @@ class ExtFields(QObject):
             query.exec()
 
         self.db.commit()
-
-    def _default_catalog_fields(self):
-        return (
-            ('catalog', self.tr("Catalog"), Type.String, True),
-            ('year', self.tr("Year"), Type.Number, True),
-            ('number', self.tr("#"), Type.String, True),
-            ('currency', self.tr("Currency"), Type.String, False),
-            ('price8', self.tr("MS-65"), Type.Money, False),
-            ('price7', self.tr("MS-63"), Type.Money, False),
-            ('price6', self.tr("BU"), Type.Money, True),
-            ('price5', self.tr("Unc"), Type.Money, True),
-            ('price4', self.tr("AU"), Type.Money, True),
-            ('price3', self.tr("XF"), Type.Money, True),
-            ('price2', self.tr("VF"), Type.Money, True),
-            ('price1', self.tr("Fine"), Type.Money, True),
-        )
 
     def _default_prices_fields(self):
         return (

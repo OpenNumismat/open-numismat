@@ -44,7 +44,7 @@ from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.CollectionFields import ImageFields
-from OpenNumismat.Collection.CollectionFields import BuyPriceFields, SellPriceFields, CatalogFields
+from OpenNumismat.Collection.CollectionFields import BuyPriceFields, SellPriceFields
 from OpenNumismat.Collection.CollectionPages import CollectionPages
 from OpenNumismat.Collection.ExtFields import ExtFields
 from OpenNumismat.Collection.Password import cryptPassword, PasswordDialog
@@ -86,14 +86,6 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
   ORDER BY id
   LIMIT 1
 )"""
-    JOIN_CATALOGS = """
-LEFT JOIN catalogs ON catalogs.coin_id = (
-  SELECT id
-  FROM catalogs
-  WHERE coin_id = coins.id
-  ORDER BY id
-  LIMIT 1
-)"""
 
     def __init__(self, collection, parent=None):
         super().__init__(parent, collection.db)
@@ -106,7 +98,6 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         self.fields = collection.fields
         self.description = collection.description
         self.settings = collection.settings
-        self.catalog_fields = collection.catalog_fields
         self.prices_fields = collection.prices_fields
         self.proxy = None
         self.photo_order_map = {}
@@ -285,15 +276,8 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         tag_ids = record.value('tags')
         record.remove(record.indexOf('tags'))
 
-        catalogs = record.value('catalogs')
-        record.remove(record.indexOf('catalogs'))
-
         prices = record.value('prices')
         record.remove(record.indexOf('prices'))
-
-        catalog_record_values = []
-        for rec_field in CatalogFields.keys():
-            catalog_record_values.append(record.value(rec_field) or None)
 
         status = record.value('status')
 
@@ -326,12 +310,6 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
                 query.addBindValue(coin_id)
                 query.addBindValue(tag_id)
                 query.exec()
-
-            if self.settings['catalogs_table']:
-                self._setTableExt(catalogs, coin_id, 'catalogs', self.catalog_fields)
-            else:
-                if any(catalog_record_values):
-                    self._insertRecordExt(catalog_record_values, coin_id, 'catalogs', CatalogFields)
 
             if self.settings['prices_table']:
                 self._setTableExt(prices, coin_id, 'prices', self.prices_fields)
@@ -545,15 +523,6 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
 
         coin_id = record.value('id')
 
-        if self.settings['catalogs_table']:
-            if record.contains('catalogs'):
-                catalogs = record.value('catalogs')
-                self._setTableExt(catalogs, coin_id, 'catalogs', self.catalog_fields)
-
-                record.remove(record.indexOf('catalogs'))
-        else:
-            self._setRecordExt(record, coin_id, 'catalogs', CatalogFields)
-
         if self.settings['prices_table']:
             if record.contains('prices'):
                 prices = record.value('prices')
@@ -637,14 +606,6 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
 
             query = QSqlQuery(self.database())
 
-            query.prepare(f"SELECT {','.join(CatalogFields.values())} FROM catalogs WHERE coin_id=? ORDER BY id LIMIT 1")
-            query.addBindValue(coin_id)
-            query.exec()
-            if query.first():
-                for old_field, new_field in CatalogFields.items():
-                    val = query.record().value(new_field)
-                    record.setValue(old_field, val)
-
             query.prepare(f"SELECT {','.join(BuyPriceFields.values())} FROM prices WHERE coin_id=? AND action='buy' ORDER BY id LIMIT 1")
             query.addBindValue(coin_id)
             query.exec()
@@ -712,24 +673,6 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
 
         record.append(QSqlField('tags'))
         record.setValue('tags', tag_ids)
-
-        if self.settings['catalogs_table']:
-            catalogs = []
-            if coin_id:
-                query = QSqlQuery(self.database())
-                query.prepare(f"SELECT * FROM catalogs WHERE coin_id=?")
-                query.addBindValue(coin_id)
-                query.exec()
-
-                while query.next():
-                    catalog_data = []
-                    for field in self.catalog_fields:
-                        value = query.record().value(field.name)
-                        catalog_data.append(value)
-                    catalogs.append(catalog_data)
-
-            record.append(QSqlField('catalogs'))
-            record.setValue('catalogs', catalogs)
 
         if self.settings['prices_table']:
             prices = []
@@ -810,7 +753,7 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         coin_id = record.value('id')
         if coin_id:
             query = QSqlQuery(self.database())
-            tables = ('coins_tags', 'catalogs', 'prices')
+            tables = ('coins_tags', 'prices')
             for table in tables:
                 query.prepare(f"DELETE FROM {table} WHERE coin_id=?")
                 query.addBindValue(coin_id)
@@ -1112,20 +1055,14 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         filter_ = super().filter()
         if filter_:
             filter_ = f" WHERE {filter_}"
-        # TODO: Process some records in prices/catalogs table
         sql = ('''
         SELECT coins.id AS id, "title", "value", "unit", "country", coins.year AS year,
  "period", "mint", "mintmark", "issuedate", "type", "series",
  "subjectshort", "status", "material", "fineness", "shape",
  "diameter", "thickness", "weight", coins.grade AS grade, "edge", "edgelabel",
  "obvrev", "quality", "mintage", "dateemis", "catalognum1", "catalognum2",
- "catalognum3", "catalognum4", "rarity",
-
- catalogs.price1 AS price1, catalogs.price2 AS price2, catalogs.price3 AS price3,
- catalogs.price4 AS price4,
-
- "variety", "obversevar",
- "reversevar", "edgevar",
+ "catalognum3", "catalognum4", "rarity", "price1", "price2", "price3", "price4",
+ "variety", "obversevar", "reversevar", "edgevar",
 
  buy_prices.date AS paydate, buy_prices.price AS payprice, buy_prices.total_price AS totalpayprice,
  buy_prices.counterparty AS saller, buy_prices.place AS payplace, buy_prices.info AS payinfo,
@@ -1143,12 +1080,11 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
  "width", "height", "technique", "modification", "axis", "real_weight", "real_diameter", "rating",
 
  buy_prices.url AS buying_invoice, sell_prices.url AS sale_invoice,
- catalogs.price5 AS price5, catalogs.price6 AS price6,
  buy_prices.currency AS buying_currency, sell_prices.currency AS sale_currency
 
  FROM "coins"
 '''
-        f" {self.JOIN_BUY_PRICES} {self.JOIN_SELL_PRICES} {self.JOIN_CATALOGS}"
+        f" {self.JOIN_BUY_PRICES} {self.JOIN_SELL_PRICES}"
         f" {filter_}")
         return sql
 
@@ -1176,7 +1112,7 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
                     f" {self.JOIN_BUY_PRICES}"
                     f" {self.JOIN_SELL_PRICES}")
         fields = ('title', 'value', 'unit', 'country', 'period', 'ruler',
-                  'year', 'mint', 'mintmark', 'type', 'series', 'subjectshort',
+                  'coins.year', 'mint', 'mintmark', 'type', 'series', 'subjectshort',
                   'status', 'material', 'quality', 'buy_prices.date',
                   'buy_prices.price', 'buy_prices.counterparty',
                   'buy_prices.place', 'sell_prices.date', 'sell_prices.price',
@@ -1191,7 +1127,6 @@ LEFT JOIN catalogs ON catalogs.coin_id = (
         query.addBindValue(record.value('id'))
         for field in fields:
             query.addBindValue(record.value(field))
-        query.exec()
         if query.first():
             return True
 
@@ -1362,7 +1297,6 @@ class CollectionSettings(BaseSettings):
             'sort_by_reference': True,
             'image_quality': 80,
             'obverse_reverse_weight': 0.5,
-            'catalogs_table': False,
             'prices_table': False,
     }
 
@@ -1497,7 +1431,6 @@ class Collection(QObject):
                 return False
 
         self.fields = CollectionFields(self.db)
-        self.catalog_fields = ExtFields('catalogs', self.db, self)
         self.prices_fields = ExtFields('prices', self.db, self)
 
         self.fileName = fileName
@@ -1591,24 +1524,6 @@ class Collection(QObject):
                     info TEXT,
                     start_bid NUMERIC,
                     position INTEGER)"""
-        QSqlQuery(sql, self.db)
-
-        sql = """CREATE TABLE catalogs (
-                    id INTEGER NOT NULL PRIMARY KEY,
-                    coin_id INTEGER,
-                    position INTEGER,
-                    catalog TEXT,
-                    number TEXT,
-                    year INTEGER,
-                    currency TEXT,
-                    price1 NUMERIC,
-                    price2 NUMERIC,
-                    price3 NUMERIC,
-                    price4 NUMERIC,
-                    price5 NUMERIC,
-                    price6 NUMERIC,
-                    price7 NUMERIC,
-                    price8 NUMERIC)"""
         QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE ext_column_settings (
@@ -2206,19 +2121,6 @@ class Collection(QObject):
                     price_query.addBindValue(coin_id)
                     price_query.addBindValue(old_coin_id)
                     price_query.exec()
-
-                    sql = "DELETE FROM catalogs WHERE coin_id=?"
-                    catalog_query = QSqlQuery(sql, self.db)
-                    catalog_query.addBindValue(coin_id)
-                    catalog_query.exec()
-
-                    sql = ("INSERT INTO catalogs (coin_id, position, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8)"
-                           " SELECT ?, position, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8 FROM src.catalogs"
-                           " WHERE coin_id=?")
-                    catalog_query = QSqlQuery(sql, self.db)
-                    catalog_query.addBindValue(coin_id)
-                    catalog_query.addBindValue(old_coin_id)
-                    catalog_query.exec()
             else:
                 sql = "SELECT %s, id FROM src.coins WHERE createdat=?" % sql_fields
                 sel_query = QSqlQuery(sql, self.db)
@@ -2278,14 +2180,6 @@ class Collection(QObject):
                         price_query.addBindValue(coin_id)
                         price_query.addBindValue(old_coin_id)
                         price_query.exec()
-
-                        sql = ("INSERT INTO catalogs (coin_id, position, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8)"
-                               " SELECT ?, position, catalog, number, year, currency, price1, price2, price3, price4, price5, price6, price7, price8 FROM src.catalogs"
-                               " WHERE coin_id=?")
-                        catalog_query = QSqlQuery(sql, self.db)
-                        catalog_query.addBindValue(coin_id)
-                        catalog_query.addBindValue(old_coin_id)
-                        catalog_query.exec()
 
             self.db.commit()
 
