@@ -760,7 +760,7 @@ class UpdaterTo11(_Updater):
             'totalsaleprice', 'buyer', 'saleplace', 'saleinfo', 'sale_invoice',
         )
 
-        sql = f"SELECT id, status, {','.join(fields)} FROM coins"
+        sql = f"SELECT id, status, grade, quantity, {','.join(fields)} FROM coins"
         query = QSqlQuery(sql, self.db)
         while query.next():
             self._updateRecord()
@@ -773,6 +773,8 @@ class UpdaterTo11(_Updater):
             prices_position = 1
             if status in ('owned', 'ordered', 'sale', 'missing', 'bidding',
                           'duplicate', 'replacement', 'sold'):
+                grade = record.value('grade')
+                quantity = record.value('quantity')
                 paydate = record.value('paydate')
                 if paydate == '2000-01-01':
                     paydate = None
@@ -783,10 +785,12 @@ class UpdaterTo11(_Updater):
                 payinfo = record.value('payinfo')
                 buying_invoice = record.value('buying_invoice')
                 if paydate or payprice or total_price or saller or payplace or payinfo or buying_invoice:
-                    pay_sql = "INSERT INTO prices (coin_id, position, action, date, price, total_price, url, place, counterparty, info) VALUES (?, 1, 'buy', ?, ?, ?, ?, ?, ?, ?)"
+                    pay_sql = "INSERT INTO prices (coin_id, position, action, grade, quantity, date, price, total_price, url, place, counterparty, info) VALUES (?, 1, 'buy', ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                     pay_query = QSqlQuery(self.db)
                     pay_query.prepare(pay_sql)
                     pay_query.addBindValue(coin_id)
+                    pay_query.addBindValue(grade or None)
+                    pay_query.addBindValue(quantity or None)
                     pay_query.addBindValue(paydate or None)
                     pay_query.addBindValue(payprice or None)
                     pay_query.addBindValue(total_price or None)
