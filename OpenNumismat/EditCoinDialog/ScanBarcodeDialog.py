@@ -77,9 +77,16 @@ class ScanBarcodeDialog(QDialog):
         self.rectangle = None
         self.mask = None
         self.barcode = None
-        self.camera = QCamera(self)
-        self.camera.errorOccurred.connect(self.displayCameraError)
+
         self.captureSession = QMediaCaptureSession()
+        self.imageCapture = QImageCapture()
+        self.captureSession.setImageCapture(self.imageCapture)
+
+        self.imageCapture.readyForCaptureChanged.connect(self.readyForCapture)
+        self.imageCapture.imageCaptured.connect(self.processCapturedImage)
+        self.imageCapture.errorOccurred.connect(self.displayCaptureError)
+
+        self.camera = None
         self.worker = WorkerThread(self)
         self.worker.resultReady.connect(self.resultReady)
 
@@ -96,6 +103,7 @@ class ScanBarcodeDialog(QDialog):
 
         self.scene.addItem(self.viewfinder)
 
+        self.captureSession.setVideoOutput(self.viewfinder)
         self.viewfinder.nativeSizeChanged.connect(self.video_size_changed)
 
         self.cameraSelector = QComboBox()
@@ -182,37 +190,47 @@ class ScanBarcodeDialog(QDialog):
     def setCamera(self, cameraDevice):
         self.setWindowTitle(cameraDevice.description())
 
-        if self.camera.isActive():
+        if self.camera is not None:
             self.camera.stop()
+            self.captureSession.setCamera(None)
+            self.camera.deleteLater()
+            self.camera = None
 
-        self.camera.setCameraDevice(cameraDevice)
+        self.camera = QCamera(cameraDevice, self)
+        self.camera.errorOccurred.connect(self.displayCameraError)
+
         if self.camera.isFocusModeSupported(QCamera.FocusModeAutoNear):
             self.camera.setFocusMode(QCamera.FocusModeAutoNear)
         if self.camera.isExposureModeSupported(QCamera.ExposureBarcode):
             self.camera.setExposureMode(QCamera.ExposureBarcode)
+
         self.captureSession.setCamera(self.camera)
 
-        self.imageCapture = QImageCapture()
-        self.captureSession.setImageCapture(self.imageCapture)
-        self.imageCapture.readyForCaptureChanged.connect(self.readyForCapture)
-        self.imageCapture.imageCaptured.connect(self.processCapturedImage)
-        self.imageCapture.errorOccurred.connect(self.displayCaptureError)
-
-        self.captureSession.setVideoOutput(self.viewfinder)
-
+        self.first_capture = True
         self.camera.start()
 
     def done(self, r):
-        if self.camera.isActive():
+        try:
+            self.imageCapture.readyForCaptureChanged.disconnect(self.readyForCapture)
+        except TypeError:
+            pass
+
+        self.first_capture_timer.stop()
+
+        if self.camera is not None:
             self.camera.stop()
+            self.captureSession.setCamera(None)
+            self.camera.deleteLater()
+            self.camera = None
 
         if self.worker.isRunning():
             self.worker.terminate()
+            self.worker.wait()
 
         super().done(r)
 
     def readyForCapture(self, ready):
-        if ready:
+        if ready and self.camera and self.camera.isActive():
             if self.first_capture:
                 self.first_capture = False
                 self.first_capture_timer.start(2500)
@@ -223,7 +241,7 @@ class ScanBarcodeDialog(QDialog):
     def processCapturedImage(self, _requestId, img):
         self.first_capture_timer.stop()
 
-        if not self.worker.isRunning():
+        if self.camera and self.camera.isActive() and not self.worker.isRunning():
             img = img.copy(self.calculate_center_square(img).toRect())
             self.worker.setImage(img)
             self.worker.start()
