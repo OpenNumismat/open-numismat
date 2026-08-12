@@ -1269,11 +1269,11 @@ y prueba de nuevo.</translation>
     </message>
     <message>
         <source>ARS - Argentine peso</source>
-        <translation type="unfinished"/>
+        <translation>ARS - Peso argentino</translation>
     </message>
     <message>
         <source>AUD - Australian dollar</source>
-        <translation type="unfinished"/>
+        <translation>AUD - Dólar australiano</translation>
     </message>
     <message>
         <source>BYN - Belarusian ruble</source>
@@ -1281,11 +1281,11 @@ y prueba de nuevo.</translation>
     </message>
     <message>
         <source>CAD - Canadian dollar</source>
-        <translation type="unfinished"/>
+        <translation>CAD - Dólar canadiense</translation>
     </message>
     <message>
         <source>CHF - Swiss franc</source>
-        <translation type="unfinished"/>
+        <translation>CHF - Franco suizo</translation>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
@@ -1305,11 +1305,11 @@ y prueba de nuevo.</translation>
     </message>
     <message>
         <source>INR - Indian rupee</source>
-        <translation type="unfinished"/>
+        <translation>INR - Rupia india</translation>
     </message>
     <message>
         <source>NOK - Norwegian krone</source>
-        <translation type="unfinished"/>
+        <translation>NOK - Corona noruega</translation>
     </message>
     <message>
         <source>PLN - Polish złoty</source>
