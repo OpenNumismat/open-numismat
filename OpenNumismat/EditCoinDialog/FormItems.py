@@ -1199,6 +1199,7 @@ class DateEdit(QDateEdit):
     def clear(self):
         self.setDate(self.DEFAULT_DATE)
         super().clear()
+        self.__clearDefaultDate()
 
     def showEvent(self, e):
         super().showEvent(e)

@@ -207,9 +207,7 @@ class FormItem(object):
             if value:
                 self._widget.setDate(QDate.fromString(str(value), Qt.ISODate))
             else:
-                self._widget.setDate(self._widget.DEFAULT_DATE)
-                lineEdit = self._widget.findChild(QLineEdit)
-                lineEdit.setText("")
+                self._widget.clear()
         elif isinstance(self._widget, StatusEdit):
             self._widget.setCurrentValue(value)
         elif isinstance(self._widget, StatusBrowser):
