@@ -268,6 +268,11 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(exportJsonAct)
         exportMenu.addAction(exportJsonAct)
 
+        exportExcelAct = QAction(QIcon(':/excel.png'), "Excel", self)
+        exportExcelAct.triggered.connect(self.exportExcel)
+        self.collectionActs.append(exportExcelAct)
+        exportMenu.addAction(exportExcelAct)
+
         file = menubar.addMenu(self.tr("&File"))
 
         file.addAction(newCollectionAct)
@@ -745,6 +750,9 @@ class MainWindow(QMainWindow):
 
     def exportJson(self):
         self.collection.exportToJson()
+
+    def exportExcel(self):
+        self.collection.exportToExcel()
 
     def addCoin(self):
         model = self.viewTab.currentModel()

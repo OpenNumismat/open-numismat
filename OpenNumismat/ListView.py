@@ -53,7 +53,7 @@ from OpenNumismat.Reports.Report import Report
 from OpenNumismat.Reports.Preview import PreviewDialog
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportToCsv, ExportToCsvUtf8
-from OpenNumismat.Tools.Gui import getSaveFileName, statusColor
+from OpenNumismat.Tools.Gui import getSaveFileName, statusColor, infoMessageBox
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
 
@@ -292,9 +292,11 @@ class BaseTableView(QTableView):
 
             export.writeHeader(parts)
 
+            canceled = False
             for i in range(model.rowCount()):
                 progressDlg.step()
                 if progressDlg.wasCanceled():
+                    canceled = True
                     break
 
                 parts = []
@@ -316,6 +318,7 @@ class BaseTableView(QTableView):
 
                 export.writeRow(parts)
 
+            saved = True
             while True:
                 try:
                     export.close()
@@ -327,9 +330,17 @@ class BaseTableView(QTableView):
                                         QMessageBox.Retry | QMessageBox.Cancel,
                                         QMessageBox.Retry)
                     if btn != QMessageBox.Retry:
+                        saved = False
                         break
 
             progressDlg.reset()
+
+            if saved and not canceled:
+                infoMessageBox(
+                    'export_completed',
+                    QApplication.translate('BaseTableView', "Saving list"),
+                    QApplication.translate('BaseTableView', "Export to %s completed") % fileName,
+                    self)
 
     def _edit(self, index=None):
         if not index:
