@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import codecs
+import io
 import json
 import math
 import os
 import shutil
+
+import openpyxl
+from openpyxl.styles import Alignment
+from PIL import Image
 
 from PySide6.QtCore import (
     Qt,
@@ -1530,12 +1535,14 @@ class Collection(QObject):
             progressDlg = Gui.ProgressDialog(self.tr("Exporting records"),
                                             self.tr("Cancel"), count, self.parent())
 
+            canceled = False
             fields = CollectionFieldsBase()
             for i in range(count):
                 progressDlg.step()
                 if progressDlg.wasCanceled():
+                    canceled = True
                     break
-                
+
                 data = {}
                 coin = model.record(i)
                 for field in fields:
@@ -1576,6 +1583,174 @@ class Collection(QObject):
             json_file.close()
 
             progressDlg.reset()
+
+            if not canceled:
+                infoMessageBox(
+                    'export_completed', self.tr("Export"),
+                    self.tr("Export to %s completed") % json_file_name,
+                    self.parent())
+
+    def exportToExcel(self):
+        """Export every field of every coin to an .xlsx, with image thumbnails."""
+        xlsx_file_name = '.xlsx'.join(self.getFileName().rsplit('.db', 1))
+        xlsx_file_name, _ = QFileDialog.getSaveFileName(
+            self.parent(), self.tr("Save as"), xlsx_file_name, "*.xlsx")
+        if not xlsx_file_name:
+            return
+
+        # Images go to a folder next to the workbook and are linked from the
+        # cells, so the workbook itself stays small (see #113).
+        image_path = os.path.splitext(xlsx_file_name)[0] + '_images'
+        shutil.rmtree(image_path, ignore_errors=True)
+
+        model = self.model()
+        model.sort(model.fields.sort_id.id, Qt.AscendingOrder)
+        while model.canFetchMore():
+            model.fetchMore()
+
+        # Export every field (like the JSON export), not just the visible grid
+        # columns as "Save current list..." does.
+        fields = [field for field in CollectionFieldsBase()
+                  if field.name not in ('id', 'createdat', 'updatedat', 'sort_id')
+                  and field.type != Type.PreviewImage]
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = self.__sheetTitle(self.getDescription().title)
+        ws.append([field.title for field in fields])
+
+        img_file_dict = {}
+        images = (image_path, img_file_dict)
+        has_images = False
+        progressDlg = Gui.ProgressDialog(self.tr("Exporting records"),
+                                         self.tr("Cancel"), model.rowCount(), self.parent())
+
+        for i in range(model.rowCount()):
+            progressDlg.step()
+            if progressDlg.wasCanceled():
+                progressDlg.reset()
+                return
+
+            row, image_cells = self.__excelRow(model.record(i), fields, i, images)
+            ws.append(row)
+            self.__placeThumbnails(ws, i + 2, image_cells)  # row 1 is the header
+            has_images = has_images or bool(image_cells)
+
+        if not self.__saveWorkbook(wb, xlsx_file_name, progressDlg):
+            return
+        progressDlg.reset()
+
+        if has_images:
+            text = self.tr("Export to %s completed\nImages saved to %s") % (
+                xlsx_file_name, image_path)
+        else:
+            text = self.tr("Export to %s completed") % xlsx_file_name
+        infoMessageBox('export_completed', self.tr("Export"), text, self.parent())
+
+    def __excelRow(self, coin, fields, index, images):
+        """Build one worksheet row, plus the thumbnails to draw over it.
+        `images` is (image_path, img_file_dict)."""
+        image_path, img_file_dict = images
+        illegal_re = openpyxl.cell.cell.ILLEGAL_CHARACTERS_RE
+        row = []
+        image_cells = []
+        for col, field in enumerate(fields, start=1):
+            val = coin.value(field.name)
+            if val is None or val == '' or (field.type == Type.Date and val == '2000-01-01'):
+                row.append(None)
+            elif field.type == Type.Image:
+                target = self.__excelImageFile(val, index, field.name, image_path, img_file_dict)
+                thumb = self.__thumbnail(val.data(), 88)  # px, leaves room for the link
+                if thumb is not None:
+                    image_cells.append((thumb, col, target))
+                row.append(None)
+            elif field.type in (Type.Money, Type.Value):
+                # Export monetary fields as real numbers so spreadsheets can sum
+                # and sort them (#253); fall back to the raw value if not numeric.
+                try:
+                    row.append(float(val))
+                except (TypeError, ValueError):
+                    row.append(val)
+            elif isinstance(val, str) and next(illegal_re.finditer(val), None):
+                row.append(' '.join(illegal_re.split(val)))
+            else:
+                row.append(val)
+        return row, image_cells
+
+    @staticmethod
+    def __excelImageFile(val, index, field_name, image_path, img_file_dict):
+        """Write an original image to the images folder (deduplicated by content),
+        returning the relative path to link from the cell."""
+        image_dir = os.path.basename(image_path)
+        hash_ = QCryptographicHash.hash(val, QCryptographicHash.Sha1)
+        if hash_ in img_file_dict:
+            return f"{image_dir}/{img_file_dict[hash_]}"
+        if not img_file_dict:
+            os.makedirs(image_path, exist_ok=True)
+        ext = '.webp' if val.data()[:4] == b"RIFF" else '.jpg'
+        title = f"{index + 1}_{field_name}{ext}"
+        with open(os.path.join(image_path, title), 'wb') as img_file:
+            img_file.write(val.data())
+        img_file_dict[hash_] = title
+        return f"{image_dir}/{title}"
+
+    @staticmethod
+    def __placeThumbnails(ws, excel_row, image_cells):
+        """Draw each thumbnail with a small "open" link beneath it. A cell with a
+        hyperlink but no text makes Excel print the raw path, so we caption it; the
+        blank line above and below keeps the link clear of neighbouring thumbnails."""
+        for thumb, col, target in image_cells:
+            cell = ws.cell(excel_row, col)
+            ws.add_image(thumb, cell.coordinate)
+            cell.value = '\nopen ↗\n'
+            cell.hyperlink = target
+            cell.style = 'Hyperlink'
+            cell.alignment = Alignment(horizontal='center', vertical='bottom', wrap_text=True)
+            ws.row_dimensions[excel_row].height = max(
+                ws.row_dimensions[excel_row].height or 0, thumb.height * 0.75 + 46)
+            col_letter = openpyxl.utils.get_column_letter(col)
+            need_width = thumb.width / 7.0 + 5
+            if need_width > (ws.column_dimensions[col_letter].width or 0):
+                ws.column_dimensions[col_letter].width = need_width
+
+    def __saveWorkbook(self, wb, xlsx_file_name, progressDlg):
+        """Save the workbook, retrying if the file is locked. Returns False if the
+        user cancels."""
+        while True:
+            try:
+                wb.save(xlsx_file_name)
+                return True
+            except PermissionError:
+                progressDlg.close()
+                btn = QMessageBox.warning(
+                    self.parent(), self.tr("Export"),
+                    self.tr("File is open in another program or permission "
+                            "required.\nClose the file and try again."),
+                    QMessageBox.Retry | QMessageBox.Cancel, QMessageBox.Retry)
+                if btn != QMessageBox.Retry:
+                    progressDlg.reset()
+                    return False
+
+    @staticmethod
+    def __sheetTitle(title):
+        r"""Sanitise a worksheet title: max 31 chars, no []:*?/\ characters."""
+        title = openpyxl.workbook.child.INVALID_TITLE_REGEX.sub(' ', title or '')
+        title = title.strip()
+        return title[:31] if title else 'Coins'
+
+    @staticmethod
+    def __thumbnail(image_data, size):
+        """Return an openpyxl image scaled to `size` px, or None if unreadable."""
+        try:
+            image = Image.open(io.BytesIO(image_data))
+            if image.mode not in ('RGB', 'RGBA'):
+                image = image.convert('RGB')
+            image.thumbnail((size, size))
+            thumb_io = io.BytesIO()
+            image.save(thumb_io, format='PNG')
+            return openpyxl.drawing.image.Image(thumb_io)
+        except (OSError, ValueError):
+            return None
 
     def merge(self, fileName):
         query = QSqlQuery(self.db)
