@@ -29,6 +29,9 @@ class __ExportBase():
     def acceptImages(self):
         return False
 
+    def acceptNumbers(self):
+        return False
+
 
 class ExportToExcel(__ExportBase):
 
@@ -76,6 +79,9 @@ class ExportToExcel(__ExportBase):
         self._current_row += 1
 
     def acceptImages(self):
+        return True
+
+    def acceptNumbers(self):
         return True
 
 
