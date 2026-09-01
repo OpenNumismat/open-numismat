@@ -58,6 +58,10 @@ class FormItem(object):
                     self._widget = NativeYearEdit(parent)
                 elif self._field == 'rating':
                     self._widget = RatingEdit(settings['stars_count'], parent)
+                elif self._field in ('buying_currency', 'sale_currency', 'currency'):
+                    self._widget = CurrencyEdit(parent)
+                elif self._field in ('action'):
+                    self._widget = PriceActionEdit(parent)
                 else:
                     self._widget = LineEdit(parent)
         elif self._type == Type.ShortString:
@@ -203,9 +207,7 @@ class FormItem(object):
             if value:
                 self._widget.setDate(QDate.fromString(str(value), Qt.ISODate))
             else:
-                self._widget.setDate(self._widget.DEFAULT_DATE)
-                lineEdit = self._widget.findChild(QLineEdit)
-                lineEdit.setText("")
+                self._widget.clear()
         elif isinstance(self._widget, StatusEdit):
             self._widget.setCurrentValue(value)
         elif isinstance(self._widget, StatusBrowser):

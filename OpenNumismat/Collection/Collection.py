@@ -6,6 +6,10 @@ import json
 import math
 import os
 import shutil
+import numpy as np
+from PIL import Image
+from scipy.spatial.distance import pdist
+from scipy.cluster.hierarchy import linkage, leaves_list
 
 import openpyxl
 from openpyxl.styles import Alignment
@@ -44,7 +48,9 @@ from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.CollectionFields import ImageFields
+from OpenNumismat.Collection.CollectionFields import BuyPriceFields, SellPriceFields
 from OpenNumismat.Collection.CollectionPages import CollectionPages
+from OpenNumismat.Collection.ExtFields import ExtFields
 from OpenNumismat.Collection.Password import cryptPassword, PasswordDialog
 from OpenNumismat.Collection.Description import CollectionDescription
 from OpenNumismat.Reference.Reference import Reference
@@ -59,6 +65,7 @@ from OpenNumismat.Tools.Gui import infoMessageBox
 from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
+from OpenNumismat.Tools import imagehash
 
 
 class CollectionModel(QSqlTableModel):
@@ -67,6 +74,22 @@ class CollectionModel(QSqlTableModel):
     tagsChanged = pyqtSignal()
     IMAGE_FORMAT = 'webp'
     SQLITE_READONLY = '8'
+    JOIN_BUY_PRICES = """
+LEFT JOIN prices buy_prices ON buy_prices.id = (
+  SELECT id
+  FROM prices
+  WHERE coin_id = coins.id AND action = 'buy'
+  ORDER BY id
+  LIMIT 1
+)"""
+    JOIN_SELL_PRICES = """
+LEFT JOIN prices sell_prices ON sell_prices.id = (
+  SELECT id
+  FROM prices
+  WHERE coin_id = coins.id AND action = 'sell'
+  ORDER BY id
+  LIMIT 1
+)"""
 
     def __init__(self, collection, parent=None):
         super().__init__(parent, collection.db)
@@ -79,7 +102,10 @@ class CollectionModel(QSqlTableModel):
         self.fields = collection.fields
         self.description = collection.description
         self.settings = collection.settings
+        self.prices_fields = collection.prices_fields
         self.proxy = None
+        self.photo_order_map = {}
+        self.icon = None
 
         self.rowsInserted.connect(self.rowsInsertedEvent)
 
@@ -94,6 +120,18 @@ class CollectionModel(QSqlTableModel):
             # Localize values
             data = super().data(index, role)
             field = self.fields.fields[index.column()]
+
+            if field in self.fields.externalFields:
+                row = index.row()
+                if row >= 0:
+                    record = super().record(row)
+                else:
+                    record = super().record()
+
+                # TODO: Fill only required field
+                self._fillRecordExt(record)
+                data = record.value(field.name)
+
             try:
                 if field.name == 'status':
                     text = Statuses[data]
@@ -242,6 +280,25 @@ class CollectionModel(QSqlTableModel):
         tag_ids = record.value('tags')
         record.remove(record.indexOf('tags'))
 
+        prices = record.value('prices')
+        record.remove(record.indexOf('prices'))
+
+        status = record.value('status')
+
+        buy_price_record_values = []
+        if status in ('owned', 'ordered', 'sale', 'missing', 'bidding',
+                      'duplicate', 'replacement', 'sold'):
+            for rec_field in BuyPriceFields.keys():
+                buy_price_record_values.append(record.value(rec_field) or None)
+
+        sell_price_record_values = []
+        if status in ('sold', 'pass'):
+            for rec_field in SellPriceFields.keys():
+                sell_price_record_values.append(record.value(rec_field) or None)
+
+        for field in self.fields.externalFields:
+            record.remove(record.indexOf(field.name))
+
         self.insertRecord(-1, record)
         self.submitAll()
 
@@ -257,6 +314,20 @@ class CollectionModel(QSqlTableModel):
                 query.addBindValue(coin_id)
                 query.addBindValue(tag_id)
                 query.exec()
+
+            if self.settings['prices_table']:
+                self._setTableExt(prices, coin_id, 'prices', self.prices_fields)
+            else:
+                if any(buy_price_record_values):
+                    self._insertRecordExt(buy_price_record_values, coin_id, 'prices', BuyPriceFields,
+                                          condition_col='action', condition_val='buy')
+                if any(sell_price_record_values):
+                    if status == 'pass':
+                        action = 'auction'
+                    else:
+                        action = 'sell'
+                    self._insertRecordExt(sell_price_record_values, coin_id, 'prices', SellPriceFields,
+                                          condition_col='action', condition_val=action)
 
         if rowCount < self.rowCount():  # inserted row visible in current model
             if self.insertedRowIndex.isValid():
@@ -309,6 +380,86 @@ class CollectionModel(QSqlTableModel):
 
         return super().insertRecord(row, record)
 
+    def _insertRecordExt(self, record_values, coin_id, table, field_map, condition_col=None, condition_val=None):
+        columns = list(field_map.values())
+        if condition_col:
+            columns += ['coin_id', condition_col]
+        else:
+            columns.append('coin_id')
+        placeholders = ','.join(['?'] * len(columns))
+        ins_query = QSqlQuery(self.database())
+        ins_query.prepare(f"INSERT INTO {table} ({','.join(columns)}, position)"
+                          f" VALUES ({placeholders}, (SELECT COALESCE(MAX(position), 0) + 1 FROM {table} WHERE coin_id=?))")
+        for value in record_values:
+            ins_query.addBindValue(value)
+        ins_query.addBindValue(coin_id)
+        if condition_col:
+            ins_query.addBindValue(condition_val)
+        ins_query.addBindValue(coin_id)
+        ins_query.exec()
+
+    def _setRecordExt(self, record, coin_id, table, field_map, condition_col=None, condition_val=None):
+        active = any(record.value(field) for field in field_map.keys())
+
+        query = QSqlQuery(self.database())
+        if condition_col:
+            query.prepare(f"SELECT id FROM {table} WHERE coin_id=? AND {condition_col}=? ORDER BY id LIMIT 1")
+            query.addBindValue(coin_id)
+            query.addBindValue(condition_val)
+        else:
+            query.prepare(f"SELECT id FROM {table} WHERE coin_id=? ORDER BY id LIMIT 1")
+            query.addBindValue(coin_id)
+        query.exec()
+
+        if query.first():
+            if active:
+                # UPDATE
+                record_id = query.value(0)
+                upd_query = QSqlQuery(self.database())
+                set_clause = ','.join(f"{col}=?" for col in field_map.values())
+                upd_query.prepare(f"UPDATE {table} SET {set_clause} WHERE id=?")
+                for rec_field in field_map.keys():
+                    upd_query.addBindValue(record.value(rec_field) or None)
+                upd_query.addBindValue(record_id)
+                upd_query.exec()
+            else:
+                # DELETE
+                del_query = QSqlQuery(self.database())
+                if condition_col:
+                    del_query.prepare(f"DELETE FROM {table} WHERE coin_id=? AND {condition_col}=?")
+                    del_query.addBindValue(coin_id)
+                    del_query.addBindValue(condition_val)
+                else:
+                    del_query.prepare(f"DELETE FROM {table} WHERE coin_id=?")
+                    del_query.addBindValue(coin_id)
+                del_query.exec()
+        else:
+            if active:
+                # INSERT
+                record_values = []
+                for rec_field in field_map.keys():
+                    record_values.append(record.value(rec_field) or None)
+                self._insertRecordExt(record_values, coin_id, table, field_map, condition_col, condition_val)
+
+    def _setTableExt(self, record_values, coin_id, table, fields):
+        query = QSqlQuery(self.database())
+
+        query.prepare(f"DELETE FROM {table} WHERE coin_id=?")
+        query.addBindValue(coin_id)
+        query.exec()
+
+        position = 1
+        placeholders = ','.join(['?'] * len(fields))
+        for data in record_values:
+            query.prepare(f"INSERT INTO {table}(coin_id, position, {','.join(fields.names())}) VALUES(?, ?, {placeholders})")
+            query.addBindValue(coin_id)
+            query.addBindValue(position)
+            for value in data:
+                query.addBindValue(value)
+            query.exec()
+
+            position += 1
+
     def setRecord(self, row, record):
         self._updateRecord(record)
 
@@ -328,7 +479,7 @@ class CollectionModel(QSqlTableModel):
             else:
                 if img_id:
                     query = QSqlQuery(self.database())
-                    query.prepare("UPDATE photos SET title=?, image=? WHERE id=?")
+                    query.prepare("UPDATE photos SET title=?, image=?, phash=NULL WHERE id=?")
                     query.addBindValue(record.value(f"{field}_title"))
                     query.addBindValue(record.value(field))
                     query.addBindValue(img_id)
@@ -376,6 +527,22 @@ class CollectionModel(QSqlTableModel):
 
         coin_id = record.value('id')
 
+        if self.settings['prices_table']:
+            if record.contains('prices'):
+                prices = record.value('prices')
+                self._setTableExt(prices, coin_id, 'prices', self.prices_fields)
+
+                record.remove(record.indexOf('prices'))
+        else:
+            self._setRecordExt(record, coin_id, 'prices', BuyPriceFields,
+                               condition_col='action', condition_val='buy')
+            self._setRecordExt(record, coin_id, 'prices', SellPriceFields,
+                               condition_col='action', condition_val='sell')
+            # TODO: Process pass status
+
+        for field in self.fields.externalFields:
+            record.remove(record.indexOf(field.name))
+
         query = QSqlQuery(self.database())
         query.prepare("DELETE FROM coins_tags WHERE coin_id=?")
         query.addBindValue(coin_id)
@@ -397,6 +564,8 @@ class CollectionModel(QSqlTableModel):
         else:
             record.setNull('image')
         record.remove(record.indexOf('image_id'))
+
+        self.photo_order_map = {}
 
         return super().setRecord(row, record)
 
@@ -433,11 +602,44 @@ class CollectionModel(QSqlTableModel):
         self.submitAll()
         progressDlg.reset()
 
+    def _fillRecordExt(self, record):
+        coin_id = record.value('id')
+        if coin_id:
+            for field in self.fields.externalFields:
+                record.setValue(field.name, None)
+
+            query = QSqlQuery(self.database())
+
+            query.prepare(f"SELECT {','.join(BuyPriceFields.values())} FROM prices WHERE coin_id=? AND action='buy' ORDER BY id LIMIT 1")
+            query.addBindValue(coin_id)
+            query.exec()
+            if query.first():
+                for old_field, new_field in BuyPriceFields.items():
+                    val = query.record().value(new_field)
+                    record.setValue(old_field, val)
+
+            status = record.value('status')
+            if status in ('sold', 'pass'):
+                if status == 'pass':
+                    action = 'auction'
+                else:
+                    action = 'sell'
+                query.prepare(f"SELECT {','.join(SellPriceFields.values())} FROM prices WHERE coin_id=? AND action=? ORDER BY id LIMIT 1")
+                query.addBindValue(coin_id)
+                query.addBindValue(action)
+                query.exec()
+                if query.first():
+                    for old_field, new_field in SellPriceFields.items():
+                        val = query.record().value(new_field)
+                        record.setValue(old_field, val)
+
     def record(self, row=-1):
         if row >= 0:
             record = super().record(row)
         else:
             record = super().record()
+
+        self._fillRecordExt(record)
 
         for field in ImageFields:
             record.append(QSqlField(f"{field}_title"))
@@ -461,8 +663,8 @@ class CollectionModel(QSqlTableModel):
         else:
             record.setValue('image', None)
 
-        tag_ids = []
         coin_id = record.value('id')
+        tag_ids = []
         if coin_id:
             query = QSqlQuery(self.database())
             query.prepare("SELECT tag_id FROM coins_tags WHERE coin_id=?")
@@ -475,6 +677,24 @@ class CollectionModel(QSqlTableModel):
 
         record.append(QSqlField('tags'))
         record.setValue('tags', tag_ids)
+
+        if self.settings['prices_table']:
+            prices = []
+            if coin_id:
+                query = QSqlQuery(self.database())
+                query.prepare(f"SELECT * FROM prices WHERE coin_id=?")
+                query.addBindValue(coin_id)
+                query.exec()
+
+                while query.next():
+                    price_data = []
+                    for field in self.prices_fields:
+                        value = query.record().value(field.name)
+                        price_data.append(value)
+                    prices.append(price_data)
+
+            record.append(QSqlField('prices'))
+            record.setValue('prices', prices)
 
         return record
 
@@ -537,9 +757,11 @@ class CollectionModel(QSqlTableModel):
         coin_id = record.value('id')
         if coin_id:
             query = QSqlQuery(self.database())
-            query.prepare("DELETE FROM coins_tags WHERE coin_id=?")
-            query.addBindValue(coin_id)
-            query.exec()
+            tables = ('coins_tags', 'prices')
+            for table in tables:
+                query.prepare(f"DELETE FROM {table} WHERE coin_id=?")
+                query.addBindValue(coin_id)
+                query.exec()
 
         return super().removeRow(row)
 
@@ -833,6 +1055,43 @@ class CollectionModel(QSqlTableModel):
         self.searchFilter = filter_
         self.__applyFilter()
 
+    def selectStatement(self):
+        filter_ = super().filter()
+        if filter_:
+            filter_ = f" WHERE {filter_}"
+        sql = ('''
+        SELECT coins.id AS id, "title", "value", "unit", "country", coins.year AS year,
+ "period", "mint", "mintmark", "issuedate", "type", "series",
+ "subjectshort", "status", "material", "fineness", "shape",
+ "diameter", "thickness", "weight", coins.grade AS grade, "edge", "edgelabel",
+ "obvrev", "quality", "mintage", "dateemis", "catalognum1", "catalognum2",
+ "catalognum3", "catalognum4", "rarity", "price1", "price2", "price3", "price4",
+ "variety", "obversevar", "reversevar", "edgevar",
+
+ buy_prices.date AS paydate, buy_prices.price AS payprice, buy_prices.total_price AS totalpayprice,
+ buy_prices.counterparty AS saller, buy_prices.place AS payplace, buy_prices.info AS payinfo,
+ sell_prices.date AS saledate, sell_prices.price AS saleprice, sell_prices.total_price AS totalsaleprice,
+ sell_prices.counterparty AS buyer, sell_prices.place AS saleplace, sell_prices.info AS saleinfo,
+
+ "note", "image", "obverseimg",
+ "obversedesign", "obversedesigner", "reverseimg", "reversedesign",
+ "reversedesigner", "edgeimg", "subject", "photo1", "photo2", "photo3", "photo4",
+ "defect", "storage", "features", "createdat", "updatedat", coins.quantity AS quantity, coins.url AS url,
+ "barcode", "ruler", "region", "obverseengraver", "reverseengraver", "obversecolor",
+ "reversecolor", "varietydesc", "varietyimg", "format", "condition", "category", "sort_id",
+ "emitent", "signaturetype", "signature", "signatureimg", "address", "latitude",
+ "longitude", "photo5", "photo6", "grader", "seat", "native_year", "composition", "material2",
+ "width", "height", "technique", "modification", "axis", "real_weight", "real_diameter", "rating",
+
+ buy_prices.url AS buying_invoice, sell_prices.url AS sale_invoice,
+ buy_prices.currency AS buying_currency, sell_prices.currency AS sale_currency
+
+ FROM "coins"
+'''
+        f" {self.JOIN_BUY_PRICES} {self.JOIN_SELL_PRICES}"
+        f" {filter_}")
+        return sql
+
     def __applyFilter(self):
         filters = []
         if self.intFilter:
@@ -853,31 +1112,128 @@ class CollectionModel(QSqlTableModel):
         super().setFilter(combinedFilter)
 
     def isExist(self, record):
+        from_sql = ("FROM coins"
+                    f" {self.JOIN_BUY_PRICES}"
+                    f" {self.JOIN_SELL_PRICES}")
         fields = ('title', 'value', 'unit', 'country', 'period', 'ruler',
-                  'year', 'mint', 'mintmark', 'type', 'series', 'subjectshort',
-                  'status', 'material', 'quality', 'paydate', 'payprice',
-                  'saller', 'payplace', 'saledate', 'saleprice', 'buyer',
-                  'saleplace', 'variety', 'obversevar', 'reversevar',
-                  'edgevar')
+                  'coins.year', 'mint', 'mintmark', 'type', 'series', 'subjectshort',
+                  'status', 'material', 'quality', 'buy_prices.date',
+                  'buy_prices.price', 'buy_prices.counterparty',
+                  'buy_prices.place', 'sell_prices.date', 'sell_prices.price',
+                  'sell_prices.counterparty', 'sell_prices.place', 'variety',
+                  'obversevar', 'reversevar', 'edgevar')
         filterParts = [field + '=?' for field in fields]
         sqlFilter = ' AND '.join(filterParts)
 
         db = self.database()
         query = QSqlQuery(db)
-        query.prepare("SELECT 1 FROM coins WHERE id<>? AND " + sqlFilter + " LIMIT 1")
+        query.prepare(f"SELECT 1 {from_sql} WHERE coins.id<>? AND {sqlFilter} LIMIT 1")
         query.addBindValue(record.value('id'))
         for field in fields:
             query.addBindValue(record.value(field))
-        query.exec()
         if query.first():
             return True
 
         return False
 
+    @waitCursorDecorator
+    def _getPhotoHashes(self, field):
+        id_array = []
+        phash_array = []
+
+        self.database().transaction()
+
+        sql = ("SELECT photos.id, photos.phash, photos.image FROM photos"
+               f" INNER JOIN coins ON photos.id = coins.{field}")
+        query = QSqlQuery(sql, self.database())
+        while query.next():
+            photo_id = query.value(0)
+            phash = query.value(1)
+
+            if not phash:
+                img = query.value(2)
+                if img:
+                    pil_img = Image.open(io.BytesIO(img))
+                    hash_ = imagehash.image_hash(pil_img, 'phash')
+                    phash = int(hash_)
+
+                    query_update = QSqlQuery(self.database())
+                    query_update.prepare('UPDATE photos SET phash=? WHERE id=?')
+                    query_update.addBindValue(phash)
+                    query_update.addBindValue(photo_id)
+                    query_update.exec()
+
+            id_array.append(photo_id)
+            phash_array.append(phash or 0)
+
+        self.database().commit()
+
+        return id_array, phash_array
+
+    def getPhotoOrderMap(self, field):
+        if field in self.photo_order_map:
+            return self.photo_order_map[field]
+
+        ids, hashes = self._getPhotoHashes(field)
+        if not hashes:
+            self.photo_order_map[field] = {}
+            return self.photo_order_map[field]
+
+        hash_array = np.array(hashes, dtype=np.int64)
+        bit_matrix = ((hash_array[:, None] & (1 << np.arange(64))) > 0).astype(np.int8)
+
+        dist_matrix = pdist(bit_matrix, metric='hamming')
+        Z = linkage(dist_matrix, method='complete')
+
+        optimized_indices = leaves_list(Z)
+
+        self.photo_order_map[field] = {ids[idx]: weight for weight, idx in enumerate(optimized_indices)}
+
+        return self.photo_order_map[field]
+
+    def getImageOrderMap(self):
+        if 'image' in self.photo_order_map:
+            return self.photo_order_map['image']
+
+        obverse_ids, obverse_hashes = self._getPhotoHashes('obverseimg')
+        reverse_ids, reverse_hashes = self._getPhotoHashes('reverseimg')
+        if not obverse_hashes and not reverse_hashes:
+            self.photo_order_map['image'] = {}
+            return self.photo_order_map['image']
+
+        ids = list(set(obverse_ids + reverse_ids))
+        obverse_dict = dict(zip(obverse_ids, obverse_hashes))
+        reverse_dict = dict(zip(reverse_ids, reverse_hashes))
+
+        obverse_hashes = [obverse_dict.get(i, 0) for i in ids]
+        reverse_hashes = [reverse_dict.get(i, 0) for i in ids]
+
+        hash_array = np.array(obverse_hashes, dtype=np.int64)
+        bit_obverse = ((hash_array[:, None] & (1 << np.arange(64))) > 0).astype(np.float64)
+        hash_array = np.array(reverse_hashes, dtype=np.int64)
+        bit_reverse = ((hash_array[:, None] & (1 << np.arange(64))) > 0).astype(np.float64)
+
+        weight_obverse = self.settings['obverse_reverse_weight']
+        weight_reverse = 1. - weight_obverse
+
+        bit_obverse *= weight_obverse
+        bit_reverse *= weight_reverse
+
+        full_features = np.hstack((bit_obverse, bit_reverse))
+
+        dist_matrix = pdist(full_features, metric='euclidean')
+        Z = linkage(dist_matrix, method='complete')
+
+        optimized_indices = leaves_list(Z)
+
+        self.photo_order_map['image'] = {ids[idx]: weight for weight, idx in enumerate(optimized_indices)}
+
+        return self.photo_order_map['image']
+
 
 class CollectionSettings(BaseSettings):
     Default = {
-            'Version': 10,
+            'Version': 11,
             'Type': version.AppName,
             'Password': cryptPassword(),
             'ImageSideLen': 1024,
@@ -944,6 +1300,8 @@ class CollectionSettings(BaseSettings):
             'images_view_mask': (1 << 1) | (1 << 0),
             'sort_by_reference': True,
             'image_quality': 80,
+            'obverse_reverse_weight': 0.5,
+            'prices_table': False,
     }
 
     def __init__(self, db):
@@ -1077,6 +1435,7 @@ class Collection(QObject):
                 return False
 
         self.fields = CollectionFields(self.db)
+        self.prices_fields = ExtFields('prices', self.db, self)
 
         self.fileName = fileName
 
@@ -1115,7 +1474,6 @@ class Collection(QObject):
 
         self.createCoinsTable()
         self.createTagsTable()
-        self.createPricesTable()
 
         self.fileName = fileName
 
@@ -1146,9 +1504,40 @@ class Collection(QObject):
             if field.name == 'id':
                 sqlFields.append('id INTEGER PRIMARY KEY')
             else:
-                sqlFields.append("%s %s" % (field.name, Type.toSql(field.type)))
+                if field not in self.fields.externalFields:
+                    sqlFields.append(f"{field.name} {Type.toSql(field.type)}")
 
         sql = "CREATE TABLE coins (" + ", ".join(sqlFields) + ")"
+        QSqlQuery(sql, self.db)
+
+        sql = """CREATE TABLE prices (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    coin_id INTEGER,
+                    action TEXT,
+                    date TEXT,
+                    quantity INTEGER,
+                    price NUMERIC,
+                    currency TEXT,
+                    total_price NUMERIC,
+                    shipping NUMERIC,
+                    grade TEXT,
+                    url TEXT,
+                    place TEXT,
+                    number TEXT,
+                    counterparty TEXT,
+                    info TEXT,
+                    start_bid NUMERIC,
+                    position INTEGER)"""
+        QSqlQuery(sql, self.db)
+
+        sql = """CREATE TABLE ext_column_settings (
+                    table_name TEXT NOT NULL,
+                    column_name TEXT NOT NULL,
+                    title TEXT,
+                    enabled INTEGER DEFAULT 1,
+                    position INTEGER,
+                    width INTEGER DEFAULT 100,
+                    PRIMARY KEY (table_name, column_name))"""
         QSqlQuery(sql, self.db)
 
         sql = """CREATE TABLE photos (
@@ -1157,7 +1546,8 @@ class Collection(QObject):
                     image BLOB,
                     author TEXT,
                     license TEXT,
-                    source TEXT)"""
+                    source TEXT,
+                    phash INTEGER)"""
         QSqlQuery(sql, self.db)
 
         sql = "CREATE TABLE images (id INTEGER PRIMARY KEY, image BLOB)"
@@ -1176,20 +1566,6 @@ class Collection(QObject):
         sql = """CREATE TABLE coins_tags (
                     coin_id INTEGER,
                     tag_id INTEGER)"""
-        QSqlQuery(sql, self.db)
-
-    def createPricesTable(self):
-        sql = """CREATE TABLE prices (
-                    id INTEGER NOT NULL PRIMARY KEY,
-                    coin_id INTEGER,
-                    action TEXT,
-                    date TEXT,
-                    quantity INTEGER,
-                    price NUMERIC,
-                    currency TEXT,
-                    commission NUMERIC,
-                    shipping NUMERIC,
-                    grade TEXT)"""
         QSqlQuery(sql, self.db)
 
     def isReferenceAttached(self):
@@ -1221,6 +1597,7 @@ class Collection(QObject):
     def createModel(self):
         model = CollectionModel(self)
         model.title = self.getCollectionName()
+        model.icon = self.description.icon
         model.setEditStrategy(QSqlTableModel.OnManualSubmit)
         model.setTable('coins')
         model.select()
@@ -1253,7 +1630,12 @@ class Collection(QObject):
                     refSection.fillFromQuery(parentId, query)
                     refSection.reload()
             else:
-                sql = "SELECT DISTINCT %s FROM coins WHERE %s<>'' AND %s IS NOT NULL" % (columnName, columnName, columnName)
+                if columnName in ('payplace', 'saleplace'):
+                    sql = (f"SELECT DISTINCT place AS {columnName} FROM prices"
+                           f" WHERE {columnName}<>'' AND {columnName} IS NOT NULL")
+                else:
+                    sql = (f"SELECT DISTINCT {columnName} FROM coins"
+                           f" WHERE {columnName}<>'' AND {columnName} IS NOT NULL")
                 query = QSqlQuery(sql, self.db)
                 refSection.fillFromQuery(query)
                 refSection.reload()
@@ -1822,7 +2204,7 @@ class Collection(QObject):
                              ('id', 'image', 'sort_id')
                 sql_dst_fields = ','.join(['coins.%s AS coins_%s' % (f, f) for f in dst_fields])
                 sql_src_fields = ','.join(['src_coins.%s' % f for f in fields])
-                sql = "SELECT %s, %s FROM coins\
+                sql = "SELECT %s, %s, src_coins.id AS src_coin_id FROM coins\
                     INNER JOIN src.coins src_coins ON coins.id=src_coins.id\
                     WHERE src_coins.createdat=? AND\
                           src_coins.createdat=coins.createdat AND\
@@ -1861,7 +2243,7 @@ class Collection(QObject):
                             img_id = sel_query.record().value(field)
                             old_img_id = sel_query.record().value('coins_%s' % field)
                             if img_id and old_img_id:
-                                sql = "UPDATE photos SET title=(SELECT title FROM src.photos WHERE id=?), image=(SELECT image FROM src.photos WHERE id=?) WHERE id=?"
+                                sql = "UPDATE photos SET title=(SELECT title FROM src.photos WHERE id=?), image=(SELECT image FROM src.photos WHERE id=?), phash=NULL WHERE id=?"
                                 img_query = QSqlQuery(sql, self.db)
                                 img_query.addBindValue(img_id)
                                 img_query.addBindValue(img_id)
@@ -1890,8 +2272,24 @@ class Collection(QObject):
 
                     up_query.exec()
                     updated_count += 1
+
+                    coin_id = sel_query.record().value('coins_id')
+                    old_coin_id = sel_query.record().value('src_coin_id')
+
+                    sql = "DELETE FROM prices WHERE coin_id=?"
+                    price_query = QSqlQuery(sql, self.db)
+                    price_query.addBindValue(coin_id)
+                    price_query.exec()
+
+                    sql = ("INSERT INTO prices (coin_id, position, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid)"
+                           " SELECT ?, position, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid FROM src.prices"
+                           " WHERE coin_id=?")
+                    price_query = QSqlQuery(sql, self.db)
+                    price_query.addBindValue(coin_id)
+                    price_query.addBindValue(old_coin_id)
+                    price_query.exec()
             else:
-                sql = "SELECT %s FROM src.coins WHERE createdat=?" % sql_fields
+                sql = "SELECT %s, id FROM src.coins WHERE createdat=?" % sql_fields
                 sel_query = QSqlQuery(sql, self.db)
                 sel_query.addBindValue(query.record().value(0))
                 sel_query.exec()
@@ -1935,6 +2333,20 @@ class Collection(QObject):
 
                     ins_query.exec()
                     inserted_count += 1
+
+                    last_id_query = QSqlQuery(self.db)
+                    last_id_query.exec('SELECT last_insert_rowid()')
+                    if last_id_query.first():
+                        coin_id = last_id_query.value(0)
+                        old_coin_id = sel_query.record().value('id')
+
+                        sql = ("INSERT INTO prices (coin_id, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid, position)"
+                               " SELECT ?, action, date, quantity, price, currency, total_price, shipping, grade, url, place, number, counterparty, info, start_bid, position FROM src.prices"
+                               " WHERE coin_id=?")
+                        price_query = QSqlQuery(sql, self.db)
+                        price_query.addBindValue(coin_id)
+                        price_query.addBindValue(old_coin_id)
+                        price_query.exec()
 
             self.db.commit()
 

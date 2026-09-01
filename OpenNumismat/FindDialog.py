@@ -1,4 +1,3 @@
-import imagehash
 import io
 from dataclasses import dataclass
 from PIL import Image, ImageQt
@@ -36,6 +35,7 @@ from OpenNumismat.EditCoinDialog.ImageLabel import ImageEdit, ImageLabel
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools import Gui
 from OpenNumismat.Tools.Gui import statusColor
+from OpenNumismat.Tools import imagehash
 
 
 @dataclass(slots=True, frozen=True)
@@ -179,7 +179,7 @@ class FindDialog(QDialog):
 
         method = self.methodSelector.currentData()
 
-        target_hash = self._imageHash(pil_target_img, method)
+        target_hash = imagehash.image_hash(pil_target_img, method)
 
         fields = []
         for field, check_box in self.fieldsCheckBox.items():
@@ -190,6 +190,8 @@ class FindDialog(QDialog):
             QMessageBox.warning(self, self.tr("Find"),
                                 self.tr("No image fields selected"))
             return
+
+        self.model.database().transaction()
 
         # Get count of coins with photos
         row_count = 0
@@ -205,10 +207,14 @@ class FindDialog(QDialog):
 
         sql_fileds = ""
         for field in fields:
-            sql_fileds += ", %s.image AS %s_image, %s.id AS %s_id" % (field, field, field, field)
+            sql_fileds += (
+                f", {field}.image AS {field}_image"
+                f", {field}.id AS {field}_id"
+                f", {field}.phash AS {field}_phash"
+            )
         sql = "SELECT coins.id, coins.title, coins.status%s FROM coins" % sql_fileds
         for field in fields:
-            sql += " LEFT JOIN photos %s ON coins.%s=%s.id" % (field, field, field)
+            sql += f" LEFT JOIN photos {field} ON coins.{field}={field}.id"
         if self.model.filter():
             # TODO: Filter by title fail this request
             sql += " WHERE " + self.model.filter()
@@ -233,10 +239,22 @@ class FindDialog(QDialog):
 
             record_distances = {}
             for field in fields:
-                img = record.value('%s_image' % field)
-                if img:
+                img = record.value(f'{field}_image')
+                phash = record.value(f'{field}_phash')
+                if phash and method == 'phash':
+                    hash_ = imagehash.int2hash(phash)
+                    record_distances[field] = target_hash - hash_
+                elif img:
                     pil_img = Image.open(io.BytesIO(img))
-                    hash_ = self._imageHash(pil_img, method)
+                    hash_ = imagehash.image_hash(pil_img, method)
+                    if method == 'phash':
+                        photo_id = record.value('%s_id' % field)
+
+                        query_update = QSqlQuery(self.model.database())
+                        query_update.prepare('UPDATE photos SET phash=? WHERE id=?')
+                        query_update.addBindValue(int(hash_))
+                        query_update.addBindValue(photo_id)
+                        query_update.exec()
 
                     # TODO: Test similarity threshold here
                     record_distances[field] = target_hash - hash_
@@ -256,6 +274,8 @@ class FindDialog(QDialog):
                 ))
 
         progressDlg.reset()
+
+        self.model.database().commit()
 
         comparison_results = sorted(comparison_results, key=lambda x: x.distance)
 
@@ -282,38 +302,6 @@ class FindDialog(QDialog):
             self.table.addItem(item)
 
         self.table.update()
-
-    def _imageHash(self, image, method):
-        # Squaring
-        if method != 'crop_resistant_hash':
-            w, h = image.size
-            if w > h:
-                offset = (w - h) // 2
-                image = image.crop((offset, 0, w - offset, h))
-            else:
-                offset = (h - w) // 2
-                image = image.crop((0, offset, w, h - offset))
-
-        # Resize
-        # image = image.resize((256, 256), Image.Resampling.LANCZOS)
-
-        # Filter
-        if method == 'phash_orb':
-            image = img2orientedBRIEF(image)
-
-        # Compute hash
-        if method == 'ahash':
-            return imagehash.average_hash(image)
-        elif method == 'phash' or method == 'phash_orb':
-            return imagehash.phash(image)
-        elif method == 'dhash':
-            return imagehash.dhash(image)
-        elif method == 'whash':
-            return imagehash.whash(image)
-        elif method == 'colorhash':
-            return imagehash.colorhash(image)
-        elif method == 'crop_resistant_hash':
-            return imagehash.crop_resistant_hash(image)
 
     def _updateTableSizes(self):
         defaultHeight = self.table.verticalHeader().defaultSectionSize()
@@ -477,34 +465,3 @@ class CardDelegate(QStyledItemDelegate):
                                  (image_rect.height() - pixmap.height()) // 2)
             image_rect.setSize(pixmap.size())
             painter.drawPixmap(image_rect, pixmap)
-
-
-def img2orientedBRIEF(image, nfeatures=2000):
-    import cv2
-    import numpy as np
-
-    if isinstance(image, Image.Image):  # convert PIL to cv2
-        image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
-
-    if len(image.shape) == 3:
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    # https://www.geeksforgeeks.org/feature-detection-and-matching-with-opencv-python/
-    orb = cv2.ORB_create(nfeatures=nfeatures)
-    kp = orb.detect(image)
-
-    height, width = image.shape
-    img = np.zeros([height, width, 1], dtype=np.uint8)
-    img.fill(255)
-
-    # Drawing the keypoints
-    if width <= 512:
-        for i in kp:
-            x = int(i.pt[0])
-            y = int(i.pt[1])
-            cv2.circle(img, (x, y), 2, (0, 0, 255), -1)
-    else:
-        img = cv2.drawKeypoints(img, kp, 0, color=(0, 255, 0))
-
-    image = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))  # convert cv2 to PIL
-    return image

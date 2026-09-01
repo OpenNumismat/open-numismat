@@ -196,6 +196,18 @@ StatisticsFields = (
     'unit',
     'composition',
 )
+BuyPriceFields = {
+    'paydate': 'date', 'payprice': 'price',
+    'totalpayprice': 'total_price', 'saller': 'counterparty',
+    'payplace': 'place', 'payinfo': 'info', 'buying_invoice': 'url',
+    'buying_currency': 'currency',
+}
+SellPriceFields = {
+    'saledate': 'date', 'saleprice': 'price',
+    'totalsaleprice': 'total_price', 'buyer': 'counterparty',
+    'saleplace': 'place', 'saleinfo': 'info', 'sale_invoice': 'url',
+    'sale_currency': 'currency',
+}
 
 
 @dataclass(slots=True)
@@ -324,6 +336,8 @@ class CollectionFieldsBase(QObject):
                 ('rating', QApplication.translate('CollectionFieldsBase', "Rating"), Type.String),
                 ('buying_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
                 ('sale_invoice', QApplication.translate('CollectionFieldsBase', "Invoice"), Type.String),
+                ('buying_currency', QApplication.translate('CollectionFieldsBase', "Currency"), Type.String),
+                ('sale_currency', QApplication.translate('CollectionFieldsBase', "Currency"), Type.String),
             ]
 
         self.fields = []
@@ -337,6 +351,16 @@ class CollectionFieldsBase(QObject):
         self.userFields = list(self.fields)
         for item in (self.id, self.createdat, self.updatedat, self.sort_id):
             self.userFields.remove(item)
+
+        self.priceFields = (
+            self.paydate, self.payprice, self.totalpayprice,
+            self.saller, self.payplace, self.payinfo,
+            self.saledate, self.saleprice, self.totalsaleprice,
+            self.buyer, self.saleplace, self.saleinfo,
+            self.buying_invoice, self.sale_invoice,
+            self.buying_currency, self.sale_currency,
+        )
+        self.externalFields = self.priceFields
 
     def field(self, id_):
         return self.fields[id_]

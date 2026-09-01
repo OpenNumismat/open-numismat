@@ -21,8 +21,9 @@ from OpenNumismat.EditCoinDialog.FormItems import DoubleValidator, GraderLineEdi
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, BaseFormGroupBox, ImageFormLayout
 from OpenNumismat.EditCoinDialog.BaseFormLayout import DesignFormLayout, FormItem
 from OpenNumismat.EditCoinDialog.YearCalculator import YearCalculatorDialog
+from OpenNumismat.EditCoinDialog.ExtTable import PricesTableLayout
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
-from OpenNumismat.Collection.CollectionFields import ImageFields
+from OpenNumismat.Collection.CollectionFields import ImageFields, BuyPriceFields, SellPriceFields
 from OpenNumismat.Collection.CollectionFields import TitleTemplateFields
 from OpenNumismat.Tools.Converters import numberWithFraction, stringToMoney
 from OpenNumismat.Settings import Settings
@@ -44,13 +45,18 @@ class DetailsTabWidget(QTabWidget):
         self.settings = model.settings
         self.map_item = None
         self.tags_item = None
+        self.prices_fields = model.prices_fields
+        self.prices_table = None
 
         self.createItems()
         self.createPages()
 
     def createPages(self):
         self.createCoinPage()
-        self.createTrafficPage()
+        if self.settings['prices_table']:
+            self.createPricesPage()
+        else:
+            self.createTrafficPage()
         if self.settings['tags_used']:
             self.createTagsPage()
         self.createMapPage()
@@ -84,6 +90,11 @@ class DetailsTabWidget(QTabWidget):
         title = self.settings['market_group_title']
         self.addTabPage(title, [])
 
+    def createPricesPage(self):
+        self.prices_table = self.pricesTableLayout()
+
+        self.addTabPage(self.tr("Prices"), [self.prices_table, ])
+
     def createParametersPage(self):
         parameters = self.parametersLayout()
         minting = self.mintingLayout()
@@ -113,8 +124,8 @@ class DetailsTabWidget(QTabWidget):
 
         if not catalogue.isEmpty() or not rarity.isEmpty() or not price.isEmpty() or not variation.isEmpty() or not url.isEmpty():
             title = self.settings['classification_group_title']
-            self.addTabPage(title, [catalogue, rarity, price, self.Stretch,
-                                    variation, url])
+            elements = [catalogue, rarity, price, self.Stretch, variation, url]
+            self.addTabPage(title, elements)
 
     def _layoutToWidget(self, layout):
         widget = QWidget(self)
@@ -227,6 +238,9 @@ class DetailsTabWidget(QTabWidget):
             if self.tags_item:
                 self.tags_item.fill(record)
 
+            if self.prices_table:
+                self.prices_table.fill(record.value('prices'))
+
     def _fillItem(self, record, item):
         if not record.isNull(item.field()):
             value = record.value(item.field())
@@ -300,6 +314,7 @@ class DetailsTabWidget(QTabWidget):
             item = self.addPayCommission()
 
         layout.addRow(self.items['totalpayprice'], item)
+        layout.addRow(self.items['buying_currency'])
         layout.addRow(self.items['saller'])
         layout.addRow(self.items['payplace'])
         layout.addRow(self.items['buying_invoice'])
@@ -320,6 +335,7 @@ class DetailsTabWidget(QTabWidget):
             item = self.addSaleCommission()
 
         layout.addRow(self.items['totalsaleprice'], item)
+        layout.addRow(self.items['sale_currency'])
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
         layout.addRow(self.items['sale_invoice'])
@@ -348,6 +364,7 @@ class DetailsTabWidget(QTabWidget):
             item = self.addSaleCommission()
         layout.addRow(self.items['totalsaleprice'], item)
 
+        layout.addRow(self.items['sale_currency'])
         layout.addRow(self.items['saller'])
         layout.addRow(self.items['buyer'])
         layout.addRow(self.items['saleplace'])
@@ -464,10 +481,26 @@ class DetailsTabWidget(QTabWidget):
         title = self.settings['classification_price_group_title']
         layout = BaseFormGroupBox(title)
 
-        layout.addRow(self.items['price4'], self.items['price3'])
-        layout.addRow(self.items['price2'], self.items['price1'])
+        visible_items = []
+        for i in range(4, 0, -1):
+            if not self.items[f'price{i}'].hidden:
+                visible_items.append(self.items[f'price{i}'])
+
+        for i in range(0, len(visible_items), 2):
+            pair = visible_items[i:i + 2]
+            layout.addRow(*pair)
 
         return layout
+
+    def pricesTableLayout(self):
+        for field_name in BuyPriceFields.keys():
+            self.items.pop(field_name)
+
+        for field_name in SellPriceFields.keys():
+            self.items.pop(field_name)
+
+        prices_table = PricesTableLayout(self.prices_fields, self.reference, self.settings, True, self)
+        return prices_table
 
     def variationLayout(self):
         title = self.settings['classification_variation_group_title']
@@ -541,6 +574,9 @@ class DetailsTabWidget(QTabWidget):
         return pageParts
 
     def indexChangedState(self, index):
+        if self.settings['prices_table']:
+            return
+
         pageIndex = self.currentIndex()
 
         self.removeTab(1)
@@ -645,7 +681,10 @@ class FormDetailsTabWidget(DetailsTabWidget):
     def createPages(self):
         self.createCoinPage()
         self.oldStatus = 'demo'
-        self.createTrafficPage()
+        if self.settings['prices_table']:
+            self.createPricesPage()
+        else:
+            self.createTrafficPage()
         if self.settings['tags_used']:
             self.createTagsPage()
         self.createMapPage()
@@ -810,6 +849,19 @@ class FormDetailsTabWidget(DetailsTabWidget):
         layout.addRow(self.items['signature'])
 
         return layout
+
+    def pricesTableLayout(self):
+        if not self.usedFields:
+            for field_name in BuyPriceFields.keys():
+                self.items.pop(field_name)
+
+            for field_name in SellPriceFields.keys():
+                self.items.pop(field_name)
+
+            prices_table = PricesTableLayout(self.prices_fields, self.reference, self.settings, False, self)
+            return prices_table
+        else:
+            return None
 
     def variationLayout(self):
         title = self.settings['classification_variation_group_title']

@@ -605,10 +605,12 @@ class FieldsSettingsPage(QWidget):
                                 'features', 'grader', 'seat', 'rating',):
                 coin_state_item.addChild(item)
             elif field.name in ('paydate', 'payprice', 'totalpayprice',
-                                'saller', 'payplace', 'payinfo', 'buying_invoice'):
+                                'saller', 'payplace', 'payinfo', 'buying_invoice',
+                                'buying_currency'):
                 market_buy_item.addChild(item)
             elif field.name in ('saledate', 'saleprice', 'totalsaleprice',
-                                'buyer', 'saleplace', 'saleinfo', 'sale_invoice'):
+                                'buyer', 'saleplace', 'saleinfo', 'sale_invoice',
+                                'sale_currency'):
                 market_sale_item.addChild(item)
             elif field.name in ('address', 'latitude', 'longitude'):
                 map_item.addChild(item)
@@ -739,6 +741,66 @@ class FieldsSettingsPage(QWidget):
                 childs.append(item)
 
         return childs
+
+
+class ExtFieldsSettingsPage(QWidget):
+    DataRole = Qt.UserRole
+
+    def __init__(self, collection, parent=None):
+        super().__init__(parent)
+
+        self.settings = collection.settings
+
+        layout = QFormLayout()
+        layout.setRowWrapPolicy(QFormLayout.WrapLongRows)
+
+        self.pricesTableEnabled = QCheckBox(self.tr("Use prices table"), self)
+        self.pricesTableEnabled.setChecked(self.settings['prices_table'])
+        layout.addRow(self.pricesTableEnabled)
+
+        self.prices_table_list = QListWidget(self)
+        self.prices_table_list.setDragDropMode(QListWidget.InternalMove)
+        self.prices_table_list.setSizePolicy(QSizePolicy.Policy.Expanding,
+                                        QSizePolicy.Policy.Fixed)
+        self.prices_table_list.setEnabled(self.settings['prices_table'])
+        self.pricesTableEnabled.toggled.connect(self.prices_table_list.setEnabled)
+        layout.addRow(self.prices_table_list)
+
+        self.prices_fields = collection.prices_fields
+        sorted_fields = sorted(self.prices_fields.fields, key=lambda x: x.position)
+
+        for field in sorted_fields:
+            item = QListWidgetItem(field.title)
+            item.setData(self.DataRole, field.name)
+            item.setFlags(Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
+                          Qt.ItemIsEnabled | Qt.ItemIsSelectable |
+                          Qt.ItemFlag.ItemIsDragEnabled)
+            checked = Qt.Unchecked
+            if field.enabled:
+                checked = Qt.Checked
+            item.setCheckState(checked)
+
+            self.prices_table_list.addItem(item)
+
+        self.setLayout(layout)
+
+    def save(self):
+        self.settings['prices_table'] = self.pricesTableEnabled.isChecked()
+        self.settings.save()
+
+        if self.settings['prices_table']:
+            for i in range(self.prices_table_list.count()):
+                item = self.prices_table_list.item(i)
+                name = item.data(self.DataRole)
+                title = item.text()
+                enabled = (item.checkState() == Qt.CheckState.Checked)
+
+                field = self.prices_fields.field(name)
+                field.title = title
+                field.enabled = enabled
+                field.position = i
+
+            self.prices_fields.save()
 
 
 class ImportSettingsPage(QWidget):
@@ -915,6 +977,12 @@ class SettingsDialog(QDialog):
             self.tab.addTab(fieldsPage, self.tr("Fields"))
         else:
             index = self.tab.addTab(QWidget(), self.tr("Fields"))
+            self.tab.setTabEnabled(index, False)
+        if collection.isOpen():
+            extFieldsPage = ExtFieldsSettingsPage(collection, self)
+            self.tab.addTab(extFieldsPage, self.tr("Ext. fields"))
+        else:
+            index = self.tab.addTab(QWidget(), self.tr("Ext. fields"))
             self.tab.setTabEnabled(index, False)
         if collection.isOpen():
             importPage = ImportSettingsPage(self)

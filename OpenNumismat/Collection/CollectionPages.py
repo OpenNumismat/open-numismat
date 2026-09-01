@@ -41,7 +41,8 @@ class CollectionPages(QObject):
             title TEXT,\
             isopen INTEGER,\
             position INTEGER,\
-            type INTEGER)"
+            type INTEGER,\
+            icon BLOB)"
         QSqlQuery(sql, self.db)
 
         self.fields = CollectionFields(self.db)

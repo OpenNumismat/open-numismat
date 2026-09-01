@@ -157,15 +157,16 @@ class ImportCoinManagePredefined(_Import):
         record.setValue('status', 'demo')
 
         # Process prices
-        fineFields = ['F-16', 'F-12', 'F']
+        fineFields = ('F-16', 'F-12', 'F')
         self.__processPrices(row, record, fineFields, 'price1')
-        vfFields = ['VF-30', 'VF-20', 'VF']
+        vfFields = ('VF-30', 'VF-20', 'VF')
         self.__processPrices(row, record, vfFields, 'price2')
-        xfFields = ['XF-45', 'XF-40', 'AU-50', 'AU-55', 'AU-57', 'AU-58', 'AU-59', 'EF', 'AU']
+        xfFields = ('XF-45', 'XF-40', 'AU-50', 'AU-55', 'AU-57', 'AU-58', 'AU-59', 'EF', 'AU')
         self.__processPrices(row, record, xfFields, 'price3')
-        uncFields = ['MS-64', 'MS-63', 'MS-62', 'MS-61', 'MS-60', 'MS-65',
-                     'MS-66', 'MS-67', 'MS-68', 'MS-69', 'MS-70', 'Unc', 'BU']
+        uncFields = ('MS-64', 'MS-63', 'MS-62', 'MS-61', 'MS-60', 'Unc')
         self.__processPrices(row, record, uncFields, 'price4')
+        buFields = ('MS-65', 'MS-66', 'MS-67', 'MS-68', 'MS-69', 'MS-70', 'BU')
+        self.__processPrices(row, record, buFields, 'price6')
 
         value = row.value('UseGraphic')
         country = row.value('Country')
