@@ -235,7 +235,7 @@ Changing item position avalaible only on default sort order. Clear sort order no
     <message>
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
-        <translation>Файлът е отворен от друга програма или се изисква разрешение.
+        <translation>Файлът е отворен в друга програма или нямате необходимите права за достъп.
 Затворете файла и опитайте отново.</translation>
     </message>
     <message>
