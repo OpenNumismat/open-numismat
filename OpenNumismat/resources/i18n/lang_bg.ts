@@ -495,7 +495,7 @@ Images saved to %s</source>
     <message>
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
-        <translation>Файлът е отворен от друга програма или нямате необходимите права за достъп.
+        <translation>Файлът е отворен от друга приложение или нямате необходимите права за достъп.
 Затворете файла и опитайте отново.</translation>
     </message>
     <message>
@@ -1877,7 +1877,7 @@ drag-n-drop to add an image)</source>
     <name>ImageEditorDialog</name>
     <message>
         <source>Browse in viewer</source>
-        <translation>Преглед с външна програма</translation>
+        <translation>Преглед с външно приложение</translation>
     </message>
     <message>
         <source>&amp;Save As...</source>
