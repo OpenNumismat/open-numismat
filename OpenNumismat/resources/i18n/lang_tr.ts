@@ -239,6 +239,10 @@ Close the file and try again.</source>
 Dosyayı kapatıp tekrar deneyin.</translation>
     </message>
     <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Saving...</source>
         <translation>Kaydediliyor...</translation>
     </message>
@@ -469,6 +473,25 @@ Please update OpenNumismat</source>
     <message>
         <source>Save as</source>
         <translation>Farklı Kaydet</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Dışa aktar</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation>Dosya başka bir programda açık veya izin gerekiyor.
+Dosyayı kapatıp tekrar deneyin.</translation>
     </message>
     <message>
         <source>Synchronizing</source>
