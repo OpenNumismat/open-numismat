@@ -240,7 +240,7 @@ Feche o ficheiro e tente novamente.</translation>
     </message>
     <message>
         <source>Export to %s completed</source>
-        <translation type="unfinished"/>
+        <translation>Exportar para %s concluído</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -484,12 +484,13 @@ Por favor, actualize o OpenNumismat</translation>
     </message>
     <message>
         <source>Export to %s completed</source>
-        <translation type="unfinished"/>
+        <translation>Exportar para %s concluído</translation>
     </message>
     <message>
         <source>Export to %s completed
 Images saved to %s</source>
-        <translation type="unfinished"/>
+        <translation>Exportar para %s concluído
+Imagens gravadas em %s</translation>
     </message>
     <message>
         <source>File is open in another program or permission required.
