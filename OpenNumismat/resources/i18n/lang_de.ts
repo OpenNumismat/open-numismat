@@ -238,6 +238,10 @@ Close the file and try again.</source>
         <translation>Die Datei ist in einer anderen Anwendung geöffnet oder die nötigen Rechte fehlen. Schließe die Datei und versuche es noch einmal.</translation>
     </message>
     <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Saving...</source>
         <translation>Speichern...</translation>
     </message>
@@ -469,6 +473,24 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     <message>
         <source>Save as</source>
         <translation>Speichern als</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Exportieren</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation>Die Datei ist in einer anderen Anwendung geöffnet oder die nötigen Rechte fehlen. Schließe die Datei und versuche es noch einmal.</translation>
     </message>
     <message>
         <source>Synchronizing</source>
