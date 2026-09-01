@@ -238,6 +238,10 @@ Close the file and try again.</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Saving...</source>
         <translation>Sparar...</translation>
     </message>
@@ -472,6 +476,24 @@ Vänligen uppdatera OpenNumismat</translation>
     <message>
         <source>Save as</source>
         <translation>Spara som</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Exportera</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Synchronizing</source>
