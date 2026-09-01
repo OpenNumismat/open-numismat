@@ -314,15 +314,12 @@ class BaseTableView(QTableView):
                     if value is None:
                         parts.append('')
                     elif (export.acceptNumbers()
-                            and field.type in (Type.Money, Type.Value)):
+                            and field.type in (Type.Money, Type.Value, Type.BigInt)):
                         # Export monetary/numeric fields as real numbers so
                         # spreadsheets can sum and sort them (#253). Fall back
                         # to the display string if the raw value isn't numeric.
                         raw = model.data(field_index, Qt.UserRole)
-                        try:
-                            parts.append(float(raw))
-                        except (TypeError, ValueError):
-                            parts.append(value)
+                        parts.append(raw)
                     else:
                         parts.append(value)
 

@@ -1664,13 +1664,6 @@ class Collection(QObject):
                 if thumb is not None:
                     image_cells.append((thumb, col, target))
                 row.append(None)
-            elif field.type in (Type.Money, Type.Value):
-                # Export monetary fields as real numbers so spreadsheets can sum
-                # and sort them (#253); fall back to the raw value if not numeric.
-                try:
-                    row.append(float(val))
-                except (TypeError, ValueError):
-                    row.append(val)
             elif isinstance(val, str) and next(illegal_re.finditer(val), None):
                 row.append(' '.join(illegal_re.split(val)))
             else:
