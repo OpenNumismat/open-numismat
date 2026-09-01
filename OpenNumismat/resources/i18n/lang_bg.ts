@@ -2990,7 +2990,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Camera not available or disabled by antivirus</source>
-        <translation>Камерата не е налична или е блокирана от антивирусното приложение</translation>
+        <translation>Камерата не е налична или е блокирана от антивирусната програма</translation>
     </message>
     <message>
         <source>Camera Error</source>
