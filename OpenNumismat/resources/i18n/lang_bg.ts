@@ -239,6 +239,10 @@ Close the file and try again.</source>
 Затворете файла и опитайте отново.</translation>
     </message>
     <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Saving...</source>
         <translation>Записване...</translation>
     </message>
@@ -473,6 +477,25 @@ Please update OpenNumismat</source>
     <message>
         <source>Save as</source>
         <translation>Запиши като</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Експорт</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation>Файлът е отворен от друга програма или се изисква разрешение.
+Затворете файла и опитайте отново.</translation>
     </message>
     <message>
         <source>Synchronizing</source>
