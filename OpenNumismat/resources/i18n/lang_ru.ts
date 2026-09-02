@@ -192,7 +192,7 @@
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Удалить</translation>
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
