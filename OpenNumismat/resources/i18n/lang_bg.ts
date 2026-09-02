@@ -184,15 +184,15 @@
     <name>BaseExtTableLayout</name>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Добавяне</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Записване</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Изтриване</translation>
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
@@ -200,7 +200,7 @@
     </message>
     <message>
         <source>Clone</source>
-        <translation type="unfinished"/>
+        <translation>Клониране</translation>
     </message>
     <message>
         <source>Are you sure to remove entry?</source>
@@ -208,7 +208,7 @@
     </message>
     <message>
         <source>Don&apos;t show this again</source>
-        <translation type="unfinished"/>
+        <translation>Не показвай това съобщение отново</translation>
     </message>
 </context>
 <context>
@@ -1426,11 +1426,11 @@ and try again.</source>
     </message>
     <message>
         <source>Icon</source>
-        <translation type="unfinished"/>
+        <translation>Икона</translation>
     </message>
     <message>
         <source>Open File</source>
-        <translation type="unfinished"/>
+        <translation>Отваряне на файл</translation>
     </message>
 </context>
 <context>
@@ -1563,15 +1563,15 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>Дата</translation>
     </message>
     <message>
         <source>Quantity</source>
-        <translation type="unfinished"/>
+        <translation>Количество</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Цена</translation>
     </message>
     <message>
         <source>Currency</source>
@@ -1579,7 +1579,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Total price</source>
-        <translation type="unfinished"/>
+        <translation>Обща цена</translation>
     </message>
     <message>
         <source>Shipping</source>
@@ -1587,15 +1587,15 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Grade</source>
-        <translation type="unfinished"/>
+        <translation>Оценка</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Place</source>
-        <translation type="unfinished"/>
+        <translation>Място</translation>
     </message>
     <message>
         <source>Lot number</source>
@@ -1607,7 +1607,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"/>
+        <translation>Информация</translation>
     </message>
     <message>
         <source>Start bid</source>
@@ -2879,7 +2879,7 @@ drag-n-drop to add an image)</source>
     <name>PriceAction</name>
     <message>
         <source>Buy</source>
-        <translation type="unfinished"/>
+        <translation>Покупка</translation>
     </message>
     <message>
         <source>Sell</source>
