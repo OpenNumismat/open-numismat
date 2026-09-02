@@ -433,7 +433,7 @@ class CollectionFields(CollectionFieldsBase):
                 VALUES (?, ?, ?)""")
             query.addBindValue(field.id)
             query.addBindValue(field.title)
-            enabled = field in fields.userFields
+            enabled = field in fields.userFields and field.id < self.barcode.id
             query.addBindValue(int(enabled))
             query.exec()
 
