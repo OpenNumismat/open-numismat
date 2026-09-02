@@ -1339,7 +1339,7 @@ and try again.</source>
     </message>
     <message>
         <source>CAD - Canadian dollar</source>
-        <translation type="unfinished"/>
+        <translation>CAD - Канадский доллар</translation>
     </message>
     <message>
         <source>CHF - Swiss franc</source>
