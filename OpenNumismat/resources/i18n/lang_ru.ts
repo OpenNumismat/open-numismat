@@ -1558,7 +1558,7 @@ Do you want to send an error message to the author?</source>
     <name>ExtFields</name>
     <message>
         <source>Action</source>
-        <translation type="unfinished"/>
+        <translation>Действие</translation>
     </message>
     <message>
         <source>Date</source>
