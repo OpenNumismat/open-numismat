@@ -1590,7 +1590,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Place</source>
