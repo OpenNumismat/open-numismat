@@ -1471,6 +1471,7 @@ class Collection(QObject):
         self.settings = CollectionSettings(self.db)
 
         self.fields = CollectionFields(self.db)
+        self.prices_fields = ExtFields('prices', self.db, self)
 
         self.createCoinsTable()
         self.createTagsTable()
