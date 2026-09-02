@@ -1364,7 +1364,7 @@ and try again.</source>
     </message>
     <message>
         <source>INR - Indian rupee</source>
-        <translation type="unfinished"/>
+        <translation>INR - Индийская рупия</translation>
     </message>
     <message>
         <source>NOK - Norwegian krone</source>
