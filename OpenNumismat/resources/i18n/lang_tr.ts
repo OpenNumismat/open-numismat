@@ -184,15 +184,15 @@
     <name>BaseExtTableLayout</name>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ekle</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Kaydet</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Sil</translation>
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
@@ -200,7 +200,7 @@
     </message>
     <message>
         <source>Clone</source>
-        <translation type="unfinished"/>
+        <translation>Çoğalt</translation>
     </message>
     <message>
         <source>Are you sure to remove entry?</source>
@@ -1421,7 +1421,7 @@ and try again.</source>
     </message>
     <message>
         <source>Open File</source>
-        <translation type="unfinished"/>
+        <translation>Dosya aç</translation>
     </message>
 </context>
 <context>
@@ -1554,15 +1554,15 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>Tarih</translation>
     </message>
     <message>
         <source>Quantity</source>
-        <translation type="unfinished"/>
+        <translation>Miktar</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Fiyat</translation>
     </message>
     <message>
         <source>Currency</source>
@@ -1570,7 +1570,7 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     </message>
     <message>
         <source>Total price</source>
-        <translation type="unfinished"/>
+        <translation>Toplam fiyat</translation>
     </message>
     <message>
         <source>Shipping</source>
@@ -1578,15 +1578,15 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     </message>
     <message>
         <source>Grade</source>
-        <translation type="unfinished"/>
+        <translation>Derece</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Place</source>
-        <translation type="unfinished"/>
+        <translation>Yer</translation>
     </message>
     <message>
         <source>Lot number</source>
@@ -1598,7 +1598,7 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"/>
+        <translation>Bilgi</translation>
     </message>
     <message>
         <source>Start bid</source>
@@ -2868,7 +2868,7 @@ drag-n-drop to add an image)</source>
     <name>PriceAction</name>
     <message>
         <source>Buy</source>
-        <translation type="unfinished"/>
+        <translation>Satın al</translation>
     </message>
     <message>
         <source>Sell</source>
