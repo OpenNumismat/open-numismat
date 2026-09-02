@@ -1436,7 +1436,7 @@ and try again.</source>
     <name>DetailsTabWidget</name>
     <message>
         <source>Prices</source>
-        <translation type="unfinished"/>
+        <translation>Цены</translation>
     </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
