@@ -2878,7 +2878,7 @@ drag-n-drop to add an image)</source>
     <name>PriceAction</name>
     <message>
         <source>Buy</source>
-        <translation type="unfinished"/>
+        <translation>Покупка</translation>
     </message>
     <message>
         <source>Sell</source>
