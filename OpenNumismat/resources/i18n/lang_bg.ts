@@ -196,7 +196,7 @@
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
-        <translation type="unfinished"/>
+        <translation>Добавяне на нов празен запис или клониране на текущия запис?</translation>
     </message>
     <message>
         <source>Clone</source>
