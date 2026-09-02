@@ -1559,7 +1559,7 @@ Do you want to send an error message to the author?</source>
     <name>ExtFields</name>
     <message>
         <source>Action</source>
-        <translation type="unfinished"/>
+        <translation>Действие</translation>
     </message>
     <message>
         <source>Date</source>
@@ -1583,7 +1583,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Shipping</source>
-        <translation type="unfinished"/>
+        <translation>Доставка</translation>
     </message>
     <message>
         <source>Grade</source>
