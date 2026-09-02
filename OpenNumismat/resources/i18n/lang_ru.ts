@@ -271,7 +271,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Export to %s completed</source>
-        <translation type="unfinished"/>
+        <translation>Экспорт в %s завершен</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -515,7 +515,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Export to %s completed</source>
-        <translation type="unfinished"/>
+        <translation>Экспорт в %s завершен</translation>
     </message>
     <message>
         <source>Export to %s completed
@@ -1367,7 +1367,7 @@ and try again.</source>
     </message>
     <message>
         <source>NOK - Norwegian krone</source>
-        <translation type="unfinished"/>
+        <translation>NOK - Норвежская крона</translation>
     </message>
     <message>
         <source>PLN - Polish złoty</source>
@@ -1562,11 +1562,11 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>Дата</translation>
     </message>
     <message>
         <source>Quantity</source>
-        <translation type="unfinished"/>
+        <translation>Количество</translation>
     </message>
     <message>
         <source>Price</source>
@@ -1594,11 +1594,11 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Place</source>
-        <translation type="unfinished"/>
+        <translation>Место</translation>
     </message>
     <message>
         <source>Lot number</source>
-        <translation type="unfinished"/>
+        <translation>Номер лота</translation>
     </message>
     <message>
         <source>Counterparty</source>
@@ -1606,18 +1606,18 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"/>
+        <translation>Информация</translation>
     </message>
     <message>
         <source>Start bid</source>
-        <translation type="unfinished"/>
+        <translation>Начальная ставка</translation>
     </message>
 </context>
 <context>
     <name>ExtFieldsSettingsPage</name>
     <message>
         <source>Use prices table</source>
-        <translation type="unfinished"/>
+        <translation>Использовать таблицу цен</translation>
     </message>
 </context>
 <context>
