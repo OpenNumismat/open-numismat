@@ -3151,7 +3151,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Ext. fields</source>
-        <translation type="unfinished"/>
+        <translation>Доп. поля</translation>
     </message>
     <message>
         <source>Import</source>
