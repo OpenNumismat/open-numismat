@@ -184,15 +184,15 @@
     <name>BaseExtTableLayout</name>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ajouter</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Sauver</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
@@ -200,7 +200,7 @@
     </message>
     <message>
         <source>Clone</source>
-        <translation type="unfinished"/>
+        <translation>Clone</translation>
     </message>
     <message>
         <source>Are you sure to remove entry?</source>
@@ -1418,7 +1418,7 @@ and try again.</source>
     </message>
     <message>
         <source>Open File</source>
-        <translation type="unfinished"/>
+        <translation>Ouvrir le fichier</translation>
     </message>
 </context>
 <context>
@@ -1550,15 +1550,15 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>Date</translation>
     </message>
     <message>
         <source>Quantity</source>
-        <translation type="unfinished"/>
+        <translation>Quantité</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Prix</translation>
     </message>
     <message>
         <source>Currency</source>
@@ -1574,15 +1574,15 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Grade</source>
-        <translation type="unfinished"/>
+        <translation>Etat</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>Adresse WEB</translation>
     </message>
     <message>
         <source>Place</source>
-        <translation type="unfinished"/>
+        <translation>Lieu</translation>
     </message>
     <message>
         <source>Lot number</source>
@@ -1594,7 +1594,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"/>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Start bid</source>
@@ -2864,7 +2864,7 @@ drag-n-drop to add an image)</source>
     <name>PriceAction</name>
     <message>
         <source>Buy</source>
-        <translation type="unfinished"/>
+        <translation>Achat</translation>
     </message>
     <message>
         <source>Sell</source>
