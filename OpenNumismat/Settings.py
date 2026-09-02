@@ -8,6 +8,7 @@ from PySide6.QtGui import QColor
 
 import OpenNumismat
 from OpenNumismat.Tools.dependencies import FINANCE_AVAILABLE
+from OpenNumismat.Tools.misc import Currencies
 
 
 class BaseSettings(dict):
@@ -70,6 +71,14 @@ def _getLocale():
         return locale
 
 
+def _getCurrency():
+    currency = QLocale().system().currencySymbol(QLocale.CurrencySymbolFormat.CurrencyIsoCode)
+    if currency in Currencies:
+        return currency
+
+    return 'EUR'
+
+
 def _getUuid():
     if sys.platform == 'win32':
         try:
@@ -117,7 +126,7 @@ class Settings(BaseSettings):
         'ans_locale_en': False,
         'ans_trim_title': True,
         'numista_split_denomination': True,
-        'numista_currency': 'EUR',
+        'numista_currency': _getCurrency(),
         'map_type': 0,
         'verify_ssl': False,
         'built_in_viewer': True,
@@ -137,7 +146,7 @@ class Settings(BaseSettings):
         'tree_counter': False,
         'color_scheme': Qt.ColorScheme.Unknown.value,
         'finance_service_enabled': False,
-        'finance_service_currency': 'EUR',
+        'finance_service_currency': _getCurrency(),
     }
 
     def __init__(self, autoSave=False):
