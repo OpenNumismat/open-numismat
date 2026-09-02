@@ -923,7 +923,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Currency</source>
-        <translation type="unfinished"/>
+        <translation>Валюта</translation>
     </message>
 </context>
 <context>
@@ -1574,7 +1574,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Currency</source>
-        <translation type="unfinished"/>
+        <translation>Валюта</translation>
     </message>
     <message>
         <source>Total price</source>
