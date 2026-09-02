@@ -184,15 +184,15 @@
     <name>BaseExtTableLayout</name>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Lägg till</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Spara</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Radera</translation>
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
@@ -200,7 +200,7 @@
     </message>
     <message>
         <source>Clone</source>
-        <translation type="unfinished"/>
+        <translation>Klona</translation>
     </message>
     <message>
         <source>Are you sure to remove entry?</source>
@@ -1425,7 +1425,7 @@ and try again.</source>
     </message>
     <message>
         <source>Open File</source>
-        <translation type="unfinished"/>
+        <translation>Öppna fil</translation>
     </message>
 </context>
 <context>
@@ -1558,15 +1558,15 @@ Vill du skicka ett felmeddelande till författaren?</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>Datum</translation>
     </message>
     <message>
         <source>Quantity</source>
-        <translation type="unfinished"/>
+        <translation>Antal</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Pris</translation>
     </message>
     <message>
         <source>Currency</source>
@@ -1574,7 +1574,7 @@ Vill du skicka ett felmeddelande till författaren?</translation>
     </message>
     <message>
         <source>Total price</source>
-        <translation type="unfinished"/>
+        <translation>Totalt pris</translation>
     </message>
     <message>
         <source>Shipping</source>
@@ -1582,15 +1582,15 @@ Vill du skicka ett felmeddelande till författaren?</translation>
     </message>
     <message>
         <source>Grade</source>
-        <translation type="unfinished"/>
+        <translation>Kvalitet</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Place</source>
-        <translation type="unfinished"/>
+        <translation>Plats</translation>
     </message>
     <message>
         <source>Lot number</source>
@@ -1602,7 +1602,7 @@ Vill du skicka ett felmeddelande till författaren?</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"/>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Start bid</source>
@@ -2872,7 +2872,7 @@ drag-n-drop to add an image)</source>
     <name>PriceAction</name>
     <message>
         <source>Buy</source>
-        <translation type="unfinished"/>
+        <translation>Köp</translation>
     </message>
     <message>
         <source>Sell</source>
