@@ -2886,7 +2886,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Auction</source>
-        <translation type="unfinished"/>
+        <translation>Аукцион</translation>
     </message>
 </context>
 <context>
