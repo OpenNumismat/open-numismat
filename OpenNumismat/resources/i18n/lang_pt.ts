@@ -184,15 +184,15 @@
     <name>BaseExtTableLayout</name>
     <message>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Adicionar</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Gravar</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Eliminar</translation>
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
@@ -200,7 +200,7 @@
     </message>
     <message>
         <source>Clone</source>
-        <translation type="unfinished"/>
+        <translation>Clonar</translation>
     </message>
     <message>
         <source>Are you sure to remove entry?</source>
@@ -208,7 +208,7 @@
     </message>
     <message>
         <source>Don&apos;t show this again</source>
-        <translation type="unfinished"/>
+        <translation>Não mostrar novamente</translation>
     </message>
 </context>
 <context>
@@ -1426,11 +1426,11 @@ e tente novamente.</translation>
     </message>
     <message>
         <source>Icon</source>
-        <translation type="unfinished"/>
+        <translation>Ícone</translation>
     </message>
     <message>
         <source>Open File</source>
-        <translation type="unfinished"/>
+        <translation>Abrir ficheiro</translation>
     </message>
 </context>
 <context>
@@ -1563,15 +1563,15 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>Data</translation>
     </message>
     <message>
         <source>Quantity</source>
-        <translation type="unfinished"/>
+        <translation>Quantidade</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Preço</translation>
     </message>
     <message>
         <source>Currency</source>
@@ -1579,7 +1579,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <source>Total price</source>
-        <translation type="unfinished"/>
+        <translation>Preço total</translation>
     </message>
     <message>
         <source>Shipping</source>
@@ -1587,15 +1587,15 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <source>Grade</source>
-        <translation type="unfinished"/>
+        <translation>Grau</translation>
     </message>
     <message>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>URL</translation>
     </message>
     <message>
         <source>Place</source>
-        <translation type="unfinished"/>
+        <translation>Local</translation>
     </message>
     <message>
         <source>Lot number</source>
@@ -1607,7 +1607,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"/>
+        <translation>Informação</translation>
     </message>
     <message>
         <source>Start bid</source>
@@ -2879,7 +2879,7 @@ arraste e largue para adicionar)</translation>
     <name>PriceAction</name>
     <message>
         <source>Buy</source>
-        <translation type="unfinished"/>
+        <translation>Comprar</translation>
     </message>
     <message>
         <source>Sell</source>
