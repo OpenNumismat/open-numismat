@@ -4,16 +4,13 @@ import codecs
 import io
 import json
 import math
+import openpyxl
 import os
 import shutil
 import numpy as np
 from PIL import Image
 from scipy.spatial.distance import pdist
 from scipy.cluster.hierarchy import linkage, leaves_list
-
-import openpyxl
-from openpyxl.styles import Alignment
-from PIL import Image
 
 from PySide6.QtCore import (
     Qt,
@@ -2081,7 +2078,7 @@ class Collection(QObject):
             cell.value = '\nopen ↗\n'
             cell.hyperlink = target
             cell.style = 'Hyperlink'
-            cell.alignment = Alignment(horizontal='center', vertical='bottom', wrap_text=True)
+            cell.alignment = openpyxl.styles.Alignment(horizontal='center', vertical='bottom', wrap_text=True)
             ws.row_dimensions[excel_row].height = max(
                 ws.row_dimensions[excel_row].height or 0, thumb.height * 0.75 + 46)
             col_letter = openpyxl.utils.get_column_letter(col)
