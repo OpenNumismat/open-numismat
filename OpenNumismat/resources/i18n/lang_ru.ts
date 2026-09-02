@@ -1602,7 +1602,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Counterparty</source>
-        <translation type="unfinished"/>
+        <translation>Контрагент</translation>
     </message>
     <message>
         <source>Info</source>
