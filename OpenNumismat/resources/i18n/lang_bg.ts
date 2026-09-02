@@ -204,7 +204,7 @@
     </message>
     <message>
         <source>Are you sure to remove entry?</source>
-        <translation type="unfinished"/>
+        <translation>Сигурни ли сте, че искате да премахнете записа?</translation>
     </message>
     <message>
         <source>Don&apos;t show this again</source>
