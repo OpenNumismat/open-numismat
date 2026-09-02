@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from PySide6.QtCore import Qt, QMargins, QT_TRANSLATE_NOOP
+from PySide6.QtCore import Qt, QMargins
 from PySide6.QtCore import Signal as pyqtSignal
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtWidgets import (
@@ -40,6 +40,7 @@ from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Gui import ColorButton
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Gui import infoMessageBox
+from OpenNumismat.Tools.misc import Currencies
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Collection.CollectionFields import Statuses, TitleTemplateFields
 from OpenNumismat.Tools.CachedPoolManager import Cache
@@ -57,26 +58,6 @@ class MainSettingsPage(QWidget):
                  ("Русский", 'ru'), ("Svenska", 'sv'), ("Türkçe", 'tr'),
                  ("Український", 'uk'),
                  )
-    Currencies = (
-        ('ARS', QT_TRANSLATE_NOOP("Currency", "ARS - Argentine peso")),
-        ('AUD', QT_TRANSLATE_NOOP("Currency", "AUD - Australian dollar")),
-        ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazilian real")),
-        ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarusian ruble")),
-        ('CAD', QT_TRANSLATE_NOOP("Currency", "CAD - Canadian dollar")),
-        ('CHF', QT_TRANSLATE_NOOP("Currency", "CHF - Swiss franc")),
-        ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech koruna")),
-        ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Euro")),
-        ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - Pound sterling")),
-        ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungarian forint")),
-        ('INR', QT_TRANSLATE_NOOP("Currency", "INR - Indian rupee")),
-        ('NOK', QT_TRANSLATE_NOOP("Currency", "NOK - Norwegian krone")),
-        ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Polish złoty")),
-        ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
-        ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Swedish krona")),
-        ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkish lira")),
-        ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukrainian hryvnia")),
-        ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States dollar")),
-    )
 
     def __init__(self, collection, parent=None):
         super().__init__(parent)
@@ -206,11 +187,11 @@ class MainSettingsPage(QWidget):
             self.financeServiceEnabled.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
             self.financeServiceCurrency = QComboBox(self)
-            for curr in self.Currencies:
-                self.financeServiceCurrency.addItem(QApplication.translate("Currency", curr[1]), curr[0])
+            for code, title in Currencies.items():
+                self.financeServiceCurrency.addItem(QApplication.translate("Currency", title), code)
             current = self.financeServiceCurrency.findData(settings['finance_service_currency'])
             if current == -1:
-                current = 0
+                current = self.financeServiceCurrency.findData('EUR')
             self.financeServiceCurrency.setCurrentIndex(current)
             self.financeServiceCurrency.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             self.financeServiceCurrency.setEnabled(settings['finance_service_enabled'])
@@ -827,19 +808,6 @@ class ImportSettingsPage(QWidget):
         # ('kk', 'Қазақша'), ('ur', 'اردو'), ('mk', 'Македонски'),
         # ('fy', 'Frysk'),
     )
-    Currencies = (('BGN', QT_TRANSLATE_NOOP("Currency", "BGN - Bulgarian lev")),
-                  ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazilian real")),
-                  ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarusian ruble")),
-                  ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech koruna")),
-                  ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Euro")),
-                  ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - Pound sterling")),
-                  ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungarian forint")),
-                  ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Polish złoty")),
-                  ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
-                  ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Swedish krona")),
-                  ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkish lira")),
-                  ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukrainian hryvnia")),
-                  ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States dollar")))
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -901,11 +869,11 @@ class ImportSettingsPage(QWidget):
         fLayout.addRow(self.numista_split_denomination)
 
         self.numista_currency = QComboBox(self)
-        for curr in self.Currencies:
-            self.numista_currency.addItem(QApplication.translate("Currency", curr[1]), curr[0])
+        for code, title in Currencies.items():
+            self.numista_currency.addItem(QApplication.translate("Currency", title), code)
         current = self.numista_currency.findData(settings['numista_currency'])
         if current == -1:
-            current = 4
+            current = self.numista_currency.findData('EUR')
         self.numista_currency.setCurrentIndex(current)
         self.numista_currency.setSizePolicy(QSizePolicy.Fixed,
                                             QSizePolicy.Fixed)

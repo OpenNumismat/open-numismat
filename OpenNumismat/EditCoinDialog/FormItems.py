@@ -41,6 +41,7 @@ from PySide6.QtWidgets import (
 from OpenNumismat.Collection.CollectionFields import Statuses
 from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText, numberToFraction
+from OpenNumismat.Tools.misc import HistoricalCurrencies
 
 
 # Reimplementing QDoubleValidator for replace comma with dot
@@ -1340,27 +1341,6 @@ class RatingEdit(QLabel):
 
 
 class CurrencyEdit(QComboBox):
-    Currencies = (
-        ('ARS', QT_TRANSLATE_NOOP("Currency", "ARS - Argentine peso")),
-        ('AUD', QT_TRANSLATE_NOOP("Currency", "AUD - Australian dollar")),
-        ('BGN', QT_TRANSLATE_NOOP("Currency", "BGN - Bulgarian lev")),
-        ('BRL', QT_TRANSLATE_NOOP("Currency", "BRL - Brazilian real")),
-        ('BYN', QT_TRANSLATE_NOOP("Currency", "BYN - Belarusian ruble")),
-        ('CAD', QT_TRANSLATE_NOOP("Currency", "CAD - Canadian dollar")),
-        ('CHF', QT_TRANSLATE_NOOP("Currency", "CHF - Swiss franc")),
-        ('CZK', QT_TRANSLATE_NOOP("Currency", "CZK - Czech koruna")),
-        ('EUR', QT_TRANSLATE_NOOP("Currency", "EUR - Euro")),
-        ('GBP', QT_TRANSLATE_NOOP("Currency", "GBP - Pound sterling")),
-        ('HUF', QT_TRANSLATE_NOOP("Currency", "HUF - Hungarian forint")),
-        ('INR', QT_TRANSLATE_NOOP("Currency", "INR - Indian rupee")),
-        ('NOK', QT_TRANSLATE_NOOP("Currency", "NOK - Norwegian krone")),
-        ('PLN', QT_TRANSLATE_NOOP("Currency", "PLN - Polish złoty")),
-        ('RUB', QT_TRANSLATE_NOOP("Currency", "RUB - Russian ruble")),
-        ('SEK', QT_TRANSLATE_NOOP("Currency", "SEK - Swedish krona")),
-        ('TRY', QT_TRANSLATE_NOOP("Currency", "TRY - Turkish lira")),
-        ('UAH', QT_TRANSLATE_NOOP("Currency", "UAH - Ukrainian hryvnia")),
-        ('USD', QT_TRANSLATE_NOOP("Currency", "USD - United States dollar")),
-    )
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -1368,8 +1348,8 @@ class CurrencyEdit(QComboBox):
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
         self.addItem("")
-        for code, title in self.Currencies:
-            self.addItem(title, code)
+        for code, title in HistoricalCurrencies.items():
+            self.addItem(QApplication.translate("Currency", title), code)
 
     def clear(self):
         self.setCurrentIndex(0)
