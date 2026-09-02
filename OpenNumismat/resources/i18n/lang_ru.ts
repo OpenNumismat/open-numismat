@@ -520,7 +520,8 @@ Please update OpenNumismat</source>
     <message>
         <source>Export to %s completed
 Images saved to %s</source>
-        <translation type="unfinished"/>
+        <translation>Экспорт в %s завершен
+Изображения сохранены в %s</translation>
     </message>
     <message>
         <source>File is open in another program or permission required.
