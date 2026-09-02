@@ -1429,7 +1429,7 @@ and try again.</source>
     </message>
     <message>
         <source>Open File</source>
-        <translation type="unfinished"/>
+        <translation>Открыть файл</translation>
     </message>
 </context>
 <context>
