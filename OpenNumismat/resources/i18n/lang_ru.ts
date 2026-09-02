@@ -200,7 +200,7 @@
     </message>
     <message>
         <source>Clone</source>
-        <translation type="unfinished"/>
+        <translation>Дублировать</translation>
     </message>
     <message>
         <source>Are you sure to remove entry?</source>
