@@ -1343,7 +1343,7 @@ and try again.</source>
     </message>
     <message>
         <source>CHF - Swiss franc</source>
-        <translation type="unfinished"/>
+        <translation>CHF - Швейцарский франк</translation>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
@@ -1586,7 +1586,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Grade</source>
-        <translation type="unfinished"/>
+        <translation>Сохранность</translation>
     </message>
     <message>
         <source>URL</source>
