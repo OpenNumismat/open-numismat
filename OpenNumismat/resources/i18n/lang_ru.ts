@@ -1570,7 +1570,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished"/>
+        <translation>Цена</translation>
     </message>
     <message>
         <source>Currency</source>
@@ -1578,7 +1578,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Total price</source>
-        <translation type="unfinished"/>
+        <translation>Полная цена</translation>
     </message>
     <message>
         <source>Shipping</source>
