@@ -1599,11 +1599,11 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Lot number</source>
-        <translation type="unfinished"/>
+        <translation>Номер на лота</translation>
     </message>
     <message>
         <source>Counterparty</source>
-        <translation type="unfinished"/>
+        <translation>Контрагент</translation>
     </message>
     <message>
         <source>Info</source>
@@ -1611,14 +1611,14 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Start bid</source>
-        <translation type="unfinished"/>
+        <translation>Начална цена</translation>
     </message>
 </context>
 <context>
     <name>ExtFieldsSettingsPage</name>
     <message>
         <source>Use prices table</source>
-        <translation type="unfinished"/>
+        <translation>Използване на таблица с цени</translation>
     </message>
 </context>
 <context>
@@ -2883,7 +2883,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Sell</source>
-        <translation type="unfinished"/>
+        <translation>Продажба</translation>
     </message>
     <message>
         <source>Auction</source>
