@@ -1425,7 +1425,7 @@ and try again.</source>
     </message>
     <message>
         <source>Icon</source>
-        <translation type="unfinished"/>
+        <translation>Иконка</translation>
     </message>
     <message>
         <source>Open File</source>
