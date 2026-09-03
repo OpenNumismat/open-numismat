@@ -2887,7 +2887,7 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Auction</source>
-        <translation type="unfinished"/>
+        <translation>Leilão</translation>
     </message>
 </context>
 <context>
