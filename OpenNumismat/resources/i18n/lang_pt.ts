@@ -3152,7 +3152,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>Ext. fields</source>
-        <translation type="unfinished"/>
+        <translation>Campos ext.</translation>
     </message>
     <message>
         <source>Import</source>
