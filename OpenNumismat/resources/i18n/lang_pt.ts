@@ -1599,7 +1599,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <source>Lot number</source>
-        <translation type="unfinished"/>
+        <translation>Número do lote</translation>
     </message>
     <message>
         <source>Counterparty</source>
