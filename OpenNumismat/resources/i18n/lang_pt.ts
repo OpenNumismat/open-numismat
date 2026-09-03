@@ -1583,7 +1583,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <source>Shipping</source>
-        <translation type="unfinished"/>
+        <translation>Envio</translation>
     </message>
     <message>
         <source>Grade</source>
