@@ -204,7 +204,7 @@
     </message>
     <message>
         <source>Are you sure to remove entry?</source>
-        <translation type="unfinished"/>
+        <translation>Deseja realmente remover a entrada?</translation>
     </message>
     <message>
         <source>Don&apos;t show this again</source>
@@ -924,7 +924,7 @@ A aplicação tem de reiniciar agora.</translation>
     </message>
     <message>
         <source>Currency</source>
-        <translation type="unfinished"/>
+        <translation>Moeda</translation>
     </message>
 </context>
 <context>
@@ -1437,7 +1437,7 @@ e tente novamente.</translation>
     <name>DetailsTabWidget</name>
     <message>
         <source>Prices</source>
-        <translation type="unfinished"/>
+        <translation>Preços</translation>
     </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
@@ -1559,7 +1559,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     <name>ExtFields</name>
     <message>
         <source>Action</source>
-        <translation type="unfinished"/>
+        <translation>Acção</translation>
     </message>
     <message>
         <source>Date</source>
@@ -1575,7 +1575,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <source>Currency</source>
-        <translation type="unfinished"/>
+        <translation>Moeda</translation>
     </message>
     <message>
         <source>Total price</source>
