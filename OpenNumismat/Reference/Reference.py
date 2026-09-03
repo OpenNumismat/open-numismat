@@ -406,6 +406,8 @@ class CrossReferenceSection(BaseReferenceSection):
             parentidIndex, QSqlRelation(self.parent_table_name, 'id', 'value'))
 
         self.reload()
+        while self.model.canFetchMore():
+            self.model.fetchMore()
 
     def _getDialog(self, parent):
         copy = CrossReferenceSection(self.name, self.parentRef, self.title,
