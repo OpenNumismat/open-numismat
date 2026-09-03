@@ -1611,7 +1611,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <source>Start bid</source>
-        <translation type="unfinished"/>
+        <translation>Oferta inicial</translation>
     </message>
 </context>
 <context>
