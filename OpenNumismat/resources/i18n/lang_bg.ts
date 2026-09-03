@@ -181,6 +181,37 @@
     </message>
 </context>
 <context>
+    <name>BaseExtTableLayout</name>
+    <message>
+        <source>Add</source>
+        <translation>Добавяне</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Записване</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Изтриване</translation>
+    </message>
+    <message>
+        <source>Add new empty record or clone current record?</source>
+        <translation>Добавяне на нов празен запис или клониране на текущия запис?</translation>
+    </message>
+    <message>
+        <source>Clone</source>
+        <translation>Клониране</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove entry?</source>
+        <translation>Сигурни ли сте, че искате да премахнете записа?</translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Не показвай това съобщение отново</translation>
+    </message>
+</context>
+<context>
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
@@ -235,8 +266,12 @@ Changing item position avalaible only on default sort order. Clear sort order no
     <message>
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
-        <translation>Файлът е отворен от друга програма или се изисква разрешение.
+        <translation>Файлът е отворен от друга приложение или нямате необходимите права за достъп.
 Затворете файла и опитайте отново.</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation>Експортирането на %s завърши</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -473,6 +508,26 @@ Please update OpenNumismat</source>
     <message>
         <source>Save as</source>
         <translation>Запиши като</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Експорт</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation>Експортирането на %s завърши</translation>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation>Експортирането на %s завърши
+Изображенията са записани в %s</translation>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation>Файлът е отворен от друга приложение или нямате необходимите права за достъп.
+Затворете файла и опитайте отново.</translation>
     </message>
     <message>
         <source>Synchronizing</source>
@@ -866,6 +921,10 @@ The application will need to restart now.</source>
     <message>
         <source>Invoice</source>
         <translation>Фактура</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation>Валута</translation>
     </message>
 </context>
 <context>
@@ -1365,9 +1424,21 @@ and try again.</source>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
+    <message>
+        <source>Icon</source>
+        <translation>Икона</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Отваряне на файл</translation>
+    </message>
 </context>
 <context>
     <name>DetailsTabWidget</name>
+    <message>
+        <source>Prices</source>
+        <translation>Цена</translation>
+    </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Няма данни за показване. Променете статуса на монетите в предишния раздел</translation>
@@ -1482,6 +1553,72 @@ and try again.</source>
 Do you want to send an error message to the author?</source>
         <translation>Възникна системна грешка.
 Искате ли да изпратите съобщението за грешката на автора?</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFields</name>
+    <message>
+        <source>Action</source>
+        <translation>Действие</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Дата</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Количество</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Цена</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation>Валута</translation>
+    </message>
+    <message>
+        <source>Total price</source>
+        <translation>Обща цена</translation>
+    </message>
+    <message>
+        <source>Shipping</source>
+        <translation>Доставка</translation>
+    </message>
+    <message>
+        <source>Grade</source>
+        <translation>Оценка</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Place</source>
+        <translation>Място</translation>
+    </message>
+    <message>
+        <source>Lot number</source>
+        <translation>Номер на лота</translation>
+    </message>
+    <message>
+        <source>Counterparty</source>
+        <translation>Контрагент</translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Информация</translation>
+    </message>
+    <message>
+        <source>Start bid</source>
+        <translation>Начална цена</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFieldsSettingsPage</name>
+    <message>
+        <source>Use prices table</source>
+        <translation>Използване на таблица с цени</translation>
     </message>
 </context>
 <context>
@@ -1853,7 +1990,7 @@ drag-n-drop to add an image)</source>
     <name>ImageEditorDialog</name>
     <message>
         <source>Browse in viewer</source>
-        <translation>Преглед с външна програма</translation>
+        <translation>Преглед с външно приложение</translation>
     </message>
     <message>
         <source>&amp;Save As...</source>
@@ -2739,6 +2876,21 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>PriceAction</name>
+    <message>
+        <source>Buy</source>
+        <translation>Покупка</translation>
+    </message>
+    <message>
+        <source>Sell</source>
+        <translation>Продажба</translation>
+    </message>
+    <message>
+        <source>Auction</source>
+        <translation>Аукцион</translation>
+    </message>
+</context>
+<context>
     <name>ProgressChart</name>
     <message>
         <source>Trend</source>
@@ -2997,6 +3149,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Fields</source>
         <translation>Полета</translation>
+    </message>
+    <message>
+        <source>Ext. fields</source>
+        <translation>Разширени полета</translation>
     </message>
     <message>
         <source>Import</source>

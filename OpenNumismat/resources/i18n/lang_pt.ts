@@ -181,6 +181,37 @@
     </message>
 </context>
 <context>
+    <name>BaseExtTableLayout</name>
+    <message>
+        <source>Add</source>
+        <translation>Adicionar</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Gravar</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Eliminar</translation>
+    </message>
+    <message>
+        <source>Add new empty record or clone current record?</source>
+        <translation>Adicionar um novo registo vazio ou clonar o actual?</translation>
+    </message>
+    <message>
+        <source>Clone</source>
+        <translation>Clonar</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove entry?</source>
+        <translation>Deseja realmente remover a entrada?</translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Não mostrar novamente</translation>
+    </message>
+</context>
+<context>
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
@@ -237,6 +268,10 @@ Mudar a posição do item só está disponível na ordenação predefinida. Limp
 Close the file and try again.</source>
         <translation>Ou o ficheiro está aberto noutro programa ou precisa de permissão.
 Feche o ficheiro e tente novamente.</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation>Exportar para %s concluído</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -473,6 +508,26 @@ Por favor, actualize o OpenNumismat</translation>
     <message>
         <source>Save as</source>
         <translation>Gravar como</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Exportar</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation>Exportar para %s concluído</translation>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation>Exportar para %s concluído
+Imagens gravadas em %s</translation>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation>Ou o ficheiro está aberto noutro programa ou precisa de permissão.
+Feche o ficheiro e tente novamente.</translation>
     </message>
     <message>
         <source>Synchronizing</source>
@@ -866,6 +921,10 @@ A aplicação tem de reiniciar agora.</translation>
     <message>
         <source>Invoice</source>
         <translation>Factura</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation>Moeda</translation>
     </message>
 </context>
 <context>
@@ -1365,9 +1424,21 @@ e tente novamente.</translation>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
+    <message>
+        <source>Icon</source>
+        <translation>Ícone</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Abrir ficheiro</translation>
+    </message>
 </context>
 <context>
     <name>DetailsTabWidget</name>
+    <message>
+        <source>Prices</source>
+        <translation>Preços</translation>
+    </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Nada a mostrar. Altere o estado da moeda no separador anterior</translation>
@@ -1482,6 +1553,72 @@ e tente novamente.</translation>
 Do you want to send an error message to the author?</source>
         <translation>Ocorreu um erro de sistema.
 Quer enviar uma mensagem de erro ao autor?</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFields</name>
+    <message>
+        <source>Action</source>
+        <translation>Acção</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Quantidade</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Preço</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation>Moeda</translation>
+    </message>
+    <message>
+        <source>Total price</source>
+        <translation>Preço total</translation>
+    </message>
+    <message>
+        <source>Shipping</source>
+        <translation>Envio</translation>
+    </message>
+    <message>
+        <source>Grade</source>
+        <translation>Grau</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Place</source>
+        <translation>Local</translation>
+    </message>
+    <message>
+        <source>Lot number</source>
+        <translation>Número do lote</translation>
+    </message>
+    <message>
+        <source>Counterparty</source>
+        <translation>Contraparte</translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Informação</translation>
+    </message>
+    <message>
+        <source>Start bid</source>
+        <translation>Oferta inicial</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFieldsSettingsPage</name>
+    <message>
+        <source>Use prices table</source>
+        <translation>Usar tabela de preços</translation>
     </message>
 </context>
 <context>
@@ -2739,6 +2876,21 @@ arraste e largue para adicionar)</translation>
     </message>
 </context>
 <context>
+    <name>PriceAction</name>
+    <message>
+        <source>Buy</source>
+        <translation>Comprar</translation>
+    </message>
+    <message>
+        <source>Sell</source>
+        <translation>Vender</translation>
+    </message>
+    <message>
+        <source>Auction</source>
+        <translation>Leilão</translation>
+    </message>
+</context>
+<context>
     <name>ProgressChart</name>
     <message>
         <source>Trend</source>
@@ -2997,6 +3149,10 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>Fields</source>
         <translation>Campos</translation>
+    </message>
+    <message>
+        <source>Ext. fields</source>
+        <translation>Campos ext.</translation>
     </message>
     <message>
         <source>Import</source>

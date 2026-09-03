@@ -181,6 +181,37 @@
     </message>
 </context>
 <context>
+    <name>BaseExtTableLayout</name>
+    <message>
+        <source>Add</source>
+        <translation>Lägg till</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Spara</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Radera</translation>
+    </message>
+    <message>
+        <source>Add new empty record or clone current record?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clone</source>
+        <translation>Klona</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove entry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
@@ -235,6 +266,10 @@ Changing item position avalaible only on default sort order. Clear sort order no
     <message>
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -472,6 +507,24 @@ Vänligen uppdatera OpenNumismat</translation>
     <message>
         <source>Save as</source>
         <translation>Spara som</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Exportera</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Synchronizing</source>
@@ -864,6 +917,10 @@ Applikationen måste starta om nu.</translation>
     </message>
     <message>
         <source>Invoice</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Currency</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1362,9 +1419,21 @@ and try again.</source>
         <source>Author</source>
         <translation>Författare </translation>
     </message>
+    <message>
+        <source>Icon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Öppna fil</translation>
+    </message>
 </context>
 <context>
     <name>DetailsTabWidget</name>
+    <message>
+        <source>Prices</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Inget att visa. Ändra myntstatus på föregående flik</translation>
@@ -1479,6 +1548,72 @@ and try again.</source>
 Do you want to send an error message to the author?</source>
         <translation>Ett systemfel inträffade. 
 Vill du skicka ett felmeddelande till författaren?</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFields</name>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Antal</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Pris</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Total price</source>
+        <translation>Totalt pris</translation>
+    </message>
+    <message>
+        <source>Shipping</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Grade</source>
+        <translation>Kvalitet</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Place</source>
+        <translation>Plats</translation>
+    </message>
+    <message>
+        <source>Lot number</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Counterparty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Info</translation>
+    </message>
+    <message>
+        <source>Start bid</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ExtFieldsSettingsPage</name>
+    <message>
+        <source>Use prices table</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2734,6 +2869,21 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>PriceAction</name>
+    <message>
+        <source>Buy</source>
+        <translation>Köp</translation>
+    </message>
+    <message>
+        <source>Sell</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Auction</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ProgressChart</name>
     <message>
         <source>Trend</source>
@@ -2991,6 +3141,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Fields</source>
         <translation>Fält</translation>
+    </message>
+    <message>
+        <source>Ext. fields</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import</source>

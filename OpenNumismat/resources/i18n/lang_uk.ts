@@ -181,6 +181,37 @@
     </message>
 </context>
 <context>
+    <name>BaseExtTableLayout</name>
+    <message>
+        <source>Add</source>
+        <translation>Додати</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Зберегти</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Видалити</translation>
+    </message>
+    <message>
+        <source>Add new empty record or clone current record?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clone</source>
+        <translation>Дублювати</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove entry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Більше не показувати</translation>
+    </message>
+</context>
+<context>
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
@@ -237,6 +268,10 @@ Changing item position avalaible only on default sort order. Clear sort order no
 Close the file and try again.</source>
         <translation>Файл відкритий в іншій програмі або недостатньо прав. 
 Закрийте файл та повторіть.</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Saving...</source>
@@ -473,6 +508,25 @@ Please update OpenNumismat</source>
     <message>
         <source>Save as</source>
         <translation>Зберегти як</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Експортувати</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation>Файл відкритий в іншій програмі або недостатньо прав. 
+Закрийте файл та повторіть.</translation>
     </message>
     <message>
         <source>Synchronizing</source>
@@ -866,6 +920,10 @@ The application will need to restart now.</source>
     <message>
         <source>Invoice</source>
         <translation>Рахуно-фактура</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1363,9 +1421,21 @@ and try again.</source>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
+    <message>
+        <source>Icon</source>
+        <translation>Значок</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Відкрити файл</translation>
+    </message>
 </context>
 <context>
     <name>DetailsTabWidget</name>
+    <message>
+        <source>Prices</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Нема чого показати. Змініть статус монети на попередній вкладці</translation>
@@ -1480,6 +1550,72 @@ and try again.</source>
 Do you want to send an error message to the author?</source>
         <translation>Виникла помилка.
 Чи бажаєте Ви надіслати повідомлення розробнику?</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFields</name>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Дата</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Кількість</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Ціна</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Total price</source>
+        <translation>Кінцева ціна</translation>
+    </message>
+    <message>
+        <source>Shipping</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Grade</source>
+        <translation>Схоронність</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Place</source>
+        <translation>Місце</translation>
+    </message>
+    <message>
+        <source>Lot number</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Counterparty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Інформація</translation>
+    </message>
+    <message>
+        <source>Start bid</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ExtFieldsSettingsPage</name>
+    <message>
+        <source>Use prices table</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2737,6 +2873,21 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>PriceAction</name>
+    <message>
+        <source>Buy</source>
+        <translation>Купівля</translation>
+    </message>
+    <message>
+        <source>Sell</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Auction</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ProgressChart</name>
     <message>
         <source>Trend</source>
@@ -2993,6 +3144,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Fields</source>
         <translation>Поля</translation>
+    </message>
+    <message>
+        <source>Ext. fields</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import</source>

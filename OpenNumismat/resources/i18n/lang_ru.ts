@@ -181,6 +181,37 @@
     </message>
 </context>
 <context>
+    <name>BaseExtTableLayout</name>
+    <message>
+        <source>Add</source>
+        <translation>Добавить</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <source>Add new empty record or clone current record?</source>
+        <translation>Добавить новую пустую запись или дублировать текущую?</translation>
+    </message>
+    <message>
+        <source>Clone</source>
+        <translation>Дублировать</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove entry?</source>
+        <translation>Удалить запись?</translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Больше не показывать</translation>
+    </message>
+</context>
+<context>
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
@@ -237,6 +268,10 @@ Changing item position avalaible only on default sort order. Clear sort order no
 Close the file and try again.</source>
         <translation>Файл открыт в другой программе или недостаточно прав.
 Закройте файл и повторите.</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation>Экспорт в %s завершен</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -473,6 +508,26 @@ Please update OpenNumismat</source>
     <message>
         <source>Save as</source>
         <translation>Сохранить как</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Экспорт</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation>Экспорт в %s завершен</translation>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation>Экспорт в %s завершен
+Изображения сохранены в %s</translation>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation>Файл открыт в другой программе или недостаточно прав.
+Закройте файл и повторите.</translation>
     </message>
     <message>
         <source>Synchronizing</source>
@@ -866,6 +921,10 @@ The application will need to restart now.</source>
     <message>
         <source>Invoice</source>
         <translation>Счет</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation>Валюта</translation>
     </message>
 </context>
 <context>
@@ -1269,11 +1328,11 @@ and try again.</source>
     </message>
     <message>
         <source>ARS - Argentine peso</source>
-        <translation type="unfinished"/>
+        <translation>ARS - Аргентинское пессо</translation>
     </message>
     <message>
         <source>AUD - Australian dollar</source>
-        <translation type="unfinished"/>
+        <translation>AUD - Австралийский доллар</translation>
     </message>
     <message>
         <source>BYN - Belarusian ruble</source>
@@ -1281,11 +1340,11 @@ and try again.</source>
     </message>
     <message>
         <source>CAD - Canadian dollar</source>
-        <translation type="unfinished"/>
+        <translation>CAD - Канадский доллар</translation>
     </message>
     <message>
         <source>CHF - Swiss franc</source>
-        <translation type="unfinished"/>
+        <translation>CHF - Швейцарский франк</translation>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
@@ -1305,11 +1364,11 @@ and try again.</source>
     </message>
     <message>
         <source>INR - Indian rupee</source>
-        <translation type="unfinished"/>
+        <translation>INR - Индийская рупия</translation>
     </message>
     <message>
         <source>NOK - Norwegian krone</source>
-        <translation type="unfinished"/>
+        <translation>NOK - Норвежская крона</translation>
     </message>
     <message>
         <source>PLN - Polish złoty</source>
@@ -1365,9 +1424,21 @@ and try again.</source>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
+    <message>
+        <source>Icon</source>
+        <translation>Иконка</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Открыть файл</translation>
+    </message>
 </context>
 <context>
     <name>DetailsTabWidget</name>
+    <message>
+        <source>Prices</source>
+        <translation>Цены</translation>
+    </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Нечего показать. Измените статус монеты на предыдущей вкладке</translation>
@@ -1482,6 +1553,72 @@ and try again.</source>
 Do you want to send an error message to the author?</source>
         <translation>Произошла ошибка.
 Вы хотите отправить сообщение об ошибке разработчику?</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFields</name>
+    <message>
+        <source>Action</source>
+        <translation>Действие</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Дата</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Количество</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Цена</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation>Валюта</translation>
+    </message>
+    <message>
+        <source>Total price</source>
+        <translation>Полная цена</translation>
+    </message>
+    <message>
+        <source>Shipping</source>
+        <translation>Доставка</translation>
+    </message>
+    <message>
+        <source>Grade</source>
+        <translation>Сохранность</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Place</source>
+        <translation>Место</translation>
+    </message>
+    <message>
+        <source>Lot number</source>
+        <translation>Номер лота</translation>
+    </message>
+    <message>
+        <source>Counterparty</source>
+        <translation>Контрагент</translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Информация</translation>
+    </message>
+    <message>
+        <source>Start bid</source>
+        <translation>Начальная ставка</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFieldsSettingsPage</name>
+    <message>
+        <source>Use prices table</source>
+        <translation>Использовать таблицу цен</translation>
     </message>
 </context>
 <context>
@@ -2739,6 +2876,21 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>PriceAction</name>
+    <message>
+        <source>Buy</source>
+        <translation>Покупка</translation>
+    </message>
+    <message>
+        <source>Sell</source>
+        <translation>Продажа</translation>
+    </message>
+    <message>
+        <source>Auction</source>
+        <translation>Аукцион</translation>
+    </message>
+</context>
+<context>
     <name>ProgressChart</name>
     <message>
         <source>Trend</source>
@@ -2997,6 +3149,10 @@ Please update OpenNumismat</source>
     <message>
         <source>Fields</source>
         <translation>Поля</translation>
+    </message>
+    <message>
+        <source>Ext. fields</source>
+        <translation>Доп. поля</translation>
     </message>
     <message>
         <source>Import</source>

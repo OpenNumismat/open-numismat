@@ -181,6 +181,37 @@
     </message>
 </context>
 <context>
+    <name>BaseExtTableLayout</name>
+    <message>
+        <source>Add</source>
+        <translation>Agregar</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Guardar</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Eliminar</translation>
+    </message>
+    <message>
+        <source>Add new empty record or clone current record?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clone</source>
+        <translation>Clonar</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove entry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>No mostrar de nuevo esto</translation>
+    </message>
+</context>
+<context>
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
@@ -237,6 +268,10 @@ Cambio de posición del artículo disponible sólo en el orden predeterminado. �
 Close the file and try again.</source>
         <translation>El archivo está abierto en otro programa o se requiere permiso.
 Cierre el archivo y pruebe de nuevo.</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Saving...</source>
@@ -473,6 +508,25 @@ Por favor, actualice OpenNumismat</translation>
     <message>
         <source>Save as</source>
         <translation>Guardar como</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Exportar</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation>El archivo está abierto en otro programa o se requiere permiso.
+Cierre el archivo y pruebe de nuevo.</translation>
     </message>
     <message>
         <source>Synchronizing</source>
@@ -866,6 +920,10 @@ La aplicación deberá reiniciarse ahora.</translation>
     <message>
         <source>Invoice</source>
         <translation>Factura</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1365,9 +1423,21 @@ y prueba de nuevo.</translation>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
+    <message>
+        <source>Icon</source>
+        <translation>Icono</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Abrir archivo</translation>
+    </message>
 </context>
 <context>
     <name>DetailsTabWidget</name>
+    <message>
+        <source>Prices</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Nada que mostrar. Cambia el estado de la moneda en la pestaña anterior</translation>
@@ -1482,6 +1552,72 @@ y prueba de nuevo.</translation>
 Do you want to send an error message to the author?</source>
         <translation>Ha ocurrido un error de sistema.
 ¿Deseas enviar un mensaje de error al autor?</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFields</name>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Fecha</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Cantidad</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Precio</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Total price</source>
+        <translation>Precio total</translation>
+    </message>
+    <message>
+        <source>Shipping</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Grade</source>
+        <translation>Grado</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Place</source>
+        <translation>Lugar</translation>
+    </message>
+    <message>
+        <source>Lot number</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Counterparty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Información</translation>
+    </message>
+    <message>
+        <source>Start bid</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ExtFieldsSettingsPage</name>
+    <message>
+        <source>Use prices table</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2739,6 +2875,21 @@ arrastrar y soltar para añadir una imagen)</translation>
     </message>
 </context>
 <context>
+    <name>PriceAction</name>
+    <message>
+        <source>Buy</source>
+        <translation>Comprar</translation>
+    </message>
+    <message>
+        <source>Sell</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Auction</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ProgressChart</name>
     <message>
         <source>Trend</source>
@@ -2997,6 +3148,10 @@ Por favor, actualiza OpenNumismat</translation>
     <message>
         <source>Fields</source>
         <translation>Campos</translation>
+    </message>
+    <message>
+        <source>Ext. fields</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import</source>

@@ -181,6 +181,37 @@
     </message>
 </context>
 <context>
+    <name>BaseExtTableLayout</name>
+    <message>
+        <source>Add</source>
+        <translation>Hinzufügen</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Add new empty record or clone current record?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clone</source>
+        <translation>Duplizieren</translation>
+    </message>
+    <message>
+        <source>Are you sure to remove entry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Nicht mehr anzeigen</translation>
+    </message>
+</context>
+<context>
     <name>BaseTableView</name>
     <message>
         <source>0 records selected</source>
@@ -236,6 +267,10 @@ Eine Veränderung der Position eines Objekts ist nur in der Standard Sortierreih
         <source>File is open in another program or permission required.
 Close the file and try again.</source>
         <translation>Die Datei ist in einer anderen Anwendung geöffnet oder die nötigen Rechte fehlen. Schließe die Datei und versuche es noch einmal.</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Saving...</source>
@@ -469,6 +504,24 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     <message>
         <source>Save as</source>
         <translation>Speichern als</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation>Exportieren</translation>
+    </message>
+    <message>
+        <source>Export to %s completed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export to %s completed
+Images saved to %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File is open in another program or permission required.
+Close the file and try again.</source>
+        <translation>Die Datei ist in einer anderen Anwendung geöffnet oder die nötigen Rechte fehlen. Schließe die Datei und versuche es noch einmal.</translation>
     </message>
     <message>
         <source>Synchronizing</source>
@@ -862,6 +915,10 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     <message>
         <source>Invoice</source>
         <translation>Rechnung</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1361,9 +1418,21 @@ und noch einmal versuchen.</translation>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
+    <message>
+        <source>Icon</source>
+        <translation>Icon/Piktogramm</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Datei öffnen</translation>
+    </message>
 </context>
 <context>
     <name>DetailsTabWidget</name>
+    <message>
+        <source>Prices</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Nichts anzuzeigen. Ändern Sie den Status der Münze im vorherigen Karteireiter</translation>
@@ -1478,6 +1547,72 @@ und noch einmal versuchen.</translation>
 Do you want to send an error message to the author?</source>
         <translation>Es ist ein Systemfehler aufgetreten.
 Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
+    </message>
+</context>
+<context>
+    <name>ExtFields</name>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation>Anzahl</translation>
+    </message>
+    <message>
+        <source>Price</source>
+        <translation>Preis</translation>
+    </message>
+    <message>
+        <source>Currency</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Total price</source>
+        <translation>Gesamtpreis</translation>
+    </message>
+    <message>
+        <source>Shipping</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Grade</source>
+        <translation>Erhaltung</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Place</source>
+        <translation>Ort</translation>
+    </message>
+    <message>
+        <source>Lot number</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Counterparty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Info</translation>
+    </message>
+    <message>
+        <source>Start bid</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ExtFieldsSettingsPage</name>
+    <message>
+        <source>Use prices table</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2736,6 +2871,21 @@ drag-n-drop to add an image)</source>
     </message>
 </context>
 <context>
+    <name>PriceAction</name>
+    <message>
+        <source>Buy</source>
+        <translation>Kauf</translation>
+    </message>
+    <message>
+        <source>Sell</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Auction</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ProgressChart</name>
     <message>
         <source>Trend</source>
@@ -2993,6 +3143,10 @@ Bitte OpenNumismat aktualisieren</translation>
     <message>
         <source>Fields</source>
         <translation>Felder</translation>
+    </message>
+    <message>
+        <source>Ext. fields</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Import</source>
