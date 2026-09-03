@@ -196,7 +196,7 @@
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
-        <translation type="unfinished"/>
+        <translation>Adicionar um novo registo vazio ou clonar o actual?</translation>
     </message>
     <message>
         <source>Clone</source>
