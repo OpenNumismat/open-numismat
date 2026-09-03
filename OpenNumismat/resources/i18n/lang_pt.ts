@@ -1618,7 +1618,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     <name>ExtFieldsSettingsPage</name>
     <message>
         <source>Use prices table</source>
-        <translation type="unfinished"/>
+        <translation>Usar tabela de preços</translation>
     </message>
 </context>
 <context>
@@ -2883,7 +2883,7 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Sell</source>
-        <translation type="unfinished"/>
+        <translation>Vender</translation>
     </message>
     <message>
         <source>Auction</source>
