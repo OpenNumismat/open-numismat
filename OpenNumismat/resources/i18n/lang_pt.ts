@@ -1603,7 +1603,7 @@ Quer enviar uma mensagem de erro ao autor?</translation>
     </message>
     <message>
         <source>Counterparty</source>
-        <translation type="unfinished"/>
+        <translation>Contraparte</translation>
     </message>
     <message>
         <source>Info</source>
