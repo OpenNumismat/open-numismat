@@ -1433,10 +1433,6 @@ and try again.</source>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <source>Prices</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Нема чого показати. Змініть статус монети на попередній вкладці</translation>
     </message>
