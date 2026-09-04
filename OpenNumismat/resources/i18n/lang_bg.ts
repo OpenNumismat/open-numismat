@@ -1437,7 +1437,7 @@ and try again.</source>
     <name>DetailsTabWidget</name>
     <message>
         <source>Prices</source>
-        <translation>Цена</translation>
+        <translation>Цени</translation>
     </message>
     <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
@@ -3152,7 +3152,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Ext. fields</source>
-        <translation>Разширени полета</translation>
+        <translation>Разширени раздели</translation>
     </message>
     <message>
         <source>Import</source>
