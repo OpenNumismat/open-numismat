@@ -1435,10 +1435,6 @@ y prueba de nuevo.</translation>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <source>Prices</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Nada que mostrar. Cambia el estado de la moneda en la pestaña anterior</translation>
     </message>
