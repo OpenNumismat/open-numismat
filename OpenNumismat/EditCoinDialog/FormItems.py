@@ -1388,11 +1388,11 @@ class PriceActionEdit(QComboBox):
 
         for code, title in self.Actions:
             if code == 'buy':
-                self.addItem(statusIcon('owned'), title, code)
+                self.addItem(statusIcon('owned'), QApplication.translate("PriceAction", title), code)
             elif code == 'sell':
-                self.addItem(statusIcon('sold'), title, code)
+                self.addItem(statusIcon('sold'), QApplication.translate("PriceAction", title), code)
             elif code == 'auction':
-                self.addItem(statusIcon('pass'), title, code)
+                self.addItem(statusIcon('pass'), QApplication.translate("PriceAction", title), code)
             else:
                 self.addItem(title, code)
 

@@ -1,6 +1,6 @@
 from PySide6.QtCore import Qt, QDate, QLocale, QTimer, QSettings, QT_TRANSLATE_NOOP
 from PySide6.QtGui import QStandardItemModel, QStandardItem
-from PySide6.QtWidgets import QCheckBox, QHBoxLayout, QMessageBox, QPushButton, QTableView, QVBoxLayout
+from PySide6.QtWidgets import QApplication, QCheckBox, QHBoxLayout, QMessageBox, QPushButton, QTableView, QVBoxLayout
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.EditCoinDialog.BaseFormLayout import BaseFormLayout, FormItem
@@ -306,7 +306,7 @@ class BaseExtTableLayout(QVBoxLayout):
                 text = data
                 for act, title in self.Actions:
                     if act == data:
-                        text = title
+                        text = QApplication.translate("PriceAction", title)
                         break
             else:
                 text = str(data)
