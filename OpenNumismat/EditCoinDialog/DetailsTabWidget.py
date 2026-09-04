@@ -93,7 +93,8 @@ class DetailsTabWidget(QTabWidget):
     def createPricesPage(self):
         self.prices_table = self.pricesTableLayout()
 
-        self.addTabPage(self.tr("Prices"), [self.prices_table, ])
+        title = self.settings['market_group_title']
+        self.addTabPage(title, [self.prices_table, ])
 
     def createParametersPage(self):
         parameters = self.parametersLayout()
