@@ -1431,10 +1431,6 @@ and try again.</source>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <source>Prices</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Inget att visa. Ändra myntstatus på föregående flik</translation>
     </message>

@@ -1436,10 +1436,6 @@ and try again.</source>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <source>Prices</source>
-        <translation>Цени</translation>
-    </message>
-    <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Няма данни за показване. Променете статуса на монетите в предишния раздел</translation>
     </message>
