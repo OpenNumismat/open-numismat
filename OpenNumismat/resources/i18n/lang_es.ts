@@ -1540,6 +1540,10 @@ y prueba de nuevo.</translation>
 <context>
     <name>ExcpHook</name>
     <message>
+        <source>Don&apos;t show this again</source>
+        <translation>No mostrar de nuevo esto</translation>
+    </message>
+    <message>
         <source>System error</source>
         <translation>Error de sistema</translation>
     </message>
