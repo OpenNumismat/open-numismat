@@ -251,7 +251,7 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed
-        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        path: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip
         if-no-files-found: error
 
   nuitka_innosetup:
@@ -325,7 +325,7 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka
-        path: tools/${{ needs.title.outputs.PACKAGENAME }}.exe
+        path: tools/${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
         if-no-files-found: error
     - name: Signing InnoSetup package
       uses: signpath/github-action-submit-signing-request@v2
@@ -343,7 +343,7 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed
-        path: ${{ needs.title.outputs.PACKAGENAME }}.exe
+        path: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
         if-no-files-found: error
 
   ubuntu:
@@ -563,14 +563,14 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed/${{ needs.title.outputs.PACKAGENAME }}.zip
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-portable-signed/${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.zip
         asset_content_type: application/octet-stream
     - name: upload-nuitka-innosetup
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.release.outputs.upload_url }}
-        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed/${{ needs.title.outputs.PACKAGENAME }}.exe
+        asset_path: artifacts/${{ needs.title.outputs.PACKAGENAME }}-nuitka-signed/${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
         asset_name: ${{ needs.title.outputs.PACKAGENAME }}-nuitka.exe
         asset_content_type: application/octet-stream
     - name: upload-ubuntu
