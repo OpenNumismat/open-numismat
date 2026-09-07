@@ -1541,6 +1541,10 @@ and try again.</source>
 <context>
     <name>ExcpHook</name>
     <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Не показвай това съобщение отново</translation>
+    </message>
+    <message>
         <source>System error</source>
         <translation>Системна грешка</translation>
     </message>
