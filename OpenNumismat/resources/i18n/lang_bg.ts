@@ -1583,7 +1583,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Shipping</source>
-        <translation>Доставка</translation>
+        <translation>Цена за доставка</translation>
     </message>
     <message>
         <source>Grade</source>
