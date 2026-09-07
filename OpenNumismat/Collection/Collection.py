@@ -1262,7 +1262,7 @@ class CollectionSettings(BaseSettings):
             'replacement_status_title': '',
             'enable_bc': True,
             'rich_text': False,
-            'default_status': 'demo',
+            'default_status': 'owned',
             'colnect_category': '',
             'colnect_country': 0,
             'ans_department': '',
