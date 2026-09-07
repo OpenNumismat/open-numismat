@@ -1436,10 +1436,6 @@ and try again.</source>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <source>Prices</source>
-        <translation>Цени</translation>
-    </message>
-    <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Няма данни за показване. Променете статуса на монетите в предишния раздел</translation>
     </message>
@@ -1544,6 +1540,10 @@ and try again.</source>
 </context>
 <context>
     <name>ExcpHook</name>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Не показвай това съобщение отново</translation>
+    </message>
     <message>
         <source>System error</source>
         <translation>Системна грешка</translation>

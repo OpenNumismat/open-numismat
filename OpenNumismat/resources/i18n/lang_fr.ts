@@ -1424,10 +1424,6 @@ and try again.</source>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <source>Prices</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation type="unfinished"/>
     </message>
@@ -1532,6 +1528,10 @@ and try again.</source>
 </context>
 <context>
     <name>ExcpHook</name>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <source>System error</source>
         <translation>Erreur système</translation>

@@ -1436,10 +1436,6 @@ e tente novamente.</translation>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <source>Prices</source>
-        <translation>Preços</translation>
-    </message>
-    <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Nada a mostrar. Altere o estado da moeda no separador anterior</translation>
     </message>
@@ -1544,6 +1540,10 @@ e tente novamente.</translation>
 </context>
 <context>
     <name>ExcpHook</name>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Não mostrar novamente</translation>
+    </message>
     <message>
         <source>System error</source>
         <translation>Erro de sistema</translation>

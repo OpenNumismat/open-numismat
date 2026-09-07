@@ -1430,10 +1430,6 @@ und noch einmal versuchen.</translation>
 <context>
     <name>DetailsTabWidget</name>
     <message>
-        <source>Prices</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Nothing to show. Change the coin status on previous tab</source>
         <translation>Nichts anzuzeigen. Ändern Sie den Status der Münze im vorherigen Karteireiter</translation>
     </message>
@@ -1538,6 +1534,10 @@ und noch einmal versuchen.</translation>
 </context>
 <context>
     <name>ExcpHook</name>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Nicht mehr anzeigen</translation>
+    </message>
     <message>
         <source>System error</source>
         <translation>Systemfehler</translation>
