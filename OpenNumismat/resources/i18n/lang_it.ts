@@ -1536,6 +1536,10 @@ and try again.</source>
 <context>
     <name>ExcpHook</name>
     <message>
+        <source>Don&apos;t show this again</source>
+        <translation>Non mostrarmelo di nuovo</translation>
+    </message>
+    <message>
         <source>System error</source>
         <translation>Errore di sistema</translation>
     </message>
