@@ -15,7 +15,7 @@ from PySide6.QtCore import (
     QUrl,
     QUrlQuery,
 )
-from PySide6.QtWidgets import QApplication, QMessageBox
+from PySide6.QtWidgets import QApplication, QCheckBox, QMessageBox
 from PySide6.QtGui import QDesktopServices
 from PySide6 import __version__ as PYQT_VERSION_STR
 
@@ -131,11 +131,13 @@ def setupHomeFolder(settings):
 def exceptHook(type_, value, tback):
     stack = ''.join(traceback.format_exception(type_, value, tback))
 
+    cb = QCheckBox(QApplication.translate("ExcpHook", "Don't show this again"))
     title = QApplication.translate("ExcpHook", "System error")
     text = QApplication.translate("ExcpHook",
                         "A system error occurred.\n"
                         "Do you want to send an error message to the author?")
     msgBox = QMessageBox(QMessageBox.Information, title, text)
+    msgBox.setCheckBox(cb)
     msgBox.setDetailedText(stack)
     msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     if msgBox.exec() == QMessageBox.Yes:
@@ -181,6 +183,15 @@ def exceptHook(type_, value, tback):
 
         executor = QDesktopServices()
         executor.openUrl(url)
+
+    if cb.isChecked():
+        try:
+            Settings(autoSave=True)['error'] = False
+        except:
+            pass
+
+        # Set the default handler
+        sys.excepthook = sys.__excepthook__
 
     # Call the default handler
     sys.__excepthook__(type_, value, tback)
