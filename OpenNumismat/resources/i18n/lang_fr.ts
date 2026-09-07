@@ -1529,6 +1529,10 @@ and try again.</source>
 <context>
     <name>ExcpHook</name>
     <message>
+        <source>Don&apos;t show this again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>System error</source>
         <translation>Erreur système</translation>
     </message>
