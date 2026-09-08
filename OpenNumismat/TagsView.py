@@ -65,9 +65,11 @@ class TagsView(QTreeWidget):
             self.resizeColumnToContents(0)
 
             tag_id = current.data(0, Qt.UserRole)
-            sql = f"SELECT coin_id FROM coins_tags WHERE tag_id={tag_id}"
+            sql = "SELECT coin_id FROM coins_tags WHERE tag_id=?"
             query = QSqlQuery(self.db)
-            query.exec(sql)
+            query.prepare(sql)
+            query.addBindValue(tag_id)
+            query.exec()
             coin_ids = []
             while query.next():
                 record = query.record()
@@ -77,7 +79,7 @@ class TagsView(QTreeWidget):
 
             if coin_ids:
                 # TODO: Use INNER JOIN instead filtering by id
-                filter_ = f"id IN ({','.join(coin_ids)})"
+                filter_ = f"coins.id IN ({','.join(coin_ids)})"
             else:
                 filter_ = "FALSE"
             self.model.setAdditionalFilter(filter_)
