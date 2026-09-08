@@ -56,7 +56,7 @@ from OpenNumismat.Reports.ExportList import ExportToExcel, ExportToHtml, ExportT
 from OpenNumismat.Tools.Gui import getSaveFileName, statusColor, infoMessageBox
 from OpenNumismat.Tools.CursorDecorators import waitCursorDecorator
 from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
-from OpenNumismat.Collection.CollectionFields import ImageFields
+from OpenNumismat.Collection.CollectionFields import ImageFields, BuyPriceFields, SellPriceFields
 
 
 def textToClipboard(text):
@@ -1025,12 +1025,22 @@ class ListView(BaseTableView):
                 if field.type in Type.ImageTypes:
                     continue
 
-                parts.append(field.name)
+                if field.name in BuyPriceFields:
+                    table_name = 'buy_prices'
+                    field_name = BuyPriceFields[field.name]
+                elif field.name in SellPriceFields:
+                    table_name = 'sell_prices'
+                    field_name = SellPriceFields[field.name]
+                else:
+                    table_name = 'coins'
+                    field_name = field.name
+
+                parts.append(f"{table_name}.{field_name}")
 
             sql = []
             for part in parts:
                 for val in values:
-                    sql.append("%s LIKE %s" % (part, val))
+                    sql.append(f"{part} LIKE {val}")
             model.setSearchFilter('(' + ' OR '.join(sql) + ')')
         else:
             model.setSearchFilter('')
