@@ -13,6 +13,7 @@ from PySide6.QtWidgets import (
 )
 
 import OpenNumismat
+from OpenNumismat.Tools.db_utils import DBTransaction, execute_query
 from OpenNumismat.Tools.misc import readImageFilters
 
 
@@ -24,7 +25,8 @@ class CollectionDescription(QObject):
         if 'description' not in self.db.tables():
             self.create(collection)
 
-        query = QSqlQuery("SELECT * FROM description", self.db)
+        query = QSqlQuery(self.db)
+        execute_query(query, "SELECT * FROM description")
         query.first()
         record = query.record()
 
@@ -34,39 +36,28 @@ class CollectionDescription(QObject):
         self.icon = record.value('icon')
 
     def save(self):
-        self.db.transaction()
-
         query = QSqlQuery(self.db)
-        query.prepare("UPDATE description SET title=?, description=?,"
-                      " author=?, icon=? WHERE id=1")
-        query.addBindValue(self.title)
-        query.addBindValue(self.description)
-        query.addBindValue(self.author)
-        query.addBindValue(self.icon)
-        query.exec()
-
-        self.db.commit()
+        sql = ("UPDATE description SET title=?, description=?,"
+               " author=?, icon=? WHERE id=1")
+        params = (self.title, self.description, self.author, self.icon)
+        execute_query(query, sql, params)
 
     def create(self, collection):
-        self.db.transaction()
+        with DBTransaction(self.db):
+            query = QSqlQuery(self.db)
 
-        sql = """CREATE TABLE description (
-            id INTEGER PRIMARY KEY,
-            title TEXT,
-            description TEXT,
-            author TEXT,
-            icon BLOB)"""
-        QSqlQuery(sql, self.db)
+            sql = """CREATE TABLE description (
+                id INTEGER PRIMARY KEY,
+                title TEXT,
+                description TEXT,
+                author TEXT,
+                icon BLOB)"""
+            execute_query(query, sql)
 
-        query = QSqlQuery(self.db)
-        query.prepare("""INSERT INTO description (title, description, author)
-                VALUES (?, ?, ?)""")
-        query.addBindValue(collection.getCollectionName())
-        query.addBindValue('')
-        query.addBindValue('')
-        query.exec()
-
-        self.db.commit()
+            sql = """INSERT INTO description (title, description, author)
+                    VALUES (?, ?, ?)"""
+            params = (collection.getCollectionName(), '', '')
+            execute_query(query, sql, params)
 
 
 class DescriptionDialog(QDialog):
