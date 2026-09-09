@@ -83,8 +83,9 @@ def main():
 
     mainWindow = MainWindow()
     mainWindow.show()
-    if sys.platform == 'darwin':
-        mainWindow.raise_()
+    mainWindow.raise_()
+    mainWindow.activateWindow()
+
     mainWindow.openStartCollection()
 
     status = app.exec()
