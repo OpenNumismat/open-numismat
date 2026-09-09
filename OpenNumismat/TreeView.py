@@ -18,6 +18,7 @@ from OpenNumismat.Tools.Gui import statusIcon
 from OpenNumismat.Tools.Converters import numberWithFraction, compareYears
 from OpenNumismat.Collection.CollectionFields import Statuses, BuyPriceFields, SellPriceFields
 from OpenNumismat.Settings import Settings
+from OpenNumismat.Tools.db_utils import execute_query
 
 
 @dataclass(slots=True)
@@ -350,7 +351,8 @@ class TreeView(QTreeWidget):
             sql += f" GROUP BY {sql_group_fields}"
         else:
             sql = f"SELECT DISTINCT {sql_fields} {from_sql} {where_clause}"
-        query = QSqlQuery(sql, self.db)
+        query = QSqlQuery(self.db)
+        execute_query(query, sql)
         while query.next():
             record = query.record()
 

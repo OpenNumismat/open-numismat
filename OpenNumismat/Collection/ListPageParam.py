@@ -2,6 +2,7 @@ from PySide6.QtCore import QObject
 from PySide6.QtSql import QSqlQuery, QSqlRecord
 
 from OpenNumismat.Collection.HeaderFilterMenu import ColumnFilters, ValueFilter, DataFilter, BlankFilter
+from OpenNumismat.Tools.db_utils import DBTransaction, execute_query
 
 
 class ColumnListParam:
@@ -115,61 +116,46 @@ class ListPageParam(QObject):
 
     def save_lists(self, only_if_changed=False):
         if not only_if_changed or self.__lists_changed:
-            self.db.transaction()
+            with DBTransaction(self.db):
+                # Remove old values
+                self.__remove_lists()
 
-            # Remove old values
-            self.__remove_lists()
-
-            for position, param in enumerate(self.columns):
                 query = QSqlQuery(self.db)
-                query.prepare("INSERT INTO lists (pageid, fieldid, position,"
-                              " enabled, width)"
-                              " VALUES (?, ?, ?, ?, ?)")
-                query.addBindValue(self.page.id)
-                query.addBindValue(param.fieldid)
-                query.addBindValue(position)
-                query.addBindValue(int(param.enabled))
-                if not param.enabled:
-                    param.width = None
-                query.addBindValue(param.width)
-                query.exec()
-
-            self.db.commit()
+                for position, param in enumerate(self.columns):
+                    sql = ("INSERT INTO lists (pageid, fieldid, position, enabled, width)"
+                           " VALUES (?, ?, ?, ?, ?)")
+                    if not param.enabled:
+                        param.width = None
+                    params = (self.page.id, param.fieldid, position,
+                              int(param.enabled), param.width)
+                    execute_query(query, sql, params)
 
             self.__lists_changed = False
 
     def save_filters(self):
-        self.db.transaction()
+        with DBTransaction(self.db):
+            # Remove old values
+            self.__remove_filters()
 
-        # Remove old values
-        self.__remove_filters()
-
-        for fieldId, columnFilters in self.filters.items():
-            for filter_ in columnFilters.filters():
-                query = QSqlQuery(self.db)
-                query.prepare("INSERT INTO filters (pageid, fieldid, value,"
-                              " blank, data, revert) VALUES (?, ?, ?, ?, ?, ?)")
-                query.addBindValue(self.page.id)
-                query.addBindValue(fieldId)
-                query.addBindValue(filter_.value)
-                if filter_.isBlank():
-                    blank = int(True)
-                else:
-                    blank = None
-                query.addBindValue(blank)
-                if filter_.isData():
-                    data = int(True)
-                else:
-                    data = None
-                query.addBindValue(data)
-                if filter_.isRevert():
-                    revert = int(True)
-                else:
-                    revert = None
-                query.addBindValue(revert)
-                query.exec()
-
-        self.db.commit()
+            query = QSqlQuery(self.db)
+            for fieldId, columnFilters in self.filters.items():
+                for filter_ in columnFilters.filters():
+                    sql = ("INSERT INTO filters (pageid, fieldid, value, blank, data, revert)"
+                           " VALUES (?, ?, ?, ?, ?, ?)")
+                    if filter_.isBlank():
+                        blank = int(True)
+                    else:
+                        blank = None
+                    if filter_.isData():
+                        data = int(True)
+                    else:
+                        data = None
+                    if filter_.isRevert():
+                        revert = int(True)
+                    else:
+                        revert = None
+                    params = (self.page.id, fieldId, filter_.value, blank, data, revert)
+                    execute_query(query, sql, params)
 
     def remove(self):
         self.__remove_lists()
@@ -177,12 +163,12 @@ class ListPageParam(QObject):
 
     def __remove_lists(self):
         query = QSqlQuery(self.db)
-        query.prepare("DELETE FROM lists WHERE pageid=?")
-        query.addBindValue(self.page.id)
-        query.exec()
+        sql = "DELETE FROM lists WHERE pageid=?"
+        params = (self.page.id,)
+        execute_query(query, sql, params)
 
     def __remove_filters(self):
         query = QSqlQuery(self.db)
-        query.prepare("DELETE FROM filters WHERE pageid=?")
-        query.addBindValue(self.page.id)
-        query.exec()
+        sql = "DELETE FROM filters WHERE pageid=?"
+        params = (self.page.id,)
+        execute_query(query, sql, params)

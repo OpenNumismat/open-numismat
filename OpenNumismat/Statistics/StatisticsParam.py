@@ -1,6 +1,7 @@
 from PySide6.QtSql import QSqlQuery
 
 from OpenNumismat.Settings import BaseSettings
+from OpenNumismat.Tools.db_utils import DBTransaction, execute_query
 
 
 class StatisticsParam(BaseSettings):
@@ -35,9 +36,8 @@ class StatisticsParam(BaseSettings):
 
     def _load(self):
         query = QSqlQuery(self.db)
-        query.prepare("SELECT * FROM statistics WHERE pageid=?")
-        query.addBindValue(self.pageId)
-        query.exec()
+        params = (self.pageId,)
+        execute_query(query, "SELECT * FROM statistics WHERE pageid=?", params)
         if query.first():
             record = query.record()
             self.__setitem__('showed', bool(record.value('showed')))
@@ -51,32 +51,31 @@ class StatisticsParam(BaseSettings):
         self.autoSave = True
 
     def save(self):
-        self.db.transaction()
+        with DBTransaction(self.db):
+            self.remove()
 
-        self.remove()
-
-        query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO statistics (pageid, showed, chart, fieldid, subfieldid, items, period, color)"
-                      " VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
-        query.addBindValue(self.pageId)
-        query.addBindValue(int(self.__getitem__('showed')))
-        query.addBindValue(self.__getitem__('chart'))
-        query.addBindValue(self.__getitem__('fieldid'))
-        query.addBindValue(self.__getitem__('subfieldid'))
-        query.addBindValue(self.__getitem__('items'))
-        query.addBindValue(self.__getitem__('period'))
-        query.addBindValue(int(self.__getitem__('color')))
-        query.exec()
-
-        self.db.commit()
+            query = QSqlQuery(self.db)
+            sql = ("INSERT INTO statistics (pageid, showed, chart, fieldid, subfieldid, items, period, color)"
+                   " VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
+            params = (
+                self.pageId,
+                int(self.__getitem__('showed')),
+                self.__getitem__('chart'),
+                self.__getitem__('fieldid'),
+                self.__getitem__('subfieldid'),
+                self.__getitem__('items'),
+                self.__getitem__('period'),
+                int(self.__getitem__('color'))
+            )
+            execute_query(query, sql, params)
 
     def remove(self):
         query = QSqlQuery(self.db)
-        query.prepare("DELETE FROM statistics WHERE pageid=?")
-        query.addBindValue(self.pageId)
-        query.exec()
+        params = (self.pageId,)
+        execute_query(query, "DELETE FROM statistics WHERE pageid=?", params)
 
     def create(self):
+        query = QSqlQuery(self.db)
         sql = """CREATE TABLE statistics (
             id INTEGER NOT NULL PRIMARY KEY,
             pageid INTEGER,
@@ -87,4 +86,4 @@ class StatisticsParam(BaseSettings):
             items TEXT,
             period TEXT,
             color INTEGER)"""
-        QSqlQuery(sql, self.db)
+        execute_query(query, sql)

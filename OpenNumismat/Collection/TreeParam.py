@@ -1,6 +1,8 @@
 from PySide6.QtCore import QObject
 from PySide6.QtSql import QSqlQuery
 
+from OpenNumismat.Tools.db_utils import DBTransaction, execute_query
+
 
 class TreeParam(QObject):
 
@@ -53,10 +55,10 @@ class TreeParam(QObject):
         count = 0
 
         query = QSqlQuery(self.db)
-        query.prepare("SELECT COUNT(DISTINCT position) "
-                      "FROM treeparam WHERE pageid=?")
-        query.addBindValue(self.pageId)
-        query.exec()
+        sql = ("SELECT COUNT(DISTINCT position)"
+               " FROM treeparam WHERE pageid=?")
+        params = (self.pageId,)
+        execute_query(query, sql, params)
         if query.first():
             count = query.record().value(0)
 
@@ -64,10 +66,9 @@ class TreeParam(QObject):
             for _ in range(count):
                 self._params.append([])
 
-            query = QSqlQuery(self.db)
-            query.prepare("SELECT * FROM treeparam WHERE pageid=?")
-            query.addBindValue(self.pageId)
-            query.exec()
+            sql = "SELECT * FROM treeparam WHERE pageid=?"
+            params = (self.pageId,)
+            execute_query(query, sql, params)
 
             while query.next():
                 record = query.record()
@@ -76,27 +77,21 @@ class TreeParam(QObject):
                 self._params[position].append(self.fields.field(fieldId))
 
     def save(self):
-        self.db.transaction()
+        with DBTransaction(self.db):
+            self.remove()
 
-        self.remove()
-
-        for position, param in enumerate(self.params()):
-            for field in param:
-                query = QSqlQuery(self.db)
-                query.prepare("INSERT INTO treeparam (pageid, fieldid,"
-                              " position) VALUES (?, ?, ?)")
-                query.addBindValue(self.pageId)
-                query.addBindValue(field.id)
-                query.addBindValue(position)
-                query.exec()
-
-        self.db.commit()
+            query = QSqlQuery(self.db)
+            for position, param in enumerate(self.params()):
+                for field in param:
+                    sql = ("INSERT INTO treeparam (pageid, fieldid, position)"
+                           " VALUES (?, ?, ?)")
+                    params = (self.pageId, field.id, position)
+                    execute_query(query, sql, params)
 
     def remove(self):
         query = QSqlQuery(self.db)
-        query.prepare("DELETE FROM treeparam WHERE pageid=?")
-        query.addBindValue(self.pageId)
-        query.exec()
+        params = (self.pageId,)
+        execute_query(query, "DELETE FROM treeparam WHERE pageid=?", params)
 
     def __iter__(self):
         self.index = 0
@@ -109,9 +104,10 @@ class TreeParam(QObject):
         return self._params[self.index - 1]
 
     def create(self):
+        query = QSqlQuery(self.db)
         sql = """CREATE TABLE treeparam (
             id INTEGER NOT NULL PRIMARY KEY,
             pageid INTEGER,
             fieldid INTEGER,
             position INTEGER)"""
-        QSqlQuery(sql, self.db)
+        execute_query(query, sql)
