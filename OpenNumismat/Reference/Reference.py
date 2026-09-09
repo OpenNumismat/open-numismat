@@ -9,6 +9,7 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel, QSqlRelationa
 from PySide6.QtWidgets import QMessageBox
 
 from OpenNumismat.Reference.ReferenceDialog import ReferenceDialog, CrossReferenceDialog
+from OpenNumismat.Tools.db_utils import DBTransaction, execute_query
 
 
 class SqlTableModel(QSqlTableModel):
@@ -265,9 +266,8 @@ class BaseReferenceSection(QObject):
 
     def getSort(self):
         query = QSqlQuery(self.db)
-        query.prepare("SELECT sort FROM sections WHERE name=?")
-        query.addBindValue(self.name)
-        query.exec()
+        params = (self.name,)
+        execute_query(query, "SELECT sort FROM sections WHERE name=?", params)
         if query.first():
             data = query.record().value(0)
             if data:
@@ -283,15 +283,16 @@ class BaseReferenceSection(QObject):
             self.sort = sort
 
             query = QSqlQuery(self.db)
-            query.prepare("UPDATE sections SET sort=? WHERE name=?")
-            query.addBindValue(int(sort))
-            query.addBindValue(self.name)
+            params = (int(sort), self.name)
+            execute_query(query, "UPDATE sections SET sort=? WHERE name=?", params)
             query.exec()
 
         self.setSort()
 
     def create(self, db=QSqlDatabase()):
         in_transaction = db.transaction()
+
+        query = QSqlQuery(db)
 
         cross_ref = ('country', 'period', 'emitent', 'ruler',
                      'unit', 'mint', 'series')
@@ -307,30 +308,27 @@ class BaseReferenceSection(QObject):
                 id INTEGER PRIMARY KEY,
                 value TEXT, icon BLOB,
                 position INTEGER, description TEXT, plural TEXT)"""
-        QSqlQuery(sql, db)
+        execute_query(query, sql)
 
-        query = QSqlQuery(db)
         if self.name in cross_ref:
             sql = """INSERT INTO sections (name, letter, parent, sort, plural)
                 VALUES (?, ?, ?, ?, ?)"""
         else:
             sql = """INSERT INTO sections (name, letter, sort, plural)
                 VALUES (?, ?, ?, ?)"""
-        query.prepare(sql)
-        query.addBindValue(self.name)
-        query.addBindValue(self.letter)
+        params = [self.name, self.letter]
         if self.name in cross_ref:
             if self.name == 'country':
-                query.addBindValue('region')
+                params.append('region')
             else:
-                query.addBindValue('country')
-        query.addBindValue(int(self.sort))
+                params.append('country')
+        params.append(int(self.sort))
         if self.name == 'unit':
-            query.addBindValue(1)
+            params.append(1)
         else:
-            query.addBindValue(0)
+            params.append(0)
 
-        query.exec()
+        execute_query(query, sql, params)
 
         if in_transaction:
             db.commit()
@@ -369,17 +367,18 @@ class ReferenceSection(BaseReferenceSection):
         self.model.insertRecord(-1, record)
 
     def fillFromQuery(self, query):
-        while query.next():
-            value = query.record().value(0)
-            fillQuery = QSqlQuery(self.db)
-            fillQuery.prepare(f"INSERT INTO {self.table_name} (value, position) "
-                    "SELECT ?, "
-                    f"(SELECT ifnull(MAX(position)+1, 0) FROM {self.table_name}) "
-                    "WHERE NOT EXISTS "
-                    f"(SELECT 1 FROM {self.table_name} WHERE value=?)")
-            fillQuery.addBindValue(value)
-            fillQuery.addBindValue(value)
-            fillQuery.exec()
+        with DBTransaction(self.db):
+            fill_query = QSqlQuery(self.db)
+
+            while query.next():
+                value = query.record().value(0)
+                sql = (f"INSERT INTO {self.table_name} (value, position) "
+                       "SELECT ?, "
+                       f"(SELECT COALESCE(MAX(position), 0) + 1 FROM {self.table_name}) "
+                       "WHERE NOT EXISTS "
+                       f"(SELECT 1 FROM {self.table_name} WHERE value=?)")
+                params = (value, value)
+                execute_query(fill_query, sql, params)
 
 
 class CrossReferenceSection(BaseReferenceSection):
@@ -418,19 +417,18 @@ class CrossReferenceSection(BaseReferenceSection):
                                     parent.text(), parent)
 
     def fillFromQuery(self, parentId, query):
-        while query.next():
-            value = query.record().value(0)
-            fillQuery = QSqlQuery(self.db)
-            fillQuery.prepare(f"INSERT INTO {self.table_name} (value, parentid, position) "
-                        "SELECT ?, ?, "
-                        f"(SELECT ifnull(MAX(position)+1, 0) FROM {self.table_name}) "
-                        "WHERE NOT EXISTS "
-                        f"(SELECT 1 FROM {self.table_name} WHERE value=? AND parentid=?)")
-            fillQuery.addBindValue(value)
-            fillQuery.addBindValue(parentId)
-            fillQuery.addBindValue(value)
-            fillQuery.addBindValue(parentId)
-            fillQuery.exec()
+        with DBTransaction(self.db):
+            fill_query = QSqlQuery(self.db)
+
+            while query.next():
+                value = query.record().value(0)
+                sql = (f"INSERT INTO {self.table_name} (value, parentid, position) "
+                       "SELECT ?, ?, "
+                       f"(SELECT COALESCE(MAX(position), 0) + 1 FROM {self.table_name}) "
+                       "WHERE NOT EXISTS "
+                       f"(SELECT 1 FROM {self.table_name} WHERE value=? AND parentid=?)")
+                params = (value, parentId, value, parentId)
+                execute_query(fill_query, sql, params)
 
 
 class Reference(QObject):
@@ -502,6 +500,8 @@ class Reference(QObject):
         return None
 
     def create(self):
+        query = QSqlQuery(self.db)
+
         sql = """CREATE TABLE IF NOT EXISTS sections (
             id INTEGER PRIMARY KEY,
             name TEXT,
@@ -510,17 +510,16 @@ class Reference(QObject):
             parent TEXT,
             sort INTEGER,
             plural INTEGER)"""
-        QSqlQuery(sql, self.db)
+        execute_query(query, sql)
 
         sql = """CREATE TABLE ref (
             title CHAR NOT NULL UNIQUE,
             value CHAR)"""
-        QSqlQuery(sql, self.db)
+        execute_query(query, sql)
 
-        query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO ref (title, value) VALUES ('version', ?)")
-        query.addBindValue(self.VERSION)
-        query.exec()
+        sql = "INSERT INTO ref (title, value) VALUES ('version', ?)"
+        params = (self.VERSION,)
+        execute_query(query, sql, params)
 
         for section in self.sections:
             section.create(self.db)
@@ -587,8 +586,9 @@ class Reference(QObject):
         if 'ref' not in self.db.tables():
             self.__updateTo1()
 
-        query = QSqlQuery("SELECT value FROM ref WHERE title='version'", self.db)
-        query.exec()
+        query = QSqlQuery(self.db)
+
+        execute_query(query, "SELECT value FROM ref WHERE title='version'")
         if query.first():
             current_version = int(query.record().value(0))
             if current_version == 1:
@@ -610,8 +610,7 @@ class Reference(QObject):
         for section in self.sections:
             name = section.table_name
             sql = f"SELECT 1 FROM {name} WHERE icon IS NOT NULL LIMIT 1"
-            query = QSqlQuery(sql, self.db)
-            query.exec()
+            execute_query(query, sql)
             if query.first():
                 self.sections_with_icons.append(name)
 
@@ -661,10 +660,10 @@ class Reference(QObject):
 
         table_name = f"ref_{section}"
         if table_name in self.sections_with_icons:
+            query = QSqlQuery(self.db)
             sql = f"SELECT icon FROM {table_name} WHERE value=?"
-            query = QSqlQuery(sql, self.db)
-            query.addBindValue(value)
-            query.exec()
+            params = (value,)
+            execute_query(query, sql, params)
             if query.first():
                 data = query.record().value(0)
                 if data:
@@ -684,10 +683,10 @@ class Reference(QObject):
         elif section in ('material', 'material2'):
             section = 'material'
 
+        query = QSqlQuery(self.db)
         sql = f"SELECT position FROM ref_{section} WHERE value=?"
-        query = QSqlQuery(sql, self.db)
-        query.addBindValue(value)
-        query.exec()
+        params = (value,)
+        execute_query(query, sql, params)
         if query.first():
             data = query.record().value(0)
             if isinstance(data, int):
