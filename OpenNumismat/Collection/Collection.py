@@ -383,7 +383,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
             columns += ['coin_id', condition_col]
         else:
             columns.append('coin_id')
-        placeholders = ','.join(['?'] * len(columns))
+        placeholders = ','.join('?' * len(columns))
         ins_query = QSqlQuery(self.database())
         ins_query.prepare(f"INSERT INTO {table} ({','.join(columns)}, position)"
                           f" VALUES ({placeholders}, (SELECT COALESCE(MAX(position), 0) + 1 FROM {table} WHERE coin_id=?))")
@@ -446,7 +446,7 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         query.exec()
 
         position = 1
-        placeholders = ','.join(['?'] * len(fields))
+        placeholders = ','.join('?' * len(fields))
         for data in record_values:
             query.prepare(f"INSERT INTO {table}(coin_id, position, {','.join(fields.names())}) VALUES(?, ?, {placeholders})")
             query.addBindValue(coin_id)
@@ -2292,7 +2292,7 @@ class Collection(QObject):
                 sel_query.addBindValue(query.record().value(0))
                 sel_query.exec()
                 while sel_query.next():
-                    sql = "INSERT INTO coins (%s) VALUES (%s)" % (sql_fields, ','.join(['?'] * len(fields)))
+                    sql = "INSERT INTO coins (%s) VALUES (%s)" % (sql_fields, ','.join('?' * len(fields)))
                     ins_query = QSqlQuery(sql, self.db)
                     for field in fields:
                         if field == 'image':
