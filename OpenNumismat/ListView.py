@@ -552,6 +552,7 @@ class ImageDelegate(QStyledItemDelegate):
 
 
 class SortFilterProxyModel(QSortFilterProxyModel):
+    DEFAULT_FLAGS = Qt.ItemIsEnabled | Qt.ItemIsSelectable | Qt.ItemIsEditable | Qt.ItemNeverHasChildren | Qt.ItemIsDragEnabled | Qt.ItemIsDropEnabled
 
     def __init__(self, model, parent=None):
         super().__init__(parent)
@@ -611,7 +612,7 @@ class SortFilterProxyModel(QSortFilterProxyModel):
             return leftData < rightData
 
     def flags(self, index):
-        return super().flags(index) | Qt.ItemIsDragEnabled | Qt.ItemIsDropEnabled
+        return self.DEFAULT_FLAGS
 
 
 class ListView(BaseTableView):
@@ -900,17 +901,16 @@ class ListView(BaseTableView):
         return super().currentChanged(current, previous)
 
     def selectedCoins(self):
-        indexes = self.selectedIndexes()
-        if not indexes:
+        indexes = self.selectionModel().selectedRows()
+        if indexes:
+            return [self._mapToSource(index) for index in indexes]
+        else:
             current_index = self.currentIndex()
             if current_index.row() >= 0:
                 self.selectRow(current_index.row())
                 return [current_index, ]
             else:
                 return []
-        else:
-            indexes = self.selectionModel().selectedRows()
-            return [self._mapToSource(index) for index in indexes]
 
     def _filter(self, index=None):
         if not index:
