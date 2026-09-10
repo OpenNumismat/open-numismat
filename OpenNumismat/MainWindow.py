@@ -57,9 +57,12 @@ from OpenNumismat.Collection.Import import *
 
 
 class MainWindow(QMainWindow):
+
     def __init__(self):
         QMainWindow.__init__(self)
         self.setAttribute(Qt.WA_DeleteOnClose)
+
+        self._is_first_show = True
 
         self.setWindowIcon(QIcon(':/main.ico'))
 
@@ -361,6 +364,7 @@ class MainWindow(QMainWindow):
         self.collectionActs.append(viewBrowserAct)
 
         self.viewTab = TabView(self)
+        self.setCentralWidget(self.viewTab)
 
         actions = self.viewTab.actions()
         listMenu = menubar.addMenu(self.tr("List"))
@@ -505,6 +509,13 @@ class MainWindow(QMainWindow):
 
         self.autoUpdate()
 
+    def showEvent(self, event):
+        super().showEvent(event)
+
+        if self._is_first_show:
+            self._is_first_show = False
+            QTimer.singleShot(0, self.openStartCollection)
+
     def openStartCollection(self):
         if len(sys.argv) > 1:
             fileName = sys.argv[1]
@@ -514,8 +525,6 @@ class MainWindow(QMainWindow):
 
         self.collection = Collection(self)
         self.openCollection(fileName)
-
-        self.setCentralWidget(self.viewTab)
 
     def createStatusBar(self):
         self.collectionFileLabel = QLabel()

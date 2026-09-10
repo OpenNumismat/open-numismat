@@ -1379,11 +1379,13 @@ class Collection(QObject):
         self.db = QSqlDatabase.addDatabase('QSQLITE')
         self._pages = None
         self.fileName = None
+        self.is_open = False
 
     def isOpen(self):
-        return self.db.isValid() and self.fileName
+        return self.db.isValid() and self.is_open
 
     def open(self, fileName):
+        self.is_open = False
         self.fileName = None
 
         file = QFileInfo(fileName)
@@ -1443,9 +1445,12 @@ class Collection(QObject):
 
         self.__speedup()
 
+        self.is_open = True
+
         return True
 
     def create(self, fileName):
+        self.is_open = False
         self.fileName = None
 
         if QFileInfo(fileName).exists():
@@ -1477,6 +1482,8 @@ class Collection(QObject):
         self.description = CollectionDescription(self)
 
         self.__speedup()
+
+        self.is_open = True
 
         return True
 

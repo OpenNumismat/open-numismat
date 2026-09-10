@@ -86,8 +86,6 @@ def main():
     mainWindow.raise_()
     mainWindow.activateWindow()
 
-    mainWindow.openStartCollection()
-
     status = app.exec()
 
     # Clear temporary files
