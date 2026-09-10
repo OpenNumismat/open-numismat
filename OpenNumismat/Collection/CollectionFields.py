@@ -4,6 +4,8 @@ from PySide6.QtCore import QT_TRANSLATE_NOOP, QObject
 from PySide6.QtWidgets import QApplication
 from PySide6.QtSql import QSqlQuery
 
+from OpenNumismat.Tools.db_utils import DBTransaction, execute_query
+
 
 class FieldTypes():
     String = 1
@@ -404,17 +406,12 @@ class CollectionFields(CollectionFieldsBase):
         return self.__getattribute__(name).title
 
     def save(self):
-        self.db.transaction()
-
-        for field in self.fields:
+        with DBTransaction(self.db):
             query = QSqlQuery(self.db)
-            query.prepare("UPDATE fields SET title=?, enabled=? WHERE id=?")
-            query.addBindValue(field.title)
-            query.addBindValue(int(field.enabled))
-            query.addBindValue(field.id)
-            query.exec()
-
-        self.db.commit()
+            for field in self.fields:
+                sql = "UPDATE fields SET title=?, enabled=? WHERE id=?"
+                params = (field.title, int(field.enabled), field.id)
+                execute_query(query, sql, params)
 
     def create(self):
         self.db.transaction()

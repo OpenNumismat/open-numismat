@@ -63,6 +63,7 @@ from OpenNumismat.Settings import Settings, BaseSettings
 from OpenNumismat import version
 from OpenNumismat.Tools.Converters import numberWithFraction, htmlToPlainText
 from OpenNumismat.Tools import imagehash
+from OpenNumismat.Tools.db_utils import DBTransaction, execute_query
 
 
 class CollectionModel(QSqlTableModel):
@@ -1344,17 +1345,13 @@ class CollectionSettings(BaseSettings):
         return self.Default[key]
 
     def save(self):
-        self.db.transaction()
-
-        for key, value in self.items():
+        with DBTransaction(self.db):
             query = QSqlQuery(self.db)
-            query.prepare("INSERT OR REPLACE INTO settings (title, value)"
-                          " VALUES (?, ?)")
-            query.addBindValue(key)
-            query.addBindValue(str(value))
-            query.exec()
-
-        self.db.commit()
+            for key, value in self.items():
+                sql = ("INSERT OR REPLACE INTO settings (title, value)"
+                       " VALUES (?, ?)")
+                params = (key, str(value))
+                execute_query(query, sql, params)
 
     def create(self):
         self.db.transaction()

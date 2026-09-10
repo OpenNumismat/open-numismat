@@ -4,6 +4,7 @@ from PySide6.QtCore import QObject
 from PySide6.QtSql import QSqlQuery
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.Tools.db_utils import DBTransaction, execute_query
 
 
 @dataclass(slots=True)
@@ -69,25 +70,17 @@ class ExtFields(QObject):
         return self.fields[self.index - 1]
 
     def save(self):
-        self.db.transaction()
+        with DBTransaction(self.db):
+            query = QSqlQuery(self.db)
 
-        query = QSqlQuery(self.db)
+            sql = "DELETE FROM ext_column_settings WHERE table_name=?"
+            params = (self.table,)
+            execute_query(query, sql, params)
 
-        query.prepare("DELETE FROM ext_column_settings WHERE table_name=?")
-        query.addBindValue(self.table)
-        query.exec()
-
-        for field in self.fields:
-            query.prepare("INSERT INTO ext_column_settings(table_name, column_name, title, enabled, position, width) VALUES(?, ?, ?, ?, ?, ?)")
-            query.addBindValue(self.table)
-            query.addBindValue(field.name)
-            query.addBindValue(field.title)
-            query.addBindValue(field.enabled)
-            query.addBindValue(field.position)
-            query.addBindValue(field.width)
-            query.exec()
-
-        self.db.commit()
+            for field in self.fields:
+                sql = "INSERT INTO ext_column_settings(table_name, column_name, title, enabled, position, width) VALUES(?, ?, ?, ?, ?, ?)"
+                params = (self.table, field.name, field.title, field.enabled, field.position, field.width)
+                execute_query(query, sql, params)
 
     def _default_prices_fields(self):
         return (
