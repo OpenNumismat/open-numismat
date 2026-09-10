@@ -8,7 +8,6 @@ class DBTransaction:
         self.in_transaction = False
 
     def __enter__(self):
-        print(self.in_transaction)
         if self.db.transaction():
             self.in_transaction = True
         return self

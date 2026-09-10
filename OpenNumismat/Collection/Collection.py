@@ -1354,22 +1354,19 @@ class CollectionSettings(BaseSettings):
                 execute_query(query, sql, params)
 
     def create(self):
-        self.db.transaction()
-
-        sql = """CREATE TABLE settings (
-            title CHAR NOT NULL UNIQUE,
-            value CHAR)"""
-        QSqlQuery(sql, self.db)
-
-        for key, value in CollectionSettings.Default.items():
+        with DBTransaction(self.db):
             query = QSqlQuery(self.db)
-            query.prepare("INSERT INTO settings (title, value)"
-                          " VALUES (?, ?)")
-            query.addBindValue(key)
-            query.addBindValue(str(value))
-            query.exec()
 
-        self.db.commit()
+            sql = """CREATE TABLE settings (
+                title CHAR NOT NULL UNIQUE,
+                value CHAR)"""
+            execute_query(query, sql)
+
+            for key, value in CollectionSettings.Default.items():
+                sql = ("INSERT INTO settings (title, value)"
+                       " VALUES (?, ?)")
+                params = (key, str(value))
+                execute_query(query, sql, params)
 
 
 class Collection(QObject):

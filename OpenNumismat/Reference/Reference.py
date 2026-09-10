@@ -290,48 +290,44 @@ class BaseReferenceSection(QObject):
         self.setSort()
 
     def create(self, db=QSqlDatabase()):
-        in_transaction = db.transaction()
+        with DBTransaction(self.db):
+            query = QSqlQuery(db)
 
-        query = QSqlQuery(db)
+            cross_ref = ('country', 'period', 'emitent', 'ruler',
+                         'unit', 'mint', 'series')
 
-        cross_ref = ('country', 'period', 'emitent', 'ruler',
-                     'unit', 'mint', 'series')
-
-        if self.name in cross_ref:
-            sql = f"""CREATE TABLE {self.table_name} (
-                id INTEGER PRIMARY KEY,
-                parentid INTEGER,
-                value TEXT, icon BLOB,
-                position INTEGER, description TEXT, plural TEXT)"""
-        else:
-            sql = f"""CREATE TABLE {self.table_name} (
-                id INTEGER PRIMARY KEY,
-                value TEXT, icon BLOB,
-                position INTEGER, description TEXT, plural TEXT)"""
-        execute_query(query, sql)
-
-        if self.name in cross_ref:
-            sql = """INSERT INTO sections (name, letter, parent, sort, plural)
-                VALUES (?, ?, ?, ?, ?)"""
-        else:
-            sql = """INSERT INTO sections (name, letter, sort, plural)
-                VALUES (?, ?, ?, ?)"""
-        params = [self.name, self.letter]
-        if self.name in cross_ref:
-            if self.name == 'country':
-                params.append('region')
+            if self.name in cross_ref:
+                sql = f"""CREATE TABLE {self.table_name} (
+                    id INTEGER PRIMARY KEY,
+                    parentid INTEGER,
+                    value TEXT, icon BLOB,
+                    position INTEGER, description TEXT, plural TEXT)"""
             else:
-                params.append('country')
-        params.append(int(self.sort))
-        if self.name == 'unit':
-            params.append(1)
-        else:
-            params.append(0)
+                sql = f"""CREATE TABLE {self.table_name} (
+                    id INTEGER PRIMARY KEY,
+                    value TEXT, icon BLOB,
+                    position INTEGER, description TEXT, plural TEXT)"""
+            execute_query(query, sql)
 
-        execute_query(query, sql, params)
+            if self.name in cross_ref:
+                sql = """INSERT INTO sections (name, letter, parent, sort, plural)
+                    VALUES (?, ?, ?, ?, ?)"""
+            else:
+                sql = """INSERT INTO sections (name, letter, sort, plural)
+                    VALUES (?, ?, ?, ?)"""
+            params = [self.name, self.letter]
+            if self.name in cross_ref:
+                if self.name == 'country':
+                    params.append('region')
+                else:
+                    params.append('country')
+            params.append(int(self.sort))
+            if self.name == 'unit':
+                params.append(1)
+            else:
+                params.append(0)
 
-        if in_transaction:
-            db.commit()
+            execute_query(query, sql, params)
 
 
 class ReferenceSection(BaseReferenceSection):
