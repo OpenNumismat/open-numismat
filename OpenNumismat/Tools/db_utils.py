@@ -5,20 +5,23 @@ class DBTransaction:
 
     def __init__(self, db: QSqlDatabase):
         self.db = db
+        self.in_transaction = False
 
     def __enter__(self):
-        if not self.db.transaction():
-            raise RuntimeError(self.db.lastError().text())
+        print(self.in_transaction)
+        if self.db.transaction():
+            self.in_transaction = True
         return self
 
     def __exit__(self, exc_type, _exc_val, _exc_tb):
-        if exc_type is not None:
-            self.db.rollback()
-            return False
+        if self.in_transaction:
+            if exc_type is not None:
+                self.db.rollback()
+                return False
 
-        if not self.db.commit():
-            self.db.rollback()
-            raise RuntimeError(self.db.lastError().text())
+            if not self.db.commit():
+                self.db.rollback()
+                raise RuntimeError(self.db.lastError().text())
 
         return True
 
