@@ -112,10 +112,10 @@ class Settings(BaseSettings):
     default_template = os.path.join(OpenNumismat.PRJ_PATH, 'templates', 'full')
     Default = {
         'locale': _getLocale(),
-        'backup': OpenNumismat.HOME_PATH + "/backup/",
+        'backup': f"{OpenNumismat.HOME_PATH}/backup",
         'autobackup': True,
         'autobackup_depth': 25,
-        'reference': OpenNumismat.HOME_PATH + "/reference.ref",
+        'reference': f"{OpenNumismat.HOME_PATH}/reference.ref",
         'error': True,
         'speedup': 1,
         'updates': False,
