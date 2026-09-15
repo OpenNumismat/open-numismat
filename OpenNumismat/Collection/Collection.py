@@ -1234,7 +1234,7 @@ class CollectionSettings(BaseSettings):
             'Version': 11,
             'Type': version.AppName,
             'Password': cryptPassword(),
-            'ImageSideLen': 1024,
+            'ImageSideLen': 0,
             'image_height': 1.5,
             'free_numeric': False,
             'convert_fraction': False,
