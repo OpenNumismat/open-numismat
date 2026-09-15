@@ -1093,7 +1093,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Enable BC</source>
-        <translation>Активиране на отметка &quot;пр. Хр.&quot;</translation>
+        <translation>Активиране на отметка „пр. Хр.“</translation>
     </message>
     <message>
         <source>Use RichText format</source>
@@ -1101,7 +1101,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Use relative paths for invoices</source>
-        <translation>Използване на относителни пътища за полето &quot;Фактура&quot;</translation>
+        <translation>Използване на относителни пътища за полето „Фактура“</translation>
     </message>
     <message>
         <source>Die axis in hours</source>
