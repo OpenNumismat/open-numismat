@@ -3612,8 +3612,8 @@ Please update OpenNumismat</source>
         <translation>грамм</translation>
     </message>
     <message>
-        <source>at %s</source>
-        <translation>на %s</translation>
+        <source>as of %s</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
