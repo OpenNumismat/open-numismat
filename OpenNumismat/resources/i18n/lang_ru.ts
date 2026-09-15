@@ -3613,7 +3613,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>as of %s</source>
-        <translation type="unfinished"/>
+        <translation>на %s</translation>
     </message>
 </context>
 <context>
