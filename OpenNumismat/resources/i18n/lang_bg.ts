@@ -1137,7 +1137,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Sort tree by references</source>
-        <translation>Сортиране на дървото по номенклатурите</translation>
+        <translation>Сортиране на дървото по реда в номенклатурите</translation>
     </message>
 </context>
 <context>
