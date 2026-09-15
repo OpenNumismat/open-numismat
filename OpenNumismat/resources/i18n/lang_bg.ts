@@ -1129,7 +1129,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Enable tags</source>
-        <translation>Активиране на екран Етикети</translation>
+        <translation>Активиране на раздел „Етикети“</translation>
     </message>
     <message>
         <source>Used statuses (double-click for rename):</source>
