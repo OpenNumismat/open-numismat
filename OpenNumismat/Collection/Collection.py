@@ -306,12 +306,11 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         query.exec('SELECT last_insert_rowid()')
         if query.first():
             coin_id = query.value(0)
+            query = QSqlQuery(self.database())
             for tag_id in tag_ids:
-                query = QSqlQuery(self.database())
-                query.prepare("INSERT INTO coins_tags(coin_id, tag_id) VALUES(?, ?)")
-                query.addBindValue(coin_id)
-                query.addBindValue(tag_id)
-                query.exec()
+                sql = "INSERT INTO coins_tags(coin_id, tag_id) VALUES(?, ?)"
+                params = (coin_id, tag_id)
+                execute_query(query, sql, params)
 
             if self.settings['prices_table']:
                 self._setTableExt(prices, coin_id, 'prices', self.prices_fields)
@@ -336,42 +335,40 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         record.setNull('id')  # remove ID value from record
         record.setValue('createdat', record.value('updatedat'))
 
-        query = QSqlQuery("SELECT MAX(sort_id) FROM coins", self.database())
+        query = QSqlQuery(self.database())
+
+        execute_query(query, "SELECT MAX(sort_id) FROM coins")
         query.first()
         sort_id = query.record().value(0)
         if not sort_id:
             sort_id = 0
         record.setValue('sort_id', sort_id + 1)
 
-        self.database().transaction()
-        for field in ImageFields:
-            value = record.value(field)
+        with DBTransaction(self.database()):
+            for field in ImageFields:
+                value = record.value(field)
+                if value:
+                    sql = "INSERT INTO photos (title, image) VALUES (?, ?)"
+                    params = (record.value(f"{field}_title"), value)
+                    execute_query(query, sql, params)
+
+                    img_id = query.lastInsertId()
+                else:
+                    img_id = None
+
+                record.setValue(field, img_id)
+                record.remove(record.indexOf(f"{field}_id"))
+                record.remove(record.indexOf(f"{field}_title"))
+
+            value = record.value('image')
             if value:
-                query = QSqlQuery(self.database())
-                query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
-                query.addBindValue(record.value(f"{field}_title"))
-                query.addBindValue(value)
-                query.exec()
+                sql = "INSERT INTO images (image) VALUES (?)"
+                params = (value,)
+                execute_query(query, sql, params)
 
                 img_id = query.lastInsertId()
             else:
                 img_id = None
-
-            record.setValue(field, img_id)
-            record.remove(record.indexOf(f"{field}_id"))
-            record.remove(record.indexOf(f"{field}_title"))
-
-        value = record.value('image')
-        if value:
-            query = QSqlQuery(self.database())
-            query.prepare("INSERT INTO images (image) VALUES (?)")
-            query.addBindValue(value)
-            query.exec()
-
-            img_id = query.lastInsertId()
-        else:
-            img_id = None
-        self.database().commit()
 
         record.setValue('image', img_id)
         record.remove(record.indexOf('image_id'))
@@ -385,29 +382,29 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
         else:
             columns.append('coin_id')
         placeholders = ','.join('?' * len(columns))
-        ins_query = QSqlQuery(self.database())
-        ins_query.prepare(f"INSERT INTO {table} ({','.join(columns)}, position)"
-                          f" VALUES ({placeholders}, (SELECT COALESCE(MAX(position), 0) + 1 FROM {table} WHERE coin_id=?))")
+        query = QSqlQuery(self.database())
+        sql = (f"INSERT INTO {table} ({','.join(columns)}, position)"
+               f" VALUES ({placeholders}, (SELECT COALESCE(MAX(position), 0) + 1 FROM {table} WHERE coin_id=?))")
+        params = []
         for value in record_values:
-            ins_query.addBindValue(value)
-        ins_query.addBindValue(coin_id)
+            params.append(value)
+        params.append(coin_id)
         if condition_col:
-            ins_query.addBindValue(condition_val)
-        ins_query.addBindValue(coin_id)
-        ins_query.exec()
+            params.append(condition_val)
+        params.append(coin_id)
+        execute_query(query, sql, params)
 
     def _setRecordExt(self, record, coin_id, table, field_map, condition_col=None, condition_val=None):
         active = any(record.value(field) for field in field_map.keys())
 
         query = QSqlQuery(self.database())
         if condition_col:
-            query.prepare(f"SELECT id FROM {table} WHERE coin_id=? AND {condition_col}=? ORDER BY id LIMIT 1")
-            query.addBindValue(coin_id)
-            query.addBindValue(condition_val)
+            sql = f"SELECT id FROM {table} WHERE coin_id=? AND {condition_col}=? ORDER BY id LIMIT 1"
+            params = (coin_id, condition_val)
         else:
-            query.prepare(f"SELECT id FROM {table} WHERE coin_id=? ORDER BY id LIMIT 1")
-            query.addBindValue(coin_id)
-        query.exec()
+            sql = f"SELECT id FROM {table} WHERE coin_id=? ORDER BY id LIMIT 1"
+            params = (coin_id,)
+        execute_query(query, sql, params)
 
         if query.first():
             if active:
@@ -415,22 +412,22 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
                 record_id = query.value(0)
                 upd_query = QSqlQuery(self.database())
                 set_clause = ','.join(f"{col}=?" for col in field_map.values())
-                upd_query.prepare(f"UPDATE {table} SET {set_clause} WHERE id=?")
+                sql = f"UPDATE {table} SET {set_clause} WHERE id=?"
+                params = []
                 for rec_field in field_map.keys():
-                    upd_query.addBindValue(record.value(rec_field) or None)
-                upd_query.addBindValue(record_id)
-                upd_query.exec()
+                    params.append(record.value(rec_field) or None)
+                params.append(record_id)
+                execute_query(upd_query, sql, params)
             else:
                 # DELETE
                 del_query = QSqlQuery(self.database())
                 if condition_col:
-                    del_query.prepare(f"DELETE FROM {table} WHERE coin_id=? AND {condition_col}=?")
-                    del_query.addBindValue(coin_id)
-                    del_query.addBindValue(condition_val)
+                    sql = f"DELETE FROM {table} WHERE coin_id=? AND {condition_col}=?"
+                    params = (coin_id, condition_val)
                 else:
-                    del_query.prepare(f"DELETE FROM {table} WHERE coin_id=?")
-                    del_query.addBindValue(coin_id)
-                del_query.exec()
+                    sql = f"DELETE FROM {table} WHERE coin_id=?"
+                    params = (coin_id,)
+                execute_query(del_query, sql, params)
         else:
             if active:
                 # INSERT
@@ -442,126 +439,115 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
     def _setTableExt(self, record_values, coin_id, table, fields):
         query = QSqlQuery(self.database())
 
-        query.prepare(f"DELETE FROM {table} WHERE coin_id=?")
-        query.addBindValue(coin_id)
-        query.exec()
+        sql = f"DELETE FROM {table} WHERE coin_id=?"
+        params = (coin_id,)
+        execute_query(query, sql, params)
 
         position = 1
         placeholders = ','.join('?' * len(fields))
         for data in record_values:
-            query.prepare(f"INSERT INTO {table}(coin_id, position, {','.join(fields.names())}) VALUES(?, ?, {placeholders})")
-            query.addBindValue(coin_id)
-            query.addBindValue(position)
+            sql = f"INSERT INTO {table}(coin_id, position, {','.join(fields.names())}) VALUES(?, ?, {placeholders})"
+            params = [coin_id, position]
             for value in data:
-                query.addBindValue(value)
-            query.exec()
+                params.append(value)
+            execute_query(query, sql, params)
 
             position += 1
 
     def setRecord(self, row, record):
         self._updateRecord(record)
 
-        self.database().transaction()
-        # TODO : check that images was realy changed
-        for field in ImageFields:
-            img_id = record.value(f"{field}_id")
-            value = record.value(field)
+        with DBTransaction(self.database()):
+            query = QSqlQuery(self.database())
+
+            # TODO: check that images was really changed
+            for field in ImageFields:
+                img_id = record.value(f"{field}_id")
+                value = record.value(field)
+                if not value:
+                    if img_id:
+                        sql = "DELETE FROM photos WHERE id=?"
+                        params = (img_id,)
+                        execute_query(query, sql, params)
+
+                        img_id = None
+                else:
+                    if img_id:
+                        sql = "UPDATE photos SET title=?, image=?, phash=NULL WHERE id=?"
+                        params = (record.value(f"{field}_title"),
+                                  record.value(field),
+                                  img_id)
+                        execute_query(query, sql, params)
+                    else:
+                        sql = "INSERT INTO photos (title, image) VALUES (?, ?)"
+                        params = (record.value(f"{field}_title"),
+                                  record.value(field))
+                        execute_query(query, sql, params)
+
+                        img_id = query.lastInsertId()
+
+                if img_id:
+                    record.setValue(field, img_id)
+                else:
+                    record.setNull(field)
+                record.remove(record.indexOf(f"{field}_id"))
+                record.remove(record.indexOf(f"{field}_title"))
+
+            img_id = record.value('image_id')
+            value = record.value('image')
             if not value:
                 if img_id:
-                    query = QSqlQuery(self.database())
-                    query.prepare("DELETE FROM photos WHERE id=?")
-                    query.addBindValue(img_id)
-                    query.exec()
+                    sql = "DELETE FROM images WHERE id=?"
+                    params = (img_id,)
+                    execute_query(query, sql, params)
 
                     img_id = None
             else:
                 if img_id:
-                    query = QSqlQuery(self.database())
-                    query.prepare("UPDATE photos SET title=?, image=?, phash=NULL WHERE id=?")
-                    query.addBindValue(record.value(f"{field}_title"))
-                    query.addBindValue(record.value(field))
-                    query.addBindValue(img_id)
-                    query.exec()
+                    sql = "UPDATE images SET image=? WHERE id=?"
+                    params = (record.value('image'), img_id)
+                    execute_query(query, sql, params)
                 else:
-                    query = QSqlQuery(self.database())
-                    query.prepare("INSERT INTO photos (title, image) VALUES (?, ?)")
-                    query.addBindValue(record.value(f"{field}_title"))
-                    query.addBindValue(record.value(field))
-                    query.exec()
+                    sql = "INSERT INTO images (image) VALUES (?)"
+                    params = (record.value('image'),)
+                    execute_query(query, sql, params)
 
                     img_id = query.lastInsertId()
 
-            if img_id:
-                record.setValue(field, img_id)
+            coin_id = record.value('id')
+
+            if self.settings['prices_table']:
+                if record.contains('prices'):
+                    prices = record.value('prices')
+                    self._setTableExt(prices, coin_id, 'prices', self.prices_fields)
+
+                    record.remove(record.indexOf('prices'))
             else:
-                record.setNull(field)
-            record.remove(record.indexOf(f"{field}_id"))
-            record.remove(record.indexOf(f"{field}_title"))
+                self._setRecordExt(record, coin_id, 'prices', BuyPriceFields,
+                                   condition_col='action', condition_val='buy')
+                self._setRecordExt(record, coin_id, 'prices', SellPriceFields,
+                                   condition_col='action', condition_val='sell')
+                # TODO: Process pass status
 
-        img_id = record.value('image_id')
-        value = record.value('image')
-        if not value:
-            if img_id:
-                query = QSqlQuery(self.database())
-                query.prepare("DELETE FROM images WHERE id=?")
-                query.addBindValue(img_id)
-                query.exec()
+            for field in self.fields.externalFields:
+                record.remove(record.indexOf(field.name))
 
-                img_id = None
-        else:
+            sql = "DELETE FROM coins_tags WHERE coin_id=?"
+            params = (coin_id,)
+            execute_query(query, sql, params)
+
+            for tag_id in record.value('tags'):
+                sql = "INSERT INTO coins_tags(coin_id, tag_id) VALUES(?, ?)"
+                params = (coin_id, tag_id)
+                execute_query(query, sql, params)
+
+            record.remove(record.indexOf('tags'))
+
             if img_id:
-                query = QSqlQuery(self.database())
-                query.prepare("UPDATE images SET image=? WHERE id=?")
-                query.addBindValue(record.value('image'))
-                query.addBindValue(img_id)
-                query.exec()
+                record.setValue('image', img_id)
             else:
-                query = QSqlQuery(self.database())
-                query.prepare("INSERT INTO images (image) VALUES (?)")
-                query.addBindValue(record.value('image'))
-                query.exec()
-
-                img_id = query.lastInsertId()
-
-        coin_id = record.value('id')
-
-        if self.settings['prices_table']:
-            if record.contains('prices'):
-                prices = record.value('prices')
-                self._setTableExt(prices, coin_id, 'prices', self.prices_fields)
-
-                record.remove(record.indexOf('prices'))
-        else:
-            self._setRecordExt(record, coin_id, 'prices', BuyPriceFields,
-                               condition_col='action', condition_val='buy')
-            self._setRecordExt(record, coin_id, 'prices', SellPriceFields,
-                               condition_col='action', condition_val='sell')
-            # TODO: Process pass status
-
-        for field in self.fields.externalFields:
-            record.remove(record.indexOf(field.name))
-
-        query = QSqlQuery(self.database())
-        query.prepare("DELETE FROM coins_tags WHERE coin_id=?")
-        query.addBindValue(coin_id)
-        query.exec()
-
-        for tag_id in record.value('tags'):
-            query = QSqlQuery(self.database())
-            query.prepare("INSERT INTO coins_tags(coin_id, tag_id) VALUES(?, ?)")
-            query.addBindValue(coin_id)
-            query.addBindValue(tag_id)
-            query.exec()
-
-        record.remove(record.indexOf('tags'))
-        
-        self.database().commit()
-
-        if img_id:
-            record.setValue('image', img_id)
-        else:
-            record.setNull('image')
-        record.remove(record.indexOf('image_id'))
+                record.setNull('image')
+            record.remove(record.indexOf('image_id'))
 
         self.photo_order_map = {}
 
@@ -608,9 +594,10 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
 
             query = QSqlQuery(self.database())
 
-            query.prepare(f"SELECT {','.join(BuyPriceFields.values())} FROM prices WHERE coin_id=? AND action='buy' ORDER BY id LIMIT 1")
-            query.addBindValue(coin_id)
-            query.exec()
+            sql = (f"SELECT {','.join(BuyPriceFields.values())} FROM prices"
+                   " WHERE coin_id=? AND action='buy' ORDER BY id LIMIT 1")
+            params = (coin_id,)
+            execute_query(query, sql, params)
             if query.first():
                 for old_field, new_field in BuyPriceFields.items():
                     val = query.record().value(new_field)
@@ -622,10 +609,10 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
                     action = 'auction'
                 else:
                     action = 'sell'
-                query.prepare(f"SELECT {','.join(SellPriceFields.values())} FROM prices WHERE coin_id=? AND action=? ORDER BY id LIMIT 1")
-                query.addBindValue(coin_id)
-                query.addBindValue(action)
-                query.exec()
+                sql = (f"SELECT {','.join(SellPriceFields.values())} FROM prices"
+                       " WHERE coin_id=? AND action=? ORDER BY id LIMIT 1")
+                params = (coin_id, action)
+                execute_query(query, sql, params)
                 if query.first():
                     for old_field, new_field in SellPriceFields.items():
                         val = query.record().value(new_field)
@@ -736,30 +723,27 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
             if value:
                 ids.append(value)
 
-        if ids:
-            ids_sql = '(' + ','.join('?' * len(ids)) + ')'
-
+        with DBTransaction(self.database()):
             query = QSqlQuery(self.database())
-            query.prepare("DELETE FROM photos WHERE id IN " + ids_sql)
-            for id_ in ids:
-                query.addBindValue(id_)
-            query.exec()
 
-        value = record.value('image')
-        if value:
-            query = QSqlQuery(self.database())
-            query.prepare("DELETE FROM images WHERE id=?")
-            query.addBindValue(value)
-            query.exec()
+            if ids:
+                placeholders = ','.join('?' * len(ids))
+                sql = f"DELETE FROM photos WHERE id IN ({placeholders})"
+                execute_query(query, sql, ids)
 
-        coin_id = record.value('id')
-        if coin_id:
-            query = QSqlQuery(self.database())
-            tables = ('coins_tags', 'prices')
-            for table in tables:
-                query.prepare(f"DELETE FROM {table} WHERE coin_id=?")
-                query.addBindValue(coin_id)
-                query.exec()
+            value = record.value('image')
+            if value:
+                sql = "DELETE FROM images WHERE id=?"
+                params = (value,)
+                execute_query(query, sql, params)
+
+            coin_id = record.value('id')
+            if coin_id:
+                tables = ('coins_tags', 'prices')
+                for table in tables:
+                    sql = f"DELETE FROM {table} WHERE coin_id=?"
+                    params = (coin_id,)
+                    execute_query(query, sql, params)
 
         return super().removeRow(row)
 
@@ -2293,7 +2277,8 @@ class Collection(QObject):
                 sel_query.addBindValue(query.record().value(0))
                 sel_query.exec()
                 while sel_query.next():
-                    sql = "INSERT INTO coins (%s) VALUES (%s)" % (sql_fields, ','.join('?' * len(fields)))
+                    placeholders = ','.join('?' * len(fields))
+                    sql = f"INSERT INTO coins ({sql_fields}) VALUES ({placeholders})"
                     ins_query = QSqlQuery(sql, self.db)
                     for field in fields:
                         if field == 'image':
