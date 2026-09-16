@@ -37,7 +37,7 @@ class ListView(QListView):
     def __init__(self, widget, parent=None):
         super().__init__(parent)
 
-        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setDragEnabled(True)
         self.setAcceptDrops(True)
         self.setDragDropMode(QAbstractItemView.InternalMove)
@@ -234,14 +234,15 @@ class ReferenceWidget(QWidget):
         self.editButtonBox = QDialogButtonBox(Qt.Horizontal)
         self.addButton = QPushButton(
                             QApplication.translate('ReferenceWidget', "Add"))
+        self.addButton.clicked.connect(self.addItem)
         self.editButtonBox.addButton(self.addButton,
                                      QDialogButtonBox.ActionRole)
         self.delButton = QPushButton(
                             QApplication.translate('ReferenceWidget', "Del"))
         self.delButton.setShortcut(QKeySequence.Delete)
+        self.delButton.clicked.connect(self.deleteItem)
         self.editButtonBox.addButton(self.delButton,
                                      QDialogButtonBox.ActionRole)
-        self.editButtonBox.clicked.connect(self.clicked)
 
         self.sortButton = QCheckBox(
                             QApplication.translate('ReferenceWidget', "Sort"))
@@ -266,12 +267,6 @@ class ReferenceWidget(QWidget):
     def selectedIndex(self):
         return self.listWidget.selectedIndex()
 
-    def clicked(self, button):
-        if button == self.addButton:
-            self.addItem()
-        elif button == self.delButton:
-            self.deleteItem()
-
     def addItem(self):
         self.proxyModel.setDynamicSortFilter(False)
         row = self.proxyModel.rowCount()
@@ -285,10 +280,12 @@ class ReferenceWidget(QWidget):
         self.proxyModel.setDynamicSortFilter(True)
 
     def deleteItem(self):
-        index = self.selectedIndex()
-        if index:
-            if self.proxyModel.removeRow(index.row()):
-                self.model.select()
+        indexes = self.listWidget.selectedIndexes()
+        self.proxyModel.setDynamicSortFilter(False)
+        for index in sorted(indexes, key=lambda idx: idx.row(), reverse=True):
+            self.proxyModel.removeRow(index.row())
+        self.proxyModel.setDynamicSortFilter(True)
+        self.model.select()
 
     def isEnabled(self):
         return True
@@ -344,15 +341,12 @@ class CrossReferenceWidget(ReferenceWidget):
         self.proxyModel.setDynamicSortFilter(True)
 
     def deleteItem(self):
-        index = self.selectedIndex()
-        if index:
-            # TODO: Work around bug in Qt 5.5
-            # if self.proxyModel.removeRow(index.row()):
-            #     self.model.select()
-            self.proxyModel.beginRemoveRows(index, index.row(), index.row())
+        indexes = self.listWidget.selectedIndexes()
+        self.proxyModel.setDynamicSortFilter(False)
+        for index in sorted(indexes, key=lambda idx: idx.row(), reverse=True):
             self.proxyModel.removeRow(index.row())
-            self.proxyModel.endRemoveRows()
-            self.model.select()
+        self.proxyModel.setDynamicSortFilter(True)
+        self.model.select()
 
     def isEnabled(self):
         return self.comboBox.currentIndex() >= 0
