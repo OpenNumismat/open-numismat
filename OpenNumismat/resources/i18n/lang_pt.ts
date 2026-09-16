@@ -3613,7 +3613,7 @@ Por favor, actualize o Openumismat.</translation>
     </message>
     <message>
         <source>as of %s</source>
-        <translation type="unfinished"/>
+        <translation>desde %s</translation>
     </message>
 </context>
 <context>
