@@ -1,7 +1,7 @@
 ﻿[Setup]
 AppName=OpenNumismat
 AppId=OpenNumismat
-AppVersion=1.11.0
+AppVersion=1.11.1
 DefaultDirName={commonpf}\OpenNumismat
 DefaultGroupName=OpenNumismat
 UninstallDisplayIcon={app}\OpenNumismat.exe
