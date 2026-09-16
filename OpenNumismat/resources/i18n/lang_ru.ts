@@ -3612,7 +3612,7 @@ Please update OpenNumismat</source>
         <translation>грамм</translation>
     </message>
     <message>
-        <source>at %s</source>
+        <source>as of %s</source>
         <translation>на %s</translation>
     </message>
 </context>

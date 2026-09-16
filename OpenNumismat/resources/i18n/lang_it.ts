@@ -3604,8 +3604,8 @@ Please update OpenNumismat</source>
         <translation>grammo</translation>
     </message>
     <message>
-        <source>at %s</source>
-        <translation>a %s</translation>
+        <source>as of %s</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -3612,8 +3612,8 @@ Por favor, actualize o Openumismat.</translation>
         <translation>grama</translation>
     </message>
     <message>
-        <source>at %s</source>
-        <translation>em %s</translation>
+        <source>as of %s</source>
+        <translation>desde %s</translation>
     </message>
 </context>
 <context>

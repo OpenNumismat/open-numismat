@@ -3604,7 +3604,7 @@ Please update OpenNumismat</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>at %s</source>
+        <source>as of %s</source>
         <translation type="unfinished"/>
     </message>
 </context>

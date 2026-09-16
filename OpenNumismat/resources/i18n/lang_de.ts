@@ -3606,8 +3606,8 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation>Gramm</translation>
     </message>
     <message>
-        <source>at %s</source>
-        <translation>bei %s</translation>
+        <source>as of %s</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
