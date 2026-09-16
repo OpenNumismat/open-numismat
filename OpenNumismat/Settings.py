@@ -118,7 +118,7 @@ class Settings(BaseSettings):
         'reference': f"{OpenNumismat.HOME_PATH}/reference.ref",
         'error': True,
         'speedup': 1,
-        'updates': False,
+        'updates': True,
         'template': default_template,
         'colnect_locale': _getLocale(),
         'colnect_skip_currency': True,
