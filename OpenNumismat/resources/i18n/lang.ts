@@ -3592,7 +3592,7 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>at %s</source>
+        <source>as of %s</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
