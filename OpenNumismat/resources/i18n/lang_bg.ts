@@ -2158,7 +2158,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Downloading AI model %s (%d Mb)</source>
-        <translation>Изтегляне на ИИ модел %s (%d Mb)</translation>
+        <translation>Изтегляне на ИИ модел %s (%d MB)</translation>
     </message>
 </context>
 <context>
