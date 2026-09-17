@@ -2158,7 +2158,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Downloading AI model %s (%d Mb)</source>
-        <translation>Изтегляне на AI модел %s (%d Mb)</translation>
+        <translation>Изтегляне на ИИ модел %s (%d Mb)</translation>
     </message>
 </context>
 <context>
@@ -3240,7 +3240,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Background remover AI model</source>
-        <translation>AI модел за премахване на фон</translation>
+        <translation>ИИ модел за премахване на фон</translation>
     </message>
     <message>
         <source>Crop after background remover</source>
