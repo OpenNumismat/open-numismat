@@ -3668,7 +3668,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source> (clone)</source>
-        <translation>(клониране)</translation>
+        <translation> (клониран)</translation>
     </message>
     <message>
         <source>Coins</source>
