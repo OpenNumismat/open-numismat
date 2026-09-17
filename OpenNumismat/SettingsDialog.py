@@ -864,6 +864,14 @@ class ImportSettingsPage(QWidget):
         fLayout = QFormLayout()
         fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
+        self.numista_api_key = QLineEdit(self)
+        self.numista_api_key.setMinimumWidth(40)
+        self.numista_api_key.setText(settings['numista_api_key'])
+        fLayout.addRow(self.tr("Key"), self.numista_api_key)
+        self.numista_client_id = QLineEdit(self)
+        self.numista_client_id.setText(settings['numista_client_id'])
+        fLayout.addRow(self.tr("Client ID"), self.numista_client_id)
+
         self.numista_split_denomination = QCheckBox(self.tr("Split denomination"), self)
         self.numista_split_denomination.setChecked(settings['numista_split_denomination'])
         fLayout.addRow(self.numista_split_denomination)
@@ -917,6 +925,8 @@ class ImportSettingsPage(QWidget):
         settings['ans_split_denomination'] = self.ans_split_denomination.isChecked()
         settings['ans_locale_en'] = self.ans_locale_en.isChecked()
         settings['ans_trim_title'] = self.ans_trim_title.isChecked()
+        settings['numista_api_key'] = self.numista_api_key.text()
+        settings['numista_client_id'] = self.numista_client_id.text()
         settings['numista_split_denomination'] = self.numista_split_denomination.isChecked()
         settings['numista_currency'] = self.numista_currency.currentData()
 

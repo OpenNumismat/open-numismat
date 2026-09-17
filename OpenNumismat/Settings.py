@@ -147,6 +147,8 @@ class Settings(BaseSettings):
         'color_scheme': Qt.ColorScheme.Unknown.value,
         'finance_service_enabled': False,
         'finance_service_currency': _getCurrency(),
+        'numista_api_key': '',
+        'numista_client_id': '',
     }
 
     def __init__(self, autoSave=False):

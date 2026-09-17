@@ -20,7 +20,6 @@ numistaAvailable = True
 try:
     from OpenNumismat.private_keys import NUMISTA_API_KEY
 except ImportError:
-    print('Importing from Numista not available')
     numistaAvailable = False
 
 
@@ -41,10 +40,16 @@ class NumistaAuthentication(QDialog):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
-        if Settings()['locale'] in ('fr', 'es'):
+        settings = Settings()
+        if settings['locale'] in ('fr', 'es', 'de', 'it', 'nl', 'pt', 'ru'):
             self.language = Settings()['locale']
         else:
             self.language = 'en'
+
+        if settings['numista_api_key'] and settings['numista_client_id']:
+            self.NUMISTA_CLIENT_ID = settings['numista_client_id']
+        else:
+            self.NUMISTA_CLIENT_ID = "opennumismat"
 
         self.page = QWebView(self)
         self.page.setPage(WebEnginePage(self))
@@ -53,7 +58,7 @@ class NumistaAuthentication(QDialog):
         redirect_uri = 'local'  # Should normally be a URL to your application
         authorization_url = (f'https://{self.language}.numista.com/api/oauth_authorize.php'
                         '?response_type=code'
-                        '&client_id=opennumismat'
+                        f'&client_id={self.NUMISTA_CLIENT_ID}'
                         f'&redirect_uri={redirect_uri}'
                         '&scope=view_collection')
         self.page.load(QUrl(authorization_url))
@@ -92,6 +97,12 @@ class ImportNumista(_Import2):
         super().__init__(parent)
 
         settings = Settings()
+        if settings['numista_api_key'] and settings['numista_client_id']:
+            self.NUMISTA_API_KEY = settings['numista_api_key']
+            self.NUMISTA_CLIENT_ID = settings['numista_client_id']
+        else:
+            self.NUMISTA_API_KEY = NUMISTA_API_KEY
+            self.NUMISTA_CLIENT_ID = "opennumismat"
 
         self.split_denomination = settings['numista_split_denomination']
         self.currency = settings['numista_currency']
@@ -104,12 +115,15 @@ class ImportNumista(_Import2):
 
     @staticmethod
     def isAvailable():
+        settings = Settings()
+        if settings['numista_api_key'] and settings['numista_client_id']:
+            return True
         return numistaAvailable
     
     def _download_cache(self, url, get_image=False):
         headers = None
         if not get_image:
-            headers = {'Numista-API-Key': NUMISTA_API_KEY}
+            headers = {'Numista-API-Key': self.NUMISTA_API_KEY}
         response_data = self.http.get(url, headers=headers)
 
         if response_data:
@@ -129,8 +143,8 @@ class ImportNumista(_Import2):
         if result == QDialog.Accepted:
             url = (f"{self.ENDPOINT}/oauth_token?"
                    f"code={dialog.authorization_code}"
-                   "&client_id=opennumismat"
-                   f"&client_secret={NUMISTA_API_KEY}"
+                   f"&client_id={self.NUMISTA_CLIENT_ID}"
+                   f"&client_secret={self.NUMISTA_API_KEY}"
                    "&redirect_uri=local")
             response_data = self.http.get(url, cache=False)
             if not response_data:
@@ -141,7 +155,7 @@ class ImportNumista(_Import2):
             user_id = data['user_id']
 
             url = f"{self.ENDPOINT}/users/{user_id}/collected_items?lang={self.language}"
-            headers = {'Numista-API-Key': NUMISTA_API_KEY,
+            headers = {'Numista-API-Key': self.NUMISTA_API_KEY,
                        'Authorization': f'Bearer {access_token}'}
             response_data = self.http.get(url, headers=headers, cache=False)
             if not response_data:
