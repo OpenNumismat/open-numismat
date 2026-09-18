@@ -2105,6 +2105,18 @@ drag-n-drop to add an image)</source>
         <translation>Больше не показывать</translation>
     </message>
     <message>
+        <source>Downloading AI model %s</source>
+        <translation>Скачивание ИИ модели %s</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation>Скачивание ИИ модели %s (%d МБ)</translation>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation>Не удалось скачать: %s</translation>
+    </message>
+    <message>
         <source>&amp;Open...</source>
         <translation>&amp;Открыть...</translation>
     </message>
@@ -2155,10 +2167,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Downloading</source>
         <translation>Скачивание</translation>
-    </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation>Скачивание ИИ модели %s (%d Мб)</translation>
     </message>
 </context>
 <context>
@@ -2272,6 +2280,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Trim ID in title</source>
         <translation>Обрезать ID в названии</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Price currency</source>
