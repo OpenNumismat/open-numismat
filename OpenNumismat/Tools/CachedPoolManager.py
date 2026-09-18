@@ -1,10 +1,10 @@
 import os
 import time
-import urllib3
 from urllib.parse import urlparse
 
-from PySide6.QtCore import QObject, QByteArray, QStandardPaths, Qt
+from PySide6.QtCore import QObject, QByteArray, QEventLoop, QStandardPaths, Qt
 from PySide6.QtGui import QCursor
+from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QApplication, QMessageBox, QProgressDialog
 
@@ -149,10 +149,10 @@ class CachedPoolManager(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self._http = None
         self._cache = None
         self._available = True
         self._last_request_time = 0
+        self._network_manager = None
 
     def get(self, url, timeout=None, retries=None, headers=None, cache=None, delay=None, quiet=False):
         if cache != False:
@@ -166,8 +166,7 @@ class CachedPoolManager(QObject):
         if not self._available:
             return None
 
-        if not self._http:
-            self._http = self._createHttp()
+        self._createHttp()
 
         if delay:
             if self._last_request_time:
@@ -177,76 +176,72 @@ class CachedPoolManager(QObject):
                     time.sleep(wait_time)
             self._last_request_time = time.time()
 
-        request_kwargs = {}
+        loop = QEventLoop()
+
+        request = QNetworkRequest(url)
         if timeout is not None:
-            request_kwargs['timeout'] = timeout
-        if retries is not None:
-            request_kwargs['retries'] = retries
-        if headers is not None:
-            request_kwargs['headers'] = headers
-        try:
-            response = self._http.request("GET", url, **request_kwargs)
-        except (urllib3.exceptions.MaxRetryError,
-                urllib3.exceptions.ReadTimeoutError,
-                urllib3.exceptions.ProtocolError):
-            if not quiet:
-                result = self._showServerNotResponseMessage(url)
-                if result == QMessageBox.Retry:
-                    return self.get(url, timeout, retries, headers, cache)
+            request.setTransferTimeout(timeout * 1000)
+        else:
+            request.setTransferTimeout(TIMEOUT * 1000)
+        request.setRawHeader(b"User-Agent", version.UserAgent.encode('utf-8'))
+        if headers:
+            for key, val in headers.items():
+                request.setRawHeader(key.encode('utf-8'), val.encode('utf-8'))
+        reply = self._network_manager.get(request)
 
-            self._available = False
-            return None
+        reply.finished.connect(loop.quit)
 
-        if response.status == 429:
-            if not quiet:
-                result = self._showTooManyRequestsMessage()
-                if result == QMessageBox.Retry:
-                    return self.get(url, timeout, retries, headers, cache)
+        loop.exec()
 
-            self._available = False
-            return None
-
-        response_data = response.data
-        if response.status == 200 and response_data:
+        reply.deleteLater()
+        http_code = reply.attribute(QNetworkRequest.Attribute.HttpStatusCodeAttribute)
+        if reply.error() == reply.NetworkError.NoError and http_code == 200:
+            response_data = reply.readAll().data()
             if cache != False:
                 self._cache.set(url, response_data, cache)
 
             return response_data
+        elif reply.error() == reply.NetworkError.TimeoutError:
+            if not quiet:
+                result = self._showServerNotResponseMessage(url)
+                if result == QMessageBox.Retry:
+                    return self.get(url, timeout, retries, headers, cache)
+        elif http_code == 429:
+            if not quiet:
+                result = self._showTooManyRequestsMessage()
+                if result == QMessageBox.Retry:
+                    return self.get(url, timeout, retries, headers, cache)
         else:
             if not quiet:
-                result = self._showErrorResponseMessage(url, response.status)
+                if http_code:
+                    message = http_code
+                else:
+                    message = reply.errorString()
+                result = self._showErrorResponseMessage(url, message)
                 if result == QMessageBox.Retry:
                     return self.get(url, timeout, retries, headers, cache)
 
-            self._available = False
-            return None
+        self._available = False
+        return None
 
     def isAvailable(self):
         return self._available
 
     def _createHttp(self):
-        if Settings()['verify_ssl']:
-            cert_reqs = None
-        else:
-            cert_reqs = "CERT_NONE"
+        self._network_manager = QNetworkAccessManager(self)
 
-        urllib3.disable_warnings()
-        retries = urllib3.Retry(1)
-        timeout = urllib3.Timeout(connect=2.5, read=TIMEOUT)
-        http = urllib3.PoolManager(num_pools=3,
-                                   headers={'User-Agent': version.UserAgent},
-                                   timeout=timeout,
-                                   retries=retries,
-                                   cert_reqs=cert_reqs)
-        return http
+        if not Settings()['verify_ssl']:
+            self._network_manager.sslErrors.connect(self._handle_ssl_errors)
+
+    def _handle_ssl_errors(self, reply, _errors):
+        reply.ignoreSslErrors()
 
     def close(self):
-        if self._http:
-            self._http.clear()
-            self._http = None
         if self._cache:
             self._cache.close()
             self._cache = None
+        if self._network_manager:
+            self._network_manager.deleteLater()
 
     def _showServerNotResponseMessage(self, url):
         parsed_url = urlparse(url)

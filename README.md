@@ -31,7 +31,6 @@ Windows, Linux (Debian/Ubuntu), macOS.
 * pywin32 (for saving report as Word Document)
 * lxml (for importing from Tellico, Collection Studio and ANS)
 * python-dateutil (for importing from Excel)
-* urllib3 (for import from ANS, CoinSnap, Colnect and Numista)
 * imagehash (for find by image)
 * numpy (for find by image and image editor)
 * opencv-python-headless (for find by image)
