@@ -2104,6 +2104,18 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>No mostrar de nuevo esto</translation>
     </message>
     <message>
+        <source>Downloading AI model %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>&amp;Open...</source>
         <translation>&amp;Abrir...</translation>
     </message>
@@ -2154,10 +2166,6 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Downloading</source>
         <translation>Descargando</translation>
-    </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation>Descargando modelo de IA %s (%d Mb)</translation>
     </message>
 </context>
 <context>
@@ -2271,6 +2279,14 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Trim ID in title</source>
         <translation>Recortar ID en el título</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Price currency</source>
