@@ -2102,6 +2102,18 @@ drag-n-drop to add an image)</source>
         <translation>Більше не показувати</translation>
     </message>
     <message>
+        <source>Downloading AI model %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>&amp;Open...</source>
         <translation>&amp;Відкрити...</translation>
     </message>
@@ -2152,10 +2164,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Downloading</source>
         <translation>Завантаження</translation>
-    </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2269,6 +2277,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Trim ID in title</source>
         <translation>Обрізати ID у назві</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Price currency</source>

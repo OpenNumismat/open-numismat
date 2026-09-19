@@ -2090,6 +2090,18 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Downloading AI model %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>&amp;Open...</source>
         <translation>&amp;Ouvrir</translation>
     </message>
@@ -2140,10 +2152,6 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Downloading</source>
         <translation>Téléchargement</translation>
-    </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2256,6 +2264,14 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Trim ID in title</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
         <translation type="unfinished"/>
     </message>
     <message>
