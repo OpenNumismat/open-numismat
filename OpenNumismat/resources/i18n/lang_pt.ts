@@ -2283,11 +2283,11 @@ arraste e largue para adicionar)</translation>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"/>
+        <translation>Chave</translation>
     </message>
     <message>
         <source>Client ID</source>
-        <translation type="unfinished"/>
+        <translation>ID de cliente</translation>
     </message>
     <message>
         <source>Price currency</source>
