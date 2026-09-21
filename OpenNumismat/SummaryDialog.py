@@ -126,61 +126,43 @@ class SummaryDialog(QDialog):
             if count > 0:
                 lines.append(self.tr("Count missing: %d") % count)
 
-        paid = 0
-        sql = ("SELECT SUM(buy_prices.total_price) FROM coins"
-               f" {model.JOIN_BUY_PRICES}"
-               " WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')"
-               " AND COALESCE(buy_prices.total_price, '') <> ''")
-        sql = self.makeSql(sql, filter_)
-        execute_query(query, sql)
-        if query.first():
-            paid = query.record().value(0)
-            if paid:
-                commission = ""
-                sql = ("SELECT SUM(buy_prices.price) FROM coins"
-                       f" {model.JOIN_BUY_PRICES}"
-                       " WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')"
-                       " AND COALESCE(buy_prices.price, '') <> ''")
-                sql = self.makeSql(sql, filter_)
-                execute_query(query, sql)
-                if query.first():
-                    paid_without_commission = query.record().value(0)
-                    if paid_without_commission:
-                        commission = self.tr("(commission %d%%)") % ((paid - paid_without_commission) / paid_without_commission * 100)
-                paid_str = self.locale.toString(float(paid), 'f', precision=2)
-                lines.append(' '.join((self.tr("Paid: %s") % paid_str, commission)))
+        paid = self._get_purchase_net(model, filter_)
+        if paid:
+            paid_str = self.locale.toString(float(paid), 'f', precision=2)
+            line = self.tr('Paid: %s') % paid_str
 
-                if count_owned:
-                    val = paid / count_owned
-                    val_str = self.locale.toString(float(val), 'f', precision=2)
-                    lines.append(self.tr("Average paid per item: %s") % val_str)
+            commission = ""
+            paid_gross = self._get_purchase_gross(model, filter_)
+            if paid_gross:
+                commission_percent = (paid - paid_gross) / paid_gross * 100
+                commission = self.tr('(commission %d%%)') % commission_percent
+                line += f" {commission}"
 
-        earned = 0
-        sql = ("SELECT SUM(sell_prices.total_price) FROM coins"
-               f" {model.JOIN_SELL_PRICES}"
-               " WHERE status='sold' AND COALESCE(sell_prices.total_price, '') <> ''")
-        sql = self.makeSql(sql, filter_)
-        execute_query(query, sql)
-        if query.first():
-            earned = query.record().value(0)
-            if earned:
-                commission = ""
-                sql = ("SELECT SUM(sell_prices.price) FROM coins"
-                       f" {model.JOIN_SELL_PRICES}"
-                       " WHERE status='sold' AND COALESCE(sell_prices.price, '') <> ''")
-                sql = self.makeSql(sql, filter_)
-                execute_query(query, sql)
-                if query.first():
-                    earn_without_commission = query.record().value(0)
-                    if earn_without_commission:
-                        commission = self.tr("(commission %d%%)") % ((earn_without_commission - earned) / earn_without_commission * 100)
-                earned_str = self.locale.toString(float(earned), 'f', precision=2)
-                lines.append(' '.join((self.tr("Earned: %s") % earned_str, commission)))
+            lines.append(line)
 
-                if count_sold:
-                    val = earned / count_sold
-                    val_str = self.locale.toString(float(val), 'f', precision=2)
-                    lines.append(self.tr("Average earn per item: %s") % val_str)
+            if count_owned:
+                val = paid / count_owned
+                val_str = self.locale.toString(float(val), 'f', precision=2)
+                lines.append(self.tr("Average paid per item: %s") % val_str)
+
+        earned = self._get_sales_net(model, filter_)
+        if earned:
+            earned_str = self.locale.toString(float(earned), 'f', precision=2)
+            line = self.tr("Earned: %s") % earned_str
+
+            commission = ""
+            earn_gross = self._get_sales_gross(model, filter_)
+            if earn_gross:
+                commission_percent = (earn_gross - earned) / earn_gross * 100
+                commission = self.tr("(commission %d%%)") % commission_percent
+                line += f" {commission}"
+
+            lines.append(line)
+
+            if count_sold:
+                val = earned / count_sold
+                val_str = self.locale.toString(float(val), 'f', precision=2)
+                lines.append(self.tr("Average earn per item: %s") % val_str)
 
         if paid and earned:
             total = paid - earned
@@ -402,6 +384,72 @@ class SummaryDialog(QDialog):
             material_quantity += quantity
 
         return material_weight, material_count, material_quantity
+
+    def _get_purchase_net(self, model, filter_):
+        query = QSqlQuery(model.database())
+
+        statuses = ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')
+        sql = f"""
+            SELECT SUM(buy_prices.total_price)
+            FROM coins {model.JOIN_BUY_PRICES}
+            WHERE status IN {statuses}
+                AND COALESCE(buy_prices.total_price, '') <> ''
+        """
+        sql = self.makeSql(sql, filter_)
+        execute_query(query, sql)
+        if query.first():
+            return query.value(0) or 0
+
+        return 0
+
+    def _get_purchase_gross(self, model, filter_):
+        query = QSqlQuery(model.database())
+
+        statuses = ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')
+        sql = f"""
+            SELECT SUM(buy_prices.price)
+            FROM coins {model.JOIN_BUY_PRICES}
+            WHERE status IN {statuses}
+                AND COALESCE(buy_prices.price, '') <> ''
+        """
+        sql = self.makeSql(sql, filter_)
+        execute_query(query, sql)
+        if query.first():
+            return query.value(0) or 0
+
+        return 0
+
+    def _get_sales_net(self, model, filter_):
+        query = QSqlQuery(model.database())
+
+        sql = f"""
+            SELECT SUM(sell_prices.total_price)
+            FROM coins {model.JOIN_SELL_PRICES}
+            WHERE status = 'sold'
+                AND COALESCE(sell_prices.total_price, '') <> ''
+        """
+        sql = self.makeSql(sql, filter_)
+        execute_query(query, sql)
+        if query.first():
+            return query.value(0) or 0
+
+        return 0
+
+    def _get_sales_gross(self, model, filter_):
+        query = QSqlQuery(model.database())
+
+        sql = f"""
+            SELECT SUM(sell_prices.price)
+            FROM coins {model.JOIN_SELL_PRICES}
+            WHERE status='sold'
+                AND COALESCE(sell_prices.price, '') <> ''
+        """
+        sql = self.makeSql(sql, filter_)
+        execute_query(query, sql)
+        if query.first():
+            return query.value(0) or 0
+
+        return 0
 
     def done(self, r):
         self.http.close()
