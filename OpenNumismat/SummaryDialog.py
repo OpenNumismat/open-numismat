@@ -3,6 +3,7 @@ from PySide6.QtCore import Qt, QDate, QLocale
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import QDialog, QTextEdit, QVBoxLayout, QDialogButtonBox
 
+from OpenNumismat.Collection.CollectionFields import ImageFields
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.Converters import stringToMoney, normalizeFineness
@@ -126,14 +127,20 @@ class SummaryDialog(QDialog):
                 lines.append(self.tr("Count missing: %d") % count)
 
         paid = 0
-        commission = ""
-        sql = "SELECT SUM(totalpayprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND totalpayprice<>'' AND totalpayprice IS NOT NULL"
+        sql = ("SELECT SUM(buy_prices.total_price) FROM coins"
+               f" {model.JOIN_BUY_PRICES}"
+               " WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')"
+               " AND COALESCE(buy_prices.total_price, '') <> ''")
         sql = self.makeSql(sql, filter_)
         execute_query(query, sql)
         if query.first():
             paid = query.record().value(0)
             if paid:
-                sql = "SELECT SUM(payprice) FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND payprice<>'' AND payprice IS NOT NULL"
+                commission = ""
+                sql = ("SELECT SUM(buy_prices.price) FROM coins"
+                       f" {model.JOIN_BUY_PRICES}"
+                       " WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')"
+                       " AND COALESCE(buy_prices.price, '') <> ''")
                 sql = self.makeSql(sql, filter_)
                 execute_query(query, sql)
                 if query.first():
@@ -149,14 +156,18 @@ class SummaryDialog(QDialog):
                     lines.append(self.tr("Average paid per item: %s") % val_str)
 
         earned = 0
-        commission = ""
-        sql = "SELECT SUM(totalsaleprice) FROM coins WHERE status='sold' AND totalsaleprice<>'' AND totalsaleprice IS NOT NULL"
+        sql = ("SELECT SUM(sell_prices.total_price) FROM coins"
+               f" {model.JOIN_SELL_PRICES}"
+               " WHERE status='sold' AND COALESCE(sell_prices.total_price, '') <> ''")
         sql = self.makeSql(sql, filter_)
         execute_query(query, sql)
         if query.first():
             earned = query.record().value(0)
             if earned:
-                sql = "SELECT SUM(saleprice) FROM coins WHERE status='sold' AND saleprice<>'' AND saleprice IS NOT NULL"
+                commission = ""
+                sql = ("SELECT SUM(sell_prices.price) FROM coins"
+                       f" {model.JOIN_SELL_PRICES}"
+                       " WHERE status='sold' AND COALESCE(sell_prices.price, '') <> ''")
                 sql = self.makeSql(sql, filter_)
                 execute_query(query, sql)
                 if query.first():
@@ -176,8 +187,12 @@ class SummaryDialog(QDialog):
             total_str = self.locale.toString(float(total), 'f', precision=2)
             lines.append(self.tr("Total (paid - earned): %s") % total_str)
 
-        sql = "SELECT paydate FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement') AND paydate<>'' AND paydate IS NOT NULL ORDER BY paydate LIMIT 1"
+        sql = ("SELECT buy_prices.date FROM coins"
+               f" {model.JOIN_BUY_PRICES}"
+               " WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')"
+               " AND COALESCE(buy_prices.date, '') <> ''")
         sql = self.makeSql(sql, filter_)
+        sql = f"{sql} ORDER BY buy_prices.date LIMIT 1"
         execute_query(query, sql)
         if query.first():
             date = QDate.fromString(query.record().value(0), Qt.ISODate)
@@ -265,6 +280,9 @@ class SummaryDialog(QDialog):
         lines.append(' '.join((self.tr("Estimation wish: %d") % est_wish, comment)))
 
         sql = "SELECT count(*) FROM photos"
+        if filter_:
+            fields = [f"coins.{field}" for field in ImageFields]
+            sql = f"{sql} JOIN coins ON photos.id IN ({','.join(fields)})"
         sql = self.makeSql(sql, filter_)
         execute_query(query, sql)
         if query.first():
