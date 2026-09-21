@@ -393,6 +393,9 @@ class MainWindow(QMainWindow):
         self.tagsAct = QAction(self.tr("Tags..."), self)
         self.tagsAct.triggered.connect(self.tagsEvent)
 
+        self.referencesGeneratorAct = QAction(self.tr("References generator"), self)
+        self.referencesGeneratorAct.triggered.connect(self.referencesGeneratorEvent)
+
         reportAct = QAction(self.tr("Report..."), self)
         reportAct.setShortcut(QKeySequence.Print)
         reportAct.triggered.connect(self.report)
@@ -901,6 +904,9 @@ class MainWindow(QMainWindow):
         for action in self.collection.referenceMenu(self):
             self.referenceMenu.addAction(action)
 
+        self.referenceMenu.addSeparator()
+        self.referenceMenu.addAction(self.referencesGeneratorAct)
+
     def __setEnabledActs(self, enabled):
         for act in self.collectionActs:
             act.setEnabled(enabled)
@@ -962,6 +968,9 @@ class MainWindow(QMainWindow):
 
     def onlineHelp(self):
         self._openUrl("https://opennumismat.github.io/open-numismat/manual.html")
+
+    def referencesGeneratorEvent(self):
+        self._openUrl("https://opennumismat.github.io/references/")
 
     def visitWeb(self):
         self._openUrl(version.Web)
