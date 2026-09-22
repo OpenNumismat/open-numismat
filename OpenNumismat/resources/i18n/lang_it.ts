@@ -1942,7 +1942,7 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
     </message>
     <message>
         <source>Camera</source>
-        <translation type="unfinished"/>
+        <translation>Fotocamera</translation>
     </message>
     <message>
         <source>Paste</source>
