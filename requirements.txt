@@ -1,4 +1,5 @@
-pyside6==6.11.1
+pyside6==6.11.1; sys_platform == 'darwin'   # workaround QTBUG-150017
+pyside6~=6.11.2; sys_platform != 'darwin'
 jinja2~=3.1.6
 lxml~=6.0.2
 opencv-python-headless~=4.13.0.92
