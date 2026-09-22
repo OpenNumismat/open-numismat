@@ -1933,6 +1933,10 @@ Do you want to send an error message to the author?</source>
         <translation>Ouvrir</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation>Appareil Photo</translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Coller</translation>
     </message>
