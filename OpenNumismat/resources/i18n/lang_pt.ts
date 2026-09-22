@@ -1946,6 +1946,10 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Abrir</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation>Câmara</translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
