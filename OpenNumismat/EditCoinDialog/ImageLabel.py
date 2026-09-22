@@ -13,6 +13,7 @@ from PySide6.QtGui import (
     Qt,
     QAction,
     QDesktopServices,
+    QIcon,
     QImage,
     QPainter,
     QPalette,
@@ -20,6 +21,7 @@ from PySide6.QtGui import (
 )
 from PySide6.QtWidgets import (
     QApplication,
+    QDialog,
     QFileDialog,
     QFrame,
     QInputDialog,
@@ -31,7 +33,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Signal as pyqtSignal
 
 import OpenNumismat
-from OpenNumismat.ImageEditor import ImageEditorDialog
+from OpenNumismat.ImageEditor import CameraDialog, ImageEditorDialog
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.Gui import getSaveFileName
@@ -254,6 +256,12 @@ class ImageEdit(ImageLabel):
         open_act.triggered.connect(self.openImage)
         open_act.setDisabled(self.image.isNull())
 
+        camera_act = None
+        if Settings()['use_webcam']:
+            text = QApplication.translate('ImageEdit', "Camera")
+            camera_act = QAction(QIcon(':/webcam.png'), text, self)
+            camera_act.triggered.connect(self.camera)
+
         text = QApplication.translate('ImageEdit', "Paste")
         paste_act = QAction(text, self)
         paste_act.triggered.connect(self.pasteImage)
@@ -280,6 +288,8 @@ class ImageEdit(ImageLabel):
 
         menu = QMenu(self)
         menu.addAction(load_act)
+        if camera_act:
+            menu.addAction(camera_act)
         menu.addAction(open_act)
         if self.image.isNull():
             menu.setDefaultAction(load_act)
@@ -315,6 +325,26 @@ class ImageEdit(ImageLabel):
             settings.setValue('images/last_dir', file_info.absolutePath())
 
             self.loadFromFile(fileName)
+
+    def camera(self):
+        dlg = CameraDialog(self)
+        if dlg.exec() == QDialog.Accepted:
+            image = dlg.image
+            if image:
+                if Settings()['built_in_viewer']:
+                    viewer = ImageEditorDialog(self)
+                    viewer.setImage(image)
+                    viewer.imageSaved.connect(self.imageSaved)
+                    viewer.setTitle(self.title)
+                    viewer.isChanged = True
+                    viewer.markWindowTitle(viewer.isChanged)
+                    viewer._updateEditActions()
+                    viewer.exec()
+                    viewer.deleteLater()
+                else:
+                    self._setNewImage(image)
+
+        dlg.deleteLater()
 
     def deleteImage(self):
         self.clear()
