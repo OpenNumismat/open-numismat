@@ -565,11 +565,24 @@ class StatusEdit(QComboBox):
             if settings[status + '_status_used']:
                 self.addItem(statusIcon(status), statusTitle, status)
 
+        self.setCurrentIndex(-1)
+
     def data(self):
         return self.currentData()
 
     def clear(self):
-        self.setCurrentIndex(-1)
+        if self.isEnabled():
+            self.setCurrentIndex(0)
+        else:
+            self.setCurrentIndex(-1)
+
+    def setReadOnly(self, b):
+        self.setEditable(b)
+        self.lineEdit().setReadOnly(b)
+
+    def showPopup(self):
+        if not self.isEditable():
+            return super().showPopup()
 
     def setCurrentValue(self, value):
         index = self.findData(value)
@@ -582,36 +595,6 @@ class StatusEdit(QComboBox):
             # Add real coin status when it disabled in settings
             self.addItem(statusIcon(value), Statuses[value], value)
             self.setCurrentValue(value)
-
-
-class StatusBrowser(QLineEdit):
-    currentIndexChanged = pyqtSignal(object)
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setMinimumWidth(100)
-        self.data = ''
-
-    def setCurrentValue(self, value):
-        self.setText(Statuses[value])
-        self.home(False)
-
-        for act in self.actions():
-            self.removeAction(act)
-        icon = statusIcon(value)
-        self.action = self.addAction(icon, QLineEdit.LeadingPosition)
-
-        self.data = value
-
-        self.currentIndexChanged.emit(-1)
-
-    def currentData(self):
-        return self.data
-
-    def clear(self):
-        for act in self.actions():
-            self.removeAction(act)
-        super().clear()
 
 
 class ShortLineEdit(QLineEdit):
@@ -1355,7 +1338,12 @@ class CurrencyEdit(QComboBox):
         self.setCurrentIndex(0)
 
     def setReadOnly(self, b):
-        self.setEnabled(not b)
+        self.setEditable(b)
+        self.lineEdit().setReadOnly(b)
+
+    def showPopup(self):
+        if not self.isEditable():
+            return super().showPopup()
 
     def text(self):
         return self.currentData()
@@ -1403,7 +1391,12 @@ class PriceActionEdit(QComboBox):
             self.setCurrentIndex(-1)
 
     def setReadOnly(self, b):
-        self.setEnabled(not b)
+        self.setEditable(b)
+        self.lineEdit().setReadOnly(b)
+
+    def showPopup(self):
+        if not self.isEditable():
+            return super().showPopup()
 
     def text(self):
         return self.currentData()

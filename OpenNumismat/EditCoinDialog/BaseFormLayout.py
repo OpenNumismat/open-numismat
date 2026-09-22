@@ -131,10 +131,7 @@ class FormItem(object):
         elif self._type == Type.Date:
             self._widget = DateEdit(parent)
         elif self._type == Type.Status:
-            if itemType & Type.Disabled:
-                self._widget = StatusBrowser(parent)
-            else:
-                self._widget = StatusEdit(settings, parent)
+            self._widget = StatusEdit(settings, parent)
         elif self._type == Type.DateTime:
             self._widget = QDateTimeEdit(parent)
         else:
@@ -209,8 +206,6 @@ class FormItem(object):
             else:
                 self._widget.clear()
         elif isinstance(self._widget, StatusEdit):
-            self._widget.setCurrentValue(value)
-        elif isinstance(self._widget, StatusBrowser):
             self._widget.setCurrentValue(value)
         elif isinstance(self._widget, QTextEdit):
             self._widget.setText(str(value))
