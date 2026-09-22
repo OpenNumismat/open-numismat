@@ -1937,6 +1937,10 @@ Geliştiriciye bir hata mesajı göndermek ister misiniz?</translation>
         <translation>Aç</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Yapıştır</translation>
     </message>
