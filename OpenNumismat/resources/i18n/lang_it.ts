@@ -1941,6 +1941,10 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
         <translation>Apri</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Incolla</translation>
     </message>
