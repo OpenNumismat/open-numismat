@@ -1933,6 +1933,10 @@ Chcesz zgłosić błąd autorowi?</translation>
         <translation>Otwórz</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Wklej</translation>
     </message>
