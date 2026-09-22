@@ -1941,6 +1941,10 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Öppna</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Klistra in</translation>
     </message>
