@@ -1940,6 +1940,10 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
         <translation>Öffnen</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation>Kamera</translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Einfügen</translation>
     </message>
