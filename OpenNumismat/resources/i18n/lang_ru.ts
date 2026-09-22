@@ -1947,7 +1947,7 @@ Do you want to send an error message to the author?</source>
     </message>
     <message>
         <source>Camera</source>
-        <translation type="unfinished"/>
+        <translation>Камера</translation>
     </message>
     <message>
         <source>Paste</source>
