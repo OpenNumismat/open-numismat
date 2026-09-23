@@ -5,6 +5,7 @@ from OpenNumismat.Collection.CollectionFields import CollectionFields
 from OpenNumismat.Collection.ListPageParam import ListPageParam
 from OpenNumismat.Collection.TreeParam import TreeParam
 from OpenNumismat.Statistics.StatisticsParam import StatisticsParam
+from OpenNumismat.Tools.db_utils import DBTransaction, execute_query
 
 
 class CollectionPageTypes:
@@ -36,6 +37,8 @@ class CollectionPages(QObject):
         super().__init__(parent)
 
         self.db = db
+
+        query = QSqlQuery(self.db)
         sql = "CREATE TABLE IF NOT EXISTS pages (\
             id INTEGER PRIMARY KEY,\
             title TEXT,\
@@ -43,28 +46,29 @@ class CollectionPages(QObject):
             position INTEGER,\
             type INTEGER,\
             icon BLOB)"
-        QSqlQuery(sql, self.db)
+        execute_query(query, sql)
 
         self.fields = CollectionFields(self.db)
         self.params = []
 
     def pagesParam(self):
         if not self.params:
-            query = QSqlQuery("SELECT * FROM pages ORDER BY position")
+            query = QSqlQuery(self.db)
+            sql = "SELECT * FROM pages ORDER BY position"
+            execute_query(query, sql)
             self.params = self.__queryToParam(query)
         return self.params
 
     def addPage(self, title):
         query = QSqlQuery(self.db)
-        query.prepare("INSERT INTO pages (title, isopen, type, position) "
-                      "VALUES (?, ?, ?, (SELECT COUNT(*) FROM pages))")
-        query.addBindValue(title)
-        query.addBindValue(int(True))
-        query.addBindValue(CollectionPageTypes.Default)
-        query.exec()
 
-        query = QSqlQuery("SELECT * FROM pages WHERE id=last_insert_rowid()",
-                          self.db)
+        sql = ("INSERT INTO pages (title, isopen, type, position)"
+               " VALUES (?, ?, ?, (SELECT COUNT(*) FROM pages))")
+        params = (title, int(True), CollectionPageTypes.Default)
+        execute_query(query, sql, params)
+
+        sql = "SELECT * FROM pages WHERE id=last_insert_rowid()"
+        execute_query(query, sql)
         param = self.__queryToParam(query)[0]  # get only one item
 
         self.params.append(param)
@@ -73,24 +77,21 @@ class CollectionPages(QObject):
 
     def renamePage(self, page, title):
         query = QSqlQuery(self.db)
-        query.prepare("UPDATE pages SET title=? WHERE id=?")
-        query.addBindValue(title)
-        query.addBindValue(page.id)
-        query.exec()
+        sql = "UPDATE pages SET title=? WHERE id=?"
+        params = (title, page.id)
+        execute_query(query, sql, params)
 
     def closePage(self, page):
         query = QSqlQuery(self.db)
-        query.prepare("UPDATE pages SET isopen=? WHERE id=?")
-        query.addBindValue(int(False))
-        query.addBindValue(page.id)
-        query.exec()
+        sql = "UPDATE pages SET isopen=? WHERE id=?"
+        params = (int(False), page.id)
+        execute_query(query, sql, params)
 
     def openPage(self, page):
         query = QSqlQuery(self.db)
-        query.prepare("UPDATE pages SET isopen=? WHERE id=?")
-        query.addBindValue(int(True))
-        query.addBindValue(page.id)
-        query.exec()
+        sql = "UPDATE pages SET isopen=? WHERE id=?"
+        params = (int(True), page.id)
+        execute_query(query, sql, params)
 
     def removePage(self, page):
         page.listParam.remove()
@@ -98,38 +99,36 @@ class CollectionPages(QObject):
         page.statisticsParam.remove()
 
         query = QSqlQuery(self.db)
-        query.prepare("DELETE FROM pages WHERE id=?")
-        query.addBindValue(page.id)
-        query.exec()
+        sql = "DELETE FROM pages WHERE id=?"
+        params = (page.id,)
+        execute_query(query, sql, params)
 
     def savePositions(self, pages):
-        for position, page in enumerate(pages):
+        with DBTransaction(self.db):
             query = QSqlQuery(self.db)
-            query.prepare("UPDATE pages SET position=? WHERE id=?")
-            query.addBindValue(position)
-            query.addBindValue(page.id)
-            query.exec()
+            for position, page in enumerate(pages):
+                sql = "UPDATE pages SET position=? WHERE id=?"
+                params = (position, page.id)
+                execute_query(query, sql, params)
 
     def closedPages(self):
         query = QSqlQuery(self.db)
-        query.prepare("SELECT * FROM pages WHERE isopen=? ORDER BY title")
-        query.addBindValue(int(False))
-        query.exec()
+        sql = "SELECT * FROM pages WHERE isopen=? ORDER BY title"
+        params = (int(False),)
+        execute_query(query, sql, params)
         return self.__queryToParam(query)
 
     def changeView(self, page, type_):
         query = QSqlQuery(self.db)
-        query.prepare("UPDATE pages SET type=? WHERE id=?")
-        query.addBindValue(type_ | page.info_type)
-        query.addBindValue(page.id)
-        query.exec()
+        sql = "UPDATE pages SET type=? WHERE id=?"
+        params = (type_ | page.info_type, page.id)
+        execute_query(query, sql, params)
 
     def changeInfoType(self, page, info_type):
         query = QSqlQuery(self.db)
-        query.prepare("UPDATE pages SET type=? WHERE id=?")
-        query.addBindValue(info_type | page.type)
-        query.addBindValue(page.id)
-        query.exec()
+        sql = "UPDATE pages SET type=? WHERE id=?"
+        params = (info_type | page.type, page.id)
+        execute_query(query, sql, params)
 
     def __queryToParam(self, query):
         pagesParam = []
