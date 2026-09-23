@@ -46,10 +46,10 @@ class CollectionPages(QObject):
         QSqlQuery(sql, self.db)
 
         self.fields = CollectionFields(self.db)
-        self.params = None
+        self.params = []
 
     def pagesParam(self):
-        if self.params is None:
+        if not self.params:
             query = QSqlQuery("SELECT * FROM pages ORDER BY position")
             self.params = self.__queryToParam(query)
         return self.params
@@ -65,7 +65,11 @@ class CollectionPages(QObject):
 
         query = QSqlQuery("SELECT * FROM pages WHERE id=last_insert_rowid()",
                           self.db)
-        return self.__queryToParam(query)[0]  # get only one item
+        param = self.__queryToParam(query)[0]  # get only one item
+
+        self.params.append(param)
+
+        return param
 
     def renamePage(self, page, title):
         query = QSqlQuery(self.db)
