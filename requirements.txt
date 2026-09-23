@@ -1,4 +1,4 @@
-pyside6==6.11.1; sys_platform == 'darwin'   # workaround QTBUG-150017
+pyside6==6.10.3; sys_platform == 'darwin'   # workaround QTBUG-150017
 pyside6~=6.11.2; sys_platform != 'darwin'
 jinja2~=3.1.6
 lxml~=6.0.2
