@@ -1071,7 +1071,8 @@ LEFT JOIN prices sell_prices ON sell_prices.id = (
  FROM "coins"
 '''
         f" {self.JOIN_BUY_PRICES} {self.JOIN_SELL_PRICES}"
-        f" {filter_}")
+        f" {filter_}"
+        f" {self.orderByClause()}")
         return sql
 
     def __applyFilter(self):
