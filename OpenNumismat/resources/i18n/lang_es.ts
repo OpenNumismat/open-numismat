@@ -1945,6 +1945,10 @@ Do you want to send an error message to the author?</source>
         <translation>Abrir</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation>Cámara</translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Pegar</translation>
     </message>
@@ -2092,6 +2096,14 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Editor de imagen</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Guardando</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>La imagen ha cambiado ¿Guardar cambios?</translation>
     </message>
@@ -2102,6 +2114,18 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Don&apos;t show this again</source>
         <translation>No mostrar de nuevo esto</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -2155,10 +2179,6 @@ arrastrar y soltar para añadir una imagen)</translation>
         <source>Downloading</source>
         <translation>Descargando</translation>
     </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation>Descargando modelo de IA %s (%d Mb)</translation>
-    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
@@ -2196,6 +2216,14 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Save as...</source>
         <translation>Guardar como...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Guardando</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2271,6 +2299,14 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Trim ID in title</source>
         <translation>Recortar ID en el título</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Price currency</source>

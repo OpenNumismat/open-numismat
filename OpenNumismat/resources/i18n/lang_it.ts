@@ -1941,6 +1941,10 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
         <translation>Apri</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation>Fotocamera</translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Incolla</translation>
     </message>
@@ -2086,6 +2090,14 @@ drag-n-drop to add an image)</source>
         <translation>Modifica delle immagini</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Salvataggio</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>L&apos;immagine è stata modificata. Salvare le modifiche?</translation>
     </message>
@@ -2096,6 +2108,18 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Don&apos;t show this again</source>
         <translation>Non mostrarmelo di nuovo</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -2149,10 +2173,6 @@ drag-n-drop to add an image)</source>
         <source>Downloading</source>
         <translation>Download in corso</translation>
     </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation>Modello IA in scaricamento %s (%d Mb)</translation>
-    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
@@ -2190,6 +2210,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Salva come...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Salvataggio</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2265,6 +2293,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Trim ID in title</source>
         <translation>Riduci l&apos;ID nel titolo</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Price currency</source>

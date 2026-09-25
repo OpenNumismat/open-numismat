@@ -1933,6 +1933,10 @@ Do you want to send an error message to the author?</source>
         <translation>Ouvrir</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation>Appareil Photo</translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Coller</translation>
     </message>
@@ -2078,6 +2082,14 @@ drag-n-drop to add an image)</source>
         <translation>Éditeur d&apos;Image</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Enregistrement</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>Image modifiée, Enregistrement du changement ?</translation>
     </message>
@@ -2087,6 +2099,18 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Don&apos;t show this again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2141,10 +2165,6 @@ drag-n-drop to add an image)</source>
         <source>Downloading</source>
         <translation>Téléchargement</translation>
     </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
@@ -2182,6 +2202,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Enregistrer sous...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Enregistrement</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2256,6 +2284,14 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Trim ID in title</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
         <translation type="unfinished"/>
     </message>
     <message>

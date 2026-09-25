@@ -1946,6 +1946,10 @@ Do you want to send an error message to the author?</source>
         <translation>Отваряне</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation>Камера</translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Поставяне</translation>
     </message>
@@ -2093,6 +2097,14 @@ drag-n-drop to add an image)</source>
         <translation>Редактор на изображения</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Записване</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation>Прозрачността ще бъде загубена при записване в избрания формат. Искате ли да продължите?</translation>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>Изображението е променено. Да се запазят ли промените?</translation>
     </message>
@@ -2103,6 +2115,18 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Don&apos;t show this again</source>
         <translation>Не показвай това съобщение отново</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s</source>
+        <translation>Изтегляне на ИИ модел %s</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation>Изтегляне на ИИ модел %s (%d MB)</translation>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation>Неуспешно изтегляне: %s</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -2156,10 +2180,6 @@ drag-n-drop to add an image)</source>
         <source>Downloading</source>
         <translation>Изтегляне</translation>
     </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation>Изтегляне на AI модел %s (%d Mb)</translation>
-    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
@@ -2197,6 +2217,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Запиши като...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Записване</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation>Прозрачността ще бъде загубена при записване в избрания формат. Искате ли да продължите?</translation>
     </message>
 </context>
 <context>
@@ -2272,6 +2300,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Trim ID in title</source>
         <translation>Изрязване на ID в заглавието</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation>Key</translation>
+    </message>
+    <message>
+        <source>Client ID</source>
+        <translation>Client ID</translation>
     </message>
     <message>
         <source>Price currency</source>
@@ -3240,7 +3276,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Background remover AI model</source>
-        <translation>AI модел за премахване на фон</translation>
+        <translation>ИИ модел за премахване на фон</translation>
     </message>
     <message>
         <source>Crop after background remover</source>
@@ -3668,7 +3704,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source> (clone)</source>
-        <translation>(клониране)</translation>
+        <translation> (клониран)</translation>
     </message>
     <message>
         <source>Coins</source>

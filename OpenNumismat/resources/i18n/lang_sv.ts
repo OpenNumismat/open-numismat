@@ -1941,6 +1941,10 @@ Vill du skicka ett felmeddelande till författaren?</translation>
         <translation>Öppna</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Klistra in</translation>
     </message>
@@ -2086,6 +2090,14 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Sparar</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation type="unfinished"/>
     </message>
@@ -2095,6 +2107,18 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Don&apos;t show this again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2149,10 +2173,6 @@ drag-n-drop to add an image)</source>
         <source>Downloading</source>
         <translation>Laddar ner</translation>
     </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
@@ -2190,6 +2210,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Spara som...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Sparar</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2264,6 +2292,14 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Trim ID in title</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
         <translation type="unfinished"/>
     </message>
     <message>

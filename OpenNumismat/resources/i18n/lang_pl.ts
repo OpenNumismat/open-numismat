@@ -1933,6 +1933,10 @@ Chcesz zgłosić błąd autorowi?</translation>
         <translation>Otwórz</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Wklej</translation>
     </message>
@@ -2078,6 +2082,14 @@ drag-n-drop to add an image)</source>
         <translation>Edytor obrazu</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Zapisuję</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>Obraz został zmieniony. Zapisać zmiany?</translation>
     </message>
@@ -2088,6 +2100,18 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Don&apos;t show this again</source>
         <translation>Nie pokazuj tego ponownie</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -2141,10 +2165,6 @@ drag-n-drop to add an image)</source>
         <source>Downloading</source>
         <translation>Pobieranie</translation>
     </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
@@ -2182,6 +2202,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Zapisz jako...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Zapisuję</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2257,6 +2285,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Trim ID in title</source>
         <translation>Przytnij ID w tytule</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Price currency</source>

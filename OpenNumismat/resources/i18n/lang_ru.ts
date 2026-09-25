@@ -1946,6 +1946,10 @@ Do you want to send an error message to the author?</source>
         <translation>Открыть</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation>Камера</translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Вставить</translation>
     </message>
@@ -2093,6 +2097,14 @@ drag-n-drop to add an image)</source>
         <translation>Редактор изображений</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Сохранение</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>Изображение изменено. Сохранить изменения?</translation>
     </message>
@@ -2103,6 +2115,18 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Don&apos;t show this again</source>
         <translation>Больше не показывать</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s</source>
+        <translation>Скачивание ИИ модели %s</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation>Скачивание ИИ модели %s (%d МБ)</translation>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation>Не удалось скачать: %s</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -2156,10 +2180,6 @@ drag-n-drop to add an image)</source>
         <source>Downloading</source>
         <translation>Скачивание</translation>
     </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation>Скачивание ИИ модели %s (%d Мб)</translation>
-    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
@@ -2197,6 +2217,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Сохранить как...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Сохранение</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2272,6 +2300,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Trim ID in title</source>
         <translation>Обрезать ID в названии</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Client ID</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Price currency</source>
