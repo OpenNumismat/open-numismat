@@ -2082,6 +2082,14 @@ drag-n-drop to add an image)</source>
         <translation>Edytor obrazu</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Zapisuję</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>Obraz został zmieniony. Zapisać zmiany?</translation>
     </message>
@@ -2194,6 +2202,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Zapisz jako...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Zapisuję</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
