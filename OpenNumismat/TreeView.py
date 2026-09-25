@@ -265,6 +265,9 @@ class TreeView(QTreeWidget):
             tag_ids = list([tag_id for tag_id in tag_ids if tag_id in record.value('tags')])
         newRecord.setValue('tags', tag_ids)
 
+        if self.model.settings['prices_table']:
+            newRecord.setValue('prices', [])
+
         self.model.addCoin(newRecord, self)
 
         self.model.setFilter(storedFilter)
