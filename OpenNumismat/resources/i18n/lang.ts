@@ -2082,6 +2082,14 @@ drag-n-drop to add an image)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2193,6 +2201,14 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Save as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
