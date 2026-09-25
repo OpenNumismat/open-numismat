@@ -2096,6 +2096,14 @@ arrastrar y soltar para añadir una imagen)</translation>
         <translation>Editor de imagen</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Guardando</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>La imagen ha cambiado ¿Guardar cambios?</translation>
     </message>
@@ -2208,6 +2216,14 @@ arrastrar y soltar para añadir una imagen)</translation>
     <message>
         <source>Save as...</source>
         <translation>Guardar como...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Guardando</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
