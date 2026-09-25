@@ -561,7 +561,10 @@ class StatusEdit(QComboBox):
         super().__init__(parent)
         self.setMinimumWidth(120)
 
-        for status, statusTitle in Statuses.items():
+        self.default_status = 0
+        for i, (status, statusTitle) in enumerate(Statuses.items()):
+            if status == settings['default_status']:
+                self.default_status = i
             if settings[status + '_status_used']:
                 self.addItem(statusIcon(status), statusTitle, status)
 
@@ -572,9 +575,15 @@ class StatusEdit(QComboBox):
 
     def clear(self):
         if self.isEnabled():
-            self.setCurrentIndex(0)
+            self.setCurrentIndex(self.default_status)
         else:
             self.setCurrentIndex(-1)
+
+    def setDisabled(self, b):
+        if self.currentIndex() == -1:
+            self.setCurrentIndex(self.default_status)
+
+        return super().setDisabled(b)
 
     def setReadOnly(self, b):
         self.setEditable(b)
