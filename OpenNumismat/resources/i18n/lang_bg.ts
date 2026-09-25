@@ -2102,7 +2102,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Transparency will be lost when saving in the selected format. Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Прозрачността ще бъде загубена при записване в избрания формат. Искате ли да продължите?</translation>
     </message>
     <message>
         <source>Image was changed. Save changes?</source>
@@ -2224,7 +2224,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Transparency will be lost when saving in the selected format. Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Прозрачността ще бъде загубена при записване в избрания формат. Искате ли да продължите?</translation>
     </message>
 </context>
 <context>
