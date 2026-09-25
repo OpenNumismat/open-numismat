@@ -2091,6 +2091,14 @@ drag-n-drop to add an image)</source>
         <translation>Bildbearbeiter</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>Das Bild wurde geändert. Änderungen speichern?</translation>
     </message>
@@ -2203,6 +2211,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Speichern unter...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
