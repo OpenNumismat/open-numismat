@@ -2094,6 +2094,14 @@ drag-n-drop to add an image)</source>
         <translation>Редактор зображень</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>Збереження</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>Зображення змінено. Зберегти зміни?</translation>
     </message>
@@ -2206,6 +2214,14 @@ drag-n-drop to add an image)</source>
     <message>
         <source>Save as...</source>
         <translation>Зберегти як...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>Збереження</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
