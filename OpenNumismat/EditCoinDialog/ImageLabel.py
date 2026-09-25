@@ -15,6 +15,8 @@ from PySide6.QtGui import (
     QDesktopServices,
     QIcon,
     QImage,
+    QImageIOHandler,
+    QImageWriter,
     QPainter,
     QPalette,
     QPixmap,
@@ -27,6 +29,7 @@ from PySide6.QtWidgets import (
     QInputDialog,
     QLabel,
     QMenu,
+    QMessageBox,
     QSizePolicy,
     QStyle,
 )
@@ -196,6 +199,19 @@ class ImageLabel(QLabel):
         fileName, _selectedFilter = getSaveFileName(
             self, 'images', self.title, OpenNumismat.IMAGE_PATH, saveImageFilters())
         if fileName:
+            if self.image.hasAlphaChannel():
+                writer = QImageWriter(fileName)
+                if not writer.supportsOption(QImageIOHandler.BackgroundColor):
+                    result = QMessageBox.information(
+                        self, QApplication.translate('ImageLabel', "Saving"),
+                        QApplication.translate('ImageLabel',
+                                "Transparency will be lost when saving"
+                                " in the selected format. Continue?"),
+                        QMessageBox.Yes | QMessageBox.Cancel,
+                        QMessageBox.Cancel)
+                    if result == QMessageBox.Cancel:
+                        return
+
             self.image.save(fileName)
 
     def copyImage(self):
