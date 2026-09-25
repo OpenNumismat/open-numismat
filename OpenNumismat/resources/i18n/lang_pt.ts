@@ -2097,6 +2097,14 @@ arraste e largue para adicionar)</translation>
         <translation>Editor de imagem</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>A gravar</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>A imagem foi alterada. Gravar alterações?</translation>
     </message>
@@ -2209,6 +2217,14 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Save as...</source>
         <translation>Gravar como...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>A gravar</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
