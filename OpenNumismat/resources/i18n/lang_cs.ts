@@ -2292,6 +2292,10 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>ImportExcel</name>
     <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="Excel.py" line="152"/>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ignore&gt;</translation>

@@ -6,7 +6,7 @@ import os
 from dateutil import parser
 
 from PySide6.QtCore import Qt, QSize
-from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QDialogButtonBox, QComboBox
+from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QDialogButtonBox, QComboBox, QCheckBox
 from PySide6.QtGui import QPixmap, QImage, QPainter
 
 from OpenNumismat.Collection.Import import _Import2, _InvalidDatabaseError
@@ -41,7 +41,11 @@ class TableDialog(QDialog):
         self.table = QTableWidget(self)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
 
+        self.headerCheckBox = QCheckBox(self.tr("First row is header (column names)"))
+        self.headerCheckBox.setChecked(True)
+
         layout = QVBoxLayout()
+        layout.addWidget(self.headerCheckBox)
         layout.addWidget(self.table)
         layout.addWidget(buttonBox)
 
@@ -121,12 +125,19 @@ class ImportExcel(_Import2):
         self.sheetImages = {}
         self.images = {}
         self.allSheetImagesIndexed = False
+        self.has_header = True
 
     @staticmethod
     def isAvailable():
         return True
 
-    def defaultField(self, col, combo):
+    def defaultField(self, col, combo, has_header=True):
+        if not has_header:
+            # No header row to match, map first columns to first fields
+            if col < 10:
+                return col + 1
+            return 0
+
         title = self.sheet.cell(1, col + 1).value
         if title is None:
             return 0
@@ -173,7 +184,12 @@ class ImportExcel(_Import2):
             return None
 
         image = QImage()
-        if image.loadFromData(source._data()):
+        try:
+            data = source._data()
+        except (ValueError, OSError):
+            # openpyxl closes the image stream after the first read
+            data = None
+        if data and image.loadFromData(data):
             self.images[coordinate] = image
             return image
 
@@ -191,62 +207,20 @@ class ImportExcel(_Import2):
         # See Collection.exportToExcel, do not count 'id', 'createdat', 'updatedat', 'sort_id'.
         # And 'image' of Type.PreviewImage. So in total 5 "internal" fields/columns.
         MAX_COLUMN_COUNT = len(self.fields.fields) - 5
-        sheet_max_column = min(self.sheet.max_column, MAX_COLUMN_COUNT)
+        self.sheet_max_column = min(self.sheet.max_column, MAX_COLUMN_COUNT)
 
-        rows = min(max(self.sheet.max_row - 1, 0), 10)
-        self.sheetImages = self._getSheetImages(self.sheet, max_row=rows + 1)
+        self.sheetImages = {}
         self.images = {}
         self.allSheetImagesIndexed = False
 
         self.src_path = os.path.dirname(src)
         dialog = TableDialog(self.parent(), self.src_path)
 
-        dialog.table.setRowCount(rows + 1)
-        dialog.table.setColumnCount(sheet_max_column)
-
-        header_labels = []
-        for col in range(sheet_max_column):
-            title = self.sheet.cell(1, col + 1).value
-            if title is None:
-                title = ''
-            elif isinstance(title, datetime.datetime):
-                title = title.date().isoformat()
-            elif isinstance(title, datetime.time):
-                title = ''
-            header_labels.append(str(title))
-
-        dialog.table.setHorizontalHeaderLabels(header_labels)
-
-        vertical_labels = ['']
-        for row in range(1, rows + 1):
-            vertical_labels.append(str(row))
-        dialog.table.setVerticalHeaderLabels(vertical_labels)
-
-        for row in range(rows):
-            for col in range(sheet_max_column):
-                cell = self.sheet.cell(row + 2, col + 1)
-                val = cell.value
-
-                if val is None:
-                    val = ''
-                elif isinstance(val, datetime.time):
-                    val = ''
-                elif isinstance(val, datetime.datetime):
-                    val = val.date()
-                if cell.hyperlink:
-                    val = cell.hyperlink.target
-
-                item = QTableWidgetItem(str(val))
-                item.setData(IMAGE_SOURCE_ROLE, str(val))
-
-                image = self._getEmbeddedImage(cell.coordinate)
-                if image is not None:
-                    item.setData(Qt.UserRole, image)
-
-                dialog.table.setItem(row + 1, col, item)
+        dialog.table.setRowCount(1)
+        dialog.table.setColumnCount(self.sheet_max_column)
 
         self.comboBoxes = []
-        for col in range(sheet_max_column):
+        for col in range(self.sheet_max_column):
             combo = QComboBox()
             combo.setEditable(True)
             combo.setInsertPolicy(QComboBox.NoInsert)
@@ -256,17 +230,20 @@ class ImportExcel(_Import2):
             for f in self.fields.userFields:
                 if f not in self.fields.systemFields:
                     combo.addItem(f.title, f)
-            combo.setCurrentIndex(self.defaultField(col, combo))
             combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             combo.setStyleSheet("QComboBox { font-weight: 700; }")
             combo.currentIndexChanged.connect(dialog.comboChanged)
             dialog.table.setCellWidget(0, col, combo)
 
             self.comboBoxes.append(combo)
-        dialog.comboChanged(0)
+
+        dialog.headerCheckBox.toggled.connect(
+            lambda checked: self._fillPreview(dialog, checked))
+        self._fillPreview(dialog, dialog.headerCheckBox.isChecked())
 
         result = dialog.exec()
         if result == QDialog.Accepted:
+            self.has_header = dialog.headerCheckBox.isChecked()
             self.selected_fields = []
             self.has_title = False
             self.has_status = False
@@ -288,16 +265,83 @@ class ImportExcel(_Import2):
         self.images.clear()
         return None
 
+    def _fillPreview(self, dialog, has_header):
+        if has_header:
+            rows = min(max(self.sheet.max_row - 1, 0), 10)
+        else:
+            rows = min(self.sheet.max_row, 10)
+
+        self.sheetImages = self._getSheetImages(
+            self.sheet, max_row=rows + (1 if has_header else 0))
+        # Keep decoded self.images cache: coordinates don't change on mode
+        # switch and openpyxl image streams can be read only once
+        self.allSheetImagesIndexed = False
+
+        dialog.table.setRowCount(rows + 1)
+
+        if has_header:
+            header_labels = []
+            for col in range(self.sheet_max_column):
+                title = self.sheet.cell(1, col + 1).value
+                if title is None:
+                    title = ''
+                elif isinstance(title, datetime.datetime):
+                    title = title.date().isoformat()
+                elif isinstance(title, datetime.time):
+                    title = ''
+                header_labels.append(str(title))
+        else:
+            # No header row, just number the columns
+            header_labels = [str(col + 1) for col in range(self.sheet_max_column)]
+
+        dialog.table.setHorizontalHeaderLabels(header_labels)
+
+        vertical_labels = ['']
+        for row in range(1, rows + 1):
+            vertical_labels.append(str(row))
+        dialog.table.setVerticalHeaderLabels(vertical_labels)
+
+        for row in range(rows):
+            for col in range(self.sheet_max_column):
+                cell = self.sheet.cell(row + (2 if has_header else 1), col + 1)
+                val = cell.value
+
+                if val is None:
+                    val = ''
+                elif isinstance(val, datetime.time):
+                    val = ''
+                elif isinstance(val, datetime.datetime):
+                    val = val.date()
+                if cell.hyperlink:
+                    val = cell.hyperlink.target
+
+                item = QTableWidgetItem(str(val))
+                item.setData(IMAGE_SOURCE_ROLE, str(val))
+
+                image = self._getEmbeddedImage(cell.coordinate)
+                if image is not None:
+                    item.setData(Qt.UserRole, image)
+
+                dialog.table.setItem(row + 1, col, item)
+
+        for col, combo in enumerate(self.comboBoxes):
+            combo.blockSignals(True)
+            combo.setCurrentIndex(self.defaultField(col, combo, has_header))
+            combo.blockSignals(False)
+        dialog.comboChanged(0)
+
     def _getRowsCount(self, book):
-        # Row 1 holds the headers, not a record
-        return max(self.sheet.max_row - 1, 0)
+        if self.has_header:
+            # Row 1 holds the headers, not a record
+            return max(self.sheet.max_row - 1, 0)
+        return self.sheet.max_row
 
     def _setRecord(self, record, row):
         for i, field in enumerate(self.selected_fields):
             if not field:
                 continue
 
-            cell = self.sheet.cell(row + 2, i + 1)
+            cell = self.sheet.cell(row + (2 if self.has_header else 1), i + 1)
             val = cell.value
             if isinstance(val, datetime.time):
                 val = ''
