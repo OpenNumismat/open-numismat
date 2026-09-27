@@ -72,31 +72,28 @@ class TableDialog(QDialog):
             elif field.type in Type.ImageTypes:
                 for row in range(self.table.rowCount()):
                     item = self.table.item(row, i - 1)
-                    if item.data(Qt.UserRole) is not None:
-                        pixmap = QPixmap.fromImage(item.data(Qt.UserRole))
-                        item.setData(Qt.DecorationRole, pixmap)
-                        item.setText('')
-                        continue
-
                     fileName = item.text()
                     image = QImage()
+                    loaded = False
                     if fileName.startswith('http'):
                         data = self.http.get(fileName, timeout=IMAGE_CONNECTION_TIMEOUT)
                         if data:
-                            result = image.loadFromData(data)
-                            if result:
-                                pixmap = QPixmap.fromImage(image)
-                                item.setData(Qt.DecorationRole, pixmap)
-                                item.setText('')
+                            loaded = image.loadFromData(data)
                     else:
                         if not os.path.isabs(fileName):
                             fileName = os.path.join(self.path, fileName)
 
-                        result = image.load(fileName)
-                        if result:
-                            pixmap = QPixmap.fromImage(image)
-                            item.setData(Qt.DecorationRole, pixmap)
-                            item.setText('')
+                        if fileName:
+                            loaded = image.load(fileName)
+
+                    if not loaded and item.data(Qt.UserRole) is not None:
+                        image = item.data(Qt.UserRole)
+                        loaded = True
+
+                    if loaded:
+                        pixmap = QPixmap.fromImage(image)
+                        item.setData(Qt.DecorationRole, pixmap)
+                        item.setText('')
 
 
 class ImportExcel(_Import2):
@@ -230,28 +227,28 @@ class ImportExcel(_Import2):
                 except (ValueError, TypeError):
                     val = None
             elif field.type in Type.ImageTypes:
-                if cell.coordinate in self.images:
-                    image = self.images[cell.coordinate]
-                    val = self.__fixTransparentImage(image)
-                elif val:
-                    image = QImage()
-                    if val.startswith('http'):
+                image = QImage()
+                loaded = False
+                if val:
+                    if isinstance(val, str) and val.startswith('http'):
                         url = val
-                        val = None
                         data = self.http.get(url, timeout=IMAGE_CONNECTION_TIMEOUT)
                         if data:
-                            if image.loadFromData(data):
-                                val = self.__fixTransparentImage(image)
-                    else:
+                            loaded = image.loadFromData(data)
+                    elif isinstance(val, str):
                         if os.path.isabs(val):
                             fileName = val
                         else:
                             fileName = os.path.join(self.src_path, val)
 
-                        if image.load(fileName):
-                            val = self.__fixTransparentImage(image)
-                        else:
-                            val = None
+                        loaded = image.load(fileName)
+
+                if loaded:
+                    val = self.__fixTransparentImage(image)
+                elif cell.coordinate in self.images:
+                    val = self.__fixTransparentImage(self.images[cell.coordinate])
+                else:
+                    val = None
 
             record.setValue(field.name, val)
 
