@@ -5,7 +5,7 @@ import os
 from dateutil import parser
 
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QDialogButtonBox, QComboBox
+from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QDialogButtonBox, QComboBox
 from PySide6.QtGui import QPixmap, QImage, QPainter
 
 from OpenNumismat.Collection.Import import _Import2, _InvalidDatabaseError
@@ -30,8 +30,6 @@ class TableDialog(QDialog):
 
         self.setWindowTitle(self.tr("Select columns"))
 
-        self.hlayout = QHBoxLayout()
-
         buttonBox = QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QDialogButtonBox.Ok)
         buttonBox.accepted.connect(self.accept)
@@ -40,38 +38,39 @@ class TableDialog(QDialog):
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
 
         layout = QVBoxLayout()
-        layout.addLayout(self.hlayout)
         layout.addWidget(self.table)
         layout.addWidget(buttonBox)
 
         self.setLayout(layout)
 
     def comboChanged(self, _index):
-        labels = []
-        for i in range(1, self.hlayout.count()):
-            combo = self.hlayout.itemAt(i).widget()
-            labels.append(combo.currentText())
-        self.table.setHorizontalHeaderLabels(labels)
+        for col in range(self.table.columnCount()):
+            combo = self.table.cellWidget(0, col)
+            if combo is None:
+                continue
 
-        for i in range(1, self.hlayout.count()):
-            combo = self.hlayout.itemAt(i).widget()
             field = combo.currentData()
             if not field:
                 continue
 
             if field.type == Type.Date:
-                for row in range(self.table.rowCount()):
-                    item = self.table.item(row, i - 1)
-                    val = item.text()
+                for row in range(1, self.table.rowCount()):
+                    item = self.table.item(row, col)
+                    if item is None:
+                        continue
 
+                    val = item.text()
                     try:
                         val = parser.parse(val).date().isoformat()
                         item.setText(val)
                     except (ValueError, TypeError):
                         pass
             elif field.type in Type.ImageTypes:
-                for row in range(self.table.rowCount()):
-                    item = self.table.item(row, i - 1)
+                for row in range(1, self.table.rowCount()):
+                    item = self.table.item(row, col)
+                    if item is None:
+                        continue
+
                     fileName = item.text()
                     image = QImage()
                     loaded = False
@@ -139,14 +138,32 @@ class ImportExcel(_Import2):
         self.src_path = os.path.dirname(src)
         dialog = TableDialog(self.parent(), self.src_path)
 
-        rows = min(self.sheet.max_row, 10)
+        rows = min(max(self.sheet.max_row - 1, 0), 10)
 
-        dialog.table.setRowCount(rows)
+        dialog.table.setRowCount(rows + 1)
         dialog.table.setColumnCount(sheet_max_column)
+
+        header_labels = []
+        for col in range(sheet_max_column):
+            title = self.sheet.cell(1, col + 1).value
+            if title is None:
+                title = ''
+            elif isinstance(title, datetime.datetime):
+                title = title.date().isoformat()
+            elif isinstance(title, datetime.time):
+                title = ''
+            header_labels.append(str(title))
+
+        dialog.table.setHorizontalHeaderLabels(header_labels)
+
+        vertical_labels = ['']
+        for row in range(1, rows + 1):
+            vertical_labels.append(str(row))
+        dialog.table.setVerticalHeaderLabels(vertical_labels)
 
         for row in range(rows):
             for col in range(sheet_max_column):
-                cell = self.sheet.cell(row + 1, col + 1)
+                cell = self.sheet.cell(row + 2, col + 1)
                 val = cell.value
 
                 if val is None:
@@ -163,21 +180,24 @@ class ImportExcel(_Import2):
                 if cell.coordinate in self.images:
                     item.setData(Qt.UserRole, self.images[cell.coordinate])
 
-                dialog.table.setItem(row, col, item)
-
-        dialog.hlayout.addSpacing(dialog.table.verticalHeader().width())
+                dialog.table.setItem(row + 1, col, item)
 
         self.comboBoxes = []
         for col in range(sheet_max_column):
             combo = QComboBox()
+            combo.setEditable(True)
+            combo.setInsertPolicy(QComboBox.NoInsert)
+            combo.lineEdit().setReadOnly(True)
+            combo.lineEdit().setAlignment(Qt.AlignCenter)
             combo.addItem(self.tr("<Ignore>"))
             for f in self.fields.userFields:
                 if f not in self.fields.systemFields:
                     combo.addItem(f.title, f)
             combo.setCurrentIndex(self.defaultField(col, combo))
             combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+            combo.setStyleSheet("QComboBox { font-weight: 700; }")
             combo.currentIndexChanged.connect(dialog.comboChanged)
-            dialog.hlayout.addWidget(combo)
+            dialog.table.setCellWidget(0, col, combo)
 
             self.comboBoxes.append(combo)
         dialog.comboChanged(0)
@@ -187,9 +207,9 @@ class ImportExcel(_Import2):
             self.selected_fields = []
             self.has_title = False
             self.has_status = False
-            for i in range(1, dialog.hlayout.count()):
-                combo = dialog.hlayout.itemAt(i).widget()
-                field = combo.currentData()
+            for i in range(dialog.table.columnCount()):
+                combo = dialog.table.cellWidget(0, i)
+                field = combo.currentData() if combo is not None else None
                 self.selected_fields.append(field)
 
                 if field:
@@ -203,14 +223,15 @@ class ImportExcel(_Import2):
         return None
 
     def _getRowsCount(self, book):
-        return self.sheet.max_row
+        # Row 1 holds the headers, not a record
+        return max(self.sheet.max_row - 1, 0)
 
     def _setRecord(self, record, row):
         for i, field in enumerate(self.selected_fields):
             if not field:
                 continue
 
-            cell = self.sheet.cell(row + 1, i + 1)
+            cell = self.sheet.cell(row + 2, i + 1)
             val = cell.value
             if isinstance(val, datetime.time):
                 val = ''
