@@ -52,66 +52,79 @@ class TableDialog(QDialog):
         self.setLayout(layout)
 
     def comboChanged(self, _index):
+        self._resetRowHeights()
+
+        for col in range(self.table.columnCount()):
+            combo = self.table.cellWidget(0, col)
+            if combo is not None:
+                self._updateColumnPreview(col, combo.currentData())
+
+    def _resetRowHeights(self):
         for row in range(1, self.table.rowCount()):
             self.table.setRowHeight(
                 row, self.table.verticalHeader().defaultSectionSize())
 
-        for col in range(self.table.columnCount()):
-            combo = self.table.cellWidget(0, col)
-            if combo is None:
-                continue
+    def _updateColumnPreview(self, col, field):
+        image_field = field is not None and field.type in Type.ImageTypes
+        if image_field:
+            self.table.setColumnWidth(
+                col, max(self.table.columnWidth(col), IMAGE_PREVIEW_SIZE + 8))
 
-            field = combo.currentData()
-            image_field = field is not None and field.type in Type.ImageTypes
-            if image_field:
-                self.table.setColumnWidth(
-                    col, max(self.table.columnWidth(col), IMAGE_PREVIEW_SIZE + 8))
+        for row in range(1, self.table.rowCount()):
+            item = self.table.item(row, col)
+            if item is not None:
+                self._updateItemPreview(row, item, field, image_field)
 
-            for row in range(1, self.table.rowCount()):
-                item = self.table.item(row, col)
-                if item is None:
-                    continue
+    def _updateItemPreview(self, row, item, field, image_field):
+        source_text = item.data(IMAGE_SOURCE_ROLE)
+        if source_text is None:
+            source_text = item.text()
+        item.setData(Qt.DecorationRole, None)
+        item.setText(source_text)
 
-                source_text = item.data(IMAGE_SOURCE_ROLE)
-                if source_text is None:
-                    source_text = item.text()
-                item.setData(Qt.DecorationRole, None)
-                item.setText(source_text)
+        if field is not None and field.type == Type.Date:
+            try:
+                item.setText(parser.parse(source_text).date().isoformat())
+            except (ValueError, TypeError):
+                pass
 
-                if field is not None and field.type == Type.Date:
-                    try:
-                        item.setText(parser.parse(source_text).date().isoformat())
-                    except (ValueError, TypeError):
-                        pass
+        image = item.data(Qt.UserRole)
+        loaded = image is not None and not image.isNull()
+        if not loaded and image_field:
+            image = self._loadImagePreview(item, source_text)
+            loaded = not image.isNull()
 
-                image = item.data(Qt.UserRole)
-                loaded = image is not None and not image.isNull()
-                if not loaded and image_field:
-                    image = item.data(IMAGE_PREVIEW_ROLE)
-                    if image is None:
-                        image = QImage()
-                        fileName = str(source_text)
-                        if fileName.startswith('http'):
-                            data = self.http.get(
-                                fileName, timeout=IMAGE_CONNECTION_TIMEOUT)
-                            if data:
-                                image.loadFromData(data)
-                        else:
-                            if not os.path.isabs(fileName):
-                                fileName = os.path.join(self.path, fileName)
+        if loaded:
+            self._showImagePreview(row, item, image)
 
-                            if fileName:
-                                image.load(fileName)
-                        item.setData(IMAGE_PREVIEW_ROLE, image)
-                    loaded = not image.isNull()
+    def _loadImagePreview(self, item, source_text):
+        image = item.data(IMAGE_PREVIEW_ROLE)
+        if image is not None:
+            return image
 
-                if loaded:
-                    self.table.setRowHeight(row, IMAGE_PREVIEW_SIZE + 8)
-                    preview = image.scaled(
-                        QSize(IMAGE_PREVIEW_SIZE, IMAGE_PREVIEW_SIZE),
-                        Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                    item.setData(Qt.DecorationRole, QPixmap.fromImage(preview))
-                    item.setText('')
+        image = QImage()
+        fileName = str(source_text)
+        if fileName.startswith('http'):
+            data = self.http.get(fileName, timeout=IMAGE_CONNECTION_TIMEOUT)
+            if data:
+                image.loadFromData(data)
+        else:
+            if not os.path.isabs(fileName):
+                fileName = os.path.join(self.path, fileName)
+
+            if fileName:
+                image.load(fileName)
+
+        item.setData(IMAGE_PREVIEW_ROLE, image)
+        return image
+
+    def _showImagePreview(self, row, item, image):
+        self.table.setRowHeight(row, IMAGE_PREVIEW_SIZE + 8)
+        preview = image.scaled(
+            QSize(IMAGE_PREVIEW_SIZE, IMAGE_PREVIEW_SIZE),
+            Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        item.setData(Qt.DecorationRole, QPixmap.fromImage(preview))
+        item.setText('')
 
 
 class ImportExcel(_Import2):
@@ -266,10 +279,7 @@ class ImportExcel(_Import2):
         return None
 
     def _fillPreview(self, dialog, has_header):
-        if has_header:
-            rows = min(max(self.sheet.max_row - 1, 0), 10)
-        else:
-            rows = min(self.sheet.max_row, 10)
+        rows = self._getPreviewRowCount(has_header)
 
         self.sheetImages = self._getSheetImages(
             self.sheet, max_row=rows + (1 if has_header else 0))
@@ -278,7 +288,16 @@ class ImportExcel(_Import2):
         self.allSheetImagesIndexed = False
 
         dialog.table.setRowCount(rows + 1)
+        self._setPreviewHeaders(dialog, rows, has_header)
+        self._fillPreviewRows(dialog.table, rows, has_header)
+        self._setDefaultFieldSelections(has_header)
+        dialog.comboChanged(0)
 
+    def _getPreviewRowCount(self, has_header):
+        data_rows = self.sheet.max_row - (1 if has_header else 0)
+        return min(max(data_rows, 0), 10)
+
+    def _setPreviewHeaders(self, dialog, rows, has_header):
         if has_header:
             header_labels = []
             for col in range(self.sheet_max_column):
@@ -301,34 +320,34 @@ class ImportExcel(_Import2):
             vertical_labels.append(str(row))
         dialog.table.setVerticalHeaderLabels(vertical_labels)
 
+    def _fillPreviewRows(self, table, rows, has_header):
         for row in range(rows):
             for col in range(self.sheet_max_column):
                 cell = self.sheet.cell(row + (2 if has_header else 1), col + 1)
-                val = cell.value
+                table.setItem(row + 1, col, self._makePreviewItem(cell))
 
-                if val is None:
-                    val = ''
-                elif isinstance(val, datetime.time):
-                    val = ''
-                elif isinstance(val, datetime.datetime):
-                    val = val.date()
-                if cell.hyperlink:
-                    val = cell.hyperlink.target
+    def _makePreviewItem(self, cell):
+        value = cell.value
+        if value is None or isinstance(value, datetime.time):
+            value = ''
+        elif isinstance(value, datetime.datetime):
+            value = value.date()
+        if cell.hyperlink:
+            value = cell.hyperlink.target
 
-                item = QTableWidgetItem(str(val))
-                item.setData(IMAGE_SOURCE_ROLE, str(val))
+        item = QTableWidgetItem(str(value))
+        item.setData(IMAGE_SOURCE_ROLE, str(value))
 
-                image = self._getEmbeddedImage(cell.coordinate)
-                if image is not None:
-                    item.setData(Qt.UserRole, image)
+        image = self._getEmbeddedImage(cell.coordinate)
+        if image is not None:
+            item.setData(Qt.UserRole, image)
+        return item
 
-                dialog.table.setItem(row + 1, col, item)
-
+    def _setDefaultFieldSelections(self, has_header):
         for col, combo in enumerate(self.comboBoxes):
             combo.blockSignals(True)
             combo.setCurrentIndex(self.defaultField(col, combo, has_header))
             combo.blockSignals(False)
-        dialog.comboChanged(0)
 
     def _getRowsCount(self, book):
         if self.has_header:
