@@ -126,11 +126,22 @@ class ImportExcel(_Import2):
     def isAvailable():
         return True
 
-    def defaultField(self, col, _combo):
-        if col < 10:
-            return col + 1
+    def defaultField(self, col, combo):
+        title = self.sheet.cell(1, col + 1).value
+        if title is None:
+            return 0
+        if isinstance(title, datetime.datetime):
+            title = title.date().isoformat()
+        elif isinstance(title, datetime.time):
+            title = ''
 
-        return 0
+        title = str(title)
+        if not title:
+            return 0
+
+        matches = [index for index in range(1, combo.count())
+                   if combo.itemText(index) == title]
+        return matches[0] if len(matches) == 1 else 0
 
     def defaultStatus(self):
         return 'owned'
@@ -177,7 +188,9 @@ class ImportExcel(_Import2):
 
         self.sheet = book.active
 
-        MAX_COLUMN_COUNT = 50  # len(self.fields.fields)
+        # See Collection.exportToExcel, do not count 'id', 'createdat', 'updatedat', 'sort_id'.
+        # And 'image' of Type.PreviewImage. So in total 5 "internal" fields/columns.
+        MAX_COLUMN_COUNT = len(self.fields.fields) - 5
         sheet_max_column = min(self.sheet.max_column, MAX_COLUMN_COUNT)
 
         rows = min(max(self.sheet.max_row - 1, 0), 10)
