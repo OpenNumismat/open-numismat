@@ -1,10 +1,11 @@
+from typing import Optional
 import datetime
 import openpyxl
 import os
 
 from dateutil import parser
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QSize
 from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QDialogButtonBox, QComboBox
 from PySide6.QtGui import QPixmap, QImage, QPainter
 
@@ -15,6 +16,9 @@ from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 
 IMAGE_CONNECTION_TIMEOUT = 30
+IMAGE_PREVIEW_SIZE = 64
+IMAGE_SOURCE_ROLE = Qt.UserRole + 1
+IMAGE_PREVIEW_ROLE = Qt.UserRole + 2
 
 
 @storeDlgSizeDecorator
@@ -44,63 +48,79 @@ class TableDialog(QDialog):
         self.setLayout(layout)
 
     def comboChanged(self, _index):
+        for row in range(1, self.table.rowCount()):
+            self.table.setRowHeight(
+                row, self.table.verticalHeader().defaultSectionSize())
+
         for col in range(self.table.columnCount()):
             combo = self.table.cellWidget(0, col)
             if combo is None:
                 continue
 
             field = combo.currentData()
-            if not field:
-                continue
+            image_field = field is not None and field.type in Type.ImageTypes
+            if image_field:
+                self.table.setColumnWidth(
+                    col, max(self.table.columnWidth(col), IMAGE_PREVIEW_SIZE + 8))
 
-            if field.type == Type.Date:
-                for row in range(1, self.table.rowCount()):
-                    item = self.table.item(row, col)
-                    if item is None:
-                        continue
+            for row in range(1, self.table.rowCount()):
+                item = self.table.item(row, col)
+                if item is None:
+                    continue
 
-                    val = item.text()
+                source_text = item.data(IMAGE_SOURCE_ROLE)
+                if source_text is None:
+                    source_text = item.text()
+                item.setData(Qt.DecorationRole, None)
+                item.setText(source_text)
+
+                if field is not None and field.type == Type.Date:
                     try:
-                        val = parser.parse(val).date().isoformat()
-                        item.setText(val)
+                        item.setText(parser.parse(source_text).date().isoformat())
                     except (ValueError, TypeError):
                         pass
-            elif field.type in Type.ImageTypes:
-                for row in range(1, self.table.rowCount()):
-                    item = self.table.item(row, col)
-                    if item is None:
-                        continue
 
-                    fileName = item.text()
-                    image = QImage()
-                    loaded = False
-                    if fileName.startswith('http'):
-                        data = self.http.get(fileName, timeout=IMAGE_CONNECTION_TIMEOUT)
-                        if data:
-                            loaded = image.loadFromData(data)
-                    else:
-                        if not os.path.isabs(fileName):
-                            fileName = os.path.join(self.path, fileName)
+                image = item.data(Qt.UserRole)
+                loaded = image is not None and not image.isNull()
+                if not loaded and image_field:
+                    image = item.data(IMAGE_PREVIEW_ROLE)
+                    if image is None:
+                        image = QImage()
+                        fileName = str(source_text)
+                        if fileName.startswith('http'):
+                            data = self.http.get(
+                                fileName, timeout=IMAGE_CONNECTION_TIMEOUT)
+                            if data:
+                                image.loadFromData(data)
+                        else:
+                            if not os.path.isabs(fileName):
+                                fileName = os.path.join(self.path, fileName)
 
-                        if fileName:
-                            loaded = image.load(fileName)
+                            if fileName:
+                                image.load(fileName)
+                        item.setData(IMAGE_PREVIEW_ROLE, image)
+                    loaded = not image.isNull()
 
-                    if not loaded and item.data(Qt.UserRole) is not None:
-                        image = item.data(Qt.UserRole)
-                        loaded = True
-
-                    if loaded:
-                        pixmap = QPixmap.fromImage(image)
-                        item.setData(Qt.DecorationRole, pixmap)
-                        item.setText('')
+                if loaded:
+                    self.table.setRowHeight(row, IMAGE_PREVIEW_SIZE + 8)
+                    preview = image.scaled(
+                        QSize(IMAGE_PREVIEW_SIZE, IMAGE_PREVIEW_SIZE),
+                        Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                    item.setData(Qt.DecorationRole, QPixmap.fromImage(preview))
+                    item.setText('')
 
 
 class ImportExcel(_Import2):
+    sheet: Optional[openpyxl.worksheet.worksheet.Worksheet]
 
     def __init__(self, parent=None):
         super().__init__(parent)
 
         self.http = CachedPoolManager(parent)
+        self.sheet = None
+        self.sheetImages = {}
+        self.images = {}
+        self.allSheetImagesIndexed = False
 
     @staticmethod
     def isAvailable():
@@ -115,6 +135,40 @@ class ImportExcel(_Import2):
     def defaultStatus(self):
         return 'owned'
 
+    @staticmethod
+    def _getSheetImages(sheet, max_row=None):
+        """Index embedded images without decoding them; openpyxl exposes them privately."""
+        images = {}
+        for image in sheet._images:
+            anchor = image.anchor._from
+            if max_row is not None and anchor.row + 1 > max_row:
+                continue
+            coordinate = sheet.cell(
+                row=anchor.row + 1, column=anchor.col + 1).coordinate
+            images[coordinate] = image
+        return images
+
+    def _getEmbeddedImage(self, coordinate, include_all=False):
+        if coordinate in self.images:
+            return self.images[coordinate]
+
+        source = self.sheetImages.get(coordinate)
+        if source is None and include_all and not self.allSheetImagesIndexed:
+            self.sheetImages = self._getSheetImages(self.sheet)
+            self.allSheetImagesIndexed = True
+            source = self.sheetImages.get(coordinate)
+
+        if source is None:
+            return None
+
+        image = QImage()
+        if image.loadFromData(source._data()):
+            self.images[coordinate] = image
+            return image
+
+        self.images[coordinate] = None
+        return None
+
     def _connect(self, src):
         try:
             book = openpyxl.load_workbook(src)
@@ -126,19 +180,13 @@ class ImportExcel(_Import2):
         MAX_COLUMN_COUNT = 50  # len(self.fields.fields)
         sheet_max_column = min(self.sheet.max_column, MAX_COLUMN_COUNT)
 
+        rows = min(max(self.sheet.max_row - 1, 0), 10)
+        self.sheetImages = self._getSheetImages(self.sheet, max_row=rows + 1)
         self.images = {}
-        for image in self.sheet._images:
-            img = QImage()
-            if img.loadFromData(image._data()):
-                _from = image.anchor._from
-                col = openpyxl.utils.get_column_letter(_from.col + 1)
-                coordinate = f"{col}{_from.row + 1}"
-                self.images[coordinate] = img
+        self.allSheetImagesIndexed = False
 
         self.src_path = os.path.dirname(src)
         dialog = TableDialog(self.parent(), self.src_path)
-
-        rows = min(max(self.sheet.max_row - 1, 0), 10)
 
         dialog.table.setRowCount(rows + 1)
         dialog.table.setColumnCount(sheet_max_column)
@@ -176,9 +224,11 @@ class ImportExcel(_Import2):
                     val = cell.hyperlink.target
 
                 item = QTableWidgetItem(str(val))
+                item.setData(IMAGE_SOURCE_ROLE, str(val))
 
-                if cell.coordinate in self.images:
-                    item.setData(Qt.UserRole, self.images[cell.coordinate])
+                image = self._getEmbeddedImage(cell.coordinate)
+                if image is not None:
+                    item.setData(Qt.UserRole, image)
 
                 dialog.table.setItem(row + 1, col, item)
 
@@ -220,6 +270,9 @@ class ImportExcel(_Import2):
 
             return book
 
+        self.sheet = None
+        self.sheetImages.clear()
+        self.images.clear()
         return None
 
     def _getRowsCount(self, book):
@@ -266,10 +319,13 @@ class ImportExcel(_Import2):
 
                 if loaded:
                     val = self.__fixTransparentImage(image)
-                elif cell.coordinate in self.images:
-                    val = self.__fixTransparentImage(self.images[cell.coordinate])
                 else:
-                    val = None
+                    embedded_image = self._getEmbeddedImage(
+                        cell.coordinate, include_all=True)
+                    if embedded_image is not None:
+                        val = self.__fixTransparentImage(embedded_image)
+                    else:
+                        val = None
 
             record.setValue(field.name, val)
 
