@@ -2096,7 +2096,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Transparency will be lost when saving in the selected format. Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Beim Speichern im gewählten Format geht die Transparenz verloren. Fortfahren?</translation>
     </message>
     <message>
         <source>Image was changed. Save changes?</source>
@@ -2218,7 +2218,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Transparency will be lost when saving in the selected format. Continue?</source>
-        <translation type="unfinished"/>
+        <translation>Beim Speichern im gewählten Format geht die Transparenz verloren. Fortfahren?</translation>
     </message>
 </context>
 <context>
